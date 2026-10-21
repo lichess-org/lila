@@ -274,16 +274,18 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(5)):
-      JsonOk(env.relay.home.getJson(page))
+      for json <- env.relay.home.getJson(page)
+      yield JsonOk(json).headerCache(env.relay.home.cacheTtl(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
       q.trim.take(100).nonEmptyOption match
         case Some(query) =>
-          for
-            tour <- env.relay.pager.search(query, page)
-            res <- JsonOk(jsonView.search(tour))
-          yield res
+          limit.relay.apiGet(rateLimited, cost = (page / 2).atLeast(1)):
+            for
+              tour <- env.relay.pager.search(query, page)
+              res <- JsonOk(jsonView.search(tour))
+            yield res.headerCache(10.minutes)
         case None => JsonBadRequest("Search query cannot be empty")
 
   def player(tourId: RelayTourId, id: String) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>

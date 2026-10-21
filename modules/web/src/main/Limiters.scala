@@ -193,13 +193,18 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       private val auth = RateLimit[UserId]((authLimit * 10 * 3), 3.minutes, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](20 * 3, 3.minutes, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10 * 3, 3.minutes, "broadcast.api.get.anon")
-      def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
+      def apply[A](limited: String => Fu[A], cost: Int)(using
+          ctx: Context,
+          client: ClientName
+      )(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>
-            val cost = if Granter.of(_.ApiHog)(me) then 2 else if me.isVerified then 5 else 10
-            auth(me.userId, limited(limitMessage), cost)(res)
-          case None if client.isMobile => mobile(ctx.ip, limited(limitMessage))(res)
-          case None => anon(ctx.ip, limited(limitMessage))(res)
+            val finalCost = cost * {
+              if Granter.of(_.ApiHog)(me) then 2 else if me.isVerified then 5 else 10
+            }
+            auth(me.userId, limited(limitMessage), finalCost)(res)
+          case None if client.isMobile => mobile(ctx.ip, limited(limitMessage), cost)(res)
+          case None => anon(ctx.ip, limited(limitMessage), cost)(res)
       private def limitMessage(using ctx: Context) =
         if ctx.isAuth then "Too many requests from your account"
         else s"Use an oauth token to get $authLimit requests per minute. Contact us for more."
