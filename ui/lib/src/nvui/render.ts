@@ -18,7 +18,7 @@ export const renderPieceStyle = (ch: string, pieceStyle: PieceStyle): string =>
         : `${ch.replace('N', 'K').replace('n', 'k')}${charToRole(ch)!.slice(1)}`;
 
 export const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
-  prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
+  prefixStyle === 'letter' ? (color === 'white' ? 'w' : 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
 export const renderPieceStr = (
   ch: string,

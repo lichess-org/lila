@@ -1,10 +1,11 @@
 package lila.lobby
 
-import scala.collection.View
 import scalalib.HeapSort
 
-import lila.core.socket.Sri
+import scala.collection.View
+
 import lila.core.id.SessionId
+import lila.core.socket.Sri
 
 // NOT thread safe.
 // control concurrency from LobbySyncActor

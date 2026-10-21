@@ -1,7 +1,8 @@
 package lila.tournament
 
-import scala.collection.immutable.TreeSet
 import chess.IntRating
+
+import scala.collection.immutable.TreeSet
 
 import lila.core.chess.Rank
 

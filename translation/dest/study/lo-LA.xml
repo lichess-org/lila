@@ -117,7 +117,6 @@
   <string name="noLetPeopleBrowseFreely">ບໍ່: ໃຫ້ທຸກຄົນເບິ່ງໄດ້ຢ່າງອິດສະຫຼະ</string>
   <string name="pinnedStudyComment">ປັກໝຸດຄວາມຄິດເຫັນຂອງບົດສຶກສາ</string>
   <string name="start">ເລີ່ມ</string>
-  <string name="save">ບັນທຶກ</string>
   <string name="clearChat">ລຶບການສົນທະນາ</string>
   <string name="deleteTheStudyChatHistory">ລຶບປະຫວັດການສົນທະນາຂອງບົດສຶກສານີ້ບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
   <string name="deleteStudy">ລຶບບົດສຶກສາ</string>

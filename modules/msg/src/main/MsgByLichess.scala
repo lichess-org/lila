@@ -1,9 +1,9 @@
 package lila.msg
 
-import lila.memo.MongoCache
 import lila.core.config.BaseUrl
 import lila.core.i18n.I18nKey.msg as trans
 import lila.core.msg.SystemMsg
+import lila.memo.MongoCache
 
 final class MsgByLichess(
     mongoCache: MongoCache.Api,

@@ -118,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">同期しない＝各人が自由に閲覧</string>
   <string name="pinnedStudyComment">優先表示コメント</string>
   <string name="start">開始</string>
-  <string name="save">保存</string>
   <string name="clearChat">チャットを消去</string>
   <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="deleteStudy">研究を削除</string>
@@ -198,5 +197,4 @@
   <string name="clearLocal">ローカル解析をクリアしますか？</string>
   <string name="clearPublished">公開した解析をクリアしますか？</string>
   <string name="requestAServerAnalysis">サーバ解析をリクエスト</string>
-  <string name="analyzeOnYourDevice">デバイス内で解析</string>
 </resources>

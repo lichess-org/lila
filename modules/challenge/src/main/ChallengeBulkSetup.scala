@@ -1,10 +1,10 @@
 package lila.challenge
 
 import cats.mtl.Handle.*
-import org.apache.pekko.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock, Rated }
+import org.apache.pekko.stream.scaladsl.*
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -12,11 +12,11 @@ import scalalib.ThreadLocalRandom
 import scalalib.model.Days
 import scalalib.net.Bearer
 
+import lila.common.Form.into
 import lila.core.data.Template
 import lila.core.game.GameRule
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.common.Form.into
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -92,7 +92,7 @@ final class ChallengeBulkSetupApi(
   private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
-    key = "challenge.bulk"
+    limiterKey = "challenge.bulk"
   )
 
   def apply(data: BulkFormData, me: User): FuRaise[ScheduleError, ScheduledBulk] =

@@ -1,15 +1,14 @@
 package lila.user
 
-import chess.{ ByColor, PlayerTitle }
-import chess.IntRating
-import reactivemongo.pekkostream.cursorProducer
+import chess.{ ByColor, IntRating, PlayerTitle }
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.lilaism.LilaInvalid
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf, KidMode, SetKidMode }
+import lila.core.user.{ GameUsers, KidMode, SetKidMode, UserMark, WithEmails, WithPerf }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.PerfType

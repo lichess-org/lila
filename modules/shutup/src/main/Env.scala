@@ -1,6 +1,7 @@
 package lila.shutup
 
 import com.softwaremill.macwire.*
+
 import lila.core.config.*
 
 @Module

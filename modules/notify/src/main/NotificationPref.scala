@@ -2,8 +2,8 @@ package lila.notify
 
 import reactivemongo.api.bson.*
 
-import lila.core.notify.{ Allows, PrefEvent }
 import lila.core.notify as core
+import lila.core.notify.{ Allows, PrefEvent }
 
 object Allows:
   import NotificationPref.*

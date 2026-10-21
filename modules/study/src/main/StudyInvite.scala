@@ -16,13 +16,13 @@ final private class StudyInvite(
   private val inviteLimit = lila.memo.RateLimit[UserId](
     credits = 400,
     duration = 1.day,
-    key = "study.invite.user"
+    limiterKey = "study.invite.user"
   )
 
   private val notifyRateLimit = lila.memo.RateLimit[UserId](
     credits = 100,
     duration = 1.day,
-    key = "study.invite.notify.user"
+    limiterKey = "study.invite.notify.user"
   )
 
   private val maxMembers = 30

@@ -1,12 +1,12 @@
 package lila.game
 
-import scala.util.Try
-
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.variant.Variant
 import org.lichess.compression.clock.Encoder as ClockEncoder
+
+import scala.util.Try
 
 import lila.db.ByteArray
 

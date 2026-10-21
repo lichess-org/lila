@@ -1,11 +1,11 @@
 package lila.tournament
 
+import alleycats.Zero
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Rated, Speed }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
-import alleycats.Zero
 
 import lila.core.i18n.Translate
 import lila.core.tournament.Status

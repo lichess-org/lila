@@ -5,9 +5,9 @@ import play.api.data.{ Form, FormBinding }
 import play.api.http.*
 import play.api.libs.json.Writes
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.{ *, given }
-import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.core.security.TurnstilePublicConfig

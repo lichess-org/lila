@@ -1,11 +1,12 @@
 package lila.ui
 
-import java.time.LocalDate
 import scalalib.model.Language
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import java.time.LocalDate
+
 import lila.core.config.RouteUrl
 import lila.core.i18n.defaultLang
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AtomUi(routeUrl: RouteUrl):
 

@@ -1,6 +1,7 @@
 package lila.clas
 
 import play.api.data.Form
+
 import lila.clas.ClasBulk.PostResponse
 import lila.core.id.ClasId
 

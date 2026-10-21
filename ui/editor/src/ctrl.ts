@@ -220,7 +220,7 @@ export default class EditorCtrl implements CevalHandler {
   startCevalIfEnabled = (): void => {
     if (!this.ceval.download) this.ceval.reset();
     if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
-    this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
+    this.ceval.start('', [this.cevalNode], this.threatMode());
   };
 
   clearCeval = (): void => {
@@ -421,7 +421,7 @@ export default class EditorCtrl implements CevalHandler {
     this.onChange();
   }
 
-  setEnPassant(epSquare?: Square): void {
+  setEnPassant(epSquare: Square | undefined): void {
     this.epSquare = epSquare;
     this.onChange();
   }

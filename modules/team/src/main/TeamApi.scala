@@ -1,15 +1,16 @@
 package lila.team
 
-import java.time.Period
-import scalalib.actor.AsyncActorSequencers
 import play.api.mvc.RequestHeader
+import scalalib.actor.AsyncActorSequencers
+
+import java.time.Period
 
 import lila.common.Bus
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
-import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 

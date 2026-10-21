@@ -1,9 +1,9 @@
 package lila.plan
 package ui
 
+import lila.core.LightUser
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LightUser
 
 final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
   import helpers.{ *, given }

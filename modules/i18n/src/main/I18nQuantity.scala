@@ -1,8 +1,9 @@
 package lila.i18n
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
 import scalalib.model.Language
+
+import scala.annotation.nowarn
 
 import lila.core.i18n.toLanguage
 

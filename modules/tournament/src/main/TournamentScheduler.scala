@@ -1,7 +1,6 @@
 package lila.tournament
 
-import chess.StartingPosition
-import chess.IntRating
+import chess.{ IntRating, StartingPosition }
 
 import java.time.DayOfWeek.*
 import java.time.Month.*

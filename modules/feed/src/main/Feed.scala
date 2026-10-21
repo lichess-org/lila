@@ -4,8 +4,9 @@ import play.api.data.Form
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scalalib.paginator.Paginator
+
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply

@@ -1,16 +1,15 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
+import chess.Outcome.Points
+import chess.format.pgn.*
+import chess.{ FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
-import chess.format.pgn.*
-import chess.{ FideId, PlayerName, IntRating }
-import chess.Outcome.Points
+import scala.collection.immutable.SeqMap
 
 import lila.core.fide.{ PlayerToken, Tokenize }
-import lila.study.ChapterPreview
-import lila.study.StudyPlayer
 import lila.relay.RelayGroup.ScoreGroup
+import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
 

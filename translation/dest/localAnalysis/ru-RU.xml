@@ -12,7 +12,7 @@
   <string name="publish">Опубликовать</string>
   <string name="published">Опубликовано</string>
   <string name="chooseYourEngineSettings">Нажмите «Анализировать», чтобы оценить главный вариант.</string>
-  <string name="bestResultsUseXWithYThreads">Для получения наилучших результатов за минимальное время используйте %1s с количеством потоков: %2s.</string>
+  <string name="bestResultsUseXWithYThreads">Для получения наилучших результатов за минимальное время используйте %1$s с количеством потоков: %2$s.</string>
   <string name="analysisUploadFailed">Не удалось загрузить анализ. Повторите попытку позже.</string>
   <string name="serverAnalysisInProgress">Для этой партии уже выполняется серверный анализ. Вы можете повторить попытку после его завершения.</string>
   <string name="youCanPublish">Локальный анализ можно опубликовать.</string>

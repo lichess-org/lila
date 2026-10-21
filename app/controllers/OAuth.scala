@@ -1,11 +1,11 @@
 package controllers
 
+import cats.mtl.Handle.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalalib.ThreadLocalRandom
 import scalalib.net.Bearer
 import scalatags.Text.all.stringFrag
-import cats.mtl.Handle.*
 
 import lila.app.*
 import lila.common.HTTPRequest

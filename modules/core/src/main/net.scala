@@ -1,17 +1,17 @@
 package lila.core
 
-import io.mola.galimatias.URL
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
+import io.mola.galimatias.URL
 import scalalib.SecureRandom
 import scalalib.net.IpAddressStr
 
 import java.net.InetAddress
 import scala.util.Try
 
+import lila.core.data.Url
 import lila.core.socket.Sri
 import lila.core.userId.UserId
-import lila.core.data.Url
 
 object net:
 

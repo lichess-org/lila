@@ -46,10 +46,10 @@ export function normalMove(chess: Chess, uci: Uci): { uci: Uci; move: NormalMove
   return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }
 
-export function isUci(maybeUci?: string | null): maybeUci is Uci {
-  return !!parseUci(maybeUci ?? '');
+export function isUci(maybeUci: string): maybeUci is Uci {
+  return !!parseUci(maybeUci);
 }
 
-export function validUci(maybeUci?: string | null): Uci | undefined {
+export function validUci(maybeUci: string): Uci | undefined {
   return isUci(maybeUci) ? maybeUci : undefined;
 }

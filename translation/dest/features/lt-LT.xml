@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">Nulis reklamos, jokio sekimo</string>
-  <string name="correspondenceWithConditionalPremoves">Korespondenciniai šachmatai su sąlyginiais išankstiniais ėjimais</string>
-  <string name="standardChessAndX" comment="%s is 8 variants">Standartiniai šachmatai bei %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the engine name">Gili „%s“ serverio analizė</string>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Lentų rengyklė ir analizės lenta su „%s“</string>
-  <string name="cloudEngineAnalysis">Nuotolinio variklio analizė</string>
-  <string name="studies">Studijos (pasidalinama ir išliekanti analizė)</string>
-  <string name="chessInsights">Šachmatų įžvalgos (detali jūsų žaidimo analizė)</string>
-  <string name="allChessBasicsLessons">Visos šachmatų pradmenų pamokos</string>
-  <string name="tacticalPuzzlesFromUserGames">Taktiniai galvosūkiai iš žaidėjų partijų</string>
-  <string name="personalOpeningExplorerX">%1$s (taip pat veikia su %2$s)</string>
-  <string name="personalOpeningExplorer">Asmeninė debiutų naršyklė</string>
-  <string name="globalOpeningExplorerInNbGames">Visuotinė debiutų naršyklė (%s partijų!)</string>
-  <string name="endgameTablebase">7 figūrų endšpilių duomenų bazė</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Bet kurios partijos parsisiuntimas/įkėlimas PGN formatu</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Tinklaraštis, diskusijos, komandos, TV, susirašinėjimai, draugai, iššūkiai</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Šviesi/tamsi tema, tinkintos lentos, figūros, ir fonas</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultra kulkos, kulkos, žaibo, greitieji, klasikiniai, korespondenciniai šachmatai</string>
-  <string name="allFeaturesToCome">Visas būsimas funkcionalumas, amžinai!</string>
-  <string name="landscapeSupportOnApp">iPhone bei Android telefonai ir plnašetės, peizažo režimas</string>
-  <string name="everybodyGetsAllFeaturesForFree">Taip, abi paskyros turi vienodas galimybes!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">Mes tikime, kad kiekvienas šachmatų žaidėjas nusipelno geriausio, todėl:</string>
-  <string name="allFeaturesAreFreeForEverybody">Viso funkcijos yra visiems nemokamos, amžinai!</string>
-  <string name="ifYouLoveLichess">Jei mylite „Lichess“,</string>
-  <string name="supportUsWithAPatronAccount">Paremkite mus su Patron paskyra!</string>
+  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Nulis reklamos, jokio sekimo</string>
+  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Korespondenciniai šachmatai su sąlyginiais išankstiniais ėjimais</string>
+  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Standartiniai šachmatai bei %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Gili „%s“ serverio analizė</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Lentų rengyklė ir analizės lenta su „%s“</string>
+  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Nuotolinio variklio analizė</string>
+  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Studijos (pasidalinama ir išliekanti analizė)</string>
+  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Šachmatų įžvalgos (detali jūsų žaidimo analizė)</string>
+  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Visos šachmatų pradmenų pamokos</string>
+  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Taktiniai galvosūkiai iš žaidėjų partijų</string>
+  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (taip pat veikia su %2$s)</string>
+  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Asmeninė debiutų naršyklė</string>
+  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Visuotinė debiutų naršyklė (%s partijų!)</string>
+  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7 figūrų endšpilių duomenų bazė</string>
+  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Bet kurios partijos parsisiuntimas/įkėlimas PGN formatu</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Tinklaraštis, diskusijos, komandos, TV, susirašinėjimai, draugai, iššūkiai</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Šviesi/tamsi tema, tinkintos lentos, figūros, ir fonas</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ultra kulkos, kulkos, žaibo, greitieji, klasikiniai, korespondenciniai šachmatai</string>
+  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Visas būsimas funkcionalumas, amžinai!</string>
+  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone bei Android telefonai ir plnašetės, peizažo režimas</string>
+  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Taip, abi paskyros turi vienodas galimybes!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Mes tikime, kad kiekvienas šachmatų žaidėjas nusipelno geriausio, todėl:</string>
+  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Viso funkcijos yra visiems nemokamos, amžinai!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Jei mylite „Lichess“,</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Paremkite mus su Patron paskyra!</string>
 </resources>

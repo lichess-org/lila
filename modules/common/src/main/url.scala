@@ -1,6 +1,7 @@
 package lila.common
 
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+
 import scala.util.Try
 
 object url:

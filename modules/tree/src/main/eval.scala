@@ -1,8 +1,8 @@
 package lila.tree
 
+import chess.eval.{ Eval as Ev, * }
 import chess.format.Uci
 import chess.{ Color, Position }
-import chess.eval.{ Eval as Ev, * }
 
 extension (score: Score)
   def forceAsCp: Ev.Cp =

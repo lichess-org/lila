@@ -1,9 +1,9 @@
 package lila.game
 package importer
 
-import chess.{ ByColor, ErrorStr, Rated }
-import chess.format.pgn.PgnStr
 import chess.format.Fen
+import chess.format.pgn.PgnStr
+import chess.{ ByColor, ErrorStr, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
 

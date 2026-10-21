@@ -2,14 +2,14 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import scalalib.model.{ Language, LangTag }
+import scalalib.model.{ LangTag, Language }
 
 import lila.core.i18n.{
-  toLanguage,
   defaultLang,
   defaultLanguage,
   fixJavaLanguage,
-  playAcceptLanguages as acceptLanguages
+  playAcceptLanguages as acceptLanguages,
+  toLanguage
 }
 
 object LangPicker extends lila.core.i18n.LangPicker:

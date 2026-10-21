@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.perm.Granter
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
+import lila.streamer.{ Platform, Streamer as StreamerModel, StreamerForm }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 

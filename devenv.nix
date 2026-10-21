@@ -38,11 +38,19 @@ in
   };
 
   processes = {
+    lila = {
+      start.enable = false;
+      exec = "./lila.sh run";
+    };
     lila-ws = {
       start.enable = false;
       env = {
         JAVA_TOOL_OPTIONS = "-Dredis.uri=${config.env.REDIS_URI}";
       };
+    };
+    ui = {
+      start.enable = false;
+      exec = "./ui/build --watch --debug";
     };
   };
 

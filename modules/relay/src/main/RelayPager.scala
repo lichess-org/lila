@@ -1,13 +1,12 @@
 package lila.relay
 
+import reactivemongo.api.bson.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.relay.RelayTour.WithLastRound
-
-import reactivemongo.api.bson.*
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.relay.RelayTour.WithLastRound
 
 final class RelayPager(
     tourRepo: RelayTourRepo,

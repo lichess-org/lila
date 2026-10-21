@@ -719,7 +719,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: TreeNode) => validUci(n.eval?.best));
+    return treeOps.withMainlineChild(this.node, (n: TreeNode) => n.eval?.best && validUci(n.eval.best));
   }
 
   setAutoShapes = (): void => {
@@ -808,7 +808,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
     if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
-    this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
+    this.ceval.start(this.path, this.nodeList, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
 
@@ -1058,7 +1058,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (uci) this.playUci(uci);
   }
 
-  pluginMove = (orig: Key, dest: Key, prom?: Role): void => {
+  pluginMove = (orig: Key, dest: Key, prom: Role): void => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };
@@ -1095,12 +1095,7 @@ export default class AnalyseCtrl implements CevalHandler {
       : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
   canAnalyseMainline(): boolean {
-    return (
-      !this.synthetic &&
-      !this.ongoing &&
-      this.mainline.length > 4 &&
-      (!this.study || this.study.isCevalAllowed())
-    );
+    return !this.ongoing && this.mainline.length > 4 && (this.study?.isCevalAllowed() ?? !this.synthetic);
   }
 
   getNodeKey(): string {

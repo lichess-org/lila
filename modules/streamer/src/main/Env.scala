@@ -1,7 +1,7 @@
 package lila.streamer
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.Bus

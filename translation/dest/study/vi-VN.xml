@@ -118,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
   <string name="pinnedStudyComment">Bình luận nghiên cứu được ghim</string>
   <string name="start">Bắt đầu</string>
-  <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
   <string name="deleteTheStudyChatHistory">Xóa lịch sử trò chuyện nghiên cứu? Không thể khôi phục lại!</string>
   <string name="deleteStudy">Xóa nghiên cứu</string>
@@ -195,5 +194,4 @@
   <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
   <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
   <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
-  <string name="analyzeOnYourDevice">Phân tích ngay trên thiết bị của bạn</string>
 </resources>

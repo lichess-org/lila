@@ -2,8 +2,8 @@ package lila.event
 
 import play.api.libs.json.*
 
-import lila.core.config.RouteUrl
 import lila.common.Json.given
+import lila.core.config.RouteUrl
 
 final class JsonView(routeUrl: RouteUrl):
 

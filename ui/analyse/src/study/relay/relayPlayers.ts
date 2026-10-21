@@ -324,7 +324,7 @@ export const renderPlayers = (
               'tbody',
               players.map(player => {
                 const id = playerId(player);
-                const pinned = ctrl.pins.isPinned(id);
+                const pinned = id ? ctrl.pins.isPinned(id) : false;
                 return hl('tr', [
                   hl(
                     'td.pin',

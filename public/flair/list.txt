@@ -335,7 +335,9 @@ nature.llama
 nature.lobster
 nature.lotus
 nature.mammoth
+nature.monarch-butterfly
 nature.maple-leaf
+nature.meteor
 nature.microbe
 nature.milky-way
 nature.monkey
@@ -743,6 +745,8 @@ objects.xmas-candle
 objects.xmas-hat
 objects.yarn
 objects.yen-banknote
+objects.eraser
+objects.net-with-handle
 people.anatomical-heart
 people.artist
 people.artist-dark-skin-tone
@@ -2356,6 +2360,18 @@ people.raising-hands-medium-dark-skin-tone
 people.raising-hands-medium-light-skin-tone
 people.raising-hands-medium-skin-tone
 people.red-hair
+people.leftward-thumb-gesture-dark-skin-tone
+people.leftward-thumb-gesture-light-skin-tone
+people.leftward-thumb-gesture-medium-dark-skin-tone
+people.leftward-thumb-gesture-medium-light-skin-tone
+people.leftward-thumb-gesture-medium-skin-tone
+people.leftwards-thumb-sign
+people.rightward-thumb-gesture-dark-skin-tone
+people.rightward-thumb-gesture-light-skin-tone
+people.rightward-thumb-gesture-medium-dark-skin-tone
+people.rightward-thumb-gesture-medium-light-skin-tone
+people.rightward-thumb-gesture-medium-skin-tone
+people.rightwards-thumb-sign
 people.right-facing-fist
 people.right-facing-fist-dark-skin-tone
 people.right-facing-fist-light-skin-tone
@@ -3069,6 +3085,7 @@ smileys.cat-with-tears-of-joy
 smileys.cat-with-wry-smile
 smileys.clown-face
 smileys.cold-face
+smileys.cracking-face
 smileys.confounded-face
 smileys.confused-face
 smileys.cowboy-hat-face
@@ -3552,6 +3569,7 @@ travel-places.landslide
 travel-places.light-rail
 travel-places.locomotive
 travel-places.love-hotel
+travel-places.lighthouse
 travel-places.manual-wheelchair
 travel-places.map-of-japan
 travel-places.metro

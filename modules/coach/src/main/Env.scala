@@ -1,6 +1,7 @@
 package lila.coach
 
 import com.softwaremill.macwire.*
+
 import lila.core.config.*
 
 @Module
@@ -11,7 +12,8 @@ final class Env(
     flagApi: lila.core.user.FlagApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Scheduler):
 
   private lazy val coachColl = db(CollName("coach"))
@@ -19,6 +21,8 @@ final class Env(
   lazy val api = wire[CoachApi]
 
   lazy val pager = wire[CoachPager]
+
+  lazy val jsonView = wire[CoachJsonView]
 
   lila.common.Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, users) if game.rated.yes =>

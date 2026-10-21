@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Yoʻq: erkin koʻrib chiqishga ruxsat berish</string>
   <string name="pinnedStudyComment">Qadalgan saboq sharhi</string>
   <string name="start">Boshlash</string>
-  <string name="save">Saqlash</string>
   <string name="clearChat">Chatni oʻchirish</string>
   <string name="deleteTheStudyChatHistory">Saboq chat tarixi oʻchirilsinmi? Bu amalni ortga qaytarib boʻlmaydi!</string>
   <string name="deleteStudy">Saboqni oʻchirish</string>
@@ -202,5 +201,4 @@
   <string name="clearLocal">Lokal tahlil tozalansinmi?</string>
   <string name="clearPublished">Nashr qilingan tahlil tozalansinmi?</string>
   <string name="requestAServerAnalysis">Server tahlilini soʻrash</string>
-  <string name="analyzeOnYourDevice">Qurilmangizda tahlil qilish</string>
 </resources>

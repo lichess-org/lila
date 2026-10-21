@@ -1,7 +1,8 @@
 package lila.web
 
+import play.api.libs.json.{ JsObject, JsString, JsValue, Json }
+
 import java.nio.file.Files
-import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
 
 import lila.common.config.GetRelativeFile
 

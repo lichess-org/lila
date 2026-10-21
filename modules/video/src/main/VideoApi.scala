@@ -4,10 +4,10 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import scalalib.paginator.*
 
+import lila.common.HTTPRequest
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*
-import lila.common.HTTPRequest
 
 final private[video] class VideoApi(
     videoColl: Coll,

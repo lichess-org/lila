@@ -1,13 +1,12 @@
 package lila.setup
 
 import chess.variant.Variant
-import chess.{ Clock, Rated }
-import chess.IntRating
+import chess.{ Clock, IntRating, Rated }
 import scalalib.model.Days
 
+import lila.core.id.SessionId
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
-import lila.core.id.SessionId
 import lila.lobby.{ Hook, Seek, TriColor }
 import lila.rating.RatingRange.withinLimits
 

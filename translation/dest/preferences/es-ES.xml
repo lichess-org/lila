@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Mostrar piezas sin defender</string>
   <string name="showPinnedPieces">Mostrar piezas clavadas</string>
   <string name="showCheckableKing">Mostrar rey en peligro</string>
+  <string name="showTrappedPieces">Mostrar piezas atrapadas</string>
   <string name="disclosureMode">Habilitar ocultamiento de variantes</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Lista de movimientos</string>

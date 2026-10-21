@@ -1,15 +1,15 @@
 package lila.ublog
 
-import java.time.YearMonth
-
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
+import scalalib.model.Language
 import scalalib.paginator.{ AdapterLike, Paginator }
 
-import scalalib.model.Language
+import java.time.YearMonth
+
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.ublog.UblogPost.Quality
 
 final class UblogPaginator(

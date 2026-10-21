@@ -2,10 +2,11 @@ package lila.ublog
 
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
+
+import lila.common.Bus
+import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.db.dsl.Coll
-import lila.common.autoconfig.{ *, given }
-import lila.common.Bus
 import lila.report.Automod
 
 @Module

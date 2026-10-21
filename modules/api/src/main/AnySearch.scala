@@ -3,9 +3,9 @@ package lila.api
 import alleycats.Zero
 import play.api.mvc.RequestHeader
 
+import lila.common.HTTPRequest
 import lila.core.id.*
 import lila.core.security.IsProxy
-import lila.common.HTTPRequest
 import lila.mon.extensions.*
 
 final class AnySearch(

@@ -3,12 +3,11 @@ package ui
 
 import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
-
-import lila.ui.*
-import lila.common.Json.given
-
-import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
+
+import lila.common.Json.given
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }

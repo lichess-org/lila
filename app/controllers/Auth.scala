@@ -8,14 +8,14 @@ import scalalib.net.Bearer
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
+import lila.core.id.SessionId
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
-import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
+import lila.security.{ EmailConfirm, FingerPrint, IsPwned, Signup }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 

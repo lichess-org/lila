@@ -1043,8 +1043,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
   <string name="instructions">Instruccions</string>
   <string name="showMeEverything">Mostrar tot</string>
-  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
-Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="lichessPatronInfo">Lichess és una entitat sense ànims i un software completament lliure. Depenem de les donacions dels usuaris per a mantenir els nostres costos operatius, el desenvolupament i el contingut. Sense una comunitat generosa, no podríem mantenir el lloc en funcionament. Moltes gràcies per unir-t\'he a nosaltres!</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
   <string name="stats">Estadístiques</string>
   <string name="accessibility">Accessibilitat</string>

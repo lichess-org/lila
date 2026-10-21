@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilsin</string>
   <string name="pinnedStudyComment">Çalışma üzerine yorumlar</string>
   <string name="start">Başlat</string>
-  <string name="save">Kaydet</string>
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
@@ -202,5 +201,5 @@
   <string name="clearLocal">Yerel analiz temizlensin mi?</string>
   <string name="clearPublished">Yayımlanan analiz temizlensin mi?</string>
   <string name="requestAServerAnalysis">Sunucu analizi iste</string>
-  <string name="analyzeOnYourDevice">Cihazında analiz et</string>
+  <string name="analyzeOnYourDevice">Not translated</string>
 </resources>

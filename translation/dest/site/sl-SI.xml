@@ -1090,8 +1090,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
   <string name="instructions">Navodila</string>
   <string name="showMeEverything">Prikaži vse</string>
-  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
-Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
+  <string name="lichessPatronInfo">Lichess je dobrodelna organizacija in v celoti brezplačna odprtokodna programska oprema. Za kritje operativnih stroškov, razvoj in vsebino smo odvisni od donacij uporabnikov. Brez naše velikodušne skupnosti spletnega mesta ne bi mogli ohraniti pri življenju. Hvala, ker ste se nam pridružili!</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Dostopnost</string>

@@ -1,9 +1,9 @@
 package lila.tournament
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
+import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.core.config.*
