@@ -33,6 +33,7 @@ object net:
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
 
+  // https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/ip.src.continent/
   enum Continent(val name: String):
     case AF extends Continent("Africa")
     case AN extends Continent("Antarctica")
