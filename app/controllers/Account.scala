@@ -121,7 +121,7 @@ final class Account(
               forWiki = wikiGranted
             )
           )
-          .dmap { JsonOk(_) }
+          .dmap { Ok(_) }
   }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
@@ -178,7 +178,7 @@ final class Account(
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
     Found(env.user.repo.email(me)): email =>
-      JsonOk(Json.obj("email" -> email.value))
+      Ok(Json.obj("email" -> email.value))
   }
 
   def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
@@ -314,7 +314,7 @@ final class Account(
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    JsonOk(Json.obj("kid" -> me.kid.yes))
+    Ok(Json.obj("kid" -> me.kid.yes))
   }
 
   def kidPost = AuthBody { ctx ?=> me ?=>

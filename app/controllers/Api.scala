@@ -279,7 +279,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
                   getIntAs[MultiPv]("multiPv") | MultiPv(1)
                 )
                 .map:
-                  _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
+                  _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(Ok(_))
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
@@ -295,7 +295,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def gameChat(gameId: GameId) = Anon:
     Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
-      JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
+      Ok(Json.obj("lines" -> env.chat.json.boardApi(chat)))
 
   def roomChat(roomId: RoomId) = SecuredScoped(_.ViewPrivateComms): _ ?=>
     Found(env.chat.api.userChat.findOption(roomId.into(ChatId))): chat =>
@@ -336,7 +336,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList).map(GameId.take)
     ids.nonEmpty.so:
-      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(Ok(_))
   }
 
   /* aggregates, for the new mobile app:
@@ -388,7 +388,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.NoData => notFoundJson()
     case ApiResult.Custom(result) => result
     case ApiResult.Done => jsonOkResult
-    case ApiResult.Data(json) => JsonOk(json)
+    case ApiResult.Data(json) => Ok(json)
 
   def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)

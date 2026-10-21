@@ -75,15 +75,13 @@ final class Swiss(
               playerInfo = playerInfo,
               isInTeam = isInTeam
             )
-          yield JsonOk(json)
+          yield Ok(json)
       )
 
   def apiShow(id: SwissId) = Anon:
-    env.swiss.cache.swissCache
-      .byId(id)
-      .flatMap:
-        case Some(swiss) => JsonOk(apiJson(swiss))
-        case _ => notFoundJson()
+    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+      for json <- apiJson(swiss)
+      yield Ok(json).headerCache(1.minute)
 
   private def apiJson(swiss: SwissModel)(using Context) =
     for
@@ -222,28 +220,27 @@ final class Swiss(
 
   def standing(id: SwissId, page: Int) = Anon:
     WithSwiss(id): swiss =>
-      JsonOk:
-        env.swiss.standingApi(swiss, page)
+      for json <- env.swiss.standingApi(swiss, page)
+      yield Ok(json).headerCache(swissResponseTtl(swiss))
 
   def pageOf(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.pageOf(swiss, userId.id)): page =>
-        JsonOk:
-          env.swiss.standingApi(swiss, page)
+        for json <- env.swiss.standingApi(swiss, page)
+        yield Ok(json).headerCache(swissResponseTtl(swiss))
 
   def player(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.playerInfo(swiss, userId.id)): player =>
-        JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
+        Ok(lila.swiss.SwissJson.playerJsonExt(swiss, player)).headerCache(swissResponseTtl(swiss))
 
   def exportTrf(id: SwissId) = Anon:
-    env.swiss.cache.swissCache
-      .byId(id)
-      .map:
-        case None => NotFound("Tournament not found")
-        case Some(swiss) =>
-          Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
-            .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
+    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+      Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
+        .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
+        .headerCache(swissResponseTtl(swiss))
+
+  private def swissResponseTtl(swiss: SwissModel) = if swiss.isFinished then 1.day else 5.seconds
 
   def byTeam(id: TeamId) = Anon:
     apiC.jsonDownload:

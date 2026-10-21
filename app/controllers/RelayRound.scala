@@ -49,7 +49,7 @@ final class RelayRound(
                 .flatMap: rt =>
                   negotiate(
                     Redirect(routes.RelayRound.edit(rt.relay.id)).flashSuccess,
-                    JsonOk(jsonView.myRound(rt))
+                    Ok(jsonView.myRound(rt))
                   )
         )
   }
@@ -203,7 +203,7 @@ final class RelayRound(
                 sVersion,
                 photos
               )
-            yield JsonOk(json).headerCache(jsonView.responseCache(rt, study))
+            yield Ok(json).headerCache(jsonView.responseCache(rt, study))
           )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -281,7 +281,7 @@ final class RelayRound(
 
   def stats(id: RelayRoundId) = Open:
     Found(api.byIdWithTour(id)): rt =>
-      env.relay.stats.getJson(rt).map(JsonOk)
+      env.relay.stats.getJson(rt).map(Ok(_))
 
   private def WithRoundAndTour(
       @nowarn ts: String,

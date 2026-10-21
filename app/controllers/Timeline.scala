@@ -39,7 +39,7 @@ final class Timeline(env: Env) extends LilaController(env):
     entries <- env.timeline.entryApi.moreUserEntries(me, max, since = getTimestamp("since"))
     users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
     userMap = users.mapBy(_.id)
-  yield JsonOk(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
+  yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
 
   def unsub(channel: String) = Auth { ctx ?=> me ?=>
     env.timeline.unsubApi.set(channel, me, ~get("unsub") == "on").inject(NoContent)

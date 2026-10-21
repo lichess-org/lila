@@ -17,12 +17,12 @@ final class Challenge(env: Env) extends LilaController(env):
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
-      api.allFor(me).map(env.challenge.jsonView.apply).map(JsonOk)
+      api.allFor(me).map(env.challenge.jsonView.apply).map(Ok(_))
   }
 
   def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
     for all <- api.allFor(me, 300)
-    yield JsonOk(env.challenge.jsonView.all(all))
+    yield Ok(env.challenge.jsonView.all(all))
   }
 
   def show(id: ChallengeId, @annotation.nowarn color: Option[Color]) = Open:
@@ -39,7 +39,7 @@ final class Challenge(env: Env) extends LilaController(env):
           fullId <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
           socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id).dmap(some))
           json = env.challenge.jsonView.apiAndMobile(c, socketVersion, dir.some, fullId)
-        yield JsonOk(json)
+        yield Ok(json)
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -327,7 +327,7 @@ final class Challenge(env: Env) extends LilaController(env):
                           if config.keepAliveStream then
                             val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
                             jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                          else createNow().inject(JsonOk(json))
+                          else createNow().inject(Ok(json))
                       yield res
               yield res
             .rescue: err =>
@@ -364,7 +364,7 @@ final class Challenge(env: Env) extends LilaController(env):
             env.challenge.api
               .createOpen(config)
               .map: challenge =>
-                JsonOk:
+                Ok:
                   val url = s"${env.net.baseUrl}/${challenge.id}"
                   env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
                     "urlWhite" -> s"$url?color=white",
