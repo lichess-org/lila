@@ -193,7 +193,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       private val auth = RateLimit[UserId]((authLimit * 10 * 3), 3.minutes, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](20 * 3, 3.minutes, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10 * 3, 3.minutes, "broadcast.api.get.anon")
-      def apply[A](limited: String => Fu[A], cost: Int)(using
+      def apply[A](limited: String => Fu[A], cost: Int = 1)(using
           ctx: Context,
           client: ClientName
       )(res: => Fu[A]): Fu[A] =
