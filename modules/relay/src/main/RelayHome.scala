@@ -13,6 +13,8 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     using scheduler: Scheduler
 ):
 
+  def cacheTtl(page: Int) = if page == 1 then 10.seconds else 10.minutes
+
   def get: Fu[RelayHome] = for
     active <- listing.active
     past <- pager.inactive(1)
@@ -38,7 +40,7 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
       cache.filter(_.tour.spotlight.forall(_.visibleFrom(continent)))
     def hasContinentRestriction: Boolean = cache.exists(_.tour.spotlight.exists(_.continent.isDefined))
     private var cache: List[RelayCard] = Nil
-    scheduler.scheduleWithFixedDelay(10.seconds, listing.activeCacheTtl): () =>
+    scheduler.scheduleWithFixedDelay(cacheTtl(1), listing.activeCacheTtl): () =>
       listing.active.value.foreach:
         _.foreach: cards =>
           cache = cards

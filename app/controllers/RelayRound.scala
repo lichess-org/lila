@@ -194,17 +194,16 @@ final class RelayRound(
               sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
               photos <- playerApi.photosJson(rt.tour.id)
               _ = env.relay.stats.viewers.hit(rt)
-            yield JsonOk:
-              jsonView
-                .withUrlAndPreviews(
-                  rt.withStudy(study),
-                  previews,
-                  group,
-                  targetRound,
-                  isSubscribed,
-                  sVersion,
-                  photos
-                )
+              json = jsonView.withUrlAndPreviews(
+                rt.withStudy(study),
+                previews,
+                group,
+                targetRound,
+                isSubscribed,
+                sVersion,
+                photos
+              )
+            yield JsonOk(json).headerCache(jsonView.responseCache(rt, study))
           )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
