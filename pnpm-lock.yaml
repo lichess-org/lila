@@ -193,7 +193,7 @@ importers:
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d
       chessground3D:
         specifier: github:yafred/chessground3D
-        version: https://codeload.github.com/yafred/chessground3D/tar.gz/0a71f2cce2de343ae7b260caacd82402fb16248c
+        version: https://codeload.github.com/yafred/chessground3D/tar.gz/21329385222b440150b393b5e55bae07b56272a6
       chessops:
         specifier: ^0.15.1
         version: 0.15.1
@@ -1347,8 +1347,8 @@ packages:
     resolution: {integrity: sha512-WDrybc/gKFpTYQutKIK6UvfcuxijIZfMfXaYm8NMsPQxSYvf+13fXUJ4rztGGbJcBQ/GF55gvrZ0Bc0bj/mqvg==}
     engines: {node: '>=20.18.1'}
 
-  chessground3D@https://codeload.github.com/yafred/chessground3D/tar.gz/0a71f2cce2de343ae7b260caacd82402fb16248c:
-    resolution: {gitHosted: true, integrity: sha512-BOl5lluRCFDZA6wYFXmqnlYL8uZ3vymu35Z/2Wg3Tj+ImpQFsiazxGdgLsd39ghGb9kIIyXcwvsn9jebICccPg==, tarball: https://codeload.github.com/yafred/chessground3D/tar.gz/0a71f2cce2de343ae7b260caacd82402fb16248c}
+  chessground3D@https://codeload.github.com/yafred/chessground3D/tar.gz/21329385222b440150b393b5e55bae07b56272a6:
+    resolution: {gitHosted: true, integrity: sha512-Ogf3KPHU/X4yerURmchPQ/ZJ/39tFurH4Y+NUggWgQo++ekQlRE/1Pp/TM2Pknkhz3g2WO63SELcAslrhunUmw==, tarball: https://codeload.github.com/yafred/chessground3D/tar.gz/21329385222b440150b393b5e55bae07b56272a6}
     version: 0.1.0
     engines: {node: '>=24', pnpm: '>=12'}
 
@@ -2842,7 +2842,7 @@ snapshots:
       undici: 8.11.2
       whatwg-mimetype: 4.0.0
 
-  chessground3D@https://codeload.github.com/yafred/chessground3D/tar.gz/0a71f2cce2de343ae7b260caacd82402fb16248c:
+  chessground3D@https://codeload.github.com/yafred/chessground3D/tar.gz/21329385222b440150b393b5e55bae07b56272a6:
     dependencies:
       three: 0.185.1
 
