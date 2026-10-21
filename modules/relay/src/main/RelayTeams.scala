@@ -359,16 +359,17 @@ final class RelayTeamLeaderboard(
                     yield (
                       chapterId,
                       RelayTeam.Pair(players.white.player -> teams.a, players.black.player -> teams.b),
-                      game
+                      game,
+                      round
                     )
                     withNewTeamGame
                       .fold(matches):
-                        case (chapterId, teams, game) =>
+                        case (chapterId, teams, game, round) =>
                           val teamMatch = matches.find(_.is(teams.map(_._2))) | TeamMatch(
                             roundId,
                             teams.map(_._2).map(RelayTeam.TeamWithGames(_, SeqMap.empty)),
                             Nil,
-                            roundsById(roundId).teamCustomScoring
+                            round.teamCustomScoring
                           )
                           matches.filterNot(m => m.roundId == roundId && m.is(teams.map(_._2))) :+
                             teamMatch.add(chapterId, teams, game)
