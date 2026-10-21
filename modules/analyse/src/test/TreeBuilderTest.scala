@@ -29,6 +29,7 @@ class TreeBuilderTest extends munit.FunSuite:
     // as it does for analyses stored before fishnet lines were cut.
     val analysis = Analysis(
       Analysis.Id(GameId("abcd")),
+      None,
       List(
         Info(Ply(1), cpEval(0), Nil),
         Info(Ply(2), cpEval(0), Nil),
