@@ -1,6 +1,6 @@
 import { onClickAway } from 'lib';
 import { licon } from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialogAtRoot, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
@@ -8,6 +8,7 @@ import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './languages';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
+  syncHelpDialog(ctrl);
   return hl(`div#voice-bar${cls ? '.' + cls : ''}`, [
     hl('div#voice-status-row', [
       hl('button#microphone-button', {
@@ -33,8 +34,17 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         ctrl.module()?.prefNodes(redraw),
         pushTalkSetting(ctrl),
       ]),
-    ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
+}
+
+function syncHelpDialog(ctrl: VoiceCtrl) {
+  if (ctrl.showHelp()) {
+    if (!ctrl.helpDialogCloseCallback) ctrl.helpDialogCloseCallback = renderHelpModal(ctrl);
+  } else if (ctrl.helpDialogCloseCallback) {
+    const close = ctrl.helpDialogCloseCallback;
+    ctrl.helpDialogCloseCallback = undefined;
+    close();
+  }
 }
 
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
@@ -123,7 +133,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   ]);
 }
 
-function renderHelpModal(ctrl: VoiceCtrl) {
+function renderHelpModal(ctrl: VoiceCtrl): () => void {
   const showMoveList = (dlg: Dialog) => {
     let html = '<table class="big-table"><tbody>';
     const all =
@@ -145,11 +155,14 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.dialog.open) dlg.show();
   };
 
-  return snabDialog({
+  return snabDialogAtRoot({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],
-    onClose: () => ctrl.showHelp(false),
+    onClose: () => {
+      ctrl.helpDialogCloseCallback = undefined;
+      ctrl.showHelp(false);
+    },
     modal: true,
     easyClose: 'clickOutside',
     onInsert: async dlg => {

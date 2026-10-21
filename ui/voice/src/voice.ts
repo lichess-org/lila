@@ -71,6 +71,7 @@ export function makeVoice(opts: {
     enabled,
     toggle,
     showHelp,
+    helpDialogCloseCallback: undefined,
     pushTalk,
     flash,
     showPrefs: commonToggle(false, opts.redraw),

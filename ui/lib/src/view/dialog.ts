@@ -174,6 +174,44 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
   return hl('div.snab-modal-mask', { class: { none: Boolean(o.onInsert) } }, dialogVNode);
 }
 
+export function snabDialogAtRoot<Ctx = undefined>(o: SnabDialogOpts<Ctx>): () => void {
+  const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
+  const mount = document.body.appendChild(document.createElement('div'));
+
+  let dialog: Dialog<Ctx> | undefined;
+  let closed = false;
+
+  patch(
+    mount,
+    snabDialog({
+      ...o,
+      onClose: dlg => {
+        closed = true;
+        o.onClose?.(dlg);
+      },
+      onShow: dlg => {
+        o.onShow?.(dlg);
+        if (closed) dlg.close();
+      },
+      onInsert: dlg => {
+        dialog = dlg;
+        if (closed) {
+          dlg.dialog.remove();
+          return;
+        }
+        if (o.onInsert) o.onInsert(dlg);
+        else dlg.show();
+      },
+    }),
+  );
+
+  return () => {
+    if (closed) return;
+    closed = true;
+    if (dialog?.dialog.open) dialog.close();
+  };
+}
+
 export function jsxDialog<Ctx = undefined>(o: JsxDialogOpts<Ctx>): Redraw {
   const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
   const { render, parentEl, ...dialogOpts } = o;
