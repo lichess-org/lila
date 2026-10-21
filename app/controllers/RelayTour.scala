@@ -23,10 +23,11 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     Reasonable(page, Max(20)):
       q.trim.take(100).nonEmptyOption match
         case Some(query) =>
-          env.relay.pager
-            .search(query, page)
-            .flatMap: pager =>
-              Ok.page(views.relay.tour.search(pager, query))
+          limit.relay.apiGet(rateLimited, cost = searchPageCost(page)):
+            env.relay.pager
+              .search(query, page)
+              .flatMap: pager =>
+                Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
             data <- env.relay.home.get // no pagination here
@@ -281,7 +282,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     Reasonable(page, Max(20)):
       q.trim.take(100).nonEmptyOption match
         case Some(query) =>
-          limit.relay.apiGet(rateLimited, cost = (page / 2).atLeast(1)):
+          limit.relay.apiGet(rateLimited, cost = searchPageCost(page)):
             for
               tour <- env.relay.pager.search(query, page)
               res <- JsonOk(jsonView.search(tour))
@@ -299,6 +300,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           user <- fideId.so(env.title.api.publicUserOf)
         yield player.map(RelayPlayer.json.full(tour)(_, fp.map(_.player), user, fp.map(_.follow)))
       Found(json)(JsonOk)
+
+  private def searchPageCost(page: Int) = (page / 2).atLeast(1)
 
   private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
 
