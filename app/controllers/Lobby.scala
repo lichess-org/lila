@@ -20,6 +20,7 @@ final class Lobby(env: Env) extends LilaController(env):
   )
 
   def home = Open:
+    println(lila.common.HTTPRequest.country(req))
     negotiate(
       serveHtmlHome,
       json = Ok(lobbyJson).headerCache(7.days)
