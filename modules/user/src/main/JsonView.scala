@@ -36,7 +36,8 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
     Json
       .obj(
         "id" -> u.id,
-        "username" -> u.name
+        "username" -> u.name,
+        "perfs" -> Json.obj()
       )
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
