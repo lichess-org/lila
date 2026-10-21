@@ -198,5 +198,4 @@
   <string name="clearLocal">ล้างการวิเคราะห์ในเครื่อง</string>
   <string name="clearPublished">ล้างการวิเคราะห์ที่ถูกเผยแพร่แล้ว</string>
   <string name="requestAServerAnalysis">ขอการวิเคราะห์จากเซิร์ฟเวอร์</string>
-  <string name="analyzeOnYourDevice">วิเคราะห์บนอุปกรณ์ของคุณ</string>
 </resources>

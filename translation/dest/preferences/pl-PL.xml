@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Pokaż niebronione bierki</string>
   <string name="showPinnedPieces">Pokaż związane bierki</string>
   <string name="showCheckableKing">Pokaż możliwość zaszachowania króla</string>
+  <string name="showTrappedPieces">Pokaż złapane w pułapkę bierki</string>
   <string name="disclosureMode">Włącz ukrywanie wariantów</string>
   <string name="generalSettings">Ogólne</string>
   <string name="moveListSettings">Lista ruchów</string>

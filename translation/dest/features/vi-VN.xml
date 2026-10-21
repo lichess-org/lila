@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">Không quảng cáo, không theo dõi</string>
-  <string name="correspondenceWithConditionalPremoves">Cờ qua thư với nước đi dự đoán có điều kiện</string>
-  <string name="standardChessAndX" comment="%s is 8 variants">Cờ vua tiêu chuẩn và %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the engine name">Máy chủ phân tích sâu %s</string>
-  <plurals name="gamesPerDay">
+  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Không quảng cáo, không theo dõi</string>
+  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Cờ qua thư với nước đi dự đoán có điều kiện</string>
+  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Cờ vua tiêu chuẩn và %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Máy chủ phân tích sâu %s</string>
+  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
     <item quantity="other">%s ván mỗi ngày</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Chỉnh sửa bàn cờ và bàn cờ phân tích với %s</string>
-  <string name="cloudEngineAnalysis">Công cụ phân tích đám mây</string>
-  <string name="studies">Nghiên cứu (phân tích chung và liên tục)</string>
-  <string name="chessInsights">Phân tích sâu cờ vua (phân tích chi tiết về cách chơi của bạn)</string>
-  <string name="allChessBasicsLessons">Tất cả bài học cơ bản về cờ vua</string>
-  <string name="tacticalPuzzlesFromUserGames">Các câu đố chiến thuật từ các ván đấu của người dùng</string>
-  <string name="personalOpeningExplorerX">%1$s (cũng hoạt động trên %2$s)</string>
-  <string name="personalOpeningExplorer">Khám phá khai cuộc cá nhân</string>
-  <string name="globalOpeningExplorerInNbGames">Khám phá khai cuộc toàn cầu (%s ván cờ!)</string>
-  <string name="endgameTablebase">Sách tàn cuộc 7 quân tối đa</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Tải về/Tải lên bất kỳ ván cờ nào dưới dạng PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, diễn đàn, đội, TV, nhắn tin, bạn bè, thách đấu</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Chủ đề sáng/tối, bàn cờ, quân cờ và nền tùy chỉnh</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Cờ Siêu đạn, Đạn, Chớp, Nhanh, Chậm, Qua thư</string>
-  <string name="allFeaturesToCome">Tất cả tính năng sắp ra mắt trong tương lai, và mãi mãi!</string>
-  <string name="landscapeSupportOnApp">Điện thoại iPhone &amp; Android và máy tính bảng, hỗ trợ landscape</string>
-  <string name="everybodyGetsAllFeaturesForFree">Vâng, cả hai tài khoản đều có các tính năng như nhau!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">Chúng tôi tin rằng mọi người chơi cờ đều xứng đáng với điều tốt nhất, và vì vậy:</string>
-  <string name="allFeaturesAreFreeForEverybody">Tất cả các tính năng đều miễn phí cho mọi người, mãi mãi!</string>
-  <string name="ifYouLoveLichess">Nếu bạn yêu Lichess,</string>
-  <string name="supportUsWithAPatronAccount">Ủng hộ chúng tôi bằng một tài khoản Người bảo trợ!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Chỉnh sửa bàn cờ và bàn cờ phân tích với %s</string>
+  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Công cụ phân tích đám mây</string>
+  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Nghiên cứu (phân tích chung và liên tục)</string>
+  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Phân tích sâu cờ vua (phân tích chi tiết về cách chơi của bạn)</string>
+  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Tất cả bài học cơ bản về cờ vua</string>
+  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Các câu đố chiến thuật từ các ván đấu của người dùng</string>
+  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (cũng hoạt động trên %2$s)</string>
+  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Khám phá khai cuộc cá nhân</string>
+  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Khám phá khai cuộc toàn cầu (%s ván cờ!)</string>
+  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Sách tàn cuộc 7 quân tối đa</string>
+  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Tải về/Tải lên bất kỳ ván cờ nào dưới dạng PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Blog, diễn đàn, đội, TV, nhắn tin, bạn bè, thách đấu</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Chủ đề sáng/tối, bàn cờ, quân cờ và nền tùy chỉnh</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Cờ Siêu đạn, Đạn, Chớp, Nhanh, Chậm, Qua thư</string>
+  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Tất cả tính năng sắp ra mắt trong tương lai, và mãi mãi!</string>
+  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">Điện thoại iPhone &amp; Android và máy tính bảng, hỗ trợ landscape</string>
+  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Vâng, cả hai tài khoản đều có các tính năng như nhau!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Chúng tôi tin rằng mọi người chơi cờ đều xứng đáng với điều tốt nhất, và vì vậy:</string>
+  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Tất cả các tính năng đều miễn phí cho mọi người, mãi mãi!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Nếu bạn yêu Lichess,</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Ủng hộ chúng tôi bằng một tài khoản Người bảo trợ!</string>
 </resources>

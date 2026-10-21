@@ -943,8 +943,6 @@ FEN நிலையை உருவாக்க %s ஐப் பயன்பட�
   <string name="ourEventTips">நிகழ்வுகளை ஒழுங்கமைப்பதற்கான எங்கள் உதவிக்குறிப்புகள்</string>
   <string name="instructions">வழிமுறைகள்</string>
   <string name="showMeEverything">எல்லாவற்றையும் எனக்குக் காட்டு</string>
-  <string name="lichessPatronInfo">Lichess ஒரு தொண்டு நிறுவனம் மற்றும் முற்றிலும் இலவச/லிபர் திறந்த மூல மென்பொருள்.
-அனைத்து இயக்க செலவுகள், மேம்பாடு மற்றும் உள்ளடக்கம் ஆகியவை பயனர் நன்கொடைகளால் மட்டுமே நிதியளிக்கப்படுகின்றன.</string>
   <string name="nothingToSeeHere">இப்போதைக்கு இங்கே பார்ப்பதற்கு ஒன்றுமில்லை.</string>
   <string name="stats">புள்ளிவிவரங்கள்</string>
   <string name="accessibility">அணுகல்தன்மை</string>

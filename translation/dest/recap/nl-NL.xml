@@ -11,7 +11,7 @@
 	<string name="timeTooMuch">Dat is veel te veel schaak.</string>
 	<string name="timeALot">Dat is een heleboel schaak.</string>
 	<string name="timeReasonable">Dat lijkt me een redelijke schaal.</string>
-	<string name="timeHowManyMoves">Hoeveel zetten heb je al die tijd gespeeld?</string>
+	<string name="timeHowManyMoves">Hoeveel zetten heb je in die tijd gespeeld?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s zet gespeeld</item>
 		<item quantity="other">%s zetten gespeeld</item>

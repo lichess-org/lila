@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Nicht verteidigte Figuren anzeigen</string>
   <string name="showPinnedPieces">Gefesselte Figuren anzeigen</string>
   <string name="showCheckableKing">Mögliche Schachs anzeigen</string>
+  <string name="showTrappedPieces">Eingesperrte Figuren anzeigen</string>
   <string name="disclosureMode">Varianten ausblenden aktivieren</string>
   <string name="generalSettings">Allgemein</string>
   <string name="moveListSettings">Zugliste</string>

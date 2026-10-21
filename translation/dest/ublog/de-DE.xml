@@ -68,7 +68,7 @@
   <string name="topicChessEngine">Schach-Engine</string>
   <string name="topicChessBot">Schachbot</string>
   <string name="topicChessPersonalities">Schachpersönlichkeiten</string>
-  <string name="topicOverTheBoard">Offline gegen Mensch</string>
+  <string name="topicOverTheBoard">Am Brett</string>
   <string name="topicSoftwareDevelopment">Softwareentwicklung</string>
   <string name="topicOffTopic">Off-Topic</string>
   <string name="topicPosts">%s Beiträge</string>

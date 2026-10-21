@@ -209,5 +209,4 @@
   <string name="clearLocal">Очистити локальний аналіз?</string>
   <string name="clearPublished">Очистити опублікований аналіз?</string>
   <string name="requestAServerAnalysis">Зробити запит на серверний аналіз</string>
-  <string name="analyzeOnYourDevice">Аналізувати на вашому пристрої</string>
 </resources>

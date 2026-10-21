@@ -1043,8 +1043,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
   <string name="instructions">Anleitung</string>
   <string name="showMeEverything">Alles zeigen</string>
-  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
-Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
+  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose und freie Open-Source-Software. Wir sind auf Spenden unserer Nutzer bei Betriebskosten, der Entwicklung und bei der Content-Erstellung angewiesen. Ohne unsere großzügige Community wären wir nicht in der Lage, die Seite am Laufen zu halten. Vielen Dank, dass du uns beigetreten bist!</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
   <string name="stats">Statistiken</string>
   <string name="accessibility">Barrierefreiheit</string>

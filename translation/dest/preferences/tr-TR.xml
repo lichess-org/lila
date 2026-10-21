@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Savunulmayan taşları göster</string>
   <string name="showPinnedPieces">Açmazdaki taşları göster</string>
   <string name="showCheckableKing">Çekilebilir şahı göster</string>
+  <string name="showTrappedPieces">Tuzağa düşmüş taşları göster</string>
   <string name="disclosureMode">Varyasyon gizlemeyi etkinleştir</string>
   <string name="generalSettings">Genel</string>
   <string name="moveListSettings">Hamle listesi</string>
