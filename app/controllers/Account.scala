@@ -73,25 +73,24 @@ final class Account(
   }
 
   private val lichobileInfoCache =
-    env.memo.cacheApi[UserId, lila.core.data.JsonStr](32_768, "lichobile.infoCache"):
-      _.expireAfterWrite(20.seconds)
-        .buildAsyncFuture: uid =>
-          for
-            povs <- env.round.proxyRepo.urgentGames(uid)
-            nbChallenges <- env.challenge.api.countInFor.get(uid)
-            pref <- env.pref.api.byId(uid)
-            u = env.user.lightUserApi.syncFallback(uid)
-          yield JsonStr:
-            Json.stringify:
-              env.user.jsonView
-                .lichobileInfo(u) ++ Json
-                .obj(
-                  "prefs" -> lila.pref.lichobile(pref),
-                  "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-                  "nbChallenges" -> nbChallenges,
-                  "online" -> true
-                )
-                .add("announce" -> env.web.lichobileAnnounceApi.get)
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](8_192, "lichobile.infoCache"):
+      _.expireAfterWrite(20.seconds).buildAsyncFuture: uid =>
+        for
+          povs <- env.round.proxyRepo.urgentGames(uid)
+          nbChallenges <- env.challenge.api.countInFor.get(uid)
+          pref <- env.pref.api.byId(uid)
+          u = env.user.lightUserApi.syncFallback(uid)
+        yield JsonStr:
+          Json.stringify:
+            env.user.jsonView
+              .lichobileInfo(u) ++ Json
+              .obj(
+                "prefs" -> lila.pref.lichobile(pref),
+                "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+                "nbChallenges" -> nbChallenges,
+                "online" -> true
+              )
+              .add("announce" -> env.web.lichobileAnnounceApi.get)
 
   def info = Auth { _ ?=> me ?=>
     env.web.playerCounter.lichobile.hit()
