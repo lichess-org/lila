@@ -1,5 +1,6 @@
 import { api } from 'lib/api';
 import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
 import { profileUrl } from 'lib/view/userLink';
 
 type TitleName = string;
@@ -16,6 +17,7 @@ export default class OnlineFriends {
   titleEl: HTMLElement;
   countEl: HTMLElement;
   loaded = false;
+  requestedAt = 0;
   receivedOnlineFriends = false;
   users: Map<string, Friend>;
 
@@ -30,6 +32,10 @@ export default class OnlineFriends {
     api.onlineFriends.events.on('leaves', this.leaves);
     api.onlineFriends.events.on('playing', this.playing);
     api.onlineFriends.events.on('stopped_playing', this.stoppedPlaying);
+    // a new socket connection has no friends subscription, and a request sent on a dead socket is lost
+    pubsub.on('socket.open', () => {
+      if (this.loaded) this.request();
+    });
   }
 
   load = () => {
@@ -37,8 +43,16 @@ export default class OnlineFriends {
       this.updateTitle(0, 0);
       this.countEl.innerHTML = i18n.site.nbFriendsOnline(0, '-');
       this.loaded = true;
-      api.onlineFriends.request();
+      this.request();
+    } else if (performance.now() - this.requestedAt > 5000) {
+      // lila-ws drops the subscription whenever any socket of this user closes, e.g. in another tab
+      this.request();
     }
+  };
+
+  request = () => {
+    this.requestedAt = performance.now();
+    api.onlineFriends.request();
   };
 
   receive = (friends: TitleName[], msg: { playing: string[]; patronColors: PatronColor[] }) => {
