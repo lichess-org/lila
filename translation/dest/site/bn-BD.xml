@@ -935,7 +935,5 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="ourEventTips">ইভেন্ট আয়োজনের জন্য আমাদের টিপস</string>
   <string name="instructions">নির্দেশাবলী</string>
   <string name="showMeEverything">সবকিছু দেখানো হোক</string>
-  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
-সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
   <string name="nothingToSeeHere">এই মুহূর্তে এখানে দেখার কিছু নেই.</string>
 </resources>

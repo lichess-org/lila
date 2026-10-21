@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Vis uforsvarede brikker</string>
   <string name="showPinnedPieces">Vis bundne brikker</string>
   <string name="showCheckableKing">Vis konge, der kan sættes skak</string>
+  <string name="showTrappedPieces">Vis bundne brikker</string>
   <string name="disclosureMode">Aktiver skjulning af variation</string>
   <string name="generalSettings">Generelt</string>
   <string name="moveListSettings">Trækliste</string>

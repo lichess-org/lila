@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">수비가 없는 기물들 표시</string>
   <string name="showPinnedPieces">핀에 걸린 기물들 표시</string>
   <string name="showCheckableKing">체크할 수 있는 킹 표시</string>
+  <string name="showTrappedPieces">트래핑된 기물들 표시</string>
   <string name="disclosureMode">라인 숨기기 활성화</string>
   <string name="generalSettings">일반</string>
   <string name="moveListSettings">수 목록</string>

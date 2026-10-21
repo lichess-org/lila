@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Pezas non defendidas</string>
   <string name="showPinnedPieces">Pezas cravadas</string>
   <string name="showCheckableKing">Rei exposto a xaque</string>
+  <string name="showTrappedPieces">Amosar as pezas atrapadas</string>
   <string name="disclosureMode">Permitir agochar as variantes</string>
   <string name="generalSettings">Xeral</string>
   <string name="moveListSettings">Lista de xogadas</string>

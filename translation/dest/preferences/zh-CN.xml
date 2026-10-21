@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">显示无保护的棋子</string>
   <string name="showPinnedPieces">显示被牵制的棋子</string>
   <string name="showCheckableKing">显示可将军的王</string>
+  <string name="showTrappedPieces">显示被困的棋子</string>
   <string name="disclosureMode">启用变着隐藏</string>
   <string name="generalSettings">常规</string>
   <string name="moveListSettings">着法列表</string>

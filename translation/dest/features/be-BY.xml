@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">Нуль рэкламы, ніякага адсочвання</string>
-  <string name="cloudEngineAnalysis">Хмарны аналіз</string>
-  <string name="everybodyGetsAllFeaturesForFree">Так, абодва акаўнта маюць аднолькавыя функцыі!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">Мы ўпэўнены, што кожны шахматыст заслугоўвае найлепшага, таму:</string>
-  <string name="allFeaturesAreFreeForEverybody">Усе функцыі бясплатныя для ўсіх назаўжды!</string>
-  <string name="ifYouLoveLichess">Калі вам падабаецца Lichess,</string>
-  <string name="supportUsWithAPatronAccount">Падтрымайце нас як Patron!</string>
+  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Нуль рэкламы, ніякага адсочвання</string>
+  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Хмарны аналіз</string>
+  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Так, абодва акаўнта маюць аднолькавыя функцыі!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Мы ўпэўнены, што кожны шахматыст заслугоўвае найлепшага, таму:</string>
+  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Усе функцыі бясплатныя для ўсіх назаўжды!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Калі вам падабаецца Lichess,</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Падтрымайце нас як Patron!</string>
 </resources>
