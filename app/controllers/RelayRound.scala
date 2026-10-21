@@ -2,6 +2,7 @@ package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
 import play.api.mvc.*
+import org.apache.pekko.stream.scaladsl.Source
 
 import scala.annotation.nowarn
 
@@ -240,18 +241,18 @@ final class RelayRound(
   def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(api.byIdWithStudy(id)): rs =>
       studyC.CanView(rs.study) {
-        pgnStream(pgnStream.streamRoundGames(rs))
+        pgnStreamResponse(pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
 
   def streamTour(id: RelayTourId) = AnonOrScoped(): ctx ?=>
     Found(api.tourById(id)): tour =>
-      pgnStream(pgnStream.streamTourGames(tour))
+      pgnStreamResponse(pgnStream.streamTourGames(tour))
 
   def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
     Found(api.groupById(id)): group =>
-      pgnStream(pgnStream.streamGroupGames(group))
+      pgnStreamResponse(pgnStream.streamGroupGames(group))
 
-  private def pgnStream(source: => org.apache.pekko.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+  private def pgnStreamResponse(source: => Source[PgnStr, ?])(using Context) =
     limit.relay.stream()(source): limited =>
       Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 
