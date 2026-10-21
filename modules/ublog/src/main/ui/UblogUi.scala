@@ -1,15 +1,16 @@
 package lila.ublog
 package ui
 
+import scalalib.model.Language
+import scalalib.paginator.Paginator
+
 import java.time.YearMonth
 import java.time.temporal.ChronoUnit.DAYS
-import scalalib.paginator.Paginator
-import scalalib.model.Language
-import lila.ui.*
-import lila.core.ublog.{ BlogsBy, QualityFilter }
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.ublog.UblogPost.PreviewPost
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
     picfitUrl: lila.memo.PicfitUrl

@@ -1,7 +1,7 @@
 package lila.relay
 
-import org.apache.pekko.stream.scaladsl.*
 import alleycats.Zero
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
@@ -12,6 +12,8 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.{ Sync, WithTour }
 import lila.study.{
+  Chapter,
+  ChapterPreviewApi,
   Settings,
   Study,
   StudyApi,
@@ -20,9 +22,7 @@ import lila.study.{
   StudyMember,
   StudyMembers,
   StudyRepo,
-  StudyTopic,
-  Chapter,
-  ChapterPreviewApi
+  StudyTopic
 }
 
 final class RelayApi(

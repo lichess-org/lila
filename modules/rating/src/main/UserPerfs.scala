@@ -3,10 +3,11 @@ package lila.rating
 import chess.IntRating
 import scalalib.HeapSort
 
+import scala.collection.View
+
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfExt.*
-import scala.collection.View
 
 object UserPerfsExt:
 

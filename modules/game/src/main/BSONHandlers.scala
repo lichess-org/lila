@@ -11,8 +11,8 @@ import chess.{
   Game as ChessGame,
   HalfMoveClock,
   History as ChessHistory,
-  Rated,
   Ply,
+  Rated,
   Status,
   UnmovedRooks
 }

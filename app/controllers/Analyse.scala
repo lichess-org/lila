@@ -9,7 +9,7 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.tree.{ ExportOptions, Analysis }
+import lila.tree.{ Analysis, ExportOptions }
 
 final class Analyse(
     env: Env,

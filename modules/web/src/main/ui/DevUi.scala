@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.common.RawHtml.nl2br
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.RawHtml.nl2br
 
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   import helpers.*

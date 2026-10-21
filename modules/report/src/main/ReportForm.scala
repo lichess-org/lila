@@ -7,9 +7,9 @@ import play.api.data.validation.*
 import lila.common.Form.cleanNonEmptyText
 import lila.core.LightUser
 import lila.core.config.NetDomain
+import lila.core.i18n.I18nKey
 import lila.core.report.SuspectId
 import lila.mon.extensions.*
-import lila.core.i18n.I18nKey
 
 final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
 

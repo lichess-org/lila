@@ -7,8 +7,8 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
 import lila.common.String.urlencode
-import lila.mon.extensions.*
 import lila.core.config.Secret
+import lila.mon.extensions.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor

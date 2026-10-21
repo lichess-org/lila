@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.TurnstilePublicConfig
-import lila.core.misc.AuthCustomUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 

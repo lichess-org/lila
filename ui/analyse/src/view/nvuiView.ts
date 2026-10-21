@@ -41,7 +41,7 @@ import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, onInsert } from 'lib/view';
+import { type VNode, type LooseVNodes, hl, bind, noTrans, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 import { text as xhrText } from 'lib/xhr';
 
@@ -219,10 +219,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
-        ].reduce<VNodeChildren[]>(
-          (acc, curr, i) => (i % 2 !== 0 ? addBreaks(acc, curr) : acc.concat(curr)),
-          [],
-        ),
+        ].flatMap((curr, i) => (i % 2 !== 0 ? addBreaks([], curr) : [curr])),
       ),
       hl('h2', 'Chat'),
       ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
@@ -649,12 +646,8 @@ function renderStudyPlayer({ study }: AnalyseCtrl, color: Color): VNode | undefi
     hl(
       'span',
       keys
-        .reduce<string[]>(
-          (strs, [key, i18n]) =>
-            player[key]
-              ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`)
-              : strs,
-          [],
+        .flatMap(([key, i18n]) =>
+          player[key] ? [`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`] : [],
         )
         .join(' '),
     )

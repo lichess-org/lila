@@ -1,10 +1,10 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.relation.Relation
 import lila.rating.PerfType
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UserBits(helpers: Helpers):
   import helpers.*

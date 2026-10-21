@@ -1,12 +1,12 @@
 package lila.clas
 
-import scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
-
-import lila.common.Form.formatter
-import lila.clas.Student.RealName
 import play.api.i18n.Lang
+import scalalib.ThreadLocalRandom
+
+import lila.clas.Student.RealName
+import lila.common.Form.formatter
 import lila.core.user.KidMode
 
 final class ClasSignup(

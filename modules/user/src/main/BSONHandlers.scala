@@ -3,21 +3,21 @@ package lila.user
 import reactivemongo.api.bson.*
 import scalalib.model.LangTag
 
+import lila.core.plan.{ PatronColor, PatronColorChoice }
 import lila.core.security.HashedPassword
 import lila.core.user.{
-  KidMode,
   Count,
+  KidMode,
   Plan,
   PlayTime,
   Profile,
+  RoleDbKey,
   TotpSecret,
   UserEnabled,
-  UserMarks,
-  RoleDbKey
+  UserMarks
 }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.plan.{ PatronColor, PatronColorChoice }
 
 object BSONFields:
   export lila.core.user.BSONFields.*

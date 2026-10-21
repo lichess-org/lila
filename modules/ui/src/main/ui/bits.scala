@@ -1,13 +1,14 @@
 package lila.ui
 
+import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, Json }
-import java.time.YearMonth
-import chess.format.Fen
 import scalalib.StringOps.addQueryParams
 
-import lila.core.i18n.Translate
+import java.time.YearMonth
+
 import lila.core.config.ImageGetOrigin
+import lila.core.i18n.Translate
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:

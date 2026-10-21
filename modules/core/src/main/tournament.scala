@@ -1,14 +1,14 @@
 package lila.core
 package tournament
 
+import _root_.chess.ByColor
 import play.api.i18n.Lang
 import scalalib.model.Seconds
-import _root_.chess.ByColor
 
 import lila.core.chess.Rank
+import lila.core.game.Game
 import lila.core.id.{ TourId, TourPlayerId }
 import lila.core.userId.UserId
-import lila.core.game.Game
 
 enum Status(val id: Int):
   case created extends Status(10)

@@ -1,9 +1,9 @@
 package controllers
 
-import org.apache.pekko.stream.scaladsl.*
-import org.apache.pekko.util.ByteString
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import play.api.mvc.Result
 
 import lila.app.{ *, given }

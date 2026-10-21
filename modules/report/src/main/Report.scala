@@ -3,12 +3,12 @@ package lila.report
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
+import lila.core.chat.PublicSource
 import lila.core.id.ReportId
+import lila.core.misc.AppealTopic
 import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.core.chat.PublicSource
-import lila.core.misc.AppealTopic
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug

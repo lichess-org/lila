@@ -3,9 +3,9 @@ package chat
 
 import play.api.libs.json.JsObject
 
+import lila.core.data.Url
 import lila.core.id.*
 import lila.core.userId.*
-import lila.core.data.Url
 
 case class ChatLine(chatId: ChatId, line: Line, json: JsObject)
 case class OnTimeout(chatId: ChatId, userId: UserId)

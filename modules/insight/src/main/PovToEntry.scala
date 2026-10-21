@@ -1,13 +1,13 @@
 package lila.insight
 
-import chess.format.pgn.SanStr
-import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
-import lila.tree.forceAsCp
+import chess.format.pgn.SanStr
+import chess.{ Centis, Clock, Ply, Position, Role, Stats }
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice }
 import lila.common.SimpleOpening
 import lila.game.Blurs.booleans
+import lila.tree.forceAsCp
 
 case class RichPov(
     pov: Pov,

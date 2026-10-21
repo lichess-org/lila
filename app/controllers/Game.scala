@@ -1,8 +1,9 @@
 package controllers
 
-import play.api.mvc.*
-import java.time.format.DateTimeFormatter
 import chess.json.Json.given
+import play.api.mvc.*
+
+import java.time.format.DateTimeFormatter
 
 import lila.api.GameApiV2.*
 import lila.app.{ *, given }

@@ -3,11 +3,10 @@ package lila.security
 import play.api.mvc.RequestHeader
 import scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, HTTPRequest }
+import lila.common.{ Bus, HTTPRequest, LilaFuture }
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
 import lila.core.security.UserSignup
-import lila.common.LilaFuture
 
 final class GarbageCollector(
     userLogins: UserLoginsApi,

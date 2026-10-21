@@ -4,7 +4,7 @@ import chess.{ Black, Clock, White }
 import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
-import lila.core.round.{ Tell, RoundBus }
+import lila.core.round.{ RoundBus, Tell }
 
 final class FishnetPlayer(
     redis: FishnetRedis,

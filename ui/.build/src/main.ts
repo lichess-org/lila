@@ -31,6 +31,9 @@ const args: Record<string, string> = {
 const usage = `Usage:
   ui/build <options>  # multiple short options can follow a single dash
 
+  Package specific builds like 'ui/build lib tournament' will not produce an asset manifest. Only a full,
+  unqualified, and successful ui/build can generate the manifest so your server can locate new assets.
+
 Options:
   -h, --help          show this help and exit
   -w, --watch         build and watch for changes. press <space> while watching to trigger a clean rebuild

@@ -46,8 +46,13 @@ export function mergeReviewData(into: TreeNodeLite, from: TreeNodeLite): void {
   into.children = into.children.filter(hasUserContent);
   if (from.eval) into.eval = from.eval;
 
-  into.comments = [...(into.comments?.filter(c => !c.comp) ?? []), ...(from.comments ?? [])];
-  into.glyphs = [...(into.glyphs?.filter(g => !g.comp) ?? []), ...(from.glyphs ?? [])];
+  const comments = new Map(into.comments?.filter(c => !c.comp).map(c => [c.id, c]));
+  from.comments?.forEach(c => comments.set(c.id, c));
+  into.comments = Array.from(comments.values());
+
+  const glyphs = new Map(into.glyphs?.filter(g => !g.comp).map(g => [`${g.id}:false`, g]));
+  from.glyphs?.forEach(g => glyphs.set(`${g.id}:${!!g.comp}`, g));
+  into.glyphs = Array.from(glyphs.values());
 
   for (const fromChild of from.children) {
     const intoChild = into.children.find(n => fromChild.id === n.id);

@@ -1,7 +1,8 @@
 package lila.shutup
 
-import java.util.regex.Pattern
 import scalatags.Text.all.*
+
+import java.util.regex.Pattern
 
 import lila.common.constants.bannedYoutubeIds
 

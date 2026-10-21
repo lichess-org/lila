@@ -1,13 +1,14 @@
 package lila.relay
 
-import java.time.{ LocalDate, YearMonth }
 import play.api.mvc.RequestHeader
 
+import java.time.{ LocalDate, YearMonth }
+
+import lila.common.HTTPRequest
 import lila.db.dsl.*
 import lila.memo.CacheApi
 import lila.relay.RelayTour.WithFirstRound
 import lila.relay.RelayTourRepo.*
-import lila.common.HTTPRequest
 
 final class RelayCalendar(
     tourRepo: RelayTourRepo,

@@ -2,16 +2,16 @@ package lila.activity
 package ui
 
 import lila.activity.activities.*
+import lila.common.ClientName
 import lila.core.chess.Rank
 import lila.core.forum.{ ForumPostMini, ForumTopicMini }
+import lila.core.game.{ LightPlayer, LightPov }
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.{ RatingProg, Score }
-import lila.core.game.{ LightPlayer, LightPov }
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class ActivityUi(helpers: Helpers)(
     tournamentIdToName: lila.core.id.TourId => Translate ?=> ClientName ?=> String

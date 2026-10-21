@@ -1,18 +1,19 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
-import play.api.libs.json.*
-import scalalib.Debouncer
-import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
+import chess.{ ByColor, Color, FideId, FideTC, IntRating, Outcome, PlayerName }
+import play.api.libs.json.*
+import scalalib.Debouncer
 
+import scala.collection.immutable.SeqMap
+
+import lila.common.Json.given
+import lila.core.fide.{ Federation, PhotosJson, Player as FidePlayer }
+import lila.memo.CacheApi
+import lila.relay.RelayGroup.ScoreGroup
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
-import lila.memo.CacheApi
-import lila.core.fide.{ PhotosJson, Federation, Player as FidePlayer }
-import lila.common.Json.given
-import lila.relay.RelayGroup.ScoreGroup
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(

@@ -1,11 +1,11 @@
 package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-
 import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
-import lila.core.id.ImageId
+
 import lila.core.i18n.{ defaultLanguage, toLanguage }
+import lila.core.id.ImageId
 import lila.ublog.UblogPost.Quality
 
 case class UblogPost(

@@ -8,14 +8,14 @@ import reactivemongo.api.bson.*
 import lila.analyse.AccuracyPercent
 import lila.common.Json.given
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.core.game.Source
 import lila.core.i18n.Translate
 import lila.db.dsl.{ *, given }
+import lila.game.BSONHandlers.sourceHandler
 import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.game.BSONHandlers.sourceHandler
 import lila.rating.PerfType
-import lila.core.game.Source
 
 enum InsightDimension[A](
     val key: String,

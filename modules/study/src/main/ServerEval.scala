@@ -7,8 +7,8 @@ import play.api.libs.json.*
 
 import lila.core.perm.Granter
 import lila.core.relay.GetCrowd
-import lila.study.Node.{ Comments, Glyphs }
 import lila.study.Node.extensions.*
+import lila.study.Node.{ Comments, Glyphs }
 import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
 

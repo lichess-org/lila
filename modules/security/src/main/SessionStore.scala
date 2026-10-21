@@ -1,16 +1,16 @@
 package lila.security
 
-import scala.concurrent.blocking
-
 import play.api.mvc.RequestHeader
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.net.UserAgent
+
+import scala.concurrent.blocking
 
 import lila.common.HTTPRequest
 import lila.core.id.SessionId
-import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.misc.oauth.AccessTokenId
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.FingerHash
 import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }

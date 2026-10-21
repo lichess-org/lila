@@ -1,9 +1,9 @@
 package lila.setup
 
 import lila.common.Bus
-import lila.core.perf.UserWithPerfs
 import lila.core.id.SessionId
-import lila.lobby.{ SetupBus, Seek }
+import lila.core.perf.UserWithPerfs
+import lila.lobby.{ Seek, SetupBus }
 
 final private[setup] class Processor(
     gameApi: lila.core.game.GameApi,

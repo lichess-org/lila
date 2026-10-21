@@ -5,9 +5,9 @@ import com.softwaremill.tagging.*
 
 import lila.core.config
 import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
-import lila.memo.{ RateLimit, CacheApi }
-import lila.game.core.insight.InsightDb
 import lila.db.AsyncColl
+import lila.game.core.insight.InsightDb
+import lila.memo.{ CacheApi, RateLimit }
 
 @Module
 final class Env(

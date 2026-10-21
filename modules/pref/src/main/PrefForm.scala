@@ -3,7 +3,7 @@ package lila.pref
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ numberIn, stringIn, tolerantBoolean, into }
+import lila.common.Form.{ into, numberIn, stringIn, tolerantBoolean }
 
 object PrefForm:
 

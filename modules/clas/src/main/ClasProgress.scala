@@ -1,11 +1,12 @@
 package lila.clas
 
-import java.time.Duration
+import chess.IntRating
+import chess.rating.IntRatingDiff
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scalalib.model.Days
-import chess.IntRating
-import chess.rating.IntRatingDiff
+
+import java.time.Duration
 
 import lila.core.game.GameRepo
 import lila.core.user.WithPerf

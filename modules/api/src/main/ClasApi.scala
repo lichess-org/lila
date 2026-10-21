@@ -1,10 +1,10 @@
 package lila.api
 
+import lila.clas.Clas
 import lila.core.id.ClasId
 import lila.swiss.{ Swiss, SwissApi }
-import lila.tournament.{ Tournament, TournamentApi }
 import lila.team.{ Team, TeamApi }
-import lila.clas.Clas
+import lila.tournament.{ Tournament, TournamentApi }
 
 final class ClasApi(
     clasApi: lila.clas.ClasApi,

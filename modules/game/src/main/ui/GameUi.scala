@@ -7,9 +7,9 @@ import chess.format.pgn.PgnStr
 import lila.core.game.{ Game, Player }
 import lila.core.i18n.I18nKey
 import lila.game.GameExt.*
+import lila.game.Player.nameSplit
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Player.nameSplit
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }

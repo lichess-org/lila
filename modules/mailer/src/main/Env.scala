@@ -1,8 +1,8 @@
 package lila.mailer
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.common.Bus

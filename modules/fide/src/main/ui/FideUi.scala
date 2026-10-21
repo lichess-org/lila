@@ -1,12 +1,12 @@
 package lila.fide
 package ui
 
-import scalalib.paginator.Paginator
 import chess.FideTC
+import scalalib.paginator.Paginator
 
+import lila.core.i18n.I18nKey
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.I18nKey
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
