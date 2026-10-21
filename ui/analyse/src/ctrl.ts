@@ -1091,7 +1091,7 @@ export default class AnalyseCtrl implements CevalHandler {
           variant: this.data.game.variant.key,
           color: this.chessground.state.orientation,
         })
-      : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
+      : `/game/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
   canAnalyseMainline(): boolean {
     return !this.ongoing && this.mainline.length > 4 && (this.study?.isCevalAllowed() ?? !this.synthetic);
