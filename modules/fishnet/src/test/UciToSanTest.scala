@@ -326,6 +326,7 @@ final class UciToSanTest extends munit.FunSuite:
     val positions = andPly.playPositions(SanStr.from(List("Kb1"))).toOption.get
     val uciAnalysis = Analysis(
       Analysis.Id(GameId("kvkdrawn")),
+      None,
       List(
         // Nxd3 leaves K+N vs K, the rest of the line is played after the game is drawn
         Info(1, cpEval(-1000), SanStr.from(List("e1d3", "h8g7", "d3e5", "g7f6")))
