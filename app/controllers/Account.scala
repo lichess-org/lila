@@ -74,7 +74,7 @@ final class Account(
 
   private val lichobileInfoCache =
     env.memo.cacheApi[UserId, lila.core.data.JsonStr](32_768, "lichobile.infoCache"):
-      _.expireAfterWrite(15.seconds)
+      _.expireAfterWrite(20.seconds)
         .buildAsyncFuture: uid =>
           for
             povs <- env.round.proxyRepo.urgentGames(uid)
@@ -97,7 +97,7 @@ final class Account(
     env.web.playerCounter.lichobile.hit()
     env.user.lightUserApi.preloadUser(me)
     for json <- lichobileInfoCache.get(me.userId)
-    yield JsonStrOk(json).headerCache(15.seconds)
+    yield JsonStrOk(json).headerCache(20.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
