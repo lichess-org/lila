@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Gliflar bilan belgilash</string>
   <string name="theChapterIsTooShortToBeAnalysed">Tahlil qilish uchun ushbu bob juda qisqa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Kompyuter tahlilini faqat saboq hammualliflari soʻrashi mumkin.</string>
-  <string name="getAFullComputerAnalysis">Asosiy variantni server yordamida toʻliq kompyuter tahlilidan oʻtkazish.</string>
   <string name="makeSureTheChapterIsComplete">Eʼtibor bering, bob yakunlangan boʻlishi kerak. Tahlilni faqat bir marta soʻrash mumkin.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Barcha sinxronlangan aʼzolar bir xil pozitsiyada qoladilar</string>
   <string name="shareChanges">Oʻzgarishlarni kuzatuvchilar bilan boʻlishing va serverda saqlab qoʻying</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Yoʻq: erkin koʻrib chiqishga ruxsat berish</string>
   <string name="pinnedStudyComment">Qadalgan saboq sharhi</string>
   <string name="start">Boshlash</string>
-  <string name="save">Saqlash</string>
   <string name="clearChat">Chatni oʻchirish</string>
   <string name="deleteTheStudyChatHistory">Saboq chat tarixi oʻchirilsinmi? Bu amalni ortga qaytarib boʻlmaydi!</string>
   <string name="deleteStudy">Saboqni oʻchirish</string>
@@ -199,4 +197,8 @@
   <string name="doubleDefeat">Ikki tomonlama magʻlubiyat</string>
   <string name="blackDefeatWhiteCanNotWin">Qoralar magʻlubiyati, ammo oqlar gʻalaba qozona olmaydi</string>
   <string name="whiteDefeatBlackCanNotWin">Oqlar magʻlubiyati, ammo qoralar gʻalaba qozona olmaydi</string>
+  <string name="analysisEditor">Tahlil muharriri</string>
+  <string name="clearLocal">Lokal tahlil tozalansinmi?</string>
+  <string name="clearPublished">Nashr qilingan tahlil tozalansinmi?</string>
+  <string name="requestAServerAnalysis">Server tahlilini soʻrash</string>
 </resources>

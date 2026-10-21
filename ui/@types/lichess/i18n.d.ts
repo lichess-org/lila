@@ -2707,6 +2707,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
+    /** Show trapped pieces */
+    showTrappedPieces: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -5513,7 +5515,7 @@ interface I18n {
     analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Analyze on your device */
+    /** Analyse on your device */
     analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
@@ -5775,8 +5777,6 @@ interface I18n {
     requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */
@@ -6577,8 +6577,6 @@ interface I18n {
     takeRookWithQueen: string;
     /** This blog post */
     thisBlogPost: string;
-    /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
     /** Watch the video tutorial */

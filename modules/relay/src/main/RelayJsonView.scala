@@ -5,15 +5,14 @@ import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
+import lila.core.LightUser.GetterSync
 import lila.core.config.RouteUrl
+import lila.core.fide.PhotosJson
+import lila.core.i18n.Translate
+import lila.core.socket.SocketVersion
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
-import lila.study.ChapterPreview
-import lila.study.Settings
-import lila.core.socket.SocketVersion
-import lila.core.LightUser.GetterSync
-import lila.core.i18n.Translate
-import lila.core.fide.PhotosJson
+import lila.study.{ ChapterPreview, Settings }
 
 final class RelayJsonView(
     routeUrl: RouteUrl,
@@ -160,6 +159,7 @@ final class RelayJsonView(
         Json
           .obj("language" -> s.language)
           .add("title" -> s.title)
+          .add("continent" -> s.continent.map(_.code))
           .add("tier" -> rt.tour.tier)
 
   def makeData(

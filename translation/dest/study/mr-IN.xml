@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">ग्लिफने टीपा लिहा</string>
   <string name="theChapterIsTooShortToBeAnalysed">हा अध्याय विशलेषणासाठी खूप छोटा आहे.</string>
   <string name="onlyContributorsCanRequestAnalysis">फक्त अभ्यासिकेचे योगदानकर्ते संगणक विशलेषणची विनंती करू शकतात.</string>
-  <string name="getAFullComputerAnalysis">मुख्य क्रमाचे संपूर्ण सर्व्हर-पत्रा संगणक विशलेषण मिळवा.</string>
   <string name="makeSureTheChapterIsComplete">अध्याय पूर्ण असल्याचे खात्री करा. तुम्ही विशलेषणची विनंती फक्त एकदाच करू शकता.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">सर्व SYNC सदस्य एकाच स्थळावर राहतात</string>
   <string name="shareChanges">प्रेक्षकांना बदल पाठवा आणि त्यांना सर्व्हरवर जतन करा</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">नाही: लोकांना मुक्तपणे शोधू द्या</string>
   <string name="pinnedStudyComment">खुंटीत असलेले अभ्यासाची टिप्पणी</string>
   <string name="start">सुरू</string>
-  <string name="save">जतन करा</string>
   <string name="clearChat">गप्पा मिटवा</string>
   <string name="deleteTheStudyChatHistory">अभ्यासाच्या गप्पांचा इतिहास हटवायचा? एकदा का मागे फिरता येणार नाही!</string>
   <string name="deleteStudy">अभ्यासिका हटवा</string>

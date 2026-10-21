@@ -1,8 +1,8 @@
 package views.base
 
 import lila.app.UiEnv.{ *, given }
-import lila.ui.ContentSecurityPolicy
 import lila.core.i18n.I18nModule
+import lila.ui.ContentSecurityPolicy
 
 object embed:
   /* a minimalist embed that doesn't load site.ts */

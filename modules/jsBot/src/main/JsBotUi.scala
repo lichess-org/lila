@@ -1,11 +1,11 @@
 package lila.jsBot
 package ui
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
+import lila.common.Json.given
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class JsBotUi(helpers: Helpers):
   import helpers.*

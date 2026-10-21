@@ -2,10 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.*
 import lila.common.Json.given
-import scalalib.model.Language
 
 final class Lobby(env: Env) extends LilaController(env):
 
@@ -22,9 +22,7 @@ final class Lobby(env: Env) extends LilaController(env):
   def home = Open:
     negotiate(
       serveHtmlHome,
-      json =
-        val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-        Ok(lobbyJson).headerCacheSeconds(expiration)
+      json = Ok(lobbyJson).headerCache(7.days)
     )
 
   private def serveHtmlHome(using Context) =
@@ -44,5 +42,5 @@ final class Lobby(env: Env) extends LilaController(env):
   def seeks = OpenOrScoped():
     negotiateJson:
       ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
-        Ok(JsArray(seeks.map(_.render))).headerCacheSeconds(10)
+        Ok(JsArray(seeks.map(_.render))).headerCache(10.seconds)
       }

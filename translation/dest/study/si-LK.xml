@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">ග්ලයිෆස් සමඟ විවරණය කරන්න</string>
   <string name="theChapterIsTooShortToBeAnalysed">පරිච්ඡේදය විශ්ලේෂණය කිරීමට නොහැකි තරම් කෙටි ය.</string>
   <string name="onlyContributorsCanRequestAnalysis">පරිගණක විශ්ලේෂණයක් ඉල්ලා සිටිය හැක්කේ අධ්‍යයන දායකයින්ට පමණි.</string>
-  <string name="getAFullComputerAnalysis">මෙම ප්‍රධාන ගණයේ සම්පූර්ණ පරිගණක සර්වර්-ගැන විශ්ලේෂණය ලබා ගන්න.</string>
   <string name="makeSureTheChapterIsComplete">පරිච්ඡේදය සම්පූර්ණ බවට වග බලා ගන්න. ඔබට විශ්ලේෂණය ඉල්ලා සිටිය හැක්කේ එක් වරක් පමණි.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">සියලුම SYNC සාමාජිකයින් එකම ස්ථානයක රැඳී සිටිති</string>
   <string name="shareChanges">වෙනස්කම් ප්‍රේක්ෂකයන් සමඟ බෙදාගෙන ඒවා සේවාදායකයේ සුරකින්න</string>
@@ -114,7 +113,6 @@
   <string name="noLetPeopleBrowseFreely">නැත: මිනිසුන්ට නිදහසේ සැරිසැරීමට ඉඩ දෙන්න</string>
   <string name="pinnedStudyComment">ඇමුණූ අධ්‍යයනය ගැන අදහස් දැක්වීම</string>
   <string name="start">ආරම්භ කරන්න</string>
-  <string name="save">සුරකින්න</string>
   <string name="clearChat">පිළිසඳර ඉවත් කරන්න</string>
   <string name="deleteTheStudyChatHistory">අධ්‍යයන කතාබස් ඉතිහාසය මකන්නද? ආපසු යාමක් නැත!</string>
   <string name="deleteStudy">අධ්‍යයනය මකන්න</string>

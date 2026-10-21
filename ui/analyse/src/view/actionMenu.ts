@@ -8,7 +8,7 @@ import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
-import { pruneStaticAnalysis } from '@/util';
+import { pruneMainlineAnalysis } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -67,7 +67,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           const root = structuredCloneLite(ctrl.tree.root);
-          pruneStaticAnalysis(root);
+          pruneMainlineAnalysis(root);
           pgnInput.value = pgnExport.renderFullTxt(ctrl, root);
         }
       }),
@@ -87,7 +87,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
   const canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice;
-  const canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro;
+  const canRetro = !ctrl.study && !ctrl.isEmbed && !ctrl.retro && ctrl.hasFullComputerAnalysis();
   const linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools = [
@@ -147,7 +147,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.canAnalyse() &&
+      ctrl.canAnalyseMainline() &&
         hl(
           'button',
           {

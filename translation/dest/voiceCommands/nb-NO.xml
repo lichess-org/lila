@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Avbryt timeren eller avslå en forespørsel</string>
   <string name="playPreferredMoveOrConfirmSomething">Spill foretrukket trekk eller bekreft noe</string>
   <string name="sleep">Sov (hvis vekkeord er aktivert)</string>
-  <string name="turnOffVoiceRecognition">Skru av talegjenkjenning</string>
   <string name="showPuzzleSolution">Vis løsning for sjakknøtt</string>
 </resources>

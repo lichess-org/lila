@@ -2,9 +2,9 @@ package lila.oauth
 package ui
 
 import lila.core.LightUser
+import lila.core.misc.AuthCustomUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.misc.AuthCustomUi
 
 final class AuthorizeUi(helpers: Helpers)(
     lightUserFallback: UserId => LightUser,

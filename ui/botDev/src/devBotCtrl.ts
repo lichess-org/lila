@@ -134,14 +134,16 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  groupedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {
+  groupedCard(bot: BotInfo, isDirty: (b: BotInfo) => boolean): CardData | undefined {
     const cd = this.card(bot);
+    if (!cd) return undefined;
+
     const local = this.localBots[bot.uid];
     const server = this.serverBots[bot.uid];
-    if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
-    if (!server) cd?.classList.push('local-only');
-    else if (server.version > bot.version) cd?.classList.push('upstream-changes');
-    else if (local && !botEquals(local, server)) cd?.classList.push('local-changes');
+    if (isDirty(local ?? server)) cd.classList.push('dirty');
+    if (!server) cd.classList.push('local-only');
+    else if (server.version > bot.version) cd.classList.push('upstream-changes');
+    else if (local && !botEquals(local, server)) cd.classList.push('local-changes');
     return cd;
   }
 
@@ -156,7 +158,7 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+  async getBook(key: string): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!env.assets.idb.book.keyNames.has(key)) return super.getBook(key);
@@ -202,7 +204,7 @@ export class DevBotCtrl extends BotLoader {
   };
 }
 
-export function uidToDomId(uid: string | undefined): string | undefined {
+export function uidToDomId(uid: string): string | undefined {
   return uid?.startsWith('#') ? `bot-id-${uid.slice(1)}` : undefined;
 }
 

@@ -2,8 +2,8 @@ package lila.forum
 
 import scalalib.paginator.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.id.ForumTopicSlug
+import lila.db.dsl.{ *, given }
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,

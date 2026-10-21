@@ -46,7 +46,6 @@
   <string name="annotateWithGlyphs">गिल्फ द्वारा एनोटेट गर्नुहोस्</string>
   <string name="theChapterIsTooShortToBeAnalysed">यो अध्याय विश्लेषण गर्न धेरै छोटो छ।</string>
   <string name="onlyContributorsCanRequestAnalysis">पाठका योगदान कर्ताहरुले मात्र कम्प्युटर विश्लेषणको अनुरोध गर्न सक्नुहुनेछ।</string>
-  <string name="getAFullComputerAnalysis">मुख्य लाइनको सर्भर बाट पुर्ण कम्प्युटर विश्लेषण प्राप्त गर्नुहोस्।</string>
   <string name="makeSureTheChapterIsComplete">अध्याय पुरा भएको यकिन गर्नुहोस्। विश्लेषणको अनुरोध एकपटक मात्र गर्न सक्नुहुनेछ।</string>
   <string name="allSyncMembersRemainOnTheSamePosition">सबै सिंक सदस्यहरु एउटै पोजिसनमा रहनुहुनेछ।</string>
   <string name="shareChanges">दर्शक हरुले देख्ने गरि परिवर्तन गर्नुहोस्, सर्भरमा पनि सेभ हुनेछ</string>
@@ -110,7 +109,6 @@
   <string name="noLetPeopleBrowseFreely">हैन: सबैलाई स्वेक्षाले ब्राउज गर्न दिने</string>
   <string name="pinnedStudyComment">पिन गरिएको पाठको टिप्पणी</string>
   <string name="start">सुरु</string>
-  <string name="save">सुरक्षित गर्नुहोस्</string>
   <string name="clearChat">वार्तालाप खाली गरौं</string>
   <string name="deleteTheStudyChatHistory">पाठको वार्तालाप इतिहास मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन!</string>
   <string name="deleteStudy">पाठ मेटौं</string>

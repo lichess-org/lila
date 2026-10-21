@@ -8,9 +8,9 @@ import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
 import lila.game.AnonCookie
+import lila.memo.RateLimit.Limited
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
-import lila.memo.RateLimit.Limited
 
 final class Challenge(env: Env) extends LilaController(env):
   def api = env.challenge.api

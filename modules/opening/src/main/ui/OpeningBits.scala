@@ -1,9 +1,10 @@
 package lila.opening
 package ui
 
-import scala.util.{ Failure, Success }
 import chess.opening.{ Opening, OpeningKey }
 import play.api.libs.json.*
+
+import scala.util.{ Failure, Success }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }

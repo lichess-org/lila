@@ -2,8 +2,8 @@ package lila.core
 
 import scalalib.newtypes.{ OpaqueString, TotalWrapper }
 
-import lila.core.userId.UserId
 import lila.core.lilaism.Lilaism.StringValue
+import lila.core.userId.UserId
 
 // has to be an object, not a package,
 // so opaque types don't leak out

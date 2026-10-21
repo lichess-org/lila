@@ -1,7 +1,8 @@
 package lila.gathering
 
-import play.api.libs.json.*
 import chess.format.Fen
+import play.api.libs.json.*
+
 import lila.common.Json.given
 
 object GatheringJson:

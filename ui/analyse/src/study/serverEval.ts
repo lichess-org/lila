@@ -40,7 +40,7 @@ export default class ServerEval {
 }
 
 export function view(ctrl: ServerEval): VNode {
-  const analysis = ctrl.root.staticAnalysis;
+  const analysis = ctrl.root.mainlineAnalysis;
 
   if (!analysis) return ctrl.requested ? requested() : requestButtons(ctrl);
   const mainline = ctrl.root.mainline;
@@ -72,7 +72,8 @@ export function view(ctrl: ServerEval): VNode {
       chartAction('Cogs', i18n.study.analysisEditor, () =>
         site.asset.loadEsm('analyse.local', { init: ctrl.root }),
       ),
-      (ctrl.root.study!.members.canContribute() || ctrl.root.idbTree.hasLocalAnalysis) &&
+      (ctrl.root.idbTree.hasLocalAnalysis ||
+        (ctrl.root.study?.members.canContribute() && ctrl.root.study?.canMergeAnalysisCleanly())) &&
         chartAction(
           'X',
           ctrl.root.idbTree.hasLocalAnalysis ? i18n.study.clearLocal : i18n.study.clearPublished,

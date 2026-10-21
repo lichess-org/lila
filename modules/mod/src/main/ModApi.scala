@@ -5,9 +5,9 @@ import chess.PlayerTitle
 import lila.common.Bus
 import lila.core.perm.Permission
 import lila.core.report.SuspectId
-import lila.core.user.{ UserMark, UserMarks, KidMode }
+import lila.core.user.{ KidMode, UserMark, UserMarks }
 import lila.report.{ Room, Suspect }
-import lila.user.{ LightUserApi, UserRepo, UserApi }
+import lila.user.{ LightUserApi, UserApi, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,

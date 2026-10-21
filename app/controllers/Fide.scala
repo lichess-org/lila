@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
-import lila.fide.{ FidePlayer, Federation }
+import lila.fide.{ Federation, FidePlayer }
 
 final class Fide(env: Env) extends LilaController(env):
 

@@ -1,9 +1,9 @@
 package lila.oauth
 
+import org.apache.pekko.stream.scaladsl.Source
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.pekkostream.cursorProducer
-import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given

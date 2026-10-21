@@ -5,9 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.i18n.Translate
+import lila.core.pref.Pref
 import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.core.pref.Pref
 
 final class JsonView(
     studyRepo: StudyRepo,

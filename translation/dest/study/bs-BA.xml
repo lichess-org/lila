@@ -51,7 +51,6 @@
   <string name="annotateWithGlyphs">Obilježite poteze simbolima</string>
   <string name="theChapterIsTooShortToBeAnalysed">Poglavlje je prekratko za analizu.</string>
   <string name="onlyContributorsCanRequestAnalysis">Samo saradnici u studiji mogu zahtijevati računarsku analizu.</string>
-  <string name="getAFullComputerAnalysis">Dobijte potpunu serversku analizu glavne varijacije.</string>
   <string name="makeSureTheChapterIsComplete">Budite sigurni da je poglavlje gotovo. Računarsku analizu možete zahtjevati samo jednom.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Svi sinhronizovani članovi ostaju na istoj poziciji</string>
   <string name="shareChanges">Podijelite promjene sa posmatračima i sačuvajte ih na server</string>
@@ -126,7 +125,6 @@
   <string name="noLetPeopleBrowseFreely">Ne: Dozvolite ljudima da slobodno pregledaju</string>
   <string name="pinnedStudyComment">Stalni komentar studije</string>
   <string name="start">Pokreni</string>
-  <string name="save">Sačuvaj</string>
   <string name="clearChat">Izbrišite dopisivanje</string>
   <string name="deleteTheStudyChatHistory">Da li želite izbrisati svo dopisivanje vezano za ovu studiju? Nakon ove akcije, obrisani tekst se ne može vratiti!</string>
   <string name="deleteStudy">Izbrišite studiju</string>

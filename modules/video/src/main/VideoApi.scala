@@ -1,8 +1,10 @@
 package lila.video
 
+import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import scalalib.paginator.*
 
+import lila.common.HTTPRequest
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*
@@ -29,6 +31,14 @@ final private[video] class VideoApi(
           .map: ids =>
             videos.map: v =>
               VideoView(v, ids contains v.id)
+
+  def withUserControl[A](f: UserControl => Fu[A])(using me: Option[Me])(using RequestHeader): Fu[A] =
+    val reqTags = HTTPRequest.queryStringGet("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
+    val tagNbs = if me.isDefined then tag.paths(reqTags) else tag.popularNotNumeric
+    tagNbs
+      .map: tags =>
+        UserControl(filter = Filter(reqTags), tags = tags, query = HTTPRequest.queryStringGet("q"))
+      .flatMap(f)
 
   object video:
 
@@ -186,14 +196,16 @@ final private[video] class VideoApi(
 
     def allPopular: Fu[List[TagNb]] = popularCache.getUnit
 
+    def popularNotNumeric: Fu[List[TagNb]] =
+      allPopular.map:
+        _.filterNot(_.isNumeric)
+
     private val max = 25
 
     private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths"):
       _.expireAfterAccess(10.minutes).buildAsyncFuture: filterTags =>
         val allPaths =
-          if filterTags.isEmpty then
-            allPopular.map: tags =>
-              tags.filterNot(_.isNumeric)
+          if filterTags.isEmpty then popularNotNumeric
           else
             videoColl
               .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
@@ -205,10 +217,10 @@ final private[video] class VideoApi(
                 )
               .dmap { _.flatMap(_.asOpt[TagNb]) }
 
-        allPopular.zip(allPaths).map { case (all, paths) =>
+        allPopular.zip(allPaths).map { (all, paths) =>
           val tags = all
             .map: t =>
-              paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0))
+              paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0.some))
             .filterNot(_.empty)
             .take(max)
           val missing = filterTags.filterNot: t =>
@@ -217,7 +229,7 @@ final private[video] class VideoApi(
             all.find(_.tag == t)
           list.sortBy: t =>
             if filterTags contains t.tag then Int.MinValue
-            else -t.nb
+            else t.nb.so(-_)
         }
 
     private val popularCache = cacheApi.unit[List[TagNb]]("video.popular"):

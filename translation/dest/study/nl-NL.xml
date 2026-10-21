@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Maak annotaties met symbolen</string>
   <string name="theChapterIsTooShortToBeAnalysed">Dit hoofdstuk is te kort om geanalyseerd te worden.</string>
   <string name="onlyContributorsCanRequestAnalysis">Alleen de bijdragers kunnen een computer analyse aanvragen.</string>
-  <string name="getAFullComputerAnalysis">Krijg een volledige computeranalyse van de hoofdvariant.</string>
   <string name="makeSureTheChapterIsComplete">Zorg ervoor dat het hoofdstuk voltooid is. Je kunt slechts één keer een analyse aanvragen.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC leden blijven op dezelfde positie</string>
   <string name="shareChanges">Deel veranderingen met toeschouwers en sla deze op op de server</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Nee: laat mensen vrij bladeren</string>
   <string name="pinnedStudyComment">Vastgezet commentaar</string>
   <string name="start">Start</string>
-  <string name="save">Opslaan</string>
   <string name="clearChat">Maak de chat leeg</string>
   <string name="deleteTheStudyChatHistory">Verwijder de studiechat geschiedenis? Er is geen weg terug!</string>
   <string name="deleteStudy">Studie verwijderen</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Dubbele nederlaag</string>
   <string name="blackDefeatWhiteCanNotWin">Zwarte nederlaag, maar Wit kan niet winnen</string>
   <string name="whiteDefeatBlackCanNotWin">Witte nederlaag, maar Zwart kan niet winnen</string>
+  <string name="analysisEditor">Analysebewerker</string>
+  <string name="clearLocal">Lokale analyse wissen?</string>
+  <string name="clearPublished">Gepubliceerde analyse wissen?</string>
+  <string name="requestAServerAnalysis">Vraag een serveranalyse aan</string>
+  <string name="analyzeOnYourDevice">Analyseer op je apparaat</string>
 </resources>

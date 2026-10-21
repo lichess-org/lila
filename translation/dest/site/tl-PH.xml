@@ -907,8 +907,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="closingAccountWithdrawAppeal">Ang pagsasara ng iyong account ay babawiin ang iyong apela</string>
   <string name="instructions">Mga Tagubilin</string>
   <string name="showMeEverything">Ipakita ang lahat sa akin</string>
-  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
-Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
   <string name="enableBlindMode">Paganahin ang bulag mode</string>
   <string name="disableBlindMode">Huwag paganahin ang bulag mode</string>
 </resources>

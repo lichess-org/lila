@@ -89,8 +89,7 @@ export function hashedBasename(path: string, hash: string) {
   return extPos === -1 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }
 
-async function isLinkStale(symlink: string | undefined) {
-  if (!symlink) return true;
+async function isLinkStale(symlink: string) {
   const absSymlink = join(env.hashOutDir, symlink);
   const [{ mtimeMs: linkMs }, { mtimeMs: targetMs }] = await Promise.all([
     fs.promises.lstat(absSymlink),

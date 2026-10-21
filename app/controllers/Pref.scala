@@ -1,12 +1,12 @@
 package controllers
 
-import play.api.mvc.*
 import play.api.libs.json.*
+import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.notify.NotificationPref
 import lila.common.Json.given
+import lila.notify.NotificationPref
 
 final class Pref(env: Env) extends LilaController(env):
 
@@ -17,7 +17,7 @@ final class Pref(env: Env) extends LilaController(env):
     env.pref.api.get(me).map { prefs =>
       JsonOk:
         Json
-          .obj("prefs" -> lila.pref.toJson(prefs, lichobileCompat = false))
+          .obj("prefs" -> lila.pref.toJson(prefs))
           .add("language" -> me.lang)
     }
   }

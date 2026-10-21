@@ -10,17 +10,17 @@ import scalalib.paginator.Paginator
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
+import lila.core.perf.UserWithPerfs
+import lila.core.security.IsProxy
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.security.IsProxy
-import lila.core.perf.UserWithPerfs
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
+import lila.mon.extensions.*
 import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.security.{ UserAgentParser, UserLogins }
 import lila.user.WithPerfsAndEmails
-import lila.mon.extensions.*
 
 final class User(
     override val env: Env,
@@ -203,16 +203,18 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCacheSeconds(5),
+                yield snip.headerCache(5.seconds),
                 json =
                   import lila.game.JsonView.given
-                  Ok:
-                    Json.obj(
-                      "crosstable" -> crosstable,
-                      "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                    )
+                  val content =
+                    Json
+                      .obj(
+                        "crosstable" -> crosstable,
+                        "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                      )
+                  JsonOk(content).headerCache(5.seconds)
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation))
+          else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
 
   def online = Anon:
     val max = 50

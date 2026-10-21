@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Annoter avec des symboles</string>
   <string name="theChapterIsTooShortToBeAnalysed">Le chapitre est trop court pour être analysé.</string>
   <string name="onlyContributorsCanRequestAnalysis">Seuls les contributeurs de l\'étude peuvent demander une analyse informatique.</string>
-  <string name="getAFullComputerAnalysis">Obtenez une analyse en ligne complète de la ligne principale.</string>
   <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
-  <string name="save">Enregistrer</string>
   <string name="clearChat">Effacer le tchat</string>
   <string name="deleteTheStudyChatHistory">Supprimer l\'historique du tchat de l\'étude ? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Double défaite</string>
   <string name="blackDefeatWhiteCanNotWin">Défaite des noirs, mais les blancs ne peuvent pas gagner</string>
   <string name="whiteDefeatBlackCanNotWin">Défaite des blancs, mais les noirs ne peuvent pas gagner</string>
+  <string name="analysisEditor">Éditeur d\'analyse</string>
+  <string name="clearLocal">Supprimer l\'analyse locale?</string>
+  <string name="clearPublished">Supprimer l\'analyse publiée?</string>
+  <string name="requestAServerAnalysis">Demander une analyse par le serveur</string>
+  <string name="analyzeOnYourDevice">Analyser sur votre appareil</string>
 </resources>

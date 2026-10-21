@@ -65,9 +65,21 @@
   </plurals>
   <string name="imageAlt">Текстовий опис зображення</string>
   <string name="imageCredit">Права на зображення</string>
+  <string name="coverImage">Вибрати обкладинку</string>
   <string name="deleteBlog">Остаточно видалити цей допис</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Наступні вебсайти надають зображення безплатно. Переконайтеся, що дотримуєтеся умов ліцензування на використані зображення.</string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
+  <string name="topicChess">Шахи</string>
+  <string name="topicPuzzle">Задача</string>
+  <string name="topicTactics">Тактика</string>
+  <string name="topicStrategy">Стратегія</string>
+  <string name="topicChessEngine">Шаховий рушій</string>
+  <string name="topicChessBot">Шаховий бот</string>
+  <string name="topicChessPersonalities">Шахові особистості</string>
+  <string name="topicOverTheBoard">За дошкою</string>
+  <string name="topicSoftwareDevelopment">Розробка програмного забезпечення</string>
+  <string name="topicOffTopic">Різне</string>
+  <string name="topicPosts">%s публікації</string>
   <string name="etiquette">Етикет</string>
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="noCopyrightedImages">Використовуйте лише ті зображення, які не мають авторських прав.</string>

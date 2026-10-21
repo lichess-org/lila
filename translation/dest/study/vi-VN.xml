@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể được phân tích.</string>
   <string name="onlyContributorsCanRequestAnalysis">Chỉ những người đóng góp nghiên cứu mới có thể yêu cầu máy tính phân tích.</string>
-  <string name="getAFullComputerAnalysis">Nhận phân tích máy tính phía máy chủ đầy đủ về biến chính.</string>
   <string name="makeSureTheChapterIsComplete">Hãy chắc chắn chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
@@ -119,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
   <string name="pinnedStudyComment">Bình luận nghiên cứu được ghim</string>
   <string name="start">Bắt đầu</string>
-  <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
   <string name="deleteTheStudyChatHistory">Xóa lịch sử trò chuyện nghiên cứu? Không thể khôi phục lại!</string>
   <string name="deleteStudy">Xóa nghiên cứu</string>
@@ -195,4 +193,5 @@
   <string name="doubleDefeat">Đôi bại</string>
   <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
   <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
+  <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
 </resources>

@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Annoteer met karakters</string>
   <string name="theChapterIsTooShortToBeAnalysed">Die hoofstuk is te kort om geanaliseer te word.</string>
   <string name="onlyContributorsCanRequestAnalysis">Slegs die studie bydraers kan versoek om \'n rekenaar analise te doen.</string>
-  <string name="getAFullComputerAnalysis">Kry \'n vol-bediener rekenaar analise van die hooflyn.</string>
   <string name="makeSureTheChapterIsComplete">Maak seker dat die hoofstuk volledig is. Jy kan slegs eenkeer \'n analise versoek.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC lede bly op dieselfde posisie</string>
   <string name="shareChanges">Deel veranderinge met toeskouers en stoor dit op die bediener</string>
@@ -118,7 +117,6 @@
   <string name="noLetPeopleBrowseFreely">Nee: laat mense toe om vrylik deur te gaan</string>
   <string name="pinnedStudyComment">Vasgepende studie opmerking</string>
   <string name="start">Begin</string>
-  <string name="save">Stoor</string>
   <string name="clearChat">Maak die gesprek skoon</string>
   <string name="deleteTheStudyChatHistory">Vee die gesprek uit? Onthou, jy kan dit nie terug kry nie!</string>
   <string name="deleteStudy">Vee die studie uit</string>

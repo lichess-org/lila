@@ -1,12 +1,11 @@
 package lila.tutor
 
-import chess.{ ByColor, Color }
-import chess.IntRating
+import chess.{ ByColor, Color, IntRating }
 import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Insight, Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
+import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):
 

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar con símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para analizalo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudo poden solicitar unha análise por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Obtén unha análise completa da liña principal dende o servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrate de que o capítulo está completo. Só podes solicitar a análise unha vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros sincronizados permanecen na mesma posición</string>
   <string name="shareChanges">Comparte os cambios cos espectadores e gárdaos no servidor</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Non: permitir que a xente navegue libremente</string>
   <string name="pinnedStudyComment">Comentario fixado do estudo</string>
   <string name="start">Comezar</string>
-  <string name="save">Gardar</string>
   <string name="clearChat">Borrar a sala de conversa</string>
   <string name="deleteTheStudyChatHistory">Borrar o historial da sala de conversa? Esta acción non se pode desfacer!</string>
   <string name="deleteStudy">Borrar estudo</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Dobre derrota</string>
   <string name="blackDefeatWhiteCanNotWin">As negras perden, mais as brancas non poden gañar</string>
   <string name="whiteDefeatBlackCanNotWin">As brancas perden, mais as negras non poden gañar</string>
+  <string name="analysisEditor">Editor de análise</string>
+  <string name="clearLocal">Borrar a análise local?</string>
+  <string name="clearPublished">Eliminar a análise publicada?</string>
+  <string name="requestAServerAnalysis">Solicitar unha análise dende o servidor</string>
+  <string name="analyzeOnYourDevice">Analizar no teu dispositivo</string>
 </resources>

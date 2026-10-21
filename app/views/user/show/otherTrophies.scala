@@ -31,7 +31,7 @@ object otherTrophies:
         a(
           cls := "revol_trophy combo-trophy",
           ariaTitle(s"${revol.variant.name} Revolution"),
-          href := routes.Tournament.show(revol.tourId)
+          href := s"${routes.Tournament.show(revol.tourId)}?player=${info.user.username}"
         )(revol.iconChar.toString)
       },
       info.trophies.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),

@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Aparece a la izquierda en dispositivos móviles</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="showServerAnalysis">Mostrar análisis del servidor</string>
+  <string name="showMainlineAnalysis">Mostrar análisis de línea principal</string>
   <string name="showBestMoveArrows">Mostrar flechas de mejor movimiento</string>
   <string name="showManeuverArrows">Mostrar flechas de maniobra</string>
   <string name="showGauge">Mostrar indicador de evaluación</string>
@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Mostrar piezas sin defender</string>
   <string name="showPinnedPieces">Mostrar piezas clavadas</string>
   <string name="showCheckableKing">Mostrar rey en peligro</string>
+  <string name="showTrappedPieces">Mostrar piezas atrapadas</string>
   <string name="disclosureMode">Habilitar ocultamiento de variantes</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Lista de movimientos</string>

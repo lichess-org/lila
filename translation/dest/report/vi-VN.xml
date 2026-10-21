@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Có chuyện gì vậy?</string>
+  <string name="cheat">Gian lận</string>
+  <string name="troll">Chọc tức, chơi khăm</string>
+  <string name="reportStall">Cố tình câu giờ / Bỏ ván đấu</string>
+  <string name="reportBoost">Dàn xếp tỷ số trận đấu</string>
+  <string name="reportVerbalAbuse">Lăng mạ / Chửi bới / Chọc tức</string>
+  <string name="reportViolence">Bạo lực / Đe dọa</string>
+  <string name="reportHarass">Rình rập / Quấy rối / Bắt nạt</string>
+  <string name="reportSelfHarm">Tự tử / Tự gây thương tích</string>
+  <string name="reportHate">Lời lẽ khiêu khích / Phân biệt giới tính</string>
+  <string name="reportSpam">Gửi tin rác</string>
+  <string name="readMoreAboutLichessReports">Tìm hiểu thêm về báo cáo trên Lichess</string>
+  <string name="reportMaximumCharacters">Tối đa 3000 ký tự.</string>
+  <string name="reportCheatBoostHelp">Dán đường dẫn đến (các) ván cờ và giải thích hành vi sai trái của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", mà hãy cho chúng tôi biết bạn đã đi đến kết luận này như thế nào.</string>
+  <string name="reportUsernameHelp">Hãy giải thích tại sao tên người dùng này lại gây khó chịu. Đừng chỉ nói \"nó gây khó chịu/không phù hợp\", mà hãy cho chúng tôi biết bạn đi đến kết luận này như thế nào, đặc biệt nếu sự gây khó chịu đó khó hiểu, không phải bằng tiếng Anh, là tiếng lóng, hoặc liên quan đến lịch sử/văn hóa.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Chúng tôi có thể xử lý báo cáo của bạn nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
+  <string name="provideOneCheatedGameLink">Vui lòng cung cấp ít nhất một đường dẫn đến ván đấu để được xem xét.</string>
+</resources>

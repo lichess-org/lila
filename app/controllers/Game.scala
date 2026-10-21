@@ -1,8 +1,9 @@
 package controllers
 
-import play.api.mvc.*
-import java.time.format.DateTimeFormatter
 import chess.json.Json.given
+import play.api.mvc.*
+
+import java.time.format.DateTimeFormatter
 
 import lila.api.GameApiV2.*
 import lila.app.{ *, given }
@@ -28,7 +29,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation))
   }
 
-  def exportOne(id: GameAnyId) = AnonOrScoped():
+  def exportOne(id: GameAnyId) = OpenOrScoped():
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using ctx: Context): Fu[Result] =

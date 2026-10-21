@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Ανάλυση</string>
+  <string name="onTheServer">Στον διακομιστή</string>
+  <string name="local">Τοπικά</string>
+  <string name="currentAnalysis">Τρέχουσα ανάλυση</string>
+  <string name="cannotPublish">Αδυναμία δημοσίευσης</string>
+  <string name="nodesPerMove">Κόμβοι ανά κίνηση</string>
+  <string name="using">Χρησιμοποιώντας</string>
+  <string name="willUse">Θα χρησιμοποιηθεί</string>
+  <string name="quality">Ποιότητα</string>
+  <string name="publish">Δημοσίευση</string>
+  <string name="published">Δημοσιεύθηκε</string>
+  <string name="chooseYourEngineSettings">Κάντε κλικ στην επιλογή Ανάλυση για να αξιολογήσετε την κύρια βαριάντα.</string>
+  <string name="analysisUploadFailed">Η μεταφόρτωση της ανάλυσης απέτυχε. Δοκιμάστε ξανά αργότερα.</string>
+  <string name="youCanPublish">Μπορείτε να δημοσιεύσετε την τοπική σας ανάλυση.</string>
+  <string name="startingPosition">Αρχική διάταξη</string>
+  <string name="keepThisBrowserTabActive">Διατηρήστε την καρτέλα του περιηγητή ενεργή κατά τη διάρκεια της ανάλυσης</string>
+  <string name="xTimesStandardQuality">%sx τυπική ποιότητα</string>
+  <string name="moveXOfY" comment="should this be in site?">Κίνηση %1$s από %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Λήψη %1$s από %2$s</string>
+  <string name="timeToComplete">Αυτό θα διαρκέσει περίπου %s</string>
+</resources>

@@ -1,10 +1,10 @@
 package lila.recap
 
-import lila.db.dsl.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.common.Uptime
-import lila.common.LilaScheduler
+
+import lila.common.{ LilaScheduler, Uptime }
+import lila.db.dsl.*
 
 /* Enqueue heavy computations. Generic, could be move out of recap for reuse.
  * - persists the queue, allowing unbounded queue size and resiliency

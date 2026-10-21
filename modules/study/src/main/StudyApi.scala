@@ -1,21 +1,21 @@
 package lila.study
 
-import org.apache.pekko.stream.scaladsl.*
+import alleycats.Zero
 import cats.mtl.Handle.*
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
+import chess.format.pgn.{ Comment as CommentStr, Glyph, Tags }
 import monocle.syntax.all.*
-import alleycats.Zero
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.common.Bus
+import lila.core.data.ErrorMsg
 import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.core.data.ErrorMsg
+import lila.study.Node.extensions.*
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.study.Node.extensions.*
 
 final class StudyApi(
     studyRepo: StudyRepo,

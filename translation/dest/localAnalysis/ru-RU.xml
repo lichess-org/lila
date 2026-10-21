@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Анализировать</string>
+  <string name="onTheServer">На сервере</string>
+  <string name="local">Локальный</string>
+  <string name="currentAnalysis">Текущий анализ</string>
+  <string name="cannotPublish">Невозможно опубликовать</string>
+  <string name="nodesPerMove">Узлов на ход</string>
+  <string name="using">Используется</string>
+  <string name="willUse">Будет использоваться</string>
+  <string name="quality">Качество</string>
+  <string name="publish">Опубликовать</string>
+  <string name="published">Опубликовано</string>
+  <string name="chooseYourEngineSettings">Нажмите «Анализировать», чтобы оценить главный вариант.</string>
+  <string name="bestResultsUseXWithYThreads">Для получения наилучших результатов за минимальное время используйте %1$s с количеством потоков: %2$s.</string>
+  <string name="analysisUploadFailed">Не удалось загрузить анализ. Повторите попытку позже.</string>
+  <string name="serverAnalysisInProgress">Для этой партии уже выполняется серверный анализ. Вы можете повторить попытку после его завершения.</string>
+  <string name="youCanPublish">Локальный анализ можно опубликовать.</string>
+  <string name="turnOnRec">Необходимо включить запись (REC), чтобы поделиться локальным анализом в Студии.</string>
+  <string name="whenUpgradingOldChapters">Серверный анализ для глав, созданных до появления локального анализа, невозможно обновить корректно. Старые варианты движка и комментарии останутся, если вы не удалите их заранее.</string>
+  <string name="startingPosition"> Начальная позиция</string>
+  <string name="keepThisBrowserTabActive">Не сворачивайте эту вкладку браузера во время анализа</string>
+  <string name="xTimesStandardQuality">В %s раза выше стандартного качества</string>
+  <string name="moveXOfY" comment="should this be in site?">Ход %1$s из %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Скачивание %1$s из %2$s</string>
+  <string name="timeToComplete">Приблизительное время: %s</string>
+  <string name="xWouldBeFaster">%s Будет быстрее</string>
+</resources>

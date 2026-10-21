@@ -3,9 +3,9 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.jsBot.{ BotUid, AssetType, BotJson }
+import lila.jsBot.{ AssetType, BotJson, BotUid }
 
 final class JsBot(env: Env) extends LilaController(env):
 
@@ -80,7 +80,7 @@ final class JsBot(env: Env) extends LilaController(env):
 
   private def prefJson(using ctx: Context) =
     lila.pref
-      .toJson(ctx.pref, false)
+      .toJson(ctx.pref)
       .add("animationDuration", ctx.pref.animationMillis.some)
       .add("enablePremove", ctx.pref.premove.some)
       .add("showCaptured", ctx.pref.captured.some)

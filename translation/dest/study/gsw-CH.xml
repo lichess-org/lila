@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Mit Symbol kommentiere</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel isch z\'churz zum analysiere.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur wer a dere Schtudie mit macht, chann e Coputeranalyse afordere.</string>
-  <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi, serversitigi Computeranalyse vu de Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal agforderet werde.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nei: Unabhängigi Navigation für alli</string>
   <string name="pinnedStudyComment">Agheftete Schtudiekommentar</string>
   <string name="start">Schtart</string>
-  <string name="save">Schpeichärä</string>
   <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Chatverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
   <string name="deleteStudy">Schtudie lösche</string>

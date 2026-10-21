@@ -6,7 +6,9 @@ import play.api.libs.json.*
 import lila.core.game.Game
 import lila.core.perf.UserWithPerfs
 import lila.event.Event
+import lila.mon.extensions.*
 import lila.playban.TempBan
+import lila.round.UrgentGames
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
 import lila.swiss.Swiss
@@ -14,8 +16,7 @@ import lila.timeline.Entry
 import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
-import lila.mon.extensions.*
-import lila.round.UrgentGames
+import lila.common.HTTPRequest
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -93,13 +94,14 @@ final class Preload(
           .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(lila.mon.lobby.segment("lightUsers"))
     classes <- ctx.myId.so(me => clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4)))
+    relaySpotlights = relayHome.spotlight.getForContinent(HTTPRequest.continent(ctx.req))
   yield Homepage(
     data,
     entries,
     tours,
     swiss,
     events,
-    relayHome.spotlight.get,
+    relaySpotlights,
     simuls,
     feat,
     puzzle,

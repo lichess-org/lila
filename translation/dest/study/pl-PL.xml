@@ -54,7 +54,6 @@
   <string name="annotateWithGlyphs">Oceń ruch symbolem</string>
   <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
-  <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
   <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
   <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
@@ -131,7 +130,6 @@
   <string name="noLetPeopleBrowseFreely">Nie: pozwól oglądać wszystkim</string>
   <string name="pinnedStudyComment">Przypięte komentarze</string>
   <string name="start">Rozpocznij</string>
-  <string name="save">Zapisz</string>
   <string name="clearChat">Wyczyść czat</string>
   <string name="deleteTheStudyChatHistory">Usunąć historię czatu opracowania? Nie będzie można tego cofnąć!</string>
   <string name="deleteStudy">Usuń opracowanie</string>
@@ -207,4 +205,9 @@
   <string name="doubleDefeat">Podwójna przegrana</string>
   <string name="blackDefeatWhiteCanNotWin">Przegrana czarnych, ale białe nie mogą wygrać</string>
   <string name="whiteDefeatBlackCanNotWin">Przegrana białych, ale czarne nie mogą wygrać</string>
+  <string name="analysisEditor">Edytor analiz</string>
+  <string name="clearLocal">Wyczyścić analizę lokalną?</string>
+  <string name="clearPublished">Wyczyścić opublikowaną analizę?</string>
+  <string name="requestAServerAnalysis">Poproś o analizę na serwerze</string>
+  <string name="analyzeOnYourDevice">Analizuj na swoim urządzeniu</string>
 </resources>

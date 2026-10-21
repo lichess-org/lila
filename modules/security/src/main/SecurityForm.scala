@@ -5,14 +5,13 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.Request
 
-import lila.common.Form.*
 import lila.common.Form as LilaForm
-import lila.user.LameName
+import lila.common.Form.*
 import lila.core.security.ClearPassword
-import lila.user.TotpSecret.{ base32, verify }
-import lila.user.{ TotpSecret, TotpToken }
-import lila.oauth.OAuthSignedClient.SimpleSignup
 import lila.mon.extensions.*
+import lila.oauth.OAuthSignedClient.SimpleSignup
+import lila.user.TotpSecret.{ base32, verify }
+import lila.user.{ LameName, TotpSecret, TotpToken }
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,

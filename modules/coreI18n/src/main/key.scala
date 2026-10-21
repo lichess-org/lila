@@ -1398,6 +1398,7 @@ object I18nKey:
     val `showUndefendedPieces`: I18nKey = "preferences:showUndefendedPieces"
     val `showPinnedPieces`: I18nKey = "preferences:showPinnedPieces"
     val `showCheckableKing`: I18nKey = "preferences:showCheckableKing"
+    val `showTrappedPieces`: I18nKey = "preferences:showTrappedPieces"
     val `disclosureMode`: I18nKey = "preferences:disclosureMode"
     val `generalSettings`: I18nKey = "preferences:generalSettings"
     val `moveListSettings`: I18nKey = "preferences:moveListSettings"
@@ -2906,7 +2907,6 @@ object I18nKey:
     val `noLetPeopleBrowseFreely`: I18nKey = "study:noLetPeopleBrowseFreely"
     val `pinnedStudyComment`: I18nKey = "study:pinnedStudyComment"
     val `start`: I18nKey = "study:start"
-    val `save`: I18nKey = "study:save"
     val `clearChat`: I18nKey = "study:clearChat"
     val `deleteTheStudyChatHistory`: I18nKey = "study:deleteTheStudyChatHistory"
     val `deleteStudy`: I18nKey = "study:deleteStudy"
@@ -3351,6 +3351,5 @@ object I18nKey:
     val `cancelTimerOrDenyARequest`: I18nKey = "voiceCommands:cancelTimerOrDenyARequest"
     val `playPreferredMoveOrConfirmSomething`: I18nKey = "voiceCommands:playPreferredMoveOrConfirmSomething"
     val `sleep`: I18nKey = "voiceCommands:sleep"
-    val `turnOffVoiceRecognition`: I18nKey = "voiceCommands:turnOffVoiceRecognition"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
 

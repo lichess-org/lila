@@ -14,6 +14,7 @@
 
     .header {
       padding: 0;
+      max-width: 40vw;
 
       a {
         padding: 1em;
@@ -44,6 +45,17 @@
       icon {
         font-size: 2em;
         opacity: 0.6;
+      }
+    }
+
+    @media (max-width: at-most($xx-small)) {
+      .icon,
+      .players {
+        display: none;
+      }
+
+      .header a {
+        padding-inline-end: 0;
       }
     }
 
@@ -95,11 +107,11 @@
 .team-tournaments--both {
   @extend %flex-wrap;
 
-  margin-top: -2em;
-
   h2 {
     @extend %box-padding;
 
+    padding-top: 0;
+    padding-bottom: 1em;
     border-bottom: $border;
   }
 

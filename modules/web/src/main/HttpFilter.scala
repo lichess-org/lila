@@ -1,10 +1,10 @@
 package lila.web
 
 import org.apache.pekko.stream.Materializer
-import play.api.mvc.*
 import play.api.http.Status.*
+import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 
@@ -43,7 +43,7 @@ final class HttpFilter(
 
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|YandexRenderResourcesBot|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot|SofyaBot|SearchBot|AdsBot|GPTBot""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|YandexRenderResourcesBot|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai\.com|anthropic\.com|anthropic\.ai|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot|SofyaBot|SearchBot|AdsBot|GPTBot|Diffbot|CCBot|ClaudeBot|Claude-Web|Google-Extended|Google-CloudVertexBot|omgili|cohere-ai|MistralAI-Training|Awario|QualifiedBot|Cotoyogi|ICC-Crawler|atlassian-bot|FishBot|BorderxBot|NavuBot|WARDBot|magpie-crawler|KimiBot|CitibotSiteCrawler""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs

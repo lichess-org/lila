@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar amb signes</string>
   <string name="theChapterIsTooShortToBeAnalysed">El capítol és massa curt per ser analitzat.</string>
   <string name="onlyContributorsCanRequestAnalysis">Només els contribuïdors de l’estudi poden demanar un anàlisis computeritzat.</string>
-  <string name="getAFullComputerAnalysis">Obté un anàlisi complert desde el servidor de la línia principal.</string>
   <string name="makeSureTheChapterIsComplete">Segura’t que el capítol és complert. Només pots requerir l’anàlisi una sola vegada.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
   <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">No: permetre que la gent navegui lliurement</string>
   <string name="pinnedStudyComment">Comentar estudi fixat</string>
   <string name="start">Inici</string>
-  <string name="save">Desa</string>
   <string name="clearChat">Neteja el Chat</string>
   <string name="deleteTheStudyChatHistory">Eliminar el xat de l’estudi? No hi ha volta enrera!</string>
   <string name="deleteStudy">Eliminar estudi</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Doble derrota</string>
   <string name="blackDefeatWhiteCanNotWin">El negre ha perdut però el blanc no pot guanyar</string>
   <string name="whiteDefeatBlackCanNotWin">El blanc ha perdut però el negre no pot guanyar</string>
+  <string name="analysisEditor">Editor d\'anàlisis</string>
+  <string name="clearLocal">Eliminar les anàlisis locals?</string>
+  <string name="clearPublished">Eliminar les anàlisis publicades?</string>
+  <string name="requestAServerAnalysis">Demana una anàlisi al servidor</string>
+  <string name="analyzeOnYourDevice">Analitza al teu dispositiu</string>
 </resources>

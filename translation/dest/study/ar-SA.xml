@@ -60,10 +60,9 @@
   <string name="annotateWithGlyphs">التعليق مع الحروف الرسومية</string>
   <string name="theChapterIsTooShortToBeAnalysed">الفصل جداً قصير لكي يتم تحليله</string>
   <string name="onlyContributorsCanRequestAnalysis">فقط المساهمون في هذا الدراسة يمكنهم طلب تحليل الحاسوب</string>
-  <string name="getAFullComputerAnalysis">احصل على تحليل حاسوب كامل للتفريع الرئيسي من قبل الخادم</string>
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
   <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
-  <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
+  <string name="shareChanges">شارك التغييرات مع المتفرّجين وحفظها على الخادم</string>
   <string name="playing">يلعب الان</string>
   <string name="showResults">النتائج</string>
   <string name="showEvalBar">شرائط التقييم</string>
@@ -139,7 +138,6 @@
   <string name="noLetPeopleBrowseFreely">لا: دع الناس يتصفحون بحرية</string>
   <string name="pinnedStudyComment">تعليق الدراسة المثبتة</string>
   <string name="start">ابدأ</string>
-  <string name="save">حفظ</string>
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
@@ -215,4 +213,9 @@
   <string name="doubleDefeat">هزيمة مزدوجة</string>
   <string name="blackDefeatWhiteCanNotWin">الأسود مهزوم, لكن الأبيض لا يستطيع الفوز</string>
   <string name="whiteDefeatBlackCanNotWin">الأبيض مهزوم, لكن الأسود لا يستطيع الفوز</string>
+  <string name="analysisEditor">محرّر التحليل</string>
+  <string name="clearLocal">هل تريد مسح التحليل المحلي؟</string>
+  <string name="clearPublished">هل تريد مسح التحليل المنشور؟</string>
+  <string name="requestAServerAnalysis">طلب تحليل على الخادم</string>
+  <string name="analyzeOnYourDevice">حلّل على جهازك</string>
 </resources>

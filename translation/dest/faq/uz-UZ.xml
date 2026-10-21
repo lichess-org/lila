@@ -28,7 +28,7 @@
   <string name="isCorrespondenceDifferent">Yozishmali oʻyin normal shaxmatdan qanday farqlanadi?</string>
   <string name="pleaseReadFairPlayPage">Batafsil maʼlumot uchun %s sahifamizni oʻqing</string>
   <string name="fairPlayPage">halol oʻyin</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvigatellardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvigatel yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvigatellardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
   <string name="gameplay">Oʻyin jarayoni</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blits va boshqa vaqt nazoratlari qanday belgilanadi?</string>
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
@@ -169,6 +169,7 @@ Bu sodir boʻlganda sizni ogohlantirish uchun qizil ovozsiz belgisini koʻrsatam
 4. Pastga tushib, Media kontentni avtomatik ijro etish (Media autoplay) qismini bosing
 5. Ruxsat berish (Allow) roʻyxatiga lichess.org saytini qoʻshing</string>
   <string name="makeBotTitle">Lichessʼda bot yaratish?</string>
+  <string name="makeBotDescription">Lichessʼda oʻynash uchun &lt;a href=\'%1$s\'&gt;shaxsiy shaxmat botini&lt;/a&gt; yaratishni oʻrganish uchun &lt;a href=\'%2$s\'&gt;botlar yaratish haqidagi ushbu maqolani&lt;/a&gt; oʻqing.</string>
   <string name="stopMyselfFromPlaying">Oʻyinni bas qila olmayapman, nima qilsam boʻladi?</string>
   <string name="mentalHealthCondition">alohida ruhiy kasallik</string>
   <string name="lichessUserstyles">foydalanuvchi Lichess CSS stillari</string>

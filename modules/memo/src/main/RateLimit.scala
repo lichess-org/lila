@@ -9,8 +9,9 @@ import lila.core.config.RateLimit as Enforce
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
-    key: String,
-    log: Boolean = true
+    limiterKey: String,
+    log: Boolean = true,
+    logKey: K => String = (_: K).toString
 )(using enforce: Enforce)(using Executor)
     extends RateLimit.RateLimiter[K]:
   import RateLimit.*
@@ -21,7 +22,7 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private val monitor = lila.mon.security.rateLimit(key)
+  private val monitor = lila.mon.security.rateLimit(limiterKey)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
       op: ChargeWith => A
@@ -43,7 +44,7 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>
-          if log then RateLimit.logger.info(s"$key $credits/$duration $k cost: $cost $msg")
+          if log then RateLimit.logger.info(s"$limiterKey $credits/$duration ${logKey(k)} cost: $cost $msg")
           monitor.increment()
           default
         case _ =>
@@ -104,7 +105,7 @@ object RateLimit:
       RateLimit[K](
         credits = credits,
         duration = duration,
-        key = s"$key.$subKey",
+        limiterKey = s"$key.$subKey",
         log = log
       )
 

@@ -3,6 +3,7 @@ package lila.opening
 import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, StandardFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
+
 import scala.util.Try
 
 case class OpeningPage(

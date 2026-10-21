@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Mit Symbolen kommentieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum Analysieren.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
-  <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Nein: Unabhängige Navigation für alle</string>
   <string name="pinnedStudyComment">Angepinnter Studienkommentar</string>
   <string name="start">Start</string>
-  <string name="save">Speichern</string>
   <string name="clearChat">Chat löschen</string>
   <string name="deleteTheStudyChatHistory">Chatverlauf der Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
   <string name="deleteStudy">Studie löschen</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Doppelte Niederlage</string>
   <string name="blackDefeatWhiteCanNotWin">Niederlage von Schwarz, aber Weiß kann nicht gewinnen</string>
   <string name="whiteDefeatBlackCanNotWin">Niederlage von Weiß, aber Schwarz kann nicht gewinnen</string>
+  <string name="analysisEditor">Analyse-Editor</string>
+  <string name="clearLocal">Lokale Analyse löschen?</string>
+  <string name="clearPublished">Veröffentlichte Analyse löschen?</string>
+  <string name="requestAServerAnalysis">Computer-Analyse anfordern</string>
+  <string name="analyzeOnYourDevice">Auf deinem Gerät analysieren</string>
 </resources>

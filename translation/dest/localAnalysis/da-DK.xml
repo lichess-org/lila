@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyser</string>
+  <string name="onTheServer">På serveren</string>
+  <string name="local">Lokalt</string>
+  <string name="currentAnalysis">Aktuel analyse</string>
+  <string name="cannotPublish">Kan ikke publicere</string>
+  <string name="nodesPerMove">Stillinger pr. træk</string>
+  <string name="using">Bruger</string>
+  <string name="willUse">Vil bruge</string>
+  <string name="quality">Kvalitet</string>
+  <string name="publish">Publicér</string>
+  <string name="published">Publiceret</string>
+  <string name="chooseYourEngineSettings">Klik på Analyser for at bedømme hovedlinjen.</string>
+  <string name="bestResultsUseXWithYThreads">For at opnå de bedste resultater på kortest mulig tid skal du bruge %1$s med %2$s tråde.</string>
+  <string name="analysisUploadFailed">Upload af analyse mislykkedes. Prøv igen senere.</string>
+  <string name="serverAnalysisInProgress">Der er en serveranalyse i gang for dette parti. Du kan prøve igen, når den er færdig.</string>
+  <string name="youCanPublish">Din lokale analyse kan offentliggøres.</string>
+  <string name="turnOnRec">Du skal aktivere REC, før du kan dele lokal analyse med et studie.</string>
+  <string name="whenUpgradingOldChapters">Serveranalyser af kapitler, der blev oprettet, før lokal analyse blev indført, kan ikke opgraderes præcist. Ældre motorlinjer og kommentarer forbliver, medmindre du først fjerner dem.</string>
+  <string name="startingPosition">Udgangsstilling</string>
+  <string name="keepThisBrowserTabActive">Hold denne browser fane aktiv under analyse</string>
+  <string name="xTimesStandardQuality">%sx standardkvalitet</string>
+  <string name="moveXOfY" comment="should this be in site?">Træk %1$s af %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Downloader %1$s af %2$s</string>
+  <string name="timeToComplete">Dette vil tage omkring %s</string>
+  <string name="xWouldBeFaster">%s ville være hurtigere</string>
+</resources>

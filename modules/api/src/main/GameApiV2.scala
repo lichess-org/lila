@@ -1,28 +1,28 @@
 package lila.api
 
-import org.apache.pekko.stream.scaladsl.*
 import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import chess.opening.Opening
-import play.api.libs.json.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
+import play.api.libs.json.*
 import reactivemongo.pekkostream.cursorProducer
+import smithy4s.time.Timestamp
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.round.CurrentlyPlaying
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.{ WithFlags, applyDelay }
 import lila.game.{ Divider, Query }
+import lila.gameSearch.GameSearchApi
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
-import lila.gameSearch.GameSearchApi
-import smithy4s.time.Timestamp
-import lila.core.round.CurrentlyPlaying
 
 final class GameApiV2(
     pgnDump: PgnDump,

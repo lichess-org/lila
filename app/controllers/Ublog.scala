@@ -1,19 +1,20 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
-import play.api.mvc.Result
 import play.api.libs.json.*
+import play.api.mvc.Result
+import scalalib.model.Language
+
+import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import scalalib.model.Language
+import lila.common.HTTPRequest
+import lila.core.i18n.toLanguage
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, QualityFilter }
-import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
-import lila.common.HTTPRequest
+import lila.ublog.{ UblogBlog, UblogByMonth, UblogPost }
 
 final class Ublog(env: Env) extends LilaController(env):
 
@@ -308,7 +309,9 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(ATOM)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+          .as(ATOM)
+          .headerCache(10.minutes)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
@@ -352,7 +355,11 @@ final class Ublog(env: Env) extends LilaController(env):
       for
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
-      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(ATOM)
+      yield Ok
+        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .as(ATOM)
+        .headerCache(10.minutes)
+        .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

@@ -1,6 +1,5 @@
 package lila.streamer
 
-import scala.collection.concurrent.TrieMap
 import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
@@ -10,9 +9,10 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import play.api.mvc.Headers
 
+import scala.collection.concurrent.TrieMap
+
 import lila.common.Json.given
-import lila.core.config.Secret
-import lila.core.config.NetConfig
+import lila.core.config.{ NetConfig, Secret }
 
 private object Twitch:
 

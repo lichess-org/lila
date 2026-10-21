@@ -1,22 +1,22 @@
 package controllers
 
-import scala.annotation.nowarn
-
 import alleycats.Zero
 import play.api.libs.json.Json
 import play.api.mvc.*
 
+import scala.annotation.nowarn
+
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ImageId
+import lila.core.msg.SystemMsg
 import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
 import lila.core.userId.ModId
-import lila.core.msg.SystemMsg
-import lila.mod.{ Modlog, ModUserSearch }
-import lila.report.{ Mod as AsMod, Suspect }
+import lila.mod.{ ModUserSearch, Modlog }
 import lila.mon.extensions.*
+import lila.report.{ Mod as AsMod, Suspect }
 
 final class Mod(
     env: Env,

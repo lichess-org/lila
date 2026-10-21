@@ -43,11 +43,11 @@
 
   .comment {
     @extend %flex-column, %box-shadow;
+    @include box-radius;
     @include backdrop-blur-if-transparent;
 
     font-size: 1.1em;
     background: $c-bg-box;
-    border-radius: $box-radius-size;
     position: relative;
     border: 1px solid $c-border;
 

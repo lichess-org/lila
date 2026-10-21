@@ -63,14 +63,16 @@
 
   .langs {
     form {
-      max-height: 400px;
+      max-height: 408px;
       overflow: auto;
+      border-bottom: $border;
 
       button {
-        display: block;
-        padding: 0.7rem 0.7rem 0.7rem 1rem;
+        display: flex;
+        padding: 0.7rem;
         width: 100%;
-        text-align: left;
+        justify-content: space-between;
+        border-inline-start: 4px solid transparent;
 
         &:hover {
           background: $c-dasher-light;
@@ -79,13 +81,16 @@
     }
 
     .accepted {
-      border-inline-start: 4px solid $c-dasher;
+      border-color: $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-over !important;
-      border-inline-start: none;
+
+      .lang-code {
+        color: $c-over;
+      }
     }
 
     .help {
@@ -94,11 +99,18 @@
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
-        @extend %box-radius-bottom;
+        @extend %box-radius-bottom-left;
 
         background: $c-link;
         color: $c-over;
       }
+    }
+
+    .lang-code {
+      font-family: monospace;
+      font-size: 80%;
+      line-height: 18px;
+      color: $c-font-dimmer;
     }
   }
 
@@ -107,14 +119,14 @@
     margin: 0.5rem 0;
 
     button {
+      @include transition(background);
+
       display: block;
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
 
-      @include transition(background);
-
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         &:hover {
           background: $c-dasher-light;
         }

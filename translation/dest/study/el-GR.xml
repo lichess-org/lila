@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Σχολιασμός με σύμβολα</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
   <string name="onlyContributorsCanRequestAnalysis">Μόνο όσοι συνεισφέρουν στη μελέτη μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
-  <string name="getAFullComputerAnalysis">Πλήρης ανάλυσης της κύριας βαριάντας από μηχανή στον διακομιστή.</string>
   <string name="makeSureTheChapterIsComplete">Βεβαιωθείτε πως το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση υπολογιστή μόνο μία φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα μέλη SYNC θα μεταφερθούν στην ίδια θέση</string>
   <string name="shareChanges">Κοινοποίηση των αλλαγών στους θεατές και αποθήκευσή τους στον διακομιστή</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
   <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
   <string name="start">Δημιουργία</string>
-  <string name="save">Αποθήκευση</string>
   <string name="clearChat">Εκκαθάριση συνομιλίας</string>
   <string name="deleteTheStudyChatHistory">Θέλετε σίγουρα να διαγράψετε το ιστορικό συνομιλίας της μελέτης; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>

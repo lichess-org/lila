@@ -1,13 +1,13 @@
 package lila.puzzle
 
+import chess.Rated
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
-import chess.Rated
+import scalalib.model.Days
 
 import lila.common.Form.{ into, numberIn, stringIn, typeIn, given }
 import lila.common.Json.given
-import scalalib.model.Days
 
 object PuzzleForm:
 

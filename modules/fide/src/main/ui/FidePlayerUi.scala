@@ -4,9 +4,9 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.core.fide.FidePlayerOrder
+import lila.core.id.ImageId
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.id.ImageId
 
 final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }

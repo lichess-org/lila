@@ -54,7 +54,6 @@
   <string name="annotateWithGlyphs">Додати символьну анотацію</string>
   <string name="theChapterIsTooShortToBeAnalysed">Розділ занадто короткий для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Лише співавтори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
-  <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
   <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>
@@ -131,7 +130,6 @@
   <string name="noLetPeopleBrowseFreely">Ні, дозволити вільний перегляд</string>
   <string name="pinnedStudyComment">Закріплений коментар дослідження</string>
   <string name="start">Почати</string>
-  <string name="save">Зберегти</string>
   <string name="clearChat">Очистити чат</string>
   <string name="deleteTheStudyChatHistory">Видалити історію чату дослідження? Відновити буде неможливо!</string>
   <string name="deleteStudy">Видалити дослідження</string>
@@ -207,4 +205,8 @@
   <string name="doubleDefeat">Подвійна поразка</string>
   <string name="blackDefeatWhiteCanNotWin">Чорні програють, але Білі не можуть виграти</string>
   <string name="whiteDefeatBlackCanNotWin">Білі програють, але Чорні не можуть виграти</string>
+  <string name="analysisEditor">Редактор аналізу</string>
+  <string name="clearLocal">Очистити локальний аналіз?</string>
+  <string name="clearPublished">Очистити опублікований аналіз?</string>
+  <string name="requestAServerAnalysis">Зробити запит на серверний аналіз</string>
 </resources>

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Ikonoekin komentatu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Komentatzeko laburregia da kapitulua.</string>
   <string name="onlyContributorsCanRequestAnalysis">Azterlanaren laguntzaileek bakarrik eskatu dezakete ordenagailu bidezko analisia.</string>
-  <string name="getAFullComputerAnalysis">Linea nagusiaren ordenagailu bidezko analisia lortu.</string>
   <string name="makeSureTheChapterIsComplete">Ziurtatu kapitulua guztiz osatu duzula. Analisia behin bakarrik eskatu dezakezu.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
   <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Ez: erabiltzaileei nahi dutena egiten utzi</string>
   <string name="pinnedStudyComment">Azterlanaren iltzatutako iruzkina</string>
   <string name="start">Hasi</string>
-  <string name="save">Gorde</string>
   <string name="clearChat">Txata garbitu</string>
   <string name="deleteTheStudyChatHistory">Azterlaneko txata ezabatu? Ez dago atzera egiterik!</string>
   <string name="deleteStudy">Azterlana ezabatu</string>
@@ -199,4 +197,8 @@
   <string name="doubleDefeat">Porrot bikoitza</string>
   <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
   <string name="whiteDefeatBlackCanNotWin">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
+  <string name="analysisEditor">Analisien editorea</string>
+  <string name="clearLocal">Garbitu analisi lokala?</string>
+  <string name="clearPublished">Garbitu argitaratutako analisiak?</string>
+  <string name="requestAServerAnalysis">Eskatu zerbitzariaren analisia</string>
 </resources>

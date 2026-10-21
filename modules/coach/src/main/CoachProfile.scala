@@ -20,6 +20,11 @@ case class CoachProfile(
 
   lazy val studyIds = publicStudies.so(UrlList.study.apply)
 
+  def shorten = CoachProfile(
+    headline = headline,
+    hourlyRate = hourlyRate
+  )
+
   def textLines: List[String] = List(
     "headline" -> headline,
     "hourlyRate" -> hourlyRate,

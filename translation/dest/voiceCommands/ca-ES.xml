@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Cancel·la el comptador o denega una sol·licitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Juga el moviment preferit o confirma alguna cosa</string>
   <string name="sleep">Dorm (si s\'ha habilitat la paraula per despertar)</string>
-  <string name="turnOffVoiceRecognition">Desactiva el reconeixement de veu</string>
   <string name="showPuzzleSolution">Mostra la solució del problema</string>
 </resources>

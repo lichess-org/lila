@@ -92,7 +92,9 @@ export default class EditorCtrl implements CevalHandler {
             window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
         })
         .bind('l', () => this.cevalEnabled(!this.cevalEnabled()))
-        .bind('x', () => this.toggleThreatMode());
+        .bind('x', () => this.toggleThreatMode())
+        .bind('c', () => this.clearBoard())
+        .bind('p', () => this.startPosition());
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
@@ -218,7 +220,7 @@ export default class EditorCtrl implements CevalHandler {
   startCevalIfEnabled = (): void => {
     if (!this.ceval.download) this.ceval.reset();
     if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
-    this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
+    this.ceval.start('', [this.cevalNode], this.threatMode());
   };
 
   clearCeval = (): void => {

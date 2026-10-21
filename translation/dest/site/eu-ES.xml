@@ -165,6 +165,7 @@
   <string name="flipBoard">Taula biratu</string>
   <string name="toggleLocalEngine">Aldatu motore lokala</string>
   <string name="engineSettings">Motorearen ezarpenak</string>
+  <string name="engine">Motorea</string>
   <string name="enginesFromStrongestToWeakest">Motoreak indartsuenetik ahulenera</string>
   <string name="illegalPosition">Legez kanpoko posizioa</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
@@ -460,6 +461,8 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
     <item quantity="one">Lagun %s konektatuta</item>
     <item quantity="other">%s lagun konektatuta</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Online dauden lagunak: %1$s
+Jokatzen ari diren lagunak: %2$s</string>
   <string name="favoriteOpponents">Gogoko aurkariak</string>
   <string name="follow">Jarraitu</string>
   <string name="following">Jarraitzen</string>
@@ -558,6 +561,11 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="autoSwitch">Hurrengo partidara</string>
   <string name="puzzles">Ariketak</string>
   <string name="onlineBots">Online dauden botak</string>
+  <string name="aboutBotsOnLichess">Lichessen botei buruz</string>
+  <string name="featuredBots">Destakatutako botak</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Saiatu xake-motore berritzaile hauekin jokatzen! Gure gustukoenak dira.</string>
+  <string name="communityBots">Komunitatearen botak</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess komunitateak sortutako xake-motore gehiago. Euren sortzaileek ostatatzen dituzte, eta agian ez daude beti online.</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
   <string name="descPrivate">Deskribapen pribatua</string>
@@ -603,6 +611,7 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="clearField">Garbitu eremua</string>
   <string name="orSeparator">Edo</string>
   <string name="logInByEmail">Sartu emaila erabiliz</string>
+  <string name="emailLoginInstructions">Sartzeko esteka bat duen email bat bidaliko dizugu.</string>
   <string name="emailMeALink">Bidali esteka emailez</string>
   <string name="currentPassword">Oraingo pasahitza</string>
   <string name="newPassword">Pasahitz berria</string>
@@ -627,6 +636,8 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="onSlowGames">Partida moteletan</string>
   <string name="always">Beti</string>
   <string name="never">Inoiz ere ez</string>
+  <string name="defeatOnly">Porrotetan bakarrik</string>
+  <string name="drawAndDefeat">Berdinketa eta porrotetan</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="victory">Garaipena</string>
   <string name="defeat">Porrota</string>
@@ -691,10 +702,13 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="aboutX">%s-i buruz</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
+  <string name="lichessUpdates">Lichessen eguneraketak</string>
   <string name="contribute">Lichessi lagundu</string>
+  <string name="changelog">Aldaketen erregistroa</string>
   <string name="termsOfService">ToS</string>
   <string name="titleVerification">Titulua egiaztatzea</string>
   <string name="sourceCode">Iturburu kodea</string>
+  <string name="blockAds">Blokeatu iragarkiak</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>
   <string name="hostColorX">Emango duenaren kolorea: %s</string>
@@ -774,7 +788,9 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="downloadAnnotated">Oharrekin jaitsi</string>
   <string name="downloadRaw">Oharrik gabe jaitsi</string>
   <string name="downloadImported">Igo zen moduan jaitsi</string>
+  <string name="downloadMyGames">Deskargatu nire partidak</string>
   <string name="downloadAllGames">Deskargatu partida guztiak</string>
+  <string name="downloadResults">Deskargatu emaitzak</string>
   <string name="crosstable">Aurreko emaitzak</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Jarri sagua ordenagailuaren aukeren gainean berauek ikusteko.</string>
@@ -794,12 +810,14 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="enableKidMode">Haurren modua aktibatu</string>
   <string name="disableKidMode">Haurren modua desaktibatu</string>
   <string name="security">Segurtasuna</string>
+  <string name="activeSessionsDescription">Hauxe da zure kontura sartu diren gailu eta aplikazioen zerrenda. Arraroa den zerbait ikusten baduzu egiaztatu &lt;a href=\'%1$s\'&gt;zure pasahitza berreskuratzeko emaila&lt;/a&gt; eta &lt;a href=\'%2$s\'&gt;aldatu zure pasahitza&lt;/a&gt;.</string>
   <string name="sessions">Saioak</string>
   <string name="revokeAllSessions">sesio guztiak itxi</string>
   <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>
   <string name="everybodyGetsAllFeaturesForFree">Ezaugarri guztiak eskuragarri, dohain.</string>
   <string name="viewTheSolution">Erantzuna ikusi</string>
   <string name="noChallenges">Erronkarik ez.</string>
+  <string name="browserNotificationsDenied">Jakinarazpenen laster-leihoak nabigatzailearen ezarpenek desaktibatuta daude</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s hizkuntzatan eskuragarri!</item>
     <item quantity="other">%s hizkuntzatan eskuragarri!</item>
@@ -1024,8 +1042,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="ourEventTips">Txapelketak antolatzeko gure aholkuak</string>
   <string name="instructions">Jarraibideak</string>
   <string name="showMeEverything">Erakutsi guztia</string>
-  <string name="lichessPatronInfo">Lichess software librea da.
-Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="nothingToSeeHere">Hemen ez dago ezer zuretzat.</string>
   <string name="stats">Estatistikak</string>
   <string name="accessibility">Irisgarritasuna</string>
@@ -1043,4 +1059,7 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="verifyingYourDevice">Zure gailua egiaztatzen...</string>
   <string name="chessOpenings">Xake irekierak</string>
   <string name="boards">Taulak</string>
+  <string name="write">Idatzi</string>
+  <string name="preview">Aurreikusi</string>
+  <string name="done">Eginda</string>
 </resources>

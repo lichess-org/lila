@@ -3,10 +3,10 @@ package lila.memo
 import scalalib.future.TimeoutException
 
 import lila.common.Bus
+import lila.core.config
+import lila.core.misc.lpv.{ Lpv as LpvBus, LpvEmbed }
 import lila.markdown.{ MarkdownRender, MarkdownToastUi }
 import lila.mon.extensions.*
-import lila.core.config
-import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
 
 case class MarkdownOptions(
     autoLink: Boolean = false,

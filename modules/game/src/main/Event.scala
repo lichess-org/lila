@@ -2,8 +2,8 @@ package lila.game
 
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
-import chess.variant.Crazyhouse
 import chess.rating.IntRatingDiff
+import chess.variant.Crazyhouse
 import chess.{
   Bitboard,
   Centis,
@@ -13,8 +13,8 @@ import chess.{
   Drop as ChessDrop,
   Move as ChessMove,
   Ply,
-  PromotableRole,
   Position,
+  PromotableRole,
   Square,
   Status
 }

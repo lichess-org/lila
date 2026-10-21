@@ -54,6 +54,15 @@
   <string name="imageCredit">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
   <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
+  <string name="topicChess">Shah</string>
+  <string name="topicTactics">Taktika</string>
+  <string name="topicStrategy">Strategji</string>
+  <string name="topicChessEngine">Mekanizëm shahu</string>
+  <string name="topicChessBot">Robot shahu</string>
+  <string name="topicChessPersonalities">Personalitete shahu</string>
+  <string name="topicSoftwareDevelopment">Zhvillim Software-i</string>
+  <string name="topicOffTopic">Jashtë teme</string>
+  <string name="topicPosts">%s postime</string>
   <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>

@@ -46,7 +46,6 @@
   <string name="annotateWithGlyphs">Skriva við teknum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapittulin er ov stuttur til at verða greinaður.</string>
   <string name="onlyContributorsCanRequestAnalysis">Bert tey, ið geva sítt íkast til rannsóknina, kunnu biðja um eina teldugreining.</string>
-  <string name="getAFullComputerAnalysis">Fá eina fullfíggjaða teldugreining av høvuðsbrigdinum frá ambætaranum.</string>
   <string name="makeSureTheChapterIsComplete">Tryggja tær, at kapittulin er fullfíggjaður. Tú kanst bert biðja um greining eina ferð.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Allir SYNC-limir verða verandi í somu støðu</string>
   <string name="shareChanges">Deil broytingar við áskoðarar, og goym tær á ambætaranum</string>
@@ -114,7 +113,6 @@
   <string name="noLetPeopleBrowseFreely">Nei: lat fólk kaga frítt</string>
   <string name="pinnedStudyComment">Føst rannsóknarviðmerking</string>
   <string name="start">Byrja</string>
-  <string name="save">Goym</string>
   <string name="clearChat">Rudda kjatt</string>
   <string name="deleteTheStudyChatHistory">Skal kjattsøgan í rannsóknini strikast? Til ber ikki at angra!</string>
   <string name="deleteStudy">Burturbein rannsókn</string>

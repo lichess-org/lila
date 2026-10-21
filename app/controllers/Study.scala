@@ -1,28 +1,28 @@
 package controllers
 
+import chess.json.Json.given
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 import scalalib.paginator.Paginator
-import chess.json.Json.given
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.data.ErrorMsg
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.socket.Sri
 import lila.core.study.StudyOrder
-import lila.core.data.ErrorMsg
+import lila.mon.extensions.*
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
 import lila.study.ui.StudyFormat
 import lila.study.ui.StudyFormatStore.given
-import lila.study.{ Who, Chapter, Orders, Settings, Study as StudyModel, StudyForm }
+import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm, Who }
 import lila.tree.Node.partitionTreeWriter
 import lila.ui.Page
-import lila.mon.extensions.*
 
 final class Study(
     env: Env,
@@ -655,4 +655,4 @@ final class Study(
     Found(play.api.i18n.Lang.get(lang)): lang =>
       JsonOk:
         lila.study.JsonView.glyphs(using env.translator.to(lang))
-      .headerCacheSeconds(3600)
+      .headerCache(1.hour)

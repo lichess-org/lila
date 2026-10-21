@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["import", "promise", "typescript", "unicorn"],
-  "jsPlugins": [{ "name": "golden", "specifier": "oxlint-plugin-golden" }],
+  "jsPlugins": ["@pobammer-ts/small-rules", { "name": "golden", "specifier": "oxlint-plugin-golden" }],
   "env": {
     "builtin": true,
   },
@@ -67,6 +67,10 @@
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
+    "small-rules/no-dead-store": "error",
+    "small-rules/no-object-parameters": "error",
+    "small-rules/no-reduce-accumulator-copy": "error",
+    "small-rules/no-unknown-returns": "error",
     "typescript/await-thenable": "error",
     "typescript/consistent-type-assertions": "error",
     "typescript/consistent-indexed-object-style": "error",
@@ -108,6 +112,7 @@
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-date-now": "error",
+    "unicorn/prefer-default-parameters": "error",
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-keyboard-event-key": "error",
     "unicorn/prefer-math-min-max": "error",
@@ -123,6 +128,14 @@
     "no-useless-escape": "off",
     "no-control-regex": "off",
     "prefer-named-capture-group": "off",
+    "small-rules/no-unknown-parameters": "off",
+    "small-rules/no-unsafe-dictionary-type": "off",
+    "small-rules/prefer-early-return": [
+      "off",
+      {
+        "maximumStatements": 1,
+      },
+    ],
     "typescript/method-signature-style": ["off", "property"], // We would also need to flip "strictFunctionTypes" flag in TypeScript config.
     "typescript/no-base-to-string": "off",
     "typescript/no-explicit-any": "off",

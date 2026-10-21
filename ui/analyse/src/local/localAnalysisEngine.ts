@@ -15,11 +15,14 @@ import type { AnalysisUpdate, AnalysisEngineInfo, AnalysisMeta, Division } from 
 export interface ServerAnalysisDocument {
   id: string;
   studyId?: string;
-  infos: { ply: Ply; eval: EvalScore & { best?: Uci }; variation: San[] }[];
+  initialEval?: ServerEvalScore;
+  infos: { ply: Ply; eval: ServerEvalScore & { best?: Uci }; variation: San[] }[];
   startPly: Ply;
   date: Date;
   engine: AnalysisEngineInfo;
 }
+
+type ServerEvalScore = EvalScore & { mateGiven?: boolean };
 
 export interface LocalAnalysisResult {
   localUpdate: AnalysisUpdate;
@@ -31,13 +34,14 @@ export class LocalAnalysisEngine {
   busy = false;
 
   private readonly path: TreePath;
-  private nodeIndex = 0;
+  private nodeIndex: number;
   private nodesSearched = 0;
   private finishNode: (error?: 'cancelled') => void = () => {};
 
   constructor(private readonly ctrl: AnalyseCtrl) {
     this.ctrl.ceval.reset();
     this.nodes = mainlineNodeList(structuredCloneLite(this.ctrl.tree.root));
+    this.nodeIndex = this.nodes.length - 1;
     for (const [i, node] of this.nodes.entries()) {
       node.eval = node.ceval = undefined;
       node.comments = undefined;
@@ -62,7 +66,10 @@ export class LocalAnalysisEngine {
     try {
       this.busy = true;
       this.ctrl.initCeval({ emit: this.onEval, custom });
-      const update = () => status(this.nodeIndex, this.nodes.length, this.nodesSearched / this.nodeIndex);
+      const update = () => {
+        const done = this.nodes.length - this.nodeIndex - 1;
+        status(done, this.nodes.length, this.nodesSearched / done);
+      };
       for (update(); this.isRunning(); update()) {
         await this.evaluateNode();
       }
@@ -78,7 +85,7 @@ export class LocalAnalysisEngine {
     this.finishNode(this.isRunning() ? 'cancelled' : undefined);
   };
 
-  private readonly onEval = (ev: ClientEval | undefined) => {
+  private readonly onEval = (ev: ClientEval | undefined): void => {
     if (!ev) return this.stop();
     if (!this.isRunning()) return this.finishNode();
     if (ev.bestmove) {
@@ -92,7 +99,7 @@ export class LocalAnalysisEngine {
         depth: ev.depth,
         pvs: ev.pvs.map(pv => ({ ...pv, moves: pv.moves.join(' ') })),
       };
-      this.nodeIndex++;
+      this.nodeIndex--;
       this.finishNode();
     }
   };
@@ -104,6 +111,7 @@ export class LocalAnalysisEngine {
     this.ctrl.ceval.start(
       this.path.slice(0, this.nodeIndex * 2),
       this.nodes.slice(0, this.nodeIndex + 1),
+      false,
       this.ctrl.idbTree.id,
     );
 
@@ -143,9 +151,10 @@ export class LocalAnalysisEngine {
     const serverDocument: ServerAnalysisDocument = {
       id: this.ctrl.idbTree.id,
       studyId: this.ctrl.study?.data.id,
+      initialEval: serverEvalScore(this.ctrl.variantKey, this.nodes[0]),
       infos: this.nodes.slice(1).map((node, i) => ({
         ply: node.ply,
-        eval: { cp: node.eval?.cp, mate: node.eval?.mate, best: lines[i].ucis[0] },
+        eval: { ...serverEvalScore(this.ctrl.variantKey, node), best: lines[i].ucis[0] },
         variation: lines[i].sans,
       })),
       startPly: this.nodes[0].ply,
@@ -184,7 +193,7 @@ export class LocalAnalysisEngine {
         division,
         ch: this.ctrl.study?.data.chapter.id ?? '',
         tree: this.nodes[0],
-        meta: {
+        analysis: {
           id: this.ctrl.idbTree.id,
           white: review.summary.white,
           black: review.summary.black,
@@ -197,8 +206,16 @@ export class LocalAnalysisEngine {
   }
 
   private isRunning() {
-    return this.nodeIndex < this.nodes.length;
+    return this.nodeIndex >= 0;
   }
+}
+
+function serverEvalScore(variant: VariantKey, node: TreeNodeLite): ServerEvalScore {
+  if (node.eval?.cp !== undefined || node.eval?.mate) return { cp: node.eval.cp, mate: node.eval.mate };
+  const pos = setupPosition(lichessRules(variant), co.fen.parseFen(node.fen).unwrap()).unwrap();
+  const outcome = pos.outcome();
+  if (!outcome) return {};
+  return outcome.winner ? { mate: 0, mateGiven: outcome.winner === pos.turn } : { cp: 0 };
 }
 
 function ucisToNodes(ucis: Uci[], initial: co.Position, ply: number, props: any): TreeNodeLite[] {

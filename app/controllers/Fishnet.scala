@@ -1,7 +1,7 @@
 package controllers
 
-import monocle.syntax.all.*
 import cats.mtl.Handle.*
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -74,7 +74,8 @@ final class Fishnet(env: Env) extends LilaController(env):
               data =>
                 allow:
                   f(client)(data).map:
-                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                    _.map(Json.toJson).fold(NoContent): data =>
+                      Accepted(data).as(JSON)
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>

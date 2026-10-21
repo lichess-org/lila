@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Cabar rakan anda</string>
   <string name="playAgainstComputer">Main dengan komputer</string>
   <string name="gameMode">Mod bermain</string>
+  <string name="createLobbyGame">Cipta perlawanan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Perlawanan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
@@ -56,6 +57,7 @@
   <string name="blackLeftTheGame">Hitam telah meninggalkan perlawanan</string>
   <string name="whiteDidntMove">Putih tidak bergerak</string>
   <string name="blackDidntMove">Hitam tidak bergerak</string>
+  <string name="whiteAborted">Putih telah meninggalkan perlawanan</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>

@@ -7,7 +7,7 @@ import type { ClientEval, LocalEval, TreeNodeLite, TreePath } from 'lib/tree/typ
 import type AnalyseCtrl from './ctrl';
 import type { AnalysisMeta } from './interfaces';
 import type { LocalAnalysisResult, ServerAnalysisDocument } from './local/localAnalysisEngine';
-import { pruneStaticAnalysis } from './util';
+import { pruneMainlineAnalysis } from './util';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 export class IdbTree {
@@ -111,13 +111,13 @@ export class IdbTree {
       delete node.ceval;
       delete node.threat;
     });
-    pruneStaticAnalysis(root);
+    pruneMainlineAnalysis(root);
     return this.moveDb().then(db => db.put(this.id, { root }));
   }
 
   async saveAnalysis(analysis: LocalAnalysisResult) {
     if (this.noop) return undefined;
-    this.cache.localAnalysis = analysis.localUpdate.meta;
+    this.cache.localAnalysis = analysis.localUpdate.analysis;
     return this.analysisDb().then(db => db.putVerified(this.id, analysis));
   }
 
@@ -145,12 +145,8 @@ export class IdbTree {
         this.cevalDb().then(db => db.getMany(this.cevalRange(this.id))),
       ]);
       if (analysis) {
-        this.cache.localAnalysis = analysis.localUpdate.meta;
-        this.ctrl.mergeLocalAnalysisData(analysis.localUpdate);
-      }
-      if (!collapsedPaths) return this.collapseDefault();
-      for (const path of collapsedPaths) {
-        this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
+        this.cache.localAnalysis = analysis.localUpdate.analysis;
+        this.ctrl.mergeMainlineAnalysisData(analysis.localUpdate);
       }
       if (moves !== false && moves?.root) {
         this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
@@ -164,6 +160,10 @@ export class IdbTree {
           }
         });
         this.cache.cevals.set(path, ceval);
+      }
+      if (!collapsedPaths) return this.collapseDefault();
+      for (const path of collapsedPaths) {
+        this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
       }
     } catch (e) {
       console.log('IDB error.', e);

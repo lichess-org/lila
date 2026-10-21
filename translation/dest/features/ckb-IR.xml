@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">بەبێ ھیچ ڕیکلام و شوێنھەڵگرییەک</string>
-  <string name="standardChessAndX" comment="%s is 8 variants">شەتڕەنجی ئاسایی و %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the engine name">شیکاریی ڕاژەکاری %s قووڵ</string>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">دەستکاریکەری تەختە و تەختەی شیکاری بە %s</string>
-  <string name="cloudEngineAnalysis">شیکاریی بزوێنەری کڵاود</string>
-  <string name="studies">خوێندنەکان (شیکاریی لەبڵاوکردنەوەھاتوو و بەردەوام)</string>
-  <string name="chessInsights">تێڕوانینی شەتڕەنج (شیکاریی وردی یارییەکانت)</string>
-  <string name="allChessBasicsLessons">ھەموو وانە بنچینەیییەکانی شەتڕەنج</string>
-  <string name="tacticalPuzzlesFromUserGames">مەتەڵی تاکتیکی لە یاریی بەکارھێنەرانی ترەوە</string>
-  <string name="personalOpeningExplorerX">%1$s (%2$sیش کار دەکات)</string>
-  <string name="personalOpeningExplorer">دۆزەری جووڵەی دەستپێکی کەسی</string>
-  <string name="globalOpeningExplorerInNbGames">دۆزەری جووڵەی دەستپێکی گشتی (%s یاری!)</string>
-  <string name="everybodyGetsAllFeaturesForFree">بەڵێ، ھەردوو ھەژمارەکە ھەمان تایبەتمەندییان ھەیە!</string>
-  <string name="allFeaturesAreFreeForEverybody">ھەموو تایبەتمەندییەکان بێبەرامبەرن بۆ ھەمووان، بۆ ھەمیشە!</string>
-  <string name="ifYouLoveLichess">ئەگەر لیچێست خۆش دەوێت،</string>
-  <string name="supportUsWithAPatronAccount">لەڕێی ھەژمارێکی پەیتریۆنەوە پشتگیریمان بکە!</string>
+  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">بەبێ ھیچ ڕیکلام و شوێنھەڵگرییەک</string>
+  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شەتڕەنجی ئاسایی و %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شیکاریی ڕاژەکاری %s قووڵ</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">دەستکاریکەری تەختە و تەختەی شیکاری بە %s</string>
+  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شیکاریی بزوێنەری کڵاود</string>
+  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">خوێندنەکان (شیکاریی لەبڵاوکردنەوەھاتوو و بەردەوام)</string>
+  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">تێڕوانینی شەتڕەنج (شیکاریی وردی یارییەکانت)</string>
+  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ھەموو وانە بنچینەیییەکانی شەتڕەنج</string>
+  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">مەتەڵی تاکتیکی لە یاریی بەکارھێنەرانی ترەوە</string>
+  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (%2$sیش کار دەکات)</string>
+  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">دۆزەری جووڵەی دەستپێکی کەسی</string>
+  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">دۆزەری جووڵەی دەستپێکی گشتی (%s یاری!)</string>
+  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">بەڵێ، ھەردوو ھەژمارەکە ھەمان تایبەتمەندییان ھەیە!</string>
+  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">ھەموو تایبەتمەندییەکان بێبەرامبەرن بۆ ھەمووان، بۆ ھەمیشە!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ئەگەر لیچێست خۆش دەوێت،</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">لەڕێی ھەژمارێکی پەیتریۆنەوە پشتگیریمان بکە!</string>
 </resources>

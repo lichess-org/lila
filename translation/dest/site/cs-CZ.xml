@@ -1094,8 +1094,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="ourEventTips">Naše tipy pro organizování akcí</string>
   <string name="instructions">Pokyny</string>
   <string name="showMeEverything">Ukaž mi všechno</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
-Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="nothingToSeeHere">Momentálně zde není nic k vidění.</string>
   <string name="stats">Statistiky</string>
   <string name="accessibility">Přístupnost</string>
