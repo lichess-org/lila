@@ -3109,6 +3109,8 @@ object I18nKey:
     val `teamUpdates`: I18nKey = "team:teamUpdates"
     val `subToTeamUpdates`: I18nKey = "team:subToTeamUpdates"
     val `newTeamUpdate`: I18nKey = "team:newTeamUpdate"
+    val `teamEvents`: I18nKey = "team:teamEvents"
+    val `upcomingTeamEvents`: I18nKey = "team:upcomingTeamEvents"
     val `teamsIlead`: I18nKey = "team:teamsIlead"
     val `youWayWantToLinkOneOfTheseTournaments`: I18nKey = "team:youWayWantToLinkOneOfTheseTournaments"
     val `leadersChat`: I18nKey = "team:leadersChat"

@@ -6143,6 +6143,8 @@ interface I18n {
     teamBattleOverview: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
+    /** Team events */
+    teamEvents: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
     /** Team leaders */
@@ -6161,6 +6163,8 @@ interface I18n {
     teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
+    /** Upcoming team events */
+    upcomingTeamEvents: string;
     /** Upcoming tournaments */
     upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
