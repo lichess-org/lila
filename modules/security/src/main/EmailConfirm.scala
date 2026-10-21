@@ -164,12 +164,12 @@ final class EmailConfirmByUserSend(
   private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 4,
     duration = 1.hour,
-    key = "user.email.confirm.user"
+    limiterKey = "user.email.confirm.user"
   )
   private lazy val rateLimitPerEmail = RateLimit[EmailAddress](
     credits = 4,
     duration = 1.hour,
-    key = "user.email.confirm.email"
+    limiterKey = "user.email.confirm.email"
   )
 
 object EmailConfirm:
@@ -210,19 +210,19 @@ object EmailConfirm:
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,
     duration = 1.hour,
-    key = "email.confirms.ip"
+    limiterKey = "email.confirms.ip"
   )
 
   private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
     duration = 1.hour,
-    key = "email.confirms.user"
+    limiterKey = "email.confirms.user"
   )
 
   private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
     duration = 1.hour,
-    key = "email.confirms.email"
+    limiterKey = "email.confirms.email"
   )
 
   def rateLimit[A](userEmail: UserEmail, req: RequestHeader, default: => Fu[A])(run: => Fu[A]): Fu[A] =

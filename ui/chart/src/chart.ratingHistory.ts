@@ -17,7 +17,7 @@ import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
-import { create as createSlider, type Options } from 'nouislider';
+import { create as createSlider, type Options, PipsMode } from 'nouislider';
 
 import { memoize } from 'lib';
 import { perfName } from 'lib/game/perf';
@@ -127,11 +127,8 @@ function renderChart({ data, singlePerfName }: Opts) {
           min: initial.valueOf(),
           max: endDate.valueOf(),
           type: 'time',
-          display: true,
+          display: false,
           clip: false,
-          grid: {
-            display: false,
-          },
           ticks: {
             source: 'data',
             maxRotation: 0,
@@ -214,6 +211,11 @@ function renderChart({ data, singlePerfName }: Opts) {
 
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
+  let yearPips = [];
+  for (let i = startDate; i.isBefore(endDate); i = i.add(1, 'd')) {
+    if (i.date() === 1 && i.month() === 0) yearPips.push(i);
+  }
+  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 === 0);
   const opts: Options = {
     start: [initial.valueOf(), endDate.valueOf()],
     connect: true,
@@ -225,8 +227,13 @@ function renderChart({ data, singlePerfName }: Opts) {
       min: startDate.valueOf(),
       max: endDate.valueOf(),
     },
-    tooltips: {
-      to: value => dateFormat()(dayjs.utc(value).valueOf()),
+    pips: {
+      mode: PipsMode.Values,
+      values: yearPips.map(y => y.valueOf()),
+      filter: (val, tpe) => (tpe === 1 ? val : -1),
+      format: {
+        to: val => dayjs.utc(val).format('YYYY'),
+      },
     },
   };
   if (handlesSlider) {

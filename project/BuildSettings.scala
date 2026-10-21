@@ -16,7 +16,7 @@ object BuildSettings:
     Seq(
       resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots),
       scalaVersion := globalScalaVersion,
-      scalacOptions ++= compilerOptions,
+      scalacOptions ++= Def.uncached(compilerOptions),
       javacOptions ++= Seq("--release", "21"),
       organization := "org.lichess",
       version := lilaVersion,

@@ -53,8 +53,8 @@ ${trans.common_linkNotWorking.txt()}"""),
         case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
   val limiter: RateLimit.RateLimiter[(EmailAddress, IpAddress)] = RateLimit.combine(
-    RateLimit[EmailAddress](credits = 3, duration = 1.day, key = "password.reset.email"),
-    RateLimit[IpAddress](credits = 20, duration = 1.day, key = "password.reset.ip")
+    RateLimit[EmailAddress](credits = 3, duration = 1.day, limiterKey = "password.reset.email"),
+    RateLimit[IpAddress](credits = 20, duration = 1.day, limiterKey = "password.reset.ip")
   )
 
   private val tokener = StringToken.withLifetimeAndFutureValue[UserId](

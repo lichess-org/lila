@@ -949,8 +949,6 @@
   <string name="ourEventTips">پێشنیارەکانمان بۆ ڕێکخستنی ئیڤێنت</string>
   <string name="instructions">ڕێنمایی</string>
   <string name="showMeEverything">ھەموو شتێکم پیشان بدە</string>
-  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
-هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
   <string name="nothingToSeeHere">لە ئێستادا هیچ شتێک لێرەدا نابینرێت.</string>
   <string name="stats">ئامارەکان</string>
   <string name="accessibility">دەستپێڕاگەیشتوویی</string>

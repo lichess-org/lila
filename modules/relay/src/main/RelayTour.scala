@@ -10,6 +10,7 @@ import java.time.ZoneId
 
 import lila.core.id.ImageId
 import lila.core.study.Visibility
+import lila.core.net.Continent
 import lila.memo.{ Dimensions, PicfitUrl }
 
 case class RelayTour(
@@ -124,8 +125,14 @@ object RelayTour:
 
   case class Dates(start: Instant, end: Option[Instant])
 
-  case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
-    def isEmpty = !enabled && specialLanguage.isEmpty && title.isEmpty
+  case class Spotlight(
+      enabled: Boolean,
+      language: Language,
+      title: Option[String],
+      continent: Option[Continent] = none
+  ):
+    def isEmpty = !enabled && specialLanguage.isEmpty && title.isEmpty && continent.isEmpty
+    def visibleFrom(c: Option[Continent]) = continent.forall(c.contains)
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])

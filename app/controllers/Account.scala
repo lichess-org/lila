@@ -73,31 +73,30 @@ final class Account(
   }
 
   private val lichobileInfoCache =
-    env.memo.cacheApi[UserId, lila.core.data.JsonStr](32_768, "lichobile.infoCache"):
-      _.refreshAfterWrite(15.seconds)
-        .buildAsyncFuture: uid =>
-          for
-            povs <- env.round.proxyRepo.urgentGames(uid)
-            nbChallenges <- env.challenge.api.countInFor.get(uid)
-            pref <- env.pref.api.byId(uid)
-            u = env.user.lightUserApi.syncFallback(uid)
-          yield JsonStr:
-            Json.stringify:
-              env.user.jsonView
-                .lichobileInfo(u) ++ Json
-                .obj(
-                  "prefs" -> lila.pref.lichobile(pref),
-                  "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-                  "nbChallenges" -> nbChallenges,
-                  "online" -> true
-                )
-                .add("announce" -> env.web.lichobileAnnounceApi.get)
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](2_048, "lichobile.infoCache"):
+      _.expireAfterWrite(20.seconds).buildAsyncFuture: uid =>
+        for
+          povs <- env.round.proxyRepo.urgentGames(uid)
+          nbChallenges <- env.challenge.api.countInFor.get(uid)
+          pref <- env.pref.api.byId(uid)
+          u = env.user.lightUserApi.syncFallback(uid)
+        yield JsonStr:
+          Json.stringify:
+            env.user.jsonView
+              .lichobileInfo(u) ++ Json
+              .obj(
+                "prefs" -> lila.pref.lichobile(pref),
+                "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+                "nbChallenges" -> nbChallenges,
+                "online" -> true
+              )
+              .add("announce" -> env.web.lichobileAnnounceApi.get)
 
   def info = Auth { _ ?=> me ?=>
     env.web.playerCounter.lichobile.hit()
     env.user.lightUserApi.preloadUser(me)
     for json <- lichobileInfoCache.get(me.userId)
-    yield JsonStrOk(json).headerCache(15.seconds)
+    yield JsonStrOk(json).headerCache(20.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>

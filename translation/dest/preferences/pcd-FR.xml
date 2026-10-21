@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Afficher les pièces non défendues</string>
   <string name="showPinnedPieces">Afficher les pièces clouées</string>
   <string name="showCheckableKing">Afficher les échecs possibles</string>
+  <string name="showTrappedPieces">Afficher les pièces piégées</string>
   <string name="disclosureMode">Activer le masquage des variantes</string>
   <string name="generalSettings">Paramètres généraux</string>
   <string name="moveListSettings">Liste des coups</string>

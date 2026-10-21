@@ -294,7 +294,11 @@ export function watcherFollowUp(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   const content = [
     d.game.rematch &&
-      hl('a.fbt.text', { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } }, i18n.site.viewRematch),
+      hl(
+        'a.fbt.text',
+        { attrs: { href: `/game/${d.game.rematch}/${d.opponent.color}` } },
+        i18n.site.viewRematch,
+      ),
     d.tournament &&
       hl('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
 

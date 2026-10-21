@@ -92,7 +92,7 @@ final class ChallengeBulkSetupApi(
   private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
-    key = "challenge.bulk"
+    limiterKey = "challenge.bulk"
   )
 
   def apply(data: BulkFormData, me: User): FuRaise[ScheduleError, ScheduledBulk] =

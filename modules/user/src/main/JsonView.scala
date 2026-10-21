@@ -34,10 +34,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
 
   def lichobileInfo(u: LightUser) =
     Json
-      .obj(
-        "id" -> u.id,
-        "username" -> u.name
-      )
+      .obj("id" -> u.id, "username" -> u.name)
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 

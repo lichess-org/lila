@@ -164,8 +164,7 @@ final private[puzzle] class PuzzleFinisher(
                         )
                   yield (round -> userPerf).some
 
-  private val canUpdatePuzzleRating =
-    lila.memo.RateLimit[UserId](300, 1.day, key = "puzzle.canUpdatePuzzleRating")
+  private val canUpdatePuzzleRating = lila.memo.RateLimit[UserId](300, 1.day, "puzzle.canUpdatePuzzleRating")
 
   private object ponder:
 

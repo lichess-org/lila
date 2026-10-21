@@ -201,5 +201,4 @@
   <string name="clearLocal">Lokal tahlil tozalansinmi?</string>
   <string name="clearPublished">Nashr qilingan tahlil tozalansinmi?</string>
   <string name="requestAServerAnalysis">Server tahlilini soʻrash</string>
-  <string name="analyzeOnYourDevice">Qurilmangizda tahlil qilish</string>
 </resources>

@@ -197,5 +197,4 @@
   <string name="clearLocal">ローカル解析をクリアしますか？</string>
   <string name="clearPublished">公開した解析をクリアしますか？</string>
   <string name="requestAServerAnalysis">サーバ解析をリクエスト</string>
-  <string name="analyzeOnYourDevice">デバイス内で解析</string>
 </resources>

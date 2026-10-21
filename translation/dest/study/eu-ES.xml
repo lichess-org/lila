@@ -201,5 +201,4 @@
   <string name="clearLocal">Garbitu analisi lokala?</string>
   <string name="clearPublished">Garbitu argitaratutako analisiak?</string>
   <string name="requestAServerAnalysis">Eskatu zerbitzariaren analisia</string>
-  <string name="analyzeOnYourDevice">Aztertu zure gailuan</string>
 </resources>
