@@ -38,7 +38,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         frag(
           a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams()),
           a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates()),
-          a(cls := tab.active("events"), href := routes.Team.events)("Team events"),
+          a(cls := tab.active("events"), href := routes.Team.events)(trt.teamEvents()),
           a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams())
         )
       ,
@@ -187,11 +187,11 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       tbody(tr(td(colspan := "2")(br, trt.noTeamFound())))
 
   def events(content: Frag)(using Context) =
-    TeamPage("Upcoming team events"):
+    TeamPage(trt.upcomingTeamEvents.txt()):
       main(cls := "team-events page-menu")(
         menu("events".some),
         div(cls := "page-menu__content box")(
-          h1(cls := "box__top")("Upcoming team events"),
+          h1(cls := "box__top")(trt.upcomingTeamEvents()),
           content
         )
       )
