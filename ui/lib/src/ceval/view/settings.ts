@@ -282,6 +282,7 @@ export function engineSelect(
 
 function engineInfo(engines: EngineInfo[]) {
   if (document.querySelector('.engine-info-popup')) return;
+
   const engineHtml = (e: EngineInfo) =>
     `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
@@ -297,14 +298,7 @@ function engineInfo(engines: EngineInfo[]) {
 }
 
 async function setupDirectEngineDialog(ctrl: CevalHandler) {
-  const ceval = ctrl.ceval;
-  const direct = await ceval.engines.discoverDirect(true);
-  if (direct) {
-    info(`Connected to ${direct.name}. The engine is ready.`);
-    ceval.selectEngine(direct.id);
-    ctrl.startCevalIfEnabled();
-    return;
-  }
+  if (await selectDirect(ctrl, true)) return;
 
   const suggestion = await suggestDownload();
   const releases = 'https://github.com/jonbgamble/engine-host/releases';
@@ -333,10 +327,23 @@ async function setupDirectEngineDialog(ctrl: CevalHandler) {
       <p>
         Once you've got it running, click the "Choose engine" button and locate your
         chess engine executable. Make sure to allow local network access for lichess.org in your browser
-        settings. When this is done, choose "Setup direct engine" from the Engine popup again.
+        settings.
       </p>
       <p>You only need to do this once.</p>`,
   });
+  await selectDirect(ctrl, false);
+}
+
+async function selectDirect(ctrl: CevalHandler, prompt: boolean) {
+  const ceval = ctrl.ceval;
+  const direct = await ceval.engines.discoverDirect(prompt);
+  if (direct) {
+    info(`Connected to ${direct.name}. The engine is ready.`);
+    ceval.selectEngine(direct.id);
+    ctrl.startCevalIfEnabled();
+    return true;
+  }
+  return false;
 }
 
 async function suggestDownload(): Promise<{
