@@ -16,6 +16,7 @@ import lila.timeline.Entry
 import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
+import lila.common.HTTPRequest
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -33,7 +34,6 @@ final class Preload(
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayHome: lila.relay.RelayHomeApi,
-    geoIP: lila.security.GeoIP,
     notifyApi: lila.notify.NotifyApi,
     clasApi: lila.clas.ClasApi
 )(using Executor):
@@ -94,11 +94,7 @@ final class Preload(
           .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(lila.mon.lobby.segment("lightUsers"))
     classes <- ctx.myId.so(me => clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4)))
-    relaySpotlights =
-      if relayHome.spotlight.hasContinentRestriction then
-        val continent = geoIP(ctx.ip).flatMap(_.continent)
-        relayHome.spotlight.get.filter(_.tour.spotlight.forall(_.visibleFrom(continent)))
-      else relayHome.spotlight.get
+    relaySpotlights = relayHome.spotlight.getForContinent(HTTPRequest.continent(ctx.req))
   yield Homepage(
     data,
     entries,

@@ -4,6 +4,7 @@ import play.api.libs.json.JsObject
 import scalalib.paginator.Paginator
 
 import lila.core.i18n.Translate
+import lila.core.net.Continent
 import lila.relay.RelayTour.WithLastRound
 
 case class RelayHome(ongoing: List[RelayCard], recent: List[WithLastRound], past: Paginator[WithLastRound])
@@ -33,6 +34,8 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
 
   object spotlight:
     def get: List[RelayCard] = cache
+    def getForContinent(continent: Option[Continent]): List[RelayCard] =
+      cache.filter(_.tour.spotlight.forall(_.visibleFrom(continent)))
     def hasContinentRestriction: Boolean = cache.exists(_.tour.spotlight.exists(_.continent.isDefined))
     private var cache: List[RelayCard] = Nil
     scheduler.scheduleWithFixedDelay(10.seconds, listing.activeCacheTtl): () =>
