@@ -334,7 +334,7 @@ final class RelayTeamLeaderboard(
               val roundId = studyId.into(RelayRoundId)
               val teamMatches = chaps
                 .foldLeft(List.empty[TeamMatch]):
-                  case (matches, (chapterId, tags)) =>
+                  case (roundMatches, (chapterId, tags)) =>
                     val withNewTeamGame = for
                       players <- StudyPlayer.fromTags(tags)
                       withFed <- players.traverse: p =>
@@ -363,15 +363,15 @@ final class RelayTeamLeaderboard(
                       round
                     )
                     withNewTeamGame
-                      .fold(matches):
+                      .fold(roundMatches):
                         case (chapterId, teams, game, round) =>
-                          val teamMatch = matches.find(_.is(teams.map(_._2))) | TeamMatch(
+                          val teamMatch = roundMatches.find(_.is(teams.map(_._2))) | TeamMatch(
                             roundId,
                             teams.map(_._2).map(RelayTeam.TeamWithGames(_, SeqMap.empty)),
                             Nil,
                             round.teamCustomScoring
                           )
-                          matches.filterNot(m => m.roundId == roundId && m.is(teams.map(_._2))) :+
+                          roundMatches.filterNot(_.is(teams.map(_._2))) :+
                             teamMatch.add(chapterId, teams, game)
               roundId -> teamMatches
         yield matchesByRound
