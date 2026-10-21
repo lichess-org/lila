@@ -36,6 +36,9 @@ object net:
   opaque type ASN = Int
   object ASN extends OpaqueInt[ASN]
 
+  opaque type CountryCode = String // 2-letter country code in ISO 3166-1 Alpha 2 format.
+  object CountryCode extends OpaqueString[CountryCode]
+
   case class LichessMobileUa(
       version: String,
       userId: Option[UserId],

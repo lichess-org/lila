@@ -164,6 +164,9 @@ object HTTPRequest:
   def asn(req: RequestHeader): Option[ASN] =
     ASN.from(req.headers.get("X-ASN").flatMap(_.toIntOption))
 
+  def country(req: RequestHeader): Option[CountryCode] =
+    CountryCode.from(req.headers.get("X-Country"))
+
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
   def name = toString
