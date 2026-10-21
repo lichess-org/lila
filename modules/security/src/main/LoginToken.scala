@@ -155,13 +155,13 @@ final class LoginToken(
     private lazy val rateLimitPerIP = RateLimit[IpAddress](
       credits = 10 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.ip"
+      limiterKey = "login.magicLink.ip"
     )
 
     private lazy val rateLimitPerEmail = RateLimit[String](
       credits = 3 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.email"
+      limiterKey = "login.magicLink.email"
     )
 
     def apply[A](email: NormalizedEmailAddress, default: => Fu[A], cost: Int = defaultCost)(run: => Fu[A])(
