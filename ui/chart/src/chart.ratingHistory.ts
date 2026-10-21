@@ -138,6 +138,7 @@ function renderChart({ data, singlePerfName }: Opts) {
             minRotation: 0,
             sampleSize: 0,
             autoSkip: true,
+            maxTicksLimit: 7,
           },
         },
         y: {
