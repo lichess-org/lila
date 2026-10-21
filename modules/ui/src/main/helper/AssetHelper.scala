@@ -55,7 +55,7 @@ trait AssetHelper:
   def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
-  val flairVersion = "______4"
+  val flairVersion = "______5"
 
   // bump fide fed version if a fide fed is changed only (not added or removed)
   val fideFedVersion = "______3"
