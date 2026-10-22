@@ -1,36 +1,38 @@
 @import '../../../lib/css/plugin';
 @import '../../../lib/css/component/slist';
+@import '../../../lib/css/component/perf-badge';
 
 .lb__trophy {
+  display: inline-block;
   width: 24px;
+  height: 24px;
   text-align: center;
+  vertical-align: middle;
+  margin-right: 6px;
+  margin-left: -4px;
+
+  &::before {
+    font-size: 13px;
+    line-height: 24px;
+  }
+
+  &::after {
+    display: none;
+  }
+
+  .ribbon-back,
+  .ribbon-front {
+    display: none;
+  }
 }
 
 .slist td {
   vertical-align: middle;
 
-  .lb__trophy {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
-    margin-left: -4px;
-    overflow: visible;
-    line-height: 0;
-  }
-
   .lb__rank-num {
     display: inline-block;
     vertical-align: middle;
   }
-}
-
-.slist .lb__trophy img {
-  display: inline-block;
-  height: 16px;
-  width: auto;
-  vertical-align: middle;
-  transform: scale(1.6) translateY(-2px);
-  transform-origin: left center;
 }
 
 .pager__label {

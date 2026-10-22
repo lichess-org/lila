@@ -72,16 +72,30 @@ final class UserBits(helpers: Helpers):
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
-  def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
+  private def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
     rank match
-      case 1 => Some(("trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png"))
-      case r if r <= 10 =>
-        Some(("trophy perf top10", s"${perf.trans} Top 10!", "images/trophy/silver-cup-2.png"))
-      case r if r <= 50 =>
-        Some(("trophy perf top50", s"${perf.trans} Top 50 player!", "images/trophy/Fancy-Gold.png"))
-      case r if r <= 100 =>
-        Some(("trophy perf top100", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png"))
+      case 1 => Some(("trophy top1", s"${perf.trans} Champion!", "CHAMPION"))
+      case r if r <= 10 => Some(("trophy top10", s"${perf.trans} Top 10!", "TOP 10"))
+      case r if r <= 50 => Some(("trophy top50", s"${perf.trans} Top 50 player!", "TOP 50"))
+      case r if r <= 100 => Some(("trophy top100", s"${perf.trans} Top 100 player!", "TOP 100"))
       case _ => None
+
+  private val perfBadgePath =
+    "M106 16q14-8 28 0l69 40q14 8 14 24v80q0 16-14 24l-69 40q-14 8-28 0l-69-40q-14-8-14-24v-80q0-16 14-24z"
+
+  private val perfBadgeSvg = raw(
+    s"""<svg class="badge-svg" viewBox="-20 -20 280 280" aria-hidden="true"><rect class="ribbon-back" x="5" y="94" width="230" height="57" rx="3"/><path class="badge-border" d="$perfBadgePath"/><path class="badge-body" d="$perfBadgePath"/><rect class="ribbon-front" x="7" y="91" width="226" height="58" rx="3"/></svg>"""
+  )
+
+  def perfBadge(perf: PerfType, rank: Int, extraCls: String = "")(using Translate): Option[Tag] =
+    trophyMeta(perf, rank).map: (cssClass, trophyTitle, label) =>
+      span(
+        cls := s"$cssClass perf-badge $extraCls".trim,
+        title := trophyTitle,
+        dataIcon := perf.icon,
+        dataText := label
+      ):
+        perfBadgeSvg
 
   def perfTrophies(u: User, rankMap: lila.core.rating.UserRankMap)(using Translate) = u.lame.not.so:
     rankMap.toList
@@ -89,14 +103,7 @@ final class UserBits(helpers: Helpers):
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
       .flatMap: (perf, rank) =>
-        trophyMeta(perf, rank).map(perf -> _)
-      .map { case (perf, (cssClass, trophyTitle, imgPath)) =>
-        a(href := routes.User.top(perf.key))(
-          span(cls := cssClass, title := trophyTitle)(
-            img(src := assetUrl(imgPath))
-          )
-        )
-      }
+        perfBadge(perf, rank).map(a(href := routes.User.top(perf.key))(_))
 
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"

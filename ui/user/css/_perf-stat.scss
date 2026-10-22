@@ -11,24 +11,14 @@
     margin-inline-start: 0.4em;
   }
 
-  .trophy {
-    margin-top: -1rem;
-    margin-inline: -0.6em 0.2em;
+  .perf-badge {
+    @extend %flex-center-center;
 
-    &.top1 {
-      filter: drop-shadow(0 0 6px $c-brag);
-    }
+    width: 70px;
+    height: 70px;
 
-    &.top50 img {
-      transform: translateY(-12px);
-    }
-
-    &.top100 img {
-      transform: translateY(-15px);
-    }
-
-    img {
-      height: 8rem;
+    &::before {
+      font-size: 2.5em;
     }
   }
 
