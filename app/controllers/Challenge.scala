@@ -365,12 +365,11 @@ final class Challenge(env: Env) extends LilaController(env):
               .createOpen(config)
               .map: challenge =>
                 Ok:
-                  val url = s"${env.net.baseUrl}/${challenge.id}"
+                  val url = s"${env.net.baseUrl}/game/${challenge.id}"
                   env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
                     "urlWhite" -> s"$url?color=white",
                     "urlBlack" -> s"$url?color=black"
                   )
-          .dmap(_.as(JSON))
     )
 
   def offerRematchForGame(gameId: GameId) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
