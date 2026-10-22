@@ -60,7 +60,7 @@ final class Importer(env: Env) extends LilaController(env):
                       JsonOk:
                         Json.obj(
                           "id" -> game.id,
-                          "url" -> s"${env.net.baseUrl}/${game.id}"
+                          "url" -> routeUrl(routes.Round.watcher(game.id, Color.white))
                         )
                 )
               case Left(error) =>
