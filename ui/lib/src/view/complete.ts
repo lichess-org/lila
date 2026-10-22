@@ -14,14 +14,14 @@ export interface CompleteOpts<Result> {
 }
 
 export function complete<Result>(opts: CompleteOpts<Result>): void {
-  const minLength = opts.minLength || 3;
+  const minLength = opts.minLength || 4;
   const empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>');
   const cache = new Map<string, Result[]>();
   const fetchResults: Fetch<Result> = async term => {
     if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
     else if (
-      term.length > 3 &&
-      Array.from({ length: term.length - 3 }, (_, i) => -i - 1)
+      term.length > 4 &&
+      Array.from({ length: term.length - 4 }, (_, i) => -i - 1)
         .map(i => term.slice(0, i))
         .some(sub => cache.has(sub) && !cache.get(sub)!.length)
     )
