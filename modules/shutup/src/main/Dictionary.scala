@@ -367,6 +367,7 @@ bok yedin
 ezik
 gerizekal[iı]
 göt
+gey(ler)?
 ibne
 ka[sş]ar
 oç+
