@@ -54,7 +54,7 @@ final class Importer(env: Env) extends LilaController(env):
                         .void
                     .inject(Redirect(routes.Round.watcher(game.id, Color.white))),
                   json =
-                    if HTTPRequest.isLichobile(ctx.req)
+                    if HTTPRequest.isLichobile
                     then Redirect(routes.Round.watcher(game.id, Color.white))
                     else
                       JsonOk:

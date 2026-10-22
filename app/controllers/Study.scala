@@ -158,7 +158,7 @@ final class Study(
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
   )(using req: RequestHeader): Fu[Result] =
-    if HTTPRequest.isRedirectable(req)
+    if HTTPRequest.isRedirectable
     then env.relay.defaults.studyRedirect.get(id -> chapterId).flatMap(_.fold(f)(url => Redirect(url.value)))
     else f
 
@@ -224,7 +224,7 @@ final class Study(
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView.full(study, chapter, previews, withMembers = withMembers)
-      lichobile = HTTPRequest.isLichobile(ctx.req)
+      lichobile = HTTPRequest.isLichobile
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData

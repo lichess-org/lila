@@ -149,7 +149,7 @@ final class UserAnalysis(
         clocks = true,
         movetimes = true,
         rating = ctx.pref.showRatings,
-        lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+        lichobileCompat = HTTPRequest.isLichobile
       ),
       owner = owner
     )

@@ -28,7 +28,7 @@ final class Storm(env: Env) extends LilaController(env):
     NoBot:
       bindForm(env.storm.forms.run)(
         _ => fuccess(none),
-        data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
+        data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile)
       )
         .map(env.storm.json.newHigh)
         .map(JsonOk)

@@ -8,11 +8,11 @@ import lila.db.dsl.{ *, given }
 
 final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  def mobile(me: Me)(using req: RequestHeader): Fu[JsValue] =
+  def mobile(me: Me)(using RequestHeader): Fu[JsValue] =
     cache
       .get(me.userId)
       .flatMap: unread =>
-        if HTTPRequest.isLichessMobile(req)
+        if HTTPRequest.isLichessMobile
         then
           (unread > 0)
             .so(hasMustReadLichessMsg(me.userId))

@@ -76,7 +76,7 @@ final class Analyse(
                   clocks = true,
                   division = true,
                   rating = ctx.pref.showRatings,
-                  lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+                  lichobileCompat = HTTPRequest.isLichobile,
                   puzzles = true
                 )
               )

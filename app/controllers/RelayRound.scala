@@ -191,7 +191,7 @@ final class RelayRound(
               previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
               targetRound <- api.officialTarget(rt.round)
               isSubscribed <- ctx.userId.traverse(api.isSubscribed(rt.tour.id, _))
-              sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
+              sVersion <- HTTPRequest.isLichessMobile.optionFu(env.study.version(study.id))
               photos <- playerApi.photosJson(rt.tour.id)
               _ = env.relay.stats.viewers.hit(rt)
               json = jsonView.withUrlAndPreviews(
@@ -292,7 +292,7 @@ final class RelayRound(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     Found(api.byIdWithTour(id)): rt =>
-      if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
+      if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable
       then Redirect(chapterId.fold(rt.call)(rt.call))
       else f(rt)
 

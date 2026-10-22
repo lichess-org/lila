@@ -58,7 +58,7 @@ final class Setup(
                     .match
                       case (Some(orig), _) => toRegistered(orig).some
                       case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
-                      case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
+                      case _ if HTTPRequest.isLichobile => Challenger.Open.some
                       case _ => none
                     .so: challenger =>
                       val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
@@ -144,7 +144,7 @@ final class Setup(
     NoPlaybanOrCurrent:
       forms
         .boardApiHook:
-          ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+          ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile)
         .bindFromRequest()
         .fold(
           doubleJsonFormError,
