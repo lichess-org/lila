@@ -269,11 +269,14 @@ class LocalAnalysisDialog {
     if (!current) {
       preludes.push(<p>{i18n.localAnalysis.chooseYourEngineSettings}</p>);
       if (
-        ceval.engines.supporting({
-          rules: ceval.rules,
-          nonStandardMaterial: ceval.nonStandardMaterial,
-          filter: 'external',
-        }).length === 0
+        !ceval.engines
+          .supporting({
+            rules: ceval.rules,
+            nonStandardMaterial: ceval.nonStandardMaterial,
+            filter: 'external',
+          })
+          .includes(info.engine) &&
+        (info.engine.id !== bestBrowserEngine.id || info.threads !== navigator.hardwareConcurrency)
       ) {
         preludes.push(
           <p>
