@@ -511,6 +511,8 @@ POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: T
 
 # Analyse
 POST  /game/$gameId<\w{8}>/request-analysis      controllers.Analyse.requestAnalysis(gameId: GameId)
+# App BC
+POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameId)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameId)
