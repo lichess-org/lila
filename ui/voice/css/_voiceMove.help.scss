@@ -1,5 +1,6 @@
 .voice-move-help {
-  max-width: min(800px, 96dvw);
+  max-width: min(800px, 92dvw);
+  min-width: min(500px, 50dvh);
 
   &.help h2 {
     margin-bottom: 0.25rem;
