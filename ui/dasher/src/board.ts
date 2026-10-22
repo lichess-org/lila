@@ -73,7 +73,7 @@ export class BoardCtrl extends PaneCtrl {
               attrs: { title: t, type: 'button' },
               class: { active: this.current === t },
             },
-            hl('span.' + t),
+            hl('span.preview', hl('span.' + t)),
           ),
         ),
       ),
