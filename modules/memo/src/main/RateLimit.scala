@@ -30,11 +30,6 @@ final class RateLimit[K](
     apply(k, default, cost, msg):
       op(c => apply(k, {}, c, s"charge: $msg") {})
 
-  type Limiter = [A] => (K, () => A) => (() => A) => Me ?=> A
-
-  def myCost[A](costFn: Me => Cost): Limiter =
-    [A] => (k, default) => op => me ?=> apply(k, default(), costFn(me))(op())
-
   def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
     if cost < 1 then op
     else
@@ -77,6 +72,9 @@ object RateLimit:
   type Charge = () => Unit
   type Cost = Int
 
+  type Default[A] = () => A
+  type Compute[A] = () => A
+
   enum LimitResult:
     case Through, Limited
     def ok = this == Through
@@ -92,6 +90,8 @@ object RateLimit:
     def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
     def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
       apply[A](k, default.zero, cost, msg)(op)
+    def myCost[A](cost: Me ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Me ?=> A =
+      [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
 
   val logger = lila.log("ratelimit")
 

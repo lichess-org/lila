@@ -43,7 +43,7 @@ final class RelayRound(
               jsonFormError(err)
             ),
           setup =>
-            rateLimitCreation(whenRateLimited):
+            limit.relay.roundCreate(me.userId -> req.ipAddress, () => whenRateLimited): () =>
               api
                 .create(setup, nav.tour)
                 .flatMap: rt =>
@@ -363,13 +363,3 @@ final class RelayRound(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
     )
-
-  private[controllers] def rateLimitCreation(fail: => Fu[Result])(
-      create: => Fu[Result]
-  )(using me: Me, req: RequestHeader): Fu[Result] =
-    val cost =
-      if isGranted(_.StudyAdmin) then 1
-      else if isGranted(_.Relay) then 2
-      else if me.hasTitle || me.isVerified then 5
-      else 10
-    limit.relay.roundCreate(me.userId -> req.ipAddress, fail, cost)(create)
