@@ -1863,8 +1863,6 @@ interface I18n {
     analysisUploadFailed: string;
     /** For the best results in the shortest time, use %1$s with %2$s threads. */
     bestResultsUseXWithYThreads: I18nFormat;
-    /** Cannot publish */
-    cannotPublish: string;
     /** Click Analyse to score the main line. */
     chooseYourEngineSettings: string;
     /** Current analysis */
