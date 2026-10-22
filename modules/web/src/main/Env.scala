@@ -53,11 +53,6 @@ final class Env(
     import lila.memo.SettingStore.Strings.given
     import lila.memo.SettingStore.UserIds.given
 
-    val apiTimeline = settingStore[Int](
-      "apiTimelineEntries",
-      default = 10,
-      text = "API timeline entries to serve".some
-    )
     val noDelaySecret = settingStore[Strings](
       "noDelaySecrets",
       default = Strings(Nil),
