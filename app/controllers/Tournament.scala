@@ -235,30 +235,18 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
       }
   }
 
-  private val createLimitPerIP = env.security.ipTrust.rateLimit(800, 1.day, "tournament.ip")
-
-  private[controllers] def rateLimitCreation(
-      isPrivate: Boolean,
-      fail: => Fu[Result]
-  )(create: => Fu[Result])(using me: Me, req: RequestHeader): Fu[Result] =
-    val cost =
-      if me.is(UserId.lichess) then 1
-      else if isGranted(_.ManageTournament) then 2
-      else if me.hasTitle ||
-        env.streamer.liveApi.isStreaming(me) ||
-        me.isVerified ||
-        isPrivate
-      then 5
-      else 20
-    limit.tourCreate(me, fail, cost = cost):
-      createLimitPerIP(fail, cost = cost, msg = me.username.value):
-        create
+  private[controllers] def rateLimitCreation(isPrivate: Boolean, fail: => Fu[Result])(
+      create: => Fu[Result]
+  )(using me: Me): Fu[Result] =
+    def updateCost(base: Int) = base.atMost:
+      if me.hasTitle || env.streamer.liveApi.isStreaming(me) || me.isVerified || isPrivate then 5 else 20
+    limit.tourCreate(me, () => fail, updateCost): () =>
+      create
 
   def webCreate = AuthBody(_ ?=> _ ?=> create)
   def apiCreate = ScopedBody(_.Tournament.Write)(_ ?=> _ ?=> create)
 
   private def create(using BodyContext[?])(using me: Me) = NoBot:
-    def whenRateLimited = negotiate(Redirect(routes.Tournament.home), rateLimited)
     env.team.api
       .lightsByTourLeader(me)
       .flatMap: teams =>
@@ -269,7 +257,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
               doubleJsonFormError(err)
             ),
           setup =>
-            rateLimitCreation(setup.isPrivate, whenRateLimited):
+            rateLimitCreation(setup.isPrivate, negotiate(Redirect(routes.Tournament.home), rateLimited)):
               given GetMyTeamIds = _ => fuccess(teams.map(_.id))
               for
                 tour <- api.createTournament(setup, teams, andJoin = ctx.isWebAuth)

@@ -120,7 +120,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             jsonFormError(err)
           ),
         setup =>
-          rateLimitCreation(whenRateLimited):
+          limit.relay.tourCreate(me.userId -> req.ipAddress, () => whenRateLimited): () =>
             for
               tour <- api.tourCreate(setup)
               result <- negotiate(
@@ -318,13 +318,3 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         nav <- api.formNavigation(tour)
         res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(tour))
       yield res
-
-  private[controllers] def rateLimitCreation(
-      fail: => Fu[Result]
-  )(create: => Fu[Result])(using req: RequestHeader, me: Me): Fu[Result] =
-    val cost =
-      if isGranted(_.StudyAdmin) then 1
-      else if isGranted(_.Relay) then 2
-      else if me.hasTitle || me.isVerified then 5
-      else 10
-    limit.relay.tourCreate(me.userId -> req.ipAddress, fail, cost = cost)(create)

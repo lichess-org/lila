@@ -21,8 +21,8 @@ final class Setup(
   import env.setup.{ forms, processor }
 
   def ai = OpenBody:
-    limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
-      limit.setupPost(ctx.ip, rateLimited):
+    limit.setupBotAi(ctx.userId | UserId(""), () => rateLimited): () =>
+      limit.setupPost(ctx.ip, rateLimited()):
         bindForm(forms.ai)(
           doubleJsonFormError,
           config =>
@@ -36,7 +36,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody: ctx ?=>
-      limit.setupPost(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited()):
         bindForm(forms.friend)(
           doubleJsonFormError,
           config =>
@@ -104,7 +104,7 @@ final class Setup(
           doubleJsonFormError,
           userConfig =>
             limit.setupPost(req.ipAddress, rateLimited):
-              limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
+              limit.setupAnonHook(req.ipAddress, () => rateLimited): () =>
                 for
                   me <- ctx.user.traverse(env.user.api.withPerfs)
                   given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
@@ -120,7 +120,7 @@ final class Setup(
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      limit.setupPost(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited()):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
@@ -167,7 +167,7 @@ final class Setup(
                     .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
                     .match
                       case Left(hook) =>
-                        limit.setupPost(req.ipAddress, rateLimited):
+                        limit.setupPost(req.ipAddress, rateLimited()):
                           limit
                             .boardApiConcurrency(author.map(_.id))(
                               env.lobby.boardApiHookStream(hook.copy(boardApi = true))
@@ -217,7 +217,7 @@ final class Setup(
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) {
     ctx ?=> me ?=>
-      limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
+      limit.setupBotAi(me, () => rateLimited): () =>
         limit.setupPost(req.ipAddress, rateLimited):
           bindForm(forms.api.ai)(
             doubleJsonFormError,

@@ -92,6 +92,10 @@ object RateLimit:
       apply[A](k, default.zero, cost, msg)(op)
     def myCost[A](cost: Me ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Me ?=> A =
       [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
+    def myCostAdjusted[A](cost: Me ?=> Cost): [A] => (K, Default[A], Update[Cost]) => Compute[A] => Me ?=> A =
+      [A] => (k, default, costAdjust) => op => _ ?=> apply(k, default(), costAdjust(cost))(op())
+    def ctxCost[A](cost: Option[Me] ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Option[Me] ?=> A =
+      [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
 
   val logger = lila.log("ratelimit")
 

@@ -126,7 +126,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
-    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited)):
       val (u1, u2) = (name1.id, name2.id)
       import lila.game.JsonView.given
       for
@@ -286,7 +286,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer.so: (bearer, _) =>
-        limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
+        limit.eventStream(bearer, limited):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
@@ -302,8 +302,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       JsonOk(env.chat.json.modApi(chat))
 
   def activity(name: UserStr) = ApiRequest:
-    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-      lila.mon.api.activity.increment(1)
+    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited)):
       meOrFetch(name)
         .flatMapz { user =>
           env.activity.read

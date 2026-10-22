@@ -27,7 +27,7 @@ final class Importer(env: Env) extends LilaController(env):
           jsonFormError(err)
         ),
       data =>
-        limit.gameImport(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
+        limit.gameImport(ctx.ip, () => rateLimited): () =>
           env.game.importer
             .importAsGame(data.pgn)
             .flatMap: game =>

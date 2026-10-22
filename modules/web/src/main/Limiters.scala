@@ -20,14 +20,18 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val setupPost = RateLimit[IpAddress](5, 1.minute, "setup.post", log = false)
 
-  val setupAnonHook = RateLimit.composite[IpAddress](
-    key = "setup.hook.anon"
-  )(
-    ("fast", 8, 1.minute),
-    ("slow", 300, 1.day)
-  )
+  val setupAnonHook = RateLimit
+    .composite[IpAddress](
+      key = "setup.hook.anon"
+    )(
+      ("fast", 8, 1.minute),
+      ("slow", 300, 1.day)
+    )
+    .ctxCost: me ?=>
+      me.isEmpty.so(1)
 
-  val setupBotAi = RateLimit[UserId](20, 1.day, "setup.post.bot.ai")
+  val setupBotAi = RateLimit[UserId](20, 1.day, "setup.post.bot.ai").ctxCost: me ?=>
+    me.exists(_.isBot).so(1)
 
   val boardApiConcurrency = ConcurrencyLimit[Either[Sri, UserId]](
     key = "boardApiHook.concurrency.limit.user",
@@ -56,8 +60,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val userActivity = RateLimit[IpAddress](15, 2.minutes, "user_activity.api.ip")
 
-  val magicLink = RateLimit[String](3, 1.hour, "login.magicLink.token")
-
   val challenge = RateLimit[IpAddress](500, 10.minute, "challenge.create.ip")
   val challengeUser = RateLimit.composite[UserId](
     key = "challenge.create.user"
@@ -71,12 +73,15 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](15, 1.minute, "export.image.ip")
   )
 
-  val gameImport = RateLimit.composite[IpAddress](
-    key = "import.game.ip"
-  )(
-    ("fast", 10, 1.minute),
-    ("slow", 150, 1.hour)
-  )
+  val gameImport = RateLimit
+    .composite[IpAddress](
+      key = "import.game.ip"
+    )(
+      ("fast", 10, 1.minute),
+      ("slow", 150, 1.hour)
+    )
+    .ctxCost: me ?=>
+      if me.isDefined then 1 else 2
 
   private val imageUploadLimiter: RateLimiter[(IpAddress, UserId)] = combine(
     RateLimit.composite[IpAddress](key = "image.upload.ip")(
@@ -124,12 +129,13 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 2
   )
 
-  val ublog = RateLimit[UserId](5 * 3, 24.hour, "ublog.create.user")
-
   val tourJoinOrResume =
     RateLimit[UserId](30, 10.minutes, "tournament.user.joinOrResume")
 
-  val tourCreate = RateLimit[UserId](240, 1.day, "tournament.user")
+  val tourCreate = RateLimit[UserId](240, 1.day, "tournament.user").myCostAdjusted: me ?=>
+    if me.is(UserId.lichess) then 1
+    else if Granter(_.ManageTournament) then 2
+    else 20
 
   val streamerOnlineCheck: RateLimiter[(UserId, IpAddress)] = combine(
     RateLimit[UserId](1, 1.minute, "streamer.checkOnline.user"),
@@ -178,10 +184,14 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       else if me.hasTitle || me.isVerified then 5
       else 10
 
-    val tourCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    val tourCreate = combine(
       RateLimit[UserId](20 * 10, 24.hour, "broadcast.tournament.user"),
       RateLimit[IpAddress](20 * 10, 24.hour, "broadcast.tournament.ip")
-    )
+    ).myCost: me ?=>
+      if Granter(_.StudyAdmin) then 1
+      else if Granter(_.Relay) then 2
+      else if me.hasTitle || me.isVerified then 5
+      else 10
 
     val push = RateLimit[UserId](120 * 3, 1.minutes, "broadcast.round.push").myCost:
       if Granter(_.Relay) then 1 else 3

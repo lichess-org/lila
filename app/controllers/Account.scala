@@ -192,7 +192,7 @@ final class Account(
         managed <- env.clas.api.student.isManaged(me)
         res <- FormFuResult(form)(err => renderPage(pages.email(err, managed))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
-          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
+          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited()):
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
@@ -384,7 +384,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited()):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)

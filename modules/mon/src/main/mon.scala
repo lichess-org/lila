@@ -715,7 +715,6 @@ object study:
     val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
-  val activity = counter("api.cost").withTag("endpoint", "activity")
   object challenge:
     object bulk:
       def scheduleNb(by: UserId) = counter("api.challenge.bulk.schedule.nb").withTag("by", by)
