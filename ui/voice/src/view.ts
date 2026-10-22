@@ -148,10 +148,7 @@ export function openHelpDialog(ctrl: VoiceCtrl): () => void {
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],
-    onClose: () => {
-      ctrl.helpDialogCloseCallback = undefined;
-      ctrl.showHelp(false);
-    },
+    onClose: () => ctrl.showHelp(false),
     modal: true,
     easyClose: 'clickOutside',
     onInsert: async dlg => {

@@ -72,16 +72,9 @@ export function makeVoice(opts: {
     enabled,
     toggle,
     showHelp: withEffect(prop<boolean | 'list'>(false), value => {
-      if (value && !ctrl.helpDialogCloseCallback) {
-        ctrl.helpDialogCloseCallback = openHelpDialog(ctrl);
-      } else if (!value && ctrl.helpDialogCloseCallback) {
-        const close = ctrl.helpDialogCloseCallback;
-        ctrl.helpDialogCloseCallback = undefined;
-        close();
-      }
+      if (value) openHelpDialog(ctrl);
       opts.redraw();
     }),
-    helpDialogCloseCallback: undefined,
     pushTalk,
     flash,
     showPrefs: commonToggle(false, opts.redraw),

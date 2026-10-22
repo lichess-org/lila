@@ -61,6 +61,7 @@ export interface DomDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
 export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
   htmlUrl?: string; // legacy HTML content; ignored when vnodes are provided
   vnodes?: LooseVNodes; // dialog content
+  render?: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes; // render callback for standalone root dialogs
   onInsert?: (dialog: Dialog<Ctx>) => void; // if provided you must call show
 }
 
@@ -178,11 +179,23 @@ export function snabDialogAtRoot<Ctx = undefined>(o: SnabDialogOpts<Ctx>): () =>
   const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
   const mount = document.body.appendChild(document.createElement('div'));
 
+  let vnode: VNode | Element = mount;
   let dialog: Dialog<Ctx> | undefined;
   let closed = false;
 
-  patch(
-    mount,
+  const redraw = () => {
+    if (!dialog || closed) return;
+    vnode = patch(
+      vnode,
+      snabDialog({
+        ...o,
+        vnodes: o.render ? o.render(redraw, dialog) : o.vnodes,
+      }),
+    );
+  };
+
+  vnode = patch(
+    vnode,
     snabDialog({
       ...o,
       onClose: dlg => {
@@ -199,6 +212,7 @@ export function snabDialogAtRoot<Ctx = undefined>(o: SnabDialogOpts<Ctx>): () =>
           dlg.dialog.remove();
           return;
         }
+        if (o.render) redraw();
         if (o.onInsert) o.onInsert(dlg);
         else dlg.show();
       },

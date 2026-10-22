@@ -52,7 +52,6 @@ export interface VoiceCtrl {
   toggle: () => void;
   flash: () => void;
   showHelp: (v?: boolean | 'list') => boolean | 'list';
-  helpDialogCloseCallback: (() => void) | undefined;
   pushTalk: Prop<boolean>;
   showPrefs: Toggle;
   module: () => VoiceModule | undefined;
