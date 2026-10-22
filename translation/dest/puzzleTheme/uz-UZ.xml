@@ -23,7 +23,6 @@
   <string name="bodenMate">Boden moti</string>
   <string name="bodenMateDescription">Ikkita hujumchi fil kesishuvchi diagonallar boʻylab oʻz donalari bilan qamalib qolgan shohga mot beradi.</string>
   <string name="castling">Rokirovka</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Shohni xavfsiz joyga oʻtkazing va ruxni hujumga tayyorlang.</string>
   <string name="capturingDefender">Himoyachini yoʻq qilish</string>
   <string name="capturingDefenderDescription">Boshqa bir donani himoya qilayotgan muhim donani urib olish. Bu esa oʻsha himoyasiz qolgan donani keyingi yurishda qoʻlga kiritish imkonini beradi.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Ochildi‑shoh berish natijasida bir vaqtning oʻzida ikkita dona bilan shoh berish; bunda ham joyidan qoʻzgʻalgan, ham yoʻli ochilgan dona raqib shohiga hujum qiladi.</string>
   <string name="endgame">Endshpil</string>
   <string name="endgameDescription">Oʻyinning yakuniy bosqichidagi taktik usul.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">“En passant” olish qoidasini oʻz ichiga olgan taktika, bunda piyoda oʻzining dastlabki ikki katakli yurishi bilan yoniga kelib qolgan raqib piyodasini urib olishi mumkin.</string>
   <string name="epauletteMate">Epolet moti</string>
   <string name="epauletteMateDescription">Shohga shoh berilganda, uning ikki yonidagi kataklarni oʻzining donalari toʻsib turgan boʻladi.</string>

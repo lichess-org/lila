@@ -2,6 +2,8 @@
 <resources>
   <string name="community">همدارگان</string>
   <string name="communityBlogs">وبنوشت‌های همدارگان</string>
+  <string name="best">بهترین</string>
+  <string name="all">همه</string>
   <string name="byMonth">ماهانه</string>
   <string name="byTopic">موضوعی</string>
   <string name="byLichess">وبنوشته‌های Lichess</string>
@@ -59,6 +61,16 @@
   <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">وبگاه‌های زیر تصویرهایی را به رایگان می‌فراهمند. لطفا مطمئن شوید که جواز برای تصویری که می‌بهرید را دارید.</string>
   <string name="selectPostTopics">موضوع‌هایی که فرسته‌تان دربارهٔ آن‌ها است را، برگزینید</string>
+  <string name="topicChess">شطرنج</string>
+  <string name="topicPuzzle">معما</string>
+  <string name="topicStrategy">راهبُرد</string>
+  <string name="topicChessEngine">موتورِ شطرنج</string>
+  <string name="topicChessBot">رَتِ شطرنج</string>
+  <string name="topicChessPersonalities">شخصیت‌های شطرنج</string>
+  <string name="topicOverTheBoard">سَرِ میز</string>
+  <string name="topicSoftwareDevelopment">توسعه نرم‌افزار</string>
+  <string name="topicOffTopic">از موضوع خارج</string>
+  <string name="topicPosts">%s فرسته</string>
   <string name="etiquette">آداب</string>
   <string name="safeAndRespectfulContent">لطفا فقط محتوای ایمن و محترمانه منتشر کنید. محتوای دیگران را رونویسی نکنید.</string>
   <string name="noCopyrightedImages">فقط از تصویرهایی ببهرید که حق‌نشرشان متعلق به شخص دیگری نباشد.</string>

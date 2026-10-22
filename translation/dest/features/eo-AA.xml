@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Normala ŝako kaj %s</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Superkugla, kugla, fulma, rapida, klasika kaj koresponda ŝako</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Se vi amas Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">subtenu nin per konto Patron!</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Normala ŝako kaj %s</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Superkugla, kugla, fulma, rapida, klasika kaj koresponda ŝako</string>
+  <string name="ifYouLoveLichess">Se vi amas Lichess,</string>
+  <string name="supportUsWithAPatronAccount">subtenu nin per konto Patron!</string>
 </resources>

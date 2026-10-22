@@ -23,7 +23,6 @@
   <string name="bodenMate">Mati i Bodenit</string>
   <string name="bodenMateDescription">Dy fila sulmues në diagonalet kryqëzuese i bëjne mat një mbreti të penguar nga figura miqësore.</string>
   <string name="castling">Rokadë</string>
-  <string name="enPassant">Prerja e ushtarit</string>
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën në sulm.</string>
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>
@@ -50,6 +49,7 @@
   <string name="doubleCheckDescription">Shah me dy figura njëherësh, si pasojë e një sulmi me zbulim, kur që të dy, guri që lëviz dhe guri i pazbuluar sulmojnë mbretin e kundërshtarit.</string>
   <string name="endgame">Fund loje</string>
   <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
+  <string name="enPassant">Prerja e ushtarit</string>
   <string name="epauletteMate">Mat spaletë</string>
   <string name="epauletteMateDescription">Dy katrorë shpëtimi ngjitur njëri me tjetrin, për një mbret nën shah, janë të zënë nga gurë të tjerë.</string>
   <string name="exposedKing">Mbreti i ekspozuar</string>

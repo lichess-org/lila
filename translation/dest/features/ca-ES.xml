@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Sense publicitat ni seguiment</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Escacs per correspondència amb moviments anticipats condicionals</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Escacs estàndard i %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Anàlisis %s profund en el servidor</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Sense publicitat ni seguiment</string>
+  <string name="correspondenceWithConditionalPremoves">Escacs per correspondència amb moviments anticipats condicionals</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Escacs estàndard i %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Anàlisis %s profund en el servidor</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s partida per dia</item>
     <item quantity="other">%s partides per dia</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Editor del tauler i tauler d\'anàlisis amb %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Mòdul d\'anàlisis al núvol</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Estudis (compartits i anàlisis persistents)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Estadístiques d\'escacs (anàlisis detallats del teu joc)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Totes les lliçons bàsiques d\'escacs</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Problemes de tàctica de partides de jugadors</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (també funciona al %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Explorador d\'obertures personal</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Explorador d\'obertures global (%s partides!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Base de dades de finals de 7 peces</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Descàrregar/Pujar qualsevol partida com a PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Bitàcoles, fòrums, equips TV, missatgeria, amics, reptes</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Tema clar i fosc, peces, tauler i fons personalitzable</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ultra-Bala, Bala, Llampec, Ràpid, Clàssic i escacs per correspondència</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Totes les funcionalitats que vinguin, per sempre!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">telèfons i tauletes iPhone &amp; Android amb suport apaïsat</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Si, els dos comptes tenen les mateixes funcionalitats!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Creiem que tots els jugadors d\'escacs mereixen el millor i per tant:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Totes les funcionalitats són gratis per tothom, per sempre!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Si t\'agrada Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Suporta\'ns amb un compte de patró!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor del tauler i tauler d\'anàlisis amb %s</string>
+  <string name="cloudEngineAnalysis">Mòdul d\'anàlisis al núvol</string>
+  <string name="studies">Estudis (compartits i anàlisis persistents)</string>
+  <string name="chessInsights">Estadístiques d\'escacs (anàlisis detallats del teu joc)</string>
+  <string name="allChessBasicsLessons">Totes les lliçons bàsiques d\'escacs</string>
+  <string name="tacticalPuzzlesFromUserGames">Problemes de tàctica de partides de jugadors</string>
+  <string name="personalOpeningExplorerX">%1$s (també funciona al %2$s)</string>
+  <string name="personalOpeningExplorer">Explorador d\'obertures personal</string>
+  <string name="globalOpeningExplorerInNbGames">Explorador d\'obertures global (%s partides!)</string>
+  <string name="endgameTablebase">Base de dades de finals de 7 peces</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Descàrregar/Pujar qualsevol partida com a PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Bitàcoles, fòrums, equips TV, missatgeria, amics, reptes</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Tema clar i fosc, peces, tauler i fons personalitzable</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultra-Bala, Bala, Llampec, Ràpid, Clàssic i escacs per correspondència</string>
+  <string name="allFeaturesToCome">Totes les funcionalitats que vinguin, per sempre!</string>
+  <string name="landscapeSupportOnApp">telèfons i tauletes iPhone &amp; Android amb suport apaïsat</string>
+  <string name="everybodyGetsAllFeaturesForFree">Si, els dos comptes tenen les mateixes funcionalitats!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Creiem que tots els jugadors d\'escacs mereixen el millor i per tant:</string>
+  <string name="allFeaturesAreFreeForEverybody">Totes les funcionalitats són gratis per tothom, per sempre!</string>
+  <string name="ifYouLoveLichess">Si t\'agrada Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Suporta\'ns amb un compte de patró!</string>
 </resources>

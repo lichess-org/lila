@@ -19,7 +19,6 @@
   <string name="bodenMate">Bodensmát</string>
   <string name="bodenMateDescription">Tveir bispar, ið leypa á á krossandi hornalinjum (diagonalum), seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
   <string name="castling">At leypa í borg</string>
-  <string name="enPassant">At taka í framlopi</string>
   <string name="castlingDescription">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á.</string>
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">At skáka við tveimum fólkum samstundis. Úrslit av einum ávdúkaraálopi, har bæði fólkið, ið flutti, og fólkið, ið varð avdúkað, leypa á mótstøðukongin.</string>
   <string name="endgame">Endatalv</string>
   <string name="endgameDescription">Taktisk atgerð í seinasta skeiðinum av talvinum.</string>
+  <string name="enPassant">At taka í framlopi</string>
   <string name="exposedKing">Kongur í andgletti</string>
   <string name="exposedKingDescription">Taktisk atgerð móti kongi, ið bert hevur fá verndarfólk um seg. Ber ofta skák og mát við sær.</string>
   <string name="fork">Gaffil</string>

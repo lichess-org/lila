@@ -23,7 +23,6 @@
   <string name="bodenMate">Bodens matt</string>
   <string name="bodenMateDescription">To angripende løpere på kryssende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="castling">Rokade</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Å gi sjakk med to brikker samtidig, gjennom en avdekker der både brikken som flyttes, og brikken som avdekkes, angriper motstanderens konge.</string>
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">En taktikk som bruker en passant-regelen, der en bonde kan slå en motstanderbonde som nettopp har flyttet to felt frem fra utgangsstillingen og havnet ved siden av den.</string>
   <string name="epauletteMate">Epålettmatt</string>
   <string name="epauletteMateDescription">Kongens to fluktfelter er opptatt av andre brikker.</string>

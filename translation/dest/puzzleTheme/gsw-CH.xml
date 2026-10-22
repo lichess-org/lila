@@ -23,7 +23,6 @@
   <string name="bodenMate">Boden Matt</string>
   <string name="bodenMateDescription">Zwei Läufer, uf sich chrüzende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="castling">Rochade</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bring de König in Sicherheit und schick de Turm in Agriff.</string>
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
@@ -54,6 +53,7 @@
   <string name="doubleCheckDescription">Abzug mit doppletem Schachgebot, wobi die vorher verdeckti Figur- und die Abzogeni, de König glichzitig agrifed.</string>
   <string name="endgame">Ändschpil</string>
   <string name="endgameDescription">E Taktik für die letscht Fase vum Schpiel.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">E Taktik, wo d\'En Passant regle griift, bi dere en buur en gegnerische Buur cha schla, wenn dise vorher isch zwei Schritt glaufe.</string>
   <string name="epauletteMate">Epaulette Matt</string>
   <string name="epauletteMateDescription">Zwei benachbarti Fluchtfälder, für en schach-g\'schtellte König, sind vu andere Figure b\'setzt.</string>

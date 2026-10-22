@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">零廣告與追蹤</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">可以預先移動的通訊棋局</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">基本西洋棋與其他 %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%s 深度分析</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">零廣告與追蹤</string>
+  <string name="correspondenceWithConditionalPremoves">可以預先移動的通訊棋局</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">基本西洋棋與其他 %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">%s 深度分析</string>
+  <plurals name="gamesPerDay">
     <item quantity="other">每天 %s 局</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">帶有 %s 的棋盤編輯器和棋局分析</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">雲端引擎分析</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">研究（可分享的永久性分析）</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">對局洞察（對您棋局的深入分析）</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">所有基礎西洋棋課程</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">來自用戶棋局的戰術謎題</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s（亦可探索%2$s的）</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">個人開局瀏覽器</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">全球開局瀏覽器（%s 個棋局！）</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7 子殘局資料庫</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">以 PGN 格式下載/上傳任何棋局</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">部落格、論壇、團隊、直播、聯絡、朋友、挑戰</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">亮/暗主題，自訂棋盤、棋子與背景</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">UltraBullet、Bullet、Blitz、快棋、經典、通訊棋</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">所有持續推出的功能，永遠！</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhones &amp; Android 裝置與橫向模式支援</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">是的，兩種帳號皆有相同的功能！</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">我們相信每個人都值得擁有最好的，所以：</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">所有功能都完全免費給大家使用，永遠！</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">如果你喜歡 Lichess，</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">透過成為贊助者以支持我們！</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">帶有 %s 的棋盤編輯器和棋局分析</string>
+  <string name="cloudEngineAnalysis">雲端引擎分析</string>
+  <string name="studies">研究（可分享的永久性分析）</string>
+  <string name="chessInsights">對局洞察（對您棋局的深入分析）</string>
+  <string name="allChessBasicsLessons">所有基礎西洋棋課程</string>
+  <string name="tacticalPuzzlesFromUserGames">來自用戶棋局的戰術謎題</string>
+  <string name="personalOpeningExplorerX">%1$s（亦可探索%2$s的）</string>
+  <string name="personalOpeningExplorer">個人開局瀏覽器</string>
+  <string name="globalOpeningExplorerInNbGames">全球開局瀏覽器（%s 個棋局！）</string>
+  <string name="endgameTablebase">7 子殘局資料庫</string>
+  <string name="downloadOrUploadAnyGameAsPgn">以 PGN 格式下載/上傳任何棋局</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">部落格、論壇、團隊、直播、聯絡、朋友、挑戰</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">亮/暗主題，自訂棋盤、棋子與背景</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet、Bullet、Blitz、快棋、經典、通訊棋</string>
+  <string name="allFeaturesToCome">所有持續推出的功能，永遠！</string>
+  <string name="landscapeSupportOnApp">iPhones &amp; Android 裝置與橫向模式支援</string>
+  <string name="everybodyGetsAllFeaturesForFree">是的，兩種帳號皆有相同的功能！</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">我們相信每個人都值得擁有最好的，所以：</string>
+  <string name="allFeaturesAreFreeForEverybody">所有功能都完全免費給大家使用，永遠！</string>
+  <string name="ifYouLoveLichess">如果你喜歡 Lichess，</string>
+  <string name="supportUsWithAPatronAccount">透過成為贊助者以支持我們！</string>
 </resources>

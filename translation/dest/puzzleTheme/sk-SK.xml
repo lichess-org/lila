@@ -23,7 +23,6 @@
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Dvaja útočiaci strelci na križujúcich sa diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="castling">Rošáda</string>
-  <string name="enPassant">Branie mimochodom</string>
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
@@ -54,6 +53,7 @@
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
+  <string name="enPassant">Branie mimochodom</string>
   <string name="epauletteMate">Epoletný mat</string>
   <string name="epauletteMateDescription">Dve susedné políčka, kam by mohol šachovaný kráľ ustúpiť, sú obsadené inými figúrkami.</string>
   <string name="exposedKing">Oslabený kráľ</string>

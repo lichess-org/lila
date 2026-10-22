@@ -1125,6 +1125,7 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
+  <string name="lichessPatronInfo">Lichess — это благотворительный проект и полностью бесплатное программное обеспечение с открытым исходным кодом. Мы зависим от пожертвований пользователей, которые покрывают наши операционные расходы, разработку и создание контента. Без нашего щедрого сообщества мы бы не смогли поддерживать работу сайта. Спасибо, что присоединились к нам!</string>
   <string name="nothingToSeeHere">Здесь ничего нет пока.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Специальные возможности</string>

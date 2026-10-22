@@ -7,15 +7,22 @@
   <string name="cannotPublish">公開できません</string>
   <string name="nodesPerMove">１手あたりノード数</string>
   <string name="using">使用中</string>
+  <string name="willUse">使用エンジン</string>
   <string name="quality">クオリティ</string>
   <string name="publish">公開</string>
   <string name="published">公開済み</string>
   <string name="chooseYourEngineSettings">「解析」をクリックすると主手順を評価します。</string>
+  <string name="bestResultsUseXWithYThreads">最短の時間で最高の結果を得るには、%2$sスレッドで%1$sを使用してください。</string>
   <string name="analysisUploadFailed">解析のアップロードに失敗。後でまたどうぞ。</string>
   <string name="serverAnalysisInProgress">この棋譜にはサーバ解析が進行中です。それが終わった後でもう一度どうぞ。</string>
   <string name="youCanPublish">自分のローカル解析を公開できます。</string>
+  <string name="turnOnRec">スタディにローカル解析を共有するには、RECを有効にする必要があります。</string>
   <string name="whenUpgradingOldChapters">ローカル解析導入前に作られた章のサーバ解析は正しくアップグレードできません。先に削除しておかないと、古いエンジンによる手順とコメントが残ったままになります。</string>
   <string name="startingPosition">開始局面</string>
   <string name="keepThisBrowserTabActive">解析中はこのブラウザタブをアクティブにしておくこと</string>
+  <string name="xTimesStandardQuality">標準画質の%s倍</string>
+  <string name="moveXOfY" comment="should this be in site?">%2$s中%1$s手目</string>
+  <string name="downloadingXofY" comment="should this be in site?">%2$s中%1$sをダウンロード中</string>
   <string name="timeToComplete">%s 前後かかります</string>
+  <string name="xWouldBeFaster">%sのほうが速いでしょう</string>
 </resources>

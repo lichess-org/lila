@@ -23,7 +23,6 @@
   <string name="bodenMate">كش مات بودين</string>
   <string name="bodenMateDescription">فيلين يهاجمان الملك على أوتار متقاطعة ويكون الملك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="castling">تبييت</string>
-  <string name="enPassant">أسر بالمرور</string>
   <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
   <string name="capturingDefender">أزل المدافع</string>
   <string name="capturingDefenderDescription">إزالة قطعة ذات أهمية حاسمة للدفاع عن قطعة أخرى، مما يسمح للقطعة التي لا يمكن الدفاع عنها الآن أن يتم الاستيلاء عليها في الحركة التالية.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">تنفيذ كش من قطعتين في وقت واحد، كنتيجة للهجوم المنكشف حيث تهاجم كلا القطعتين المكشوفة والمكشوف بها ملك الخَصْم.</string>
   <string name="endgame">مرحلة نهاية المباراة</string>
   <string name="endgameDescription">تكتيك خلال مرحلة نهاية المباراة.</string>
+  <string name="enPassant">أسر بالمرور</string>
   <string name="enPassantAdjacentCaptureDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، التي تسمح للبيدق بأسر بيدق الخَصْم الذي تحرك للتو مربعين في حركته الأولى وأصبح ملاصقًا له، كما لو أنه تحرك مربعًا واحدًا فقط.</string>
   <string name="epauletteMate">كش الإيبوليت</string>
   <string name="epauletteMateDescription">تشغل قطعتان أخريان مربعان متلاصقين للهروب من الملك الذي تم الكش به.</string>

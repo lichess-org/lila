@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Nič oglaševanja, brez sledenja</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Korespondenčni šah s pogojnimi premovi</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Standardni šah in %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Globoka analiza strežnika %s</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Nič oglaševanja, brez sledenja</string>
+  <string name="correspondenceWithConditionalPremoves">Korespondenčni šah s pogojnimi premovi</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standardni šah in %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Globoka analiza strežnika %s</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s igre na dan</item>
     <item quantity="two">%s igra dva dneva</item>
     <item quantity="few">%s igre nekaj dni</item>
     <item quantity="other">%s igre na dan</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Urejevalnik in analitična plošča z %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Analiza motorja v oblaku</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Študije (skupna in trajna analiza)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Šahovski vpogledi (podrobna analiza vaše igre)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Vse lekcije osnov šaha</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Taktične uganke iz uporabniških iger</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (deluje tudi na %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Osebni raziskovalec odpiranja</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Globalni raziskovalec odprtja (%s games!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7-delna tabela končne igre</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Prenesite / naložite katero koli igro kot PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Blog, forum, ekipe, TV, sporočila, prijatelji, izzivi</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Svetla / temna tema, plošče po meri, kosi in ozadje</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ultra Bullet, Bullet, Blitz, Hitro, Klasična, Korespondenčni Šah</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Vse funkcije, ki prihajajo, za vedno!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone &amp; Android telefoni in tablični računalniki, podpora za pokrajino</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Da, oba računa imata enake lastnosti!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Verjamemo, da si vsak šahist zasluži najboljše in tako:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Vse funkcije so brezplačne za vse, za vedno!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Če imate radi Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Podprite nas z računom pokrovitelja!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Urejevalnik in analitična plošča z %s</string>
+  <string name="cloudEngineAnalysis">Analiza motorja v oblaku</string>
+  <string name="studies">Študije (skupna in trajna analiza)</string>
+  <string name="chessInsights">Šahovski vpogledi (podrobna analiza vaše igre)</string>
+  <string name="allChessBasicsLessons">Vse lekcije osnov šaha</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktične uganke iz uporabniških iger</string>
+  <string name="personalOpeningExplorerX">%1$s (deluje tudi na %2$s)</string>
+  <string name="personalOpeningExplorer">Osebni raziskovalec odpiranja</string>
+  <string name="globalOpeningExplorerInNbGames">Globalni raziskovalec odprtja (%s games!)</string>
+  <string name="endgameTablebase">7-delna tabela končne igre</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Prenesite / naložite katero koli igro kot PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, ekipe, TV, sporočila, prijatelji, izzivi</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Svetla / temna tema, plošče po meri, kosi in ozadje</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultra Bullet, Bullet, Blitz, Hitro, Klasična, Korespondenčni Šah</string>
+  <string name="allFeaturesToCome">Vse funkcije, ki prihajajo, za vedno!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android telefoni in tablični računalniki, podpora za pokrajino</string>
+  <string name="everybodyGetsAllFeaturesForFree">Da, oba računa imata enake lastnosti!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Verjamemo, da si vsak šahist zasluži najboljše in tako:</string>
+  <string name="allFeaturesAreFreeForEverybody">Vse funkcije so brezplačne za vse, za vedno!</string>
+  <string name="ifYouLoveLichess">Če imate radi Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Podprite nas z računom pokrovitelja!</string>
 </resources>

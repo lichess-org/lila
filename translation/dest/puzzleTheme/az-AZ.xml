@@ -19,7 +19,6 @@
   <string name="bodenMate">Boden matı</string>
   <string name="bodenMateDescription">İki fil, öz fiqurları tərəfindən bloklanan şahı çarpaz diaqonallardan hücum edərək mat edir.</string>
   <string name="castling">Qalaqurma</string>
-  <string name="enPassant">Keçiddə götürmə</string>
   <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="capturingDefenderDescription">Bir fiquru müdafiə edən başqa bir fiquru ələ keçirərək, müdafiəsiz qalan digər fiquru da növbəti gedişdə ələ keçirin.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Bir gedişdə, həm gediş edilən həm də açaraq hücumun ardından yolu açılan fiqur ilə eyni anda şah vermək.</string>
   <string name="endgame">Endşpil</string>
   <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
+  <string name="enPassant">Keçiddə götürmə</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
   <string name="exposedKingDescription">Ətrafında az müdafiəçisi olan şahın olduğu və əksər hallarda mat ilə nəticələnən taktikalar.</string>
   <string name="fork">Çəngəl</string>
