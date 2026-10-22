@@ -353,7 +353,6 @@ wi(chs|x++)er
   def pt = dict("""
 lixo
 smt
-fdp
 """)
 
   def tr = dict("""
