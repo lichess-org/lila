@@ -279,6 +279,9 @@ export class CevalCtrl {
   }
 
   preferLatestEval(latest: ClientEval, stored: ClientEval | undefined): boolean {
+    // cloud evals are not shown while an external engine is active
+    if (latest.cloud && this.engines.external()) return false;
+
     if (!stored) return true;
 
     // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength
