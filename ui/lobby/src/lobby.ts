@@ -5,6 +5,16 @@ import * as xhr from 'lib/xhr';
 import type { LobbyOpts } from './interfaces';
 import main from './main';
 
+type RedirectToObj = {
+  id: string;
+  url: string;
+  cookie?: {
+    name: string;
+    value: string;
+    maxAge: number;
+  };
+};
+
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
   opts.tableElement = document.querySelector('.lobby__table') as HTMLElement;
@@ -44,10 +54,17 @@ export function initModule(opts: LobbyOpts) {
         else $tv.append(o.html);
         pubsub.emit('content-loaded');
       },
-      redirect(e: RedirectTo) {
+      redirect(e: RedirectToObj) {
         lobbyCtrl.setRedirecting();
         lobbyCtrl.leavePool();
-        site.redirect(e, true);
+        if (e.cookie)
+          document.cookie = [
+            encodeURIComponent(e.cookie.name) + '=' + e.cookie.value,
+            '; max-age=' + e.cookie.maxAge,
+            '; path=/',
+            '; domain=' + location.hostname,
+          ].join('');
+        site.redirect(`/game${e.id}`, true);
         return true;
       },
       fen(e: any) {
