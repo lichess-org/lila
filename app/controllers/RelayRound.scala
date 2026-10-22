@@ -263,13 +263,14 @@ final class RelayRound(
             doShow(rt, study, _)
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
-    Found(api.byIdWithTourAndStudy(id)): rt =>
-      if !rt.study.canContribute(me) then forbiddenJson()
-      else
-        import lila.relay.RelayJsonView.given
-        env.relay
-          .push(rt.withTour, PgnStr(ctx.body.body))
-          .map(JsonOk)
+    limit.relay.push(me.userId, () => rateLimited): () =>
+      Found(api.byIdWithTourAndStudy(id)): rt =>
+        if !rt.study.canContribute(me) then forbiddenJson()
+        else
+          import lila.relay.RelayJsonView.given
+          env.relay
+            .push(rt.withTour, PgnStr(ctx.body.body))
+            .map(JsonOk)
   }
 
   def teamsView(id: RelayRoundId) = Open:

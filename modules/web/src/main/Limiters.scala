@@ -179,6 +179,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       RateLimit[IpAddress](20 * 10, 24.hour, "broadcast.tournament.ip")
     )
 
+    val push = RateLimit[UserId](120 * 3, 1.minutes, "broadcast.round.push").myCost: me =>
+      if Granter.of(_.Relay)(me) then 1 else 3
+
     object stream:
       private val auth = ConcurrencyLimit[UserId](8, "broadcast.stream.auth")
       private val verified = ConcurrencyLimit[UserId](32, "broadcast.stream.verified")

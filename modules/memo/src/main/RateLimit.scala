@@ -30,6 +30,11 @@ final class RateLimit[K](
     apply(k, default, cost, msg):
       op(c => apply(k, {}, c, s"charge: $msg") {})
 
+  type Limiter = [A] => (K, () => A) => (() => A) => Me ?=> A
+
+  def myCost[A](costFn: Me => Cost): Limiter =
+    [A] => (k, default) => op => me ?=> apply(k, default(), costFn(me))(op())
+
   def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
     if cost < 1 then op
     else
