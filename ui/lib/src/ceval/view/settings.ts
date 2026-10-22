@@ -224,7 +224,7 @@ function engineSelection(ctrl: CevalHandler) {
         ctrl.startCevalIfEnabled();
       },
       'select-engine',
-      () => setupDirectEngineDialog(ctrl),
+      ceval.engines.hasDirect() ? undefined : () => setupDirectEngineDialog(ctrl),
     ),
     relayed &&
       button('.button.button-red.button-empty', {
