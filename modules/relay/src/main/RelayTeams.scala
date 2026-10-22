@@ -101,17 +101,14 @@ object RelayTeam:
     def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
     def add(
         chapterId: StudyChapterId,
-        playerAndTeam: Pair[(StudyPlayer, TeamName)],
+        playerAndTeam: ByColor[(StudyPlayer, TeamName)],
         game: ByColor[RelayPlayer.Game]
     ): TeamMatch =
-      val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
-      val wPOV = game(t0Color)
-      val bPOV = game(!t0Color)
-      val wPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
-      val bPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
+      val players = game.map: g =>
+        RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
       copy(
-        games = TeamGame(chapterId, t0Color) :: games,
-        teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
+        games = TeamGame(chapterId, playerAndTeam.findColor(_._2 == teams.a.name) | Color.Black) :: games,
+        teams = teams.bimap(_.add(players(Color.White)), _.add(players(Color.Black)))
       )
     def swap = copy(teams = teams.reverse, games = games.map(_.swap))
     def pointsPair: Option[Pair[Points]] =
