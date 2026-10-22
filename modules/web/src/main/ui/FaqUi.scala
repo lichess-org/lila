@@ -171,7 +171,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               )
             ),
             p(
-              trf.watchIMRosenCheckmateVideo.rawHtml(
+              trf.watchIMRosenCheckmate.rawHtml(
                 "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/"
               )
             )
