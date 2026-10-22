@@ -6,7 +6,6 @@ import scalalib.data.Preload
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.common.Json.given
 import lila.gathering.Condition.GetMyTeamIds
 import lila.mon.extensions.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
@@ -132,11 +131,12 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
       val page = (getInt("page") | 1).atLeast(1).atMost(maxPage)
       given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
       for
+        socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
         data <- env.tournament.jsonView(
           tour = tour,
           page = page.some,
           playerInfoExt = none,
-          socketVersion = none,
+          socketVersion = socketVersion,
           partial = false,
           withScores = true,
           withDescription = true,
@@ -144,9 +144,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
         )
         chatOpt <- getBool("chat").so(loadChat(tour, data))
         jsChat = chatOpt.map(env.chat.json.mobile(_))
-        socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
-      yield JsonOk:
-        data.add("chat", jsChat).add("socketVersion" -> socketVersion)
+      yield Ok(data.add("chat", jsChat))
 
   private def isRestricted(tour: Tour)(using Context) =
     if tour.isEnterable || tour.isRecentlyFinished then fuFalse else couldBeEnum
