@@ -1333,6 +1333,8 @@ interface I18n {
     verificationForm: string;
     /** View site information popup */
     viewSiteInformationPopUp: string;
+    /** Watch International Master Eric Rosen checkmate %s. */
+    watchIMRosenCheckmate: I18nFormat;
     /** Watch International Master Eric Rosen deliver <a href='%s'>checkmate via en passant</a>. */
     watchIMRosenCheckmateVideo: I18nFormat;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */

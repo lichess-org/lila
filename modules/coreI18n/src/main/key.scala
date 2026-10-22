@@ -642,6 +642,7 @@ object I18nKey:
     val `explainingEnPassant`: I18nKey = "faq:explainingEnPassant"
     val `goodIntroduction`: I18nKey = "faq:goodIntroduction"
     val `lichessTraining`: I18nKey = "faq:lichessTraining"
+    val `watchIMRosenCheckmate`: I18nKey = "faq:watchIMRosenCheckmate"
     val `watchIMRosenCheckmateVideo`: I18nKey = "faq:watchIMRosenCheckmateVideo"
     val `threefoldRepetition`: I18nKey = "faq:threefoldRepetition"
     val `threefoldRepetitionExplanation`: I18nKey = "faq:threefoldRepetitionExplanation"
