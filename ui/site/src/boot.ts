@@ -70,7 +70,7 @@ export function boot() {
     eventuallySetupDefaultConnection();
 
     // socket default receive handlers
-    pubsub.on('socket.in.redirect', (d: string) => {
+    pubsub.on('socket.in.redirect', (d: RedirectTo) => {
       site.unload.expected = true;
       site.redirect(d);
     });

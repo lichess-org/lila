@@ -30,7 +30,7 @@ interface Site {
     loadI18n(catalog: string): Promise<void>;
   };
   unload: { expected: boolean };
-  redirect(o: string, beep?: boolean): void;
+  redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
   announce(d: LichessAnnouncement): void;
   sound: SoundI; // file://./../../site/src/sound.ts
@@ -62,6 +62,8 @@ type Flair = string;
 type FideFed = string;
 type PatronColor = number;
 type Redraw = () => void;
+type RedirectTo = string | RedirectToObj;
+type RedirectToObj = { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -122,6 +124,12 @@ interface SoundI {
 
 interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
+}
+
+interface Cookie {
+  name: string;
+  value: string;
+  maxAge: number;
 }
 
 interface AssetUrlOpts {
