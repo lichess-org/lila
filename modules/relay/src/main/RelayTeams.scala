@@ -338,7 +338,7 @@ final class RelayTeamLeaderboard(
                     val withNewTeamGame = for
                       players <- StudyPlayer.fromTags(tags)
                       withFed <- players.traverse: p =>
-                        p.id.map(_ -> p.copy(fed = p.fed orElse p.fideId.flatMap(fedsById.get)))
+                        p.id.map(_ -> p.copy(fed = p.fed.orElse(p.fideId.flatMap(fedsById.get))))
                       roundId = studyId.into(RelayRoundId)
                       round <- roundsById.get(roundId)
                       game = withFed.mapWithColor: (c, p) =>
@@ -350,8 +350,7 @@ final class RelayTeamLeaderboard(
                           tags.points,
                           round.rated,
                           round.fideTCOverride
-                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess))
-                            .getOrElse(FideTC.standard),
+                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess)) | FideTC.standard,
                           unplayed = tags.value.has(RelayGame.unplayedTag),
                           ongoing = tags.points.isEmpty && tags.exists(_.Result)
                         )

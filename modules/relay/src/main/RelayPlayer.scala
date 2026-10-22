@@ -267,7 +267,7 @@ private final class RelayPlayerApi(
                   .fromTags(tags)
                   .flatMap:
                     _.traverse: p =>
-                      p.id.map(_ -> p.copy(fed = p.fed orElse p.fideId.flatMap(fedsById.get)))
+                      p.id.map(_ -> p.copy(fed = p.fed.orElse(p.fideId.flatMap(fedsById.get))))
                   .fold(playersAcc): gamePlayers =>
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>
@@ -280,8 +280,7 @@ private final class RelayPlayerApi(
                           tags.points,
                           round.rated,
                           round.fideTCOverride
-                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess))
-                            .getOrElse(FideTC.standard),
+                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess)) | FideTC.standard,
                           round.customScoring,
                           unplayed = tags.value.has(RelayGame.unplayedTag),
                           ongoing = tags.points.isEmpty && tags.exists(_.Result)
