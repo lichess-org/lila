@@ -290,6 +290,10 @@ export class Engines {
     }
   }
 
+  hasDirect(): boolean {
+    return Boolean(this.directEngine);
+  }
+
   unsetDirect(): void {
     if (!this.directEngine) return;
     if (this.activeEngine === this.directEngine) this.activeEngine = undefined;

@@ -266,10 +266,10 @@ export class CevalCtrl {
 
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
-    if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
+    if (msg.includes('Direct engine disconnected')) this.engines.unsetDirect();
+    else if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
-    if (msg.includes('Direct engine disconnected')) this.engines.unsetDirect();
   }
 
   isFinished(search: Search, step: Step, isThreat: boolean): boolean {
