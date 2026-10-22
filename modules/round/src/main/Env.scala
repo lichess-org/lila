@@ -199,7 +199,8 @@ final class Env(
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
 
-  def pathRedirect(path: String): Fu[Option[play.api.mvc.Call]] =
+  import play.api.mvc.{ RequestHeader, Call }
+  def pathRedirect(path: String)(using RequestHeader): Fu[Option[Call]] =
     GameAnyId(path).fullId
       .so(proxyRepo.pov)
       .map2(p => routes.Round.player(p.fullId))

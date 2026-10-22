@@ -23,7 +23,7 @@ final class Round(
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
+  private[controllers] def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi.so(env.fishnet.player(pov.game))
     for
       tour <- env.tournament.api.gameView.player(pov)
