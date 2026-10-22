@@ -42,6 +42,7 @@
 
     &.sortable {
       cursor: pointer;
+      text-align: center;
     }
 
     &.sortable:hover,
@@ -50,12 +51,13 @@
     }
 
     .is {
+      position: absolute;
+      margin-inline-start: calc(-1.2em - 3px);
       visibility: hidden;
     }
 
     &.sort .is {
       opacity: 0.7;
-      margin-inline-end: 3px;
       visibility: visible;
     }
 
@@ -69,7 +71,6 @@
       &:nth-child(2) {
         max-width: 13vw;
         direction: rtl;
-        text-align: left;
       }
     }
   }
@@ -106,6 +107,11 @@
         max-width: 25vw;
       }
     }
+  }
+
+  &:has(th.sortable) td:nth-child(2),
+  &:has(th.sortable) td:nth-child(3) {
+    text-align: center;
   }
 
   tbody.stepping {
