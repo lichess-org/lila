@@ -55,7 +55,7 @@ export class DirectEngine implements CevalEngine {
         this.protocol = undefined;
         protocol.disconnected();
         this.failed = event.code !== 1000;
-        this.status(this.failed ? { error: 'Native engine disconnected' } : undefined);
+        this.status(this.failed ? { error: 'Direct engine disconnected' } : undefined);
       };
     }
     this.protocol!.compute(work);

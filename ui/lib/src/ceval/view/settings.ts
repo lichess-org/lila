@@ -338,9 +338,12 @@ async function selectDirect(ctrl: CevalHandler, prompt: boolean) {
   const ceval = ctrl.ceval;
   const direct = await ceval.engines.discoverDirect(prompt);
   if (direct) {
-    info(`Connected to ${direct.name}. The engine is ready.`);
+    //ctrl.cevalEnabled(true);
     ceval.selectEngine(direct.id);
-    ctrl.startCevalIfEnabled();
+    if (ceval.engines.active()?.tech === 'DIRECT') {
+      ctrl.startCevalIfEnabled();
+      info(`Connected to ${direct.name}. The engine is ready.`);
+    }
     return true;
   }
   return false;

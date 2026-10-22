@@ -269,6 +269,7 @@ export class CevalCtrl {
     if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
+    if (msg.includes('Direct engine disconnected')) this.engines.unsetDirect();
   }
 
   isFinished(search: Search, step: Step, isThreat: boolean): boolean {
