@@ -528,6 +528,8 @@ object I18nKey:
     val `findSquare`: I18nKey = "coordinates:findSquare"
     val `nameSquare`: I18nKey = "coordinates:nameSquare"
     val `practiceOnlySomeFilesAndRanks`: I18nKey = "coordinates:practiceOnlySomeFilesAndRanks"
+    val `enterTheCoordinate`: I18nKey = "coordinates:enterTheCoordinate"
+    val `pressEnterToStart`: I18nKey = "coordinates:pressEnterToStart"
 
   object dgt:
     val `dgtBoard`: I18nKey = "dgt:dgtBoard"
@@ -3288,6 +3290,8 @@ object I18nKey:
     val `inappropriateContentAccountClosed`: I18nKey = "ublog:inappropriateContentAccountClosed"
     val `blogTips`: I18nKey = "ublog:blogTips"
     val `discussThisBlogPostInTheForum`: I18nKey = "ublog:discussThisBlogPostInTheForum"
+    val `opinionsExpressedByContributorsAreTheirOwn`: I18nKey = "ublog:opinionsExpressedByContributorsAreTheirOwn"
+    val `youMayAlsoLike`: I18nKey = "ublog:youMayAlsoLike"
     val `youBlockedByBlogAuthor`: I18nKey = "ublog:youBlockedByBlogAuthor"
     val `blogPosts`: I18nKey = "ublog:blogPosts"
     val `publishedNbBlogPosts`: I18nKey = "ublog:publishedNbBlogPosts"
@@ -3354,4 +3358,10 @@ object I18nKey:
     val `playPreferredMoveOrConfirmSomething`: I18nKey = "voiceCommands:playPreferredMoveOrConfirmSomething"
     val `sleep`: I18nKey = "voiceCommands:sleep"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
+    val `voiceHelp`: I18nKey = "voiceCommands:voiceHelp"
+    val `voiceSettings`: I18nKey = "voiceCommands:voiceSettings"
+    val `pushShiftKeyToTalk`: I18nKey = "voiceCommands:pushShiftKeyToTalk"
+    val `holdShiftKeyWhileSpeaking`: I18nKey = "voiceCommands:holdShiftKeyWhileSpeaking"
+    val `microphone`: I18nKey = "voiceCommands:microphone"
+    val `noneSelected`: I18nKey = "voiceCommands:noneSelected"
 
