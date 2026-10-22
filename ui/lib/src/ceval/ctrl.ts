@@ -263,7 +263,7 @@ export class CevalCtrl {
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     if (msg.includes('Direct engine disconnected')) this.engines.unsetDirect();
-    if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
+    else if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
     this.unloadedState = CevalState.Failed;
