@@ -635,7 +635,9 @@ final class User(
     staticRedirect(path) |
       env.round
         .pathRedirect(path)
-        .map2(MovedPermanently(_))
+        .flatMapz:
+          case lichobilePov: Pov => roundC.renderPlayer(lichobilePov).dmap(some)
+          case call: Call => fuccess(MovedPermanently(call).some)
         .orElse(UserStr.read(path).so(tryRedirect))
         .getOrElse(notFound)
 
