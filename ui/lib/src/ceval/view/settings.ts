@@ -225,8 +225,13 @@ function engineSelection(ctrl: CevalHandler) {
         title: 'Delete external engine',
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
-          if (await confirm('Remove external engine?'))
-            ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
+          const id = ceval.engines.external()?.id;
+          if (id && (await confirm('Remove external engine?')))
+            ceval.engines.deleteExternal(id).then(ok => {
+              if (!ok) return;
+              ctrl.startCevalIfEnabled();
+              ceval.opts.redraw();
+            });
         }),
       }),
     button('.engine-info-button', {
@@ -255,7 +260,9 @@ export function engineSelect(
   return select(
     `#${id}`,
     { hook: bind('change', event => onChange((event.target as HTMLSelectElement).value)) },
-    engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+    engines.map(engine =>
+      option({ value: engine.id, props: { selected: activeId === engine.id } }, engine.name),
+    ),
   );
 }
 
