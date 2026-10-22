@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Alls engar auglýsingar, engar njósnir</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Bréfskák með skilyrtum forleikjum</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Hefðbundin skák og %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ýtarleg greining á netþjóni með aðstoð %s</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Alls engar auglýsingar, engar njósnir</string>
+  <string name="correspondenceWithConditionalPremoves">Bréfskák með skilyrtum forleikjum</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Hefðbundin skák og %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Ýtarleg greining á netþjóni með aðstoð %s</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s skák á dag</item>
     <item quantity="other">%s skákir á dag</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Taflborðsritill og greiningarborð ásamt tölvuaðstoð %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Greining með tölvuforriti í netskýi</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Stúderingar (sem hægt er að deila og varanleg tölvugreining)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Skákinnsæi (ýtarlegar greiningar á taflmennsku þinni)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Öll námsefni í grunnatriðum skákar</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ráðsnjallar þrautir úr leikjum notenda</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (gildir einnig um %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Einstaklingsbundinn byrjanaskoðari</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Víðvær byrjanaskoðari (%s skákir!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7 manna endataflsútreikningasafn</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Hlaða niður/upp alls konar skákir sem PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Blogg, umræðukorkur, lið, sjónvarp, skilaboð, vinir, áskoranir</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ljóst/dökkt þema, sérsníðanleg taflborð, taflmenn og bakgrunnur</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Örskák, leifturskák, hraðskák, atskák, hægskák, bréfskák</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Allir sérleikar fylgja með, til eilífðarnóns!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone &amp; Android-símar og spjaldtölvur, langsniðsstuðningur</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Já, báðir aðgangar hafa sömu sérleikana!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Við erum þeirrar skoðunar að sérhver skákunnandi eigi skilið það allra besta, og þess vegna:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Allir sérleikar eru ókeypis fyrir alla, til eilífðarnóns!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ef þú fílar Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Studdu okkur með velunnaraaðgangi!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taflborðsritill og greiningarborð ásamt tölvuaðstoð %s</string>
+  <string name="cloudEngineAnalysis">Greining með tölvuforriti í netskýi</string>
+  <string name="studies">Stúderingar (sem hægt er að deila og varanleg tölvugreining)</string>
+  <string name="chessInsights">Skákinnsæi (ýtarlegar greiningar á taflmennsku þinni)</string>
+  <string name="allChessBasicsLessons">Öll námsefni í grunnatriðum skákar</string>
+  <string name="tacticalPuzzlesFromUserGames">Ráðsnjallar þrautir úr leikjum notenda</string>
+  <string name="personalOpeningExplorerX">%1$s (gildir einnig um %2$s)</string>
+  <string name="personalOpeningExplorer">Einstaklingsbundinn byrjanaskoðari</string>
+  <string name="globalOpeningExplorerInNbGames">Víðvær byrjanaskoðari (%s skákir!)</string>
+  <string name="endgameTablebase">7 manna endataflsútreikningasafn</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Hlaða niður/upp alls konar skákir sem PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogg, umræðukorkur, lið, sjónvarp, skilaboð, vinir, áskoranir</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Ljóst/dökkt þema, sérsníðanleg taflborð, taflmenn og bakgrunnur</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Örskák, leifturskák, hraðskák, atskák, hægskák, bréfskák</string>
+  <string name="allFeaturesToCome">Allir sérleikar fylgja með, til eilífðarnóns!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android-símar og spjaldtölvur, langsniðsstuðningur</string>
+  <string name="everybodyGetsAllFeaturesForFree">Já, báðir aðgangar hafa sömu sérleikana!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Við erum þeirrar skoðunar að sérhver skákunnandi eigi skilið það allra besta, og þess vegna:</string>
+  <string name="allFeaturesAreFreeForEverybody">Allir sérleikar eru ókeypis fyrir alla, til eilífðarnóns!</string>
+  <string name="ifYouLoveLichess">Ef þú fílar Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Studdu okkur með velunnaraaðgangi!</string>
 </resources>

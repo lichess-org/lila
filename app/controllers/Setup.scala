@@ -141,48 +141,49 @@ final class Setup(
             yield hookResponse(hookResult)
 
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
-    forms
-      .boardApiHook:
-        ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
-      .bindFromRequest()
-      .fold(
-        doubleJsonFormError,
-        config =>
-          for
-            me <- ctx.me.so(env.user.api.withPerfs)
-            blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
-            sri = orUserSri(author)
-            _ = lila.mon.lobby.hook
-              .apiCreate:
-                if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
-                else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
-                else "other"
-              .increment()
-            forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
-            res <- forcedColor.match
-              case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
-              case None =>
-                config
-                  .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
-                  .match
-                    case Left(hook) =>
-                      limit.setupPost(req.ipAddress, rateLimited):
-                        limit
-                          .boardApiConcurrency(author.map(_.id))(
-                            env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                          )(jsOptToNdJson)
-                          .toFuccess
-                    case Right(Some(seek)) =>
-                      author match
-                        case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
-                        case Right(me) =>
-                          env.setup.processor.createSeekIfAllowed(seek, me.id).map {
-                            case HookResult.Refused => JsonBadRequest("Already playing too many games")
-                            case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                          }
-                    case Right(None) => notFoundJson().toFuccess
-          yield res
-      )
+    NoPlaybanOrCurrent:
+      forms
+        .boardApiHook:
+          ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+        .bindFromRequest()
+        .fold(
+          doubleJsonFormError,
+          config =>
+            for
+              me <- ctx.me.so(env.user.api.withPerfs)
+              blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
+              sri = orUserSri(author)
+              _ = lila.mon.lobby.hook
+                .apiCreate:
+                  if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
+                  else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
+                  else "other"
+                .increment()
+              forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
+              res <- forcedColor.match
+                case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
+                case None =>
+                  config
+                    .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
+                    .match
+                      case Left(hook) =>
+                        limit.setupPost(req.ipAddress, rateLimited):
+                          limit
+                            .boardApiConcurrency(author.map(_.id))(
+                              env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                            )(jsOptToNdJson)
+                            .toFuccess
+                      case Right(Some(seek)) =>
+                        author match
+                          case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
+                          case Right(me) =>
+                            env.setup.processor.createSeekIfAllowed(seek, me.id).map {
+                              case HookResult.Refused => JsonBadRequest("Already playing too many games")
+                              case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                            }
+                      case Right(None) => notFoundJson().toFuccess
+            yield res
+        )
   }
 
   def boardApiHookCancel = WithBoardApiHookAuthor { (author, reqSri) => _ ?=>

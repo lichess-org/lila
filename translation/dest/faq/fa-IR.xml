@@ -164,6 +164,7 @@
 ۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید
 ۴. به پایین بِنَوَردید و پخش خودکار رسانه (Media autoplay) را بزنید
 ۵. وبگاه lichess.org را به اجازه‌داران (Allow) بیفزایید</string>
+  <string name="makeBotTitle">ساختِ رَت در Lichess؟</string>
   <string name="stopMyselfFromPlaying">چگونه خودم را از بازی، بازدارم؟</string>
   <string name="mentalHealthCondition">وضعیت سلامت روانی خوداتکا</string>
   <string name="lichessUserstyles">سبک‌های کاربری Lichess</string>

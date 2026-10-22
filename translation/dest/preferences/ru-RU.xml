@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Показывать незащищённые фигуры</string>
   <string name="showPinnedPieces">Показывать связанные фигуры</string>
   <string name="showCheckableKing">Показывать угрозу шаха</string>
+  <string name="showTrappedPieces">Показывать пойманные фигуры</string>
   <string name="disclosureMode">Включить скрытие вариантов</string>
   <string name="generalSettings">Общие</string>
   <string name="moveListSettings">Список ходов</string>

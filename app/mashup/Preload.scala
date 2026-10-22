@@ -17,6 +17,7 @@ import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 import lila.common.HTTPRequest
+import lila.round.RoundGame.isMyTurnOrJustMoved
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -87,7 +88,7 @@ final class Preload(
           .filterNot(liveStreamApi.isStreaming)
           .so(unreadCount.hasMustReadLichessMsg)
     (currentGame, _) <- ctx.me
-      .soUse(currentGameMyTurn(povs, lightUserApi.sync))
+      .soUse(currentGameMyTurnOrJustMoved(povs))
       .mon(lila.mon.lobby.segment("currentGame"))
       .zip:
         lightUserApi
@@ -117,21 +118,18 @@ final class Preload(
     hasUnreadLichessMessage = lichessMsg
   )
 
-  def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
+  def currentGameMyTurnOrJustMoved(using me: Me): Fu[Option[CurrentGame]] =
     gameRepo
       .playingRealtimeNoAi(me)
       .flatMap:
         _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
-      .flatMap:
-        currentGameMyTurn(_, lightUserApi.sync)
+      .flatMap(currentGameMyTurnOrJustMoved)
 
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.core.LightUser.GetterSync)(using
-      me: Me
-  ): Fu[Option[CurrentGame]] =
+  private def currentGameMyTurnOrJustMoved(povs: List[Pov])(using me: Me): Fu[Option[CurrentGame]] =
     ~povs.collectFirst:
-      case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
+      case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurnOrJustMoved =>
         roundProxy.pov(p1.gameId, me).dmap(_ | p1).map { pov =>
-          val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
+          val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUserApi.sync)
           CurrentGame(pov = pov, opponent = opponent).some
         }
 

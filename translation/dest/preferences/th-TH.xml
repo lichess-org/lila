@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">แสดงตัวหมากที่ไร้ตัวป้องกัน</string>
   <string name="showPinnedPieces">แสดงตัวหมากที่โดนกด</string>
   <string name="showCheckableKing">แสดงคิงที่สามารถโดนรุกได้</string>
+  <string name="showTrappedPieces">แสดงตัวหมากที่ไม่มีที่ไป</string>
   <string name="disclosureMode">เปิดปุ่มที่ปิดแขนงตาเดินที่ไม่ต้องการ</string>
   <string name="generalSettings">ทั่วไป</string>
   <string name="moveListSettings">รายการตาเดิน</string>

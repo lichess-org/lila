@@ -454,7 +454,7 @@ final class Study(
 
   def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
     Found(env.study.api.byId(id)): study =>
-      HeadLastModifiedAt(study.updatedAt):
+      LastModified(study.updatedAt):
         CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
           privateUnauthorizedFu(study),
           privateForbiddenFu(study)
@@ -471,7 +471,7 @@ final class Study(
       Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
         .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
         .as(pgnContentType)
-        .withDateHeaders(lastModified(study.updatedAt))
+        .headerCache(pgnResultCache(study))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
@@ -511,9 +511,11 @@ final class Study(
               res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
               resWithAnalysis = analysisJson.fold(res): a =>
                 res.withHeaders("X-Lichess-Analysis" -> Json.stringify(a))
-            yield resWithAnalysis
+            yield resWithAnalysis.headerCache(pgnResultCache(study))
           }(studyUnauthorized(study), studyForbidden(study))
         }
+
+  private def pgnResultCache(study: StudyModel) = Option.unless(study.isPrivate)(10.seconds)
 
   def apiExportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =

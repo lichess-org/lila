@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Mostrar peças sem defesa</string>
   <string name="showPinnedPieces">Mostrar peças cravadas</string>
   <string name="showCheckableKing">Mostrar rei possível de xeque</string>
+  <string name="showTrappedPieces">Mostrar peças presas</string>
   <string name="disclosureMode">Permitir esconder variação</string>
   <string name="generalSettings">Geral</string>
   <string name="moveListSettings">Lista de movimentos</string>

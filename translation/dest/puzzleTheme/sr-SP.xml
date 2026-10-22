@@ -19,7 +19,6 @@
   <string name="bodenMate">Боденов мат</string>
   <string name="bodenMateDescription">Два нападајућа ловца на унакрсним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
   <string name="castling">Рокадирање</string>
-  <string name="enPassant">Ан пасан</string>
   <string name="castlingDescription">Доведи краља на сигурно и развиј топа за напад.</string>
   <string name="capturingDefender">Узми браниоца</string>
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика током последње фазе партије.</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="exposedKing">Изложен краљ</string>
   <string name="exposedKingDescription">Тактика која укључује краља са малим бројем бранилаца око њега, често доводи до шах-мата.</string>
   <string name="fork">Виљушка</string>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Keng Werbung, keen Tracking</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Fernschach mat bedingte Virauszich</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Standardschach an %s</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Keng Werbung, keen Tracking</string>
+  <string name="correspondenceWithConditionalPremoves">Fernschach mat bedingte Virauszich</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standardschach an %s</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s Partie pro Dag</item>
     <item quantity="other">%s Partië pro Dag</item>
   </plurals>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Etüden (persistent Analysen, déi gedeelt kënne ginn)</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Taktesch Aufgabe vu Benotzerpartien</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (funktionéiert och fir %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Perséinlechen Erëffnungsdatebank</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Global Erëffnungsdatebank (%s Partien!)</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ultrabullet, Bullet, Blitz, Schnellschach, Klassesch, Fernschach</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Jo, béid Konten hunn déi selwecht Funktiounen!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Mir sinn der Meenung, datt jiddwer Schachspiller dat bescht verdéngt, dofir:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">All Funktioune si gratis fir jiddereen, fir ëmmer!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Wann s de Lichess gär hues:</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Ënnerstëtz eis mat engem Ënnerstëtzer-Konto!</string>
+  <string name="studies">Etüden (persistent Analysen, déi gedeelt kënne ginn)</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktesch Aufgabe vu Benotzerpartien</string>
+  <string name="personalOpeningExplorerX">%1$s (funktionéiert och fir %2$s)</string>
+  <string name="personalOpeningExplorer">Perséinlechen Erëffnungsdatebank</string>
+  <string name="globalOpeningExplorerInNbGames">Global Erëffnungsdatebank (%s Partien!)</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultrabullet, Bullet, Blitz, Schnellschach, Klassesch, Fernschach</string>
+  <string name="everybodyGetsAllFeaturesForFree">Jo, béid Konten hunn déi selwecht Funktiounen!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Mir sinn der Meenung, datt jiddwer Schachspiller dat bescht verdéngt, dofir:</string>
+  <string name="allFeaturesAreFreeForEverybody">All Funktioune si gratis fir jiddereen, fir ëmmer!</string>
+  <string name="ifYouLoveLichess">Wann s de Lichess gär hues:</string>
+  <string name="supportUsWithAPatronAccount">Ënnerstëtz eis mat engem Ënnerstëtzer-Konto!</string>
 </resources>

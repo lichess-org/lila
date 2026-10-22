@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Жеке Бастама Қоры</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Жалпы Бастама қоры (%s ойын!)</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Жарық/Қараңғы кейіп, өзгермелі тақта, тас пен артқы кескін</string>
+  <string name="personalOpeningExplorer">Жеке Бастама Қоры</string>
+  <string name="globalOpeningExplorerInNbGames">Жалпы Бастама қоры (%s ойын!)</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Жарық/Қараңғы кейіп, өзгермелі тақта, тас пен артқы кескін</string>
 </resources>

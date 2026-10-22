@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">શૂન્ય જાહેરાત, કોઈ ટ્રેકિંગ નહીં</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">શરતી પ્રીમૂવ્સ સાથે પત્રવ્યવહાર ચેસ</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">સ્ટાન્ડર્ડ ચેસ અને %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ડીપ %s સર્વર વિશ્લેષણ</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">શૂન્ય જાહેરાત, કોઈ ટ્રેકિંગ નહીં</string>
+  <string name="correspondenceWithConditionalPremoves">શરતી પ્રીમૂવ્સ સાથે પત્રવ્યવહાર ચેસ</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">સ્ટાન્ડર્ડ ચેસ અને %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">ડીપ %s સર્વર વિશ્લેષણ</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">પ્રતિ દિવસ %s ગેમ</item>
     <item quantity="other">પ્રતિ દિવસ %s ગેમ્સ</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%s સાથે બોર્ડ એડિટર અને વિશ્લેષણ બોર્ડ</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ક્લાઉડ એન્જિન વિશ્લેષણ</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">સ્ટડીઝ (શેર કરી શકાય તેવું અને સતત વિશ્લેષણ)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ચેસ ઇનસાઇટ્સ (તમારી રમતનું વિગતવાર વિશ્લેષણ)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">બધા ચેસ બેઝિક્સ પાઠ</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">વપરાશકર્તાની રમતોમાંથી ટેક્ટિકલ પઝલ્સ</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s ( %2$s પર પણ કામ કરે છે)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">વ્યક્તિગત ઓપનિંગ એક્સપ્લોરર</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ગ્લોબલ ઓપનિંગ એક્સપ્લોરર (%s ગેમ્સ!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7-પીસ એન્ડગેમ ટેબલબેઝ</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">કોઈપણ રમત PGN તરીકે ડાઉનલોડ/અપલોડ કરો</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">બ્લોગ, ફોરમ, ટીમો, ટીવી, મેસેજિંગ, મિત્રો, પડકારો</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">લાઇટ/ડાર્ક થીમ, કસ્ટમ બોર્ડ, ટુકડાઓ અને પૃષ્ઠભૂમિ</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">અલ્ટ્રાબુલેટ, બુલેટ, બ્લિટ્ઝ, રેપિડ, ક્લાસિકલ, પત્રવ્યવહાર ચેસ</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">બધી સુવિધાઓ આવવા માટે, કાયમ માટે!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone &amp; Android ફોન અને ટેબ્લેટ, લેન્ડસ્કેપ સપોર્ટ</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">હા, બંને એકાઉન્ટમાં સમાન સુવિધાઓ છે!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">અમારું માનવું છે કે દરેક ચેસ ખેલાડી શ્રેષ્ઠને પાત્ર છે, અને તેથી:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">બધી સુવિધાઓ દરેક માટે મફત છે, કાયમ માટે!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">જો તમને Lichess ગમે છે,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">પેટ્રન એકાઉન્ટ સાથે અમને સપોર્ટ કરો!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">%s સાથે બોર્ડ એડિટર અને વિશ્લેષણ બોર્ડ</string>
+  <string name="cloudEngineAnalysis">ક્લાઉડ એન્જિન વિશ્લેષણ</string>
+  <string name="studies">સ્ટડીઝ (શેર કરી શકાય તેવું અને સતત વિશ્લેષણ)</string>
+  <string name="chessInsights">ચેસ ઇનસાઇટ્સ (તમારી રમતનું વિગતવાર વિશ્લેષણ)</string>
+  <string name="allChessBasicsLessons">બધા ચેસ બેઝિક્સ પાઠ</string>
+  <string name="tacticalPuzzlesFromUserGames">વપરાશકર્તાની રમતોમાંથી ટેક્ટિકલ પઝલ્સ</string>
+  <string name="personalOpeningExplorerX">%1$s ( %2$s પર પણ કામ કરે છે)</string>
+  <string name="personalOpeningExplorer">વ્યક્તિગત ઓપનિંગ એક્સપ્લોરર</string>
+  <string name="globalOpeningExplorerInNbGames">ગ્લોબલ ઓપનિંગ એક્સપ્લોરર (%s ગેમ્સ!)</string>
+  <string name="endgameTablebase">7-પીસ એન્ડગેમ ટેબલબેઝ</string>
+  <string name="downloadOrUploadAnyGameAsPgn">કોઈપણ રમત PGN તરીકે ડાઉનલોડ/અપલોડ કરો</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">બ્લોગ, ફોરમ, ટીમો, ટીવી, મેસેજિંગ, મિત્રો, પડકારો</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">લાઇટ/ડાર્ક થીમ, કસ્ટમ બોર્ડ, ટુકડાઓ અને પૃષ્ઠભૂમિ</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">અલ્ટ્રાબુલેટ, બુલેટ, બ્લિટ્ઝ, રેપિડ, ક્લાસિકલ, પત્રવ્યવહાર ચેસ</string>
+  <string name="allFeaturesToCome">બધી સુવિધાઓ આવવા માટે, કાયમ માટે!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android ફોન અને ટેબ્લેટ, લેન્ડસ્કેપ સપોર્ટ</string>
+  <string name="everybodyGetsAllFeaturesForFree">હા, બંને એકાઉન્ટમાં સમાન સુવિધાઓ છે!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">અમારું માનવું છે કે દરેક ચેસ ખેલાડી શ્રેષ્ઠને પાત્ર છે, અને તેથી:</string>
+  <string name="allFeaturesAreFreeForEverybody">બધી સુવિધાઓ દરેક માટે મફત છે, કાયમ માટે!</string>
+  <string name="ifYouLoveLichess">જો તમને Lichess ગમે છે,</string>
+  <string name="supportUsWithAPatronAccount">પેટ્રન એકાઉન્ટ સાથે અમને સપોર્ટ કરો!</string>
 </resources>

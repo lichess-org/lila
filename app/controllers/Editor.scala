@@ -37,8 +37,8 @@ final class Editor(env: Env) extends LilaController(env):
       views.boardEditor(fen, positionsJson, endgamePositionsJson)
     .map(_.enforceCrossSiteIsolation)
 
-  def data = Open:
-    JsonOk(views.boardEditor.jsData())
+  def data = Auth: _ ?=>
+    Ok(views.boardEditor.jsData())
 
   def game(id: GameId) = Open:
     Found(env.game.gameRepo.game(id)): game =>

@@ -197,4 +197,7 @@
   <string name="doubleDefeat">باخت دوطرفه</string>
   <string name="blackDefeatWhiteCanNotWin">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
   <string name="whiteDefeatBlackCanNotWin">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
+  <string name="analysisEditor">ویراستار تحلیل</string>
+  <string name="requestAServerAnalysis">درخواستِ تحلیلِ کارساز</string>
+  <string name="analyzeOnYourDevice">تحلیل در اَفزاره‌تان</string>
 </resources>

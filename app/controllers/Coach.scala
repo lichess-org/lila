@@ -33,7 +33,7 @@ final class Coach(env: Env) extends LilaController(env):
         res <- negotiate(
           html =
             renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country)).map(Ok(_)),
-          json = JsonOk(env.coach.jsonView.pager(pager, lang, order, country, langCodes, countries))
+          json = Ok(env.coach.jsonView.pager(pager, lang, order, country, langCodes, countries))
         )
       yield res
 

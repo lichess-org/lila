@@ -70,7 +70,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     .headerCache(1.hour)
 
   val manifest = Anon:
-    JsonOk(env.web.static.manifest).headerCache(1.hour)
+    Ok(env.web.static.manifest).headerCache(1.hour)
 
   def getFishnet = Open:
     pageHit
@@ -141,7 +141,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
                   case Some(info) if info.dim.width > maxWidth =>
                     env.memo.picfitUrl.resize(image.id, Left(maxWidth)).some
                   case _ => env.memo.picfitUrl.raw(image.id).some
-              yield JsonOk(Json.obj("imageUrl" -> url))).recover:
+              yield Ok(Json.obj("imageUrl" -> url))).recover:
                 case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
@@ -149,7 +149,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     if width < 1 then JsonBadRequest("Invalid width")
     else
       limit.preview(me.userId, rateLimited):
-        JsonOk(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
+        Ok(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
   }
 
   def markdownPreview(realm: MarkdownRealm) = AuthBody(parse.tolerantText) { ctx ?=> me ?=>

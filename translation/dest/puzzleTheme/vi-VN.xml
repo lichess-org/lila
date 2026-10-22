@@ -23,7 +23,6 @@
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
   <string name="bodenMateDescription">Hai quân Tượng tấn công trên các đường chéo chéo nhau chiếu hết quân vua bị kẹt bởi đồng đội của nó.</string>
   <string name="castling">Nhập thành</string>
-  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Chiếu bằng hai quân một lúc, là kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="enPassantAdjacentCaptureDescription">Một chiến thuật sử dụng luật bắt tốt qua đường, trong đó một quân tốt có thể bắt quân tốt đối phương vừa di chuyển đến bên cạnh nó bằng nước đi hai ô đầu tiên.</string>
   <string name="epauletteMate">Chiếu hết kiểu cầu vai</string>
   <string name="epauletteMateDescription">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>

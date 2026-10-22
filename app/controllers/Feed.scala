@@ -52,4 +52,4 @@ final class Feed(env: Env) extends LilaController(env):
 
   def recent = Anon:
     for json <- env.feed.api.recentJson
-    yield JsonOk(json).headerCache(10.minutes)
+    yield Ok(json).headerCache(10.minutes)

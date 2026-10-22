@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">ماجرا چیست؟</string>
+  <string name="cheat">تقلب</string>
+  <string name="troll">وِزُل</string>
+  <string name="reportStall">وقتکشی / ترک بازی</string>
+  <string name="reportBoost">ضعیف‌نمایی / قوی‌نمایی / تبانی</string>
+  <string name="reportVerbalAbuse">توهین کلامی / دشنام / وِزُلیدن</string>
+  <string name="reportViolence">خشونت / تهدید</string>
+  <string name="reportHarass">ایذا / قلدری / تعقیب</string>
+  <string name="reportSelfHarm">خودکشی / خودآسیب</string>
+  <string name="reportHate">اظهار تنفر/ جنسیتی</string>
+  <string name="reportSpam">هرزنامه</string>
+  <string name="readMoreAboutLichessReports">اطلاعات بیشتر درباره گزارش‌های Lichess</string>
+  <string name="reportMaximumCharacters">حداکثر ۳۰۰۰ نویسه.</string>
+  <string name="reportCheatBoostHelp">پیوند بازی(ها) را جایگذارید و بشرحید این کاربر چه رفتارِ نادرستی دارد. فقط نگویید «تقلب می‌کند»، بلکه به ما بگویید چگونه به این نتیجه رسیده‌اید.</string>
+  <string name="reportUsernameHelp">بشرحید چرا این نام کاربری توهین‌آمیز است. فقط نگویید «توهین‌آمیز/نامناسب است»، بلکه به ما بگویید چگونه به این نتیجه رسیده‌اید، خصوصا اگر توهین گنگ، نا-انگلیسی، عامیانه یا ارجاعی تاریخی/فرهنگی است.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر به انگلیسی بنویسید، می‌توانیم سریع‌تر به گزارش‌تان رسیدگی کنیم.</string>
+  <string name="provideOneCheatedGameLink">لطفاً دستکم یک پیوندِ بازی برای بررسی ارائه دهید.</string>
+</resources>
