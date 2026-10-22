@@ -10,6 +10,7 @@ import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
 import lila.core.{ LightUser, timeline as tl }
+import lila.core.config.RateLimit
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi
@@ -26,7 +27,7 @@ final class UblogApi(
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler)
+)(using Executor, Scheduler, RateLimit)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
@@ -342,7 +343,9 @@ final class UblogApi(
       for _ <- colls.post.updateOrUnsetField(bid(post.id), "featured", featured)
       yield featured
 
-  def newPost(author: User): Fu[UblogPost] =
+  val newPostLimit = lila.memo.RateLimit[UserId](10, 24.hour, "ublog.create.user")
+
+  def newPost(author: User): Fu[Option[UblogPost]] =
     colls.post
       .one[UblogPost](
         bdoc(
@@ -354,11 +357,12 @@ final class UblogApi(
           "image".exists(false)
         )
       )
-      .getOrElse:
-        val post = UblogPost.empty(author)
-        colls.post.insert
-          .one(bsonWriteObjTry[UblogPost](post).get ++ bdoc("likers" -> List(author.id)))
-          .inject(post)
+      .orElse:
+        newPostLimit(author.id, fuccess(none)):
+          val post = UblogPost.empty(author)
+          colls.post.insert
+            .one(bsonWriteObjTry[UblogPost](post).get ++ bdoc("likers" -> List(author.id)))
+            .inject(post.some)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
     (tier <= Tier.REGULAR).so(unfeatureAllOf(blog))

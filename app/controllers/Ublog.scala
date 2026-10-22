@@ -132,7 +132,7 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(username, _.edit): (user, _) =>
         env.ublog.api
           .newPost(user)
-          .map(post => Redirect(editUrlOfPost(post)))
+          .flatMap(_.fold(rateLimited)(post => Redirect(editUrlOfPost(post))))
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>

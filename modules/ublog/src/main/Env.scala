@@ -34,7 +34,7 @@ final class Env(
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
     automod: lila.report.Automod
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, RateLimit):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
