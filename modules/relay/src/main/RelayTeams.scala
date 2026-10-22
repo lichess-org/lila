@@ -382,9 +382,9 @@ final class RelayTeamLeaderboard(
                 acc.updatedWith(team.name): entry =>
                   matchup
                     .povMatch(team.name)
-                    .flatMap: pov =>
-                      entry.fold(TeamLeaderboardEntry(team.name, List(pov)).some): team =>
-                        team.copy(povMatches = team.povMatches :+ pov).some
+                    .map: pov =>
+                      entry.fold(TeamLeaderboardEntry(team.name, List(pov))): team =>
+                        team.copy(povMatches = team.povMatches :+ pov)
               .toList
               .sortBy(_._2)
               .to(SeqMap)
