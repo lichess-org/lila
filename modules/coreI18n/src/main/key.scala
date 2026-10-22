@@ -2657,8 +2657,6 @@ object I18nKey:
     val `write`: I18nKey = "write"
     val `preview`: I18nKey = "preview"
     val `done`: I18nKey = "done"
-    val `microphone`: I18nKey = "microphone"
-    val `noneSelected`: I18nKey = "noneSelected"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `numberBlunders`: I18nKey = "numberBlunders"
@@ -3364,4 +3362,6 @@ object I18nKey:
     val `voiceSettings`: I18nKey = "voiceCommands:voiceSettings"
     val `pushShiftKeyToTalk`: I18nKey = "voiceCommands:pushShiftKeyToTalk"
     val `holdShiftKeyWhileSpeaking`: I18nKey = "voiceCommands:holdShiftKeyWhileSpeaking"
+    val `microphone`: I18nKey = "voiceCommands:microphone"
+    val `noneSelected`: I18nKey = "voiceCommands:noneSelected"
 

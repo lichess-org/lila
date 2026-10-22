@@ -1063,6 +1063,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="write">Write</string>
   <string name="preview">Preview</string>
   <string name="done">Done</string>
-  <string name="microphone">Microphone</string>
-  <string name="noneSelected">None selected</string>
 </resources>

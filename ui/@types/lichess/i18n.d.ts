@@ -4277,8 +4277,6 @@ interface I18n {
     menu: string;
     /** Message */
     message: string;
-    /** Microphone */
-    microphone: string;
     /** Middlegame */
     middlegame: string;
     /** Minimum rated games */
@@ -4417,8 +4415,6 @@ interface I18n {
     noMistakesFoundForWhite: string;
     /** None */
     none: string;
-    /** None selected */
-    noneSelected: string;
     /** Offline */
     noNetwork: string;
     /** No note yet */
@@ -6579,8 +6575,12 @@ interface I18n {
     instructions5: string;
     /** %s explains the voice move settings in detail. */
     instructions6: I18nFormat;
+    /** Microphone */
+    microphone: string;
     /** Move to e4 or select e4 piece */
     moveToE4OrSelectE4Piece: string;
+    /** None selected */
+    noneSelected: string;
     /** Phonetic alphabet is best */
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */

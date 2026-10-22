@@ -95,7 +95,7 @@ const nullMic: MediaDeviceInfo = {
 let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return hl('div.voice-setting', [
-    hl('label', { attrs: { for: 'voice-mic' } }, i18n.site.microphone),
+    hl('label', { attrs: { for: 'voice-mic' } }, i18n.voiceCommands.microphone),
     hl(
       'select#voice-mic',
       {
@@ -116,7 +116,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
               selected: d.deviceId === ctrl.micId(),
             },
           },
-          d.deviceId === 'null' ? i18n.site.noneSelected : d.label,
+          d.deviceId === 'null' ? i18n.voiceCommands.noneSelected : d.label,
         ),
       ),
     ),
