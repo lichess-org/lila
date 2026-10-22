@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Fară reclame, zero tracking</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Șah de corespondență cu mutări prealabile condiționate</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Șah standard și %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Analiză %s în profunzime</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Fară reclame, zero tracking</string>
+  <string name="correspondenceWithConditionalPremoves">Șah de corespondență cu mutări prealabile condiționate</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Șah standard și %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Analiză %s în profunzime</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s partidă pe zi</item>
     <item quantity="few">%s partidă pe zi</item>
     <item quantity="other">%s jocuri pe zi</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Editor de tablă și tablă de analiză cu %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Analiza motorului în cloud</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Studii (analiză distribuibilă și persistentă)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Informații despre șah (analiză detaliată a jocului tău)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Toate lecțiile în bazele șahului</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">puzzle-uri tactice din jocurile utilizatorului</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (de asemenea, funcționează pe %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Explorator de deschidere personal</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Explorator de deschidere globală (%s jocuri!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">endgame cu 7 piese</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Descărcați/Încărcați orice joc ca PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Blog, forum, echipe, TV, mesagerie, prieteni, provocări</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Temă luminoasă/întunecată, table personalizate, piese și fundal</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">UltraBullet, Bullet, Blitz, Rapid, Clasic, Correspondence Chess</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Toate caracteristicile în curând, pentru totdeauna!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone &amp; Telefoane Android și tablete, suportă modul landscape</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Da, ambele conturi au aceleaşi caracteristici!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Credem că fiecare jucător de șah merită cel mai bun și de asemenea:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Toate caracteristicile sunt gratuite pentru toată lumea, pentru totdeauna!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Dacă iubești Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Susține-ne cu un cont Patron!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de tablă și tablă de analiză cu %s</string>
+  <string name="cloudEngineAnalysis">Analiza motorului în cloud</string>
+  <string name="studies">Studii (analiză distribuibilă și persistentă)</string>
+  <string name="chessInsights">Informații despre șah (analiză detaliată a jocului tău)</string>
+  <string name="allChessBasicsLessons">Toate lecțiile în bazele șahului</string>
+  <string name="tacticalPuzzlesFromUserGames">puzzle-uri tactice din jocurile utilizatorului</string>
+  <string name="personalOpeningExplorerX">%1$s (de asemenea, funcționează pe %2$s)</string>
+  <string name="personalOpeningExplorer">Explorator de deschidere personal</string>
+  <string name="globalOpeningExplorerInNbGames">Explorator de deschidere globală (%s jocuri!)</string>
+  <string name="endgameTablebase">endgame cu 7 piese</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Descărcați/Încărcați orice joc ca PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, echipe, TV, mesagerie, prieteni, provocări</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Temă luminoasă/întunecată, table personalizate, piese și fundal</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Clasic, Correspondence Chess</string>
+  <string name="allFeaturesToCome">Toate caracteristicile în curând, pentru totdeauna!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Telefoane Android și tablete, suportă modul landscape</string>
+  <string name="everybodyGetsAllFeaturesForFree">Da, ambele conturi au aceleaşi caracteristici!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Credem că fiecare jucător de șah merită cel mai bun și de asemenea:</string>
+  <string name="allFeaturesAreFreeForEverybody">Toate caracteristicile sunt gratuite pentru toată lumea, pentru totdeauna!</string>
+  <string name="ifYouLoveLichess">Dacă iubești Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Susține-ne cu un cont Patron!</string>
 </resources>

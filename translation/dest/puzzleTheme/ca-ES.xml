@@ -23,7 +23,6 @@
   <string name="bodenMate">Mat de Boden</string>
   <string name="bodenMateDescription">Dos alfils atacant en diagonals que es creuen fan mat a un rei que queda atrapat entre peces amigues.</string>
   <string name="castling">Enrocant</string>
-  <string name="enPassant">Captura al pas</string>
   <string name="castlingDescription">Assegura el rei, i prepara la torre per l\'atac.</string>
   <string name="capturingDefender">Captura el defensor</string>
   <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar una altra, fent que es pugui menjar la peça que ara ja no està defensada.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Posar en escac amb dues peces a la vegada, com a resultat d\'un atac descobert on tant la peça que s\'ha mogut com la peça descoberta ataquen el rei de l\'oponent.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tàctica durant la última fase del joc.</string>
+  <string name="enPassant">Captura al pas</string>
   <string name="enPassantAdjacentCaptureDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
   <string name="epauletteMate">Mat de l\'espatllera</string>
   <string name="epauletteMateDescription">Dues caselles adjacents al rei escaquejat estan ocupades per altres peces.</string>

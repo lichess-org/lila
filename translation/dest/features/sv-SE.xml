@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Inga annonser, ingen spårning</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Korrespondensschack med villkorade förhandsdrag</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Standardschack och %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Djupa %s serveranalyser</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">Inga annonser, ingen spårning</string>
+  <string name="correspondenceWithConditionalPremoves">Korrespondensschack med villkorade förhandsdrag</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standardschack och %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Djupa %s serveranalyser</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s parti per dag</item>
     <item quantity="other">%s partier per dag</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Brädeditor och analysbräde med %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Analyser genom molntjänster</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Studier (delbar och bestående analys)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Schackfördjupning (detaljerad analys av ditt spel)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Alla grundlektioner i schack</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Taktiska pussel från användares partier</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (fungerar även på %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Personlig öppningsutforskare</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Globala öppningsutforskaren (%s partier!)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7-delad slutspels-databas</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ladda ner/ladda upp alla partier som PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Blogg, forum, lag, TV, meddelanden, vänner, utmaningar</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Ljus/mörkt tema, anpassade bräden, pjäser och bakgrund</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">UltraBullet, Bullet, Blitz, Snabb, Klassisk, Korrespondensschack</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Alla funktioner är dina för alltid!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone &amp; Android-telefoner och surfplattor, stöd för liggande skärm</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">Ja, båda kontona har samma funktioner!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">Vi anser att varje schackspelare förtjänar det bästa, och därmed:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">Alla funktioner är gratis för alla, för alltid!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Om du älskar Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">Stöd oss med ett beskyddarkonto!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Brädeditor och analysbräde med %s</string>
+  <string name="cloudEngineAnalysis">Analyser genom molntjänster</string>
+  <string name="studies">Studier (delbar och bestående analys)</string>
+  <string name="chessInsights">Schackfördjupning (detaljerad analys av ditt spel)</string>
+  <string name="allChessBasicsLessons">Alla grundlektioner i schack</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktiska pussel från användares partier</string>
+  <string name="personalOpeningExplorerX">%1$s (fungerar även på %2$s)</string>
+  <string name="personalOpeningExplorer">Personlig öppningsutforskare</string>
+  <string name="globalOpeningExplorerInNbGames">Globala öppningsutforskaren (%s partier!)</string>
+  <string name="endgameTablebase">7-delad slutspels-databas</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Ladda ner/ladda upp alla partier som PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogg, forum, lag, TV, meddelanden, vänner, utmaningar</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Ljus/mörkt tema, anpassade bräden, pjäser och bakgrund</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Snabb, Klassisk, Korrespondensschack</string>
+  <string name="allFeaturesToCome">Alla funktioner är dina för alltid!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android-telefoner och surfplattor, stöd för liggande skärm</string>
+  <string name="everybodyGetsAllFeaturesForFree">Ja, båda kontona har samma funktioner!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Vi anser att varje schackspelare förtjänar det bästa, och därmed:</string>
+  <string name="allFeaturesAreFreeForEverybody">Alla funktioner är gratis för alla, för alltid!</string>
+  <string name="ifYouLoveLichess">Om du älskar Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Stöd oss med ett beskyddarkonto!</string>
 </resources>

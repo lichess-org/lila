@@ -19,7 +19,6 @@
   <string name="bodenMate">बोडेन का मात</string>
   <string name="bodenMateDescription">क्राइस-क्रॉसिंग विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="castling">कैसलिंग</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">एक बार में दो टुकड़ों के साथ जाँच, एक खोज हमले के परिणामस्वरूप जहां चलती टुकड़ा और अनावरण टुकड़ा दोनों प्रतिद्वंद्वी के राजा पर हमला करते हैं।</string>
   <string name="endgame">एंडगेम</string>
   <string name="endgameDescription">खेल के अंतिम चरण के दौरान एक रणनीति।</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">उजागर राजा</string>
   <string name="exposedKingDescription">एक रणनीति जिसमें इसके चारों ओर कुछ रक्षकों के साथ एक राजा होता है, अक्सर चेकमेट के लिए अग्रणी होता है।</string>
   <string name="fork">कांटा</string>

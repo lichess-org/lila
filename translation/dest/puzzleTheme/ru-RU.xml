@@ -23,7 +23,6 @@
   <string name="bodenMate">Мат Бодена</string>
   <string name="bodenMateDescription">Два слона на скрещённых диагоналях ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
-  <string name="enPassant">Взятие на проходе</string>
   <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика в последней стадии игры.</string>
+  <string name="enPassant">Взятие на проходе</string>
   <string name="enPassantAdjacentCaptureDescription">Тактика, связанная с правилом «Взятие на проходе», когда пешка может срубить пешку противника, которая только что прошла рядом с ней, сделав начальный ход через одно поле.</string>
   <string name="epauletteMate">Эполетный мат</string>
   <string name="epauletteMateDescription">Две соседние клетки для спасения короля, оказавшегося под шахом, заняты другими фигурами.</string>

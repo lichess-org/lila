@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Vis udekka brikker</string>
   <string name="showPinnedPieces">Vis brikker som står i binding</string>
   <string name="showCheckableKing">Vis moglege sjakkar</string>
+  <string name="showTrappedPieces">Vis innestengde brikker</string>
   <string name="disclosureMode">Aktiver skjuling av variantar</string>
   <string name="generalSettings">Generelt</string>
   <string name="moveListSettings">Trekkliste</string>

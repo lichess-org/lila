@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">بدون تبلیغ، بدون ردگیری</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شطرنج مکاتبه‌ای با پیش‌حرکت‌های شرطی</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شطرنج معیار و %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">عمق تحلیل کارساز %s</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">بدون تبلیغ، بدون ردگیری</string>
+  <string name="correspondenceWithConditionalPremoves">شطرنج مکاتبه‌ای با پیش‌حرکت‌های شرطی</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">شطرنج معیار و %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">عمق تحلیل کارساز %s</string>
+  <plurals name="gamesPerDay">
     <item quantity="one">%s بازی در روز</item>
     <item quantity="other">%s بازی در روز</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">مهره‌چینی و تحلیل بازی با %s</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">تحلیل موتور اَبری</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">مطالعه‌ها (واکاوی ماندگار و همرسانی‌شوا)</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">درون‌دید‌ شطرنجی (تحلیل جز‌ئی بازی‌تان)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">همه درس‌های پایه‌ای شطرنج</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">معماهای راهکنشی از بازی‌های کاربر</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s (روی %2$s هم کار می‌کند)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">پویشگر شخصی گشایش</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">پویشگر سراسری گشایش (%s بازی)</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">دادگان آخربازی ۷ مهره‌ای</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">بارگیری/بارگذاری هر بازی‌ای به شکل PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">وبنوشت، انجمن، تیم‌ها، تماشا، پیام‌دهی، دوستان، پیشنهاد‌بازی/چالش‌ها</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">پوستهٔ روشن/تاریک، تخته، مهره‌ها و پس‌زمینه دلخواه</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">شطرنج اولاگلوله، گلوله، برق‌آسا، سریع، فکری، مکاتبه‌ای</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">همه‌ی ویژگی‌ها همیشگی‌اند!</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">پشتیبانی افق‌دید در رایانک‌ها، گوشی‌های آیفون و اندروید</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">بله، هردو حساب ویژگی‌های یکسانی دارند!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">باور داریم که هر شطرنج‌بازی شایسته بهترین‌هاست، و بنابراین:</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">همه‌ی ویژگی‌ها برای همیشه و همه‌کس، رایگان‌اند!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">اگر دوستدار Lichessید،</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">با حسابِ یاور، از ما حمایت کنید!</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">مهره‌چینی و تحلیل بازی با %s</string>
+  <string name="cloudEngineAnalysis">تحلیل موتور اَبری</string>
+  <string name="studies">مطالعه‌ها (واکاوی ماندگار و همرسانی‌شوا)</string>
+  <string name="chessInsights">درون‌دید‌ شطرنجی (تحلیل جز‌ئی بازی‌تان)</string>
+  <string name="allChessBasicsLessons">همه درس‌های پایه‌ای شطرنج</string>
+  <string name="tacticalPuzzlesFromUserGames">معماهای راهکنشی از بازی‌های کاربر</string>
+  <string name="personalOpeningExplorerX">%1$s (روی %2$s هم کار می‌کند)</string>
+  <string name="personalOpeningExplorer">پویشگر شخصی گشایش</string>
+  <string name="globalOpeningExplorerInNbGames">پویشگر سراسری گشایش (%s بازی)</string>
+  <string name="endgameTablebase">دادگان آخربازی ۷ مهره‌ای</string>
+  <string name="downloadOrUploadAnyGameAsPgn">بارگیری/بارگذاری هر بازی‌ای به شکل PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">وبنوشت، انجمن، تیم‌ها، تماشا، پیام‌دهی، دوستان، پیشنهاد‌بازی/چالش‌ها</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">پوستهٔ روشن/تاریک، تخته، مهره‌ها و پس‌زمینه دلخواه</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">شطرنج اولاگلوله، گلوله، برق‌آسا، سریع، فکری، مکاتبه‌ای</string>
+  <string name="allFeaturesToCome">همه‌ی ویژگی‌ها همیشگی‌اند!</string>
+  <string name="landscapeSupportOnApp">پشتیبانی افق‌دید در رایانک‌ها، گوشی‌های آیفون و اندروید</string>
+  <string name="everybodyGetsAllFeaturesForFree">بله، هردو حساب ویژگی‌های یکسانی دارند!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">باور داریم که هر شطرنج‌بازی شایسته بهترین‌هاست، و بنابراین:</string>
+  <string name="allFeaturesAreFreeForEverybody">همه‌ی ویژگی‌ها برای همیشه و همه‌کس، رایگان‌اند!</string>
+  <string name="ifYouLoveLichess">اگر دوستدار Lichessید،</string>
+  <string name="supportUsWithAPatronAccount">با حسابِ یاور، از ما حمایت کنید!</string>
 </resources>

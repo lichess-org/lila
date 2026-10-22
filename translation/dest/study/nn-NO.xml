@@ -201,4 +201,5 @@
   <string name="clearLocal">Slette lokale analysar?</string>
   <string name="clearPublished">Fjerne publiserte analysar?</string>
   <string name="requestAServerAnalysis">Be om serveranalyse</string>
+  <string name="analyzeOnYourDevice">Analysar på eininga</string>
 </resources>

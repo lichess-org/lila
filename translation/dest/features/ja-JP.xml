@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">広告なし、トラッキングなし</string>
-  <string name="correspondenceWithConditionalPremoves" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">通信戦ではコンディショナルムーブも使えます</string>
-  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">通常のチェスと %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%s による深いサーバ解析</string>
-  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">
+  <string name="zeroAdsAndNoTracking">広告なし、トラッキングなし</string>
+  <string name="correspondenceWithConditionalPremoves">通信戦ではコンディショナルムーブも使えます</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">通常のチェスと %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">%s による深いサーバ解析</string>
+  <plurals name="gamesPerDay">
     <item quantity="other">1 日あたり %s 局</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%s の付いたボードエディタと検討用ボード</string>
-  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">クラウドエンジン解析</string>
-  <string name="studies" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">研究（解析結果の共有と保存）</string>
-  <string name="chessInsights" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">チェス・インサイト（あなたのプレイの詳細な分析）</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">すべてのチェスの基本レッスン</string>
-  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ユーザーの対局からのタクティクス問題</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">%1$s （%2$s にも有効）</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">個人用オープニング エクスプローラー</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">オープニングエクスプローラー（%s 局！）</string>
-  <string name="endgameTablebase" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">7 駒までの終盤テーブルベース</string>
-  <string name="downloadOrUploadAnyGameAsPgn" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">棋譜を PGN 形式でダウンロード/アップロード</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ブログ、フォーラム、チーム、TV、メッセージ、友達、チャレンジ</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ライト/ダークモード、選べる盤・駒・背景</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">ブレット、ブリッツ、ラピッド、クラシカル、通信戦</string>
-  <string name="allFeaturesToCome" comment="This string appears as a feature on the Features comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">今後追加されるすべての機能も！</string>
-  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the Feature comparison page, discussing availability of the official mobile app.&#10;&#10;URL: https://lichess.org/features?en=1&#10;&#10;You are not required to have &amp;amp; in your translation, but if you want to insert an ampersand, please type it as '&amp;amp;' and it will display as an ampersand to users.">iPhone、Android の携帯電話やタブレット、横長表示にも対応</string>
-  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the Feature comparison page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.&#10;&#10;URL: https://lichess.org/features?en=1">どちらのアカウントでも機能は同じです！</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;&#10;&#10;URL: https://lichess.org/features?en=1">私たちは、どんな人でも最高のサイトを使えるべきだと思っています。</string>
-  <string name="allFeaturesAreFreeForEverybody" comment="URL: https://lichess.org/features?en=1">誰もがすべての機能を、無料で、ずっと使えるのです！</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;&#10;&#10;This string appears on the Feature comparison page.&#10;&#10;URL: https://lichess.org/features?en=1">Lichessが好きなら、</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of the Feature comparison page, which takes users to the donation page.&#10;&#10;URL: https://lichess.org/features?en=1">寄付してパトロンになってください！</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">%s の付いたボードエディタと検討用ボード</string>
+  <string name="cloudEngineAnalysis">クラウドエンジン解析</string>
+  <string name="studies">研究（解析結果の共有と保存）</string>
+  <string name="chessInsights">チェス・インサイト（あなたのプレイの詳細な分析）</string>
+  <string name="allChessBasicsLessons">すべてのチェスの基本レッスン</string>
+  <string name="tacticalPuzzlesFromUserGames">ユーザーの対局からのタクティクス問題</string>
+  <string name="personalOpeningExplorerX">%1$s （%2$s にも有効）</string>
+  <string name="personalOpeningExplorer">個人用オープニング エクスプローラー</string>
+  <string name="globalOpeningExplorerInNbGames">オープニングエクスプローラー（%s 局！）</string>
+  <string name="endgameTablebase">7 駒までの終盤テーブルベース</string>
+  <string name="downloadOrUploadAnyGameAsPgn">棋譜を PGN 形式でダウンロード/アップロード</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">ブログ、フォーラム、チーム、TV、メッセージ、友達、チャレンジ</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">ライト/ダークモード、選べる盤・駒・背景</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">ブレット、ブリッツ、ラピッド、クラシカル、通信戦</string>
+  <string name="allFeaturesToCome">今後追加されるすべての機能も！</string>
+  <string name="landscapeSupportOnApp">iPhone、Android の携帯電話やタブレット、横長表示にも対応</string>
+  <string name="everybodyGetsAllFeaturesForFree">どちらのアカウントでも機能は同じです！</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">私たちは、どんな人でも最高のサイトを使えるべきだと思っています。</string>
+  <string name="allFeaturesAreFreeForEverybody">誰もがすべての機能を、無料で、ずっと使えるのです！</string>
+  <string name="ifYouLoveLichess">Lichessが好きなら、</string>
+  <string name="supportUsWithAPatronAccount">寄付してパトロンになってください！</string>
 </resources>

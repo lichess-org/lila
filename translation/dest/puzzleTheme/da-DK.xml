@@ -23,7 +23,6 @@
   <string name="bodenMate">Bodens mat</string>
   <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
   <string name="endgame">Slutspil</string>
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
   <string name="epauletteMate">Epaulet-mat</string>
   <string name="epauletteMateDescription">To tilstødende flugtfelter for en konge i skak er blokeret af andre brikker.</string>

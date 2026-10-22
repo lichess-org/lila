@@ -8,7 +8,6 @@
   <string name="attackingF2F7">o utala e f2 e f7</string>
   <string name="attackingF2F7Description">o utala tawa jan utala lon f2 anu f7.</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
-  <string name="enPassant">tawa la o anpa</string>
   <string name="castlingDescription">o awen e lawa mije sina. o tawa e tomo utala sina tawa ni: ona li ken utala e ijo ante.</string>
   <string name="capturingDefender">o anpa e ijo pi awen ijo</string>
   <string name="capturingDefenderDescription">ijo musi li awen e ijo ante. sina anpa e ona la, ijo ante li awen ala. sina ken anpa e ijo ante lon tenpo tawa kama sina.</string>
@@ -21,6 +20,7 @@
   <string name="doubleCheck">lawa mije li ken moli tan ijo tu</string>
   <string name="doubleCheckDescription">ijo musi wan li tawa, li open e nasin utala tawa ijo musi ante. ijo musi tu li utala e lawa mije lon tenpo sama.</string>
   <string name="endgame">pini musi</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="exposedKing">lawa mije li awen ala</string>
   <string name="exposedKingDescription">ijo musi pi mute lili li awen e lawa mije. ken mute la, lawa mije li kama moli.</string>
   <string name="fork">utala pi nasin tu</string>

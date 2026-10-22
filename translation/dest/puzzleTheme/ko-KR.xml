@@ -23,7 +23,6 @@
   <string name="bodenMate">보든 메이트</string>
   <string name="bodenMateDescription">자신의 기물에 막힌 킹에게 두 비숍이 X자로 대각선을 막아 메이트를 합니다.</string>
   <string name="castling">캐슬링</string>
-  <string name="enPassant">앙파상</string>
   <string name="castlingDescription">왕을 안전하게 피신시키고, 룩을 이용해 공격 태세를 갖춥니다.</string>
   <string name="capturingDefender">수비 기물 잡기</string>
   <string name="capturingDefenderDescription">다른 기물을 방어중인 기물을 잡아서 다음 수에 더 이상 지켜지지 않는 기물을 잡을 수 있게 됩니다.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">움직인 기물과 그 뒤에 있던 기물이 모두 상대 킹을 공격한 디스커버 어택의 결과로, 두 기물이 동시에 체크를 합니다.</string>
   <string name="endgame">엔드게임</string>
   <string name="endgameDescription">게임 종반부에서의 전략</string>
+  <string name="enPassant">앙파상</string>
   <string name="enPassantAdjacentCaptureDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 자신의 폰 바로 옆 칸으로 이동했을 경우, 그 폰을 잡을 수 있습니다.</string>
   <string name="epauletteMate">에팔레트 메이트</string>
   <string name="epauletteMateDescription">체크당한 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
