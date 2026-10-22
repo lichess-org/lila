@@ -289,6 +289,12 @@ export class Engines {
     }
   }
 
+  unsetDirect(): void {
+    if (!this.directEngine) return;
+    if (this.activeEngine === this.directEngine) this.activeEngine = undefined;
+    this.directEngine = undefined;
+  }
+
   getEngine(selector?: {
     id?: string;
     rules?: Rules;
