@@ -352,6 +352,7 @@ wi(chs|x++)er
 
   def pt = dict("""
 lixo
+smt
 """)
 
   def tr = dict("""
