@@ -122,7 +122,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   ]);
 }
 
-export function openHelpDialog(ctrl: VoiceCtrl): () => void {
+export function openHelpDialog(ctrl: VoiceCtrl): Promise<Dialog> {
   const showMoveList = (dlg: Dialog) => {
     let html = '<table class="big-table"><tbody>';
     const all =
