@@ -24,7 +24,7 @@ const greedyAutoLinks = [
   'tournament',
   '@',
   'insights',
-  '(?:[A-Za-z0-9]{8})(?:[a-zA-Z0-9]{4})?', // game ids
+  '(?:game/)?(?:[A-Za-z0-9]{8})(?:[a-zA-Z0-9]{4})?', // old and new game ids
 ];
 
 const pathMatchRe = new RegExp(
