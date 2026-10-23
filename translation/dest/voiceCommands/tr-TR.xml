@@ -18,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Tercih edilen hamleyi oyna veya bir şeyi onayla</string>
   <string name="sleep">Uyku (eğer uyanma kelimesi etkinse)</string>
   <string name="showPuzzleSolution">Bulmaca çözümünü göster</string>
+  <string name="voiceHelp">Ses yardımı</string>
+  <string name="voiceSettings">Ses ayarları</string>
+  <string name="pushShiftKeyToTalk">Konuşmak için %s tuşuna basın</string>
+  <string name="holdShiftKeyWhileSpeaking">Konuşurken \"Shift\" tuşuna basılı tutun</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Hiçbiri seçilmedi</string>
 </resources>

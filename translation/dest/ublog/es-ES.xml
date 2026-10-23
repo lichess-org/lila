@@ -78,5 +78,7 @@
   <string name="inappropriateContentAccountClosed">Cualquier cosa inapropiada puede causar el cierre de tu cuenta.</string>
   <string name="blogTips">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta publicación en el foro</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Las opiniones expresadas por los colaboradores de Lichess son solo suyas.</string>
+  <string name="youMayAlsoLike">También te podría gustar</string>
   <string name="youBlockedByBlogAuthor">Estás bloqueado por el autor del blog.</string>
 </resources>

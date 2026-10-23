@@ -18,4 +18,5 @@
   <string name="playPreferredMoveOrConfirmSomething">Fazer lance preferido ou confirmar algo</string>
   <string name="sleep">Dormir (se a palavra-chave estiver ativada)</string>
   <string name="showPuzzleSolution">Mostrar solução do problema</string>
+  <string name="microphone">Microfone</string>
 </resources>

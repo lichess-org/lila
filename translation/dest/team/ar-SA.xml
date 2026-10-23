@@ -11,15 +11,15 @@
     <item quantity="other">%s عضو</item>
   </plurals>
   <string name="allTeams">كل الفِرق</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">الفريق القائد</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">الفرق التي تقودها</string>
   <string name="newTeam">فريق جديد</string>
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
-  <string name="onlyLeaderLeavesTeam">الرجاء إضافة قائد فريق جديد قبل المغادرة، أو إغلاق الفريق.</string>
+  <string name="onlyLeaderLeavesTeam">يُرجى تعيين قائد جديد للفريق قبل المغادرة، أو إغلاق الفريق.</string>
   <string name="quitTeam">انسحب من الفريق</string>
   <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">إن حددت، سيحتاج اللاعبون من أجل الانضمام إلا الفريق كتابة طلب يمكنك رفضه أم قبوله.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">إذا تم تفعيل هذا الخِيار، فسيتعين على اللاعبين طلب الانضمام إلى الفريق، ويمكنك قَبُول طلباتهم أو رفضها.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">إخفاء قائمة أعضاء الفريق عن غير الأعضاء.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">قائد الفريق</item>
@@ -43,14 +43,16 @@
   <string name="willBeReviewed">سيراقب طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
   <string name="requestDeclined">تم رفض طلب انضمامك للفريق من قبل القائد.</string>
-  <string name="teamBattle">معركة الفرق</string>
-  <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
+  <string name="teamBattle">مواجهة الفرق</string>
+  <string name="teamBattleOverview">منافسة بين عدة فرق، حيث يحرز كل لاعب نقاطًا لفريقه</string>
   <string name="teamTournament">بطولات الفريق</string>
   <string name="teamTournamentOverview">بطولة ألأرينا التي يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="swissTournamentOverview">بطولة سويسرية يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="teamUpdates">تحديثات الفريق</string>
   <string name="subToTeamUpdates">إشعارات أو تحديثات الفريق</string>
   <string name="newTeamUpdate">تحديث جديد للفريق</string>
+  <string name="teamEvents">فعاليات الفريق</string>
+  <string name="upcomingTeamEvents">فعاليات الفريق القادمة</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>

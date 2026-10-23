@@ -45,6 +45,8 @@
   <string name="teamUpdates">Posodobitve ekipe</string>
   <string name="subToTeamUpdates">Naročite se na posodobitve ekipe</string>
   <string name="newTeamUpdate">Nova posodobitev ekipe</string>
+  <string name="teamEvents">Ekipni dogodki</string>
+  <string name="upcomingTeamEvents">Prihajajoči dogodki za ekipo</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
   <string name="leadersChat">Klepet voditeljev</string>

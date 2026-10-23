@@ -45,6 +45,8 @@
   <string name="teamUpdates">Wiadomości klubowe</string>
   <string name="subToTeamUpdates">Subskrybuj wiadomości klubowe</string>
   <string name="newTeamUpdate">Nowa wiadomość klubowa</string>
+  <string name="teamEvents">Wydarzenia klubowe</string>
+  <string name="upcomingTeamEvents">Nadchodzące wydarzenia klubowe</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="leadersChat">Czat liderów</string>

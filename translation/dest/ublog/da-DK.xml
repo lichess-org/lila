@@ -77,5 +77,7 @@
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
   <string name="blogTips">Vores enkle tips til at skrive gode blogindlæg</string>
   <string name="discussThisBlogPostInTheForum">Diskutér dette blogindlæg i forummet</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">De synspunkter, som Lichess-bidragydere giver udtryk for, er deres egne.</string>
+  <string name="youMayAlsoLike">Du vil måske også kunne lide</string>
   <string name="youBlockedByBlogAuthor">Du er blokeret af blogforfatteren.</string>
 </resources>
