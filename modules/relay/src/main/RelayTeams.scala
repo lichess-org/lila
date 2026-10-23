@@ -132,8 +132,6 @@ object RelayTeam:
         .map: (team, opp) =>
           val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
           POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
-    def povMatch(teamName: TeamName): Option[POVMatch] =
-      povMatches.find(_.opponentName != teamName)
 
   case class POVMatch(
       roundId: RelayRoundId,
@@ -358,16 +356,14 @@ final class RelayTeamLeaderboard(
           .flatMap(_._2)
           .foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
             matchup.teams
-              .foldLeft(acc): (acc, team) =>
-                acc.updatedWith(team.name): entry =>
-                  matchup
-                    .povMatch(team.name)
-                    .map: pov =>
-                      entry.fold(TeamLeaderboardEntry(team.name, List(pov))): team =>
-                        team.copy(povMatches = team.povMatches :+ pov)
-              .toList
-              .sortBy(_._2)
-              .to(SeqMap)
+              .zip(matchup.povMatches)
+              .fold(acc): (acc, combo) =>
+                acc.updatedWith(combo._1.name): entry =>
+                  entry.fold(TeamLeaderboardEntry(combo._1.name, List(combo._2)).some): team =>
+                    team.copy(povMatches = team.povMatches :+ combo._2).some
+          .toList
+          .sortBy(_._2)
+          .to(SeqMap)
 
 object RelayTeamTable:
   object json:
