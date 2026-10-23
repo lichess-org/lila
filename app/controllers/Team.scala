@@ -218,7 +218,7 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.explain)(
         _ => funit,
         explain =>
-          api.delete(team, me.value, explain) >>
+          api.delete(team, me.userId, explain) >>
             env.mod.logApi.deleteTeam(team.id, explain)
       )
         .inject(Redirect(routes.Team.all(1)).flashSuccess)

@@ -373,22 +373,17 @@ final class TeamApi(
   export cached.isMember
 
   // delete forever, with members but not forums
-  def delete(team: Team, by: User, explain: String): Funit = for
+  def delete(team: Team, by: UserId, explain: String): Funit = for
     userIds <- memberRepo.userIdsByTeam(team.id)
     _ <- teamRepo.coll.delete.one(bid(team.id))
     _ <- memberRepo.removeByTeam(team.id)
     _ <- requestRepo.removeByTeam(team.id)
     _ = userIds.foreach(cached.invalidateTeamIds)
-  yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+  yield logger.info(s"delete team ${team.id} by @$by: $explain")
 
   def deleteNewlyCreatedBy(userId: UserId): Funit = for
-    ids <- teamRepo.deleteNewlyCreatedBy(userId)
-    _ <- ids.sequentially: id =>
-      for
-        userIds <- memberRepo.userIdsByTeam(id)
-        _ <- memberRepo.removeByTeam(id)
-        _ <- requestRepo.removeByTeam(id)
-      yield userIds.foreach(cached.invalidateTeamIds)
+    teams <- teamRepo.findNewlyCreatedBy(userId)
+    _ <- teams.sequentially(delete(_, UserId.lichess, "newly created"))
   yield ()
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
