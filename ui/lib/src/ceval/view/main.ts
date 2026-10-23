@@ -441,13 +441,6 @@ function renderPvWrapToggle(): VNode {
         toggle(el, e);
       });
       el.addEventListener('mousedown', e => toggle(el, e));
-      el.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.repeat) return;
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          toggle(el, e);
-        }
-      });
     }),
   });
 }
