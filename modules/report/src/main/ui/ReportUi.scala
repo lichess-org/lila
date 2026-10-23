@@ -180,10 +180,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                 st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
             )
-          ),
-          br,
-          br,
-          p(a(href := routes.Lobby.home)(trans.report.returnToHomepage.txt()))
+          )
         )
 
   object list:

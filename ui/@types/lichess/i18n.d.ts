@@ -3335,8 +3335,6 @@ interface I18n {
     reportVerbalAbuse: string;
     /** Violence / Threats */
     reportViolence: string;
-    /** Return to Lichess homepage */
-    returnToHomepage: string;
     /** Thanks for the report */
     thanksForTheReport: string;
     /** Troll */
