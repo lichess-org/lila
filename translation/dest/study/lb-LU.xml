@@ -182,4 +182,6 @@
   <string name="doubleDefeat">Duebel Néierlag</string>
   <string name="blackDefeatWhiteCanNotWin">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
   <string name="whiteDefeatBlackCanNotWin">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
+  <string name="requestAServerAnalysis">Eng Server-Analys ufroen</string>
+  <string name="analyzeOnYourDevice">Op dengem Apparat analyséieren</string>
 </resources>

@@ -18,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Bevorzugten Zug abspielen oder etwas bestätigen</string>
   <string name="sleep">Schlafen (falls Wort zum Aufwecken aktiviert)</string>
   <string name="showPuzzleSolution">Lösung der Aufgabe anzeigen</string>
+  <string name="voiceHelp">Hilfe zu Sprachbefehlen</string>
+  <string name="voiceSettings">Sprachbefehlseinstellungen</string>
+  <string name="pushShiftKeyToTalk">Zum Sprechen %s Taste drücken</string>
+  <string name="holdShiftKeyWhileSpeaking">Halte die Shift-Taste während des Sprechens</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Nichts ausgewählt</string>
 </resources>

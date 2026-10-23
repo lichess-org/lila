@@ -15,7 +15,7 @@
   <string name="didYouLikeThisPuzzle">هل أعجبك هذا اللغز؟</string>
   <string name="upVote">أعجبني اللغز</string>
   <string name="downVote">لم يعجبني اللغز</string>
-  <string name="yourPuzzleRatingWillNotChange">تقييم الألغاز الخاص بك لن يتغير. لاحظ أن الألغاز ليست مسابقة. التقييم يساعد على اختيار أفضل الألغاز لمهاراتك الحالية.</string>
+  <string name="yourPuzzleRatingWillNotChange">لن يتغير تصنيفك بسبب هذا التمرين. تذكّر أن الألغاز ليست منافسة، بل يساعد تصنيفك على اختيار الألغاز الأنسب لمستوى مهارتك.</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
   <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خصيصة لك:</string>
@@ -31,7 +31,7 @@
   <string name="byOpenings">من الإفتتاحات</string>
   <string name="puzzlesByOpenings">ألغاز من الإفتتاحات</string>
   <string name="openingsYouPlayedTheMost">أكثر الإفتتاحات لعباً من مبارياتك المقيمة</string>
-  <string name="useFindInPage">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
+  <string name="useFindInPage">استخدم خِيار «البحث في الصفحة» من قائمة المتصفح للعثور على افتتاحيتك المفضّلة!</string>
   <string name="useCtrlF">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
   <string name="notTheMove">هذه ليست النقلة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>

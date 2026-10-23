@@ -39,6 +39,8 @@
   <string name="teamUpdates">Actualizacións do equipo</string>
   <string name="subToTeamUpdates">Subscribirse ás actualizacións do equipo</string>
   <string name="newTeamUpdate">Nova actualización do equipo</string>
+  <string name="teamEvents">Eventos do equipo</string>
+  <string name="upcomingTeamEvents">Próximos eventos do equipo</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>

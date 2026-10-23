@@ -78,5 +78,7 @@
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
   <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>
   <string name="discussThisBlogPostInTheForum">Bu blog gönderisini forumda tartış</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess yazarlarının dile getirdiği görüşler kendilerine aittir.</string>
+  <string name="youMayAlsoLike">Bunları da beğenebilirsiniz</string>
   <string name="youBlockedByBlogAuthor">Blog yazarı tarafından engellendiniz.</string>
 </resources>

@@ -201,5 +201,5 @@
   <string name="clearLocal">Yerel analiz temizlensin mi?</string>
   <string name="clearPublished">Yayımlanan analiz temizlensin mi?</string>
   <string name="requestAServerAnalysis">Sunucu analizi iste</string>
-  <string name="analyzeOnYourDevice">Not translated</string>
+  <string name="analyzeOnYourDevice">Kendi Cihazında Analiz Et</string>
 </resources>

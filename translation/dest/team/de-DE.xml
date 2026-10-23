@@ -39,8 +39,8 @@
   <string name="teamUpdates">Team-Updates</string>
   <string name="subToTeamUpdates">Team-Nachrichten abonnieren</string>
   <string name="newTeamUpdate">Neues Team-Update</string>
-  <string name="teamEvents" comment="A list of upcoming events (tournaments of various kinds) for teams you are a member of, on https://lichess.org/team/events">Team-Events</string>
-  <string name="upcomingTeamEvents" comment="A list of upcoming events (tournaments of various kinds) for teams you are a member of, on https://lichess.org/team/events">Anstehende Team-Events</string>
+  <string name="teamEvents">Team-Events</string>
+  <string name="upcomingTeamEvents">Anstehende Team-Events</string>
   <string name="teamsIlead">Teams, die ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
   <string name="leadersChat">Teamleiter-Chat</string>
