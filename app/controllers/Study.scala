@@ -557,6 +557,7 @@ final class Study(
               Ok.chunked(stream)
                 .asAttachmentStream(s"${pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
+                .headerCache(Option.unless(study.isPrivate)(1.day))
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }

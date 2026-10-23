@@ -26,7 +26,7 @@ final class Export(env: Env) extends LilaController(env):
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
         val options = lila.game.GifExport.Options.fromReq
         val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
-        stream(filename, cache = if g.game.finishedOrAborted then 1.day else 10.seconds):
+        stream(filename, cache = if g.game.finishedOrAborted then 10.days else 10.seconds):
           for
             analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
             source <- env.game.gifExport.fromPov(
@@ -40,14 +40,14 @@ final class Export(env: Env) extends LilaController(env):
           yield source
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
-    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
+    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).headerCache(1.day)
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     exportImageOf(env.game.gameRepo.game(id)) { game =>
       val filename = s"lichess-game-${game.id}-thumbnail.gif"
       env.game.gifExport
         .gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name)
-        .pipe(stream(filename, cache = if game.finishedOrAborted then 1.day else 10.seconds))
+        .pipe(stream(filename, cache = if game.finishedOrAborted then 10.days else 10.seconds))
     }
 
   def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) = Anon:
@@ -81,9 +81,9 @@ final class Export(env: Env) extends LilaController(env):
           piece = PieceSet.get(piece).name,
           description = s"fenThumbnail $fen"
         )
-        .pipe(stream(s"lichess-fen.gif"))
+        .pipe(stream("lichess-fen.gif"))
 
-  private def stream(filename: String, contentType: String = "image/gif", cache: FiniteDuration = 1.day)(
+  private def stream(filename: String, contentType: String = "image/gif", cache: FiniteDuration = 10.days)(
       upstream: Fu[Source[ByteString, ?]]
   ): Fu[Result] = upstream
     .map: stream =>
