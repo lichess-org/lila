@@ -28,8 +28,10 @@ body.no-inquiry {
 }
 
 #inquiry {
+  @include backdrop-blur-if-transparent;
+
   height: 48px;
-  background: $c-bg-zebra;
+  background: $c-bg-header-dropdown;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -56,6 +58,10 @@ body.no-inquiry {
 
     &:hover {
       animation: octopus 0.5s ease-in-out;
+    }
+
+    @include if-light {
+      filter: invert(0.75);
     }
   }
 
@@ -112,12 +118,18 @@ body.no-inquiry {
   }
 
   .docs .expendable {
+    @include backdrop-blur-if-transparent;
+
     padding: 4px 20px 20px 20px;
     background: $c-bg-zebra2;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+
+    @include if-transp {
+      background: $c-bg-header-dropdown;
+    }
   }
 
   .docs:hover {
@@ -298,17 +310,20 @@ body.no-inquiry {
 
     > div {
       @extend %box-radius-bottom, %dropdown-shadow;
+      @include inline-end(0);
+      @include backdrop-blur-if-transparent;
 
       display: none;
       position: absolute;
       top: 100%;
-
-      @include inline-end(0);
-
       background: $c-bg-zebra2;
-      overflow: scroll;
+      overflow: auto;
       max-height: 80vh;
       padding: 0.4em 0;
+
+      @include if-transp {
+        background: $c-bg-header-dropdown;
+      }
     }
 
     &:hover {
