@@ -104,7 +104,7 @@ object RelayTeam:
         teams = teams.mapWithColor((c, t) => t.add(players(c)))
       )
     def swap = copy(teams = teams.swap, games = games.map(_.swap))
-    def pointsPair: Option[ByColor[Points]] =
+    private def pointsPair: Option[ByColor[Points]] =
       teams
         .forall(_.players.values.allGamesFinished)
         .so:
@@ -112,26 +112,23 @@ object RelayTeam:
             if aPoints == bPoints then ByColor(Points.Half, Points.Half)
             else if aPoints > bPoints then ByColor(Points.One, Points.Zero)
             else ByColor(Points.Zero, Points.One)
-    def pointsFor(teamName: TeamName): Option[Points] =
-      for
-        points <- pointsPair
-        color <- teams.findColor(_.name == teamName)
-      yield points(color)
-    def scoreFor(teamName: TeamName): Option[Float] =
+    private def pointsFor(color: Color): Option[Points] = pointsPair.map(_(color))
+    private def scoreFor(color: Color): Option[Float] =
       teamCustomScoring
         .flatMap: cs =>
-          pointsFor(teamName).map:
+          pointsFor(color).map:
             case Points.One => cs.win
             case Points.Half => cs.draw
             case zero => RelayRound.CustomPoints(zero.value)
         .map(_.value)
-        .orElse(pointsFor(teamName).map(_.value))
+        .orElse(pointsFor(color).map(_.value))
     def povMatches: ByColor[POVMatch] =
       teams
         .zip(teams.swap)
-        .map: (team, opp) =>
-          val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-          POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
+        .mapWithColor:
+          case (c, (team, opp)) =>
+            val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+            POVMatch(roundId, opp.name, team.players, pointsPair.map(_(c)), scoreFor(c), gp)
 
   case class POVMatch(
       roundId: RelayRoundId,
