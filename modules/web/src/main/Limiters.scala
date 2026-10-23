@@ -56,7 +56,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val crosstable = RateLimit[IpAddress](30, 10.minutes, "crosstable.api.ip")
 
-  val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer", logKey = _.value.take(8))
+  val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer", log = false)
 
   val userActivity = RateLimit[IpAddress](15, 2.minutes, "user_activity.api.ip")
 

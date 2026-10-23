@@ -10,8 +10,7 @@ final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
     limiterKey: String,
-    log: Boolean = true,
-    logKey: K => String = (_: K).toString
+    log: Boolean = true
 )(using enforce: Enforce)(using Executor)
     extends RateLimit.RateLimiter[K]:
   import RateLimit.*
@@ -44,7 +43,7 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>
-          if log then RateLimit.logger.info(s"$limiterKey $credits/$duration ${logKey(k)} cost: $cost $msg")
+          if log then RateLimit.logger.info(s"$limiterKey $credits/$duration $k cost: $cost $msg")
           monitor.increment()
           default
         case _ =>
