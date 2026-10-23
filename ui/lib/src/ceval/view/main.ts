@@ -143,16 +143,18 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   gaugeTicks ??= Array.from({ length: 7 }, (_, i) =>
     hl('tick', { class: { zero: i === 3 }, attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
-  const bestEv = getBestEval(ctrl);
+  const outcome = ctrl.getNode().outcome();
+  const bestEv = outcome ? undefined : getBestEval(ctrl);
   let ev;
-  if (bestEv) {
+  if (outcome) ev = outcome.winner === 'white' ? 1 : outcome.winner === 'black' ? -1 : 0;
+  else if (bestEv) {
     ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return div(
     '.eval-gauge',
     {
-      class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
+      class: { empty: !outcome && !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
       attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
     },
     gaugeTicks,

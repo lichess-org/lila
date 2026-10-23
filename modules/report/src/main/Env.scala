@@ -1,7 +1,7 @@
 package lila.report
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 
 import lila.core.config.*
 

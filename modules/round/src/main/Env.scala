@@ -1,14 +1,14 @@
 package lila.round
 
-import org.apache.pekko.actor.*
-import com.softwaremill.macwire.*
-import play.api.Configuration
 import chess.ByColor
+import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
+import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.{ Bus, Uptime }
+import lila.common.{ Bus, Uptime, HTTPRequest }
 import lila.core.config.*
-import lila.core.round.{ RoundBus, CurrentlyPlaying }
+import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo
 import lila.round.RoundGame.*
 
@@ -198,3 +198,12 @@ final class Env(
   def resign(pov: Pov): Unit =
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
+
+  import play.api.mvc.{ RequestHeader, Call }
+  def pathRedirect(path: String)(using RequestHeader): Fu[Option[Call | Pov]] =
+    GameAnyId(path).fullId
+      .so(proxyRepo.pov)
+      .map2: p =>
+        if HTTPRequest.isLichobile then p else routes.Round.player(p.fullId)
+      .orElse:
+        GameId.from(path).so(proxyRepo.game).map2(g => routes.Round.watcher(g.id, Color.white))

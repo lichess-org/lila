@@ -27,7 +27,7 @@ final class Importer(env: Env) extends LilaController(env):
           jsonFormError(err)
         ),
       data =>
-        limit.gameImport(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
+        limit.gameImport(ctx.ip, () => rateLimited): () =>
           env.game.importer
             .importAsGame(data.pgn)
             .flatMap: game =>
@@ -54,13 +54,13 @@ final class Importer(env: Env) extends LilaController(env):
                         .void
                     .inject(Redirect(routes.Round.watcher(game.id, Color.white))),
                   json =
-                    if HTTPRequest.isLichobile(ctx.req)
+                    if HTTPRequest.isLichobile
                     then Redirect(routes.Round.watcher(game.id, Color.white))
                     else
-                      JsonOk:
+                      Ok:
                         Json.obj(
                           "id" -> game.id,
-                          "url" -> s"${env.net.baseUrl}/${game.id}"
+                          "url" -> routeUrl(routes.Round.watcher(game.id, Color.white))
                         )
                 )
               case Left(error) =>

@@ -8,14 +8,14 @@ import scalalib.net.Bearer
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
+import lila.core.id.SessionId
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
-import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
+import lila.security.{ EmailConfirm, FingerPrint, IsPwned, Signup }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
@@ -102,7 +102,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val isRemember = api.rememberForm.bindFromRequest().value | true
-        val isLichobile = HTTPRequest.isLichobile(ctx.req)
+        val isLichobile = HTTPRequest.isLichobile
         if isLichobile && !env.security.lichobileLogin.get() then
           BadRequest(Json.obj("global" -> List("Please use our new mobile app! lichess.org/app")))
         else
@@ -242,7 +242,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     NoTor:
       Firewall:
         WithProxy: _ ?=>
-          if HTTPRequest.isLichobile(ctx.req)
+          if HTTPRequest.isLichobile
           then
             BadRequest:
               jsonError:
@@ -545,8 +545,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
-    if me.isnt(UserId.t3) then notFound
-    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
+    me.is(UserId.t3)
+      .so(bindForm(env.security.forms.signup.emailCheck)(jsonFormError, Ok(_)))
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =

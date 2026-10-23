@@ -6,8 +6,8 @@ import scalalib.HeapSort.topN
 
 import java.text.Normalizer
 
-import lila.mon.Chronometer
 import lila.memo.CacheApi
+import lila.mon.Chronometer
 
 case class OpeningSearchResult(opening: Opening):
   def pgn = OpeningSearch.removePgnMoveNumbers(opening.pgn)

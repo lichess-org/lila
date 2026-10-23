@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.security.TurnstilePublicConfig
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.security.TurnstilePublicConfig
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }

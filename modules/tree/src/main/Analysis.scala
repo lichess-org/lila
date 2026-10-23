@@ -1,8 +1,10 @@
 package lila.tree
 
+import chess.eval.WhiteScore
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
 import play.api.libs.json.JsObject
+
 import Analysis.EngineId
 
 opaque type FishnetKey = String
@@ -40,13 +42,17 @@ trait AnalysisJson:
 
 case class Analysis(
     id: Analysis.Id,
+    initialScore: Option[WhiteScore], // missing in old analyses
     infos: List[Info],
     startPly: Ply,
     date: Instant,
     engine: Engine
 ):
+  lazy val infosWithInitial: List[Info] =
+    Info(startPly, initialScore.fold(evals.legacyInitial)(evals.fromScore), Nil) :: infos
+
   lazy val infoAdvices: InfoAdvices =
-    (Info.start(startPly) :: infos)
+    infosWithInitial
       .sliding(2)
       .collect:
         case List(prev, info) => info -> info.hasVariation.so(Advice(prev, info))

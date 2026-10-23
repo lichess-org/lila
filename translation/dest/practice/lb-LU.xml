@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="secHeadPawnEndgames">Bauerenendspiller</string>
+  <string name="secHeadRookEndgames">Tuermendspiller</string>
+  <string name="stNamTheFork">D\'Gawel</string>
+  <string name="stNamZwischenzug">Tëschenzuch</string>
+  <string name="stNamZugzwang">Zuchzwang</string>
+  <string name="stNamOpposition">Oppositioun</string>
+</resources>

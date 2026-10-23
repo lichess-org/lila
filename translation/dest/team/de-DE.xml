@@ -39,6 +39,8 @@
   <string name="teamUpdates">Team-Updates</string>
   <string name="subToTeamUpdates">Team-Nachrichten abonnieren</string>
   <string name="newTeamUpdate">Neues Team-Update</string>
+  <string name="teamEvents">Team-Events</string>
+  <string name="upcomingTeamEvents">Anstehende Team-Events</string>
   <string name="teamsIlead">Teams, die ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
   <string name="leadersChat">Teamleiter-Chat</string>

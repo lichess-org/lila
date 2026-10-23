@@ -965,8 +965,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="ourEventTips">Pasākumu organizēšanas ieteikumi</string>
   <string name="instructions">Instrukcijas</string>
   <string name="showMeEverything">Rādīt visu</string>
-  <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
-Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
   <string name="nothingToSeeHere">Šobrīd te nav, ko parādīt.</string>
   <string name="stats">Statistika</string>
 </resources>

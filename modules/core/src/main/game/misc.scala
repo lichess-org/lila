@@ -3,14 +3,14 @@ package game
 
 import _root_.chess.format.Fen
 import _root_.chess.format.pgn.{ Pgn, SanStr, Tags }
+import _root_.chess.opening.Opening
 import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
-import _root_.chess.opening.Opening
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.pekkostream.PekkoStreamCursor
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler }
+import reactivemongo.pekkostream.PekkoStreamCursor
 
 import lila.core.id.{ GameFullId, GameId, GamePlayerId, TeamId }
 import lila.core.perf.{ PerfKey, UserWithPerfs }

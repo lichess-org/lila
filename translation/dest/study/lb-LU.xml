@@ -119,7 +119,6 @@
   <string name="noLetPeopleBrowseFreely">Nee: Leit individuell browsen loossen</string>
   <string name="pinnedStudyComment">Ugepinnten Etüdenkommentar</string>
   <string name="start">Lass</string>
-  <string name="save">Späicheren</string>
   <string name="clearChat">Chat läschen</string>
   <string name="deleteTheStudyChatHistory">Etüdenchat läschen? Et gëtt keen zeréck!</string>
   <string name="deleteStudy">Etüd läschen</string>
@@ -183,4 +182,6 @@
   <string name="doubleDefeat">Duebel Néierlag</string>
   <string name="blackDefeatWhiteCanNotWin">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
   <string name="whiteDefeatBlackCanNotWin">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
+  <string name="requestAServerAnalysis">Eng Server-Analys ufroen</string>
+  <string name="analyzeOnYourDevice">Op dengem Apparat analyséieren</string>
 </resources>

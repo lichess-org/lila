@@ -67,9 +67,9 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser skakprogram...</string>
+  <string name="loadingEngine">Indlæser skakmotor...</string>
   <string name="calculatingMoves">Beregner træk...</string>
-  <string name="engineFailed">Fejl under indlæsning af skakprogram</string>
+  <string name="engineFailed">Fejl under indlæsning af skakmotor</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -164,9 +164,9 @@
   <string name="moveTimes">Træktider</string>
   <string name="flipBoard">Vend bræt</string>
   <string name="toggleLocalEngine">Slå lokalt skakprogram til/fra</string>
-  <string name="engineSettings">Skakprogram-indstillinger</string>
+  <string name="engineSettings">Skakmotor-indstillinger</string>
   <string name="engine">Skakmotor</string>
-  <string name="enginesFromStrongestToWeakest">Skakprogrammer fra stærkeste til svageste</string>
+  <string name="enginesFromStrongestToWeakest">Skakmotorer fra stærkeste til svageste</string>
   <string name="illegalPosition">Ulovlig position</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="claimADraw">Kræv remis</string>
@@ -199,7 +199,7 @@
   <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakprogrammer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -1043,8 +1043,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="ourEventTips">Tips til organisering af begivenheder</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Vis mig alt</string>
-  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
-Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
+  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og fuldstændig fri open source-software. Vi er afhængige af brugernes donationer til at dække vores driftsomkostninger, udvikling og indhold. Uden vores generøse fællesskab ville vi ikke være i stand til at holde sitet kørende. Tak, fordi du er med!</string>
   <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
   <string name="stats">Statistik</string>
   <string name="accessibility">Tilgængelighed</string>

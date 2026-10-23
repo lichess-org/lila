@@ -1,7 +1,7 @@
 package controllers
 
-import monocle.syntax.all.*
 import cats.mtl.Handle.*
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 

@@ -19,4 +19,6 @@
   <string name="findSquare">Găsește pătratul</string>
   <string name="nameSquare">Denumește pătratul</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Exersează doar câteva coloane și linii</string>
+  <string name="enterTheCoordinate">Introdu coordonata</string>
+  <string name="pressEnterToStart">Apasă %s pentru a începe</string>
 </resources>

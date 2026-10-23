@@ -5,8 +5,8 @@ import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONHandler
 import scalalib.Iso
 
+import lila.core.misc.{ AppealPresetTag, AppealTopic }
 import lila.core.perm.{ Granter, Permission }
-import lila.core.misc.{ AppealTopic, AppealPresetTag }
 import lila.memo.SettingStore
 import lila.memo.SettingStore.{ Formable, StringReader }
 

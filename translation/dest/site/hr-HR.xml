@@ -984,8 +984,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="ourEventTips">Naši savjeti za organizaciju događaja</string>
   <string name="instructions">Upute</string>
   <string name="showMeEverything">Pokaži mi sve</string>
-  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
-Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
   <string name="nothingToSeeHere">Trenutno ovdje nema ništa za vidjeti.</string>
   <string name="stats">Statistika</string>
 </resources>

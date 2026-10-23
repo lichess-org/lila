@@ -82,5 +82,7 @@
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
   <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Opiniile exprimate de contribuitorii Lichess sunt opiniile lor personale.</string>
+  <string name="youMayAlsoLike">S-ar putea să-ți placă și</string>
   <string name="youBlockedByBlogAuthor">Ești blocat de autorul blogului.</string>
 </resources>

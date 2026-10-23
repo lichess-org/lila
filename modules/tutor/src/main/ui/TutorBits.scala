@@ -1,10 +1,10 @@
 package lila.tutor
 package ui
 
+import lila.insight.MeanRating
+import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
-import lila.insight.MeanRating
 
 final class TutorBits(helpers: Helpers)(
     val openingUrl: chess.opening.Opening => Call

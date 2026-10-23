@@ -19,7 +19,6 @@
   <string name="bodenMate">বডেনের মাত</string>
   <string name="bodenMateDescription">দুইটা ক্রস করা আড়া-আড়ি রেখার উপর দুইটা হাতি যা নিজের গুটিতে আটে থাকা রাজাকে বাজিমাত করে।</string>
   <string name="castling">ক্যাসলিং</string>
-  <string name="enPassant">এন পাসান্ত</string>
   <string name="castlingDescription">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য.</string>
   <string name="capturingDefender">রক্ষককে খান</string>
   <string name="capturingDefenderDescription">একটা গুটিকে খাওয়া যা আরেকটার প্রতিরক্ষা করে, যা পরের একটি চালে যেই গুটিকে রক্ষা করা হচ্ছিল তাকে খাওয়ার সুযোগ করে দেয়।</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">দুটি গুটি দিয়ে একসাথে চেক করা, আবিষ্কৃত আক্রমণের ফলস্বরূপ যেখানে যে গুটি সরে এবং যে গুটির রাস্তা পরিষ্কার হয় উভয়ই প্রতিপক্ষের রাজাকে আক্রমণ করে।</string>
   <string name="endgame">সমাপনী খেলা</string>
   <string name="endgameDescription">গেমের শেষ পর্যায়ের একটি ট্যাকটিক।</string>
+  <string name="enPassant">এন পাসান্ত</string>
   <string name="exposedKing">বহি:প্রকাশিত রাজা</string>
   <string name="exposedKingDescription">রাজার আশেপাশে অল্পসংখ্যক রক্ষককে কেন্দ্র করে একটি কৌশল, যা প্রায়ই কিস্তিমাতে পরিণত হয়।</string>
   <string name="fork">কাঁটাচামচ</string>

@@ -1,16 +1,16 @@
 package lila.mon
 
+import chess.variant.Variant
 import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
+import kamon.Kamon.{ counter, gauge, histogram, timer }
 import kamon.metric.Timer
 import kamon.tag.TagSet
-import kamon.Kamon.{ timer, gauge, counter, histogram }
-import chess.variant.Variant
 import scalalib.net.UserAgent
 
 import lila.core.id.*
-import lila.core.userId.{ UserId, UserName }
-import lila.core.perf.PerfKey
 import lila.core.net.Origin
+import lila.core.perf.PerfKey
+import lila.core.userId.{ UserId, UserName }
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -715,7 +715,6 @@ object study:
     val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
-  val activity = counter("api.cost").withTag("endpoint", "activity")
   object challenge:
     object bulk:
       def scheduleNb(by: UserId) = counter("api.challenge.bulk.schedule.nb").withTag("by", by)

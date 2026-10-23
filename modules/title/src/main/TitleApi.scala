@@ -1,17 +1,16 @@
 package lila.title
 
+import chess.FideId
 import reactivemongo.api.bson.*
 
-import chess.FideId
+import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.id.TitleRequestId
 import lila.core.msg.SystemMsg
 import lila.core.perm.Granter
+import lila.core.user.{ PublicTitle, RealName, UserApi }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
-import lila.core.user.UserApi
-import lila.core.LightUser
-import lila.core.user.{ RealName, PublicTitle }
 
 final class TitleApi(
     coll: Coll,

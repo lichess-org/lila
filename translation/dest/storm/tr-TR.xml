@@ -21,7 +21,7 @@
   <string name="highscoreX">Rekor: %s</string>
   <string name="score">Günlük rekor</string>
   <string name="moves">Hamle sayısı</string>
-  <string name="accuracy">Başarı oranı</string>
+  <string name="accuracy">Doğruluk</string>
   <string name="combo">Kombo</string>
   <string name="time">Süre</string>
   <string name="timePerMove">Hamle başı süre</string>

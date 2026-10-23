@@ -2,10 +2,11 @@ package lila.ublog
 
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
+
+import lila.common.Bus
+import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.db.dsl.Coll
-import lila.common.autoconfig.{ *, given }
-import lila.common.Bus
 import lila.report.Automod
 
 @Module
@@ -33,7 +34,7 @@ final class Env(
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
     automod: lila.report.Automod
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, RateLimit):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 

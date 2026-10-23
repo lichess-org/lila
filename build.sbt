@@ -53,6 +53,7 @@ javaOptions ++= {
     Seq.empty
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
+ThisBuild / semanticdbEnabled := true
 ThisBuild / usePipelining := false
 // the following settings come from the PlayScala plugin, which I removed
 // shellPrompt := PlayCommands.playPrompt

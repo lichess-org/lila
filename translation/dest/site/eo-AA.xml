@@ -9,6 +9,8 @@
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
   <string name="orLetYourOpponentScanQrCode">Aŭ lasi vian kontraŭulon skani ĉi tiun QR-kodon per la app</string>
+  <string name="reusableChallengeUrl">Reuzebla adreso de defio</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Porĉiama ligilo, per kiu iu povas defii vin kun ĉi tiuj agordoj.</string>
   <string name="waiting">Atendante</string>
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
@@ -56,6 +58,8 @@
   <string name="blackLeftTheGame">Nigro forlasis la ludon</string>
   <string name="whiteDidntMove">Blanko ne movis</string>
   <string name="blackDidntMove">Nigro ne movis</string>
+  <string name="whiteAborted">Blanko malaranĝis la ludon</string>
+  <string name="blackAborted">Nigro malaranĝis la ludon</string>
   <string name="requestAComputerAnalysis">Peti komputilan analizon</string>
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
@@ -93,6 +97,8 @@
   <string name="database">Datumbazo</string>
   <string name="whiteDrawBlack">Blanko / Egalvenko / Nigro</string>
   <string name="averageRatingX">Meznombra rango: %s</string>
+  <string name="minRatingX">Minimuma rango de %s</string>
+  <string name="maxRatingX">Maksimuma rango de %s</string>
   <string name="recentGames">Lastaj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj de %1$s+ FIDE-taksitaj ludantoj ekde %2$s ĝis %3$s</string>
@@ -124,14 +130,20 @@
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="showVariationArrows">Montri variaĵojn sagojn</string>
+  <string name="visualMotifs">Vidaj ŝablonoj</string>
   <string name="undefendedPieces">Nedefenditaj pecoj</string>
   <string name="pinnedPieces">Fiksitaj pecoj</string>
   <string name="checkableKing">Ŝakigebla reĝo</string>
   <string name="multipleLines">Pluraj linioj</string>
+  <string name="multipleLinesDescription">Agordas nombron de linioj de estimado kaj sagoj de movoj sur la tabulo</string>
+  <string name="searchTime">Tempo de serĉo</string>
+  <string name="searchTimeDescription">Agordas tempon por estimi freŝajn poziciojn</string>
   <string name="threads">Fadenoj</string>
   <string name="threadsDescription">Elektu malsupre la nombron de fadenoj de via procesoro. La markoj indikas sekurajn elektojn</string>
+  <string name="threadsDescriptionMobile">Pli da fadenoj konsumas pli da energio por pli bona analizo</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
+  <string name="memoryDescription">Pli altaj valoroj povas plialtigi rendimenton</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
   <string name="blunder">Erarego</string>
@@ -151,6 +163,11 @@
   </plurals>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
+  <string name="toggleLocalEngine">Baskuligi lokan ŝakkomputilon</string>
+  <string name="engineSettings">Agordoj de ŝakkomputilo</string>
+  <string name="engine">Ŝakkomputilo</string>
+  <string name="enginesFromStrongestToWeakest">Ŝakkomputiloj, ordigitaj ekde plej fortaj ĝis plej malfortaj</string>
+  <string name="illegalPosition">Kontraŭleĝa pozicio</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="claimADraw">Postuli egalvenkon</string>
   <string name="drawClaimed">Egalvenko petita</string>
@@ -223,7 +240,9 @@
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
   <string name="signupUsernameHint">Certigi, ke vi elektas uzantnomon, ke estas adekvata por ĉiu-aĝaj spektantoj. Vi ne povas ŝanĝi ĝin poste, kaj la administrantoj fermas ĉiujn ajn kontojn, kiuj havas malbonimpresajn uzantnomojn!</string>
+  <string name="signupEmailPromise">Ni sendos al vi nur retpoŝtaĵojn pri via konto kaj neniam konigos vian retpoŝtadreson al aliuloj.</string>
   <string name="password">Pasvorto</string>
+  <string name="showPassword">Montri pasvorton</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
   <string name="email">Retadreso</string>
@@ -245,6 +264,8 @@
   <string name="emailSent">Ni sendis retleteron al %s.</string>
   <string name="emailCanTakeSomeTime">Ĝi povas preni iom da tempo por alveni.</string>
   <string name="refreshInboxAfterFiveMinutes">Atendu 5 minutojn kaj reŝargu vian retpoŝtan enirkeston.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Se vi ne ricevis konfirman retpoŝton, rigardu je viaj dosierujoj \"Spamo\" aŭ \"Rubujo\". Vi devus agordi vian retpoŝton, por ke mesaĝoj de lichess.org estos ĉiam markita kaj sekuraj kaj \"ne spamo\", por ke vi ĉiam sciiĝos pri gravaj komunikoj.</string>
+  <string name="sendEmailForAccountVerification">Se vi ne povas trovi konfirmon en via retpoŝto, sendu retpoŝtaĵon al %s kaj ni konfirmos vian konton por vi.</string>
   <string name="accountConfirmed">La uzanto %s estis konfirmita sukcese.</string>
   <string name="accountCanLogin">Vi povas ensaluti tuje kiel %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vi ne devas konfirmo-retpoŝtaĵon.</string>
@@ -267,6 +288,8 @@
   </plurals>
   <string name="ok">Bone</string>
   <string name="cancel">Nuligi</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Blanko elĉerpis sian tempon</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Nigro elĉerpis sian tempon</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
   <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
@@ -387,6 +410,7 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Via rango de %s estas provizora</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Ne eblas filtri per rango, ĉar via rango ne estas stabila. Ludu rangajn ludojn por stabiligi ĝin.</string>
   <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
@@ -407,6 +431,7 @@
   <string name="apply">Apliki</string>
   <string name="save">Konservi</string>
   <string name="leaderboard">Sukcesotabulo</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Bildo de pozicio</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
   <string name="playerNames">Nomoj de ludantoj</string>
   <string name="moveAnnotations">Notoj pri movoj</string>
@@ -435,6 +460,8 @@
     <item quantity="one">%s amiko enreta</item>
     <item quantity="other">%s amikoj enretaj</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amikoj enrete: %1$s
+Amikoj ludantaj: %2$s</string>
   <string name="favoriteOpponents">Plej ŝatataj kontraŭuloj</string>
   <string name="follow">Sekvi</string>
   <string name="following">Sekvanta</string>
@@ -453,6 +480,7 @@
     <item quantity="one">%s sekvatoj</item>
     <item quantity="other">%s sekvatoj</item>
   </plurals>
+  <string name="less">Malpli</string>
   <string name="more">Pli</string>
   <string name="memberSince">Membro ekde</string>
   <string name="lastSeenActive">Aktiva %s</string>
@@ -496,6 +524,7 @@
   <string name="popularOpenings">Popularaj malfermoj</string>
   <string name="endgamePositions">Finaĵaj pozicioj</string>
   <string name="chess960StartPosition">Ŝako960 komenca pozicio: %s</string>
+  <string name="randomChess960Position">Hazarda pozicio de Ŝako960</string>
   <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
   <string name="loadPosition">Ŝargi aranĝon</string>
@@ -517,6 +546,7 @@
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
+  <string name="clearLocalData">Vakigi lokajn datumojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
@@ -530,6 +560,11 @@
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
   <string name="onlineBots">Retaj robotoj</string>
+  <string name="aboutBotsOnLichess">Pri robotoj sur Lichess</string>
+  <string name="featuredBots">Rekomendataj robotoj</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Provu ludi kun tiuj novecajn ŝakkomputiloj! Ili estas niaj favoraj.</string>
+  <string name="communityBots">Robotoj de komunumo</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Aliaj ŝakkomputiloj, kreitaj de komunumo de Lichess. Ili estas provizitaj de ties kreantoj, kaj povas ne ĉiam esti surrete.</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
@@ -547,6 +582,9 @@
   <string name="replies">Respondoj</string>
   <string name="replyToThisTopic">Resondoj al tiu ĉi temo</string>
   <string name="reply">Respondi</string>
+  <string name="reopen">Remalfermi</string>
+  <string name="quote">Citi</string>
+  <string name="postEdited">redaktita je</string>
   <string name="message">Mesaĝo</string>
   <string name="createTheTopic">Krei novan temon</string>
   <string name="reportAUser">Raporti uzanton</string>
@@ -557,6 +595,7 @@
   <string name="other">Io alia</string>
   <string name="reportCheatBoostHelp">Algluu ligilon al la ludo(j) kaj klarigu, kio malĝustas pri la konduto de tiu ĉi uzanto. Ne simple diru \"ili filudis\", sed klarigu kiel vi atingis tiun konkludon.</string>
   <string name="reportUsernameHelp">Klarigu kio estas ofenda en la nomo de tiu ĉi uzanto. Ne simple diru \"ĝi estas ofenda/maldeca\" sed rakontu al ni kiel vi atingis tiun konkludon, ĉefe se temas kaŝita ofendo, se ĝi ne estas en la angla, se ĝi apartenas al nenorma lingvaĵo aŭ se ĝi referas ion kulturan aŭ historian.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ni traktos vian raporton pli rapide, se vi skribos ĝin en la angla.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
   <string name="thisTopicIsNowClosed">Tiu ĉi temo nun estas fermita.</string>
@@ -571,6 +610,7 @@
   <string name="clearField">Viŝi kampon</string>
   <string name="orSeparator">aŭ</string>
   <string name="logInByEmail">Komenci seancon per retpoŝto</string>
+  <string name="emailLoginInstructions">Ni retpoŝtos al vi ligilon por ensaluto.</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -595,6 +635,8 @@
   <string name="onSlowGames">Ĉe malrapidaj ludoj</string>
   <string name="always">Ĉiam</string>
   <string name="never">Neniam</string>
+  <string name="defeatOnly">Nur malvenkoj</string>
+  <string name="drawAndDefeat">Malvenkoj kaj egalvenkoj</string>
   <string name="xCompetesInY">%1$s konkuras en %2$s</string>
   <string name="victory">Venko!</string>
   <string name="defeat">Malvenko</string>
@@ -659,10 +701,13 @@
   <string name="aboutX">Pri %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s estas senpaga (%2$s), libera, senreklama, malfermitkoda ŝaka servilo.</string>
   <string name="really">vere</string>
+  <string name="lichessUpdates">Ĝisdatigoj de Lichess</string>
   <string name="contribute">Kontribui</string>
+  <string name="changelog">Ŝanĝoprotokolo</string>
   <string name="termsOfService">Uzkondiĉojn</string>
   <string name="titleVerification">Kontrolo de titolo</string>
   <string name="sourceCode">Fontkodo</string>
+  <string name="blockAds">Barado de reklamoj</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
   <string name="hostColorX">Koloro de gastiganto: %s</string>
@@ -679,9 +724,11 @@
   <string name="aboutSimulRules">Kiam la samtempludo komenciĝas, ĉiu ludanto komencas ludon kontraŭ la gastiganto, kiu ludu per la blankaj ŝakpecoj. La samtempludo finiĝas kiam ĉiuj ludoj estas finitaj.</string>
   <string name="aboutSimulSettings">Samtempludoj ĉiam estas amikaj. Redefioj, reprenoj kaj plia tempo ne eblas.</string>
   <string name="create">Krei</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kreado de samtempa ludo ebligos al vi ludi kun multaj kontraŭuloj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Aldona tempo por la gastiganto:</string>
   <string name="simulAddExtraTimePerPlayer">Aldoni komencan tempon al via horloĝo por ĉiu ludanto, kiu aliĝis al la samtempludo.</string>
   <string name="simulHostExtraTimePerPlayer">Plia tempo por la gastiganto po ludanto</string>
   <string name="lichessTournaments">Turniroj de Lichess</string>
@@ -692,8 +739,10 @@
   <string name="keyboardShortcuts">Fulmoklavoj</string>
   <string name="keyMoveBackwardOrForward">movi (mal)antaŭen</string>
   <string name="keyGoToStartOrEnd">iri al komenco/fino</string>
+  <string name="keyGoToPreviousOrNextLine">iri al (mal)sekva linio</string>
   <string name="keyCycleSelectedVariation">Cikligi elektan variaĵon</string>
   <string name="keyShowOrHideComments">(mal)montri komentojn</string>
+  <string name="keyShowOrHideCurrentVariation">(mal)kaŝi aktualan variaĵon</string>
   <string name="keyEnterOrExitVariation">eniru/forlasu variaĵon</string>
   <string name="keyPreviousBranch">Antaŭa branĉo</string>
   <string name="keyNextBranch">Sekva branĉo</string>
@@ -738,7 +787,9 @@
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
   <string name="downloadRaw">Elŝutu krudaj</string>
   <string name="downloadImported">Elŝutu importitan</string>
+  <string name="downloadMyGames">Elŝuti miajn ludojn</string>
   <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
+  <string name="downloadResults">Elŝuti rezultojn</string>
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
@@ -758,12 +809,14 @@
   <string name="enableKidMode">Aktivigi infanan reĝimon</string>
   <string name="disableKidMode">Malaktivigi infanan reĝimon</string>
   <string name="security">Sekureco</string>
+  <string name="activeSessionsDescription">Jen listo de aparatoj kaj aplikaĵoj, kiuj estas ensalutitaj en vian konton. Se vi vidas suspektindan aktivecon, vi devus &lt;a href=\'%1$s\'&gt;kontroli retpoŝtadreson de restaŭrado de atingo&lt;/a&gt; kaj &lt;a href=\'%2$s\'&gt;ŝanĝi vian pasvorton&lt;/a&gt;.</string>
   <string name="sessions">Sesioj</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
   <string name="viewTheSolution">Vidi la solvon</string>
   <string name="noChallenges">Sen defioj.</string>
+  <string name="browserNotificationsDenied">Ŝprucfenestroj de sciigoj malŝaltitaj per agordoj de retumilo</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Havebla en %s lingvo!</item>
     <item quantity="other">Havebla en %s lingvoj!</item>
@@ -771,6 +824,8 @@
   <string name="xHostsY">%1$s gastigas %2$s</string>
   <string name="xJoinsY">%1$s kuplas %2$s</string>
   <string name="xLikesY">%1$s ŝatas %2$s</string>
+  <string name="like">Mi ŝatas ĝin</string>
+  <string name="liked">Ŝatata</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Atendejo</string>
   <string name="anonymous">Sennoma</string>
@@ -778,10 +833,15 @@
   <string name="language">Lingvo</string>
   <string name="allLanguages">Ĉiuj lingvoj</string>
   <string name="background">Fono</string>
+  <string name="theme">Etoso</string>
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
+  <string name="picture">Bildo</string>
   <string name="deviceTheme">Ila etoso</string>
+  <string name="roundness">Rondigo</string>
+  <string name="backgroundImage">Fona bildo</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
+  <string name="imageOpacity">Opakeco de bildo</string>
   <string name="board">Ŝaktabulo</string>
   <string name="size">Amplekso</string>
   <string name="opacity">Opakeco</string>
@@ -804,6 +864,7 @@
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
   <string name="notificationsX">Sciigoj: %1$s</string>
+  <string name="perfRatingLabel">Rango: %s.</string>
   <string name="yourRatingIsX">Via rango estas %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -862,6 +923,7 @@
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
   <string name="showUnreadLichessMessage">Vi ricevis privatan mesaĝon de Lichess.</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Legi mesaĝon</string>
   <string name="sorry">Bedaŭrinde :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
   <string name="why">Kial?</string>
@@ -882,6 +944,7 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Mi konsentas ke mi ne faros plurajn kontojn (escepte pro la deklaritaj kialoj en la %s).</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultrakuglo</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapida</string>
@@ -902,6 +965,7 @@
   <string name="tryTheContactPage">provu la kontaktopaĝon</string>
   <string name="makeSureToRead">Certe legos %1$s</string>
   <string name="theForumEtiquette">la foruma etiketo</string>
+  <string name="pleaseBeNiceInTheForum">Bonvolu esti plaĉa en la forumo.</string>
   <string name="thisTopicIsArchived">Ĉi tiu temo eniris la arkivon kaj oni ne plu rajtas respondi.</string>
   <string name="joinTheTeamXToPost">Aliĝu al %1$s, por afiŝi en ĉi tiu forumo</string>
   <string name="teamNamedX">%1$s teamo</string>
@@ -945,12 +1009,14 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Vi povas aranĝi tekston per %s.</string>
   <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Navigacio tra movlisto</string>
   <string name="mouseTricks">Musaj lertaĵoj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
@@ -967,6 +1033,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="gameInProgress">Vi havas ludon en progreso kun %s.</string>
   <string name="abortTheGame">Ĉesigu ludon</string>
   <string name="resignTheGame">Rezignu la ludo</string>
+  <string name="youCantStartNewGame">Vi ne povas krei novan ludon dum via vico.</string>
   <string name="since">Ekde</string>
   <string name="until">Ĝis</string>
   <string name="lichessDbExplanation">Rangaj ludoj luditaj per Lichess</string>
@@ -975,8 +1042,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
   <string name="instructions">Instrukcio</string>
   <string name="showMeEverything">Ĉion montru al mi</string>
-  <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
-Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
   <string name="stats">Statistikoj</string>
   <string name="accessibility">Alireblo</string>
@@ -987,6 +1052,14 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="offline" comment="status of a user">konektita</string>
   <string name="search">Serĉi</string>
   <string name="clearSearch">Viŝi serĉon</string>
+  <string name="thereAreNoResultsForX">Neniuj rezultoj por \"%s\"</string>
   <string name="tags">Etikedoj</string>
   <string name="enPassant">Preterpasa kapto</string>
+  <string name="settings">Agordoj</string>
+  <string name="verifyingYourDevice">Konfirmado de via aparato...</string>
+  <string name="chessOpenings">Ŝakludaj komencoj</string>
+  <string name="boards">Tabuloj</string>
+  <string name="write">Skribi</string>
+  <string name="preview">Antaŭvido</string>
+  <string name="done">Farita</string>
 </resources>

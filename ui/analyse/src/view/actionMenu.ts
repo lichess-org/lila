@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
-import { cont as contRoute } from 'lib/game/router';
+import type { ContinueMode, GameData } from 'lib/game';
 import { licon } from 'lib/licon';
 import { structuredCloneLite } from 'lib/tree/ops';
 import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
@@ -87,7 +87,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
   const canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice;
-  const canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro;
+  const canRetro = !ctrl.study && !ctrl.isEmbed && !ctrl.retro && ctrl.hasFullComputerAnalysis();
   const linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools = [
@@ -218,3 +218,5 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ]);
 }
+
+const contRoute = (data: GameData, mode: ContinueMode): string => `/game/${data.game.id}/continue/${mode}`;

@@ -918,7 +918,6 @@
   <string name="ourEventTips">ຄຳແນະນຳຂອງພວກເຮົາໃນການຈັດກິດຈະກຳ</string>
   <string name="instructions">ຄຳແນະນຳ</string>
   <string name="showMeEverything">ສະແດງໃຫ້ຂ້ອຍເຫັນທັງໝົດ</string>
-  <string name="lichessPatronInfo">Lichess ແມ່ນອົງການການກຸສົນ ແລະ ເປັນຊອບແວໂອເພນຊອດ (Open Source) ທີ່ຟຣີຢ່າງສົມບູນ. ຄ່າໃຊ້ຈ່າຍໃນການດຳເນີນງານ, ການພັດທະນາ ແລະ ເນື້ອຫາທັງໝົດແມ່ນມາຈາກການບໍລິຈາກຂອງຜູ້ໃຊ້ເທົັ້ນັ້ນ.</string>
   <string name="nothingToSeeHere">ຍັງບໍ່ມີຫຍັງສະແດງຢູ່ນີ້ໃນເວລານີ້.</string>
   <string name="stats">ສະຖິຕິ</string>
   <string name="accessibility">ການເຂົ້າເຖິງ (Accessibility)</string>

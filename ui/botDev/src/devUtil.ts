@@ -49,18 +49,11 @@ export function maxChars(info: NumberInfo | RangeInfo): number {
   return len + fractionLen + 1;
 }
 
-export function score(outcome: Color | undefined, color: Color = 'white'): number {
-  return outcome === color ? 1 : outcome === undefined ? 0.5 : 0;
-}
-
 export function botScore(r: Result, uid: string): number {
   return r.winner === undefined ? 0.5 : r[r.winner] === uid ? 1 : 0;
 }
 
-export function resultsObject(
-  results: Result[],
-  uid: string | undefined,
-): { w: number; d: number; l: number } {
+function resultsObject(results: Result[], uid: string | undefined): { w: number; d: number; l: number } {
   return results.reduce(
     (a, r) => ({
       w: a.w + (r.winner !== undefined && r[r.winner] === uid ? 1 : 0),
@@ -71,7 +64,7 @@ export function resultsObject(
   );
 }
 
-export function resultsString(results: Result[], uid?: string): string {
+export function resultsString(results: Result[], uid: string | undefined): string {
   const { w, d, l } = resultsObject(results, uid);
   return `${w}/${d}/${l}`;
 }

@@ -2,8 +2,8 @@ package lila.appeal
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.*
 import lila.common.Bus
+import lila.core.config.*
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(using scheduler: Scheduler):

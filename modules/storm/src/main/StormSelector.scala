@@ -3,11 +3,11 @@ package lila.storm
 import chess.IntRating
 import scalalib.ThreadLocalRandom
 
+import lila.common.BatchProvider
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.puzzle.PuzzleColls
-import lila.common.BatchProvider
 import lila.mon.extensions.*
+import lila.puzzle.PuzzleColls
 
 /* The difficulty of storm should remain constant!
  * Be very careful when adjusting the selector.

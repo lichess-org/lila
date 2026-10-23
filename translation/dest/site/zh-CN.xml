@@ -289,7 +289,7 @@
   <string name="finished">已结束</string>
   <string name="abortGame">终止对局</string>
   <string name="gameAborted">对局已终止</string>
-  <string name="standard">标准</string>
+  <string name="standard">标准棋</string>
   <string name="customPosition">自定义局面</string>
   <string name="unlimited">无限制</string>
   <string name="unlimitedDescription">请随意安排时间</string>
@@ -1001,8 +1001,7 @@
   <string name="ourEventTips">举办赛事的小建议</string>
   <string name="instructions">说明</string>
   <string name="showMeEverything">显示全部内容</string>
-  <string name="lichessPatronInfo">Lichess 是一家非营利机构，其软件是完全免费的自由开源软件。
-该网站的所有运营成本、开发工作以及内容产出，都完全依赖于用户的赞助。</string>
+  <string name="lichessPatronInfo">Lichess 是一家慈善机构，也是完全的自由/开源软件。我们依靠用户的赞助来支持运营成本、开发和内容。如果没有慷慨的社区，我们将无法维持网站的运行。感谢您的加入！</string>
   <string name="nothingToSeeHere">目前这里什么都没有。</string>
   <string name="stats">统计信息</string>
   <string name="accessibility">无障碍模式</string>

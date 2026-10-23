@@ -5,8 +5,8 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.db.AsyncColl
 import lila.core.i18n.Translate
+import lila.db.AsyncColl
 
 @Module
 private class PuzzleConfig(

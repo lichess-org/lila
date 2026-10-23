@@ -165,6 +165,7 @@
   <string name="flipBoard">Snu brettet</string>
   <string name="toggleLocalEngine">Aktiver/deaktiver lokal sjakkmotor</string>
   <string name="engineSettings">Innstillingar for sjakkmotor</string>
+  <string name="engine">Sjakkmotor</string>
   <string name="enginesFromStrongestToWeakest">Sjakkmotorar frå sterkast til svakast</string>
   <string name="illegalPosition">Ulovleg stilling</string>
   <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
@@ -1042,8 +1043,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="ourEventTips">Tips for å organisere arrangement</string>
   <string name="instructions">Instruksjonar</string>
   <string name="showMeEverything">Vis alt</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
-Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
+  <string name="lichessPatronInfo">Lichess er en velgjerdsorganisasjon som tilbyr heilt fri tilgang til open kjeldekode programvare. Vi er avhengige av brukerdonasjonar for å støtta driftskostnadar, utvikling og innhald. Uten våre generøse bidragsytarar ville vi ikkje vore i stand til å drifta nettstaden. Takk for at du vart med i oss!</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
   <string name="stats">Statistikk</string>
   <string name="accessibility">Tilgjengelegheit</string>

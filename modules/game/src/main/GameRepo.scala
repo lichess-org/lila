@@ -2,12 +2,12 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.SanStr
-import chess.{ ByColor, Color, Status }
 import chess.rating.IntRatingDiff
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
+import chess.{ ByColor, Color, Status }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.ThreadLocalRandom
 
 import lila.core.game.*
@@ -291,7 +291,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game](bid(id) ++ Query.analysed(true))
 
-  def exists(id: GameId) = coll.exists(bid(id))
+  def exists(id: GameId) = coll.secondary.exists(bid(id))
+  def existsPri(id: GameId) = coll.exists(bid(id))
 
   def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String](bid(id), F.tournamentId)
 

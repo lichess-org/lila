@@ -67,9 +67,9 @@
   <string name="analysis">Tahlil taxtasi</string>
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qoʻllanilmoqda</string>
-  <string name="loadingEngine">Dvijok yuklanmoqda...</string>
+  <string name="loadingEngine">Dvigatel yuklanmoqda...</string>
   <string name="calculatingMoves">Yurishlar hisoblanmoqda...</string>
-  <string name="engineFailed">Dvijokni yuklashda xatolik yuz berdi</string>
+  <string name="engineFailed">Dvigatelni yuklashda xatolik yuz berdi</string>
   <string name="cloudAnalysis">Bulut tahlili</string>
   <string name="goDeeper">Yanada chuqurroq</string>
   <string name="showThreat">Tahdidni koʻrsatish</string>
@@ -163,10 +163,10 @@
   </plurals>
   <string name="moveTimes">Yurishlar vaqti</string>
   <string name="flipBoard">Taxtani aylantirish</string>
-  <string name="toggleLocalEngine">Lokal dvijok</string>
-  <string name="engineSettings">Dvijok sozlamalari</string>
-  <string name="engine">Dvijok</string>
-  <string name="enginesFromStrongestToWeakest">Dvijoklar kuchlidan kuchsizga qarab</string>
+  <string name="toggleLocalEngine">Lokal dvigatel</string>
+  <string name="engineSettings">Dvigatel sozlamalari</string>
+  <string name="engine">Dvigatel</string>
+  <string name="enginesFromStrongestToWeakest">Dvigatellar kuchlidan kuchsizga qarab</string>
   <string name="illegalPosition">Noto\'g\'ri pozitsiya</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
   <string name="claimADraw">Durang talab qilish</string>
@@ -199,7 +199,7 @@
   <string name="rememberMe">Meni eslab qol</string>
   <string name="youNeedAnAccountToDoThat">Buning uchun sizga akkaunt kerak</string>
   <string name="signUp">Roʻyxatdan oʻtish</string>
-  <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
+  <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvigatellari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s ushbu mavzuda xabar yozdi: %2$s</string>
@@ -563,9 +563,9 @@ Oʻynayotgan doʻstlar: %2$s</string>
   <string name="onlineBots">Onlayn botlar</string>
   <string name="aboutBotsOnLichess">Lichessʼdagi botlar haqida</string>
   <string name="featuredBots">Tavsiya etilgan botlar</string>
-  <string name="tryPlayingTheseInnovativeChessEngines">Ushbu innovatsion shaxmat dvijoklari bilan oʻynab koʻring! Bular bizning eng sara botlarimizdir.</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Ushbu innovatsion shaxmat dvigatellari bilan oʻynab koʻring! Bular bizning eng sara botlarimizdir.</string>
   <string name="communityBots">Hamjamiyat botlari</string>
-  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess hamjamiyati tomonidan yaratilgan boshqa shaxmat dvijoklari. Ular bot mualliflarning serverlarida joylashgan boʻlib, har doim ham onlayn boʻlmasligi mumkin.</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess hamjamiyati tomonidan yaratilgan boshqa shaxmat dvigatellari. Ular bot mualliflarning serverlarida joylashgan boʻlib, har doim ham onlayn boʻlmasligi mumkin.</string>
   <string name="name">Nomi</string>
   <string name="description">Izoh</string>
   <string name="descPrivate">Yopiq tavsif</string>
@@ -1042,9 +1042,6 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="ourEventTips">Tadbirlarni tashkillashtirish boʻyicha tavsiyalarimiz</string>
   <string name="instructions">Koʻrsatmalar</string>
   <string name="showMeEverything">Hammasini koʻrsat</string>
-  <string name="lichessPatronInfo">Lichess — bu xayriya loyihasi boʻlib, mutlaqo bepul va ochiq kodli dasturdir.
-Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilarning ixtiyoriy donatlari orqali qoplanadi.
-  </string>
   <string name="nothingToSeeHere">Ayni paytda bu yerda hech nima yoʻq.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Maxsus qulayliklar</string>

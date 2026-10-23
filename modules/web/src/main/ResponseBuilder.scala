@@ -25,9 +25,8 @@ trait ResponseBuilder(using Executor)
   val jsonOkResult = JsonOk(jsonOkBody)
   def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
-  def JsonOk(body: JsValue): Result = Ok(body).as(JSON)
-  def JsonOk[A: Writes](body: A): Result = Ok(Json.toJson(body)).as(JSON)
-  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.dmap(JsonOk)
+  def JsonOk[A: Writes](body: A): Result = Ok(Json.toJson(body))
+  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.map(JsonOk)
   def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua.map(_.fold(notFoundJson())(JsonOk))
   def JsonStrOk(str: JsonStr): Result = Ok(str).as(JSON)
   def JsonBadRequest(body: JsValue): Result = BadRequest(body).as(JSON)
@@ -70,3 +69,5 @@ trait ResponseBuilder(using Executor)
     "how-to-cheat" -> "/page/how-to-cheat"
   )
   def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }
+
+  def MovedPermanently(call: Call): Result = MovedPermanently(call.url)

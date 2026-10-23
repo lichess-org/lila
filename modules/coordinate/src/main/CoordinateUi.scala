@@ -14,6 +14,7 @@ final class CoordinateUi(helpers: Helpers):
       .css("coordinateTrainer")
       .css("voice")
       .i18n(_.coordinates, _.storm, _.study)
+      .i18n(_.voiceCommands)
       .js(pageModule(scoreOption))
       .csp(_.withWebAssembly)
       .graph(

@@ -1,10 +1,10 @@
 package lila.puzzle
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
-import lila.ui.Context
-import lila.core.i18n.Translate
 import lila.common.Json.given
+import lila.core.i18n.Translate
+import lila.ui.Context
 
 final class PuzzleComplete(
     api: PuzzleApi,

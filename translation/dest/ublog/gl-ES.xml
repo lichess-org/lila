@@ -78,5 +78,7 @@
   <string name="inappropriateContentAccountClosed">Calquera cousa inadecuada pode facer que pechemos a túa conta.</string>
   <string name="blogTips">Os nosos sinxelos consellos para escribir boas publicacións</string>
   <string name="discussThisBlogPostInTheForum">Falar desta publicación no foro</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">As opinións expresadas polos colaboradores do Lichess son as súas opinións persoais.</string>
+  <string name="youMayAlsoLike">Tamén che pode gustar</string>
   <string name="youBlockedByBlogAuthor">Estás bloqueado polo autor do blog.</string>
 </resources>

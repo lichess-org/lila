@@ -84,6 +84,7 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="showUndefendedPieces">Arată piesele neapărate</string>
   <string name="showPinnedPieces">Arată piesele legate</string>
   <string name="showCheckableKing">Arată rege care poate fi pus in șah</string>
+  <string name="showTrappedPieces">Arată piesele prinse</string>
   <string name="disclosureMode">Activează ascunderea variațiilor</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Lista de mutări</string>

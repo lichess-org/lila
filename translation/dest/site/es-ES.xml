@@ -1043,8 +1043,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
   <string name="instructions">Instrucciones</string>
   <string name="showMeEverything">Mostrarme todo</string>
-  <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
-Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
+  <string name="lichessPatronInfo">Lichess es una organización benéfica y software libre de código abierto. Dependemos de donaciones de usuarios para apoyar nuestros costos operativos, desarrollo y contenido. Sin nuestra generosa comunidad, no podríamos mantener el sitio funcionando. ¡Gracias por unirte!</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
   <string name="accessibility">Accesibilidad</string>

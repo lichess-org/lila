@@ -1,9 +1,9 @@
 package lila.swiss
 
 import chess.Clock.{ Config as ClockConfig, IncrementSeconds, LimitSeconds }
-import chess.{ Speed, Rated }
 import chess.format.Fen
 import chess.variant.Variant
+import chess.{ Rated, Speed }
 import play.api.data.*
 import play.api.data.Forms.*
 

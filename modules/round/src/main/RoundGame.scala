@@ -33,6 +33,12 @@ object RoundGame:
     def timeBeforeExpiration: Option[Centis] = g.expirable.option:
       Centis.ofMillis(g.movedAt.toMillis - nowMillis + g.timeForFirstMove.millis).nonNeg
 
+  extension (p: Pov)
+    def isMyTurnOrJustMoved = p.isMyTurn || {
+      p.game.started && p.game.playable && p.game.movedAt
+        .isAfter(nowInstant.minusSeconds(15))
+    }
+
   // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
   // are based on whose turn it is.
   def cannotLose(p: Pov) =

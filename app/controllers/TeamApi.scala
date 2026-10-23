@@ -133,7 +133,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   private def WithOwnedTeamEnabled(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: TeamModel => Fu[ApiResult]
-  )(using me: Me): Fu[Result] =
+  )(using Me): Fu[Result] =
     api
       .teamEnabled(teamId)
       .flatMap:

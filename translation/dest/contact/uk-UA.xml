@@ -54,6 +54,9 @@
   <string name="ratedGame">Переконайтеся, що ви зіграли рейтингову гру. Товариські ігри не впливають на рейтинги гравців.</string>
   <string name="botRatingAbuse">За певних обставин при грі проти облікового запису бота, гра з рейтингом не може обраховувати очки, якщо система визначить, що гравець зловживає ботом для отримання рейтингових очок.</string>
   <string name="errorPage">Сторінка помилки</string>
+  <string name="reportTheBug">Повідомити про помилку:</string>
+  <string name="securityVulnerability">Вразливість безпеки</string>
+  <string name="otherBug">Інша помилка</string>
   <string name="learnHowToMakeBroadcasts">Дізнайтеся, як робити власні трансляції на Lichess</string>
   <string name="banAppeal">Оскарження бану або обмеження за IP-адресою</string>
   <string name="engineAppeal">Відмітка про використання шахового рушія або нечесну гру</string>

@@ -212,11 +212,11 @@ async function buildColorWrap() {
   return true;
 }
 
-async function hashCss(src: string, replacements: Record<string, string> | undefined) {
+async function hashCss(src: string, replacements: Record<string, string> = {}) {
   let content = await fs.promises.readFile(src, 'utf-8');
   let modified = false;
 
-  for (const [search, replace] of Object.entries(replacements ?? {})) {
+  for (const [search, replace] of Object.entries(replacements)) {
     content = content.replaceAll(search, replace);
     modified = true;
   }
@@ -246,7 +246,7 @@ async function sourcesWithUrls(urls: string[]) {
 }
 
 function urlReplacements() {
-  const replacements: Record<string, Record<string, string>> = {};
+  const replacements: Record<string, Record<string, string> | undefined> = {};
   for (const [url, depSet] of importMap) {
     if (!url.startsWith('../')) continue;
     const hashed = [...depSet].find(f => f.startsWith('public/hashed/'));

@@ -1,15 +1,15 @@
 package lila.recap
 
-import reactivemongo.pekkostream.cursorProducer
-import reactivemongo.api.bson.BSONNull
 import chess.ByColor
-import chess.opening.OpeningDb
 import chess.format.pgn.SanStr
+import chess.opening.OpeningDb
+import reactivemongo.api.bson.BSONNull
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.SimpleOpening
+import lila.core.game.Source
 import lila.db.dsl.{ *, given }
 import lila.game.Query
-import lila.core.game.Source
 import lila.mon.extensions.*
 
 private final class RecapBuilder(

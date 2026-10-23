@@ -410,7 +410,7 @@ export function initModule({
       const srole = board.pieces[nsrc].toUpperCase();
 
       if (srole === 'K') {
-        if (isOurs(dp)) {
+        if (dp && isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
@@ -496,12 +496,8 @@ export function initModule({
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
 
-  function isOurs(p: string | undefined) {
-    return p === '' || p === undefined
-      ? undefined
-      : cg.state.turnColor === 'white'
-        ? p.toUpperCase() === p
-        : p.toLowerCase() === p;
+  function isOurs(p: string) {
+    return !p ? false : cg.state.turnColor === 'white' ? p.toUpperCase() === p : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {

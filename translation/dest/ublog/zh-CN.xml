@@ -74,5 +74,7 @@
   <string name="inappropriateContentAccountClosed">任何不当内容都可能导致您的账户被封禁。</string>
   <string name="blogTips">我们撰写优秀博客文章的简单技巧</string>
   <string name="discussThisBlogPostInTheForum">在论坛中讨论此博客文章</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess 贡献者表达的观点仅代表其个人。</string>
+  <string name="youMayAlsoLike">您可能还喜欢</string>
   <string name="youBlockedByBlogAuthor">您已被博客作者屏蔽</string>
 </resources>

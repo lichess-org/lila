@@ -1,10 +1,10 @@
 package lila.web
 
 import org.apache.pekko.stream.Materializer
-import play.api.mvc.*
 import play.api.http.Status.*
+import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 
@@ -24,18 +24,18 @@ final class HttpFilter(
       redirectWrongDomain(req)
         .map(fuccess)
         .getOrElse:
-          val lilaReq = toLilaReq(req)
+          val lilaReq = toLilaReq(using req)
           handle(lilaReq).map: result =>
             monitoring(lilaReq, startTime):
               addContextualResponseHeaders(lilaReq):
                 addEmbedderPolicyHeaders(lilaReq):
                   result
 
-  private def toLilaReq(req: RequestHeader) =
+  private def toLilaReq(using req: RequestHeader) =
     val clientName =
       import ClientName.*
-      if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile(req) then lichobile else xhr
-      else if HTTPRequest.isLichessMobile(req) then mobile
+      if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile then lichobile else xhr
+      else if HTTPRequest.isLichessMobile then mobile
       else if crawlerMatcher(req) then crawler
       else if req.path.startsWith("/fishnet/") then fishnet
       else browser
@@ -71,7 +71,7 @@ final class HttpFilter(
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != net.domain.value &&
-    HTTPRequest.isRedirectable(req) &&
+    HTTPRequest.isRedirectable(using req) &&
     !HTTPRequest.isProgrammatic(req) &&
     // asset request going through the CDN, don't redirect
     !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))

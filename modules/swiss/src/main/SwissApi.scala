@@ -1,9 +1,9 @@
 package lila.swiss
 
 import org.apache.pekko.stream.scaladsl.*
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
@@ -14,10 +14,10 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
-import lila.gathering.Condition.{ WithVerdicts, AllowList }
+import lila.gathering.Condition.{ AllowList, WithVerdicts }
 import lila.gathering.GreatPlayer
+import lila.mon.extensions.*
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -255,7 +255,7 @@ final class SwissApi(
         mongo.swiss
           .find(bdoc("teamId" -> teamId, "finishedAt".exists(true)))
           .sort(sort.desc("startsAt"))
-          .cursor[Swiss]()
+          .cursor[Swiss](ReadPref.sec)
           .list(nbPast)
       .zip((nbSoon > 0).so {
         mongo.swiss
@@ -263,10 +263,18 @@ final class SwissApi(
             bdoc("teamId" -> teamId, "startsAt".gt(nowInstant.minusWeeks(2)), "finishedAt".exists(false))
           )
           .sort(sort.asc("startsAt"))
-          .cursor[Swiss]()
+          .cursor[Swiss](ReadPref.sec)
           .list(nbSoon)
       })
       .map((Swiss.PastAndNext.apply).tupled)
+
+  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Swiss]] = (teamIds.nonEmpty && nb > 0).so:
+    mongo.swiss
+      .find:
+        bdoc("teamId".in(teamIds), "startsAt".gt(nowInstant.minusWeeks(1)), "finishedAt".exists(false))
+      .sort(sort.asc("startsAt"))
+      .cursor[Swiss](ReadPref.sec)
+      .list(nb)
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
     userApi.byId(userId).flatMapz { user =>

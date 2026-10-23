@@ -276,6 +276,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Annuléieren</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Wäiss huet op Zäit verluer</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Schwaarz huet op Zäit verluer</string>
   <string name="drawOfferSent">Remis-Offer geschéckt</string>
   <string name="drawOfferAccepted">Remis-Offer ugeholl</string>
   <string name="whiteOffersDraw">Wäiss bitt Remis</string>
@@ -415,6 +417,7 @@
   <string name="apply">Uwenden</string>
   <string name="save">Späicheren</string>
   <string name="leaderboard">Ranglëscht</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Stellung als Bild</string>
   <string name="gameAsGIF">Partie als GIF</string>
   <string name="playerNames">Spillernimm</string>
   <string name="moveAnnotations">Zuchannotatiounen</string>
@@ -443,6 +446,8 @@
     <item quantity="one">%s Kolleeg online</item>
     <item quantity="other">%s Kolleegen online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Kolleegen online: %1$s
+Kolleegen am Spillen: %2$s</string>
   <string name="favoriteOpponents">Liblingsgéigner</string>
   <string name="follow">Followen</string>
   <string name="following">Folgend</string>
@@ -739,6 +744,7 @@
   <string name="downloadRaw">Download onkommentéiert</string>
   <string name="downloadImported">Importéiert Partie eroflueden</string>
   <string name="downloadAllGames">All Partien eroflueden</string>
+  <string name="downloadResults">Resultater eroflueden</string>
   <string name="crosstable">Matchverlaf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kanns och um Briet scrollen fir duerch d\'Partie ze goen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll iwwer Computer Varianten fir eng Virschau ze kréien.</string>
@@ -777,10 +783,12 @@
   <string name="language">Sprooch</string>
   <string name="allLanguages">All Sproochen</string>
   <string name="background">Hannergrond</string>
+  <string name="theme">Faarfscheema</string>
   <string name="light">Hell</string>
   <string name="dark">Däischter</string>
   <string name="picture">Bild</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
+  <string name="roundness">Ronnheet</string>
   <string name="backgroundImage">Hannergrondbild</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
   <string name="board">Briet</string>
@@ -978,8 +986,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
   <string name="instructions">Instruktiounen</string>
   <string name="showMeEverything">Alles weisen</string>
-  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
-All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="nothingToSeeHere">Fir de Moment gëtt et hei näischt ze gesinn.</string>
   <string name="stats">Statistiken</string>
   <string name="accessibility">Accessibilitéit</string>
@@ -993,5 +999,9 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="thereAreNoResultsForX">Kee Resultat fir „%s“</string>
   <string name="tags">Etiketten</string>
   <string name="settings">Astellungen</string>
+  <string name="chessOpenings">Schacherëffnungen</string>
   <string name="boards">Brieder</string>
+  <string name="write">Schreiwen</string>
+  <string name="preview">Virschau</string>
+  <string name="done">Fäerdeg</string>
 </resources>

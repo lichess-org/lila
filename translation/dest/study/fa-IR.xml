@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
   <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">آغاز</string>
-  <string name="save">ذخیره</string>
   <string name="clearChat">پاکیدنِ گپ</string>
   <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه پاک شود؟ بازگشت وجود ندارد!</string>
   <string name="deleteStudy">پاکیدن مطالعه</string>
@@ -198,4 +197,7 @@
   <string name="doubleDefeat">باخت دوطرفه</string>
   <string name="blackDefeatWhiteCanNotWin">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
   <string name="whiteDefeatBlackCanNotWin">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
+  <string name="analysisEditor">ویراستار تحلیل</string>
+  <string name="requestAServerAnalysis">درخواستِ تحلیلِ کارساز</string>
+  <string name="analyzeOnYourDevice">تحلیل در اَفزاره‌تان</string>
 </resources>

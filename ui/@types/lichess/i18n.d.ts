@@ -979,6 +979,8 @@ interface I18n {
     coordinates: string;
     /** Coordinate training */
     coordinateTraining: string;
+    /** Enter the coordinate */
+    enterTheCoordinate: string;
     /** Find square */
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
@@ -991,6 +993,8 @@ interface I18n {
     nameSquare: string;
     /** Practice only some files & ranks */
     practiceOnlySomeFilesAndRanks: string;
+    /** Press %s to start */
+    pressEnterToStart: I18nFormat;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -1863,8 +1867,6 @@ interface I18n {
     analysisUploadFailed: string;
     /** For the best results in the shortest time, use %1$s with %2$s threads. */
     bestResultsUseXWithYThreads: I18nFormat;
-    /** Cannot publish */
-    cannotPublish: string;
     /** Click Analyse to score the main line. */
     chooseYourEngineSettings: string;
     /** Current analysis */
@@ -2707,6 +2709,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
+    /** Show trapped pieces */
+    showTrappedPieces: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -5513,7 +5517,7 @@ interface I18n {
     analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Analyze on your device */
+    /** Analyse on your device */
     analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
@@ -5775,8 +5779,6 @@ interface I18n {
     requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */
@@ -6143,6 +6145,8 @@ interface I18n {
     teamBattleOverview: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
+    /** Team events */
+    teamEvents: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
     /** Team leaders */
@@ -6161,6 +6165,8 @@ interface I18n {
     teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
+    /** Upcoming team events */
+    upcomingTeamEvents: string;
     /** Upcoming tournaments */
     upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
@@ -6403,6 +6409,8 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Opinions expressed by Lichess contributors are their own. */
+    opinionsExpressedByContributorsAreTheirOwn: string;
     /** Post body */
     postBody: string;
     /** Post intro */
@@ -6465,6 +6473,8 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+    /** You may also like */
+    youMayAlsoLike: string;
   };
   variant: {
     /** Antichess */
@@ -6549,6 +6559,8 @@ interface I18n {
     cancelTimerOrDenyARequest: string;
     /** Castle (either side) */
     castle: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
     instructions1: I18nFormat;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
@@ -6561,12 +6573,18 @@ interface I18n {
     instructions5: string;
     /** %s explains the voice move settings in detail. */
     instructions6: I18nFormat;
+    /** Microphone */
+    microphone: string;
     /** Move to e4 or select e4 piece */
     moveToE4OrSelectE4Piece: string;
+    /** None selected */
+    noneSelected: string;
     /** Phonetic alphabet is best */
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */
     playPreferredMoveOrConfirmSomething: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Select or capture a bishop */
     selectOrCaptureABishop: string;
     /** Show puzzle solution */
@@ -6579,6 +6597,10 @@ interface I18n {
     thisBlogPost: string;
     /** Voice commands */
     voiceCommands: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Watch the video tutorial */
     watchTheVideoTutorial: string;
   };

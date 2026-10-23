@@ -1001,7 +1001,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
   <string name="showMeEverything">모두 보기</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!  </string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
   <string name="accessibility">접근성</string>

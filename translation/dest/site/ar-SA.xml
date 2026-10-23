@@ -51,7 +51,7 @@
     <item quantity="many">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
     <item quantity="other">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
   </plurals>
-  <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
+  <string name="opponentLeftChoices">غادر خصمك المباراة. يمكنك إعلان فوزك، أو إنهاء المباراة بالتعادل، أو الانتظار.</string>
   <string name="forceResignation">إعلن فوزك</string>
   <string name="forceDraw">إعلن التعادل</string>
   <string name="talkInChat">يرجى التحلي باللطف في الدردشة!</string>
@@ -1212,8 +1212,7 @@ https://lichess. org/report.</string>
   <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
   <string name="instructions">التعليمات</string>
   <string name="showMeEverything">اظهر لي كل شيء</string>
-  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
-كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
+  <string name="lichessPatronInfo">Lichess مؤسسة غير ربحية، وبرمجياتها حرة ومفتوحة المصدر بالكامل. نعتمد على تبرعات المستخدمين لتغطية تكاليف التشغيل والتطوير وإنتاج المحتوى. لولا مجتمعنا الكريم، لما تمكّنا من مواصلة تشغيل الموقع. شكرًا لانضمامك إلينا!</string>
   <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
   <string name="stats">الإحصائيات</string>
   <string name="accessibility">إمكانية الوصول</string>

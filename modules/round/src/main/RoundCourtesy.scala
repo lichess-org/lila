@@ -1,7 +1,7 @@
 package lila.round
 
-import lila.pref.{ PrefApi, Pref }
 import lila.core.game.FinishGame
+import lila.pref.{ Pref, PrefApi }
 import lila.round.RoundGame.hasChat
 
 private final class RoundCourtesy(messenger: Messenger, prefApi: PrefApi)(using Executor):

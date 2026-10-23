@@ -1,10 +1,12 @@
 package lila.jsBot
 
-import java.nio.file.Files as NioFiles
-import play.api.libs.json.*
-import play.api.libs.Files
-import play.api.mvc.*
 import org.apache.pekko.stream.scaladsl.FileIO
+import play.api.libs.Files
+import play.api.libs.json.*
+import play.api.mvc.*
+
+import java.nio.file.Files as NioFiles
+
 import lila.common.config.GetRelativeFile
 
 // this stuff is for bot devs

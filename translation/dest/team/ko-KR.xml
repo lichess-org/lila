@@ -36,6 +36,8 @@
   <string name="teamUpdates">팀 업데이트</string>
   <string name="subToTeamUpdates">팀 업데이트 구독하기</string>
   <string name="newTeamUpdate">새 팀 업데이트</string>
+  <string name="teamEvents">팀 이벤트</string>
+  <string name="upcomingTeamEvents">다가오는 팀 이벤트</string>
   <string name="teamsIlead">내가 이끄는 팀</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
   <string name="leadersChat">리더 채팅</string>

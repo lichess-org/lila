@@ -23,7 +23,6 @@
   <string name="bodenMate">Mat-ul lui Boden</string>
   <string name="bodenMateDescription">Doi nebuni care atacă pe diagonale încrucișate livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="castling">Rocada</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Șahul cu două piese deodată, ca rezultat al unui atac descoperit unde și piesa mutată, și cea descoperită atacă regele adversarului.</string>
   <string name="endgame">Final de partidă</string>
   <string name="endgameDescription">O tactică în ultima etapă a jocului.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">O tactică ce implică regula en passant, unde un pion poate captura un pion opus care tocmai s-a mutat lângă el cu mutarea inițială de două pătrate.</string>
   <string name="epauletteMate">Mat cu epoleți</string>
   <string name="epauletteMateDescription">Două pătrate de evacuare adiacente pentru un rege în șah sunt ocupate de alte piese.</string>

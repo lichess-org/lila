@@ -950,8 +950,6 @@
   <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
   <string name="instructions">Нұсқаулық</string>
   <string name="showMeEverything">Бәрін көрсету</string>
-  <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
-Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
   <string name="nothingToSeeHere">Әзірге ештеңе жоқ.</string>
   <string name="stats">Статистика</string>
 </resources>

@@ -1,10 +1,10 @@
 package lila.puzzle
 
 import reactivemongo.api.bson.BSONNull
+import scalalib.model.Days
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import scalalib.model.Days
 
 case class PuzzleReplay(
     days: Days,

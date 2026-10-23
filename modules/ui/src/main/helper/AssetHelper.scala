@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.{ BaseUrl, RouteUrl, AssetBaseUrl, ImageGetOrigin }
+import lila.core.config.{ AssetBaseUrl, BaseUrl, ImageGetOrigin, RouteUrl }
 import lila.core.data.SafeJsonStr
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -55,7 +55,7 @@ trait AssetHelper:
   def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
-  val flairVersion = "______4"
+  val flairVersion = "______5"
 
   // bump fide fed version if a fide fed is changed only (not added or removed)
   val fideFedVersion = "______3"

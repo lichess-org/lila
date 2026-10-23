@@ -1,7 +1,7 @@
 package lila.storm
 
-import chess.format.{ Fen, Uci }
 import chess.IntRating
+import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 
 import scala.util.Success

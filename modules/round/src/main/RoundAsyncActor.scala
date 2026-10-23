@@ -8,9 +8,9 @@ import lila.core.round.*
 import lila.core.socket.{ GetVersion, SocketSend, SocketVersion, makeMessage, userLag }
 import lila.game.GameExt.*
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
+import lila.mon.extensions.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.round.RoundGame.*
-import lila.mon.extensions.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,

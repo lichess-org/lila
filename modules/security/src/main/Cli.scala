@@ -2,8 +2,8 @@ package lila.security
 
 import scalalib.net.Domain
 
-import lila.user.{ User, UserRepo }
 import lila.core.user.RoleDbKey
+import lila.user.{ User, UserRepo }
 
 final private class Cli(
     userRepo: UserRepo,

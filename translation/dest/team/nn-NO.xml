@@ -39,6 +39,8 @@
   <string name="teamUpdates">Lagoppdateringar</string>
   <string name="subToTeamUpdates">Abonner på lagmeldingar</string>
   <string name="newTeamUpdate">Ny lagoppdatering</string>
+  <string name="teamEvents">Lagturneringar</string>
+  <string name="upcomingTeamEvents">Komande lagturneringar</string>
   <string name="teamsIlead">Grupper eg er leiar av</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>

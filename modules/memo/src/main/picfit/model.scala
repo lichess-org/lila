@@ -3,8 +3,8 @@ package lila.memo
 import org.apache.pekko.stream.scaladsl.Source
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.config.{ CollName, ImageGetOrigin, Secret }
 import lila.core.id.ImageId
-import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 
 case class PicfitImage(
     @Key("_id") id: ImageId,

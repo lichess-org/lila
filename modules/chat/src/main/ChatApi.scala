@@ -1,9 +1,10 @@
 package lila.chat
 
 import cats.data.OptionT
+
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
+import lila.core.chat.{ OnReinstate, OnTimeout, PublicSource }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }

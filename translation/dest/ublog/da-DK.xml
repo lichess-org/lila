@@ -32,6 +32,8 @@
   <string name="createBlogDiscussionHelp">Der vil blive oprettet et forumemne, hvor folk kan kommentere på dit indlæg</string>
   <string name="publishOnYourBlog">Publicér på din blog</string>
   <string name="publishHelp">Hvis markeret, vil indlægget blive vist på din blog. Hvis ikke, vil det være privat i dine udkast</string>
+  <string name="includesPromotedContent">Indeholder promoveret/sponsoreret indhold eller henvisningslinks</string>
+  <string name="mandatoryForSponsoredContent">Obligatorisk for sponsoreret indhold, affiliate-links eller kommerciel reklame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fastgjort indlæg</string>
   <string name="stickyPostHelp">Hvis markeret, vil dette indlæg blive vist først i din profils seneste indlæg.</string>
   <plurals name="publishedNbBlogPosts">
@@ -59,11 +61,23 @@
   <string name="deleteBlog">Slet dette blogindlæg for altid</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Følgende websteder tilbyder billeder gratis. Sørg for at overholde licensbetingelserne for det billede, du bruger.</string>
   <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
+  <string name="topicChess">Skak</string>
+  <string name="topicTactics">Taktik</string>
+  <string name="topicStrategy">Strategi</string>
+  <string name="topicChessEngine">Skakmotor</string>
+  <string name="topicChessBot">Skakbot</string>
+  <string name="topicChessPersonalities">Skakpersonligheder</string>
+  <string name="topicOverTheBoard">Over brættet</string>
+  <string name="topicSoftwareDevelopment">Software-udvikling</string>
+  <string name="topicOffTopic">Uden for emnet</string>
+  <string name="topicPosts">%s indlæg</string>
   <string name="etiquette">Etikette</string>
   <string name="safeAndRespectfulContent">Skriv kun sikkert og respektfuldt indhold. Kopiér ikke andres indhold.</string>
   <string name="noCopyrightedImages">Brug kun billeder, der ikke er beskyttet af andres ophavsret.</string>
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
   <string name="blogTips">Vores enkle tips til at skrive gode blogindlæg</string>
   <string name="discussThisBlogPostInTheForum">Diskutér dette blogindlæg i forummet</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">De synspunkter, som Lichess-bidragydere giver udtryk for, er deres egne.</string>
+  <string name="youMayAlsoLike">Du vil måske også kunne lide</string>
   <string name="youBlockedByBlogAuthor">Du er blokeret af blogforfatteren.</string>
 </resources>

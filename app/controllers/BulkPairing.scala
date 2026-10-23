@@ -1,12 +1,12 @@
 package controllers
 
+import cats.mtl.Handle.*
 import play.api.libs.json.*
 
 import lila.api.GameApiV2
 import lila.app.*
 import lila.challenge.ChallengeBulkSetup
 import lila.common.Json.given
-import cats.mtl.Handle.*
 
 final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
 
@@ -14,7 +14,7 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
     env.challenge.bulk
       .scheduledBy(me)
       .map: list =>
-        JsonOk(Json.obj("bulks" -> list.map(ChallengeBulkSetup.toJson)))
+        Ok(Json.obj("bulks" -> list.map(ChallengeBulkSetup.toJson)))
   }
 
   def show(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
@@ -22,7 +22,7 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
       .findBy(id, me)
       .map:
         _.fold(notFoundJson()): bulk =>
-          JsonOk(ChallengeBulkSetup.toJson(bulk))
+          Ok(ChallengeBulkSetup.toJson(bulk))
   }
 
   def games(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
@@ -64,7 +64,7 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
           for
             bulk <- env.challenge.bulkSetupApi(data, me)
             scheduled <- env.challenge.bulk.schedule(bulk)
-          yield JsonOk(toJson(scheduled))
+          yield Ok(toJson(scheduled))
         .rescue:
           case ScheduleError.RateLimited =>
             TooManyRequests:

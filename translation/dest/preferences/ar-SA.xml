@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">إظهار القطع غير المحمية</string>
   <string name="showPinnedPieces">إظهار القطع المثبتة</string>
   <string name="showCheckableKing">إظهار الملك القابل للكش</string>
+  <string name="showTrappedPieces">إظهار القطع المحاصرة</string>
   <string name="disclosureMode">تفعيل إخفاء النقلات البديلة</string>
   <string name="generalSettings">عام</string>
   <string name="moveListSettings">قائمة النقلات</string>

@@ -1,19 +1,20 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
-import play.api.mvc.Result
 import play.api.libs.json.*
+import play.api.mvc.Result
+import scalalib.model.Language
+
+import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import scalalib.model.Language
+import lila.common.HTTPRequest
+import lila.core.i18n.toLanguage
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, QualityFilter }
-import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
-import lila.common.HTTPRequest
+import lila.ublog.{ UblogBlog, UblogByMonth, UblogPost }
 
 final class Ublog(env: Env) extends LilaController(env):
 
@@ -131,7 +132,7 @@ final class Ublog(env: Env) extends LilaController(env):
       WithBlogOf(username, _.edit): (user, _) =>
         env.ublog.api
           .newPost(user)
-          .map(post => Redirect(editUrlOfPost(post)))
+          .flatMap(_.fold(rateLimited)(post => Redirect(editUrlOfPost(post))))
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
@@ -308,7 +309,9 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(ATOM)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+          .as(ATOM)
+          .headerCache(10.minutes)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
@@ -360,7 +363,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
+      MovedPermanently(routes.Ublog.post(UserName.lichess, post.slug, post.id))
 
   def search(text: String, by: BlogsBy, page: Int) = Open: ctx ?=>
     val queryText = text.take(100).trim

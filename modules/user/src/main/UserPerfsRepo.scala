@@ -1,9 +1,9 @@
 package lila.user
 
-import reactivemongo.api.*
-import reactivemongo.api.bson.*
 import chess.IntRating
 import chess.rating.glicko.Glicko
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.WithPerf

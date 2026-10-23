@@ -18,7 +18,7 @@ final class Env(
   export net.baseUrl
 
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
-  lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
+  lazy val lilaVersion = WebConfig.LilaVersion.read(appConfig)
 
   val manifest = wire[AssetManifest]
 
@@ -53,11 +53,6 @@ final class Env(
     import lila.memo.SettingStore.Strings.given
     import lila.memo.SettingStore.UserIds.given
 
-    val apiTimeline = settingStore[Int](
-      "apiTimelineEntries",
-      default = 10,
-      text = "API timeline entries to serve".some
-    )
     val noDelaySecret = settingStore[Strings](
       "noDelaySecrets",
       default = Strings(Nil),

@@ -1,6 +1,7 @@
 package lila.pref
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.ublog.QualityFilter
 
 case class Pref(

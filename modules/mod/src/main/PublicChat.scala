@@ -1,12 +1,11 @@
 package lila.mod
 
 import lila.chat.UserChat
+import lila.core.relay.{ GetActiveRounds, RoundIdName as RelayRound }
 import lila.core.swiss.IdName as Swiss
-import lila.core.relay.RoundIdName as RelayRound
 import lila.core.tournament.Tournament
 import lila.report.Suspect
 import lila.user.UserRepo
-import lila.core.relay.GetActiveRounds
 
 type PublicChats[A] = List[(A, UserChat)]
 

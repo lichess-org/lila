@@ -10,17 +10,17 @@ import scalalib.paginator.Paginator
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
+import lila.core.perf.UserWithPerfs
+import lila.core.security.IsProxy
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.security.IsProxy
-import lila.core.perf.UserWithPerfs
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
+import lila.mon.extensions.*
 import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.security.{ UserAgentParser, UserLogins }
 import lila.user.WithPerfsAndEmails
-import lila.mon.extensions.*
 
 final class User(
     override val env: Env,
@@ -206,13 +206,11 @@ final class User(
                 yield snip.headerCache(5.seconds),
                 json =
                   import lila.game.JsonView.given
-                  val content =
-                    Json
-                      .obj(
-                        "crosstable" -> crosstable,
-                        "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                      )
-                  JsonOk(content).headerCache(5.seconds)
+                  Ok:
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                    )
               )
           else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
 
@@ -269,7 +267,7 @@ final class User(
         json =
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards)
+          JsonOk(leaderboards).headerCache(1.minute)
       )
     }
 
@@ -277,7 +275,7 @@ final class User(
     env.user.cached.top10.get {}.map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
-      JsonOk(leaderboards)
+      JsonOk(leaderboards).headerCache(1.minute)
     }
 
   def top(perfKey: PerfKey, page: Int) = Open:
@@ -295,13 +293,13 @@ final class User(
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
-        JsonOk(leaderboards)
+        JsonOk(leaderboards).headerCache(1.minute)
       }
     else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-    Ok(Json.obj("users" -> users))
+    Ok(Json.obj("users" -> users)).headerCache(1.minute)
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -491,7 +489,7 @@ final class User(
       env.user.noteApi
         .getForMyPermissions(_)
         .flatMap(lila.user.JsonView.notes)
-        .map(JsonOk)
+        .map(Ok(_))
   }
 
   def apiWriteNote(username: UserStr) = ScopedBody(_.Note.Write) { ctx ?=> me ?=>
@@ -554,8 +552,7 @@ final class User(
             Ok.async:
               env.history
                 .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
-                .map:
-                  views.user.perfStatPage(data, _)
+                .map(views.user.perfStatPage(data, _))
             ,
             JsonOk:
               getBool("graph")
@@ -563,6 +560,7 @@ final class User(
                   env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
                 .map: graph =>
                   env.perfStat.jsonView(data).add("graph", graph)
+            .map(_.headerCache(1.minute))
           )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
@@ -616,7 +614,7 @@ final class User(
                         .add("online" -> env.socket.isOnline.exec(u.id))
                     })
                 else fuccess(Json.toJson(userIds))
-            yield JsonOk(result)
+            yield Ok(result)
 
   def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(perfKey.some.filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
@@ -635,7 +633,13 @@ final class User(
 
   def redirect(path: String) = Open:
     staticRedirect(path) |
-      UserStr.read(path).so(tryRedirect).getOrElse(notFound)
+      env.round
+        .pathRedirect(path)
+        .flatMapz:
+          case lichobilePov: Pov => roundC.renderPlayer(lichobilePov).dmap(some)
+          case call: Call => fuccess(MovedPermanently(call).some)
+        .orElse(UserStr.read(path).so(tryRedirect))
+        .getOrElse(notFound)
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:

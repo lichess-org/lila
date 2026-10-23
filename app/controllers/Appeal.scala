@@ -6,8 +6,8 @@ import play.api.mvc.Result
 
 import lila.app.{ *, given }
 import lila.appeal.{ Appeal as AppealModel, AppealTopicApi }
-import lila.report.Suspect
 import lila.core.misc.AppealTopic
+import lila.report.Suspect
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 

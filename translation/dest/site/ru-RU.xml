@@ -175,6 +175,7 @@
   <string name="flipBoard">Перевернуть доску</string>
   <string name="toggleLocalEngine">Переключать локальный движок</string>
   <string name="engineSettings">Настройки движка</string>
+  <string name="engine">Движок</string>
   <string name="enginesFromStrongestToWeakest">Движки от сильнейших к слабейшим</string>
   <string name="illegalPosition">Нелегальная позиция</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
@@ -317,7 +318,7 @@
   </plurals>
   <string name="ok">ОК</string>
   <string name="cancel">Отменить</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Белые просрочили время</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">У белых закончилось время</string>
   <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">У черных закончилось время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -520,6 +521,8 @@
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Друзей в сети: %1$s
+Друзей в игре: %2$s</string>
   <string name="favoriteOpponents">Предпочитаемые соперники</string>
   <string name="follow">Подписаться</string>
   <string name="following">Подписаны</string>
@@ -624,6 +627,11 @@
   <string name="autoSwitch">Автосмена</string>
   <string name="puzzles">Задачи</string>
   <string name="onlineBots">Онлайн боты</string>
+  <string name="aboutBotsOnLichess">О ботах на Lichess</string>
+  <string name="featuredBots">Рекомендуемые боты</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Попробуйте сыграть с этими инновационными шахматными движками! Они наши фавориты.</string>
+  <string name="communityBots">Боты сообщества</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Другие шахматные движки, созданные сообществом Lichess. Они размещаются своими создателями и не всегда могут быть в сети.</string>
   <string name="name">Имя</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Описание для членов команды</string>
@@ -669,6 +677,7 @@
   <string name="clearField">Очистить поле</string>
   <string name="orSeparator">Или</string>
   <string name="logInByEmail">Авторизация через электронную почту</string>
+  <string name="emailLoginInstructions">Мы отправим Вам на электронную почту письмо со ссылкой для входа.</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -693,6 +702,8 @@
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>
+  <string name="defeatOnly">Только поражения</string>
+  <string name="drawAndDefeat">Ничья и поражение</string>
   <string name="xCompetesInY">%1$s решил участвовать в %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Поражение</string>
@@ -763,10 +774,13 @@
   <string name="aboutX">О %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
   <string name="really">именно так</string>
+  <string name="lichessUpdates">Обновления Lichess</string>
   <string name="contribute">Внести вклад в развитие</string>
+  <string name="changelog">Список изменений</string>
   <string name="termsOfService">Пользовательское соглашение</string>
   <string name="titleVerification">Подтверждение звания</string>
   <string name="sourceCode">Исходный код</string>
+  <string name="blockAds">Блокировать рекламу</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>
   <string name="hostColorX">Цвет сеансёра: %s</string>
@@ -798,7 +812,7 @@
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>
-  <string name="keyGoToPreviousOrNextLine">Перейдите к предыдущей/следуйщей линии</string>
+  <string name="keyGoToPreviousOrNextLine">перейти к предыдущей/следуйщей линии</string>
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyShowOrHideCurrentVariation">показать/скрыть текущий вариант</string>
@@ -848,7 +862,9 @@
   <string name="downloadAnnotated">Скачать с аннотациями</string>
   <string name="downloadRaw">Скачать в исходном виде</string>
   <string name="downloadImported">Скачать в исходном виде</string>
+  <string name="downloadMyGames">Скачать мои партии</string>
   <string name="downloadAllGames">Скачать все игры</string>
+  <string name="downloadResults">Скачать результаты</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Пролистывайте варианты для их просмотра.</string>
@@ -868,12 +884,14 @@
   <string name="enableKidMode">Включить детский режим</string>
   <string name="disableKidMode">Отключить детский режим</string>
   <string name="security">Безопасность</string>
+  <string name="activeSessionsDescription">Ниже представлен список устройств и приложений, через которые выполнен вход в Вашу учетную запись. Если Вы заметите подозрительную активность, обязательно &lt;a href=\'%1$s\'&gt;проверьте адрес электронной почты для восстановления доступа&lt;/a&gt; и &lt;a href=\'%2$s\'&gt;смените пароль&lt;/a&gt;.</string>
   <string name="sessions">Сессии</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="noChallenges">Нет вызовов.</string>
+  <string name="browserNotificationsDenied">Всплывающие уведомления отключены в настройках браузера</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно на %s языке!</item>
     <item quantity="few">Доступно на %s языках!</item>
@@ -1107,8 +1125,7 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
-  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
-Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
+  <string name="lichessPatronInfo">Lichess — это благотворительный проект и полностью бесплатное программное обеспечение с открытым исходным кодом. Мы зависим от пожертвований пользователей, которые покрывают наши операционные расходы, разработку и создание контента. Без нашего щедрого сообщества мы бы не смогли поддерживать работу сайта. Спасибо, что присоединились к нам!</string>
   <string name="nothingToSeeHere">Здесь ничего нет пока.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Специальные возможности</string>
@@ -1126,4 +1143,7 @@
   <string name="verifyingYourDevice">Проверка устройства...</string>
   <string name="chessOpenings">Шахматные дебюты</string>
   <string name="boards">Доски</string>
+  <string name="write">Написать</string>
+  <string name="preview">Предпросмотр</string>
+  <string name="done">Готово</string>
 </resources>

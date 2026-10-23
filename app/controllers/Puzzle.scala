@@ -4,8 +4,11 @@ import cats.mtl.Handle.*
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Days
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.i18n.Language
 import lila.core.id.PuzzleId
 import lila.puzzle.{
@@ -19,9 +22,6 @@ import lila.puzzle.{
 }
 import lila.rating.PerfType
 import lila.ui.LangPath
-import scalalib.model.Days
-import lila.common.HTTPRequest
-import lila.common.Json.given
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -57,7 +57,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             html = renderShow(daily.puzzle, PuzzleAngle.mix, isDaily = true),
             api = v =>
               for content <- jsonView.analysis(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some)
-              yield JsonOk(content).headerCache(10.minutes).varyAccept
+              yield JsonOk(content).headerCache(10.minutes)
           )
 
   def apiDaily = Anon:
@@ -77,7 +77,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val ids = idsStr.split(',').take(50).flatMap(Puz.toId).toList
     val cost =
       if ctx.isMobileOauth then ids.length / 10
-      else if HTTPRequest.isLichessMobile(ctx.req) then ids.length / 5
+      else if HTTPRequest.isLichessMobile then ids.length / 5
       else ids.length
     fetchRateLimit(rateLimited, cost = cost.atLeast(1)):
       WithPuzzlePerf:
@@ -382,7 +382,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val nb = (getInt("nb") | 15).atLeast(1).atMost(50)
     val cost =
       if ctx.isMobileOauth then 0
-      else if HTTPRequest.isLichessMobile(ctx.req) then (nb / 5).atLeast(1)
+      else if HTTPRequest.isLichessMobile then (nb / 5).atLeast(1)
       else if ctx.isAuth then (nb / 3).atLeast(1)
       else nb
     fetchRateLimit(rateLimited, cost = cost):

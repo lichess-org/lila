@@ -1,10 +1,10 @@
 package lila.history
 
+import cats.data.OptionT
 import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.data.SafeJsonStr
-import cats.data.OptionT
 
 final class RatingChartApi(
     historyApi: HistoryApi,
