@@ -430,15 +430,17 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
 }
 
 function renderPvWrapToggle(): VNode {
-  return span('.pv-wrap-toggle', {
+  const toggle = (el: HTMLElement, e: Event) => {
+    e.stopPropagation();
+    $(el).closest('.pv').toggleClass('pv--nowrap');
+  };
+  return button('.pv-wrap-toggle', {
     hook: onInsert(el => {
-      for (const event of ['touchstart', 'mousedown']) {
-        el.addEventListener(event, (e: Event) => {
-          e.stopPropagation();
-          e.preventDefault();
-          $(el).closest('.pv').toggleClass('pv--nowrap');
-        });
-      }
+      el.addEventListener('touchstart', e => {
+        e.preventDefault();
+        toggle(el, e);
+      });
+      el.addEventListener('mousedown', e => toggle(el, e));
     }),
   });
 }
