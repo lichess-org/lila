@@ -1,6 +1,6 @@
 import { onClickAway } from 'lib';
 import { licon } from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialogAtRoot, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
@@ -33,7 +33,6 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         ctrl.module()?.prefNodes(redraw),
         pushTalkSetting(ctrl),
       ]),
-    ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
 }
 
@@ -123,7 +122,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   ]);
 }
 
-function renderHelpModal(ctrl: VoiceCtrl) {
+export function openHelpDialog(ctrl: VoiceCtrl): Promise<Dialog> {
   const showMoveList = (dlg: Dialog) => {
     let html = '<table class="big-table"><tbody>';
     const all =
@@ -145,7 +144,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.dialog.open) dlg.show();
   };
 
-  return snabDialog({
+  return snabDialogAtRoot({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],

@@ -26,6 +26,7 @@ export interface Dialog<Ctx = undefined> {
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog<Ctx>>; // promise resolves on close
+  redraw(): void;
   updateActions(actions?: Action<Ctx> | Action<Ctx>[]): void; // set actions, or reattach existing ones if omitted
   close(returnValue?: string): void;
 }
@@ -62,6 +63,10 @@ export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
   htmlUrl?: string; // legacy HTML content; ignored when vnodes are provided
   vnodes?: LooseVNodes; // dialog content
   onInsert?: (dialog: Dialog<Ctx>) => void; // if provided you must call show
+}
+
+export interface SnabDialogAsRootOpts<Ctx = undefined> extends Omit<SnabDialogOpts<Ctx>, 'vnodes'> {
+  render?: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes;
 }
 
 // unlike snabDialog, jsxDialog patches a standalone root. it does not slide into an existing vdom tree.
@@ -174,6 +179,47 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
   return hl('div.snab-modal-mask', { class: { none: Boolean(o.onInsert) } }, dialogVNode);
 }
 
+export function snabDialogAtRoot<Ctx = undefined>(o: SnabDialogAsRootOpts<Ctx>): Promise<Dialog<Ctx>> {
+  const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
+  const { render, ...dialogOpts } = o;
+  const mount = document.body.appendChild(document.createElement('div'));
+
+  let vnode: VNode | Element = mount;
+  let dialog: Dialog<Ctx> | undefined;
+
+  const redraw = () => {
+    if (!dialog?.dialog.isConnected) return;
+    vnode = patch(
+      vnode,
+      snabDialog({
+        ...dialogOpts,
+        vnodes: render?.(redraw, dialog),
+      }),
+    );
+  };
+
+  return new Promise(resolve => {
+    vnode = patch(
+      vnode,
+      snabDialog({
+        ...dialogOpts,
+        onClose: dlg => {
+          dlg.redraw = () => {};
+          o.onClose?.(dlg);
+        },
+        onInsert: dlg => {
+          dialog = dlg;
+          dlg.redraw = redraw;
+          if (render) redraw();
+          resolve(dlg);
+          if (o.onInsert) o.onInsert(dlg);
+          else dlg.show();
+        },
+      }),
+    );
+  });
+}
+
 export function jsxDialog<Ctx = undefined>(o: JsxDialogOpts<Ctx>): Redraw {
   const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
   const { render, parentEl, ...dialogOpts } = o;
@@ -284,6 +330,8 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   get returnValue(): string {
     return this.dialog.returnValue;
   }
+
+  redraw = () => {};
 
   show = async (): Promise<Dialog<Ctx>> => {
     (await pubsub.after('polyfill.dialog'))?.(this.dialog);
