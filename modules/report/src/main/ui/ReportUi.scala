@@ -162,27 +162,25 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     )
 
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
-    val title = "Thanks for the report"
+    val title = trans.report.thanksForTheReport.txt()
     Page(title)
       .js(esmInitBit("thanksReport")):
         main(cls := "page-small box box-pad")(
           h1(cls := "box__top")(title),
-          p("The moderators will review it very soon, and take appropriate action."),
+          p(trans.report.moderatorsWillReviewSoon.txt()),
           br,
           br,
           (!blocked).option(
             p(
-              "In the meantime, you can block this user: ",
+              trans.report.blockUserInMeantime(),
+              " ",
               submitButton(
                 attr("data-action") := s"${routes.Relation.block(userId)}?mini=1",
                 cls := "report-block button",
                 st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
             )
-          ),
-          br,
-          br,
-          p(a(href := routes.Lobby.home)("Return to Lichess homepage"))
+          )
         )
 
   object list:
