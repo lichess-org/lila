@@ -96,7 +96,7 @@ object UserInfo:
         (withCrosstable && u.isnt(me)).so:
           crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable")).dmap(some)
         ,
-        (withPlaying && u.isnt(me)).so:
+        withPlaying.so:
           playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying"))
         ,
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
