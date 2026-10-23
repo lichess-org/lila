@@ -2,7 +2,7 @@ package lila.relay
 
 import chess.Outcome.Points
 import chess.format.pgn.*
-import chess.{ FideTC, FideId, IntRating, PlayerName }
+import chess.{ ByColor, FideTC, FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
 import scala.collection.immutable.SeqMap
@@ -73,75 +73,67 @@ object RelayTeam:
             id,
             players
               .get(id)
-              .fold(player)(rp =>
+              .fold(player): rp =>
                 rp.copy(games = rp.games ++ player.games, score = rp.score |+| player.score)
-              )
           )
         )
     def points = players.values.toList.foldMap(_.score)
-  case class Pair[A](a: A, b: A):
-    def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
-    def map[B](f: A => B) = Pair(f(a), f(b))
-    def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
-    def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
-    def forall(f: A => Boolean) = f(a) && f(b)
-    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else Some(b).filter(f)
-    def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
-    def reverse = Pair(b, a)
 
   case class TeamGame(id: StudyChapterId, pov: Color):
     def swap = copy(pov = !pov)
 
   case class TeamMatch(
       roundId: RelayRoundId,
-      teams: Pair[TeamWithGames],
+      teams: ByColor[TeamWithGames],
       games: List[TeamGame],
       teamCustomScoring: Option[RelayRound.CustomScoring]
   ):
-    def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
+    def isSameMatchup(teamNames: ByColor[TeamName]): Boolean =
+      val t = teams.map(_.name)
+      List(t, t.swap).exists(teamNames.eqv)
     def add(
         chapterId: StudyChapterId,
         playerAndTeam: ByColor[(StudyPlayer, TeamName)],
         game: ByColor[RelayPlayer.Game]
     ): TeamMatch =
-      val players = game.map: g =>
+      val pov = Color.fromWhite(playerAndTeam.white._2 == teams.white.name)
+      val players = (if pov == Color.white then game else game.swap).map: g =>
         RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
       copy(
-        games = TeamGame(chapterId, playerAndTeam.findColor(_._2 == teams.a.name) | Color.Black) :: games,
-        teams = teams.bimap(_.add(players(Color.White)), _.add(players(Color.Black)))
+        games = TeamGame(chapterId, pov) :: games,
+        teams = teams.mapWithColor((c, t) => t.add(players(c)))
       )
-    def swap = copy(teams = teams.reverse, games = games.map(_.swap))
-    def pointsPair: Option[Pair[Points]] =
+    def swap = copy(teams = teams.swap, games = games.map(_.swap))
+    def pointsPair: Option[ByColor[Points]] =
       teams
         .forall(_.players.values.allGamesFinished)
         .so:
-          for
-            aPoints <- teams.a.points
-            bPoints <- teams.b.points
-          yield
-            if aPoints == bPoints then Pair(Points.Half, Points.Half)
-            else if aPoints > bPoints then Pair(Points.One, Points.Zero)
-            else Pair(Points.Zero, Points.One)
+          teams.traverseReduce(_.points): (aPoints, bPoints) =>
+            if aPoints == bPoints then ByColor(Points.Half, Points.Half)
+            else if aPoints > bPoints then ByColor(Points.One, Points.Zero)
+            else ByColor(Points.Zero, Points.One)
     def pointsFor(teamName: TeamName): Option[Points] =
-      pointsPair.map(o => if teams.a.name == teamName then o.a else o.b)
+      for
+        points <- pointsPair
+        color <- teams.findColor(_.name == teamName)
+      yield points(color)
     def scoreFor(teamName: TeamName): Option[Float] =
       teamCustomScoring
         .flatMap: cs =>
-          pointsFor(teamName).map: pts =>
-            pts match
-              case Points.One => cs.win
-              case Points.Half => cs.draw
-              case zero => RelayRound.CustomPoints(zero.value)
+          pointsFor(teamName).map:
+            case Points.One => cs.win
+            case Points.Half => cs.draw
+            case zero => RelayRound.CustomPoints(zero.value)
         .map(_.value)
         .orElse(pointsFor(teamName).map(_.value))
-    def povMatches: Pair[POVMatch] =
-      teams.permutations.map: (team, opp) =>
-        val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-        POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
+    def povMatches: ByColor[POVMatch] =
+      teams
+        .zip(teams.swap)
+        .map: (team, opp) =>
+          val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+          POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
     def povMatch(teamName: TeamName): Option[POVMatch] =
-      if teams.a.name == teamName then Some(povMatches.a)
-      else if teams.b.name == teamName then Some(povMatches.b)
-      else None
+      povMatches.find(_.opponentName != teamName)
 
   case class POVMatch(
       roundId: RelayRoundId,
@@ -206,32 +198,29 @@ final class RelayTeamTable(
         (for
           points <- chap.points
           players <- chap.players.map(_.map(_.studyPlayer))
-          teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
-          game = players.mapWithColor: (c, p) =>
-            RelayPlayer.Game(
-              round.id,
-              chap.id,
-              p,
-              c,
-              points,
-              round.rated,
-              chess.FideTC.standard,
-              round.customScoring,
-              unplayed = false,
-              ongoing = false
-            )
-          m0 = table.find(_.is(teams)) | TeamMatch(
+          teams <- players.traverse(_.team)
+          game = players.swap
+            .mapWithColor: (c, opp) =>
+              RelayPlayer.Game(
+                round.id,
+                chap.id,
+                opp,
+                c,
+                points,
+                round.rated,
+                chess.FideTC.standard,
+                round.customScoring,
+                unplayed = false,
+                ongoing = false
+              )
+          m0 = table.find(_.isSameMatchup(teams)) | TeamMatch(
             round.id,
             teams.map(TeamWithGames(_, SeqMap.empty)),
             Nil,
             round.teamCustomScoring
           )
-          m1 = m0.add(
-            chap.id,
-            Pair(players.white.player -> teams.a, players.black.player -> teams.b),
-            game
-          )
-          newTable = m1 :: table.filterNot(_.is(teams))
+          m1 = m0.add(chap.id, players.map(_.player).zip(teams, (_, _)), game)
+          newTable = m1 :: table.filterNot(_.isSameMatchup(teams))
         yield newTable) | table
 
     def ensureFirstPlayerHasWhite(table: List[TeamMatch]): List[TeamMatch] =
@@ -351,16 +340,16 @@ final class RelayTeamLeaderboard(
                           unplayed = tags.value.has(RelayGame.unplayedTag),
                           ongoing = tags.points.isEmpty && tags.exists(_.Result)
                         )
-                      teams <- players.traverse(_.team).map(_.toPair).map(RelayTeam.Pair.apply)
-                      teamMatch = roundMatches.find(_.is(teams)) | TeamMatch(
+                      teams <- players.traverse(_.team)
+                      teamMatch = roundMatches.find(_.isSameMatchup(teams)) | TeamMatch(
                         roundId,
                         teams.map(RelayTeam.TeamWithGames(_, SeqMap.empty)),
                         Nil,
                         round.teamCustomScoring
                       )
-                    yield roundMatches.filterNot(_.is(teams)) :+ teamMatch.add(
+                    yield roundMatches.filterNot(_.isSameMatchup(teams)) :+ teamMatch.add(
                       chapterId,
-                      RelayTeam.Pair(players.white.player -> teams.a, players.black.player -> teams.b),
+                      players.map(_.player).zip(teams, (_, _)),
                       game
                     )
                     withNewTeamGame | roundMatches
@@ -387,8 +376,6 @@ object RelayTeamTable:
     import RelayPlayer.json.given
     import RelayJsonView.given
     import RelayTeam.*
-    given [A: Writes]: Writes[Pair[A]] = Writes: p =>
-      Json.arr(p.a, p.b)
     given Writes[TeamGame] = Json.writes[TeamGame]
     given Writes[TeamMatch] = Json.writes[TeamMatch]
     given Writes[TeamWithGames] = t =>
@@ -398,3 +385,6 @@ object RelayTeamTable:
           "players" -> Json.toJson(t.players.values.toList),
           "points" -> Json.toJson(t.points.orZero)
         )
+    type Outs = TeamWithGames | TeamMatch | TeamGame
+    given [A <: Outs: Writes]: Writes[ByColor[A]] = Writes: p =>
+      Json.arr(p.white, p.black)
