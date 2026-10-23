@@ -15,7 +15,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   def userIdsByTeam(teamId: TeamId): Fu[List[UserId]] =
     coll.secondary.distinctEasy[UserId, List]("user", bdoc("team" -> teamId))
 
-  def teamIdsByUser[U: UserIdOf](user: U): Fu[List[TeamId]] =
+  def teamIdsByUser(user: UserId): Fu[List[TeamId]] =
     coll.primitive[TeamId](selectUser(user), "team")
 
   def removeByTeam(teamId: TeamId): Funit =
