@@ -3,7 +3,7 @@
 Lichess reads from this repository to get the list of available flairs.
 If you want to add a flair, please submit a pull request.
 
-The available flairs are visible at https://lichess1.org/assets/flair/index.html.
+The available flairs are visible at https://lichess.org/assets/flair/index.html.
 
 Lichess flairs are not animated.
 
