@@ -133,15 +133,11 @@ button#microphone-button {
   z-index: $z-mz-menu-4;
   width: 100%;
   background: $c-bg-high;
-  gap: 1.5em;
-  padding: 1.5em;
+  gap: 1.25em;
+  padding: 1.25em 1.5em;
 
   &::before {
     @extend %box-radius-bottom;
-  }
-
-  > hr {
-    margin: 5px;
   }
 }
 
