@@ -138,7 +138,7 @@ Allow: /game/export/gif/thumbnail/
         "https://huggingface.co/Lichess",
         "https://www.kaggle.com/organizations/lichess"
       ),
-      "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
+      "logo" -> s"${net.assetBaseUrl}/assets/logo/lichess.svg",
       "name" -> "Lichess",
       "legalName" -> "LICHESS.ORG",
       "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations

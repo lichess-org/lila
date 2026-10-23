@@ -17,7 +17,7 @@ object embed:
         head(
           page.ui.charset,
           page.ui.viewport,
-          page.ui.metaCsp(embedCsp.withNonce(ctx.nonce).withInlineIconFont),
+          page.ui.metaCsp(lila.web.ContentSecurityPolicy.embed.withNonce(ctx.nonce).withInlineIconFont),
           page.ui.noRobots,
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),

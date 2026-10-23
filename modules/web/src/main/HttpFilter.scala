@@ -73,8 +73,8 @@ final class HttpFilter(
     req.host != net.domain.value &&
     HTTPRequest.isRedirectable(using req) &&
     !HTTPRequest.isProgrammatic(req) &&
-    // asset request going through the CDN, don't redirect
-    !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
+    // asset request, don't redirect
+    !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
 
   private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =

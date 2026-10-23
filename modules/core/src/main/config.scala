@@ -38,8 +38,8 @@ object config:
       domain: NetDomain,
       prodDomain: NetDomain,
       baseUrl: BaseUrl,
-      assetDomain: AssetDomain,
-      assetBaseUrl: AssetBaseUrl,
+      assetDomain: AssetDomain, // TODO delete
+      assetBaseUrl: AssetBaseUrl, // TODO delete
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

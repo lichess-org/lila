@@ -177,6 +177,7 @@ object MarkdownRender:
         "imgs.xkcd.com",
         "image.lichess1.org",
         "image.lichess.org",
+        "lichess1.org",
         "pic.lichess.org",
         "127.0.0.1"
       )
