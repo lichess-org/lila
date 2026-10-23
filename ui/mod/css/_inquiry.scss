@@ -29,6 +29,7 @@ body.no-inquiry {
 
 #inquiry {
   @include backdrop-blur-if-transparent;
+  @extend %box-shadow;
 
   height: 48px;
   background: $c-bg-header-dropdown;
@@ -36,7 +37,6 @@ body.no-inquiry {
   flex-flow: row nowrap;
   justify-content: space-between;
   border-bottom: $border;
-  box-shadow: 2px 5px 6px rgb(0 0 0 / 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -44,6 +44,8 @@ body.no-inquiry {
   z-index: $z-inquiry-112;
 
   .costello {
+    @extend %box-shadow;
+
     flex: 0 0 160px;
     height: 160px;
     width: 160px;
@@ -53,7 +55,6 @@ body.no-inquiry {
     background-position: 81% 81%;
     border-radius: 0 0 50% 0;
     border: 2px solid $c-border;
-    box-shadow: 3px 3px 6px rgb(0 0 0 / 0.3);
     cursor: pointer;
 
     &:hover {
