@@ -2,7 +2,6 @@ package lila.web
 
 import chess.format.pgn.PgnStr
 import play.api.mvc.RequestHeader
-import scalalib.net.Bearer
 
 import lila.common.{ ClientName, HTTPRequest }
 import lila.core.net.{ ASN, IpAddress }
@@ -56,7 +55,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val crosstable = RateLimit[IpAddress](30, 10.minutes, "crosstable.api.ip")
 
-  val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer", log = false)
+  val eventStream = RateLimit[UserId](30, 10.minutes, "api.stream.event.bearer", log = false)
 
   val userActivity = RateLimit[IpAddress](15, 2.minutes, "user_activity.api.ip")
 

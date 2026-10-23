@@ -286,7 +286,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer.so: (bearer, _) =>
-        limit.eventStream(bearer, limited):
+        limit.eventStream(me.userId, limited):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
