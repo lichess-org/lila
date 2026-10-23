@@ -545,8 +545,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
-    if me.isnt(UserId.t3) then notFound
-    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
+    me.is(UserId.t3)
+      .so(bindForm(env.security.forms.signup.emailCheck)(jsonFormError, Ok(_)))
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =

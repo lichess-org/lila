@@ -26,7 +26,7 @@ trait ResponseBuilder(using Executor)
   def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
   def JsonOk[A: Writes](body: A): Result = Ok(Json.toJson(body))
-  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.dmap(JsonOk)
+  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.map(JsonOk)
   def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua.map(_.fold(notFoundJson())(JsonOk))
   def JsonStrOk(str: JsonStr): Result = Ok(str).as(JSON)
   def JsonBadRequest(body: JsValue): Result = BadRequest(body).as(JSON)

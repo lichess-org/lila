@@ -57,7 +57,7 @@ final class Importer(env: Env) extends LilaController(env):
                     if HTTPRequest.isLichobile
                     then Redirect(routes.Round.watcher(game.id, Color.white))
                     else
-                      JsonOk:
+                      Ok:
                         Json.obj(
                           "id" -> game.id,
                           "url" -> routeUrl(routes.Round.watcher(game.id, Color.white))
