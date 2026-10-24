@@ -158,25 +158,22 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                   form3.textarea(field)(rows := 25)
               ,
               p(
-                pluralizeLocalize("member", unsubs),
-                " out of ",
-                t.nbMembers.localize,
-                " (",
-                f"${(unsubs * 100d) / t.nbMembers}%1.1f",
-                "%)",
-                " have unsubscribed from messages."
+                trt.xMembersOutOfYUnsubscribed.plural(
+                  unsubs,
+                  unsubs.localize,
+                  t.nbMembers.localize,
+                  f"${(unsubs * 100d) / t.nbMembers}%1.1f%%"
+                )
               ),
               limiter match
                 case (remaining, until) =>
                   frag(
                     p(cls := (remaining <= 0).option("error"))(
-                      "You can send up to ",
-                      TeamUpdateApi.credits,
-                      " team updates per week. ",
-                      strong(remaining),
-                      " updates remaining until ",
-                      momentFromNowOnce(until),
-                      "."
+                      trt.teamUpdatesPerWeek.rawHtml(
+                        TeamUpdateApi.credits,
+                        remaining,
+                        momentFromNowOnce(until)
+                      )
                     ),
                     form3.actions(
                       a(href := routes.Team.show(t.slug))(trans.site.cancel()),
