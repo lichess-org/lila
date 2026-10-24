@@ -123,9 +123,11 @@ final class GatheringFormUi(helpers: Helpers):
     form3.checkboxGroup(
       field,
       trans.arena.allowBotAccounts(),
-      help = trans.arena.allowBotAccountsDescription.rawHtml(
-        "/@/lichess/blog/welcome-lichess-bots/WvDNticA"
-      ).some,
+      help = trans.arena.allowBotAccountsDescription
+        .rawHtml(
+          "/@/lichess/blog/welcome-lichess-bots/WvDNticA"
+        )
+        .some,
       disabled = disabledAfterStart
     )
 
