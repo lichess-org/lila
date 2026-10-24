@@ -3113,6 +3113,7 @@ object I18nKey:
     val `teamUpdates`: I18nKey = "team:teamUpdates"
     val `subToTeamUpdates`: I18nKey = "team:subToTeamUpdates"
     val `newTeamUpdate`: I18nKey = "team:newTeamUpdate"
+    val `teamUpdatesPerWeek`: I18nKey = "team:teamUpdatesPerWeek"
     val `teamEvents`: I18nKey = "team:teamEvents"
     val `upcomingTeamEvents`: I18nKey = "team:upcomingTeamEvents"
     val `teamsIlead`: I18nKey = "team:teamsIlead"
@@ -3144,6 +3145,7 @@ object I18nKey:
     val `nbMembers`: I18nKey = "team:nbMembers"
     val `teamLeaders`: I18nKey = "team:teamLeaders"
     val `xJoinRequests`: I18nKey = "team:xJoinRequests"
+    val `xMembersOutOfYUnsubscribed`: I18nKey = "team:xMembersOutOfYUnsubscribed"
     val `battleOfNbTeams`: I18nKey = "team:battleOfNbTeams"
     val `nbLeadersPerTeam`: I18nKey = "team:nbLeadersPerTeam"
 
