@@ -5,7 +5,7 @@ body:has(dialog.touch-scroll) {
 dialog {
   --dialog-max-height: 94dvh;
 
-  @extend %box-radius;
+  @extend %box-radius, %popup-shadow;
   @include inline-start(50%);
 
   position: fixed;
@@ -16,7 +16,7 @@ dialog {
   padding: 0;
   border: none;
   outline: none;
-  background: $c-bg-opaque;
+  background: $c-bg-high;
   z-index: $z-modal-111;
 
   @include if-rtl {
