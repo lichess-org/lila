@@ -79,19 +79,20 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 editButton(post)
               else if !post.live then badTag(trans.ublog.thisIsADraft())
               else
-                a(
-                  titleOrText(trans.site.reportXToModerators.txt(user.username)),
-                  cls := "button button-empty ublog-post__meta__report",
-                  href := addQueryParams(
-                    routes.Report.form.url,
-                    Map(
-                      "username" -> user.username.value,
-                      "postUrl" -> routeUrl(ui.urlOfPost(post)).value,
-                      "from" -> "ublog"
-                    )
-                  ),
-                  dataIcon := Icon.CautionTriangle
-                )
+                (!UserId.isOfficial(user)).option:
+                  a(
+                    titleOrText(trans.site.reportXToModerators.txt(user.username)),
+                    cls := "button button-empty ublog-post__meta__report",
+                    href := addQueryParams(
+                      routes.Report.form.url,
+                      Map(
+                        "username" -> user.username.value,
+                        "postUrl" -> routeUrl(ui.urlOfPost(post)).value,
+                        "from" -> "ublog"
+                      )
+                    ),
+                    dataIcon := Icon.CautionTriangle
+                  )
               ,
               langList.nameByLanguage(post.language)
             ),
