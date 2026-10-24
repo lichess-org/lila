@@ -50,6 +50,8 @@ Play quickly to play more games and score more points.</string>
     <item quantity="other">View all %s teams</item>
   </plurals>
   <string name="newTeamBattle">New Team Battle</string>
+  <string name="startDate">Start date</string>
+  <string name="entryConditions">Entry conditions</string>
   <string name="customStartDate">Custom start date</string>
   <string name="customStartDateHelp">In your own local timezone. This overrides the "Time before tournament starts" setting</string>
   <string name="allowBerserk">Allow Berserk</string>

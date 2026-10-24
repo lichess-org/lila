@@ -167,6 +167,8 @@ interface I18n {
     editTeamBattle: string;
     /** Edit tournament */
     editTournament: string;
+    /** Entry conditions */
+    entryConditions: string;
     /** Arena History */
     history: string;
     /** How are players paired? */
@@ -227,6 +229,8 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
+    /** Start date */
+    startDate: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -5895,6 +5899,8 @@ interface I18n {
     canPlayRoundRobinTournaments: string;
     /** Comparison */
     comparison: string;
+    /** Custom pairings */
+    customPairings: string;
     /** Predefined max rounds, but duration unknown */
     durationUnknown: string;
     /** Dutch system */
