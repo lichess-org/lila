@@ -127,6 +127,7 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   document.addEventListener('keyup', e => {
     if (!modifierOnly) return;
     modifierOnly = false;
+    if (document.querySelector('dialog:modal, .snab-modal-mask dialog[open]')) return;
     const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
 
     if (isShift && ctrl.fork.select('next')) ctrl.setAutoShapes();
