@@ -32,10 +32,7 @@ final class RelayRound(
   def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       WithNavigationCanUpdate(tourId): nav =>
-        def whenRateLimited = negotiate(
-          Redirect(routes.RelayTour.show(nav.tour.slug, nav.tour.id)),
-          rateLimited
-        )
+        def whenRateLimited = negotiate(Redirect(nav.tour.call), rateLimited)
         bindForm(roundForm.create(nav.tourWithRounds))(
           err =>
             negotiate(

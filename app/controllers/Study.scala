@@ -345,11 +345,9 @@ final class Study(
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       for
-        round <- env.relay.api.deleteRound(id.into(RelayRoundId))
+        tour <- env.relay.api.deleteRound(id.into(RelayRoundId))
         _ <- env.study.api.delete(study)
-      yield round match
-        case None => Redirect(routes.Study.mine(StudyOrder.hot))
-        case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
+      yield Redirect(tour.fold(routes.Study.mine(StudyOrder.hot))(_.call))
   }
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write, _.Web.Mobile) {
