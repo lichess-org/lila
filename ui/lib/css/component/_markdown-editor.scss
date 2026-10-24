@@ -22,9 +22,8 @@
   }
 
   .header-tab {
-    @include box-radius-top;
-
     all: unset;
+    border-radius: $box-radius-size $box-radius-size 0 0;
     font-family: Roboto, sans-serif;
     display: flex;
     justify-content: center;
