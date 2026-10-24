@@ -208,7 +208,7 @@ final private class ChapterMaker(
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
-    s"""$escapedDomain/(\\w{8,12})"""
+    s"""$escapedDomain/game/(\\w{8,12})"""
   }.r.unanchored
 
   @scala.annotation.tailrec
