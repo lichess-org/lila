@@ -143,6 +143,8 @@ object I18nKey:
     val `tournamentPairingsAreNowClosed`: I18nKey = "arena:tournamentPairingsAreNowClosed"
     val `berserkRate`: I18nKey = "arena:berserkRate"
     val `leaguesAndStreamerBattles`: I18nKey = "arena:leaguesAndStreamerBattles"
+    val `allowBotAccounts`: I18nKey = "arena:allowBotAccounts"
+    val `allowBotAccountsDescription`: I18nKey = "arena:allowBotAccountsDescription"
     val `drawingWithinNbMoves`: I18nKey = "arena:drawingWithinNbMoves"
     val `viewAllXTeams`: I18nKey = "arena:viewAllXTeams"
 
@@ -2595,6 +2597,8 @@ object I18nKey:
     val `onlyMembersOfTeam`: I18nKey = "onlyMembersOfTeam"
     val `noRestriction`: I18nKey = "noRestriction"
     val `minimumRatedGames`: I18nKey = "minimumRatedGames"
+    val `minimumAccountAge`: I18nKey = "minimumAccountAge"
+    val `titledPlayersBypassRestriction`: I18nKey = "titledPlayersBypassRestriction"
     val `minimumRating`: I18nKey = "minimumRating"
     val `maximumWeeklyRating`: I18nKey = "maximumWeeklyRating"
     val `positionInputHelp`: I18nKey = "positionInputHelp"
