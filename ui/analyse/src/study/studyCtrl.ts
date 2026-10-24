@@ -642,6 +642,7 @@ export default class StudyCtrl {
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
     else if (o === 'analyse') this.ctrl.startCevalIfEnabled();
+    else this.ctrl.ceval.reset();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
