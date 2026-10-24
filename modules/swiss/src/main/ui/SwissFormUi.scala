@@ -83,7 +83,7 @@ final class SwissFormUi(helpers: Helpers)(
     private def disabledAfterStart = swiss.exists(!_.isCreated)
 
     def tournamentFields =
-      form3.fieldset("Tournament", toggle = true.some)(
+      form3.fieldset(trans.site.tournament(), toggle = true.some)(
         name,
         form3.split(nbRounds, startsAt),
         form3.split(
@@ -93,7 +93,7 @@ final class SwissFormUi(helpers: Helpers)(
       )
 
     def gameFields =
-      form3.fieldset("Games", toggle = true.some)(
+      form3.fieldset(trans.site.games(), toggle = true.some)(
         clock,
         form3.split(variant, position)
       )
@@ -156,7 +156,10 @@ final class SwissFormUi(helpers: Helpers)(
       )(form3.flatpickr(_)(swiss.exists(!_.isCreated).option(disabled)))
 
     def conditionFields =
-      form3.fieldset("Entry conditions", toggle = swiss.exists(!_.settings.conditions.isDefault).some)(
+      form3.fieldset(
+        trans.arena.entryConditions(),
+        toggle = swiss.exists(!_.settings.conditions.isDefault).some
+      )(
         form3.split(
           nbRatedGame(form("conditions.nbRatedGame.nb")),
           accountAge(form("conditions.accountAge"))
@@ -182,7 +185,7 @@ final class SwissFormUi(helpers: Helpers)(
       )
 
     def featuresFields =
-      form3.fieldset("Features", toggle = false.some)(
+      form3.fieldset(trans.clas.features(), toggle = false.some)(
         form3.split(
           form3.group(form("chatFor"), trans.site.tournChat(), half = true) { f =>
             form3.select(
@@ -211,7 +214,7 @@ final class SwissFormUi(helpers: Helpers)(
       )
 
     def pairingsFields =
-      form3.fieldset("Custom pairings", toggle = false.some)(
+      form3.fieldset(trans.swiss.customPairings(), toggle = false.some)(
         form3.split(forbiddenPairings, manualPairings)
       )
 
