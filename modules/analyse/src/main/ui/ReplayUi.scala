@@ -71,7 +71,12 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       copyMeInput(routeUrl(routes.Round.watcher(pov.gameId, pov.color)).value)
     )
     val pgnLinks = frag(
-      copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?literate=1"), trans.site.downloadAnnotated()),
+      div(cls := "copy-me copy-pgn-maybe-local")(
+        a(targetBlank, href := pathUrl(s"${routes.Game.exportOne(game.id)}?literate=1"))(
+          trans.site.downloadAnnotated()
+        ),
+        button(cls := "button button-metal", dataIcon := Icon.Clipboard)
+      ),
       copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0"), trans.site.downloadRaw()),
       game.isPgnImport.option:
         copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?imported=1"), trans.site.downloadImported())

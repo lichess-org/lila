@@ -1,14 +1,16 @@
 import type { ChartGame, AcplChart } from 'chart';
+import { parsePgn } from 'chessops/pgn';
 
-import { escapeHtml } from 'lib';
+import { escapeHtml, frag } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
+import { url as xhrUrl, text as xhrText, textRaw as xhrTextRaw, writeTextClipboard } from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
 import type { AnalyseData } from './interfaces';
+import { renderFullTxt } from './pgnExport';
 import { baseUrl } from './view/util';
 
 export const stockfishName = 'Stockfish 19';
@@ -201,4 +203,48 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     e.preventDefault();
     site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
   });
+
+  const annotatedPgnLink = document.querySelector<HTMLAnchorElement>('.copy-pgn-maybe-local a');
+  if (!annotatedPgnLink) return;
+
+  const localPgn = async (url: string) =>
+    renderFullTxt(ctrl, ctrl.tree.root, true, parsePgn(await xhrText(url))[0].headers);
+
+  annotatedPgnLink.addEventListener('click', async e => {
+    if (!ctrl.idbTree.hasLocalAnalysis) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    const pgn = await localPgn(annotatedPgnLink.href);
+    const url = URL.createObjectURL(new Blob([pgn], { type: 'application/x-chess-pgn' }));
+    const link = frag<HTMLElement>(`<a href="${url}" download="lichess_${data.game.id}.annotated.pgn"></a>`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.copy-pgn-maybe-local button').forEach(el =>
+    el.addEventListener('click', async e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const showCheckmark = () => {
+        el.dataset.icon = licon.Checkmark;
+        el.classList.remove('button-metal');
+        setTimeout(() => {
+          el.dataset.icon = licon.Clipboard;
+          el.classList.add('button-metal');
+        }, 1000);
+      };
+      if (ctrl.idbTree.hasLocalAnalysis) {
+        const blob = new Blob([await localPgn(annotatedPgnLink.href)], { type: 'text/plain' });
+        navigator.clipboard
+          .write([new ClipboardItem({ 'text/plain': blob })])
+          .then(showCheckmark)
+          .catch(() => {});
+      } else {
+        writeTextClipboard(annotatedPgnLink.href, showCheckmark).catch(() => {});
+      }
+    }),
+  );
 }

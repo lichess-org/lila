@@ -4,7 +4,8 @@
 
   background: $c-bg-input;
 
-  &__target {
+  &__target,
+  a {
     @extend %nowrap-ellipsis, %box-radius-left;
 
     flex: 1 1 auto;
@@ -26,7 +27,8 @@
     }
   }
 
-  &__button {
+  &__button,
+  button {
     @extend %box-radius-right;
 
     flex: 0 0 auto;
