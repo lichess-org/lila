@@ -8,7 +8,8 @@ final class EventMarkdown(cache: lila.memo.MarkdownCache):
     list = true,
     table = true,
     header = false,
-    strikeThrough = true
+    strikeThrough = true,
+    linkRel = ""
   )
 
   def of(event: Event): Fu[Option[Html]] = event.description.so: md =>
