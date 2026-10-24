@@ -30,11 +30,11 @@ object WebConfig:
 
   def loadFrom(c: Configuration) =
     WebConfig(
-      c.get[Secret]("api.token"),
-      c.get[String]("api.influx_event.endpoint"),
-      c.get[String]("api.influx_event.env"),
-      c.get[String]("kamon.prometheus.lilaKey"),
-      new PagerDuty(
+      apiToken = c.get[Secret]("api.token"),
+      influxEventEndpoint = c.get[String]("api.influx_event.endpoint"),
+      influxEventEnv = c.get[String]("api.influx_event.env"),
+      prometheusKey = c.get[String]("kamon.prometheus.lilaKey"),
+      pagerDuty = new PagerDuty(
         c.get[String]("pagerDuty.serviceId"),
         c.get[Secret]("pagerDuty.apiKey")
       )
