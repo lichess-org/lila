@@ -64,10 +64,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiBy(owner: UserStr, page: Int) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     Reasonable(page, Max(20)):
       Found(env.user.lightUser(owner.id)): owner =>
-        env.relay.pager
-          .byOwner(owner.id, page)
-          .map(_.mapResults(jsonView.tourWithAnyRound))
-          .map(JsonOk(_))
+        for
+          pager <- env.relay.pager.byOwner(owner.id, page)
+          json = pager.mapResults(jsonView.tourWithAnyRound)
+        yield JsonOk(json).headerCache(10.minutes)
 
   def pager(pager: String, page: Int) = pager match
     case "subscribed" => subscribed(page)
