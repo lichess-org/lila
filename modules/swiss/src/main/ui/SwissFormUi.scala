@@ -156,7 +156,10 @@ final class SwissFormUi(helpers: Helpers)(
       )(form3.flatpickr(_)(swiss.exists(!_.isCreated).option(disabled)))
 
     def conditionFields =
-      form3.fieldset(trans.arena.entryConditions(), toggle = swiss.exists(!_.settings.conditions.isDefault).some)(
+      form3.fieldset(
+        trans.arena.entryConditions(),
+        toggle = swiss.exists(!_.settings.conditions.isDefault).some
+      )(
         form3.split(
           nbRatedGame(form("conditions.nbRatedGame.nb")),
           accountAge(form("conditions.accountAge"))
