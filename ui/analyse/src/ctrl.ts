@@ -52,6 +52,7 @@ import type {
 } from './interfaces';
 import * as keyboard from './keyboard';
 import LiveAnnotate from './liveAnnotate';
+import type { LocalAnalysisEngine } from './local/localAnalysisEngine';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -95,6 +96,7 @@ export default class AnalyseCtrl implements CevalHandler {
   retro?: RetroCtrl;
   fork: ForkCtrl;
   practice?: PracticeCtrl;
+  localAnalysis?: LocalAnalysisEngine;
   study?: StudyCtrl;
   promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
@@ -353,7 +355,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval.reset();
+    if (!this.localAnalysis && (this.node.pos().isErr || this.node.outcome())) this.ceval.reset();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -435,8 +437,10 @@ export default class AnalyseCtrl implements CevalHandler {
         else site.sound.move(this.node);
       }
       this.threatMode(false);
-      this.ceval?.reset();
-      this.startCevalIfEnabled();
+      if (!this.localAnalysis) {
+        this.ceval?.reset();
+        this.startCevalIfEnabled();
+      }
       site.sound.saySan(this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
@@ -793,7 +797,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
     if (enable !== unforcedState) {
       if (enable) this.startCevalIfEnabled();
-      else {
+      else if (!this.localAnalysis) {
         this.threatMode(false);
         this.ceval.reset();
       }
@@ -805,7 +809,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   startCevalIfEnabled = () => {
-    if (!this.asyncReady) return;
+    if (!this.asyncReady || this.localAnalysis) return;
     if (!this.ceval.download) this.ceval.reset();
     if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, this.threatMode());
