@@ -55,7 +55,7 @@ function pushTalkSetting(ctrl: VoiceCtrl) {
   return hl('div.voice-setting', [
     hl('label.cmn-toggle-wrap', { attrs: { title: i18n.voiceCommands.holdShiftKeyWhileSpeaking } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
-      ...i18n.voiceCommands.pushShiftKeyToTalk.asArray(hl('strong', 'shift')),
+      ...i18n.voiceCommands.pushShiftKeyToTalk.asArray(hl('kbd', 'Shift')),
     ]),
   ]);
 }
