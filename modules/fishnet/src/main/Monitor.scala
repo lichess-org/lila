@@ -10,8 +10,9 @@ final private class Monitor(
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, scheduler: Scheduler):
 
+  val statusTtl = 1.minute
   val statusCache = cacheApi.unit[Monitor.Status]("fishnet.monitor.status"):
-    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    _.refreshAfterWrite(statusTtl).buildAsyncTimeout(): _ =>
       repo.status.compute
 
   private val monBy = lila.mon.fishnet.analysis.by
@@ -112,7 +113,6 @@ object Monitor:
             "system" -> statusFor(system)
           )
         )
-      )
 
   private val monResult = lila.mon.fishnet.client.result
 

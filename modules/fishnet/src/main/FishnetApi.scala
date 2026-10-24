@@ -131,7 +131,8 @@ final class FishnetApi(
       )
     )
 
-  def status: Fu[JsonStr] = monitor.statusCache.get {}.map(_.json)
+  def status: Fu[JsonStr] = monitor.statusCache.get({}).map(_.json)
+  export monitor.statusTtl
 
   private[fishnet] def createClient(userId: UserId): Fu[Client] =
     val client = Client(

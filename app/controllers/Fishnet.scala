@@ -55,7 +55,8 @@ final class Fishnet(env: Env) extends LilaController(env):
     api.keyExists(FishnetKey(key)).map(if _ then Ok else NotFound)
 
   val status = Anon:
-    api.status.map { JsonStrOk(_) }
+    for s <- api.status
+    yield Ok(s).headerCache(api.statusTtl)
 
   private def ClientAction[A <: JsonApi.Request](
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]
