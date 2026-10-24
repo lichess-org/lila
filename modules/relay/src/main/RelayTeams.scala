@@ -295,7 +295,7 @@ final class RelayTeamLeaderboard(
       cache
         .get(tourId)
         .map: l =>
-          JsonStr(Json.stringify(Json.toJson(l.values.toList)))
+          JsonStr(Json.toJson(l.values.toList))
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate

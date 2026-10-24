@@ -88,8 +88,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
               "stripe" -> list.flatten,
               "myCurrency" -> placeholder
             )
-          .map(Json.stringify)
-          .dmap(JsonStr.apply)
+          .map(JsonStr.apply)
     def apply(currency: Currency): Fu[JsonStr] =
       cache.get({}).map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
 

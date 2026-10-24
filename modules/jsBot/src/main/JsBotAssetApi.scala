@@ -64,6 +64,6 @@ final private class JsBotAssetApi(repo: JsBotRepo, getFile: GetRelativeFile)(usi
       "sound" -> listFiles("sound", "mp3"),
       "book" -> listFiles("book", "png").map(_.dropRight(4))
     )
-    val newAssets = (data, JsonStr(Json.stringify(Json.toJson(data))))
+    val newAssets = (data, JsonStr(Json.toJson(data)))
     cachedAssets = newAssets.some
     newAssets

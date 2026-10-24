@@ -31,7 +31,9 @@ object data:
     extension (a: Html) def frag = scalatags.Text.all.raw(a.value)
 
   opaque type JsonStr = String
-  object JsonStr extends OpaqueString[JsonStr]
+  object JsonStr extends OpaqueString[JsonStr]:
+    import play.api.libs.json.{ Json, JsValue }
+    def apply(js: JsValue): JsonStr = JsonStr(Json.stringify(js))
 
   // JSON string that is safe to include in HTML
   opaque type SafeJsonStr = String

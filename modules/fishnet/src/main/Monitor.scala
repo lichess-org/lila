@@ -105,13 +105,11 @@ object Monitor:
           "queued" -> s.queued,
           "oldest" -> s.oldest
         )
-      JsonStr(
-        Json.stringify(
-          Json.obj(
-            "analysis" -> Json.obj(
-              "user" -> statusFor(user),
-              "system" -> statusFor(system)
-            )
+      JsonStr:
+        Json.obj(
+          "analysis" -> Json.obj(
+            "user" -> statusFor(user),
+            "system" -> statusFor(system)
           )
         )
       )
