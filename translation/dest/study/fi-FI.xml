@@ -198,4 +198,8 @@
   <string name="blackDefeatWhiteCanNotWin">Mustan tappio, mutta valkea ei voi voittaa</string>
   <string name="whiteDefeatBlackCanNotWin">Valkean tappio, mutta musta ei voi voittaa</string>
   <string name="analysisEditor">Analyysieditori</string>
+  <string name="clearLocal">Poistetaanko paikallinen analyysi?</string>
+  <string name="clearPublished">Poistetaanko julkaista analyysi?</string>
+  <string name="requestAServerAnalysis">Pyydä palvelinanalyysiä</string>
+  <string name="analyzeOnYourDevice">Analysoi omalla laitteellasi</string>
 </resources>

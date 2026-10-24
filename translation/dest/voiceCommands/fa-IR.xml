@@ -18,4 +18,8 @@
   <string name="playPreferredMoveOrConfirmSomething">حرکت ترجیحی را بازی کنید یا چیزی را تایید کنید</string>
   <string name="sleep">خواب (اگر کلمه بیدار باش فعال باشد)</string>
   <string name="showPuzzleSolution">نمایش راه‌حل معما</string>
+  <string name="voiceHelp">کمک با آوا</string>
+  <string name="voiceSettings">تنظیمات آوا</string>
+  <string name="pushShiftKeyToTalk">برای صحبت کلید %s را بفشارید</string>
+  <string name="microphone">آوابَر</string>
 </resources>
