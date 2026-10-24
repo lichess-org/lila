@@ -94,10 +94,9 @@ const getReader = memoize<Promise<Worker>>(async () => {
   if (!reader) throw new Error('device not supported');
 
   return new Promise<Worker>((resolve, reject) => {
-    const worker = new Worker(
-      site.asset.url(site.asset.jsModule('editor.vision.worker'), { documentOrigin: true }),
-      { type: 'module' },
-    );
+    const worker = new Worker(site.asset.url(site.asset.jsModule('editor.vision.worker')), {
+      type: 'module',
+    });
     worker.onmessage = event => {
       const response = event.data as VisionWorkerResponse;
       if (response.type === 'ready') resolve(worker);

@@ -37,7 +37,7 @@ export class BotLoader {
       defBots ?? (await xhr.json('/bots').then(res => res.bots)),
       this.zerofish ??
         makeZerofish({
-          locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+          locator: (file: string) => site.asset.url(`npm/${file}`),
         }).then(zf => (this.zerofish = zf)),
     ];
     for (const b of [...bots].filter(Bot.isValid)) {
