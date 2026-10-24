@@ -1,0 +1,76 @@
+.perf-badge {
+  --ribbon-back-color: #{hsl(from $c-primary h s calc(l - 24))};
+  --ribbon-front-color: #{hsl(from $c-primary h s calc(l - 15))};
+  --badge-body-color: #{$c-primary};
+  --badge-border-color: var(--badge-body-color);
+
+  position: relative;
+
+  &.top10 {
+    --ribbon-back-color: #875c14;
+    --ribbon-front-color: #bf811d;
+    --badge-body-color: #f6a725;
+    --badge-border-color: var(--ribbon-back-color);
+  }
+
+  &.top50 {
+    --ribbon-back-color: #4e2825;
+    --ribbon-front-color: #804539;
+    --badge-body-color: #c06856;
+    --badge-border-color: var(--ribbon-back-color);
+  }
+
+  &.top100 {
+    --ribbon-back-color: #4d4d4d;
+    --ribbon-front-color: #969696;
+    --badge-body-color: #bfbfbf;
+    --badge-border-color: var(--ribbon-back-color);
+  }
+
+  &::before {
+    position: relative;
+    z-index: 1;
+    color: rgb(0 0 0 / 0.45);
+  }
+
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    font-size: 0.7em;
+    font-weight: bold;
+    white-space: nowrap;
+    text-shadow: 1px 1px rgb(0 0 0 / 0.5);
+  }
+
+  .badge-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ribbon-back {
+    fill: var(--ribbon-back-color);
+  }
+
+  .ribbon-front {
+    fill: var(--ribbon-front-color);
+  }
+
+  .badge-border {
+    fill: var(--badge-border-color);
+    stroke: var(--badge-border-color);
+    stroke-width: 12;
+    stroke-linejoin: round;
+  }
+
+  .badge-body {
+    fill: var(--badge-body-color);
+    stroke: #fff;
+    stroke-width: 6;
+    stroke-linejoin: round;
+    paint-order: stroke;
+  }
+}
