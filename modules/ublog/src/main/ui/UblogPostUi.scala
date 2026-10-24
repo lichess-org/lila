@@ -228,13 +228,3 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         span("Flagged", input(id := "flagged", value := ~post.automod.flatMap(_.flagged)))
       )
     )
-
-  def markdownForAgents(post: UblogPost): String =
-    s"""---
-title: ${post.title}
-description: ${post.intro}
-image: ${ui.thumbnailUrl(post, _.Size.Large)}
----
-
-${post.markdown}
-"""
