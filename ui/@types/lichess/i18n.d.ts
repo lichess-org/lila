@@ -6195,6 +6195,8 @@ interface I18n {
     teamTournamentOverview: string;
     /** Team updates */
     teamUpdates: string;
+    /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
+    teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
     /** Upcoming team events */
@@ -6207,6 +6209,8 @@ interface I18n {
     willBeReviewed: string;
     /** %s join requests */
     xJoinRequests: I18nPlural;
+    /** %1$s members out of %2$s (%3$s) have unsubscribed from messages. */
+    xMembersOutOfYUnsubscribed: I18nPlural;
     /** You may want to link one of these upcoming tournaments? */
     youWayWantToLinkOneOfTheseTournaments: string;
   };
