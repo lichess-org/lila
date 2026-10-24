@@ -15,4 +15,6 @@
   <string name="learnFromXAndY">Learn from %1$s and %2$s.</string>
   <string name="configureLichess">Configure Lichess to your liking.</string>
   <string name="exploreTheSiteAndHaveFun">Explore the site and have fun :)</string>
+  <string name="welcomeToLichessUsername">Welcome to Lichess, %s!</string>
+  <string name="verifyYourAccount">Verify your account</string>
 </resources>
