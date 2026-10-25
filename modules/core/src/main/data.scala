@@ -42,6 +42,7 @@ object data:
   opaque type Url = String
   object Url extends OpaqueString[Url]:
     val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
+    def apply(call: play.api.mvc.Call): Url = Url(call.url)
 
   opaque type Template = String
   object Template extends OpaqueString[Template]

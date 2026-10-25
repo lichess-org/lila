@@ -88,14 +88,12 @@ trait AssetHelper:
       fen: chess.format.StandardFen,
       color: Option[chess.Color] = None,
       variant: chess.variant.Variant = chess.variant.Standard
-  )(using ctx: Context): Url = cdnUrl:
-    routes.Export
-      .fenThumbnail(
-        fen.value,
-        color,
-        none,
-        Option.when(variant.exotic)(variant.key),
-        ctx.pref.theme.some,
-        ctx.pref.pieceSet.some
-      )
-      .url
+  )(using ctx: Context): Url = Url:
+    routes.Export.fenThumbnail(
+      fen.value,
+      color,
+      none,
+      Option.when(variant.exotic)(variant.key),
+      ctx.pref.theme.some,
+      ctx.pref.pieceSet.some
+    )
