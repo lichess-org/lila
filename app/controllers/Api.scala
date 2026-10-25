@@ -280,6 +280,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
                 )
                 .map:
                   _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(Ok(_))
+                    .headerCache(1.day)
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
