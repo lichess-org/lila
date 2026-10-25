@@ -9,7 +9,7 @@ import { noteView } from './note';
 
 export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
   return hl(
-    'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
+    'section.mchat',
     { class: { 'mchat-mod': !!ctrl.moderation }, hook },
     moderationView(ctrl.moderation) || normalView(ctrl),
   );
@@ -50,10 +50,7 @@ const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
 function tabName(ctrl: ChatCtrl, tab: Tab) {
   if (tab.key === 'discussion') {
     const id = `chat-toggle-${ctrl.data.id}`;
-    return [
-      span(ctrl.data.name),
-      ctrl.isOptional && cmnToggleProp({ id, prop: ctrl.chatEnabled, redraw: ctrl.redraw }),
-    ];
+    return [span(ctrl.data.name), cmnToggleProp({ id, prop: ctrl.chatEnabled, redraw: ctrl.redraw })];
   }
   if (tab.key === 'note') return [span(i18n.site.notes)];
   if (tab.key === ctrl.plugin?.key) return [span(ctrl.plugin.name)];

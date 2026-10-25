@@ -84,11 +84,6 @@ export class ChatCtrl {
     subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
   }
 
-  get isOptional(): boolean {
-    const tabs = this.visibleTabs;
-    return tabs.length === 1 && tabs[0].key === 'discussion';
-  }
-
   get visibleTabs(): Tab[] {
     return this.allTabs.filter(x => !x.isDisabled?.());
   }
@@ -181,8 +176,9 @@ export class ChatCtrl {
 
   getTab(): Tab {
     const tabs = this.visibleTabs;
-    return this.chatEnabled()
-      ? (tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0])
-      : tabs[tabs.length - 1];
+    const stored = tabs.find(t => t.key === this.storedTabKey());
+    if (this.chatEnabled()) return stored ?? tabs[0];
+    if (stored && stored.key !== 'discussion') return stored;
+    return tabs.find(t => t.key !== 'discussion') ?? tabs[0];
   }
 }
