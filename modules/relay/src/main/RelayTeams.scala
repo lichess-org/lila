@@ -342,11 +342,8 @@ final class RelayTeamLeaderboard(
                         Nil,
                         round.teamCustomScoring
                       )
-                    yield roundMatches.filterNot(_.isSameMatchup(teams)) :+ teamMatch.add(
-                      chapterId,
-                      players.map(_.player).zip(teams, (_, _)),
-                      game
-                    )
+                    yield roundMatches.filterNot(_.isSameMatchup(teams)) :+
+                      teamMatch.add(chapterId, players.map(_.player).zip(teams, (_, _)), game)
                     withNewTeamGame | roundMatches
               roundId -> teamMatches
         yield matchesByRound
