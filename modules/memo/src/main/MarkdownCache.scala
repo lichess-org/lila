@@ -26,10 +26,10 @@ case class MarkdownOptions(
     linkRel: String = "noreferrer nofollow"
 )
 
-final class MarkdownCache(
-    cacheApi: CacheApi,
-    assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: play.api.Mode, netDomain: config.NetDomain):
+final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
+    mode: play.api.Mode,
+    netDomain: config.NetDomain
+):
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
@@ -97,7 +97,7 @@ final class MarkdownCache(
         allowedTags = opts.allowedTags,
         linkRel = opts.linkRel,
         pgnExpand = pgnCache.expand.some,
-        assetDomain = assetDomain.some
+        netDomain = netDomain.some
       )
     )
 

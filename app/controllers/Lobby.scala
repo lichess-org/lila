@@ -15,7 +15,7 @@ final class Lobby(env: Env) extends LilaController(env):
       "pools" -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
-      "domain" -> env.net.assetDomain
+      "domain" -> env.net.domain
     )
   )
 

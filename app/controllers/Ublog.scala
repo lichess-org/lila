@@ -8,7 +8,6 @@ import scalalib.model.Language
 import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.i18n.toLanguage
 import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }

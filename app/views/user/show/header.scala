@@ -172,7 +172,7 @@ object header:
                         span(cls := List("muted" -> muted))(l),
                     profile.flagInfo.map: c =>
                       frag(
-                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
+                        img(cls := "flag", src := assetPath(s"flags/${c.code}.webp")),
                         c.name
                       )
                   ),

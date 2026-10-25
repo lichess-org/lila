@@ -45,7 +45,7 @@ object home:
       .css("lobby")
       .graph(
         OpenGraph(
-          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          image = assetFullUrl("logo/lichess-tile-wide.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl.into(Url),
           description = trans.site.siteDescription.txt()

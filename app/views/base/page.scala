@@ -24,9 +24,9 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    imagePreload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}")),
+    imagePreload(assetPath(s"images/board/${ctx.pref.currentTheme.file}")),
     ctx.pref.is3d.option:
-      imagePreload(assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
+      imagePreload(assetPath(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
   )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
@@ -78,7 +78,7 @@ object page:
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
+          link(rel := "mask-icon", href := staticAssetPath("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           preventIndexing.option(noRobots),
           noTranslate,
@@ -88,7 +88,7 @@ object page:
             .option(pref.bgImgUrl)
             .map: loc =>
               val url =
-                if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
+                if loc.startsWith("/assets/") then assetPath(loc.drop(8))
                 else escapeHtmlRaw(loc).replace("&amp;", "&")
               raw:
                 s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
@@ -138,7 +138,7 @@ object page:
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           attr("data-i18n-catalog") := assetHelper.manifest
             .js(s"i18n/${ctx.lang.code}")
-            .map(name => staticAssetUrl(s"compiled/$name")),
+            .map(name => staticAssetPath(s"compiled/$name")),
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,

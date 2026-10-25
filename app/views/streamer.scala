@@ -32,7 +32,7 @@ def create(using Context) =
 
 object oauth:
   def apply(platform: Platform, href: Url, result: Either[String, Map[String, String]]) =
-    val assetUrl = staticCompiledUrl(~assetHelper.manifest.js("bits.oauthPopup"))
+    val assetUrl = staticCompiledPath(~assetHelper.manifest.js("bits.oauthPopup"))
     val jsonResult = Json.obj(
       "platform" -> platform,
       "href" -> href,

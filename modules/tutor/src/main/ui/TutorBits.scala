@@ -25,7 +25,7 @@ final class TutorBits(helpers: Helpers)(
   def mascot =
     img(
       cls := "mascot",
-      src := assetUrl("images/mascot/octopus-shadow.svg")
+      src := assetPath("images/mascot/octopus-shadow.svg")
     )
 
   def mascotSays(content: Modifier*) = div(cls := "mascot-says")(

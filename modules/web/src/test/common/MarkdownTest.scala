@@ -3,7 +3,7 @@ package lila.markdown
 import chess.format.pgn.PgnStr
 
 import lila.core.lilaism.Lilaism.*
-import lila.core.config.{ AssetDomain, NetDomain }
+import lila.core.config.NetDomain
 import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:
@@ -12,7 +12,7 @@ class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html =
     new MarkdownRender(
-      assetDomain = AssetDomain("lichess1.org").some,
+      netDomain = NetDomain("lichess.org").some,
       header = true,
       headerAnchorLink = true,
       list = true
@@ -73,10 +73,10 @@ class MarkdownTest extends munit.FunSuite:
         s"""<p>prefix <div data-pgn="$gamePgn" class="lpv--autostart is2d" data-ply="1">$gameUrl#1</div> suffix</p>
 """
     )
-  test("markdown image whitelist pass - exact domain match to AssetDomain conf"):
+  test("markdown image whitelist pass - exact domain match to NetDomain conf"):
     assertEquals(
-      render(Markdown("![image](https://lichess1.org/image.png)")),
-      Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
+      render(Markdown("![image](https://lichess.org/image.png)")),
+      Html("""<p><img src="https://lichess.org/image.png" alt="image" /></p>
 """)
     )
   test("markdown image whitelist pass - exact domain match to one from list"):
@@ -93,7 +93,7 @@ class MarkdownTest extends munit.FunSuite:
     )
   test("markdown image whitelist pass - local dev site with port"):
     val render: Markdown => Html =
-      new MarkdownRender(assetDomain = AssetDomain("localhost:8080").some, header = true)("test")
+      new MarkdownRender(netDomain = NetDomain("localhost:8080").some, header = true)("test")
 
     assertEquals(
       render(Markdown("![image](http://localhost:8080/image.png)")),
@@ -246,7 +246,7 @@ Line 2""")
   test("markdown datetime rendering"):
     val renderTimestamp: Markdown => Html =
       new MarkdownRender(
-        assetDomain = AssetDomain("lichess1.org").some,
+        netDomain = NetDomain("lichess.org").some,
         header = true,
         list = true,
         timestamp = true

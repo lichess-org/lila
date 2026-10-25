@@ -26,7 +26,7 @@ object page:
     Page(s"${u.username} : ${trans.activity.activity.txt()}")
       .graph(
         OpenGraph(
-          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          image = assetFullUrl("logo/lichess-tile-wide.png").some,
           title = u.titleUsernameWithBestRating,
           url = routeUrl(routes.User.show(u.username)),
           description = ui.describeUser(u)

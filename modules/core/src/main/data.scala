@@ -39,6 +39,10 @@ object data:
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  // path part of a URL, like /assets/images/logo.png
+  opaque type Path = String
+  object Path extends OpaqueString[Path]
+
   opaque type Url = String
   object Url extends OpaqueString[Url]:
     val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r

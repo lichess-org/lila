@@ -51,8 +51,6 @@ object WebConfig:
     domain = c.get[NetDomain]("net.domain"),
     prodDomain = c.get[NetDomain]("net.prodDomain"),
     baseUrl = c.get[BaseUrl]("net.base_url"),
-    assetDomain = c.get[AssetDomain]("net.asset.domain"),
-    assetBaseUrl = c.get[AssetBaseUrl]("net.asset.base_url"),
     stageBanner = c.get[Boolean]("net.stage.banner"),
     siteName = c.get[String]("net.site.name"),
     socketDomains = c.get[List[String]]("net.socket.domains"),

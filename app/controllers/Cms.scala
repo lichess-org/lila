@@ -4,7 +4,6 @@ import play.api.mvc.*
 
 import lila.app.*
 import lila.cms.CmsPage
-import lila.common.HTTPRequest
 import lila.core.id.{ CmsPageId, CmsPageKey }
 
 final class Cms(env: Env) extends LilaController(env):

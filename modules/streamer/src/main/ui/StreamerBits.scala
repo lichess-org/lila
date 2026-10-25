@@ -93,10 +93,10 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
-    def url(s: Streamer) =
+    def url(s: Streamer): Url =
       s.picture match
         case Some(image) => picfitUrl.thumbnail(image)(Streamer.imageDimensions)
-        case _ => assetUrl("images/placeholder.png")
+        case _ => assetFullUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =
     lila.ui.bits.subnav(
