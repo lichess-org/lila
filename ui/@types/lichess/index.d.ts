@@ -133,7 +133,6 @@ interface Cookie {
 }
 
 interface AssetUrlOpts {
-  documentOrigin?: boolean;
   pathOnly?: boolean;
   pathVersion?: true | string;
 }
