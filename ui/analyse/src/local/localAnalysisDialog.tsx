@@ -461,7 +461,7 @@ class LocalAnalysisDialog {
     // Fit observed performance dilution due to parallelism vs node count.
     // Dilution due to parallelism becomes negligible at high node counts
     const threadDilution = 1 + (this.threads() / 32) * Math.sqrt(1_000_000 / nodes);
-    return Math.round((threadDilution * nodes) / (this.engineNodeEfficiency ?? 1));
+    return Math.max(1_000_000, Math.round((threadDilution * nodes) / (this.engineNodeEfficiency ?? 1)));
   }
 
   private get timeToComplete(): number | undefined {
