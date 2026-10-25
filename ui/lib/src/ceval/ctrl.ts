@@ -89,14 +89,16 @@ export class CevalCtrl {
     this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
 
-    // another tab has started ceval, we should stop:
-    storage.make('ceval.fen').listen(() => {
+    // another tab has started ceval or a game, we should stop:
+    const unloadForOtherTab = () => {
       if (this.isBackground || !this.worker) return;
       this.worker.destroy();
       this.worker = undefined; // release memory
       this.wasUnloadedByAnotherWindow = true;
       this.opts.redraw();
-    });
+    };
+    storage.make('ceval.fen').listen(unloadForOtherTab);
+    storage.make('ceval.disable').listen(unloadForOtherTab);
 
     document.addEventListener('visibilitychange', () => {
       if (
