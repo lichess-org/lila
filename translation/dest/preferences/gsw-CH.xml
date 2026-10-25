@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
+  <string name="multipleChoices">Mehrfach Uswahle. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Chann während eme Schpil im Brättmenü deaktiviert werde</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
@@ -81,6 +82,7 @@
   <string name="showUndefendedPieces">Ungschützti Figure zeige</string>
   <string name="showPinnedPieces">Gfässelti Figure zeige</string>
   <string name="showCheckableKing">En Schachbare König zeige</string>
+  <string name="showTrappedPieces">Zeig g\'fessleti Figure</string>
   <string name="disclosureMode">Ermögliche, d\'Variante z\'verstäcke</string>
   <string name="generalSettings">Allgmei</string>
   <string name="moveListSettings">Zug-Lischte</string>

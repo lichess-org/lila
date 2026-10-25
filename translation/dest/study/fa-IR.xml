@@ -2,7 +2,7 @@
 <resources>
   <string name="private">خصوصی</string>
   <string name="myStudies">مطالعه‌های من</string>
-  <string name="studiesIContributeTo">مطالعه‌هایی که در آن شرکت دارم</string>
+  <string name="studiesIContributeTo">مطالعه‌هایی که در آن مشارکت دارم</string>
   <string name="myPublicStudies">مطالعه‌های همگانی من</string>
   <string name="myPrivateStudies">مطالعه‌های خصوصی من</string>
   <string name="myFavoriteStudies">مطالعه‌های دلخواه من</string>
@@ -35,10 +35,10 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها کسانی را دعوت کنید که شما را می‌شناسند و کنشگرانه می‌خواهند به این مطالعه بپیوندند.</string>
   <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
   <string name="spectator">تماشاگر</string>
-  <string name="contributor">مشارکت کننده</string>
+  <string name="contributor">مشارکت‌گر</string>
   <string name="kick">اخراج</string>
   <string name="leaveTheStudy">ترک مطالعه</string>
-  <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
+  <string name="youAreNowAContributor">اکنون شما مشارکت‌گرید</string>
   <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
@@ -114,7 +114,7 @@
   <string name="allowCloning">اجازه همسانِش</string>
   <string name="nobody">هیچ کس</string>
   <string name="onlyMe">تنها من</string>
-  <string name="contributors">مشارکت‌کنندگان</string>
+  <string name="contributors">مشارکت‌گران</string>
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
   <string name="enableSync">فعال کردن همگام سازی</string>
@@ -169,8 +169,8 @@
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">اشتراک‌گذاری و ذخیره‌سازی</string>
   <string name="sharedAndSavedText">سایر اعضا می‌توانند حرکات شما را به‌صورت زنده ببینند! به‌علاوه، همه‌چیز برای همیشه ذخیره می‌شود.</string>
   <string name="studyMembersTitle">اعضای مطالعه</string>
-  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را مشاهده کرده و در گفتگو شرکت کنند. %2$s مشارکت‌کننده می‌توانند حرکت انجام دهند و مطالعه را به‌روزرسانی کنند.</string>
-  <string name="addMembersText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s کلیک کنید. سپس تصمیم بگیرید چه کسانی می‌توانند مشارکت کنند.</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را ببینند و در گپ گفتگو کنند.&lt;br&gt;&lt;br&gt;%2$s مشارکت‌گر می‌توانند حرکت انجامند و مطالعه را بروزانَند.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s را انتخاب کنید.&lt;br&gt;سپس تصمیم بگیرید چه کسی مجاز به مشارکت خواهد بود.</string>
   <string name="studyChaptersTitle">فصل های قابل مطالعه</string>
   <string name="studyChaptersText">یک مطالعه می‌تواند شامل چندین فصل باشد. هر فصل یک وضعیت اولیه و درخت حرکات مشخص دارد.</string>
   <string name="commentPositionTitle">نظر دادن روی یک وضعیت</string>
@@ -198,6 +198,8 @@
   <string name="blackDefeatWhiteCanNotWin">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
   <string name="whiteDefeatBlackCanNotWin">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
   <string name="analysisEditor">ویراستار تحلیل</string>
+  <string name="clearLocal">پاکیدنِ تحلیلِ محلی؟</string>
+  <string name="clearPublished">پاکیدنِ تحلیلِ منتشرشده؟</string>
   <string name="requestAServerAnalysis">درخواستِ تحلیلِ کارساز</string>
   <string name="analyzeOnYourDevice">تحلیل در اَفزاره‌تان</string>
 </resources>

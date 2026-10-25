@@ -198,4 +198,9 @@
   <string name="doubleDefeat">दुहेरी पराभव</string>
   <string name="blackDefeatWhiteCanNotWin">काळ्याचा पराभव, पण पांढरा जिंकू शकत नाही.</string>
   <string name="whiteDefeatBlackCanNotWin">पांढऱ्याचा पराभव, पण काळा जिंकू शकत नाही.</string>
+  <string name="analysisEditor">विश्लेषण संपादक</string>
+  <string name="clearLocal">स्थानिक विशलेषण काढा?</string>
+  <string name="clearPublished">प्रकाशित विश्लेषण काढा?</string>
+  <string name="requestAServerAnalysis">सर्व्हर विश्लेषणाची विनंती करा</string>
+  <string name="analyzeOnYourDevice">तुमच्या उपकरणावर विशलेषण करा</string>
 </resources>

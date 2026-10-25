@@ -18,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Speel voorkeurszet of bevestig iets</string>
   <string name="sleep">Slaap (indien wekkerwoord actief)</string>
   <string name="showPuzzleSolution">Toon puzzeloplossing</string>
+  <string name="voiceHelp">Spraakhulp</string>
+  <string name="voiceSettings">Spraakinstellingen</string>
+  <string name="pushShiftKeyToTalk">Houd %s ingedrukt om te praten</string>
+  <string name="holdShiftKeyWhileSpeaking">Houd de shift-toets ingedrukt terwijl je spreekt</string>
+  <string name="microphone">Microfoon</string>
+  <string name="noneSelected">Geen geselecteerd</string>
 </resources>

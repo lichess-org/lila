@@ -537,9 +537,9 @@
   <string name="profile">رُخ‌نما</string>
   <string name="editProfile">ویرایش رُخ‌نما</string>
   <string name="realName">نام راستین</string>
-  <string name="setFlair">تعیین شکلک</string>
+  <string name="setFlair">تعیین شکلک شما</string>
   <string name="flair">شکلک</string>
-  <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
+  <string name="youCanHideFlair">تنظیماتی برای پنهانیدن همه شکلک‌های کاربر در سراسر ویگاه وجود دارد.</string>
   <string name="biography">شرح‌حال</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
@@ -794,7 +794,7 @@
   <string name="downloadResults">بارگیری نتایج</string>
   <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی تختهٔ بازی بِنَوَردید.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمای آن‌ها، روی وَرتِش‌های رایانه‌ای بنَوَردید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
   <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">Saralangan musobaqalar</string>
-  <string name="moveList">Yurishlar roʻyxati</string>
-  <string name="gameInfo">Oʻyin maʼlumotlari</string>
+  <string name="moveList">Yurişlar röyxati</string>
+  <string name="gameInfo">Öyin maʼlumotlari</string>
   <string name="pieces">Donalar</string>
-  <string name="gameStatus">Oʻyin holati</string>
-  <string name="lastMove">Oxirgi yurish</string>
-  <string name="inputForm">Buyruq kiritish formasi</string>
+  <string name="gameStatus">Öyin holati</string>
+  <string name="lastMove">Oxirgi yuriş</string>
+  <string name="inputForm">Buyruq kiritiş formasi</string>
   <string name="actions">Amallar</string>
   <string name="yourClock">Sizning vaqtingiz</string>
   <string name="opponentClock">Raqib vaqti</string>
-  <string name="gameStart">Oʻyin boshi</string>
-  <string name="boardCommandList">Taxta tanlanganda (fokusda boʻlganda) buyruqlar roʻyxati</string>
-  <string name="inputFormCommandList">Ushbu buyruqlarni buyruq kiritish formasiga yozing.</string>
-  <string name="goToInputForm">Buyruq kiritish formasiga oʻtish.</string>
-  <string name="announceCurrentSquare">Joriy katakni aytish.</string>
-  <string name="announceLastMove">Oxirgi yurishni aytish.</string>
-  <string name="announceLastMoveCapture">Oxirgi yurishda olingan donani aytish.</string>
-  <string name="announcePossibleMoves">Tanlangan dona uchun mumkin boʻlgan yurishlarni aytish.</string>
-  <string name="announcePossibleCaptures">Tanlangan dona bilan amalga oshirish mumkin boʻlgan urishlarni (donani olishni) aytish.</string>
-  <string name="moveWithArrows">Chapga, oʻngga, yuqoriga yoki pastdagi qoʻshni katakka oʻtish.</string>
-  <string name="moveToPieceByType">Dona nomlari yordamida kataklarga oʻtish. Masalan: \"k\" harfini qayta‑qayta bosish ot turgan barcha kataklarga navbat bilan olib oʻtadi. Tartibni teskari qilish uchun bosh harfdan foydalaning.</string>
-  <string name="moveToRank">1‑dan 8‑gacha boʻlgan gorizontallarga oʻtish.</string>
-  <string name="moveToFile">A‑dan h‑gacha boʻlgan vertikallarga oʻtish.</string>
-  <string name="announcePieceLocations">Donalar joylashgan oʻrinlarni aytish. Masalan: oq otlar uchun \"p\" va bosh harf \"N\", qora shoh uchun \"p\" va kichik harf \"k\", barcha oq donalar uchun esa \"p\" va bosh harf \"A\".</string>
-  <string name="announcePiecesOnRankOrFile">Gorizontal yoki vertikaldagi donalarni aytish. Masalan: \"s a\", \"s 1\".</string>
-  <string name="goToBoard">Taxtaga oʻtish. Standart katak — e4. Muayyan katakni belgilashingiz mumkin: \"board a‑1\" yoki \"b a‑1\" buyrugʻi sizni a1 katagiga olib oʻtadi.</string>
-  <string name="movePiece">Donani surish uchun standart algebraik notatsiyadan foydalaning.</string>
-  <string name="promotion">Donani farzindan boshqa donaga almashtirish uchun tenglik belgisidan foydalaning. Masalan: \"a8=n\" buyrugʻi piyodani otga almashtiradi.</string>
-  <string name="king">shoh</string>
-  <string name="whiteKing">oqlar shohi</string>
-  <string name="blackKing">qoralar shohi</string>
+  <string name="gameStart">Öyin boşi</string>
+  <string name="boardCommandList">Taxta tanlanganda (fokusda bölganda) buyruqlar röyxati</string>
+  <string name="inputFormCommandList">Uşbu buyruqlarni buyruq kiritiş formasiga yozing.</string>
+  <string name="goToInputForm">Buyruq kiritiş formasiga ötiş.</string>
+  <string name="announceCurrentSquare">Joriy katakni aytiş.</string>
+  <string name="announceLastMove">Oxirgi yurişni aytiş.</string>
+  <string name="announceLastMoveCapture">Oxirgi yurişda olingan donani aytiş.</string>
+  <string name="announcePossibleMoves">Tanlangan dona uçun mumkin bölgan yurişlarni aytiş.</string>
+  <string name="announcePossibleCaptures">Tanlangan dona bilan amalga oşiriş mumkin bölgan urişlarni (donani olişni) aytiş.</string>
+  <string name="moveWithArrows">Çapga, öngga, yuqoriga yoki pastdagi qöşni katakka ötiş.</string>
+  <string name="moveToPieceByType">Dona nomlari yordamida kataklarga ötiş. Masalan: \"k\" harfini qayta‑qayta bosiş ot turgan barça kataklarga navbat bilan olib ötadi. Tartibni teskari qiliş uçun boş harfdan foydalaning.</string>
+  <string name="moveToRank">1‑dan 8‑gaça bölgan gorizontallarga ötiş.</string>
+  <string name="moveToFile">A‑dan h‑gaça bölgan vertikallarga ötiş.</string>
+  <string name="announcePieceLocations">Donalar joylaşgan örinlarni aytiş. Masalan: oq otlar uçun \"p\" va boş harf \"N\", qora şoh uçun \"p\" va kiçik harf \"k\", barça oq donalar uçun esa \"p\" va boş harf \"A\".</string>
+  <string name="announcePiecesOnRankOrFile">Gorizontal yoki vertikaldagi donalarni aytiş. Masalan: \"s a\", \"s 1\".</string>
+  <string name="goToBoard">Taxtaga ötiş. Standart katak — e4. Muayyan katakni belgilaşingiz mumkin: \"board a‑1\" yoki \"b a‑1\" buyruği sizni a1 katagiga olib ötadi.</string>
+  <string name="movePiece">Donani suriş uçun standart algebraik notatsiyadan foydalaning.</string>
+  <string name="promotion">Donani farzindan boşqa donaga almaştiriş uçun tenglik belgisidan foydalaning. Masalan: \"a8=n\" buyruği piyodani otga almaştiradi.</string>
+  <string name="king">şoh</string>
+  <string name="whiteKing">oqlar şohi</string>
+  <string name="blackKing">qoralar şohi</string>
   <string name="queen">farzin</string>
   <string name="whiteQueen">oqlar farzini</string>
   <string name="blackQueen">qoralar farzini</string>
@@ -48,17 +48,17 @@
   <string name="blackPawn">qoralar piyodasi</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
   <string name="sanTakes" comment="x in standard notation">uradi</string>
-  <string name="sanCheck" comment="+ in standard notation">shoh</string>
-  <string name="sanCheckmate" comment="# in standard notation">shoh va mot</string>
+  <string name="sanCheck" comment="+ in standard notation">şoh</string>
+  <string name="sanCheckmate" comment="# in standard notation">şoh va mot</string>
   <string name="sanPromotesTo" comment="= in standard notation">aylanadi</string>
   <string name="sanShortCastling" comment="O-O in standard notation">qisqa rokirovka</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">uzun rokirovka</string>
-  <string name="sanDroppedOn" comment="crazyhouse @">qoʻyildi</string>
-  <string name="invalidMove">Notoʻgʻri yurish</string>
-  <string name="premoveCancelled">Oldindan yurish bekor qilindi</string>
-  <string name="premoveRecorded">Oldindan yurish saqlandi: %s. Bekor qilish uchun \"Enter\"ni bosing</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">qöyildi</string>
+  <string name="invalidMove">Notöğri yuriş</string>
+  <string name="premoveCancelled">Oldindan yuriş bekor qilindi</string>
+  <string name="premoveRecorded">Oldindan yuriş saqlandi: %s. Bekor qiliş uçun \"Enter\"ni bosing</string>
   <string name="pockets" comment="Crazyhouse pockets">Zaxira</string>
-  <string name="copyToClipboard">%s nusxasini olish</string>
+  <string name="copyToClipboard">%s nusxasini oliş</string>
   <string name="copiedToClipboard">%s nusxalandi</string>
   <string name="pgnAndFen">PGN va FEN</string>
 </resources>
