@@ -49,7 +49,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cách nhập thành</string>
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
   <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
-  <string name="inputMovesWithTheKeyboard">Nhập các nước đi với bàn phím</string>
+  <string name="inputMovesWithTheKeyboard">Nhập các nước đi bằng bàn phím</string>
   <string name="inputMovesWithVoice">Đầu vào nước đi với giọng nói của bạn</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào ô của nước đi hợp lệ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (Ván cờ hay, chơi hay lắm) sau khi hòa hoặc thua</string>
@@ -82,6 +82,7 @@
   <string name="showUndefendedPieces">Hiện quân không được phòng thủ</string>
   <string name="showPinnedPieces">Hiện quân bị ghim</string>
   <string name="showCheckableKing">Hiển thị vua có thể bị chiếu</string>
+  <string name="showTrappedPieces">Hiển thị các quân bị mắc kẹt</string>
   <string name="disclosureMode">Cho phép ẩn biến</string>
   <string name="generalSettings">Cài đặt chung</string>
   <string name="moveListSettings">Biên bản ván đấu</string>

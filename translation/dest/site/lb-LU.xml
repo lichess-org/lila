@@ -54,8 +54,8 @@
   <string name="blackResigned">Schwaarz huet opginn</string>
   <string name="whiteLeftTheGame">Wäiss huet d\'Partie verlooss</string>
   <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
-  <string name="whiteDidntMove">Wäiss huet net gezunn</string>
-  <string name="blackDidntMove">Schwaarz huet net gezunn</string>
+  <string name="whiteDidntMove">Wäiss huet keen Zuch gemaach</string>
+  <string name="blackDidntMove">Schwaarz huet keen Zuch gemaach</string>
   <string name="whiteAborted">Wäiss huet d\'Partie ofgebrach</string>
   <string name="blackAborted">Schwaarz huet d\'Partie ofgebrach</string>
   <string name="requestAComputerAnalysis">Eng Computeranalys ufroen</string>
@@ -378,7 +378,7 @@
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei d\'Turnéier</string>
-  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier keen Remis offréieren virum 30ten Zuch.</string>
+  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier virum 30. Zuch kee Remis maachen.</string>
   <string name="thematic">Thematesch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewäert Partie</item>
@@ -405,7 +405,7 @@
   <string name="mustBeInTeam">Muss Member vun %s sin</string>
   <string name="youAreNotInTeam">Du bass net Member vun %s</string>
   <string name="backToGame">Zeréck bei d\'Partie</string>
-  <string name="siteDescription">Gratis Online Schach Server. Spill Schach an engem propperen Interface. Keng Registratioun, keng Reklammen, keen Plugin néideg. Spill Schach géint Computer, Frënn oder zoufälleg Géigner.</string>
+  <string name="siteDescription">Gratis Online-Schach-Server. Spill Schach an engem iwwersiichtlechen Interface. Keng Registréierung, keng Reklammen, kee Plugin néideg. Spill Schach géint Computer, Kolleegen oder zoufälleg Géigner.</string>
   <string name="xJoinedTeamY">%1$s ass Ekipp %2$s beigetrueden</string>
   <string name="xCreatedTeamY">%1$s huet Ekipp %2$s gegrënnt</string>
   <string name="startedStreaming">huet ugefang ze streamen</string>
@@ -436,7 +436,7 @@
   <string name="thisIsAChessCaptcha">Dat hei ass en Schach CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klick op d\'Briet a maach däin Zuch, fir ze weisen, datt s du e Mënsch bass.</string>
   <string name="captcha.fail">Léis wgl. de Schach-Captcha.</string>
-  <string name="notACheckmate">Keen Schachmatt</string>
+  <string name="notACheckmate">Kee Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wäiss huet Schachmatt an engem Zuch</string>
   <string name="blackCheckmatesInOneMove">Schwaarz huet Schachmatt an engem Zuch</string>
   <string name="retry">Nei probéieren</string>

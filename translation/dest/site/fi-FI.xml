@@ -1042,6 +1042,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö sekä täysin vapaa ja avoimen lähdekoodin ohjelmisto. Riipumme käyttäjien lahjoituksista, joilla katamme käyttökustannukset, kehitystyön ja sivustosisällön. Ilman anteliasta yhteisöä sivusto ei pysyisi käynnissä. Kiitos kun liityt joukkoomme!</string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
   <string name="stats">Tilastot</string>
   <string name="accessibility">Saavutettavuus</string>

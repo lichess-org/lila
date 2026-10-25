@@ -24,7 +24,7 @@
   <string name="subscribedBroadcasts">البث المُشترك به</string>
   <string name="aboutBroadcasts">حول البثوث</string>
   <string name="howToUseLichessBroadcasts">كيف تستخدم البثوث في ليتشيس.</string>
-  <string name="theNewRoundHelp">ستضم الجولة الجديدة الأعضاء والمساهمين عينهم الذين اشتركوا في الجولة السابقة.</string>
+  <string name="theNewRoundHelp">ستضم الجولة الجديدة الأعضاء والمساهمين أنفسهم الذين شاركوا في الجولة السابقة.</string>
   <string name="addRound">إضافة جولة</string>
   <string name="ongoing">المستمرة</string>
   <string name="upcoming">القادمة</string>
@@ -32,7 +32,7 @@
   <string name="tournamentName">اسم البطولة</string>
   <string name="tournamentDescription">الوصف الموجز</string>
   <string name="fullDescription">الوصف الكامل</string>
-  <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متاح. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
+  <string name="fullDescriptionHelp">وصف تفصيلي اختياري للفعالية. يمكنك استخدام %1$s للاطّلاع على خيارات تنسيق إضافية. يجب ألا يتجاوز الطول %2$s حرفًا.</string>
   <string name="sourceSingleUrl">رابط مصدر PGN</string>
   <string name="sourceUrlHelp">عنوان URL الذي سيتحقق منه ليتشيس للحصول على تحديثات PGN. يجب أن يكون متاحا للجميع من الإنترنت.</string>
   <string name="sourceGameIds">حتى 64 معرف لُعْبَة ليتشيس، مفصولة بمسافات.</string>

@@ -197,4 +197,9 @@
   <string name="doubleDefeat">Dobbelt tap</string>
   <string name="blackDefeatWhiteCanNotWin">Svart tap, men hvit kan ikke vinne</string>
   <string name="whiteDefeatBlackCanNotWin">Hvitt tap, men svart kan ikke vinne</string>
+  <string name="analysisEditor">Analyseredigerer</string>
+  <string name="clearLocal">Tøm lokal analyse?</string>
+  <string name="clearPublished">Tøm publisert analyse?</string>
+  <string name="requestAServerAnalysis">Be om en serveranalyse</string>
+  <string name="analyzeOnYourDevice">Analyser på enheten din</string>
 </resources>

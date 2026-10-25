@@ -476,7 +476,7 @@ Bạn bè đang chơi: %2$s</string>
   <string name="wins">Thắng</string>
   <string name="losses">Thua</string>
   <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
-  <string name="standByX">%s chờ nhé, đang xếp cặp đấu, chuẩn bị sẵn sàng!</string>
+  <string name="standByX">Hãy sẵn sàng, đang ghép cặp đấu, chuẩn bị chiến nhé %s!</string>
   <string name="pause">Tạm rút</string>
   <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>
@@ -1001,6 +1001,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức từ thiện và hoàn toàn là phần mềm mã nguồn mở miễn phí. Chúng tôi phụ thuộc vào sự đóng góp của người dùng để hỗ trợ chi phí hoạt động, phát triển và nội dung. Nếu không có cộng đồng hào phóng của chúng ta, chúng tôi sẽ không thể duy trì hoạt động của trang web. Cảm ơn bạn đã tham gia cùng chúng tôi!</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
   <string name="accessibility">Hỗ trợ tiếp cận</string>

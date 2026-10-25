@@ -36,6 +36,8 @@
   <string name="teamUpdates">Cập nhật của đội</string>
   <string name="subToTeamUpdates">Đăng ký nhận các cập nhật của đội</string>
   <string name="newTeamUpdate">Cập nhật mới cho đội</string>
+  <string name="teamEvents">Các giải đấu đội</string>
+  <string name="upcomingTeamEvents">Các giải đấu đội sắp tới</string>
   <string name="teamsIlead">Những đội tôi đang chỉ huy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
   <string name="leadersChat">Trò chuyện giữa các chỉ huy</string>

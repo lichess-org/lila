@@ -78,5 +78,6 @@
   <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
   <string name="blogTips">Onze simpele tips om geweldige blogberichten te schrijven</string>
   <string name="discussThisBlogPostInTheForum">Bespreek dit blogbericht in het forum</string>
+  <string name="youMayAlsoLike">Je bent misschien ook geïnteresseerd in</string>
   <string name="youBlockedByBlogAuthor">U bent geblokkeerd door de auteur van de blog.</string>
 </resources>
