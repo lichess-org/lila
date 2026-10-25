@@ -638,6 +638,7 @@ final class User(
         .flatMapz:
           case lichobilePov: Pov => roundC.renderPlayer(lichobilePov).dmap(some)
           case call: Call => fuccess(MovedPermanently(call).some)
+        .orElse(env.challenge.api.redirect(path).map2(Redirect(_)))
         .orElse(UserStr.read(path).so(tryRedirect))
         .getOrElse(notFound)
 
