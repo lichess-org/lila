@@ -22,6 +22,7 @@ trait ScalatagsAttrs:
   val dataUci = attr("data-uci")
   val dataRel = attr("data-rel")
   val dataTitle = attr("data-title")
+  val dataText = attr("data-text")
   val novalidate = attr("novalidate").empty
   val dataBotAttr = attr("data-bot").empty
   val dataUser = attr("data-user")

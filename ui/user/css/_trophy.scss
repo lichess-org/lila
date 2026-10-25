@@ -1,12 +1,6 @@
 .trophies {
-  @include inline-end(1.5em);
+  @extend %flex-center;
 
-  position: absolute;
-  top: 35px;
-  height: 40px;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
   justify-content: flex-end;
   margin-top: 0 !important;
 
@@ -24,16 +18,22 @@
 .trophy {
   display: flex;
   align-items: flex-end;
-  height: 40px;
 
   @include prevent-select;
 
   img {
     height: 80px;
   }
+}
 
-  &.top1 {
-    filter: drop-shadow(0 0 6px $c-brag);
+.trophy.perf-badge {
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    font-size: 2.5em;
   }
 }
 
@@ -47,13 +47,12 @@
 }
 
 .stacked {
-  height: 40px;
-  display: flex;
-  align-items: flex-end;
+  @extend %flex-wrap;
+
+  align-self: flex-end;
 }
 
 .stacked .trophy {
-  width: 65px;
   height: 65px;
   font-size: 65px;
 }
@@ -71,50 +70,45 @@
   &:hover {
     opacity: 1;
   }
+}
 
-  &.marathonWinner,
-  &.marathonTopTen,
-  &.marathonTopFifty {
-    filter: hue-rotate(190deg);
-    color: $c-marathon;
-  }
+.trophy.marathonWinner,
+.trophy.marathonTopTen,
+.trophy.marathonTopFifty,
+.trophy.marathonTopHundred,
+.trophy.marathonTopFivehundred {
+  text-shadow: -2px 0 0 $c-bg-zebra;
+}
 
-  &.marathonTopTen {
-    font-size: 58px;
-    width: 55px;
-    height: 55px;
-    margin-top: 22px;
-  }
+.trophy.marathonWinner {
+  color: hsl(44 100% 61%);
+}
 
-  &.marathonTopFifty,
-  &.marathonTopHundred,
-  &.marathonTopFivehundred {
-    font-size: 50px;
-    height: 50px;
-    width: 50px;
-    margin-top: 30px;
-    animation: none;
-  }
+.trophy.marathonTopTen {
+  color: hsl(39 28% 74%);
+  font-size: 58px;
+}
 
-  &.marathonTopFifty {
-    text-shadow:
-      0 0 5px #ffae34,
-      0 0 6.25px #ec760c,
-      0 0 7.5px #cd4606;
-  }
+.trophy.marathonTopFifty,
+.trophy.marathonTopHundred,
+.trophy.marathonTopFivehundred {
+  font-size: 50px;
+}
 
-  &.marathonTopHundred {
-    text-shadow: none;
-    color: #066ccd;
-  }
+.trophy.marathonTopFifty {
+  color: hsl(16 100% 64%);
+}
 
-  &.marathonTopFivehundred {
-    text-shadow: none;
-  }
+.trophy.marathonTopHundred {
+  color: $c-primary-clear;
 }
 
 .packed .trophy {
   margin-inline-end: -8px;
+}
+
+.packed .trophy.perf-badge {
+  margin-inline-end: 0;
 }
 
 .packed .stacked {
@@ -176,7 +170,6 @@
   line-height: 60px;
   color: #333 !important;
   text-shadow: 0 0 6px #fff;
-  margin-top: -20px;
   filter: drop-shadow(0 0 6px $c-brag);
 }
 
