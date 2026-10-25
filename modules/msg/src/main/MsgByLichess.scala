@@ -26,6 +26,7 @@ final class MsgByLichess(
             loader: userId =>
               userApi
                 .enabledById(userId)
+                .dmap(_.filter(_.totpSecret.isEmpty))
                 .flatMap:
                   case Some(user) =>
                     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
