@@ -97,8 +97,10 @@ object RelayTeam:
         game: ByColor[RelayPlayer.Game]
     ): TeamMatch =
       val pov = Color.fromWhite(playerAndTeam.white._2 == teams.white.name)
-      val players = (if pov == Color.white then game else game.swap).map: g =>
-        RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
+      val players = pov
+        .fold(game, game.swap)
+        .map: g =>
+          RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
       copy(
         games = TeamGame(chapterId, pov) :: games,
         teams = teams.mapWithColor((c, t) => t.add(players(c)))
