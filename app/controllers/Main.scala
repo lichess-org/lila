@@ -116,7 +116,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then Ok(lila.web.PrometheusReporter.latestScrapeData()).headerCache(1.minute)
+    then Ok(lila.web.PrometheusReporter.latestScrapeData()).headerCache(59.seconds)
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:
