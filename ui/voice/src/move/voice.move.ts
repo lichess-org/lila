@@ -1,12 +1,13 @@
 import { charToRole } from 'chessops';
 
+import { myUserId } from 'lib';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
 import { licon, type LiconValue } from 'lib/licon';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect, once } from 'lib/storage';
 import type { QuestionOpts } from 'lib/types';
-import { jsonSimple } from 'lib/xhr';
+import * as xhr from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
 import {
@@ -99,10 +100,12 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`)).catch(() => ({
-      entries: [],
-      partials: { numbers: [], commands: [], colors: [] },
-    }));
+    const g = await xhr
+      .jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`))
+      .catch(() => ({
+        entries: [],
+        partials: { numbers: [], commands: [], colors: [] },
+      }));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -371,6 +374,7 @@ export function initModule({
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
     root.pluginMove(src(uci), dest(uci), role, preConfirmed);
+    if (once('voice.move', { days: 1 })) xhr.text(`/jslog/feature?n=voiceMove&u=${myUserId()}`);
     return true;
   }
 
