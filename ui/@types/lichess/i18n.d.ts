@@ -5687,7 +5687,7 @@ interface I18n {
     loadAGameFromPgn: string;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
-    /** Paste a game URL<br>(like lichess.org/7fHIU0XI)<br>to load game moves in the chapter. */
+    /** Paste a game URL<br>(like lichess.org/game/7fHIU0XI)<br>to load game moves in the chapter. */
     loadGameFromTheWebText: string;
     /** Load a game from the web */
     loadGameFromTheWebTitle: string;
