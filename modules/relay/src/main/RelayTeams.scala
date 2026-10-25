@@ -103,7 +103,7 @@ object RelayTeam:
           RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
       copy(
         games = TeamGame(chapterId, pov) :: games,
-        teams = teams.mapWithColor((c, t) => t.add(players(c)))
+        teams = teams.zip(players).map(_.add(_))
       )
     def swap = copy(teams = teams.swap, games = games.map(_.swap))
     private def pointsPair: Option[ByColor[Points]] =
