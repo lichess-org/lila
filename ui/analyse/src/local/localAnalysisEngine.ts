@@ -65,6 +65,7 @@ export class LocalAnalysisEngine {
   ): Promise<LocalAnalysisResult> {
     try {
       this.busy = true;
+      this.ctrl.localAnalysis = this;
       this.ctrl.initCeval({ emit: this.onEval, custom });
       const update = () => {
         const done = this.nodes.length - this.nodeIndex - 1;
@@ -76,6 +77,7 @@ export class LocalAnalysisEngine {
       return this.review(division);
     } finally {
       this.busy = false;
+      this.ctrl.localAnalysis = undefined;
       this.ctrl.initCeval();
     }
   }
