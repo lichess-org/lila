@@ -161,8 +161,10 @@ function onListUpdate({ chapters, members }: StudyCtrl, vnode: VNode) {
 
   chapters.scroller.scrollIfNeeded(el);
 
-  if (members.canContribute() && chapters.list.size() > 1 && !vData.sortable) {
+  if (members.canContribute() && chapters.list.size() > 1 && !vData.sortableRequested) {
+    vData.sortableRequested = true;
     site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
+      if (!el.isConnected) return;
       vData.sortable = s.create(el, {
         draggable: '.draggable',
         handle: 'ontouchstart' in window ? 'span' : undefined,
