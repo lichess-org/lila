@@ -71,6 +71,23 @@
         vertical-align: top;
       }
     }
+
+    .stop {
+      width: 1em;
+      height: 1em;
+      margin-inline: 1px 4px;
+      vertical-align: -1px;
+    }
+
+    .stop::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 2px;
+      background: $c-bad;
+      box-shadow: 0 0 0 1px #0005;
+    }
   }
 
   .show-threat {

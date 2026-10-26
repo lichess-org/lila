@@ -50,14 +50,24 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
   const t: Array<VNode | string> = [];
-  if (!ceval.opts.custom && ceval.canGoDeeper)
-    t.push(
-      button('.deeper', {
-        title: i18n.site.goDeeper,
-        'data-icon': licon.PlusButton,
-        hook: bind('click', ceval.goDeeper),
-      }),
-    );
+  if (!ceval.opts.custom) {
+    if (ceval.canGoDeeper) {
+      t.push(
+        button('.deeper', {
+          title: i18n.site.goDeeper,
+          'data-icon': licon.PlusButton,
+          hook: bind('click', ceval.goDeeper),
+        }),
+      );
+    } else if (ceval.isComputing) {
+      t.push(
+        button('.stop', {
+          title: i18n.site.pause,
+          hook: bind('click', ceval.stopWorker),
+        }),
+      );
+    }
+  }
   const { depthText, npsText } = localInfo(ctrl, evs.client);
 
   t.push(depthText);
