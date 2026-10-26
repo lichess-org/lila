@@ -95,6 +95,8 @@ final class ChallengeBulkSetupApi(
     limiterKey = "challenge.bulk"
   )
 
+  private val endpointScopes = OAuthScope.select(_.Challenge.Write, _.Web.Takex3).into(EndpointScopes)
+
   def apply(data: BulkFormData, me: User): FuRaise[ScheduleError, ScheduledBulk] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
@@ -102,7 +104,7 @@ final class ChallengeBulkSetupApi(
       .mapAsync(8): token =>
         allow:
           oauthServer
-            .auth(token -> none, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+            .auth(token -> none, endpointScopes, none)
             .map(Right(_))
         .rescue: err =>
           fuccess(Left(BadToken(token, err)))
