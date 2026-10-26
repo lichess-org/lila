@@ -62,7 +62,7 @@ final class BulkPairing(gameC: => Game, env: Env) extends LilaController(env):
         import ChallengeBulkSetup.*
         allow:
           for
-            bulk <- env.challenge.bulkSetupApi(data, me)
+            bulk <- env.challenge.bulkSetupApi(data)
             scheduled <- env.challenge.bulk.schedule(bulk)
           yield Ok(toJson(scheduled))
         .rescue:
