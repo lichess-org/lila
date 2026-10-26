@@ -85,6 +85,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       Dictionary.tr ++
       Dictionary.it ++
       Dictionary.pt ++
+      Dictionary.arLatn ++
       bannedYoutubeIds
 
   private val latinBigRegex = {
