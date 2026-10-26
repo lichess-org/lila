@@ -68,7 +68,7 @@ final class BulkPairing(gameC: => Game, env: Env) extends LilaController(env):
         .rescue:
           case ScheduleError.RateLimited =>
             TooManyRequests:
-              jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
+              jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGamesPerTenMinutes}")
           case ScheduleError.BadTokens(tokens) =>
             BadRequest:
               Json.obj:

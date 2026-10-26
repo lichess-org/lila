@@ -93,7 +93,7 @@ final class ChallengeBulkSetupApi(
   import ChallengeBulkSetup.*
 
   private val rateLimit = lila.memo.RateLimit[UserId](
-    credits = maxGamesPerBulk * 3,
+    credits = maxGamesPerTenMinutes * 3,
     duration = 10.minutes,
     limiterKey = "challenge.bulk"
   )
@@ -164,6 +164,7 @@ final class ChallengeBulkSetupApi(
 object ChallengeBulkSetup:
 
   val maxGamesPerBulk = 500
+  val maxGamesPerTenMinutes = 500
   val maxGamesPending = 1000
   val maxBulks = 20
 
