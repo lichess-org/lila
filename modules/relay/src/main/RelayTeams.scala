@@ -64,7 +64,7 @@ private class RelayTeamsTextarea(val text: String):
 object RelayTeam:
   import chess.{ Color, ByColor }
   extension (players: Iterable[RelayPlayer])
-    def allGamesFinished: Boolean = players.forall(_.games.forall(_.points.isDefined))
+    def allGamesFinished: Boolean = players.forall(_.games.forall(_.ongoing.not))
   case class TeamWithGames(name: TeamName, players: RelayPlayer.RelayPlayers):
     def add(player: RelayPlayer) =
       player.id.fold(this): id =>
