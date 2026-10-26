@@ -9,7 +9,9 @@ import { domDialog } from 'lib/view/dialog';
 
 import type { VisionWorkerResponse } from './editor.vision.worker';
 
-export async function initModule({ file }: { file: File }): Promise<FEN> {
+type ImageInput = { file: File } | { url: string };
+
+export async function initModule(input: ImageInput): Promise<FEN> {
   const statusDialog = await domDialog({
     htmlText: $html`
       <p><strong class="status">Downloading ChessQueries Lite...</strong></p>
@@ -37,10 +39,7 @@ export async function initModule({ file }: { file: File }): Promise<FEN> {
   const interval = setInterval(randomBoard, 200);
   statusDialog.show();
   try {
-    const [worker, image] = await Promise.all([
-      getReader(),
-      window.createImageBitmap(file, { imageOrientation: 'from-image' }),
-    ]);
+    const [worker, image] = await Promise.all([getReader(), imageBitmap(input)]);
     return await new Promise<FEN>((resolve, reject) => {
       statusDialog.view.querySelector<HTMLElement>('.status')!.textContent = 'Processing...';
       worker.onmessage = event => {
@@ -55,6 +54,16 @@ export async function initModule({ file }: { file: File }): Promise<FEN> {
     clearInterval(interval);
     statusDialog.close();
   }
+}
+
+function imageBitmap(input: ImageInput): Promise<ImageBitmap> {
+  if ('file' in input) return createImageBitmap(input.file, { imageOrientation: 'from-image' });
+  // img-src allows any host. The image must be CORS-clean or the bitmap cannot be sent to the worker.
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.referrerPolicy = 'no-referrer';
+  img.src = input.url;
+  return img.decode().then(() => createImageBitmap(img));
 }
 
 type VisionFeature = 'webgpu' | Feature;
