@@ -240,7 +240,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             trans.site.tournamentFAQ()
           )
         ),
-        div(cls := "body")(apply())
+        div(cls := "body expand-text")(apply())
       )
 
     def apply(rated: Option[Rated] = None, privateId: Option[TourId] = None)(using Context) =
