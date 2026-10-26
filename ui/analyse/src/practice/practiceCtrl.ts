@@ -179,8 +179,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
         }
       }
       if (!played() && playable(node)) {
-        root.playUci(nodeBestUci(node)!);
         played(true);
+        root.playUci(nodeBestUci(node)!);
       } else root.redraw();
     }
   }
