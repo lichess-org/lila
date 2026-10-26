@@ -249,7 +249,7 @@ final class IrcApi(
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
       markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
-        markdown.link(Url(s"/training/export/gif/thumbnail/$id.gif"), ":")
+        markdown.link(Url(s"${net.netBaseUrl}/training/export/gif/thumbnail/$id.gif"), ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
