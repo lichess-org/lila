@@ -366,6 +366,5 @@ object RelayTeamTable:
           "players" -> Json.toJson(t.players.values.toList),
           "points" -> Json.toJson(t.points.orZero)
         )
-    type Outs = TeamWithGames | TeamMatch | TeamGame
-    given [A <: Outs: Writes]: Writes[ByColor[A]] = Writes: p =>
+    given Writes[ByColor[TeamWithGames]] = Writes: p =>
       Json.arr(p.white, p.black)
