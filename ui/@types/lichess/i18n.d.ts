@@ -4763,6 +4763,8 @@ interface I18n {
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search in "%s" */
+    searchInX: I18nFormat;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */
@@ -5801,6 +5803,10 @@ interface I18n {
     saveChapter: string;
     /** Search by username */
     searchByUsername: string;
+    /** Search chapters */
+    searchChapters: string;
+    /** Search games */
+    searchGames: string;
     /** Share & export */
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */

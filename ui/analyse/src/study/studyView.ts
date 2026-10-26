@@ -47,7 +47,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
   return renderMain(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
-    deps.studyView.overboard(study),
+    deps.studyView.overboard(study, 'study'),
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
     crazyView(ctrl, ctrl.topColor(), 'top'),
@@ -151,7 +151,7 @@ export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VN
       ]
     : [];
 
-export const overboard = (ctrl: StudyCtrl) =>
+export const overboard = (ctrl: StudyCtrl, type: 'study' | 'broadcast') =>
   ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
@@ -163,7 +163,7 @@ export const overboard = (ctrl: StudyCtrl) =>
           : ctrl.form.open()
             ? studyFormView(ctrl.form)
             : ctrl.search.open()
-              ? searchView(ctrl.search)
+              ? searchView(ctrl.search, type)
               : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
