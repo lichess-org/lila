@@ -2,7 +2,7 @@ import { h, type VNode, type VNodeData } from 'snabbdom';
 
 import { pubsub } from '@/pubsub';
 
-import { isMac } from '../device';
+import { isIos, isMac } from '../device';
 import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
@@ -31,8 +31,9 @@ export function liveText(
   sel = 'p',
   forceKey?: Date,
 ): VNode {
-  const data: VNodeData = isMac()
-    ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert' } }
-    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+  const data: VNodeData =
+    isMac() || (isIos() && live === 'assertive')
+      ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert' } }
+      : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
   return h(sel, data, text);
 }
