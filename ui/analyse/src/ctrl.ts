@@ -352,7 +352,6 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval?.reset(); // initCeval may not have run yet
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -807,7 +806,7 @@ export default class AnalyseCtrl implements CevalHandler {
   startCevalIfEnabled = () => {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
-    if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
+    if (this.node.threefold || !this.cevalEnabled() || this.node.pos().isErr || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
