@@ -2,7 +2,7 @@ package lila.relay
 
 import chess.Outcome.Points
 import chess.format.pgn.*
-import chess.{ ByColor, FideTC, FideId, IntRating, PlayerName }
+import chess.{ ByColor, FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
 import scala.collection.immutable.SeqMap
@@ -323,19 +323,9 @@ final class RelayTeamLeaderboard(
                         p.id.map(_ -> p.copy(fed = p.fed.orElse(p.fideId.flatMap(fedsById.get))))
                       roundId = studyId.into(RelayRoundId)
                       round <- roundsById.get(roundId)
+                      tourTC = toursById.get(round.tourId).map(_.info.fideTCOrGuess)
                       game = withFed.mapWithColor: (c, p) =>
-                        RelayPlayer.Game(
-                          round.id,
-                          chapterId,
-                          p._2,
-                          c,
-                          tags.points,
-                          round.rated,
-                          round.fideTCOverride
-                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess)) | FideTC.standard,
-                          unplayed = tags.value.has(RelayGame.unplayedTag),
-                          ongoing = tags.points.isEmpty && tags.exists(_.Result)
-                        )
+                        RelayPlayer.Game.make(round, chapterId, p._2, c, tags, tourTC)
                       teams <- players.traverse(_.team)
                       teamMatch = roundMatches.find(_.isSameMatchup(teams)) | TeamMatch(
                         roundId,

@@ -14,6 +14,7 @@ import lila.memo.CacheApi
 import lila.relay.RelayGroup.ScoreGroup
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
+import chess.format.pgn.Tags
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -103,6 +104,27 @@ object RelayPlayer:
       if isRated
       opRating <- opponent.rating
     yield Elo.Game(pp, opRating.into(Elo))
+  object Game:
+    def make(
+        round: RelayRound,
+        chapterId: StudyChapterId,
+        opponent: StudyPlayer.WithFed,
+        color: Color,
+        tags: Tags,
+        tourTC: Option[FideTC]
+    ): Game =
+      Game(
+        round.id,
+        chapterId,
+        opponent,
+        color,
+        tags.points,
+        round.rated,
+        round.fideTCOverride.orElse(tourTC) | (FideTC.standard),
+        round.customScoring,
+        unplayed = tags.value.has(RelayGame.unplayedTag),
+        ongoing = tags.points.isEmpty && tags.exists(_.Result)
+      )
 
   object json:
     import scalalib.Json.writeAs
@@ -272,19 +294,9 @@ private final class RelayPlayerApi(
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>
                         val (_, opponent) = gamePlayers(!color)
-                        val game = RelayPlayer.Game(
-                          round.id,
-                          chapterId,
-                          opponent,
-                          color,
-                          tags.points,
-                          round.rated,
-                          round.fideTCOverride
-                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess)) | FideTC.standard,
-                          round.customScoring,
-                          unplayed = tags.value.has(RelayGame.unplayedTag),
-                          ongoing = tags.points.isEmpty && tags.exists(_.Result)
-                        )
+                        val tourTC = toursById.get(round.tourId).map(_.info.fideTCOrGuess)
+                        val game =
+                          RelayPlayer.Game.make(round, chapterId, opponent, color, tags, tourTC)
                         playersAcc.updated(
                           playerId,
                           playersAcc
