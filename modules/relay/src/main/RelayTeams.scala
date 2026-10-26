@@ -140,7 +140,7 @@ object RelayTeam:
       mp: Option[Float],
       gp: Option[Float]
   ):
-    def isFinished: Boolean = players.values.allGamesFinished
+    def isFinished: Boolean = points.isDefined
   object POVMatch:
     object json:
       import play.api.libs.json.*
