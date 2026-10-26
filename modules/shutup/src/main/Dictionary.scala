@@ -381,6 +381,12 @@ yar+a[gğ][iı] yediniz
 yar+ak kafa(l[iı]|s[iı])
 """)
 
+  def arLatn = dict("""
+k[eiou]+s+ ?[eiou](m+[aei]?k|khtak)
+(sh|s?ch)arm(o++u*+|u++)(t++|6)a*+
+khara
+""")
+
   def critical = dict("""
 (die|burn)s? irl
 (f|ph)a++g+([oi]+t|t|)
