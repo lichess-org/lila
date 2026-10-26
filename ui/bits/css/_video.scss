@@ -232,32 +232,6 @@
     text-align: center;
   }
 
-  .tag-list {
-    text-align: justify;
-
-    a {
-      @extend %box-radius;
-
-      color: $c-font;
-      display: inline-block;
-      padding: 3px 5px;
-      margin: 5px 5px;
-      background: $c-bg-zebra;
-      text-transform: capitalize;
-
-      &:hover {
-        @extend %button-shadow;
-
-        background: $c-bg-box;
-      }
-
-      em {
-        font-weight: bold;
-        color: $c-accent;
-      }
-    }
-  }
-
   #video {
     .not_much {
       margin-top: 100px;
