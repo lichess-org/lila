@@ -45,6 +45,8 @@
   <string name="teamUpdates">Новости клуба</string>
   <string name="subToTeamUpdates">Подписаться на новости клуба</string>
   <string name="newTeamUpdate">Свежая новость в клубе</string>
+  <string name="teamEvents">Командные события</string>
+  <string name="upcomingTeamEvents">Предстоящие командные события</string>
   <string name="teamsIlead">Клубы под моим руководством</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
   <string name="leadersChat">Чат руководителей</string>

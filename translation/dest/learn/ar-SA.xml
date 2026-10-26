@@ -48,7 +48,7 @@
   <string name="captureThenPromote">التقط، ثم رقي!</string>
   <string name="useAllThePawns">استخدم جميع البيادق!
 لا حاجة للترقية.</string>
-  <string name="aPawnOnTheSecondRank">البيدق على الصف الثاني يمكن أن يتحرك لمربعين في نقلة واحدة!</string>
+  <string name="aPawnOnTheSecondRank">يمكن للبيدق في الصف الثاني أن يتقدّم مربعين 2 دفعةً واحدة!</string>
   <string name="grabAllTheStarsNoNeedToPromote">إجمع كل النجوم!
 لا حاجة للترقية.</string>
   <string name="pawnComplete">تهانينا! لقد أصبحت تعرف كل شيء عن البيادق.</string>

@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Forklår kva som gjer brukarnamnet støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortel oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan handsama rapporten din raskare om du skriv på engelsk.</string>
   <string name="provideOneCheatedGameLink">Oppgje minst ei lenke til eit parti som skal vurderast.</string>
+  <string name="thanksForTheReport">Takk for rapporten</string>
+  <string name="moderatorsWillReviewSoon">Moderatorane vil snart gå gjennom rapporten, og sette i verk høvelege tiltak.</string>
+  <string name="blockUserInMeantime">I mellomtida kan du blokkera denne brukaren:</string>
 </resources>

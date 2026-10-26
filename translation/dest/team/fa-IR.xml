@@ -53,6 +53,7 @@
   <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
   <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
   <string name="forumLabel">انجمنِ تیم</string>
+  <string name="forumVisibilityHelp">چه کسی می‌تواند انجمنِ تیم را در صفحهٔ تیم ببیند؟&lt;br&gt;فقط عضوهای تیم می‌توانند در انجمنِ تیم فرسته گذارند.</string>
   <string name="forumVisibilityNone">پنهانیدنِ انجمن</string>
   <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
   <string name="upcomingTournaments">مسابقات پیش رو</string>

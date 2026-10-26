@@ -186,7 +186,7 @@
   <string name="customPositionTitle">Posición personalizada</string>
   <string name="customPositionText">Configura el tablero a tu manera.&lt;br&gt;Apropiado para explorar finales.</string>
   <string name="loadGameFromTheWebTitle">Cargar una partida desde un sitio web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pegar enlace de partida&lt;br&gt;, como lichess.org/7fHIU0XI, &lt;br&gt;para cargar los movimientos en el capítulo.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pega el enlace de una partida&lt;br&gt; (como lichess.org/7fHIU0XI) &lt;br&gt;para cargar los movimientos en el capítulo.</string>
   <string name="fromFenStringTitle">A partir de una cadena FEN</string>
   <string name="fromFenStringText">Pegar una posición en formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para iniciar el capítulo desde una posición.</string>
   <string name="fromPgnGameTitle">A partir de una partida PGN</string>

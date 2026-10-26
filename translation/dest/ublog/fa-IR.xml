@@ -58,7 +58,7 @@
   <string name="imageAlt">متنِ جایگزینِ تصویر</string>
   <string name="imageCredit">منبع عکس</string>
   <string name="coverImage">تصویرِ پوشَن</string>
-  <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
+  <string name="deleteBlog">بی‌دریغ این وبنوشته را بحذفید</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">وبگاه‌های زیر تصویرهایی را به رایگان می‌فراهمند. لطفا مطمئن شوید که جواز برای تصویری که می‌بهرید را دارید.</string>
   <string name="selectPostTopics">موضوع‌هایی که فرسته‌تان دربارهٔ آن‌ها است را، برگزینید</string>
   <string name="topicChess">شطرنج</string>

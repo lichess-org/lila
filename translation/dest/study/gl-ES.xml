@@ -186,7 +186,7 @@
   <string name="customPositionTitle">Posición á medida</string>
   <string name="customPositionText">Dispón o taboleiro ó teu xeito.&lt;br&gt;Adecuada pra explorar os finais.</string>
   <string name="loadGameFromTheWebTitle">Cargar unha partida dende a web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pega o URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pega a ligazón&lt;br&gt;(por exemplo lichess.org/game/7fHIU0XI)&lt;br&gt;para cargar as xogadas no capítulo.</string>
   <string name="fromFenStringTitle">A partires dunha cadea FEN</string>
   <string name="fromFenStringText">Pega a posición no formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para comezar o capítulo dende unha posición determinada.</string>
   <string name="fromPgnGameTitle">Dende o PGN dunha partida</string>

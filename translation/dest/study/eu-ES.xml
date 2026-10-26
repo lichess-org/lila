@@ -186,7 +186,6 @@
   <string name="customPositionTitle">Posizio pertsonalizatua</string>
   <string name="customPositionText">Konfiguratu taula zuk nahi duzun moduan.&lt;br&gt;Adibidez finalak aztertzeko.</string>
   <string name="loadGameFromTheWebTitle">Kargatu partida bat webetik</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Itsatsi partidaren URLa &lt;br&gt;(adb.: lichess.org/7fHIU0XI)&lt;br&gt; partidaren jokaldiak kapituluan kargatzeko.</string>
   <string name="fromFenStringTitle">FEN kate batetik</string>
   <string name="fromFenStringText">Itsatsu FEN formatuko posizio bat&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
   <string name="fromPgnGameTitle">PGN partida batetik</string>

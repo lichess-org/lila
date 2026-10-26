@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Forklar hvorfor brukernavnet er støtende. Skriv en utdypende begrunnelse, ikke bare «det er støtende/upassende». Dette gjelder særlig hvis fornærmelsen er tilslørt, ikke er på engelsk, er et slanguttrykk eller er en historisk/kulturell referanse.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle rapporten din raskere hvis du skriver på engelsk.</string>
   <string name="provideOneCheatedGameLink">Oppgi minst én lenke til et parti som skal vurderes.</string>
+  <string name="thanksForTheReport">Takk for rapporten</string>
+  <string name="moderatorsWillReviewSoon">Moderatorene vil snart gå gjennom rapporten og iverksette nødvendige tiltak.</string>
+  <string name="blockUserInMeantime">I mellomtiden kan du blokkere denne brukeren:</string>
 </resources>

@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Объясните, почему это имя пользователя является оскорбительным. Не пишите просто «оно оскорбительное/неприемлемое» — расскажите, почему вы так решили, особенно если оскорбление неочевидно, написано не на английском языке, использует сленг или содержит историческую/культурную отсылку.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Мы сможем обработать вашу жалобу быстрее, если вы напишете её на английском языке.</string>
   <string name="provideOneCheatedGameLink">Пожалуйста, укажите хотя бы одну ссылку на партию для проверки.</string>
+  <string name="thanksForTheReport">Спасибо за жалобу</string>
+  <string name="moderatorsWillReviewSoon">Модераторы проверят её в ближайшее время и примут необходимые меры.</string>
+  <string name="blockUserInMeantime">А пока вы можете заблокировать этого пользователя:</string>
 </resources>
