@@ -8,7 +8,7 @@ import lila.app.*
 import lila.challenge.ChallengeBulkSetup
 import lila.common.Json.given
 
-final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
+final class BulkPairing(gameC: => Game, env: Env) extends LilaController(env):
 
   def list = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
     env.challenge.bulk
@@ -36,7 +36,7 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
             flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
             perSecond = MaxPerSecond(50)
           )
-          apiC.GlobalConcurrencyLimitPerIP
+          limit.GlobalConcurrencyLimitPerIP
             .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
               Ok.chunked(source).as(gameC.gameContentType(config)).noProxyBuffer
   }

@@ -150,7 +150,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         flags = gameC.requestPgnFlags(extended = false),
         perSecond = gamesPerSecond(ctx.me)
       )
-      GlobalConcurrencyLimitPerIP
+      limit.GlobalConcurrencyLimitPerIP
         .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
           Ok.chunked(source)
             .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
@@ -191,7 +191,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
       )
-      GlobalConcurrencyLimitPerIP
+      limit.GlobalConcurrencyLimitPerIP
         .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
           val filename = env.api.gameApiV2.filename(swiss, config.format)
           Ok.chunked(source)
@@ -218,14 +218,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     val max = ctx.me.fold(300): u =>
       if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
       )(jsOptToNdJson)
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
@@ -391,27 +391,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.Done => jsonOkResult
     case ApiResult.Data(json) => Ok(json)
 
-  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)
+  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: Context): Result =
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(jsToNdJson)
 
-  def csvDownload(makeSource: => Source[String, ?])(using req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToCsv)
+  def csvDownload(makeSource: => Source[String, ?])(using req: Context): Result =
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
     Ok.chunked(source.map(_ + "\n")).as(CSV).noProxyBuffer
-
-  private[controllers] object GlobalConcurrencyLimitPerIP:
-
-    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
-      if ctx.isAnon then eventsForAnon
-      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
-      else eventsForUser
-
-    private val eventsForAnon = ConcurrencyLimit[IpAddress](4, "api.ip.events.anon")
-    private val eventsForUser = ConcurrencyLimit[IpAddress](8, "api.ip.events.user")
-    private val eventsForVerifiedUser = ConcurrencyLimit[IpAddress](16, "api.ip.events.verified")
-    val download = ConcurrencyLimit[IpAddress](2, "api.ip.download")
-    val generous = ConcurrencyLimit[IpAddress](20, "api.ip.generous")
 
   private[controllers] val GlobalConcurrencyLimitUser = ConcurrencyLimit[UserId](2, "api.user")
   private[controllers] val GlobalConcurrencyLimitUserMobile = ConcurrencyLimit[UserId](3, "api.user.mobile")
@@ -427,8 +414,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: Context): Result =
     val ipLimiter =
       if ctx.me.exists(u => about.exists(u.is(_)))
-      then GlobalConcurrencyLimitPerIP.generous
-      else GlobalConcurrencyLimitPerIP.download
+      then limit.GlobalConcurrencyLimitPerIP.generous
+      else limit.GlobalConcurrencyLimitPerIP.download
     ipLimiter
       .compose[T](req.ipAddress)
       .flatMap: limitIp =>

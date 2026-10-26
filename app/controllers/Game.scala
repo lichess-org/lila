@@ -142,15 +142,15 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
-    val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
+    val (max, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
     val config = ByIdsConfig(
-      ids = GameId.from(ctx.body.body.split(',').view.take(limit).toSeq),
+      ids = GameId.from(ctx.body.body.split(',').view.take(max).toSeq),
       format = Format.byRequest,
       flags = requestPgnFlags(extended = false),
       perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
     )
-    apiC.GlobalConcurrencyLimitPerIP
+    limit.GlobalConcurrencyLimitPerIP
       .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
         Ok.chunked(source).as(gameContentType(config)).noProxyBuffer
 

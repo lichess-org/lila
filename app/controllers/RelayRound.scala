@@ -13,11 +13,7 @@ import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 import lila.study.Study as StudyModel
 
-final class RelayRound(
-    env: Env,
-    studyC: => Study,
-    apiC: => Api
-) extends LilaController(env):
+final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   import env.relay.{ jsonView, api, playerApi, roundForm, pgnStream }
 
@@ -224,14 +220,14 @@ final class RelayRound(
 
   def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
     val source = api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(jsonView.myRound)
-    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
   def apiSpotlightRounds = SecuredScoped(_.StudyAdmin) { ctx ?=> _ ?=>
     val source = api
       .spotlightRounds(MaxPerSecond(120), getIntAs[Max]("nb"), getTimestamp("since"), getTimestamp("until"))
       .map(jsonView.withSpotlight)
-    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
   def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>

@@ -17,6 +17,25 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   private given (using ctx: Context): RequestHeader = ctx.req
 
+  object GlobalConcurrencyLimitPerIP:
+
+    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
+      if !ctx.isAuth then eventsForAnon
+      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
+      else eventsForUser
+
+    def download(using ctx: Context): ConcurrencyLimit[IpAddress] =
+      if ctx.me.exists(_.isVerified) then downloadForVerifiedUser
+      else downloadBase
+
+    private val eventsForAnon = ConcurrencyLimit[IpAddress](4, "api.ip.events.anon")
+    private val eventsForUser = ConcurrencyLimit[IpAddress](8, "api.ip.events.user")
+    private val eventsForVerifiedUser = ConcurrencyLimit[IpAddress](16, "api.ip.events.verified")
+
+    private val downloadBase = ConcurrencyLimit[IpAddress](2, "api.ip.download")
+    private val downloadForVerifiedUser = ConcurrencyLimit[IpAddress](8, "api.ip.download")
+    val generous = ConcurrencyLimit[IpAddress](20, "api.ip.generous")
+
   val setupPost = RateLimit[IpAddress](5, 1.minute, "setup.post", log = false)
 
   val setupAnonHook = RateLimit
