@@ -75,9 +75,9 @@
   <string name="fromMyGames">از بازی‌های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
   <string name="searchPuzzles">جستجوی معما</string>
-  <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
+  <string name="fromMyGamesNone">شما هیچ معمایی در پادا ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
-بازی‌های سریع و فکری را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
+بازی‌های سریع و فکری را انجامید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">یک معما در بازی‌های %2$s پیدا شد</item>
     <item quantity="other">%1$s معما در بازی‌های %2$s پیدا شد</item>

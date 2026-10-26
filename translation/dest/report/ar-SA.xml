@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">اشرح لماذا يُعدّ اسم المستخدم هذا مسيئًا. لا تكتفِ بقول «إنه مسيء أو غير لائق»، بل وضّح كيف توصلت إلى هذا الاستنتاج، خاصةً إذا كانت الإساءة غير واضحة، أو كان الاسم بلغة غير الإنجليزية، أو يتضمن تعبيرًا عاميًا، أو إشارة تاريخية أو ثقافية.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">يمكننا معالجة بلاغك بسرعة أكبر إذا كتبته باللغة الإنجليزية.</string>
   <string name="provideOneCheatedGameLink">يرجى تقديم رابط مباراة واحدة على الأقل لمراجعتها.</string>
+  <string name="thanksForTheReport">شكرًا على الإبلاغ</string>
+  <string name="moderatorsWillReviewSoon">سيراجع المشرفون البلاغ قريبًا جدًا، وسيتخذون الإجراء المناسب.</string>
+  <string name="blockUserInMeantime">في هذه الأثناء، يمكنك حظر هذا المستخدم:</string>
 </resources>

@@ -529,7 +529,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
-  <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
+  <string name="reportXToModerators">Tee %s:sta ilmoitus moderaattoreille</string>
   <string name="profileCompletion">Profiilia täytetty: %s</string>
   <string name="xRating">%s-vahvuusluku</string>
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
@@ -587,7 +587,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="postEdited">muokattu</string>
   <string name="message">Viesti</string>
   <string name="createTheTopic">Luo aihe</string>
-  <string name="reportAUser">Raportoi käyttäjä</string>
+  <string name="reportAUser">Ilmoita käyttäjä</string>
   <string name="user">Käyttäjä</string>
   <string name="reason">Syy</string>
   <string name="cheat">Huijaus</string>
@@ -698,7 +698,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
-  <string name="aboutX">Tietoa %s</string>
+  <string name="aboutX">Tietoa %sistä</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
   <string name="lichessUpdates">Lichessin päivitykset</string>

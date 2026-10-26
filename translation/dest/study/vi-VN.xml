@@ -182,7 +182,7 @@
   <string name="customPositionTitle">Thế cờ tùy chỉnh</string>
   <string name="customPositionText">Thiết lập bàn cờ theo cách của bạn.&lt;br&gt;phù hợp để khám phá cờ tàn, tàn cuộc.</string>
   <string name="loadGameFromTheWebTitle">Tải ván đấu từ trang web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Dán URL ván cờ&lt;br&gt;(ví dụ: lichess.org/7fHIU0XI)&lt;br&gt;để tải các nước cờ trong chương.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Dán URL ván cờ&lt;br&gt;(ví dụ: lichess.org/game/7fHvU0XI)&lt;br&gt;để tải các nước đi của ván cờ trong chương.</string>
   <string name="fromFenStringTitle">Từ một chuỗi FEN</string>
   <string name="fromFenStringText">Dán một thế cờ ở định dạng FEN&lt;br&gt;&lt;i&gt;4K3/4RB2/8/7P/8/5Q2/1PP5/1K6 W&lt;/i&gt;&lt;br&gt;để bắt đầu chương từ một thế cờ.</string>
   <string name="fromPgnGameTitle">Từ một PGN của ván cờ</string>
@@ -193,7 +193,9 @@
   <string name="doubleDefeat">Đôi bại</string>
   <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
   <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
-  <string name="analysisEditor">Trình tự phân tích</string>
+  <string name="analysisEditor">Thiết lập trình phân tích</string>
+  <string name="clearLocal">Xóa phân tích cục bộ?</string>
+  <string name="clearPublished">Xóa phân tích đã được công bố?</string>
   <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
   <string name="analyzeOnYourDevice">Phân tích trên thiết bị của bạn</string>
 </resources>

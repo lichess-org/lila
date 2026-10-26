@@ -6,7 +6,7 @@
   <string name="gameMode">Öyin rejimi</string>
   <string name="createLobbyGame">Kutiş zalida öyin yarating</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir öyinga taklif qiliş uçun uşbu havolani unga yuboring</string>
-  <string name="gameOver">O‘yin tugadi</string>
+  <string name="gameOver">Öyin tugadi</string>
   <string name="waitingForOpponent">Raqib kutilmoqda</string>
   <string name="orLetYourOpponentScanQrCode">Yoki raqibingiz uşbu QR kodni skanerlasin</string>
   <string name="reusableChallengeUrl">Çorlov havolasi</string>
@@ -171,7 +171,7 @@
   <string name="threefoldRepetition">Uç marta takrorlaniş</string>
   <string name="claimADraw">Durang talab qiliş</string>
   <string name="drawClaimed">Durang</string>
-  <string name="offerDraw">Durang taklif qilish</string>
+  <string name="offerDraw">Durang taklif qiliş</string>
   <string name="draw">Durang</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ta öyinçi</item>
@@ -194,8 +194,8 @@
     <item quantity="other">%s saqlangan</item>
   </plurals>
   <string name="viewInFullSize">Töliq ölçamda köriş</string>
-  <string name="logOut">Chiqish</string>
-  <string name="signIn">Kirish</string>
+  <string name="logOut">Çiqiş</string>
+  <string name="signIn">Kiriş</string>
   <string name="rememberMe">Meni eslab qol</string>
   <string name="youNeedAnAccountToDoThat">Buning uçun sizga akkaunt kerak</string>
   <string name="signUp">Röyxatdan ötiş</string>
@@ -209,7 +209,7 @@
   <string name="otherPlayers">boşqa öyinçilar</string>
   <string name="discussions">Suhbatlar</string>
   <string name="today">Bugun</string>
-  <string name="yesterday">Kecha</string>
+  <string name="yesterday">Keça</string>
   <string name="minutesPerSide">Har bir tomonga beriladigan vaqt (minut)</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantlar</string>
@@ -246,7 +246,7 @@
   <string name="changePassword">Parolni özgartiriş</string>
   <string name="changeEmail">E‑poçta manzilini özgartiriş</string>
   <string name="email">E‑poçta</string>
-  <string name="passwordReset">Parolni tiklash</string>
+  <string name="passwordReset">Parolni boşqattan örnatiş</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Uşbu parol juda oddiy va uni taxmin qiliş oson.</string>
   <string name="error.namePassword">Foydalanuvçi nomini parol sifatida işlatmang.</string>
@@ -356,7 +356,7 @@
   <string name="exportGames">Öyinlarni eksport qiliş</string>
   <string name="ratingFilter">Reyting filtri</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">%s sekund berish</item>
+    <item quantity="one">%s sekund beriş</item>
     <item quantity="other">%s sekund beriş</item>
   </plurals>
   <string name="thisAccountViolatedTos">Uşbu öyinçi Lichess foydalaniş şartlarini buzgan</string>
@@ -390,7 +390,7 @@
     <item quantity="other">%s sinxron seans</item>
   </plurals>
   <string name="viewTournament">Turnirni köriş</string>
-  <string name="backToTournament">Turnirga qaytish</string>
+  <string name="backToTournament">Turnirga qaytiş</string>
   <string name="noDrawBeforeSwissLimit">Şveysarça tizimdagi turnirlarda 30 ta yuriş amalga oşirilmagunça durangga kelişib bölmaydi.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
@@ -575,7 +575,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="website">Veb‑sayt</string>
   <string name="mobile">Mobil ilova</string>
   <string name="help">Yordam:</string>
-  <string name="createANewTopic">Yangi mavzu yaratish</string>
+  <string name="createANewTopic">Yangi mavzu yaratiş</string>
   <string name="topics">Mavzular</string>
   <string name="posts">Postlar</string>
   <string name="lastPost">Oxirgi post</string>
@@ -589,7 +589,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="message">Xabar</string>
   <string name="createTheTopic">Mavzuni yaratiş</string>
   <string name="reportAUser">Foydalanuvçi haqida şikoyat qiliş</string>
-  <string name="user">Foydalanuvchi</string>
+  <string name="user">Foydalanuvçi</string>
   <string name="reason">Sabab</string>
   <string name="cheat">Ğirromlik</string>
   <string name="troll">Trol</string>
@@ -1051,7 +1051,7 @@ FEN pozitsiyani yaratiş uçun %s bölimidan foydalanişingiz mumkin.
   <string name="copyToClipboard">Nusxa oliş</string>
   <string name="online" comment="status of a user">onlayn</string>
   <string name="offline" comment="status of a user">oflayn</string>
-  <string name="search">Qidirish</string>
+  <string name="search">Qidiriş</string>
   <string name="clearSearch">Qidiruvni tozalaş</string>
   <string name="thereAreNoResultsForX">\"%s\" böyiça natija yöq</string>
   <string name="tags">Teglar</string>

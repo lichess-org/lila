@@ -186,7 +186,7 @@
   <string name="customPositionTitle">Brukardefinert stilling</string>
   <string name="customPositionText">Sett opp brettet på din måte.&lt;br&gt;Nyttig for å utforske sluttspel.</string>
   <string name="loadGameFromTheWebTitle">Last opp eit parti frå webben</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lim inn ein partie-URL&lt;br&gt;(som t.d. lichess.org/7fHIU0XI)&lt;br&gt;ein, for å lasta inn partiet i kapittelet.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lim inn ein parti-URL&lt;br&gt;(som t.d. lichess.org/7fHIU0XI)&lt;br&gt; for å lasta inn partiet i kapittelet.</string>
   <string name="fromFenStringTitle">Frå ein FEN-streng</string>
   <string name="fromFenStringText">Lim inn ei stilling i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;for å starte kapitlet frå ei stilling.</string>
   <string name="fromPgnGameTitle">Frå eit PGN-parti</string>

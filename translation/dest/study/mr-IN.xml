@@ -187,7 +187,6 @@
   <string name="customPositionTitle">सानुकूल स्थिती</string>
   <string name="customPositionText">तुमच्या प्रमाणे पट मांडा.&amp;lt;br&amp;gt;अंत्यखेळांना शोधण्यासाठी अनुकूल.</string>
   <string name="loadGameFromTheWebTitle">आंतरजालमधून एक खेळ आयात करा</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">एका खेळाची URL&lt;br&gt;(जशी lichess.org/7fHIU0XI)&lt;br&gt;अध्याय मध्ये डाव आयात करण्यासाठी.</string>
   <string name="fromFenStringTitle">एका FEN माळ मधून</string>
   <string name="fromFenStringText">एका स्थितीला FEN स्वरूपात&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;अध्याय एका स्थितीपासून चालू करण्यासाठी.</string>
   <string name="fromPgnGameTitle">एका PGN खेळातून</string>

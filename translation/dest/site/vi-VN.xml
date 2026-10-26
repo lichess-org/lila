@@ -20,7 +20,7 @@
   <string name="chat">Tán gẫu</string>
   <string name="resign">Đầu hàng</string>
   <string name="checkmate">Chiếu hết</string>
-  <string name="stalemate">Hết nước đi hợp lệ</string>
+  <string name="stalemate">Hết nước đi</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
@@ -698,7 +698,7 @@ Bạn bè đang chơi: %2$s</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu của bạn khi đấu với mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian cộng thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
-  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
+  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Tỉ lệ mất tốt trung bình (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>

@@ -70,7 +70,7 @@
   <string name="embedInYourWebsite">Veb‑saytingizda joylaştiriş uçun havola</string>
   <string name="readMoreAboutEmbedding">Joylaştiriş haqida batafsil maʼlumot</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Faqat oçiq saboqlarni joylaştiriş mumkin!</string>
-  <string name="open">Ochish</string>
+  <string name="open">Oçiş</string>
   <string name="xBroughtToYouByY">%2$s taqdim etadi: %1$s</string>
   <string name="studyNotFound">Saboq topilmadi</string>
   <string name="editChapter">Bobni tahrirlaş</string>
@@ -186,7 +186,6 @@
   <string name="customPositionTitle">Maxsus pozitsiya</string>
   <string name="customPositionText">Pozitsiyani özingiz xohlagança tering.&lt;br&gt;Endşpillarni örganiş uçun qulay.</string>
   <string name="loadGameFromTheWebTitle">Vebdan öyinni yuklaş</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Bobga öyinni yuklaş uçun&lt;br&gt;Lichess öyini havolasini (URL) kiriting&lt;br&gt;(masalan: lichess.org/7fHIU0XI).</string>
   <string name="fromFenStringTitle">FEN satridan</string>
   <string name="fromFenStringText">Bobni maʼlum bir pozitsiyadan boşlaş uçun&lt;br&gt;FEN formatidagi pozitsiyani kiriting:&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;</string>
   <string name="fromPgnGameTitle">PGN öyinidan</string>

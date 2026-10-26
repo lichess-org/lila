@@ -168,14 +168,14 @@
   <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines vo stärkste bis schwächste</string>
   <string name="illegalPosition">Illegali Schtellig</string>
-  <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
+  <string name="threefoldRepetition">Drüfachi Schtelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="drawClaimed">Remis g\'forderet</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Schpiller</item>
-    <item quantity="other">%s Schpiller</item>
+    <item quantity="one">%s Schpiler</item>
+    <item quantity="other">%s Schpiler</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>

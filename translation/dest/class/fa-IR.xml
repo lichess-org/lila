@@ -98,7 +98,7 @@
   <string name="notifyAllStudents">آگاهاندنِ همهٔ شطرنج‌آموزان</string>
   <string name="nothingHere">اینجا هنوز چیزی نیست.</string>
   <string name="newsEdit1">همه اخبار کلاس در جایی واحد.</string>
-  <string name="newsEdit2">اخبار جدید را بالا بگذار. اخبار قبلی را پاک نکن.</string>
+  <string name="newsEdit2">اخبار اخیر را بالا گذار. اخبار قبلی را حذف نکن.</string>
   <string name="newsEdit3">اخبار جداگانه با ---
 یک خط افقی را نمایش می دهد.</string>
   <string name="invite">دعوت</string>
