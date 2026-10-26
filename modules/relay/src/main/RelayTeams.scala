@@ -115,15 +115,14 @@ object RelayTeam:
             else if aPoints > bPoints then ByColor(Points.One, Points.Zero)
             else ByColor(Points.Zero, Points.One)
     private def scorePair: Option[ByColor[Float]] =
-      pointsPair.flatMap: p =>
+      pointsPair.map: p =>
         teamCustomScoring
-          .map: cs =>
+          .fold(p.map(_.value)): cs =>
             p.map:
               case Points.One => cs.win
               case Points.Half => cs.draw
               case zero => RelayRound.CustomPoints(zero.value)
             .map(_.value)
-          .orElse(p.map(_.value).some)
     def povMatches: ByColor[POVMatch] =
       teams
         .zip(teams.swap)
