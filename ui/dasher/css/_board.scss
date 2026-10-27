@@ -20,8 +20,7 @@
     width: 64px;
     height: 32px;
     transition: transform 200ms;
-    border: 1px solid $c-border;
-    box-sizing: border-box;
+    border: $border;
   }
 
   .list button .preview > span {
