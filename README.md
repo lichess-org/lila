@@ -59,11 +59,11 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 
 | Name              | Version | Notes                      |
 | ----------------- | ------- | -------------------------- |
-| Firefox           | 115+    | Full support (recommended) |
-| Chromium / Chrome | 112+    | Full support               |
-| Edge              | 111+    | Full support               |
+| Firefox           | 100+    | Full support (recommended) |
+| Chromium / Chrome | 100+    | Full support               |
+| Edge              | 100+    | Full support               |
 | Opera             | 97+     | Reasonable support         |
-| Safari            | 16.2+   | Reasonable support         |
+| Safari            | 14+     | Reasonable support         |
 
 Older browsers will not work.
 For your own sake, please upgrade. Security and performance, think about it!

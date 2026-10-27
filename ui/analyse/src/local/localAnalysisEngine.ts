@@ -39,7 +39,6 @@ export class LocalAnalysisEngine {
   private finishNode: (error?: 'cancelled') => void = () => {};
 
   constructor(private readonly ctrl: AnalyseCtrl) {
-    this.ctrl.ceval.reset();
     this.nodes = mainlineNodeList(structuredCloneLite(this.ctrl.tree.root));
     this.nodeIndex = this.nodes.length - 1;
     for (const [i, node] of this.nodes.entries()) {
@@ -65,6 +64,7 @@ export class LocalAnalysisEngine {
   ): Promise<LocalAnalysisResult> {
     try {
       this.busy = true;
+      this.ctrl.ceval.reset();
       this.ctrl.initCeval({ emit: this.onEval, custom });
       const update = () => {
         const done = this.nodes.length - this.nodeIndex - 1;
@@ -77,6 +77,7 @@ export class LocalAnalysisEngine {
     } finally {
       this.busy = false;
       this.ctrl.initCeval();
+      this.ctrl.startCevalIfEnabled();
     }
   }
 

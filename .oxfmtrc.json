@@ -8,8 +8,8 @@
     "/ui/@types/lichess/licon.d.ts",
     "ui/.build/src/algo.ts",
     "**/public",
-    "COPYING.md",
-    "README.md"
+    "**/{app,modules}/**/README.md",
+    "COPYING.md"
   ],
   "bracketSameLine": true,
   "sortPackageJson": false,

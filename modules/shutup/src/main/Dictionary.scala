@@ -271,7 +271,7 @@ hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
 idiota
-imbecil
+imb[eé]cil
 madre
 malparid[ao]
 maric[oó]na?
@@ -300,6 +300,7 @@ cretino
 di merda
 figa
 frocio
+imbecill[ei]
 li mortacci tua
 putt?ana
 stronzo

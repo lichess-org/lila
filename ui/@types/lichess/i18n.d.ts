@@ -127,6 +127,10 @@ interface I18n {
     allowBerserk: string;
     /** Let players halve their clock time to gain an extra point */
     allowBerserkHelp: string;
+    /** Allow bot accounts */
+    allowBotAccounts: string;
+    /** Let <a href='%s' target='_blank'>bots</a> join the tournament and play with their engines. This often repels human players. */
+    allowBotAccountsDescription: I18nFormat;
     /** Let players discuss in a chat room */
     allowChatHelp: string;
     /** Arena */
@@ -167,6 +171,8 @@ interface I18n {
     editTeamBattle: string;
     /** Edit tournament */
     editTournament: string;
+    /** Entry conditions */
+    entryConditions: string;
     /** Arena History */
     history: string;
     /** How are players paired? */
@@ -227,6 +233,8 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
+    /** Start date */
+    startDate: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -4283,6 +4291,8 @@ interface I18n {
     message: string;
     /** Middlegame */
     middlegame: string;
+    /** Minimum account age */
+    minimumAccountAge: string;
     /** Minimum rated games */
     minimumRatedGames: string;
     /** Minimum rating */
@@ -4753,6 +4763,8 @@ interface I18n {
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search in "%s" */
+    searchInX: I18nFormat;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */
@@ -4943,6 +4955,8 @@ interface I18n {
     timeline: string;
     /** Time to process a move on Lichess's server */
     timeToProcessAMoveOnLichessServer: string;
+    /** Titled players bypass this restriction. */
+    titledPlayersBypassRestriction: string;
     /** Title verification */
     titleVerification: string;
     /** Today */
@@ -5789,6 +5803,10 @@ interface I18n {
     saveChapter: string;
     /** Search by username */
     searchByUsername: string;
+    /** Search chapters */
+    searchChapters: string;
+    /** Search games */
+    searchGames: string;
     /** Share & export */
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
@@ -5895,6 +5913,8 @@ interface I18n {
     canPlayRoundRobinTournaments: string;
     /** Comparison */
     comparison: string;
+    /** Custom pairings */
+    customPairings: string;
     /** Predefined max rounds, but duration unknown */
     durationUnknown: string;
     /** Dutch system */

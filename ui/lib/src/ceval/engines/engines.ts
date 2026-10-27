@@ -114,7 +114,8 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'NNUE',
-          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 10 },
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 3 }, // 3 is a compromise.
+          // Depending on variant, NNUE can add anywhere from +200 to +1000 ELO according to download page.
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: [key],
           supportsCloudEval: true,

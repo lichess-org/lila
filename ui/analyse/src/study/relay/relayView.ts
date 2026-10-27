@@ -40,7 +40,7 @@ export function relayView(
   return renderMain(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
-    deps.studyView.overboard(study),
+    deps.studyView.overboard(study, 'broadcast'),
     ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx),
   );
 }
