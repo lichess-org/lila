@@ -72,15 +72,23 @@ trait ResponseBuilder(using Executor)
         case Some(v) => api(v).dmap(_.varyAccept)
         case None => negotiate(html, api(ApiVersion.mobile))
 
-  def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
-    val res = if HTTPRequest.acceptsJson(ctx.req) || ctx.isOAuth then json else html
-    res.dmap(_.varyAccept)
+  def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] = {
+    if HTTPRequest.acceptsJson(ctx.req) then json
+    else if ctx.isOAuth then
+      if HTTPRequest.accepts(ctx.req).isEmpty then json
+      else
+        lila.log.system.info(s"${HTTPRequest.print(ctx.req)} ${ctx.userId} ${HTTPRequest.accepts(ctx.req)}")
+        NotAcceptable(jsonError(onlyReturnsJson)).toFuccess
+    else html
+  }.map(_.varyAccept)
 
   def negotiateJson(result: => Fu[Result])(using Context): Fu[Result] =
     negotiate(
-      notFound("This endpoint only returns JSON, add the header `Accept: application/json`".some),
+      notFound(onlyReturnsJson.some),
       result
     )
+
+  private val onlyReturnsJson = "This endpoint only returns JSON, add the header `Accept: application/json`"
 
   def notFound(using ctx: Context): Fu[Result] = notFound(none)
   def notFound(msg: Option[String])(using ctx: Context): Fu[Result] =
