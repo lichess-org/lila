@@ -3,7 +3,7 @@ body:has(dialog.touch-scroll) {
 }
 
 dialog {
-  @extend %box-radius, %popup-shadow;
+  @extend %box-radius;
   @include inline-start(50%);
 
   position: fixed;
@@ -17,8 +17,11 @@ dialog {
   padding: 0;
   border: none;
   outline: none;
-  background: $c-bg-high;
+  background: $c-bg-opaque;
   z-index: $z-modal-111;
+  box-shadow:
+    0 14px 28px rgb(0 0 0 / 0.15),
+    0 10px 10px rgb(0 0 0 / 0.12);
 
   @include if-rtl {
     transform: translate(50%, -50%);
