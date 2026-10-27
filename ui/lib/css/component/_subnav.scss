@@ -9,6 +9,10 @@
     @include backdrop-blur-if-transparent;
   }
 
+  a::before {
+    color: $c-font-dim;
+  }
+
   @include mq-subnav-top {
     display: flex;
     flex-direction: row;
@@ -35,7 +39,12 @@
       color: $c-font;
       padding: 0.6rem;
 
-      &:hover {
+      &::before {
+        margin-inline-end: 4px;
+      }
+
+      &:hover,
+      &:hover::before {
         color: $c-link;
       }
 

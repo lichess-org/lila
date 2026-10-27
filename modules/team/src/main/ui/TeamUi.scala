@@ -39,12 +39,13 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams()),
           a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates()),
           a(cls := tab.active("events"), href := routes.Team.events)(trt.teamEvents()),
-          a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams())
+          a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams()),
+          div(cls := "sep")
         )
       ,
-      a(cls := tab.active("all"), href := routes.Team.all())(trt.allTeams()),
+      a(cls := tab.active("all"), href := routes.Team.all(), dataIcon := Icon.List)(trt.allTeams()),
       ctx.isAuth.option:
-        a(cls := tab.active("form"), href := routes.Team.form)(trt.newTeam())
+        a(cls := tab.active("form"), href := routes.Team.form, dataIcon := Icon.PlusButton)(trt.newTeam())
     )
 
   def teamTr(t: Team.WithMyLeadership)(using Context) =
