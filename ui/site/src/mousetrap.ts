@@ -16,6 +16,7 @@
  */
 
 import { isEquivalent } from 'lib/algo';
+import { getOpenModalDialog } from 'lib/view';
 
 type Action = 'keypress' | 'keydown' | 'keyup';
 
@@ -169,6 +170,7 @@ export default class Mousetrap {
   };
 
   private readonly handleKeyEvent = (e: KeyboardEvent) => {
+    if (getOpenModalDialog()) return;
     const el = e.target as HTMLElement;
     for (const binding of this.getMatches(e)) {
       if (

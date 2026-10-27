@@ -434,3 +434,7 @@ async function loadWithCss<T = string>(css: CssAsset[] = [], loadMe?: Promise<T>
   ]);
   return results[0]?.status === 'fulfilled' ? results[0].value : undefined;
 }
+
+export function getOpenModalDialog(): HTMLElement | null {
+  return document.querySelector<HTMLElement>('dialog:modal, .snab-modal-mask dialog[open]');
+}
