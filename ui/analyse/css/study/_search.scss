@@ -1,5 +1,6 @@
 .study-search {
   padding: 0 !important;
+  overflow: hidden;
 
   @media (min-width: at-least($xx-small)) {
     width: 500px;
@@ -16,6 +17,11 @@
 
     input {
       width: 100%;
+      background: $c-bg;
+
+      &::placeholder {
+        color: $c-font-dimmer;
+      }
     }
   }
 
@@ -27,6 +33,9 @@
     text-align: start;
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-gutter: stable;
+    border: $border;
+    border-top: none;
 
     button {
       width: 100%;

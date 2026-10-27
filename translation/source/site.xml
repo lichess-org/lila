@@ -1055,6 +1055,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
+  <string name="searchInX">Search in "%s"</string>
   <string name="thereAreNoResultsForX">No results for "%s"</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
