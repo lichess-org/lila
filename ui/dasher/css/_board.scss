@@ -35,7 +35,7 @@
     }
 
     html.transp & {
-      opacity: calc(min(1, 0.5 + var(---board-opacity) / 200));
+      opacity: calc(var(---board-opacity) / 100);
     }
   }
 

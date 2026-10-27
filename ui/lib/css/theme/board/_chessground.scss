@@ -34,7 +34,7 @@ cg-board::before {
       hue-rotate(calc(var(---board-hue) * 3.6deg));
 
     @include if-transp {
-      opacity: calc(min(1, 0.5 + var(---board-opacity) / 200));
+      opacity: calc(var(---board-opacity) / 100);
     }
   }
 }
@@ -226,7 +226,7 @@ html:not(.transp) body:not(.simple-board) {
 html.transp body:not(.simple-board) cg-board {
   piece,
   square {
-    opacity: calc(min(1, 0.5 + var(---board-opacity) / 200));
+    opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
   }
 }
 
