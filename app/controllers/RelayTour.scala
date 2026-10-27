@@ -67,7 +67,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         for
           pager <- env.relay.pager.byOwner(owner.id, page)
           json = pager.mapResults(jsonView.tourWithAnyRound)
-        yield JsonOk(json).privateCache(10.minutes)
+        yield JsonOk(json).publicCache(Option.when(ctx.isAnon)(10.minutes))
 
   def pager(pager: String, page: Int) = pager match
     case "subscribed" => subscribed(page)

@@ -551,7 +551,7 @@ final class User(
                 .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
                 .map(views.user.perfStatPage(data, _))
             ,
-            JsonOk:
+            JsonOk: // lichobile only
               getBool("graph")
                 .optionFu:
                   env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
