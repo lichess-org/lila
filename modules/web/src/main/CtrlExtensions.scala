@@ -41,8 +41,6 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
       cacheControl("public", duration)
     def privateCache(duration: FiniteDuration): Result =
       cacheControl("private", duration)
-    def privateCache(duration: Option[FiniteDuration]): Result =
-      cacheControl("private", duration)
     def vary(headers: String*) = result.withHeaders(VARY -> headers.mkString(", "))
     def varyAccept = vary("Accept")
     def hasPersonalData = result.noCache
