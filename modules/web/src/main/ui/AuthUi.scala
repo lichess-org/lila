@@ -27,7 +27,7 @@ final class AuthUi(helpers: Helpers):
   def customLogo(c: AuthCustomUi) =
     div(cls := "oauth__connection")(
       img(
-        src := assetUrl(c.imagePath),
+        src := assetPath(c.imagePath),
         alt := c.name,
         cls := "oauth__connection__service"
       ),

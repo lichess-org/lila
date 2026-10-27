@@ -55,12 +55,3 @@ final class Video(env: Env) extends LilaController(env):
           .byAuthor(ctx.me, author, getInt("page") | 1)
           .map:
             views.video.author(author, _, control)
-
-  def tags = Open(serveTags)
-  def tagsLang = LangPage(routes.Video.tags)(serveTags)
-  private def serveTags(using ctx: Context) =
-    api.withUserControl: control =>
-      for
-        tags <- api.tag.allPopular
-        page <- Ok.page(views.video.tags(tags, control))
-      yield page.headerCache(1.hour)

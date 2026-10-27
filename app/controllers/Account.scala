@@ -81,16 +81,15 @@ final class Account(
           pref <- env.pref.api.byId(uid)
           u = env.user.lightUserApi.syncFallback(uid)
         yield JsonStr:
-          Json.stringify:
-            env.user.jsonView
-              .lichobileInfo(u) ++ Json
-              .obj(
-                "prefs" -> lila.pref.lichobile(pref),
-                "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-                "nbChallenges" -> nbChallenges,
-                "online" -> true
-              )
-              .add("announce" -> env.web.lichobileAnnounceApi.get)
+          env.user.jsonView
+            .lichobileInfo(u) ++ Json
+            .obj(
+              "prefs" -> lila.pref.lichobile(pref),
+              "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+              "nbChallenges" -> nbChallenges,
+              "online" -> true
+            )
+            .add("announce" -> env.web.lichobileAnnounceApi.get)
 
   def info = Auth { _ ?=> me ?=>
     env.web.playerCounter.lichobile.hit()

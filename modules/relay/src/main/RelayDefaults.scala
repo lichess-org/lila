@@ -25,7 +25,7 @@ final class RelayDefaults(
       roundRepo
         .byIdWithTour(id.into(RelayRoundId))
         .map2: rt =>
-          Url(chapterId.fold(rt.call)(rt.call).url)
+          Url(chapterId.fold(rt.call)(rt.call))
 
   private def tourWithRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
     tourRepo.coll

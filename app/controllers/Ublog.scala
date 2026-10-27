@@ -8,7 +8,6 @@ import scalalib.model.Language
 import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.i18n.toLanguage
 import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }
@@ -55,33 +54,30 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKidsUnlessOfficial(createdBy):
       WithBlogOf(createdBy): (user, blog) =>
         (canViewBlogOf(user, blog) && post.canView).so:
-          if HTTPRequest.acceptsMarkdown
-          then Ok(views.ublog.post.markdownForAgents(post)).withHeaders(asMarkdown)
-          else
-            for
-              otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
-              liked <- ctx.user.so(env.ublog.api.liked(post))
-              followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-              prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-              blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-              isInCarousel <- isGrantedOpt(_.ModerateBlog)
-                .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
-              followable = prefFollowable && !blocked
-              html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
-              viewedPost = env.ublog.viewCounter(post)
-              page <- renderPage:
-                views.ublog.post.page(
-                  user,
-                  blog,
-                  viewedPost,
-                  html,
-                  otherPosts,
-                  liked,
-                  followable,
-                  followed,
-                  isInCarousel
-                )
-            yield Ok(page)
+          for
+            otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
+            liked <- ctx.user.so(env.ublog.api.liked(post))
+            followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+            prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+            blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+            isInCarousel <- isGrantedOpt(_.ModerateBlog)
+              .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
+            followable = prefFollowable && !blocked
+            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+            viewedPost = env.ublog.viewCounter(post)
+            page <- renderPage:
+              views.ublog.post.page(
+                user,
+                blog,
+                viewedPost,
+                html,
+                otherPosts,
+                liked,
+                followable,
+                followed,
+                isInCarousel
+              )
+          yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:

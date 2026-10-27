@@ -8,7 +8,7 @@ export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url'
 const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
-  const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
+  const base = opts.pathOnly ? '' : baseUrl();
   const pathVersion = !opts.pathVersion
     ? ''
     : opts.pathVersion === true

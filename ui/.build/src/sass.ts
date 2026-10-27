@@ -136,6 +136,7 @@ async function postProcessCSS(src: string): Promise<{ size: number }> {
     minify: env.prod,
     targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
     include: Features.MediaQueries,
+    exclude: Features.LogicalProperties,
   });
   await fs.promises.writeFile(cssPath, result.code);
   return { size: result.code.byteLength };

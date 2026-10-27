@@ -41,10 +41,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   makeEnv({
     redraw,
     bot: new DevBotCtrl(
-      await makeZerofish({
-        locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
-        dev: true,
-      }),
+      await makeZerofish({ locator: (file: string) => site.asset.url(`npm/${file}`), dev: true }),
     ),
     push: new PushCtrl(),
     assets: new DevAssets(opts.assets),

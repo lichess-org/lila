@@ -31,15 +31,22 @@ object data:
     extension (a: Html) def frag = scalatags.Text.all.raw(a.value)
 
   opaque type JsonStr = String
-  object JsonStr extends OpaqueString[JsonStr]
+  object JsonStr extends OpaqueString[JsonStr]:
+    import play.api.libs.json.{ Json, JsValue }
+    def apply(js: JsValue): JsonStr = JsonStr(Json.stringify(js))
 
   // JSON string that is safe to include in HTML
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  // path part of a URL, like /assets/images/logo.png
+  opaque type Path = String
+  object Path extends OpaqueString[Path]
+
   opaque type Url = String
   object Url extends OpaqueString[Url]:
     val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
+    def apply(call: play.api.mvc.Call): Url = Url(call.url)
 
   opaque type Template = String
   object Template extends OpaqueString[Template]

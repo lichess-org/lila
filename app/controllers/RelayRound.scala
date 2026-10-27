@@ -13,11 +13,7 @@ import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 import lila.study.Study as StudyModel
 
-final class RelayRound(
-    env: Env,
-    studyC: => Study,
-    apiC: => Api
-) extends LilaController(env):
+final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   import env.relay.{ jsonView, api, playerApi, roundForm, pgnStream }
 
@@ -32,10 +28,7 @@ final class RelayRound(
   def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       WithNavigationCanUpdate(tourId): nav =>
-        def whenRateLimited = negotiate(
-          Redirect(routes.RelayTour.show(nav.tour.slug, nav.tour.id)),
-          rateLimited
-        )
+        def whenRateLimited = negotiate(Redirect(nav.tour.call), rateLimited)
         bindForm(roundForm.create(nav.tourWithRounds))(
           err =>
             negotiate(
@@ -203,7 +196,7 @@ final class RelayRound(
                 sVersion,
                 photos
               )
-            yield Ok(json).headerCache(jsonView.responseCache(rt, study))
+            yield Ok(json).headerCache(jsonView.responseCache(rt, study)).varyAccept
           )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -227,14 +220,14 @@ final class RelayRound(
 
   def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
     val source = api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(jsonView.myRound)
-    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
   def apiSpotlightRounds = SecuredScoped(_.StudyAdmin) { ctx ?=> _ ?=>
     val source = api
       .spotlightRounds(MaxPerSecond(120), getIntAs[Max]("nb"), getTimestamp("since"), getTimestamp("until"))
       .map(jsonView.withSpotlight)
-    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
   def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>

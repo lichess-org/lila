@@ -35,17 +35,17 @@ Bạn cần cả hai!</string>
   <string name="kingIntro">Bạn là quân vua. Nếu bạn bị ăn thì sẽ thua ván cờ.</string>
   <string name="theKingIsSlow">Quân vua thì đi chậm.</string>
   <string name="lastOne">Cuối cùng!</string>
-  <string name="kingComplete">Bây giờ bạn có thể chỉ huy người chỉ huy!</string>
+  <string name="kingComplete">Bây giờ giờ bạn có thể ra lệnh cho người chỉ huy!</string>
   <string name="theKnight">Quân mã</string>
   <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
   <string name="knightIntro">Đây là một thử thách cho bạn. Quân mã là... một quân mưu mẹo.</string>
   <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh 
 một cách sành điệu!</string>
   <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và lấy các ngôi sao!</string>
+Thoát khỏi nguy hiểm và lấy các ngôi sao!</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
-  <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
+  <string name="itMovesForwardOnly">Nó chỉ tiến về phía trước</string>
   <string name="pawnIntro">Tốt rất yếu, nhưng chúng có rất nhiều tiềm năng.</string>
   <string name="pawnsMoveOneSquareOnly">Tốt chỉ đi về phía trước một ô.
 Nhưng khi chúng đi đến bên kia của bàn cờ, chúng trở thành một quân mạnh hơn!</string>
@@ -87,7 +87,7 @@ bất kỳ quân không được bảo vệ nào!</string>
   <string name="combatIntro">Một chiến binh giỏi phải biết cả tấn công lẫn phòng thủ!</string>
   <string name="combatComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
   <string name="checkInOne">Chiếu trong 1 nước</string>
-  <string name="attackTheOpponentsKing">Tấn công Vua đối phương</string>
+  <string name="attackTheOpponentsKing">Tấn công vua đối phương</string>
   <string name="checkInOneIntro">Để chiếu đối thủ, hãy tấn công quân Vua. Họ sẽ phải phòng thủ!</string>
   <string name="checkInOneGoal">Đe dọa Vua đối phương trong một nước!</string>
   <string name="checkInOneComplete">Chúc mừng! Bạn đang chiếu đối phương, bắt buộc họ phải bảo vệ Vua!</string>
@@ -119,8 +119,8 @@ của mọi ván cờ!
 Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="firstPlaceTheRooks">Đầu tiên hãy đặt các quân xe!
 Chúng nằm ở các góc bàn cờ.</string>
-  <string name="thenPlaceTheKnights">Rồi đặt các quân Mã! 
-Ngay cạnh quân Xe.</string>
+  <string name="thenPlaceTheKnights">Rồi đặt các quân mã! 
+Ngay cạnh quân xe.</string>
   <string name="placeTheBishops">Đặt quân Tượng!
 Ngay cạnh quân Mã.</string>
   <string name="placeTheQueen">Đặt quân Hậu!
@@ -161,17 +161,17 @@ Hãy bắt tốt qua đường.</string>
   <string name="enPassantOnlyWorksImmediately">Bắt tốt qua đường chỉ xảy ra
 ngay lập tức sau khi đối thủ
 di chuyển quân tốt.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xẩy ra
+  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xảy ra
 nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
   <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>
   <string name="stalemate">Thủ hòa</string>
-  <string name="theGameIsADraw">Ván cờ hòa do bí nước hay hết nước đi hợp lệ</string>
+  <string name="theGameIsADraw">Ván cờ hòa do hết nước đi hợp lệ</string>
   <string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
-  <string name="stalemateGoal">Để bên đen hòa pat:
+  <string name="stalemateGoal">Để bên đen hòa do hết nước đi:
 - Bên đen không thể di chuyển bất cứ đâu
 - Bên đen không bị chiếu.</string>
-  <string name="stalemateComplete">Chúc mừng! Thà bị hòa pat còn hơn bị chiếu hết!</string>
+  <string name="stalemateComplete">Chúc mừng! Thà bị hòa do bí nước còn hơn bị chiếu tướng hết cờ!</string>
   <string name="advanced">Nâng cao</string>
   <string name="pieceValue">Giá trị của quân</string>
   <string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>

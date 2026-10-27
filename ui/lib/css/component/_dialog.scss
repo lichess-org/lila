@@ -3,16 +3,17 @@ body:has(dialog.touch-scroll) {
 }
 
 dialog {
-  --dialog-max-height: 94dvh;
-
   @extend %box-radius;
   @include inline-start(50%);
 
   position: fixed;
-  max-height: var(--dialog-max-height);
+  max-height: 94vh;
+  max-height: 94dvh;
+  display: flex;
+  flex-direction: column;
   max-width: 100%;
   top: 50%;
-  transform: translate(-50%, calc(-1 * var(--dialog-max-height) / 2));
+  transform: translate(-50%, -50%);
   padding: 0;
   border: none;
   outline: none;
@@ -23,7 +24,7 @@ dialog {
     0 10px 10px rgb(0 0 0 / 0.12);
 
   @include if-rtl {
-    transform: translate(50%, calc(-1 * var(--dialog-max-height) / 2));
+    transform: translate(50%, -50%);
   }
 
   &:has(.dialog-content.alert) {
@@ -35,7 +36,7 @@ dialog {
   }
 
   > div.scrollable {
-    max-height: calc(var(--dialog-max-height) - 16px);
+    flex: auto;
     overflow-x: clip;
     overflow-y: auto;
   }

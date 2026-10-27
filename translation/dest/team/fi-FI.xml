@@ -39,6 +39,8 @@
   <string name="teamUpdates">Joukkueilmoitukset</string>
   <string name="subToTeamUpdates">Tilaa joukkueilmoitukset</string>
   <string name="newTeamUpdate">Uusi joukkueilmoitus</string>
+  <string name="teamEvents">Joukkuekilpailut</string>
+  <string name="upcomingTeamEvents">Tulevat joukkuekilpailut</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
   <string name="leadersChat">Johtajien keskustelu</string>

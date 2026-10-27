@@ -26,11 +26,11 @@
     "defaults",
     "not op_mini all",
     "not kaios <= 4",
-    "firefox >= 115",
-    "chrome >= 112",
-    "edge >= 111",
+    "firefox >= 100",
+    "chrome >= 100",
+    "edge >= 100",
     "opera >= 97",
-    "safari >= 16.2",
-    "iOS >= 16.2"
+    "safari >= 12",
+    "iOS >= 12"
   ]
 }

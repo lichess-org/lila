@@ -18,7 +18,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def byIdFor(id: ChallengeId, dest: User) =
     coll.find(bid(id) ++ bdoc("destUser.id" -> dest.id)).one[Challenge]
 
-  def exists(id: ChallengeId) = coll.countSel(bid(id)).dmap(0 <)
+  def exists(id: ChallengeId) = coll.secondary.countSel(bid(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.so: challenger =>

@@ -36,6 +36,7 @@ final class HttpFilter(
       import ClientName.*
       if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile then lichobile else xhr
       else if HTTPRequest.isLichessMobile then mobile
+      else if req.headers.get("X-Crawler").contains("1") then crawler
       else if crawlerMatcher(req) then crawler
       else if req.path.startsWith("/fishnet/") then fishnet
       else browser

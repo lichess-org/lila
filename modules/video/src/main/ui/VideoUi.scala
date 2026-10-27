@@ -150,11 +150,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             (!checked && t.nb.forall(_ > 0)).option(em(t.nb))
           )
       ),
-      div(cls := "under-tags")(
-        if control.filter.tags.nonEmpty then
+      control.filter.tags.nonEmpty.option:
+        div(cls := "under-tags"):
           a(cls := "button button-empty", href := langHref(routes.Video.index))(trans.site.clearSearch())
-        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
-      )
     )
 
   def card(vv: VideoView, control: UserControl)(using ctx: Context, client: ClientName): Frag =
@@ -214,30 +212,6 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
   def searchForm(query: Option[String])(using Context) =
     form(cls := "search", method := "GET", action := langHref(routes.Video.index)):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
-
-  def tags(ts: List[TagNb], control: UserControl)(using Context) =
-    page(s"${trans.site.tags.txt()} • ${trv.freeChessVideos.txt()}", control):
-      frag(
-        boxTop(
-          h1(
-            a(
-              cls := "text",
-              dataIcon := Icon.Back,
-              href := s"${langHref(routes.Video.index)}?${control.queryString}"
-            )(
-              trv.allNbVideoTags(ts.size.toString)
-            )
-          )
-        ),
-        div(cls := "tag-list box__pad")(
-          ts.sortBy(_.tag).map { t =>
-            a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
-              t.tag.capitalize,
-              t.nb.map(nb => em(s" $nb"))
-            )
-          }
-        )
-      )
 
   def search(videos: Paginator[VideoView], control: UserControl)(using Context, ClientName) =
     page(s"${control.query.getOrElse(trans.site.search.txt())} • ${trv.freeChessVideos.txt()}", control):

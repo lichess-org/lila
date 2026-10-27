@@ -30,7 +30,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
     <img alt="${trans.app.downloadOnAppleAppStore.txt()}"
     width="172"
     height="50"
-    src="${assetUrl("images/mobile/apple-store.svg")}" />
+    src="${assetPath("images/mobile/apple-store.svg")}" />
   </a>
   """
 
@@ -41,7 +41,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
     <img alt="${trans.app.downloadOnGooglePlay.txt()}"
     width="172"
     height="50"
-    src="${assetUrl("images/mobile/google-play.webp")}" />
+    src="${assetPath("images/mobile/google-play.webp")}" />
   </a>
   """
 
@@ -52,7 +52,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
     <img alt="${trans.app.downloadOnFdroid.txt()}"
     width="172"
     height="50"
-    src="${assetUrl("images/mobile/fdroid.svg")}" />
+    src="${assetPath("images/mobile/fdroid.svg")}" />
   </a>
   """
 
@@ -65,7 +65,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
       "applicationCategory" -> "GameApplication",
       "url" -> routeUrl(routes.Main.app),
       "releaseNotes" -> "https://github.com/lichess-org/mobile/releases",
-      "screenshot" -> assetUrl("images/mobile/lichess-mobile-screen.webp"),
+      "screenshot" -> assetPath("images/mobile/lichess-mobile-screen.webp"),
       "offers" -> List(
         storeOffer("Google Play", StaticContent.mobileAndroidUrl),
         storeOffer("F-Droid", StaticContent.mobileFdroidUrl),
@@ -109,7 +109,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
                   widthA := "358",
                   heightA := "766",
                   cls := "mobile-playing",
-                  src := assetUrl("images/mobile/lichess-mobile-screen.webp"),
+                  src := assetPath("images/mobile/lichess-mobile-screen.webp"),
                   alt := trans.app.lichessMobileScreen.txt()
                 )
             )

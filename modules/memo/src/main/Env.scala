@@ -29,7 +29,6 @@ final class Env(
     net: NetConfig
 )(using Executor, Scheduler, play.api.Mode):
 
-  export net.assetDomain
   given NetDomain = net.domain
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader

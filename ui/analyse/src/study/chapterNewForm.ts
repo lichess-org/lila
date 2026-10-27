@@ -302,7 +302,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                           .trim()
                           .match(
                             new RegExp(
-                              `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`,
+                              `^((.*${location.host}/game/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`,
                             ),
                           ),
                       );

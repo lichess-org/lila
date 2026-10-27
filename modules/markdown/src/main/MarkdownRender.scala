@@ -47,7 +47,7 @@ import scala.util.Try
 import scala.util.chaining.*
 import scala.util.matching.Regex
 
-import lila.core.config.{ AssetDomain, NetDomain }
+import lila.core.config.NetDomain
 import lila.core.data.{ Html, Markdown, Url }
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.userId.UserName
@@ -67,7 +67,7 @@ final class MarkdownRender(
     allowedTags: Set[String] = Set.empty,
     linkRel: String = "nofollow noreferrer",
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
-    assetDomain: Option[AssetDomain] = None
+    netDomain: Option[NetDomain] = None
 )(using NetDomain):
 
   private val extensions = java.util.ArrayList[Extension]()
@@ -78,7 +78,7 @@ final class MarkdownRender(
   if strikeThrough then extensions.add(StrikethroughExtension.create())
   if autoLink then
     extensions.add(AutolinkExtension.create())
-    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain, linkRel))
+    extensions.add(MarkdownRender.WhitelistedImage.create(netDomain, linkRel))
   extensions.add(
     pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension(linkRel))(
       MarkdownRender.PgnEmbedExtension(_, linkRel)
@@ -160,7 +160,7 @@ object MarkdownRender:
 
   private object WhitelistedImage:
 
-    private val whitelist = AssetDomain.from:
+    private val whitelist = NetDomain.from:
       List(
         "imgur.com",
         "giphy.com",
@@ -185,16 +185,16 @@ object MarkdownRender:
     private val urlParser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
     def parseUrl(str: String): Try[URL] = Try(URL.parse(urlParser, str))
 
-    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
+    private def whitelistedSrc(src: String, netDomain: Option[NetDomain]): Option[String] = for
       url <- parseUrl(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if (assetDomain.toList ::: whitelist).exists(h =>
+      if (netDomain.toList ::: whitelist).exists(h =>
         h.value.split(":").headOption.contains(host) || host.endsWith(s".$h")
       )
     yield url.toString
 
-    def create(assetDomain: Option[AssetDomain], linkRel: String) = new HtmlRenderer.HtmlRendererExtension:
+    def create(netDomain: Option[NetDomain], linkRel: String) = new HtmlRenderer.HtmlRendererExtension:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder.nodeRendererFactory:
@@ -211,7 +211,7 @@ object MarkdownRender:
           val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
           val url = removeUrlTrackingParameters(resolvedLink.getUrl())
           val altText = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url, assetDomain) match
+          whitelistedSrc(url, netDomain) match
             case Some(src) =>
               html
                 .srcPos(node.getChars())

@@ -35,7 +35,6 @@ object UiEnv
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
   // helpers dependencies
-  def assetBaseUrl = netConfig.assetBaseUrl
   def netBaseUrl = netConfig.baseUrl
   def routeUrl = netConfig.routeUrl
   protected val ratingApi = lila.rating.ratingApi

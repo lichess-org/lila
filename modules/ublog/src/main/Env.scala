@@ -36,7 +36,7 @@ final class Env(
     automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode, RateLimit):
 
-  export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
+  export net.{ baseUrl, domain }
 
   private val config = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
   private val colls = UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))

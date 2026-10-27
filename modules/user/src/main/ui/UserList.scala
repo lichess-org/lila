@@ -131,7 +131,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       .trophyMeta(perf, rank)
       .map: (css, titleText, imgPath) =>
         span(cls := s"$css lb__trophy trophy--small", title := titleText):
-          img(src := assetUrl(imgPath), alt := s"Trophy for $title")
+          img(src := assetPath(imgPath), alt := s"Trophy for $title")
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"

@@ -49,7 +49,7 @@ Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Pure ziehnd vorwärts, aber schlah tüends diagonal!</string>
   <string name="captureThenPromote">Zerscht schlah und nachher umwandle!</string>
   <string name="useAllThePawns">Benutz all Pure! Mer muess nöd Umwandle.</string>
-  <string name="aPawnOnTheSecondRank">En Pur dörf - bim 1. Zug - grad 2 Fälder vorwärts!</string>
+  <string name="aPawnOnTheSecondRank">En Pur chann - bim erschte Zug - sogar grad 2 Fälder vorwärts!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
 Umwandle muesch nöd.</string>
   <string name="pawnComplete">Gratuliere, au Puure sind keis Gheimnis meh für dich.</string>
@@ -118,7 +118,7 @@ Mach irgend en Zug zum witer fahre.</string>
   <string name="castlingIntro">Bring din König i Sicherheit und de Turm i Agrifsposizion!</string>
   <string name="castleKingSide">Zieh de König - uf de Königssite - zwei Fälder. 
 Das isch die churz Rochade \"0-0\"!</string>
-  <string name="castleQueenSide">Zieh de König - uf de Damesiie - zwei Fälder.
+  <string name="castleQueenSide">Zieh de König - uf de Damesite - zwei Fälder.
 Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="theKnightIsInTheWay">De Schpringer staht im Wäg, ziehn en weg und mach dänn die churz Rochade.</string>
   <string name="castleKingSideMovePiecesFirst">Zieh zerscht - uf de Königssite - Figure weg und mach dänn die churz Rochade - \"0-0\".</string>

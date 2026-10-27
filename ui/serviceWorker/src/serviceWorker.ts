@@ -1,10 +1,4 @@
 const sw = self as unknown as ServiceWorkerGlobalScope;
-const searchParams = new URL(sw.location.href).searchParams;
-const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href;
-
-function assetUrl(path: string): string {
-  return `${assetBase}assets/${path}`;
-}
 
 sw.addEventListener('install', () => sw.skipWaiting());
 
@@ -16,8 +10,8 @@ sw.addEventListener('push', (event: PushEvent) => {
   const data = event.data!.json();
   return event.waitUntil(
     sw.registration.showNotification(data.title, {
-      badge: assetUrl('logo/lichess-mono-128.png'),
-      icon: assetUrl('logo/lichess-favicon-192.png'),
+      badge: '/assets/logo/lichess-mono-128.png',
+      icon: '/assets/logo/lichess-favicon-192.png',
       body: data.body,
       tag: data.tag,
       data: data.payload,

@@ -19,4 +19,6 @@
   <string name="findSquare">خانه را بیابید</string>
   <string name="nameSquare">خانه را بِنامید</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">تمرین فقط روی ستون‌ها و ردیف‌های مشخص</string>
+  <string name="enterTheCoordinate">وارد کردن همآرا</string>
+  <string name="pressEnterToStart">برای شروع %s را بفشارید</string>
 </resources>

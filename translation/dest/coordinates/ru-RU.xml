@@ -19,4 +19,6 @@
   <string name="findSquare">Найти поле</string>
   <string name="nameSquare">Обозначить поле</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Потренироваться только с некоторыми вертикалями и горизонталями</string>
+  <string name="enterTheCoordinate">Введите координату</string>
+  <string name="pressEnterToStart">Нажмите %s, чтобы начать</string>
 </resources>

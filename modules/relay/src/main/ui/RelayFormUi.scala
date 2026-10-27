@@ -84,7 +84,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
   def noAccess(rt: RelayRound | RelayTour) =
     val call = rt match
       case r: RelayRound => routes.RelayRound.show("-", "-", r.id)
-      case t: RelayTour => routes.RelayTour.show("-", t.id)
+      case t: RelayTour => t.call
     Page("Insufficient permissions").css("bits.relay.form"):
       main(cls := "page page-small")(
         div(cls := "box box-pad")(
@@ -484,7 +484,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             )
           ),
         form3.actions(
-          a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
+          a(href := nav.tour.call)(trs.cancel()),
           form3.submit(trs.apply())
         )
       )
@@ -528,13 +528,13 @@ Hanna Marie ; Kozul, Zdenko"""),
     def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using ctx: Context, me: Me) =
       page(nav.tour.name.value, menu = Right(nav)).markdownTextarea:
         frag(
-          boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+          boxTop(h1(a(href := nav.tour.call)(nav.tour.name))),
           standardFlash,
           image(nav.tour),
           postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
             inner(form, nav.tourWithGroup.some),
             form3.actions(
-              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
+              a(href := nav.tour.call)(trs.cancel()),
               form3.submit(trs.apply())
             )
           ),

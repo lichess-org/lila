@@ -202,7 +202,7 @@
   <string name="customPositionTitle">موضع مخصص</string>
   <string name="customPositionText">قم بتهيئة اللوحة بطريقتك.&lt;br&gt; لتكون مناسبة لاستكشاف نهاية الألعاب.</string>
   <string name="loadGameFromTheWebTitle">تحميل مباراة من الإنترنت</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">الصق رابط المباراة&lt;br&gt; (مثل lichess.org/7fHIU0XI)&lt;br&gt; لتحميل نقلات المباراة في الفصل.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">الصق رابط المباراة هنا &lt;br&gt;(مثل lichess.org/game/7fHIU0XI) &lt;br&gt;لتحميل نقلاتها إلى هذا الفصل.</string>
   <string name="fromFenStringTitle">من نص FEN</string>
   <string name="fromFenStringText">الصق موقع لعبة بصيغة FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; لتبدأ الفصل من موقع محدد.</string>
   <string name="fromPgnGameTitle">من PGN لعبة</string>

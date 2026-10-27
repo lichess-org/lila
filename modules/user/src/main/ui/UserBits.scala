@@ -93,7 +93,7 @@ final class UserBits(helpers: Helpers):
       .map { case (perf, (cssClass, trophyTitle, imgPath)) =>
         a(href := routes.User.top(perf.key))(
           span(cls := cssClass, title := trophyTitle)(
-            img(src := assetUrl(imgPath))
+            img(src := assetPath(imgPath))
           )
         )
       }
@@ -120,5 +120,5 @@ final class UserBits(helpers: Helpers):
     animation: psyche 0.3s ease-in-out infinite alternate;
   }"""),
       maybeLink(t.anyUrl)(awardCls(t), ariaTitle(t.kind.name)):
-        img(src := assetUrl("images/trophy/zug-trophy.png"))
+        img(src := assetPath("images/trophy/zug-trophy.png"))
     )

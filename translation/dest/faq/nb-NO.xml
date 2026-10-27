@@ -167,6 +167,8 @@ Vi viser det røde dempingsikonet for å varsle deg når dette skjer. I de flest
 3. Klikk på Informasjonskapsler og nettstedstillatelser
 4. Rull ned og klikk på Automatisk avspilling av medier
 5. Legg til lichess.org under Tillat</string>
+  <string name="makeBotTitle">Lage en bot på Lichess?</string>
+  <string name="makeBotDescription">For å lære hvordan du bygger en &lt;a href=\'%1$s\'&gt;egendefinert sjakkbot&lt;/a&gt; som kan spille på Lichess, kan du lese &lt;a href=\'%2$s\'&gt;dette blogginnlegget om å lage boter&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Stoppe meg selv fra å spille?</string>
   <string name="mentalHealthCondition">egen psykisk helsetilstand</string>
   <string name="lichessUserstyles">Lichess-brukerstiler</string>

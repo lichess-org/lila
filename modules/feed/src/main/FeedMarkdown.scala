@@ -13,7 +13,8 @@ final class FeedMarkdown(using NetDomain, Executor):
   private val renderer = lila.markdown.MarkdownRender(
     autoLink = false,
     strikeThrough = true,
-    timestamp = true
+    timestamp = true,
+    linkRel = ""
   )
 
   private val cache: LoadingCache[(Feed.ID, Markdown), Html] =

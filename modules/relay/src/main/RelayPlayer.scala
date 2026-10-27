@@ -181,7 +181,7 @@ private final class RelayPlayerApi(
     _.expireAfterWrite(1.minute).buildAsyncFuture: sg =>
       import RelayPlayer.json.given
       for players <- cache.get(sg)
-      yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
+      yield JsonStr(Json.toJson(players.values.toList))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(cache.get)

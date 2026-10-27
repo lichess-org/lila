@@ -34,7 +34,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
               else req.session + (LilaCookie.noRemember -> "1")
             withRemember + (LilaCookie.sessionId -> generateSessionId().value)
       ,
-      if remember then none else 0.some
+      Option.unless(remember)(0)
     )
 
   def cookie(

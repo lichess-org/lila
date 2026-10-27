@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">البيدق المتقدم</string>
-  <string name="advancedPawnDescription">أحد البيادق الخاصة بك تقدمت إلي ساحة الخَصْم, ممكن من أجل التهديد بالترقية.</string>
+  <string name="advancedPawnDescription">يتقدّم أحد بيادقك إلى عمق موقع الخَصْم، وربما يهدّد بالترقية.</string>
   <string name="advantage">أفضلية</string>
   <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
   <string name="anastasiaMate">كش مات أناستازيا</string>
@@ -11,8 +11,8 @@
   <string name="attackingF2F7">الهجوم على f2 أو f7</string>
   <string name="attackingF2F7Description">هجوم يستهدف بيادق f2 أو f7، على سبيل المثال، كما في افتتاحية \"fried liver\".</string>
   <string name="attraction">استدراج</string>
-  <string name="attractionDescription">التبديل أو التضحية بقطعة لحث أو إرغام قطعة الخَصْم لمربع يتيح تكتيكاً للمتابعة.</string>
-  <string name="backRankMate">كش مات في الصف الأخير</string>
+  <string name="attractionDescription">مبادلة أو تضحية تهدف إلى استدراج قطعة للخصم إلى مربع يتيح تنفيذ تكتيك لاحق، أو إجبارها على ذلك.</string>
+  <string name="backRankMate">كش مات في الصف الخلفي</string>
   <string name="backRankMateDescription">كش مات في الصف الأخير حيث يكون الملك محاصر بقطعه.</string>
   <string name="balestraMate">كش  القوس والنشاب</string>
   <string name="balestraMateDescription">يقوم الفيل بتسليم الكش، بينما تقوم الملكة بحجب ما تبقى من مربعات الهروب</string>

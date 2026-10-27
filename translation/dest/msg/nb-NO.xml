@@ -7,4 +7,5 @@
 Vi har gjennomgått den nylige rapporten din og iverksatt tiltak. Vi kan ikke dele detaljer om tiltakene, men vi setter pris på rapporten din.
 
 Takk for at du hjelper oss med å gjøre Lichess til et godt sted for alle.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Den gamle appen støtter ikke lenger sjakknøtter. Installer den nye Lichess-appen: %s</string>
 </resources>

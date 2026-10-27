@@ -54,8 +54,8 @@
   <string name="blackResigned">Schwaarz huet opginn</string>
   <string name="whiteLeftTheGame">Wäiss huet d\'Partie verlooss</string>
   <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
-  <string name="whiteDidntMove">Wäiss huet net gezunn</string>
-  <string name="blackDidntMove">Schwaarz huet net gezunn</string>
+  <string name="whiteDidntMove">Wäiss huet keen Zuch gemaach</string>
+  <string name="blackDidntMove">Schwaarz huet keen Zuch gemaach</string>
   <string name="whiteAborted">Wäiss huet d\'Partie ofgebrach</string>
   <string name="blackAborted">Schwaarz huet d\'Partie ofgebrach</string>
   <string name="requestAComputerAnalysis">Eng Computeranalys ufroen</string>
@@ -378,7 +378,7 @@
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei d\'Turnéier</string>
-  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier keen Remis offréieren virum 30ten Zuch.</string>
+  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier virum 30. Zuch kee Remis maachen.</string>
   <string name="thematic">Thematesch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewäert Partie</item>
@@ -405,7 +405,7 @@
   <string name="mustBeInTeam">Muss Member vun %s sin</string>
   <string name="youAreNotInTeam">Du bass net Member vun %s</string>
   <string name="backToGame">Zeréck bei d\'Partie</string>
-  <string name="siteDescription">Gratis Online Schach Server. Spill Schach an engem propperen Interface. Keng Registratioun, keng Reklammen, keen Plugin néideg. Spill Schach géint Computer, Frënn oder zoufälleg Géigner.</string>
+  <string name="siteDescription">Gratis Online-Schach-Server. Spill Schach an engem iwwersiichtlechen Interface. Keng Registréierung, keng Reklammen, kee Plugin néideg. Spill Schach géint Computer, Kolleegen oder zoufälleg Géigner.</string>
   <string name="xJoinedTeamY">%1$s ass Ekipp %2$s beigetrueden</string>
   <string name="xCreatedTeamY">%1$s huet Ekipp %2$s gegrënnt</string>
   <string name="startedStreaming">huet ugefang ze streamen</string>
@@ -436,7 +436,7 @@
   <string name="thisIsAChessCaptcha">Dat hei ass en Schach CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klick op d\'Briet a maach däin Zuch, fir ze weisen, datt s du e Mënsch bass.</string>
   <string name="captcha.fail">Léis wgl. de Schach-Captcha.</string>
-  <string name="notACheckmate">Keen Schachmatt</string>
+  <string name="notACheckmate">Kee Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wäiss huet Schachmatt an engem Zuch</string>
   <string name="blackCheckmatesInOneMove">Schwaarz huet Schachmatt an engem Zuch</string>
   <string name="retry">Nei probéieren</string>
@@ -545,6 +545,7 @@ Kolleegen am Spillen: %2$s</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Aufgaben</string>
   <string name="onlineBots">Online-Botten</string>
+  <string name="aboutBotsOnLichess">Iwwer Botten op Lichess</string>
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
@@ -611,6 +612,8 @@ Kolleegen am Spillen: %2$s</string>
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
   <string name="never">Ni</string>
+  <string name="defeatOnly">Nëmmen Nidderlag</string>
+  <string name="drawAndDefeat">Remis an Nidderlag</string>
   <string name="xCompetesInY">%1$s hëlt deel bei %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Defaite</string>
@@ -675,10 +678,12 @@ Kolleegen am Spillen: %2$s</string>
   <string name="aboutX">Iwwer %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ass en gratis (%2$s), fräien, keng-Reklammen, Open Source Schach Server.</string>
   <string name="really">wierklech</string>
+  <string name="lichessUpdates">Lichess-Updates</string>
   <string name="contribute">Bäidroen</string>
   <string name="termsOfService">AGB</string>
   <string name="titleVerification">Titel-Verifizéierung</string>
   <string name="sourceCode">Quellcode</string>
+  <string name="blockAds">Werbung blockéieren</string>
   <string name="simultaneousExhibitions">Simultanveranstaltungen</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host Figuren: %s</string>
@@ -743,6 +748,7 @@ Kolleegen am Spillen: %2$s</string>
   <string name="downloadAnnotated">Download kommentéiert</string>
   <string name="downloadRaw">Download onkommentéiert</string>
   <string name="downloadImported">Importéiert Partie eroflueden</string>
+  <string name="downloadMyGames">Meng Partien eroflueden</string>
   <string name="downloadAllGames">All Partien eroflueden</string>
   <string name="downloadResults">Resultater eroflueden</string>
   <string name="crosstable">Matchverlaf</string>
@@ -813,6 +819,7 @@ Kolleegen am Spillen: %2$s</string>
   <string name="custom">Personaliséiert</string>
   <string name="notifications">Notifikatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
+  <string name="perfRatingLabel">Wäertung: %s.</string>
   <string name="yourRatingIsX">Deng Wäertung ass %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekonn fir den éischten Zuch ze maachen</item>
@@ -871,6 +878,7 @@ Kolleegen am Spillen: %2$s</string>
     <item quantity="other">an späicher %s bedingt Virauszich</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du krus eng privat Noriicht vu Lichess.</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Message liesen</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
   <string name="why">Firwat?</string>
@@ -956,6 +964,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="simulFeaturedHelp">Jidderengem op %s Simul uweisen. Desaktivéieren fir privat Simuls.</string>
   <string name="simulDescription">Simul Beschreiwung</string>
   <string name="simulDescriptionHelp">Wëlls du den Participanten eppes matdeelen?</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Dir kënnt Text mat %s formatéieren.</string>
   <string name="embedsAvailable">Füg eng Partien-URL oder eng Etüdenkapitel-URL an, fir se anzebetten.</string>
   <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
   <string name="tournChat">Turnéier Chat</string>
@@ -978,6 +987,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="gameInProgress">Du hues eng Partie amgaang géint %s.</string>
   <string name="abortTheGame">Partie ofbriechen</string>
   <string name="resignTheGame">Partie opginn</string>
+  <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken, wann et un dir ass.</string>
   <string name="since">Säit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>

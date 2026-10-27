@@ -53,7 +53,7 @@ object LangList extends lila.core.i18n.LangList:
     Lang("nl", "NL") -> "Nederlands",
     Lang("nb", "NO") -> "Norsk bokmål",
     Lang("nn", "NO") -> "Norsk nynorsk",
-    Lang("uz", "UZ") -> "Oʻzbekcha",
+    Lang("uz", "UZ") -> "Özbekça",
     Lang("pl", "PL") -> "Polski",
     Lang("pt", "PT") -> "Português",
     Lang("pt", "BR") -> "Português (BR)",

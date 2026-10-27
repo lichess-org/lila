@@ -28,7 +28,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
-      case _ => assetUrl("images/user-blog-default.png")
+      case _ => assetFullUrl("images/user-blog-default.png")
 
   enum ShowAt:
     case top, bottom, none
@@ -46,9 +46,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )(
       span(
         cls := s"ublog-post-card__top",
-        post.image.isEmpty.option(
-          style := s"---thumb-backdrop-url:url(${assetUrl(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
-        )
+        post.image.isEmpty.option:
+          style := s"---thumb-backdrop-url:url(${assetPath(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live =>
@@ -385,7 +384,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           )(trans.ublog.community()),
           a(
             cls := isActive("by-month"),
-            href := langHref(routes.Ublog.thisMonth())
+            href := routes.Ublog.thisMonth()
           )(trans.ublog.byMonth()),
           a(cls := isActive("topics"), href := routes.Ublog.topics)(
             trans.ublog.byTopic()

@@ -67,6 +67,13 @@ final class ChallengeApi(
 
   export repo.byId
 
+  def redirect(anyPath: String): Fu[Option[play.api.mvc.Call]] =
+    GameId
+      .from(anyPath)
+      .map(_.into(ChallengeId))
+      .so: id =>
+        repo.exists(id).map(_.option(routes.Challenge.show(id)))
+
   def activeByIdFor(id: ChallengeId, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
 

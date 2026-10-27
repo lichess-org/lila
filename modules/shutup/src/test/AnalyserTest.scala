@@ -116,6 +116,12 @@ class AnalyserTest extends munit.FunSuite:
   test("spanish inflection"):
     assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
 
+  test("arabizi"):
+    assertEquals(
+      find("kiss immak kosomak kess ekhtak sharmouta khara"),
+      List("kiss immak", "kosomak", "kess ekhtak", "sharmouta", "khara")
+    )
+
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))
 
