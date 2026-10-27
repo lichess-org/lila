@@ -196,7 +196,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
                 sVersion,
                 photos
               )
-            yield Ok(json).publicCache(jsonView.responseCache(rt, study)).varyAccept
+            yield Ok(json).privateCache(jsonView.responseCache(rt, study)).varyAccept
           )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:

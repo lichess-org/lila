@@ -57,7 +57,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             html = renderShow(daily.puzzle, PuzzleAngle.mix, isDaily = true),
             api = v =>
               for content <- jsonView.analysis(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some)
-              yield JsonOk(content).publicCache(10.minutes)
+              yield JsonOk(content).privateCache(10.minutes)
           )
 
   def apiDaily = Anon:
