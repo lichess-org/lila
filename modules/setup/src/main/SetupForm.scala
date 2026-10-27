@@ -124,7 +124,7 @@ object SetupForm:
     lazy val message = "message" -> optional(
       nonEmptyText(maxLength = 8_000).verifying(
         "The message must contain {game}, which will be replaced with the game URL.",
-        msg => msg.contains("{game}") || msg.toLowerCase.contains("{noMessage}")
+        msg => msg.contains("{game}") || msg.toLowerCase.contains("{nomessage}")
       )
     )
 

@@ -12,7 +12,7 @@ final class ChallengeMsg(msgApi: lila.core.msg.MsgApi)(using Executor):
       managedById: UserId,
       template: Option[Template]
   ): Funit =
-    if template.exists(_.value.contains("{noMessage}")) then funit
+    if template.exists(_.value.toLowerCase.contains("{nomessage}")) then funit
     else
       List(users, users.swap)
         .map(_.toPair)
