@@ -283,10 +283,7 @@ final class User(
       env.user.cached
         .topPerfPager(perfKey, page)
         .flatMap: pager =>
-          negotiate(
-            Ok.page(views.user.list.top(perfKey, pager)),
-            topNbJson(pager.currentPageResults).privateCache(1.minute)
-          )
+          Ok.page(views.user.list.top(perfKey, pager))
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
