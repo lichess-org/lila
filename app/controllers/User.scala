@@ -204,7 +204,7 @@ final class User(
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
                 yield snip.privateCache(5.seconds),
-                json =
+                json = // lichobile only
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
@@ -264,10 +264,10 @@ final class User(
           page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
-        json =
+        json = // lichobile only
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards).privateCache(1.minute)
+          JsonOk(leaderboards).publicCache(1.minute)
       )
     }
 
