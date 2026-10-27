@@ -129,7 +129,7 @@ interface I18n {
     allowBerserkHelp: string;
     /** Allow bot accounts */
     allowBotAccounts: string;
-    /** Let <a href='%s'>bots</a> join the tournament and play with their engines. This often repels human players. */
+    /** Let <a href='%s' target='_blank'>bots</a> join the tournament and play with their engines. This often repels human players. */
     allowBotAccountsDescription: I18nFormat;
     /** Let players discuss in a chat room */
     allowChatHelp: string;
