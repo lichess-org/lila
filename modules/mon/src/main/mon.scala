@@ -400,14 +400,25 @@ object security:
     val epoch = gauge("security.geoip.epoch").withoutTags()
     val loadTime = gauge("security.geoip.loadTime").withoutTags()
   object login:
-    def attempt(byEmail: Boolean, pwned: Boolean, result: Boolean) =
+    def attempt(
+        useCase: String,
+        byEmail: Boolean,
+        pwned: Boolean,
+        leaked: Boolean,
+        result: Boolean,
+        name: String
+    ) =
       counter("security.login.attempt").withTags:
         tags(
+          "useCase" -> useCase,
           "by" -> (if byEmail then "email" else "name"),
           "pwned" -> pwned,
-          "result" -> result
+          "leaked" -> leaked,
+          "result" -> result,
+          "name" -> name
         )
     def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
+    def block(reason: String) = counter("security.login.block").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)

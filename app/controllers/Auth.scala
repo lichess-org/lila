@@ -123,15 +123,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                       .isPwned(loginData.password)
                       .flatMap: pwned =>
                         if pwned.yes then chargeLimiters()
-                        val isEmail = EmailAddress.isValid(loginData.username.value)
                         api.loadLoginForm(loginData.username, pwned).flatMap {
                           _.bindFromRequest()
                             .fold(
                               err =>
                                 chargeLimiters()
-                                lila.mon.security.login
-                                  .attempt(isEmail, pwned = pwned.yes, result = false)
-                                  .increment()
                                 negotiate(
                                   lila.security.LoginCandidate.totpError(err) match
                                     case None =>
@@ -161,9 +157,6 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                     Unauthorized(jsonError("This account is closed."))
                                   )
                                 case Some(u) =>
-                                  lila.mon.security.login
-                                    .attempt(isEmail, pwned = pwned.yes, result = true)
-                                    .increment()
                                   t3Counter(_.login.success)
                                   env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
                                   val ref = referrerOr(routes.Lobby.home)
