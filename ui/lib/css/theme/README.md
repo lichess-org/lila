@@ -26,6 +26,7 @@ the build script will generate scss wrapper variables beginning with `$c-` for e
 variables. your style rules should use the scss forms when possible for type safety.
 
 `ui/lib/css/theme/gen/_wrap.scss` (generated):
+
 ```scss
   $c-color: var(--c-color);
   $c-color-desaturated: var(--c-color-desaturated);
@@ -53,6 +54,7 @@ for example:
 here's a full theme file that thibault would love to see in a new PR today:
 
 `ui/lib/css/theme/_theme.ugly.scss`:
+
 ```scss
 @import 'theme.default'; // for default defs and shared-color-defs mixin
 
@@ -74,7 +76,6 @@ the values provided here will override those in _theme.default.scss and, crucial
 fed into all colors derived from these variables.
 
 ## how do i run it?
-
 
 ```bash
 ui/build -w

@@ -63,7 +63,7 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | Chromium / Chrome | 100+    | Full support               |
 | Edge              | 100+    | Full support               |
 | Opera             | 97+     | Reasonable support         |
-| Safari            | 14+   | Reasonable support         |
+| Safari            | 14+     | Reasonable support         |
 
 Older browsers will not work.
 For your own sake, please upgrade. Security and performance, think about it!
