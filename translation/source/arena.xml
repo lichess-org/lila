@@ -92,5 +92,5 @@ For example, a rank average of 3% means you typically finish in the top 3% (such
   <string name="berserkRate">Berserk rate</string>
   <string name="leaguesAndStreamerBattles">Leagues &amp; Streamer Battles</string>
   <string name="allowBotAccounts">Allow bot accounts</string>
-  <string name="allowBotAccountsDescription">Let &lt;a href='%s'&gt;bots&lt;/a&gt; join the tournament and play with their engines. This often repels human players.</string>
+  <string name="allowBotAccountsDescription">Let &lt;a href='%s' target='_blank'&gt;bots&lt;/a&gt; join the tournament and play with their engines. This often repels human players.</string>
 </resources>

@@ -124,9 +124,7 @@ final class GatheringFormUi(helpers: Helpers):
       field,
       trans.arena.allowBotAccounts(),
       help = trans.arena.allowBotAccountsDescription
-        .rawHtml(
-          "/@/lichess/blog/welcome-lichess-bots/WvDNticA"
-        )
+        .rawHtml("/@/lichess/blog/welcome-lichess-bots/WvDNticA")
         .some,
       disabled = disabledAfterStart
     )
