@@ -996,6 +996,8 @@ Friends playing: %2$s</string>
   <string name="onlyMembersOfTeam">Only members of team</string>
   <string name="noRestriction">No restriction</string>
   <string name="minimumRatedGames">Minimum rated games</string>
+  <string name="minimumAccountAge">Minimum account age</string>
+  <string name="titledPlayersBypassRestriction">Titled players bypass this restriction.</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maximum weekly rating</string>
   <string name="positionInputHelp">Paste a valid FEN to start every game from a given position.

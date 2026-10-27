@@ -127,6 +127,10 @@ interface I18n {
     allowBerserk: string;
     /** Let players halve their clock time to gain an extra point */
     allowBerserkHelp: string;
+    /** Allow bot accounts */
+    allowBotAccounts: string;
+    /** Let <a href='%s'>bots</a> join the tournament and play with their engines. This often repels human players. */
+    allowBotAccountsDescription: I18nFormat;
     /** Let players discuss in a chat room */
     allowChatHelp: string;
     /** Arena */
@@ -4287,6 +4291,8 @@ interface I18n {
     message: string;
     /** Middlegame */
     middlegame: string;
+    /** Minimum account age */
+    minimumAccountAge: string;
     /** Minimum rated games */
     minimumRatedGames: string;
     /** Minimum rating */
@@ -4947,6 +4953,8 @@ interface I18n {
     timeline: string;
     /** Time to process a move on Lichess's server */
     timeToProcessAMoveOnLichessServer: string;
+    /** Titled players bypass this restriction. */
+    titledPlayersBypassRestriction: string;
     /** Title verification */
     titleVerification: string;
     /** Today */
