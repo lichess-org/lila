@@ -40,7 +40,7 @@ final class Export(env: Env) extends LilaController(env):
           yield source
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
-    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).headerCache(1.day)
+    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).publicCache(1.day)
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     exportImageOf(env.game.gameRepo.game(id)) { game =>
@@ -88,7 +88,7 @@ final class Export(env: Env) extends LilaController(env):
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
-        .headerCache(cache)
+        .publicCache(cache)
         .as(contentType)
         .asAttachmentStream(filename)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

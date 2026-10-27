@@ -203,7 +203,7 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCache(5.seconds),
+                yield snip.publicCache(5.seconds),
                 json =
                   import lila.game.JsonView.given
                   Ok:
@@ -212,7 +212,7 @@ final class User(
                       "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
+          else Ok(views.user.bits.miniClosed(user.user, relation)).publicCache(10.minutes)
 
   def online = Anon:
     val max = 50
@@ -267,7 +267,7 @@ final class User(
         json =
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards).headerCache(1.minute)
+          JsonOk(leaderboards).publicCache(1.minute)
       )
     }
 
@@ -275,7 +275,7 @@ final class User(
     env.user.cached.top10.get {}.map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
-      JsonOk(leaderboards).headerCache(1.minute)
+      JsonOk(leaderboards).publicCache(1.minute)
     }
 
   def top(perfKey: PerfKey, page: Int) = Open:
@@ -293,13 +293,13 @@ final class User(
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
-        JsonOk(leaderboards).headerCache(1.minute)
+        JsonOk(leaderboards).publicCache(1.minute)
       }
     else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-    Ok(Json.obj("users" -> users)).headerCache(1.minute)
+    Ok(Json.obj("users" -> users)).publicCache(1.minute)
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -560,7 +560,7 @@ final class User(
                   env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
                 .map: graph =>
                   env.perfStat.jsonView(data).add("graph", graph)
-            .map(_.headerCache(1.minute))
+            .map(_.publicCache(1.minute))
           )
 
   def autocomplete = OpenOrScoped(): ctx ?=>

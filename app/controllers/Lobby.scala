@@ -22,7 +22,7 @@ final class Lobby(env: Env) extends LilaController(env):
   def home = Open:
     negotiate(
       serveHtmlHome,
-      json = Ok(lobbyJson).headerCache(7.days)
+      json = Ok(lobbyJson).publicCache(7.days)
     )
 
   private def serveHtmlHome(using Context) =
@@ -42,5 +42,5 @@ final class Lobby(env: Env) extends LilaController(env):
   def seeks = OpenOrScoped():
     negotiateJson:
       ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
-        Ok(JsArray(seeks.map(_.render))).headerCache(10.seconds)
+        Ok(JsArray(seeks.map(_.render))).publicCache(10.seconds)
       }

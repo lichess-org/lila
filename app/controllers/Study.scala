@@ -469,7 +469,7 @@ final class Study(
       Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
         .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
         .as(pgnContentType)
-        .headerCache(pgnResultCache(study))
+        .publicCache(pgnResultCache(study))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
@@ -509,7 +509,7 @@ final class Study(
               res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
               resWithAnalysis = analysisJson.fold(res): a =>
                 res.withHeaders("X-Lichess-Analysis" -> Json.stringify(a))
-            yield resWithAnalysis.headerCache(pgnResultCache(study))
+            yield resWithAnalysis.publicCache(pgnResultCache(study))
           }(studyUnauthorized(study), studyForbidden(study))
         }
 
@@ -555,7 +555,7 @@ final class Study(
               Ok.chunked(stream)
                 .asAttachmentStream(s"${pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
-                .headerCache(Option.unless(study.isPrivate)(1.day))
+                .publicCache(Option.unless(study.isPrivate)(1.day))
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
@@ -656,4 +656,4 @@ final class Study(
     Found(play.api.i18n.Lang.get(lang)): lang =>
       JsonOk:
         lila.study.JsonView.glyphs(using env.translator.to(lang))
-      .headerCache(1.hour)
+      .publicCache(1.hour)
