@@ -5,25 +5,25 @@ import { colorButtons } from 'lib/setup/view/color';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 import { snabDialog, bind, hl } from 'lib/view';
 
+import type { Bot } from '@/interfaces';
+
 import type SetupCtrl from '../setupCtrl';
 
-export const setupDialog = (ctrl: SetupCtrl) => {
-  const bot = ctrl.selectedBot;
-  if (!bot) return undefined;
-  return snabDialog({
+export const setupDialog = (ctrl: SetupCtrl, bot: Bot) =>
+  snabDialog({
     class: `bot-setup__dialog bot-color--${bot.key}`,
-    onClose: ctrl.cancel,
+    show: true,
+    onClose: ctrl.redraw,
     modal: true,
     noScrollable: true,
     easyClose: 'clickOutside',
-    onInsert(dialog) {
-      ctrl.dialog = dialog;
-      dialog.show();
+    onShow() {
+      ctrl.redraw();
       pubsub.emit('content-loaded');
     },
-    vnodes: [
+    render: () => [
       hl('img.bot-setup__dialog__image', {
-        attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
+        attrs: { src: bot.image && botAssetUrl('image', bot.image) },
       }),
       hl('h2.bot-setup__dialog__title', bot.name),
       hl('div.bot-setup__dialog__desc', bot.description),
@@ -38,7 +38,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       hl(
         'button.button',
         {
-          hook: bind('click', ctrl.play),
+          hook: bind('click', () => ctrl.play(bot)),
           attrs: { disabled: !ctrl.timeControl.valid() },
           class: { disabled: !ctrl.timeControl.valid() },
         },
@@ -46,7 +46,6 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       ),
     ],
   });
-};
 
 const settingsPreview = (ctrl: SetupCtrl) => {
   const color = colors.find(c => c === ctrl.color()) ?? 'random';

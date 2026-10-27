@@ -17,7 +17,7 @@ import {
   alert,
   confirm,
   jsx,
-  jsxDialog,
+  snabDialog,
   onInsert,
   rangeConfig,
   spinnerVdom,
@@ -33,9 +33,10 @@ import { LocalAnalysisEngine } from './localAnalysisEngine';
 
 export async function localAnalysisDialog(ctrl: AnalyseCtrl): Promise<void> {
   const state = new LocalAnalysisDialog(ctrl, await site.asset.loadEsm<ChartGame>('chart.game'));
-  jsxDialog({
+  snabDialog({
     class: 'local-analysis-dialog',
-    css: [{ hashed: 'analyse.local-dialog' }],
+    show: true,
+    css: [{ key: 'analyse.local-dialog' }],
     modal: true,
     onClose: state.close,
     render: state.render,

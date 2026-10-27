@@ -82,7 +82,7 @@ export function verticalResize(o: Opts): VNode {
 
 const safariHack = (enable: boolean) => {
   if (isSafari()) {
-    site.asset.loadCssPath('bits.safari-sucks');
+    site.asset.loadCss({ key: 'bits.safari-sucks' });
     document.body.classList.toggle('prevent-select', enable);
   }
 };

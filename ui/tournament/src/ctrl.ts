@@ -16,6 +16,7 @@ import type {
 } from './interfaces';
 import { type TournamentSocket, makeSocket } from './socket';
 import * as sound from './sound';
+import { joinWithTeamSelector } from './view/battle';
 import * as xhr from './xhr';
 
 interface CtrlTeamInfo {
@@ -36,7 +37,6 @@ export default class TournamentController {
   teamInfo: CtrlTeamInfo = {};
   disableClicks = true;
   searching = false;
-  joinWithTeamSelector = false;
   redraw: () => void;
   nbWatchers = 0;
   collapsedDescription: Prop<boolean>;
@@ -163,11 +163,10 @@ export default class TournamentController {
   };
 
   join = async (team?: string) => {
-    this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
       return await alerts(this.data.verdicts.list.map(v => v.verdict).filter(v => v !== 'ok'));
     if (this.data.teamBattle && !team && !this.data.me) {
-      this.joinWithTeamSelector = true;
+      joinWithTeamSelector(this);
     } else {
       let password;
       if (this.data.private && !this.data.me) {

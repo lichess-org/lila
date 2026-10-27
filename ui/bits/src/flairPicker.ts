@@ -27,7 +27,7 @@ export default async function flairPickerLoader(element: HTMLElement): Promise<v
   };
 
   await Promise.all([
-    site.asset.loadCssPath('bits.flairPicker'),
+    site.asset.loadCss({ key: 'bits.flairPicker' }),
     site.asset.loadEsm('bits.flairPicker', {
       init: {
         element: pickerEl,

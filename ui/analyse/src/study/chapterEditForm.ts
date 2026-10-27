@@ -1,12 +1,13 @@
 import { COLORS } from 'chessops';
 
-import { defined, prop } from 'lib';
+import { defined } from 'lib';
 import {
   bind,
   bindSubmit,
   onInsert,
   spinnerVdom as spinner,
   snabDialog,
+  type Dialog,
   confirm,
   div,
   label,
@@ -31,7 +32,7 @@ import type {
 } from './interfaces';
 
 export class StudyChapterEditForm {
-  current = prop<ChapterPreview | StudyChapterConfig | null>(null);
+  dialog?: Dialog<ChapterPreview | StudyChapterConfig>;
 
   constructor(
     private readonly send: StudySocketSend,
@@ -40,86 +41,82 @@ export class StudyChapterEditForm {
     readonly redraw: Redraw,
   ) {}
 
-  open = (data: ChapterPreview) => {
-    this.current(data);
-    this.chapterConfig(data.id).then(d => {
-      this.current(d);
-      this.redraw();
-    });
+  open = async (data: ChapterPreview) => {
+    this.dialog?.close();
+    this.dialog = await view(this, data);
+    this.dialog.ctx = await this.chapterConfig(data.id);
+    this.dialog.redraw();
   };
 
-  isEditing = (id: string) => this.current()?.id === id;
+  isEditing = (id: string) => !!this.dialog?.dialog.open && this.dialog.ctx.id === id;
 
   toggle = (data: ChapterPreview) => {
-    if (this.isEditing(data.id)) this.current(null);
+    if (this.isEditing(data.id)) this.dialog?.close();
     else this.open(data);
   };
   submit = (data: Omit<EditChapterData, 'id'>) => {
-    const c = this.current();
-    if (c) {
-      this.send('editChapter', { id: c.id, ...data });
-      this.current(null);
-    }
+    this.send('editChapter', { id: this.dialog!.ctx.id, ...data });
+    this.dialog?.close();
   };
   delete = (id: string) => {
     this.send('deleteChapter', id);
-    this.current(null);
+    this.dialog?.close();
   };
   clearAnnotations = (id: string) => {
     this.send('clearAnnotations', id);
-    this.current(null);
+    this.dialog?.close();
   };
   clearVariations = (id: string) => {
     this.send('clearVariations', id);
-    this.current(null);
+    this.dialog?.close();
   };
 }
 
-export function view(ctrl: StudyChapterEditForm): VNode | undefined {
-  const data = ctrl.current();
-  return data
-    ? snabDialog({
-        class: 'edit-' + data.id, // full redraw when changing chapter
-        onClose() {
-          ctrl.current(null);
-          ctrl.redraw();
-        },
-        modal: true,
-        vnodes: [
-          h2(i18n.study.editChapter),
-          form(
-            '.form3',
-            {
-              hook: bindSubmit(e => {
-                ctrl.submit({
-                  name: fieldValue(e, 'name'),
-                  mode: fieldValue(e, 'mode') as ChapterMode,
-                  orientation: fieldValue(e, 'orientation') as Orientation,
-                  description: fieldValue(e, 'description'),
-                });
-              }, ctrl.redraw),
-            },
-            [
-              div('.form-group', [
-                label('.form-label', { for: 'chapter-name' }, i18n.site.name),
-                input('text')('#chapter-name.form-control', {
-                  minlength: 2,
-                  maxlength: 80,
-                  hook: onInsert<HTMLInputElement>(el => {
-                    if (!el.value) {
-                      el.value = data.name;
-                      el.select();
-                      el.focus();
-                    }
-                  }),
+function view(ctrl: StudyChapterEditForm, chapter: ChapterPreview) {
+  return snabDialog<ChapterPreview | StudyChapterConfig>({
+    class: 'chapter-edit study-modal',
+    show: true,
+    ctx: chapter,
+    onShow: ctrl.redraw,
+    onClose: ctrl.redraw,
+    modal: true,
+    render: (_, dlg) => {
+      const data = dlg.ctx;
+      return [
+        h2(i18n.study.editChapter),
+        form(
+          '.form3',
+          {
+            hook: bindSubmit(e => {
+              ctrl.submit({
+                name: fieldValue(e, 'name'),
+                mode: fieldValue(e, 'mode') as ChapterMode,
+                orientation: fieldValue(e, 'orientation') as Orientation,
+                description: fieldValue(e, 'description'),
+              });
+            }),
+          },
+          [
+            div('.form-group', [
+              label('.form-label', { for: 'chapter-name' }, i18n.site.name),
+              input('text')('#chapter-name.form-control', {
+                minlength: 2,
+                maxlength: 80,
+                hook: onInsert<HTMLInputElement>(el => {
+                  if (!el.value) {
+                    el.value = data.name;
+                    el.select();
+                    el.focus();
+                  }
                 }),
-              ]),
-              ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
-            ],
-          ),
-        ],
-      })
-    : undefined;
+              }),
+            ]),
+            ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
+          ],
+        ),
+      ];
+    },
+  });
 }
 
 const isLoaded = (data: ChapterPreview | StudyChapterConfig): data is StudyChapterConfig =>
@@ -164,13 +161,9 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
       h(
         emptyRedButton,
         {
-          hook: bind(
-            'click',
-            async () => {
-              if (await confirm(i18n.study.clearAllCommentsInThisChapter)) ctrl.clearAnnotations(data.id);
-            },
-            ctrl.redraw,
-          ),
+          hook: bind('click', async () => {
+            if (await confirm(i18n.study.clearAllCommentsInThisChapter)) ctrl.clearAnnotations(data.id);
+          }),
           attrs: { type: 'button', title: i18n.study.clearAllCommentsInThisChapter },
         },
         i18n.study.clearAnnotations,
@@ -178,13 +171,9 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
       h(
         emptyRedButton,
         {
-          hook: bind(
-            'click',
-            async () => {
-              if (await confirm(i18n.study.clearVariations)) ctrl.clearVariations(data.id);
-            },
-            ctrl.redraw,
-          ),
+          hook: bind('click', async () => {
+            if (await confirm(i18n.study.clearVariations)) ctrl.clearVariations(data.id);
+          }),
           attrs: { type: 'button' },
         },
         i18n.study.clearVariations,
@@ -194,13 +183,9 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
       h(
         emptyRedButton,
         {
-          hook: bind(
-            'click',
-            async () => {
-              if (await confirm(i18n.study.deleteThisChapter)) ctrl.delete(data.id);
-            },
-            ctrl.redraw,
-          ),
+          hook: bind('click', async () => {
+            if (await confirm(i18n.study.deleteThisChapter)) ctrl.delete(data.id);
+          }),
           attrs: { type: 'button', title: i18n.study.deleteThisChapter },
         },
         i18n.study.deleteChapter,

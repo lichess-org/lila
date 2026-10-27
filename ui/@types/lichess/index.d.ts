@@ -19,10 +19,9 @@ interface Site {
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
     fideFedSrc(fideFed: FideFed): string;
-    loadCss(href: string, key?: string): Promise<void>;
-    loadCssPath(key: string): Promise<void>;
-    removeCss(href: string): void;
-    removeCssPath(key: string): void;
+    loadCss(loc: CssLocation): Promise<void>;
+    releaseCss(loc: CssLocation): void;
+    removeCss(loc: CssLocation): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
@@ -131,6 +130,8 @@ interface Cookie {
   value: string;
   maxAge: number;
 }
+
+type CssLocation = { href: string; key?: string } | { key: string };
 
 interface AssetUrlOpts {
   pathOnly?: boolean;

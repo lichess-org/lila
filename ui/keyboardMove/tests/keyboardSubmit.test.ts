@@ -43,7 +43,7 @@ const defaultCtrl = {
   update: () => null,
   usedSan: true,
   legalSans: fenDestsToSans(startingFen, {}),
-  helpModalOpen: propWithEffect(false, () => null),
+  showHelp: unexpectedErrorThrower('showHelp'),
   isFocused: propWithEffect(false, () => null),
 };
 const defaultClear = unexpectedErrorThrower('clear');
@@ -147,17 +147,17 @@ describe('keyboardSubmit', () => {
   });
 
   test('opens help modal with ?', () => {
-    const mockSetHelpModalOpen = spy();
+    const mockShowHelp = spy();
     const submit = makeSubmit(
       {
         input: document.createElement('input'),
-        ctrl: { ...defaultCtrl, helpModalOpen: mockSetHelpModalOpen },
+        ctrl: { ...defaultCtrl, showHelp: mockShowHelp },
       },
       mockClear,
     );
     submit('?', { isTrusted: true });
-    mockSetHelpModalOpen.calledTimes(1);
-    mockSetHelpModalOpen.calledWith(true);
+    mockShowHelp.calledTimes(1);
+    mockShowHelp.calledWith();
     mockClear.calledTimes(1);
   });
 

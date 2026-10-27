@@ -8,7 +8,7 @@ export default async function (
   opts: { el: HTMLElement; url?: string; lpvOpts?: LpvOpts } = { el: document.body },
 ): Promise<void> {
   const { el, url, lpvOpts } = opts;
-  await site.asset.loadCssPath('bits.lpv');
+  await site.asset.loadCss({ key: 'bits.lpv' });
   if (!url) return autostart(el);
   const pgn = await xhrText(url, { headers: { Accept: 'application/x-chess-pgn' } });
   Lpv(el, { ...lpvOpts, lichess: location.origin, pgn });

@@ -1,7 +1,5 @@
-import type { VNode } from 'snabbdom';
-
 import { pubsub } from 'lib/pubsub';
-import { snabDialog } from 'lib/view';
+import { domDialog } from 'lib/view';
 
 import type RoundController from './ctrl';
 
@@ -9,8 +7,9 @@ export const prev = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply - 1)
 
 export const next = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply + 1);
 
-export const init = (ctrl: RoundController): LichessMousetrap =>
-  site.mousetrap
+export const init = (ctrl: RoundController): LichessMousetrap => {
+  if (location.hash === '#keyboard') showHelp();
+  return site.mousetrap
     .bind(['left', 'k'], () => {
       prev(ctrl);
       ctrl.redraw();
@@ -31,20 +30,15 @@ export const init = (ctrl: RoundController): LichessMousetrap =>
     .bind('z', () => pubsub.emit('zen'))
     .bind('F', ctrl.yeet)
     .bind('G', ctrl.googlyEyesStart)
-    .bind('?', () => {
-      ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      ctrl.redraw();
-    })
+    .bind('?', showHelp)
     .bind('h', ctrl.menu.toggle);
+};
 
-export const view = (ctrl: RoundController): VNode =>
-  snabDialog({
+const showHelp = () =>
+  domDialog({
     class: 'help',
     htmlUrl: '/round/help',
-    onClose() {
-      ctrl.keyboardHelp = false;
-      ctrl.redraw();
-    },
     modal: true,
+    show: true,
     easyClose: 'clickOutside',
   });

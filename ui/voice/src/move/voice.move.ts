@@ -25,6 +25,7 @@ import {
   type Transform,
   type SparseMap,
 } from '../util';
+import { openHelpDialog, openAllPhrasesDialog } from '../view';
 import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
@@ -65,9 +66,11 @@ export function initModule({
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
   const commands: Record<string, () => ListenResult[]> = {
-    no: as(['ok', 'clear'], () => (voice.showHelp() ? voice.showHelp(false) : clearMoveProgress())),
-    help: as(['ok'], () => voice.showHelp(true)),
-    vocabulary: as(['ok'], () => voice.showHelp('list')),
+    no: as(['ok', 'clear'], () =>
+      voice.helpDialog?.dialog.open ? voice.helpDialog.close() : clearMoveProgress(),
+    ),
+    help: as(['ok'], () => openHelpDialog(voice)),
+    vocabulary: as(['ok'], () => openAllPhrasesDialog(voice)),
     'mic-off': as(['ok'], () => voice.mic.stop()),
     flip: as(['ok'], () => root.flipNow()),
     draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),

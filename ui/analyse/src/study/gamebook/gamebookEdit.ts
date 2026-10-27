@@ -95,7 +95,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
   return h(
     'div.gamebook-edit',
-    { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.edit')) },
+    { hook: onInsert(() => site.asset.loadCss({ key: 'analyse.gamebook.edit' })) },
     content,
   );
 }

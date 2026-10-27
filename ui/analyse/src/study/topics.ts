@@ -1,6 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { prop } from 'lib';
 import { bind, bindSubmit, onInsert, snabDialog } from 'lib/view';
 import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 
@@ -8,12 +7,11 @@ import type { Topic } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 
 export default class TopicsCtrl {
-  open = prop(false);
+  open = (userId?: string) => formView(this, userId);
 
   constructor(
     readonly save: (data: string[]) => void,
     readonly getTopics: () => Topic[],
-    readonly redraw: Redraw,
   ) {}
 }
 
@@ -27,7 +25,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
     ctrl.members.canContribute()
       ? h(
           'a.manage',
-          { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
+          { hook: bind('click', () => ctrl.topics.open(ctrl.members.opts.myId)) },
           i18n.study.manageTopics,
         )
       : null,
@@ -35,15 +33,12 @@ export const view = (ctrl: StudyCtrl): VNode =>
 
 let tagify: Tagify | undefined;
 
-export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
+const formView = (ctrl: TopicsCtrl, userId?: string) =>
   snabDialog({
-    class: 'study-topics',
-    onClose() {
-      ctrl.open(false);
-      ctrl.redraw();
-    },
+    class: 'study-topics study-modal',
+    show: true,
     modal: true,
-    vnodes: [
+    render: (_, dlg) => [
       h('h2', i18n.study.topics),
       h(
         'form',
@@ -52,9 +47,9 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
             const tags = tagify?.value;
             if (tags) {
               ctrl.save(tags.map(t => t.value));
-              ctrl.open(false);
+              dlg.close();
             }
-          }, ctrl.redraw),
+          }),
         },
         [
           h(
@@ -66,14 +61,10 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
         ],
       ),
     ],
-    onInsert: dlg => {
-      dlg.show();
-      dlg.view.querySelector<HTMLElement>('.tagify__input')?.focus();
-    },
   });
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
-  site.asset.loadCssPath('bits.tagify');
+  site.asset.loadCss({ key: 'bits.tagify' });
   site.asset.loadIife('npm/tagify.min.js').then(() => {
     const tagi = (tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call

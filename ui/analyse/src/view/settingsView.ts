@@ -4,6 +4,7 @@ import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
+import { showHelp } from '@/keyboard';
 import type { SettingsCtrl, SettingKey } from '@/settingsCtrl';
 
 type Listener = (e: Event, ctrl: SettingsCtrl, key: SettingKey) => void;
@@ -120,9 +121,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
     onShow: flexTamer,
     onClose: dlg => {
       window.removeEventListener('resize', flexTamer);
-      if (dlg.returnValue !== 'showKeyboardShortcuts') return;
-      ctrl.keyboardHelp = true;
-      ctrl.redraw();
+      if (dlg.returnValue === 'showKeyboardShortcuts') showHelp(ctrl);
     },
   });
 }

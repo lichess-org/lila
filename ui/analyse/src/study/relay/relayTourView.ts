@@ -90,7 +90,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
                 }),
               hl('button.relay-tour__side__search', {
                 attrs: dataIcon(licon.Search),
-                hook: bind('click', study.search.open.toggle),
+                hook: bind('click', study.search.open),
               }),
             ]),
           ],

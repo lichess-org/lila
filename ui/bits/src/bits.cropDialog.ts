@@ -66,7 +66,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
 
   const dlg = await domDialog({
     class: 'crop-viewer',
-    css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ key: 'bits.cropDialog' }, { href: 'npm/cropper.min.css' }],
     modal: true,
     easyClose: 'clickOutside',
     htmlText: $html`

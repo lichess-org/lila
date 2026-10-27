@@ -50,7 +50,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
   const dlg = await domDialog({
     class: 'diagnostic',
-    css: [{ hashed: 'bits.diagnosticDialog' }],
+    css: [{ key: 'bits.diagnosticDialog' }],
     modal: true,
     focus: '.copy',
     htmlText: $html`
