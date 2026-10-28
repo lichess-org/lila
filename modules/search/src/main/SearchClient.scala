@@ -7,8 +7,10 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import scalalib.newtypes.SameRuntime
 
 import scala.concurrent.duration.FiniteDuration
+import scala.util.Failure
 
 import lila.db.dsl.{ Coll, bdoc }
+import lila.memo.CacheApi.*
 import lila.mon.extensions.*
 
 final class SearchClient(
@@ -43,7 +45,7 @@ final class SearchClient(
       context: => Any,
       timeout: Option[FiniteDuration] = None
   ): Fu[List[JsObject]] =
-    elastic("search", index, context, Nil)(
+    elastic("search", index, context)(
       ws.url(s"$endpoint/${index.esPath}/_search")
         .post(
           Json.obj(
@@ -57,10 +59,16 @@ final class SearchClient(
     )(js => (js \ "hits" \ "hits").as[List[JsObject]])
 
   def count(index: Index, query: JsObject, context: => Any): Fu[Long] =
-    countCache.get(CountKey(index, query, context.toString))
+    val key = CountKey(index, query, context.toString)
+    countCache
+      .get(key)
+      .recoverWith:
+        case e =>
+          countCache.invalidate(key)
+          fufail(e)
 
   private def fetchCount(key: CountKey): Fu[Long] =
-    elastic("count", key.index, key.context, 0L)(
+    elastic("count", key.index, key.context)(
       ws.url(s"$endpoint/${key.index.esPath}/_count")
         .post(Json.obj("query" -> key.query))
     )(js => (js \ "count").as[Long])
@@ -71,21 +79,17 @@ final class SearchClient(
   def delete[Id](index: Index, docId: Id)(using idAsString: SameRuntime[Id, String]): Funit =
     recordEvent(index, "delete", idAsString(docId))
 
-  private def elastic[A](op: "search" | "count", index: Index, context: => Any, fallback: A)(
+  private def elastic[A](op: "search" | "count", index: Index, context: => Any)(
       request: => Fu[StandaloneWSResponse]
   )(read: JsValue => A): Fu[A] =
     request
       .map:
         case res if res.status / 100 == 2 => read(res.body[JsValue])
         case res =>
-          logger.info(
-            s"Elasticsearch $op error: index={${index.esPath}}, query={$context}, ${res.status} ${res.body}"
-          )
-          fallback
-      .recover:
-        case e =>
+          throw new RuntimeException(s"Elasticsearch ${res.status}: ${res.body}")
+      .andThen:
+        case Failure(e) =>
           logger.info(s"Elasticsearch $op error: index={${index.esPath}}, query={$context}", e)
-          fallback
       .monTry(res => lila.mon.search.time(op, index.name, res.isSuccess))
 
   private def recordEvent[Id](index: Index, operation: "upsert" | "delete", docId: String): Funit =
