@@ -26,7 +26,7 @@ options:
   --help                     # show this help message and exit
   --es-uri=<uri>             # default 'http://127.0.0.1:9200'
   --mongo-uri=<uri>          # default 'mongodb://127.0.0.1:27017/lichess'
-  --from=<YYYY[-MM[-DD]]|0>  # backfill only: inclusive UTC start date; --from or --from=0 means epoch
+  --from=<YYYY[-MM[-DD]]|0>  # backfill only: inclusive UTC start date; --from=0 means epoch
                              # YYYY or YYYY-MM also accepted and treated as first month/day of the month/year
   --to=<YYYY[-MM[-DD]]>      # backfill only: inclusive UTC end date; omit for no upper bound
                              # YYYY or YYYY-MM also accepted and treated as first month/day of the month/year
@@ -49,7 +49,7 @@ examples:
                           --es-uri=http://127.0.0.1:9200 \\
                           --mongo-uri=mongodb://127.0.0.1:27017/lichess \\
                           --metrics-port=9464 \\
-                          --interval=30\n`;
+                          --interval=10\n`;
 
 let mongoClient: MongoClient;
 let metricsServer: Server | undefined;
@@ -258,7 +258,7 @@ async function confirmRecreateIndex(index: string, changed: string[]): Promise<b
 // ===========================================================================================================
 
 function parseArgs(): Args {
-  const stringArgs = ['es-host', 'mongo-uri', 'metrics-port', 'from', 'to'];
+  const stringArgs = ['es-uri', 'mongo-uri', 'metrics-port', 'interval', 'from', 'to'];
   const parsed = {
     indexes: [],
     esUri: 'http://127.0.0.1:9200',
