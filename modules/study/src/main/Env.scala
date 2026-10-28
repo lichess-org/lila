@@ -151,6 +151,11 @@ final class Env(
         val revisions = pendingRevisions.keys.asScala.toList
           .map(studyId => studyId -> pendingRevisions.remove(studyId))
           .filter(_._2 > 0)
-        studyRepo.incrementMetadataRevisions(revisions.toMap)
+        studyRepo
+          .incrementMetadataRevisions(revisions.toMap)
+          .recoverWith:
+            case e =>
+              revisions.foreach((id, count) => pendingRevisions.merge(id, count, _ + _))
+              fufail(e)
       .onComplete(completed.complete)
     completed.future
