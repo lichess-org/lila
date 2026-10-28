@@ -168,8 +168,6 @@ object HTTPRequest:
   def continent(req: RequestHeader): Option[Continent] =
     req.headers.get("X-Continent").flatMap(Continent.byCode.get)
 
-  def usernamePasswordLeaked(using req: RequestHeader): Boolean = req.headers.get("x-upl").exists(trueish)
-
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
   def name = toString
