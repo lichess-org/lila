@@ -117,9 +117,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
     coll(_.updateField(bid(chapterId) ++ bdoc("relay.lastMoveAt".exists(true)), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
-    coll(_.updateField(bid(chapter.id), "tags", chapter.tags))
-      .addEffect(_ => updateElasticIndex(chapter.studyId))
-      .void
+    coll(_.updateField(bid(chapter.id), "tags", chapter.tags)).void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
     setNodeValue(F.shapes, shapes.value.nonEmpty.option(shapes))
