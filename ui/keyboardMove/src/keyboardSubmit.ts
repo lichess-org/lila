@@ -45,17 +45,17 @@ export function makeSubmit(opts: Opts, clear: () => void): Submit {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
       // ambiguous promotion
-      if (isKey(v) && (selectedKey + v).match(ambiguousPromotionRegex) && !submitOpts.force) return;
+      if (isKey(v) && ambiguousPromotionRegex.test(selectedKey + v) && !submitOpts.force) return;
       // ambiguous UCI
       if (isKey(v) && selectedKey) opts.ctrl.select(v);
       // ambiguous capture+promotion (also check legalSans[v] here because bc8 could mean Bc8)
-      if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
+      if (ambiguousPromotionCaptureRegex.test(v) && legalSans[v] && !submitOpts.force) return;
       else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
       clear();
     } else if (
       legalSans &&
       selectedKey &&
-      (selectedKey + v).match(ambiguousPromotionCaptureRegex) &&
+      ambiguousPromotionCaptureRegex.test(selectedKey + v) &&
       legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)] &&
       !submitOpts.force
     ) {
@@ -63,9 +63,9 @@ export function makeSubmit(opts: Opts, clear: () => void): Submit {
     } else if (legalSans && isKey(v)) {
       opts.ctrl.select(v);
       clear();
-    } else if (legalSans && v.match(fileRegex)) {
+    } else if (legalSans && fileRegex.test(v)) {
       // do nothing
-    } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
+    } else if (legalSans && promotionRegex.test(selectedKey.slice(0, 1) + v)) {
       const promotionSan =
         selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
       const foundUci = sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);

@@ -140,7 +140,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   if (previousText) {
     chatEl.value = previousText;
     chatEl.focus();
-    if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
+    if (!ctrl.opts.public && whisperRegex.test(previousText)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
   chatEl.addEventListener('keydown', e => {
