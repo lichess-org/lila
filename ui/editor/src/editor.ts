@@ -36,6 +36,12 @@ export function initModule(config: Config): LichessEditor {
   };
   document.addEventListener('paste', pasteListener);
 
+  // Embeds share this module, and their host page may have its own query string.
+  if (!config.embed) {
+    const imageUrl = new URLSearchParams(location.search).get('image');
+    if (imageUrl) ctrl.loadFromImage(imageUrl);
+  }
+
   return {
     getFen: ctrl.getFen.bind(ctrl),
     setFen: fen => ctrl.setFen(fen),

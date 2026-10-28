@@ -445,9 +445,11 @@ export default class EditorCtrl implements CevalHandler {
     else this.setFen(fen);
   }
 
-  async loadFromImage(file: File): Promise<void> {
+  async loadFromImage(file: File | string): Promise<void> {
     try {
-      const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
+      const placement = await site.asset.loadEsm<FEN>('editor.vision', {
+        init: typeof file === 'string' ? { url: file } : { file },
+      });
       if (!this.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't figure it out");
     } catch (error) {
       alert(String(error));
