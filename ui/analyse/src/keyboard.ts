@@ -100,6 +100,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export const showHelp = (ctrl: AnalyseCtrl) => {
   pubsub.emit('analysis.closeAll');
   return domDialog({
+    closeButton: true,
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     modal: true,

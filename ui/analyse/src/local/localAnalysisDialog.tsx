@@ -34,6 +34,7 @@ import { LocalAnalysisEngine } from './localAnalysisEngine';
 export async function localAnalysisDialog(ctrl: AnalyseCtrl): Promise<void> {
   const state = new LocalAnalysisDialog(ctrl, await site.asset.loadEsm<ChartGame>('chart.game'));
   snabDialog({
+    closeButton: true,
     class: 'local-analysis-dialog',
     show: true,
     css: [{ key: 'analyse.local-dialog' }],

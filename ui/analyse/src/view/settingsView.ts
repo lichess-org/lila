@@ -109,6 +109,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
   if (!isTouchDevice()) window.addEventListener('resize', flexTamer);
   return domDialog({
     class: 'analysis-settings-dialog',
+    closeButton: true,
     htmlText: '<h2>Analysis settings</h2>',
     insert: [{ nodes: settingsView(ctrl.settings) }],
     modal: !isTouchDevice(),
@@ -175,7 +176,6 @@ function setupTouchHelp(view: HTMLElement) {
       domDialog({
         class: 'setting-popup',
         insert: [{ nodes }],
-        noCloseButton: true,
         show: true,
         easyClose: 'anyClick',
         onShow: dlg => dlg.view.querySelector('video')?.play(),
@@ -215,6 +215,7 @@ function setupHoverHelp(view: HTMLElement) {
   keyboardHelp.querySelector('button')!.addEventListener('click', () =>
     domDialog({
       class: 'help.keyboard-help',
+      closeButton: true,
       htmlUrl: '/analysis/help',
       easyClose: 'clickOutside',
       modal: true,

@@ -43,6 +43,7 @@ export default (ctrl: PuzzleCtrl) => {
 
 const showHelp = () =>
   domDialog({
+    closeButton: true,
     class: 'help',
     htmlUrl: '/training/help',
     show: true,

@@ -65,6 +65,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   });
 
   const dlg = await domDialog({
+    closeButton: true,
     class: 'crop-viewer',
     css: [{ key: 'bits.cropDialog' }, { href: 'npm/cropper.min.css' }],
     modal: true,

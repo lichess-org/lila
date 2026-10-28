@@ -14,6 +14,7 @@ import { variantPicker } from './components/variantPicker';
 export default function setupModal(ctrl: LobbyController) {
   const { setupCtrl } = ctrl;
   return snabDialog({
+    closeButton: true,
     attrs: { dialog: { 'aria-labelledby': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
     show: true,

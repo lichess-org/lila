@@ -255,6 +255,7 @@ function view(ctrl: StudyForm) {
       ),
   ]);
   return snabDialog({
+    closeButton: true,
     class: 'study-edit study-modal',
     show: true,
     modal: true,

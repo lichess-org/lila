@@ -37,6 +37,7 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 
 export function showEngineError(engine: string, error: string): void {
   domDialog({
+    closeButton: true,
     class: 'engine-error',
     modal: true,
     easyClose: 'clickOutside',

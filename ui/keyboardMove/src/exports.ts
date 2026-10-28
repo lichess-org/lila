@@ -160,6 +160,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     vote: (v: boolean) => root.vote?.(v),
     showHelp: () =>
       domDialog({
+        closeButton: true,
         class: 'help.keyboard-move-help',
         htmlUrl: '/help/keyboard-move',
         modal: true,

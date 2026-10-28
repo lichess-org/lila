@@ -39,6 +39,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                             else
                               domDialog({
+                                closeButton: true,
                                 cash: $('.simul .continue-with'),
                                 modal: true,
                                 easyClose: 'clickOutside',

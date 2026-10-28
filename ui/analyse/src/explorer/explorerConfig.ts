@@ -317,6 +317,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
   };
 
   return snabDialog({
+    closeButton: true,
     class: 'explorer__config__player__choice',
     show: true,
     modal: true,

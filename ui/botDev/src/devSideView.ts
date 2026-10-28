@@ -295,6 +295,7 @@ function fen(): VNode {
 function roundRobin() {
   domDialog({
     class: 'round-robin-dialog',
+    closeButton: true,
     htmlText: `<h2>round robin participants</h2>
     <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
       .map(p => {

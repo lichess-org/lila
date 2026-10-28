@@ -12,6 +12,7 @@ export function addExceptionListeners() {
     await log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
     if (site.debug)
       await domDialog({
+        closeButton: true,
         htmlText: escapeHtml(`${e.message}${loc}\n${e.error?.stack ?? ''}`),
         class: 'debug',
         easyClose: 'clickOutside',
@@ -30,6 +31,7 @@ export function addExceptionListeners() {
     await log(`${terseHref()} - ${reason}`);
     if (site.debug)
       await domDialog({
+        closeButton: true,
         htmlText: escapeHtml(reason),
         class: 'debug',
         easyClose: 'clickOutside',

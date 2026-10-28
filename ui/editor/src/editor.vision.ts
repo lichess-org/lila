@@ -18,7 +18,6 @@ export async function initModule(input: ImageInput): Promise<FEN> {
       <div class="mini-board cg-wrap is2d standard" style="width: 240px;height:240px"></div>`,
     class: 'vision-status',
     modal: false,
-    noCloseButton: true,
   });
   const cg = Chessground(statusDialog.view.querySelector<HTMLElement>('.mini-board')!, {
     viewOnly: true,

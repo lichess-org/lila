@@ -194,6 +194,7 @@ export class StudyChapterNewForm {
           : 'normal';
 
     this.dialog = await snabDialog<StudyChapterNewForm>({
+      closeButton: true,
       class: 'chapter-new study-modal',
       show: true,
       ctx: this,

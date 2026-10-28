@@ -78,6 +78,7 @@ export class SoundCtrl extends PaneCtrl {
   private readonly voiceSelectionDialog = () => {
     if (!site.sound.getVoiceMap().size) return undefined;
     return snabDialog({
+      closeButton: true,
       class: 'voice-selection',
       show: true,
       modal: true,

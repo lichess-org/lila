@@ -17,6 +17,7 @@ export class SearchCtrl {
   open = () => {
     let query = '';
     return snabDialog({
+      closeButton: true,
       class: 'study-search study-modal',
       show: true,
       noScrollable: true,

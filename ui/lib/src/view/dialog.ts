@@ -41,7 +41,7 @@ export interface DialogOpts<Ctx = undefined> {
   parentEl?: Element; // parent for placement and centering; defaults to document.body
   onShow?: (dialog: Dialog<Ctx>) => void; // called after dialog is shown
   onClose?: (dialog: Dialog<Ctx>) => void; // always called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corner close button
+  closeButton?: boolean; // if true, add an upper right corner close button
   noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
   noTabCycle?: boolean; // if true, dont trap tab focus within the dialog
   show?: boolean; // show dialog immediately after construction
@@ -88,7 +88,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   if (isTouchDevice()) dialog.classList.add('touch-scroll');
   if (o.parentEl) dialog.style.position = 'absolute';
 
-  if (!o.noCloseButton) {
+  if (o.closeButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
     anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
     dialog.appendChild(anchor);
@@ -155,7 +155,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dia
         hook: outerHook,
       },
       [
-        o.noCloseButton ||
+        o.closeButton &&
           hl(
             'div.close-button-anchor',
             hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
@@ -252,11 +252,11 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
     this.dialogEvents.addListener(dialog, 'cancel', e => {
-      if (!o.easyClose && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
+      if (!o.easyClose && !o.closeButton && o.class !== 'alert') return e.preventDefault();
       if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
-    if (!o.noCloseButton)
+    if (o.closeButton)
       this.dialogEvents.addListener(
         dialog.querySelector<HTMLButtonElement>('.close-button-anchor > .close-button')!,
         'click',
@@ -307,7 +307,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   };
 
   private readonly onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && (this.o.easyClose || !this.o.noCloseButton)) {
+    if (e.key === 'Escape' && (this.o.easyClose || this.o.closeButton)) {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab' && !this.o.noTabCycle) {

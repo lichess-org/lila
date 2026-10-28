@@ -35,6 +35,7 @@ let tagify: Tagify | undefined;
 
 const formView = (ctrl: TopicsCtrl, userId?: string) =>
   snabDialog({
+    closeButton: true,
     class: 'study-topics study-modal',
     show: true,
     modal: true,

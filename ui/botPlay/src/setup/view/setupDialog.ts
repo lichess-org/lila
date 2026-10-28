@@ -11,6 +11,7 @@ import type SetupCtrl from '../setupCtrl';
 
 export const setupDialog = (ctrl: SetupCtrl, bot: Bot) =>
   snabDialog({
+    closeButton: true,
     class: `bot-setup__dialog bot-color--${bot.key}`,
     show: true,
     onClose: ctrl.redraw,

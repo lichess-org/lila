@@ -49,6 +49,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
   const dlg = await domDialog({
+    closeButton: true,
     class: 'diagnostic',
     css: [{ key: 'bits.diagnosticDialog' }],
     modal: true,

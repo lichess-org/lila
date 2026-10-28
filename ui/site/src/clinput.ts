@@ -108,6 +108,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   domDialog({
+    closeButton: true,
     css: [{ key: 'bits.clinput.help' }],
     class: 'clinput-help',
     modal: true,

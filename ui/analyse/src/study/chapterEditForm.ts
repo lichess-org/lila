@@ -74,6 +74,7 @@ export class StudyChapterEditForm {
 
 function view(ctrl: StudyChapterEditForm, chapter: ChapterPreview) {
   return snabDialog<ChapterPreview | StudyChapterConfig>({
+    closeButton: true,
     class: 'chapter-edit study-modal',
     show: true,
     ctx: chapter,

@@ -125,6 +125,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
 export async function openHelpDialog(ctrl: VoiceCtrl): Promise<void> {
   const [dlg, { entries }] = await Promise.all([
     domDialog({
+      closeButton: true,
       class: 'help.voice-move-help',
       htmlUrl: `/help/voice/${ctrl.moduleId}`,
       css: [{ key: 'voice.move.help' }],
@@ -173,6 +174,7 @@ export async function openAllPhrasesDialog(ctrl: VoiceCtrl): Promise<void> {
   }
   ctrl.helpDialog?.close();
   ctrl.helpDialog = await domDialog({
+    closeButton: true,
     class: 'help.voice-move-help',
     htmlText: '<table class="big-table"><tbody></tbody></table>',
     insert: [{ nodes: rows, selector: 'tbody' }],

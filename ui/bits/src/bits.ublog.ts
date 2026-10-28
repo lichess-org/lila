@@ -66,6 +66,7 @@ async function showModBlogSubmitDlg(e: Event) {
   const noteField = form.querySelector<HTMLInputElement>('[name="note"]')!;
   const noteHtml = escapeHtml(noteField.value.trim());
   const res = await domDialog({
+    closeButton: true,
     class: 'ublog-mod-note-dlg',
     modal: true,
     show: true,

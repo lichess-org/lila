@@ -36,6 +36,7 @@ export const init = (ctrl: RoundController): LichessMousetrap => {
 
 const showHelp = () =>
   domDialog({
+    closeButton: true,
     class: 'help',
     htmlUrl: '/round/help',
     modal: true,

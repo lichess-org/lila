@@ -37,6 +37,7 @@ export function makeCtrl(
     async show() {
       pubsub.emit('analysis.closeAll');
       dialog = await snabDialog({
+        closeButton: true,
         class: 'study__invite study-modal',
         show: true,
         modal: true,

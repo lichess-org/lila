@@ -10,6 +10,7 @@ import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
   return snabDialog({
+    closeButton: true,
     class: 'team-battle__choice',
     show: true,
     modal: true,
