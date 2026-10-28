@@ -758,9 +758,7 @@ final class Study(
     for
       entries <- env.study.bookmarks.load(me.userId)
       studies <- env.study.studyRepo.byOrderedIds(lila.study.StudyBookmarks.studyIds(entries))
-      visible = studies.filter(study =>
-        study.isPublic || study.isOwner(me.userId) || study.isMember(me.userId)
-      )
+      visible = studies.filter(_.canView(Some(me.userId)))
       chapters <- env.study.chapterRepo.metadataByStudyIds(visible.map(_.id))
     yield Ok(
       Json.obj(
