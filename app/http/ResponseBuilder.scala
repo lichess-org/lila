@@ -75,7 +75,7 @@ trait ResponseBuilder(using Executor)
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] = {
     if HTTPRequest.acceptsJson(ctx.req) then json
     else if ctx.isOAuth then
-      if HTTPRequest.accepts(ctx.req).isEmpty then json
+      if HTTPRequest.accepts(ctx.req).forall(_ == "*/*") then json
       else
         lila.log.system.info(s"${HTTPRequest.print(ctx.req)} ${ctx.userId} ${HTTPRequest.accepts(ctx.req)}")
         NotAcceptable(jsonError(onlyReturnsJson)).toFuccess
