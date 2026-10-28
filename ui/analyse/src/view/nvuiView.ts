@@ -283,7 +283,7 @@ export function boardEventsHook(
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     const isZh = ctrl.data.game.variant.key === 'crazyhouse';
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) jumpMoveOrLine(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);

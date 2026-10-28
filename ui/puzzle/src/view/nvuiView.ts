@@ -186,7 +186,7 @@ function boardEventsHook(
   $board.on('blur', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
   $board.on('click', 'button', e => nv.selectionHandler(() => opposite(ctrl.pov))(e));
   $board.on('keydown', 'button', (e: KeyboardEvent) => {
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) nextOrPrev(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(
         ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
