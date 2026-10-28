@@ -65,6 +65,12 @@ final private class FirebasePush(
                     yield ()
                 yield ()
 
+  private def androidNotification(device: Device, data: PushApi.Data): Option[JsObject] =
+    data.androidChannel
+      .ifTrue(device.isMobile && !data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly))
+      .map: channel =>
+        Json.obj("channel_id" -> channel.toString)
+
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]
   private val errorCounter = FrequencyThreshold[StatusCode](50, 10.minutes)
@@ -89,7 +95,10 @@ final private class FirebasePush(
               .add:
                 "token" -> device._id.some
               .add:
-                "android" -> Json.obj("priority" -> "high").some
+                "android" -> Json
+                  .obj("priority" -> "high")
+                  .add("notification" -> androidNotification(device, data))
+                  .some
               .add:
                 "apns" -> data.iosBadge.map: number =>
                   Json.obj(
