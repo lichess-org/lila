@@ -17,6 +17,7 @@ overview:
     backfill the elasticsearch indices using a date-bounded mongodb search
   otherwise:
     watch mongo's elasticsearch_events collection as a durable mailbox and update es indices until SIGINT.
+    process bounded batches and flag rejected events so later watch cycles skip them.
     track health metrics and expose for prometheus scraping on --metrics-port
 
 arguments:
@@ -99,57 +100,107 @@ interface WatchEvent {
   docId: string;
   operation: 'upsert' | 'delete';
   createdAt?: Date;
+  rejected?: boolean;
 }
 
 async function watch(context: Context) {
-  const mailbox = context.mongo.collection<WatchEvent>('elasticsearch_events');
   console.log(`watching ${args.mongoUri}/elasticsearch_events for ${args.indexes.join(', ')}...`);
 
   while (true) {
     let upserted = 0;
     let deleted = 0;
+    let pending = false;
+    let ok = false;
     try {
-      const esEvents = await mailbox
-        .find({ index: { $in: args.indexes } })
-        .sort({ createdAt: 1, _id: 1 })
-        .toArray();
-
-      const deduped = [...new Map(esEvents.map(e => [`${e.index}:${e.docId}`, e])).values()];
-
-      for (const [index, events] of Map.groupBy(deduped, e => e.index)) {
-        const requestDeleteIds = events.filter(e => e.operation === 'delete').map(e => e.docId);
-        const requestUpsertIds = events.filter(e => e.operation === 'upsert').map(e => e.docId);
-        const mapping = indexing[index].mapping;
-        const mongoDocs = await context.mongo
-          .collection<MongoDoc>(mapping.collection)
-          .find({ _id: { $in: requestUpsertIds } }, { projection: mapping.projection })
-          .toArray();
-        const operations = await mapping.operations(mongoDocs, context);
-        const existsInMongoSet = new Set(operations.toUpsert.map(doc => doc.id));
-        operations.toDelete = [
-          ...new Set([
-            ...operations.toDelete,
-            ...requestUpsertIds.filter(id => !existsInMongoSet.has(id)),
-            ...requestDeleteIds,
-          ]),
-        ];
-
-        await writeToIndex(index, operations);
-        upserted += operations.toUpsert.length;
-        deleted += operations.toDelete.length;
+      const result = await indexEvents(context);
+      for (const [index, written] of result.results) {
+        metrics.indexing[index].upserted += written.upserted;
+        metrics.indexing[index].deleted += written.deleted;
+        upserted += written.upserted;
+        deleted += written.deleted;
       }
-      await mailbox.deleteMany({ _id: { $in: esEvents.map(event => event._id) } });
-      metrics.cycles.ok++;
-      metrics.consecutiveFailures = 0;
+      ok = result.ok;
+      pending = ok && result.pending;
     } catch (e) {
-      metrics.cycles.error++;
-      metrics.consecutiveFailures++;
-      console.log(e instanceof Error ? (e.stack ?? e.message) : String(e));
+      console.error(e);
     } finally {
-      metrics.cycle = { timestamp: Date.now() / 1000, upserted, deleted, ok: metrics.consecutiveFailures === 0 };
-      await new Promise(resolve => setTimeout(resolve, context.args.interval * 1000));
+      metrics.cycles[ok ? 'ok' : 'error']++;
+      metrics.consecutiveFailures = ok ? 0 : metrics.consecutiveFailures + 1;
+      metrics.cycle = {
+        timestamp: Date.now() / 1000,
+        upserted,
+        deleted,
+        ok,
+      };
+      if (!pending) await new Promise(resolve => setTimeout(resolve, context.args.interval * 1000));
     }
   }
+}
+
+// ===========================================================================================================
+
+async function indexEvents(context: Context) {
+  const mailbox = context.mongo.collection<WatchEvent>('elasticsearch_events');
+  const results = new Map<IndexName, WriteResult>();
+  let ok = true;
+  let pending = false;
+
+  for (const index of context.args.indexes) {
+    try {
+      const schema = indexing[index];
+      const events = await mailbox
+        .find({ index, rejected: { $ne: true } })
+        .sort({ createdAt: 1, _id: 1 })
+        .limit(schema.batchSize)
+        .toArray();
+      if (!events.length) continue;
+      const deduped = [...new Map(events.map(event => [event.docId, event])).values()];
+      const upsertIds = deduped.filter(event => event.operation === 'upsert').map(event => event.docId);
+      const docs = await context.mongo
+        .collection<MongoDoc>(schema.mapping.collection)
+        .find({ _id: { $in: upsertIds } }, { projection: schema.mapping.projection })
+        .toArray();
+      const operations = await schema.mapping.operations(docs, context);
+      const upserted = new Set(operations.toUpsert.map(doc => doc.id));
+      operations.toDelete = [
+        ...new Set([
+          ...operations.toDelete,
+          ...upsertIds.filter(id => !upserted.has(id)),
+          ...deduped.filter(event => event.operation === 'delete').map(event => event.docId),
+        ]),
+      ];
+
+      const result = await writeToIndex(index, operations);
+      results.set(index, result);
+      ok &&= result.ok;
+      const completed = events.filter(event => result.completed.has(event.docId));
+      if (completed.length)
+        await mailbox.deleteMany({
+          index,
+          $or: [
+            { _id: { $in: completed.map(event => event._id) } },
+            ...deduped
+              .filter(event => result.completed.has(event.docId))
+              .map(event => ({
+                docId: event.docId,
+                rejected: true,
+                _id: { $lt: event._id },
+              })),
+          ],
+        });
+      const rejected = events.filter(event => result.rejected.has(event.docId));
+      if (rejected.length)
+        await mailbox.updateMany(
+          { _id: { $in: rejected.map(event => event._id) } },
+          { $set: { rejected: true } },
+        );
+      pending ||= events.length === schema.batchSize && completed.length + rejected.length > 0;
+    } catch (error) {
+      console.error(`${index}:`, error);
+      ok = false;
+    }
+  }
+  return { results, ok, pending };
 }
 
 // ===========================================================================================================
@@ -157,6 +208,12 @@ async function watch(context: Context) {
 async function backfill(index: IndexName, context: Context) {
   const mapping = indexing[index].mapping;
   console.log(`${index}: backfill started`);
+
+  const write = async (docs: MongoDoc[]) => {
+    const result = await writeToIndex(index, await mapping.operations(docs, context));
+    metrics.indexing[index].upserted += result.upserted;
+    metrics.indexing[index].deleted += result.deleted;
+  };
 
   const cursor = context.mongo
     .collection<MongoDoc>(mapping.collection)
@@ -167,34 +224,106 @@ async function backfill(index: IndexName, context: Context) {
   for await (const doc of cursor) {
     docs.push(doc);
     if (docs.length >= indexing[index].batchSize) {
-      await writeToIndex(index, await mapping.operations(docs, context));
+      await write(docs);
       const { upserted, deleted } = metrics.indexing[index];
       console.log(`${index}: ${upserted} indexed, ${deleted} deleted`);
       docs = [];
     }
   }
-  if (docs.length) await writeToIndex(index, await mapping.operations(docs, context));
+  if (docs.length) await write(docs);
   const { upserted, deleted } = metrics.indexing[index];
   console.log(`${index}: backfill complete, ${upserted} indexed, ${deleted} deleted`);
 }
 
 // ===========================================================================================================
 
-async function writeToIndex(index: IndexName, { toUpsert, toDelete }: Operations) {
-  if (toUpsert.length + toDelete.length === 0) return;
-  const esIndex = indexing[index].esPath;
-  const body: estypes.BulkOperationContainer[] = [];
-  for (const upsertMe of toUpsert) {
-    body.push({ index: { _index: esIndex, _id: upsertMe.id } }, upsertMe.doc);
+interface WriteResult {
+  completed: Set<string>;
+  rejected: Set<string>;
+  upserted: number;
+  deleted: number;
+  ok: boolean;
+}
+
+async function writeToIndex(index: IndexName, operations: Operations) {
+  const schema = indexing[index];
+  const result: WriteResult = {
+    completed: new Set(),
+    rejected: new Set(),
+    upserted: 0,
+    deleted: 0,
+    ok: true,
+  };
+  const maxBulkBytes = 5 * 1024 * 1024;
+  let batch: { id: string; operation: 'index' | 'delete'; body: string }[] = [];
+  let bytes = 0;
+
+  const send = async (): Promise<boolean> => {
+    if (!batch.length) return true;
+    try {
+      const { body } = await esClient.bulk<estypes.BulkResponse, string>({
+        body: batch.map(entry => entry.body).join(''),
+      });
+      if (body.items.length !== batch.length)
+        throw new Error(`bad bulk response: wanted ${batch.length} ops but got ${body.items.length}`);
+      body.items.forEach((item, index) => {
+        const entry = batch[index];
+        const response = item[entry.operation]!;
+        if (
+          !response.error &&
+          (response.status < 300 || (entry.operation === 'delete' && response.status === 404))
+        ) {
+          result.completed.add(entry.id);
+          if (entry.operation === 'index') result.upserted++;
+          else result.deleted++;
+        } else {
+          console.error(`${index}/${entry.id}: ${JSON.stringify(response)}`);
+          if (response.status === 400 || response.status === 413) result.rejected.add(entry.id);
+          else result.ok = false;
+        }
+      });
+      batch = [];
+      bytes = 0;
+      return true;
+    } catch (error) {
+      console.error(`${index}:`, error);
+      result.ok = false;
+      return false;
+    }
+  };
+
+  const entries = function* () {
+    for (const entry of operations.toUpsert) {
+      yield {
+        id: entry.id,
+        operation: 'index' as const,
+        body: `${JSON.stringify({ index: { _index: schema.esPath, _id: entry.id } })}\n${JSON.stringify(entry.doc)}\n`,
+      };
+    }
+    for (const id of operations.toDelete) {
+      yield {
+        id,
+        operation: 'delete' as const,
+        body: `${JSON.stringify({ delete: { _index: schema.esPath, _id: id } })}\n`,
+      };
+    }
+  };
+
+  for (const entry of entries()) {
+    const size = Buffer.byteLength(entry.body);
+    if (size > maxBulkBytes) {
+      console.error(`${index}/${entry.id}: ${size} exceeds ${maxBulkBytes} bulk bytes`);
+      result.rejected.add(entry.id);
+      continue;
+    }
+    if (batch.length && (bytes + size > maxBulkBytes || batch.length >= schema.batchSize)) {
+      if (!(await send())) return result;
+    }
+    batch.push(entry);
+    bytes += size;
   }
-  for (const deleteMe of toDelete) {
-    body.push({ delete: { _index: esIndex, _id: deleteMe } });
-  }
-  const result = await esClient.bulk({ body });
-  if (result.body.errors)
-    throw new Error(`bulk '${index}' update failed: ${JSON.stringify(result.body).slice(0, 2000)}...`);
-  metrics.indexing[index].upserted += toUpsert.length;
-  metrics.indexing[index].deleted += toDelete.length;
+  await send();
+  return result;
 }
 
 // ===========================================================================================================
