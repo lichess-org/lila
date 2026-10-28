@@ -72,7 +72,7 @@ final class PushApi(
               mobileCompatible = LichessMobileVersion.zero.some,
               iosBadge = nbMyTurn.some,
               firebaseMod = offlineRoundNotif,
-              androidChannel = AndroidChannel.CorresGameUpdate.some
+              androidChannel = AndroidChannel.corresGameUpdate.some
             )
           for
             _ <- IfAway(pov)(maybePushNotif(userId, _.finish, PrefEvent.gameEvent, data))
@@ -106,7 +106,7 @@ final class PushApi(
                       mobileCompatible = LichessMobileVersion.zero.some,
                       iosBadge = nbMyTurn.some,
                       firebaseMod = offlineRoundNotif,
-                      androidChannel = AndroidChannel.CorresGameUpdate.some
+                      androidChannel = AndroidChannel.corresGameUpdate.some
                     )
                   for
                     _ <- pov.isMyTurn.so:
@@ -137,7 +137,7 @@ final class PushApi(
                       payload = payload,
                       mobileCompatible = LichessMobileVersion.zero.some,
                       firebaseMod = offlineRoundNotif,
-                      androidChannel = AndroidChannel.CorresGameUpdate.some
+                      androidChannel = AndroidChannel.corresGameUpdate.some
                     )
                   IfAway(pov)(maybePushNotif(userId, _.takeback, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.takeback, data)
@@ -166,7 +166,7 @@ final class PushApi(
                       payload = payload,
                       firebaseMod = offlineRoundNotif,
                       mobileCompatible = LichessMobileVersion.zero.some,
-                      androidChannel = AndroidChannel.CorresGameUpdate.some
+                      androidChannel = AndroidChannel.corresGameUpdate.some
                     )
                   IfAway(pov)(maybePushNotif(userId, _.draw, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.draw, data)
@@ -186,7 +186,7 @@ final class PushApi(
           payload = payload,
           mobileCompatible = LichessMobileVersion.zero.some,
           firebaseMod = offlineRoundNotif,
-          androidChannel = AndroidChannel.CorresGameUpdate.some
+          androidChannel = AndroidChannel.corresGameUpdate.some
         )
       maybePushNotif(userId, _.corresAlarm, PrefEvent.gameEvent, data) >>
         alwaysPushFirebaseData(userId, _.corresAlarm, data)
@@ -218,7 +218,7 @@ final class PushApi(
             "type" -> "newMessage",
             "threadId" -> senderId.value
           ),
-          androidChannel = AndroidChannel.NewMessage.some
+          androidChannel = AndroidChannel.newMessage.some
         )
     )
 
@@ -264,7 +264,7 @@ final class PushApi(
                     "challengeId" -> c.id.value
                   ),
                   mobileCompatible = LichessMobileVersion(0, 18).some,
-                  androidChannel = AndroidChannel.CorresChallengeCreate.some
+                  androidChannel = AndroidChannel.corresChallengeCreate.some
                 )
             )
 
@@ -291,7 +291,7 @@ final class PushApi(
                     "challengeId" -> c.id.value,
                     "fullId" -> game.fullIdOf(c.finalColor).value
                   ),
-                  androidChannel = AndroidChannel.CorresChallengeAccept.some
+                  androidChannel = AndroidChannel.corresChallengeAccept.some
                 )
             )
 
@@ -373,7 +373,7 @@ final class PushApi(
         urgency = Urgency.Normal,
         payload = payload("type" -> "broadcast", "url" -> url),
         mobileCompatible = LichessMobileVersion(0, 27).some,
-        androidChannel = AndroidChannel.Broadcast.some
+        androidChannel = AndroidChannel.broadcast.some
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
 
@@ -386,7 +386,7 @@ final class PushApi(
         urgency = Urgency.Normal,
         payload = payload("type" -> "recap", "year" -> year.toString),
         mobileCompatible = LichessMobileVersion(0, 26).some,
-        androidChannel = AndroidChannel.Recap.some
+        androidChannel = AndroidChannel.recap.some
       )
     pushFirebase(userId, _.recap, data)
 
@@ -467,13 +467,8 @@ private object PushApi:
 
   // notification channels created by the mobile app on Android
   // the ids are defined by the app (NotificationChannel), they must match it exactly
-  enum AndroidChannel(val id: String):
-    case NewMessage extends AndroidChannel("newMessage")
-    case CorresGameUpdate extends AndroidChannel("corresGameUpdate")
-    case CorresChallengeCreate extends AndroidChannel("corresChallengeCreate")
-    case CorresChallengeAccept extends AndroidChannel("corresChallengeAccept")
-    case Broadcast extends AndroidChannel("broadcast")
-    case Recap extends AndroidChannel("recap")
+  enum AndroidChannel:
+    case newMessage, corresGameUpdate, corresChallengeCreate, corresChallengeAccept, broadcast, recap
 
   object Data:
     // firebase doesn't support nested data object

@@ -69,7 +69,7 @@ final private class FirebasePush(
     data.androidChannel
       .ifTrue(device.isMobile && !data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly))
       .map: channel =>
-        Json.obj("channel_id" -> channel.id)
+        Json.obj("channel_id" -> channel.toString)
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]
