@@ -50,15 +50,15 @@ final class Export(env: Env) extends LilaController(env):
         .pipe(stream(filename, cache = if game.finishedOrAborted then 10.days else 10.seconds))
     }
 
-  def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) = Anon:
+  def puzzleThumbnail(id: PuzzleId) = Anon: ctx ?=>
     exportImageOf(env.puzzle.api.puzzle.find(id)): puzzle =>
       env.game.gifExport
         .thumbnail(
           position = puzzle.boardAfterInitialMove.err(s"invalid puzzle ${puzzle.id}"),
           lastMove = puzzle.line.head.some,
           orientation = puzzle.color,
-          theme = Theme(theme).name,
-          piece = PieceSet.get(piece).name,
+          theme = ctx.pref.theme,
+          piece = ctx.pref.pieceSet,
           description = s"puzzleThumbnail ${puzzle.id}"
         )
         .pipe(stream(s"lichess-puzzle-${puzzle.id}.gif"))
