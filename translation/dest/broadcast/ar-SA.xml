@@ -35,7 +35,7 @@
   <string name="fullDescriptionHelp">وصف تفصيلي اختياري للفعالية. يمكنك استخدام %1$s للاطّلاع على خيارات تنسيق إضافية. يجب ألا يتجاوز الطول %2$s حرفًا.</string>
   <string name="sourceSingleUrl">رابط مصدر PGN</string>
   <string name="sourceUrlHelp">عنوان URL الذي سيتحقق منه ليتشيس للحصول على تحديثات PGN. يجب أن يكون متاحا للجميع من الإنترنت.</string>
-  <string name="sourceGameIds">حتى 64 معرف لُعْبَة ليتشيس، مفصولة بمسافات.</string>
+  <string name="sourceGameIds">حتى 64 معرّفًا لمباريات ليشيس، مفصولة بمسافات.</string>
   <string name="startDateTimeZone">موعد البداية بتوقيت البطولة المحلي: %s</string>
   <string name="startDateHelp">اختياري، إذا كنت تعرف متى يبدأ الحدث</string>
   <string name="currentGameUrl">رابط المباراة الحالية</string>
@@ -50,13 +50,13 @@
   <string name="showScores">إظهار نتيجة اللاعبين بناءً على نتائج اللعبة</string>
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="fideFederations">الاتحاد الدولي للشطرنج</string>
-  <string name="top10Rating">تقييم أعلى 10</string>
+  <string name="top10Rating">أفضل 10 تصنيفات</string>
   <string name="fidePlayers">لاعبين FIDE</string>
   <string name="fidePlayerNotFound">لم يتم العثور على لاعب الاتحاد الدولي (FIDE)</string>
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="federation">إتحاد</string>
   <string name="age">العمر</string>
-  <string name="unrated">غير مقيم</string>
+  <string name="unrated">غير مُصنَّف</string>
   <string name="recentTournaments">البطولات الأخيرة</string>
   <string name="openLichess">افتح في ليتشيس</string>
   <string name="teams">الفِرق</string>
@@ -85,7 +85,8 @@
   <string name="tournamentLocation">موقع البطولة</string>
   <string name="topPlayers">أفضل اللاعبين</string>
   <string name="timezone">المنطقة الزمنية</string>
-  <string name="fideRatingCategory">فئة تقيم FIDE</string>
+  <string name="fideRatingCategory">فئة تقيم FIDE
+فئة تصنيف الاتحاد الدولي للشطرنج (FIDE)</string>
   <string name="optionalDetails">تفاصيل اختيارية</string>
   <string name="pastBroadcasts">البثوث السابقة</string>
   <string name="allBroadcastsByMonth">اعرض البثوث حسب الشهر</string>

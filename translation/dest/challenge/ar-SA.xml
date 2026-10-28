@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">الرجاء التسجيل لإرسال تحديات.</string>
   <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
   <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
-  <string name="yourXRatingIsTooFarFromY">تقييمك %1$s أعلى من %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">لا يمكن ارسال التحدي بسبب تقييم %s المبدئي.</string>
+  <string name="yourXRatingIsTooFarFromY">تصنيفك في %1$s بعيد جدًا عن %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">لا يمكنك تحدّي اللاعب بسبب تصنيفك المؤقت في %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
   <string name="declineGeneric">أنا لا أقبل التحديات في الوقت الراهن.</string>
   <string name="declineLater">هذا ليس الوقت المناسب بالنسبة لي، أرجو أن تسأل مرة أخرى لاحقاً.</string>

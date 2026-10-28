@@ -67,7 +67,7 @@
   <string name="analysis">تحلیل بازی</string>
   <string name="depthX">عمق %s</string>
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
-  <string name="loadingEngine">موتور بارمی‌گذارد...</string>
+  <string name="loadingEngine">موتور می‌بارگذارد...</string>
   <string name="calculatingMoves">محاسبهٔ حرکت‌ها...</string>
   <string name="engineFailed">خطا در بارگذاری موتور</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
@@ -139,9 +139,9 @@
   <string name="multipleLinesDescription">تعیینِ تعداد شاخه‌های ارزیابی و پیکان‌های حرکت روی تخته</string>
   <string name="searchTime">مدت جستجو</string>
   <string name="searchTimeDescription">تعیینِ مدت برای ارزیابی وضعیت‌های تازه</string>
-  <string name="threads">رشته‌ها</string>
-  <string name="threadsDescription">این را زیرِ تعداد رشته‌های «واو.په.میم» (CPU) تان تعیین کنید، هفتک‌ها انتخابی خوب و امن را نشان می‌دهند</string>
-  <string name="threadsDescriptionMobile">رشته‌های بیشتر، باتریِ بیشتر برای تحلیلِ بهتر می‌مصرفند</string>
+  <string name="threads">نخ</string>
+  <string name="threadsDescription">این را زیرِ تعداد نخ‌های «واو.پ.مَر»/CPU تان تعیین کنید، هفتک‌ها انتخابی خوب و امن را می‌نمایند</string>
+  <string name="threadsDescriptionMobile">نخ‌های بیشتر، باتریِ بیشتر برای تحلیلِ بهتر می‌مصرفند</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="memoryDescription">مقدارهای بالاتر ممکن است عملکرد را بهبود بخشد</string>

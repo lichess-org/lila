@@ -111,8 +111,8 @@
   <string name="nothingHere">لا يوجد شيء هنا, حتى الآن.</string>
   <string name="newsEdit1">جميع أخبار الفصل في مكان.</string>
   <string name="newsEdit2">إضافة الأخبار الأخيرة في الأعلى. لا تقم بحذف الأخبار السابقة.</string>
-  <string name="newsEdit3">إفصل الأخبار ب ---
-سيعرض سطرا أفقيا.</string>
+  <string name="newsEdit3">افصل بين الأخبار باستخدام --- 
+سيؤدي ذلك إلى إظهار خط أفقي.</string>
   <string name="invite">دعوة</string>
   <string name="youHaveBeenInvitedByX">لقد تمت دعوتك من قبل %s.</string>
   <string name="youAcceptedThisInvitation">لقد قمت بقبول هذه الدعوة.</string>
