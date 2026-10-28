@@ -509,8 +509,10 @@ final class StudyApi(
     (tags != oldChapter.tags).so:
       val chapter = oldChapter.copy(tags = tags)
       for
-        _ <- chapterRepo.setTagsFor(chapter).addEffect: _ =>
-          if !study.isRelay then studyRepo.updateElasticIndex(study.id)
+        _ <- chapterRepo
+          .setTagsFor(chapter)
+          .addEffect: _ =>
+            if !study.isRelay then studyRepo.updateElasticIndex(study.id)
         _ <- StudyPgnTags
           .setRootClockFromTags(chapter)
           .so: c =>
