@@ -4,9 +4,9 @@ package http
 import play.api.mvc.*
 import scalalib.model.Language
 
+import lila.common.HTTPRequest
 import lila.core.i18n.toLanguage
 import lila.core.net.Continent
-import lila.common.HTTPRequest
 
 final class HomeCache(cacheApi: lila.memo.CacheApi, relayHome: lila.relay.RelayHomeApi):
 
