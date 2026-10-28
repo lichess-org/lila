@@ -36,6 +36,7 @@ case class LoginCandidate(
 object LoginCandidate:
   enum Result(val toOption: Option[User]):
     def success = toOption.isDefined
+    def name = Result.this.toString
     case Success(user: User) extends Result(user.some)
     case InvalidUsernameOrPassword extends Result(none)
     case Must2fa extends Result(none)
