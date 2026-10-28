@@ -139,13 +139,14 @@ async function watch(context: Context) {
         deleted += operations.toDelete.length;
       }
       await mailbox.deleteMany({ _id: { $in: esEvents.map(event => event._id) } });
+      metrics.cycles.ok++;
       metrics.consecutiveFailures = 0;
     } catch (e) {
       metrics.cycles.error++;
       metrics.consecutiveFailures++;
       console.log(e instanceof Error ? (e.stack ?? e.message) : String(e));
     } finally {
-      metrics.cycle = { timestamp: Date.now() / 1000, upserted, deleted, ok: !!metrics.consecutiveFailures };
+      metrics.cycle = { timestamp: Date.now() / 1000, upserted, deleted, ok: metrics.consecutiveFailures === 0 };
       await new Promise(resolve => setTimeout(resolve, context.args.interval * 1000));
     }
   }
@@ -337,7 +338,7 @@ async function startMetrics() {
       `es_index_cycle_events ${metrics.cycle.upserted + metrics.cycle.deleted}`,
       '# HELP es_index_cycle_ok Whether the most recent watch cycle completed successfully.',
       '# TYPE es_index_cycle_ok gauge',
-      `es_index_cycle_ok ${metrics.cycle.ok}`,
+      `es_index_cycle_ok ${Number(metrics.cycle.ok)}`,
       '# HELP es_index_cycles_total Watch cycles since process start.',
       '# TYPE es_index_cycles_total counter',
       `es_index_cycles_total ${metrics.cycles.ok + metrics.cycles.error}`,
