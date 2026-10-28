@@ -39,6 +39,8 @@
   <string name="teamUpdates">Actualitzacions de l’equip</string>
   <string name="subToTeamUpdates">Subscriu-te les actualitzacions de l\'equip</string>
   <string name="newTeamUpdate">Nova actualització de l\'equip</string>
+  <string name="teamEvents">Esdeveniments d\'equip</string>
+  <string name="upcomingTeamEvents">Pròxims esdeveniments de l\'equip</string>
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="leadersChat">Xat de capitans</string>
