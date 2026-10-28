@@ -159,6 +159,10 @@ export class CevalCtrl {
     return true;
   };
 
+  stopWorker = (): void => {
+    this.worker?.stop();
+  };
+
   setThreads = (threads: number): void => storage.set('ceval.threads', threads.toString());
 
   info(customSearch?: CustomSearch): SearchInfo | undefined {
