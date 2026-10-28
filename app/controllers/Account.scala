@@ -95,7 +95,7 @@ final class Account(
     env.web.playerCounter.lichobile.hit()
     env.user.lightUserApi.preloadUser(me)
     for json <- lichobileInfoCache.get(me.userId)
-    yield JsonStrOk(json).headerCache(20.seconds)
+    yield JsonStrOk(json).privateCache(20.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>

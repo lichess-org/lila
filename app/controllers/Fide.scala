@@ -46,7 +46,7 @@ final class Fide(env: Env) extends LilaController(env):
   def apiShow(id: chess.FideId) = Anon:
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
-        Found(env.fide.playerApi.withFollow(id))(JsonOk(_).headerCache(1.hour))
+        Found(env.fide.playerApi.withFollow(id))(JsonOk(_).publicCache(1.hour))
 
   def apiRatings(id: chess.FideId) = AnonOrScoped():
     def proceed = JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))

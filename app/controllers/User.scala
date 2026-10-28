@@ -203,8 +203,8 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCache(5.seconds),
-                json =
+                yield snip.privateCache(5.seconds),
+                json = // lichobile only
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
@@ -212,7 +212,7 @@ final class User(
                       "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
+          else Ok(views.user.bits.miniClosed(user.user, relation)).privateCache(10.minutes)
 
   def online = Anon:
     val max = 50
@@ -264,10 +264,10 @@ final class User(
           page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
-        json =
+        json = // lichobile only
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards).headerCache(1.minute)
+          JsonOk(leaderboards).publicCache(1.minute)
       )
     }
 
@@ -275,7 +275,7 @@ final class User(
     env.user.cached.top10.get {}.map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
-      JsonOk(leaderboards).headerCache(1.minute)
+      JsonOk(leaderboards).publicCache(1.minute)
     }
 
   def top(perfKey: PerfKey, page: Int) = Open:
@@ -283,23 +283,20 @@ final class User(
       env.user.cached
         .topPerfPager(perfKey, page)
         .flatMap: pager =>
-          negotiate(
-            Ok.page(views.user.list.top(perfKey, pager)),
-            topNbJson(pager.currentPageResults)
-          )
+          Ok.page(views.user.list.top(perfKey, pager))
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
-        JsonOk(leaderboards).headerCache(1.minute)
+        JsonOk(leaderboards).publicCache(1.minute)
       }
-    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
+    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson(_).publicCache(1.minute))
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-    Ok(Json.obj("users" -> users)).headerCache(1.minute)
+    Ok(Json.obj("users" -> users))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -554,13 +551,13 @@ final class User(
                 .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
                 .map(views.user.perfStatPage(data, _))
             ,
-            JsonOk:
+            JsonOk: // lichobile only
               getBool("graph")
                 .optionFu:
                   env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
                 .map: graph =>
                   env.perfStat.jsonView(data).add("graph", graph)
-            .map(_.headerCache(1.minute))
+            .map(_.privateCache(1.minute))
           )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
