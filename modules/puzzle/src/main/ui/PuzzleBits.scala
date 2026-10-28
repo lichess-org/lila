@@ -40,6 +40,7 @@ final class PuzzleBits(helpers: Helpers):
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
         trans.puzzle.byOpenings()
       ),
+      div(cls := "sep"),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
       ),
