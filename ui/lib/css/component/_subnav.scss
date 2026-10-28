@@ -38,10 +38,7 @@
       align-items: center;
       color: $c-font;
       padding: 0.6rem;
-
-      &::before {
-        margin-inline-end: 4px;
-      }
+      gap: 4px;
 
       &:hover,
       &:hover::before {
