@@ -29,7 +29,6 @@ jobs:
         run: nix profile add nixpkgs#devenv
 
       - name: Check esbuild versions match
-        shell: devenv shell -- bash -e {0}
         run: node bin/check-esbuild-version.mjs
 
       - name: Make sure `./ui/build` requirements are satisfied
