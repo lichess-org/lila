@@ -2,7 +2,7 @@
 <resources>
   <string name="private">خصوصی</string>
   <string name="myStudies">مطالعه‌های من</string>
-  <string name="studiesIContributeTo">مطالعه‌هایی که در آن شرکت دارم</string>
+  <string name="studiesIContributeTo">مطالعه‌هایی که در آن مشارکت دارم</string>
   <string name="myPublicStudies">مطالعه‌های همگانی من</string>
   <string name="myPrivateStudies">مطالعه‌های خصوصی من</string>
   <string name="myFavoriteStudies">مطالعه‌های دلخواه من</string>
@@ -35,10 +35,10 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها کسانی را دعوت کنید که شما را می‌شناسند و کنشگرانه می‌خواهند به این مطالعه بپیوندند.</string>
   <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
   <string name="spectator">تماشاگر</string>
-  <string name="contributor">مشارکت کننده</string>
+  <string name="contributor">مشارکت‌گر</string>
   <string name="kick">اخراج</string>
   <string name="leaveTheStudy">ترک مطالعه</string>
-  <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
+  <string name="youAreNowAContributor">اکنون شما مشارکت‌گرید</string>
   <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
@@ -48,9 +48,8 @@
   <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علامت‌ها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این بخش برای تحلیل، بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت‌گران این مطالعه، می‌توانند درخواست تحلیل رایانه‌ای دهند.</string>
-  <string name="getAFullComputerAnalysis">یک تحلیلِ رایانه‌ای کارساز-سوی کامل از شاخه اصلی بگیرید.</string>
   <string name="makeSureTheChapterIsComplete">مطمئن شوید که بخش کامل است. شما فقط یک بار می‌توانید درخواست تحلیل دهید.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">همه‌ی عضوهای همگام در وضعیت یکسانی باقی می‌مانند</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">همهٔ عضوهای همگام در وضعیت یکسان باقی می‌مانند</string>
   <string name="shareChanges">هم‌رسانی تغییرها با تماشاگران و ذخیره‌شان در کارساز</string>
   <string name="playing">جاری</string>
   <string name="showResults">نمایش نتایج</string>
@@ -75,7 +74,7 @@
   <string name="xBroughtToYouByY">%1$s، به دست %2$s برای شما آورده شده است</string>
   <string name="studyNotFound">مطالعه یافت نشد</string>
   <string name="editChapter">ویرایش بخش</string>
-  <string name="newChapter">بخش نو</string>
+  <string name="newChapter">بخش جدید</string>
   <string name="importFromChapterX">درونبُرد از %s</string>
   <string name="orientation">جهت</string>
   <string name="analysisMode">حالت تجزیه تحلیل</string>
@@ -115,19 +114,18 @@
   <string name="allowCloning">اجازه همسانِش</string>
   <string name="nobody">هیچ کس</string>
   <string name="onlyMe">تنها من</string>
-  <string name="contributors">مشارکت‌کنندگان</string>
+  <string name="contributors">مشارکت‌گران</string>
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
-  <string name="enableSync">فعال کردن همگام سازی</string>
+  <string name="enableSync">فعالیدنِ همگامیدن</string>
   <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در وضعیت یکسانی نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
   <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">آغاز</string>
-  <string name="save">ذخیره</string>
   <string name="clearChat">پاکیدنِ گپ</string>
-  <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه پاک شود؟ بازگشت وجود ندارد!</string>
-  <string name="deleteStudy">پاکیدن مطالعه</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه پاک شود؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>
+  <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه بحذفد؟ بازگشت وجود ندارد!</string>
+  <string name="deleteStudy">حذفِ مطالعه</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه بحذفد؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>
   <string name="whereDoYouWantToStudyThat">کجا می‌خواهید آنرا مطالعه کنید؟</string>
   <string name="goodMove">حرکت خوب</string>
   <string name="mistake">اشتباه</string>
@@ -171,32 +169,37 @@
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">اشتراک‌گذاری و ذخیره‌سازی</string>
   <string name="sharedAndSavedText">سایر اعضا می‌توانند حرکات شما را به‌صورت زنده ببینند! به‌علاوه، همه‌چیز برای همیشه ذخیره می‌شود.</string>
   <string name="studyMembersTitle">اعضای مطالعه</string>
-  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را مشاهده کرده و در گفتگو شرکت کنند. %2$s مشارکت‌کننده می‌توانند حرکت انجام دهند و مطالعه را به‌روزرسانی کنند.</string>
-  <string name="addMembersText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s کلیک کنید. سپس تصمیم بگیرید چه کسانی می‌توانند مشارکت کنند.</string>
-  <string name="studyChaptersTitle">فصل های قابل مطالعه</string>
-  <string name="studyChaptersText">یک مطالعه می‌تواند شامل چندین فصل باشد. هر فصل یک وضعیت اولیه و درخت حرکات مشخص دارد.</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را ببینند و در گپ گفتگو کنند.&lt;br&gt;&lt;br&gt;%2$s مشارکت‌گر می‌توانند حرکت انجامند و مطالعه را بروزانَند.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s را انتخاب کنید.&lt;br&gt;سپس تصمیم بگیرید چه کسی مجاز به مشارکت خواهد بود.</string>
+  <string name="studyChaptersTitle">بخش‌های مطالعه</string>
+  <string name="studyChaptersText">یک مطالعه می‌تواند شامل چندین بخش باشد.&lt;br&gt;هر بخش وضعیت آغازین و درخت حرکت مجزا دارد.</string>
   <string name="commentPositionTitle">نظر دادن روی یک وضعیت</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s بتِلیکید، یا روی فهرستِ حرکاتِ سمت راست، راست-تِلیکید.&lt;br&gt;دیدگاه‌ها ذخیره و همرسانیده می‌شوند.</string>
   <string name="annotatePositionTitle">یادداشت‌گذاری روی یک وضعیت</string>
   <string name="annotatePositionText">روی دکمهٔ !؟ بتِلیکید، یا روی فهرستِ حرکاتِ سمت راست، راست-تِلیکید.&lt;br&gt;علائمِ حرکت‌نویسی ذخیره و همرسانیده می‌شوند.</string>
   <string name="conclusionTitle">ممنون از وقتی که گذاشتید</string>
   <string name="conclusionText">شما می‌توانید &lt;a href=\'/study/mine/hot\'&gt;مطالعه‌های پیشین‌تان&lt;/a&gt; از صفحهٔ رُخ‌نمای‌تان بیابید.&lt;br&gt;همچنین یک &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;وبنوشته دربارهٔ مطالعه‌ها&lt;/a&gt; وجود دارد.&lt;br&gt;کاربران حرفه‌ای می‌توانند کلید «؟» را برای دیدن میان‌برهای صفحه‌کلید بِفِشارند.&lt;br&gt;خوش بگذرد!</string>
-  <string name="createChapterTitle">بیایید یک فصل مطالعه بسازیم</string>
-  <string name="createChapterText">یک مطالعه می‌تواند چندین فصل داشته باشد. هر فصل درخت حرکات متمایزی دارد و می‌تواند به روش‌های مختلفی ایجاد شود.</string>
+  <string name="createChapterTitle">بیایید بخشِ مطالعه‌ای ایجاد کنیم</string>
+  <string name="createChapterText">یک مطالعه می‌تواند چند بخش داشته باشد.&lt;br&gt;هر بخش درخت حرکت مجزایی دارد &lt;br&gt;و می‌تواند به شیوه‌های گوناگون ایجاد شود.</string>
   <string name="fromInitialPositionTitle">از وضعیت اولیه</string>
   <string name="fromInitialPositionText">فقط چیدمان مهره‌ها برای یک بازی جدید. مناسب برای بررسی شروع بازی‌ها.</string>
-  <string name="customPositionTitle">وضعیت سفارشی</string>
+  <string name="customPositionTitle">وضعیت به‌دلخواه</string>
   <string name="customPositionText">صفحه را به روش خود بچینید. مناسب برای بررسی آخر بازی‌ها.</string>
   <string name="loadGameFromTheWebTitle">بار کردنِ یک بازی از وب</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">برای بار کردنِ حرکت‌های بازی درونِ بخش، وب‌نشانیِ بازی &lt;br&gt;(مثل lichess.org/7fHIU0XI)&lt;br&gt; را جایگذارید.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">برای بارگذاری حرکت‌های بازی درون بخش، وب‌نشانی بازی&lt;br&gt;(مثل lichess.org/game/7fHIU0XI)&lt;br&gt;را جایگذارید.</string>
   <string name="fromFenStringTitle">از یک رشتهٔ FEN</string>
-  <string name="fromFenStringText">یک وضعیت با فرمت FEN مانند r1b2rk1/pp3ppp/1qnbpn2/3p4/3P1B2/2PB1N2/PP1N1PPP/R2Q1RK1 w - - 1 10 جای‌گذاری کنید تا فصل از آن وضعیت شروع شود.</string>
+  <string name="fromFenStringText">برای آغازیدن بخش از یک وضعیت، وضعیت را با قالبِ FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;جایگذارید.</string>
   <string name="fromPgnGameTitle">از بازی یک فایل PGN</string>
-  <string name="fromPgnGameText">یک بازی با فرمت PGN جای‌گذاری کنید تا حرکات، نظرات و شاخه‌ها در این فصل بارگذاری شوند.</string>
+  <string name="fromPgnGameText">برای بارگذاری حرکت‌ها، یادداشت‌ها و ورتش‌ها درون بخش&lt;br&gt;بازی‌ای با قالبِ PGN را جایگذارید.</string>
   <string name="variantsAreSupportedTitle">مطالعه‌ها از واریانت‌ها پشتیبانی می‌کنند</string>
   <string name="variantsAreSupportedText">بله، شما می‌توانید شطرنج دیوانه‌وار (Crazyhouse) و تمام واریانت‌های لیچس را مطالعه کنید!</string>
-  <string name="chapterConclusionText">فصل‌ها برای همیشه ذخیره می‌شوند. از سازماندهی محتوای شطرنجی خود لذت ببرید!</string>
+  <string name="chapterConclusionText">بخش‌ها برای همیشه ذخیره می‌شوند.&lt;br&gt;از سازمانیدنِ محتوای شطرنجی‌تان لذت ببرید!</string>
   <string name="doubleDefeat">باخت دوطرفه</string>
   <string name="blackDefeatWhiteCanNotWin">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
   <string name="whiteDefeatBlackCanNotWin">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
+  <string name="analysisEditor">ویراستار تحلیل</string>
+  <string name="clearLocal">پاکیدنِ تحلیلِ محلی؟</string>
+  <string name="clearPublished">پاکیدنِ تحلیلِ منتشرشده؟</string>
+  <string name="requestAServerAnalysis">درخواستِ تحلیلِ کارساز</string>
+  <string name="analyzeOnYourDevice">تحلیل در اَفزاره‌تان</string>
 </resources>

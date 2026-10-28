@@ -7,13 +7,14 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, Macros }
 import reactivemongo.core.errors.DatabaseException
-import scala.util.matching.Regex.quote
 import scalalib.paginator.AdapterLike
 
+import scala.util.matching.Regex.quote
+
 import lila.common.Bus
-import lila.mon.extensions.*
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class PicfitApi(
     coll: Coll,

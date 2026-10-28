@@ -50,6 +50,11 @@
   <string name="imageCredit">Bildquell</string>
   <string name="deleteBlog">Dëse Blog-Bäitrag endgülteg läschen</string>
   <string name="selectPostTopics">Wiel d\'Theeme vun dengem Bäitrag</string>
+  <string name="topicChess">Schach</string>
+  <string name="topicPuzzle">Aufgab</string>
+  <string name="topicTactics">Taktik</string>
+  <string name="topicStrategy">Strategie</string>
+  <string name="topicSoftwareDevelopment">Softwareentwécklung</string>
   <string name="safeAndRespectfulContent">Wgl. post just sécher a respektvoll Inhalter. Kopéier net d\'Inhalter vun enger anerer Persoun.</string>
   <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>
   <string name="blogTips">Eis einfach Tuyaue fir flott Blog-Bäiträg ze schreiwen</string>

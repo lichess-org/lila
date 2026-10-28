@@ -11,6 +11,11 @@ let
   sasso = inputs.sasso.packages.${pkgs.stdenv.system}.default;
 in
 {
+  env = {
+    pnpm_config_pm_on_fail = "error";
+    REDIS_URI = "redis://127.0.0.1:${toString config.processes.redis.ports.main.value}";
+  };
+
   # https://devenv.sh/languages/
   languages = {
     java = {
@@ -30,6 +35,23 @@ in
   services = {
     mongodb.enable = true;
     redis.enable = true;
+  };
+
+  processes = {
+    lila = {
+      start.enable = false;
+      exec = "./lila.sh run";
+    };
+    lila-ws = {
+      start.enable = false;
+      env = {
+        JAVA_TOOL_OPTIONS = "-Dredis.uri=${config.env.REDIS_URI}";
+      };
+    };
+    ui = {
+      start.enable = false;
+      exec = "./ui/build --watch --debug";
+    };
   };
 
   packages = [

@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.config.NetDomain
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.config.NetDomain
 
 final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }

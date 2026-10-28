@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 
 import { pubsub } from 'lib/pubsub';
-import { snabDialog } from 'lib/view';
+import { getOpenModalDialog, snabDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
@@ -67,7 +67,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('l', () => {
       if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
-    .bind('z', () => ctrl.settings.set('showStaticAnalysis', !ctrl.settings.showStaticAnalysis))
+    .bind('z', () => ctrl.settings.set('showMainlineAnalysis', !ctrl.settings.showMainlineAnalysis))
     .bind('a', () => ctrl.settings.set('showBestMoveArrows', !ctrl.settings.showBestMoveArrows))
     .bind('v', () => ctrl.settings.set('showVariationArrows', !ctrl.settings.showVariationArrows))
     .bind('x', () => ctrl.toggleThreatMode())
@@ -127,6 +127,7 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   document.addEventListener('keyup', e => {
     if (!modifierOnly) return;
     modifierOnly = false;
+    if (getOpenModalDialog()) return;
     const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
 
     if (isShift && ctrl.fork.select('next')) ctrl.setAutoShapes();

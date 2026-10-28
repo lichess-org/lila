@@ -1,18 +1,19 @@
 package lila.round
 
-import scala.math
 import chess.format.Fen
-import chess.{ ByColor, Clock, Color, Speed }
 import chess.opening.Opening
+import chess.{ ByColor, Clock, Color, Speed }
 import play.api.libs.json.*
 import scalalib.data.Preload
+
+import scala.math
 
 import lila.common.Json.given
 import lila.core.game.Player as GamePlayer
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
 import lila.core.user.{ GameUser, GameUsers, WithPerf }
-import lila.game.GameExt.{ moveTimes, expirable, timeForFirstMove }
+import lila.game.GameExt.{ expirable, moveTimes, timeForFirstMove }
 import lila.game.JsonView.given
 import lila.pref.Pref
 import lila.round.RoundGame.*
@@ -38,6 +39,7 @@ final class JsonView(
       user: GameUser,
       withFlags: ExportOptions
   ): JsObject =
+    import withFlags.me
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.match
@@ -139,6 +141,7 @@ final class JsonView(
       user: GameUser,
       withFlags: ExportOptions
   ): JsObject =
+    import withFlags.me
     Json
       .obj(
         "color" -> p.color.name,

@@ -9,10 +9,10 @@ import lila.common.String.shorten
 import lila.core.LightUser
 import lila.core.challenge.Challenge
 import lila.core.misc.push.TourSoon
-import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
-import lila.core.round.{ Tell, RoundBus, MoveEvent }
-import lila.core.study.data.StudyName
 import lila.core.net.LichessMobileVersion
+import lila.core.notify.{ NotificationContent, NotifyAllows, PrefEvent }
+import lila.core.round.{ MoveEvent, RoundBus, Tell }
+import lila.core.study.data.StudyName
 
 final class PushApi(
     firebasePush: FirebasePush,

@@ -1,9 +1,9 @@
 package lila.tournament
 
+import chess.IntRating
 import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import chess.IntRating
 import scalalib.data.Preload
 
 import lila.common.Json.given
@@ -14,9 +14,9 @@ import lila.core.chess.Rank
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
-import lila.core.user.{ LightUserApi, RealName, PublicTitleOf }
-import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
+import lila.core.user.{ LightUserApi, PublicTitleOf, RealName }
 import lila.gathering.GatheringJson.*
+import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType

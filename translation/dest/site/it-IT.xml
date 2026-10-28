@@ -163,6 +163,7 @@
   </plurals>
   <string name="moveTimes">Tempo per mossa</string>
   <string name="flipBoard">Ruota la scacchiera</string>
+  <string name="illegalPosition">Posizione illegale</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="claimADraw">Reclama patta</string>
   <string name="drawClaimed">Patta rivendicata</string>
@@ -237,6 +238,7 @@
   <string name="signupUsernameHint">Assicurati di scegliere un nome utente appropriato. Non potrai cambiarlo successivamente e gli account con nomi inappropriati saranno cancellati!</string>
   <string name="signupEmailPromise">Noi ti manderemo soltanto mail relative al tuo account e non condivideremo mai il vostro indirizzo e-mail.</string>
   <string name="password">Password</string>
+  <string name="showPassword">Mostra password</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
   <string name="email">Email</string>
@@ -281,6 +283,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Il Bianco ha esaurito il tempo</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Nero non ha più tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
   <string name="whiteOffersDraw">Il Bianco offre patta</string>
@@ -572,13 +576,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="reportAUser">Segnala un utente</string>
   <string name="user">Utente</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qual è il problema?</string>
   <string name="cheat">Imbrogli</string>
   <string name="troll">Provocazioni</string>
   <string name="other">Altro</string>
   <string name="reportCheatBoostHelp">Incolla il link della partita(o partite) e spiega cosa non va sul comportamento di questo utente. Non dire solamente \"ha barato\", ma invece dici come sei arrivato a questa conclusione.</string>
   <string name="reportUsernameHelp">Spiegaci cosa vi è di offensivo in questo nome utente. Non dire solamente \"è offensivo/inappopriato\", ma invece dici come sei arrivato a questa conclusione, soprattutto se l\'insulto è offuscato, non in inglese, in linguaggio giovanile, oppure se è un riferimento storico/culturale.</string>
-  <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="importedByX">Importato da %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
@@ -685,6 +687,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="termsOfService">Termini di servizio</string>
   <string name="titleVerification">Verifica del titolo</string>
   <string name="sourceCode">Codice sorgente</string>
+  <string name="blockAds">Blocca pubblicità</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
@@ -704,6 +707,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simulVariantsHint">Se selezioni più varianti, ogni giocatore può scegliere quale giocare.</string>
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Extra tempo per l\'host:</string>
   <string name="simulAddExtraTimePerPlayer">Aggiungi del tempo al tuo orologio per ogni giocatore che si unisce alla simultanea.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra per il simultaneista per ciascun giocatore</string>
   <string name="lichessTournaments">Tornei Lichess</string>
@@ -1006,8 +1010,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
   <string name="instructions">Istruzioni</string>
   <string name="showMeEverything">Mostra tutto</string>
-  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
-Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
   <string name="accessibility">Accessibilità</string>
@@ -1022,4 +1024,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="tags">Tag</string>
   <string name="enPassant">Regole En passant</string>
   <string name="settings">Impostazioni</string>
+  <string name="done">Finito</string>
 </resources>

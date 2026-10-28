@@ -13,19 +13,6 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
 
   export Granter.{ apply as isGranted, opt as isGrantedOpt }
 
-  def NoCurrentGame(a: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx
-      .useMe(env.preloader.currentGameMyTurn)
-      .flatMap:
-        _.fold(a): current =>
-          negotiate(keyPages.home(Results.Forbidden), currentGameJsonError(current))
-
-  private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
-    Forbidden(
-      jsonError:
-        s"You are already playing ${current.opponent}"
-    ).as(JSON)
-
   def NoPlaybanOrCurrent(a: => Fu[Result])(using Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
@@ -86,6 +73,16 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
         _.fold(a): ban =>
           negotiate(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
+  private def NoCurrentGame(a: => Fu[Result])(using ctx: Context): Fu[Result] =
+    ctx
+      .useMe(env.preloader.currentGameMyTurnOrJustMoved)
+      .flatMap:
+        _.fold(a): current =>
+          negotiate(
+            keyPages.home(Results.Forbidden),
+            Forbidden(jsonError(s"You are already playing ${current.opponent}"))
+          )
+
   def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.isAuth then f
     else
@@ -120,7 +117,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
 
-  def NoCrawlersRes(result: Fu[Result])(using ctx: Context): Fu[Result] =
+  def NoCrawlersRes(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.req.client.isCrawler then notFound else result
 
   def NoCrawlersUnlessPreview(result: => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -128,7 +125,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     then notFound
     else result
 
-  def NoCrawlers[A](computation: A)(using ctx: Context, default: Zero[A]): A =
+  def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
     if ctx.req.client.isCrawler && !ctx.isOAuth
     then default.zero
     else computation

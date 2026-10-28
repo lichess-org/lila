@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">ग्लिफने टीपा लिहा</string>
   <string name="theChapterIsTooShortToBeAnalysed">हा अध्याय विशलेषणासाठी खूप छोटा आहे.</string>
   <string name="onlyContributorsCanRequestAnalysis">फक्त अभ्यासिकेचे योगदानकर्ते संगणक विशलेषणची विनंती करू शकतात.</string>
-  <string name="getAFullComputerAnalysis">मुख्य क्रमाचे संपूर्ण सर्व्हर-पत्रा संगणक विशलेषण मिळवा.</string>
   <string name="makeSureTheChapterIsComplete">अध्याय पूर्ण असल्याचे खात्री करा. तुम्ही विशलेषणची विनंती फक्त एकदाच करू शकता.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">सर्व SYNC सदस्य एकाच स्थळावर राहतात</string>
   <string name="shareChanges">प्रेक्षकांना बदल पाठवा आणि त्यांना सर्व्हरवर जतन करा</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">नाही: लोकांना मुक्तपणे शोधू द्या</string>
   <string name="pinnedStudyComment">खुंटीत असलेले अभ्यासाची टिप्पणी</string>
   <string name="start">सुरू</string>
-  <string name="save">जतन करा</string>
   <string name="clearChat">गप्पा मिटवा</string>
   <string name="deleteTheStudyChatHistory">अभ्यासाच्या गप्पांचा इतिहास हटवायचा? एकदा का मागे फिरता येणार नाही!</string>
   <string name="deleteStudy">अभ्यासिका हटवा</string>
@@ -189,7 +187,6 @@
   <string name="customPositionTitle">सानुकूल स्थिती</string>
   <string name="customPositionText">तुमच्या प्रमाणे पट मांडा.&amp;lt;br&amp;gt;अंत्यखेळांना शोधण्यासाठी अनुकूल.</string>
   <string name="loadGameFromTheWebTitle">आंतरजालमधून एक खेळ आयात करा</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">एका खेळाची URL&lt;br&gt;(जशी lichess.org/7fHIU0XI)&lt;br&gt;अध्याय मध्ये डाव आयात करण्यासाठी.</string>
   <string name="fromFenStringTitle">एका FEN माळ मधून</string>
   <string name="fromFenStringText">एका स्थितीला FEN स्वरूपात&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;अध्याय एका स्थितीपासून चालू करण्यासाठी.</string>
   <string name="fromPgnGameTitle">एका PGN खेळातून</string>
@@ -200,4 +197,9 @@
   <string name="doubleDefeat">दुहेरी पराभव</string>
   <string name="blackDefeatWhiteCanNotWin">काळ्याचा पराभव, पण पांढरा जिंकू शकत नाही.</string>
   <string name="whiteDefeatBlackCanNotWin">पांढऱ्याचा पराभव, पण काळा जिंकू शकत नाही.</string>
+  <string name="analysisEditor">विश्लेषण संपादक</string>
+  <string name="clearLocal">स्थानिक विशलेषण काढा?</string>
+  <string name="clearPublished">प्रकाशित विश्लेषण काढा?</string>
+  <string name="requestAServerAnalysis">सर्व्हर विश्लेषणाची विनंती करा</string>
+  <string name="analyzeOnYourDevice">तुमच्या उपकरणावर विशलेषण करा</string>
 </resources>

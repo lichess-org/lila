@@ -11,9 +11,9 @@
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "module": "es2022",
-    "target": "es2023",
-    "lib": ["es2023"],
+    "module": "nodenext",
+    "target": "esnext",
+    "lib": ["ESNext"],
     "types": ["node"]
   }
 }

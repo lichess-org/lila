@@ -16,6 +16,7 @@
   <string name="quitTeam">Abandona l\'equip</string>
   <string name="manuallyReviewAdmissionRequests">Comprovar manualment peticions d\'admissió</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si està marcat, els jugadors necessitaran fer una petició per unir-se a l\'equip, la qual pots acceptar o rebutjar.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Amaga la llista de membres de l\'equip per als que no siguin membres.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder de l\'equip</item>
     <item quantity="other">Líders de l\'equip</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Clau d\'entrada a l\'equip</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Una contrasenya que els nous membres han de saber per unir-se a l\'equip.</string>
   <string name="incorrectEntryCode">Codi d\'entrada incorrecte.</string>
+  <string name="forumLabel">Fòrum de l\'equip</string>
+  <string name="forumVisibilityHelp">Qui pot veure el fòrum de l\'equip a la pàgina de l\'equip?&lt;br&gt;Només els membres de l\'equip poden publicar al fòrum de l\'equip.</string>
+  <string name="forumVisibilityNone">Amaga el fòrum</string>
   <string name="teamAlreadyExists">Aquest equip ja existeix.</string>
   <string name="upcomingTournaments">Propers tornejos</string>
   <string name="completedTourns">Tornejos finalitzats</string>

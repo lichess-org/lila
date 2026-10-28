@@ -1,3 +1,4 @@
+// @ts-expect-error dont want jsdom typings
 import { JSDOM } from 'jsdom';
 
 const { window } = new JSDOM('<!doctype html><html><body></body></html>', {

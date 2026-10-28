@@ -1,8 +1,8 @@
 package views.relay
 
 import lila.app.UiEnv.{ *, given }
-import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
+import lila.relay.RelayRound.WithTourAndStudy
 
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,

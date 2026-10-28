@@ -1,7 +1,6 @@
 package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
-
 import scalalib.model.Language
 
 import lila.app.{ *, given }
@@ -41,7 +40,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect(env.web.static.appStoreUrl)
+    Redirect(env.web.static.appStoreUrl.value)
 
   def redirectToSwag = Anon:
     Redirect(env.web.static.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
@@ -49,6 +48,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
   private def serveApp(using Context) =
     pageHit
     FoundPage(env.cms.renderKey("mobile"))(views.mobile)
+
+  def playerCount = Open:
+    NoCrawlers(env.web.playerCounter.website.hit())
+    NoContent
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -64,9 +67,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
       if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
       then env.web.static.robotsTxt
       else "User-agent: *\nDisallow: /"
+    .headerCache(1.hour)
 
   val manifest = Anon:
-    JsonOk(env.web.static.manifest)
+    Ok(env.web.static.manifest).headerCache(1.hour)
 
   def getFishnet = Open:
     pageHit
@@ -112,7 +116,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then Ok(lila.web.PrometheusReporter.latestScrapeData())
+    then Ok(lila.web.PrometheusReporter.latestScrapeData()).headerCache(59.seconds)
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:
@@ -137,7 +141,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
                   case Some(info) if info.dim.width > maxWidth =>
                     env.memo.picfitUrl.resize(image.id, Left(maxWidth)).some
                   case _ => env.memo.picfitUrl.raw(image.id).some
-              yield JsonOk(Json.obj("imageUrl" -> url))).recover:
+              yield Ok(Json.obj("imageUrl" -> url))).recover:
                 case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
@@ -145,7 +149,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     if width < 1 then JsonBadRequest("Invalid width")
     else
       limit.preview(me.userId, rateLimited):
-        JsonOk(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
+        Ok(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
   }
 
   def markdownPreview(realm: MarkdownRealm) = AuthBody(parse.tolerantText) { ctx ?=> me ?=>

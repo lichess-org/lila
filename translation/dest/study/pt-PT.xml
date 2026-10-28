@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar com símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para ser analisado.</string>
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de estudo podem solicitar uma análise de computador.</string>
-  <string name="getAFullComputerAnalysis">Obtém uma análise completa da linha principal pelo servidor.</string>
   <string name="makeSureTheChapterIsComplete">Certifica-te que o capítulo está completo. Só podes solicitar a análise uma vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros do SYNC permanecem na mesma posição</string>
   <string name="shareChanges">Partilha as alterações com espectadores e guarda-as no servidor</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Não: deixa as pessoas navegarem livremente</string>
   <string name="pinnedStudyComment">Comentário de estudo fixo</string>
   <string name="start">Iniciar</string>
-  <string name="save">Guardar</string>
   <string name="clearChat">Limpar o chat</string>
   <string name="deleteTheStudyChatHistory">Apagar o histórico do chat do estudo? Não há volta atrás!</string>
   <string name="deleteStudy">Eliminar estudo</string>

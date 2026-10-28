@@ -34,6 +34,8 @@
 
   &__tools {
     grid-area: e-tools;
+    height: 100%;
+    gap: 0.5rem;
   }
 
   .spare {
@@ -48,7 +50,11 @@
   }
 
   .metadata {
-    background: $c-bg-zebra;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
     font-size: 0.9em;
+    margin: 0;
+    padding: 0;
   }
 }

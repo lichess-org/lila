@@ -1,5 +1,6 @@
 package lila.security
 
+import com.roundeights.hasher.Algo
 import play.api.ConfigLoader
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
@@ -9,11 +10,10 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 import scalalib.Iso
-import com.roundeights.hasher.Algo
 
-import lila.common.{ HTTPRequest, ClientName }
 import lila.common.autoconfig.*
 import lila.common.config.given
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.*
 import lila.core.security.TurnstilePublicConfig
 

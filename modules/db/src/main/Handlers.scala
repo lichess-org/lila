@@ -1,10 +1,11 @@
 package lila.db
 
-import scala.util.{ Failure, NotGiven, Success, Try }
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scalalib.model.Percent
+
+import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.{ *, given }
 import lila.core.net.IpAddress

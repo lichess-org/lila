@@ -1,14 +1,14 @@
 package lila.web
 
-import org.apache.pekko.stream.scaladsl.{ Source, Sink }
+import org.apache.pekko.stream.scaladsl.{ Sink, Source }
 import org.apache.pekko.util.ByteString
-import play.api.mvc.MultipartFormData
 import play.api.libs.streams.Accumulator
-import play.api.mvc.{ BodyParser, PlayBodyParsers }
+import play.api.mvc.{ BodyParser, MultipartFormData, PlayBodyParsers }
 import play.core.parsers.Multipart
+
 import java.security.MessageDigest
 
-import lila.memo.{ PicfitApi, HashedSource }
+import lila.memo.{ HashedSource, PicfitApi }
 
 object HashedMultiPart:
   private val maxLength: Long = PicfitApi.uploadMaxMb * 1024 * 1024

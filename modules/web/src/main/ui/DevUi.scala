@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.common.RawHtml.nl2br
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.RawHtml.nl2br
 
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   import helpers.*
@@ -128,6 +128,7 @@ patron remove {username}
 patron set-months {username} {months}
 tournament feature {id}
 tournament unfeature {id}
+payouts-dm {tournament or swiss url} {username1} {username2} {username3} {username...}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
@@ -138,6 +139,7 @@ cache clear security.session.info
 fide player sync
 fide player rip 2026961 2025
 fide player delete 2026961
+fide player year delete 2026961
 relay owner {group or tour id} {username}
 user real-name {id} {real name}
 """

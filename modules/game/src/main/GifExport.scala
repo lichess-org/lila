@@ -1,23 +1,22 @@
 package lila.game
 
+import chess.format.pgn.Glyph
+import chess.format.{ Fen, Uci, UciDump }
+import chess.{ Centis, Color, Ply, Position }
 import org.apache.pekko.stream.scaladsl.*
 import org.apache.pekko.util.ByteString
-import chess.format.{ Fen, Uci, UciDump }
-import chess.{ Position, Centis, Color }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+import play.api.mvc.RequestHeader
 import scalalib.Maths
 
+import lila.common.HTTPRequest.queryStringBoolOpt
 import lila.common.Json.given
 import lila.core.config.RouteUrl
 import lila.core.game.{ ClockHistory, Game, Pov }
 import lila.game.GameExt.*
 import lila.tree.Analysis
-import play.api.mvc.RequestHeader
-import lila.common.HTTPRequest.queryStringBoolOpt
-import chess.Ply
-import chess.format.pgn.Glyph
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:

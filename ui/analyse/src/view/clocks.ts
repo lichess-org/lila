@@ -18,13 +18,13 @@ interface ClockOpts {
 }
 
 export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode, VNode] | undefined {
-  const node = ctrl.tree.nodeAtPath(path),
-    whitePov = ctrl.bottomIsWhite(),
-    parentClock = ctrl.tree.getParentClock(node, path),
-    isWhiteTurn = plyColor(node.ply) === 'white',
-    centis: Array<number | undefined> = (
-      isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
-    ).map(c => (defined(c) && c < 0 ? undefined : c));
+  const node = ctrl.tree.nodeAtPath(path);
+  const whitePov = ctrl.bottomIsWhite();
+  const parentClock = ctrl.tree.getParentClock(node, path);
+  const isWhiteTurn = plyColor(node.ply) === 'white';
+  const centis: Array<number | undefined> = (
+    isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
+  ).map(c => (defined(c) && c < 0 ? undefined : c));
 
   if (!centis.some(notNull)) return undefined;
 
@@ -72,10 +72,10 @@ const renderClock = (opts: ClockOpts): VNode =>
 
 function clockContent(opts: ClockOpts): MaybeVNodes {
   if (!opts.centis && opts.centis !== 0) return ['-'];
-  const date = new Date(opts.centis * 10),
-    millis = date.getUTCMilliseconds(),
-    sep = ':',
-    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+  const date = new Date(opts.centis * 10);
+  const millis = date.getUTCMilliseconds();
+  const sep = ':';
+  const baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   const timeNodes =
     !opts.showTenths || opts.centis >= 360000
       ? [Math.floor(opts.centis / 360000) + sep + baseStr]

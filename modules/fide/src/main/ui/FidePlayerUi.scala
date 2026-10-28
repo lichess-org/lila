@@ -4,9 +4,9 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.core.fide.FidePlayerOrder
+import lila.core.id.ImageId
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.id.ImageId
 
 final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
@@ -223,7 +223,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(src := url(id, size))
-    def fallback = img(src := staticAssetUrl("images/anon-face.webp"))
+    def fallback = img(src := staticAssetPath("images/anon-face.webp"))
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 

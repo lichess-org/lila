@@ -1,8 +1,8 @@
 package lila.challenge
 
 import lila.common.Bus
-import lila.core.i18n.LangPicker
 import lila.core.challenge.PositiveEvent
+import lila.core.i18n.LangPicker
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
 
@@ -13,7 +13,7 @@ final class ChallengeApi(
     lightUserApi: lila.core.user.LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
-    gameCache: lila.game.Cached,
+    gameApi: lila.core.game.GameApi,
     rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
@@ -66,6 +66,13 @@ final class ChallengeApi(
   def isOpenBy(id: ChallengeId, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
   export repo.byId
+
+  def redirect(anyPath: String): Fu[Option[play.api.mvc.Call]] =
+    GameId
+      .from(anyPath)
+      .map(_.into(ChallengeId))
+      .so: id =>
+        repo.exists(id).map(_.option(routes.Challenge.show(id)))
 
   def activeByIdFor(id: ChallengeId, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
@@ -190,7 +197,7 @@ final class ChallengeApi(
   private def isLimitedByMaxPlaying(c: Challenge) =
     c.clock.nonEmpty.so:
       c.userIds.existsM: userId =>
-        gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
+        gameApi.countNowPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 
   private[challenge] def sweep: Funit = for
     unseen <- repo.realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)

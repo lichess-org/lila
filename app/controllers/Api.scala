@@ -19,16 +19,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   import Api.*
   import env.api.{ userApi, gameApi }
 
-  private lazy val apiStatusJson = Json.obj:
-    "api" -> Json.obj(
-      "current" -> Mobile.Api.currentVersion.value,
-      "olds" -> Json.arr()
-    )
-
   val status = Anon:
-    val appVersion = get("v")
-    val mustUpgrade = appVersion.exists(Mobile.AppVersion.mustUpgrade)
-    JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
+    Ok(Mobile.Api.lichobileStatusJson).headerCache(1.hour)
+
+  val version = Anon:
+    Ok(Json.obj("server" -> env.web.lilaVersion)).headerCache(1.minute)
 
   private val userShowApiRateLimit =
     env.security.ipTrust.rateLimit(8_000 * 2, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
@@ -91,7 +86,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
             .add("streaming", streamingIds(u.id))
             .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
         def gameIds: Fu[List[Option[id.GameId]]] = users.sequentially: u =>
-          env.round.playing(u.id).so(env.game.cached.lastPlayedPlayingId(u.id))
+          env.round.playing.lastPlayedPlayingId(u.id)
         val extensions: Option[Fu[List[Update[JsObject]]]] =
           if getBool("withGameIds")
           then
@@ -131,7 +126,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
-    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited)):
       val (u1, u2) = (name1.id, name2.id)
       import lila.game.JsonView.given
       for
@@ -155,7 +150,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         flags = gameC.requestPgnFlags(extended = false),
         perSecond = gamesPerSecond(ctx.me)
       )
-      GlobalConcurrencyLimitPerIP
+      limit.GlobalConcurrencyLimitPerIP
         .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
           Ok.chunked(source)
             .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
@@ -196,7 +191,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
       )
-      GlobalConcurrencyLimitPerIP
+      limit.GlobalConcurrencyLimitPerIP
         .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
           val filename = env.api.gameApiV2.filename(swiss, config.format)
           Ok.chunked(source)
@@ -223,14 +218,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     val max = ctx.me.fold(300): u =>
       if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
       )(jsOptToNdJson)
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
@@ -274,24 +269,26 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       WithProxy: proxy ?=>
         limit.enumeration.cloudEval(rateLimited):
           val cost = if ctx.isAuth then 1 else if UserAgentParser.trust.isSuspicious then 5 else 2
-          rateLimit(rateLimited, cost = cost):
-            get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
-              import chess.variant.Variant
-              env.evalCache.api
-                .getEvalJson(
-                  Variant.orDefault(getAs[Variant.LilaKey]("variant")),
-                  chess.format.Fen.Full.clean(fen),
-                  getIntAs[MultiPv]("multiPv") | MultiPv(1)
-                )
-                .map:
-                  _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
+          rateLimit.knownProxy(rateLimited, cost = cost):
+            get("fen")
+              .fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
+                import chess.variant.Variant
+                env.evalCache.api
+                  .getEvalJson(
+                    Variant.orDefault(getAs[Variant.LilaKey]("variant")),
+                    chess.format.Fen.Full.clean(fen),
+                    getIntAs[MultiPv]("multiPv") | MultiPv(1)
+                  )
+                  .map:
+                    _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(Ok(_))
+              .map(_.headerCache(1.day))
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer.so: (bearer, _) =>
-        limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
+        limit.eventStream(me.userId, limited):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
@@ -300,15 +297,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def gameChat(gameId: GameId) = Anon:
     Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
-      JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
+      Ok(Json.obj("lines" -> env.chat.json.boardApi(chat)))
 
   def roomChat(roomId: RoomId) = SecuredScoped(_.ViewPrivateComms): _ ?=>
     Found(env.chat.api.userChat.findOption(roomId.into(ChatId))): chat =>
       JsonOk(env.chat.json.modApi(chat))
 
   def activity(name: UserStr) = ApiRequest:
-    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-      lila.mon.api.activity.increment(1)
+    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited)):
       meOrFetch(name)
         .flatMapz { user =>
           env.activity.read
@@ -341,7 +337,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList).map(GameId.take)
     ids.nonEmpty.so:
-      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
+      env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(Ok(_))
   }
 
   /* aggregates, for the new mobile app:
@@ -393,29 +389,16 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.NoData => notFoundJson()
     case ApiResult.Custom(result) => result
     case ApiResult.Done => jsonOkResult
-    case ApiResult.Data(json) => JsonOk(json)
+    case ApiResult.Data(json) => Ok(json)
 
-  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)
+  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: Context): Result =
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(jsToNdJson)
 
-  def csvDownload(makeSource: => Source[String, ?])(using req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToCsv)
+  def csvDownload(makeSource: => Source[String, ?])(using req: Context): Result =
+    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
-    Ok.chunked(source.map(_ + "\n")).as(csvContentType).noProxyBuffer
-
-  private[controllers] object GlobalConcurrencyLimitPerIP:
-
-    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
-      if ctx.isAnon then eventsForAnon
-      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
-      else eventsForUser
-
-    private val eventsForAnon = ConcurrencyLimit[IpAddress](4, "api.ip.events.anon")
-    private val eventsForUser = ConcurrencyLimit[IpAddress](8, "api.ip.events.user")
-    private val eventsForVerifiedUser = ConcurrencyLimit[IpAddress](16, "api.ip.events.verified")
-    val download = ConcurrencyLimit[IpAddress](2, "api.ip.download")
-    val generous = ConcurrencyLimit[IpAddress](20, "api.ip.generous")
+    Ok.chunked(source.map(_ + "\n")).as(CSV).noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitUser = ConcurrencyLimit[UserId](2, "api.user")
   private[controllers] val GlobalConcurrencyLimitUserMobile = ConcurrencyLimit[UserId](3, "api.user.mobile")
@@ -431,8 +414,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: Context): Result =
     val ipLimiter =
       if ctx.me.exists(u => about.exists(u.is(_)))
-      then GlobalConcurrencyLimitPerIP.generous
-      else GlobalConcurrencyLimitPerIP.download
+      then limit.GlobalConcurrencyLimitPerIP.generous
+      else limit.GlobalConcurrencyLimitPerIP.download
     ipLimiter
       .compose[T](req.ipAddress)
       .flatMap: limitIp =>

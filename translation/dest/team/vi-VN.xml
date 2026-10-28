@@ -15,6 +15,7 @@
   <string name="quitTeam">Rời đội</string>
   <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt thủ công</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Nếu chọn, kỳ thủ sẽ cần viết một yêu cầu gia nhập đội, bạn có thể từ chối hoặc chấp nhận.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ẩn danh sách thành viên đội khỏi những người không phải là thành viên.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Chỉ huy</item>
   </plurals>
@@ -30,11 +31,13 @@
   <string name="teamBattle">Giải đa đội</string>
   <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>
   <string name="teamTournament">Giải đấu trong đội</string>
-  <string name="teamTournamentOverview">Một giải đấu Đấu trường mà chỉ thành viên trong đội của bạn có thể tham gia</string>
+  <string name="teamTournamentOverview">Một giải Đấu trường mà chỉ thành viên trong đội của bạn có thể tham gia</string>
   <string name="swissTournamentOverview">Một giải đấu hệ Thụy Sĩ mà chỉ thành viên trong đội của bạn có thể tham gia</string>
-  <string name="teamUpdates">Thông báo của đội</string>
-  <string name="subToTeamUpdates">Đăng ký nhận cập nhật mới của đội</string>
-  <string name="newTeamUpdate">Thông báo mới cho đội</string>
+  <string name="teamUpdates">Cập nhật của đội</string>
+  <string name="subToTeamUpdates">Đăng ký nhận các cập nhật của đội</string>
+  <string name="newTeamUpdate">Cập nhật mới cho đội</string>
+  <string name="teamEvents">Các giải đấu đội</string>
+  <string name="upcomingTeamEvents">Các giải đấu đội sắp tới</string>
   <string name="teamsIlead">Những đội tôi đang chỉ huy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
   <string name="leadersChat">Trò chuyện giữa các chỉ huy</string>
@@ -46,6 +49,9 @@
   <string name="entryCode">Mã vào đội</string>
   <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mã gia nhập mà các thành viên mới phải biết để tham gia đội.</string>
   <string name="incorrectEntryCode">Mã không chính xác.</string>
+  <string name="forumLabel">Diễn đàn của đội</string>
+  <string name="forumVisibilityHelp">Ai có thể xem diễn đàn của đội trên trang đội?&lt;br&gt;Chỉ các thành viên của đổi mới có thể đăng bài trong diễn đàn của đội.</string>
+  <string name="forumVisibilityNone">Ẩn diễn đàn</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
   <string name="upcomingTournaments">Các giải đấu sắp tới</string>
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>

@@ -16,6 +16,7 @@
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
   <string name="manuallyReviewAdmissionRequests">Χειροκίνητος έλεγχος αιτημάτων πρόσβασης</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιήσετε αυτήν την επιλογή, οι παίκτες θα πρέπει να κάνουν αίτημα για να συμμετάσχουν στην ομάδα.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Απόκρυψη της λίστας μελών ομάδας από μη μέλη.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
@@ -49,6 +50,8 @@
   <string name="entryCode">Κωδικός εισόδου ομάδας</string>
   <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου τον οποίο πρέπει να γνωρίζουν όλα τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
   <string name="incorrectEntryCode">Ο κωδικός εισόδου είναι λανθασμένος.</string>
+  <string name="forumLabel">Φόρουμ ομάδας</string>
+  <string name="forumVisibilityNone">Απόκρυψη του φόρουμ</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTournaments">Επερχόμενα τουρνουά</string>
   <string name="completedTourns">Ολοκληρωμένα τουρνουά</string>

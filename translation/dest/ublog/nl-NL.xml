@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Gemeenschap</string>
   <string name="communityBlogs">Blogs van de gemeenschap</string>
+  <string name="best">Beste</string>
+  <string name="all">Alles</string>
   <string name="byMonth">Per maand</string>
   <string name="byTopic">Per onderwerp</string>
   <string name="byLichess">Door Lichess</string>
@@ -59,11 +61,23 @@
   <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">De volgende websites bieden afbeeldingen gratis. Zorg ervoor dat u voldoet aan licentievoorwaarden voor de afbeelding die u gebruikt.</string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
+  <string name="topicChess">Schaken</string>
+  <string name="topicPuzzle">Puzzel</string>
+  <string name="topicTactics">Tactieken</string>
+  <string name="topicStrategy">Strategie</string>
+  <string name="topicChessEngine">Schaakcomputer</string>
+  <string name="topicChessBot">Schaakbot</string>
+  <string name="topicChessPersonalities">Persoonlijkheden</string>
+  <string name="topicOverTheBoard">Fysieke partijen</string>
+  <string name="topicSoftwareDevelopment">Softwareontwikkeling</string>
+  <string name="topicOffTopic">Off-topic</string>
+  <string name="topicPosts">%s berichten</string>
   <string name="etiquette">Etiquette</string>
   <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
   <string name="noCopyrightedImages">Gebruik alleen afbeeldingen waarvan het auteursrecht niet door iemand anders wordt beschermd.</string>
   <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
   <string name="blogTips">Onze simpele tips om geweldige blogberichten te schrijven</string>
   <string name="discussThisBlogPostInTheForum">Bespreek dit blogbericht in het forum</string>
+  <string name="youMayAlsoLike">Je bent misschien ook geïnteresseerd in</string>
   <string name="youBlockedByBlogAuthor">U bent geblokkeerd door de auteur van de blog.</string>
 </resources>

@@ -1,16 +1,16 @@
 package lila.mon
 
+import chess.variant.Variant
 import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
+import kamon.Kamon.{ counter, gauge, histogram, timer }
 import kamon.metric.Timer
 import kamon.tag.TagSet
-import kamon.Kamon.{ timer, gauge, counter, histogram }
-import chess.variant.Variant
 import scalalib.net.UserAgent
 
 import lila.core.id.*
-import lila.core.userId.{ UserId, UserName }
-import lila.core.perf.PerfKey
 import lila.core.net.Origin
+import lila.core.perf.PerfKey
+import lila.core.userId.{ UserId, UserName }
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -110,6 +110,7 @@ object lobby:
     val idle = gauge("lobby.socket.idle").withoutTags()
     val hookSubscribers = gauge("lobby.socket.hookSubscribers").withoutTags()
   object pool:
+    import lila.core.pool.PoolConfigId
     object wave:
       def scheduled(id: String) = counter("lobby.pool.wave.scheduled").withTag("pool", id)
       def full(id: String) = counter("lobby.pool.wave.full").withTag("pool", id)
@@ -118,6 +119,10 @@ object lobby:
       def missed(id: String) = histogram("lobby.pool.wave.missed").withTag("pool", id)
       def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
       def withRange(id: String) = histogram("lobby.pool.wave.withRange").withTag("pool", id)
+      def lamePlayers(id: PoolConfigId, name: String) =
+        histogram("lobby.pool.wave.lame").withTags(tags("id" -> id, "name" -> name))
+      def lamePairings(id: PoolConfigId, name: String) =
+        counter("lobby.pool.wave.lamePairing").withTags(tags("id" -> id, "name" -> name))
     object thieve:
       def stolen(id: String) = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
   private val lobbySegment = timer("lobby.segment")
@@ -129,6 +134,10 @@ object rating:
     def micropoints(perfKey: PerfKey) = histogram("rating.regulator").withTag("perf", perfKey.value)
 object perfStat:
   def indexTime = timer("perfStat.indexTime").withoutTags()
+
+object uniquePlayers:
+  def count(client: String, auth: Boolean) =
+    gauge("uniquePlayers").withTags(tags("client" -> client, "auth" -> auth))
 
 object round:
   object api:
@@ -197,6 +206,9 @@ object tutor:
   val fishnetMissing = histogram("tutor.fishnet.missing").withoutTags()
   private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
     future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
+object anySearch:
+  def time(found: Boolean, auth: Boolean) =
+    timer("anySearch.time").withTags(tags("found" -> found, "auth" -> auth))
 object search:
   def time(op: "search" | "count", index: String, success: Boolean) =
     timer("search.client.time").withTags:
@@ -388,14 +400,25 @@ object security:
     val epoch = gauge("security.geoip.epoch").withoutTags()
     val loadTime = gauge("security.geoip.loadTime").withoutTags()
   object login:
-    def attempt(byEmail: Boolean, pwned: Boolean, result: Boolean) =
+    def attempt(
+        useCase: String,
+        byEmail: Boolean,
+        pwned: Boolean,
+        leaked: Boolean,
+        result: Boolean,
+        name: String
+    ) =
       counter("security.login.attempt").withTags:
         tags(
+          "useCase" -> useCase,
           "by" -> (if byEmail then "email" else "name"),
           "pwned" -> pwned,
-          "result" -> result
+          "leaked" -> leaked,
+          "result" -> result,
+          "name" -> name
         )
     def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
+    def block(reason: String) = counter("security.login.block").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
@@ -703,7 +726,6 @@ object study:
     val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
-  val activity = counter("api.cost").withTag("endpoint", "activity")
   object challenge:
     object bulk:
       def scheduleNb(by: UserId) = counter("api.challenge.bulk.schedule.nb").withTag("by", by)

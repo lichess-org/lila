@@ -165,6 +165,7 @@
   <string name="flipBoard">Brett drehen</string>
   <string name="toggleLocalEngine">Lokale Engine umschalten</string>
   <string name="engineSettings">Engine-Einstellungen</string>
+  <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines von stärkster bis schwächster</string>
   <string name="illegalPosition">Ungültige Stellung</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
@@ -194,7 +195,7 @@
   </plurals>
   <string name="viewInFullSize">In voller Größe anzeigen</string>
   <string name="logOut">Abmelden</string>
-  <string name="signIn">Einloggen</string>
+  <string name="signIn">Anmelden</string>
   <string name="rememberMe">Angemeldet bleiben</string>
   <string name="youNeedAnAccountToDoThat">Dazu brauchst du ein Benutzerkonto</string>
   <string name="signUp">Registrieren</string>
@@ -460,6 +461,8 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
     <item quantity="one">%s Freund online</item>
     <item quantity="other">%s Freunde online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Freunde online: %1$s
+Freunde am Spielen: %2$s</string>
   <string name="favoriteOpponents">Häufigste Gegner</string>
   <string name="follow">Folgen</string>
   <string name="following">Folge ich</string>
@@ -588,14 +591,12 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="reportAUser">Benutzer melden</string>
   <string name="user">Benutzer</string>
   <string name="reason">Grund</string>
-  <string name="whatIsIheMatter">Was ist das Problem?</string>
   <string name="cheat">Betrug</string>
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
   <string name="reportCheatBoostHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Verhaltens des Spielers. Bitte schreibe nicht einfach nur „Die schummeln (bzw. betrügen)“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
   <string name="reportUsernameHelp">Erkläre, was an diesem Benutzernamen beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch, Umgangssprache, oder ein historischer/kultureller Bezugspunkt ist.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Wir können deinen Bericht schneller bearbeiten, wenn du auf Englisch schreibst.</string>
-  <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>
   <string name="importedByX">Importiert von %s</string>
   <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
@@ -787,7 +788,9 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="downloadAnnotated">Download kommentiert</string>
   <string name="downloadRaw">Download unkommentiert</string>
   <string name="downloadImported">Importiertes Spiel herunterladen</string>
+  <string name="downloadMyGames">Meine Partien herunterladen</string>
   <string name="downloadAllGames">Lade alle Partien herunter</string>
+  <string name="downloadResults">Ergebnisse herunterladen</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Bewege den Mauszeiger über Computervarianten, um eine Vorschau zu erhalten.</string>
@@ -807,12 +810,14 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
+  <string name="activeSessionsDescription">Dies ist eine Liste and Geräten und Applikationen, welche mit deinem Benutzerkonto angemeldet sind. Falls du irgedwelche verdächtigen Aktivitäten erkennst, stelle sicher &lt;a href=\'%1$s\'&gt;, überprüfe deine Wiederherstellungs-Mailadresse &lt;/a&gt;und &lt;a href=\'%2$s\'&gt;ändere dein Passwort&lt;/a&gt;.</string>
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
   <string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
   <string name="viewTheSolution">Lösung ansehen</string>
   <string name="noChallenges">Keine Herausforderungen.</string>
+  <string name="browserNotificationsDenied">Benachrichtigungs-Popups durch Browsereinstellungen deaktiviert</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
@@ -1038,8 +1043,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
   <string name="instructions">Anleitung</string>
   <string name="showMeEverything">Alles zeigen</string>
-  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
-Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
+  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose und freie Open-Source-Software. Wir sind auf Spenden unserer Nutzer bei Betriebskosten, der Entwicklung und bei der Content-Erstellung angewiesen. Ohne unsere großzügige Community wären wir nicht in der Lage, die Seite am Laufen zu halten. Vielen Dank, dass du uns beigetreten bist!</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
   <string name="stats">Statistiken</string>
   <string name="accessibility">Barrierefreiheit</string>
@@ -1059,4 +1063,5 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="boards">Bretter</string>
   <string name="write">Schreiben</string>
   <string name="preview">Vorschau</string>
+  <string name="done">Erledigt</string>
 </resources>

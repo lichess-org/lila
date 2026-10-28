@@ -1,15 +1,15 @@
 package lila.mod
 
 import org.apache.pekko.stream.scaladsl.*
-import reactivemongo.pekkostream.cursorProducer
 import play.api.libs.json.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.Json.given
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.security.UserSignup
 import lila.core.team.TeamCreate
-import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
+import lila.user.UserRepo
 
 final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using org.apache.pekko.stream.Materializer):
 

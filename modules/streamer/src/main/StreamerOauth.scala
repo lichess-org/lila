@@ -1,11 +1,11 @@
 package lila.streamer
 
-import play.api.mvc.{ RequestHeader, DiscardingCookie }
 import com.github.blemale.scaffeine.Scaffeine
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.json.*
+import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.{ DiscardingCookie, RequestHeader }
 
 /* let lichess users associate their twitch/youtube accounts */
 final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twitchCfg: TwitchConfig)(using

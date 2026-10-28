@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Zruší časovač alebo zamietne žiadosť</string>
   <string name="playPreferredMoveOrConfirmSomething">Potiahne požadovaný ťah alebo niečo potvrdí</string>
   <string name="sleep">Uspí (ak je povolené zobúdzacie slovo)</string>
-  <string name="turnOffVoiceRecognition">Vypne ovládanie hlasom</string>
   <string name="showPuzzleSolution">Zobrazí riešenie úlohy</string>
 </resources>

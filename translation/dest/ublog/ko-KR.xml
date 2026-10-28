@@ -2,6 +2,8 @@
 <resources>
   <string name="community">커뮤니티</string>
   <string name="communityBlogs">커뮤니티 블로그</string>
+  <string name="best">최고</string>
+  <string name="all">전체</string>
   <string name="byMonth">월별</string>
   <string name="byTopic">주제별</string>
   <string name="byLichess">Lichess 소식</string>
@@ -55,11 +57,24 @@
   <string name="deleteBlog">이 블로그 게시물 완전히 삭제하기</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">다음 웹사이트들은 이미지를 무료로 제공합니다. 반드시 사용하시는 이미지의 라이선스 조건을 따르고 있는지 확인해 주세요.</string>
   <string name="selectPostTopics">게시물의 주제를 선택하세요</string>
+  <string name="topicChess">체스</string>
+  <string name="topicPuzzle">퍼즐</string>
+  <string name="topicTactics">전술</string>
+  <string name="topicStrategy">전략</string>
+  <string name="topicChessEngine">체스 엔진</string>
+  <string name="topicChessBot">체스 봇</string>
+  <string name="topicChessPersonalities">체스 유명 인사</string>
+  <string name="topicOverTheBoard">로컬 게임</string>
+  <string name="topicSoftwareDevelopment">소프트웨어 개발</string>
+  <string name="topicOffTopic">자유 주제</string>
+  <string name="topicPosts">%s 게시물</string>
   <string name="etiquette">에티켓</string>
   <string name="safeAndRespectfulContent">안전하고 서로를 존중하는 콘텐츠만 게시하세요. 다른 사람의 콘텐츠를 복사하지 마세요.</string>
   <string name="noCopyrightedImages">다른 사람이 저작권을 소유하지 않은 이미지만 사용해 주세요.</string>
   <string name="inappropriateContentAccountClosed">부적절한 행위로 인해 계정이 폐쇄될 수 있습니다.</string>
   <string name="blogTips">멋진 블로그 게시물을 작성하기 위한 간단한 팁</string>
   <string name="discussThisBlogPostInTheForum">포럼에서 이 게시글에 대해 토론하기</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess 기여자가 표출한 의견은 그들 본인의 것입니다.</string>
+  <string name="youMayAlsoLike">추천</string>
   <string name="youBlockedByBlogAuthor">이 블로그 글의 작성자가 당신을 차단했습니다.</string>
 </resources>

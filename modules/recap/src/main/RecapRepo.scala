@@ -1,9 +1,10 @@
 package lila.recap
 
 import reactivemongo.api.bson.*
-import lila.db.dsl.{ *, given }
-import lila.core.game.Source
 import scalalib.Iso
+
+import lila.core.game.Source
+import lila.db.dsl.{ *, given }
 
 private final class RecapRepo(colls: RecapColls)(using Executor):
 

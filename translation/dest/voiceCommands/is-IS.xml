@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Hætta tíma eða bera tilskipun til baka</string>
   <string name="playPreferredMoveOrConfirmSomething">Leika tilvalinn leik eða staðfesta eitthvað</string>
   <string name="sleep">Sofa (ef vekjaorð gildir)</string>
-  <string name="turnOffVoiceRecognition">Slökkva á talgreiningu</string>
   <string name="showPuzzleSolution">Sýna lausn þrautarinnar</string>
 </resources>

@@ -588,14 +588,12 @@
   <string name="reportAUser">या वापरकर्त्या विषयी तक्रार नोंदवा</string>
   <string name="user">वापरकर्ता</string>
   <string name="reason">कारण</string>
-  <string name="whatIsIheMatter">काय समस्या आहे?</string>
   <string name="cheat">फसवणूक</string>
   <string name="troll">थट्टा</string>
   <string name="other">इतर</string>
   <string name="reportCheatBoostHelp">खेळाची दुवा इकडे पेस्ट करा आणि सांगा कि ह्या वापरकर्त्याने काय चुकीचे केले आहे. फक्त फसवणूक केली आहे इतपच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा.</string>
   <string name="reportUsernameHelp">ह्या वापरकर्तानावात काय चुकीचे आहे ते सांगा. फक्त अयोग्य आहे इतकच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा. हे पण सांगा जर हे नाव इंग्रजीत नाही, पण दुसऱ्या भाषेत आयोग्य का आहे आणि जर कुठला तरी इतिहासिक संदर्भ आहे.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">तुम्ही इंग्रजीत लिहिल्यास आम्ही तुमच्या अहवालावर अधिक वेगाने प्रक्रिया करू शकतो.</string>
-  <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>
   <string name="thisTopicIsNowClosed">हा विषय आता संपला आहे.</string>
@@ -807,12 +805,14 @@
   <string name="enableKidMode">पालक नियंत्रण सुरू करा</string>
   <string name="disableKidMode">पालक नियंत्रण बंद करा</string>
   <string name="security">सुरक्षितता</string>
+  <string name="activeSessionsDescription">ही तुमच्या खात्यात लॉग इन असलेल्या उपकरणांची आणि ॲप्लिकेशनांची यादी आहे. जर तुम्हाला कोणतीही संशयास्पद हालचाल आढळली&lt;a href=\'%1$s\'&gt;, तर तुमचा \'रिकव्हरी ई-मेल\' पत्ता तपासा&lt;/a&gt; आणि &lt;a href=\'%2$s\'&gt;तुमचा परवलीचा शब्द बदला&lt;/a&gt;.</string>
   <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
   <string name="viewTheSolution">समाधान पहा</string>
   <string name="noChallenges">कोणतीही आव्हाने नाहीत.</string>
+  <string name="browserNotificationsDenied">ब्राऊझरच्या सेटिंगमुळे नोटिफिकेशन पॉप-अप्स बंद केले आहेत.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषेत उपलब्ध!</item>
     <item quantity="other">%s भाषेत उपलब्ध!</item>
@@ -1038,8 +1038,6 @@
   <string name="ourEventTips">कार्यक्रम आयोजित करण्यासाठी आमच्या सल्ला</string>
   <string name="instructions">सूचना</string>
   <string name="showMeEverything">मला सगळं दाखवा</string>
-  <string name="lichessPatronInfo">Lichess एक धर्मादाय आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
-सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
   <string name="nothingToSeeHere">सध्या येथे पाहण्यासाठी काहीही नाही.</string>
   <string name="stats">आकडेवारी</string>
   <string name="accessibility">सुलभता</string>
@@ -1059,4 +1057,5 @@
   <string name="boards">पट</string>
   <string name="write">लिहा</string>
   <string name="preview">पूर्वावलोकन</string>
+  <string name="done">झाले</string>
 </resources>

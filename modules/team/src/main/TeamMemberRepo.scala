@@ -4,8 +4,8 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl.{ *, given }
-import lila.team.TeamSecurity.Permission
 import lila.team.Team.IdsStr
+import lila.team.TeamSecurity.Permission
 
 final class TeamMemberRepo(val coll: Coll)(using Executor):
 
@@ -14,6 +14,9 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   // expensive with thousands of members!
   def userIdsByTeam(teamId: TeamId): Fu[List[UserId]] =
     coll.secondary.distinctEasy[UserId, List]("user", bdoc("team" -> teamId))
+
+  def teamIdsByUser(user: UserId): Fu[List[TeamId]] =
+    coll.primitive[TeamId](selectUser(user), "team")
 
   def removeByTeam(teamId: TeamId): Funit =
     coll.delete.one(teamQuery(teamId)).void

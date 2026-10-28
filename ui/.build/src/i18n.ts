@@ -1,6 +1,5 @@
 import { transform } from 'esbuild';
 import fg from 'fast-glob';
-import { XMLParser } from 'fast-xml-parser';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
 
@@ -20,13 +19,18 @@ let dicts = new Map<string, Dict>();
 let locales: string[];
 let cats: string[];
 
+export const i18nTypingsReady = Promise.withResolvers<void>();
+
 export function i18n(): Promise<void | string> {
-  if (!env.begin('i18n')) return Promise.resolve();
+  if (!env.begin('i18n')) {
+    i18nTypingsReady.resolve();
+    return i18nTypingsReady.promise;
+  }
 
   return makeTask({
     includes: [
       { cwd: env.i18nSrcDir, path: '*.xml' },
-      { cwd: join(env.i18nDestDir, 'site'), path: '*.xml' },
+      { cwd: env.i18nDestDir, path: '**/*.xml' },
     ],
     ctx: 'i18n',
     debounce: 500,
@@ -39,7 +43,7 @@ export function i18n(): Promise<void | string> {
         ])
       ).map(list => list.map(x => x.split('.')[0]));
       await Promise.allSettled(cats.map(async cat => fs.promises.mkdir(join(env.i18nDestDir, cat))));
-      await compileTypings();
+      await compileTypings().finally(i18nTypingsReady.resolve);
       await compileJavascripts();
       await i18nManifest();
     },
@@ -53,40 +57,40 @@ async function compileTypings(): Promise<void> {
     Promise.all(cats.map(cat => updated(cat))),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
+  if (tstat && !catStats.some(Boolean)) return;
 
-  if (!tstat || catStats.some(Boolean)) {
-    dicts = new Map(
-      zip(
-        cats,
-        await Promise.all(
-          cats.map(d => fs.promises.readFile(join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
-        ),
+  dicts = new Map(
+    zip(
+      cats,
+      await Promise.all(
+        cats.map(d => fs.promises.readFile(join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
       ),
-    );
-    await fs.promises.writeFile(
-      typingsPathname,
-      tsPrelude +
-        [...dicts]
-          .map(
-            ([cat, dict]) =>
-              `  ${cat}: {\n` +
-              [...dict.entries()]
-                .map(([k, v]) => {
-                  if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
-                  const tpe =
-                    typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
-                  const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-                  return `    /** ${comment} */\n    ${k}: ${tpe};`;
-                })
-                .join('\n') +
-              '\n  };\n',
-          )
-          .join('') +
-        '}\n',
-    );
-    const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
-    if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
-  }
+    ),
+  );
+  const typingsContent =
+    tsPrelude +
+    [...dicts]
+      .map(
+        ([cat, dict]) =>
+          `  ${cat}: {\n` +
+          [...dict.entries()]
+            .map(([k, v]) => {
+              if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
+              const tpe =
+                typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
+              const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
+              return `    /** ${comment} */\n    ${k}: ${tpe};`;
+            })
+            .join('\n') +
+          '\n  };\n',
+      )
+      .join('') +
+    '}\n';
+  if ((await fs.promises.readFile(typingsPathname, 'utf8').catch(() => '')) === typingsContent) return;
+
+  await fs.promises.writeFile(typingsPathname, typingsContent);
+  const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
+  if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
 }
 
 function compileJavascripts(): Promise<void[]> {
@@ -156,22 +160,44 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
     : xml.value.size > 64 && xml.value;
 }
 
+// translation/ XML is flat: <string> and <plurals><item>, text only, no CDATA. Parsing it
+// by hand gives what fast-xml-parser gave (trimmed text, the five XML entities decoded,
+// &#10; left as is) in half the time.
+const xmlAttrs = '((?:[^>"]|"[^"]*")*)';
+const xmlStringRe = new RegExp(`<string\\s${xmlAttrs}>([^<]*)</string>`, 'g');
+const xmlPluralsRe = new RegExp(`<plurals\\s${xmlAttrs}>([\\s\\S]*?)</plurals>`, 'g');
+const xmlItemRe = new RegExp(`<item\\s${xmlAttrs}>([^<]*)</item>`, 'g');
+const xmlEntities: Record<string, string> = { apos: "'", gt: '>', lt: '<', quot: '"' };
+
+function xmlAttr(attrs: string, name: string): string {
+  const value = new RegExp(`(?:^|\\s)${name}="([^"]*)"`).exec(attrs)?.[1];
+  if (value === undefined) throw new Error(`no ${name} in <${attrs}>`);
+  return value;
+}
+
+function xmlText(text: string): string {
+  return text
+    .trim()
+    .replace(/&(apos|gt|lt|quot);/g, (_, entity: string) => xmlEntities[entity])
+    .replaceAll('&amp;', '&')
+    .replaceAll('\\"', '"')
+    .replaceAll("\\'", "'");
+}
+
 function parseXml(xmlData: string): Map<string, string | Plural> {
   const i18nMap = new Map<string, string | Plural>();
   if (!xmlData) return i18nMap;
 
-  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
-  const { string: strings, plurals } = parser.parse(xmlData).resources;
-  for (const item of strings ? (Array.isArray(strings) ? strings : [strings]) : [])
-    i18nMap.set(item.name, item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'"));
-  for (const plural of plurals ? (Array.isArray(plurals) ? plurals : [plurals]) : []) {
+  xmlData = xmlData.replace(/<!--[\s\S]*?-->/g, '');
+  for (const [, attrs, text] of xmlData.matchAll(xmlStringRe))
+    i18nMap.set(xmlAttr(attrs, 'name'), xmlText(text));
+  for (const [, attrs, items] of xmlData.matchAll(xmlPluralsRe)) {
     const group: Record<string, string> = {};
-    for (const item of Array.isArray(plural.item) ? plural.item : [plural.item]) {
-      group[item.quantity] = item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'");
-    }
-    i18nMap.set(plural.name, group as Plural);
+    for (const [, itemAttrs, text] of items.matchAll(xmlItemRe))
+      group[xmlAttr(itemAttrs, 'quantity')] = xmlText(text);
+    i18nMap.set(xmlAttr(attrs, 'name'), group as Plural);
   }
-  return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
+  return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b, 'en')));
 }
 
 async function minify(js: string): Promise<string> {

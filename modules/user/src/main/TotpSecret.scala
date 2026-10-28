@@ -36,7 +36,7 @@ object TotpSecret:
 
   private def otpString(otp: Int) =
     val s = (otp % 1000000).toString
-    "0" * (6 - s.length) + s
+    s"${"0" * (6 - s.length)}$s"
 
   def decode(base32: String) = new TotpSecret(new Base32().decode(base32))
 

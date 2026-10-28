@@ -1,6 +1,3 @@
 {
-  "extends": "../../.test/tsconfig.test.json",
-  "compilerOptions": {
-    "allowImportingTsExtensions": true
-  }
+  "extends": "../../.test/tsconfig.test.json"
 }

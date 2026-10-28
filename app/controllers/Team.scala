@@ -1,4 +1,5 @@
 package controllers
+
 package team
 
 import play.api.data.Form
@@ -217,7 +218,7 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.explain)(
         _ => funit,
         explain =>
-          api.delete(team, me.value, explain) >>
+          api.delete(team, me.userId, explain) >>
             env.mod.logApi.deleteTeam(team.id, explain)
       )
         .inject(Redirect(routes.Team.all(1)).flashSuccess)
@@ -416,6 +417,12 @@ final class Team(env: Env) extends LilaController(env):
             yield res
           else orElse
     WithEnabledTeamOrClas(id)(showUpdates, orElse)
+  }
+
+  def events = Auth { _ ?=> me ?=>
+    limit.anyPageByUser(me.myId, rateLimited):
+      env.teamInfo.events.flatMap: (teamIds, events) =>
+        Ok.page(views.team.events(teamIds, events))
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>

@@ -89,7 +89,7 @@ Mängi kiirmalet või klassikalist malet tõstmaks võimalusi, et lisatakse pusl
   </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s kodamiseks</item>
-    <item quantity="other">%s kodamiseks</item>
+    <item quantity="other">%s kordamiseks</item>
   </plurals>
   <string name="percentSolved">%s lahendatud</string>
   <string name="noPuzzlesToShow">Midagi pole näidata, lahenda ennem mõned pusled!</string>

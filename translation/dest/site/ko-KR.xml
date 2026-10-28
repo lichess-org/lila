@@ -160,6 +160,7 @@
   <string name="flipBoard">보드 돌리기</string>
   <string name="toggleLocalEngine">로컬 엔진 켜기/끄기</string>
   <string name="engineSettings">엔진 설정</string>
+  <string name="engine">엔진</string>
   <string name="enginesFromStrongestToWeakest">엔진 (강한 순서대로)</string>
   <string name="illegalPosition">합법적이지 않은 포지션</string>
   <string name="threefoldRepetition">3회 동형반복</string>
@@ -430,6 +431,8 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s명의 친구들이 접속중</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">온라인인 친구: %1$s
+플레이 중인 친구: %2$s</string>
   <string name="favoriteOpponents">관심있는 상대</string>
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
@@ -555,14 +558,12 @@
   <string name="reportAUser">사용자 신고</string>
   <string name="user">신고할 사용자 이름</string>
   <string name="reason">이유</string>
-  <string name="whatIsIheMatter">무엇이 문제인가요?</string>
   <string name="cheat">부정행위</string>
   <string name="troll">분란 조장</string>
   <string name="other">기타</string>
   <string name="reportCheatBoostHelp">대국 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">신고를 영어로 작성하시면 더 빠르게 처리해 드릴 수 있습니다.</string>
-  <string name="error.provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 주제는 닫혔습니다.</string>
@@ -750,7 +751,9 @@
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
   <string name="downloadRaw">기보 다운로드</string>
   <string name="downloadImported">불러온 기보 다운로드</string>
+  <string name="downloadMyGames">나의 대국 다운로드</string>
   <string name="downloadAllGames">모든 대국 다운로드</string>
+  <string name="downloadResults">다운로드 결과</string>
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 통해 수순을 앞뒤로 돌려볼 수 있습니다.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">컴퓨터 라인 미리보기 위해서는 커서를 올리세요.</string>
@@ -770,12 +773,14 @@
   <string name="enableKidMode">어린이 모드 활성화하기</string>
   <string name="disableKidMode">어린이 모드 비활성화하기</string>
   <string name="security">보안</string>
+  <string name="activeSessionsDescription">귀하의 계정에 로그인되어 있는 디바이스와 애플리케이션의 목록입니다. 의심스러운 활동이 확인된다면, 반드시 &lt;a href=\'%1$s\'&gt;복구 이메일 주소를 확인&lt;/a&gt;하고 &lt;a href=\'%2$s\'&gt;비밀번호를 변경&lt;/a&gt;하십시오.</string>
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
   <string name="viewTheSolution">정답 보기</string>
   <string name="noChallenges">도전 없음.</string>
+  <string name="browserNotificationsDenied">브라우저 설정에 의해 알림 팝업이 비활성화됨</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s개의 언어를 지원합니다!</item>
   </plurals>
@@ -996,7 +1001,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
   <string name="showMeEverything">모두 보기</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!  </string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
   <string name="accessibility">접근성</string>
@@ -1016,4 +1021,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="boards">보드</string>
   <string name="write">작성</string>
   <string name="preview">미리보기</string>
+  <string name="done">완료</string>
 </resources>

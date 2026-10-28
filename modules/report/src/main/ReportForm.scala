@@ -7,14 +7,16 @@ import play.api.data.validation.*
 import lila.common.Form.cleanNonEmptyText
 import lila.core.LightUser
 import lila.core.config.NetDomain
+import lila.core.i18n.I18nKey
 import lila.core.report.SuspectId
 import lila.mon.extensions.*
 
-final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
+final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
+
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
     val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
     if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
-    else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
+    else Invalid(Seq(ValidationError(I18nKey.report.provideOneCheatedGameLink.value)))
 
   def create(using me: MyId) = Form:
     mapping(
@@ -28,7 +30,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
           "Don't report Lichess. Use lichess.org/contact instead.",
           u => !UserId.isOfficial(u)
         ),
-      "reason" -> text.verifying("error.required", Reason.keys contains _),
+      "reason" -> text.verifying("error.required", Reason.userSelectable.map(_.key).contains),
       "text" -> cleanNonEmptyText(minLength = 5),
       "msgs" -> list(nonEmptyText)
     ) { (username, reason, text, msgs) =>
@@ -53,7 +55,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
     lightUserAsync(username.id).await(1.second, "reportUser")
 
 object ReportForm:
-  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(?:game/)?(\w{8}|\w{12})""").r
   def gameLinks(text: String)(using NetDomain) =
     gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
   def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty

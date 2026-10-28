@@ -18,7 +18,7 @@
     <item quantity="one">1 Rundi pro Tag</item>
     <item quantity="other">1 Rundi all %s Täg</item>
   </plurals>
-  <string name="roundsAreStartedManually">Runde werded manuell gschtartet</string>
+  <string name="roundsAreStartedManually">Rundene werded manuell g\'schtartet</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s Sekunde zwüschet de Runde</item>
     <item quantity="other">%s Sekunde zwüschet de Runde</item>
@@ -36,15 +36,15 @@
   <string name="numberOfRounds">Azahl Runde</string>
   <string name="numberOfRoundsHelp">E ungradi Azahl Runde ermöglicht e optimali Farbeverteilig.</string>
   <string name="roundInterval">Zitabschtand zwüschet de Runde</string>
-  <string name="forbiddenPairings">Verboteni Paarig</string>
-  <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nöd gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Zile, trännt dur e Leerschtell.</string>
+  <string name="forbiddenPairings">Verboteni Paarige</string>
+  <string name="forbiddenPairingsHelp">Benutzernäme vu de Schpiler wo nöd paart werde dörfed (z. B. Gschwüschter). 2 Näme pro Zile, trännt dur en Leerschlag.</string>
   <string name="manualPairings">Nächschti Rundi mit manueller Paarig</string>
   <string name="manualPairingsHelp">Mach all Paarige vu de nächschte Rundi. 1 Paarig pro Zile. Bischpil:
 SchpilerA SchpilerB
 SchpilerC SchpilerD
 Wänn en Schpiler es Freilos hät (1 Punkt) machsch e Zile wie folgt...
 SchpilerE 1
-Fehlendi Schpiler werded als abwesend betrachtet und kassiered en Nuller.
+Fählendi Schpiler werded als abwesend betrachtet und kassiered en Nuller.
 Lass das Fäld leer, dass Lichess automatisch Paarige erschtellt.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Muess scho Turnier nach Schweizer System g\'schpillt ha</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Lass nur Schpiler mitmache, wo scho Turnier nach Schweizer System g\'schpillt händ. Wänn sie das no nöd händ, sötteds au nöd bi dim Turnier mitschpille. Das hilft debi, dass die usgwählte Teilnehmer besseri Erfahrig mit em Schweizer System händ.</string>
@@ -61,11 +61,12 @@ Hät en Schpiller mal kein Gägner, gits für die Rundi es Freilos ( \"bye\" ) u
 Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämme 
 die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktglichheit entscheidet die höcheri SB-Zahl.</string>
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
-  <string name="dutchSystem">Niederländische System</string>
+  <string name="dutchSystem">Niederländischs Syschtem</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
   <string name="pairingsA">Mit em %1$s, umgsetzt mit %2$s, in Übereinschtimmig mit em %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wänn es Turnier meh Runde hät, als Schpiller?</string>
   <string name="moreRoundsThanPlayersA">Wänn alli mögliche Paarige gschpillt sind, ischs Turnier fertig und de Sieger wird ermittlet.</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams">Wieso sind Turnier nach Schweizer System nur für Teams?</string>
   <string name="restrictedToTeamsA">Turnier nach \"Schweizer System\" sind nöd fürs Online-Schach konzipiert. 
 Vu de Schpiller wird Pünktlichkeit, Durchhaltevermöge und Geduld verlangt. 
 Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, 
@@ -81,15 +82,16 @@ Zuesätzlich gits au en halbe Punkt, wänn er erscht schpöter is Turnier ischti
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 
 Doch er chann jederzit wieder is Turnier ischtige.</string>
   <string name="protectionAgainstNoShowQ">Was passiert bi nöd am Turnier erschine?</string>
-  <string name="protectionAgainstNoShowA">Schpiller, wo sich für es Turnier nach \"Schweizer System\" amälded, aber nöd schpilled, chönd Problem bereite.
-Um das Problem z\'entschärfe, laht Lichess so Schpiller für e beschtimmti Zit nöd ame neue Turnier nach \"Schweizer System\" mitschpille.
-En Organisator vume Turnier nach \"Schweizer System\" chann aber entscheide, ob er so Schpiller trotzdem akzeptiert.</string>
-  <string name="lateJoinQ">Chönd Schpiller au schpöter is Turnier ischtige?</string>
+  <string name="protectionAgainstNoShowA">Schpiler, wo sich für es Turnier nach \"Schweizer System\" amälded, aber nöd schpilled, chönd Problem bereite.
+Um das Problem z\'entschärfe, laht Lichess so Schpiler für e beschtimmti Zit nöd ame neue Turnier nach \"Schweizer System\" mitschpille.
+En Organisator vume Turnier  nach \"Schweizer System\" chann aber entscheide, ob er so Schpiler trotzdem akzeptiert.</string>
+  <string name="lateJoinQ">Chönd Schpiler au schpöter is Turnier ischtige?</string>
   <string name="lateJoinA">Ja - sogar dänn no, wänn bereits die halb Azahl Runde gschpillt isch! So cha me in es Turnier 
 mit 11 Runde no ischtige vor Rundi 6 afangt oder bi 12 Runde, bevor Rundi 7 schtartet. 
 Jedem \"Schpatischtiger\" wird en halbe Punkt gschänkt, obwohl er mehreri Runde verpasst hät.</string>
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - es isch nur e zuesätzlichi Schpillmöglichkeit</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Chann ich uf Lichess Round Robin Turnier schpille?</string>
   <string name="roundRobinA">Mir würded das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
 De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorzitig verlöhnd. 
 Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event bis zumSchluss schpillt. 

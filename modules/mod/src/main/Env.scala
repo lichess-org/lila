@@ -1,17 +1,17 @@
 package lila.mod
 
-import org.apache.pekko.actor.*
 import chess.ByColor
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.common.Bus
+import lila.common.autoconfig.given
 import lila.core.config.*
 import lila.core.forum.BusForum
+import lila.core.mod.{ BoardApiMark, LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
-import lila.core.mod.{ BoardApiMark, LoginWithWeakPassword, LoginWithBlankedPassword }
-import lila.common.autoconfig.given
 
 @Module
 final class Env(

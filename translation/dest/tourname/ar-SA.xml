@@ -2,7 +2,7 @@
 <resources>
   <string name="hourlyRapidArena">ساحة اللعب السريع الساعية</string>
   <string name="hourlyRapid">النمط السريع الساعي</string>
-  <string name="hourlyXArena">بطولة أرينا تُقام كل %s ساعة</string>
+  <string name="hourlyXArena">بطولة أرينا %s تُقام كل ساعة</string>
   <string name="hourlyX">كل %s ساعة</string>
   <string name="dailyRapidArena">ساحة اللعب اليومي السريع</string>
   <string name="dailyRapid">سريع يومي</string>

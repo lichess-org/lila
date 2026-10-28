@@ -146,6 +146,10 @@ export default class StudyCtrl {
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
     };
+    pubsub.on('analysis.comp.toggle', enabled => {
+      if (enabled) this.vm.toolTab('serverEval');
+      else if (this.vm.toolTab() === 'serverEval') this.vm.toolTab('tags');
+    });
 
     this.members = new StudyMemberCtrl({
       initDict: data.members,
@@ -337,6 +341,10 @@ export default class StudyCtrl {
     !this.isGamebookPlay() &&
     (this.data.chapter.features.computer || this.data.chapter.practice);
 
+  canMergeAnalysisCleanly() {
+    return !this.data.chapter.serverEval || Number(this.data.chapter.serverEval?.version) > 0;
+  }
+
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
     if (this.data.chapter.practice) this.ctrl.togglePractice(true);
@@ -403,7 +411,7 @@ export default class StudyCtrl {
     this.serverEval.reset();
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
-    this.ctrl.startCeval();
+    this.ctrl.startCevalIfEnabled();
     this.updateHistoryAndAddressBar();
   };
 
@@ -424,8 +432,8 @@ export default class StudyCtrl {
     },
   );
 
-  onSetPath = throttle(300, (path: TreePath) => {
-    if (this.vm.mode.sticky && path !== this.data.position.path)
+  onSetPath = throttle(300, (path: TreePath, node: TreeNode) => {
+    if (this.vm.mode.sticky && !node.comp && path !== this.data.position.path)
       this.makeChange('setPath', this.addChapterId({ path }));
   });
 
@@ -576,7 +584,7 @@ export default class StudyCtrl {
 
   setPath = (path: TreePath, node: TreeNode) => {
     this.arrowHistory = [];
-    this.onSetPath(path);
+    this.onSetPath(path, node);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
   deleteNode = (path: TreePath) =>
@@ -633,7 +641,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
-    else if (o === 'analyse') this.ctrl.startCeval();
+    else if (o === 'analyse') this.ctrl.startCevalIfEnabled();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
@@ -645,11 +653,11 @@ export default class StudyCtrl {
   };
   updateHistoryAndAddressBar = () => {
     if (this.ctrl.isEmbed) return;
-    const studyUrl = this.baseUrl();
-    const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
-    if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
+    const chapterUrl = `${this.baseUrl()}/${this.vm.chapterId}`;
+    if (this.relay) this.relay.updateAddressBar(this.baseUrl(), chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
+  chapterConfigUrl = () => `/study/${this.data.id}/${this.vm.chapterId}/config`;
   socketSendNodeData = () => {
     if (!this.isWriting()) return false;
     const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
@@ -675,8 +683,8 @@ export default class StudyCtrl {
 
   socketHandlers: Handlers = {
     path: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (!this.vm.mode.sticky) {
         this.vm.behind++;
@@ -690,10 +698,10 @@ export default class StudyCtrl {
       this.redraw();
     },
     addNode: d => {
-      const position = d.p,
-        node = completeNode(this.ctrl.variantKey)(d.n),
-        who = d.w,
-        sticky = d.s;
+      const position = d.p;
+      const node = completeNode(this.ctrl.variantKey)(d.n);
+      const who = d.w;
+      const sticky = d.s;
       if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       this.setMemberActive(who);
       this.chapters.addNode(d);
@@ -723,8 +731,8 @@ export default class StudyCtrl {
       return this.redraw();
     },
     deleteNode: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       // deleter already has it done
@@ -735,8 +743,8 @@ export default class StudyCtrl {
       return this.redraw();
     },
     promote: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d) || (who && who.s === site.sri)) return;
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
@@ -814,8 +822,8 @@ export default class StudyCtrl {
       this.redraw();
     },
     shapes: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (d.p.chapterId !== this.vm.chapterId) return;
       if (who && who.s === site.sri) return this.redraw(); // update shape indicator in column move view
@@ -830,8 +838,8 @@ export default class StudyCtrl {
       alert(d.error);
     },
     setComment: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.setCommentAt(d.c, position.path);
@@ -846,16 +854,16 @@ export default class StudyCtrl {
       this.redraw();
     },
     deleteComment: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.deleteCommentAt(d.id, position.path);
       this.redraw();
     },
     glyphs: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.setGlyphsAt(d.g, position.path);
@@ -863,8 +871,8 @@ export default class StudyCtrl {
       this.redraw();
     },
     clock: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (d.relayClocks) this.relay?.setClockToChapterPreview(d, d.relayClocks);
       if (this.wrongChapter(d)) return;
@@ -872,8 +880,8 @@ export default class StudyCtrl {
       this.redraw();
     },
     forceVariation: d => {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.forceVariationAt(position.path, d.force);

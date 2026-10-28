@@ -5,14 +5,14 @@ import com.softwaremill.macwire.*
 import lila.common.Bus
 import lila.core.data.Text
 import lila.core.id.ReportId
+import lila.core.misc.AppealTopic
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore.Text.given
-import lila.report.Room.Scores
 import lila.mon.extensions.*
-import lila.core.misc.AppealTopic
+import lila.report.Room.Scores
 
 final class ReportApi(
     val coll: Coll,

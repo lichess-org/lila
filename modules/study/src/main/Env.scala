@@ -5,8 +5,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
-import lila.core.socket.{ GetVersion, SocketVersion }
 import lila.core.security.LilaCookie
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -71,11 +71,11 @@ final class Env(
 
   private lazy val studyInvite = wire[StudyInvite]
 
-  private lazy val serverEvalRequester = wire[ServerEval.Requester]
+  private lazy val serverEvalRequester = wire[serverEval.Requester]
 
   private lazy val sequencer = wire[StudySequencer]
 
-  lazy val serverEvalMerger = wire[ServerEval.Merger]
+  lazy val serverEvalMerger = wire[serverEval.Merger]
 
   lazy val topicApi = wire[StudyTopicApi]
 

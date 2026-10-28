@@ -50,4 +50,21 @@
   <string name="stDesTheyHaveTooMuchWork">Tienen demasiado trabajo</string>
   <string name="stDesInBetweenMoves">Jugadas intermedias</string>
   <string name="stDesAttackingThroughAnEnemyPiece">Atacar a través de una pieza enemiga</string>
+  <string name="stDesBeingForcedToMove">Ser forzado a mover</string>
+  <string name="stDesInterposeAPieceToGreatEffect">Interponer una pieza con gran efecto</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">Estudia el sacrificio del regalo griego</string>
+  <string name="stDesDistractingADefender">Distrayendo a un defensor</string>
+  <string name="stDesLureAPieceToABadSquare">Lleva una pieza a una mala casilla</string>
+  <string name="stDesPromoteButNotToAQueen">Promover - !pero no a una dama!</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">Una pieza está perdida, pero todavía puede ayudar</string>
+  <string name="stDesRespondToACheckWithACheck">Responde a un jaque con otro jaque</string>
+  <string name="stDesRemoveTheDefendingPiece">Quitar la pieza defensora</string>
+  <string name="stDesGetOutOfTheWay">¡Sal del camino!</string>
+  <string name="stDesReachAKeySquare">Llega a una casilla importante</string>
+  <string name="stDesTakeTheOpposition">Tomemos la oposición</string>
+  <string name="stDesVersusAQueen">Contra una dama</string>
+  <string name="stDesAndPassiveRookVsRook">Y torre pasiva contra torre</string>
+  <string name="stDesLucenaAndPhilidor">Lucena y Philidor</string>
+  <string name="stDesBroadenYourKnowledge">Expande tus conocimientos</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Finales de torre con varios peones</string>
 </resources>

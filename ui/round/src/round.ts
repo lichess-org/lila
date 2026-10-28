@@ -12,8 +12,7 @@ import { alert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import RoundController from './ctrl';
-import type { RoundData, RoundOpts } from './interfaces';
-import type MoveOn from './moveOn';
+import type { RoundData, RoundOpts, SocketInEvents } from './interfaces';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { main as view } from './view/main';
 
@@ -61,7 +60,7 @@ async function boot(
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
     options: { reloadOnResume: true },
     params: { userTv: data.userTv?.id },
-    receive(t: string, d: any) {
+    receive<K extends keyof SocketInEvents>(t: K, d: Parameters<SocketInEvents[K]>) {
       round.socketReceive(t, d);
     },
     events: {
@@ -77,9 +76,9 @@ async function boot(
           );
       },
       endData() {
-        xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
-          const $html = $(html),
-            $meta = $html.find('.game__meta');
+        xhrText(`/${data.tv ? 'tv' : 'game'}/${data.game.id}/${data.player.color}/sides`).then(html => {
+          const $html = $(html);
+          const $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
@@ -113,7 +112,7 @@ async function boot(
   };
 
   const ctrl = await roundMain(opts);
-  const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
+  const round = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
 
   if (chat) {
     if (data.tournament?.top) {
@@ -147,7 +146,7 @@ async function boot(
     });
 
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) {
-    history.replaceState(null, '', '/' + data.game.id);
+    history.replaceState(null, '', '/game/' + data.game.id);
   }
 
   $('#zentog').on('click', () => pubsub.emit('zen'));
@@ -162,11 +161,6 @@ async function boot(
 
 const startsWithPrefix = (t: string, prefix: string) =>
   t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
-
-type RoundApi = {
-  socketReceive: (typ: string, data: any) => boolean;
-  moveOn: MoveOn;
-};
 
 type TVOptions = {
   channel: string;

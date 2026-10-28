@@ -170,6 +170,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="toggleLocalEngine">Comută motorul local</string>
   <string name="engineSettings">Setări motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motoare de la cele mai puternice la cele mai slabe</string>
   <string name="illegalPosition">Poziţie ilegală</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
@@ -490,6 +491,8 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
     <item quantity="few">%s prieteni online</item>
     <item quantity="other">%s de prieteni online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Prieteni online: %1$s
+Prieteni jucând: %2$s</string>
   <string name="favoriteOpponents">Adversari preferați</string>
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
@@ -621,14 +624,12 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="reportAUser">Raportează un utilizator</string>
   <string name="user">Utilizator</string>
   <string name="reason">Motiv</string>
-  <string name="whatIsIheMatter">Care este problema?</string>
   <string name="cheat">Trișează</string>
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la comportamentul acestui utilizator. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
   <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"jignește/e inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Îți putem procesa raportul mai rapid dacă scrii în engleză.</string>
-  <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importat de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
@@ -824,7 +825,9 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadMyGames">Descarcă jocurile mele</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
+  <string name="downloadResults">Descărcare rezultate</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Derulează peste tablă pentru a te deplasa în joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>
@@ -844,12 +847,14 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="enableKidMode">Activează modul „copil”</string>
   <string name="disableKidMode">Dezactivează modul „copil”</string>
   <string name="security">Securitate</string>
+  <string name="activeSessionsDescription">Aceasta este o listă de dispozitive și aplicații care sunt conectate la contul dvs. Dacă observaţi orice activitate suspectă, asigurați-vă că &lt;a href=\'%1$s\'&gt;verificați adresa de e-mail de recuperare&lt;/a&gt; și &lt;a href=\'%2$s\'&gt;vă modificați parola&lt;/a&gt;.</string>
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
   <string name="everybodyGetsAllFeaturesForFree">Toată lumea are access la toate opțiunile, gratuit</string>
   <string name="viewTheSolution">Vezi soluția</string>
   <string name="noChallenges">Nici o provocare.</string>
+  <string name="browserNotificationsDenied">Popup-urile de notificare dezactivate de setările browser-ului</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
@@ -1079,8 +1084,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="ourEventTips">Sfaturile noastre pentru organizarea evenimentelor</string>
   <string name="instructions">Instrucțiuni</string>
   <string name="showMeEverything">Afișează-mi tot</string>
-  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
-Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
+  <string name="lichessPatronInfo">Lichess este o organizație caritabilă și software complet gratuit/libre open source. Depindem de donațiile utilizatorilor pentru a sprijini costurile noastre de operare, dezvoltarea și conținutul. Fără comunitatea noastră generoasă, nu am putea păstra site-ul funcțional. Vă mulțumim pentru că v-ați alăturat!</string>
   <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
   <string name="stats">Statistici</string>
   <string name="accessibility">Accesibilitate</string>
@@ -1100,4 +1104,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="boards">Table</string>
   <string name="write">Scrie</string>
   <string name="preview">Previzualizare</string>
+  <string name="done">Finalizat</string>
 </resources>

@@ -30,8 +30,8 @@ private object SwissManualPairing:
       .map(_.trim.toLowerCase.split(' ').map(_.trim))
       .foldLeft(Option(Set.empty[UserId])):
         case (Some(prevIds), Array(bye, "1")) if !prevIds(UserId(bye)) =>
-          Some(prevIds + UserId(bye))
+          Option(prevIds + UserId(bye))
         case (Some(prevIds), Array(w, b)) if w != b && !prevIds(UserId(w)) && !prevIds(UserId(b)) =>
-          Some(prevIds + UserId(w) + UserId(b))
+          Option(prevIds + UserId(w) + UserId(b))
         case _ => None
       .isDefined

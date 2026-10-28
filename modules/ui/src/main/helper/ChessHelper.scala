@@ -1,7 +1,7 @@
 package lila.ui
 
-import chess.format.{ Fen, Uci }
 import chess.Color
+import chess.format.{ Fen, Uci }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.*

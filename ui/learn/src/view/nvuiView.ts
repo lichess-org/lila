@@ -222,7 +222,7 @@ function describeHintsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
 function describeStarsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
   if (!levelCtrl.isAppleLevel()) return '';
   const keys = levelCtrl.items.appleKeys();
-  const text = keys.length ? keys.map(k => nv.renderKey(k as Key, style)).join(', ') : i18n.site.none;
+  const text = keys.length ? keys.map(k => nv.renderKey(k, style)).join(', ') : i18n.site.none;
   return `${keys.length} remaining: ${text}`;
 }
 
@@ -262,7 +262,8 @@ function onSubmit(
 ): (ev: SubmitEvent) => void {
   return (ev: SubmitEvent) => {
     ev.preventDefault();
-    const raw = ($input.val() as string).trim();
+    const val = $input.val();
+    const raw = Array.isArray(val) ? val.join('') : val.trim();
     const input = nv.castlingFlavours(raw);
     if (!input) return;
     if (input.toLowerCase() === 'g') {

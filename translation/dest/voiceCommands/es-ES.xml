@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Cancelar temporizador o denegar una solicitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Hacer el movimiento preferido o confirmar algo</string>
   <string name="sleep">Suspender (si se habilitó una palabra de activación)</string>
-  <string name="turnOffVoiceRecognition">Desactivar reconocimiento de voz</string>
   <string name="showPuzzleSolution">Mostrar solución del problema</string>
+  <string name="voiceHelp">Ayuda de voz</string>
+  <string name="voiceSettings">Ajustes de voz</string>
+  <string name="pushShiftKeyToTalk">Pulsa la tecla %s para hablar</string>
+  <string name="holdShiftKeyWhileSpeaking">Mantén la tecla Mays mientras hablas</string>
+  <string name="microphone">Micrófono</string>
+  <string name="noneSelected">Ninguno seleccionado</string>
 </resources>

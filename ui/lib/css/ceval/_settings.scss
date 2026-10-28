@@ -20,7 +20,10 @@
       display: none;
     }
   }
+}
 
+#ceval-settings,
+.local-analysis-dialog {
   .setting {
     @extend %flex-center-nowrap;
 
@@ -107,7 +110,9 @@
       }
     }
   }
+}
 
+#ceval-settings {
   .engine-info-button {
     color: $c-font-dim;
     margin-inline-start: 1em;

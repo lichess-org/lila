@@ -1,17 +1,18 @@
 package lila.opening
 
+import chess.IntRating
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.opening.Opening
-import chess.IntRating
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+
 import scala.util.{ Failure, Success, Try }
 
+import lila.common.ClientName
 import lila.core.config.Secret
 import lila.mon.extensions.*
-import lila.common.ClientName
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,

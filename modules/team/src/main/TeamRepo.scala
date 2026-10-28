@@ -1,8 +1,8 @@
 package lila.team
 
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import java.time.Period
 
@@ -84,8 +84,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
     _ <- coll.update.one(bdoc("leaders" -> userId), pull("leaders" -> userId), multi = true)
   yield ()
 
-  def deleteNewlyCreatedBy(userId: UserId): Funit =
-    coll.delete.one(bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(2)))).void
+  def findNewlyCreatedBy(userId: UserId): Fu[List[Team]] =
+    coll
+      .find(bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(3))))
+      .cursor[Team](ReadPref.sec)
+      .list(200)
 
   def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists(bid(id) ++ clasSelect)
   def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team](bid(id) ++ clasSelect)

@@ -30,7 +30,7 @@ const renderBoard =
       },
       [
         boardPlayer(board, opposite(board.orientation), opts),
-        h('a.cg-wrap', { attrs: { href: `/${board.id}/${board.orientation}` } }),
+        h('a.cg-wrap', { attrs: { href: `/game/${board.id}/${board.orientation}` } }),
         boardPlayer(board, board.orientation, opts),
       ],
     );

@@ -83,9 +83,9 @@ const renderTimeModePicker = (tc: TimeControl) =>
     hl(
       'select#sf_timeMode',
       {
+        attrs: { 'aria-label': i18n.site.timeControl },
         on: {
           change: (e: Event) => {
-            console.log('Time mode changed to', (e.target as HTMLSelectElement).value);
             tc.mode((e.target as HTMLSelectElement).value as TimeMode);
           },
         },
@@ -125,7 +125,11 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
           hl(
             'button',
             {
-              attrs: { role: 'tab', tabindex: 0 },
+              attrs: {
+                role: 'tab',
+                tabindex: activeMode === mode ? 0 : -1,
+                'aria-selected': activeMode === mode,
+              },
               class: { active: activeMode === mode },
               on: {
                 click: () => tc.mode(mode),
@@ -141,7 +145,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
 
   if (activeMode === 'realTime') {
     const [tcTime, tcIncrement] = [tc.time(), tc.increment()];
-    panelContent = hl('div.time-panel', [
+    panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.sliders-grid', [
         hl('div.slider-container', [
           hl('div.label-row', [hl('label', i18n.site.minutesPerSide), hl('span.val-box', showTime(tcTime))]),
@@ -180,14 +184,14 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
       ),
     ]);
   } else if (activeMode === 'correspondence') {
-    panelContent = hl('div.time-panel', [
+    panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.slider-container.full-width', [
         hl('div.label-row', [hl('label', i18n.site.daysPerTurn), hl('span.val-box', tc.days().toString())]),
         inputRange(1, 7, tc.daysV),
       ]),
     ]);
   } else if (activeMode === 'unlimited') {
-    panelContent = hl('div.time-panel', i18n.site.unlimitedDescription);
+    panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, i18n.site.unlimitedDescription);
   }
 
   return hl('div.config-group.time-control-tabs', [tabs, panelContent]);

@@ -1,8 +1,8 @@
 package lila.analyse
 package ui
 
+import chess.format.{ Fen, Uci }
 import chess.variant.*
-import chess.format.{ Uci, Fen }
 import play.api.libs.json.*
 
 import lila.ui.*

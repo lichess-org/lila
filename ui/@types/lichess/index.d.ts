@@ -62,7 +62,8 @@ type Flair = string;
 type FideFed = string;
 type PatronColor = number;
 type Redraw = () => void;
-type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
+type RedirectTo = string | RedirectToObj;
+type RedirectToObj = { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -132,7 +133,6 @@ interface Cookie {
 }
 
 interface AssetUrlOpts {
-  documentOrigin?: boolean;
   pathOnly?: boolean;
   pathVersion?: true | string;
 }
@@ -229,6 +229,7 @@ type Minutes = number;
 type Seconds = number;
 type Centis = number;
 type Millis = number;
+type Percentage = number;
 
 type ByColor<T> = Record<Color, T>;
 

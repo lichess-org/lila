@@ -587,11 +587,9 @@
   <string name="reportAUser">Паскардзіцца на карыстальніка</string>
   <string name="user">Карыстальнік</string>
   <string name="reason">Прычына</string>
-  <string name="whatIsIheMatter">Што здарылася?</string>
   <string name="cheat">Несумленная гульня</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
-  <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
@@ -887,7 +885,7 @@
   <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умоўныя ходы на апярэджанне</string>
   <string name="noConditionalPremoves">Хады на апярэджанне без умоў</string>
   <string name="playX">Згуляць %s</string>
-  <string name="challengeX">Выклікаў %s</string>
+  <string name="challengeX">Выклікаць %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і захаваць %s паслядоўнасць</item>
     <item quantity="few">і захаваць %s паслядоўнасці</item>
@@ -1008,8 +1006,6 @@
   <string name="ourEventTips">Нашы парады па арганізацыі падзей</string>
   <string name="instructions">Інструкцыі</string>
   <string name="showMeEverything">Паказаць усё</string>
-  <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
-Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
   <string name="stats">Статыстыка</string>
   <string name="accessibility">Спецыяльныя магчымасці</string>
   <string name="enableBlindMode">Уключыць рэжым для сляпых</string>

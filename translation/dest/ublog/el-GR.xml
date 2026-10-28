@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Κοινότητα</string>
+  <string name="communityBlogs">Ιστολόγια κοινότητας</string>
+  <string name="best">Καλύτερα</string>
+  <string name="all">Όλα</string>
   <string name="byMonth">Ανά μήνα</string>
   <string name="byTopic">Ανά θέμα</string>
   <string name="byLichess">Από το Lichess</string>
@@ -8,6 +11,7 @@
   <string name="myLikes">Αγαπημένες αναρτήσεις</string>
   <string name="myBlog">Το ιστολόγιό μου</string>
   <string name="likedBlogs">Αγαπημένες αναρτήσεις</string>
+  <string name="blogPostsByFriends">Δημοσιεύσεις ιστολογίου φίλων</string>
   <plurals name="blogPosts">
     <item quantity="one">%s ανάρτηση ιστολογίου</item>
     <item quantity="other">%s αναρτήσεις ιστολογίου</item>
@@ -44,14 +48,28 @@
   <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν έχετε αποθηκευμένα προσχέδια.</string>
   <string name="latestBlogPosts">Πρόσφατες αναρτήσεις</string>
+  <string name="recentPosts">Πρόσφατες αναρτήσεις</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Δείτε μία ανάρτηση</item>
     <item quantity="other">Δείτε όλες τις συνολικά %s αναρτήσεις</item>
   </plurals>
   <string name="imageAlt">Εναλλακτικό κείμενο (alt text) εικόνας</string>
   <string name="imageCredit">Πηγή εικόνας</string>
+  <string name="coverImage">Εικόνα εξώφυλλου</string>
   <string name="deleteBlog">Οριστική διαγραφή ανάρτησης</string>
   <string name="selectPostTopics">Επιλέξτε τα θέματα που είναι σχετικά με την ανάρτησή σας</string>
+  <string name="topicChess">Σκάκι</string>
+  <string name="topicPuzzle">Γρίφος</string>
+  <string name="topicTactics">Τακτικές</string>
+  <string name="topicStrategy">Στρατηγική</string>
+  <string name="topicChessEngine">Σκακιστική μηχανή</string>
+  <string name="topicChessBot">Σκακιστικό μποτ</string>
+  <string name="topicChessPersonalities">Προσωπικότητες του σκακιού</string>
+  <string name="topicOverTheBoard">Δια ζώσης</string>
+  <string name="topicSoftwareDevelopment">Ανάπτυξη Λογισμικού</string>
+  <string name="topicOffTopic">Εκτός θέματος</string>
+  <string name="topicPosts">%s δημοσιεύσεις</string>
+  <string name="etiquette">Κανόνες συμπεριφοράς</string>
   <string name="safeAndRespectfulContent">Το περιεχόμενο που δημοσιεύετε πρέπει να είναι ασφαλές και με σεβασμό προς όλους. Η αναπαραγωγή περιεχομένου τρίτων απαγορεύεται.</string>
   <string name="noCopyrightedImages">Χρησιμοποιήστε μόνο εικόνες για τις οποίες έχετε δικαίωμα χρήσης.</string>
   <string name="inappropriateContentAccountClosed">Σε περίπτωση που εντοπίσουμε αναρτήσεις με ακατάλληλο περιεχόμενο στο ιστολόγιό σας, ενδέχεται να προβούμε στο κλείσιμο του λογαριασμού σας.</string>

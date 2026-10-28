@@ -6,69 +6,75 @@
     <item quantity="one">%s ta aʻzo</item>
     <item quantity="other">%s ta aʻzo</item>
   </plurals>
-  <string name="allTeams">Barcha jamoalar</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Men boshqaradigan jamoalar</string>
+  <string name="allTeams">Barça jamoalar</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Men boşqaradigan jamoalar</string>
   <string name="newTeam">Yangi jamoa</string>
   <string name="myTeams">Mening jamoalarim</string>
   <string name="noTeamFound">Jamoa topilmadi</string>
-  <string name="joinTeam">Jamoaga qoʻshilish</string>
-  <string name="onlyLeaderLeavesTeam">Chiqishdan oldin yangi jamoa sardorini tayinlang yoki jamoani yoping.</string>
-  <string name="quitTeam">Jamoani tark etish</string>
-  <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
+  <string name="joinTeam">Jamoaga qöşiliş</string>
+  <string name="onlyLeaderLeavesTeam">Çiqişdan oldin yangi jamoa sardorini tayinlang yoki jamoani yoping.</string>
+  <string name="quitTeam">Jamoani tark etiş</string>
+  <string name="manuallyReviewAdmissionRequests">Qabul qiliş sörovlarini körib çiqiş</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan bölsa, öyinçilar jamoaga qöşiliş uçun sörov yozişlari kerak. Siz ularni inkor yoki qabul qilişingiz mumkin.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Jamoa aʼzolari röyxatini begonalar uçun yaşiriş.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>
   </plurals>
   <string name="teamRecentMembers">Yangi aʻzolar</string>
-  <string name="kickSomeone">Jamoadan kimnidir chiqarish</string>
-  <string name="whoToKick">Kimni jamoadan chiqarmoqchisiz?</string>
+  <string name="kickSomeone">Jamoadan kimnidir çiqariş</string>
+  <string name="whoToKick">Kimni jamoadan çiqarmoqçisiz?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s ta qoʻshilish soʻrovi</item>
-    <item quantity="other">%s ta qoʻshilish soʻrovi</item>
+    <item quantity="one">%s ta qöşiliş sörovi</item>
+    <item quantity="other">%s ta qöşiliş sörovi</item>
   </plurals>
-  <string name="willBeReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqiladi.</string>
-  <string name="beingReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqilmoqda.</string>
-  <string name="requestDeclined">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan rad etildi.</string>
+  <string name="willBeReviewed">Aʻzo böliş sörovingiz jamoa sardori tomonidan körib çiqiladi.</string>
+  <string name="beingReviewed">Aʻzo böliş sörovingiz jamoa sardori tomonidan körib çiqilmoqda.</string>
+  <string name="requestDeclined">Aʻzo böliş sörovingiz jamoa sardori tomonidan rad etildi.</string>
   <string name="teamBattle">Jamoalar jangi</string>
-  <string name="teamBattleOverview">Jamoalar oʻrtasidagi jang, unda har bir oʻyinchi oʻz jamoasi uchun ochko yigʻadi</string>
+  <string name="teamBattleOverview">Jamoalar örtasidagi jang, unda har bir öyinçi öz jamoasi uçun oçko yiğadi</string>
   <string name="teamTournament">Jamoa turniri</string>
-  <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Arena turniri</string>
-  <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan shveysarcha turnir</string>
+  <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari iştirok eta oladigan Arena turniri</string>
+  <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari iştirok eta oladigan şveysarça turnir</string>
   <string name="teamUpdates">Jamoa yangiliklari</string>
-  <string name="subToTeamUpdates">Jamoa yangiliklariga obuna boʻlish</string>
+  <string name="subToTeamUpdates">Jamoa yangiliklariga obuna böliş</string>
   <string name="newTeamUpdate">Jamoada yangilik</string>
-  <string name="teamsIlead">Men boshqaradigan jamoalar</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qoʻshasizmi?</string>
-  <string name="leadersChat">Sardorlar chati</string>
-  <string name="introduction">Kirish</string>
-  <string name="teamIntroductionHelp">Jamoalar roʻyxatida koʻrinadigan qisqa tavsif. 200 ta belgigacha.</string>
-  <string name="teamDescriptionHelp">Jamoa sahifasida koʻrinadigan toʻliq tavsif.</string>
-  <string name="closeTeam">Jamoani yopish</string>
-  <string name="closeTeamDescription">Jamoani butunlay yopish.</string>
-  <string name="entryCode">Jamoaga kirish kodi</string>
-  <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qoʻshilish uchun yangi aʼzolari bilishi kerak boʻlgan kirish kodi.</string>
-  <string name="incorrectEntryCode">Kirish kodi notoʻgʻri.</string>
-  <string name="teamAlreadyExists">Ushbu jamoa allaqachon mavjud.</string>
+  <string name="teamEvents">Jamoa tadbirlari</string>
+  <string name="upcomingTeamEvents">Jamoaning kelgusi tadbirlari</string>
+  <string name="teamsIlead">Men boşqaradigan jamoalar</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qöşasizmi?</string>
+  <string name="leadersChat">Sardorlar çati</string>
+  <string name="introduction">Kiriş</string>
+  <string name="teamIntroductionHelp">Jamoalar röyxatida körinadigan qisqa tavsif. 200 ta belgigaça.</string>
+  <string name="teamDescriptionHelp">Jamoa sahifasida körinadigan töliq tavsif.</string>
+  <string name="closeTeam">Jamoani yopiş</string>
+  <string name="closeTeamDescription">Jamoani butunlay yopiş.</string>
+  <string name="entryCode">Jamoaga kiriş kodi</string>
+  <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qöşiliş uçun yangi aʼzolari bilişi kerak bölgan kiriş kodi.</string>
+  <string name="incorrectEntryCode">Kiriş kodi notöğri.</string>
+  <string name="forumLabel">Jamoa forumi</string>
+  <string name="forumVisibilityHelp">Jamoa sahifasida jamoa forumini kimlar köra oladi?&lt;br&gt;Faqat jamoa aʼzolari jamoa forumiga xabar yozişi mumkin.</string>
+  <string name="forumVisibilityNone">Forumni yaşiriş</string>
+  <string name="teamAlreadyExists">Uşbu jamoa allaqaçon mavjud.</string>
   <string name="upcomingTournaments">Kelgusi turnirlar</string>
   <string name="completedTourns">Yakunlangan turnirlar</string>
-  <string name="declinedRequests">Rad etilgan soʻrovlar</string>
-  <string name="joinLichessVariantTeam">Yangiliklar va tadbirlardan xabardor boʻlish uchun rasmiy %s jamoasiga qoʻshiling</string>
-  <string name="thisTeamBattleIsOver">Bu turnir yakunlangan, endi jamoalarni oʻzgartirib boʻlmaydi.</string>
-  <string name="listTheTeamsThatWillCompete">Ushbu jangda ishtirok etadigan jamoalar roʻyxatini tuzing.</string>
-  <string name="oneTeamPerLine">Har bir qatorga bittadan jamoa kiriting. Avtomatik toʻldirish ishlatishingiz mumkin.</string>
-  <string name="oneTeamPerLineHelp">Ushbu roʻyxatni bir turnirdan boshqasiga koʻchirishingiz mumkin!
+  <string name="declinedRequests">Rad etilgan sörovlar</string>
+  <string name="joinLichessVariantTeam">Yangiliklar va tadbirlardan xabardor böliş uçun rasmiy %s jamoasiga qöşiling</string>
+  <string name="thisTeamBattleIsOver">Bu turnir yakunlangan, endi jamoalarni özgartirib bölmaydi.</string>
+  <string name="listTheTeamsThatWillCompete">Uşbu jangda iştirok etadigan jamoalar röyxatini tuzing.</string>
+  <string name="oneTeamPerLine">Har bir qatorga bittadan jamoa kiriting. Avtomatik töldiriş işlatişingiz mumkin.</string>
+  <string name="oneTeamPerLineHelp">Uşbu röyxatni bir turnirdan boşqasiga köçirişingiz mumkin!
 
-Agar biror oʻyinchi ushbu bilan turnirga qoʻshilgan boʻlsa, oʻsha jamoani roʻyxatdan oʻchira olmaysiz.</string>
-  <string name="numberOfLeadsPerTeam">Har bir jamoadagi peshqadamlar soni. Peshqadamlar ochkolar yigʻindisi jamoaning umumiy ochkosini belgilaydi.</string>
-  <string name="numberOfLeadsPerTeamHelp">Turnir boshlanganidan keyin bu qiymatni oʻzgartirmaslikni qatʼiy tavsiya qilamiz!</string>
-  <string name="innerTeam">Ichki jamoa</string>
+Agar biror öyinçi uşbu bilan turnirga qöşilgan bölsa, öşa jamoani röyxatdan öçira olmaysiz.</string>
+  <string name="numberOfLeadsPerTeam">Har bir jamoadagi peşqadamlar soni. Peşqadamlar oçkolar yiğindisi jamoaning umumiy oçkosini belgilaydi.</string>
+  <string name="numberOfLeadsPerTeamHelp">Turnir boşlanganidan keyin bu qiymatni özgartirmaslikni qatʼiy tavsiya qilamiz!</string>
+  <string name="innerTeam">Içki jamoa</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">%s ta jamoa jangi</item>
     <item quantity="other">%s ta jamoa jangi</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="one">Har bir bitta jamoadan bitta peshqadam</item>
-    <item quantity="other">Har bir bitta jamoadan %s ta peshqadam</item>
+    <item quantity="one">Har bir bitta jamoadan bitta peşqadam</item>
+    <item quantity="other">Har bir bitta jamoadan %s ta peşqadam</item>
   </plurals>
 </resources>

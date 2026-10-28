@@ -217,7 +217,7 @@ export class GameCtrl {
     this.live.finish(final);
     env.db.put(this.live);
 
-    env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
+    env.round.endWithData?.({ status: final.status, winner: final.winner });
     this.observer?.onGameOver(final);
   }
 

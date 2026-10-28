@@ -1,15 +1,15 @@
 package lila.clas
 
+import cats.data.OptionT
 import reactivemongo.api.*
 import scalalib.data.LazyFu
 
-import lila.common.Markdown
+import lila.common.{ Bus, Markdown }
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
+import lila.core.perm.Granter
+import lila.core.user.RealName
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.RealName
-import lila.common.Bus
-import lila.core.perm.Granter
 
 final class ClasApi(
     colls: ClasColls,
@@ -276,12 +276,12 @@ final class ClasApi(
       coll.updateField(bdoc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
-      coll.find(bdoc("userId" -> user.id, "managed" -> true)).one[Student].flatMapz { student =>
-        userRepo
-          .byId(student.created.by)
-          .zip(clas.byId(student.clasId))
-          .map(_.mapN(Student.ManagedInfo.apply))
-      }
+      for
+        student <- OptionT(coll.find(bdoc("userId" -> user.id, "managed" -> true)).one[Student])
+        createdBy <- OptionT(userRepo.byId(student.created.by))
+        clas <- OptionT(clas.byId(student.clasId))
+      yield Student.ManagedInfo(createdBy, clas)
+    .value
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
       coll.one[Student](bid(Student.makeId(userId, clas.id)))

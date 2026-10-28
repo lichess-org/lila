@@ -1,6 +1,6 @@
 package lila.ui
 
-import chess.{ Clock, Color, Rated, Outcome }
+import chess.{ Clock, Color, Outcome, Rated }
 
 import lila.core.LightUser
 import lila.core.game.{ Game, LightPlayer, Namer, Player }

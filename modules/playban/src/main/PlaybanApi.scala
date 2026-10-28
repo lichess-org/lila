@@ -2,15 +2,14 @@ package lila.playban
 
 import chess.{ Centis, Color, Status }
 import reactivemongo.api.bson.*
-import scalalib.model.Days
+import scalalib.cache.OnceEvery
+import scalalib.model.{ Days, Seconds }
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.Source
 import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
 import lila.db.dsl.{ *, given }
-import scalalib.cache.OnceEvery
-import scalalib.model.Seconds
 
 final class PlaybanApi(
     coll: Coll,

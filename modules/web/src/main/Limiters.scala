@@ -1,16 +1,15 @@
 package lila.web
 
-import play.api.mvc.RequestHeader
-import scalalib.net.Bearer
 import chess.format.pgn.PgnStr
+import play.api.mvc.RequestHeader
 
-import lila.core.net.IpAddress
-import lila.core.socket.Sri
-import lila.core.security.IsProxy
-import lila.memo.RateLimit
-import lila.common.{ HTTPRequest, ClientName }
-import lila.ui.Context
+import lila.common.{ ClientName, HTTPRequest }
+import lila.core.net.{ ASN, IpAddress }
 import lila.core.perm.Granter
+import lila.core.security.IsProxy
+import lila.core.socket.Sri
+import lila.memo.RateLimit
+import lila.ui.Context
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 
@@ -18,16 +17,39 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   private given (using ctx: Context): RequestHeader = ctx.req
 
-  val setupPost = RateLimit[IpAddress](5, 1.minute, key = "setup.post", log = false)
+  object GlobalConcurrencyLimitPerIP:
 
-  val setupAnonHook = RateLimit.composite[IpAddress](
-    key = "setup.hook.anon"
-  )(
-    ("fast", 8, 1.minute),
-    ("slow", 300, 1.day)
-  )
+    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
+      if !ctx.isAuth then eventsForAnon
+      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
+      else eventsForUser
 
-  val setupBotAi = RateLimit[UserId](20, 1.day, key = "setup.post.bot.ai")
+    def download(using ctx: Context): ConcurrencyLimit[IpAddress] =
+      if ctx.me.exists(_.isVerified) then downloadForVerifiedUser
+      else downloadBase
+
+    private val eventsForAnon = ConcurrencyLimit[IpAddress](4, "api.ip.events.anon")
+    private val eventsForUser = ConcurrencyLimit[IpAddress](8, "api.ip.events.user")
+    private val eventsForVerifiedUser = ConcurrencyLimit[IpAddress](16, "api.ip.events.verified")
+
+    private val downloadBase = ConcurrencyLimit[IpAddress](2, "api.ip.download")
+    private val downloadForVerifiedUser = ConcurrencyLimit[IpAddress](8, "api.ip.download")
+    val generous = ConcurrencyLimit[IpAddress](20, "api.ip.generous")
+
+  val setupPost = RateLimit[IpAddress](5, 1.minute, "setup.post", log = false)
+
+  val setupAnonHook = RateLimit
+    .composite[IpAddress](
+      key = "setup.hook.anon"
+    )(
+      ("fast", 8, 1.minute),
+      ("slow", 300, 1.day)
+    )
+    .ctxCost: me ?=>
+      me.isEmpty.so(1)
+
+  val setupBotAi = RateLimit[UserId](20, 1.day, "setup.post.bot.ai").ctxCost: me ?=>
+    me.exists(_.isBot).so(1)
 
   val boardApiConcurrency = ConcurrencyLimit[Either[Sri, UserId]](
     key = "boardApiHook.concurrency.limit.user",
@@ -35,8 +57,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 1
   )
 
-  val forumPost = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
-  val forumTopic = RateLimit[IpAddress](credits = 2, duration = 5.minutes, key = "forum.topic")
+  val forumPost = RateLimit[IpAddress](4, 5.minutes, "forum.post")
+  val forumTopic = RateLimit[IpAddress](2, 5.minutes, "forum.topic")
 
   val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
   val apiMobileHome = RateLimit[UserId | IpAddress](30, 3.minutes, "api.mobile.home")
@@ -48,21 +70,15 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     ("slow", 30000, 1.day)
   )
 
-  val userGames = RateLimit[IpAddress](credits = 500, duration = 10.minutes, key = "user_games.web.ip")
+  val userGames = RateLimit[IpAddress](500, 10.minutes, "user_games.web.ip")
 
-  val crosstable = RateLimit[IpAddress](credits = 30, duration = 10.minutes, key = "crosstable.api.ip")
+  val crosstable = RateLimit[IpAddress](30, 10.minutes, "crosstable.api.ip")
 
-  val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer")
+  val eventStream = RateLimit[UserId](30, 10.minutes, "api.stream.event.bearer", log = false)
 
-  val userActivity = RateLimit[IpAddress](credits = 15, duration = 2.minutes, key = "user_activity.api.ip")
+  val userActivity = RateLimit[IpAddress](15, 2.minutes, "user_activity.api.ip")
 
-  val magicLink = RateLimit[String](credits = 3, duration = 1.hour, key = "login.magicLink.token")
-
-  val challenge = RateLimit[IpAddress](
-    500,
-    10.minute,
-    key = "challenge.create.ip"
-  )
+  val challenge = RateLimit[IpAddress](500, 10.minute, "challenge.create.ip")
   val challengeUser = RateLimit.composite[UserId](
     key = "challenge.create.user"
   )(
@@ -71,16 +87,19 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   )
 
   val exportImage: RateLimiter[(Unit, IpAddress)] = combine(
-    RateLimit[Unit](credits = 600, duration = 1.minute, key = "export.image.global"),
-    RateLimit[IpAddress](credits = 15, duration = 1.minute, key = "export.image.ip")
+    RateLimit[Unit](600, 1.minute, "export.image.global"),
+    RateLimit[IpAddress](15, 1.minute, "export.image.ip")
   )
 
-  val gameImport = RateLimit.composite[IpAddress](
-    key = "import.game.ip"
-  )(
-    ("fast", 10, 1.minute),
-    ("slow", 150, 1.hour)
-  )
+  val gameImport = RateLimit
+    .composite[IpAddress](
+      key = "import.game.ip"
+    )(
+      ("fast", 10, 1.minute),
+      ("slow", 150, 1.hour)
+    )
+    .ctxCost: me ?=>
+      if me.isDefined then 1 else 2
 
   private val imageUploadLimiter: RateLimiter[(IpAddress, UserId)] = combine(
     RateLimit.composite[IpAddress](key = "image.upload.ip")(
@@ -97,7 +116,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val preview = RateLimit[UserId](30, 3.minutes, "preview.user")
 
-  val oauthTokenTest = RateLimit[IpAddress](credits = 10_000, duration = 10.minutes, key = "api.token.test")
+  val oauthTokenTest = RateLimit[IpAddress](10_000, 10.minutes, "api.token.test")
 
   val planCheckout = RateLimit.composite[lila.core.net.IpAddress](
     key = "plan.checkout.ip"
@@ -113,9 +132,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     ("slow", 40, 1.day)
   )
 
-  val follow = RateLimit[UserId](credits = 150, duration = 72.hour, key = "follow.user")
+  val follow = RateLimit[UserId](150, 72.hour, "follow.user")
 
-  val search = RateLimit[UserId](credits = 20, duration = 5.minutes, key = "search.games.user")
+  val search = RateLimit[UserId](20, 5.minutes, "search.games.user")
   val searchConcurrency = lila.web.FutureConcurrencyLimit[UserId](
     key = "search.games.concurrency.user",
     ttl = 10.minutes,
@@ -128,29 +147,32 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 2
   )
 
-  val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
-
   val tourJoinOrResume =
-    RateLimit[UserId](credits = 30, duration = 10.minutes, key = "tournament.user.joinOrResume")
+    RateLimit[UserId](30, 10.minutes, "tournament.user.joinOrResume")
 
-  val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
+  val tourCreate = RateLimit[UserId](240, 1.day, "tournament.user").myCostAdjusted: me ?=>
+    if me.is(UserId.lichess) then 1
+    else if Granter(_.ManageTournament) then 2
+    else 20
 
   val streamerOnlineCheck: RateLimiter[(UserId, IpAddress)] = combine(
     RateLimit[UserId](1, 1.minute, "streamer.checkOnline.user"),
     RateLimit[IpAddress](1, 1.minute, "streamer.checkOnline.ip")
   )
 
-  val studyPgnImport = RateLimit[UserId](credits = 1000, duration = 24.hour, key = "study.import-pgn.user")
+  val studyPgnImport = RateLimit[UserId](1000, 24.hour, "study.import-pgn.user")
 
   val studyClone: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 10 * 3, duration = 24.hour, key = "study.clone.user"),
-    RateLimit[IpAddress](credits = 20 * 3, duration = 24.hour, key = "study.clone.ip")
+    RateLimit[UserId](10 * 3, 24.hour, "study.clone.user"),
+    RateLimit[IpAddress](20 * 3, 24.hour, "study.clone.ip")
   )
 
   val studyCreate: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 30 * 2, duration = 24.hour, key = "study.create.user"),
-    RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
+    RateLimit[UserId](30 * 2, 24.hour, "study.create.user"),
+    RateLimit[IpAddress](50 * 2, 24.hour, "study.create.ip")
   )
+
+  val anyPageByUser = RateLimit[MyId](40, 2.minutes, "page.user")
 
   object studyDownload:
     private val auth = ConcurrencyLimit[UserId](3, "study.download.auth")
@@ -160,19 +182,37 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       ctx.userId.fold(anon(ctx.ip))(auth(_))
 
   val teamKick =
-    RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+    RateLimit.composite[MyId](key = "team.kick.api.user")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  def userProfileLimiter[A](rateLimited: => Fu[A])(using
+      me: Option[Me]
+  )(using IsProxy, Context)(op: => Fu[A]): Fu[A] =
+    enumeration.userProfile(rateLimited):
+      val myCost = if Granter.opt(_.UserModView) then 0 else 1
+      anyPageByUser.option(me.map(_.myId), rateLimited, myCost)(op)
 
   object relay:
 
-    val roundCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    val roundCreate = combine(
       RateLimit[UserId](120 * 10, 24.hour, "broadcast.round.user"),
       RateLimit[IpAddress](120 * 10, 24.hour, "broadcast.round.ip")
-    )
+    ).myCost: me ?=>
+      if Granter(_.StudyAdmin) then 1
+      else if Granter(_.Relay) then 2
+      else if me.hasTitle || me.isVerified then 5
+      else 10
 
-    val tourCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    val tourCreate = combine(
       RateLimit[UserId](20 * 10, 24.hour, "broadcast.tournament.user"),
       RateLimit[IpAddress](20 * 10, 24.hour, "broadcast.tournament.ip")
-    )
+    ).myCost: me ?=>
+      if Granter(_.StudyAdmin) then 1
+      else if Granter(_.Relay) then 2
+      else if me.hasTitle || me.isVerified then 5
+      else 10
+
+    val push = RateLimit[UserId](120 * 3, 1.minutes, "broadcast.round.push").myCost:
+      if Granter(_.Relay) then 1 else 3
 
     object stream:
       private val auth = ConcurrencyLimit[UserId](8, "broadcast.stream.auth")
@@ -188,13 +228,18 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       private val auth = RateLimit[UserId]((authLimit * 10 * 3), 3.minutes, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](20 * 3, 3.minutes, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10 * 3, 3.minutes, "broadcast.api.get.anon")
-      def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
+      def apply[A](limited: String => Fu[A], cost: Int = 1)(using
+          ctx: Context,
+          client: ClientName
+      )(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>
-            val cost = if Granter.of(_.ApiHog)(me) then 2 else if me.isVerified then 5 else 10
-            auth(me.userId, limited(limitMessage), cost)(res)
-          case None if client.isMobile => mobile(ctx.ip, limited(limitMessage))(res)
-          case None => anon(ctx.ip, limited(limitMessage))(res)
+            val finalCost = cost * {
+              if Granter.of(_.ApiHog)(me) then 2 else if me.isVerified then 5 else 10
+            }
+            auth(me.userId, limited(limitMessage), finalCost)(res)
+          case None if client.isMobile => mobile(ctx.ip, limited(limitMessage), cost)(res)
+          case None => anon(ctx.ip, limited(limitMessage), cost)(res)
       private def limitMessage(using ctx: Context) =
         if ctx.isAuth then "Too many requests from your account"
         else s"Use an oauth token to get $authLimit requests per minute. Contact us for more."
@@ -203,47 +248,35 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     private val maxCost = 3
 
-    private val openingLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
-    def opening[A]: ProxyLimit[A] = proxyLimit(openingLimiter)
+    private val openingLimiter = RateLimit[ASN](15 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
+    def opening[A]: AsnLimit[A] = asnLimit(openingLimiter)
 
-    private val userProfileLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "user.profile.page.proxy")
-    def userProfile[A]: ProxyLimitWithUri[A] = proxyLimitWithUri(userProfileLimiter)
+    private val userProfileLimiter = RateLimit[ASN](60 * maxCost, 1.minute, "user.profile.page.proxy")
+    def userProfile[A]: AsnLimit[A] = asnLimit(userProfileLimiter)
 
-    private val searchLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "search.proxy")
-    def search[A]: ProxyLimit[A] = proxyLimit(searchLimiter)
+    private val searchLimiter = RateLimit[ASN](15 * maxCost, 1.minute, "search.proxy")
+    def search[A]: AsnLimit[A] = asnLimit(searchLimiter)
 
-    private val cloudEvalLimiter = RateLimit[IsProxy](30 * maxCost, 1.minute, "cloudEval.proxy")
-    def cloudEval[A]: ProxyLimit[A] = proxyLimit(cloudEvalLimiter)
+    private val cloudEvalLimiter = RateLimit[ASN](30 * maxCost, 1.minute, "cloudEval.proxy")
+    def cloudEval[A]: AsnLimit[A] = asnLimit(cloudEvalLimiter)
 
-    private val fidePlayerLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "fide.player.proxy")
-    def fidePlayer[A]: ProxyLimit[A] = proxyLimit(fidePlayerLimiter)
+    private val fidePlayerLimiter = RateLimit[ASN](60 * maxCost, 1.minute, "fide.player.proxy")
+    def fidePlayer[A]: AsnLimit[A] = asnLimit(fidePlayerLimiter)
 
-    private val signupLimiter = RateLimit[IsProxy](20 * maxCost, 1.minute, "user.signup.proxy")
-    def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))
+    private val signupLimiter = RateLimit[ASN](20 * maxCost, 1.minute, "user.signup.proxy")
+    def signup[A]: AsnLimit[A] = asnLimit(signupLimiter, flatCost(maxCost))
 
-    private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
-    private type ProxyLimitWithUri[A] =
-      (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type AsnLimit[A] = (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
-    private def proxyLimit[A](
-        limiter: RateLimiter[IsProxy],
+    private def asnLimit[A](
+        limiter: RateLimiter[ASN],
         cost: IsProxy ?=> Int = defaultCost
-    ): ProxyLimit[A] =
+    ): AsnLimit[A] =
       (proxy, req, me) ?=>
         default =>
           f =>
-            if proxy.no || me.isDefined then f
-            else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
-
-    private def proxyLimitWithUri[A](
-        limiter: RateLimiter[IsProxy],
-        cost: IsProxy ?=> Int = defaultCost
-    ): ProxyLimitWithUri[A] =
-      (proxy, req, me) ?=>
-        default =>
-          f =>
-            if proxy.no || me.isDefined then f
-            else limiter(proxy, default, cost, msg = s"${HTTPRequest.ipAddressStr(req)} ${req.uri}")(f)
+            if proxy.no || me.isDefined || HTTPRequest.nginxWhitelist(req) then f
+            else HTTPRequest.asn(req).fold(f)(asn => limiter(asn, default, cost, msg = s"ASN $asn")(f))
 
     private def defaultCost(using proxy: IsProxy): Int =
       if proxy.isFloodish then maxCost

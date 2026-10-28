@@ -53,6 +53,7 @@ $section-margin-more: 4vh;
 
       &__col2 {
         flex: 1;
+        overflow: hidden;
       }
     }
   }
@@ -160,7 +161,6 @@ $section-margin-more: 4vh;
   &__update {
     &__last {
       @extend %flex-column, %box-bordered;
-      @include rendered-markdown;
 
       h1 {
         @include fluid-size('font-size', 18px, 35px);

@@ -3,25 +3,16 @@ package controllers
 import scalalib.model.Language
 
 import lila.app.{ *, given }
-import lila.video.{ Filter, UserControl, View }
 
 final class Video(env: Env) extends LilaController(env):
 
   import env.video.api
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(using Context): Fu[A] =
-    val reqTags = get("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
-    api.tag
-      .paths(reqTags)
-      .map: tags =>
-        UserControl(filter = Filter(reqTags), tags = tags, query = get("q"))
-      .flatMap(f)
-
   def index = Open(serveIndex)
   def indexLang = LangPage(routes.Video.index)(serveIndex)
   private def serveIndex(using ctx: Context) = NoBot:
     pageHit
-    WithUserControl: control =>
+    api.withUserControl: control =>
       Ok.async:
         control.query match
           case Some(query) =>
@@ -39,7 +30,7 @@ final class Video(env: Env) extends LilaController(env):
   def show(id: String) = Open(serveShow(id))
   def showLang(lang: Language, id: String) = LangPage(routes.Video.show(id))(serveShow(id))(lang)
   private def serveShow(id: String)(using ctx: Context) =
-    WithUserControl: control =>
+    api.withUserControl: control =>
       api.video
         .find(id)
         .flatMap:
@@ -48,7 +39,7 @@ final class Video(env: Env) extends LilaController(env):
             api.video
               .similar(ctx.me, video, 9)
               .zip(ctx.userId.so { userId =>
-                api.view.add(View.make(videoId = video.id, userId = userId))
+                api.view.add(lila.video.View.make(videoId = video.id, userId = userId))
               })
               .flatMap { (similar, _) =>
                 Ok.page(views.video.show(video, similar, control))
@@ -58,17 +49,9 @@ final class Video(env: Env) extends LilaController(env):
   def authorLang(lang: Language, author: String) =
     LangPage(routes.Video.author(author))(serveAuthor(author))(lang)
   private def serveAuthor(author: String)(using ctx: Context) =
-    WithUserControl: control =>
+    api.withUserControl: control =>
       Ok.async:
         api.video
           .byAuthor(ctx.me, author, getInt("page") | 1)
           .map:
             views.video.author(author, _, control)
-
-  def tags = Open(serveTags)
-  def tagsLang = LangPage(routes.Video.tags)(serveTags)
-  private def serveTags(using ctx: Context) =
-    WithUserControl: control =>
-      Ok.async:
-        api.tag.allPopular.map:
-          views.video.tags(_, control)

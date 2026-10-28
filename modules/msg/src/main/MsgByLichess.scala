@@ -1,9 +1,10 @@
 package lila.msg
 
-import lila.memo.MongoCache
 import lila.core.config.BaseUrl
 import lila.core.i18n.I18nKey.msg as trans
 import lila.core.msg.SystemMsg
+import lila.memo.MongoCache
+import lila.common.Uptime
 
 final class MsgByLichess(
     mongoCache: MongoCache.Api,
@@ -16,11 +17,11 @@ final class MsgByLichess(
 ):
 
   object twoFactorReminder:
-    def apply(userId: UserId) = cache.get(userId)
-    private val cache = mongoCache[UserId, Boolean](1024, "security:2fa:reminder", 10.days, _.value):
+    def apply(userId: UserId) = Uptime.startedSinceMinutes(3).so(cache.get(userId))
+    private val cache = mongoCache[UserId, Boolean](2048, "security:2fa:reminder", 10.days, _.value):
       loader =>
         _.expireAfterWrite(3.hours)
-          .maximumSize(8 * 1024)
+          .maximumSize(4096)
           .buildAsyncFuture:
             loader: userId =>
               userApi

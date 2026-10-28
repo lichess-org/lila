@@ -1,14 +1,14 @@
 package lila.ublog
 
-import play.api.libs.json.*
 import com.roundeights.hasher.Algo
+import play.api.libs.json.*
 
 import lila.core.data.Text
-import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
-import lila.report.Automod
 import lila.mon.extensions.*
+import lila.report.Automod
+import lila.ublog.UblogPost.Quality
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs

@@ -18,10 +18,10 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 }
 
 export default function (ctrl: LobbyController) {
-  const nbPlaying = ctrl.data.nbNowPlaying,
-    nbMyTurn = ctrl.data.nbMyTurn,
-    active = ctrl.tab,
-    isBot = ctrl.me?.isBot;
+  const nbPlaying = ctrl.data.nbNowPlaying;
+  const nbMyTurn = ctrl.data.nbMyTurn;
+  const active = ctrl.tab;
+  const isBot = ctrl.me?.isBot;
   return [
     isBot ? undefined : tab(ctrl, 'pools', active, [i18n.site.quickPairing]),
     isBot ? undefined : tab(ctrl, 'real_time', active, [i18n.site.lobby]),

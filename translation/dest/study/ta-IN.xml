@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">காய்களின் குறியீட்டுடன் சிறுகுறிப்புக்கள்</string>
   <string name="theChapterIsTooShortToBeAnalysed">நகர்வுகள் குறைவாக உள்ளதால் இந்த அத்தியாயத்தைப் பகுப்பாய்வு செய்ய இயலாதுள்ளது.</string>
   <string name="onlyContributorsCanRequestAnalysis">இந்தக் கற்கையில் பங்களிப்பவர் மட்டுமே கணினிப் பகுப்பாய்வைக் கோரலாம்.</string>
-  <string name="getAFullComputerAnalysis">முதன்மை வரியின் முழு கணினி பகுப்பாய்வைச் சேவை வழங்கியிடமிருந்து பெறலாம்.</string>
   <string name="makeSureTheChapterIsComplete">இந்த அத்தியாயம் முடிவடைந்ததும், நீங்கள் பகுப்பாய்வை ஒருமுறை கோரலாம்.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">அனைத்து SYNC உறுப்பினர்களும் ஒரே நிலையில் உள்ளனர்</string>
   <string name="shareChanges">பார்வையாளர்களுடன் மாற்றங்களைப் பகிர்ந்து அவற்றைச் சேவையகத்தில் சேமிக்கவும்</string>
@@ -120,7 +119,6 @@
   <string name="noLetPeopleBrowseFreely">இல்லை: மக்கள் சுதந்திரமாக உலாவ அனுமதிக்கவும்</string>
   <string name="pinnedStudyComment">பொருத்தப்பட்ட ஆய்வுக் கருத்து</string>
   <string name="start">துவங்கு</string>
-  <string name="save">சேமி</string>
   <string name="clearChat">கருத்துரைகளை நீக்க</string>
   <string name="deleteTheStudyChatHistory">கற்கை அரட்டை வரலாற்றை நீக்கவா? திரும்பிப் போவதிற்கில்லை!</string>
   <string name="deleteStudy">கற்கையை அழிக்க</string>

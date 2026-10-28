@@ -1,25 +1,26 @@
+const NOTE_OVERLAP = 15;
+const NOTE_TIMEOUT = 300;
+const MAX_PITCH = 23;
+const UCI_BASE = 64;
+
 export async function initModule(): Promise<SoundMove> {
   let currentNotes = 0;
 
   const volumes: Record<string, number> = {
-      celesta: 0.3,
-      clav: 0.2,
-      swells: 0.8,
-    },
-    noteOverlap = 15,
-    noteTimeout = 300,
-    maxPitch = 23,
-    uciBase = 64;
+    celesta: 0.3,
+    clav: 0.2,
+    swells: 0.8,
+  };
 
   const play = (instrument: string, pitch: number, volume: number) => {
-    pitch = Math.round(Math.max(0, Math.min(maxPitch, pitch)));
+    pitch = Math.round(Math.max(0, Math.min(MAX_PITCH, pitch)));
     if (instrument === 'swells') pitch = Math.floor(pitch / 8);
-    if (currentNotes < noteOverlap) {
+    if (currentNotes < NOTE_OVERLAP) {
       currentNotes++;
       site.sound.play(`orchestra.${instrument}.${pitch}`, volume * volumes[instrument]);
       setTimeout(() => {
         currentNotes--;
-      }, noteTimeout);
+      }, NOTE_TIMEOUT);
     }
   };
 
@@ -38,7 +39,7 @@ export async function initModule(): Promise<SoundMove> {
   const hasCapture = (san: string) => san.includes('x');
   const fileToInt = (file: string) => 'abcdefgh'.indexOf(file);
   const keyToInt = (key: string) => fileToInt(key[0]) * 8 + parseInt(key[1]) - 1;
-  const keyToPitch = (key: string) => keyToInt(key) / (uciBase / 23);
+  const keyToPitch = (key: string) => keyToInt(key) / (UCI_BASE / 23);
 
   const promises = [];
   for (const inst of ['celesta', 'clav']) {

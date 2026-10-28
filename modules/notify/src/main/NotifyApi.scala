@@ -1,17 +1,16 @@
 package lila.notify
 
 import play.api.libs.json.Json
-import scalalib.paginator.Paginator
 import scalalib.data.LazyFu
+import scalalib.paginator.Paginator
 
+import lila.common.Bus
+import lila.core.notify.NotificationContent.*
+import lila.core.notify.{ NotificationPref as _, * }
+import lila.core.socket.{ SendToOnlineUser, SendTos }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.socket.SendTos
 import lila.memo.CacheApi.*
-import lila.common.Bus
-import lila.core.notify.{ NotificationPref as _, * }
-import lila.core.notify.NotificationContent.*
-import lila.core.socket.SendToOnlineUser
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,

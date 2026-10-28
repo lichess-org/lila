@@ -1,7 +1,7 @@
 package lila.mod
 
-import chess.{ Black, ByColor, Color, White }
 import chess.rating.IntRatingDiff
+import chess.{ Black, ByColor, Color, White }
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
 

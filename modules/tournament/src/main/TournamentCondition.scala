@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
-import lila.core.user.{ UserApi, PublicTitleOf }
+import lila.core.user.{ PublicTitleOf, UserApi }
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.rating.PerfType

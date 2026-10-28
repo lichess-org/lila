@@ -90,8 +90,8 @@ export default class StudyChaptersCtrl {
   };
 
   addNode = (d: ServerNodeMsg) => {
-    const pos = d.p,
-      node = d.n;
+    const pos = d.p;
+    const node = d.n;
     const cp = this.list.get(pos.chapterId);
     if (cp) {
       const onRelayPath = d.relayPath === d.p.path + d.n.id;
@@ -109,8 +109,8 @@ export default class StudyChaptersCtrl {
   };
 
   setTags = (id: ChapterId, tags: TagArray[]) => {
-    const chap = this.list.get(id),
-      result = findTag(tags, 'result');
+    const chap = this.list.get(id);
+    const result = findTag(tags, 'result');
     if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
   };
 

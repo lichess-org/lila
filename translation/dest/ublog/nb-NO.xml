@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Fellesskap</string>
+  <string name="communityBlogs">Blogger fra fellesskapet</string>
+  <string name="best">Beste</string>
+  <string name="all">Alle</string>
   <string name="byMonth">Etter måned</string>
   <string name="byTopic">Etter emne</string>
   <string name="byLichess">Av Lichess</string>
@@ -8,6 +11,7 @@
   <string name="myLikes">Innlegg jeg liker</string>
   <string name="myBlog">Bloggen min</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
+  <string name="blogPostsByFriends">Blogginnlegg fra venner</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogginnlegg</item>
     <item quantity="other">%s blogginnlegg</item>
@@ -28,6 +32,8 @@
   <string name="createBlogDiscussionHelp">Et forumemne blir opprettet, der man kan kommentere innlegget ditt</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
+  <string name="includesPromotedContent">Inneholder fremhevet eller sponset innhold eller vervelenker</string>
+  <string name="mandatoryForSponsoredContent">Obligatorisk for sponset innhold, partnerlenker eller kommersiell reklame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fest innlegg</string>
   <string name="stickyPostHelp">Kryss av for å vise innlegget først i oversikten over innleggene dine.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,19 +50,35 @@
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>
+  <string name="recentPosts">Nylige innlegg</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Vis ett innlegg</item>
     <item quantity="other">Vis alle %s innleggene</item>
   </plurals>
   <string name="imageAlt">Alternativ tekst for bildet</string>
   <string name="imageCredit">Bildekreditering</string>
+  <string name="coverImage">Forsidebilde</string>
   <string name="deleteBlog">Slett dette blogginnlegget for godt</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Følgende nettsteder tilbyr gratis bilder. Pass på at du overholder lisensvilkårene for bildet du bruker.</string>
   <string name="selectPostTopics">Velg emnene for innlegget ditt</string>
+  <string name="topicChess">Sjakk</string>
+  <string name="topicPuzzle">Sjakknøtter</string>
+  <string name="topicTactics">Taktikk</string>
+  <string name="topicStrategy">Strategi</string>
+  <string name="topicChessEngine">Sjakkmotor</string>
+  <string name="topicChessBot">Sjakkbot</string>
+  <string name="topicChessPersonalities">Sjakkpersonligheter</string>
+  <string name="topicOverTheBoard">Brettsjakk</string>
+  <string name="topicSoftwareDevelopment">Programvareutvikling</string>
+  <string name="topicOffTopic">På siden</string>
+  <string name="topicPosts">%s innlegg</string>
+  <string name="etiquette">Etikette</string>
   <string name="safeAndRespectfulContent">Legg bare ut innlegg som er trygge og respektfulle. Ikke kopier andres innhold.</string>
   <string name="noCopyrightedImages">Bruk bare bilder som ikke er opphavsrettsbeskyttet av andre.</string>
   <string name="inappropriateContentAccountClosed">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
   <string name="blogTips">Våre enkle tips for å skrive gode blogginnlegg</string>
   <string name="discussThisBlogPostInTheForum">Diskuter dette blogginnlegget i forumet</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Meningene som uttrykkes av Lichess-bidragsytere, er deres egne.</string>
+  <string name="youMayAlsoLike">Du liker kanskje</string>
   <string name="youBlockedByBlogAuthor">Bloggforfatteren har blokkert deg.</string>
 </resources>

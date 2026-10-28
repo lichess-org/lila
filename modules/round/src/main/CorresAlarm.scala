@@ -1,7 +1,7 @@
 package lila.round
 
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.core.user.LightUserApi

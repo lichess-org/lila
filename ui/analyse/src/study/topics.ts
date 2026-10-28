@@ -62,7 +62,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
             { hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)) },
             ctrl.getTopics().join(', ').replace(/[<>]/g, ''),
           ),
-          h('button.button', { type: 'submit' }, i18n.study.save),
+          h('button.button', { type: 'submit' }, i18n.site.save),
         ],
       ),
     ],

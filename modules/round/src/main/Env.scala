@@ -1,14 +1,14 @@
 package lila.round
 
-import org.apache.pekko.actor.*
-import com.softwaremill.macwire.*
-import play.api.Configuration
 import chess.ByColor
+import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
+import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.{ Bus, Uptime }
+import lila.common.{ Bus, Uptime, HTTPRequest }
 import lila.core.config.*
-import lila.core.round.{ RoundBus, CurrentlyPlaying }
+import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo
 import lila.round.RoundGame.*
 
@@ -33,7 +33,6 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
-    gameCache: lila.game.Cached,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
@@ -117,9 +116,6 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
-  lazy val currentlyPlaying = CurrentlyPlaying: userId =>
-    gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
-
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     gameRepo.lastPlayed(userId).flatMap(_.traverse(proxyRepo.upgradeIfPresent))
 
@@ -168,7 +164,8 @@ final class Env(
 
   lazy val moretimer = wire[Moretimer]
 
-  val playing = wire[PlayingUsers]
+  lazy val playing = wire[PlayingUsers]
+  export playing.currentlyPlaying
 
   val apiMoveStream = wire[ApiMoveStream]
 
@@ -201,3 +198,12 @@ final class Env(
   def resign(pov: Pov): Unit =
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
+
+  import play.api.mvc.{ RequestHeader, Call }
+  def pathRedirect(path: String)(using RequestHeader): Fu[Option[Call | Pov]] =
+    GameAnyId(path).fullId
+      .so(proxyRepo.pov)
+      .map2: p =>
+        if HTTPRequest.isLichobile then p else routes.Round.player(p.fullId)
+      .orElse:
+        GameId.from(path).so(proxyRepo.game).map2(g => routes.Round.watcher(g.id, Color.white))

@@ -23,7 +23,6 @@
   <string name="bodenMate">Mate Boden</string>
   <string name="bodenMateDescription">Dois bispos em diagonais perpendiculares dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="castling">Roque</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Fazer xeque com duas peças ao mesmo tempo, como consequência de um ataque descoberto em que tanto a peça que move como a peça que é descoberta atacam o rei do adversário.</string>
   <string name="endgame">Final de jogo</string>
   <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">Um tático que envolve a regra de \"en passant\", onde um peão pode capturar um peão adversário que o ignorou. Isto acontece quando o Peão se encontra na posição inicial e se move duas casas.</string>
   <string name="epauletteMate">Xeque-mate Epaulette</string>
   <string name="epauletteMateDescription">Duas casas de fuga adjacentes para um rei em xeque estão ocupadas por outras peças.</string>

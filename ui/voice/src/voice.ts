@@ -1,4 +1,4 @@
-import { propWithEffect, toggle as commonToggle } from 'lib';
+import { prop, toggle as commonToggle, withEffect } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import {
   once,
@@ -11,6 +11,7 @@ import type { VoiceCtrl, VoiceModule } from './interfaces';
 import { Mic } from './mic';
 import type { VoiceMove } from './move/interfaces';
 import { flash } from './util';
+import { openHelpDialog } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
@@ -23,9 +24,9 @@ export function makeVoice(opts: {
 }): VoiceCtrl {
   let keyupTimeout: number;
   let shiftDown = false;
+
   const mic = new Mic();
   const enabled = storedBooleanProp('voice.on', false);
-  const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
 
   const pushTalk = storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     mic.stop();
@@ -64,26 +65,30 @@ export function makeVoice(opts: {
   if (pushTalk()) mic.start(false);
   else if (enabled()) mic.start(true);
 
-  return {
+  const ctrl: VoiceCtrl = {
     mic,
     lang,
     micId,
     enabled,
     toggle,
-    showHelp,
+    showHelp: withEffect(prop<boolean | 'list'>(false), value => {
+      if (value) openHelpDialog(ctrl);
+      opts.redraw();
+    }),
     pushTalk,
     flash,
     showPrefs: commonToggle(false, opts.redraw),
     module: () => opts.module?.(),
     moduleId: opts.tpe,
   };
+  return ctrl;
 
   function toggle() {
     if (pushTalk()) {
       enabled(false);
       pushTalk(false);
     } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && once('voice.rtfm')) showHelp(true);
+    if (opts.tpe === 'move' && once('voice.rtfm')) ctrl.showHelp(true);
   }
 
   function micId(deviceId?: string) {

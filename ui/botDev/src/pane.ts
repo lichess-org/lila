@@ -142,7 +142,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   get requires(): string[] {
-    return getRequirementIds(this.info.requires);
+    return this.info.requires ? getRequirementIds(this.info.requires) : [];
   }
 
   protected init(): void {
@@ -343,7 +343,7 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
   }
 }
 
-function getRequirementIds(r: Requirement | undefined): string[] {
+function getRequirementIds(r: Requirement): string[] {
   if (typeof r === 'string') {
     const req = r.trim();
     if (req.startsWith('!')) return [req.slice(1).trim()];

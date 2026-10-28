@@ -9,8 +9,8 @@ import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
-  const contributor = study.members.canContribute(),
-    sync = ctrl.data.sync;
+  const contributor = study.members.canContribute();
+  const sync = ctrl.data.sync;
   return contributor || study.data.admin
     ? hl('div.relay-admin__container', [
         contributor &&

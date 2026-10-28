@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Configurar partida</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafie um amigo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar um amigo</string>
   <string name="playAgainstComputer">Jogar contra o computador</string>
   <string name="gameMode">Tipo de partida</string>
   <string name="createLobbyGame">Criar partida na sala de espera</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este link</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
@@ -69,7 +69,7 @@
   <string name="usingServerAnalysis">Análise de servidor em uso</string>
   <string name="loadingEngine">Carregando ...</string>
   <string name="calculatingMoves">Calculando lances...</string>
-  <string name="engineFailed">Erro ao carregar o engine</string>
+  <string name="engineFailed">Erro ao carregar a engine</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -163,9 +163,10 @@
   </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
-  <string name="toggleLocalEngine">Alternar motor local</string>
-  <string name="engineSettings">Configurações do motor</string>
-  <string name="enginesFromStrongestToWeakest">Motores do mais forte ao mais fraco</string>
+  <string name="toggleLocalEngine">Alternar engine local</string>
+  <string name="engineSettings">Configurações de engine</string>
+  <string name="engine">Engine</string>
+  <string name="enginesFromStrongestToWeakest">Engine mais forte até a mais fraca</string>
   <string name="illegalPosition">Posição ilegal</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
@@ -459,6 +460,8 @@
     <item quantity="one">%s amigo online</item>
     <item quantity="other">%s amigos online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amigos online: %1$s
+Amigos jogando: %2$s</string>
   <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
@@ -587,14 +590,12 @@
   <string name="reportAUser">Reportar um usuário</string>
   <string name="user">Usuário</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qual é o motivo?</string>
   <string name="cheat">Trapaça</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportCheatBoostHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão.</string>
   <string name="reportUsernameHelp">Explique porque este nome de usuário é ofensivo. Não diga apenas \"é ofensivo/inapropriado\", mas nos diga como chegou a essa conclusão especialmente se o insulto for ofuscado, não estiver em inglês, for uma gíria, ou for uma referência histórica/cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos processar sua denúncia mais rapidamente se você escrever em inglês.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, inclua pelo menos um link de uma partida para análise.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
@@ -786,7 +787,9 @@
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
+  <string name="downloadMyGames">Download das minhas partidas</string>
   <string name="downloadAllGames">Baixar todas as partidas</string>
+  <string name="downloadResults">Resultados do download</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
@@ -806,12 +809,14 @@
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
   <string name="security">Segurança</string>
+  <string name="activeSessionsDescription">Esta é uma lista de dispositivos e aplicativos conectados à sua conta. Se você notar alguma atividade suspeita, não deixe de &lt;a href=\'%1$s\'&gt;conferir seu endereço de e-mail de recuperação&lt;/a&gt; e &lt;a href=\'%2$s\'&gt;alterar sua senha&lt;/a&gt;.</string>
   <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
   <string name="viewTheSolution">Ver a solução</string>
   <string name="noChallenges">Sem desafios.</string>
+  <string name="browserNotificationsDenied">Pop-ups de notificação desativados pelas configurações do navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
     <item quantity="other">Disponível em %s idiomas!</item>
@@ -1037,7 +1042,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="ourEventTips">Nossas dicas para organização de eventos</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostrar tudo</string>
-  <string name="lichessPatronInfo">O Lichess é uma organização beneficente e um software totalmente livre e de código aberto. Dependemos das doações dos usuários para cobrir nossos custos operacionais, desenvolvimento e conteúdo. Sem nossa generosa comunidade, não conseguiríamos manter o site funcionando. Obrigado por fazer parte da nossa comunidade!</string>
+  <string name="lichessPatronInfo">O Lichess é uma organização beneficente e um software inteiramente livre e de código aberto, totalmente gratuito. Dependemos das doações dos usuários para cobrir nossos custos operacionais, financiar o desenvolvimento e produzir conteúdo. Sem o apoio generoso da nossa comunidade, não conseguiríamos manter o site no ar. Obrigado por fazer parte dela!</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Acessibilidade</string>
@@ -1057,4 +1062,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="boards">Tabuleiros</string>
   <string name="write">Escrever</string>
   <string name="preview">Pré-visualizar</string>
+  <string name="done">Feito</string>
 </resources>

@@ -1,10 +1,9 @@
 package lila.tv
 
-import chess.{ Color, Ply }
-import chess.IntRating
+import chess.{ Color, IntRating, Ply }
 import monocle.syntax.all.*
-import scalalib.actor.SyncActor
 import scalalib.HeapSort.topNToList
+import scalalib.actor.SyncActor
 
 import lila.core.LightUser
 

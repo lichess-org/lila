@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">בטלו את הטיימר או דחו את הבקשה</string>
   <string name="playPreferredMoveOrConfirmSomething">בצעו את המהלך שנבחר או אשרו משהו</string>
   <string name="sleep">כיבוי (אם נבחרה מילת הדלקה)</string>
-  <string name="turnOffVoiceRecognition">כיבוי הזיהוי הקולי</string>
   <string name="showPuzzleSolution">הצגת הפתרון לחידה</string>
 </resources>

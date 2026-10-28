@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.libs.json.*
+
 import lila.common.Json.given
 
 case class Theme private[pref] (name: String, file: String, featured: Featured = Featured.No):

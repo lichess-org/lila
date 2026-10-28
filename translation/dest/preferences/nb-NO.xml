@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
+  <string name="multipleChoices">Flere valg. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan skrus av under partiene med menyen på brettet</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="correspondenceAndUnlimited">Korrespondanse og ubegrenset</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheter</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="showServerAnalysis">Vis serveranalyse</string>
+  <string name="showMainlineAnalysis">Vis analyse av hovedvarianten</string>
   <string name="showBestMoveArrows">Vis piler for beste trekk</string>
   <string name="showManeuverArrows">Vis manøverpiler</string>
   <string name="showGauge">Vis evalueringsmåler</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Vis udekkede brikker</string>
   <string name="showPinnedPieces">Vis bundne brikker</string>
   <string name="showCheckableKing">Vis sjakkbar konge</string>
+  <string name="showTrappedPieces">Vis innestengte brikker</string>
   <string name="disclosureMode">Skjul varianter</string>
   <string name="generalSettings">Generelt</string>
   <string name="moveListSettings">Trekkliste</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Analyseinnstillinger</string>
   <string name="maneuverArrowsHelp">Trekkrekkefølge fra sjakkmotoren for én brikke</string>
   <string name="hoverOverSettingLabelsForHelp">Hold pekeren over innstillingsnavnene for hjelp</string>
+  <string name="network">Nettverk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Du bruker for øyeblikket direkte ruting.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Du bruker for øyeblikket ruting via et innholdsleveringsnettverk (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Hvis du ofte mister forbindelsen, kan du prøve å endre rutingen.</string>
+  <string name="useDirectRouting">Bruk direkte ruting</string>
+  <string name="useCdnRouting">Bruk CDN-ruting</string>
 </resources>

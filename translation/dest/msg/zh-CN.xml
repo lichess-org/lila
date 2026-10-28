@@ -7,4 +7,5 @@
 我们已经审核了您最近的举报并已采取相应措施。虽然我们无法透露具体处理细节，但感谢您的举报。
 
 感谢您帮助维护 Lichess，让它成为对每个人都友好的地方。</string>
+  <string name="oldAppNoLongerSupportsPuzzles">旧版应用不再支持谜题，请安装新版 Lichess 应用：%s</string>
 </resources>

@@ -3,19 +3,25 @@ body:has(dialog.touch-scroll) {
 }
 
 dialog {
-  @extend %box-radius, %popup-shadow;
+  @extend %box-radius;
   @include inline-start(50%);
 
   position: fixed;
-  max-height: 100%;
+  max-height: 94vh;
+  max-height: 94dvh;
+  display: flex;
+  flex-direction: column;
   max-width: 100%;
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 0;
   border: none;
   outline: none;
-  background: $c-bg-high;
+  background: $c-bg-opaque;
   z-index: $z-modal-111;
+  box-shadow:
+    0 14px 28px rgb(0 0 0 / 0.15),
+    0 10px 10px rgb(0 0 0 / 0.12);
 
   @include if-rtl {
     transform: translate(50%, -50%);
@@ -30,7 +36,7 @@ dialog {
   }
 
   > div.scrollable {
-    max-height: calc(var(---viewport-height) - 16px);
+    flex: auto;
     overflow-x: clip;
     overflow-y: auto;
   }

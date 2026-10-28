@@ -53,10 +53,10 @@ function renderChildrenOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): LooseVNod
         renderMoveAndChildrenOf(ctx, main, { parentPath: opts.parentPath, isMainline: true }),
       ];
     const mainChildren = renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true,
-      }),
-      passOpts = { parentPath: opts.parentPath, isMainline: true };
+      parentPath: opts.parentPath + main.id,
+      isMainline: true,
+    });
+    const passOpts = { parentPath: opts.parentPath, isMainline: true };
     return [
       isWhite && renderIndex(main.ply, false),
       renderMoveOf(ctx, main, passOpts),

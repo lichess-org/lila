@@ -1,8 +1,9 @@
 package lila.api
 
-import lila.common.{ Cli, CliCommand, Bus }
 import scalalib.data.LazyFu
 import scalalib.future.TimeoutException
+
+import lila.common.{ Bus, Cli, CliCommand }
 
 final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Scheduler):
 

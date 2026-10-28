@@ -8,18 +8,18 @@ import { ratingDiff, userLink } from 'lib/view/userLink';
 import type RoundController from '../ctrl';
 
 export function userHtml(ctrl: RoundController, player: Player, position: TopOrBottom): VNode {
-  const d = ctrl.data,
-    user = player.user,
-    perf = user?.perfs?.[d.game.perf],
-    rating = player.rating || perf?.rating,
-    showSignals = defined(d.opponentSignal) && defined(user?.id) && ctrl.isPlaying(),
-    signal = showSignals
-      ? user.id === d.opponent.user?.id
-        ? d.opponentSignal
-        : user.id === d.player.user?.id
-          ? myWsLagAsSignal()
-          : undefined
-      : undefined;
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user?.perfs?.[d.game.perf];
+  const rating = player.rating || perf?.rating;
+  const showSignals = defined(d.opponentSignal) && defined(user?.id) && ctrl.isPlaying();
+  const signal = showSignals
+    ? user.id === d.opponent.user?.id
+      ? d.opponentSignal
+      : user.id === d.player.user?.id
+        ? myWsLagAsSignal()
+        : undefined
+    : undefined;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;

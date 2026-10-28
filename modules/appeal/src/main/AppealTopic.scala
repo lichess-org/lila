@@ -2,6 +2,7 @@ package lila
 package appeal
 
 import play.api.mvc.Call
+
 import lila.core.i18n.I18nKey
 import lila.core.i18n.I18nKey.appeal as trans
 
@@ -21,7 +22,7 @@ object AppealTopicApi:
     List(
       u.marks.engine.option(cheat),
       u.marks.boost.option(boost),
-      u.enabled.no.option(close),
+      u.modClosed.option(close),
       u.marks.troll.option(comm),
       u.marks.rankban.option(rank),
       u.marks.arenaBan.option(arena),

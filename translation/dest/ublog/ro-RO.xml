@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunitate</string>
   <string name="communityBlogs">Bloguri ale comunității</string>
+  <string name="best">Cele mai bune</string>
+  <string name="all">Toate</string>
   <string name="byMonth">După lună</string>
   <string name="byTopic">După subiect</string>
   <string name="byLichess">De Lichess</string>
@@ -63,11 +65,24 @@
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Următoarele site-uri web oferă imagini gratuit. Asigurați-vă că respectați condițiile de licențiere pentru imaginea pe care o folosiți.</string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
+  <string name="topicChess">Șah</string>
+  <string name="topicPuzzle">Problemă de șah</string>
+  <string name="topicTactics">Tactici</string>
+  <string name="topicStrategy">Strategie</string>
+  <string name="topicChessEngine">Motor de șah</string>
+  <string name="topicChessBot">Bot de șah</string>
+  <string name="topicChessPersonalities">Personalități ale șahului</string>
+  <string name="topicOverTheBoard">Joc la tablă</string>
+  <string name="topicSoftwareDevelopment">Dezvoltare software</string>
+  <string name="topicOffTopic">Pe lângă subiect</string>
+  <string name="topicPosts">%s postări</string>
   <string name="etiquette">Etichetă</string>
   <string name="safeAndRespectfulContent">Vă rugăm să postați numai conținut sigur și respectuos. Nu copiați conținutul altcuiva.</string>
   <string name="noCopyrightedImages">Folosiți doar imagini care nu sunt protejate de drepturi de autor de altcineva.</string>
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
   <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Opiniile exprimate de contribuitorii Lichess sunt opiniile lor personale.</string>
+  <string name="youMayAlsoLike">S-ar putea să-ți placă și</string>
   <string name="youBlockedByBlogAuthor">Ești blocat de autorul blogului.</string>
 </resources>

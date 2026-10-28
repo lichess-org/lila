@@ -44,10 +44,11 @@
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="few">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунди.</item>
-    <item quantity="many">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="other">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="one">Ваш суперник залишив гру. Ви можете оголосити перемогу через %s секунду.</item>
+    <item quantity="few">Ваш суперник залишив гру. Ви можете оголосити перемогу через %s секунди.</item>
+    <item quantity="many">• 
+Ваш суперник залишив гру. Ви можете оголосити перемогу через %s секунд.</item>
+    <item quantity="other">Ваш суперник залишив гру. Ви можете оголосити перемогу через %s сек.</item>
   </plurals>
   <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу, нічию, або зачекати.</string>
   <string name="forceResignation">Оголосити перемогу</string>
@@ -175,6 +176,7 @@
   <string name="flipBoard">Перевернути дошку</string>
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
+  <string name="engine">Рушій</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
   <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>
@@ -520,6 +522,8 @@
     <item quantity="many">%s друзів у мережі</item>
     <item quantity="other">%s друзів у мережі</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Друзів у мережі: %1$s
+Друзів грає: %2$s</string>
   <string name="favoriteOpponents">Улюблені суперники</string>
   <string name="follow">Спостерігати</string>
   <string name="following">Спостерігають</string>
@@ -625,6 +629,7 @@
   <string name="puzzles">Задачі</string>
   <string name="onlineBots">Онлайн-боти</string>
   <string name="aboutBotsOnLichess">Про боти на Lichess</string>
+  <string name="featuredBots">Рекомендовані боти</string>
   <string name="tryPlayingTheseInnovativeChessEngines">Зіграйте з цими інноваційними шаховими рушіями! Вони — наші улюблені.</string>
   <string name="communityBots">Спільнотні боти</string>
   <string name="moreChessEnginesCreatedByTheLichessCommunity">Інші шахові рушії, створені спільнотою Lichess. Вони розміщуються їхніми творцями й не завжди можуть працювати.</string>
@@ -653,14 +658,12 @@
   <string name="reportAUser">Поскаржитись на користувача</string>
   <string name="user">Користувач</string>
   <string name="reason">Причина</string>
-  <string name="whatIsIheMatter">Що трапилося?</string>
   <string name="cheat">Нечесна гра</string>
   <string name="troll">Тролінг</string>
   <string name="other">Інше</string>
   <string name="reportCheatBoostHelp">Вставте посилання на гру або ігри та поясніть, що не так з поведінкою цього користувача. Не кажіть «він нечесно грав», а поясніть, як ви прийшли до такого висновку.</string>
   <string name="reportUsernameHelp">Поясніть, що саме в цьому імені користувача є образливе. Не кажіть «воно образливе/неприйнятне», а поясніть, чому ви так вважаєте, особливо коли образа заплутана, не англійською, на сленгу, чи є посиланням на щось історичне/культурне.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ми зможемо опрацювати вашу скаргу швидше, якщо вона буде англійською.</string>
-  <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
   <string name="by">від %s</string>
   <string name="importedByX">Завантажено гравцем - %s</string>
   <string name="thisTopicIsNowClosed">Обговорення закрито.</string>
@@ -668,7 +671,7 @@
   <string name="notes">Нотатки</string>
   <string name="typePrivateNotesHere">Залишайте приватні нотатки тут</string>
   <string name="writeAPrivateNoteAboutThisUser">Напишіть приватну нотатку про цього користувача</string>
-  <string name="noNoteYet">Нотаток поки нема</string>
+  <string name="noNoteYet">Поки немає нотаток</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
   <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
@@ -778,6 +781,7 @@
   <string name="termsOfService">Умови користування</string>
   <string name="titleVerification">Титульна перевірка</string>
   <string name="sourceCode">Вихідний код</string>
+  <string name="blockAds">Блокувати рекламу</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Організатор</string>
   <string name="hostColorX">Колір організатора: %s</string>
@@ -798,6 +802,7 @@
   <string name="simulVariantsHint">Якщо Ви обираєте кілька шахових варіантів, кожен гравець буде визначатися, який із них обрати.</string>
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Додатковий час на годиннику для організатора:</string>
   <string name="simulAddExtraTimePerPlayer">Додавайте початковий час до вашого годинника для кожного гравця, що приєднується до сеансу.</string>
   <string name="simulHostExtraTimePerPlayer">Додатковий час для організатора за гравця</string>
   <string name="lichessTournaments">Турніри Lichess</string>
@@ -808,8 +813,10 @@
   <string name="keyboardShortcuts">Комбінації клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
+  <string name="keyGoToPreviousOrNextLine">Перейти до попереднього/наступного варіанту</string>
   <string name="keyCycleSelectedVariation">Прокрутити вибраний варіант</string>
   <string name="keyShowOrHideComments">показати/приховати коментарі</string>
+  <string name="keyShowOrHideCurrentVariation">показати/приховати Поточний варіант</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
   <string name="keyPreviousBranch">Попередній варіант</string>
   <string name="keyNextBranch">Наступний варіант</string>
@@ -856,7 +863,9 @@
   <string name="downloadAnnotated">Завантажити з коментарями</string>
   <string name="downloadRaw">Завантажити без коментарів</string>
   <string name="downloadImported">Завантажити імпортоване</string>
+  <string name="downloadMyGames">Завантажити мої партії</string>
   <string name="downloadAllGames">Завантажити всі ігри</string>
+  <string name="downloadResults">Завантажити результати</string>
   <string name="crosstable">Рахунок</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Прокручуйте коліщатко миші над шахівницею для перегляду ходів у грі.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть коліщатком миші по комп\'ютерних варіаціях для їх попереднього перегляду.</string>
@@ -876,12 +885,14 @@
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
+  <string name="activeSessionsDescription">Ось список пристроїв та застосунків, які здійснили вхід в обліковий запис. Якщо ви помітили підозрілу активність, &lt;a href=\'%1$s\'&gt;перевірте свою резервну електронну пошту&lt;/a&gt; та &lt;a href=\'%2$s\'&gt;змініть пароль&lt;/a&gt;.</string>
   <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="noChallenges">Немає викликів.</string>
+  <string name="browserNotificationsDenied">Спливні сповіщення вимкнено браузером</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
     <item quantity="few">Доступно %s мовами!</item>
@@ -906,6 +917,7 @@
   <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
+  <string name="backgroundImage">Фонове зображення</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
@@ -995,6 +1007,7 @@
     <item quantity="other">і зберегти %s послідовностей</item>
   </plurals>
   <string name="showUnreadLichessMessage">Ви отримали особисте повідомлення від Lichess.</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Прочитати повідомлення</string>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося забанити вас на певний час.</string>
   <string name="why">Чому?</string>
@@ -1112,8 +1125,6 @@
   <string name="ourEventTips">Наші поради щодо організації подій</string>
   <string name="instructions">Інструкція</string>
   <string name="showMeEverything">Показати все</string>
-  <string name="lichessPatronInfo">Lichess — це благодійне й абсолютно безкоштовне програмне забезпечення з відкритим кодом.
-Усі витрати на обслуговування, розробку й контент фінансуються виключно пожертвуваннями користувачів.</string>
   <string name="nothingToSeeHere">Поки тут нічого немає.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Доступність</string>
@@ -1128,6 +1139,10 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="settings">Налаштування</string>
+  <string name="verifyingYourDevice">Перевірка пристрою…</string>
   <string name="chessOpenings">Шахові дебюти</string>
   <string name="boards">Дошки</string>
+  <string name="write">Написати</string>
+  <string name="preview">Перегляд</string>
+  <string name="done">Готово</string>
 </resources>

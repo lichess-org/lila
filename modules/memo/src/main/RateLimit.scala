@@ -9,7 +9,7 @@ import lila.core.config.RateLimit as Enforce
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
-    key: String,
+    limiterKey: String,
     log: Boolean = true
 )(using enforce: Enforce)(using Executor)
     extends RateLimit.RateLimiter[K]:
@@ -21,7 +21,7 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private val monitor = lila.mon.security.rateLimit(key)
+  private val monitor = lila.mon.security.rateLimit(limiterKey)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
       op: ChargeWith => A
@@ -43,11 +43,14 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>
-          if log then RateLimit.logger.info(s"$key $credits/$duration $k cost: $cost $msg")
+          if log then RateLimit.logger.info(s"$limiterKey $credits/$duration $k cost: $cost $msg")
           monitor.increment()
           default
         case _ =>
           op
+
+  def option[A](k: Option[K], default: => A, cost: Cost = 1)(op: => A): A =
+    k.fold(op)(apply(_, default, cost, msg = "")(op))
 
   def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
 
@@ -68,6 +71,9 @@ object RateLimit:
   type Charge = () => Unit
   type Cost = Int
 
+  type Default[A] = () => A
+  type Compute[A] = () => A
+
   enum LimitResult:
     case Through, Limited
     def ok = this == Through
@@ -83,6 +89,12 @@ object RateLimit:
     def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
     def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
       apply[A](k, default.zero, cost, msg)(op)
+    def myCost[A](cost: Me ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Me ?=> A =
+      [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
+    def myCostAdjusted[A](cost: Me ?=> Cost): [A] => (K, Default[A], Update[Cost]) => Compute[A] => Me ?=> A =
+      [A] => (k, default, costAdjust) => op => _ ?=> apply(k, default(), costAdjust(cost))(op())
+    def ctxCost[A](cost: Option[Me] ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Option[Me] ?=> A =
+      [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
 
   val logger = lila.log("ratelimit")
 
@@ -101,7 +113,7 @@ object RateLimit:
       RateLimit[K](
         credits = credits,
         duration = duration,
-        key = s"$key.$subKey",
+        limiterKey = s"$key.$subKey",
         log = log
       )
 

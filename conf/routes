@@ -147,6 +147,7 @@ GET   /feed/:id/edit                   controllers.Feed.edit(id)
 POST  /feed/:id/edit                   controllers.Feed.update(id)
 POST  /feed/:id/delete                 controllers.Feed.delete(id)
 GET   /feed.atom                       controllers.Feed.atom
+GET   /api/feed                        controllers.Feed.recent
 
 # Opening
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
@@ -223,6 +224,10 @@ GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
 GET   /embed/analysis                  controllers.UserAnalysis.embed
+POST  /analysis/publish                controllers.Study.postAnalysisXhr
+DELETE /analysis/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Study.deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId)
+POST  /analysis/review                 controllers.Analyse.reviewXhr
+
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
@@ -314,6 +319,7 @@ GET   /api/stream/broadcast/tour/$tourId<\w{8}>.pgn controllers.RelayRound.strea
 GET   /api/stream/broadcast/group/$groupId<\w{8}>.pgn controllers.RelayRound.streamGroup(groupId: RelayGroupId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
+GET   /api/broadcast/calendar/:year/:month    controllers.RelayTour.apiCalendarMonth(year: Int, month: Int)
 GET   /api/broadcast/search                   controllers.RelayTour.apiSearch(page: Int ?= 1, q: String ?= "")
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 GET   /api/broadcast/spotlight-rounds         controllers.RelayRound.apiSpotlightRounds
@@ -388,30 +394,31 @@ POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controller
 POST  /bots/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name  controllers.JsBot.devNameAsset(key: String, name: String)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
-GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
-GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: GameId, color: Color)
-GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
-GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
-POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color = Color.white)
-GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
-GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
-GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
-POST  /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
-POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
-POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>                          controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
+GET   /game/$gameId<\w{8}>/$color<white|black>      controllers.Round.watcher(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>                         controllers.Round.player(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>/$color<white|black>/sides controllers.Round.sides(gameId: GameId, color: Color)
+GET   /game/$gameId<\w{8}>/continue/:mode           controllers.Round.continue(gameId: GameId, mode)
+GET   /game/$gameId<\w{8}>/note                     controllers.Round.readNote(gameId: GameId)
+POST  /game/$gameId<\w{8}>/note                     controllers.Round.writeNote(gameId: GameId)
+GET   /game/$gameId<\w{8}>/mini                     controllers.Round.mini(gameId: GameId, color: Color = Color.white)
+GET   /game/$gameId<\w{8}>/$color<white|black>/mini controllers.Round.mini(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>/mini                    controllers.Round.miniFullId(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>/edit                     controllers.Editor.game(gameId: GameId)
+GET   /game/$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>/forecasts               controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
+POST  /game/$fullId<\w{12}>/forecasts               controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
+POST  /game/$fullId<\w{12}>/forecasts/:uci          controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
+POST  /game/$fullId<\w{12}>/resign                  controllers.Round.resign(fullId: GameFullId)
+POST  /game/$gameId<\w{8}>/delete                   controllers.Game.delete(gameId: GameId)
+
+GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcherRedirect(gameId: GameId, color: Color)
 
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: GameId, color: Color = Color.white)
 GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: GameId, color: Color)
 
 GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color = Color.white)
 GET   /embed/game/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embedReplayGame(gameId: GameId, color: Color)
-
-POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: GameId)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: GameId)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: GameFullId)
@@ -503,6 +510,8 @@ POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess
 POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: TeamId, user: UserStr)
 
 # Analyse
+POST  /game/$gameId<\w{8}>/request-analysis      controllers.Analyse.requestAnalysis(gameId: GameId)
+# App BC
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameId)
@@ -551,11 +560,9 @@ POST /notify/clear                     controllers.Notify.clear
 
 # Video
 GET   /video                                 controllers.Video.index
-GET   /video/tags                            controllers.Video.tags
 GET   /video/author/:author                  controllers.Video.author(author)
 GET   /video/:id                             controllers.Video.show(id)
 GET   /$lang<\w\w\w?>/video                  controllers.Video.indexLang(lang: Language)
-GET   /$lang<\w\w\w?>/video/tags             controllers.Video.tagsLang(lang: Language)
 GET   /$lang<\w\w\w?>/video/author/:author   controllers.Video.authorLang(lang: Language, author: String)
 GET   /$lang<\w\w\w?>/video/:id              controllers.Video.showLang(lang: Language, id: String)
 
@@ -722,6 +729,7 @@ GET   /api/mobile/following            controllers.Relation.apiMobileFollowing
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
+GET   /api/version                     controllers.Api.version
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
@@ -920,6 +928,7 @@ POST  /upload/image/user/:realm        controllers.Main.uploadImage(realm: Markd
 POST  /markdown/preview/:realm         controllers.Main.markdownPreview(realm: MarkdownRealm)
 GET   /image-url/:realm/:id            controllers.Main.imageUrl(realm: MarkdownRealm, id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
+POST  /player-count                    controllers.Main.playerCount
 
 GET   /verify-title                    controllers.TitleVerify.index
 GET   /verify-title/form               controllers.TitleVerify.form

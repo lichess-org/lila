@@ -106,9 +106,9 @@ export const renderCustomStatus = ({ ceval }: AnalyseCtrl, hardMode: Prop<boolea
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return undefined;
-  const comment: Comment | null = ctrl.comment();
+  const comment = ctrl.comment();
   const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
-  const running: boolean = ctrl.running();
+  const running = ctrl.running();
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.node.outcome();
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     hl('div.title', i18n.site.practiceWithComputer),

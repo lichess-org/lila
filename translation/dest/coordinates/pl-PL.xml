@@ -19,4 +19,6 @@
   <string name="findSquare">Znajdź pole</string>
   <string name="nameSquare">Nazwij pole</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Poćwicz tylko niektóre kolumny &amp; rzędy</string>
+  <string name="enterTheCoordinate">Wprowadź współrzędne</string>
+  <string name="pressEnterToStart">Naciśnij %s aby rozpocząć</string>
 </resources>

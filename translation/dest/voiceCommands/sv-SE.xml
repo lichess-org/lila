@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Avbryt timer eller neka en begäran</string>
   <string name="playPreferredMoveOrConfirmSomething">Spela föredraget drag eller bekräfta något</string>
   <string name="sleep">Viloläge (om uppvakna-ordet aktiverat)</string>
-  <string name="turnOffVoiceRecognition">Stäng av röstigenkänning</string>
   <string name="showPuzzleSolution">Visa pussellösning</string>
 </resources>

@@ -6,5 +6,14 @@ inputs:
   nixpkgs-master:
     url: github:NixOS/nixpkgs/master
   sasso:
-    url: github:momiji-rs/sasso/v0.18.0
+    url: github:momiji-rs/sasso/v0.21.0
+  lila-db-seed:
+    url: github:lichess-org/lila-db-seed
+    flake: false
+  lila-ws:
+    url: github:lichess-org/lila-ws
+    flake: false
+imports:
+  - lila-db-seed
+  - lila-ws
 allowUnfree: true

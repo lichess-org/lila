@@ -21,7 +21,7 @@
     <item quantity="other">下了 %1$s 步</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">在 %1$s 場通信棋局中</item>
+    <item quantity="other">在 %1$s 場通訊棋局中</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">完成了 %s 場通信棋局</item>
@@ -30,7 +30,7 @@
     <item quantity="other">完成了 %1$s %2$s 場通信棋局</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">開始關注 %s 個玩家</item>
+    <item quantity="other">開始追蹤 %s 個玩家</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">增加了 %s 個追蹤者</item>

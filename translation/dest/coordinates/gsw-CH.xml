@@ -23,4 +23,6 @@ wänn me d\'Koordinate schnäll gseht.</string>
   <string name="findSquare">Fäld finde</string>
   <string name="nameSquare">Fäld benänne</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Üeb nur einigi Dateie und Räng</string>
+  <string name="enterTheCoordinate">Gib d\'Koordinate i</string>
+  <string name="pressEnterToStart">Klick %s zum Afange</string>
 </resources>

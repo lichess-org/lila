@@ -3,10 +3,10 @@ package lila.user
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.core.config.*
-import lila.core.userId
 import lila.common.Bus
+import lila.core.config.*
 import lila.core.user.RealName
+import lila.core.userId
 
 @Module
 final class Env(

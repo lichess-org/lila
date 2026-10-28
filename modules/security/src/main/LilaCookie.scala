@@ -4,7 +4,7 @@ package security
 import play.api.mvc.*
 import scalalib.SecureRandom
 
-import lila.core.config.{ NetDomain, NetConfig }
+import lila.core.config.{ NetConfig, NetDomain }
 import lila.core.id.SessionId
 import lila.core.security.LilaCookie
 
@@ -34,7 +34,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
               else req.session + (LilaCookie.noRemember -> "1")
             withRemember + (LilaCookie.sessionId -> generateSessionId().value)
       ,
-      if remember then none else 0.some
+      Option.unless(remember)(0)
     )
 
   def cookie(
@@ -55,9 +55,6 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
     )
 
   def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
-
-  def discard(name: String) =
-    DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
   def ensure(res: Result)(using req: RequestHeader): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res

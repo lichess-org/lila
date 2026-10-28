@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunitat</string>
   <string name="communityBlogs">Blogs de la comunitat</string>
+  <string name="best">Millors</string>
+  <string name="all">Tots</string>
   <string name="byMonth">Per més</string>
   <string name="byTopic">Per tema</string>
   <string name="byLichess">De lichess</string>
@@ -59,11 +61,24 @@
   <string name="deleteBlog">Elimina aquesta entrada del blog definitivament</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Els següents llocs web proporcionen imatges de forma gratuïta. Si us plau, assegura\'t de complir amb les condicions de la llicència de la imatge que utilitzes.</string>
   <string name="selectPostTopics">Seleccioneu els temes dels quals tracta la vostra entrada</string>
+  <string name="topicChess">Escacs</string>
+  <string name="topicPuzzle">Problema</string>
+  <string name="topicTactics">Tàctiques</string>
+  <string name="topicStrategy">Estratègia</string>
+  <string name="topicChessEngine">Motor d\'escacs</string>
+  <string name="topicChessBot">Bot d\'escacs</string>
+  <string name="topicChessPersonalities">Personalitats d\'escacs</string>
+  <string name="topicOverTheBoard">Sobre el tauler</string>
+  <string name="topicSoftwareDevelopment">Desenvolupament de software</string>
+  <string name="topicOffTopic">Altres temes</string>
+  <string name="topicPosts">%s entrades</string>
   <string name="etiquette">Reglament d\'escriptura</string>
   <string name="safeAndRespectfulContent">Si us plau, compartiu només contingut segur i respectuós. No copieu el contingut d\'algú altre.</string>
   <string name="noCopyrightedImages">Utilitza només imatges que no tenen un copyright d\'una altra persona.</string>
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
   <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
   <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Les opinions expressades pels contribuïdors de Lichess són les seves pròpies.</string>
+  <string name="youMayAlsoLike">També et pot agradar</string>
   <string name="youBlockedByBlogAuthor">Estàs bloquejat per l\'autor del blog.</string>
 </resources>

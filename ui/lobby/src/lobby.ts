@@ -38,8 +38,8 @@ export function initModule(opts: LobbyOpts) {
         });
       },
       featured(o: { html: string }) {
-        const $tv = $('.lobby__tv'),
-          $game = $tv.find('.mini-game');
+        const $tv = $('.lobby__tv');
+        const $game = $tv.find('.mini-game');
         if ($game.length) $game.replaceWith(o.html);
         else $tv.append(o.html);
         pubsub.emit('content-loaded');

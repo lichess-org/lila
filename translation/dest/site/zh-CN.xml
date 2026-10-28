@@ -160,6 +160,7 @@
   <string name="flipBoard">翻转棋盘</string>
   <string name="toggleLocalEngine">切换本地引擎</string>
   <string name="engineSettings">引擎设置</string>
+  <string name="engine">引擎</string>
   <string name="enginesFromStrongestToWeakest">引擎从强到弱</string>
   <string name="illegalPosition">非法局面</string>
   <string name="threefoldRepetition">三次重复局面</string>
@@ -288,7 +289,7 @@
   <string name="finished">已结束</string>
   <string name="abortGame">终止对局</string>
   <string name="gameAborted">对局已终止</string>
-  <string name="standard">标准</string>
+  <string name="standard">标准棋</string>
   <string name="customPosition">自定义局面</string>
   <string name="unlimited">无限制</string>
   <string name="unlimitedDescription">请随意安排时间</string>
@@ -428,8 +429,10 @@
   <string name="reconnecting">重新连接中</string>
   <string name="noNetwork">离线</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="other">有 %s 位好友在线</item>
+    <item quantity="other">%s 好友在线</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">在线好友：%1$s
+在弈好友：%2$s</string>
   <string name="favoriteOpponents">最常对阵的棋手</string>
   <string name="follow">关注</string>
   <string name="following">已关注</string>
@@ -555,14 +558,12 @@
   <string name="reportAUser">举报用户</string>
   <string name="user">用户</string>
   <string name="reason">原因</string>
-  <string name="whatIsIheMatter">举报原因？</string>
   <string name="cheat">作弊</string>
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
   <string name="reportCheatBoostHelp">请附上对局链接解释该用户的行为问题。请不要只说“对手作弊”，而是解释为什么您认为对手作弊。</string>
   <string name="reportUsernameHelp">解释此用户名有何冒犯之处。不要只说“冒犯/不当”，请告诉我们您是如何得出这个结论的，特别是当侮辱是隐晦的、非英语的、俚语或涉及历史/文化指涉时。</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">如果您用英文撰写报告，我们可以更快地处理您的举报。</string>
-  <string name="error.provideOneCheatedGameLink">请至少提供一场涉嫌作弊的对局链接。</string>
   <string name="by">由 %s 发布</string>
   <string name="importedByX">由 %s 导入</string>
   <string name="thisTopicIsNowClosed">此话题现已关闭。</string>
@@ -750,7 +751,9 @@
   <string name="downloadAnnotated">下载有评注的 PGN</string>
   <string name="downloadRaw">下载无评注的 PGN</string>
   <string name="downloadImported">下载导入的对局</string>
+  <string name="downloadMyGames">下载我的对局</string>
   <string name="downloadAllGames">下载所有对局</string>
+  <string name="downloadResults">下载成绩</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">在棋盘上滚动以浏览对局着法。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">在电脑变着上滚动以预览它们。</string>
@@ -770,12 +773,14 @@
   <string name="enableKidMode">启用儿童模式</string>
   <string name="disableKidMode">禁用儿童模式</string>
   <string name="security">安全</string>
+  <string name="activeSessionsDescription">这是已登录到您账户的设备和应用列表。如果您发现任何可疑活动，请务必&lt;a href=\'%1$s\'&gt;检查您的备用邮箱地址&lt;/a&gt;并&lt;a href=\'%2$s\'&gt;更改密码&lt;/a&gt;。</string>
   <string name="sessions">登录会话</string>
   <string name="revokeAllSessions">撤销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">所有人均可免费使用全部功能</string>
   <string name="viewTheSolution">查看解答</string>
   <string name="noChallenges">暂无挑战</string>
+  <string name="browserNotificationsDenied">浏览器设置已禁用通知弹窗</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持 %s 种语言！</item>
   </plurals>
@@ -996,8 +1001,7 @@
   <string name="ourEventTips">举办赛事的小建议</string>
   <string name="instructions">说明</string>
   <string name="showMeEverything">显示全部内容</string>
-  <string name="lichessPatronInfo">Lichess 是一家非营利机构，其软件是完全免费的自由开源软件。
-该网站的所有运营成本、开发工作以及内容产出，都完全依赖于用户的赞助。</string>
+  <string name="lichessPatronInfo">Lichess 是一家慈善机构，也是完全的自由/开源软件。我们依靠用户的赞助来支持运营成本、开发和内容。如果没有慷慨的社区，我们将无法维持网站的运行。感谢您的加入！</string>
   <string name="nothingToSeeHere">目前这里什么都没有。</string>
   <string name="stats">统计信息</string>
   <string name="accessibility">无障碍模式</string>
@@ -1017,4 +1021,5 @@
   <string name="boards">棋盘</string>
   <string name="write">撰写</string>
   <string name="preview">预览</string>
+  <string name="done">完成</string>
 </resources>

@@ -4,10 +4,11 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.{ *, given }
+import lila.core.i18n.I18nKey
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.{ *, given }
 
-final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
+final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)(
     sitePage: String => Context ?=> Page
 )(using Executor):
   import helpers.{ *, given }
@@ -54,9 +55,9 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           marker(update.flair),
           div(
             a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
-              momentFromNow(update.at)
+              momentFromNow(update.at)(nbsp)
             ,
-            update.rendered
+            feedMarkdown(update)
           )
         ),
       div(cls := "daily-feed__update")(
@@ -81,7 +82,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           inForm(form)
       )
 
-  def edit(form: Form[?], update: Feed.Update)(using Context) =
+  def edit(editForm: Form[?], update: Feed.Update)(using Context) =
     page(s"Lichess update ${update.id}", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
@@ -92,11 +93,15 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           )
         ),
         standardFlash,
-        postForm(cls := "form3", action := routes.Feed.update(update.id)):
-          inForm(form)
+        postForm(cls := "form3", id := "feed-update-form", action := routes.Feed.update(update.id)):
+          inForm(editForm, saveInsideForm = false)
         ,
-        postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
-          submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
+        form3.actions(
+          postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete")(
+            submitButton(cls := "button button-red button-empty yes-no-confirm")(I18nKey.site.delete())
+          ),
+          form3.submit(I18nKey.site.save())(attr("form") := "feed-update-form")
+        )
       )
 
   def atom(ups: List[Feed.Update]) =
@@ -105,7 +110,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       htmlCall = routes.Feed.index(1),
       atomCall = routes.Feed.atom,
       title = "Lichess updates feed",
-      updated = ups.headOption.map(_.at)
+      updated = ups.headOption.map(_.at),
+      language = _ => lila.core.i18n.defaultLanguage
     ): up =>
       val url = s"${routeUrl(routes.Feed.index(1))}#${up.id}"
       frag(
@@ -119,7 +125,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           href := url
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered).value)
+        tag("content")(tpe := "html")(convertToAbsoluteHrefs(feedMarkdown(up)).value)
       )
 
   private def convertToAbsoluteHrefs(html: Html): Html =
@@ -139,21 +145,21 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                   frag(
                     a(
                       href := routes.Feed.edit(update.id),
-                      cls := "button button-green button-empty button-thin text",
+                      cls := "button button-green button-empty button-thin",
                       dataIcon := Icon.Pencil
                     ),
-                    (!update.public).option(badTag(nbsp, "[Draft]")),
-                    update.future.option(goodTag(nbsp, "[Future]"))
+                    (!update.public).option(badTag("[Draft]")),
+                    update.future.option(goodTag("[Future]"))
                   )
                 )
               ),
-              div(cls := "daily-feed__update__markup")(update.rendered)
+              div(cls := "daily-feed__update__markup")(feedMarkdown(update))
             )
           ),
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
-  private def inForm(form: Form[?])(using Context) =
+  private def inForm(form: Form[?], saveInsideForm: Boolean = true)(using Context) =
     frag(
       form3.split(
         form3.group(
@@ -172,7 +178,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       form3.group(form("flair"), "Icon", half = false): field =>
         form3
           .flairPicker(field, Flair.from(form("flair").value), anyFlair = true),
-      form3.action(form3.submit("Save"))
+      saveInsideForm.option(form3.action(form3.submit(I18nKey.site.save())))
     )
 
   private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =

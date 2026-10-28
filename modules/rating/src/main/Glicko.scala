@@ -1,8 +1,8 @@
 package lila.rating
 
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 import chess.IntRating
 import chess.rating.glicko.{ ColorAdvantage, Glicko, GlickoCalculator, RatingPeriodsPerDay }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
 import lila.core.perf.Perf
 import lila.db.BSON

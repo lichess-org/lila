@@ -1,10 +1,10 @@
 package lila.challenge
 
-import lila.core.challenge.PositiveEvent
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.core.challenge.PositiveEvent
 
 final class ChallengeKeepAliveStream(api: ChallengeApi)(using
     ec: Executor,

@@ -1,6 +1,7 @@
 package lila.rating
 
 import chess.IntRating
+
 import lila.core.rating as hub
 
 object RatingRange:

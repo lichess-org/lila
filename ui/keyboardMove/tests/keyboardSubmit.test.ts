@@ -197,8 +197,8 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via UCI', () => {
-      const mockSan = spy(),
-        mockSelect = spy();
+      const mockSan = spy();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -240,8 +240,8 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via ICCF', () => {
-      const mockSan = spy(),
-        mockSelect = spy();
+      const mockSan = spy();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),

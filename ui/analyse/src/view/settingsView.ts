@@ -18,8 +18,8 @@ type Setting = {
 };
 
 const settings: Record<SettingKey, Setting> = {
-  showStaticAnalysis: {
-    label: i18n.preferences.showServerAnalysis,
+  showMainlineAnalysis: {
+    label: i18n.preferences.showMainlineAnalysis,
     shortcutHtml: '<kbd>z</kbd>',
     group: i18n.preferences.generalSettings,
     helpHtml: videoHtml('info-static-analysis'),
@@ -85,6 +85,11 @@ const settings: Record<SettingKey, Setting> = {
     label: i18n.preferences.showCheckableKing,
     group: i18n.preferences.boardSettings,
     helpHtml: videoHtml('info-checkable-king'),
+  },
+  showTrappedPieces: {
+    label: i18n.preferences.showTrappedPieces,
+    group: i18n.preferences.boardSettings,
+    helpHtml: videoHtml('info-trapped-pieces'),
   },
 };
 

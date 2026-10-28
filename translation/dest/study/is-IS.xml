@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Skýra með stafbrigðum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
-  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á höfuðafbrigðinu.</string>
   <string name="makeSureTheChapterIsComplete">Gakktu úr skugga um að kaflanum sé lokið. Þú getur aðeins beðið um greiningu einu sinni.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
   <string name="shareChanges">Deila breytingum með áhorfendum og vista þær á netþjóninum</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nei: leyfa fólki að vafra frjálsmannlega</string>
   <string name="pinnedStudyComment">Fest athugasemd við stúderingu</string>
   <string name="start">Hefja</string>
-  <string name="save">Vista</string>
   <string name="clearChat">Strauja spjalli</string>
   <string name="deleteTheStudyChatHistory">Eyða spjallsögu stúderingar? Þessi aðgerð er óafturkallanleg!</string>
   <string name="deleteStudy">Eyða stúderingu</string>

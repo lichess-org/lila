@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Cancel·la i manté el meu compte</string>
   <string name="closeAccountAreYouSure">Estàs segur que vols tancar el teu compte?</string>
   <string name="thisAccountIsClosed">S\'ha tancat aquest compte.</string>
+  <string name="wereSorryToSeeYouGo">Lamentem que hàgiu decidit marxar.</string>
+  <string name="closeAccountForeverLabel">Tancar per sempre: fa que sigui impossible reobrir-la</string>
+  <string name="closeAccountForeverWarning">Evita que el compte es torni a obrir després. Si ho marqueu fins i tot els administradors no podran reobrir el compte encara que ho sol·liciteu.</string>
+  <string name="deleteYourAccount">Elimina el teu compte</string>
+  <string name="deleteAccountWarning">Una vegada heu eliminat el vostre compte aquest s\'elimina de Lichess i els nostres administradors no el podran recuperar.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Voleu %s en comptes?</string>
+  <string name="closeYourAccount">tancar el vostre compte</string>
+  <string name="deleteAccountConfirmText">Entenc que els comptes eliminats no es poden recuperar</string>
 </resources>

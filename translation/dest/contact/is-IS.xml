@@ -53,7 +53,6 @@
   <string name="ratedGame">Gakktu úr skugga um að þú hafir teflt með stigagjöf. Æfingarskákir hafa ekki áhrif á skákstig skákmanns.</string>
   <string name="botRatingAbuse">Við ákveðnar kringumstæður þegar leikið er gegn tölvustýrðum aðgangi getur stigaskák ekki gefið stig ef það er ákveðið að notandinn sé að misnota tölvuna til að fá stig.</string>
   <string name="errorPage">Villusíða</string>
-  <string name="reportErrorPage">Hafi villusíða komið upp, máttu tilkynna slíkt:</string>
   <string name="learnHowToMakeBroadcasts">Lærðu hvernig á að gera þínar eigin útsendingar á Lichess</string>
   <string name="banAppeal">Áfrýjun vegna banns eða hamla á IP-tölu</string>
   <string name="engineAppeal">Skákforrits- eða svindlmerkimiði</string>

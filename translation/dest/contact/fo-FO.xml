@@ -52,7 +52,6 @@
   <string name="noRatingPoints">Eingi ratingstig vórðu givin</string>
   <string name="ratedGame">Ver vísur í, at tú telvaði eitt talv, ið varð styrkismett. Óformell talv ávirka ikki styrkitalið hjá telvaranum.</string>
   <string name="errorPage">Skeivleikasíða</string>
-  <string name="reportErrorPage">Um tú barst við eina síðu við skeivleikum, kanst tú boða frá tí:</string>
   <string name="banAppeal">Bið um eitt bann ella eina IP-avmarking</string>
   <string name="engineAppeal">Fráboðan um svik ella talvteldu</string>
   <string name="sendAppealTo">Tú kanst senda eina áheitan til %s.</string>

@@ -4,12 +4,13 @@ import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import pc from 'picocolors';
+import { binaryPath } from 'sasso/binary';
 
 import { env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable, getHash } from './parse.ts';
-import { makeTask, runTask, addIncludes } from './task.ts';
+import { makeTask, addIncludes } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 
@@ -27,6 +28,7 @@ export async function sass(): Promise<string | undefined> {
 
   const sassBin =
     process.env.SASS_PATH ??
+    binaryPath() ??
     (await fs.promises.realpath(join(env.buildDir, 'node_modules', `.bin`, 'sasso')));
   if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
 
@@ -37,16 +39,6 @@ export async function sass(): Promise<string | undefined> {
   ]);
   let remaining: Set<string> | undefined;
 
-  makeTask({
-    // this one just tickles the main sass task when scss variable mappings change
-    includes: { cwd: env.themeGenDir, path: '_wrap.scss' },
-    debounce: 500,
-    monitorOnly: true,
-    execute: () => {
-      remaining = undefined;
-      return runTask('sass');
-    },
-  });
   return makeTask({
     ctx: 'sass',
     key: 'sass',
@@ -63,18 +55,16 @@ export async function sass(): Promise<string | undefined> {
       const urlTargetTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
       const transitiveTouched = [...partialTouched, ...urlTargetTouched].flatMap(p => [...dependsOn(p)]);
       const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
-      const themesTouched = partialTouched.some(src => src.startsWith('ui/lib/css/theme/_theme.'));
-      remaining = remaining
-        ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
-        : concreteAll;
+      const freshColorWrap =
+        partialTouched.some(src => src.startsWith('ui/lib/css/theme/_theme.')) && (await buildColorWrap());
       const processed = new Set<string>();
       await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
 
-      if (themesTouched) {
-        await buildColorWrap();
-        for (const src of await glob('lib.theme.*.scss', { cwd: 'ui/lib/css/build' }))
-          remaining.add(relative(env.rootDir, src));
-      }
+      remaining =
+        freshColorWrap || !remaining
+          ? concreteAll
+          : new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)));
+
       const buildSources = [...remaining];
       remaining = new Set(await compile(sassBin, buildSources, remaining.size < concreteAll.size));
 
@@ -146,6 +136,7 @@ async function postProcessCSS(src: string): Promise<{ size: number }> {
     minify: env.prod,
     targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
     include: Features.MediaQueries,
+    exclude: Features.LogicalProperties,
   });
   await fs.promises.writeFile(cssPath, result.code);
   return { size: result.code.byteLength };
@@ -216,16 +207,17 @@ async function buildColorWrap() {
   const wrapFile = join(env.themeDir, 'gen', '_wrap.scss');
   await fs.promises.mkdir(dirname(wrapFile), { recursive: true });
   if (await readable(wrapFile)) {
-    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // dont touch wrap if same
+    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return false; // dont touch wrap if same
   }
-  return fs.promises.writeFile(wrapFile, scssWrap);
+  await fs.promises.writeFile(wrapFile, scssWrap);
+  return true;
 }
 
-async function hashCss(src: string, replacements: Record<string, string> | undefined) {
+async function hashCss(src: string, replacements: Record<string, string> = {}) {
   let content = await fs.promises.readFile(src, 'utf-8');
   let modified = false;
 
-  for (const [search, replace] of Object.entries(replacements ?? {})) {
+  for (const [search, replace] of Object.entries(replacements)) {
     content = content.replaceAll(search, replace);
     modified = true;
   }
@@ -255,7 +247,7 @@ async function sourcesWithUrls(urls: string[]) {
 }
 
 function urlReplacements() {
-  const replacements: Record<string, Record<string, string>> = {};
+  const replacements: Record<string, Record<string, string> | undefined> = {};
   for (const [url, depSet] of importMap) {
     if (!url.startsWith('../')) continue;
     const hashed = [...depSet].find(f => f.startsWith('public/hashed/'));

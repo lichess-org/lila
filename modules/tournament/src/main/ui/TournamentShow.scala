@@ -1,15 +1,15 @@
 package lila.tournament
 package ui
 
-import play.api.libs.json.*
 import chess.Rated
+import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
 import lila.core.team.LightTeam
-import lila.gathering.ui.GatheringUi
 import lila.gathering.Condition.WithVerdicts
+import lila.gathering.ui.GatheringUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -193,7 +193,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
-          img(src := staticAssetUrl("images/icons/bot.webp")),
+          img(src := staticAssetPath("images/icons/bot.webp")),
           div(
             h2("Bot tournament"),
             p(

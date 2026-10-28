@@ -1,11 +1,11 @@
 package lila.relay
 
 import com.github.blemale.scaffeine.Cache
+import scalalib.DiffStr
 
-import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
 import lila.core.userId.ModId
-import lila.core.data.DiffStr
+import lila.study.ChapterPreviewApi
 
 private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, previewApi: ChapterPreviewApi)(
     using
@@ -76,7 +76,7 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
       irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, diff)
 
   def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
-    lila.common
+    scalalib
       .ProductDiff(
         prev.some,
         tour,

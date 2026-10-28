@@ -6,8 +6,8 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.challenge.Challenge.Status
 import lila.core.LightUser
 import lila.core.game.GameRule
-import lila.core.user.WithPerf
 import lila.core.relation.Relation
+import lila.core.user.WithPerf
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 

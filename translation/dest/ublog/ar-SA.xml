@@ -2,9 +2,11 @@
 <resources>
   <string name="community">المجتمع</string>
   <string name="communityBlogs">مدونات المجتمع</string>
+  <string name="best">الأفضل</string>
+  <string name="all">الكل</string>
   <string name="byMonth">حسب الشهر</string>
   <string name="byTopic">حسب الموضوع</string>
-  <string name="byLichess">بواسطة ليشيس</string>
+  <string name="byLichess">بواسطة Lichess</string>
   <string name="myFriends">أصدقائي</string>
   <string name="myLikes">ما أعجبني</string>
   <string name="myBlog">مدونتي</string>
@@ -31,13 +33,13 @@
   <string name="drafts">المسودات</string>
   <string name="published">المنشورة</string>
   <string name="createBlogDiscussion">تمكين التعليقات</string>
-  <string name="createBlogDiscussionHelp">سيوضع منتدى للأشخاص الذين يريدون التعليق على مشاركتك</string>
+  <string name="createBlogDiscussionHelp">سيُنشأ موضوع في المنتدى ليتمكن الآخرون من التعليق على منشورك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
-  <string name="publishHelp">إذا تم التحديد، فسيُدرج المنشور في مدونتك. وإذا لم يتم، فسيكون خاصًا ضمن مسوداتك</string>
+  <string name="publishHelp">إذا تم تفعيل هذا الخِيار، فسيظهر المنشور في مدونتك. وإلا، فسيبقى خاصًا ضمن مسوداتك</string>
   <string name="includesPromotedContent">يشمل المحتوى الترويجي/الممول أو روابط الإحالة</string>
   <string name="mandatoryForSponsoredContent">إلزامية للمحتوى المشمول برعاية أو الروابط المنتسبة أو الإعلان التجاري</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">منشور مثبت</string>
-  <string name="stickyPostHelp">إذا تم الاختيار، سيتم إدراج هذا المنشور أولاً في منشورات ملفك الشخصية الحديثة وعلى مدونتك.</string>
+  <string name="stickyPostHelp">عند تحديد هذا الخِيار، سيظهر هذا المنشور في مقدمة مدونتك وملفك الشخصي.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="zero">نشر %s منشور مدونة</item>
     <item quantity="one">نشر %s منشور مدونة</item>
@@ -74,12 +76,25 @@
   <string name="coverImage">صورة الغلاف</string>
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">توفر المواقع الإلكترونية التالية صورًا مجانية. يُرجى التأكد من الالتزام بشروط ترخيص الصورة التي تستخدمها.</string>
-  <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
+  <string name="selectPostTopics">حدّد المواضيع التي يتناولها منشورك</string>
+  <string name="topicChess">شطرنج</string>
+  <string name="topicPuzzle">لغز</string>
+  <string name="topicTactics">التكتيكات</string>
+  <string name="topicStrategy">الاستراتيجية</string>
+  <string name="topicChessEngine">محرّك الشطرنج</string>
+  <string name="topicChessBot">بوت الشطرنج</string>
+  <string name="topicChessPersonalities">شخصيات الشطرنج</string>
+  <string name="topicOverTheBoard">على الرقعة (الشطرنج الحضوري)</string>
+  <string name="topicSoftwareDevelopment">تطوير البرمجيات</string>
+  <string name="topicOffTopic">خارج الموضوع</string>
+  <string name="topicPosts">%s منشورًا</string>
   <string name="etiquette">آداب السلوك</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
   <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>
   <string name="inappropriateContentAccountClosed">أي شيء غير لائق من الممكن أن يتسبب بإغلاق حسابك.</string>
   <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
   <string name="discussThisBlogPostInTheForum">ناقش منشور المدونة هذا في المنتدى</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">الآراء التي يعبّر عنها المساهمون في Lichess تعبّر عن وجهات نظرهم الشخصية.</string>
+  <string name="youMayAlsoLike">قد يعجبك أيضًا</string>
   <string name="youBlockedByBlogAuthor">تم حظرك من قبل مؤلف المدونة.</string>
 </resources>

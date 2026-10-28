@@ -1,11 +1,11 @@
 package lila.mod
 package ui
 
+import lila.chat.MixedChat
+import lila.core.chat.PublicSource
+import lila.core.shutup.PublicLine
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.chat.MixedChat
-import lila.core.shutup.PublicLine
-import lila.core.chat.PublicSource
 
 final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
 

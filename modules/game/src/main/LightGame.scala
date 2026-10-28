@@ -1,7 +1,7 @@
 package lila.game
 
-import chess.{ Color, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
+import chess.{ Color, IntRating }
 
 import lila.core.game.LightPlayer
 

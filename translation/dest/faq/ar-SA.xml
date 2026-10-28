@@ -166,6 +166,8 @@
 3. انقر على ملفات تعريف الارتباط و أذونات الموقع
 4. مرر للأسفل وانقر على Media Autoplay
 5. أضف lichess.org للقائمة المسموح بها</string>
+  <string name="makeBotTitle">هل تريد إنشاء بوت على Lichess؟</string>
+  <string name="makeBotDescription">لمعرفة كيفية إنشاء &lt;a href=\'%1$s\'&gt; بوت شطرنج مخصّص &lt;/a&gt; للعب على Lichess،الرجاء قرأة &lt;a href=\'%2$s\'&gt; هذه المقالة المدونة حول إنشاء البوتات &lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">كيف أوقف نفسي عن اللعب؟</string>
   <string name="mentalHealthCondition">حالة عقلية مستقلة</string>
   <string name="lichessUserstyles">أنماط المستخدم ليتشيس</string>

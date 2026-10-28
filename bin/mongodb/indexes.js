@@ -20,6 +20,7 @@ db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: 
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
 db.ublog_post.createIndex(
   { 'lived.at': -1 },
@@ -124,7 +125,7 @@ db.user4.createIndex({ roles: 1 }, { partialFilterExpression: { roles: { $exists
 db.user4.createIndex({ prevEmail: 1 }, { sparse: 1 });
 db.user4.createIndex(
   { 'delete.requested': 1 },
-  { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } },
+  { partialFilterExpression: { 'delete.requested': { $exists: 1 } } },
 );
 db.user4.createIndex(
   { mustConfirmEmail: 1 },

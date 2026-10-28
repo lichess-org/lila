@@ -1,11 +1,11 @@
 import { pubsub } from 'lib/pubsub';
 
 site.load.then(() => {
-  const form = document.querySelector<HTMLFormElement>('.search__form'),
-    $form = $(form),
-    $usernames = $form.find('.usernames input'),
-    $userRows = $form.find('.user-row'),
-    $result = $('.search__result');
+  const form = document.querySelector<HTMLFormElement>('.search__form');
+  const $form = $(form);
+  const $usernames = $form.find('.usernames input');
+  const $userRows = $form.find('.user-row');
+  const $result = $('.search__result');
 
   function getUsernames() {
     const us: string[] = [];

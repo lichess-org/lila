@@ -57,7 +57,7 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</strin
 Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman, süresi bitmeyen oyuncunun lehine karar veririz.
 
 Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
-  <string name="fideHandbook">FIDE el kitabı</string>
+  <string name="fideHandbook">FIDE kuralları</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
   <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi. Bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
@@ -104,7 +104,7 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasında</string>
-  <string name="goldenZeeExplanation">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı. Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi. Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
   <string name="lichessRatings">Lichess derecelendirmeleri</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 puanlama sistemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hâlâ tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
@@ -145,7 +145,7 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
 Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
-  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatma etkinleştir?</string>
+  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatmayı etkinleştiririm?</string>
   <string name="mostBrowsersPreventSoundAutoplay">Çoğu tarayıcı, kullanıcıları korumak için yeni ziyaret edilen sayfalarda ses oynatılmasını engeller.
 
 Tarayıcınız lichess.org\'un ses oynatmasını engellediğinde sessize alma simgesi görünür. Bu kısıtlama genellikle bir şeye tıkladığınızda kaldırılır. Bazı mobil tarayıcılarda bir taşı dokunarak sürüklemek tıklama olarak sayılmaz. Bu durumda, her oyunun başında sesin etkinleşmesi için tahtaya dokunmanız gerekir.
@@ -169,7 +169,9 @@ Bu durum gerçekleştiğinde sizi uyarmak için kırmızı sessize alma simgesin
 3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
 4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın
 5. İzin Ver listesine lichess.org\'u ekleyin</string>
-  <string name="stopMyselfFromPlaying">Kendimi oynamaktan nasıl alıkoyabilirim?</string>
+  <string name="makeBotTitle">Bir Lichess botu yaparım?</string>
+  <string name="makeBotDescription">Lichess\'te oynamak üzere bir &lt;a href=\'%1$s\'&gt;özel satranç botu&lt;/a&gt; oluşturmayı öğrenmek için, &lt;a href=\'%2$s\'&gt;bot oluşturma hakkındaki bu blog yazısını&lt;/a&gt; okuyun.</string>
+  <string name="stopMyselfFromPlaying">Kendimi oynamaktan alıkoyabilirim?</string>
   <string name="mentalHealthCondition">kendine özgü bir ruh sağlığı durumu</string>
   <string name="lichessUserstyles">Lichess kullanıcı stilleri</string>
   <string name="fewerLobbyPools">daha az lobi havuzu seçeneği</string>

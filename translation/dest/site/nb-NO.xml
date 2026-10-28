@@ -165,7 +165,9 @@
   <string name="flipBoard">Snu brettet</string>
   <string name="toggleLocalEngine">Slå lokal sjakkmotor av/på</string>
   <string name="engineSettings">Innstillinger for sjakkmotor</string>
+  <string name="engine">Sjakkmotor</string>
   <string name="enginesFromStrongestToWeakest">Sjakkmotorer fra sterkest til svakest</string>
+  <string name="illegalPosition">Ulovlig stilling</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="claimADraw">Krev remis</string>
   <string name="drawClaimed">Remiskrav</string>
@@ -459,6 +461,8 @@ Spill ratede partier for å øke stabiliteten.</string>
     <item quantity="one">%s venn online</item>
     <item quantity="other">%s venner online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Venner på nett: %1$s
+Venner som spiller: %2$s</string>
   <string name="favoriteOpponents">Favorittmotstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
@@ -557,6 +561,11 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="autoSwitch">Autosyklus</string>
   <string name="puzzles">Sjakknøtter</string>
   <string name="onlineBots">Påloggede boter</string>
+  <string name="aboutBotsOnLichess">Om boter på Lichess</string>
+  <string name="featuredBots">Fremhevede boter</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Prøv å spille mot disse nyskapende sjakkmotorene! De er favorittene våre.</string>
+  <string name="communityBots">Boter fra fellesskapet</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Flere sjakkmotorer laget av Lichess-fellesskapet. De driftes av skaperne sine og er kanskje ikke alltid tilgjengelige.</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -582,14 +591,12 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="reportAUser">Rapporter en bruker</string>
   <string name="user">Bruker</string>
   <string name="reason">Årsak</string>
-  <string name="whatIsIheMatter">Hva gjelder det?</string>
   <string name="cheat">Juks</string>
   <string name="troll">Troll</string>
   <string name="other">Annet</string>
   <string name="reportCheatBoostHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel. Skriv en utdypende begrunnelse, ikke bare «vedkommende jukser».</string>
   <string name="reportUsernameHelp">Forklar hvorfor brukernavnet er støtende. Skriv en utdypende begrunnelse, ikke bare «det er støtende/upassende». Dette gjelder særlig hvis fornærmelsen er tilslørt, ikke er på engelsk, er et slanguttrykk eller er en historisk/kulturell referanse.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle rapporten din raskere hvis du skriver på engelsk.</string>
-  <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er nå lukket.</string>
@@ -604,6 +611,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="clearField">Tøm felt</string>
   <string name="orSeparator">Eller</string>
   <string name="logInByEmail">Logg inn via e-post</string>
+  <string name="emailLoginInstructions">Vi sender deg en e-post med en lenke du kan bruke til å logge inn.</string>
   <string name="emailMeALink">Send meg en lenke</string>
   <string name="currentPassword">Nåværende passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -628,6 +636,8 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="onSlowGames">På lange partier</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
+  <string name="defeatOnly">Bare ved tap</string>
+  <string name="drawAndDefeat">Remis og tap</string>
   <string name="xCompetesInY">%1$s deltar i %2$s</string>
   <string name="victory">Seier</string>
   <string name="defeat">Tap</string>
@@ -692,10 +702,13 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
   <string name="really">virkelig</string>
+  <string name="lichessUpdates">Lichess-oppdateringer</string>
   <string name="contribute">Bidra</string>
+  <string name="changelog">Endringslogg</string>
   <string name="termsOfService">Tjenestevilkår</string>
   <string name="titleVerification">Tittelverifisering</string>
   <string name="sourceCode">Kildekode</string>
+  <string name="blockAds">Blokker annonser</string>
   <string name="simultaneousExhibitions">Simultanoppvisninger</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
@@ -775,7 +788,9 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
+  <string name="downloadMyGames">Last ned partiene mine</string>
   <string name="downloadAllGames">Last ned alle partiene</string>
+  <string name="downloadResults">Last ned resultater</string>
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hold muspekeren over maskinvarianter for å forhåndsvise dem.</string>
@@ -795,12 +810,14 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
+  <string name="activeSessionsDescription">Dette er en liste over enheter og apper som er logget inn på kontoen din. Hvis du oppdager mistenkelig aktivitet, må du &lt;a href=\'%1$s\'&gt;kontrollere e-postadressen for kontogjenoppretting&lt;/a&gt; og &lt;a href=\'%2$s\'&gt;endre passordet ditt&lt;/a&gt;.</string>
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funksjoner gratis</string>
   <string name="viewTheSolution">Se løsning</string>
   <string name="noChallenges">Ingen utfordringer.</string>
+  <string name="browserNotificationsDenied">Varslingsvinduer er deaktivert i nettleserinnstillingene</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgjengelig på %s språk!</item>
     <item quantity="other">Tilgjengelig på %s språk!</item>
@@ -1026,8 +1043,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="ourEventTips">Tips for arrangementer</string>
   <string name="instructions">Instruksjoner</string>
   <string name="showMeEverything">Vis meg alt</string>
-  <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
-Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
+  <string name="lichessPatronInfo">Lichess er en veldedig organisasjon og helt fri programvare med åpen kildekode. Vi er avhengige av donasjoner fra brukerne for å dekke driftskostnader, utvikling og innhold. Uten det gavmilde fellesskapet vårt ville vi ikke kunnet holde nettstedet i gang. Takk for at du er med!</string>
   <string name="nothingToSeeHere">Ingenting her for nå.</string>
   <string name="stats">Statistikk</string>
   <string name="accessibility">Tilgjengelighet</string>
@@ -1045,4 +1061,7 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="verifyingYourDevice">Kontrollerer enheten din...</string>
   <string name="chessOpenings">Sjakkåpninger</string>
   <string name="boards">Brett</string>
+  <string name="write">Skriv</string>
+  <string name="preview">Forhåndsvisning</string>
+  <string name="done">Ferdig</string>
 </resources>

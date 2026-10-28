@@ -51,7 +51,7 @@
     <item quantity="many">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
     <item quantity="other">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
   </plurals>
-  <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
+  <string name="opponentLeftChoices">غادر خصمك المباراة. يمكنك إعلان فوزك، أو إنهاء المباراة بالتعادل، أو الانتظار.</string>
   <string name="forceResignation">إعلن فوزك</string>
   <string name="forceDraw">إعلن التعادل</string>
   <string name="talkInChat">يرجى التحلي باللطف في الدردشة!</string>
@@ -105,7 +105,7 @@
   <string name="maxRatingX">أعلى تصنيف هو %s</string>
   <string name="recentGames">أحدث المباريات</string>
   <string name="topGames">أفضل الالعاب</string>
-  <string name="masterDbExplanation">قاعدة بيانات مباريات الأساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
+  <string name="masterDbExplanation">المباريات الحضورية للاعبين المصنَّفين من الاتحاد الدولي للشطرنج FIDE بتصنيف %1$s فأعلى، من %2$s إلى %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="zero">مات في %s نصف-نقلة</item>
     <item quantity="one">مات في %s نصف-نقلة</item>
@@ -114,7 +114,7 @@
     <item quantity="many">كش مات في %s نقلة</item>
     <item quantity="other">كش مات في %s نقلة</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' هي عدد الحركات حتى حصول أخذ أو تحريك بيدق</string>
+  <string name="dtzWithRounding">قاعدة DTZ50′′ مع التقريب، استنادًا إلى عدد أنصاف النقلات حتى حدوث أسر أو تحريك بيدق</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maxDepthReached">تم الوصول إلى أقصى عمق!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
@@ -185,6 +185,7 @@
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="toggleLocalEngine">تفعيل او إيقاف المحرك المحلي</string>
   <string name="engineSettings">إعدادات المحرك</string>
+  <string name="engine">محرّك الشطرنج</string>
   <string name="enginesFromStrongestToWeakest">المحركات من الأقوى إلى ألأضعف</string>
   <string name="illegalPosition">وضعية غير قانونية</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
@@ -279,8 +280,8 @@
     <item quantity="other">%s دقيقة</item>
   </plurals>
   <string name="time">الوقت</string>
-  <string name="rating">التقييم</string>
-  <string name="ratingStats">إحصائيات التقييم</string>
+  <string name="rating">التصنيف</string>
+  <string name="ratingStats">إحصائيات التصنيف</string>
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
@@ -320,7 +321,7 @@
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
   <string name="accountClosed">هذا الحساب%s مغلق.</string>
   <string name="accountRegisteredWithoutEmail">هذا الحساب%s تم تسجيله بدون ايميل.</string>
-  <string name="rank">المرتبة</string>
+  <string name="rank">الترتيب</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="zero">يتم تحديث الرتبة كل %s دقيقة</item>
@@ -369,12 +370,12 @@
   <string name="customPosition">موضع مخصص</string>
   <string name="unlimited">غير محدود</string>
   <string name="unlimitedDescription">خذ كل الوقت الذي تحتاجه</string>
-  <string name="mode">مقيمة أو غير مقيمة</string>
-  <string name="casual">غير مقيّمة</string>
-  <string name="rated">مقيّمة</string>
-  <string name="casualTournament">غير مقيّمة</string>
-  <string name="ratedTournament">مقيّمة</string>
-  <string name="thisGameIsRated">هذه اللعبة مقيّمة</string>
+  <string name="mode">مُصنَّفة أو غير مُصنَّفة</string>
+  <string name="casual">غير مُصنَّفة</string>
+  <string name="rated">مُصنَّفة</string>
+  <string name="casualTournament">غير مُصنَّفة</string>
+  <string name="ratedTournament">مُصنَّفة</string>
+  <string name="thisGameIsRated">هذه اللعبة مُصنَّفة</string>
   <string name="rematch">العب مرة أخرى</string>
   <string name="rematchOfferSent">أُرسل طلب اللعب</string>
   <string name="rematchOfferAccepted">قُبل طلب اللعب</string>
@@ -395,12 +396,12 @@
   <string name="incrementInSeconds">الزيادة بالثواني</string>
   <string name="freeOnlineChess">شطرنج مجاني على الإنترنت</string>
   <plurals name="nbRated">
-    <item quantity="zero">%s مقيمة</item>
-    <item quantity="one">%s مقيمة</item>
-    <item quantity="two">%s مقيمة</item>
-    <item quantity="few">%s مقيمة</item>
-    <item quantity="many">%s مقيمة</item>
-    <item quantity="other">%s مقيمة</item>
+    <item quantity="zero">%s مُصنَّفة</item>
+    <item quantity="one">%s مُصنَّفة</item>
+    <item quantity="two">%s مُصنَّفة</item>
+    <item quantity="few">%s مُصنَّفة</item>
+    <item quantity="many">%s مُصنَّفة</item>
+    <item quantity="other">%s مُصنَّفة</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="zero">%s فوز</item>
@@ -491,45 +492,44 @@
   <string name="noDrawBeforeSwissLimit">لا يمكنك التعادل قبل لعب 30 حركة في بطولة سويسرية.</string>
   <string name="thematic">وضعية مخصصة</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="zero">≥ %s مباراة مقيمة</item>
-    <item quantity="one">≥ %s مباراة مقيمة</item>
+    <item quantity="zero">≥ %s مباراة مُصنَّفة</item>
+    <item quantity="one">≥ %s مباراة مُصنَّفة</item>
     <item quantity="two">≥ %s مباراة مقيمة</item>
     <item quantity="few">≥ %s مباراة مقيمة</item>
     <item quantity="many">≥ %s مباراة مقيمة</item>
     <item quantity="other">≥ %s مباراة مقيمة</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="zero">≥ %1$s مباراة %2$s مقيمة</item>
-    <item quantity="one">≥ %1$s مباراة %2$s مقيمة</item>
-    <item quantity="two">≥ %1$s مباراة %2$s مقيمة</item>
-    <item quantity="few">≥ %1$s مباراة %2$s مقيمة</item>
-    <item quantity="many">≥ %1$s مباراة %2$s مقيمة</item>
-    <item quantity="other">≥ %1$s مباراة %2$s مقيمة</item>
+    <item quantity="zero">≥ %1$s مباراة %2$s مُصنَّفة</item>
+    <item quantity="one">≥ %1$s مباراة %2$s مُصنَّفة</item>
+    <item quantity="two">≥ %1$s مباراة %2$s مُصنَّفة</item>
+    <item quantity="few">≥ %1$s مباراة %2$s مُصنَّفة</item>
+    <item quantity="many">≥ %1$s مباراة %2$s مُصنَّفة</item>
+    <item quantity="other">≥ %1$s مباراة %2$s مُصنَّفة</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="zero">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
-    <item quantity="one">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
-    <item quantity="two">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
-    <item quantity="few">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
-    <item quantity="many">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
-    <item quantity="other">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="zero">يجب أن تلعب %1$s مباراة %2$s مُصنَّفة إضافية</item>
+    <item quantity="one">يجب أن تلعب %1$s مباراة %2$s مصنفة إضافية</item>
+    <item quantity="two">يجب أن تلعب %1$s مباراة %2$s مُصنَّفة إضافية</item>
+    <item quantity="few">يجب أن تلعب %1$s مباراة %2$s مُصنَّفة إضافية</item>
+    <item quantity="many">يجب أن تلعب %1$s مباراة %2$s مُصنَّفة إضافية</item>
+    <item quantity="other">يجب أن تلعب %1$s مباراة %2$s مُصنَّفة إضافية</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="zero">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="one">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="two">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="few">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="many">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="other">يجب أن تلعب %s مباراة مقيمة أخرى</item>
+    <item quantity="zero">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
+    <item quantity="one">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
+    <item quantity="two">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
+    <item quantity="few">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
+    <item quantity="many">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
+    <item quantity="other">يجب أن تلعب %s مباراة مُصنَّفة أخرى</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">تقييمك في %s مؤقت</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">لا يمكن استخدام التصفية حسب التصنيف لأن تصنيفك غير مستقر بعد.
-خض مباريات مصنّفة لزيادة استقرار تصنيفك.</string>
-  <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
+  <string name="yourPerfRatingIsProvisional">تصنيفك في %s مؤقّت</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">لا يمكن التصفية حسب التصنيف لأن تصنيفك غير مستقر بعد. ستزداد استقراريته عند لعب مباريات مُصنَّفة.</string>
+  <string name="yourPerfRatingIsTooHigh">تصنيفك في %1$s (%2$s) مرتفع جدًا</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
-  <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
-  <string name="ratedMoreThanInPerf">تقييم %1$s على الأقل %2$s</string>
-  <string name="ratedLessThanInPerf">تقييم %1$s فأقل %2$s</string>
+  <string name="yourPerfRatingIsTooLow">تصنيفك في %1$s (%2$s) منخفض جدًا</string>
+  <string name="ratedMoreThanInPerf">تصنيف ≥ %1$s في %2$s</string>
+  <string name="ratedLessThanInPerf">تصنيف ≤ %1$s في %2$s خلال الأسبوع الماضي</string>
   <string name="mustBeInTeam">يجب أن تكون في فريق %s</string>
   <string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
   <string name="backToGame">العودة للمباراة</string>
@@ -582,6 +582,8 @@
     <item quantity="many">%s أصدقاء متصلون</item>
     <item quantity="other">%s أصدقاء متصلون</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">الأصدقاء المتصلون: %1$s
+الأصدقاء الذين يلعبون: %2$s</string>
   <string name="favoriteOpponents">خصوم مفضلين</string>
   <string name="follow">تابع</string>
   <string name="following">متابع</string>
@@ -678,7 +680,7 @@
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبون متصلون</string>
   <string name="activePlayers">لاعبون نشطون</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مُصنَّفة وبدون توقيت!</string>
   <string name="success">تم بنجاح</string>
   <plurals name="nbGamesInPlay">
     <item quantity="zero">%s مباراة جارية</item>
@@ -722,7 +724,6 @@
   <string name="reportAUser">الإبلاغ عن مستخدم</string>
   <string name="user">المستخدم</string>
   <string name="reason">السبب</string>
-  <string name="whatIsIheMatter">ما الأمر؟</string>
   <string name="cheat">غش</string>
   <string name="troll">إزعاج</string>
   <string name="other">أخرى</string>
@@ -732,7 +733,6 @@
 https://lichess. org/report.</string>
   <string name="reportUsernameHelp">اشرح ما المسيء في اسم المستخدم هذا. لا تقل فقط \"إنه مسيء/غير مناسب\"، بل أخبرنا كيف توصلت إلى هذا الاستنتاج، خاصة إذا كانت الإهانة غير واضحة، أو ليست باللغة الإنجليزية، أو كانت باللغة العامية، أو كانت إشارة تاريخية/ثقافية.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">سنتمكن من معالجة تقريرك بسرعة أكبر إذا أرسلته باللغة الإنجليزية.</string>
-  <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
   <string name="importedByX">استيراد \'%s\'</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن.</string>
@@ -868,14 +868,14 @@ https://lichess. org/report.</string>
   <string name="noSimulExplanation">معرض هذه التزامنية غير موجود.</string>
   <string name="returnToSimulHomepage">العودة لصفحة التزامنية</string>
   <string name="aboutSimul">التزامنيات هي لاعب واحد يواجه عدة خصوم في وقت واحد.</string>
-  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 مباراة, تعادل في اثنتين, وخسر واحدة.</string>
+  <string name="aboutSimulImage">من أصل 50 خصمًا، فاز فيشر بـ47 مباراة، وتعادل في مباراتين، وخسر مباراة واحدة.</string>
   <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث الحياة الواقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
   <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
-  <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
+  <string name="aboutSimulSettings">التزامنيات غير مُصنَّفة دائمًا. يُمنع إعادة المباراة، والتراجع عن النقلات، وإضافة الوقت.</string>
   <string name="create">ابدأ</string>
   <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">إنشاء مباراة محاكاة يسمح لك بمواجهة عدة لاعبين في آنٍ واحد.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
-  <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
+  <string name="simulClockHint">كلما زاد عدد اللاعبين الذين تواجههم، قد تحتاج إلى وقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">وقت إضافي للمضيف:</string>
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
@@ -940,7 +940,9 @@ https://lichess. org/report.</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
   <string name="downloadRaw">تحميل بدون الشرح</string>
   <string name="downloadImported">تحميل المستورد</string>
+  <string name="downloadMyGames">تنزيل مبارياتي</string>
   <string name="downloadAllGames">حمِل كل المباريات</string>
+  <string name="downloadResults">تنزيل النتائج</string>
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">مرر فوق المتغييرات لاستعراضها.</string>
@@ -960,12 +962,14 @@ https://lichess. org/report.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
+  <string name="activeSessionsDescription">هذه قائمة بالأجهزة والتطبيقات التي سجّلت الدخول إلى حسابك. إذا لاحظت أي نشاط مريب، فتحقق من &lt;a href=\'%1$s\'&gt; التحقق من بريدك الإلكتروني للاسترداد &lt;/a&gt;&lt;a href=\'%2$s\'&gt; و &lt;a href=\'%2$s\'&gt;تغيير كلمة مرورك &lt;/a&gt;.</string>
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
   <string name="viewTheSolution">الحل</string>
   <string name="noChallenges">لا توجد تحديات.</string>
+  <string name="browserNotificationsDenied">النوافذ المنبثقة للإشعارات معطّلة في إعدادات المتصفح</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">متاح ب %s لغات!</item>
     <item quantity="one">متاح ب %s لغات!</item>
@@ -1156,19 +1160,18 @@ https://lichess. org/report.</string>
   <string name="cancelTournament">الغاء البطولة</string>
   <string name="tournDescription">وصف البطولة</string>
   <string name="tournDescriptionHelp">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
-  <string name="ratedFormHelp">المباريات مصنفة
-وتأثر على تقييم اللاعبين</string>
+  <string name="ratedFormHelp">المباريات مُصنَّفة وتؤثر في تصنيفات اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
   <string name="noRestriction">لا قيود</string>
   <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>
   <string name="minimumRating">أقل تصنيف</string>
   <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
-  <string name="positionInputHelp">لصق FEN صالح لبدء كل لعبة من موقع معين.
-إنه يعمل فقط للألعاب العادية، وليس مع المتغيرات.
-يمكنك استخدام %s لإنشاء موضع FEN، ثم لصقه هنا.
-اتركه فارغاً لبدء الألعاب من الوضع الأولي العادي.</string>
-  <string name="cancelSimul">ابطال المباراة الجماعية</string>
-  <string name="simulHostcolor">لون المضيف لكل لعبة</string>
+  <string name="positionInputHelp">الصق رمز FEN صالحًا لبدء كل مباراة من وضعية محددة.
+يعمل هذا الخِيار في مباريات الشطرنج القياسي فقط، ولا يعمل مع الأنواع المختلفة من الشطرنج.
+يمكنك استخدام %s لإنشاء وضعية بصيغة FEN، ثم لصقها هنا.
+اترك الحقل فارغًا لبدء المباريات من الوضعية الابتدائية المعتادة.</string>
+  <string name="cancelSimul">إلغاء المباراة التزامنية</string>
+  <string name="simulHostcolor">لون قطع المضيف في كل مباراة</string>
   <string name="estimatedStart">الوقت المتوقع للبدأ</string>
   <string name="simulFeatured">ميزة في %s</string>
   <string name="simulFeaturedHelp">إظهار التبسيط الخاص بك للجميع في %s. تعطيل للمحاكاة الخاصة.</string>
@@ -1201,14 +1204,13 @@ https://lichess. org/report.</string>
   <string name="youCantStartNewGame">لا يمكنك بَدْء مباراة جديدة خلال انتظار نقلتك.</string>
   <string name="since">منذ</string>
   <string name="until">حتى</string>
-  <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
+  <string name="lichessDbExplanation">عينة من المباريات المُصنَّفة التي لُعبت على Lichess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
   <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
   <string name="instructions">التعليمات</string>
   <string name="showMeEverything">اظهر لي كل شيء</string>
-  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
-كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
+  <string name="lichessPatronInfo">Lichess مؤسسة غير ربحية، وبرمجياتها حرة ومفتوحة المصدر بالكامل. نعتمد على تبرعات المستخدمين لتغطية تكاليف التشغيل والتطوير وإنتاج المحتوى. لولا مجتمعنا الكريم، لما تمكّنا من مواصلة تشغيل الموقع. شكرًا لانضمامك إلينا!</string>
   <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
   <string name="stats">الإحصائيات</string>
   <string name="accessibility">إمكانية الوصول</string>
@@ -1228,4 +1230,5 @@ https://lichess. org/report.</string>
   <string name="boards">الألواح</string>
   <string name="write">كتابة</string>
   <string name="preview">معاينة</string>
+  <string name="done">تم</string>
 </resources>

@@ -1,12 +1,13 @@
 import { charToRole } from 'chessops';
 
+import { myUserId } from 'lib';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
 import { licon, type LiconValue } from 'lib/licon';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect, once } from 'lib/storage';
 import type { QuestionOpts } from 'lib/types';
-import { jsonSimple } from 'lib/xhr';
+import * as xhr from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
 import {
@@ -99,10 +100,12 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`)).catch(() => ({
-      entries: [],
-      partials: { numbers: [], commands: [], colors: [] },
-    }));
+    const g = await xhr
+      .jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`))
+      .catch(() => ({
+        entries: [],
+        partials: { numbers: [], commands: [], colors: [] },
+      }));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -371,6 +374,7 @@ export function initModule({
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
     root.pluginMove(src(uci), dest(uci), role, preConfirmed);
+    if (once('voice.move', { days: 1 })) xhr.text(`/jslog/feature?n=voiceMove&u=${myUserId()}`);
     return true;
   }
 
@@ -402,15 +406,15 @@ export function initModule({
     sans.clear();
     const xvalset: Set<string> = new Set(); // allowable exact phrases for uci
     for (const uci of ucis) {
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase();
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase();
 
       if (srole === 'K') {
-        if (isOurs(dp)) {
+        if (dp && isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
@@ -448,8 +452,8 @@ export function initModule({
         }
       } else {
         const others: number[] = movesTo(ndest, srole, board);
-        let rank = '',
-          file = '';
+        let rank = '';
+        let file = '';
         for (const other of others) {
           if (other === nsrc || board.pieces[other] !== board.pieces[nsrc]) continue;
           if (nsrc >> 3 === other >> 3) file = uci[0];
@@ -471,12 +475,12 @@ export function initModule({
     for (const uci of ucis) {
       const sel = selection();
       if (sel && !uci.startsWith(sel)) continue;
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
       pushMap(squares, srole, uci);
@@ -496,12 +500,8 @@ export function initModule({
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
 
-  function isOurs(p: string | undefined) {
-    return p === '' || p === undefined
-      ? undefined
-      : cg.state.turnColor === 'white'
-        ? p.toUpperCase() === p
-        : p.toLowerCase() === p;
+  function isOurs(p: string) {
+    return !p ? false : cg.state.turnColor === 'white' ? p.toUpperCase() === p : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {

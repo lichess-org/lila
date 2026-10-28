@@ -1,12 +1,12 @@
 package controllers
 
-import play.api.mvc.*
 import play.api.libs.json.*
+import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.notify.NotificationPref
 import lila.common.Json.given
+import lila.notify.NotificationPref
 
 final class Pref(env: Env) extends LilaController(env):
 
@@ -17,7 +17,7 @@ final class Pref(env: Env) extends LilaController(env):
     env.pref.api.get(me).map { prefs =>
       JsonOk:
         Json
-          .obj("prefs" -> lila.pref.toJson(prefs, lichobileCompat = false))
+          .obj("prefs" -> lila.pref.toJson(prefs))
           .add("language" -> me.lang)
     }
   }
@@ -37,7 +37,7 @@ final class Pref(env: Env) extends LilaController(env):
   def formApply = AuthBody { ctx ?=> me ?=>
     def onSuccess(data: lila.pref.PrefForm.PrefData) =
       api.setPref(me, data(ctx.pref)).inject(Ok("saved"))
-    val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
+    val form = forms.pref(lichobile = HTTPRequest.isLichobile)
     bindForm(form)(
       _ =>
         form
@@ -74,7 +74,7 @@ final class Pref(env: Env) extends LilaController(env):
               yield Ok(()).withCookies(env.security.lilaCookie.session(name, v.toString))
           )
 
-  def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
+  def apiSet(name: String) = ScopedBody(_.Web.Mobile, _.Preference.Write) { ctx ?=> me ?=>
     lila.pref.PrefSingleChange.changes
       .get(name)
       .so: change =>

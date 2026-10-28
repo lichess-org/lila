@@ -51,7 +51,6 @@ case class Study(
 
   def isPublic = visibility == Visibility.public
   def isUnlisted = visibility == Visibility.unlisted
-  def isPrivate = visibility == Visibility.`private`
 
   def isNew = (nowSeconds - createdAt.toSeconds) < 4
 

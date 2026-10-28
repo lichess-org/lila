@@ -19,7 +19,6 @@
   <string name="bodenMate">Marbhsháinn Boden</string>
   <string name="bodenMateDescription">Déanann dhá easpaig ar fiarthrasnáin chliathach ionsaí marbhsháinn ar rí a bhfuil píosaí cairdiúla ag cur bac air.</string>
   <string name="castling">Caisliú</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Cuir an rí i bhfolach, agus scaoil an caiseal le haghaidh ionsaí.</string>
   <string name="capturingDefender">Marú an cosantóir</string>
   <string name="capturingDefenderDescription">Bain amach píosa atá ríthábhachtach do cosaint píosa eile, ag ceadaigh an píosa atá anois gan chosaint a mharú an sa chéad bheart ina dhiaidh.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Ag sáiniú le dhá phíosa ag an am céanna, tar éis ionsaí nochta ina n-ionsaíonn an píosa gluaiseachta agus an píosa nochtaithe araon rí an chéile comhraic.</string>
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Rí nochtaithe</string>
   <string name="exposedKingDescription">Beartaíocht ina bhfuil rí gan mórán cosantóirí timpeall air, agus marbhsháinn mar thoradh air go minic.</string>
   <string name="fork">Gabhal</string>

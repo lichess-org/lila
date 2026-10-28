@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Anotar con iconos</string>
   <string name="theChapterIsTooShortToBeAnalysed">El capítulu ye demasiao curtiu p\'analizalo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Namás los collaboradores del estudiu pueden solicitar un análisis por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Llogra un análisis completu de la llínea principal nel servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrate de que\'l capítulu ta completu. Namás pue solicitar l\'análisis una vegada.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tolos miembros de SYNC permanecen na mesma posición</string>
   <string name="shareChanges">Comparte cambios colos espectadores y guardalos nel servidor</string>
@@ -120,7 +119,6 @@
   <string name="noLetPeopleBrowseFreely">Non: dexar que la xente navegue llibremente</string>
   <string name="pinnedStudyComment">Comentariu fixáu del estudiu</string>
   <string name="start">Empezar</string>
-  <string name="save">Guardar</string>
   <string name="clearChat">Llimpiar el chat</string>
   <string name="deleteTheStudyChatHistory">¿Realmente quies borrar l\'historial de chat? ¡Esta acción non pue desfacerse!</string>
   <string name="deleteStudy">Borrar estudiu</string>

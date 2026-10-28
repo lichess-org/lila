@@ -102,8 +102,8 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         'form#move-form',
         {
           hook: onInsert(el => {
-            const $form = $(el),
-              $input = $form.find('.move').val('');
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
             $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
           }),
         },

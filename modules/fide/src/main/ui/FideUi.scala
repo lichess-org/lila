@@ -1,12 +1,12 @@
 package lila.fide
 package ui
 
-import scalalib.paginator.Paginator
 import chess.FideTC
+import scalalib.paginator.Paginator
 
+import lila.core.i18n.I18nKey
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.I18nKey
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
@@ -106,8 +106,8 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       src := fideFedSrc(id)
     )
 
-    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id): Url =
-      staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
+    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id) =
+      staticAssetPath(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-federation__card")(name, div(value))

@@ -1,16 +1,16 @@
 package lila.common
 
-import scala.util.matching.Regex
-
 import play.api.http.HeaderNames
+import play.api.libs.typedmap.TypedKey
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-import play.api.libs.typedmap.TypedKey
-import scalalib.net.{ UserAgent, Bearer }
+import scalalib.net.{ Bearer, UserAgent }
+
+import scala.util.matching.Regex
 
 import lila.common.Form.trueish
-import lila.core.net.*
 import lila.core.data.UntypedFormRequest
+import lila.core.net.*
 
 object HTTPRequest:
 
@@ -22,7 +22,8 @@ object HTTPRequest:
   def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
-  def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req) && !isLichessMobile(req)
+  def isRedirectable(using req: RequestHeader) =
+    isSynchronousHttp(req) && isSafe(req) && !isLichessMobile
 
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
@@ -54,9 +55,9 @@ object HTTPRequest:
   val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
-  def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
+  def isLichessMobile(using req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
   def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
-  def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
+  def isLichobile(using req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
     isLichessMobile(ua).so:
@@ -160,6 +161,14 @@ object HTTPRequest:
 
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
+
+  def asn(req: RequestHeader): Option[ASN] =
+    ASN.from(req.headers.get("X-ASN").flatMap(_.toIntOption))
+
+  def continent(req: RequestHeader): Option[Continent] =
+    req.headers.get("X-Continent").flatMap(Continent.byCode.get)
+
+  def usernamePasswordLeaked(using req: RequestHeader): Boolean = req.headers.get("x-upl").exists(trueish)
 
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown

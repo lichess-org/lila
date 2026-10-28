@@ -19,4 +19,6 @@
   <string name="findSquare">Etsi ruutu</string>
   <string name="nameSquare">Nimeä ruutu</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Harjoittele vain tiettyjä linjoja ja rivejä</string>
+  <string name="enterTheCoordinate">Syötä koordinaatti</string>
+  <string name="pressEnterToStart">Aloita painamalla %s</string>
 </resources>

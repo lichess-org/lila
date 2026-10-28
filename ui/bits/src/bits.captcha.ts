@@ -7,10 +7,10 @@ function init() {
   $('div.captcha').each(function (this: HTMLElement) {
     if (this.dataset.initialized) return;
 
-    const $captcha = $(this),
-      $board = $captcha.find('.mini-board'),
-      $input = $captcha.find('input').val(''),
-      cg = domData.get($board[0]!, 'chessground') as CgApi;
+    const $captcha = $(this);
+    const $board = $captcha.find('.mini-board');
+    const $input = $captcha.find('input').val('');
+    const cg = domData.get($board[0]!, 'chessground') as CgApi;
     if (!cg) {
       failed = true;
       return;
@@ -21,9 +21,9 @@ function init() {
       if (el && 'blur' in el) el.blur();
     });
 
-    const fen = cg.getFen(),
-      destsObj = $board.data('moves'),
-      dests = new Map();
+    const fen = cg.getFen();
+    const destsObj = $board.data('moves');
+    const dests = new Map();
     for (const k in destsObj) dests.set(k, destsObj[k].match(/.{2}/g));
     cg.set({
       turnColor: cg.state.orientation,

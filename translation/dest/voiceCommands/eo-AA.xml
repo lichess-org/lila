@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Nuligi tempumilon aŭ rifuzi peton</string>
   <string name="playPreferredMoveOrConfirmSomething">Ludi preferan movon aŭ konfirmi ion</string>
   <string name="sleep">Dormi (se vekigan vorton ebligas)</string>
-  <string name="turnOffVoiceRecognition">Malŝalti voĉrekonon</string>
   <string name="showPuzzleSolution">Montri puzlan solvon</string>
 </resources>

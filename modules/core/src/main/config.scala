@@ -23,12 +23,6 @@ object config:
   opaque type NetDomain = String
   object NetDomain extends OpaqueString[NetDomain]
 
-  opaque type AssetDomain = String
-  object AssetDomain extends OpaqueString[AssetDomain]
-
-  opaque type AssetBaseUrl = String
-  object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
-
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
@@ -38,8 +32,6 @@ object config:
       domain: NetDomain,
       prodDomain: NetDomain,
       baseUrl: BaseUrl,
-      assetDomain: AssetDomain,
-      assetBaseUrl: AssetBaseUrl,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

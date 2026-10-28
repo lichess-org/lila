@@ -4,9 +4,9 @@ package misc
 import play.api.i18n.Lang
 import scalalib.data.LazyFu
 
-import lila.core.id.{ GameId, ClasId, PuzzleId }
-import lila.core.userId.*
+import lila.core.id.{ ClasId, GameId, PuzzleId }
 import lila.core.user.Me
+import lila.core.userId.*
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)

@@ -6,15 +6,15 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.net.Bearer
 
+import lila.bot.OnlineApiUsers.*
 import lila.challenge.{ Challenge, NegativeEvent }
 import lila.common.Bus
-import lila.common.actorBus.*
 import lila.common.Json.given
-import lila.core.game.{ FinishGame, StartGame }
+import lila.common.actorBus.*
 import lila.core.challenge.PositiveEvent
+import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
-import lila.bot.OnlineApiUsers.*
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,

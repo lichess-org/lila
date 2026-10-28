@@ -1,15 +1,16 @@
 package lila.team
 
-import java.time.Period
-import scalalib.actor.AsyncActorSequencers
 import play.api.mvc.RequestHeader
+import scalalib.actor.AsyncActorSequencers
+
+import java.time.Period
 
 import lila.common.Bus
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
-import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -28,7 +29,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
+  export teamRepo.{ filterHideForum, onUserDelete, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -120,7 +121,7 @@ final class TeamApi(
       Bus.pub(TeamUpdate(team.data, byMod = !isLeader))
       team.automodText
 
-  def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
+  def mine(using me: MyId): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
 
   def countTeamsOf(me: Me) =
@@ -269,24 +270,26 @@ final class TeamApi(
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
   def quit(team: Team, userId: UserId): Funit = workQueue(team.id):
-    doQuit(team, userId)
+    doQuit(team.id, userId)
 
-  private def doQuit(team: Team, userId: UserId): Funit =
+  private def doQuit(teamId: TeamId, userId: UserId): Funit =
     for
-      res <- memberRepo.remove(team.id, userId)
+      res <- memberRepo.remove(teamId, userId)
       _ <- (res.n == 1).so:
-        teamRepo.incMembers(team.id, -1)
+        teamRepo.incMembers(teamId, -1)
     yield
-      Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
+      Bus.pub(LeaveTeam(teamId = teamId, userId = userId))
       cached.invalidateTeamIds(userId)
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
-    teamIds <- cached.teamIdsList(userId)
-    _ <- memberRepo.removeByUser(userId)
+    teamIds <- memberRepo.teamIdsByUser(userId)
     _ <- requestRepo.removeByUser(userId)
-    _ <- teamIds.sequentially(teamRepo.incMembers(_, -1))
-    _ = cached.invalidateTeamIds(userId)
-  yield teamIds
+    _ <- teamIds.sequentially: teamId =>
+      workQueue(teamId):
+        doQuit(teamId, userId)
+  yield
+    cached.invalidateTeamIds(userId)
+    teamIds
 
   def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int, showHidden: Boolean)(using
       me: Option[MyId]
@@ -313,7 +316,7 @@ final class TeamApi(
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
           _ <- requestRepo.coll.update.one(bid(request.id), request, upsert = true)
-          _ <- doQuit(team, userId)
+          _ <- doQuit(team.id, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
@@ -370,10 +373,18 @@ final class TeamApi(
   export cached.isMember
 
   // delete forever, with members but not forums
-  def delete(team: Team, by: User, explain: String): Funit = for
+  def delete(team: Team, by: UserId, explain: String): Funit = for
+    userIds <- memberRepo.userIdsByTeam(team.id)
     _ <- teamRepo.coll.delete.one(bid(team.id))
     _ <- memberRepo.removeByTeam(team.id)
-  yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+    _ <- requestRepo.removeByTeam(team.id)
+    _ = userIds.foreach(cached.invalidateTeamIds)
+  yield logger.info(s"delete team ${team.id} by @$by: $explain")
+
+  def deleteNewlyCreatedBy(userId: UserId): Funit = for
+    teams <- teamRepo.findNewlyCreatedBy(userId)
+    _ <- teams.sequentially(delete(_, UserId.lichess, "newly created"))
+  yield ()
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)

@@ -1,7 +1,7 @@
 package lila.core
 package perm
 
-import lila.core.user.{ Me, User, RoleDbKey }
+import lila.core.user.{ Me, RoleDbKey, User }
 
 object Granter:
 
@@ -246,7 +246,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           BroadcastTimeout,
           ApiChallengeAdmin,
           Feed,
-          Settings
+          Settings,
+          NotifyMany
         ),
         "Admin"
       )

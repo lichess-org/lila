@@ -36,6 +36,7 @@ export default new (class implements SoundI {
   }
 
   primer = async () => {
+    if (!this.enabled()) return;
     const ctx = await this.ctxPromise;
     await ctx.resume();
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);

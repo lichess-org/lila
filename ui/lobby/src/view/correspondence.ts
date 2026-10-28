@@ -13,6 +13,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek) {
     {
       key: seek.id,
       role: 'button',
+      tabindex: 0,
       title: isJoinAction ? `${i18n.site.joinTheGame} - ${perfName(seek.perf.key)}` : i18n.site.cancel,
       'data-id': seek.id,
     },
@@ -46,25 +47,31 @@ function createSeek(ctrl: LobbyController) {
 }
 
 export default function (ctrl: LobbyController) {
+  const activateSeek = async (target: HTMLElement) => {
+    const el = target.closest?.('tr[data-id]') as HTMLElement | null;
+    if (!el) return;
+    if (!ctrl.me) {
+      if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
+        location.href = '/signup';
+      return;
+    }
+    return ctrl.clickSeek(el.dataset['id']!);
+  };
   return [
     table('.hooks__list', [
       thead(tr((['player', 'rating', 'time', 'mode'] as const).map(k => th(i18n.site[k])))),
       tbody(
         {
-          hook: bind('click', async e => {
-            let el = e.target as HTMLElement;
-            do {
-              el = el.parentNode as HTMLElement;
-              if (el.nodeName === 'TR') {
-                if (!ctrl.me) {
-                  if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
-                    location.href = '/signup';
-                  return;
-                }
-                return ctrl.clickSeek(el.dataset['id']!);
-              }
-            } while (el.nodeName !== 'TABLE');
-          }),
+          hook: {
+            insert: (vnode: any) => {
+              bind('click', e => activateSeek(e.target as HTMLElement)).insert?.(vnode);
+              (vnode.elm as HTMLElement).addEventListener('keydown', e => {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                e.preventDefault();
+                activateSeek(e.target as HTMLElement);
+              });
+            },
+          },
         },
         ctrl.data.seeks.map(s => renderSeek(ctrl, s)),
       ),

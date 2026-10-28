@@ -362,6 +362,22 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
 1. e4 { written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
         )
 
+  test("21970: the study owner keeps their comments free of [%anno] under a foreign Annotator tag"):
+    val pgn: PgnStr = """[Annotator "https://lichess.org/@/someoneelse"]
+
+{ [%anno "Bobby", bobby] initial comment by the owner }
+1. e4 { [%anno "Bobby", bobby] written by the owner } (1. d4 { [%anno "Bobby", bobby] variation by the owner }) 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        assertEquals(
+          Helpers.rootToPgn(parsed.root, parsed.tags, bobby.id.some).value,
+          """[Annotator "https://lichess.org/@/someoneelse"]
+
+{ initial comment by the owner }
+1. e4 { written by the owner } (1. d4 { variation by the owner }) 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+        )
+
   test("21211: an external author survives a round trip"):
     val pgn: PgnStr = """1. e4 { [%anno "Garry Kasparov"] from a foreign database }"""
     StudyPgnImport

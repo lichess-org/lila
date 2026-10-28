@@ -1,9 +1,10 @@
 package lila.mon
 
-import scala.concurrent.Future
-import scala.concurrent.duration.FiniteDuration
 import kamon.metric.Timer
 import play.api.LoggerLike
+
+import scala.concurrent.Future
+import scala.concurrent.duration.FiniteDuration
 
 import lila.core.lilaism.Lilaism.*
 

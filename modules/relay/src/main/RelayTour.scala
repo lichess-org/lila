@@ -1,15 +1,17 @@
 package lila.relay
 
-import reactivemongo.api.bson.Macros.Annotations.Key
+import chess.tiebreak.Tiebreak
+import chess.{ FideTC, TournamentClock }
 import io.mola.galimatias.URL
+import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.model.Language
+
 import java.time.ZoneId
 
-import scalalib.model.Language
-import lila.memo.{ Dimensions, PicfitUrl }
 import lila.core.id.ImageId
 import lila.core.study.Visibility
-import chess.{ FideTC, TournamentClock }
-import chess.tiebreak.Tiebreak
+import lila.core.net.Continent
+import lila.memo.{ Dimensions, PicfitUrl }
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -95,6 +97,7 @@ object RelayTour:
     def apply(s: Selector) = s(Tier)
 
     val byV = values.mapBy(_.v)
+    val byKey = values.mapBy(_.key)
     val options = List(
       "" -> "Non official",
       normal.v.toString -> "Official: normal tier",
@@ -122,8 +125,14 @@ object RelayTour:
 
   case class Dates(start: Instant, end: Option[Instant])
 
-  case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
-    def isEmpty = !enabled && specialLanguage.isEmpty && title.isEmpty
+  case class Spotlight(
+      enabled: Boolean,
+      language: Language,
+      title: Option[String],
+      continent: Option[Continent] = none
+  ):
+    def isEmpty = !enabled && specialLanguage.isEmpty && title.isEmpty && continent.isEmpty
+    def visibleFrom(c: Option[Continent]) = continent.forall(c.contains)
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])

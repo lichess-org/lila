@@ -1,18 +1,19 @@
 package lila.user
 
-import reactivemongo.api.bson.*
-import scala.util.Success
-import chess.{ IntRating, ByColor }
 import chess.rating.IntRatingDiff
+import chess.{ ByColor, IntRating }
+import reactivemongo.api.bson.*
 import scalalib.paginator.Paginator
+
+import scala.util.Success
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.mon.extensions.*
 import lila.rating.GlickoExt.rankable
 import lila.rating.PerfType
-import lila.mon.extensions.*
 
 final class RankingApi(
     c: lila.db.AsyncCollFailingSilently,

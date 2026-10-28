@@ -25,6 +25,7 @@ import {
   div,
   span,
   button,
+  makeExoticTag,
 } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
@@ -38,9 +39,9 @@ import { renderCevalSettings } from './settings';
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
 function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
-  const ceval = ctrl.ceval,
-    state = ceval.state,
-    status = ceval.opts.custom?.statusNode?.();
+  const ceval = ctrl.ceval;
+  const state = ceval.state;
+  const status = ceval.opts.custom?.statusNode?.();
   if (status) return [status];
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
@@ -142,16 +143,18 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   gaugeTicks ??= Array.from({ length: 7 }, (_, i) =>
     hl('tick', { class: { zero: i === 3 }, attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
-  const bestEv = getBestEval(ctrl);
+  const outcome = ctrl.getNode().outcome();
+  const bestEv = outcome ? undefined : getBestEval(ctrl);
   let ev;
-  if (bestEv) {
+  if (outcome) ev = outcome.winner === 'white' ? 1 : outcome.winner === 'black' ? -1 : 0;
+  else if (bestEv) {
     ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return div(
     '.eval-gauge',
     {
-      class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
+      class: { empty: !outcome && !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
       attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
     },
     gaugeTicks,
@@ -160,17 +163,18 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
-  const node = ctrl.getNode(),
-    enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled(),
-    client = node.ceval,
-    server = node.eval,
-    threatMode = ctrl.threatMode(),
-    threat = threatMode ? node.threat : undefined,
-    bestEv = threat || getBestEval(ctrl),
-    search = ceval.search,
-    download = ceval.download;
-  let pearl: LooseVNode,
-    percent = 0;
+  const node = ctrl.getNode();
+  const enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled();
+  const client = node.ceval;
+  const server = node.eval;
+  const threatMode = ctrl.threatMode();
+  const threat = threatMode ? node.threat : undefined;
+  const bestEv = threat ?? getBestEval(ctrl);
+  const search = ceval.search;
+  const download = ceval.download;
+  const makePearl = makeExoticTag(threat ? 'pearl.threat' : 'pearl');
+  let pearl: LooseVNode;
+  let percent = 0;
   if (client) {
     if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
     else if ('movetime' in search.by)
@@ -180,15 +184,17 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   }
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
+  } else if (!enabled && !server) {
+    pearl = makePearl(h('icon'));
   } else if (typeof bestEv?.cp !== 'undefined') {
-    pearl = h('pearl', renderEval(bestEv.cp));
+    pearl = makePearl(renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = h('pearl', '#' + bestEv.mate);
+    pearl = makePearl(['#' + bestEv.mate]);
   } else {
-    if (!enabled) pearl = h('pearl', h('icon'));
-    else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
-    else pearl = h('pearl', h('icon.ddloader'));
+    if (!enabled) pearl = makePearl(h('icon'));
+    else if (node.outcome() || node.threefold) pearl = makePearl('-');
+    else if (ceval.state === CevalState.Failed) pearl = makePearl(icon(licon.CautionCircle)('.is-red'));
+    else pearl = makePearl(h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -324,13 +330,13 @@ function setHovering(ceval: CevalCtrl, fen: FEN | null, uci?: Uci): void {
 export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   if (!ctrl.cevalEnabled()) return undefined;
   const ceval = ctrl.ceval;
-  const multiPv = ceval.search.multiPv,
-    node = ctrl.getNode(),
-    setup = parseFen(node.fen).unwrap();
-  let pvs: PvData[],
-    threat = false,
-    pvMoves: (string | null)[],
-    pvIndex: number | null = null;
+  const multiPv = ceval.search.multiPv;
+  const node = ctrl.getNode();
+  const setup = parseFen(node.fen).unwrap();
+  let pvs: PvData[];
+  let threat = false;
+  let pvMoves: (string | null)[];
+  let pvIndex: number | null = null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
@@ -424,15 +430,17 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
 }
 
 function renderPvWrapToggle(): VNode {
-  return span('.pv-wrap-toggle', {
+  const toggle = (el: HTMLElement, e: Event) => {
+    e.stopPropagation();
+    $(el).closest('.pv').toggleClass('pv--nowrap');
+  };
+  return button('.pv-wrap-toggle', {
     hook: onInsert(el => {
-      for (const event of ['touchstart', 'mousedown']) {
-        el.addEventListener(event, (e: Event) => {
-          e.stopPropagation();
-          e.preventDefault();
-          $(el).closest('.pv').toggleClass('pv--nowrap');
-        });
-      }
+      el.addEventListener('touchstart', e => {
+        e.preventDefault();
+        toggle(el, e);
+      });
+      el.addEventListener('mousedown', e => toggle(el, e));
     }),
   });
 }

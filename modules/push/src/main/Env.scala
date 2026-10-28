@@ -1,9 +1,9 @@
 package lila.push
 
-import org.apache.pekko.actor.*
-import org.apache.pekko.stream.Materializer
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.Materializer
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 

@@ -3,9 +3,9 @@ package lila.chat
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.chat.PublicSource
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.chat.PublicSource
 
 object ChatUi:
 

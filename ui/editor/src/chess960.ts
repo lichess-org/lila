@@ -32,8 +32,9 @@ interface CastlingSquares {
   rookK: string;
 }
 
-export function chess960CastlingSquares(id: number | undefined): ByColor<CastlingSquares> {
-  const rank1 = chess960IdToRank(id ?? 518); // default to standard chess
+// defaults to standard chess
+export function chess960CastlingSquares(id = 518): ByColor<CastlingSquares> {
+  const rank1 = chess960IdToRank(id);
 
   const kingFile = rank1.indexOf('K');
   const rookKFile = rank1.lastIndexOf('R');
@@ -59,13 +60,13 @@ export interface CastlingRooks {
 }
 
 export function castlingRooksFromBoard(board: Board, color: Color): CastlingRooks {
-  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7),
-    king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
+  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7);
+  const king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
   if (king === undefined) return {};
 
-  const rooks = board.rook.intersect(board[color]).intersect(backRank),
-    queenside = rooks.first(),
-    kingside = rooks.last();
+  const rooks = board.rook.intersect(board[color]).intersect(backRank);
+  const queenside = rooks.first();
+  const kingside = rooks.last();
   return {
     rookQ: queenside !== undefined && queenside < king ? queenside : undefined,
     rookK: kingside !== undefined && kingside > king ? kingside : undefined,
@@ -149,7 +150,7 @@ function chess960IdToRank(id: number): string {
   place('B', b2);
 
   // Queen
-  const freeSquares = () => [...Array(8).keys()].filter(i => backRank[i] === '');
+  const freeSquares = () => [...Array(8).keys()].filter(i => backRank[i].length === 0);
   const q = freeSquares()[n % 6];
   n = Math.floor(n / 6);
   place('Q', q);

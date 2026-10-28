@@ -4,9 +4,9 @@ import lila.app.UiEnv.{ *, given }
 import lila.appeal.Appeal
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.mod.ui.{ mzSection, ModUserTableUi }
-import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.mod.ui.{ ModUserTableUi, mzSection }
 import lila.oauth.OAuthScope
+import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 
 object mod:
 

@@ -641,13 +641,11 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="reportAUser">Prijavi uporabnika</string>
   <string name="user">Uporabnik</string>
   <string name="reason">Razlog</string>
-  <string name="whatIsIheMatter">Kaj je narobe?</string>
   <string name="cheat">Goljufija</string>
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
   <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
   <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco. </string>
-  <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
   <string name="thisTopicIsNowClosed">Tema je zaprta</string>
@@ -858,12 +856,14 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>
+  <string name="activeSessionsDescription">To je seznam naprav in aplikacij, ki so prijavljene v vaš račun. Če opazite kakršno koli sumljivo dejavnost, &lt;a href=\'%1$s\'&gt;preverite svoj e-poštni naslov za obnovitev&lt;/a&gt; in &lt;a href=\'%2$s\'&gt;spremenite geslo&lt;/a&gt;.</string>
   <string name="sessions">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
   <string name="everybodyGetsAllFeaturesForFree">Vsak dobi vse funkcije zastonj</string>
   <string name="viewTheSolution">Poglej rešitev</string>
   <string name="noChallenges">Ni izzivov.</string>
+  <string name="browserNotificationsDenied">Pojavna okna z obvestili so onemogočena zaradi nastavitve brskalnika</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Na voljo v %s jeziku!</item>
     <item quantity="two">Na voljo v %s jezikih!</item>
@@ -1090,8 +1090,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
   <string name="instructions">Navodila</string>
   <string name="showMeEverything">Prikaži vse</string>
-  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
-Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
+  <string name="lichessPatronInfo">Lichess je dobrodelna organizacija in v celoti brezplačna odprtokodna programska oprema. Za kritje operativnih stroškov, razvoj in vsebino smo odvisni od donacij uporabnikov. Brez naše velikodušne skupnosti spletnega mesta ne bi mogli ohraniti pri življenju. Hvala, ker ste se nam pridružili!</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Dostopnost</string>
@@ -1105,4 +1104,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>
+  <string name="done">Opravljeno</string>
 </resources>

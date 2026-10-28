@@ -572,13 +572,11 @@
   <string name="reportAUser">రిపోర్ట్ యూజర్</string>
   <string name="user">వినియోగదారుడు</string>
   <string name="reason">కారణం</string>
-  <string name="whatIsIheMatter">మీరు ఎందుకు రిపోర్టు చేస్తున్నారు?</string>
   <string name="cheat">మోసం</string>
   <string name="troll">ఎగతాళి చేయండి</string>
   <string name="other">ఇతర</string>
   <string name="reportCheatBoostHelp">గేమ్(ల) లింక్‌ను అతికించి, ఈ యూజర్ ప్రవర్తనలో తప్పు ఏమిటో వివరించండి. కేవలం \"వారు మోసం చేస్తారు\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి.</string>
   <string name="reportUsernameHelp">ఈ యూజర్‌నేమ్ ఎందుకు అభ్యంతరకరమైనదో వివరించండి. కేవలం \"ఇది అభ్యంతరకరమైనది/అనుచితమైనది\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి. ముఖ్యంగా, ఆ అభ్యంతరం అస్పష్టంగా ఉన్నా, ఆంగ్లంలో లేకపోయినా, యాసలో ఉన్నా, లేదా చారిత్రక/సాంస్కృతిక ప్రస్తావనకు సంబంధించినది అయినా సరే.</string>
-  <string name="error.provideOneCheatedGameLink">దయచేసి కనీసం మోసం చేసిన ఆట ఒక లింక్‌నైనౌ అందించండి.</string>
   <string name="by">%s చే</string>
   <string name="importedByX">%s ద్వారా దిగుమతి చేయబడింది</string>
   <string name="thisTopicIsNowClosed">ఈ అంశం ఇప్పుడు మూసివేయబడింది.</string>

@@ -1,8 +1,8 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.RequestHeader
 
 import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }

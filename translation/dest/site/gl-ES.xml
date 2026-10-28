@@ -165,6 +165,7 @@
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="toggleLocalEngine">Activar/desactivar o motor de análise local</string>
   <string name="engineSettings">Axustes do motor de análise</string>
+  <string name="engine">Motor de análise</string>
   <string name="enginesFromStrongestToWeakest">Motores de análise de máis forte a máis feble</string>
   <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
@@ -460,6 +461,8 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
     <item quantity="one">%s amizade conectada</item>
     <item quantity="other">%s amizades conectadas</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amizades conectadas: %1$s
+Amizades xogando: %2$s</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
@@ -588,14 +591,12 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Que pasou?</string>
   <string name="cheat">Trampa</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Poderemos procesar máis rápido a túa denuncia se escribes en Inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida para a súa revisión.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema xa está pechado.</string>
@@ -606,7 +607,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
-  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="invalidAuthenticationCode">Código de autenticación non válido</string>
   <string name="clearField">Limpar campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Iniciar sesión co correo electrónico</string>
@@ -787,7 +788,9 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="downloadAnnotated">Descargar anotada</string>
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
+  <string name="downloadMyGames">Descargar as miñas partidas</string>
   <string name="downloadAllGames">Descargar todas as partidas</string>
+  <string name="downloadResults">Descargar os resultados</string>
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
@@ -807,12 +810,14 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
+  <string name="activeSessionsDescription">Esta é unha lista de dispositivos e aplicacións que están conectados á túa conta. Se observas algunha actividade sospeitosa, asegúrate de &lt;a href=\'%1$s\'&gt;revisar o teu enderezo electrónico de recuperación&lt;/a&gt; e &lt;a href=\'%2$s\'&gt;de cambiar o teu contrasinal&lt;/a&gt;.</string>
   <string name="sessions">Sesións</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
   <string name="everybodyGetsAllFeaturesForFree">Todo o mundo obtén todas as funcións gratis</string>
   <string name="viewTheSolution">Mirar a solución</string>
   <string name="noChallenges">Sen desafíos.</string>
+  <string name="browserNotificationsDenied">As notificacións emerxentes están desactivadas pola configuración do navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispoñible en %s idioma!</item>
     <item quantity="other">Dispoñible en %s idiomas!</item>
@@ -1037,7 +1042,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
   <string name="showMeEverything">Amósamo todo</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto. Dependemos das doazóns dos usuarios para sufragar os custos de funcionamento, desenvolvemento e de contidos. Sen a nosa xenerosa comunidade non seriamos quen de manter o sitio funcionando. Grazas por unirte a nós!  </string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto. Dependemos das doazóns dos usuarios para sufragar os custos de funcionamento, desenvolvemento e de contidos. Sen a nosa xenerosa comunidade non seriamos quen de manter o sitio funcionando. Grazas por unirte a nós!</string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Accesibilidade</string>
@@ -1057,4 +1062,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="boards">Taboleiros</string>
   <string name="write">Escribir</string>
   <string name="preview">Vista previa</string>
+  <string name="done">Feito</string>
 </resources>

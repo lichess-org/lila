@@ -111,8 +111,8 @@ export function makeTree(root: TreeNode): TreeWrapper {
 
   // returns new path
   function addNode(node: TreeNode, path: TreePath): TreePath | undefined {
-    const newPath = path + node.id,
-      existing = nodeAtPathOrNull(newPath);
+    const newPath = path + node.id;
+    const existing = nodeAtPathOrNull(newPath);
     if (existing) {
       (['dests', 'drops', 'clock'] as Array<keyof TreeNode>).forEach(key => {
         if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key] as never;

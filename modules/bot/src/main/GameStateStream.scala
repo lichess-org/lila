@@ -7,21 +7,21 @@ import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 import scalalib.net.UserAgent
 
+import lila.bot.OnlineApiUsers.*
 import lila.chat.{ Chat, UserLine }
 import lila.common.Bus
 import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
-import lila.core.round.{ Tell, RoundBus }
+import lila.core.round.{ RoundBus, Tell }
 import lila.core.user.KidMode
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
+  BoardMoretime,
   BoardTakeback,
   BoardTakebackOffer,
-  BoardMoretime,
   MoveGameEvent
 }
-import lila.bot.OnlineApiUsers.*
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,

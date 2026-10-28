@@ -3,6 +3,7 @@ package lila.puzzle
 import chess.format.{ Fen, Uci }
 import chess.rating.glicko.Glicko
 import reactivemongo.api.bson.*
+
 import scala.util.{ Success, Try }
 
 import lila.db.BSON

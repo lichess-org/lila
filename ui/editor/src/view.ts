@@ -4,8 +4,10 @@ import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
+import type { On } from 'snabbdom';
 
 import { view as cevalView } from 'lib/ceval';
+import { displayColumns, isTouchDevice, hasFeature, isAndroid, isChrome } from 'lib/device';
 import { fenToEpd } from 'lib/game/chess';
 import { variants } from 'lib/game/perf';
 import { licon, type LiconValue } from 'lib/licon';
@@ -89,6 +91,7 @@ function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
+      title: 'Hotkey: p',
       on: {
         click(e) {
           e.preventDefault();
@@ -106,6 +109,7 @@ function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
+      title: 'Hotkey: c',
       on: {
         click(e) {
           e.preventDefault();
@@ -259,7 +263,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })(),
         ]),
     ...(ctrl.cfg.embed
-      ? [div('.actions', [chess960PositionIdSelector, controlsButtonStart(ctrl), controlsButtonClear(ctrl)])]
+      ? [
+          div('.actions', [
+            chess960PositionIdSelector,
+            fromImageButton(ctrl, licon.Eye),
+            controlsButtonStart(ctrl, licon.Reload),
+            controlsButtonClear(ctrl, licon.Trash),
+          ]),
+        ]
       : [
           div([
             select(
@@ -278,12 +289,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
+            fromImageButton(ctrl, licon.Eye),
             controlsButtonStart(ctrl, licon.Reload),
             controlsButtonClear(ctrl, licon.Trash),
             button(
               '.button.button-empty.text',
               {
                 ...dataIcon(licon.ChasingArrows),
+                title: 'Hotkey: f',
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -490,11 +503,66 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return div(`.board-editor.board-editor--${ctrl.variant}`, [
+  return div(`.board-editor.board-editor--${ctrl.variant}`, { on: imageDropEvents(ctrl) }, [
     sparePieces(ctrl, opposite(color), 'top'),
     div('.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, chessground(ctrl)),
     sparePieces(ctrl, color, 'bottom'),
     controls(ctrl, state),
     inputs(ctrl, state.legalFen || state.fen),
   ]);
+}
+
+const imageDropEvents = (ctrl: EditorCtrl): On => ({
+  dragover(e: DragEvent) {
+    if (Array.from(e.dataTransfer?.items || []).some(item => item.type.startsWith('image/'))) {
+      e.preventDefault();
+      (e.currentTarget as HTMLElement).classList.add('image-dragover');
+    }
+  },
+  dragleave(e: DragEvent) {
+    if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node))
+      (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+  },
+  drop(e: DragEvent) {
+    (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+    const file = Array.from(e.dataTransfer?.files || []).find(file => file.type.startsWith('image/'));
+    if (file) {
+      e.preventDefault();
+      ctrl.loadFromImage(file);
+    }
+  },
+});
+
+function fromImageButton(ctrl: EditorCtrl, icon?: LiconValue): MaybeVNode {
+  if (!hasFeature('simd') || !hasFeature('dynamicImportFromWorker')) return null;
+  return button(
+    '.button.button-empty',
+    {
+      type: 'button',
+      ...(icon ? dataIcon(icon) : {}),
+      class: { text: Boolean(icon) },
+      on: {
+        async click(e) {
+          e.preventDefault();
+          const file = await new Promise<File | undefined>(resolve => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = isAndroid() && isChrome() ? 'image/*,application/x-nonexistent' : 'image/*';
+            input.multiple = false;
+            input.addEventListener('change', () => resolve(input.files?.[0]), { once: true });
+            input.addEventListener('cancel', () => resolve(undefined), { once: true });
+            input.click();
+          });
+          if (!file) return;
+
+          await ctrl.loadFromImage(file);
+          if (displayColumns() === 1 && isTouchDevice())
+            document
+              .querySelector<HTMLElement>('.main-board')
+              ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+      },
+    },
+    'From image',
+  );
 }

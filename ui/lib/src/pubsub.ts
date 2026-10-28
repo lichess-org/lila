@@ -15,6 +15,7 @@ export interface PubsubEvents {
   'analysis.eval': (ev: ClientEval | undefined, meta: EvalMeta) => void;
   'analysis.server.progress': (analyseData: any) => void;
   'board.change': (is3d: boolean) => void;
+  'ceval.engine.download': (status: { bytes: number; total: number }) => void;
   'challenge-app.open': () => void;
   'chart.panning': () => void;
   'chat.permissions': (perms: { local: boolean }) => void;

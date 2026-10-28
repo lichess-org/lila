@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.core.config.*
 import lila.common.Bus
+import lila.core.config.*
 
 @Module
 final class Env(

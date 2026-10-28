@@ -126,7 +126,7 @@
 #user_tag {
   @extend %flex-center-nowrap, %nowrap-ellipsis;
 
-  max-width: 40vw;
+  max-width: 36vw;
   display: inline-block;
 
   &::after {
@@ -137,6 +137,10 @@
     content: $licon-AccountCircle;
     font-size: 2rem;
     margin-left: 0.5rem;
+
+    @media (max-width: at-most($xxx-small)) {
+      display: none;
+    }
   }
 
   &:hover::after {

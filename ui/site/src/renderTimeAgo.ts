@@ -10,9 +10,9 @@ export const renderTimeAgo = (parent?: HTMLElement): number =>
     [].slice
       .call((parent || document).getElementsByClassName('timeago'), 0, 99)
       .forEach((node: ElementWithDate) => {
-        const cl = node.classList,
-          abs = cl.contains('abs'),
-          set = cl.contains('set');
+        const cl = node.classList;
+        const abs = cl.contains('abs');
+        const set = cl.contains('set');
         node.lichessDate = node.lichessDate || toDate(node.getAttribute('datetime')!);
         if (!set) {
           const str = commonDateFormat(node.lichessDate);

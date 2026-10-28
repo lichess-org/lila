@@ -2,8 +2,9 @@ package lila.web
 
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.Json
-import play.api.mvc.{ RequestHeader, Result }
 import play.api.mvc.Results.TooManyRequests
+import play.api.mvc.{ RequestHeader, Result }
+
 import lila.common.HTTPRequest
 
 /** only allow X streams at a time per key */

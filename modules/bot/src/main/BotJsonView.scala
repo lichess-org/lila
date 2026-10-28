@@ -95,6 +95,7 @@ final class BotJsonView(
       .add("name" -> light.map(_.name))
       .add("title" -> light.map(_.title))
       .add("rating" -> pov.player.rating)
+      .add("ratingDiff" -> pov.player.ratingDiff)
       .add("provisional" -> pov.player.provisional)
 
   private given OWrites[chess.Clock.Config] = OWrites: c =>

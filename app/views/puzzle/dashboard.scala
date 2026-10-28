@@ -1,6 +1,7 @@
 package views.puzzle
 
 import scalalib.model.Days
+
 import lila.app.UiEnv.{ *, given }
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
 

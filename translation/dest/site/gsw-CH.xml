@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
   <string name="reusableChallengeUrl">Wieder verwändbari Useforderigs-URL</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">En permanänte Link, für jedermann - um di mit genau dene Istellige use z\'fordere.</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanänte Link, für jedermann - um di mit genau dene Ischtellige use z\'fordere.</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
@@ -165,16 +165,17 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="toggleLocalEngine">Lokali Engine umschalte</string>
   <string name="engineSettings">Engine Ischtellige</string>
+  <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines vo stärkste bis schwächste</string>
   <string name="illegalPosition">Illegali Schtellig</string>
-  <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
+  <string name="threefoldRepetition">Drüfachi Schtelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="drawClaimed">Remis g\'forderet</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Schpiller</item>
-    <item quantity="other">%s Schpiller</item>
+    <item quantity="one">%s Schpiler</item>
+    <item quantity="other">%s Schpiler</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
@@ -410,6 +411,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Du bruchsch no %s g\'werteti Schpiel meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wertig isch provisorisch</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Es isch nöd möglich nach Wertig z\'filtere, will dini Wertig nonig schtabil isch.
+Dur Schpiele vu Wertigsschpiel erhöht sich d\'Schtabilität.</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüf</string>
@@ -460,6 +463,8 @@ zum bewise dass du en Mänsch bisch.</string>
     <item quantity="one">%s Fründ online</item>
     <item quantity="other">%s Fründe online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Fründe online: %1$s
+Fründe im Schpiel: %2$s</string>
   <string name="favoriteOpponents">Hüfigschti Gägner</string>
   <string name="follow">Verfolge</string>
   <string name="following">Verfolg ich</string>
@@ -558,6 +563,11 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
   <string name="onlineBots">Online Roboter</string>
+  <string name="aboutBotsOnLichess">Über Bots uf Lichess</string>
+  <string name="featuredBots">Empfohleni Bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Probier die innovative Schach-Engines z\'schpille! Sie sind eusi Favorite.</string>
+  <string name="communityBots">Gmeinschafts Bots</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Meh Schach-Engines, kreiert vu de Lichess-G\'meinschaft. Sie werded vu ihrne \"Schöpfer\" g\'hostet und sind nöd immer online.</string>
   <string name="name">Name</string>
   <string name="description">Beschribig</string>
   <string name="descPrivate">Privati Beschribig</string>
@@ -584,14 +594,12 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="reportAUser">Mäld en Benutzer</string>
   <string name="user">Benutzer</string>
   <string name="reason">Grund</string>
-  <string name="whatIsIheMatter">Was isch s\'Problem?</string>
   <string name="cheat">Bschiss</string>
   <string name="troll">Troll</string>
   <string name="other">Suschtigs</string>
   <string name="reportCheatBoostHelp">Füeg de Link dem/dene Schpiel bi und erchlär, wie sich de Benutzer falsch benah hät. Säg nöd nur \"de bschisst\", schrib eus wie du da druf chunnsch. (änglisch gschribeni Mäldige, werded schnäller behandlet).</string>
   <string name="reportUsernameHelp">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Mir chönd dini Meldig schneller uf Änglisch bearbeite.</string>
-  <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel a, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch jetzt gschlosse.</string>
@@ -606,6 +614,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="clearField">Fäld rume</string>
   <string name="orSeparator">Oder</string>
   <string name="logInByEmail">Mit E-Mail ilogge</string>
+  <string name="emailLoginInstructions">Mir schicked dir e E-Mail, mit eme Link zum Ilogge.</string>
   <string name="emailMeALink">Schick mer per E-Mail en Link</string>
   <string name="currentPassword">Aktuells Passwort</string>
   <string name="newPassword">Neus Passwort</string>
@@ -630,6 +639,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="onSlowGames">Bi langsame Schpiel</string>
   <string name="always">Immer</string>
   <string name="never">Nie</string>
+  <string name="defeatOnly">Nur Niederlage</string>
+  <string name="drawAndDefeat">Remis und Niederlage</string>
   <string name="xCompetesInY">%1$s nimmt bi %2$s teil</string>
   <string name="victory">Sieg</string>
   <string name="defeat">Niderlag</string>
@@ -694,10 +705,13 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="aboutX">Über %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s isch en freie, quälle-offene Schachserver. Gratis (%2$s) und ohni Werbig.</string>
   <string name="really">würkli</string>
+  <string name="lichessUpdates">Lichess updates</string>
   <string name="contribute">Mitmache</string>
+  <string name="changelog">Log wächsle</string>
   <string name="termsOfService">Nutzigs-Bedingige</string>
   <string name="titleVerification">Überprüefig vum Titel</string>
   <string name="sourceCode">Quällcode</string>
+  <string name="blockAds">Ads blocke</string>
   <string name="simultaneousExhibitions">Simultanschach Veraschtaltige</string>
   <string name="host">Simultanschpiller</string>
   <string name="hostColorX">Farb Simultanschpiller: %s</string>
@@ -721,10 +735,11 @@ Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Zugsrücknahme, zuesätzlichi Zit oder Revanche 
 gits nöd und es isch nie g\'wertet.</string>
   <string name="create">Erschtelle</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Es Simultan z\'veranstalte erlaubt dir, gäge mehreri Spiler ufs mal z\'spiele.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wänn du es Simultan erschtellsch, chasch glichzitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Extra Schpielzit für de Host:</string>
   <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
   <string name="simulHostExtraTimePerPlayer">Für jede Schpiller zuesätzlichi Zit addiere</string>
   <string name="lichessTournaments">Lichess Turnier</string>
@@ -735,6 +750,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
+  <string name="keyGoToPreviousOrNextLine">uf die vorherig/nächscht Zile</string>
   <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
   <string name="keyShowOrHideCurrentVariation">aktuelli Variante i/usblende</string>
@@ -782,7 +798,9 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
   <string name="downloadImported">Importierte Download</string>
+  <string name="downloadMyGames">Mini Schpiel abelade</string>
   <string name="downloadAllGames">All Schpiel abelade</string>
+  <string name="downloadResults">Resultat abelade</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpil vor- oder rückwärts laufe.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
@@ -802,12 +820,14 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
   <string name="security">Sicherheit</string>
+  <string name="activeSessionsDescription">Das isch e Lischte vu Grät und Awändige, wo i dim Konto agmäldet sind. Söttsch du verdächtigi Aktivitäte bemerke, dänn prüef bitte unbedingt &lt;a href=\'%1$s\'&gt; dini E-Mail-Adrässe, für d\'Wiederherstellig&lt;/a&gt; und &lt;a href=\'%2$s\'&gt;mach es neus &lt;a href=\'%1$s\'&gt;Passwort&lt;/a&gt;.</string>
   <string name="sessions">Sitzige</string>
   <string name="revokeAllSessions">alli Sitzige beände</string>
   <string name="playChessEverywhere">Schpill überall Schach</string>
   <string name="everybodyGetsAllFeaturesForFree">Jede chann alli Funktione gratis nutze</string>
   <string name="viewTheSolution">Lueg d\'Lösig a</string>
   <string name="noChallenges">Kei Useforderige.</string>
+  <string name="browserNotificationsDenied">Benachrichtigungs-Popups werded vu Browserischtellige deaktiviert</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfüegbar i %s Schprach!</item>
     <item quantity="other">Verfüegbar i %s Schprache!</item>
@@ -1034,8 +1054,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
   <string name="instructions">Awisige</string>
   <string name="showMeEverything">Zeig mer alles</string>
-  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
-Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
+  <string name="lichessPatronInfo">Lichess isch e g\'meinnützigi Organisation mit ere vollschtändig koschtelose Open-Source-Software. Mir sind uf Schpände vu euse Nutzer agwiese, zum d\'Betriebsköschte, d\'Entwicklig und d\'Inhalte z\'finanzieren. Ohni eusi grosszügig G\'meinschaft chönnted mir die Website nöd am Laufe b\'halte. Viele Dank, dass ihr debi sind!</string>
   <string name="nothingToSeeHere">Da gits im monumäntan nüt z\'gseh.</string>
   <string name="stats">Schtatistike</string>
   <string name="accessibility">Erreichbarkeit</string>
@@ -1053,4 +1072,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="verifyingYourDevice">Dis Grät wird überprüft...</string>
   <string name="chessOpenings">Schacheröffnige</string>
   <string name="boards">Brätter</string>
+  <string name="write">Schribe</string>
+  <string name="preview">Vorschau</string>
+  <string name="done">Erledigt</string>
 </resources>

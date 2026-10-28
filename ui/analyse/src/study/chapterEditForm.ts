@@ -1,8 +1,23 @@
 import { COLORS } from 'chessops';
-import { h, type VNode } from 'snabbdom';
 
 import { defined, prop } from 'lib';
-import { bind, bindSubmit, onInsert, spinnerVdom as spinner, snabDialog, confirm } from 'lib/view';
+import {
+  bind,
+  bindSubmit,
+  onInsert,
+  spinnerVdom as spinner,
+  snabDialog,
+  confirm,
+  div,
+  label,
+  select,
+  button,
+  h2,
+  form,
+  input,
+  snabH as h,
+  type VNode,
+} from 'lib/view';
 
 import type { StudySocketSend } from '../socket';
 import { option, emptyRedButton } from '../view/util';
@@ -71,9 +86,9 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
         },
         modal: true,
         vnodes: [
-          h('h2', i18n.study.editChapter),
-          h(
-            'form.form3',
+          h2(i18n.study.editChapter),
+          form(
+            '.form3',
             {
               hook: bindSubmit(e => {
                 ctrl.submit({
@@ -85,10 +100,11 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
               }, ctrl.redraw),
             },
             [
-              h('div.form-group', [
-                h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name),
-                h('input#chapter-name.form-control', {
-                  attrs: { minlength: 2, maxlength: 80 },
+              div('.form-group', [
+                label('.form-label', { for: 'chapter-name' }, i18n.site.name),
+                input('text')('#chapter-name.form-control', {
+                  minlength: 2,
+                  maxlength: 80,
                   hook: onInsert<HTMLInputElement>(el => {
                     if (!el.value) {
                       el.value = data.name;
@@ -118,33 +134,33 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         ? 'gamebook'
         : 'normal';
   return [
-    h('div.form-split', [
-      h('div.form-group.form-half', [
-        h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
-        h(
-          'select#chapter-orientation.form-control',
+    div('.form-split', [
+      div('.form-group.form-half', [
+        label('.form-label', { for: 'chapter-orientation' }, i18n.study.orientation),
+        select(
+          '#chapter-orientation.form-control',
           COLORS.map(color => option(color, data.orientation, i18n.site[color])),
         ),
       ]),
-      h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [
-        h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
-        h(
-          'select#chapter-mode.form-control',
+      div('.form-group.form-half', { class: { none: ctrl.isBroadcast } }, [
+        label('.form-label', { for: 'chapter-mode' }, i18n.study.analysisMode),
+        select(
+          '#chapter-mode.form-control',
           modeChoices.map(c => option(c[0], mode, c[1])),
         ),
       ]),
     ]),
-    h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
-      h('label.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment),
-      h(
-        'select#chapter-description.form-control',
+    div('.form-group', [
+      label('.form-label', { for: 'chapter-description' }, i18n.study.pinnedChapterComment),
+      select(
+        '#chapter-description.form-control',
         [
           ['', i18n.study.noPinnedComment],
           ['1', i18n.study.rightUnderTheBoard],
         ].map(v => option(v[0], data.description ? '1' : '', v[1])),
       ),
     ]),
-    h('div.form-actions-secondary.destructive', [
+    div('.form-actions-secondary.destructive', [
       h(
         emptyRedButton,
         {
@@ -174,7 +190,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         i18n.study.clearVariations,
       ),
     ]),
-    h('div.form-actions', [
+    div('.form-actions', [
       h(
         emptyRedButton,
         {
@@ -189,7 +205,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         },
         i18n.study.deleteChapter,
       ),
-      h('button.button', { attrs: { type: 'submit' } }, i18n.study.saveChapter),
+      button('.button', { type: 'submit' }, i18n.study.saveChapter),
     ]),
   ];
 }

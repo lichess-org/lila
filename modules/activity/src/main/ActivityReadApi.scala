@@ -1,8 +1,8 @@
 package lila.activity
 
+import chess.Speed.Correspondence
 import play.api.i18n.Lang
 import scalalib.HeapSort
-import chess.Speed.Correspondence
 
 import lila.core.chess.Rank
 import lila.core.game.LightPov
@@ -103,22 +103,20 @@ final class ActivityReadApi(
         .traverse: studies =>
           studyApi.publicIdNames(studies.value)
         .dmap(_.filter(_.nonEmpty))
-      tours <- a.games
-        .exists(_.hasNonCorres)
-        .so:
-          val dateRange = TimeInterval(a.date, a.date.plusDays(1))
+      tours <- a.tours
+        .traverse: tours =>
           tourLeaderApi
-            .timeRange(a.id.userId, dateRange)
-            .dmap: entries =>
-              entries.nonEmpty.option(
+            .byIds(tours.value)
+            .map: entries =>
+              entries.nonEmpty.option:
                 ActivityView.Tours(
                   nb = entries.size,
                   best = HeapSort.topN(entries, activities.maxSubEntries)(using
                     Ordering.by[lila.core.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
                   )
                 )
-              )
-            .mon(lila.mon.user.segment("activity.tours"))
+        .dmap(_.flatten)
+        .mon(lila.mon.user.segment("activity.tours"))
       swisses <-
         a.swisses.so: swisses =>
           toSwissesView(swisses.value).dmap(_.nonEmptyOption)

@@ -53,7 +53,6 @@
   <string name="annotateWithGlyphs">Komentuoti su glifais</string>
   <string name="theChapterIsTooShortToBeAnalysed">Skyrius yra per trumpas analizei.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tik studijos talkininkai gali prašyti kompiuterio analizės.</string>
-  <string name="getAFullComputerAnalysis">Gaukite pilną pagrindinės linijos kompiuterio analizę.</string>
   <string name="makeSureTheChapterIsComplete">Įsitikinkite, kad skyrius užbaigtas. Analizės galite prašyti tik kartą.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
@@ -127,7 +126,6 @@
   <string name="noLetPeopleBrowseFreely">Ne: leisti žmonėms naršyti laisvai</string>
   <string name="pinnedStudyComment">Prisegtas studijos komentaras</string>
   <string name="start">Pradėti</string>
-  <string name="save">Išsaugoti</string>
   <string name="clearChat">Išvalyti pokalbį</string>
   <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
   <string name="deleteStudy">Ištrinti studiją</string>

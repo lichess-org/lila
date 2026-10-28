@@ -11,7 +11,6 @@
   <string name="bodenMate">Боден маты</string>
   <string name="bodenMateDescription">Ике һөҗүм итүче киселешәләр диагональ буенча һәм рәкыйпнең үз дуст сөякләре кома шаулаган шаһына мат куялар.</string>
   <string name="castling">Рокировка</string>
-  <string name="enPassant">Бик вакытлы</string>
   <string name="crushing">Изеш</string>
   <string name="doubleBishopMate">Икеләтә филь маты</string>
   <string name="equality">Тигезлек</string>
@@ -22,6 +21,7 @@
   <string name="defensiveMove">Калкала хәрәкәте</string>
   <string name="defensiveMoveDescription">Материалны яисә бүтән өстенлекне югалтмас өчен кирәк булган төгәл хәрәкәт яки хәрәкәт эзлеклелеге.</string>
   <string name="endgame">Уен азагы</string>
+  <string name="enPassant">Бик вакытлы</string>
   <string name="fork">Сәнәк</string>
   <string name="master">Осталарның уеннары</string>
   <string name="masterVsMaster">Осталар арасындагы уеннар</string>

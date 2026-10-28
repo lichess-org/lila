@@ -1,7 +1,7 @@
 package controllers
 
-import monocle.syntax.all.*
 import cats.mtl.Handle.*
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -12,6 +12,7 @@ import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ Client, JsonApi, Work }
+import lila.tree.FishnetKey
 
 final class Fishnet(env: Env) extends LilaController(env):
 
@@ -51,13 +52,11 @@ final class Fishnet(env: Env) extends LilaController(env):
     }
 
   def keyExists(key: String) = Anon:
-    api
-      .keyExists(lila.fishnet.Client.Key(key))
-      .map:
-        if _ then Ok else NotFound
+    api.keyExists(FishnetKey(key)).map(if _ then Ok else NotFound)
 
   val status = Anon:
-    api.status.map { JsonStrOk(_) }
+    for s <- api.status
+    yield Ok(s).headerCache(api.statusTtl)
 
   private def ClientAction[A <: JsonApi.Request](
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]
@@ -76,14 +75,15 @@ final class Fishnet(env: Env) extends LilaController(env):
               data =>
                 allow:
                   f(client)(data).map:
-                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                    _.map(Json.toJson).fold(NoContent): data =>
+                      Accepted(data).as(JSON)
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>
         if env.mode.notProd && !hasOAuthBearer then handle(Client.offline)
         else
           HTTPRequest.bearer.so: (bearer, _) =>
-            api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
+            api.authenticateClient(bearer.into(FishnetKey), version, req.ipAddress).flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) => handle(client)
             }

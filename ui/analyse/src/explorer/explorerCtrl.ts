@@ -138,7 +138,7 @@ export default class ExplorerCtrl {
         if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
       }
     },
-    250,
+    350,
     true,
   );
 

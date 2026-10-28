@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
-import lila.fide.{ FidePlayer, Federation }
+import lila.fide.{ Federation, FidePlayer }
 
 final class Fide(env: Env) extends LilaController(env):
 
@@ -46,7 +46,7 @@ final class Fide(env: Env) extends LilaController(env):
   def apiShow(id: chess.FideId) = Anon:
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
-        Found(env.fide.playerApi.withFollow(id))(JsonOk)
+        Found(env.fide.playerApi.withFollow(id))(JsonOk(_).headerCache(1.hour))
 
   def apiRatings(id: chess.FideId) = AnonOrScoped():
     def proceed = JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))

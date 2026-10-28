@@ -1,6 +1,6 @@
 import { onClickAway } from 'lib';
 import { licon } from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialogAtRoot, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
@@ -17,11 +17,11 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       hl('button#voice-help-button', {
-        attrs: { ...dataIcon(licon.InfoCircle), title: 'Voice help' },
+        attrs: { ...dataIcon(licon.InfoCircle), title: i18n.voiceCommands.voiceHelp },
         hook: bind('click', () => ctrl.showHelp(true), undefined, false),
       }),
       hl('button#voice-settings-button', {
-        attrs: { ...dataIcon(licon.Gear), title: 'Voice settings' },
+        attrs: { ...dataIcon(licon.Gear), title: i18n.voiceCommands.voiceSettings },
         class: { active: ctrl.showPrefs() },
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
@@ -33,7 +33,6 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         ctrl.module()?.prefNodes(redraw),
         pushTalkSetting(ctrl),
       ]),
-    ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
 }
 
@@ -54,11 +53,9 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
   return hl('div.voice-setting', [
-    hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
+    hl('label.cmn-toggle-wrap', { attrs: { title: i18n.voiceCommands.holdShiftKeyWhileSpeaking } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
-      'Push ',
-      hl('strong', 'shift'),
-      ' key to talk',
+      ...i18n.voiceCommands.pushShiftKeyToTalk.asArray(hl('kbd', 'Shift')),
     ]),
   ]);
 }
@@ -67,7 +64,7 @@ function langSetting(ctrl: VoiceCtrl) {
   return (
     supportedLangs.length > 1 &&
     hl('div.voice-setting', [
-      hl('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      hl('label', { attrs: { for: 'voice-lang' } }, i18n.site.language),
       hl(
         'select#voice-lang',
         {
@@ -97,7 +94,7 @@ const nullMic: MediaDeviceInfo = {
 let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return hl('div.voice-setting', [
-    hl('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
+    hl('label', { attrs: { for: 'voice-mic' } }, i18n.voiceCommands.microphone),
     hl(
       'select#voice-mic',
       {
@@ -118,14 +115,14 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
               selected: d.deviceId === ctrl.micId(),
             },
           },
-          d.label,
+          d.deviceId === 'null' ? i18n.voiceCommands.noneSelected : d.label,
         ),
       ),
     ),
   ]);
 }
 
-function renderHelpModal(ctrl: VoiceCtrl) {
+export function openHelpDialog(ctrl: VoiceCtrl): Promise<Dialog> {
   const showMoveList = (dlg: Dialog) => {
     let html = '<table class="big-table"><tbody>';
     const all =
@@ -147,7 +144,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.dialog.open) dlg.show();
   };
 
-  return snabDialog({
+  return snabDialogAtRoot({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],

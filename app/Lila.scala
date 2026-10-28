@@ -1,10 +1,9 @@
 package lila.app
 
-import org.apache.pekko.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.inject.DefaultApplicationLifecycle
+import org.apache.pekko.actor.ActorSystem
 import play.api.http.{ FileMimeTypes, HttpRequestHandler }
-import play.api.inject.ApplicationLifecycle
+import play.api.inject.{ ApplicationLifecycle, DefaultApplicationLifecycle }
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*

@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Отменить и оставить мой аккаунт</string>
   <string name="closeAccountAreYouSure">Вы уверены, что хотите закрыть аккаунт?</string>
   <string name="thisAccountIsClosed">Этот аккаунт закрыт.</string>
+  <string name="wereSorryToSeeYouGo">Нам жаль, что Вы уходите.</string>
+  <string name="closeAccountForeverLabel">Закрыть навсегда: без возможности восстановления</string>
+  <string name="closeAccountForeverWarning">Запретить повторное открытие аккаунта в будущем. Если Вы отметите этот пункт, даже администраторы не смогут восстановить Ваш аккаунт по Вашей просьбе.</string>
+  <string name="deleteYourAccount">Удалить свой аккаунт</string>
+  <string name="deleteAccountWarning">После удаления Ваш аккаунт полностью стирается из Lichess, и наши администраторы не смогут вернуть его Вам.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Хотите вместо этого %s?</string>
+  <string name="closeYourAccount">закрыть свой аккаунт</string>
+  <string name="deleteAccountConfirmText">Я понимаю, что удалённые аккаунты не подлежат восстановлению</string>
 </resources>

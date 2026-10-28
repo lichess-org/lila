@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">解説記号を入れる</string>
   <string name="theChapterIsTooShortToBeAnalysed">章が短すぎて解析できません。</string>
   <string name="onlyContributorsCanRequestAnalysis">コンピュータ解析を要請できるのは投稿参加者だけです。</string>
-  <string name="getAFullComputerAnalysis">主手順についてサーバ上でのコンピュータ解析を行なう。</string>
   <string name="makeSureTheChapterIsComplete">章が完成したか確認してください。解析の要請は 1 回だけです。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
@@ -119,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">同期しない＝各人が自由に閲覧</string>
   <string name="pinnedStudyComment">優先表示コメント</string>
   <string name="start">開始</string>
-  <string name="save">保存</string>
   <string name="clearChat">チャットを消去</string>
   <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="deleteStudy">研究を削除</string>
@@ -184,7 +182,6 @@
   <string name="customPositionTitle">自由配置局面</string>
   <string name="customPositionText">駒を好きなように配置します。&lt;br&gt;終盤の研究に最適です。</string>
   <string name="loadGameFromTheWebTitle">ウェブから棋譜を読み込み</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lichess の対局の URL&lt;br&gt;（例：lichess.org/7fHIU0XI）&lt;br&gt;をペーストすると章内にその手順が読み込めます。</string>
   <string name="fromFenStringTitle">FEN の局面から</string>
   <string name="fromFenStringText">FEN 形式の局面&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;をペーストするとその局面から章が始まります。</string>
   <string name="fromPgnGameTitle">PGN の棋譜から</string>
@@ -195,4 +192,9 @@
   <string name="doubleDefeat">両者負け</string>
   <string name="blackDefeatWhiteCanNotWin">黒負け白1/2ポイント</string>
   <string name="whiteDefeatBlackCanNotWin">白負け黒1/2ポイント</string>
+  <string name="analysisEditor">解析エディタ</string>
+  <string name="clearLocal">ローカル解析をクリアしますか？</string>
+  <string name="clearPublished">公開した解析をクリアしますか？</string>
+  <string name="requestAServerAnalysis">サーバ解析をリクエスト</string>
+  <string name="analyzeOnYourDevice">デバイス内で解析</string>
 </resources>

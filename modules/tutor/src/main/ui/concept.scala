@@ -1,9 +1,9 @@
 package lila.tutor
 package ui
 
+import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightMetric, Phase }
 import lila.ui.ScalatagsTemplate.*
-import lila.common.LilaOpeningFamily
 
 sealed class TutorConcept(
     val name: String,

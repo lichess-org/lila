@@ -67,6 +67,8 @@
   <string name="bellNotificationSound">Zvok obvestila zvonca</string>
   <string name="blindfold" comment="As in Blindfold chess">Šah z zavezanimi očmi</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Prikaži na levi strani na mobilnih napravah</string>
+  <string name="showMainlineAnalysis">Prikaži analizo glavne linije</string>
+  <string name="showTrappedPieces">Prikaži ujete figure</string>
   <string name="network">Omrežje</string>
   <string name="youAreCurrentlyUsingDirectRouting">Trenutno uporabljate neposredno usmerjanje.</string>
   <string name="youAreCurrentlyUsingCdnRouting">Trenutno uporabljate usmerjanje prek omrežja za dostavo vsebine (CDN).</string>

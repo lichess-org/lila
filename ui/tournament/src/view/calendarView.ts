@@ -113,8 +113,8 @@ function timeString(hour: number) {
 }
 
 function makeGroups(days: Date[]): Date[][] {
-  const groups: Date[][] = [],
-    chunk = 10;
+  const groups: Date[][] = [];
+  const chunk = 10;
   for (let i = 0; i < days.length; i += chunk) groups.push(days.slice(i, i + chunk));
   return groups;
 }

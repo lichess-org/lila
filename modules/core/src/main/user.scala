@@ -1,9 +1,9 @@
 package lila.core
 
-import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
-import _root_.chess.FideId
+import _root_.chess.{ ByColor, Color, FideId, IntRating, PlayerTitle }
+import alleycats.Zero
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -11,13 +11,13 @@ import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.{ Days, LangTag }
 
+import lila.core.data.Url
 import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
-import lila.core.userId.*
-import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
+import lila.core.plan.{ PatronColorChoice, PatronMonths, PatronTier }
 import lila.core.rating.UserRankMap
-import lila.core.data.Url
+import lila.core.userId.*
 
 object user:
 
@@ -69,7 +69,7 @@ object user:
 
     def everLoggedIn = seenAt.exists(createdAt != _)
 
-    def lame = marks.boost || marks.engine
+    def lame = marks.lame
     def lameOrTroll = lame || marks.troll
 
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
@@ -302,6 +302,8 @@ object user:
       def prizeban: Boolean = hasMark(UserMark.prizeban)
       def arenaBan: Boolean = hasMark(UserMark.arenaban)
       def alt: Boolean = hasMark(UserMark.alt)
+      def lame: Boolean = boost || engine
+    given Zero[UserMarks] = Zero(Nil)
 
   abstract class UserRepo(val coll: BSONCollection):
     given userHandler: BSONDocumentHandler[User]
@@ -394,4 +396,4 @@ object user:
         perfs: Option[UserPerfs | KeyedPerf],
         withProfile: Boolean,
         rankMap: Option[UserRankMap] = None
-    ): JsObject
+    )(using Option[Me]): JsObject

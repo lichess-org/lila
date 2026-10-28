@@ -1,6 +1,6 @@
 package lila.relay
 
-import lila.study.{ StudyRepo, Study, StudyApi }
+import lila.study.{ Study, StudyApi, StudyRepo }
 
 /* Propagates study changes across all studies of a broadcast,
  * or even all studies of all broadcasts of the group */

@@ -2,9 +2,9 @@ package lila.coach
 
 import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi
 import lila.rating.UserPerfsExt.bestStandardRating
-import lila.memo.CacheApi.buildAsyncTimeout
 
 final class CoachApi(
     coll: Coll,

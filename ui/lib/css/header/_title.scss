@@ -36,22 +36,22 @@
     display: none;
     font-size: 24px;
 
-    @media (height >= $tall) {
+    @media (min-height: at-least($tall)) {
       font-size: 36px;
     }
   }
 
-  @media (width < $xx-small) {
+  @media (max-width: at-most($xx-small)) {
     display: none;
   }
 
-  @media (width >= $xx-small) {
+  @media (min-width: at-least($xx-small)) {
     .site-icon {
       display: block;
     }
   }
 
-  @media (width >= $large) {
+  @media (min-width: at-least($large)) {
     .site-name {
       display: block;
     }
@@ -61,7 +61,7 @@
     }
   }
 
-  @media (width >= $xx-large) {
+  @media (min-width: at-least($xx-large)) {
     .site-icon {
       display: block;
     }

@@ -4,9 +4,9 @@ import chess.FideTC
 import reactivemongo.api.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
+import lila.core.fide.FidePlayerOrder
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.core.fide.FidePlayerOrder
 
 final class FidePaginator(repo: FideRepo)(using Executor):
 

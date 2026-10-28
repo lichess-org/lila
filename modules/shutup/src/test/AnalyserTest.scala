@@ -53,7 +53,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("Epstein Trump criminal heretic murderer felon traitor liar"), Nil)
 
   test("find badly spelled words"):
-    assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
+    assertEquals(find("cheatedd cheaterr chiter"), List("cheatedd", "cheaterr", "chiter"))
     assertEquals(find("kil u killl u pnis pusy quer"), List("kil u", "killl u", "pnis", "pusy", "quer"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
@@ -110,8 +110,17 @@ class AnalyserTest extends munit.FunSuite:
   test("hindi inflection"):
     assertEquals(find("laude krle"), List("laude krle"))
 
+  test("portuguese"):
+    assertEquals(find("lixo"), List("lixo"))
+
   test("spanish inflection"):
     assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
+
+  test("arabizi"):
+    assertEquals(
+      find("kiss immak kosomak kess ekhtak sharmouta khara"),
+      List("kiss immak", "kosomak", "kess ekhtak", "sharmouta", "khara")
+    )
 
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))

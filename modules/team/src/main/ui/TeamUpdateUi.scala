@@ -1,9 +1,9 @@
 package lila.team
 package ui
 
+import lila.core.config.NetDomain
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.config.NetDomain
 
 final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache)(using NetDomain):
 

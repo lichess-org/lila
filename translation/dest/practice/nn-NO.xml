@@ -50,4 +50,21 @@
   <string name="stDesTheyHaveTooMuchWork">Dei har for mye å gjera</string>
   <string name="stDesInBetweenMoves">\"Zwischenzug\"</string>
   <string name="stDesAttackingThroughAnEnemyPiece">Åtak gjennom motspelarbrikke</string>
+  <string name="stDesBeingForcedToMove">Å måtte trekke</string>
+  <string name="stDesInterposeAPieceToGreatEffect">Du kan få stor verknad av å plassere ei brikke slik at det bryt sambandet mellom motstandarbrikker</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">Studer offeret trojansk hest (eller \"gresk gåve\")</string>
+  <string name="stDesDistractingADefender">Distraher ein forsvarar</string>
+  <string name="stDesLureAPieceToABadSquare">Lokk ei brikke til eit dårleg felt</string>
+  <string name="stDesPromoteButNotToAQueen">Omvandle - men ikkje til dronning!</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">Eti brikke er tapt, men kanskje ikke fåfengd</string>
+  <string name="stDesRespondToACheckWithACheck">Svar på ein sjakk med ein sjakk</string>
+  <string name="stDesRemoveTheDefendingPiece">Fjern forsvararbrikka</string>
+  <string name="stDesGetOutOfTheWay">Av vegen med deg!</string>
+  <string name="stDesReachAKeySquare">Nå fram til eit viktig felt</string>
+  <string name="stDesTakeTheOpposition">Ta opposisjon</string>
+  <string name="stDesVersusAQueen">Mot ei dronning</string>
+  <string name="stDesAndPassiveRookVsRook">Og passivt tårn mot tårn</string>
+  <string name="stDesLucenaAndPhilidor">Lucena og Philidor</string>
+  <string name="stDesBroadenYourKnowledge">Utvid kunnskapen din</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Tårnsluttspel med fleire bønder</string>
 </resources>

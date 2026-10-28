@@ -1,15 +1,14 @@
 package lila.gathering
 
+import chess.IntRating
 import play.api.data.Forms.*
 import play.api.data.Mapping
 import scalalib.model.Days
-import chess.IntRating
 
 import lila.common.Form.{ *, given }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam
 import lila.gathering.Condition.*
-import lila.core.i18n.I18nKey as trans
-import lila.core.i18n.Translate
 
 object ConditionForm:
 

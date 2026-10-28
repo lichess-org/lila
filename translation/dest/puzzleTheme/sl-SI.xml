@@ -25,7 +25,6 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Lovca na križajočih se diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
   <string name="castling">Rokada</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Umik kralja na varno in razporeditev trdnjave za napad.</string>
   <string name="capturingDefender">Zajem branilca</string>
   <string name="capturingDefenderDescription">Odstranitev figure, ki je ključna za obrambo druge figure, kar omogoča, da se nezaščitena figura zajame z naslednjo potezo.</string>
@@ -57,6 +56,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="doubleCheckDescription">Napad na kralja z dvema figurama naenkrat, kot rezultat odkritega napada, kjer tako premikajoča se figura kot tudi razkrita figura napadata nasprotnikovega kralja.</string>
   <string name="endgame">Končnica</string>
   <string name="endgameDescription">Taktika v zadnji fazi partije.</string>
+  <string name="enPassant">En passant</string>
   <string name="epauletteMate">Epoleta mat</string>
   <string name="epauletteMateDescription">Dve sosednji polji za pobeg pri šahovskem kralju sta zasedeni z drugimi figurami.</string>
   <string name="exposedKing">Izpostavljeni kralj</string>

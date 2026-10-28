@@ -1,21 +1,22 @@
 package lila.relay
 
+import chess.{ ByColor, Rated }
 import io.mola.galimatias.URL
-import chess.{ Rated, ByColor }
 import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
+
 import lila.common.Form.{
-  cleanText,
+  LocalDateTimeOrTimestamp,
+  byColor,
   cleanNonEmptyText,
+  cleanText,
   formatter,
   into,
-  stringIn,
-  LocalDateTimeOrTimestamp,
   partial,
-  byColor
+  stringIn
 }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync

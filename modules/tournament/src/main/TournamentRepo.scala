@@ -21,8 +21,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] val scheduledButNotHourly =
     scheduledSelect ++ bdoc("schedule.freq".neq(Schedule.Freq.Hourly))
   private def forTeamSelect(id: TeamId) = bdoc("forTeams" -> id)
-  private def forTeamsSelect(ids: Seq[TeamId]) = bdoc("forTeams".in(ids))
+  private def forTeamsSelect(ids: Iterable[TeamId]) = bdoc("forTeams".in(ids))
   private def sinceSelect(date: Instant) = bdoc("startsAt".gt(date))
+  private def recentOrUpcomingSelect = sinceSelect(nowInstant.minusDays(1))
   private def variantSelect(variant: Variant) =
     if variant.standard then bdoc("variant".exists(false))
     else bdoc("variant" -> variant.id)
@@ -137,17 +138,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .sort(sort.desc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
 
-  private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
-    (nb > 0).so:
-      coll
-        .find(
-          forTeamSelect(teamId) ++ enterableSelect ++ bdoc(
-            "startsAt".gt(nowInstant.minusDays(1))
-          )
-        )
-        .sort(sort.asc("startsAt"))
-        .cursor[Tournament](ReadPref.sec)
-        .list(nb)
+  private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) = (nb > 0).so:
+    coll
+      .find(
+        forTeamSelect(teamId) ++ enterableSelect ++ recentOrUpcomingSelect
+      )
+      .sort(sort.asc("startsAt"))
+      .cursor[Tournament](ReadPref.sec)
+      .list(nb)
 
   private[tournament] def finishedByTeam(teamId: TeamId, nb: Int) =
     (nb > 0).so:
@@ -157,8 +155,19 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         .cursor[Tournament](ReadPref.sec)
         .list(nb)
 
+  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Tournament]] =
+    (teamIds.nonEmpty && nb > 0).so:
+      coll
+        .find(forTeamsSelect(teamIds) ++ enterableSelect ++ recentOrUpcomingSelect)
+        .sort(sort.asc("startsAt"))
+        .cursor[Tournament](ReadPref.sec)
+        .list(nb)
+
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
     coll.update.one(bid(tourId), addToSet("forTeams" -> teamId))
+
+  private[tournament] def removeForTeamsNotIn(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.update.one(bid(tourId), pull("forTeams".nin(teamIds)))
 
   def isForTeam(tourId: TourId, teamId: TeamId) =
     coll.exists(bid(tourId) ++ bdoc("forTeams" -> teamId))
@@ -335,7 +344,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def remove(tour: Tournament) = coll.delete.one(bid(tour.id))
 
-  def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
+  private[tournament] def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
     coll
       .find:
         bdoc(
@@ -346,7 +355,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament](ReadPref.sec)
       .list(500)
 
-  def anonymize(tour: Tournament, u: UserId) = for
+  private[tournament] def anonymize(tour: Tournament, u: UserId) = for
     _ <- tour.winnerId.has(u).so(coll.updateField(bid(tour.id), "winner", UserId.ghost).void)
     _ <- tour.createdBy.is(u).so(coll.updateField(bid(tour.id), "createdBy", UserId.ghost).void)
   yield ()

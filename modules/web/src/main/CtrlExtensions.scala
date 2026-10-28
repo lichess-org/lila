@@ -2,7 +2,7 @@ package lila.web
 
 import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.BaseUrl
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
@@ -29,7 +29,12 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES -> "0"
     )
-    def headerCacheSeconds(seconds: Int) = result.withHeaders(CACHE_CONTROL -> s"max-age=$seconds")
+    def headerCache(duration: FiniteDuration): Result =
+      result.withHeaders(CACHE_CONTROL -> s"max-age=${duration.toSeconds.toInt}")
+    def headerCache(duration: Option[FiniteDuration]): Result =
+      duration.fold(result)(headerCache)
+    def vary(headers: String*) = result.withHeaders(VARY -> headers.mkString(", "))
+    def varyAccept = vary("Accept")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =

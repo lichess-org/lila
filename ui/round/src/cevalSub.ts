@@ -22,8 +22,8 @@ export function subscribe(ctrl: RoundController): void {
   storage.fire('ceval.disable');
 
   storage.make('ceval.fen').listen(e => {
-    const d = ctrl.data,
-      step = lastStep(ctrl.data);
+    const d = ctrl.data;
+    const step = lastStep(ctrl.data);
     if (
       !found &&
       step.ply > 14 &&

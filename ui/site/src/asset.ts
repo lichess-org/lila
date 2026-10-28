@@ -8,7 +8,7 @@ export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url'
 const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
-  const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
+  const base = opts.pathOnly ? '' : baseUrl();
   const pathVersion = !opts.pathVersion
     ? ''
     : opts.pathVersion === true
@@ -25,7 +25,7 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____4' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____5' });
 
 // bump fide fed version if a fide fed is changed only (not added or removed)
 export const fideFedSrc = (fideFed: FideFed) =>

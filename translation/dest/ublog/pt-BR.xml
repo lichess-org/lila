@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunidade</string>
   <string name="communityBlogs">Blogs da comunidade</string>
+  <string name="best">Melhor</string>
+  <string name="all">Todos</string>
   <string name="byMonth">Por mês</string>
   <string name="byTopic">Por tópico</string>
   <string name="byLichess">Pelo Lichess</string>
@@ -59,6 +61,17 @@
   <string name="deleteBlog">Excluir esta postagem definitivamente</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Os sites a seguir oferecem imagens gratuitas. Certifique-se de cumprir as condições de licenciamento referentes à imagem utilizada.</string>
   <string name="selectPostTopics">Selecione os assuntos da sua postagem</string>
+  <string name="topicChess">Xadrez</string>
+  <string name="topicPuzzle">Problemas</string>
+  <string name="topicTactics">Táticas</string>
+  <string name="topicStrategy">Estratégia</string>
+  <string name="topicChessEngine">Engine de xadrez</string>
+  <string name="topicChessBot">Bot de xadrez</string>
+  <string name="topicChessPersonalities">Personalidades de xadrez</string>
+  <string name="topicOverTheBoard">Sobre o Tabuleiro</string>
+  <string name="topicSoftwareDevelopment">Desenvolvimento de Software</string>
+  <string name="topicOffTopic">Fora do tópico</string>
+  <string name="topicPosts">%s publicações</string>
   <string name="etiquette">Etiqueta</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
   <string name="noCopyrightedImages">Apenas use imagens que não são protegidas por direitos autorais por outra pessoa.</string>

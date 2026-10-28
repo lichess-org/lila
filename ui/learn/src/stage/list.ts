@@ -116,7 +116,7 @@ export const categs: Categ[] = rawCategs.map(c => ({
   stages: c.stages.map(s => ({ ...s, id: stageId++ })),
 }));
 
-const stages: Stage[] = categs.reduce<Stage[]>((prev, c) => prev.concat(c.stages), []);
+const stages: Stage[] = categs.flatMap(c => c.stages);
 
 const stagesByKey: Record<string, Stage> = Object.fromEntries(stages.map(s => [s.key, s]));
 

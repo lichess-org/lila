@@ -51,7 +51,7 @@ final class PracticeUi(helpers: Helpers)(
               img(
                 cls := "practice-side__decoration",
                 alt := "Decorative image of a robotic golem",
-                src := assetUrl("images/practice/robot-golem.svg")
+                src := assetPath("images/practice/robot-golem.svg")
               ),
               div(cls := "practice-side__title")(
                 h1(trans.site.practice()),
@@ -81,20 +81,17 @@ final class PracticeUi(helpers: Helpers)(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
                     val stateClas =
-                      if prog.complete then "done" else if prog.done > 0 then "ongoing" else "future";
+                      if prog.complete then "done" else if prog.done > 0 then "ongoing" else "future"
                     a(
-                      cls := s"study ${stateClas}",
+                      cls := s"study $stateClas",
                       href := routes.Practice.show(section.id, stud.slug, stud.id)
                     )(
-                      ctx.isAuth.option(
-                        span(cls := "ribbon-wrapper")(
-                          span(cls := s"ribbon ${stateClas}")(
-                            prog.done,
-                            " / ",
-                            prog.total
-                          )
-                        )
-                      ),
+                      ctx.isAuth.option:
+                        span(cls := "ribbon-wrapper"):
+                          span(cls := s"ribbon $stateClas"):
+                            if prog.complete then trans.site.done()
+                            else s"${prog.done} / ${prog.total}"
+                      ,
                       iconTag(cls := stud.id),
                       span(cls := "text")(
                         h3(stud.name()),

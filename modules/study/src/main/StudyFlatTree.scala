@@ -2,8 +2,8 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.mon.Chronometer.syncMon
 import lila.db.dsl.*
+import lila.mon.Chronometer.syncMon
 import lila.tree.{ Branch, Branches, Root }
 
 import BSONHandlers.{ readBranch, writeBranch }

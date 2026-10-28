@@ -34,10 +34,11 @@
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
   <string name="deleteRound">Die Rundi lösche</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Die Rundi und all Schpiel für immer lösche?</string>
   <string name="deleteAllGamesOfThisRound">Lösch alli Schpiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
   <string name="editRoundStudy">Runde-Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">S\'Turnier permanent lösche, inklusivi allne Runde und Partie?</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Das Turnier, mit allne Runde und Schpiel, für immer lösche?</string>
   <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="fideFederations">FIDE Wältschachverband</string>
@@ -107,6 +108,7 @@
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Schpiel %s</string>
   <string name="knockouts">Usscheidigskämpf</string>
+  <string name="pinPlayer">Pin Schpieler</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

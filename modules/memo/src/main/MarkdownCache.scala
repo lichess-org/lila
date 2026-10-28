@@ -3,10 +3,10 @@ package lila.memo
 import scalalib.future.TimeoutException
 
 import lila.common.Bus
+import lila.core.config
+import lila.core.misc.lpv.{ Lpv as LpvBus, LpvEmbed }
 import lila.markdown.{ MarkdownRender, MarkdownToastUi }
 import lila.mon.extensions.*
-import lila.core.config
-import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
 
 case class MarkdownOptions(
     autoLink: Boolean = false,
@@ -22,14 +22,14 @@ case class MarkdownOptions(
     toastUi: Boolean = false,
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
-    allowedTags: Set[String] = Set.empty
+    allowedTags: Set[String] = Set.empty,
+    linkRel: String = "noreferrer nofollow"
 )
 
-final class MarkdownCache(
-    cacheApi: CacheApi,
-    netDomain: config.NetDomain,
-    assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
+    mode: play.api.Mode,
+    netDomain: config.NetDomain
+):
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
@@ -77,7 +77,7 @@ final class MarkdownCache(
           case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
         .void
 
-    def expand = MarkdownRender.PgnSourceExpand(netDomain, cache.getIfPresent)
+    def expand = MarkdownRender.PgnSourceExpand(cache.getIfPresent)
 
   private def getRenderer(opts: MarkdownOptions): MarkdownRender =
     renderMap.getOrElseUpdate(
@@ -95,8 +95,9 @@ final class MarkdownCache(
         sourceMap = opts.sourceMap,
         removeHtmlEntities = opts.removeHtmlEntities,
         allowedTags = opts.allowedTags,
+        linkRel = opts.linkRel,
         pgnExpand = pgnCache.expand.some,
-        assetDomain = assetDomain.some
+        netDomain = netDomain.some
       )
     )
 

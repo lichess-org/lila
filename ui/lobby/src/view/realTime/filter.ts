@@ -7,12 +7,12 @@ import * as xhr from 'lib/xhr';
 import type LobbyController from '@/ctrl';
 
 function initialize(ctrl: LobbyController, el: FilterNode) {
-  const f = ctrl.filter.data?.form,
-    $div = $(el),
-    $ratingRange = $div.find('.rating-range'),
-    $rangeInput = $ratingRange.find('input[name="ratingRange"]'),
-    $minInput = $ratingRange.find('.rating-range__min'),
-    $maxInput = $ratingRange.find('.rating-range__max');
+  const f = ctrl.filter.data?.form;
+  const $div = $(el);
+  const $ratingRange = $div.find('.rating-range');
+  const $rangeInput = $ratingRange.find('input[name="ratingRange"]');
+  const $minInput = $ratingRange.find('.rating-range__min');
+  const $maxInput = $ratingRange.find('.rating-range__max');
 
   if (f)
     Object.keys(f).forEach(k => {

@@ -1,16 +1,16 @@
 package lila.relay
 
-import org.apache.pekko.stream.scaladsl.*
+import chess.format.pgn.{ PgnStr, Tag }
 import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
 import play.api.mvc.RequestHeader
 import reactivemongo.pekkostream.cursorProducer
-import chess.format.pgn.{ Tag, PgnStr }
 
 import lila.common.Bus
 import lila.db.dsl.*
-import lila.study.{ ChapterRepo, PgnDump, StudyRepo, Study, Chapter }
 import lila.relay.BSONHandlers.given
 import lila.relay.RelayRoundRepo.selectors.notLongFinished
+import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
 
 final class RelayPgnStream(
     roundRepo: RelayRoundRepo,

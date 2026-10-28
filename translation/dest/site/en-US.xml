@@ -460,6 +460,8 @@ Playing rated games will increase stability.</string>
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Friends online: %1$s
+Friends playing: %2$s</string>
   <string name="favoriteOpponents">Favorite opponents</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>
@@ -582,14 +584,12 @@ Playing rated games will increase stability.</string>
   <string name="reportAUser">Report a user</string>
   <string name="user">User</string>
   <string name="reason">Reason</string>
-  <string name="whatIsIheMatter">What\'s the matter?</string>
   <string name="cheat">Cheat</string>
   <string name="troll">Troll</string>
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste a link to the game(s) and explain what is wrong with this user\'s behavior. Don\'t just say \"they cheat,\" but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don\'t just say \"it\'s offensive/inappropriate,\" but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">We can process your report faster if you write in English.</string>
-  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -628,6 +628,7 @@ Playing rated games will increase stability.</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
+  <string name="drawAndDefeat">Draw and Defeat</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
@@ -692,7 +693,9 @@ Playing rated games will increase stability.</string>
   <string name="aboutX">About %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
+  <string name="lichessUpdates">Lichess updates</string>
   <string name="contribute">Contribute</string>
+  <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
@@ -775,7 +778,9 @@ Playing rated games will increase stability.</string>
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
+  <string name="downloadMyGames">Download my games</string>
   <string name="downloadAllGames">Download all games</string>
+  <string name="downloadResults">Download results</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
@@ -1025,8 +1030,6 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organizing events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
   <string name="accessibility">Accessibility</string>

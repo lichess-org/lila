@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
+  <string name="multipleChoices">Несколько вариантов.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Может быть отключено во время игры вместе с меню доски</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Игра вслепую</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Показывать слева на мобильных устройствах</string>
   <string name="inlineNotation">Строчная нотация</string>
-  <string name="showServerAnalysis">Показывать серверный анализ</string>
+  <string name="showMainlineAnalysis">Показывать анализ основного варианта</string>
   <string name="showBestMoveArrows">Показывать стрелки лучших ходов</string>
   <string name="showManeuverArrows">Показывать стрелки возможных ходов</string>
   <string name="showGauge">Показывать шкалу оценки</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Показывать незащищённые фигуры</string>
   <string name="showPinnedPieces">Показывать связанные фигуры</string>
   <string name="showCheckableKing">Показывать угрозу шаха</string>
+  <string name="showTrappedPieces">Показывать пойманные фигуры</string>
   <string name="disclosureMode">Включить скрытие вариантов</string>
   <string name="generalSettings">Общие</string>
   <string name="moveListSettings">Список ходов</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Настройки анализа</string>
   <string name="maneuverArrowsHelp">Последовательность предлагаемых движком ходов для одной фигуры</string>
   <string name="hoverOverSettingLabelsForHelp">Наведите поверх метки настройки для подсказки</string>
+  <string name="network">Сеть</string>
+  <string name="youAreCurrentlyUsingDirectRouting">В настоящее время Вы используете прямую маршрутизацию.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">В настоящее время Вы используете маршрутизацию через сеть доставки контента (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Если у Вы часто происходят обрывы соединения, попробуйте изменить маршрутизацию.</string>
+  <string name="useDirectRouting">Использовать прямую маршрутизацию</string>
+  <string name="useCdnRouting">Использовать маршрутизацию CDN</string>
 </resources>

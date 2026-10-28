@@ -127,6 +127,10 @@ interface I18n {
     allowBerserk: string;
     /** Let players halve their clock time to gain an extra point */
     allowBerserkHelp: string;
+    /** Allow bot accounts */
+    allowBotAccounts: string;
+    /** Let <a href='%s' target='_blank'>bots</a> join the tournament and play with their engines. This often repels human players. */
+    allowBotAccountsDescription: I18nFormat;
     /** Let players discuss in a chat room */
     allowChatHelp: string;
     /** Arena */
@@ -167,6 +171,8 @@ interface I18n {
     editTeamBattle: string;
     /** Edit tournament */
     editTournament: string;
+    /** Entry conditions */
+    entryConditions: string;
     /** Arena History */
     history: string;
     /** How are players paired? */
@@ -227,6 +233,8 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
+    /** Start date */
+    startDate: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -905,6 +913,8 @@ interface I18n {
     onlyReports: string;
     /** However, you can close your current account, and create a new one. */
     orCloseAccount: string;
+    /** Other bug */
+    otherBug: string;
     /** Other restriction */
     otherRestriction: string;
     /** our Discord server */
@@ -917,12 +927,14 @@ interface I18n {
     reportBugInDiscord: string;
     /** In the Lichess Feedback section of the forum */
     reportBugInForum: string;
-    /** If you faced an error page, you may report it: */
-    reportErrorPage: string;
     /** As a Lichess mobile app issue on GitHub */
     reportMobileIssue: string;
+    /** You may report it: */
+    reportTheBug: string;
     /** As a Lichess website issue on GitHub */
     reportWebsiteIssue: string;
+    /** Security vulnerability */
+    securityVulnerability: string;
     /** You may send an appeal to %s. */
     sendAppealTo: I18nFormat;
     /** Send us an email at %s. */
@@ -975,6 +987,8 @@ interface I18n {
     coordinates: string;
     /** Coordinate training */
     coordinateTraining: string;
+    /** Enter the coordinate */
+    enterTheCoordinate: string;
     /** Find square */
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
@@ -987,6 +1001,8 @@ interface I18n {
     nameSquare: string;
     /** Practice only some files & ranks */
     practiceOnlySomeFilesAndRanks: string;
+    /** Press %s to start */
+    pressEnterToStart: I18nFormat;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -1852,6 +1868,56 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analyse */
+    analyse: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** For the best results in the shortest time, use %1$s with %2$s threads. */
+    bestResultsUseXWithYThreads: I18nFormat;
+    /** Click Analyse to score the main line. */
+    chooseYourEngineSettings: string;
+    /** Current analysis */
+    currentAnalysis: string;
+    /** Downloading %1$s of %2$s */
+    downloadingXofY: I18nFormat;
+    /** Keep this browser tab active during analysis */
+    keepThisBrowserTabActive: string;
+    /** Local */
+    local: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes per move */
+    nodesPerMove: string;
+    /** On the server */
+    onTheServer: string;
+    /** Publish */
+    publish: string;
+    /** Published */
+    published: string;
+    /** Quality */
+    quality: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Starting position */
+    startingPosition: string;
+    /** This will take about %s */
+    timeToComplete: I18nFormat;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %sx standard quality */
+    xTimesStandardQuality: I18nFormat;
+    /** %s would be faster */
+    xWouldBeFaster: I18nFormat;
+    /** Your local analysis can be published. */
+    youCanPublish: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;
@@ -1859,6 +1925,8 @@ interface I18n {
     lichobileNewAppDownload: I18nFormat;
     /** Hello, */
     modActionFeedback: string;
+    /** The old app no longer supports puzzles. Please install the new Lichess app: %s */
+    oldAppNoLongerSupportsPuzzles: I18nFormat;
   };
   nvui: {
     /** Actions */
@@ -2639,6 +2707,8 @@ interface I18n {
     showGauge: string;
     /** Live engine annotations */
     showLiveGlyphs: string;
+    /** Show mainline analysis */
+    showMainlineAnalysis: string;
     /** Show maneuver arrows */
     showManeuverArrows: string;
     /** Show move annotations */
@@ -2647,8 +2717,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
-    /** Show server analysis */
-    showServerAnalysis: string;
+    /** Show trapped pieces */
+    showTrappedPieces: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -3238,6 +3308,48 @@ interface I18n {
     /** That is way too much chess. */
     timeTooMuch: string;
   };
+  report: {
+    /** In the meantime, you can block this user: */
+    blockUserInMeantime: string;
+    /** Cheat */
+    cheat: string;
+    /** The moderators will review it very soon, and take appropriate action. */
+    moderatorsWillReviewSoon: string;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
+    /** Please provide at least one link to a game for review. */
+    provideOneCheatedGameLink: string;
+    /** Read more about Lichess reports */
+    readMoreAboutLichessReports: string;
+    /** Sandbagging / Boosting / Match fixing */
+    reportBoost: string;
+    /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
+    reportCheatBoostHelp: string;
+    /** Harassment / Bullying / Stalking */
+    reportHarass: string;
+    /** Hate Speech / Sexism */
+    reportHate: string;
+    /** Maximum 3000 characters. */
+    reportMaximumCharacters: string;
+    /** Suicide / Self-Injury */
+    reportSelfHarm: string;
+    /** Spamming */
+    reportSpam: string;
+    /** Stalling / Leaving Games */
+    reportStall: string;
+    /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
+    reportUsernameHelp: string;
+    /** Verbal abuse / Cursing / Trolling */
+    reportVerbalAbuse: string;
+    /** Violence / Threats */
+    reportViolence: string;
+    /** Thanks for the report */
+    thanksForTheReport: string;
+    /** Troll */
+    troll: string;
+    /** What's the matter? */
+    whatIsTheMatter: string;
+  };
   search: {
     /** Advanced search */
     advancedSearch: string;
@@ -3741,6 +3853,8 @@ interface I18n {
     discussions: string;
     /** Do it again */
     doItAgain: string;
+    /** Done */
+    done: string;
     /** Done reviewing black's mistakes */
     doneReviewingBlackMistakes: string;
     /** Done reviewing white's mistakes */
@@ -3753,8 +3867,12 @@ interface I18n {
     downloadAnnotated: string;
     /** Download imported */
     downloadImported: string;
+    /** Download my games */
+    downloadMyGames: string;
     /** Download raw */
     downloadRaw: string;
+    /** Download results */
+    downloadResults: string;
     /** Draw */
     draw: string;
     /** Draw and defeat */
@@ -3819,6 +3937,8 @@ interface I18n {
     endgame: string;
     /** Endgame positions */
     endgamePositions: string;
+    /** Engine */
+    engine: string;
     /** Error loading engine */
     engineFailed: string;
     /** Engine settings */
@@ -3845,8 +3965,6 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
     /** Invalid value */
@@ -3909,6 +4027,8 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
+    /** Friends online: %1$s */
+    friendsOnlineAndPlaying: I18nFormat;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
@@ -4171,6 +4291,8 @@ interface I18n {
     message: string;
     /** Middlegame */
     middlegame: string;
+    /** Minimum account age */
+    minimumAccountAge: string;
     /** Minimum rated games */
     minimumRatedGames: string;
     /** Minimum rating */
@@ -4641,6 +4763,8 @@ interface I18n {
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search in "%s" */
+    searchInX: I18nFormat;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */
@@ -4831,6 +4955,8 @@ interface I18n {
     timeline: string;
     /** Time to process a move on Lichess's server */
     timeToProcessAMoveOnLichessServer: string;
+    /** Titled players bypass this restriction. */
+    titledPlayersBypassRestriction: string;
     /** Title verification */
     titleVerification: string;
     /** Today */
@@ -5023,8 +5149,6 @@ interface I18n {
     weHaveSentYouAnEmailClickTheLink: string;
     /** We've sent an email to %s. Click the link in the email to reset your password. */
     weHaveSentYouAnEmailTo: I18nFormat;
-    /** What's the matter? */
-    whatIsIheMatter: string;
     /** What username did you register with? */
     whatSignupUsername: string;
     /** White */
@@ -5409,8 +5533,12 @@ interface I18n {
     allSyncMembersRemainOnTheSamePosition: string;
     /** Alphabetical */
     alphabetical: string;
+    /** Analysis editor */
+    analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Analyse on your device */
+    analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
@@ -5447,6 +5575,10 @@ interface I18n {
     clearAnnotations: string;
     /** Clear chat */
     clearChat: string;
+    /** Clear local analysis? */
+    clearLocal: string;
+    /** Clear published analysis? */
+    clearPublished: string;
     /** Clear variations */
     clearVariations: string;
     /** Clone */
@@ -5537,8 +5669,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the main line. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
@@ -5571,7 +5701,7 @@ interface I18n {
     loadAGameFromPgn: string;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
-    /** Paste a game URL<br>(like lichess.org/7fHIU0XI)<br>to load game moves in the chapter. */
+    /** Paste a game URL<br>(like lichess.org/game/7fHIU0XI)<br>to load game moves in the chapter. */
     loadGameFromTheWebText: string;
     /** Load a game from the web */
     loadGameFromTheWebTitle: string;
@@ -5665,14 +5795,18 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */
     searchByUsername: string;
+    /** Search chapters */
+    searchChapters: string;
+    /** Search games */
+    searchGames: string;
     /** Share & export */
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
@@ -5779,6 +5913,8 @@ interface I18n {
     canPlayRoundRobinTournaments: string;
     /** Comparison */
     comparison: string;
+    /** Custom pairings */
+    customPairings: string;
     /** Predefined max rounds, but duration unknown */
     durationUnknown: string;
     /** Dutch system */
@@ -6035,6 +6171,8 @@ interface I18n {
     teamBattleOverview: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
+    /** Team events */
+    teamEvents: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
     /** Team leaders */
@@ -6053,6 +6191,8 @@ interface I18n {
     teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
+    /** Upcoming team events */
+    upcomingTeamEvents: string;
     /** Upcoming tournaments */
     upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
@@ -6223,6 +6363,10 @@ interface I18n {
     yearlyXArena: I18nFormat;
   };
   ublog: {
+    /** All */
+    all: string;
+    /** Best */
+    best: string;
     /** %s blog posts */
     blogPosts: I18nPlural;
     /** Blog posts by friends */
@@ -6291,6 +6435,8 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Opinions expressed by Lichess contributors are their own. */
+    opinionsExpressedByContributorsAreTheirOwn: string;
     /** Post body */
     postBody: string;
     /** Post intro */
@@ -6323,6 +6469,28 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
+    /** Chess */
+    topicChess: string;
+    /** Chess bot */
+    topicChessBot: string;
+    /** Chess engine */
+    topicChessEngine: string;
+    /** Chess personalities */
+    topicChessPersonalities: string;
+    /** Off topic */
+    topicOffTopic: string;
+    /** Over the board */
+    topicOverTheBoard: string;
+    /** %s posts */
+    topicPosts: I18nFormat;
+    /** Puzzle */
+    topicPuzzle: string;
+    /** Software Development */
+    topicSoftwareDevelopment: string;
+    /** Strategy */
+    topicStrategy: string;
+    /** Tactics */
+    topicTactics: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */
@@ -6331,6 +6499,8 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+    /** You may also like */
+    youMayAlsoLike: string;
   };
   variant: {
     /** Antichess */
@@ -6415,6 +6585,8 @@ interface I18n {
     cancelTimerOrDenyARequest: string;
     /** Castle (either side) */
     castle: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
     instructions1: I18nFormat;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
@@ -6427,12 +6599,18 @@ interface I18n {
     instructions5: string;
     /** %s explains the voice move settings in detail. */
     instructions6: I18nFormat;
+    /** Microphone */
+    microphone: string;
     /** Move to e4 or select e4 piece */
     moveToE4OrSelectE4Piece: string;
+    /** None selected */
+    noneSelected: string;
     /** Phonetic alphabet is best */
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */
     playPreferredMoveOrConfirmSomething: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Select or capture a bishop */
     selectOrCaptureABishop: string;
     /** Show puzzle solution */
@@ -6443,10 +6621,12 @@ interface I18n {
     takeRookWithQueen: string;
     /** This blog post */
     thisBlogPost: string;
-    /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Watch the video tutorial */
     watchTheVideoTutorial: string;
   };

@@ -46,7 +46,7 @@
   <string name="tellUsAboutTheStream">در یک جمله به ما دربارهٔ جریان‌تان بگویید</string>
   <string name="longDescription">توضیحات  طولانی.</string>
   <string name="xStreamerPicture">تصویر جَریانگر %s</string>
-  <string name="changePicture">تصویر خود را تغییر دهید / حذف کنید</string>
+  <string name="changePicture">تغییر/حذف تصویرتان</string>
   <string name="uploadPicture">بارگذاری تصویر</string>
   <string name="maxSize">بیشترین اندازه یا حجم: %s</string>
 </resources>

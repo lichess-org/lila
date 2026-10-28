@@ -65,6 +65,10 @@ team {
     @extend %break-word-hard;
 
     color: $c-font-dim;
+
+    @media (max-width: at-most($xx-small)) {
+      display: none;
+    }
   }
 
   score {

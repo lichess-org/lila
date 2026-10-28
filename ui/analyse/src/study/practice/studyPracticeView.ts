@@ -53,9 +53,9 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 
 export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   if (ctrl.vm.loading) return [h('div.feedback', spinner())];
-  const p = ctrl.practice!,
-    gb = ctrl.gamebookPlay,
-    pinned = ctrl.data.chapter.description;
+  const p = ctrl.practice!;
+  const gb = ctrl.gamebookPlay;
+  const pinned = ctrl.data.chapter.description;
   if (gb) return pinned ? [h('div.feedback.ongoing', [h('div.comment', { hook: richHTML(pinned) })])] : [];
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
@@ -96,8 +96,8 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
 }
 
 export function side(ctrl: StudyCtrl): VNode {
-  const current = ctrl.currentChapter(),
-    data = ctrl.practice!.data;
+  const current = ctrl.currentChapter();
+  const data = ctrl.practice!.data;
 
   return h('div.practice__side', [
     h('div.practice__side__title', [
@@ -109,16 +109,16 @@ export function side(ctrl: StudyCtrl): VNode {
       {
         hook: bindNonPassive('click', e => {
           e.preventDefault();
-          const target = e.target as HTMLElement,
-            id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
+          const target = e.target as HTMLElement;
+          const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
           if (id) ctrl.setChapter(id, true);
           return false;
         }),
       },
       ctrl.chapters.list.all().flatMap(({ id, name }) => {
-        const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current?.id === id,
-          completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
+        const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId;
+        const active = !ctrl.vm.loading && current?.id === id;
+        const completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
         return [
           h(
             'a.ps__chapter',

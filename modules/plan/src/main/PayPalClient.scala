@@ -1,7 +1,5 @@
 package lila.plan
 
-import java.util.Currency
-
 import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
@@ -11,12 +9,14 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme }
 
-import lila.mon.extensions.*
+import java.util.Currency
+
 import lila.common.Json.given
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
 import lila.memo.CacheApi
+import lila.mon.extensions.*
 
 final private class PayPalClient(
     ws: StandaloneWSClient,

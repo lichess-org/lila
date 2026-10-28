@@ -5,10 +5,10 @@ import reactivemongo.api.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
+import lila.core.i18n.I18nKey
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.core.user.{ Flag, UserMark }
-import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 
 final class CoachPager(

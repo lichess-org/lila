@@ -1,7 +1,7 @@
 package lila.gathering
 
-import scalalib.model.Days
 import chess.IntRating
+import scalalib.model.Days
 
 import lila.core.LightUser
 import lila.core.LightUser.Me

@@ -1,10 +1,10 @@
 // no side effects allowed due to re-export by index.ts
 
-import { isMobile } from '@/device';
+import { isFirefox } from '@/device';
 import type { ClientEval } from '@/tree/types';
 import { domDialog } from '@/view';
 
-import { memoize, escapeHtml } from '../index';
+import { escapeHtml } from '../index';
 
 export const useFirstEval = (a: ClientEval, b: ClientEval, desiredPvs: number): boolean =>
   (a.pvs.length === desiredPvs && b.pvs.length !== desiredPvs) || a.nodes >= b.nodes;
@@ -21,10 +21,6 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   if (san[0].toLowerCase() === san[0]) return true; // pawn move
   return variant === 'threeCheck' && san.includes('+');
 }
-
-export const fewerCores: () => boolean = memoize<boolean>(
-  () => isMobile() || navigator.userAgent.includes('CrOS'),
-);
 
 export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
   let shrink = 4; // 32767 -> 24576 -> 16384 -> 12288 -> 8192 -> 6144 -> etc
@@ -70,4 +66,9 @@ export function showEngineError(engine: string, error: string): void {
     dlg.view.querySelector('.err')?.addEventListener('focus', select);
     dlg.show();
   });
+}
+
+export function disableLeakyAtomicsWaitAsync(): void {
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=2077868
+  if (isFirefox()) (Atomics as any).waitAsync = undefined;
 }

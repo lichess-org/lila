@@ -1,15 +1,16 @@
 package lila.ublog
 package ui
 
+import scalalib.model.Language
+import scalalib.paginator.Paginator
+
 import java.time.YearMonth
 import java.time.temporal.ChronoUnit.DAYS
-import scalalib.paginator.Paginator
-import scalalib.model.Language
-import lila.ui.*
-import lila.core.ublog.{ BlogsBy, QualityFilter }
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.ublog.UblogPost.PreviewPost
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
     picfitUrl: lila.memo.PicfitUrl
@@ -27,7 +28,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
-      case _ => assetUrl("images/user-blog-default.png")
+      case _ => assetFullUrl("images/user-blog-default.png")
 
   enum ShowAt:
     case top, bottom, none
@@ -45,9 +46,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )(
       span(
         cls := s"ublog-post-card__top",
-        post.image.isEmpty.option(
-          style := s"---thumb-backdrop-url:url(${assetUrl(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
-        )
+        post.image.isEmpty.option:
+          style := s"---thumb-backdrop-url:url(${assetPath(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live =>
@@ -91,8 +91,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
-      .flag(_.noRobots, !blog.listed):
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), title).some)
+      .flag(_.noRobots, !blog.crawlable):
         main(cls := "page-menu")(
           menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-index")(
@@ -132,12 +132,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(trans.ublog.communityBlogs.txt())
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
-      .copy(
-        atomLinkTag = link(
-          href := routes.Ublog.communityAtom(languageOrAll),
-          st.title := "Lichess community blogs"
-        ).some
-      )
+      .copy(atomLink = (routes.Ublog.communityAtom(languageOrAll), "Lichess community blogs").some)
       .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
           menu(Right("community")),
@@ -225,7 +220,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       using Context
   ) =
     list(
-      title = s"$top posts",
+      title = trans.ublog.topicPosts.txt(top.i18nKey.txt()),
       posts = posts,
       menuItem = "topics",
       route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
@@ -357,7 +352,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  topic.value,
+                  topic.i18nKey(),
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
@@ -389,7 +384,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           )(trans.ublog.community()),
           a(
             cls := isActive("by-month"),
-            href := langHref(routes.Ublog.thisMonth())
+            href := routes.Ublog.thisMonth()
           )(trans.ublog.byMonth()),
           a(cls := isActive("topics"), href := routes.Ublog.topics)(
             trans.ublog.byTopic()
@@ -467,28 +462,30 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     import BlogsBy.*
     val sort = sortOpt | newest
     val filter = filterOpt | QualityFilter.best
-    val filterBtn = (f: QualityFilter) => a(btnCls(filter == f), href := route(f, sort))(f.name)
+    val filterBtn = (f: QualityFilter) =>
+      a(btnCls(filter == f), href := route(f, sort)):
+        f match
+          case QualityFilter.best => trans.ublog.best()
+          case QualityFilter.all => trans.ublog.all()
+          case _ => frag(f.name)
     div(cls := "filter-and-sort")(
-      filterOpt.isDefined.option(
-        span(
-          "Show",
-          span(cls := "btn-rack"):
-            if Granter.opt(_.ModerateBlog) then QualityFilter.values.map(filterBtn)
-            else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
-        )
-      ),
+      filterOpt.isDefined.option:
+        span(cls := "btn-rack"):
+          if Granter.opt(_.ModerateBlog) then QualityFilter.values.map(filterBtn)
+          else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
+      ,
       sortOpt.map: by =>
         span(
-          "Sort",
+          trans.search.sortBy(),
           span(cls := "btn-rack")(
-            a(btnCls(by == likes), href := route(filter, likes))("likes"),
+            a(btnCls(by == likes), href := route(filter, likes))(trans.site.like()),
             by match
               case BlogsBy.newest =>
-                a(btnCls(true, "descending"), href := route(filter, oldest))("date")
+                a(btnCls(true, "descending"), href := route(filter, oldest))(trans.search.date())
               case BlogsBy.oldest =>
-                a(btnCls(true, "ascending"), href := route(filter, newest))("date")
+                a(btnCls(true, "ascending"), href := route(filter, newest))(trans.search.date())
               case _ =>
-                a(btnCls(false, "descending"), href := route(filter, newest))("date")
+                a(btnCls(false, "descending"), href := route(filter, newest))(trans.search.date())
           )
         )
     )
@@ -520,22 +517,23 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         htmlCall = routes.Ublog.index(user.username),
         atomCall = routes.Ublog.userAtom(user.username),
         title = trans.ublog.xBlog.txt(user.username),
-        updated = posts.headOption.flatMap(_.lived).map(_.at)
+        updated = posts.headOption.flatMap(_.lived).map(_.at),
+        language = _.language
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    def community(language: Language, posts: Seq[UblogPost.PreviewPost]) =
+    def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.communityLang(language),
         atomCall = routes.Ublog.communityAtom(language),
         title = "Lichess community blogs",
-        updated = posts.headOption.flatMap(_.lived).map(_.at)
-      ) { post =>
+        updated = posts.headOption.flatMap(_.lived).map(_.at),
+        language = _.language
+      ): post =>
         renderPost(post, authorOfBlog(post.blog))
-      }
 
-    private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
+    private def renderPost(post: UblogPost.PreviewPost, authorName: String)(using Translate) =
       frag(
         tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
@@ -549,7 +547,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         post.topics.map { topic =>
           atomUi.category(
             term = topic.url,
-            label = topic.value,
+            label = topic.i18nKey.txt(),
             scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },

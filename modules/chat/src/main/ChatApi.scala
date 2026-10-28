@@ -1,8 +1,10 @@
 package lila.chat
 
+import cats.data.OptionT
+
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
+import lila.core.chat.{ OnReinstate, OnTimeout, PublicSource }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
@@ -129,16 +131,17 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     )(using mod: MyId): Funit =
-      coll
-        .byId[UserChat](chatId.value)
-        .zip(userApi.me(mod))
-        .zip(userApi.byId(userId))
-        .flatMap:
-          case ((Some(chat), Some(me)), Some(user))
-              if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
-                scope == ChatTimeout.Scope.Local =>
+      def canTimeOut(using Me) =
+        isMod || (busChan(BusChan) == BusChan.study && isRelayMod) || scope == ChatTimeout.Scope.Local
+      val res = for
+        chat <- OptionT(coll.byId[UserChat](chatId.value))
+        me <- OptionT(userApi.me(mod))
+        user <- OptionT(userApi.byId(userId))
+        _ <- OptionT.liftF:
+          canTimeOut(using me).so:
             doTimeout(chat, user, reason, scope, text, busChan)(using me)
-          case _ => funit
+      yield ()
+      res.getOrElse(())
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout

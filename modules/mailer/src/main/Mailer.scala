@@ -1,19 +1,19 @@
 package lila.mailer
 
-import scala.concurrent.blocking
-
+import org.apache.commons.mail.EmailException
 import org.apache.pekko.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
-import org.apache.commons.mail.EmailException
 
-import lila.mon.extensions.*
+import scala.concurrent.blocking
+
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.i18n.Translate
+import lila.mon.extensions.*
 
 final class Mailer(
     config: Mailer.Config,

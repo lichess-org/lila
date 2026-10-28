@@ -175,7 +175,7 @@
         @include topnav-button-highlight;
       }
 
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         a:hover {
           @include topnav-button-highlight;
         }

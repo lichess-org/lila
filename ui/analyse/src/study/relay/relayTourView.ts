@@ -120,9 +120,9 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
 };
 
 const startCountdown = (relay: RelayCtrl) => {
-  const round = relay.round,
-    startsAt = defined(round.startsAt) && new Date(round.startsAt),
-    date = startsAt && hl('time', commonDateFormat(startsAt));
+  const round = relay.round;
+  const startsAt = defined(round.startsAt) && new Date(round.startsAt);
+  const date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     hl('strong', round.name),
     startsAt
@@ -270,19 +270,13 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const { relay, study } = ctx;
   const inputId = 'mselect-relay-tour';
 
-  const updateCheckboxAndToggle = () => {
-    const checkbox = document.querySelector<HTMLInputElement>(`#${inputId}`);
-    if (checkbox) checkbox.checked = false;
-    relay.tourSelectShow(!checkbox);
-  };
-
   return hl(
     'div.mselect.relay-tour__mselect.relay-tour__tour-select',
     {
       class: { mselect__active: relay.tourSelectShow() },
     },
     [
-      hl('input.mselect__toggle', {
+      hl('input.mselect__toggle.mselect__toggle--mask', {
         attrs: { type: 'checkbox', id: inputId },
         on: { change: relay.tourSelectShow.toggle },
       }),
@@ -291,8 +285,7 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
         { attrs: { for: inputId } },
         group.tours.find(t => t.id === relay.data.tour.id)?.name || relay.data.tour.name,
       ),
-      relay.tourSelectShow() && [
-        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+      relay.tourSelectShow() &&
         hl(
           'nav.mselect__list',
           group.tours.map(tour =>
@@ -308,7 +301,6 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
             ),
           ),
         ),
-      ],
     ],
   );
 };
@@ -353,7 +345,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
       class: { mselect__active: relay.roundSelectShow() },
     },
     [
-      hl('input.mselect__toggle', {
+      hl('input.mselect__toggle.mselect__toggle--mask', {
         attrs: { type: 'checkbox', id: inputId },
         on: { change: relay.roundSelectShow.toggle },
       }),
@@ -367,8 +359,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
           hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
         ],
       ),
-      relay.roundSelectShow() && [
-        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+      relay.roundSelectShow() &&
         hl(
           'div.relay-tour__round-select__list.mselect__list',
           {
@@ -411,7 +402,6 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
             ),
           ),
         ),
-      ],
     ],
   );
 };
@@ -448,9 +438,9 @@ const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay } = ctx;
-  const d = relay.data,
-    group = d.group,
-    studyD = ctrl.study?.data.description;
+  const d = relay.data;
+  const group = d.group;
+  const studyD = ctrl.study?.data.description;
 
   return [
     hl('div.relay-tour__header', [
@@ -516,8 +506,8 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
     : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study,
-    relay = study?.relay;
+  const study = ctrl.study;
+  const relay = study?.relay;
   if (!relay) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
@@ -567,8 +557,8 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
 
 const broadcastImageOrStream = (ctx: RelayViewContext) => {
   const { relay, allowVideo } = ctx;
-  const d = relay.data,
-    embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
+  const d = relay.data;
+  const embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
 
   return hl(
     `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,

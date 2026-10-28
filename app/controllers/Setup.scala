@@ -6,8 +6,8 @@ import play.api.mvc.{ EssentialAction, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.socket.Sri
 import lila.core.id.SessionId
+import lila.core.socket.Sri
 import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
@@ -21,8 +21,8 @@ final class Setup(
   import env.setup.{ forms, processor }
 
   def ai = OpenBody:
-    limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
-      limit.setupPost(ctx.ip, rateLimited):
+    limit.setupBotAi(ctx.userId | UserId(""), () => rateLimited): () =>
+      limit.setupPost(ctx.ip, rateLimited()):
         bindForm(forms.ai)(
           doubleJsonFormError,
           config =>
@@ -36,7 +36,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody: ctx ?=>
-      limit.setupPost(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited()):
         bindForm(forms.friend)(
           doubleJsonFormError,
           config =>
@@ -58,7 +58,7 @@ final class Setup(
                     .match
                       case (Some(orig), _) => toRegistered(orig).some
                       case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
-                      case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
+                      case _ if HTTPRequest.isLichobile => Challenger.Open.some
                       case _ => none
                     .so: challenger =>
                       val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
@@ -104,7 +104,7 @@ final class Setup(
           doubleJsonFormError,
           userConfig =>
             limit.setupPost(req.ipAddress, rateLimited):
-              limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
+              limit.setupAnonHook(req.ipAddress, () => rateLimited): () =>
                 for
                   me <- ctx.user.traverse(env.user.api.withPerfs)
                   given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
@@ -120,7 +120,7 @@ final class Setup(
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      limit.setupPost(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited()):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
@@ -141,48 +141,49 @@ final class Setup(
             yield hookResponse(hookResult)
 
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
-    forms
-      .boardApiHook:
-        ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
-      .bindFromRequest()
-      .fold(
-        doubleJsonFormError,
-        config =>
-          for
-            me <- ctx.me.so(env.user.api.withPerfs)
-            blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
-            sri = orUserSri(author)
-            _ = lila.mon.lobby.hook
-              .apiCreate:
-                if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
-                else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
-                else "other"
-              .increment()
-            forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
-            res <- forcedColor.match
-              case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
-              case None =>
-                config
-                  .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
-                  .match
-                    case Left(hook) =>
-                      limit.setupPost(req.ipAddress, rateLimited):
-                        limit
-                          .boardApiConcurrency(author.map(_.id))(
-                            env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                          )(jsOptToNdJson)
-                          .toFuccess
-                    case Right(Some(seek)) =>
-                      author match
-                        case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
-                        case Right(me) =>
-                          env.setup.processor.createSeekIfAllowed(seek, me.id).map {
-                            case HookResult.Refused => JsonBadRequest("Already playing too many games")
-                            case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                          }
-                    case Right(None) => notFoundJson().toFuccess
-          yield res
-      )
+    NoPlaybanOrCurrent:
+      forms
+        .boardApiHook:
+          ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile)
+        .bindFromRequest()
+        .fold(
+          doubleJsonFormError,
+          config =>
+            for
+              me <- ctx.me.so(env.user.api.withPerfs)
+              blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
+              sri = orUserSri(author)
+              _ = lila.mon.lobby.hook
+                .apiCreate:
+                  if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
+                  else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
+                  else "other"
+                .increment()
+              forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
+              res <- forcedColor.match
+                case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
+                case None =>
+                  config
+                    .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
+                    .match
+                      case Left(hook) =>
+                        limit.setupPost(req.ipAddress, rateLimited()):
+                          limit
+                            .boardApiConcurrency(author.map(_.id))(
+                              env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                            )(jsOptToNdJson)
+                            .toFuccess
+                      case Right(Some(seek)) =>
+                        author match
+                          case Left(_) => JsonBadRequest("Anonymous users cannot create seeks").toFuccess
+                          case Right(me) =>
+                            env.setup.processor.createSeekIfAllowed(seek, me.id).map {
+                              case HookResult.Refused => JsonBadRequest("Already playing too many games")
+                              case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                            }
+                      case Right(None) => notFoundJson().toFuccess
+            yield res
+        )
   }
 
   def boardApiHookCancel = WithBoardApiHookAuthor { (author, reqSri) => _ ?=>
@@ -216,7 +217,7 @@ final class Setup(
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) {
     ctx ?=> me ?=>
-      limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
+      limit.setupBotAi(me, () => rateLimited): () =>
         limit.setupPost(req.ipAddress, rateLimited):
           bindForm(forms.api.ai)(
             doubleJsonFormError,

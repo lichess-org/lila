@@ -1,9 +1,10 @@
 package lila.study
 
+import chess.FideId
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 import chess.variant.Variant
-import chess.FideId
+
 import lila.tree.Clock
 
 private case class SetTag(chapterId: StudyChapterId, name: String, value: String):

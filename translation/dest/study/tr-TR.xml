@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Glifler ile açıkla</string>
   <string name="theChapterIsTooShortToBeAnalysed">Bu bölüm analiz için çok kısa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sadece katılımcılar bilgisayar analizi isteyebilir.</string>
-  <string name="getAFullComputerAnalysis">Bu varyant için ayrıntılı bir sunucu analizi yapın.</string>
   <string name="makeSureTheChapterIsComplete">Bu bölümü tamamladığınızdan emin olun. Sadece bir kez bilgisayar analizi talep edebilirsiniz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
   <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
@@ -60,7 +59,7 @@
   <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
-  <string name="copyChapterPgn">PGN \'yi kopyala</string>
+  <string name="copyChapterPgn">PGN\'yi kopyala</string>
   <string name="copyRawChapterPgn">PGN kopyala</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilsin</string>
   <string name="pinnedStudyComment">Çalışma üzerine yorumlar</string>
   <string name="start">Başlat</string>
-  <string name="save">Kaydet</string>
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
@@ -166,7 +164,7 @@
   <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
   <string name="perPage">Sayfa başına %s</string>
   <string name="getTheTour">Yardıma mı ihtiyacın var? Tura başla!</string>
-  <string name="welcomeToLichessStudyTitle">Lichess Dersine Hoşgeldin! </string>
+  <string name="welcomeToLichessStudyTitle">Lichess Dersine Hoş geldin!</string>
   <string name="welcomeToLichessStudyText">Bu paylaşımlı bir analiz panosudur.&lt;br&gt;&lt;br&gt;Oyunları analiz etmek ve not eklemek,&lt;br&gt;arkadaşlarınızla pozisyonları tartışmak,&lt;br&gt;ve tabii ki satranç dersleri için kullanabilirsiniz!&lt;br&gt;&lt;br&gt;Güçlü bir araç, nasıl çalıştığını görmek için biraz zaman ayıralım.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Paylaşıldı ve kaydedildi</string>
   <string name="sharedAndSavedText">Diğer üyeler sizin hareketlerinizi gerçek zamanlı olarak görebilir!&lt;br&gt;Ayrıca, her şey sonsuza kadar kaydedilir.</string>
@@ -188,7 +186,6 @@
   <string name="customPositionTitle">Özel konum</string>
   <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
   <string name="loadGameFromTheWebTitle">Web\'den bir oyun yükle</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Bir oyun linki yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;Oyun hamleleri bölüme yüklenir.</string>
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
   <string name="fromFenStringText">FEN formatında bir pozisyon &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; yapıştırarak bölümü belirli bir yerden başlat.</string>
   <string name="fromPgnGameTitle">PGN oyunundan</string>
@@ -199,4 +196,9 @@
   <string name="doubleDefeat">Çift mağlubiyet</string>
   <string name="blackDefeatWhiteCanNotWin">Siyah kaybetti, ancak beyaz kazanamaz</string>
   <string name="whiteDefeatBlackCanNotWin">Beyaz kaybeder fakat siyah kazanamaz</string>
+  <string name="analysisEditor">Analiz düzenleyici</string>
+  <string name="clearLocal">Yerel analiz temizlensin mi?</string>
+  <string name="clearPublished">Yayımlanan analiz temizlensin mi?</string>
+  <string name="requestAServerAnalysis">Sunucu analizi iste</string>
+  <string name="analyzeOnYourDevice">Kendi Cihazında Analiz Et</string>
 </resources>

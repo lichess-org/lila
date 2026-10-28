@@ -26,6 +26,10 @@
     font-weight: bold;
   }
 
+  pearl.threat {
+    color: hsla(from $c-bad h s l / 0.75);
+  }
+
   .is-red::before {
     vertical-align: -3px;
   }

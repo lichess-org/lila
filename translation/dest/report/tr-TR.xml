@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Problem nedir?</string>
+  <string name="cheat">Hile</string>
+  <string name="troll">Trol</string>
+  <string name="reportStall">Oyunu Yavaşlatma / Oyundan Ayrılma</string>
+  <string name="reportBoost">Bilerek Kötü Oynama / Derece Manipülasyonu / Şike</string>
+  <string name="reportVerbalAbuse">Sözlü Taciz / Küfür / Trolleme</string>
+  <string name="reportViolence">Şiddet / Tehdit</string>
+  <string name="reportHarass">Taciz / Zorbalık / Israrlı Takip</string>
+  <string name="reportSelfHarm">İntihar / Kendine Zarar Verme</string>
+  <string name="reportHate">Nefret Söylemi / Cinsiyetçilik</string>
+  <string name="reportSpam">Spam</string>
+  <string name="readMoreAboutLichessReports">Lichess raporları hakkında daha fazla bilgi edinin</string>
+  <string name="reportMaximumCharacters">En fazla 3000 karakter.</string>
+  <string name="reportCheatBoostHelp">İlgili oyunun (veya oyunların) bağlantısını yapıştırın ve bu kullanıcının davranışındaki sorunun ne olduğunu açıklayın. Sadece \"hile yapıyor\" demekle yetinmeyin, bu sonuca nasıl vardığınızı da belirtin.</string>
+  <string name="reportUsernameHelp">Bu kullanıcı adının neden saldırgan olduğunu açıklayın. Sadece \"saldırgan/uygunsuz\" demekle yetinmeyin; özellikle saldırganlık bariz değilse, İngilizce değilse, argo içeriyorsa ya da tarihi/kültürel bir göndermeyse, bu sonuca nasıl vardığınızı bize anlatın.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Raporunuzu İngilizce yazarsanız daha hızlı işleme alabiliriz.</string>
+  <string name="provideOneCheatedGameLink">Lütfen incelenmesi için en az bir oyun bağlantısı verin.</string>
+</resources>

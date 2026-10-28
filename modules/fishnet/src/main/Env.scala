@@ -1,15 +1,15 @@
 package lila.fishnet
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.config.given
 import lila.common.autoconfig.*
+import lila.common.config.given
 import lila.core.config.*
 
 @Module

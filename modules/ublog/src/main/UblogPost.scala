@@ -1,12 +1,12 @@
 package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-
 import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
-import lila.core.id.ImageId
+
 import lila.core.i18n.{ defaultLanguage, toLanguage }
-import lila.core.ublog.Quality
+import lila.core.id.ImageId
+import lila.ublog.UblogPost.Quality
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -20,7 +20,7 @@ case class UblogPost(
     live: Boolean,
     discuss: Option[Boolean],
     sticky: Option[Boolean],
-    ads: Option[Boolean], // boo!
+    ads: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
@@ -37,10 +37,9 @@ case class UblogPost(
   def isBy[U: UserIdOf](u: U) = created.by.is(u)
   def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
-  def indexable = live && (
+  def crawlable = live && (
     topics.exists(UblogTopic.chessExists) || featured.isDefined || isBy(UserId.lichess)
-  )
-  def visibleByCrawlers = indexable && automod.exists(_.quality != Quality.spam)
+  ) && quality != Quality.spam
   def allText = s"$title $intro $markdown"
   def isEmpty = title.isEmpty && intro.isEmpty && markdown.value.isEmpty && image.isEmpty
 
@@ -80,6 +79,13 @@ case class UblogSimilar(id: UblogPostId, count: Int)
 object UblogPost:
 
   export lila.core.ublog.UblogPost.*
+
+  enum Quality:
+    case spam, weak, good
+    def name = toString
+
+  object Quality:
+    val byName = values.mapBy(_.name) + ("great" -> good)
 
   def empty(user: User) =
     UblogPost(
@@ -136,7 +142,8 @@ object UblogPost:
       lived: Option[Recorded],
       featured: Option[Featured],
       sticky: Option[Boolean],
-      topics: List[UblogTopic]
+      topics: List[UblogTopic],
+      language: Language
   ) extends BasePost
 
   case class Featured(by: UserId, at: Option[Instant], until: Option[Instant] = none)

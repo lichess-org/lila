@@ -23,14 +23,16 @@ trait AssetFullHelper:
 
   def assetVersion = lila.core.net.AssetVersion.current
 
-  def assetUrl(path: String): Url =
-    Url(s"$assetBaseUrl/assets/${manifest.hashed(path).getOrElse(s"_$assetVersion/$path")}")
+  def assetFullUrl(path: String): Url = Url(s"$netBaseUrl/${assetPath(path)}")
+
+  def assetPath(path: String): Path = Path:
+    s"/assets/${manifest.hashed(path).getOrElse(s"_$assetVersion/$path")}"
 
   private val dataCssKey = attr("data-css-key")
   def cssTag(key: String): Frag =
     link(
       dataCssKey := key,
-      href := staticAssetUrl(s"css/${manifest.css(key)}"),
+      href := staticAssetPath(s"css/${manifest.css(key)}"),
       rel := "stylesheet"
     )
 
@@ -43,20 +45,15 @@ trait AssetFullHelper:
 
   def roundNvuiTag(using ctx: Context) = ctx.blind.option(Esm("round.nvui"))
   def cashTag: Frag = iifeModule("javascripts/vendor/cash.min.js")
-  def chessgroundTag: Frag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def chessgroundTag: Frag = script(tpe := "module", src := assetPath("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
-    val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
+    val secure = ctx.req.secure
     // include both ws and wss when insecure because requests may come through a secure proxy
-    val localDev =
-      (!ctx.req.secure).so(List("http://127.0.0.1:3000", "http://localhost:8666"))
-    lila.web.ContentSecurityPolicy.page(
-      netConfig.assetDomain,
-      netConfig.assetDomain.value :: sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
-    )
-
-  def embedCsp: ContentSecurityPolicy =
-    lila.web.ContentSecurityPolicy.embed(netConfig.assetDomain)
+    val sockets = socketDomains.map { x => s"wss://$x${secure.not.so(s" ws://$x")}" }
+    val localDev = secure.not.so(List("http://127.0.0.1:3000", "http://localhost:8666"))
+    lila.web.ContentSecurityPolicy.page:
+      sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))

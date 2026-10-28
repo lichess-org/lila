@@ -1,14 +1,13 @@
 .pagination {
   color: $c-font-dimmer;
   display: flex;
+  padding: 0 $box-padding;
 
   a,
   span {
+    border-radius: $small-box-radius-size;
     width: 2rem;
     height: 2rem;
-
-    @extend %box-radius;
-
     margin: 0 0.1rem;
     display: flex;
     justify-content: center;

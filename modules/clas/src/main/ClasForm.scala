@@ -4,8 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.clas.Student.RealName
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.mon.extensions.*
 
 final class ClasForm(

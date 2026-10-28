@@ -1,11 +1,11 @@
 package lila.core
 
-import _root_.chess.variant.Variant
-import _root_.chess.{ Speed, IntRating, variant as ChessVariant }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
-import monocle.syntax.all.*
+import _root_.chess.variant.Variant
+import _root_.chess.{ IntRating, Speed, variant as ChessVariant }
 import monocle.syntax.AppliedPLens
+import monocle.syntax.all.*
 
 import lila.core.userId.{ UserId, UserIdOf }
 
@@ -77,8 +77,6 @@ object perf:
 
     def apply(key: String): Option[PerfKey] = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
-
-    def keyToId(key: PerfKey): PerfId = keyIdMap(key)
 
     def byVariant(variant: Variant): Option[PerfKey] = variant match
       case ChessVariant.Standard => none

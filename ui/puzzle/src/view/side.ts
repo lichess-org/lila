@@ -67,7 +67,7 @@ function gameInfos(ctrl: PuzzleCtrl): VNode {
         i18n.puzzle.fromGameLink.asArray(
           ctrl.mode === 'play'
             ? hl('span', gameName)
-            : hl('a', { attrs: { href: `/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
+            : hl('a', { attrs: { href: `/game/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
         ),
       ),
       hl(

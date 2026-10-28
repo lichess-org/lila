@@ -2,14 +2,14 @@ package lila.relay
 
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.{ ErrorStr, TournamentClock }
-import scalalib.actor.AsyncActorSequencers
 import com.github.blemale.scaffeine.LoadingCache
+import scalalib.actor.AsyncActorSequencers
 import scalalib.net.UserAgent
 
-import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.core.fide.{ Federation, Tokenize }
-import lila.relay.RelayPush.*
 import lila.memo.CacheApi
+import lila.relay.RelayPush.*
+import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 
 final class RelayPush(
     sync: RelaySync,

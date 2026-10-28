@@ -17,6 +17,6 @@
   <string name="cancelTimerOrDenyARequest">Cancelar relógio ou negar um pedido</string>
   <string name="playPreferredMoveOrConfirmSomething">Fazer lance preferido ou confirmar algo</string>
   <string name="sleep">Dormir (se a palavra-chave estiver ativada)</string>
-  <string name="turnOffVoiceRecognition">Desligar o reconhecimento de voz</string>
   <string name="showPuzzleSolution">Mostrar solução do problema</string>
+  <string name="microphone">Microfone</string>
 </resources>

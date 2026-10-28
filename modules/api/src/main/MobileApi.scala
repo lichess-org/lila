@@ -1,15 +1,16 @@
 package lila.api
 
-import play.api.libs.json.{ Json, JsObject }
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 import play.api.mvc.RequestHeader
 import scalalib.data.Preload
 
+import lila.common.ClientName
 import lila.common.Json.given
 import lila.core.i18n.Translate
+import lila.core.perf.UserWithPerfs
 import lila.core.user.KidMode
 import lila.oauth.TokenScopes
-import lila.core.perf.UserWithPerfs
 
 final class MobileApi(
     userApi: UserApi,
@@ -31,7 +32,8 @@ final class MobileApi(
     picfitUrl: lila.memo.PicfitUrl,
     isOnline: lila.core.socket.IsOnline,
     playing: lila.round.PlayingUsers,
-    relationStream: lila.relation.RelationStream
+    relationStream: lila.relation.RelationStream,
+    playerCounter: lila.web.PlayerCounter
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
@@ -41,6 +43,8 @@ final class MobileApi(
   )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
     val takex3 = oauth.exists(_.has(_.Web.Takex3))
+    if takex3 then playerCounter.takex3.hit()
+    else playerCounter.mobile.hit()
     for
       withPerfs <- myUser.traverse(userApi.withPerfs)
       urgentGames <- myUser.traverse(gameProxy.urgentGames)
@@ -74,7 +78,10 @@ final class MobileApi(
       json <- spotlight.sequentially(tourApiJson.fullJson)
     yield Json.obj("featured" -> json)
 
-  def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
+  def tournaments(using me: Option[Me], client: ClientName)(using RequestHeader, Translate): Fu[JsObject] =
+    // lichobile and mobile anon players hit this
+    if client.isLichobile then playerCounter.lichobile.hit()
+    else if client.isMobile then playerCounter.mobile.hit()
     for
       withPerfs <- me.so(userApi.withPerfs)
       tours <- tournamentsOf(withPerfs)

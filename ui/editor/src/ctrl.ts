@@ -92,7 +92,9 @@ export default class EditorCtrl implements CevalHandler {
             window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
         })
         .bind('l', () => this.cevalEnabled(!this.cevalEnabled()))
-        .bind('x', () => this.toggleThreatMode());
+        .bind('x', () => this.toggleThreatMode())
+        .bind('c', () => this.clearBoard())
+        .bind('p', () => this.startPosition());
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
@@ -194,7 +196,7 @@ export default class EditorCtrl implements CevalHandler {
     const wasUnloaded = this.ceval.wasUnloadedByAnotherWindow;
     this.ceval.init(this.makeCevalOpts(fen));
     this.ceval.wasUnloadedByAnotherWindow = wasUnloaded;
-    if (legalFen && this.cevalEnabled()) this.startCeval();
+    if (legalFen && this.cevalEnabled()) this.startCevalIfEnabled();
   }
 
   cevalEnabled = (enable?: boolean): boolean => {
@@ -204,7 +206,7 @@ export default class EditorCtrl implements CevalHandler {
     this.cevalEnabledProp(enable);
     if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
     if (enable !== enabled) {
-      if (enable) this.startCeval();
+      if (enable) this.startCevalIfEnabled();
       else {
         this.threatMode(false);
         this.ceval.reset();
@@ -215,23 +217,23 @@ export default class EditorCtrl implements CevalHandler {
     return enable;
   };
 
-  startCeval = (): void => {
+  startCevalIfEnabled = (): void => {
     if (!this.ceval.download) this.ceval.reset();
     if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
-    this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
+    this.ceval.start('', [this.cevalNode], this.threatMode());
   };
 
   clearCeval = (): void => {
     this.cevalNode.ceval = undefined;
     this.cevalNode.threat = undefined;
-    this.startCeval();
+    this.startCevalIfEnabled();
   };
 
   toggleThreatMode(v?: boolean): void {
     const enable = v ?? !this.threatMode();
     if (enable === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
     this.threatMode(enable);
-    this.startCeval();
+    this.startCevalIfEnabled();
     this.redraw();
   }
 
@@ -277,8 +279,8 @@ export default class EditorCtrl implements CevalHandler {
   private computeCastlingToggles(): CastlingToggles<boolean> {
     const board = this.getBoard();
     if (this.variant === 'chess960') {
-      const white = castlingRooksFromBoard(board, 'white'),
-        black = castlingRooksFromBoard(board, 'black');
+      const white = castlingRooksFromBoard(board, 'white');
+      const black = castlingRooksFromBoard(board, 'black');
       return {
         K: defined(white.rookK),
         Q: defined(white.rookQ),
@@ -288,10 +290,10 @@ export default class EditorCtrl implements CevalHandler {
     }
 
     const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
-    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
-      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
-      whiteRooks = board.rook.intersect(board.white),
-      blackRooks = board.rook.intersect(board.black);
+    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!);
+    const blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!);
+    const whiteRooks = board.rook.intersect(board.white);
+    const blackRooks = board.rook.intersect(board.black);
     return {
       K: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookK)!),
       Q: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookQ)!),
@@ -441,6 +443,15 @@ export default class EditorCtrl implements CevalHandler {
   loadNewFen(fen: FEN): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
     else this.setFen(fen);
+  }
+
+  async loadFromImage(file: File): Promise<void> {
+    try {
+      const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
+      if (!this.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't figure it out");
+    } catch (error) {
+      alert(String(error));
+    }
   }
 
   private readonly setSetup = (setup: Setup): void => {

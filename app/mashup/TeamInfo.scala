@@ -3,11 +3,11 @@ package mashup
 
 import alleycats.Zero
 
+import lila.clas.Clas
 import lila.core.forum.ForumPostMiniView
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ Team, TeamMember, TeamRepo }
+import lila.team.{ Team, TeamCached, TeamMember, TeamRepo }
 import lila.tournament.{ Tournament, TournamentApi }
-import lila.clas.Clas
 
 case class TeamInfo(
     show: Team.TeamShow,
@@ -35,6 +35,7 @@ object TeamInfo:
 
 final class TeamInfoApi(
     teamRepo: TeamRepo,
+    teamCache: TeamCached,
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
@@ -42,6 +43,14 @@ final class TeamInfoApi(
 )(using Executor):
 
   import TeamInfo.*
+
+  def events(using me: MyId): Fu[(Set[TeamId], List[AnyTour])] = for
+    teams <- teamCache.teamIds(me)
+    teamIds = teams.toSet
+    tours <- tourApi.upcomingByTeams(teamIds, 30)
+    swiss <- swissApi.upcomingByTeams(teamIds, 30)
+    both = AnyTour.from(tours) ::: AnyTour.from(swiss)
+  yield teamIds -> both.sortBy(_.startsAt)
 
   def apply(t: Team.TeamShow, withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] = for
     forumPosts <- withForum(t.member).optionFu(forumRecent(t.team.id))
@@ -61,7 +70,7 @@ final class TeamInfoApi(
           }.sortBy(-_.startsAt.toSeconds),
           next = {
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
-          }.sortBy(_.startsAt.toSeconds)
+          }.sortBy(_.startsAt)
         )
 
   def clasTournaments(clas: Clas): Fu[PastAndNext] =

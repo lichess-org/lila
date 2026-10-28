@@ -38,13 +38,13 @@ final private class MsgSecurity(
   private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24.hour,
-    key = "msg_create.user"
+    limiterKey = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1.minute,
-    key = "msg_reply.user"
+    limiterKey = "msg_reply.user"
   )
 
   private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1.minute)

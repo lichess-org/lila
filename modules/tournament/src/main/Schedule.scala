@@ -2,9 +2,9 @@ package lila.tournament
 
 import cats.derived.*
 import chess.Clock.{ IncrementSeconds, LimitSeconds }
+import chess.IntRating
 import chess.format.Fen
 import chess.variant.Variant
-import chess.IntRating
 
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.gathering.Condition

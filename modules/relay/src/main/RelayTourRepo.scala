@@ -1,11 +1,12 @@
 package lila.relay
 
 import reactivemongo.pekkostream.cursorProducer
+
 import java.time.YearMonth
 
+import lila.core.study.Visibility
 import lila.db.dsl.{ *, given }
 import lila.relay.BSONHandlers.given
-import lila.core.study.Visibility
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
 

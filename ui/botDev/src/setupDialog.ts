@@ -114,11 +114,10 @@ class SetupDialog {
   private initCards() {
     this.view = this.dialog.view.querySelector('.with-cards')!;
     const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
+    const uid = this.setup[this.botColor];
     this.hand = handOfCards({
       getCardData: () => cardData,
-      getDrops: () => [
-        { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
-      ],
+      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uid && uidToDomId(uid) }],
       viewEl: this.view,
       select: this.dropSelect,
       orientation: 'bottom',

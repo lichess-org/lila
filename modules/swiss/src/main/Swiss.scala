@@ -1,8 +1,8 @@
 package lila.swiss
 
 import chess.Clock.Config as ClockConfig
-import chess.format.Fen
 import chess.Rated
+import chess.format.Fen
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 

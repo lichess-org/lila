@@ -45,14 +45,13 @@
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể được phân tích.</string>
   <string name="onlyContributorsCanRequestAnalysis">Chỉ những người đóng góp nghiên cứu mới có thể yêu cầu máy tính phân tích.</string>
-  <string name="getAFullComputerAnalysis">Nhận phân tích máy tính phía máy chủ đầy đủ về biến chính.</string>
   <string name="makeSureTheChapterIsComplete">Hãy chắc chắn chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
   <string name="showResults">Kết quả</string>
   <string name="showEvalBar">Thanh lợi thế</string>
-  <string name="next">Trang tiếp theo</string>
+  <string name="next">Kế tiếp</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Nhân bản</string>
   <string name="studyPgn">PGN nghiên cứu</string>
@@ -119,13 +118,12 @@
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
   <string name="pinnedStudyComment">Bình luận nghiên cứu được ghim</string>
   <string name="start">Bắt đầu</string>
-  <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
   <string name="deleteTheStudyChatHistory">Xóa lịch sử trò chuyện nghiên cứu? Không thể khôi phục lại!</string>
   <string name="deleteStudy">Xóa nghiên cứu</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Xóa toàn bộ nghiên cứu? Không có cách nào để khôi phục lại! Nhập tên của nghiên cứu để xác nhận: %s</string>
   <string name="whereDoYouWantToStudyThat">Bạn muốn nghiên cứu ở đâu?</string>
-  <string name="goodMove">Nước tốt</string>
+  <string name="goodMove">Nước cờ tốt</string>
   <string name="mistake">Sai lầm</string>
   <string name="brilliantMove">Nước đi thiên tài</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
@@ -184,7 +182,7 @@
   <string name="customPositionTitle">Thế cờ tùy chỉnh</string>
   <string name="customPositionText">Thiết lập bàn cờ theo cách của bạn.&lt;br&gt;phù hợp để khám phá cờ tàn, tàn cuộc.</string>
   <string name="loadGameFromTheWebTitle">Tải ván đấu từ trang web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Dán URL ván cờ&lt;br&gt;(ví dụ: lichess.org/7fHIU0XI)&lt;br&gt;để tải các nước cờ trong chương.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Dán URL ván cờ&lt;br&gt;(ví dụ: lichess.org/game/7fHvU0XI)&lt;br&gt;để tải các nước đi của ván cờ trong chương.</string>
   <string name="fromFenStringTitle">Từ một chuỗi FEN</string>
   <string name="fromFenStringText">Dán một thế cờ ở định dạng FEN&lt;br&gt;&lt;i&gt;4K3/4RB2/8/7P/8/5Q2/1PP5/1K6 W&lt;/i&gt;&lt;br&gt;để bắt đầu chương từ một thế cờ.</string>
   <string name="fromPgnGameTitle">Từ một PGN của ván cờ</string>
@@ -195,4 +193,9 @@
   <string name="doubleDefeat">Đôi bại</string>
   <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
   <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
+  <string name="analysisEditor">Thiết lập trình phân tích</string>
+  <string name="clearLocal">Xóa phân tích cục bộ?</string>
+  <string name="clearPublished">Xóa phân tích đã được công bố?</string>
+  <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
+  <string name="analyzeOnYourDevice">Phân tích trên thiết bị của bạn</string>
 </resources>

@@ -21,6 +21,10 @@
     display: none;
   }
 
+  &:has(+ #voice-settings) {
+    border-radius: 0;
+  }
+
   > button {
     color: $c-font-dim;
     font-size: 16px;
@@ -113,6 +117,11 @@ button#microphone-button {
   &.active {
     color: white;
     background-color: $c-primary;
+
+    &:hover::before {
+      color: white;
+      opacity: 0.8;
+    }
   }
 }
 
@@ -124,11 +133,11 @@ button#microphone-button {
   z-index: $z-mz-menu-4;
   width: 100%;
   background: $c-bg-high;
-  gap: 1.5em;
-  padding: 1.5em;
+  gap: 1.25em;
+  padding: 1.25em 1.5em;
 
-  > hr {
-    margin: 5px;
+  &::before {
+    @extend %box-radius-bottom;
   }
 }
 
@@ -160,6 +169,11 @@ button#microphone-button {
     flex: 0 0 15%;
     text-align: left;
   }
+
+  kbd {
+    font-size: 90%;
+    margin: 3px 0 0 0;
+  }
 }
 
 .voice-choices {
@@ -169,6 +183,10 @@ button#microphone-button {
 
   .active {
     @extend %active-primary;
+
+    &:not(.disabled):hover {
+      background: color-mix(in oklab, $c-primary 80%, white);
+    }
   }
 }
 

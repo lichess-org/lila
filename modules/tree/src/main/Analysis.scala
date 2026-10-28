@@ -1,11 +1,29 @@
 package lila.tree
 
+import chess.eval.WhiteScore
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
 import play.api.libs.json.JsObject
 
+import Analysis.EngineId
+
+opaque type FishnetKey = String
+object FishnetKey extends OpaqueString[FishnetKey]
+
 case class AnalysisProgress(gameId: GameId, payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
+case class Engine(
+    nodesPerMove: Int,
+    id: EngineId,
+    userId: UserId,
+    engineVersion: String,
+    fishnetKey: Option[FishnetKey] = none
+)
+
+object Engine:
+  val unknownVersion = "/unknown/"
+  val unknown = Engine(0, EngineId.unknown, UserId.lichess, unknownVersion)
+  val default = Engine(1_000_000, EngineId.fishnet, UserId.lichess, unknownVersion)
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
@@ -24,21 +42,24 @@ trait AnalysisJson:
 
 case class Analysis(
     id: Analysis.Id,
+    initialScore: Option[WhiteScore], // missing in old analyses
     infos: List[Info],
     startPly: Ply,
     date: Instant,
-    fk: Option[Analysis.FishnetKey],
-    nodesPerMove: Option[Int]
+    engine: Engine
 ):
+  lazy val infosWithInitial: List[Info] =
+    Info(startPly, initialScore.fold(evals.legacyInitial)(evals.fromScore), Nil) :: infos
+
   lazy val infoAdvices: InfoAdvices =
-    (Info.start(startPly) :: infos)
+    infosWithInitial
       .sliding(2)
       .collect:
         case List(prev, info) => info -> info.hasVariation.so(Advice(prev, info))
       .toList
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
-
+  def nodesPerMove: Int = engine.nodesPerMove
   def summary: List[(Color, List[(Advice.Judgement, Int)])] =
     Color.all.map { color =>
       color -> (Advice.Judgement.all.map { judgment =>
@@ -55,6 +76,11 @@ case class Analysis(
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
 
 object Analysis:
+
+  val MAX_PLIES = 600
+
+  import play.api.libs.json.*
+  import scalalib.json.Json.given
 
   enum Id:
     case Game(id: GameId)
@@ -84,4 +110,20 @@ object Analysis:
         case Study(studyId, _) => Some(studyId)
         case _ => None
 
-  type FishnetKey = String
+  def positionHash(
+      variant: chess.variant.Variant,
+      initialFen: Option[chess.format.Fen.Full],
+      moves: String
+  ): Array[Byte] = java.security.MessageDigest
+    .getInstance("MD5")
+    .digest(s"$variant $initialFen $moves".getBytes(java.nio.charset.StandardCharsets.UTF_8))
+    .take(12)
+
+  opaque type EngineId = String
+  object EngineId extends OpaqueString[EngineId]:
+    val fishnet: EngineId = "fishnet"
+    val unknown: EngineId = "unknown"
+    def fishnet(version: String): EngineId = s"fishnet-${version.replace('.', '_')}"
+
+  given Reads[Engine] = Json.reads[Engine]
+  given Writes[Engine] = Json.writes

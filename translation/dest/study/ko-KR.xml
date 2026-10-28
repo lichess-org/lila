@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">기호로 주석 달기</string>
   <string name="theChapterIsTooShortToBeAnalysed">분석되기 너무 짧은 챕터입니다.</string>
   <string name="onlyContributorsCanRequestAnalysis">연구 기여자만이 컴퓨터 분석을 요청할 수 있습니다.</string>
-  <string name="getAFullComputerAnalysis">메인라인에 대한 전체 서버 컴퓨터 분석을 가져옵니다.</string>
   <string name="makeSureTheChapterIsComplete">챕터가 완료되었는지 확인하세요. 분석은 한번만 요청할 수 있습니다.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">동기화된 모든 멤버들은 같은 포지션을 공유합니다</string>
   <string name="shareChanges">관전자와 변경 사항을 공유하고 서버에 저장</string>
@@ -119,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">아니요: 사람들이 자유롭게 이동할 수 있습니다</string>
   <string name="pinnedStudyComment">고정된 댓글</string>
   <string name="start">시작</string>
-  <string name="save">저장</string>
   <string name="clearChat">채팅 기록 지우기</string>
   <string name="deleteTheStudyChatHistory">연구 채팅 기록을 삭제할까요? 되돌릴 수 없습니다!</string>
   <string name="deleteStudy">연구 삭제</string>
@@ -184,7 +182,7 @@
   <string name="customPositionTitle">사용자 지정 포지션</string>
   <string name="customPositionText">원하는대로 보드를 설정하세요. 엔드게임을 탐색할 때 적합합니다.</string>
   <string name="loadGameFromTheWebTitle">웹에서 게임 불러오기</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">챕터에 진행된 게임 수순을 불러오려면&lt;br&gt;게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">챕터에 진행된 게임 수순을 불러오려면&lt;br&gt;게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/game/7fHIU0XI).</string>
   <string name="fromFenStringTitle">FEN으로부터 불러오기</string>
   <string name="fromFenStringText">미리 설정된 포지션으로 챕터를 만들기 위해 FEN 형식을 붙여넣으세요. (예시: 4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w)</string>
   <string name="fromPgnGameTitle">PGN 게임에서 불러오기</string>
@@ -195,4 +193,9 @@
   <string name="doubleDefeat">양측 패배</string>
   <string name="blackDefeatWhiteCanNotWin">흑 패배, 그러나 백 승리 불가</string>
   <string name="whiteDefeatBlackCanNotWin">백 패배, 그러나 흑 승리 불가</string>
+  <string name="analysisEditor">분석 편집기</string>
+  <string name="clearLocal">로컬 분석을 지우시겠습니까?</string>
+  <string name="clearPublished">게시된 분석을 지우시겟습니까?</string>
+  <string name="requestAServerAnalysis">서버 분석 요청하기</string>
+  <string name="analyzeOnYourDevice">디바이스에서 분석하기</string>
 </resources>

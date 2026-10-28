@@ -91,16 +91,19 @@
 
         .dropdown-window {
           @extend %dropdown-shadow, %box-radius;
+          @include backdrop-blur-if-transparent;
+          @include inline-end(0);
 
           z-index: $z-link-overlay-2;
           visibility: hidden;
           background: $c-bg-header-dropdown;
-          border-top-right-radius: 0;
           position: absolute;
           top: 2.4rem;
           overflow: hidden;
 
-          @include inline-end(0);
+          @include if-transp {
+            background: color-mix(in oklab, $c-bg-header-dropdown 40%, transparent);
+          }
 
           body.blind-mode & {
             visibility: visible;
@@ -150,7 +153,7 @@
         @include dropdown-action-highlight;
       }
 
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         .dropdown:not(.btn-rack__btn):hover > a {
           @include hamburger-visible;
         }

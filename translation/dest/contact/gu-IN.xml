@@ -53,7 +53,6 @@
   <string name="ratedGame">ખાતરી કરો કે તમે રેટેડ ગેમ રમી છે. કેઝ્યુઅલ ગેમ્સ ખેલાડીઓના રેટિંગને અસર કરતી નથી.</string>
   <string name="botRatingAbuse">અમુક સંજોગોમાં બોટ એકાઉન્ટ સામે રમતી વખતે, જો ખેલાડી રેટિંગ પોઈન્ટ માટે બોટનો દુરુપયોગ કરી રહ્યો હોય તો રેટેડ ગેમ પોઈન્ટ આપી શકશે નહીં.</string>
   <string name="errorPage">ભૂલ પૃષ્ઠ</string>
-  <string name="reportErrorPage">જો તમને કોઈ ભૂલ પૃષ્ઠનો સામનો કરવો પડ્યો હોય, તો તમે તેની જાણ કરી શકો છો:</string>
   <string name="learnHowToMakeBroadcasts">Lichess પર તમારા પોતાના પ્રસારણ કેવી રીતે બનાવવા તે શીખો</string>
   <string name="banAppeal">પ્રતિબંધ અથવા IP પ્રતિબંધ માટે અપીલ</string>
   <string name="engineAppeal">એન્જિન અથવા ચીટ માર્ક</string>

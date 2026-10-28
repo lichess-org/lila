@@ -19,4 +19,6 @@
   <string name="findSquare">Finn felt</string>
   <string name="nameSquare">Angi feltnavn</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Øv på visse linjer og rader</string>
+  <string name="enterTheCoordinate">Skriv inn koordinaten</string>
+  <string name="pressEnterToStart">Trykk på %s for å starte</string>
 </resources>

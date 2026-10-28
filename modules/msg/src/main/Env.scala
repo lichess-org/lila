@@ -3,8 +3,8 @@ package lila.msg
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.autoconfig.given
 import lila.common.Json.given
+import lila.common.autoconfig.given
 import lila.core.config.*
 import lila.core.socket.remote.TellUserIn
 
@@ -74,7 +74,8 @@ final class Env(
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>
-      msg.get[UserId]("d").foreach { api.setRead(userId.into(MyId), _) }
+      given MyId = userId.into(MyId)
+      msg.get[UserId]("d").foreach(api.setRead)
     case TellUserIn.Send(userId, msg) =>
       for
         obj <- msg.obj("d")

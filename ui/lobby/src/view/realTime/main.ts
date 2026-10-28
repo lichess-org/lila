@@ -5,7 +5,11 @@ import * as filterView from './filter';
 import * as list from './list';
 
 export default function (ctrl: LobbyController) {
-  let filterBody, body, nbFiltered, modeToggle, res;
+  let filterBody;
+  let body;
+  let nbFiltered;
+  let modeToggle;
+  let res;
   if (ctrl.filter.open) filterBody = filterView.render(ctrl);
   switch (ctrl.mode) {
     case 'chart':

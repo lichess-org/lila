@@ -67,9 +67,9 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser skakprogram...</string>
+  <string name="loadingEngine">Indlæser skakmotor...</string>
   <string name="calculatingMoves">Beregner træk...</string>
-  <string name="engineFailed">Fejl under indlæsning af skakprogram</string>
+  <string name="engineFailed">Fejl under indlæsning af skakmotor</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -164,8 +164,9 @@
   <string name="moveTimes">Træktider</string>
   <string name="flipBoard">Vend bræt</string>
   <string name="toggleLocalEngine">Slå lokalt skakprogram til/fra</string>
-  <string name="engineSettings">Skakprogram-indstillinger</string>
-  <string name="enginesFromStrongestToWeakest">Skakprogrammer fra stærkeste til svageste</string>
+  <string name="engineSettings">Skakmotor-indstillinger</string>
+  <string name="engine">Skakmotor</string>
+  <string name="enginesFromStrongestToWeakest">Skakmotorer fra stærkeste til svageste</string>
   <string name="illegalPosition">Ulovlig position</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="claimADraw">Kræv remis</string>
@@ -198,7 +199,7 @@
   <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakprogrammer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -460,6 +461,8 @@ At spille ratede partier vil øge stabiliteten.</string>
     <item quantity="one">%s ven online</item>
     <item quantity="other">%s venner online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Venner online: %1$s
+Venner der spiller: %2$s</string>
   <string name="favoriteOpponents">Favoritmodstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
@@ -588,14 +591,12 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="reportAUser">Anmeld en bruger</string>
   <string name="user">Bruger</string>
   <string name="reason">Årsag</string>
-  <string name="whatIsIheMatter">Hvad drejer henvendelsen sig om?</string>
   <string name="cheat">Snyd</string>
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
   <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
   <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle din anmeldelse hurtigere, hvis du skriver på engelsk.</string>
-  <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
@@ -787,7 +788,9 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="downloadAnnotated">Download kommenteret</string>
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
+  <string name="downloadMyGames">Download mine partier</string>
   <string name="downloadAllGames">Download alle partier</string>
+  <string name="downloadResults">Download resultater</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervarianter for at få en forhåndsvisning af dem.</string>
@@ -807,12 +810,14 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
+  <string name="activeSessionsDescription">Dette er en liste over enheder og applikationer, der er logget ind på din konto. Hvis du bemærker mistænkelig aktivitet, skal du sørge for at &lt;a href=\'%1$s\'&gt;tjekke din e-mailadresse til gendannelse&lt;/a&gt; and &lt;a href=\'%2$s\'&gt;ændre din adgangskode&lt;/a&gt;.</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funktioner gratis</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="noChallenges">Ingen udfordringer.</string>
+  <string name="browserNotificationsDenied">Notifikationspop-vinduer deaktiveret af browserindstilling</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgængelig på %s sprog!</item>
     <item quantity="other">Tilgængelig på %s sprog!</item>
@@ -1038,8 +1043,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="ourEventTips">Tips til organisering af begivenheder</string>
   <string name="instructions">Instruktioner</string>
   <string name="showMeEverything">Vis mig alt</string>
-  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
-Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
+  <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og fuldstændig fri open source-software. Vi er afhængige af brugernes donationer til at dække vores driftsomkostninger, udvikling og indhold. Uden vores generøse fællesskab ville vi ikke være i stand til at holde sitet kørende. Tak, fordi du er med!</string>
   <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
   <string name="stats">Statistik</string>
   <string name="accessibility">Tilgængelighed</string>
@@ -1059,4 +1063,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="boards">Brætter</string>
   <string name="write">Skriv</string>
   <string name="preview">Forhåndsvisning</string>
+  <string name="done">Færdig</string>
 </resources>

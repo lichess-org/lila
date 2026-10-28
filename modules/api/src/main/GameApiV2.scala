@@ -1,32 +1,32 @@
 package lila.api
 
-import org.apache.pekko.stream.scaladsl.*
 import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import chess.opening.Opening
-import play.api.libs.json.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
+import play.api.libs.json.*
 import reactivemongo.pekkostream.cursorProducer
+import smithy4s.time.Timestamp
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.round.CurrentlyPlaying
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.{ WithFlags, applyDelay }
 import lila.game.{ Divider, Query }
+import lila.gameSearch.GameSearchApi
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
-import lila.gameSearch.GameSearchApi
-import smithy4s.time.Timestamp
 
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
-    gameCache: lila.game.Cached,
     gameJsonView: lila.game.JsonView,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -40,7 +40,8 @@ final class GameApiV2(
     gameOpening: lila.game.GameOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
-    crosstableApi: lila.game.CrosstableApi
+    crosstableApi: lila.game.CrosstableApi,
+    currentlyPlaying: CurrentlyPlaying
 )(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import GameApiV2.*
@@ -131,6 +132,7 @@ final class GameApiV2(
           )
           .mapAsync(1)(gameRepo.gamesFromSecondary)
           .mapConcat(identity)
+          .filter(inCreatedAtRange(config))
       else
         gameRepo
           .sortedCursor(
@@ -158,12 +160,11 @@ final class GameApiV2(
   yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
-    gameCache
-      .lastPlayedPlayingId(user.id)
-      .flatMapz(gameProxy.gameIfPresentOrFetch)
-      .flatMapz: game =>
+    currentlyPlaying
+      .exec(user.id)
+      .flatMapz: pov =>
         val config = OneConfig(GameApiV2.Format.JSON, false, WithFlags())
-        enrich(config.flags)(game).flatMap: (game, fen, analysis) =>
+        enrich(config.flags)(pov.game).flatMap: (game, fen, analysis) =>
           toJson(game, fen, analysis, none, config).dmap(some)
 
   def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =
@@ -449,6 +450,9 @@ object GameApiV2:
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )
+
+  private def inCreatedAtRange(config: ByUserConfig)(g: Game): Boolean =
+    config.since.forall(g.createdAt.isAfter) && config.until.forall(g.createdAt.isBefore)
 
   case class GamePlayersConfig(vs: Option[User], wonBy: Option[UserId], lostBy: Option[UserId])
 

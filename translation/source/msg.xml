@@ -7,4 +7,5 @@
 We have reviewed your recent report and taken action. While we cannot share details about the actions taken, we appreciate your report.
 
 Thank you for your help in keeping Lichess a good place for everyone.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">The old app no longer supports puzzles. Please install the new Lichess app: %s</string>
 </resources>

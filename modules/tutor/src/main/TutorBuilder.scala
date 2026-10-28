@@ -1,5 +1,6 @@
 package lila.tutor
 
+import lila.common.LilaFuture
 import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.db.dsl.{ *, given }
 import lila.insight.{
@@ -11,9 +12,8 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.rating.PerfType
-import lila.common.LilaFuture
 import lila.mon.extensions.*
+import lila.rating.PerfType
 
 final private class TutorBuilder(
     colls: TutorColls,

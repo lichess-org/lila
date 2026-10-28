@@ -3,6 +3,7 @@ package lila.evalCache
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.libs.json.JsObject
+import scalalib.ThreadLocalRandom
 
 import lila.core.chess.MultiPv
 import lila.db.AsyncCollFailingSilently
@@ -36,4 +37,5 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
       coll: c =>
         c.one[EvalCacheEntry](bid(id))
           .addEffect: res =>
-            if res.isDefined then c.updateFieldUnchecked(bid(id), "usedAt", nowInstant)
+            if res.isDefined && ThreadLocalRandom.odds(4) then
+              c.updateFieldUnchecked(bid(id), "usedAt", nowInstant)

@@ -1,8 +1,8 @@
 package lila.mod
 
-import com.github.blemale.scaffeine.Cache
-import chess.rating.IntRatingDiff
 import chess.IntRating
+import chess.rating.IntRatingDiff
+import com.github.blemale.scaffeine.Cache
 
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi

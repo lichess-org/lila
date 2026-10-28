@@ -1,7 +1,6 @@
 package lila.tournament
 
-import scala.collection.mutable
-import scala.collection.SortedSet
+import scala.collection.{ SortedSet, mutable }
 
 import lila.core.i18n.Translate
 import lila.tournament.Schedule.Plan

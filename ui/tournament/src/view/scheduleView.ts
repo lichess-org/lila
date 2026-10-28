@@ -9,7 +9,9 @@ import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
 
 const scale = 8;
-let now: number, startTime: number, stopTime: number;
+let now: number;
+let startTime: number;
+let stopTime: number;
 
 const i18nNames: Record<string, string> = {};
 
@@ -93,8 +95,8 @@ function fitLane(lane: Lane, tour2: Tournament) {
 // splits lanes that have collisions, but keeps
 // groups separate by not compacting existing lanes
 function splitOverlapping(lanes: Lane[]): Lane[] {
-  let ret: Lane[] = [],
-    i: number;
+  let ret: Lane[] = [];
+  let i: number;
   lanes.forEach(lane => {
     const newLanes: Lane[] = [[]];
     lane.forEach(tour => {
@@ -234,8 +236,8 @@ export default function (ctrl: Ctrl) {
 
   const data = ctrl.data();
 
-  const systemTours: Tournament[] = [],
-    userTours: Tournament[] = [];
+  const systemTours: Tournament[] = [];
+  const userTours: Tournament[] = [];
 
   data.finished
     .concat(data.started)

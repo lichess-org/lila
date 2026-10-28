@@ -1,10 +1,10 @@
 package lila.bot
 
 import lila.common.Bus
-import lila.core.socket.{ ApiUserIsOnline, IsOnline }
 import lila.core.perf.UserWithPerfs
-import lila.memo.ExpireCallbackMemo
+import lila.core.socket.{ ApiUserIsOnline, IsOnline }
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.memo.ExpireCallbackMemo
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
@@ -14,9 +14,11 @@ final class OnlineApiUsers(
     scheduler: Scheduler
 )(using Executor, Scheduler):
 
+  val cacheTtl = 10.seconds
+
   private val cache = ExpireCallbackMemo[UserId](
     scheduler,
-    10.seconds,
+    cacheTtl,
     userId => publish(userId, isOnline = false)
   )
 
@@ -29,16 +31,16 @@ final class OnlineApiUsers(
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
   private val usersCache = cacheApi.unit[List[UserWithPerfs]]("onlineApiUsers.list"):
-    _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+    _.expireAfterWrite(cacheTtl).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})
 
   private val jsonCache = cacheApi.unit[String]("onlineApiUsers.json"):
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(cacheTtl).buildAsyncFuture: _ =>
       for
         users <- getUsers
-        jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true))
+        jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true)(using none))
       yield jsons.map(play.api.libs.json.Json.stringify).mkString("\n")
 
   def getNdJson(nb: Int): Fu[String] =

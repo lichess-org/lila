@@ -5,14 +5,13 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.Request
 
-import lila.common.Form.*
 import lila.common.Form as LilaForm
-import lila.user.LameName
+import lila.common.Form.*
 import lila.core.security.ClearPassword
-import lila.user.TotpSecret.{ base32, verify }
-import lila.user.{ TotpSecret, TotpToken }
-import lila.oauth.OAuthSignedClient.SimpleSignup
 import lila.mon.extensions.*
+import lila.oauth.OAuthSignedClient.SimpleSignup
+import lila.user.TotpSecret.{ base32, verify }
+import lila.user.{ LameName, TotpSecret, TotpToken }
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -159,14 +158,17 @@ final class SecurityForm(
     def samePasswords = newPasswd1 == newPasswd2
 
   def passwdChange(using Executor)(using me: Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form:
-        mapping(
-          "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-          "newPasswd1" -> newPasswordFieldForMe,
-          "newPasswd2" -> newPasswordFieldForMe
-        )(Passwd.apply)(unapply)
-          .verifying("newPasswordsDontMatch", _.samePasswords)
+    authenticator
+      .loginCandidate("passwdChange")
+      .map: candidate =>
+        Form:
+          mapping(
+            "oldPasswd" -> nonEmptyText
+              .verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+            "newPasswd1" -> newPasswordFieldForMe,
+            "newPasswd2" -> newPasswordFieldForMe
+          )(Passwd.apply)(unapply)
+            .verifying("newPasswordsDontMatch", _.samePasswords)
 
   def magicLink = Form:
     mapping(
@@ -174,39 +176,45 @@ final class SecurityForm(
     )(MagicLink.apply)(_ => None)
 
   def changeEmail(old: Option[EmailAddress])(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form(
-        mapping(
-          "passwd" -> passwordMapping(candidate),
-          "email" -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
-        )(ChangeEmail.apply)(unapply)
-      ).fillOption(old.map { ChangeEmail("", _) })
+    authenticator
+      .loginCandidate("changeEmail")
+      .map: candidate =>
+        Form(
+          mapping(
+            "passwd" -> passwordMapping(candidate),
+            "email" -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
+          )(ChangeEmail.apply)(unapply)
+        ).fillOption(old.map { ChangeEmail("", _) })
 
   def setupTwoFactor(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form(
-        mapping(
-          "secret" -> nonEmptyText,
-          "passwd" -> passwordMapping(candidate),
-          "token" -> nonEmptyText.into[TotpToken]
-        )(TwoFactor.apply)(unapply).verifying(
-          "invalidAuthenticationCode",
-          _.tokenValid
-        )
-      ).fill:
-        TwoFactor(
-          secret = TotpSecret.random.base32,
-          passwd = "",
-          token = TotpToken("")
-        )
+    authenticator
+      .loginCandidate("setupTwoFactor")
+      .map: candidate =>
+        Form(
+          mapping(
+            "secret" -> nonEmptyText,
+            "passwd" -> passwordMapping(candidate),
+            "token" -> nonEmptyText.into[TotpToken]
+          )(TwoFactor.apply)(unapply).verifying(
+            "invalidAuthenticationCode",
+            _.tokenValid
+          )
+        ).fill:
+          TwoFactor(
+            secret = TotpSecret.random.base32,
+            passwd = "",
+            token = TotpToken("")
+          )
 
   def disableTwoFactor(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form:
-        tuple(
-          "passwd" -> passwordMapping(candidate),
-          "token" -> totpCheckField
-        )
+    authenticator
+      .loginCandidate("disableTwoFactor")
+      .map: candidate =>
+        Form:
+          tuple(
+            "passwd" -> passwordMapping(candidate),
+            "token" -> totpCheckField
+          )
 
   def totpCheckField(using me: Me) =
     text.into[TotpToken].verifying("invalidAuthenticationCode", t => me.totpSecret.forall(_.verify(t)))
@@ -221,18 +229,22 @@ final class SecurityForm(
   )
 
   private def passwordProtected(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form(single("passwd" -> passwordMapping(candidate)))
+    authenticator
+      .loginCandidate("passwordProtected")
+      .map: candidate =>
+        Form(single("passwd" -> passwordMapping(candidate)))
 
   def closeAccount(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form:
-        mapping(
-          "username" -> myUsernameField,
-          "passwd" -> passwordMapping(candidate),
-          "token" -> totpCheckField,
-          "forever" -> boolean
-        )((_, _, _, forever) => forever)(_ => None)
+    authenticator
+      .loginCandidate("closeAccount")
+      .map: candidate =>
+        Form:
+          mapping(
+            "username" -> myUsernameField,
+            "passwd" -> passwordMapping(candidate),
+            "token" -> totpCheckField,
+            "forever" -> boolean
+          )((_, _, _, forever) => forever)(_ => None)
 
   def toggleKid(using Me) = passwordProtected
 
@@ -243,13 +255,15 @@ final class SecurityForm(
     )(Reopen.apply)(_ => None)
 
   def deleteAccount(using me: Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form:
-        mapping(
-          "username" -> myUsernameField,
-          "passwd" -> passwordMapping(candidate),
-          "understand" -> boolean.verifying("It's an important point.", identity[Boolean])
-        )((_, _, _) => ())(_ => None)
+    authenticator
+      .loginCandidate("deleteAccount")
+      .map: candidate =>
+        Form:
+          mapping(
+            "username" -> myUsernameField,
+            "passwd" -> passwordMapping(candidate),
+            "understand" -> boolean.verifying("It's an important point.", identity[Boolean])
+          )((_, _, _) => ())(_ => None)
 
   private def passwordMapping(candidate: LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))

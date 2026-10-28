@@ -166,6 +166,8 @@ Wij tonen het rode luidsprekertje om je te waarschuwen wanneer dit gebeurt. Het 
 3. Klik op Cookies en Siterechten
 4. Scroll naar beneden en klik op Media autoplay
 5. Voeg lichess.org toe aan Toestaan</string>
+  <string name="makeBotTitle">Een bot maken op Lichess?</string>
+  <string name="makeBotDescription">Om te leren hoe je een &lt;a href=\'%1$s\'&gt;aangepaste schaakbot&lt;/a&gt; bouwt om op Lichess te spelen, lees &lt;a href=\'%2$s\'&gt;deze blogpost over het maken van bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Mezelf doen stoppen met spelen?</string>
   <string name="mentalHealthCondition">op zichzelf staande mentale aandoening</string>
   <string name="lichessUserstyles">Lichess gebruikersstijlen</string>

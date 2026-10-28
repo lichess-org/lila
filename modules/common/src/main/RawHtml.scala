@@ -4,7 +4,6 @@ import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 
 import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }
-import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
 
 import lila.common.Html
@@ -97,7 +96,7 @@ object RawHtml:
 
           val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
           lazy val isHttp = domainS - start == 7
-          lazy val url = (if isHttp then "http://" else "https://") + allButScheme
+          lazy val url = s"${(if isHttp then "http://" else "https://")}$allButScheme"
           lazy val text = if isHttp then url else allButScheme
 
           sb.append:
@@ -108,7 +107,7 @@ object RawHtml:
                     if allButScheme.isEmpty then "/"
                     else allButScheme
                   }">${allButScheme match
-                    case USER_LINK(user) => "@" + user
+                    case USER_LINK(user) => s"@$user"
                     case _ => s"${netDomain}$allButScheme"
                   }</a>""")
             else
@@ -164,23 +163,40 @@ object RawHtml:
   private def imgUrl(url: String): Option[Html] =
     url
       .match
-        case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-        case giphyRegex(id) => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
-        case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
-        case ibbRegex(_) => Some(url)
+        case imgurRegex(id) => Option(s"""https://i.imgur.com/$id.jpg""")
+        case giphyRegex(id) => Option(s"""https://media.giphy.com/media/$id/giphy.gif""")
+        case postimgRegex(id) => Option(s"""https://i.postimg.cc/$id.jpg""")
+        case ibbRegex(_) => Option(url)
         case _ => None
       .map { img =>
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")
       }
 
-  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-  def justMarkdownLinks(escapedHtml: Html): Html = Html:
-    markdownLinkRegex.replaceAllIn(
-      escapedHtml.value,
-      m =>
-        val content = Matcher.quoteReplacement(m.group(1))
-        val href = removeUrlTrackingParameters(m.group(2))
-        s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
-    )
+  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r.unanchored
+
+  def hasMarkdownLinks(escapedHtml: Html): Boolean = markdownLinkRegex.matches(escapedHtml.value)
+
+  // Same markdown link rendering as justMarkdownLinks, for manual assembly.
+  private def markdownLinkHtml(content: String, href: String): String =
+    s"""<a rel="nofollow noopener noreferrer" href="${removeUrlTrackingParameters(href)}">$content</a>"""
+
+  // Render markdown links, and linkify bare urls in the text around them.
+  // Used when a text mixes both, so bare urls don't stay plain text.
+  def markdownLinksWithBareLinks(escapedHtml: Html)(using NetDomain): Html =
+    val text = escapedHtml.value
+    val matcher = markdownLinkRegex.pattern.matcher(text)
+    val sb = new jStringBuilder(text.length + 200)
+    var last = 0
+    while matcher.find() do
+      if matcher.start > last then sb.append(bareLinks(text.substring(last, matcher.start)).value)
+      sb.append(markdownLinkHtml(matcher.group(1), matcher.group(2)))
+      last = matcher.end
+    if last < text.length then sb.append(bareLinks(text.substring(last)).value)
+    Html(sb.toString)
+
+  // Linkify bare urls in already-escaped text, without double-escaping it.
+  private def bareLinks(escapedText: String)(using NetDomain): Html =
+    if hasLinks(escapedText) then addLinks(String.html.unescapeHtml(Html(escapedText)).value)
+    else Html(escapedText)
 
   def removeUrlTrackingParameters(url: String): String = Url.trackingParametersRegex.replaceAllIn(url, "")

@@ -1,11 +1,13 @@
 package lila.bot
 
-import lila.ui.Context
+import chess.IntRating
+import scalalib.ThreadLocalRandom
+
+import scala.util.matching.Regex
+
 import lila.common.HTTPRequest
 import lila.memo.SettingStore
-import scala.util.matching.Regex
-import scalalib.ThreadLocalRandom
-import chess.IntRating
+import lila.ui.Context
 
 private final class BoardReport(settingStore: SettingStore.Builder)(using
     ec: Executor,

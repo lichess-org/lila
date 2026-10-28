@@ -30,6 +30,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
       .i18n(_.puzzle, _.puzzleTheme)
+      .i18nOpt(ctx.pref.hasVoice, _.voiceCommands)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .js(ctx.blind.option(Esm("puzzle.nvui")))
@@ -50,9 +51,8 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .csp(analyseCsp)
       .graph(
         OpenGraph(
-          image = cdnUrl(
-            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
-          ).some,
+          image =
+            Url(routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some)).some,
           title =
             if isStreak then "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
@@ -111,7 +111,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             cls := "puzzle-themes__link",
             href := (pt.count > 0).option(langHref(url))
           )(
-            img(src := assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
+            img(src := assetPath(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
             span(
               h3(
                 pt.theme.name(),
@@ -123,7 +123,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         ,
         (cat.value == "puzzle:origin").option(
           a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
-            img(src := assetUrl("images/puzzle-themes/playerGames.svg")),
+            img(src := assetPath("images/puzzle-themes/playerGames.svg")),
             span(
               h3(trans.puzzleTheme.playerGames()),
               span(trans.puzzleTheme.playerGamesDescription())

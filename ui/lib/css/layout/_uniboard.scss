@@ -8,6 +8,13 @@ body {
 
   ---col2-uniboard-width: #{$col2-uniboard-width};
   ---col3-uniboard-width: #{$col3-uniboard-width};
+
+  // Custom properties accept unknown functions. Gate their values so an
+  // unsupported min() cannot invalidate grid-template-columns at computed time.
+  @supports not (width: min(1px, 2px)) {
+    ---col2-uniboard-width: #{$col2-uniboard-fallback-width};
+    ---col3-uniboard-width: #{$col3-uniboard-fallback-width};
+  }
 }
 
 @include mq-is-col1 {

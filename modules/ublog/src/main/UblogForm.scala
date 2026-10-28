@@ -1,14 +1,14 @@
 package lila.ublog
 
 import play.api.data.*
-import play.api.data.format.Formatter
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
 import scalalib.model.Language
 
-import lila.common.Form.{ formatter, typeIn, cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, cleanTextWithSymbols, formatter, into, typeIn, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.LangList
-import lila.core.ublog.Quality
+import lila.ublog.UblogPost.Quality
 
 final class UblogForm(captcha: CaptchaApi, langList: LangList):
 
@@ -90,7 +90,7 @@ object UblogForm:
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.CRAWLABLE.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )

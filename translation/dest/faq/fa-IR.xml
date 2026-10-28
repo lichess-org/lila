@@ -8,7 +8,7 @@
   <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
   <string name="whyLiveLightLibre">زنده (Live)، زیرا بازی‌ها زنده و در تمام طول روز و شب ۲۴/۷ انجام و تماشا می‌شوند؛ سَبُک (light) و آزاد (libre) به خاطر اینکه Lichess متن‌باز است و سَبُک‌بار از شَر بُنجُل‌های اختصاصی‌ای که طاعونِ دیگر وبگاه‌هاست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
-  <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
+  <string name="howCanIContributeToLichess">چگونه می‌توانم در Lichess مشارکت کنم؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">وبگاهِ Lichess با داشَن‌های یاوران و تلاش‌های گروهی از داوطلبان برقرار است.</string>
   <string name="findMoreAndSeeHowHelp">اینجا میتوانید بیشتر راجع‌ به %1$s بدانید (همینطور %2$s). اگر میخواهید به‌صورت داوطلب وقت و مهارت‌تان را در اختیار لیچس بگذارید، اینجا تعدادی از %3$s وجود دارد.</string>
   <string name="beingAPatron">یاور بودن</string>
@@ -31,7 +31,7 @@
   <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قانون‌های شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، لیچس اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">زمان‌بندیِ شطرنج گلوله، برق‌آسا و دیگر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
-  <string name="basedOnGameDuration">زمان‌بندی‌های لیچس بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
+  <string name="basedOnGameDuration">زمان‌بندی‌های Lichess بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
 برای نمونه، مدت برآوردشدهٔ یک بازی ۵+۳ می‌شود ۵ × ۶۰ + ۴۰ × ۳۰ = ۴۲۰ ثانیه.</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
@@ -96,7 +96,7 @@
   <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
-  <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
+  <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: پاداها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="ownerUniqueTrophies">آن جایزه در تاریخ لیچس خاص هست و هیچکس به غیر از %1$s نمی‌توانند داشته باشند.</string>
   <string name="aHourlyBulletTournament">مسابقه گلوله یک‌ساعته</string>
@@ -164,6 +164,8 @@
 ۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید
 ۴. به پایین بِنَوَردید و پخش خودکار رسانه (Media autoplay) را بزنید
 ۵. وبگاه lichess.org را به اجازه‌داران (Allow) بیفزایید</string>
+  <string name="makeBotTitle">ساختِ رَت در Lichess؟</string>
+  <string name="makeBotDescription">برای یادگیری نحوه ساخت &lt;a href=\'%1$s\'&gt;رَتِ دلخواهِ شطرنج&lt;/a&gt; برای بازی در Lichess، لطفاً &lt;a href=\'%2$s\'&gt;این وبنوشته درباره ایجاد رَت‌ها را&lt;/a&gt; بخوانید.</string>
   <string name="stopMyselfFromPlaying">چگونه خودم را از بازی، بازدارم؟</string>
   <string name="mentalHealthCondition">وضعیت سلامت روانی خوداتکا</string>
   <string name="lichessUserstyles">سبک‌های کاربری Lichess</string>

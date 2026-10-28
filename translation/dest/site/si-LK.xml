@@ -540,13 +540,11 @@
   <string name="reportAUser">පරිශීලකයෙකු වාර්තා කරන්න</string>
   <string name="user">පරිශීලකයෙක්</string>
   <string name="reason">හේතුව</string>
-  <string name="whatIsIheMatter">කාරණය කුමක් ද?</string>
   <string name="cheat">වංචාකරණ​ය​</string>
   <string name="troll">ට්‍රෝල් කිරීම​</string>
   <string name="other">වෙනත්</string>
   <string name="reportCheatBoostHelp">ලින්ක් එක සමග තරඟය (තරඟ) පිළිබඳ විස්තරය එවන්න. මෙම කෙනා ගැන කුමක් හොරාකමක් යැයි නම් කළ හැකිදැයි පැහැදිලි කරන්න. \'ඔවුන් හොරාකම් කරති\' යන්න පමණක් නොකියමින්, එය කොහෙද සහ ඔබ එයට කෙසේ සාක්ෂාත් කරන්න.</string>
   <string name="reportUsernameHelp">මෙම පරිශීලක නාමය අවමානාත්මක යැයි සනාථ කළේ කෙසේද යන්න විස්තර කරන්න. \'මේක අවමානාත්මකයි/නරකයි\' යන්න පමණක් නොකිය, නමුත් එය කුමක් නිසාදැයි පැහැදිලි කරන්න. විශේෂයෙන්ම එය සෘජුවෙන් නොපෙනෙන එකක් නම්, අභ්‍යන්තර අර්ථය නොපෙනෙන ඉංග්‍රීසියෙන් නොවූ, එකකින් හෝ ඉතිහාසය/සංස්කෘතික නියෝගයක් මත පදනම් වූ එකක් නම් එය සනාථ කරන්න.\".</string>
-  <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
   <string name="by">%s වෙතින්</string>
   <string name="blog">බ්ලොග්</string>
   <string name="privacyPolicy">Privacy Policy</string>

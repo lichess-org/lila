@@ -10,12 +10,12 @@ import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
-import lila.core.id.SessionId
-import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
-import lila.core.perm.Permission
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.id.SessionId
 import lila.core.misc.oauth.AccessTokenId
+import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
+import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.perm.Permission
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
@@ -63,7 +63,7 @@ final class SecurityApi(
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
           case Success(_) => FormValid
-          case InvalidUsernameOrPassword =>
+          case InvalidUsernameOrPassword | BlockLeaked =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
@@ -101,28 +101,51 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(pwned).map:
-            _.fold(candidate.some): reason =>
-              logger.info(s"Login $str must2fa: $reason (pwned: $pwned)")
-              lila.mon.security.login.must2fa(reason).increment()
-              candidate.copy(must2fa = true).some
+          must2fa(pwned)
+            .map:
+              _.fold(candidate): reason =>
+                logger.info(s"Login $str must2fa: $reason (pwned: $pwned)")
+                lila.mon.security.login.must2fa(reason).increment()
+                candidate.copy(must2fa = true)
+            .map(_.copy(pwned = pwned.some).some)
       .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       login: UserStrOrEmail,
       password: ClearPassword,
       token: Option[String]
-  ): LoginCandidate.Result =
+  )(using req: RequestHeader): LoginCandidate.Result = {
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.pub(LoginWithBlankedPassword(c.user.id))
         BlankedPassword
-      else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
-        lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
-        WeakPassword
-      else result
+      else
+        val blockLeaked =
+          HTTPRequest.isLichobile && HTTPRequest.usernamePasswordLeaked && result.match
+            case Success(user) if user.totpSecret.isEmpty => true
+            case _ => false
+        if blockLeaked then
+          logger.info(s"Block lichobile login with leaked user+pass ${HTTPRequest.printClient(req)}")
+          BlockLeaked
+        else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
+          lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
+          WeakPassword
+        else result
+  }.tap: result =>
+    lila.mon.security.login
+      .attempt(
+        useCase = candidate.fold("-")(_.useCase),
+        byEmail = EmailAddress.isValid(login.value),
+        pwned = candidate.flatMap(_.pwned).exists(_.yes),
+        leaked = HTTPRequest.usernamePasswordLeaked,
+        result = result.match
+          case LoginCandidate.Result.Success(_) => true
+          case _ => false,
+        name = result.getClass.toString
+      )
+      .increment()
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion], pwned: IsPwned)(using
       req: RequestHeader

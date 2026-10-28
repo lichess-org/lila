@@ -9,6 +9,7 @@ import lila.core.forum.BusForum
 import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
 import lila.core.misc.streamer.StreamStart
 import lila.core.round.CorresMoveEvent
+import lila.core.tournament.leaderboard.TourEntries
 
 @Module
 final class Env(
@@ -71,6 +72,8 @@ final class Env(
     case lila.core.team.JoinTeam(id, userId) => write.team(id, userId)
   Bus.sub[lila.core.swiss.SwissFinish]:
     case lila.core.swiss.SwissFinish(swissId, ranking) => write.swiss(swissId, ranking)
+  Bus.sub[TourEntries]: e =>
+    write.tourEntries(e.entries)
 
   Bus.sub[StreamStart]:
     case StreamStart(userId, _) => write.streamStart(userId)

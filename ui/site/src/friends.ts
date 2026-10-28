@@ -1,4 +1,4 @@
-import { api as lichess } from 'lib/api';
+import { api } from 'lib/api';
 import { licon } from 'lib/licon';
 import { profileUrl } from 'lib/view/userLink';
 
@@ -14,28 +14,36 @@ interface Friend {
 
 export default class OnlineFriends {
   titleEl: HTMLElement;
+  countEl: HTMLElement;
   loaded = false;
+  receivedOnlineFriends = false;
   users: Map<string, Friend>;
 
   constructor(readonly el: HTMLElement) {
-    const api = lichess.onlineFriends;
-    this.titleEl = this.el.querySelector('.friend_box_title') as HTMLElement;
-    this.titleEl.addEventListener('click', () => {
-      this.el.querySelector('.content_wrap')?.classList.toggle('none');
-      if (!this.loaded) {
-        this.loaded = true;
-        api.request();
-      }
-    });
+    this.titleEl = this.el.querySelector('.friend_box_button') as HTMLElement;
+    this.countEl = this.el.querySelector('.friend_box_count') as HTMLElement;
+    this.titleEl.addEventListener('click', this.load);
+    this.titleEl.addEventListener('mouseover', this.load);
     this.users = new Map();
-    api.events.on('onlines', this.receive);
-    api.events.on('enters', this.enters);
-    api.events.on('leaves', this.leaves);
-    api.events.on('playing', this.playing);
-    api.events.on('stopped_playing', this.stopped_playing);
+    api.onlineFriends.events.on('onlines', this.receive);
+    api.onlineFriends.events.on('enters', this.enters);
+    api.onlineFriends.events.on('leaves', this.leaves);
+    api.onlineFriends.events.on('playing', this.playing);
+    api.onlineFriends.events.on('stopped_playing', this.stoppedPlaying);
   }
+
+  load = () => {
+    if (!this.loaded) {
+      this.updateTitle(0, 0);
+      this.countEl.innerHTML = i18n.site.nbFriendsOnline(0, '-');
+      this.loaded = true;
+      api.onlineFriends.request();
+    }
+  };
+
   receive = (friends: TitleName[], msg: { playing: string[]; patronColors: PatronColor[] }) => {
     this.users.clear();
+    this.receivedOnlineFriends = true;
     friends.forEach((f, i) => {
       const friend = this.insert(f);
       friend.patronColor = msg.patronColors[i];
@@ -43,20 +51,27 @@ export default class OnlineFriends {
     });
     this.repaint();
   };
+
   repaint = () => {
-    if (this.loaded)
+    if (this.receivedOnlineFriends)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = i18n.site.nbFriendsOnline(
-          ids.length,
-          this.loaded ? `<strong>${ids.length}</strong>` : '-',
-        );
+        const onTv = Array.from(this.users.values()).filter(friend => friend.playing).length;
+        this.updateTitle(ids.length, onTv);
+        this.countEl.innerHTML = i18n.site.nbFriendsOnline(ids.length, `<strong>${ids.length}</strong>`);
         this.el.querySelector('.nobody')?.classList.toggle('none', !!ids[0]);
         this.el.querySelector('.list')!.innerHTML = ids
           .map(id => this.renderFriend(this.users.get(id)!))
           .join('');
       });
   };
+
+  updateTitle = (online: number, onTv: number) => {
+    const title = i18n.site.friendsOnlineAndPlaying(online, onTv);
+    this.titleEl.title = title;
+    this.titleEl.setAttribute('aria-label', title);
+  };
+
   renderFriend = (friend: Friend) => {
     const patronCls = friend.patronColor ? ` patron paco${friend.patronColor}` : '';
     const icon = `<icon class="line${patronCls}"></icon>`;
@@ -76,15 +91,18 @@ export default class OnlineFriends {
     friend.patronColor = msg.patronColor;
     this.repaint();
   };
+
   leaves = (titleName: TitleName) => {
     this.users.delete(this.getId(titleName));
     this.repaint();
   };
+
   playing = (titleName: TitleName) => {
     this.insert(titleName).playing = true;
     this.repaint();
   };
-  stopped_playing = (titleName: TitleName) => {
+
+  stoppedPlaying = (titleName: TitleName) => {
     this.insert(titleName).playing = false;
     this.repaint();
   };

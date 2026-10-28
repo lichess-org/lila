@@ -2,9 +2,9 @@ package lila.clas
 
 import reactivemongo.api.bson.BSONNull
 
+import lila.clas.BsonHandlers.given
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.clas.BsonHandlers.given
 
 final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFilters)(using
     Executor

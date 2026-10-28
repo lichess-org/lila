@@ -70,7 +70,7 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>
   <string name="notRepeatedMoves">Chúng tôi không lặp lại các nước đi. Tại sao ván đấu vẫn bị xử hòa bởi luật lặp cờ?</string>
-  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xẩy ra liên tiếp.</string>
+  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
   <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
@@ -166,6 +166,8 @@ Chúng tôi hiển thị biểu tượng tắt tiếng màu đỏ để cảnh b
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)
 5. Thêm lichess.org vào Cho phép</string>
+  <string name="makeBotTitle">Tạo một bot trên Lichess?</string>
+  <string name="makeBotDescription">Để tìm hiểu cách xây dựng một &lt;a href=\'%1$s\'&gt;bot cờ vua tùy chỉnh&lt;/a&gt; để chơi trên Lichess, vui lòng đọc &lt;a href=\'%2$s\'&gt;bài blog này về cách tạo bot&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Hạn chế bản thân chơi quá nhiều?</string>
   <string name="mentalHealthCondition">tình trạng sức khỏe tâm thần độc lập</string>
   <string name="lichessUserstyles">Phong cách người dùng Lichess</string>

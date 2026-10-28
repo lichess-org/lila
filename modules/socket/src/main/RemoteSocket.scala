@@ -1,15 +1,15 @@
 package lila.socket
 
-import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import chess.{ Centis, Color }
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
+import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import play.api.libs.json.*
 
 import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.misc.streamer.{ StreamersOnline, StreamInfo }
+import lila.core.misc.streamer.{ StreamInfo, StreamersOnline }
 import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
 import lila.core.security.CloseAccount

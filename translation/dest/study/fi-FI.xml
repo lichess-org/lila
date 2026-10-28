@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Arvioi symbolein</string>
   <string name="theChapterIsTooShortToBeAnalysed">Luku on liian lyhyt analysoitavaksi.</string>
   <string name="onlyContributorsCanRequestAnalysis">Vain tutkielman osallistujat voivat pyytää tietokoneanalyysin.</string>
-  <string name="getAFullComputerAnalysis">Hanki palvelimelta täysi tietokoneanalyysi päälinjasta.</string>
   <string name="makeSureTheChapterIsComplete">Varmista, että luku on valmis. Voit pyytää analyysiä vain kerran.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
   <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Ei: anna ihmisten selata vapaasti</string>
   <string name="pinnedStudyComment">Kiinnitetty tutkielmakommentti</string>
   <string name="start">Aloita</string>
-  <string name="save">Tallenna</string>
   <string name="clearChat">Tyhjennä keskustelu</string>
   <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
@@ -188,7 +186,7 @@
   <string name="customPositionTitle">Itse määritetty asema</string>
   <string name="customPositionText">Aseta nappulat laudalle haluamallasi tavalla.&lt;br&gt;Tämä sopii loppupelien tutkimiseen.</string>
   <string name="loadGameFromTheWebTitle">Lataa peli verkosta</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Kopioi pelin siirrot kappaleeseen liittämällä pelin URL&lt;br&gt;(esim. lichess.org/7fHIU0XI)&lt;br&gt;.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Kun liität Lichessissä pelatun pelin URL:n&lt;br&gt;(esim. lichess.org/game/7fHIU0XI)&lt;br&gt;, pelin siirrot latautuvat tutkielman lukuun.</string>
   <string name="fromFenStringTitle">Tuo FEN-asema</string>
   <string name="fromFenStringText">Kun liität aseman FEN-muodossa,&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;tutkielman luku alkaa kyseisestä asemasta.</string>
   <string name="fromPgnGameTitle">Tuo PGN-peli</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Molemminpuolinen tappio</string>
   <string name="blackDefeatWhiteCanNotWin">Mustan tappio, mutta valkea ei voi voittaa</string>
   <string name="whiteDefeatBlackCanNotWin">Valkean tappio, mutta musta ei voi voittaa</string>
+  <string name="analysisEditor">Analyysieditori</string>
+  <string name="clearLocal">Poistetaanko paikallinen analyysi?</string>
+  <string name="clearPublished">Poistetaanko julkaista analyysi?</string>
+  <string name="requestAServerAnalysis">Pyydä palvelinanalyysiä</string>
+  <string name="analyzeOnYourDevice">Analysoi omalla laitteellasi</string>
 </resources>

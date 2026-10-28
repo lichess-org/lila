@@ -5,7 +5,7 @@ object BuildSettings:
   import Dependencies.*
 
   val lilaVersion = "4.0"
-  val globalScalaVersion = "3.8.4"
+  val globalScalaVersion = "3.10.0"
 
   def buildSettings =
     // NB: do NOT prepend Defaults.coreDefaultSettings here. Under sbt 2.0 those base settings are
@@ -16,7 +16,7 @@ object BuildSettings:
     Seq(
       resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots),
       scalaVersion := globalScalaVersion,
-      scalacOptions ++= compilerOptions,
+      scalacOptions ++= Def.uncached(compilerOptions),
       javacOptions ++= Seq("--release", "21"),
       organization := "org.lichess",
       version := lilaVersion,
@@ -49,19 +49,19 @@ object BuildSettings:
       )
 
   val compilerOptions = Seq(
-    "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
-    // "-nowarn", // during migration
-    // "-rewrite",
-    // "-source:3.7-migration",
-    "-indent",
+    // "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
     // "-explaintypes",
     // "-explain-cyclic",
+    "-indent",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
     "-release:21",
     "-Wimplausible-patterns",
-    "-Wunused:all"
+    "-Wunused:all",
+    "-Wunused:imports",
+    "-Wconf:msg=method ArrowAssoc in object Predef is deprecated:silent",
+    "-Wconf:msg=class ArrowAssoc is deprecated:silent"
     // "-Yprofile-enabled",
     // "-Yprofile-trace:compiler.trace"
   )

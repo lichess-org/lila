@@ -165,6 +165,7 @@
   <string name="flipBoard">Girar el tablero</string>
   <string name="toggleLocalEngine">Alternar motor local</string>
   <string name="engineSettings">Ajustes del motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motores de los más fuertes a los más débiles</string>
   <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Triple repetición</string>
@@ -460,6 +461,8 @@ Jugar por puntos aumentará la estabilidad.</string>
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amigos en línea: %1$s
+Amigos jugando: %2$s</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Siguiendo</string>
@@ -588,14 +591,12 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">¿Qué ocurre?</string>
   <string name="cheat">Trampa</string>
   <string name="troll">Acoso</string>
   <string name="other">Otro</string>
   <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica por qué es ofensivo este nombre de usuario. No te limites a decir \"es ofensivo\" o \"inapropiado\" y argumenta tu conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podremos procesar tu informe más rápido si lo escribes en inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está cerrado.</string>
@@ -787,7 +788,9 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
+  <string name="downloadMyGames">Descargar mis partidas</string>
   <string name="downloadAllGames">Descargar todas las partidas</string>
+  <string name="downloadResults">Descargar resultados</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
@@ -807,12 +810,14 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
+  <string name="activeSessionsDescription">Esta es una lista de dispositivos y aplicaciones que han iniciado sesión en tu cuenta. Si notas alguna actividad sospechosa, Asegúrate de revisar &lt;a href=\'%1$s\'&gt;tu dirección de correo electrónico de recuperación&lt;/a&gt; y &lt;a href=\'%2$s\'&gt;cambiar tu contraseña&lt;/a&gt;.</string>
   <string name="sessions">Sesiones</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las funciones</string>
   <string name="viewTheSolution">Ver la solución</string>
   <string name="noChallenges">Sin desafíos.</string>
+  <string name="browserNotificationsDenied">Ventanas de notificación desactivadas por configuración del navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">¡Disponible en %s idioma!</item>
     <item quantity="other">¡Disponible en %s idiomas!</item>
@@ -1038,8 +1043,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
   <string name="instructions">Instrucciones</string>
   <string name="showMeEverything">Mostrarme todo</string>
-  <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
-Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
+  <string name="lichessPatronInfo">Lichess es una organización benéfica y software libre de código abierto. Dependemos de donaciones de usuarios para apoyar nuestros costos operativos, desarrollo y contenido. Sin nuestra generosa comunidad, no podríamos mantener el sitio funcionando. ¡Gracias por unirte!</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
   <string name="stats">Estadísticas</string>
   <string name="accessibility">Accesibilidad</string>
@@ -1059,4 +1063,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="boards">Tableros</string>
   <string name="write">Escribir</string>
   <string name="preview">Vista previa</string>
+  <string name="done">Listo</string>
 </resources>

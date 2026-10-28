@@ -1,20 +1,20 @@
 package lila.ublog
 
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
-import lila.core.shutup.ShutupApi
-import lila.core.timeline as tl
-import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-import lila.memo.PicfitApi
-import lila.memo.CacheApi.buildAsyncTimeout
-import lila.core.ublog.BlogsBy
-import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
+import lila.core.shutup.ShutupApi
+import lila.core.timeline.{ Propagate, UblogPostLike }
+import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
-import lila.core.ublog.Quality
+import lila.core.{ LightUser, timeline as tl }
+import lila.core.config.RateLimit
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.buildAsyncTimeout
+import lila.memo.PicfitApi
+import lila.ublog.UblogPost.Quality
 
 final class UblogApi(
     colls: UblogColls,
@@ -27,7 +27,7 @@ final class UblogApi(
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler)
+)(using Executor, Scheduler, RateLimit)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
@@ -214,6 +214,8 @@ final class UblogApi(
             trustedAuthor <- isAuthorTrusted(post)
             newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
             _ <- updateQualityFields(newPost)
+            _ <- (trustedAuthor && newPost.quality == Quality.good).so:
+              setTierIfBlogExists(post.blog, Tier.CRAWLABLE)
           yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
@@ -341,7 +343,9 @@ final class UblogApi(
       for _ <- colls.post.updateOrUnsetField(bid(post.id), "featured", featured)
       yield featured
 
-  def newPost(author: User): Fu[UblogPost] =
+  val newPostLimit = lila.memo.RateLimit[UserId](10, 24.hour, "ublog.create.user")
+
+  def newPost(author: User): Fu[Option[UblogPost]] =
     colls.post
       .one[UblogPost](
         bdoc(
@@ -353,14 +357,15 @@ final class UblogApi(
           "image".exists(false)
         )
       )
-      .getOrElse:
-        val post = UblogPost.empty(author)
-        colls.post.insert
-          .one(bsonWriteObjTry[UblogPost](post).get ++ bdoc("likers" -> List(author.id)))
-          .inject(post)
+      .orElse:
+        newPostLimit(author.id, fuccess(none)):
+          val post = UblogPost.empty(author)
+          colls.post.insert
+            .one(bsonWriteObjTry[UblogPost](post).get ++ bdoc("likers" -> List(author.id)))
+            .inject(post.some)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
-    (tier <= Tier.LOW).so(unfeatureAllOf(blog))
+    (tier <= Tier.REGULAR).so(unfeatureAllOf(blog))
 
   private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
     colls.post.unsetField(bdoc("blog" -> blog), "featured").void
@@ -382,8 +387,11 @@ final class UblogApi(
       offset: Int,
       length: Int,
       sort: BlogsBy = BlogsBy.newest
-  ) =
-    colls.post
+  ): Fu[List[UblogPost.PreviewPost]] =
+    // With $limit only after the lookups, mongodb reads ahead thousands of posts it then drops.
+    // The lookups keep most posts, so first cut the sorted posts to a margin,
+    // and only if too many were dropped, run again without the cut.
+    def aggregate(cut: Int) = colls.post
       .aggregateList(length, _.sec): framework =>
         import framework.*
         val aggSort = sort match
@@ -391,7 +399,7 @@ final class UblogApi(
           case BlogsBy.likes => Descending("likes")
           case _ => Descending("lived.at")
         Match(select ++ bdoc("live" -> true)) -> {
-          Sort(aggSort) ::
+          Sort(aggSort) :: Limit(cut) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
             List(Skip(offset), Limit(length))
         }
@@ -400,6 +408,8 @@ final class UblogApi(
           doc <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
+    aggregate(2 * (offset + length) + length).flatMap: posts =>
+      if posts.sizeIs < length then aggregate(5_000) else fuccess(posts)
 
   private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
       coll: Coll,

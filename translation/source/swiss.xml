@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Number of rounds</string>
   <string name="numberOfRoundsHelp">An odd number of rounds allows optimal colour balance.</string>
   <string name="roundInterval">Interval between rounds</string>
+  <string name="customPairings">Custom pairings</string>
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players who should not be paired (siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="manualPairings">Manual pairings in next round</string>

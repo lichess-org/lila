@@ -3,7 +3,6 @@
 cg-board {
   @extend %box-shadow, %abs-100;
   @include prevent-select;
-  @include backdrop-blur-if-transparent;
 
   top: 0;
   left: 0;
@@ -11,6 +10,13 @@ cg-board {
 
   .manipulable & {
     cursor: pointer;
+  }
+
+  /* 2D board images are opaque, so only blur where the backdrop shows through:
+     a translucent board, or the transparent edges of 3D boards. */
+  body:not(.simple-board) &,
+  .is3d .main-board & {
+    @include backdrop-blur-if-transparent;
   }
 }
 

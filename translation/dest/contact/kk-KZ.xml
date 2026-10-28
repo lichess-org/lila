@@ -53,7 +53,6 @@
   <string name="ratedGame">Ойын бағалы екенін тексеріңіз. Жай ойындар ойыншының рейтингіне әсер етпейді.</string>
   <string name="botRatingAbuse">Кейде роботқа қарсы бағалы ойындарда ұпай берілмеуі мүмкін. Мысалы, ойыншы өз ұпайларын өсіру мақсатында роботты асыра пайдаланғанда.</string>
   <string name="errorPage">Ақаулық парақшасы</string>
-  <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
   <string name="learnHowToMakeBroadcasts">Личестегі өз көрсетіліміңізді қалай таратуға болатынын меңгеріп алыңыз</string>
   <string name="banAppeal">Бұғауға не IP шектеуге қарсылық шағым</string>
   <string name="engineAppeal">Есептеуіш не чит қолданды</string>

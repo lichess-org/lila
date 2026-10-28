@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
+  <string name="multipleChoices">Mehrfach Uswahle. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Chann während eme Schpil im Brättmenü deaktiviert werde</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
@@ -72,7 +73,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Blind schpille</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Uf mobile Grät, links azeige</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="showServerAnalysis">Server-Analyse zeigä</string>
   <string name="showBestMoveArrows">Pfiil für d\'beschti Züg zeige</string>
   <string name="showManeuverArrows">Manöver Pfiili zeige</string>
   <string name="showGauge">Bewertigs-Skala zeige</string>
@@ -82,6 +82,7 @@
   <string name="showUndefendedPieces">Ungschützti Figure zeige</string>
   <string name="showPinnedPieces">Gfässelti Figure zeige</string>
   <string name="showCheckableKing">En Schachbare König zeige</string>
+  <string name="showTrappedPieces">Zeig g\'fessleti Figure</string>
   <string name="disclosureMode">Ermögliche, d\'Variante z\'verstäcke</string>
   <string name="generalSettings">Allgmei</string>
   <string name="moveListSettings">Zug-Lischte</string>

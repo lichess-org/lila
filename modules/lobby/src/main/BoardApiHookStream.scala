@@ -1,12 +1,12 @@
 package lila.lobby
 
+import org.apache.pekko.actor.Cancellable
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.core.socket.Sri
-import org.apache.pekko.actor.Cancellable
 import lila.core.pool.PoolFrom
+import lila.core.socket.Sri
 
 final class BoardApiHookStream(
     lobby: LobbySyncActor,

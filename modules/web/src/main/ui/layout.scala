@@ -36,7 +36,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  private def fontPreload(path: String) = preload(assetUrl(s"font/$path"), "font", true, "font/woff2".some)
+  private def fontPreload(path: String) = preload(assetPath(s"font/$path"), "font", true, "font/woff2".some)
 
   def fontsPreload(using ctx: Context) = frag(
     fontPreload("lichess.woff2"),
@@ -63,6 +63,24 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   <div id="notify-app" class="dropdown"></div>
 </div>"""
 
+  private def friendBox(using Translate) =
+    val titleTxt = trans.site.friends.txt()
+    div(id := "friend_box")(
+      button(
+        tpe := "button",
+        cls := "friend_box_button toggle link",
+        title := titleTxt,
+        aria.label := titleTxt,
+        dataIcon := Icon.Friends
+      ),
+      div(cls := "content_wrap dropdown")(
+        div(cls := "friend_box_count")(
+          trans.site.nbFriendsOnline.plural(0, "")
+        ),
+        div(cls := "content list")
+      )
+    )
+
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
     div(id := "clinput")(
@@ -82,7 +100,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src := staticAssetUrl("images/icons/bot.webp"),
+    src := staticAssetPath("images/icons/bot.webp"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
@@ -91,9 +109,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val noRobots = raw("""<meta content="noindex,nofollow" name="robots">""")
 
   val favicons = raw:
-    val path = s"$assetBaseUrl/assets/logo"
-    s"""<link rel="alternate icon" type="image/png" href="$path/lichess-favicon-64.png">""" +
-      s"""<link id="favicon" rel="icon" type="image/svg+xml" href="$path/lichess-favicon.svg">"""
+    s"""<link rel="alternate icon" type="image/png" href="/assets/logo/lichess-favicon-64.png">""" +
+      s"""<link id="favicon" rel="icon" type="image/svg+xml" href="/assets/logo/lichess-favicon.svg">"""
 
   def blindModeForm(using ctx: Context) = raw:
     val btnText =
@@ -107,9 +124,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
       }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button id="nvui-button" type="submit">$btnText</button>$tutorialLink</form>"""
-
-  val assetsMissingTroubleshooting = raw:
-    """<h2 id="assets-missing"><a href="/page/network-administrators">Your network blocks the Lichess assets!</a></h2>"""
 
   def zenZone(using Translate) = spaceless:
     s"""
@@ -152,7 +166,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     frag(cashTag, assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag))
 
   private def jsTag(name: String): Frag =
-    script(tpe := "module", src := staticCompiledUrl(name))
+    script(tpe := "module", src := staticCompiledPath(name))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
@@ -185,12 +199,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       .filter(100 >=)
   } | 80
 
-  val dailyNewsAtom = link(
-    href := routes.Feed.atom,
-    st.title := "Lichess Updates Feed",
-    tpe := "application/atom+xml",
-    rel := "alternate"
-  )
+  val dailyNewsAtom = (routes.Feed.atom, "Lichess Updates Feed")
+  def atomLinkTag(call: Call, title: String) =
+    link(href := call, st.title := title, tpe := "application/atom+xml", rel := "alternate")
 
   val dataVapid = attr("data-vapid")
   def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
@@ -203,7 +214,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val dataPieceSet = attr("data-piece-set")
   val dataBoard3d = attr("data-board3d")
   val dataPieceSet3d = attr("data-piece-set3d")
-  val dataAssetUrl = attr("data-asset-url") := netConfig.assetBaseUrl.value
+  val dataAssetUrl = attr("data-asset-url") := netConfig.baseUrl
   val dataAssetVersion = attr("data-asset-version")
 
   val spinnerMask = raw:
@@ -220,25 +231,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   @font-face {
     font-family: 'lichess';
     font-display: block;
-    src: url('${assetUrl("font/lichess.woff2")}') format('woff2')
+    src: url('${assetPath("font/lichess.woff2")}') format('woff2')
   }
 </style>"""
 
-  def bottomHtml(using ctx: Context) = frag(
-    ctx.me
-      .exists(_.enabled.yes)
-      .option(
-        div(id := "friend_box")(
-          div(cls := "friend_box_title")(
-            trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
-          ),
-          div(cls := "content_wrap none")(
-            div(cls := "content list")
-          )
-        )
-      ),
+  def bottomHtml = frag(
     Option.when(netConfig.socketDomains.nonEmpty)(networkAlert),
-    spinnerMask
+    spinnerMask,
+    label(id := "mselect-fullscreen-mask", cls := "fullscreen-mask mselect__fullscreen-mask")
   )
 
   object siteHeader:
@@ -333,7 +333,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           else
             ctx.me
               .map: me =>
-                frag(allNotifications(challenges, notifications), dasher(me))
+                frag(
+                  me.enabled.yes.option(friendBox),
+                  allNotifications(challenges, notifications),
+                  dasher(me)
+                )
               .getOrElse:
                 error.not.option(anonDasher)
         )

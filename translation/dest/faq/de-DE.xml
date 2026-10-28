@@ -165,6 +165,8 @@ Wir zeigen das rote Stummschaltungssymbol an, um darauf aufmerksam zu machen, we
 3. Klicke auf Cookies und Website-Berechtigungen
 4. Scrolle nach unten und klicke auf Medien-Autoplay
 5. Füge lichess.org hinzu, um die Erlaubnis zu erteilen</string>
+  <string name="makeBotTitle">Einen Bot auf Lichess erstellen?</string>
+  <string name="makeBotDescription">Um zu lernen, wie man einen &lt;a href=\'%1$s\'&gt;benutzerdefinierten Schach-Bot&lt;/a&gt; für Lichess baut, lies bitte &lt;a href=\'%2$s\'&gt;diesen Blogbeitrag über das Erstellen von Bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Mich selbst vom Spielen abhalten?</string>
   <string name="mentalHealthCondition">eigenständiger psychischer Gesundheitszustand</string>
   <string name="lichessUserstyles">Lichess Benutzerstile</string>
