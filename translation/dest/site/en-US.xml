@@ -165,6 +165,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="toggleLocalEngine">Toggle local engine</string>
   <string name="engineSettings">Engine settings</string>
+  <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>
   <string name="illegalPosition">Illegal position</string>
   <string name="threefoldRepetition">Threefold repetition</string>
@@ -546,6 +547,7 @@ Friends playing: %2$s</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
+  <string name="clearLocalData">Clear local data</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>
@@ -559,6 +561,11 @@ Friends playing: %2$s</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">About bots on Lichess</string>
+  <string name="featuredBots">Featured bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Try playing these innovative chess engines! They are our favourites.</string>
+  <string name="communityBots">Community bots</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online.</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>
@@ -604,6 +611,7 @@ Friends playing: %2$s</string>
   <string name="clearField">Clear field</string>
   <string name="orSeparator">Or</string>
   <string name="logInByEmail">Log in by email</string>
+  <string name="emailLoginInstructions">We will send you an email containing a link to log you in.</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -628,6 +636,7 @@ Friends playing: %2$s</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
+  <string name="defeatOnly">Defeat only</string>
   <string name="drawAndDefeat">Draw and Defeat</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="victory">Victory</string>
@@ -699,6 +708,7 @@ Friends playing: %2$s</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
+  <string name="blockAds">Block ads</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host color: %s</string>
@@ -800,12 +810,14 @@ Friends playing: %2$s</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
+  <string name="activeSessionsDescription">This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to &lt;a href=\'%1$s\'&gt;check your recovery email address&lt;/a&gt; and &lt;a href=\'%2$s\'&gt;change your password&lt;/a&gt;.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="viewTheSolution">View the solution</string>
   <string name="noChallenges">No challenges.</string>
+  <string name="browserNotificationsDenied">Notification popups disabled by browser setting</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>
@@ -1030,6 +1042,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organizing events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us!</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
   <string name="accessibility">Accessibility</string>
@@ -1049,4 +1062,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="boards">Boards</string>
   <string name="write">Write</string>
   <string name="preview">Preview</string>
+  <string name="done">Done</string>
 </resources>

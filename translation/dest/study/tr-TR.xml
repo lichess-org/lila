@@ -186,6 +186,7 @@
   <string name="customPositionTitle">Özel konum</string>
   <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
   <string name="loadGameFromTheWebTitle">Web\'den bir oyun yükle</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Bölüme oyun hamleleri yüklemek için bir oyun URL\'si&lt;br&gt;(örneğin lichess.org/game/7fHIU0XI)&lt;br&gt;yapıştırın.</string>
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
   <string name="fromFenStringText">FEN formatında bir pozisyon &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; yapıştırarak bölümü belirli bir yerden başlat.</string>
   <string name="fromPgnGameTitle">PGN oyunundan</string>

@@ -24,7 +24,7 @@ final class JsBot(env: Env) extends LilaController(env):
     yield res
 
   def assetKeys = Anon: // for service worker
-    Ok(env.jsBot.assets.getJson).headerCache(10.minutes)
+    Ok(env.jsBot.assets.getJson).publicCache(10.minutes)
 
   def devIndex = Secure(_.BotEditor) { _ ?=> _ ?=>
     for

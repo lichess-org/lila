@@ -47,6 +47,21 @@
   <string name="cloneStudy">ডুপ্লিকেট/নকল করবেন</string>
   <string name="studyPgn">অধ্যায়ন PGN আকারে</string>
   <string name="open">ওপেন</string>
+  <string name="saveChapter">অধ্যায় সেভ করুন</string>
+  <string name="clearAnnotations">টীকা মুছে ফেলুন</string>
+  <string name="clearVariations">ধরণগুলো মুছে ফেলুন</string>
+  <string name="deleteChapter">অধ্যায় মুছে ফেলুন</string>
+  <string name="deleteThisChapter">এই অধ্যায়টি মুছে ফেলুন। এখান থেকে ফেরা অসম্ভব!</string>
+  <string name="clearAllCommentsInThisChapter">এই অধ্যায়ের সব মন্তব্য, চিহ্ণ কিংবা আকৃতিগুলো মুছে ফেলুন</string>
+  <string name="rightUnderTheBoard">বোর্ডের ঠিক নিচে</string>
+  <string name="noPinnedComment">কোনটিই নয়</string>
+  <string name="normalAnalysis">সাধারণ বিশ্লেষণ</string>
+  <string name="hideNextMoves">পরবর্তী চালগুলো লুকান</string>
+  <string name="interactiveLesson">অংশগ্রহণমূলক পাঠ</string>
+  <string name="chapterX">অধ্যায় %s</string>
+  <string name="empty">খালি</string>
+  <string name="startFromInitialPosition">প্রথম অবস্থান থেকে শুরু করুন</string>
+  <string name="editor">সম্পাদনা</string>
   <string name="startFromCustomPosition">নির্দিষ্ট অবস্থান থেকে শুরু করুন</string>
   <string name="loadAGameByUrl">URL থেকে খেলা লোড করুন</string>
   <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>
@@ -78,6 +93,7 @@
   <string name="clearChat">চ্যাট পরিষ্কার করুন</string>
   <string name="deleteTheStudyChatHistory">স্টাডি চ্যাটের ইতিহাস মুছে ফেলবেন? এটা কিন্তু ফিরে আসবে না!</string>
   <string name="deleteStudy">স্টাডি মুছে ফেলুন</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">পুরো স্টাডিটি মুছে ফেলবেন? এখান থেকে ফেরা সম্ভব নয়! নিশ্চিত করতে স্টাডির নামটি লিখুন: %s</string>
   <string name="whereDoYouWantToStudyThat">আপনি কোথায় এটা চর্চা করবেন?</string>
   <string name="goodMove">ভালো চাল</string>
   <string name="mistake">ভূল চাল</string>
@@ -96,4 +112,27 @@
   <string name="whiteIsWinning">সাদা জিতছে</string>
   <string name="blackIsWinning">কালো জিতছে</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">নোভেল্টি</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">উন্নয়ন</string>
+  <string name="initiative">উদ্যোগ</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">আক্রমণ</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">পাল্টা আক্রমণ</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">সময়ের সমস্যা</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">ক্ষতিপূরণ সহ</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">এই আইডিয়ার সাথে</string>
+  <string name="nextChapter">পরবর্তী অধ্যায়</string>
+  <string name="prevChapter">পূর্ববর্তী অধ্যায়</string>
+  <string name="studyActions">স্টাডির কাজগুলো</string>
+  <string name="topics">বিষয়</string>
+  <string name="myTopics">আমার বিষয়</string>
+  <string name="popularTopics">জনপ্রিয় বিষয়</string>
+  <string name="manageTopics">বিষয়গুলো ব্যবস্থাপনা করুন</string>
+  <string name="back">পিছনে</string>
+  <string name="playAgain">আবার খেলুন</string>
+  <string name="whatWouldYouPlay">এই পজিশনে আপনি কী খেলতেন?</string>
+  <string name="youCompletedThisLesson">অভিনন্দন! এই পাঠটি শেষ হয়েছে।</string>
+  <string name="perPage">%s প্রতি পেজে</string>
+  <string name="getTheTour">সাহায্য লাগবে? ঘুরে দেখুন!</string>
+  <string name="welcomeToLichessStudyTitle">লিচেস স্টাডিতে স্বাগতম!</string>
+  <string name="welcomeToLichessStudyText">&lt;br&gt;&lt;br&gt; একটি যৌথ বিশ্লেষণ বোর্ড। এটা ব্যবহার করে &lt;brr&gt; গেম বিশ্লেষণ ও টীকা দিতে, বন্ধুদের সাথে &lt;br&gt; অবস্থান নিয়ে আলোচনা করতে, আর অবশ্যই দাবা শিখতে পারবেন! &lt;br&gt;&lt;br&gt; একটি শক্তিশালী হাতিয়ার। আমরা একটু সময় নিয়ে এটা কীভাবে কাজ করে তা দেখি।</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">শেয়ার এবং সেভ করা হয়েছে</string>
 </resources>

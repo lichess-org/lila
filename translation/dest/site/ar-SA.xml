@@ -101,8 +101,8 @@
   <string name="database">قاعدة بيانات</string>
   <string name="whiteDrawBlack">أسود / تعادل / أبيض</string>
   <string name="averageRatingX">متوسط التقييم: %s</string>
-  <string name="minRatingX">أقل تصنيف هو %s</string>
-  <string name="maxRatingX">أعلى تصنيف هو %s</string>
+  <string name="minRatingX">الحد الأدنى للتصنيف: %s</string>
+  <string name="maxRatingX">الحد الأقصى للتصنيف: %s</string>
   <string name="recentGames">أحدث المباريات</string>
   <string name="topGames">أفضل الالعاب</string>
   <string name="masterDbExplanation">المباريات الحضورية للاعبين المصنَّفين من الاتحاد الدولي للشطرنج FIDE بتصنيف %1$s فأعلى، من %2$s إلى %3$s</string>
@@ -117,7 +117,7 @@
   <string name="dtzWithRounding">قاعدة DTZ50′′ مع التقريب، استنادًا إلى عدد أنصاف النقلات حتى حدوث أسر أو تحريك بيدق</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maxDepthReached">تم الوصول إلى أقصى عمق!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أتزغب بإضافة المزيد من المباريات من قائمة التفضيلات؟</string>
   <string name="openings">الافتتاحيات</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
@@ -214,12 +214,12 @@
     <item quantity="other">%s مباراة</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="zero">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
-    <item quantity="one">التصنيف للشطرنج %1$s بعد %2$s مباراة واحدة</item>
-    <item quantity="two">التصنيف للشطرنج %1$s بعد %2$s مباراتين</item>
-    <item quantity="few">تصنيفك في %1$s بعد %2$s مباراة</item>
-    <item quantity="many">تصنيفك في %1$s بعد %2$s مباراة</item>
-    <item quantity="other">التصنيف للشطرنج %1$s بعد %2$s مباراة</item>
+    <item quantity="zero">تصنيف %1$s خلال %2$s مباراة</item>
+    <item quantity="one">تصنيف %1$s خلال %2$s مباراة</item>
+    <item quantity="two">تصنيف %1$s خلال %2$s مباراتين</item>
+    <item quantity="few">تصنيف %1$s خلال %2$s مباريات</item>
+    <item quantity="many">تصنيف %1$s خلال %2$s مباريات</item>
+    <item quantity="other">تصنيف %1$s خلال %2$s مباريات</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s مباراة مفضلة</item>
@@ -310,7 +310,7 @@
   <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم:%s.</string>
   <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
   <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
-  <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
+  <string name="emailCanTakeSomeTime">قد يستغرق وصوله بعض الوقت.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">إذا لم تصلك رسالة تأكيد، فتحقق من مجلد الرسائل غير المرغوب فيها أو مجلد البريد المهمل.
 
@@ -319,17 +319,17 @@
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
-  <string name="accountClosed">هذا الحساب%s مغلق.</string>
+  <string name="accountClosed">الحساب %s مغلق.</string>
   <string name="accountRegisteredWithoutEmail">هذا الحساب%s تم تسجيله بدون ايميل.</string>
   <string name="rank">الترتيب</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="zero">يتم تحديث الرتبة كل %s دقيقة</item>
-    <item quantity="one">يتم تحديث الترتيب كل دقيقة</item>
-    <item quantity="two">يتم تحديث الترتيب كل دقيقتين</item>
-    <item quantity="few">يتم تحديث الترتيب كل %s دقائق</item>
-    <item quantity="many">يتم تحديث الترتيب كل %s دقيقة</item>
-    <item quantity="other">يتم تحديث الترتيب كل %s دقيقة</item>
+    <item quantity="zero">يُحدَّث الترتيب كل %s دقيقة</item>
+    <item quantity="one">يُحدَّث الترتيب كل دقيقة</item>
+    <item quantity="two">يُحدَّث الترتيب كل %s دقيقة</item>
+    <item quantity="few">يُحدَّث الترتيب كل %s دقائق</item>
+    <item quantity="many">يُحدَّث الترتيب كل %s دقيقة</item>
+    <item quantity="other">يُحدَّث الترتيب كل %s دقيقة</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
@@ -494,10 +494,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s مباراة مُصنَّفة</item>
     <item quantity="one">≥ %s مباراة مُصنَّفة</item>
-    <item quantity="two">≥ %s مباراة مقيمة</item>
-    <item quantity="few">≥ %s مباراة مقيمة</item>
-    <item quantity="many">≥ %s مباراة مقيمة</item>
-    <item quantity="other">≥ %s مباراة مقيمة</item>
+    <item quantity="two">≥ %s مباراة مُصنَّفة</item>
+    <item quantity="few">≥ %s مباراة مُصنَّفة</item>
+    <item quantity="many">≥ %s مباراة مُصنَّفة</item>
+    <item quantity="other">≥ %s مباراة مُصنَّفة</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="zero">≥ %1$s مباراة %2$s مُصنَّفة</item>
@@ -526,19 +526,19 @@
   <string name="yourPerfRatingIsProvisional">تصنيفك في %s مؤقّت</string>
   <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">لا يمكن التصفية حسب التصنيف لأن تصنيفك غير مستقر بعد. ستزداد استقراريته عند لعب مباريات مُصنَّفة.</string>
   <string name="yourPerfRatingIsTooHigh">تصنيفك في %1$s (%2$s) مرتفع جدًا</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">أعلى تصنيف أسبوعي لك في %1$s (%2$s) مرتفع جدًا</string>
   <string name="yourPerfRatingIsTooLow">تصنيفك في %1$s (%2$s) منخفض جدًا</string>
   <string name="ratedMoreThanInPerf">تصنيف ≥ %1$s في %2$s</string>
   <string name="ratedLessThanInPerf">تصنيف ≤ %1$s في %2$s خلال الأسبوع الماضي</string>
   <string name="mustBeInTeam">يجب أن تكون في فريق %s</string>
   <string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
   <string name="backToGame">العودة للمباراة</string>
-  <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
+  <string name="siteDescription">موقع شطرنج مجاني عبر الإنترنت. العب الشطرنج بواجهة بسيطة ونظيفة، دون تسجيل أو إعلانات أو الحاجة إلى تثبيت أي إضافات. العب ضد الحاسوب أو أصدقائك أو خصوم عشوائيين.</string>
   <string name="xJoinedTeamY">%1$s انضم لفريق %2$s</string>
   <string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
   <string name="startedStreaming">بدأ البث</string>
   <string name="xStartedStreaming">%s بدأ يبث</string>
-  <string name="averageElo">متوسط التقييم</string>
+  <string name="averageElo">متوسط التصنيف</string>
   <string name="location">الموقع</string>
   <string name="filterGames">تصفية المباريات</string>
   <string name="reset">إعادة للإفتراضي</string>
@@ -619,13 +619,13 @@
   <string name="graph">رسم بياني</string>
   <string name="required">مطلوب</string>
   <string name="openTournaments">المسابقات المفتوحة</string>
-  <string name="duration">المدة</string>
+  <string name="duration">المدة الزمنية</string>
   <string name="winner">الفائز</string>
   <string name="standings">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="tournamentCalendar">جدول البطولات</string>
-  <string name="conditionOfEntry">شروط الدخول:</string>
-  <string name="advancedSettings">إعدادات متقدمة</string>
+  <string name="conditionOfEntry">شروط المشاركة:</string>
+  <string name="advancedSettings">الإعدادات المتقدمة</string>
   <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
   <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
@@ -640,13 +640,13 @@
   <string name="pause">الإيقاف المؤقت</string>
   <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
-  <string name="winRate">معدل الفوز</string>
+  <string name="winRate">معدّل الفوز</string>
   <string name="performance">تقييم الأداء</string>
   <string name="tournamentComplete">إكتملت البطولة</string>
   <string name="movesPlayed">نقلات اللعب</string>
   <string name="whiteWins">فوز الأبيض</string>
   <string name="blackWins">فوز الأسود</string>
-  <string name="drawRate">معدل التعادل</string>
+  <string name="drawRate">معدّل التعادل</string>
   <string name="draws">تعادل</string>
   <string name="averageOpponent">معدل الخصم</string>
   <string name="boardEditor">محرر الرقعة</string>
@@ -659,10 +659,10 @@
   <string name="clearBoard">رقعة بلا قطع</string>
   <string name="loadPosition">تحميل الوضع</string>
   <string name="isPrivate">خاص</string>
-  <string name="reportXToModerators">بلغ الإدارة عن %s</string>
+  <string name="reportXToModerators">الإبلاغ عن %s للمشرفين</string>
   <string name="profileCompletion">اكتمال الملف الشخصي: %s</string>
-  <string name="xRating">تقييم %s</string>
-  <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
+  <string name="xRating">تصنيف: %s</string>
+  <string name="ifNoneLeaveEmpty">اتركه فارغًا إذا لم يوجد شيء</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="realName">الاسم الحقيقي</string>
@@ -822,7 +822,7 @@ https://lichess. org/report.</string>
   <string name="error.maxLength">حد الطول الأقصى هو %s</string>
   <string name="error.min">يجب أن يكون أكبر أو يساوي ل %s</string>
   <string name="error.max">يجب أن يكون أقل أو يساوي %s</string>
-  <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
+  <string name="ifRatingIsPlusMinusX">إذا كان فرق التصنيف ± %s</string>
   <string name="ifRegistered">قيد التسجيل</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
@@ -848,7 +848,7 @@ https://lichess. org/report.</string>
   <string name="webmasters">مدراء المواقع</string>
   <string name="about">عن</string>
   <string name="aboutX">عن %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s موقع شطرنج مجاني (%2$s)، حرّ ومفتوح المصدر، بلا إعلانات.</string>
   <string name="really">حقاً</string>
   <string name="lichessUpdates">تحديثات Lichess</string>
   <string name="contribute">ساهم</string>
@@ -909,7 +909,7 @@ https://lichess. org/report.</string>
   <string name="tournamentDoesNotExist">هذه المسابقة غير موجودة</string>
   <string name="tournamentMayHaveBeenCanceled">إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى</string>
   <string name="returnToTournamentsHomepage">الرجوع إلى المسابقات</string>
-  <string name="weeklyPerfTypeRatingDistribution">توزيع التقييم الأسبوعي لـ %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">توزيع التصنيف الأسبوعي لـ %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="zero">%2$s %1$s لاعب هذا الإسبوع.</item>
     <item quantity="one">%2$s %1$s لاعب هذا الإسبوع.</item>
@@ -918,18 +918,18 @@ https://lichess. org/report.</string>
     <item quantity="many">%2$s %1$s لاعب هذا الإسبوع.</item>
     <item quantity="other">%2$s %1$s لاعب هذا الإسبوع.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">تصنيفك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s أنت أفضل من %2$s من %3$s اللاعبين.</string>
   <string name="betterThanPercentPlayers">أفضل من %1$s بالمائة من لاعبي الشطرنج %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
-  <string name="yourRating">تقييمك</string>
-  <string name="cumulative">جمعا</string>
-  <string name="glicko2Rating">نظام تقييم Glicko-2</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تصنيف معتمد في %s حتى الآن.</string>
+  <string name="yourRating">تصنيفك</string>
+  <string name="cumulative">تراكميّ</string>
+  <string name="glicko2Rating">تصنيف جليكو-2</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
-  <string name="ifYouDoNotGetTheEmail">إذا لم تحصل على البريد الإلكتروني في غضون 5 دقائق:</string>
+  <string name="ifYouDoNotGetTheEmail">إذا لم تصلك رسالة البريد الإلكتروني خلال 5 دقائق:</string>
   <string name="checkAllEmailFolders">التحقق من مجلد المهملات, مجلد الرسائل الغير المرغوب فيها, وغيرها</string>
   <string name="verifyYourAddress">إثبت أن %s هو بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
@@ -1021,7 +1021,7 @@ https://lichess. org/report.</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
   <string name="notificationsX">الإشعارات %1$s</string>
-  <string name="perfRatingLabel">التقييم: %s.</string>
+  <string name="perfRatingLabel">التصنيف: %s.</string>
   <string name="yourRatingIsX">تصنيفك هو %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -1150,8 +1150,8 @@ https://lichess. org/report.</string>
   <string name="congratsYouWon">تهانينا، لقد فزت!</string>
   <string name="gameVsX">مباراة ضد %1$s</string>
   <string name="resVsX">%1$s ضد %2$s</string>
-  <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة Lichess</string>
-  <string name="refundXpointsTimeControlY">استعادة: %1$s نقطة تقييم، تصنيف %2$s.</string>
+  <string name="lostAgainstTOSViolator">خسرت نقاطًا من تصنيفك أمام لاعب خالف شروط استخدام Lichess</string>
+  <string name="refundXpointsTimeControlY">استرداد: %1$s نقطة تصنيف،%2$s.</string>
   <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>
   <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
   <string name="download">تحميل</string>
@@ -1163,9 +1163,9 @@ https://lichess. org/report.</string>
   <string name="ratedFormHelp">المباريات مُصنَّفة وتؤثر في تصنيفات اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
   <string name="noRestriction">لا قيود</string>
-  <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>
-  <string name="minimumRating">أقل تصنيف</string>
-  <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
+  <string name="minimumRatedGames">الحد الأدنى لعدد المباريات المُصنَّفة</string>
+  <string name="minimumRating">الحد الأدنى للتصنيف</string>
+  <string name="maximumWeeklyRating">أعلى تصنيف أسبوعي</string>
   <string name="positionInputHelp">الصق رمز FEN صالحًا لبدء كل مباراة من وضعية محددة.
 يعمل هذا الخِيار في مباريات الشطرنج القياسي فقط، ولا يعمل مع الأنواع المختلفة من الشطرنج.
 يمكنك استخدام %s لإنشاء وضعية بصيغة FEN، ثم لصقها هنا.
@@ -1181,7 +1181,7 @@ https://lichess. org/report.</string>
   <string name="embedsAvailable">أضف رابط المباراة أو رابط الدراسة لإضافتها هنا.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
-  <string name="noChat">لا دردشة</string>
+  <string name="noChat">تعطيل الدردشة</string>
   <string name="onlyTeamLeaders">فقط قائدي الفريق</string>
   <string name="onlyTeamMembers">فقط لاعبي الفريق</string>
   <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">التنقل بين نقلات المباراة</string>

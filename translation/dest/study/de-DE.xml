@@ -186,6 +186,7 @@
   <string name="customPositionTitle">Benutzerdefinierte Stellung</string>
   <string name="customPositionText">Baue das Brett auf deine eigene Weise auf.&lt;br&gt;Geeignet, um Endspiele zu erkunden.</string>
   <string name="loadGameFromTheWebTitle">Lade eine Partie aus dem Internet</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Füge eine Partie-URL&lt;br&gt;(wie z.B. lichess.org/7fHIU0XI)&lt;br&gt;ein, um die Züge der Partie in das Kapitel zu laden.</string>
   <string name="fromFenStringTitle">Aus einer FEN-Zeichenkette</string>
   <string name="fromFenStringText">Fügen eine Position im FEN-Format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;ein, um das Kapitel von dieser Stellung aus zu starten.</string>
   <string name="fromPgnGameTitle">Aus einer PGN</string>

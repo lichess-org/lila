@@ -186,6 +186,7 @@
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Set up the board your way.&lt;br&gt;Suited to explore endgames.</string>
   <string name="loadGameFromTheWebTitle">Load a game from the web</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Paste a game URL&lt;br&gt;(like lichess.org/game/7fHIU0XI)&lt;br&gt;to load game moves in the chapter.</string>
   <string name="fromFenStringTitle">From a FEN string</string>
   <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
   <string name="fromPgnGameTitle">From a PGN game</string>
@@ -200,4 +201,5 @@
   <string name="clearLocal">Clear local analysis?</string>
   <string name="clearPublished">Clear published analysis?</string>
   <string name="requestAServerAnalysis">Request a server analysis</string>
+  <string name="analyzeOnYourDevice">Analyze on your device</string>
 </resources>

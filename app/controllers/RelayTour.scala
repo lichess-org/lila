@@ -48,7 +48,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiCalendarMonth(year: Int, month: Int) = Anon:
     Found(env.relay.calendar.readMonth(year, month)): at =>
       for tours <- env.relay.calendar.atMonthWithReqTiersFilter(at)
-      yield JsonOk(tours.map(jsonView.tourWithAnyRound)).headerCache(env.relay.calendar.ttl)
+      yield JsonOk(tours.map(jsonView.tourWithAnyRound)).publicCache(env.relay.calendar.ttl)
 
   def help = page("broadcasts", "help")
   def app = page("broadcaster-app", "app")
@@ -67,7 +67,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         for
           pager <- env.relay.pager.byOwner(owner.id, page)
           json = pager.mapResults(jsonView.tourWithAnyRound)
-        yield JsonOk(json).headerCache(10.minutes)
+        yield JsonOk(json).publicCache(Option.when(ctx.isAnon)(10.minutes))
 
   def pager(pager: String, page: Int) = pager match
     case "subscribed" => subscribed(page)
@@ -252,7 +252,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             group <- api.withTours.get(tour.id)
             photos <- env.relay.playerApi.photosJson(tour.id)
             json = jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
-          yield Ok(json).headerCache(jsonView.responseCache(tour))
+          yield Ok(json).publicCache(jsonView.responseCache(tour))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(api.tourById(id)): tour =>
@@ -265,7 +265,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
           .as(pgnContentType)
-          .headerCache(jsonView.responseCache(tour))
+          .publicCache(jsonView.responseCache(tour))
 
   def apiIndex = Anon:
     apiC.jsonDownload:
@@ -279,7 +279,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(5)):
       for json <- env.relay.home.getJson(page)
-      yield JsonOk(json).headerCache(env.relay.home.cacheTtl(page))
+      yield JsonOk(json).publicCache(env.relay.home.cacheTtl(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
@@ -289,7 +289,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             for
               tour <- env.relay.pager.search(query, page)
               res <- JsonOk(jsonView.search(tour))
-            yield res.headerCache(10.minutes)
+            yield res.publicCache(10.minutes)
         case None => JsonBadRequest("Search query cannot be empty")
 
   def player(tourId: RelayTourId, id: String) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>

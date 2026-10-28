@@ -81,7 +81,7 @@ final class Swiss(
   def apiShow(id: SwissId) = Anon:
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
       for json <- apiJson(swiss)
-      yield Ok(json).headerCache(1.minute)
+      yield Ok(json).publicCache(1.minute)
 
   private def apiJson(swiss: SwissModel)(using Context) =
     for
@@ -221,24 +221,24 @@ final class Swiss(
   def standing(id: SwissId, page: Int) = Anon:
     WithSwiss(id): swiss =>
       for json <- env.swiss.standingApi(swiss, page)
-      yield Ok(json).headerCache(swissResponseTtl(swiss))
+      yield Ok(json).publicCache(swissResponseTtl(swiss))
 
   def pageOf(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.pageOf(swiss, userId.id)): page =>
         for json <- env.swiss.standingApi(swiss, page)
-        yield Ok(json).headerCache(swissResponseTtl(swiss))
+        yield Ok(json).publicCache(swissResponseTtl(swiss))
 
   def player(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.playerInfo(swiss, userId.id)): player =>
-        Ok(lila.swiss.SwissJson.playerJsonExt(swiss, player)).headerCache(swissResponseTtl(swiss))
+        Ok(lila.swiss.SwissJson.playerJsonExt(swiss, player)).publicCache(swissResponseTtl(swiss))
 
   def exportTrf(id: SwissId) = Anon:
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
       Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
         .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
-        .headerCache(swissResponseTtl(swiss))
+        .publicCache(swissResponseTtl(swiss))
 
   private def swissResponseTtl(swiss: SwissModel) = if swiss.isFinished then 1.day else 5.seconds
 
