@@ -118,8 +118,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
       t: Team,
       form: Form[?],
       links: List[(Tag, Instant, Call)],
-      unsubs: Int,
-      limiter: (Int, Instant)
+      limiter: (remaining: Int, until: Instant)
   )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}")
       .js(esmInitBit("pmAll"))
@@ -157,32 +156,17 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 lila.ui.bits.markdownEditor(MarkdownRealm.teamUpdate):
                   form3.textarea(field)(rows := 25)
               ,
-              p(
-                pluralizeLocalize("member", unsubs),
-                " out of ",
-                t.nbMembers.localize,
-                " (",
-                f"${(unsubs * 100d) / t.nbMembers}%1.1f",
-                "%)",
-                " have unsubscribed from messages."
+              p(cls := (limiter.remaining <= 0).option("error"))(
+                trt.teamUpdatesPerWeek.rawHtml(
+                  TeamUpdateApi.credits,
+                  limiter.remaining,
+                  momentFromNowOnce(limiter.until)
+                )
               ),
-              limiter match
-                case (remaining, until) =>
-                  frag(
-                    p(cls := (remaining <= 0).option("error"))(
-                      "You can send up to ",
-                      TeamUpdateApi.credits,
-                      " team updates per week. ",
-                      strong(remaining),
-                      " updates remaining until ",
-                      momentFromNowOnce(until),
-                      "."
-                    ),
-                    form3.actions(
-                      a(href := routes.Team.show(t.slug))(trans.site.cancel()),
-                      (remaining > 0).option(form3.submit(trans.site.send()))
-                    )
-                  )
+              form3.actions(
+                a(href := routes.Team.show(t.slug))(trans.site.cancel()),
+                (limiter.remaining > 0).option(form3.submit(trans.site.send()))
+              )
             )
           )
         )

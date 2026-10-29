@@ -6195,6 +6195,8 @@ interface I18n {
     teamTournamentOverview: string;
     /** Team updates */
     teamUpdates: string;
+    /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
+    teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
     /** Upcoming team events */
