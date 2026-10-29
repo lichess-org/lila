@@ -262,10 +262,10 @@ final class AuthUi(helpers: Helpers):
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
-          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
+          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichessX(user.username)),
           postForm(action := addReferrer(routes.Auth.signupConfirmEmailPost(token).url)):
             submitButton(cls := "button button-fat button-no-upper")(
-              trans.onboarding.logInAsUsername(user.username)
+              trans.onboarding.verifyYourAccount()
             )
         )
 
