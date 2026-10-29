@@ -347,7 +347,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
         chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
+          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion)
       yield
         env.relay.stats.viewers.hit(rt)
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
