@@ -90,13 +90,8 @@ export class CevalCtrl {
     this.init();
 
     // another tab has started ceval, we should stop:
-    storage.make('ceval.fen').listen(() => {
-      if (this.isBackground || !this.worker) return;
-      this.worker.destroy();
-      this.worker = undefined; // release memory
-      this.wasUnloadedByAnotherWindow = true;
-      this.opts.redraw();
-    });
+    storage.make('ceval.fen').listen(this.stopFromOtherTab);
+    storage.make('ceval.pullThePlug').listen(this.stopFromOtherTab);
 
     document.addEventListener('visibilitychange', () => {
       if (
@@ -113,6 +108,14 @@ export class CevalCtrl {
       else this.doStart(this.lastStarted);
     });
   }
+
+  private stopFromOtherTab = (): void => {
+    if (this.isBackground || !this.worker) return;
+    this.worker.destroy();
+    this.worker = undefined; // release memory
+    this.wasUnloadedByAnotherWindow = true;
+    this.opts.redraw();
+  };
 
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
