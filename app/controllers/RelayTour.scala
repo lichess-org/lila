@@ -252,7 +252,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             group <- api.withTours.get(tour.id)
             photos <- env.relay.playerApi.photosJson(tour.id)
             json = jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
-          yield Ok(json).publicCache(jsonView.responseCache(tour))
+          yield Ok(json).publicCache(jsonView.responseCacheByLang(tour))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(api.tourById(id)): tour =>
