@@ -2149,6 +2149,7 @@ object I18nKey:
     val `standByX`: I18nKey = "standByX"
     val `pause`: I18nKey = "pause"
     val `resume`: I18nKey = "resume"
+    val `stop`: I18nKey = "stop"
     val `youArePlaying`: I18nKey = "youArePlaying"
     val `winRate`: I18nKey = "winRate"
     val `performance`: I18nKey = "performance"

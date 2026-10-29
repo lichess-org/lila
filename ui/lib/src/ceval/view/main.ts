@@ -62,7 +62,7 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
     } else if (ceval.isComputing) {
       t.push(
         button('.stop', {
-          title: i18n.site.pause,
+          title: i18n.site.stop,
           hook: bind('click', ceval.stopWorker),
         }),
       );

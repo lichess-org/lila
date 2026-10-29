@@ -4877,6 +4877,8 @@ interface I18n {
     startPosition: string;
     /** Stats */
     stats: string;
+    /** Stop */
+    stop: string;
     /** Streamer manager */
     streamerManager: string;
     /** Streamers */

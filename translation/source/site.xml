@@ -510,6 +510,7 @@ Friends playing: %2$s</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>
   <string name="resume">Resume</string>
+  <string name="stop">Stop</string>
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
   <string name="performance">Performance</string>
