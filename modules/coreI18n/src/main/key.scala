@@ -3273,6 +3273,7 @@ object I18nKey:
     val `publishHelp`: I18nKey = "ublog:publishHelp"
     val `includesPromotedContent`: I18nKey = "ublog:includesPromotedContent"
     val `mandatoryForSponsoredContent`: I18nKey = "ublog:mandatoryForSponsoredContent"
+    val `containsSponsoredContent`: I18nKey = "ublog:containsSponsoredContent"
     val `stickyPost`: I18nKey = "ublog:stickyPost"
     val `stickyPostHelp`: I18nKey = "ublog:stickyPostHelp"
     val `xPublishedY`: I18nKey = "ublog:xPublishedY"
