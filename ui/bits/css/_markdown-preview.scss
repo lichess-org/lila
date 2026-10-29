@@ -1,6 +1,10 @@
+.markdown-textarea .preview,
+.markdown-toastui .preview {
+  border: $border;
+}
+
 .markdown-textarea .preview {
   font-size: 1.1rem;
-  border: $border;
 
   @include rendered-markdown(1em, 1600px);
   @include rendered-markdown-code;
