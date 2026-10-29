@@ -31,6 +31,9 @@ export const unload = {
   expected: false,
 };
 
+window.addEventListener('pagehide', () => (unload.expected = true));
+window.addEventListener('pageshow', () => (unload.expected = false));
+
 export const reload = (err?: any) => {
   if (err) console.warn(err);
   if (redirectInProgress) return;

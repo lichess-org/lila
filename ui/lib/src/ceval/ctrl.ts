@@ -100,7 +100,7 @@ export class CevalCtrl {
 
     document.addEventListener('visibilitychange', () => {
       if (
-        this.engines.external() ||
+        this.engines.native() ||
         this.curEval?.bestmove ||
         !this.lastStarted ||
         !this.analysable ||
@@ -198,7 +198,7 @@ export class CevalCtrl {
 
   get recommendedThreads(): number {
     return (
-      this.engines.external()?.maxThreads ??
+      this.engines.native()?.maxThreads ??
       clamp(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
         min: this.engines.active()?.minThreads ?? 1,
         max: this.engines.active()?.maxThreads,
@@ -232,7 +232,7 @@ export class CevalCtrl {
   }
 
   get engineVersion(): string | undefined {
-    return (this.engines.external() && this.worker?.version?.()) || this.engines.active()?.name;
+    return (this.engines.native() && this.worker?.version?.()) || this.engines.active()?.name;
   }
 
   get isBackground(): boolean {
@@ -266,7 +266,8 @@ export class CevalCtrl {
 
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
-    if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
+    if (msg.includes('Direct engine disconnected')) this.engines.unsetDirect();
+    else if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
   }
@@ -393,7 +394,7 @@ export class CevalCtrl {
       emit: this.opts.emit,
       background: this.isBackground,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
-      dontStop: Boolean(this.engines.external() || this.opts.custom || this.isDeeper() || this.isInfinite),
+      dontStop: Boolean(this.engines.native() || this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;

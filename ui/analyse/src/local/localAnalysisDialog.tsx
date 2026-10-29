@@ -3,7 +3,7 @@ import type { AcplChart, ChartGame } from 'chart';
 import { withEffect, type Prop } from 'lib';
 import { clamp } from 'lib/algo';
 import { maxBrowserHash } from 'lib/ceval/engines/engines';
-import type { CustomSearch, BaseEngineInfo, EngineInfo } from 'lib/ceval/types';
+import type { CustomSearch, EngineInfo } from 'lib/ceval/types';
 import { engineSelect, hashSetting, searchTicks } from 'lib/ceval/view/settings';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
@@ -256,9 +256,8 @@ class LocalAnalysisDialog {
   private analysisEditor(redraw: Redraw) {
     const ceval = this.ctrl.ceval;
     const info = ceval.info(this.customSearch)!;
-    const bestBrowserEngine = this.bestBrowserEngine;
     const mainlineEngine = this.ctrl.mainlineAnalysis?.engine;
-
+    const bestEngine = this.bestUsableEngine;
     const preludes: LooseVNodes = [];
     const trailers: LooseVNodes = [];
     const [current, published] = [
@@ -273,15 +272,15 @@ class LocalAnalysisDialog {
           .supporting({
             rules: ceval.rules,
             nonStandardMaterial: ceval.nonStandardMaterial,
-            filter: 'external',
+            withTech: t => t === 'DIRECT' || t === 'EXTERNAL',
           })
           .includes(info.engine) &&
-        (info.engine.id !== bestBrowserEngine.id || info.threads !== navigator.hardwareConcurrency)
+        (info.engine.id !== bestEngine.id || info.threads !== navigator.hardwareConcurrency)
       ) {
         preludes.push(
           <p>
             {i18n.localAnalysis.bestResultsUseXWithYThreads(
-              this.bestBrowserEngine.name,
+              this.bestUsableEngine.name,
               navigator.hardwareConcurrency,
             )}
           </p>,
@@ -301,11 +300,12 @@ class LocalAnalysisDialog {
 
     if (
       this.quality() === 0 &&
-      info.engine.id !== bestBrowserEngine.id &&
+      bestEngine.tech === 'NNUE' &&
+      info.engine.id !== bestEngine.id &&
       (this.engineNodeEfficiency ?? 1) < 0.5
     ) {
       if (trailers.length) trailers.push('. ');
-      trailers.push(i18n.localAnalysis.xWouldBeFaster(bestBrowserEngine.name));
+      trailers.push(i18n.localAnalysis.xWouldBeFaster(bestEngine.name));
     }
 
     return [
@@ -321,7 +321,7 @@ class LocalAnalysisDialog {
         <div class="setting">
           <label for="local-analysis-engine">Engine:</label>
           {engineSelect(
-            this.browserEngines, // TODO - allow external engines once supported
+            this.usableEngines, // TODO - allow relayed engines once supported
             info.engine.id,
             withEffect(this.engineId, redraw),
             'local-analysis-engine',
@@ -416,7 +416,7 @@ class LocalAnalysisDialog {
   }
 
   private get minQuality(): number {
-    return (this.engineNodeEfficiency ?? 0) >= 0.1 ? 0 : 2000;
+    return (this.engineNodeEfficiency ?? 1) >= 0.1 ? 0 : 2000;
   }
 
   private separator(label: string) {
@@ -452,7 +452,7 @@ class LocalAnalysisDialog {
 
   private get engineNodeEfficiency(): number | undefined {
     const flavor = this.ctrl.ceval.rules === 'chess' ? 'chess' : 'variant';
-    return this.browserEngines.find(engine => engine.id === this.engineId())?.nodeEfficiencyVsFishnet?.[
+    return this.usableEngines.find(engine => engine.id === this.engineId())?.nodeEfficiencyVsFishnet?.[
       flavor
     ];
   }
@@ -474,8 +474,7 @@ class LocalAnalysisDialog {
   }
 
   private get customSearch(): CustomSearch {
-    const engine =
-      this.browserEngines.find(engine => engine.id === this.engineId()) ?? this.bestBrowserEngine;
+    const engine = this.usableEngines.find(engine => engine.id === this.engineId()) ?? this.bestUsableEngine;
     return {
       engine: { id: engine.id, threads: this.threads(), hashSize: this.hashSize() },
       search: () => ({
@@ -490,18 +489,19 @@ class LocalAnalysisDialog {
   }
 
   private get bestEngineDefaults(): { id: string; threads: number; hashSize: number } {
-    const engine = this.bestBrowserEngine; // TODO - allow external engines once supported
-    const threads = /*engine.tech === 'EXTERNAL' ? engine.maxThreads :*/ navigator.hardwareConcurrency;
-    const hashSize = /*engine.tech === 'EXTERNAL' ? (engine.maxHash ?? 512) :*/ maxBrowserHash;
-    return { id: engine.id, threads, hashSize };
+    return { id: this.bestUsableEngine.id, threads: navigator.hardwareConcurrency, hashSize: maxBrowserHash };
   }
 
-  private get browserEngines(): EngineInfo[] {
+  private get usableEngines(): EngineInfo[] {
     const { rules, nonStandardMaterial } = this.ctrl.ceval;
-    return this.ctrl.ceval.engines.supporting({ rules, nonStandardMaterial, filter: 'browser' });
+    return this.ctrl.ceval.engines.supporting({
+      rules,
+      nonStandardMaterial,
+      withTech: t => t !== 'EXTERNAL',
+    });
   }
 
-  private get bestBrowserEngine(): BaseEngineInfo {
-    return this.browserEngines[0];
+  private get bestUsableEngine(): EngineInfo {
+    return this.usableEngines[0];
   }
 }
