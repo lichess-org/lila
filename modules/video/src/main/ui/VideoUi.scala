@@ -138,6 +138,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           val checked = control.filter.tags contains t.tag
           val visible = checked || t.nb.forall(_ > 0)
           a(
+            noFollow,
             cls := List(
               "checked" -> checked,
               "full" -> visible,
