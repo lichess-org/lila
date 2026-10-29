@@ -39,10 +39,6 @@
   <string name="teamUpdates">Team updates</string>
   <string name="subToTeamUpdates">Subscribe to team updates</string>
   <string name="newTeamUpdate">New team update</string>
-  <plurals name="xMembersOutOfYUnsubscribed">
-    <item quantity="one">%1$s member out of %2$s (%3$s) has unsubscribed from messages.</item>
-    <item quantity="other">%1$s members out of %2$s (%3$s) have unsubscribed from messages.</item>
-  </plurals>
   <string name="teamUpdatesPerWeek">You can send up to %1$s team updates per week. &lt;strong&gt;%2$s&lt;/strong&gt; updates remaining until %3$s.</string>
   <string name="teamEvents">Team events</string>
   <string name="upcomingTeamEvents">Upcoming team events</string>

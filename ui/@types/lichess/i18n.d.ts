@@ -6209,8 +6209,6 @@ interface I18n {
     willBeReviewed: string;
     /** %s join requests */
     xJoinRequests: I18nPlural;
-    /** %1$s members out of %2$s (%3$s) have unsubscribed from messages. */
-    xMembersOutOfYUnsubscribed: I18nPlural;
     /** You may want to link one of these upcoming tournaments? */
     youWayWantToLinkOneOfTheseTournaments: string;
   };
