@@ -47,11 +47,18 @@ body:
       description: Specify the browser and version you are using (e.g. Firefox 110.0). Otherwise, specify your access method (such as API).
     validations:
       required: true
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Paste, drop, or click to add any relevant screenshots.
+    validations:
+      required: false
+      accept: '.png,.jpg,.jpeg,.gif,.webp'
   - type: textarea
     attributes:
       label: Additional information
       description: |
         Provide any additional information that will give more context for the issue you are encountering.
-        Screenshots can be added by clicking this area and then pasting or dragging them in.
     validations:
       required: false
