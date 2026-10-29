@@ -7,7 +7,9 @@ export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url'
 
 const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
-export const url = (path: string, opts: AssetUrlOpts = {}) => {
+type Url = string;
+
+export const url = (path: string, opts: AssetUrlOpts = {}): Url => {
   const base = opts.pathOnly ? '' : baseUrl();
   const pathVersion = !opts.pathVersion
     ? ''
@@ -31,14 +33,14 @@ export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathV
 export const fideFedSrc = (fideFed: FideFed) =>
   url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____3' });
 
-const resolveCss = (loc: CssLocation) =>
+const resolveCss = (loc: CssLocation): Url =>
   'href' in loc
     ? loc.href.startsWith('https:')
       ? loc.href
       : url(loc.href)
     : url([`css/${loc.key}`, site.manifest.css[loc.key], 'css'].filter(Boolean).join('.'));
 
-const stylesheets = new Map<string, { el: HTMLLinkElement; ready: Promise<void>; refs: number }>();
+const stylesheets = new Map<Url, { el: HTMLLinkElement; ready: Promise<void>; refs: number }>();
 
 export const loadCss = (loc: CssLocation): Promise<void> => {
   const href = resolveCss(loc);
