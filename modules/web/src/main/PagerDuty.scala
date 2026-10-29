@@ -1,9 +1,9 @@
 package lila.web
 
+import play.api.http.HeaderNames.*
 import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.http.HeaderNames.*
 
 final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDuty)(using Executor):
 

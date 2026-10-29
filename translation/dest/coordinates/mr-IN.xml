@@ -19,4 +19,6 @@
   <string name="findSquare">घरे शोधा</string>
   <string name="nameSquare">घराचे नाव सांगा</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">फक्त काही स्तंभ &amp; पंक्तीचे सराव करा</string>
+  <string name="enterTheCoordinate">सहनिर्देशक टाका</string>
+  <string name="pressEnterToStart">सुरुवात करण्यासाठी %s दाबा</string>
 </resources>

@@ -1,26 +1,13 @@
 nodeVersion: 24.20.0
 pmOnFail: warn
+autoDedupe: true
 packages:
   - 'bin'
   - 'ui/*'
   - 'ui/@types/*'
-ignoredOptionalDependencies:
-  - '@ox*/*-arm-*'
-  - '@ox*/*-ia32-*'
-  - '@ox*/*-loong64-*'
-  - '@ox*/*-mips64el-*'
-  - '@ox*/*-ppc64-*'
-  - '@ox*/*-riscv64-*'
-  - '@ox*/*-s390x-*'
-  - '@ox*/*-aix-*'
-  - '@ox*/*-android-*'
-  - '@ox*/*-freebsd-*'
-  - '@ox*/*-openbsd-*'
-  - '@ox*/*-openharmony-*'
-  - '@ox*/*-netbsd-*'
-  - '@ox*/*-sunos-*'
 allowBuilds:
   esbuild: true
+  protobufjs: false
 overrides:
   fast-uri: ^3.1.7
   undici: ^8.10.2
@@ -28,5 +15,33 @@ patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
-  - chessops@0.15.1
-  - tsx@4.23.5
+  - pnpm
+  - '@pobammer-ts/small-rules@3.6.0'
+ignoredOptionalDependencies:
+  - '*arm-*'
+  - '*ia32-*'
+  - '*-ia32*'
+  - '*loong64-*'
+  - '*-loong64*'
+  - '*mips64el-*'
+  - '*-mips64el*'
+  - '*ppc64-*'
+  - '*-ppc64*'
+  - '*riscv64-*'
+  - '*-riscv64*'
+  - '*s390x-*'
+  - '*-s390x*'
+  - '*aix-*'
+  - '*-aix*'
+  - '*android-*'
+  - '*-android*'
+  - '*freebsd-*'
+  - '*-freebsd*'
+  - '*openbsd-*'
+  - '*-openbsd*'
+  - '*openharmony-*'
+  - '*-openharmony*'
+  - '*netbsd-*'
+  - '*-netbsd*'
+  - '*sunos-*'
+  - '*-sunos*'

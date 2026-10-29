@@ -127,6 +127,7 @@ Ili iras apud la ĉevaloj.</string>
 Faru ajnan movon por daŭrigi.</string>
   <string name="boardSetupComplete">Gratulojn! Vi scias kiel starigi la ŝakan tabulon.</string>
   <string name="castling">Aroki</string>
+  <string name="enPassant">Preterpasa kapto</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
   <string name="castleKingSide">Movu vian reĝon du kvadratojn por aroki reĝflanke!</string>

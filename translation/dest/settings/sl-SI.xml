@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Prekliči in obdrži moj račun</string>
   <string name="closeAccountAreYouSure">Ali ste prepričani, da želite zapreti ta račun?</string>
   <string name="thisAccountIsClosed">Račun je zaprt.</string>
+  <string name="wereSorryToSeeYouGo">Žal nam je, da odhajate.</string>
+  <string name="closeAccountForeverLabel">Trajno zapri: onemogoči ponovno odprtje</string>
+  <string name="closeAccountForeverWarning">Preprečite poznejše ponovno odprtje računa. Če označite to polje, niti skrbniki ne bodo mogli znova odpreti vašega računa na vašo zahtevo.</string>
+  <string name="deleteYourAccount">Izbrišite svoj račun</string>
+  <string name="deleteAccountWarning">Ko izbrišete svoj račun, je ta odstranjen s platforme Lichess in ga naši skrbniki ne bodo mogli obnoviti.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Bi raje %s?</string>
+  <string name="closeYourAccount">zaprite svoj račun</string>
+  <string name="deleteAccountConfirmText">Razumem, da izbrisanih računov ni mogoče obnoviti</string>
 </resources>

@@ -1,4 +1,5 @@
 package lila.user
+
 import lila.core.user.{ Flag, Profile }
 
 object Profile:

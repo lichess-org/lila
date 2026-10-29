@@ -117,6 +117,7 @@
 Зробіть будь-який хід, щоб продовжити.</string>
   <string name="boardSetupComplete">Вітаємо! Тепер ви знаєте, як ставити фігури на шахівниці.</string>
   <string name="castling">Рокіровка</string>
+  <string name="enPassant">Взяття на проході</string>
   <string name="theSpecialKingMove">Особливий хід короля</string>
   <string name="castlingIntro">Захистіть свого короля й виведіть у бій туру!</string>
   <string name="castleKingSide">Пересуньте свого короля на дві клітини до тури королівського флангу!</string>

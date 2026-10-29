@@ -7,8 +7,7 @@ import lila.cms.CmsForm.CmsPageData
 import lila.core.config.ImageGetOrigin
 import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }

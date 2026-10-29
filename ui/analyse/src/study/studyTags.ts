@@ -2,6 +2,7 @@ import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 
 import { prop } from 'lib';
 import { throttle } from 'lib/async';
+import type { StatusName } from 'lib/game';
 import { enter, onInsert } from 'lib/view';
 
 import { option } from '../view/util';
@@ -37,10 +38,21 @@ export class TagsForm {
   submit = (name: string, value: string) => this.editable() && this.makeChange(name, value);
 }
 
+export const tagsResult = (tags: TagArray[]): [Color | undefined, StatusName] => {
+  const r = tags.find(r => r[0] === 'Result')?.[1];
+  return r === '1-0'
+    ? ['white', 'unknownFinish']
+    : r === '0-1'
+      ? ['black', 'unknownFinish']
+      : r === '1/2-1/2'
+        ? [undefined, 'draw']
+        : [undefined, 'created'];
+};
+
 export function view(root: StudyCtrl): VNode {
-  const chapter = root.tags.getChapter(),
-    tagKey = chapter.tags.map(t => t[1]).join(','),
-    key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
+  const chapter = root.tags.getChapter();
+  const tagKey = chapter.tags.map(t => t[1]).join(',');
+  const key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.' + chapter.id, doRender, [root, key]);
 }
 

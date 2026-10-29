@@ -1,10 +1,10 @@
 import * as data from '@/data';
 
 export const formatMs = (msTime: number): string => {
-  const date = new Date(Math.max(0, msTime + 500)),
-    hours = date.getUTCHours(),
-    minutes = date.getUTCMinutes(),
-    seconds = date.getUTCSeconds();
+  const date = new Date(Math.max(0, msTime + 500));
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
   return hours > 0 ? hours + ':' + pad(minutes) + ':' + pad(seconds) : minutes + ':' + pad(seconds);
 };
 

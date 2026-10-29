@@ -1,14 +1,14 @@
 package lila.lobby
 
-import play.api.libs.json.*
-import scalalib.actor.SyncActor
-import scalalib.Maths.boxedNormalDistribution
 import chess.IntRating
+import play.api.libs.json.*
+import scalalib.Maths.boxedNormalDistribution
+import scalalib.actor.SyncActor
 
-import lila.common.Json.given
 import lila.common.Bus
+import lila.common.Json.given
 import lila.core.game.ChangeFeatured
-import lila.core.pool.{ PoolConfigId, PoolMember, PoolFrom }
+import lila.core.pool.{ PoolConfigId, PoolFrom, PoolMember }
 import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
@@ -149,7 +149,7 @@ final class LobbySocket(
   private val poolLimitPerSri = lila.memo.RateLimit[SriStr](
     credits = 14,
     duration = 30.seconds,
-    key = "lobby.hook_pool.member"
+    limiterKey = "lobby.hook_pool.member"
   )
 
   private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
@@ -209,7 +209,7 @@ final class LobbySocket(
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
-                lame = user.lame,
+                marks = user.marks,
                 blocking = user.blocking.map(_ ++ blocking)
               )
             )

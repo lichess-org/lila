@@ -60,6 +60,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
   });
 
   domDialog({
+    closeButton: true,
     class: 'gif-export',
     modal: true,
     show: true,

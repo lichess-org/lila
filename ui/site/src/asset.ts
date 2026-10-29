@@ -7,8 +7,10 @@ export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url'
 
 const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
-export const url = (path: string, opts: AssetUrlOpts = {}) => {
-  const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
+type Url = string;
+
+export const url = (path: string, opts: AssetUrlOpts = {}): Url => {
+  const base = opts.pathOnly ? '' : baseUrl();
   const pathVersion = !opts.pathVersion
     ? ''
     : opts.pathVersion === true
@@ -25,34 +27,62 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____4' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____5' });
 
 // bump fide fed version if a fide fed is changed only (not added or removed)
 export const fideFedSrc = (fideFed: FideFed) =>
   url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____3' });
 
-export const loadCss = (href: string, key?: string): Promise<void> => {
-  return new Promise(resolve => {
-    href = href.startsWith('https:') ? href : url(href);
-    if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
+const resolveCss = (loc: CssLocation): Url =>
+  'href' in loc
+    ? loc.href.startsWith('https:')
+      ? loc.href
+      : url(loc.href)
+    : url([`css/${loc.key}`, site.manifest.css[loc.key], 'css'].filter(Boolean).join('.'));
 
-    const el = document.createElement('link');
-    if (key) el.setAttribute('data-css-key', key);
-    el.rel = 'stylesheet';
-    el.href = href;
+const stylesheets = new Map<Url, { el: HTMLLinkElement; ready: Promise<void>; refs: number }>();
+
+export const loadCss = (loc: CssLocation): Promise<void> => {
+  const href = resolveCss(loc);
+  const existing = stylesheets.get(href);
+  if (existing) {
+    existing.refs++;
+    return existing.ready;
+  }
+  if (document.head.querySelector(`link[href="${href}"]`)) return Promise.resolve();
+
+  const el = document.createElement('link');
+  el.rel = 'stylesheet';
+  el.href = href;
+  const ready = new Promise<void>((resolve, reject) => {
     el.onload = () => resolve();
-    document.head.append(el);
+    el.onerror = () => {
+      if (stylesheets.get(href)?.el === el) stylesheets.delete(href);
+      el.remove();
+      reject(new Error(`Failed to load CSS: ${href}`));
+    };
   });
+  stylesheets.set(href, { el, ready, refs: 1 });
+  document.head.append(el);
+  return ready;
 };
 
-export const loadCssPath = async (key: string): Promise<void> => {
-  const hash = site.manifest.css[key];
-  await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
+export const releaseCss = (loc: CssLocation): void => {
+  const href = resolveCss(loc);
+  const existing = stylesheets.get(href);
+  if (!existing || --existing.refs > 0) return;
+
+  existing.el.remove();
+  stylesheets.delete(href);
 };
 
-export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remove();
-
-export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
+export const removeCss = (loc: CssLocation): void => {
+  const href = 'href' in loc ? url(loc.href) : resolveCss(loc);
+  const el = document.querySelector(`head > link[href="${href}"]`);
+  if (el) el.remove();
+  else document.querySelector(`head > link[data-css-key="${loc.key}"]`)?.remove();
+  stylesheets.delete(href);
+};
 
 export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);

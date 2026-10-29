@@ -3,10 +3,10 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.core.LightUser
+import lila.core.plan.{ PatronColor, PatronColorChoice, PatronMonths }
+import lila.core.user.RealName
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
-import lila.core.plan.{ PatronMonths, PatronColor, PatronColorChoice }
-import lila.core.user.RealName
 import lila.user.BSONFields as F
 
 final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
@@ -94,7 +94,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val realNameCache: Syncache[UserId, Option[RealName]] = cacheApi.sync[UserId, Option[RealName]](
     name = "user.realName",
-    initialCapacity = 512,
+    initialCapacity = 2048,
     compute = repo.realName,
     default = _ => none,
     strategy = Syncache.Strategy.NeverWait,

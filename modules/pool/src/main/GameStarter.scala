@@ -2,9 +2,9 @@ package lila.pool
 
 import chess.ByColor
 
+import lila.common.Bus
 import lila.core.game.{ GameRepo, IdGenerator, NewPlayer, Source }
 import lila.core.pool.{ Pairing, Pairings }
-import lila.common.Bus
 
 final private class GameStarter(
     userApi: lila.core.user.UserApi,

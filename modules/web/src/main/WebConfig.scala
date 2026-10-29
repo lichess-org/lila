@@ -1,6 +1,6 @@
 package lila.web
 
-import play.api.{ Configuration, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.config.given
 import lila.core.config.*
@@ -30,11 +30,11 @@ object WebConfig:
 
   def loadFrom(c: Configuration) =
     WebConfig(
-      c.get[Secret]("api.token"),
-      c.get[String]("api.influx_event.endpoint"),
-      c.get[String]("api.influx_event.env"),
-      c.get[String]("kamon.prometheus.lilaKey"),
-      new PagerDuty(
+      apiToken = c.get[Secret]("api.token"),
+      influxEventEndpoint = c.get[String]("api.influx_event.endpoint"),
+      influxEventEnv = c.get[String]("api.influx_event.env"),
+      prometheusKey = c.get[String]("kamon.prometheus.lilaKey"),
+      pagerDuty = new PagerDuty(
         c.get[String]("pagerDuty.serviceId"),
         c.get[Secret]("pagerDuty.apiKey")
       )
@@ -51,8 +51,6 @@ object WebConfig:
     domain = c.get[NetDomain]("net.domain"),
     prodDomain = c.get[NetDomain]("net.prodDomain"),
     baseUrl = c.get[BaseUrl]("net.base_url"),
-    assetDomain = c.get[AssetDomain]("net.asset.domain"),
-    assetBaseUrl = c.get[AssetBaseUrl]("net.asset.base_url"),
     stageBanner = c.get[Boolean]("net.stage.banner"),
     siteName = c.get[String]("net.site.name"),
     socketDomains = c.get[List[String]]("net.socket.domains"),
@@ -63,9 +61,12 @@ object WebConfig:
     logRequests = c.get[Boolean]("net.http.log")
   )
 
-  final class LilaVersion(val date: String, val commit: String)
+  case class LilaVersion(date: String, commit: String)
+  object LilaVersion:
+    import play.api.libs.json.{ Json, OWrites }
+    given OWrites[LilaVersion] = Json.writes
 
-  def lilaVersion(c: Configuration): Option[LilaVersion] = (
-    c.getOptional[String]("app.version.date"),
-    c.getOptional[String]("app.version.commit")
-  ).mapN(LilaVersion.apply)
+    def read(c: Configuration): Option[LilaVersion] = (
+      c.getOptional[String]("app.version.date"),
+      c.getOptional[String]("app.version.commit")
+    ).mapN(LilaVersion.apply)

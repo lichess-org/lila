@@ -2,15 +2,12 @@ html.transp.light {
   --c-primary: hsl(209 79% 46%);
   --c-base: hsl(0 0% 15%);
   --c-font: hsl(0 0% 20%);
-  --c-clearer: hsl(0 0% 5%);
-  --c-dimmer: hsl(0 0% 90%);
   --c-border: hsl(0 0% 80% / 0.8);
   --c-body-gradient: hsl(var(---site-hue) 2% 86% / 0.8);
   --c-brag-hover: hsl(from var(--c-brag) h 100 30);
   --c-bg: hsl(0 0% 100% / 0.6);
   --c-bg-page: hsl(var(---site-hue) 10% 92%);
-  --c-bg-font: hsl(0 0% 20%);
-  --c-bg-opaque: hsl(0 0% 100% / 0.9);
+  --c-bg-opaque: hsl(var(---site-hue) 2% 95% / 0.95);
   --c-bg-low: hsl(0 0% 100% / 0.5);
   --c-bg-mid: hsl(0 0% 85% / 0.4);
   --c-bg-zebra: hsl(0 0% 100% / 0.28);
@@ -19,6 +16,8 @@ html.transp.light {
   --c-bg-input: hsl(0 0% 100% / 0.7);
   --c-bg-variation: hsl(0 0% 100% / 0.25);
   --c-bg-header-dropdown: hsl(0 0% 100% / 0.75);
+  --c-bg-fade: hsl(0 0% 90% / 0.9);
+  --c-logo: transparent;
   --c-font-dim: hsl(from var(--c-font) h s 31%);
   --c-font-dimmer: hsl(from var(--c-font) h s 52%);
   --c-font-clear: hsl(from var(--c-font) h s 11%);

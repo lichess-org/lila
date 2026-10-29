@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Hủy bộ hẹn giờ hoặc từ chối yêu cầu</string>
   <string name="playPreferredMoveOrConfirmSomething">Chơi nước đi ưa thích hoặc xác nhận điều gì đó</string>
   <string name="sleep">Ngủ (nếu bật từ đánh thức)</string>
-  <string name="turnOffVoiceRecognition">Tắt nhận dạng giọng nói</string>
   <string name="showPuzzleSolution">Hiện đáp án câu đố</string>
+  <string name="voiceHelp">Trợ giúp giọng nói</string>
+  <string name="voiceSettings">Cài đặt giọng nói</string>
+  <string name="pushShiftKeyToTalk">Nhấn phím %s để nói</string>
+  <string name="holdShiftKeyWhileSpeaking">Giữ phím Shift trong khi nói</string>
+  <string name="microphone">Micrô</string>
+  <string name="noneSelected">Chưa chọn gì</string>
 </resources>

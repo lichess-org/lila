@@ -1,8 +1,8 @@
 package controllers
 
 import chess.format.Fen
-import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
-import chess.{ Position, ByColor }
+import chess.variant.{ Chess960, FromPosition, Standard, Variant }
+import chess.{ ByColor, Position }
 import play.api.libs.json.Json
 import play.api.mvc.*
 
@@ -149,7 +149,7 @@ final class UserAnalysis(
         clocks = true,
         movetimes = true,
         rating = ctx.pref.showRatings,
-        lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+        lichobileCompat = HTTPRequest.isLichobile
       ),
       owner = owner
     )

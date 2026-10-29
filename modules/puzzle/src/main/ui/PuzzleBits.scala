@@ -3,12 +3,11 @@ package ui
 
 import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
-
-import lila.ui.*
-import lila.common.Json.given
-
-import ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
+
+import lila.common.Json.given
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -22,7 +21,11 @@ final class PuzzleBits(helpers: Helpers):
     case (static, dynamic) =>
       Json.obj(
         "dynamic" -> dynamic.sorted(using stringOrdering).mkString(" "),
-        "static" -> static.mkString(" ")
+        "static" -> static.mkString(" "),
+        "unconventionalDescriptionKeys" -> PuzzleTheme.visible.collect {
+          case t if t.description.value != s"${t.name}Description" =>
+            t.name.value.drop(12) -> t.description.value.drop(12) // "puzzleTheme:"
+        }.toMap
       )
 
   def pageMenu(active: String, user: Option[User], days: Days = Days(30))(using ctx: Context) =
@@ -37,6 +40,7 @@ final class PuzzleBits(helpers: Helpers):
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
         trans.puzzle.byOpenings()
       ),
+      div(cls := "sep"),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
       ),

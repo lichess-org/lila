@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Peruuta ajastin tai hylkää pyyntö</string>
   <string name="playPreferredMoveOrConfirmSomething">Tee ensisijainen siirto tai vahvista jotain</string>
   <string name="sleep">Nuku (jos herätyssana on käytössä)</string>
-  <string name="turnOffVoiceRecognition">Poista äänen tunnistus käytöstä</string>
   <string name="showPuzzleSolution">Näytä tehtävän ratkaisu</string>
+  <string name="voiceHelp">Äänen ohjeet</string>
+  <string name="voiceSettings">Ääniasetukset</string>
+  <string name="pushShiftKeyToTalk">Puhu painamalla %s-näppäintä</string>
+  <string name="holdShiftKeyWhileSpeaking">Pidä shift-nappulaa pohjassa, kun puhut</string>
+  <string name="microphone">Mikrofoni</string>
+  <string name="noneSelected">Mitään ei valittu</string>
 </resources>

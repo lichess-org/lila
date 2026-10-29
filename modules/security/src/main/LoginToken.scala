@@ -1,18 +1,19 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 
+import lila.common.HTTPRequest
 import lila.core.config.*
+import lila.core.data.UntypedFormRequest
+import lila.core.email.NormalizedEmailAddress
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.net.{ Origin, ValidReferrer }
-import lila.core.email.NormalizedEmailAddress
 import lila.mailer.Mailer
-import lila.user.{ User, UserRepo }
-import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
-import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
+import lila.oauth.{ AccessToken, AccessTokenApi, OAuthScope, TokenScopes }
+import lila.user.{ User, UserRepo }
 
 final class LoginToken(
     mailer: Mailer,
@@ -36,13 +37,13 @@ final class LoginToken(
     private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
-    private def reqEmailAndUser(using RequestHeader): Option[Creds] = for
-      email <- HTTPRequest.queryStringGet("email").flatMap(EmailAddress.from)
-      user <- HTTPRequest.queryStringGet("username").flatMap(UserStr.read)
+    private def reqEmailAndUser(using UntypedFormRequest): Option[Creds] = for
+      email <- HTTPRequest.fromFormOrQuery("email").flatMap(EmailAddress.from)
+      user <- HTTPRequest.fromFormOrQuery("username").flatMap(UserStr.read)
     yield (email.normalize, user.id)
 
-    def consume()(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
-      (reqEmailAndUser, HTTPRequest.queryStringGet("code")).tupled.fold(notRateLimited): pair =>
+    def consume(using UntypedFormRequest, UserAgent): Fu[LimitResult | AccessToken] =
+      (reqEmailAndUser, HTTPRequest.fromFormOrQuery("code")).tupled.fold(notRateLimited): pair =>
         limitAndFindCreds(pair._1, cost = 1): (user, _) =>
           if store.getIfPresent(pair).exists(_.is(user))
           then
@@ -51,7 +52,7 @@ final class LoginToken(
             accessTokenApi.create(user.id, scopes, Origin("org.lichess.mobile://"))
           else notRateLimited
 
-    def createAndSend()(using RequestHeader): Fu[LimitResult] =
+    def createAndSend(using UntypedFormRequest): Fu[LimitResult] =
       reqEmailAndUser.fold(notRateLimited): creds =>
         limitAndFindCreds(creds, cost = 1): (user, email) =>
           val code = String(Array.fill(6)(secureChar))
@@ -154,13 +155,13 @@ final class LoginToken(
     private lazy val rateLimitPerIP = RateLimit[IpAddress](
       credits = 10 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.ip"
+      limiterKey = "login.magicLink.ip"
     )
 
     private lazy val rateLimitPerEmail = RateLimit[String](
       credits = 3 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.email"
+      limiterKey = "login.magicLink.email"
     )
 
     def apply[A](email: NormalizedEmailAddress, default: => Fu[A], cost: Int = defaultCost)(run: => Fu[A])(

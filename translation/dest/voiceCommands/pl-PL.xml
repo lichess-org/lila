@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Anuluj zegar lub odrzuć żądanie</string>
   <string name="playPreferredMoveOrConfirmSomething">Wykonaj preferowane posunięcie lub potwierdź</string>
   <string name="sleep">Uśpij (jeśli włączono wybudzanie)</string>
-  <string name="turnOffVoiceRecognition">Wyłącz rozpoznawanie głosu</string>
   <string name="showPuzzleSolution">Pokaż rozwiązanie zadania</string>
+  <string name="voiceHelp">Pomoc głosowa</string>
+  <string name="voiceSettings">Ustawienia głosu</string>
+  <string name="pushShiftKeyToTalk">Naciśnij klawisz %s aby rozmawiać</string>
+  <string name="holdShiftKeyWhileSpeaking">Przytrzymaj klawisz shift podczas mówienia</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Nie wybrano</string>
 </resources>

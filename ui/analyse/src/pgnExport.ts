@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import { plyPrefix, renderNodesTxt } from 'lib/game/nodePGN';
-import type { TreeNode } from 'lib/tree/types';
+import type { TreeNodeLite } from 'lib/tree/types';
 import { type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from './ctrl';
@@ -14,7 +14,9 @@ interface PgnNode {
   san?: San;
 }
 
-function renderPgnTags(game: Game): string {
+function renderPgnTags(game: Game, headers?: Map<string, string>): string {
+  if (headers)
+    return [...headers].map(([name, value]) => `[${name} ${JSON.stringify(value)}]`).join('\n') + '\n\n';
   let txt = '';
   const tags: Array<[string, string]> = [];
   if (game.variant.key !== 'standard') tags.push(['Variant', game.variant.name]);
@@ -23,8 +25,15 @@ function renderPgnTags(game: Game): string {
   return txt;
 }
 
-export const renderFullTxt = (ctrl: AnalyseCtrl): string =>
-  renderPgnTags(ctrl.data.game) + renderNodesTxt(ctrl.tree.root, true);
+export const renderFullTxt = (
+  ctrl: AnalyseCtrl,
+  root: TreeNodeLite = ctrl.tree.root,
+  includeAnnotations = false,
+  headers?: Map<string, string>,
+): string =>
+  renderPgnTags(ctrl.data.game, headers) +
+  renderNodesTxt(root, true, true, includeAnnotations) +
+  (headers ? ` ${headers.get('Result') ?? '*'}` : '');
 
 export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   if (!nodes[0]) return [];
@@ -40,7 +49,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVariations: boolean): string {
+export function renderNodesPgn(game: Game, nodeList: TreeNodeLite[], includeSubVariations: boolean): string {
   const nonRootNodes = nodeList.filter(node => node.san);
   let pgn = '';
 

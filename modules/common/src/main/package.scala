@@ -8,7 +8,7 @@ import lila.core.perm.{ Permission, Granter }
 object extensions:
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
-    Some(Tuple.fromProductTyped(p))
+    Option(Tuple.fromProductTyped(p))
 
   import scalalib.model.LangTag
   import play.api.i18n.Lang
@@ -24,4 +24,4 @@ object Cli:
     Bus.sub[CliCommand]:
       case c if f.isDefinedAt(c.args) =>
         if Granter(perm)(using c.me) then c.promise.success(LazyFu(() => f(c.args)))
-        else c.promise.success(LazyFu.sync(s"Unauthorized: requires ${perm(Permission)}"))
+        else c.promise.success(LazyFu(() => fufail(s"Unauthorized: requires ${perm(Permission)}")))

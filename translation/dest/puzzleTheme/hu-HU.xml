@@ -49,6 +49,7 @@
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
   <string name="endgame">Végjáték</string>
   <string name="endgameDescription">Taktikák a játszma utolsó fázisában.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Kiszolgáltatott király</string>
   <string name="exposedKingDescription">Olyan taktika, ami kihasználja a király körüli kevés védőt, gyakran matthoz vezet.</string>
   <string name="fork">Villa</string>

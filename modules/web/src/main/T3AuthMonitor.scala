@@ -1,10 +1,10 @@
 package lila.web
 
-import play.api.mvc.RequestHeader
 import play.api.data.Form
+import play.api.mvc.RequestHeader
 
-import lila.core.security.LilaCookie
 import lila.core.id.SessionId
+import lila.core.security.LilaCookie
 
 final class T3AuthMonitor(using Executor):
 

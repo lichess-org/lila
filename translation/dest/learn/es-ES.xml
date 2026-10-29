@@ -103,6 +103,7 @@ Y no pierdas las tuyas.</string>
   <string name="pawnsFormTheFrontLine">Los peones forman la línea delantera. Mueve cualquier pieza para continuar.</string>
   <string name="boardSetupComplete">¡Felicidades! Ya sabes cómo colocar las piezas en el tablero.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura al paso</string>
   <string name="theSpecialKingMove">El movimiento especial del rey</string>
   <string name="castlingIntro">¡Pon a tu rey a salvo y despliega tu torre para atacar!</string>
   <string name="castleKingSide">Mueve tu rey dos casillas para hacer un enroque corto.</string>

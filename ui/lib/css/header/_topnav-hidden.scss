@@ -80,7 +80,7 @@
 
     .topnav-toggle:checked ~ & {
       position: fixed;
-      background: $c-bg-high;
+      background: $c-bg;
 
       .hbg__in {
         transform: rotate(225deg);
@@ -114,7 +114,7 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    background: $c-bg-high;
+    background: $c-bg;
     padding-bottom: 1.2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -127,9 +127,7 @@
       transform: translateX(calc(100% + 10px));
     }
 
-    @include if-transp {
-      @include back-blur;
-    }
+    @include backdrop-blur-if-transparent;
 
     @include mq-safari {
       min-height: 75vh; // safari has funny ideas about fixed parents bounding fixed children
@@ -177,7 +175,7 @@
         @include topnav-button-highlight;
       }
 
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         a:hover {
           @include topnav-button-highlight;
         }

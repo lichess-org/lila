@@ -116,8 +116,8 @@ $.fn.powerTip = function (opts) {
   }
 
   // extend options and instantiate TooltipController
-  const options = Object.assign({}, defaults, opts) as Options,
-    tipController = new TooltipController(options);
+  const options = Object.assign({}, defaults, opts) as Options;
+  const tipController = new TooltipController(options);
 
   // hook mouse and viewport dimension tracking, causes layout reflow
   requestIdleCallbackSafe(() => initTracking());
@@ -275,9 +275,9 @@ class DisplayController {
 
   checkForIntent() {
     // calculate mouse position difference
-    const xDifference = Math.abs(session.previousX - session.currentX),
-      yDifference = Math.abs(session.previousY - session.currentY),
-      totalDifference = xDifference + yDifference;
+    const xDifference = Math.abs(session.previousX - session.currentX);
+    const yDifference = Math.abs(session.previousY - session.currentY);
+    const totalDifference = xDifference + yDifference;
 
     // check if difference has passed the sensitivity threshold
     if (totalDifference < (this.options.intentSensitivity ?? 0)) {
@@ -545,10 +545,10 @@ class TooltipController {
   }
 
   placeTooltip(element: Cash, placement: PowerTip.Placement) {
-    let iterationCount = 0,
-      tipWidth,
-      tipHeight,
-      coords = cssCoordinates();
+    let iterationCount = 0;
+    let tipWidth;
+    let tipHeight;
+    let coords = cssCoordinates();
 
     // to support elastic tooltips we need to check for a change in the
     // rendered dimensions after the tooltip has been positioned
@@ -646,8 +646,8 @@ function initTracking() {
     window.addEventListener(
       'scroll',
       function () {
-        const x = window.scrollX,
-          y = window.scrollY;
+        const x = window.scrollX;
+        const y = window.scrollY;
         if (x !== session.scrollLeft) {
           session.currentX += x - session.scrollLeft;
           session.scrollLeft = x;
@@ -706,10 +706,10 @@ function nudgeToFit(coords: Coords, collisions: number, tipWidth: number): Coord
 }
 
 function getViewportCollisions(coords: Coords, elementWidth: number, elementHeight: number) {
-  const viewportTop = session.scrollTop,
-    viewportLeft = session.scrollLeft,
-    viewportBottom = viewportTop + session.windowHeight,
-    viewportRight = viewportLeft + session.windowWidth;
+  const viewportTop = session.scrollTop;
+  const viewportLeft = session.scrollLeft;
+  const viewportBottom = viewportTop + session.windowHeight;
+  const viewportRight = viewportLeft + session.windowWidth;
   let collisions = Collision.none;
   if (
     coords.top < viewportTop ||

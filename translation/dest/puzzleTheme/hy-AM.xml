@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Շախ միաժամանակ երկու խաղաքարով՝ բաց հարձակման միջոցով։ Հնարավոր չէ վերցնել երկու գրոհող խաղաքարերը և հնարավոր չէ ծածկվել դրանցից, հետևաբար արքան կարող է միայն հեռանալ շախից։</string>
   <string name="endgame">Վերջնախաղ</string>
   <string name="endgameDescription">Մարտավարություն խաղի վերջնամասում։</string>
+  <string name="enPassant">Կողանցիկ հարված</string>
   <string name="exposedKing">Մերկ արքա</string>
   <string name="exposedKingDescription">Անպաշտպան կամ թույլ պաշտպանված արքան հաճախ դառնում է մատային գրոհի զոհը։</string>
   <string name="fork">Պատառաքաղ</string>

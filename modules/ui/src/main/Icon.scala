@@ -144,3 +144,4 @@ object Icon:
   val Switch: Icon = "" // e07b
   val Cpu: Icon = "" // e07e
   val Prune: Icon = "" // e07f
+  val Friends: Icon = "" // e080

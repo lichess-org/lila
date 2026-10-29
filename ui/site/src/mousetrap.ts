@@ -169,6 +169,7 @@ export default class Mousetrap {
   };
 
   private readonly handleKeyEvent = (e: KeyboardEvent) => {
+    if (document.querySelector<HTMLElement>('dialog:modal')) return;
     const el = e.target as HTMLElement;
     for (const binding of this.getMatches(e)) {
       if (

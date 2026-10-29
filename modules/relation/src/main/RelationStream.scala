@@ -1,14 +1,14 @@
 package lila.relation
 
 import org.apache.pekko.stream.scaladsl.*
+import play.api.libs.json.JsObject
+import reactivemongo.api.bson.BSONDocumentReader
 import reactivemongo.pekkostream.cursorProducer
 
-import lila.db.dsl.{ *, given }
-import lila.core.user.UserRepo
-import reactivemongo.api.bson.BSONDocumentReader
 import lila.core.LightUser
 import lila.core.socket.IsOnline
-import play.api.libs.json.JsObject
+import lila.core.user.UserRepo
+import lila.db.dsl.{ *, given }
 
 final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)(using
     Executor,

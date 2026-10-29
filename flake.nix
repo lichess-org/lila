@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
-    sasso.url = "github:momiji-rs/sasso/v0.18.0";
+    sasso.url = "github:momiji-rs/sasso/v0.21.0";
   };
 
   outputs =
@@ -13,7 +13,9 @@
       javaVersion = 21;
       # Source of truth for Node version is .node-version
       nodeVersionFile = builtins.readFile ./.node-version;
-      nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (builtins.replaceStrings [ "v" ] [ "" ] nodeVersionFile)) 0;
+      nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (
+        builtins.replaceStrings [ "v" ] [ "" ] nodeVersionFile
+      )) 0;
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -44,15 +46,14 @@
           scala = prev.scala_3.override { jre = jdk; };
 
           nodejs = prev."nodejs_${nodeMajorVersion}";
-          pnpm = (prev.pnpm.override { inherit nodejs; });
 
           esbuild = prev.esbuild.overrideAttrs (previousAttrs: rec {
-            version = "0.25.11";
+            version = "0.28.2";
             src = prev.fetchFromGitHub {
               owner = "evanw";
               repo = "esbuild";
               rev = "v${version}";
-              hash = "sha256-GLvIAVfd7xyCFrYhQWs2TK63voz7gFm3yUXXFq6VZ74=";
+              hash = "sha256-I1u+9U5Oj/KzxSjCxwyitwSuDKimatkbC3R2OtaUsfM=";
             };
           });
         };

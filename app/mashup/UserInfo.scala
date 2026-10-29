@@ -7,13 +7,13 @@ import play.api.data.Form
 import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
-import lila.core.user.User
 import lila.core.perm.Granter
+import lila.core.user.User
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
+import lila.mon.extensions.*
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.mon.extensions.*
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -65,12 +65,14 @@ object UserInfo:
       ).mapN(Social.apply)
 
     def messageable(userId: UserId)(using me: Me): Fu[Boolean] =
-      prefApi
-        .getMessage(userId)
-        .flatMap:
-          case lila.core.pref.Message.NEVER => fuccess(false)
-          case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
-          case lila.core.pref.Message.ALWAYS => fuccess(true)
+      if Granter(_.PublicMod) then fuTrue
+      else
+        prefApi
+          .getMessage(userId)
+          .flatMap:
+            case lila.core.pref.Message.NEVER => fuccess(false)
+            case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
+            case lila.core.pref.Message.ALWAYS => fuccess(true)
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
@@ -86,17 +88,17 @@ object UserInfo:
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
+      crosstableApi: lila.game.CrosstableApi,
+      playingUsers: lila.round.PlayingUsers
   )(using Executor):
-    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
+    def apply(u: User, withCrosstable: Boolean, withPlaying: Boolean)(using me: Me): Fu[NbGames] =
       (
-        withCrosstable.so:
-          me
-            .filter(u.isnt(_))
-            .traverse: me =>
-              crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
+        (withCrosstable && u.isnt(me)).so:
+          crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable")).dmap(some)
         ,
-        gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
+        withPlaying.so:
+          playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying"))
+        ,
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
         bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)
@@ -129,7 +131,7 @@ object UserInfo:
         showRatings
           .so(ratingChartApi(user, computeIfNeeded = ctx.isAuth))
           .mon(lila.mon.user.segment("ratingChart")),
-        (!user.is(UserId.lichess) && !user.isBot).so:
+        (full && user.isnt(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
         (withBlog && full).so(ublogApi.userBlogPreviewFor(user, 3)),

@@ -1,9 +1,9 @@
 package lila.user
 package ui
 
+import lila.core.i18n.I18nKey
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.I18nKey
 
 final class UserGamesDownload(helpers: Helpers):
   import helpers.{ *, given }

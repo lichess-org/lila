@@ -12,7 +12,6 @@ import { watchers } from 'lib/view/watchers';
 import crazyView from '@/crazy/crazyView';
 import type AnalyseCtrl from '@/ctrl';
 import forecastView from '@/forecast/forecastView';
-import { view as keyboardView } from '@/keyboard';
 import { relayView } from '@/study/relay/relayView';
 import type * as studyDeps from '@/study/studyDeps';
 import { studyView } from '@/study/studyView';
@@ -44,7 +43,6 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   return renderMain(
     ctx,
-    ctrl.keyboardHelp && keyboardView(ctrl),
     renderBoard(ctx),
     ctx.gaugeOn && cevalView.renderGauge(ctrl),
     crazyView(ctrl, ctrl.topColor(), 'top'),
@@ -83,7 +81,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
           ),
       ],
     ),
-    ctrl.chatCtrl && renderChat(ctrl.chatCtrl, { insert: v => fixChatHeight(v.elm) }),
+    ctrl.chatCtrl && renderChat(ctrl.chatCtrl, { insert: v => v.elm && fixChatHeight(v.elm) }),
     hl('div.chat__members.none', { hook: onInsert(watchers) }),
   );
 }
@@ -96,12 +94,12 @@ function resizeHandler(ctrl: AnalyseCtrl) {
     if (ctrl.study || resizeCache.columns < 3) return;
 
     resizeCache.chat ??= document.querySelector<HTMLElement>('.mchat');
-    fixChatHeight(resizeCache.chat);
+    if (resizeCache.chat) fixChatHeight(resizeCache.chat);
   });
   return { columns: displayColumns(), chat: null, board: null, meta: null };
 }
 
-function fixChatHeight(el: Node | null | undefined) {
+function fixChatHeight(el: Node) {
   if (!(el instanceof HTMLElement)) return;
   resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .cg-wrap');
   resizeCache.meta ??= document.querySelector<HTMLElement>('.game__meta');

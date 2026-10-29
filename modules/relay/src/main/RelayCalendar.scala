@@ -1,10 +1,14 @@
 package lila.relay
 
+import play.api.mvc.RequestHeader
+
+import java.time.{ LocalDate, YearMonth }
+
+import lila.common.HTTPRequest
 import lila.db.dsl.*
 import lila.memo.CacheApi
 import lila.relay.RelayTour.WithFirstRound
 import lila.relay.RelayTourRepo.*
-import java.time.{ LocalDate, YearMonth }
 
 final class RelayCalendar(
     tourRepo: RelayTourRepo,
@@ -12,8 +16,10 @@ final class RelayCalendar(
     cacheApi: CacheApi
 )(using Executor):
 
-  private val cache = cacheApi[YearMonth, List[WithFirstRound]](32, "relay.calendar.at"):
-    _.expireAfterWrite(10.minutes).buildAsyncFuture: at =>
+  val ttl = 1.hour
+
+  private val cache = cacheApi[YearMonth, List[WithFirstRound]](64, "relay.calendar.at"):
+    _.expireAfterWrite(ttl).buildAsyncFuture: at =>
       val max = 200
       val firstDay = LocalDate.of(at.getYear, at.getMonth, 1)
       tourRepo.coll
@@ -48,6 +54,13 @@ final class RelayCalendar(
         .map(readToursWithRoundAndGroup(WithFirstRound.apply))
 
   def atMonth(at: YearMonth): Fu[List[WithFirstRound]] = cache.get(at)
+
+  def atMonthWithReqTiersFilter(at: YearMonth)(using req: RequestHeader): Fu[List[WithFirstRound]] =
+    val inTiers =
+      HTTPRequest.queryStringGet("tiers").orZero.split(",").flatMap(RelayTour.Tier.byKey.get).toSet
+    atMonth(at).map: tours =>
+      if inTiers.isEmpty then tours
+      else tours.filter(_.tour.tier.exists(inTiers))
 
   def readMonth(year: Int, month: Int): Option[YearMonth] =
     RelayCalendar.allYears

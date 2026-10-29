@@ -1,5 +1,14 @@
 // no side effects allowed due to re-export by index.ts
 
+import {
+  attributesModule,
+  classModule,
+  eventListenersModule,
+  init,
+  propsModule,
+  styleModule,
+} from 'snabbdom';
+
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { frag } from '@/index';
@@ -17,38 +26,38 @@ export interface Dialog<Ctx = undefined> {
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog<Ctx>>; // promise resolves on close
-  updateActions(actions?: Action<Ctx> | Action<Ctx>[]): void; // set new actions or reattach existing if no args
+  redraw(): void;
+  updateActions(actions?: Action<Ctx> | Action<Ctx>[]): void; // set actions, or reattach existing ones if omitted
   close(returnValue?: string): void;
 }
 
 export interface DialogOpts<Ctx = undefined> {
   ctx?: Ctx;
   class?: string; // classes for your view div
-  css?: ({ url: string } | { hashed: string })[]; // hashed or full url css
-  htmlText?: string; // content, htmlText is inserted as fragment into DOM
-  cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
+  css?: CssLocation[]; // key or full url css
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action<Ctx> | Action<Ctx>[]; // add listeners to controls, call updateActions() to reattach
+  parentEl?: Element; // parent for placement and centering; defaults to document.body
   onShow?: (dialog: Dialog<Ctx>) => void; // called after dialog is shown
   onClose?: (dialog: Dialog<Ctx>) => void; // always called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corner close button
+  closeButton?: boolean; // if true, add an upper right corner close button
   noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
+  noTabCycle?: boolean; // if true, dont trap tab focus within the dialog
+  show?: boolean; // show dialog immediately after construction
   modal?: boolean; // if true, show as modal (darken everything else)
   easyClose?: 'anyClick' | 'clickOutside';
 }
 
-// show is an explicit property for domDialog.
 export interface DomDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
-  parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: boolean; // show dialog immediately after construction
+  htmlText?: string; // content, htmlText is inserted as fragment into DOM
+  cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
+  htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
+  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
 }
 
 export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
-  vnodes?: LooseVNodes; // content, overrides all other content properties
-  onInsert?: (dialog: Dialog<Ctx>) => void; // if provided you must call show
+  render: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes;
 }
 
 export type ActionListener<T extends Event = Event, Ctx = undefined> = (
@@ -64,17 +73,22 @@ export type Action<Ctx = undefined> =
   | { selector?: string; event?: string | string[]; listener: ActionListener<any, Ctx> }
   | { selector?: string; event?: string | string[]; result: string };
 
-// when opts contains 'show', domDialog function's result promise resolves on dialog closure.
-// otherwise, the promise resolves once assets are loaded and it is safe to call show
+// when opts contains 'show', domDialog resolves when the dialog is closed
+// otherwise, domDialog resolves when assets are loaded and is ready to show
 export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
-  const html = await loadAssets(o);
+  const html = await loadWithCss(
+    o.css,
+    o.htmlUrl
+      ? xhr.text(o.htmlUrl)
+      : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
+  );
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
   if (isTouchDevice()) dialog.classList.add('touch-scroll');
-  if (o.parent) dialog.style.position = 'absolute';
+  if (o.parentEl) dialog.style.position = 'absolute';
 
-  if (!o.noCloseButton) {
+  if (o.closeButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
     anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
     dialog.appendChild(anchor);
@@ -90,59 +104,88 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 
-  (o.parent ?? document.body).appendChild(dialog);
+  (o.parentEl ?? document.body).appendChild(dialog);
+
+  for (const app of o.insert ?? []) {
+    if (app.nodes === view) break;
+    const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
+    const target = (app.selector ? view.querySelector(app.selector) : view)!;
+    if (app.position === 'before') target.before(...nodes);
+    else if (app.position === 'after') target.after(...nodes);
+    else target.append(...nodes);
+  }
 
   const wrapper = new DialogWrapper<Ctx>(dialog, view, o);
   return o.show ? wrapper.show() : wrapper;
 }
 
-export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
-  let dialog: HTMLDialogElement;
-  const classes = o.class?.split(/[. ]/).filter(Boolean) ?? [];
-  const dialogVNode = hl(
-    'dialog',
-    {
-      class: { 'touch-scroll': isTouchDevice() },
-      key: o.class ?? 'dialog',
-      attrs: o.attrs?.dialog,
-      hook: onInsert(el => (dialog = el as HTMLDialogElement)),
-    },
-    [
-      o.noCloseButton ||
+export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
+  const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
+
+  let vnode: VNode | Element = (o.parentEl ?? document.body).appendChild(document.createElement('div'));
+  let resolve: (dlg: Dialog<Ctx>) => void;
+  let dialog: Dialog<Ctx> | undefined;
+  let dialogEl: HTMLDialogElement;
+
+  const redraw = () => {
+    if (!dialog || !dialogEl.isConnected) return;
+    vnode = patch(vnode, makeVNode());
+  };
+
+  const innerHook = onInsert(async view => {
+    await loadWithCss(o.css);
+    dialog = new DialogWrapper<Ctx>(dialogEl, view, o, redraw);
+    vnode = patch(vnode, makeVNode());
+    resolve(dialog);
+    if (o.show) dialog.show();
+  });
+
+  const outerHook = onInsert(el => {
+    if (o.parentEl) el.style.position = 'absolute';
+    dialogEl = el as HTMLDialogElement;
+  });
+
+  const makeVNode = () =>
+    hl(
+      'dialog',
+      {
+        class: { 'touch-scroll': isTouchDevice() },
+        key: o.class ?? 'dialog',
+        attrs: o.attrs?.dialog,
+        hook: outerHook,
+      },
+      [
+        o.closeButton &&
+          hl(
+            'div.close-button-anchor',
+            hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
+          ),
         hl(
-          'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
+          'div',
+          { class: { scrollable: !o.noScrollable } },
+          hl(
+            'div.dialog-content',
+            {
+              class: Object.fromEntries((o.class?.split(/[. ]/).filter(Boolean) ?? []).map(c => [c, true])),
+              attrs: o.attrs?.view,
+              hook: innerHook,
+            },
+            dialog && o.render(redraw, dialog),
+          ),
         ),
-      hl(
-        'div',
-        { class: { scrollable: !o.noScrollable } },
-        hl(
-          'div.dialog-content',
-          {
-            class: Object.fromEntries(classes.map(c => [c, true])),
-            attrs: o.attrs?.view,
-            hook: onInsert(async view => {
-              const html = await loadAssets(o);
-              if (!o.vnodes && html) view.innerHTML = html;
-              const dlg = new DialogWrapper<Ctx>(dialog, view, o);
-              if (o.onInsert) o.onInsert(dlg);
-              else dlg.show();
-            }),
-          },
-          o.vnodes,
-        ),
-      ),
-    ],
-  );
-  if (!o.modal) return dialogVNode;
-  return hl('div.snab-modal-mask', { class: { none: Boolean(o.onInsert) } }, dialogVNode);
+      ],
+    );
+
+  return new Promise<Dialog<Ctx>>(res => {
+    resolve = res;
+    vnode = patch(vnode, makeVNode());
+  });
 }
 
 const easyCloseHandler = new (class {
   private stack: DialogWrapper[] = [];
 
   push(dlg: DialogWrapper<any>) {
-    if (!dlg.o.easyClose) return;
     if (this.stack.length === 0)
       document.addEventListener('pointerdown', this.pointerdown, { capture: true });
     this.stack.push(dlg);
@@ -162,15 +205,17 @@ const easyCloseHandler = new (class {
       const bounds = this.top.dialog.getBoundingClientRect();
       if (x >= bounds.left && x <= bounds.right && y >= bounds.top && y <= bounds.bottom) return;
     }
-    if (e.pointerType === 'touch' || !this.top.o.modal)
-      window.addEventListener(
-        'click',
-        e => {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-        },
-        { once: true, capture: true },
-      );
+    if (e.pointerType === 'touch' || !this.top.o.modal) {
+      const preventClick = (e: MouseEvent) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      };
+      window.addEventListener('click', preventClick, { once: true, capture: true });
+      window.addEventListener('pointerdown', () => window.removeEventListener('click', preventClick, true), {
+        once: true,
+        capture: true,
+      });
+    }
     this.top.close('cancel');
     e.stopPropagation();
   };
@@ -199,30 +244,23 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
     readonly o: DialogOpts<Ctx>,
+    readonly redraw = () => {},
     public ctx: Ctx = o.ctx as Ctx,
   ) {
     this.observer.observe(document.body, { childList: true, subtree: true });
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
     this.dialogEvents.addListener(dialog, 'cancel', e => {
-      if (!o.easyClose && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
+      if (!o.easyClose && !o.closeButton && o.class !== 'alert') return e.preventDefault();
       if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
-    if (!o.noCloseButton)
+    if (o.closeButton)
       this.dialogEvents.addListener(
         dialog.querySelector<HTMLButtonElement>('.close-button-anchor > .close-button')!,
         'click',
         () => this.close('cancel'),
       );
-    for (const app of o.insert ?? []) {
-      if (app.nodes === view) break;
-      const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
-      const target = (app.selector ? view.querySelector(app.selector) : view)!;
-      if (app.position === 'before') target.before(...nodes);
-      else if (app.position === 'after') target.after(...nodes);
-      else target.append(...nodes);
-    }
     this.updateActions();
     this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
   }
@@ -233,12 +271,10 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
 
   show = async (): Promise<Dialog<Ctx>> => {
     (await pubsub.after('polyfill.dialog'))?.(this.dialog);
-    const snabModal = this.dialog.parentElement === this.dialog.closest('.snab-modal-mask');
-    if (this.o.modal) this.view.scrollTop = 0;
-    if (snabModal) this.dialog.parentElement?.classList.remove('none');
-
-    if (this.o.modal && !snabModal) this.dialog.showModal();
-    else this.dialog.show();
+    if (this.o.modal) {
+      this.view.scrollTop = 0;
+      this.dialog.showModal();
+    } else this.dialog.show();
 
     easyCloseHandler.push(this);
     this.dialogEvents.addCleanupTask(() => easyCloseHandler.remove(this));
@@ -249,7 +285,9 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   };
 
   close = (v?: string) => {
+    if (!this.dialog.isConnected) return;
     this.dialog.close(v || this.returnValue || 'ok');
+    this.onRemove();
   };
 
   updateActions = (actions = this.o.actions) => {
@@ -268,10 +306,10 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   };
 
   private readonly onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && (this.o.easyClose || !this.o.noCloseButton)) {
+    if (e.key === 'Escape' && (this.o.easyClose || this.o.closeButton)) {
       this.close('cancel');
       e.preventDefault();
-    } else if (e.key === 'Tab') {
+    } else if (e.key === 'Tab' && !this.o.noTabCycle) {
       const focii = focusableWithin(this.dialog);
       focii.sort((a, b) => {
         const ati = Number(a.getAttribute('tabindex') ?? '0');
@@ -280,9 +318,9 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         else if (bti > 0 && ati !== bti) return 1;
         else return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
       });
-      const first = focii[0],
-        last = focii[focii.length - 1],
-        focus = document.activeElement as HTMLElement;
+      const first = focii[0];
+      const last = focii[focii.length - 1];
+      const focus = document.activeElement as HTMLElement;
 
       if (focus === last && !e.shiftKey) first?.focus();
       else if (focus === first && e.shiftKey) last?.focus();
@@ -290,7 +328,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       e.preventDefault();
     }
 
-    if (['Escape', 'Tab'].includes(e.key)) e.stopPropagation(); // trap 'Enter' for modals here or?
+    if (e.key === 'Escape' || (e.key === 'Tab' && !this.o.noTabCycle)) e.stopPropagation();
   };
 
   private autoFocus() {
@@ -307,27 +345,19 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.resolve?.(this);
-    this.o.onClose?.(this);
-    if (this.dialog.parentElement?.classList.contains('snab-modal-mask')) this.dialog.parentElement.remove();
-    else this.dialog.remove();
-    for (const css of this.o.css ?? []) {
-      if ('hashed' in css) site.asset.removeCssPath(css.hashed);
-      else if ('url' in css) site.asset.removeCss(css.url);
-    }
+    this.dialog.remove();
+    this.o.css?.forEach(site.asset.releaseCss);
     this.actionEvents.cleanup();
     this.dialogEvents.cleanup();
+    this.o.onClose?.(this);
   };
 }
 
-async function loadAssets<Ctx>(o: DialogOpts<Ctx>): Promise<string> {
+async function loadWithCss<T = string>(css: CssLocation[] = [], loadMe?: Promise<T>): Promise<T | undefined> {
   const results = await Promise.allSettled([
-    o.htmlUrl
-      ? xhr.text(o.htmlUrl)
-      : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
-    site.asset.loadCssPath('bits.dialog'),
-    ...(o.css ?? []).map(css =>
-      'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
-    ),
+    loadMe,
+    site.asset.loadCss({ key: 'bits.dialog' }),
+    ...css.map(site.asset.loadCss),
   ]);
-  return (results[0]?.status === 'fulfilled' && results[0].value) || '';
+  return results[0]?.status === 'fulfilled' ? results[0].value : undefined;
 }

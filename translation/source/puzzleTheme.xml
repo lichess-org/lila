@@ -54,6 +54,7 @@
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent's king.</string>
   <string name="endgame">Endgame</string>
   <string name="endgameDescription">A tactic during the last phase of the game.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move.</string>
   <string name="epauletteMate">Epaulette mate</string>
   <string name="epauletteMateDescription">Two adjacent escape squares for a checked king are occupied by other pieces.</string>

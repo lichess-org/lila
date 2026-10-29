@@ -29,6 +29,19 @@ object Entry:
 
   case class ForUsers(entry: Entry, userIds: List[UserId])
 
+  val gtfoLichobile = Entry(
+    BSONObjectID.generate(),
+    "ublog-post",
+    none,
+    bdoc(
+      "userId" -> "lichess",
+      "id" -> "rightnow",
+      "slug" -> "get-the-new-lichess-mobile-app",
+      "title" -> "Get the new Lichess mobile app"
+    ),
+    nowInstant
+  )
+
   private def toBson[A](data: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
   private[timeline] def make(data: Atom): Entry =

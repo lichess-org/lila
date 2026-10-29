@@ -119,6 +119,7 @@ H kraljici.</string>
 Za nadaljevanje naredite potezo.</string>
   <string name="boardSetupComplete">Čestitamo! Sedaj znate postaviti šahovnico.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Posebna poteza s kraljem</string>
   <string name="castlingIntro">Spravite svojega kralja na varno in razvijte trdnjavo v napad!</string>
   <string name="castleKingSide">Premaknite kralja za dve polji,

@@ -53,6 +53,7 @@
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
+  <string name="enPassant">Branie mimochodom</string>
   <string name="epauletteMate">Epoletný mat</string>
   <string name="epauletteMateDescription">Dve susedné políčka, kam by mohol šachovaný kráľ ustúpiť, sú obsadené inými figúrkami.</string>
   <string name="exposedKing">Oslabený kráľ</string>

@@ -1,6 +1,7 @@
-import { h, type VNode } from 'snabbdom';
+import { type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
+import { a, button, div, form, span } from 'lib/view';
 
 import { PaneCtrl } from './interfaces';
 import { header } from './util';
@@ -18,28 +19,28 @@ export interface LangsData {
 
 export class LangsCtrl extends PaneCtrl {
   render = (): VNode =>
-    h('div.sub.langs', [
+    div('.sub.langs', [
       header(i18n.site.language, this.close),
-      h(
-        'form',
-        { attrs: { method: 'post', action: '/translation/select' } },
+      form(
+        { method: 'post', action: '/translation/select' },
         this.list().map(([code, name]: Lang) =>
-          h(
-            'button',
+          button(
             {
               class: {
                 current: this.isCurrent(code),
                 accepted: this.isAccepted(code),
               },
-              attrs: { type: 'submit', name: 'lang', value: code, title: code },
+              type: 'submit',
+              name: 'lang',
+              value: code,
             },
-            name,
+            [name, span('.lang-code', code)],
           ),
         ),
       ),
-      h(
-        'a.help.text',
-        { attrs: { href: 'https://crowdin.com/project/lichess', 'data-icon': licon.Heart } },
+      a('https://crowdin.com/project/lichess')(
+        '.help.text',
+        { 'data-icon': licon.Heart },
         'Help translate Lichess',
       ),
     ]);

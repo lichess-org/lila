@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Rated, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
+import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Rated }
 import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus
@@ -28,7 +28,7 @@ final private class Rematcher(
   private val rateLimit = lila.memo.RateLimit[GameFullId](
     credits = 2,
     duration = 1.minute,
-    key = "round.rematch",
+    limiterKey = "round.rematch",
     log = false
   )
 

@@ -107,6 +107,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Wykonaj dowolny ruch, aby kontynuować.</string>
   <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
+  <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
   <string name="castlingIntro">Zabezpiecz swojego króla i wprowadź do gry wieżę!</string>
   <string name="castleKingSide">Przesuń króla o dwa pola aby wykonać krótką roszadę!</string>

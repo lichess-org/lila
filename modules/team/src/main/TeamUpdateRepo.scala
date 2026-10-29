@@ -1,9 +1,9 @@
 package lila.team
 
 import reactivemongo.api.bson.*
+import scalalib.paginator.AdapterLike
 
 import lila.db.dsl.{ *, given }
-import scalalib.paginator.AdapterLike
 
 private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 
@@ -30,14 +30,8 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
         "seenBy".neq(me.userId)
       )
 
-  def markSeen(team: TeamId)(using me: Me): Funit =
-    coll.update
-      .one(
-        teamSelect(team) ++ bdoc("seenBy".neq(me.userId)),
-        bdoc("$addToSet" -> bdoc("seenBy" -> me.userId)),
-        multi = true
-      )
-      .void
+  def markSeen(msgIds: Seq[TeamUpdate.ID])(using me: Me): Funit = msgIds.nonEmpty.so:
+    coll.update.one(inIds(msgIds), addToSet("seenBy" -> me.userId), multi = true).void
 
   def teamLatest(team: TeamId): Fu[Option[DbTeamUpdate]] =
     coll.secondary

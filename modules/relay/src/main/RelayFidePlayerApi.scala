@@ -1,7 +1,7 @@
 package lila.relay
 
+import chess.format.pgn.{ Tag, TagType, Tags }
 import chess.{ ByColor, FideId, FideTC, PlayerTitle }
-import chess.format.pgn.{ Tag, Tags, TagType }
 
 import lila.core.fide.Player
 

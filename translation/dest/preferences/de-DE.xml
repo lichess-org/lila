@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
+  <string name="multipleChoices">Mehrere Auswahlmöglichkeiten. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Blindschach</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Auf der linken Seite auf mobilen Geräten anzeigen</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="showServerAnalysis">Serveranalyse anzeigen</string>
+  <string name="showMainlineAnalysis">Hauptvarianten-Analyse anzeigen</string>
   <string name="showBestMoveArrows">Pfeile für die besten Züge anzeigen</string>
   <string name="showManeuverArrows">Manöver-Pfeile anzeigen</string>
   <string name="showGauge">Stellungsbewertungs-Balken anzeigen</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Nicht verteidigte Figuren anzeigen</string>
   <string name="showPinnedPieces">Gefesselte Figuren anzeigen</string>
   <string name="showCheckableKing">Mögliche Schachs anzeigen</string>
+  <string name="showTrappedPieces">Eingesperrte Figuren anzeigen</string>
   <string name="disclosureMode">Varianten ausblenden aktivieren</string>
   <string name="generalSettings">Allgemein</string>
   <string name="moveListSettings">Zugliste</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Analyse-Einstellungen</string>
   <string name="maneuverArrowsHelp">Reihenfolge der Computerzüge für eine Figur</string>
   <string name="hoverOverSettingLabelsForHelp">Fahre mit deinem Mauszeiger über die Einstellungs-Label, um Hilfe zu erhalten</string>
+  <string name="network">Netzwerk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Du verwendest zurzeit direktes Routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Du verwendest zurzeit Routing durch das Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Falls du häufig Verbindungsabbrüche hast, versuche das Routing zu ändern.</string>
+  <string name="useDirectRouting">Direktes Routing verwenden</string>
+  <string name="useCdnRouting">CDN-Routing verwenden</string>
 </resources>

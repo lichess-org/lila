@@ -18,11 +18,11 @@ case class SwissPairing(
   def winner: Option[UserId] = (~status.toOption).map(apply)
   def isOngoing = status.isLeft
   def resultFor(userId: UserId) = winner.map(userId.==)
-  def whiteWins = status == Right(Some(Color.White))
-  def blackWins = status == Right(Some(Color.Black))
+  def whiteWins = status == Right(Option(Color.White))
+  def blackWins = status == Right(Option(Color.Black))
   def isDraw = status == Right(None)
   def strResultOf(color: Color) = status.fold(_ => "*", _.fold("1/2")(c => if c == color then "1" else "0"))
-  def forfeit(userId: UserId) = copy(status = Right(Some(!colorOf(userId))), isForfeit = true)
+  def forfeit(userId: UserId) = copy(status = Right(Option(!colorOf(userId))), isForfeit = true)
 
 object SwissPairing:
 

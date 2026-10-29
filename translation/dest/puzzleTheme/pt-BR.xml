@@ -54,6 +54,7 @@
   <string name="doubleCheckDescription">Dar Xeque com duas peças ao mesmo tempo, como resultado de um ataque descoberto onde tanto a peça que se move quanto a peça que estava sendo obstruída atacam o rei do oponente.</string>
   <string name="endgame">Finais</string>
   <string name="endgameDescription">Tática durante a última fase do jogo.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">Uma tática que envolve a regra do en passant, na qual um peão pode capturar um peão adversário que acabou de avançar duas casas em seu movimento inicial, posicionando-se ao seu lado.</string>
   <string name="epauletteMate">Mate epaulette</string>
   <string name="epauletteMateDescription">Duas casas de fuga adjacentes ao rei em xeque são ocupadas por outras peças.</string>
@@ -63,7 +64,7 @@
   <string name="forkOpposingPiecesDescription">Um lance em que uma peça ataca duas ou mais peças adversárias simultaneamente.</string>
   <string name="hangingPiece">Peça pendurada</string>
   <string name="hangingPieceDescription">Uma táctica que envolve uma peça indefesa do oponente ou insuficientemente defendida e livre para ser capturada.</string>
-  <string name="hookMate">Xeque gancho</string>
+  <string name="hookMate">Mate gancho</string>
   <string name="hookMateOpposingPawnDescription">Xeque-mate aplicado com torre, cavalo e peão, em que um peão adversário impede a fuga do rei.</string>
   <string name="interference">Interferência</string>
   <string name="interferenceDescription">Mover uma peça entre duas peças do oponente para deixar uma ou duas peças do oponente indefesas, como um cavalo em uma casa defendida por duas torres.</string>

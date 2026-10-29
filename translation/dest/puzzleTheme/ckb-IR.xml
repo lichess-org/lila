@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">کشکردن بە دوو داش لە یەک کاتدا، ئەنجامی هێرشێکە کە بە دوو داش دەکرێت لە کاتی جوڵانی داشێک کە کشی پێدەکەیت و داشێک کە نەتجوڵاندووە و ئۆتۆماتیکی دەکەوێتە بەرانبەر پاشای رکابەرەکەت و کش دەکات.</string>
   <string name="endgame">قۆناغی کۆتایی یاری</string>
   <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
+  <string name="enPassant">ئانپاسانت</string>
   <string name="exposedKing">پاشای ئاشکرا</string>
   <string name="exposedKingDescription">زۆرجار تاکتیکێک کە پاشا تێیدا بەشدارە لە کاتێکدا بە چەند بەرگریکارێکی کەم دەورەدراوە دەبێتە هۆی کشومات.</string>
   <string name="fork">چەتاڵ</string>

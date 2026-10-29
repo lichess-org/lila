@@ -132,6 +132,7 @@ Ao lado da dama.</string>
 Faz qualquer movimentos para continuar.</string>
   <string name="boardSetupComplete">Parabéns! Agora sabes como organizar o tabuleiro de xadrez.</string>
   <string name="castling">Roque</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">O movimento especial do rei</string>
   <string name="castlingIntro">Trás o teu rei para a segurança e leva a tua torre para o ataque!</string>
   <string name="castleKingSide">Move o teu rei duas casas

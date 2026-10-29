@@ -42,7 +42,7 @@ export class ForkCtrl {
     return true;
   }
 
-  hover(uci: Uci | undefined | null) {
+  hover(uci: Uci | null) {
     this.hoveringIndex = this.forks.findIndex(n => n.uci === uci);
     if (isTouchDevice() || this.hoveringIndex < 0) this.hoveringIndex = undefined;
   }
@@ -73,7 +73,7 @@ export class ForkCtrl {
   }
 }
 
-const eventToIndex = (e: MouseEvent): number | undefined => {
+const eventToIndex = (e: MouseEvent): number => {
   const target = e.target as HTMLElement;
   return parseInt(
     (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || '',
@@ -114,7 +114,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
           },
           attrs: { 'data-it': it },
         },
-        renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
+        renderIndexAndMove(node, ctrl.settings.showMainlineAnalysis, ctrl.settings.showMainlineAnalysis),
       );
     }),
   );

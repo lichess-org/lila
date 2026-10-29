@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
   <string name="endgame">Beigu spēle</string>
   <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
+  <string name="enPassant">Sitiens garāmejot</string>
   <string name="exposedKing">Atklāts karalis</string>
   <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
   <string name="fork">Dakša</string>

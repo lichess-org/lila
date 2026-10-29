@@ -2,6 +2,7 @@
   @extend %flex-center;
 
   font-size: 1.1em;
+  gap: 0.25em;
 
   &.loading {
     opacity: 0.3;
@@ -18,14 +19,6 @@
 
     &.mine {
       background: color-mix(in oklab, $c-primary 10%, $c-bg);
-
-      &:first-child {
-        @extend %box-radius-left;
-      }
-
-      &:last-child {
-        @extend %box-radius-right;
-      }
     }
   }
 

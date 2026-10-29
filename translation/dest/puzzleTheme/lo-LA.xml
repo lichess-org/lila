@@ -51,6 +51,7 @@
   <string name="doubleCheckDescription">ການຣຸກດ້ວຍຕົວໝາກສອງຕົວພ້ອມກັນ ເຊິ່ງເປັນຜົນມາຈາກການເປີດຣຸກ ໂດຍທີ່ທັງຕົວທີ່ເດີນ ແລະ ຕົວທີ່ຖືກເປີດທາງນັ້ນຕ່າງກໍ່ບຸກຄິງຂອງຄູ່ຕໍ່ສູ້.</string>
   <string name="endgame">ເກມປາຍກະດານ (Endgame)</string>
   <string name="endgameDescription">ແຜນການໃນຊ່ວງສຸດທ້າຍຂອງເກມ.</string>
+  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
   <string name="exposedKing">ຄິງທີ່ບໍ່ມີຕົວປ້ອງກັນ</string>
   <string name="exposedKingDescription">ແຜນການທີ່ເນັ້ນໃສ່ຄິງທີ່ມີຕົວປ້ອງກັນໜ້ອຍ, ເຊິ່ງມັກຈະນຳໄປສູ່ການຈົນ.</string>
   <string name="fork">ການແທງສອງທາງ (Fork)</string>

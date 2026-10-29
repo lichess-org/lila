@@ -16,10 +16,11 @@
 
 package lila.db
 
-import scala.collection.Factory
 import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
+import scala.collection.Factory
 
 import lila.core.config.CollName
 

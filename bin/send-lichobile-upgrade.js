@@ -6,7 +6,7 @@ import path from 'node:path';
 
 async function letsGo() {
   const oauthToken = process.env.OAUTH_TOKEN;
-  console.log(`Using OAuth token: ${oauthToken}`);
+  // console.log(`Using OAuth token: ${oauthToken}`);
   const client = new MongoClient('mongodb://127.0.0.1:27917/lichess', {
     directConnection: true,
   });
@@ -37,7 +37,7 @@ async function letsGo() {
         return lang;
       }
     }
-    console.warn(`No translation found for ${langCode}, using English`);
+    console.warn(`No translation found for ${from}, using English`);
     return 'en-GB';
   }
   function makeMessage(langCode) {
@@ -75,7 +75,7 @@ async function letsGo() {
 
     for await (const user of coll.find({ lang, ...unsent })) {
       chunk.push(user);
-      if (chunk.length >= 200) {
+      if (chunk.length >= 50) {
         await processUsers(chunk, lang);
         chunk.length = 0; // Clear the chunk
       }

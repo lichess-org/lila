@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess Sınıfları</string>
+  <string name="lichessClasses">Sınıflar</string>
   <string name="teachClassesOfChessStudents">Satranç öğrencilerine Lichess Sınıflar araç setiyle ders verin.</string>
   <string name="features">Özellikler</string>
   <string name="quicklyGenerateSafeUsernames">Öğrenciler için hızlıca güvenli kullanıcı adları ve şifreleri oluşturun</string>
@@ -13,7 +13,7 @@
   <string name="newClass">Yeni sınıf</string>
   <string name="closeClass">Sınıfı kapatın</string>
   <string name="removedByX">%s tarafından çıkarıldı</string>
-  <string name="reopen">Yeniden açın</string>
+  <string name="reopen">Yeniden aç</string>
   <string name="removeStudent">Öğrenciyi çıkarın</string>
   <string name="removedStudents">Çıkarıldı</string>
   <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
@@ -54,7 +54,7 @@ Sınıfa erişim linki burada.</string>
   <string name="invitationToClass">Öğrenci olarak \"%s\" sınıfına katılmaya davet edildiniz.</string>
   <string name="clickToViewInvitation">Davetiyeyi görüntülemek için linke tıklayınız:</string>
   <plurals name="nbPendingInvitations">
-    <item quantity="one">%s tane bekleyen davetiye</item>
+    <item quantity="one">Bir bekleyen davetiye</item>
     <item quantity="other">%s tane bekleyen davet</item>
   </plurals>
   <string name="pending">Beklemede</string>
@@ -89,7 +89,7 @@ Sınıfa erişim linki burada.</string>
   <string name="overDays">Günler boyunca</string>
   <string name="timePlaying">Toplam oynama zamanı</string>
   <string name="variantXOverLastY">%1$s sondan %2$s</string>
-  <string name="winrate">Kazanma Oranı</string>
+  <string name="winrate">Kazanma oranı</string>
   <string name="na">Mevcut değil</string>
   <string name="overview">Genel Bakış</string>
   <string name="news">Haberler</string>

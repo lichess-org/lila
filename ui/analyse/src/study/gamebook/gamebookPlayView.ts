@@ -7,7 +7,7 @@ import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
-  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.play')) }, [
+  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCss({ key: 'analyse.gamebook.play' })) }, [
     (state.comment || state.feedback === 'play' || state.feedback === 'end') &&
       hl('div.comment', { class: { hinted: state.showHint } }, [
         state.comment
@@ -30,16 +30,16 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 }
 
 function hintZone(ctrl: GamebookPlayCtrl) {
-  const state = ctrl.state,
-    buttonData = () => ({ attrs: { type: 'button' }, hook: bind('click', ctrl.hint, ctrl.redraw) });
+  const state = ctrl.state;
+  const buttonData = () => ({ attrs: { type: 'button' }, hook: bind('click', ctrl.hint, ctrl.redraw) });
   if (state.showHint) return hl('button', buttonData(), [hl('div.hint', { hook: richHTML(state.hint!) })]);
   if (state.hint) return hl('button.hint', buttonData(), i18n.site.getAHint);
   return undefined;
 }
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
-  const fb = state.feedback,
-    color = ctrl.root.turnColor();
+  const fb = state.feedback;
+  const color = ctrl.root.turnColor();
   if (fb === 'bad')
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),

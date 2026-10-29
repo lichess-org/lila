@@ -1,13 +1,13 @@
 .tour__stats {
   @extend %flex-column, %box-neat;
 
+  gap: 2em;
   background: $c-bg-box;
   padding: 1.7em 0;
   align-self: flex-start;
 
   h2 {
     font-size: 1.5em;
-    margin-bottom: 1em;
     text-align: center;
   }
 
@@ -22,12 +22,20 @@
     line-height: 2em;
   }
 
-  &__links {
-    margin: 2em auto 0 auto;
+  &__downloads {
+    margin: 0 2em;
+
+    .toggle-box {
+      padding: 0 2em 1em 2em;
+
+      legend {
+        margin: auto;
+      }
+    }
 
     a {
       display: block;
-      margin: 0.5em 0;
+      margin: 1em 0;
     }
   }
 }

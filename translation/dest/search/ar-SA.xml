@@ -47,5 +47,5 @@
     <item quantity="many">تم إيجاد %s لعبة</item>
     <item quantity="other">تم إيجاد %s لعبة</item>
   </plurals>
-  <string name="ratingExplanation">معدل التقييم لكلا اللاعبين</string>
+  <string name="ratingExplanation">معدل التصنيف لكلا اللاعبين</string>
 </resources>

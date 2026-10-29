@@ -1,9 +1,9 @@
 package lila.tournament
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
+import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.core.config.*
@@ -141,6 +141,8 @@ final class Env(
   def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isRecentPlayer(tourId, userId)
 
+  private val payoutsDmUrl = "/tournament/(\\w{8})".r.unanchored
+
   lila.common.Cli.handle(_.ManageTournament):
     // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
     //   leaderboardIndexer.generateAll inject "Done!"
@@ -150,5 +152,12 @@ final class Env(
       api.toggleFeaturing(TourId(id), false).inject("Done!")
     case "tournament" :: "recompute" :: id :: Nil =>
       api.recomputeEntireTournament(TourId(id)).inject("Done!")
+    case "payouts-dm" :: payoutsDmUrl(id) :: users if users.nonEmpty =>
+      tournamentRepo
+        .finishedById(TourId(id))
+        .orFail(s"No such finished tournament: $id")
+        .flatMap: t =>
+          lila.gathering.payoutDms(userApi, users):
+            lila.core.msg.PayoutMessages(_, t.name, Tournament.tournamentUrl(t.id), t.finishesAt)
 
 trait TournamentReloadEndpoint

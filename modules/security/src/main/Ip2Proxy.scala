@@ -1,13 +1,13 @@
 package lila.security
 
 import play.api.libs.json.*
-import play.api.mvc.RequestHeader
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.RequestHeader
 
+import lila.common.HTTPRequest
 import lila.core.net.IpAddress
 import lila.core.security.{ Ip2ProxyApi, IsProxy }
-import lila.common.HTTPRequest
 import lila.mon.extensions.*
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
@@ -85,7 +85,7 @@ final class Ip2ProxyServer(
                 cached ++ res
         }
 
-  private val cache = cacheApi[String, IsProxy](131_072, "ip2proxy.ip"):
+  private val cache = cacheApi[String, IsProxy](262_144, "ip2proxy.ip"):
     _.expireAfterWrite(1.hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)

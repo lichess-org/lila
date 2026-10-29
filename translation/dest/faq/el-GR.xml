@@ -159,6 +159,7 @@
 3. Κάντε κλικ στην επιλογή Cookies και άδειες ιστοσελίδας
 4. Κάντε κύλιση προς τα κάτω και κάντε κλικ στην αυτόματη αναπαραγωγή πολυμέσων
 5. Προσθέστε το lichess.org στο επιτρέπω</string>
+  <string name="makeBotTitle">Πώς να δημιουργήσετε ένα μποτ στο Lichess;</string>
   <string name="stopMyselfFromPlaying">Να σταματήσω τον εαυτό μου από το να παίζει;</string>
   <string name="mentalHealthCondition">αυτόνομη κατάσταση ψυχικής υγείας</string>
   <string name="lichessUserstyles">Lichess userstyles</string>

@@ -16,7 +16,7 @@
   <string name="subscribedBroadcasts">پخش‌های دنبالیده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
   <string name="howToUseLichessBroadcasts">نحوه استفاده از پخش همگانی Lichess.</string>
-  <string name="theNewRoundHelp">دور جدید، همان اعضا و مشارکت‌کنندگان دور قبلی را خواهد داشت.</string>
+  <string name="theNewRoundHelp">دور جدید، همان عضوها و مشارکت‌گران دور پیشین را خواهد داشت.</string>
   <string name="addRound">اضافه کردن یک دور</string>
   <string name="ongoing">ادامه‌دار</string>
   <string name="upcoming">آینده</string>
@@ -108,6 +108,7 @@
   <string name="tiebreaks">یِرشکن</string>
   <string name="gameX">بازی %s</string>
   <string name="knockouts">حذفی</string>
+  <string name="pinPlayer">سنجاقیدنِ بازیکن</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
 </resources>

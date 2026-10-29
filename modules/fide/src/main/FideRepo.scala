@@ -1,10 +1,11 @@
 package lila.fide
 
-import scala.util.Success
-import java.time.YearMonth
-import chess.{ FideId, FideTC }
 import chess.rating.Elo
+import chess.{ FideId, FideTC }
 import reactivemongo.api.bson.*
+
+import java.time.YearMonth
+import scala.util.Success
 
 import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
@@ -45,6 +46,8 @@ final private class FideRepo(
       playerColl.updateOrUnsetField(bid(p.id) ++ bdoc("photo.id".exists(true)), "photo.credit", credit).void
     def setDeceasedYear(id: FideId, year: Option[Int]): Funit =
       playerColl.updateOrUnsetField(bid(id), "deceasedYear", year).void
+    def unsetYear(id: FideId): Funit =
+      playerColl.unsetField(bid(id), "year").void
 
   object rating:
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler

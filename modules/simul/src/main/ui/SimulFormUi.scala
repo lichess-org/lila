@@ -7,8 +7,7 @@ import lila.core.i18n.Translate
 import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringFormUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SimulFormUi(helpers: Helpers)(
     setupCheckboxes: (Field, Seq[(Any, String, Option[String])], Set[String]) => Frag,
@@ -75,7 +74,7 @@ final class SimulFormUi(helpers: Helpers)(
         )
       },
       form.toOption.map: form =>
-        form3.fieldset("Games")(
+        form3.fieldset(trans.site.games())(
           form3.group(form("variant"), trans.site.simulVariantsHint()) { f =>
             frag(
               div(cls := "variants")(
@@ -107,7 +106,7 @@ final class SimulFormUi(helpers: Helpers)(
           )
         ),
       form.toOption.map: form =>
-        form3.fieldset("Clock")(
+        form3.fieldset(trans.site.clock())(
           p(trans.site.simulClockHint()),
           form3.split(
             form3.group(
@@ -139,7 +138,7 @@ final class SimulFormUi(helpers: Helpers)(
           )
         ),
       form.toOption.map: form =>
-        form3.fieldset("Entry conditions")(
+        form3.fieldset(trans.arena.entryConditions())(
           form3.split(
             teams.nonEmpty.option(
               form3.group(form("conditions.team.teamId"), trans.site.onlyMembersOfTeam(), half = true)(

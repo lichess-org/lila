@@ -54,6 +54,7 @@
   <string name="doubleCheckDescription">Å gi sjakk med to brikker samtidig, gjennom en avdekker der både brikken som flyttes, og brikken som avdekkes, angriper motstanderens konge.</string>
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">En taktikk som bruker en passant-regelen, der en bonde kan slå en motstanderbonde som nettopp har flyttet to felt frem fra utgangsstillingen og havnet ved siden av den.</string>
   <string name="epauletteMate">Epålettmatt</string>
   <string name="epauletteMateDescription">Kongens to fluktfelter er opptatt av andre brikker.</string>

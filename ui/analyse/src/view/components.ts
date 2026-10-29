@@ -109,7 +109,7 @@ export function renderMain(
         },
       },
       class: {
-        'comp-off': !ctrl.settings.showStaticAnalysis,
+        'comp-off': !ctrl.settings.showMainlineAnalysis,
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
@@ -290,9 +290,9 @@ export function renderMoveNodes(
         : '';
   const attrs = !withEval && ev ? { title: `${evalText} · ${evalInfo(ev)}` } : undefined;
   const nodes = [h('san', { attrs }, fixCrazySan(node.san!))];
-  const relevantGlyphs = glyphs ?? node.glyphs;
-  if (withGlyphs && relevantGlyphs)
-    relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
+  const dedupedGlyphs = new Map<number, Glyph>();
+  (glyphs ?? node.glyphs)?.forEach(g => dedupedGlyphs.set(g.id, g));
+  if (withGlyphs) dedupedGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));
   if (withEval && evalText && ev)
     nodes.push(h('eval', { attrs: { title: evalInfo(ev) } }, evalText.replace('-', '−')));
@@ -348,9 +348,9 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     hl('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl, ctrl.path),
-    whitePov = ctrl.bottomIsWhite(),
-    materialDiffs = renderMaterialDiffs(ctrl);
+  const clocks = renderClocks(ctrl, ctrl.path);
+  const whitePov = ctrl.bottomIsWhite();
+  const materialDiffs = renderMaterialDiffs(ctrl);
 
   return [
     renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),

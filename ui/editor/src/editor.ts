@@ -27,10 +27,26 @@ export function initModule(config: Config): LichessEditor {
 
   menuHover();
 
+  const pasteListener = (e: ClipboardEvent) => {
+    const file = Array.from(e.clipboardData?.files || []).find(file => file.type.startsWith('image/'));
+    if (file) {
+      e.preventDefault();
+      ctrl.loadFromImage(file);
+    }
+  };
+  document.addEventListener('paste', pasteListener);
+
+  // Embeds share this module, and their host page may have its own query string.
+  if (!config.embed) {
+    const imageUrl = new URLSearchParams(location.search).get('image');
+    if (imageUrl) ctrl.loadFromImage(imageUrl);
+  }
+
   return {
     getFen: ctrl.getFen.bind(ctrl),
     setFen: fen => ctrl.setFen(fen),
     setOrientation: ctrl.setOrientation.bind(ctrl),
     setVariant: ctrl.setVariant.bind(ctrl),
+    close: () => document.removeEventListener('paste', pasteListener),
   };
 }

@@ -7,11 +7,11 @@
     #{$tail-color}
   );
 
+  @include box-radius;
+
   position: absolute;
   inset: -1px;
-  z-index: -1;
   border: 3px solid transparent;
-  border-radius: $box-radius-size;
   background:
     var(--gradient-border) border-box,
     transparent border-box;

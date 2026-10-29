@@ -1,7 +1,7 @@
 package lila.api
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
@@ -58,7 +58,8 @@ final class Env(
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
     clasApi: lila.clas.ClasApi,
-    recapEnv: lila.recap.Env
+    recapEnv: lila.recap.Env,
+    playerCounter: lila.web.PlayerCounter
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,

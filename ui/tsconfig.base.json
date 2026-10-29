@@ -1,6 +1,9 @@
 {
   "exclude": ["${configDir}/tests", "${configDir}/dist"],
   "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "jsx",
+    "jsxFragmentFactory": "Fragment",
     "outDir": "${configDir}/dist",
     "rootDir": "${configDir}/src",
     "strict": true,
@@ -17,6 +20,7 @@
     "isolatedDeclarations": true,
     "composite": true,
     "libReplacement": false,
+    "skipDefaultLibCheck": true,
     "moduleResolution": "bundler",
     "module": "ESNext",
     "target": "ES2021",

@@ -1,8 +1,8 @@
 package lila.api
 
+import alleycats.Zero
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
-import alleycats.Zero
 
 import lila.common.HTTPRequest
 import lila.core.i18n.Translate
@@ -63,6 +63,7 @@ object Context:
   given ctxToTranslate(using ctx: Context): Translate = ctx.translate
   given (using page: PageContext): Context = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
+  given [A](using ctx: BodyContext[A]): Request[A] = ctx.body
 
   import lila.i18n.LangPicker
   import lila.pref.RequestPref

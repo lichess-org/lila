@@ -125,6 +125,7 @@
 ચાલુ રાખવા માટે કોઈપણ ચાલ કરો.</string>
   <string name="boardSetupComplete">અભિનંદન! તમને ખબર છે કે ચેસ બોર્ડ કેવી રીતે સેટ કરવું.</string>
   <string name="castling">કાસ્ટલિંગ</string>
+  <string name="enPassant">એન પાસન્ટ</string>
   <string name="theSpecialKingMove">ખાસ રાજા ચાલ</string>
   <string name="castlingIntro">તમારા રાજાને સલામત સ્થળે લાવો, અને તમારા હાથીને હુમલો કરવા માટે તૈનાત કરો!</string>
   <string name="castleKingSide">તમારા રાજાને બે ચોરસ કિલ્લાના રાજા-બાજુમાં ખસેડો!</string>

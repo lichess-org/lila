@@ -17,7 +17,7 @@ const mimeTypes: Record<AssetType, string[]> = {
 
 export class AssetDialog {
   private dlg: Dialog;
-  private resolve?: (key: string | undefined) => void;
+  private resolve?: (key?: string) => void;
   private type: AssetType;
   private readonly isChooser: boolean;
   constructor(type?: AssetType) {
@@ -42,16 +42,17 @@ export class AssetDialog {
     return new Promise<string | undefined>(resolve =>
       (async () => {
         if (this.isChooser)
-          this.resolve = (key: string) => {
+          this.resolve = (key?: string) => {
             resolve(key);
             this.resolve = undefined;
             this.dlg.close();
           };
         this.dlg = await domDialog({
+          closeButton: true,
           class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
           easyClose: 'clickOutside',
-          onClose: () => this.resolve?.(undefined),
+          onClose: () => this.resolve?.(),
           actions: [
             { event: ['dragover', 'drop'], listener: this.dragDrop },
             { selector: '[data-action="add"]', listener: this.addItem },
@@ -167,6 +168,7 @@ export class AssetDialog {
     const name = (
       await domDialog({
         class: 'alert',
+        closeButton: true,
         htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
         easyClose: 'clickOutside',
@@ -183,7 +185,8 @@ export class AssetDialog {
     ).returnValue;
     if (!name || name === 'cancel') return key;
     try {
-      await env.push.pushAsset(env.assets.assetBlob(this.type, key));
+      const blob = env.assets.assetBlob(this.type, key);
+      if (blob) await env.push.pushAsset(blob);
     } catch (x) {
       console.error('push failed', x);
       return undefined;
@@ -285,6 +288,7 @@ export class AssetDialog {
           const suggested = file.name.endsWith('.pgn') ? file.name.slice(0, -4) : file.name;
           domDialog({
             class: 'dev-view import-dialog',
+            closeButton: true,
             htmlText: `<h2>import opening book</h2>
               <div class="options">
                 <span>

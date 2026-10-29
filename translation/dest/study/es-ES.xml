@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar con iconos</string>
   <string name="theChapterIsTooShortToBeAnalysed">El capítulo es demasiado corto para analizarlo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sólo los colaboradores del estudio pueden solicitar un análisis por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Obtén un análisis completo de la línea principal en el servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrate de que el capítulo está completo. Sólo puede solicitar el análisis una vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos los miembros de SYNC permanecen en la misma posición</string>
   <string name="shareChanges">Comparte cambios con los espectadores y guárdalos en el servidor</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">No: permitir que la gente navegue libremente</string>
   <string name="pinnedStudyComment">Comentario fijado del estudio</string>
   <string name="start">Comenzar</string>
-  <string name="save">Guardar</string>
   <string name="clearChat">Limpiar el chat</string>
   <string name="deleteTheStudyChatHistory">¿Realmente quieres borrar el historial de chat? ¡Esta acción no se puede deshacer!</string>
   <string name="deleteStudy">Borrar estudio</string>
@@ -188,7 +186,7 @@
   <string name="customPositionTitle">Posición personalizada</string>
   <string name="customPositionText">Configura el tablero a tu manera.&lt;br&gt;Apropiado para explorar finales.</string>
   <string name="loadGameFromTheWebTitle">Cargar una partida desde un sitio web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pegar enlace de partida&lt;br&gt;, como lichess.org/7fHIU0XI, &lt;br&gt;para cargar los movimientos en el capítulo.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Pega el enlace de una partida&lt;br&gt; (como lichess.org/7fHIU0XI) &lt;br&gt;para cargar los movimientos en el capítulo.</string>
   <string name="fromFenStringTitle">A partir de una cadena FEN</string>
   <string name="fromFenStringText">Pegar una posición en formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para iniciar el capítulo desde una posición.</string>
   <string name="fromPgnGameTitle">A partir de una partida PGN</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Doble derrota</string>
   <string name="blackDefeatWhiteCanNotWin">Derrota negra, aunque el blanco no puede ganar</string>
   <string name="whiteDefeatBlackCanNotWin">Derrota Blanca, aunque el Negro no puede ganar</string>
+  <string name="analysisEditor">Editor de análisis</string>
+  <string name="clearLocal">¿Borrar análisis local?</string>
+  <string name="clearPublished">¿Borrar análisis publicado?</string>
+  <string name="requestAServerAnalysis">Solicitar un análisis al servidor</string>
+  <string name="analyzeOnYourDevice">Analizar en tu dispositivo</string>
 </resources>

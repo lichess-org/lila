@@ -1,0 +1,166 @@
+.shortcuts {
+  @extend %roboto;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 9px;
+  padding-top: 9px;
+  background-color: transparent;
+  box-shadow: none;
+  overflow: visible !important; // for button shadows
+
+  ---edit-shortcuts-size: 44px;
+
+  @include fluid-size('font-size', 14px, 25px);
+
+  .spinner {
+    flex: 0 0 auto;
+    margin: 0.1em 0 0.6em 0;
+    width: 2em;
+    height: 2em;
+    pointer-events: none;
+  }
+
+  .clock {
+    display: block;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes range-sweep {
+    0% {
+      background-position: 180% 0;
+    }
+
+    100% {
+      background-position: -90% 0;
+    }
+  }
+
+  .range {
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(90deg, transparent, $c-brag, transparent);
+    animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
+    margin: 0.2em 0 1.3em 0;
+  }
+}
+
+.shortcut {
+  @extend %flex-column, %box-radius, %break-word;
+  @include transition;
+  @include backdrop-blur-if-transparent;
+
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: $c-font-dim;
+  background: $c-pool-button;
+  padding: 6px;
+  gap: 4px;
+
+  &:has(.icon) {
+    gap: 6px;
+  }
+
+  ---scale: 1; /* calculated from name length */
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $c-font;
+      background-color: $c-accent-glass;
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    @extend %popup-shadow;
+
+    color: $c-font;
+    background-color: $c-accent-glass;
+    opacity: 1;
+
+    .name {
+      display: none;
+    }
+  }
+
+  &.transp {
+    opacity: 0.35;
+  }
+
+  .icon {
+    pointer-events: none;
+    position: relative;
+    isolation: isolate;
+
+    i::before {
+      @include fluid-size-orientation('font-size', 25px, 37px);
+    }
+
+    img,
+    .mask {
+      @include fluid-size-orientation('width', 25px, 37px);
+      @include fluid-size-orientation('height', 25px, 37px);
+    }
+
+    .mask::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      inset: 0;
+      background-color: $c-font-dim;
+      -webkit-mask: var(---icon-mask) 0 0 / 100% 100% no-repeat; /* stylelint-disable-line property-no-vendor-prefix */
+      mask: var(---icon-mask) 0 0 / 100% 100% no-repeat;
+    }
+  }
+
+  .name {
+    font-size: calc(1em * var(---scale));
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+}
+
+.edit-shortcuts {
+  @include inline-end(8px);
+
+  top: 3px;
+  position: absolute;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: $box-radius-size;
+  color: $c-font-dim;
+  vertical-align: top;
+  cursor: pointer;
+
+  &:hover::before {
+    color: $c-accent;
+    content: $licon-Star;
+  }
+
+  @include mq-is-col1 {
+    @include inline-end(4px);
+
+    top: -2px;
+  }
+
+  @include mq-has-hover {
+    &:focus-visible {
+      outline: 2px solid $c-primary;
+    }
+  }
+
+  @include mq-no-hover {
+    font-size: 18px;
+  }
+}
+
+.active > :where(.edit-shortcuts) {
+  color: color-mix(in oklab, $c-accent 70%, $c-border);
+}

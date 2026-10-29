@@ -167,6 +167,8 @@ Mostramos o ícone vermelho de mudo para avisar quando isso acontece. Você pode
 3. Clique em Cookies e permissões de site
 4. Clique em Reprodução automática
 5. Adicione lichess.org a Permitir</string>
+  <string name="makeBotTitle">Criar um bot no Lichess?</string>
+  <string name="makeBotDescription">Para aprender a criar um &lt;a href=\'%1$s\'&gt;bot de xadrez personalizado&lt;/a&gt; para jogar no Lichess, leia &lt;a href=\'%2$s\'&gt;esta postagem do blog sobre a criação de bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Como parar de jogar?</string>
   <string name="mentalHealthCondition">distúrbio mental</string>
   <string name="lichessUserstyles">temas de site do Lichess</string>

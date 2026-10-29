@@ -2,10 +2,9 @@ package lila.gathering
 package ui
 
 import lila.core.data.UserIds
-import lila.gathering.Condition.{ WithVerdict, WithVerdicts, Verdict }
+import lila.gathering.Condition.{ Verdict, WithVerdict, WithVerdicts }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 def translateRated(rated: chess.Rated)(using lila.core.i18n.Translate): Frag =
   if rated.yes then lila.core.i18n.I18nKey.site.ratedTournament()
@@ -75,7 +74,8 @@ final class GatheringFormUi(helpers: Helpers):
   import helpers.*
   import play.api.data.Field
 
-  val titleBypass = frag("Titled players bypass this restriction.")
+  def titleBypass(using Translate): Frag =
+    trans.site.titledPlayersBypassRestriction()
 
   def nbRatedGame(field: Field)(using Translate) =
     form3.group(
@@ -97,7 +97,7 @@ final class GatheringFormUi(helpers: Helpers):
   def accountAge(field: Field)(using Translate) =
     form3.group(
       field,
-      "Minimum account age",
+      trans.site.minimumAccountAge(),
       help = titleBypass.some,
       half = true
     ):
@@ -119,15 +119,13 @@ final class GatheringFormUi(helpers: Helpers):
       half = true
     )
 
-  def bots(field: Field, disabledAfterStart: Boolean) =
+  def bots(field: Field, disabledAfterStart: Boolean)(using Translate) =
     form3.checkboxGroup(
       field,
-      "Allow bot accounts",
-      help = frag(
-        "Let ",
-        a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
-        " join the tournament and play with their engines. This often repels human players."
-      ).some,
+      trans.arena.allowBotAccounts(),
+      help = trans.arena.allowBotAccountsDescription
+        .rawHtml("/@/lichess/blog/welcome-lichess-bots/WvDNticA")
+        .some,
       disabled = disabledAfterStart
     )
 

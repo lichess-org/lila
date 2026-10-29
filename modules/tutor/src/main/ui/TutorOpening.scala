@@ -3,7 +3,7 @@ package ui
 
 import lila.insight.InsightPosition
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }

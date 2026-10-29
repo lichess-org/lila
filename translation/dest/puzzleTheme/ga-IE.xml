@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Ag sáiniú le dhá phíosa ag an am céanna, tar éis ionsaí nochta ina n-ionsaíonn an píosa gluaiseachta agus an píosa nochtaithe araon rí an chéile comhraic.</string>
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Rí nochtaithe</string>
   <string name="exposedKingDescription">Beartaíocht ina bhfuil rí gan mórán cosantóirí timpeall air, agus marbhsháinn mar thoradh air go minic.</string>
   <string name="fork">Gabhal</string>

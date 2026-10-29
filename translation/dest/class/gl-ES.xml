@@ -66,7 +66,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
   <string name="release">Liberar</string>
   <string name="releaseTheAccount">Libera a conta para que o estudante poida xestionala de forma autónoma.</string>
-  <string name="releaseDesc1">Unha conta liberada non pode ser &amp;lt;i&amp;gt;supervisada&amp;lt;/i&amp;gt; de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
+  <string name="releaseDesc1">Unha conta liberada non pode volver ser designada como &lt;i&gt;supervisada&lt;/i&gt;. O estudante poderá desactivar o modo infantil e redefinir o contrasinal por si mesmo.</string>
   <string name="releaseDesc2">O estudante permanecerá na clase tras a liberación da conta.</string>
   <string name="realUniqueEmail">Enderezo de correo electrónico real e único do estudante. Enviarémoslle un correo de confirmación cunha ligazón para liberar a conta.</string>
   <string name="closeStudent">Pechar a conta</string>

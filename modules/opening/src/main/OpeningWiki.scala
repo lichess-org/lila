@@ -5,9 +5,10 @@ import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 
+import lila.core.config.NetDomain
+import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perm.Granter
 
 case class OpeningWiki(
     markup: Option[Html],
@@ -18,7 +19,10 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[Html] =
     markup.map(OpeningWiki.filterMarkupForMove(move))
 
-final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using Executor):
+final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
+    NetDomain,
+    Executor
+):
 
   import OpeningWiki.Revision
 

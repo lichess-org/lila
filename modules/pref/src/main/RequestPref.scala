@@ -15,21 +15,22 @@ object RequestPref:
   def fromRequest(using req: RequestHeader): Pref =
     if req.queryString.isEmpty && req.session.isEmpty then default
     else
-      def paramOrSession(name: String): Option[String] = queryParam(name).orElse(req.session.get(name))
+      inline def session(inline name: String): Option[String] = req.session.get(name)
+      def paramOrSession(name: String): Option[String] = queryParam(name).orElse(session(name))
       default.copy(
         bg = paramOrSession("bg").flatMap(Pref.Bg.fromString.get) | default.bg,
         theme = paramOrSession("theme") | default.theme,
-        theme3d = paramOrSession("theme3d") | default.theme3d,
+        theme3d = session("theme3d") | default.theme3d,
         pieceSet = paramOrSession("pieceSet") | default.pieceSet,
-        pieceSet3d = paramOrSession("pieceSet3d") | default.pieceSet3d,
-        soundSet = paramOrSession("soundSet") | default.soundSet,
-        is3d = paramOrSession("is3d").has("true"),
-        uiRoundness = paramOrSession("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
+        pieceSet3d = session("pieceSet3d") | default.pieceSet3d,
+        soundSet = session("soundSet") | default.soundSet,
+        is3d = session("is3d").has("true"),
+        uiRoundness = session("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
         board = default.board.copy(
-          opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
-          brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,
-          contrast = paramOrSession("boardContrast").flatMap(_.toIntOption) | default.board.contrast,
-          hue = paramOrSession("boardHue").flatMap(_.toIntOption) | default.board.hue
+          opacity = session("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
+          brightness = session("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,
+          contrast = session("boardContrast").flatMap(_.toIntOption) | default.board.contrast,
+          hue = session("boardHue").flatMap(_.toIntOption) | default.board.hue
         )
       )
 

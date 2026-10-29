@@ -2,8 +2,8 @@ package lila.tournament
 
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.*
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
 

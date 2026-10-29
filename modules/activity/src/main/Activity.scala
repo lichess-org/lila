@@ -22,6 +22,7 @@ case class Activity(
     studies: Option[Studies] = None,
     teams: Option[Teams] = None,
     swisses: Option[Swisses] = None,
+    tours: Option[Tours] = None,
     stream: Boolean = false
 ):
 

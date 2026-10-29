@@ -2,7 +2,7 @@ package lila.relay
 package ui
 
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelayGroupUi(ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
 

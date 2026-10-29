@@ -1,17 +1,17 @@
 package lila.web
 
 import org.apache.pekko.stream.Materializer
-import play.api.mvc.*
 import play.api.http.Status.*
+import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 
 final class HttpFilter(
     net: NetConfig,
     parseMobileUa: RequestHeader => Option[LichessMobileUa]
-)(using val mat: Materializer)(using Executor)
+)(using val mat: Materializer, scheduler: Scheduler)(using Executor)
     extends Filter
     with ResponseHeaders:
 
@@ -24,26 +24,39 @@ final class HttpFilter(
       redirectWrongDomain(req)
         .map(fuccess)
         .getOrElse:
-          val lilaReq = toLilaReq(req)
-          handle(lilaReq).map: result =>
-            monitoring(lilaReq, startTime):
-              addContextualResponseHeaders(lilaReq):
-                addEmbedderPolicyHeaders(lilaReq):
-                  result
+          val lilaReq = toLilaReq(using req)
+          WarmupFilter(lilaReq).getOrElse:
+            handle(lilaReq).map: result =>
+              monitoring(lilaReq, startTime):
+                addContextualResponseHeaders(lilaReq):
+                  addEmbedderPolicyHeaders(lilaReq):
+                    result
 
-  private def toLilaReq(req: RequestHeader) =
+  private def toLilaReq(using req: RequestHeader) =
     val clientName =
       import ClientName.*
-      if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile(req) then lichobile else xhr
-      else if HTTPRequest.isLichessMobile(req) then mobile
+      if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile then lichobile else xhr
+      else if HTTPRequest.isLichessMobile then mobile
+      else if req.headers.get("X-Crawler").contains("1") then crawler
       else if crawlerMatcher(req) then crawler
       else if req.path.startsWith("/fishnet/") then fishnet
       else browser
     req.addAttr(ClientName.reqAttr, clientName)
 
+  private object WarmupFilter:
+    private var justBooted = true
+    scheduler.scheduleOnce(20.seconds):
+      justBooted = false
+    private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
+    def apply(req: RequestHeader): Option[Fu[Result]] =
+      val reject = justBooted && {
+        req.path == "/account/info" || req.path.startsWith("/api/bot/") || !ClientName(req).isHuman
+      }
+      Option.when(reject)(response)
+
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|YandexRenderResourcesBot|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai\.com|anthropic\.com|anthropic\.ai|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot|SofyaBot|SearchBot|AdsBot|GPTBot|Diffbot|CCBot|ClaudeBot|Claude-Web|Google-Extended|Google-CloudVertexBot|omgili|cohere-ai|MistralAI-Training|Awario|QualifiedBot|Cotoyogi|ICC-Crawler|atlassian-bot|FishBot|BorderxBot|NavuBot|WARDBot|magpie-crawler|KimiBot|CitibotSiteCrawler""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs
@@ -71,10 +84,10 @@ final class HttpFilter(
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != net.domain.value &&
-    HTTPRequest.isRedirectable(req) &&
+    HTTPRequest.isRedirectable(using req) &&
     !HTTPRequest.isProgrammatic(req) &&
-    // asset request going through the CDN, don't redirect
-    !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
+    // asset request, don't redirect
+    !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
 
   private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =

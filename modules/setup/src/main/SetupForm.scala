@@ -1,8 +1,8 @@
 package lila.setup
 
-import chess.{ Clock, Rated }
 import chess.format.Fen
 import chess.variant.Variant
+import chess.{ Clock, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
 import scalalib.model.Days
@@ -124,7 +124,7 @@ object SetupForm:
     lazy val message = "message" -> optional(
       nonEmptyText(maxLength = 8_000).verifying(
         "The message must contain {game}, which will be replaced with the game URL.",
-        _.contains("{game}")
+        msg => msg.contains("{game}") || msg.toLowerCase.contains("{nomessage}")
       )
     )
 

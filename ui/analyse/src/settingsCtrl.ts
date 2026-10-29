@@ -1,11 +1,11 @@
 import { myUserId } from 'lib';
-import { throttle } from 'lib/async';
+import { pubsub } from 'lib/pubsub';
 
 export class Settings {
   constructor(
     public readonly showGauge = true,
     public readonly inline = false,
-    public readonly showStaticAnalysis = true,
+    public readonly showMainlineAnalysis = true,
     public readonly disclosureMode = false,
     public readonly showLiveAnnotations = false,
     public readonly showBestMoveArrows = true,
@@ -15,6 +15,7 @@ export class Settings {
     public readonly showUndefendedPieces = false,
     public readonly showPinnedPieces = false,
     public readonly showCheckableKing = false,
+    public readonly showTrappedPieces = false,
   ) {}
 }
 
@@ -23,16 +24,15 @@ const defaultSettings = Object.freeze(new Settings());
 export type SettingKey = keyof Settings;
 
 export class SettingsCtrl extends Settings {
-  private readonly key = ['analyse', myUserId(), 'settings'].filter(Boolean).join('.');
-  private readonly throttledSave = throttle(1000, () => this.save());
+  private readonly storageKey = ['analyse', myUserId(), 'settings'].filter(Boolean).join('.');
 
-  constructor(public readonly redraw?: () => void) {
+  constructor(public readonly onUpdateSettings?: (key?: SettingKey) => void) {
     super();
-    const local = localStorage.getItem(this.key);
+    const local = localStorage.getItem(this.storageKey);
     try {
       if (local) Object.assign(this, JSON.parse(local));
     } catch {
-      localStorage.removeItem(this.key);
+      localStorage.removeItem(this.storageKey);
     }
   }
 
@@ -44,13 +44,14 @@ export class SettingsCtrl extends Settings {
     const oldValue = this[key];
     if (oldValue === value) return;
     this[key] = value;
-    this.redraw?.();
-    this.throttledSave();
+    if (key === 'showMainlineAnalysis') pubsub.emit('analysis.comp.toggle', value);
+    this.onUpdateSettings?.(key);
+    this.save();
   }
 
   async save() {
     // POST to server once db.pref is decided
     const local = Object.fromEntries(this.keys().map(k => [k, this[k]])) as unknown as Settings;
-    localStorage.setItem(this.key, JSON.stringify(local));
+    localStorage.setItem(this.storageKey, JSON.stringify(local));
   }
 }

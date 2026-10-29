@@ -53,6 +53,7 @@
   <string name="doubleCheckDescription">Scacco con due pezzi contemporaneamente, conseguente a un attacco di scoperta in cui sia il pezzo appena mosso che il pezzo scoperto attaccano il re avversario.</string>
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
+  <string name="enPassant">Wenn Passant (presa al varco)</string>
   <string name="epauletteMate">Matto di controspallina</string>
   <string name="epauletteMateDescription">Due case di fuga utilizzabili dal re sotto scacco adiacenti sono occupate da altri pezzi </string>
   <string name="exposedKing">Re esposto</string>

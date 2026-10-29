@@ -3,8 +3,8 @@ package lila.user
 import scalalib.ThreadLocalRandom
 import scalalib.paginator.Paginator
 
-import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.db.dsl.{ *, given }
 
 case class Note(
     _id: String,

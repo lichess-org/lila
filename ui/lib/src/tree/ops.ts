@@ -21,8 +21,8 @@ export function findInMainline<T extends TreeNodeBase>(
 // returns a list of nodes collected from the original one
 export function collect<T extends TreeNodeBase>(from: T, pickChild: (node: T) => T | undefined): T[] {
   const nodes = [from];
-  let n = from,
-    c;
+  let n = from;
+  let c;
   while ((c = pickChild(n))) {
     nodes.push(c);
     n = c;

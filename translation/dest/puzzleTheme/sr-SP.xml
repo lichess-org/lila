@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика током последње фазе партије.</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="exposedKing">Изложен краљ</string>
   <string name="exposedKingDescription">Тактика која укључује краља са малим бројем бранилаца око њега, често доводи до шах-мата.</string>
   <string name="fork">Виљушка</string>

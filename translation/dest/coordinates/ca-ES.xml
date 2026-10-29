@@ -19,4 +19,6 @@
   <string name="findSquare">Cerca caselles</string>
   <string name="nameSquare">Anomena caselles</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Practicar només algunes files i columnes</string>
+  <string name="enterTheCoordinate">Introdueix la coordenada</string>
+  <string name="pressEnterToStart">Prem %s per a començar</string>
 </resources>

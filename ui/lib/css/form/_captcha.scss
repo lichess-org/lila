@@ -1,7 +1,8 @@
 .form3 .captcha {
   @extend %flex-wrap;
 
-  margin: 1em 0 0 -1em;
+  margin: 0 0 0 -1em;
+  padding: 1em 0;
 
   @media (min-width: at-least($xx-small)) {
     flex-wrap: nowrap;
@@ -10,19 +11,19 @@
   &.is-invalid:not(.success) {
     @extend %box-radius;
 
-    border: 1px solid $c-error;
-    background: color-mix(in oklab, $c-bad 10%, $c-bg);
+    border: 1px solid color-mix(in oklab, $c-error 65%, $c-bg);
+    background: color-mix(in oklab, $c-bad 12%, $c-bg);
   }
 
   .challenge {
     flex: 0 0 250px;
-    margin: 0 0 1em 1em;
+    margin: 0 0 0 1em;
   }
 
   .captcha-explanation {
     flex: 1 1 auto;
     overflow: hidden;
-    margin: 0 0 1em 1em;
+    margin: 0 0 0 1em;
   }
 
   &.is-invalid .captcha-explanation {

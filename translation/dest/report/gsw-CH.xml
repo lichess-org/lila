@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Um was gaht\'s?</string>
+  <string name="cheat">Bschiss</string>
+  <string name="troll">Provokation</string>
+  <string name="reportStall">Verzögerig / s\'Schpiel verlah</string>
+  <string name="reportBoost">Absichtlich schwach schpille / Ergäbnis- oder Schpiel manipuliere</string>
+  <string name="reportVerbalAbuse">Beleidigung / Flueche / Ärgere</string>
+  <string name="reportViolence">G\'walt / Drohige</string>
+  <string name="reportHarass">Beläschtigung / Mobbe / Schtalke</string>
+  <string name="reportSelfHarm">Sälbschtmord /Sälbschtverletzig</string>
+  <string name="reportHate">Hassrede / Sexismus</string>
+  <string name="reportSpam">Unerwünschti Werbig</string>
+  <string name="readMoreAboutLichessReports">Lies meh über Lichess Reports</string>
+  <string name="reportMaximumCharacters">Maximal 3000 Zeiche.</string>
+  <string name="reportCheatBoostHelp">Füeg de Link vu dem/dene Schpiel i und erchlär, was am Verhalte vum Nutzer falsch isch. Säg nöd eifach nu „de b\'schisst“, sondern verzell eus, wie du zu dere Schlussfolgerig chunsch.</string>
+  <string name="reportUsernameHelp">Erchlär werum de Benutzername aschtössig isch. Säg nöd einfach nu „er isch aschtössig/unagmässe\"; erchlär eus, wie du zu dere Folgerig chunsch – b\'sunders, wänn das Aschtössige schwer z\'erchänne isch, nöd Englisch isch, us de Umgangsschprach stammt oder en historische bzw. kulturelle Bezug hät.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Mir chönd dini Mäldig schnäller behandle, wänn du änglisch schribsch.</string>
+  <string name="provideOneCheatedGameLink">Bitte schick eus, vu beanschtandete Schpiel, mindeschtens ein Link.</string>
+  <string name="thanksForTheReport">Danke für die Mäldig</string>
+  <string name="moderatorsWillReviewSoon">D\'Moderatore tüend de Bitrag i Chürzi prüefe und entsprächendi Massnahme ergrife.</string>
+  <string name="blockUserInMeantime">I de Zwüschezit chasch de User blockiere:</string>
+</resources>

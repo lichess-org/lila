@@ -63,6 +63,10 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     @include prevent-select;
   }
 
+  &.comp {
+    border-bottom: 1px dotted #666;
+  }
+
   &.active {
     color: white;
     background: color-mix(in oklab, var(--c-base) 85%, transparent);

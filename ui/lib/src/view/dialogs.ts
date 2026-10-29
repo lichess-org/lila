@@ -10,7 +10,6 @@ export async function alert(msg: string): Promise<void> {
     <span><button class="button">${i18n.site.ok}</button></span>`,
     class: 'alert',
     modal: true,
-    noCloseButton: true,
     show: true,
     actions: { selector: 'button', result: 'ok' },
   });
@@ -23,7 +22,6 @@ export async function alerts(msgs: string[]): Promise<void> {
 export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
-    noCloseButton: true,
     easyClose: 'anyClick',
   });
   if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
@@ -41,7 +39,6 @@ export async function confirm(
       <span><button class="button button-empty cancel">${cancel}</button>
       <button class="button ok">${ok}</button></span>`,
     class: 'alert',
-    noCloseButton: true,
     modal: true,
     show: true,
     focus: '.ok',
@@ -67,7 +64,6 @@ export async function prompt(
         <button class="button ok${valid(def) ? '"' : ' disabled" disabled'}>${i18n.site.ok}</button>
       </span>`,
     class: 'alert',
-    noCloseButton: true,
     modal: true,
     show: true,
     focus: 'input',
@@ -130,7 +126,7 @@ export async function choose(
         <button class="button ok">${i18n.site.ok}</button>
       </span>`,
     class: 'alert',
-    noCloseButton: mustChoose,
+    closeButton: !mustChoose,
     modal: true,
     show: true,
     actions: [
@@ -158,7 +154,8 @@ const onClick = (a: HTMLLinkElement): boolean => {
 
   domDialog({
     class: 'link-popup',
-    css: [{ hashed: 'bits.linkPopup' }],
+    closeButton: true,
+    css: [{ key: 'bits.linkPopup' }],
     htmlText: $html`
       <div class="link-popup__content">
         <div class="link-popup__content__title">

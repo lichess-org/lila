@@ -16,8 +16,8 @@ export const get = (username: string | undefined, poolId: string): string | null
   storage.get(makeKey(username, poolId));
 
 export const shiftRangeAfter = (game: GameData): void => {
-  const username = game.player.user?.username,
-    delta = game.player.ratingDiff;
+  const username = game.player.user?.username;
+  const delta = game.player.ratingDiff;
   if (
     game.game.variant.key === 'standard' &&
     username &&

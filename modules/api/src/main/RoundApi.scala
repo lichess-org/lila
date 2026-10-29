@@ -2,8 +2,8 @@ package lila.api
 
 import chess.format.Fen
 import chess.opening.Opening
-import scalalib.data.Preload
 import play.api.libs.json.*
+import scalalib.data.Preload
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
@@ -12,6 +12,8 @@ import lila.common.Json.given
 import lila.core.i18n.Translate
 import lila.core.perm.Granter
 import lila.core.user.GameUsers
+import lila.game.GameExt.timeForFirstMove
+import lila.mon.extensions.*
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
 import lila.round.{ Forecast, JsonView }
@@ -19,8 +21,6 @@ import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.{ ExportOptions, Tree }
-import lila.game.GameExt.timeForFirstMove
-import lila.mon.extensions.*
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -107,7 +107,7 @@ final private[api] class RoundApi(
       blurs = Granter.opt(_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
-      lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+      lichobileCompat = HTTPRequest.isLichobile(using ctx.req)
     )
 
   def review(

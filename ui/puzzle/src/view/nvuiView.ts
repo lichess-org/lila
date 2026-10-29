@@ -2,13 +2,13 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 
-import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
 import { capitalize } from 'lib/game';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
+import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
@@ -19,11 +19,6 @@ import type { PuzzleNvuiContext } from '@/puzzle.nvui';
 import { makeConfig } from '@/view/chessground';
 import { puzzleBox, renderDifficultyForm, userBox } from '@/view/side';
 import theme from '@/view/theme';
-
-const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
 
 export function renderNvui(ctx: PuzzleNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
@@ -107,8 +102,8 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         'form#move-form',
         {
           hook: onInsert(el => {
-            const $form = $(el),
-              $input = $form.find('.move').val('');
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
             $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
           }),
         },
@@ -191,7 +186,7 @@ function boardEventsHook(
   $board.on('blur', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
   $board.on('click', 'button', e => nv.selectionHandler(() => opposite(ctrl.pov))(e));
   $board.on('keydown', 'button', (e: KeyboardEvent) => {
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) nextOrPrev(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(
         ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,

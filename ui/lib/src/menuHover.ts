@@ -23,7 +23,8 @@ export default function (): void {
   const sensitivity = 8;
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
-  let cX: number, cY: number;
+  let cX: number;
+  let cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
   const track = (ev: MouseEvent) => {

@@ -20,6 +20,7 @@
   <string name="doubleCheck">lawa mije li ken moli tan ijo tu</string>
   <string name="doubleCheckDescription">ijo musi wan li tawa, li open e nasin utala tawa ijo musi ante. ijo musi tu li utala e lawa mije lon tenpo sama.</string>
   <string name="endgame">pini musi</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="exposedKing">lawa mije li awen ala</string>
   <string name="exposedKingDescription">ijo musi pi mute lili li awen e lawa mije. ken mute la, lawa mije li kama moli.</string>
   <string name="fork">utala pi nasin tu</string>

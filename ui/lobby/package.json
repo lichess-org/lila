@@ -9,9 +9,12 @@
     "lib": "workspace:*"
   },
   "build": {
-    "bundle": {
-      "module": "src/lobby.ts",
-      "inline": "src/lobby.inline.ts"
-    }
+    "bundle": [
+      "src/lobby.shortcutsDialog.ts",
+      {
+        "module": "src/lobby.ts",
+        "inline": "src/lobby.inline.ts"
+      }
+    ]
   }
 }

@@ -147,10 +147,10 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
 }
 
 function openGame(ctrl: AnalyseCtrl, gameId: string) {
-  const orientation = ctrl.chessground.state.orientation,
-    fenParam = ctrl.node.ply > 0 ? '?fen=' + ctrl.node.fen : '';
-  let url = '/' + gameId + '/' + orientation + fenParam;
-  if (ctrl.explorer.db() === 'masters') url = '/import/master' + url;
+  const orientation = ctrl.chessground.state.orientation;
+  const fenParam = ctrl.node.ply > 0 ? '?fen=' + ctrl.node.fen : '';
+  const prefix = ctrl.explorer.db() === 'masters' ? '/import/master/' : '/game/';
+  const url = prefix + gameId + '/' + orientation + fenParam;
   window.open(url, '_blank');
 }
 
@@ -417,7 +417,7 @@ let lastFen: FEN = '';
 export default function (ctrl: AnalyseCtrl): MaybeVNode {
   const { explorer } = ctrl;
 
-  if (!explorer.enabled()) return undefined;
+  if (!explorer.enabled() || ctrl.study?.practice) return undefined;
 
   const data = explorer.current();
   const configOpened = explorer.config.data.open();

@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.{ BaseUrl, RouteUrl, AssetBaseUrl, ImageGetOrigin }
+import lila.core.config.{ BaseUrl, ImageGetOrigin, RouteUrl }
 import lila.core.data.SafeJsonStr
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -12,8 +12,8 @@ trait AssetHelper:
 
   def netBaseUrl: BaseUrl
   def routeUrl: RouteUrl
-  def assetBaseUrl: AssetBaseUrl
-  def assetUrl(path: String): Url
+  def assetFullUrl(path: String): Url
+  def assetPath(path: String): Path
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
   def imageGetOrigin: ImageGetOrigin
 
@@ -45,7 +45,7 @@ trait AssetHelper:
   val captchaEsm: Esm = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path).value)
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetPath(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
@@ -55,25 +55,27 @@ trait AssetHelper:
   def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
-  val flairVersion = "______4"
+  val flairVersion = "______5"
 
   // bump fide fed version if a fide fed is changed only (not added or removed)
   val fideFedVersion = "______3"
 
-  def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
+  def staticAssetPath(path: String): Path = Path(s"/assets/$path")
 
-  def staticCompiledUrl(path: String): Url = staticAssetUrl(s"compiled/$path")
+  def staticCompiledPath(path: String): Path = staticAssetPath(s"compiled/$path")
 
-  def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
-
-  def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+  def flairSrc(flair: Flair): Path = staticAssetPath(s"$flairVersion/flair/img/$flair.webp")
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
-  def imagePreload(url: Url) =
-    raw(s"""<link rel="preload" href="$url" as="image" fetchpriority="high">""")
+  def imagePreload(path: Path) = imagePreloadAny(path.value)
 
-  def preload(url: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+  def imagePreloadUrl(url: Url) = imagePreloadAny(url.value)
+
+  private def imagePreloadAny(pathOrUrl: String) =
+    raw(s"""<link rel="preload" href="$pathOrUrl" as="image" fetchpriority="high">""")
+
+  def preload(url: Path, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     val linkType = tpe.so(t => s""" type="$t"""")
     raw:
       s"""<link rel="preload" href="$url" as="$as"$linkType${crossorigin.so(" crossorigin")}>"""
@@ -88,14 +90,12 @@ trait AssetHelper:
       fen: chess.format.StandardFen,
       color: Option[chess.Color] = None,
       variant: chess.variant.Variant = chess.variant.Standard
-  )(using ctx: Context): Url = cdnUrl:
-    routes.Export
-      .fenThumbnail(
-        fen.value,
-        color,
-        none,
-        Option.when(variant.exotic)(variant.key),
-        ctx.pref.theme.some,
-        ctx.pref.pieceSet.some
-      )
-      .url
+  )(using ctx: Context): Url = Url:
+    routes.Export.fenThumbnail(
+      fen.value,
+      color,
+      none,
+      Option.when(variant.exotic)(variant.key),
+      ctx.pref.theme.some,
+      ctx.pref.pieceSet.some
+    )

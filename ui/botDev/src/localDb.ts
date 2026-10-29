@@ -1,5 +1,4 @@
 import { myUserId } from 'lib';
-import { hasFeature } from 'lib/device';
 import { type StatusId, clockToSpeed, status } from 'lib/game';
 import { type ObjectStorage, objectStorage, range } from 'lib/objectStorage';
 
@@ -10,8 +9,6 @@ export class LocalDb {
   liteStore?: ObjectStorage<LiteGame>;
 
   async init(): Promise<this> {
-    if (!hasFeature('structuredClone')) globalThis.structuredClone = obj => JSON.parse(JSON.stringify(obj));
-
     [this.store, this.liteStore] = await Promise.all([
       objectStorage<LocalGameData>({
         store: 'botdev.games',
@@ -47,7 +44,7 @@ export class LocalDb {
     return id ? await this.store?.get(id) : Promise.resolve(undefined);
   }
 
-  async byDate(after: number | undefined, until: number | undefined): Promise<LiteGame[]> {
+  async byDate(after?: number, until?: number): Promise<LiteGame[]> {
     const games: LiteGame[] = [];
     await this.liteStore?.readCursor(
       { index: 'createdAt', query: range({ above: after, max: until }) },

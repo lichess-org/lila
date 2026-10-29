@@ -9,12 +9,12 @@ import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
-  const contributor = study.members.canContribute(),
-    sync = ctrl.data.sync;
+  const contributor = study.members.canContribute();
+  const sync = ctrl.data.sync;
   return contributor || study.data.admin
     ? hl('div.relay-admin__container', [
         contributor &&
-          hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+          hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCss({ key: 'analyse.relay-admin' })) }, [
             hl('h2', [
               hl('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
               hl('a', {

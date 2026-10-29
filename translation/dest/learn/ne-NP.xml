@@ -132,6 +132,7 @@
 कुै चाल चाल्नुहोस् ।</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
+  <string name="enPassant">अँ पशं</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
   <string name="castlingIntro">तपाइको राजा लाई सुरक्षित बनाउनुहोस्, हात्ती लाई आक्रमणको लागि परिचालन गर्नुहोस् !</string>
   <string name="castleKingSide">तपाइको राजा लाई दुइ कोठा सार्नुहोस्

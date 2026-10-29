@@ -4,7 +4,7 @@ import org.apache.pekko.actor.*
 import org.apache.pekko.pattern.pipe
 import scalalib.ThreadLocalRandom
 
-import lila.core.pool.{ HookThieve, PoolMember, PoolFrom }
+import lila.core.pool.{ HookThieve, PoolFrom, PoolMember }
 import lila.core.socket.Sris
 
 final private class PoolActor(
@@ -73,7 +73,7 @@ final private class PoolActor(
 
       val candidates = members ++ hooks.map(_.member)
 
-      val pairings = MatchMaking(candidates)
+      val pairings = MatchMaking(candidates, config.id)
 
       val pairedMembers = pairings.flatMap(_.members)
 

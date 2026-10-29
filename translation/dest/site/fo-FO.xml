@@ -460,11 +460,9 @@
   <string name="reportAUser">Sig frá um ein brúkara</string>
   <string name="user">Brúkari</string>
   <string name="reason">Orsøk</string>
-  <string name="whatIsIheMatter">Hvat bagir?</string>
   <string name="cheat">Snýt</string>
   <string name="troll">Trøll</string>
   <string name="other">Annað</string>
-  <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
   <string name="by">eftir %s</string>
   <string name="importedByX">%s las inn</string>
   <string name="thisTopicIsNowClosed">Evnið er nú afturlatið.</string>

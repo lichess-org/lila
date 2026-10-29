@@ -9,23 +9,13 @@ import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
-  const onClose = () => {
-    ctrl.joinWithTeamSelector = false;
-    ctrl.redraw();
-  };
   return snabDialog({
+    closeButton: true,
     class: 'team-battle__choice',
+    show: true,
     modal: true,
     easyClose: 'clickOutside',
-    onInsert(dlg) {
-      $('.team-picker__team', dlg.view).on('click', e => {
-        ctrl.join(e.target.dataset['id']);
-        dlg.close();
-      });
-      dlg.show();
-    },
-    onClose,
-    vnodes: [
+    render: (_, dlg) => [
       h('div.team-picker', [
         h('h2', i18n.arena.pickYourTeam),
         h('br'),
@@ -35,7 +25,16 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
-                  { attrs: { 'data-id': id } },
+                  {
+                    hook: bind(
+                      'click',
+                      () => {
+                        ctrl.join(id);
+                        dlg.close();
+                      },
+                      ctrl.redraw,
+                    ),
+                  },
                   renderTeamArray(tb.teams[id]),
                 ),
               ),
@@ -54,12 +53,12 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   });
 }
 
-const renderTeamArray = (team: LightTeam | undefined) => team && [team[0], userFlair({ flair: team[1] })];
+const renderTeamArray = (team: LightTeam) => [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
-  const battle = ctrl.data.teamBattle,
-    standing = ctrl.data.teamStanding,
-    bigBattle = battle && Object.keys(battle.teams).length > 10;
+  const battle = ctrl.data.teamBattle;
+  const standing = ctrl.data.teamStanding;
+  const bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
         h('tbody', [

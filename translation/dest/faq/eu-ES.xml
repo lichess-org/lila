@@ -168,6 +168,7 @@ Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakez
 3. Egin klik Cookieak eta Gunearen baimenetan
 4. Joan behera eta egin klik \"Media autoplay\" aukeran
 5. Gehitu lichess.org Baimenduen zerrendara</string>
+  <string name="makeBotTitle">Egin bot bat Lichessen?</string>
   <string name="stopMyselfFromPlaying">Jokatzeari utzi?</string>
   <string name="mentalHealthCondition">osasun metaleko egoera</string>
   <string name="lichessUserstyles">Lichess erabiltzaile motak</string>

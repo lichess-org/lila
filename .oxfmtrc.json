@@ -4,7 +4,14 @@
   "printWidth": 110,
   "arrowParens": "avoid",
   "endOfLine": "lf",
-  "ignorePatterns": ["/ui/@types/lichess/licon.d.ts", "**/public", "COPYING.md", "README.md"],
+  "ignorePatterns": [
+    "/ui/@types/lichess/licon.d.ts",
+    "ui/.build/src/algo.ts",
+    "**/public",
+    "**/{app,modules}/**/README.md",
+    "COPYING.md"
+  ],
+  "bracketSameLine": true,
   "sortPackageJson": false,
   "sortImports": {
     "customGroups": [

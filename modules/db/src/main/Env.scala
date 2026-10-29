@@ -1,9 +1,9 @@
 package lila.db
 
-import org.apache.pekko.actor.CoordinatedShutdown
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import com.typesafe.config.Config
+import org.apache.pekko.actor.CoordinatedShutdown
 import play.api.Configuration
 import reactivemongo.api.*
 

@@ -1,9 +1,9 @@
 package lila.memo
 
+import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.json.*
 
 private final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConfig)(using Executor):
 

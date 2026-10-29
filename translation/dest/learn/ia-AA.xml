@@ -130,6 +130,7 @@ Justo presso a su dama.</string>
 Movimenta ulle pecia pro continuar.</string>
   <string name="boardSetupComplete">Congratulationes! Tu sape como adjustar le tabuliero de chacos.</string>
   <string name="castling">Roc</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Le movimento special del rege</string>
   <string name="castlingIntro">Duce tu rege al securitate, e positiona tu turre pro attaccar!</string>
   <string name="castleKingSide">Move tu rege duo quadratos

@@ -2,8 +2,7 @@ package lila.tournament
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ModerationUi(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }

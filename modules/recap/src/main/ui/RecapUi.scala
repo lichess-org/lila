@@ -1,9 +1,9 @@
 package lila.recap
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.*
 import lila.recap.Recap.Availability
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.*
 
 final class RecapUi(helpers: Helpers):
   import helpers.*

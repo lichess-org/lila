@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">取消计时器或拒绝请求</string>
   <string name="playPreferredMoveOrConfirmSomething">走首选着法或确认某事</string>
   <string name="sleep">休眠（如果唤醒词被启用）</string>
-  <string name="turnOffVoiceRecognition">关闭语音识别</string>
   <string name="showPuzzleSolution">显示谜题解答</string>
+  <string name="voiceHelp">语音帮助</string>
+  <string name="voiceSettings">语音设置</string>
+  <string name="pushShiftKeyToTalk">按 %s 键说话</string>
+  <string name="holdShiftKeyWhileSpeaking">说话时按住 Shift 键</string>
+  <string name="microphone">麦克风</string>
+  <string name="noneSelected">未选择</string>
 </resources>

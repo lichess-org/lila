@@ -54,6 +54,7 @@
   <string name="doubleCheckDescription">ディスカバード・アタックによって、動いた駒とラインピースが相手のキングに同時にチェックをかける手。</string>
   <string name="endgame">エンドゲーム</string>
   <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
+  <string name="enPassant">アンパッサン</string>
   <string name="enPassantAdjacentCaptureDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
   <string name="epauletteMate">肩章（エポレット）のメイト</string>
   <string name="epauletteMateDescription">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>

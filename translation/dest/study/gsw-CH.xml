@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Mit Symbol kommentiere</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel isch z\'churz zum analysiere.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur wer a dere Schtudie mit macht, chann e Coputeranalyse afordere.</string>
-  <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi, serversitigi Computeranalyse vu de Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal agforderet werde.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nei: Unabhängigi Navigation für alli</string>
   <string name="pinnedStudyComment">Agheftete Schtudiekommentar</string>
   <string name="start">Schtart</string>
-  <string name="save">Schpeichärä</string>
   <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Chatverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
   <string name="deleteStudy">Schtudie lösche</string>
@@ -186,6 +184,7 @@
   <string name="fromInitialPositionText">Nur es Brätt in Afangsschtellig.&lt;br&gt;G\'eignet zum Eröffnige erkunde.</string>
   <string name="customPositionTitle">Benutzerdefinierti Schtellig</string>
   <string name="customPositionText">Mach dir sälber e Schtellig.&lt;br&gt;G\'eignet zum Ändschpiel erkunde.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Füeg e Lichess-Partie-URL i&lt;br&gt;(wie z.B. lichess.org/7fHIU0XI)&lt;br&gt;zum d\'Schpielzüg is Kapitel lade.</string>
   <string name="fromFenStringTitle">Vunere FEN-Partie</string>
   <string name="fromFenStringText">Füeg e Schtellig im FEN-Format i&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;um s\'Kapitel ab ere Schtellig z\'schtarte.</string>
   <string name="fromPgnGameTitle">Vunere PGN-Partie</string>

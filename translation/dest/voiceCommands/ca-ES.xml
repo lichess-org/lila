@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Cancel·la el comptador o denega una sol·licitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Juga el moviment preferit o confirma alguna cosa</string>
   <string name="sleep">Dorm (si s\'ha habilitat la paraula per despertar)</string>
-  <string name="turnOffVoiceRecognition">Desactiva el reconeixement de veu</string>
   <string name="showPuzzleSolution">Mostra la solució del problema</string>
+  <string name="voiceHelp">Ajuda de la veu</string>
+  <string name="voiceSettings">Configuració de veu</string>
+  <string name="pushShiftKeyToTalk">Prem la tecla %s per parlar</string>
+  <string name="holdShiftKeyWhileSpeaking">Mantén polsada la tecla majúscules mentre parlis</string>
+  <string name="microphone">Micròfon</string>
+  <string name="noneSelected">Cap seleccionada</string>
 </resources>

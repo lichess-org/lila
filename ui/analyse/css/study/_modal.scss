@@ -1,4 +1,4 @@
-.dialog-content {
+.study-modal {
   min-width: 80vw;
 
   @media (min-width: at-least($x-small)) {
@@ -9,12 +9,16 @@
     text-align: left;
 
     .editor {
-      margin: -30px 0 30px 0;
+      margin: -30px 0 30px;
 
       .spinner {
         padding-top: 80px;
       }
     }
+  }
+
+  .tabs-horiz {
+    backdrop-filter: none;
   }
 
   h2 {
@@ -67,14 +71,19 @@
 
   &.chapter-new {
     .tabs-horiz {
-      margin: -1em 0 1.6em 0;
+      margin: 0 0 1.6em 0;
       border-bottom: $border;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
     }
 
     .import-from__chapter {
       @extend %break-word-hard, %ellipsis;
 
       max-width: 100%;
+      margin-block: 0.25rem 0.75rem;
     }
 
     .preview-in-editor {
@@ -106,5 +115,9 @@
         font-size: 1.3em;
       }
     }
+  }
+
+  cg-resize {
+    display: none;
   }
 }

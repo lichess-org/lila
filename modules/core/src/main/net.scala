@@ -1,17 +1,17 @@
 package lila.core
 
-import io.mola.galimatias.URL
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
+import io.mola.galimatias.URL
 import scalalib.SecureRandom
 import scalalib.net.IpAddressStr
 
 import java.net.InetAddress
 import scala.util.Try
 
+import lila.core.data.Url
 import lila.core.socket.Sri
 import lila.core.userId.UserId
-import lila.core.data.Url
 
 object net:
 
@@ -32,6 +32,22 @@ object net:
       else IpV6Address(parseIPv6Address(str).toString)
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
+
+  // https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/ip.src.continent/
+  enum Continent(val name: String):
+    case AF extends Continent("Africa")
+    case AN extends Continent("Antarctica")
+    case AS extends Continent("Asia")
+    case EU extends Continent("Europe")
+    case NA extends Continent("North America")
+    case OC extends Continent("Oceania")
+    case SA extends Continent("South America")
+    def code = toString
+  object Continent:
+    val byCode = values.mapBy(_.code)
+
+  opaque type ASN = Int
+  object ASN extends OpaqueInt[ASN]
 
   case class LichessMobileUa(
       version: String,
@@ -79,4 +95,4 @@ object net:
     import scalalib.StringOps.addQueryParam
     extension (a: ValidReferrer)
       def propagate(url: Url): Url = url.map(addQueryParam(_, "referrer", a.value))
-      def propagate(call: play.api.mvc.Call): Url = propagate(Url(call.url))
+      def propagate(call: play.api.mvc.Call): Url = propagate(Url(call))

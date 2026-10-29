@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Annotate with glyphs</string>
   <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analysed.</string>
   <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
-  <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the main line.</string>
   <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
   <string name="shareChanges">Share changes with spectators and save them on the server</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
   <string name="pinnedStudyComment">Pinned study comment</string>
   <string name="start">Start</string>
-  <string name="save">Save</string>
   <string name="clearChat">Clear chat</string>
   <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
   <string name="deleteStudy">Delete study</string>
@@ -188,7 +186,7 @@
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Set up the board your way.&lt;br&gt;Suited to explore endgames.</string>
   <string name="loadGameFromTheWebTitle">Load a game from the web</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Paste a game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load game moves in the chapter.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Paste a game URL&lt;br&gt;(like lichess.org/game/7fHIU0XI)&lt;br&gt;to load game moves in the chapter.</string>
   <string name="fromFenStringTitle">From a FEN string</string>
   <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
   <string name="fromPgnGameTitle">From a PGN game</string>
@@ -199,4 +197,11 @@
   <string name="doubleDefeat">Double defeat</string>
   <string name="blackDefeatWhiteCanNotWin">Black defeat, but White can't win</string>
   <string name="whiteDefeatBlackCanNotWin">White defeat, but Black can't win</string>
+  <string name="analysisEditor">Analysis editor</string>
+  <string name="clearLocal">Clear local analysis?</string>
+  <string name="clearPublished">Clear published analysis?</string>
+  <string name="requestAServerAnalysis">Request a server analysis</string>
+  <string name="analyzeOnYourDevice">Analyse on your device</string>
+  <string name="searchChapters">Search chapters</string>
+  <string name="searchGames">Search games</string>
 </resources>

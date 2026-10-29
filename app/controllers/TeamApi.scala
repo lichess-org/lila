@@ -127,13 +127,13 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           lila.security.logger.warn:
             s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}"
         fuccess(ApiResult.Limited)
-      limit.teamKick(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
+      limit.teamKick(me.myId, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
         api.kick(team, username.id).inject(ApiResult.Done)
   }
 
   private def WithOwnedTeamEnabled(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: TeamModel => Fu[ApiResult]
-  )(using me: Me): Fu[Result] =
+  )(using Me): Fu[Result] =
     api
       .teamEnabled(teamId)
       .flatMap:

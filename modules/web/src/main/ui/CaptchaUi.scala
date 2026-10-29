@@ -6,8 +6,7 @@ import play.api.libs.json.Json
 
 import lila.core.captcha.Captcha
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class CaptchaUi(helpers: Helpers):
   import helpers.{ *, given }

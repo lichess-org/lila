@@ -51,6 +51,7 @@
   <string name="doubleCheckDescription">Šahiranje dvjema figurama istovremeno, kao rezultat otkrivenog napada, kad i otkrivena figura i ona koja ju je zaklanjala napadaju protivničkog kralja.</string>
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktika tokom posljednje faze partije.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Izloženi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje mali broj figura koje brane kralja, što često dovodi do mata.</string>
   <string name="fork">Viljuška</string>

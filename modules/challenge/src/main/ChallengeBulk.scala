@@ -1,15 +1,20 @@
 package lila.challenge
 
-import org.apache.pekko.stream.scaladsl.*
 import chess.{ Clock, Speed }
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
 import scalalib.model.Days
 
-import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
+import lila.challenge.ChallengeBulkSetup.{
+  ScheduledBulk,
+  ScheduledGame,
+  maxBulks,
+  maxGamesPending,
+  unlimitedUser
+}
 import lila.common.{ Bus, LilaStream }
 import lila.core.data.Template
-import lila.core.round.TellMany
-import lila.core.round.StartClock
+import lila.core.round.{ StartClock, TellMany }
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
@@ -52,11 +57,13 @@ final class ChallengeBulkApi(
       .updateField(bdoc("_id" -> id, "by" -> me.id, "pairedAt".exists(true)), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): FuRaise[String, ScheduledBulk] = workQueue(bulk.by):
+  def schedule(bulk: ScheduledBulk)(using me: Me): FuRaise[String, ScheduledBulk] = workQueue(bulk.by):
     for
       bulks <- coll.list[ScheduledBulk](bdoc("by" -> bulk.by, "pairedAt".exists(false)))
-      _ <- raiseIf(bulks.sizeIs >= maxBulks)("Already too many bulks queued")
-      _ <- raiseIf(bulks.map(_.games.size).sum >= 1000)("Already too many games queued")
+      _ <- raiseIf(bulks.sizeIs >= maxBulks && !unlimitedUser)("Already too many bulks queued")
+      _ <- raiseIf(bulks.map(_.games.size).sum >= maxGamesPending && !unlimitedUser)(
+        "Already too many games queued"
+      )
       _ <- raiseIf(bulks.exists(_.collidesWith(bulk))):
         "A bulk containing the same players is scheduled at the same time"
       _ <- coll.insert.one(bulk)

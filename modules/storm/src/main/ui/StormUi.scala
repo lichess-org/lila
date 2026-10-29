@@ -6,8 +6,7 @@ import scalalib.paginator.Paginator
 
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StormUi(helpers: Helpers):
   import helpers.{ *, given }

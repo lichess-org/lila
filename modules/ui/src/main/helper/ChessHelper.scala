@@ -1,11 +1,10 @@
 package lila.ui
 
-import chess.format.{ Fen, Uci }
 import chess.Color
+import chess.format.{ Fen, Uci }
 
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object ChessHelper:
 

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
+  <string name="multipleChoices">Múltiples opciones. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Se puede desactivar durante una partida con el menú del tablero</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin límite de tiempo</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Aparece a la izquierda en dispositivos móviles</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="showServerAnalysis">Mostrar análisis del servidor</string>
+  <string name="showMainlineAnalysis">Mostrar análisis de línea principal</string>
   <string name="showBestMoveArrows">Mostrar flechas de mejor movimiento</string>
   <string name="showManeuverArrows">Mostrar flechas de maniobra</string>
   <string name="showGauge">Mostrar indicador de evaluación</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Mostrar piezas sin defender</string>
   <string name="showPinnedPieces">Mostrar piezas clavadas</string>
   <string name="showCheckableKing">Mostrar rey en peligro</string>
+  <string name="showTrappedPieces">Mostrar piezas atrapadas</string>
   <string name="disclosureMode">Habilitar ocultamiento de variantes</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Lista de movimientos</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Preferencias de análisis</string>
   <string name="maneuverArrowsHelp">Secuencia de movimientos del motor para una pieza</string>
   <string name="hoverOverSettingLabelsForHelp">Apunta sobre las etiquetas de configuración para ayuda</string>
+  <string name="network">Red</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Actualmente estás utilizando enrutamiento directo.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Actualmente estás utilizando la red de entrega de contenido (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Si tiene desconexiones frecuentes, prueba a cambiar el enrutamiento.</string>
+  <string name="useDirectRouting">Usar enrutamiento directo</string>
+  <string name="useCdnRouting">Usar enrutamiento CDN</string>
 </resources>

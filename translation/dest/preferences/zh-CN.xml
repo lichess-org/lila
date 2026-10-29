@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动提和</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于 30 秒时</string>
   <string name="moveConfirmation">着法确认</string>
+  <string name="multipleChoices">多项选择。</string>
   <string name="explainCanThenBeTemporarilyDisabled">可在对局中通过棋盘菜单禁用</string>
   <string name="inCorrespondenceGames">通讯棋</string>
   <string name="correspondenceAndUnlimited">通讯棋和无时限对局</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">在移动设备上左侧显示</string>
   <string name="inlineNotation">紧凑棋谱</string>
-  <string name="showServerAnalysis">显示服务器分析</string>
+  <string name="showMainlineAnalysis">显示主线分析</string>
   <string name="showBestMoveArrows">显示最佳着法箭头</string>
   <string name="showManeuverArrows">显示战术组合箭头</string>
   <string name="showGauge">显示局面评估</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">显示无保护的棋子</string>
   <string name="showPinnedPieces">显示被牵制的棋子</string>
   <string name="showCheckableKing">显示可将军的王</string>
+  <string name="showTrappedPieces">显示被困的棋子</string>
   <string name="disclosureMode">启用变着隐藏</string>
   <string name="generalSettings">常规</string>
   <string name="moveListSettings">着法列表</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">分析设置</string>
   <string name="maneuverArrowsHelp">单个棋子的引擎着法序列</string>
   <string name="hoverOverSettingLabelsForHelp">悬停至设置标签以获取帮助</string>
+  <string name="network">网络</string>
+  <string name="youAreCurrentlyUsingDirectRouting">您当前正在使用直接路由。</string>
+  <string name="youAreCurrentlyUsingCdnRouting">您当前正在使用内容分发网络 (CDN) 路由。</string>
+  <string name="frequentDisconnectsAdvice">如果您频繁断开连接，请尝试更改路由。</string>
+  <string name="useDirectRouting">使用直接路由</string>
+  <string name="useCdnRouting">使用 CDN 路由</string>
 </resources>

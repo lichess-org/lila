@@ -172,7 +172,7 @@ object header:
                         span(cls := List("muted" -> muted))(l),
                     profile.flagInfo.map: c =>
                       frag(
-                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
+                        img(cls := "flag", src := assetPath(s"flags/${c.code}.webp")),
                         c.name
                       )
                   ),
@@ -240,7 +240,7 @@ object header:
         )
       ),
       (!UserId.isOfficial(u.id)).option:
-        div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
+        div(id := "angles", cls := "angles number-menu number-menu--tabs menu-box-pop")(
           a(
             dataTab := "activity",
             cls := List(

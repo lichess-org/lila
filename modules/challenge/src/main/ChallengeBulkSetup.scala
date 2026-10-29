@@ -1,10 +1,10 @@
 package lila.challenge
 
 import cats.mtl.Handle.*
-import org.apache.pekko.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock, Rated }
+import org.apache.pekko.stream.scaladsl.*
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -12,11 +12,11 @@ import scalalib.ThreadLocalRandom
 import scalalib.model.Days
 import scalalib.net.Bearer
 
+import lila.common.Form.into
 import lila.core.data.Template
 import lila.core.game.GameRule
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.common.Form.into
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -27,11 +27,14 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
     max = nowInstant.plusDays(7).toMillis
   )
 
-  def form = Form[BulkFormData](
+  def form(using Me) = Form[BulkFormData](
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs <= maxGames),
+        .verifying(
+          s"Too many tokens (max: ${maxGamesPerBulk * 2})",
+          t => extractTokenPairs(t).sizeIs <= maxGamesPerBulk || unlimitedUser
+        ),
       setupForm.variant,
       setupForm.clock,
       setupForm.optionalDays,
@@ -90,19 +93,21 @@ final class ChallengeBulkSetupApi(
   import ChallengeBulkSetup.*
 
   private val rateLimit = lila.memo.RateLimit[UserId](
-    credits = maxGames * 3,
+    credits = maxGamesPerTenMinutes * 3,
     duration = 10.minutes,
-    key = "challenge.bulk"
+    limiterKey = "challenge.bulk"
   )
 
-  def apply(data: BulkFormData, me: User): FuRaise[ScheduleError, ScheduledBulk] =
+  private val endpointScopes = OAuthScope.select(_.Challenge.Write, _.Web.Takex3).into(EndpointScopes)
+
+  def apply(data: BulkFormData)(using me: Me): FuRaise[ScheduleError, ScheduledBulk] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
         allow:
           oauthServer
-            .auth(token -> none, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+            .auth(token -> none, endpointScopes, none)
             .map(Right(_))
         .rescue: err =>
           fuccess(Left(BadToken(token, err)))
@@ -129,9 +134,11 @@ final class ChallengeBulkSetupApi(
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
-            rateLimit(me.id, ScheduleError.RateLimited.raise, cost = cost):
-              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames)
+            val cost =
+              if unlimitedUser then 0
+              else nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
+            rateLimit(me.userId, ScheduleError.RateLimited.raise, cost = cost):
+              lila.mon.api.challenge.bulk.scheduleNb(me.userId).increment(nbGames)
               idGenerator
                 .games(nbGames)
                 .map(_.toList.zip(pairs))
@@ -141,7 +148,7 @@ final class ChallengeBulkSetupApi(
                 .dmap:
                   ScheduledBulk(
                     id = ThreadLocalRandom.nextString(8),
-                    by = me.id,
+                    by = me.userId,
                     _,
                     data.variant,
                     data.clockOrDays,
@@ -156,8 +163,12 @@ final class ChallengeBulkSetupApi(
 
 object ChallengeBulkSetup:
 
-  val maxGames = 500
+  val maxGamesPerBulk = 500
+  val maxGamesPerTenMinutes = 500
+  val maxGamesPending = 1000
   val maxBulks = 20
+
+  def unlimitedUser(using me: Me) = me.is(UserId.t3)
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 

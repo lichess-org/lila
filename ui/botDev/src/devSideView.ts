@@ -295,6 +295,7 @@ function fen(): VNode {
 function roundRobin() {
   domDialog({
     class: 'round-robin-dialog',
+    closeButton: true,
     htmlText: `<h2>round robin participants</h2>
     <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
       .map(p => {
@@ -358,8 +359,8 @@ function showBotSelector(clickedEl: HTMLElement) {
   main.classList.add('with-cards');
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
-    const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
-    drops.push({ el, selected });
+    const uid = env.bot[el.dataset.color as Color]?.uid;
+    drops.push({ el, selected: uid && uidToDomId(uid) });
   });
   botSelector = handOfCards({
     viewEl: main,

@@ -28,6 +28,7 @@
   <string name="discoveredAttack">Diskubreng atake</string>
   <string name="doubleCheck">Dobleng check</string>
   <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Nakalantad na hari</string>
   <string name="exposedKingDescription">Isang taktika na kinasasangkutan ng isang hari na may ilang mga tagapagtanggol sa paligid nito, madalas na humahantong sa checkmate.</string>
   <string name="fork">Taktika ng fork</string>

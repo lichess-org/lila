@@ -1,5 +1,6 @@
+import { licon } from 'lib/licon';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
-import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
+import { hl, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 
@@ -11,30 +12,28 @@ import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { ratingView } from './components/ratingView';
 import { variantPicker } from './components/variantPicker';
 
-export default function setupModal(ctrl: LobbyController): VNode[] | null {
+export default function setupModal(ctrl: LobbyController) {
   const { setupCtrl } = ctrl;
-  if (!setupCtrl.gameType) return null;
-  const buttonText = {
-    hook: i18n.site.createLobbyGame,
-    friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
-    ai: i18n.site.playAgainstComputer,
-  }[setupCtrl.gameType];
-  const disabled = !setupCtrl.valid() || setupCtrl.loading;
-  return [
-    snabDialog({
-      attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
-      class: 'game-setup',
-      css: [{ hashed: 'lobby.setup' }],
-      onClose: () => {
-        setupCtrl.closeModal = undefined;
-        setupCtrl.gameType = null;
-        setupCtrl.root.redraw();
-      },
-      modal: true,
-      easyClose: 'clickOutside',
-      vnodes: [
-        hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
-        hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
+  return snabDialog({
+    closeButton: true,
+    attrs: { dialog: { 'aria-labelledby': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
+    class: 'game-setup',
+    show: true,
+    css: [{ key: 'lobby.setup' }],
+    modal: true,
+    easyClose: 'clickOutside',
+    render: () => {
+      const actionText = {
+        hook: i18n.site.createLobbyGame,
+        friend: setupCtrl.friendUser
+          ? i18n.site.challengeX(setupCtrl.friendUser)
+          : i18n.site.challengeAFriend,
+        ai: i18n.site.playAgainstComputer,
+      }[setupCtrl.gameType!];
+      const disabled = !setupCtrl.valid() || setupCtrl.loading;
+      return [
+        hl('h2#lobby-setup-modal-title', actionText),
+        hl('div.setup-content', views[setupCtrl.gameType!](ctrl)),
         hl('div.footer', [
           hl(
             `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
@@ -43,17 +42,18 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
               class: { disabled },
               on: { click: setupCtrl.submit },
             },
-            buttonText,
+            actionText,
           ),
           setupCtrl.loading && spinnerVdom(),
+          setupCtrl.canAddShortcut() &&
+            hl('button.button.button-metal.game-shortcut', {
+              on: { click: setupCtrl.addToShortcuts },
+              attrs: { 'data-icon': licon.StarOutline, title: 'Add to shortcuts' },
+            }),
         ]),
-      ],
-      onInsert: dlg => {
-        setupCtrl.closeModal = dlg.close;
-        dlg.show();
-      },
-    }),
-  ].filter(v => v !== null);
+      ];
+    },
+  });
 }
 
 const views = {

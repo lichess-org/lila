@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">\'N Taktiek tydens die laaste fase van die wedstryd.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Blootgestelde koning</string>
   <string name="exposedKingDescription">\'N Taktiek waarby \'n koning betrokke was, met min verdedigers rondom, wat dikwels gelei het tot skaakmat.</string>
   <string name="fork">Vurk</string>

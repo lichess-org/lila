@@ -1,8 +1,9 @@
 package lila.security
 
-import java.nio.file.Files
 import play.api.data.*
 import play.api.data.format.Formatter
+
+import java.nio.file.Files
 
 import lila.common.config.GetRelativeFile
 import lila.core.net.IpAddress

@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Peruuta ja säilytä tunnukseni</string>
   <string name="closeAccountAreYouSure">Oletko varma, että haluat sulkea käyttäjätunnuksesi?</string>
   <string name="thisAccountIsClosed">Tämä tunnus on suljettu.</string>
+  <string name="wereSorryToSeeYouGo">Sääli että lähdet.</string>
+  <string name="closeAccountForeverLabel">Sulje pysyvästi: tee avaaminen mahdottomaksi</string>
+  <string name="closeAccountForeverWarning">Estä tilin myöhempi uudelleen avaaminen. Jos valitset tämän, edes ylläpitäjät eivät pysty avaamaan tiliäsi uudelleen, vaikka pyytäisit.</string>
+  <string name="deleteYourAccount">Poista käyttäjätili</string>
+  <string name="deleteAccountWarning">Kun poistat tilisi, se poistetaan Lichessistä eivätkä edes ylläpitäjämme pysty sitä sinulle enää palauttamaan.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Haluaisitko sen sijaan %s?</string>
+  <string name="closeYourAccount">sulkea tilisi</string>
+  <string name="deleteAccountConfirmText">Ymmärrän, ettei poistettua tiliä voi palauttaa</string>
 </resources>

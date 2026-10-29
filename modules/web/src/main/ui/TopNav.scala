@@ -2,8 +2,9 @@ package lila.web
 package ui
 
 import scalalib.model.Days
+
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TopNav(helpers: Helpers):
   import helpers.{ *, given }
@@ -55,7 +56,7 @@ final class TopNav(helpers: Helpers):
           Option.when(ctx.noBot):
             frag(
               a(href := langHref(routes.Learn.index))(trans.site.chessBasics()),
-              a(href := routes.Practice.index)(trans.site.practice()),
+              a(href := langHref(routes.Practice.index))(trans.site.practice()),
               a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
             )
           ,

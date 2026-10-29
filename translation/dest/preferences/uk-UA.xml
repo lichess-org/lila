@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
+  <string name="multipleChoices">Множинний вибір. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Можна вимкнути під час гри в меню дошки</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">Заочні та необмежені</string>
@@ -58,7 +59,7 @@
   <string name="notifyStreamStart">Стрімер почав трансляцію</string>
   <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Нові особисті повідомлення</string>
   <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Згадки в форумі</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Запрошення до навчання</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Запрошення до дослідження</string>
   <string name="notifyGameEvent">Оновлення заочних партій</string>
   <string name="notifyChallenge">Виклики</string>
   <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Нагадування про початок турніру</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Наосліп</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Показувати ліворуч на мобільних пристроях</string>
   <string name="inlineNotation">Рядкова нотація</string>
-  <string name="showServerAnalysis">Показувати серверний аналіз</string>
+  <string name="showMainlineAnalysis">Показати основний варіант аналізу</string>
   <string name="showBestMoveArrows">Показувати найкращі ходи стрілками</string>
   <string name="showManeuverArrows">Показувати маневри стрілками</string>
   <string name="showGauge">Показувати шкалу оцінки</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Налаштування аналізу</string>
   <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
   <string name="hoverOverSettingLabelsForHelp">Наведіть курсор на налаштування для деталей</string>
+  <string name="network">Мережа</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Наразі ви використовуєте пряму маршрутизацію.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Наразі ви використовуєте маршрутизацію через мережу доставлення вмісту (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Якщо вас часто від\'єднує, спробуйте змінити маршрутизацію.</string>
+  <string name="useDirectRouting">Використовувати пряму маршрутизацію</string>
+  <string name="useCdnRouting">Використовувати маршрутизацію через CDN</string>
 </resources>

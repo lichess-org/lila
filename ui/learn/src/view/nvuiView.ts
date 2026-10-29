@@ -2,10 +2,10 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import { opposite, type SquareName } from 'chessops';
 
-import { throttle } from 'lib/async';
 import * as nv from 'lib/nvui/chess';
 import { commands, addBreaks } from 'lib/nvui/command';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
+import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import { type VNode, bind, onInsert, hl } from 'lib/view';
 
 import type { LearnCtrl } from '../ctrl';
@@ -21,11 +21,6 @@ const promotionByChar: Record<string, PromotionRole> = {
   b: 'bishop',
   n: 'knight',
 };
-
-const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
 
 export function renderNvui(ctx: LearnNvuiContext): VNode {
   const { ctrl } = ctx;
@@ -227,7 +222,7 @@ function describeHintsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
 function describeStarsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
   if (!levelCtrl.isAppleLevel()) return '';
   const keys = levelCtrl.items.appleKeys();
-  const text = keys.length ? keys.map(k => nv.renderKey(k as Key, style)).join(', ') : i18n.site.none;
+  const text = keys.length ? keys.map(k => nv.renderKey(k, style)).join(', ') : i18n.site.none;
   return `${keys.length} remaining: ${text}`;
 }
 
@@ -267,7 +262,8 @@ function onSubmit(
 ): (ev: SubmitEvent) => void {
   return (ev: SubmitEvent) => {
     ev.preventDefault();
-    const raw = ($input.val() as string).trim();
+    const val = $input.val();
+    const raw = Array.isArray(val) ? val.join('') : val.trim();
     const input = nv.castlingFlavours(raw);
     if (!input) return;
     if (input.toLowerCase() === 'g') {

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Lépések megjelölése</string>
   <string name="theChapterIsTooShortToBeAnalysed">A fejezet túl rövid számítógépes elemzéshez.</string>
   <string name="onlyContributorsCanRequestAnalysis">Csak a tanulmány szerkesztői kérhetnek számítógépes elemzést.</string>
-  <string name="getAFullComputerAnalysis">Teljes szerveroldali számítógépes elemzés kérése a főváltozatról.</string>
   <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Minden szinkronizált tag ugyanazt az állást látja</string>
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
   <string name="pinnedStudyComment">Rögzített megjegyzés a tanulmányhoz</string>
   <string name="start">Mehet</string>
-  <string name="save">Mentés</string>
   <string name="clearChat">Chat törlése</string>
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeket a tanulmányból? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>

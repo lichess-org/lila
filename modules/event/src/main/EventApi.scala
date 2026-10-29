@@ -1,9 +1,10 @@
 package lila.event
 import scalalib.model.Language
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
 import scalalib.paginator.Paginator
+
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
+import lila.memo.CacheApi.*
 
 final class EventApi(
     coll: Coll,
@@ -99,6 +100,6 @@ final class EventApi(
     )
 
   private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
-    lila.common
+    scalalib
       .ProductDiff(prev, next, ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt"))
       .foreach(ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), _))

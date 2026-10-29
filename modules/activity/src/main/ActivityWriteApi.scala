@@ -23,19 +23,20 @@ final class ActivityWriteApi(
       userId <- game.userIds
       player <- game.player(userId)
     yield update(userId): a =>
-      val setGames = (!game.isCorrespondence).so(
-        bdoc(
+      val setGames = (!game.isCorrespondence).so:
+        bdoc:
           ActivityFields.games -> a.games.orZero
             .add(game.perfKey, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
-        )
-      )
-      val setCorres = game.isCorrespondence.so(
-        bdoc(
+      val setCorres = game.isCorrespondence.so:
+        bdoc:
           ActivityFields.corres -> a.corres.orZero.add(game.id, moved = false, ended = true)
-        )
-      )
       setGames ++ setCorres
     ).parallel.void
+
+  def tourEntries(entries: List[lila.core.tournament.leaderboard.Entry]): Funit =
+    withColl: coll =>
+      entries.sequentiallyVoid: entry =>
+        coll.update.one(bid(today(entry.userId)), addToSet(ActivityFields.tours -> entry.id), upsert = true)
 
   def forumPost(post: lila.core.forum.ForumPostMini): Funit =
     post.userId
@@ -67,7 +68,7 @@ final class ActivityWriteApi(
   def learn(userId: UserId, stage: String) = update(userId): a =>
     bdoc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
 
-  def practice(prog: lila.core.practice.OnComplete) = update(prog.userId): a =>
+  def practice(prog: lila.core.misc.practice.OnComplete) = update(prog.userId): a =>
     bdoc(ActivityFields.practice -> { ~a.practice + prog.studyId })
 
   def simul(simul: Simul): Funit =

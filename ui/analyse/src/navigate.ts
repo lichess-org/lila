@@ -9,7 +9,7 @@ export default class Navigate {
   next = (): void => {
     if (this.ctrl.retro?.preventGoingToNextMove()) return;
     if (this.ctrl.fork.proceed()) return;
-    const child = this.ctrl.node.children[0];
+    const child = this.ctrl.visibleChildren()[0];
     if (child) this.ctrl.userJumpIfCan(this.ctrl.path + child.id);
   };
 
@@ -20,8 +20,8 @@ export default class Navigate {
   first = (): void => this.ctrl.userJump(treePath.root);
 
   previousBranch = (): void => {
-    let path = treePath.init(this.ctrl.path),
-      parent = this.ctrl.tree.nodeAtPath(path);
+    let path = treePath.init(this.ctrl.path);
+    let parent = this.ctrl.tree.nodeAtPath(path);
     while (path.length && parent && this.ctrl.visibleChildren(parent).length < 2) {
       path = treePath.init(path);
       parent = this.ctrl.tree.nodeAtPath(path);
@@ -43,8 +43,8 @@ export default class Navigate {
 
   private readonly exitVariation = (): void => {
     if (this.ctrl.onMainline) return;
-    let found,
-      path = treePath.root;
+    let found;
+    let path = treePath.root;
     this.ctrl.nodeList.slice(1, -1).forEach((n: TreeNode) => {
       path += n.id;
       if (n.children[1]) found = path;

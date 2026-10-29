@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Meter en escaque con dos piezas de vez, como resultau d\'un ataque a la descubierta an que tanto la pieza que s\'ha moviu como la pieza descubierta ataquen a lo rei de l\'oponent.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tactica en a zaguera fase d\'o chuego.</string>
+  <string name="enPassant">Captura a lo paso</string>
   <string name="exposedKing">Rei exposau</string>
   <string name="exposedKingDescription">Una tactica que involucra un rei con bels defensor alredor d\'él, que a ormino remata en escaque y mate.</string>
   <string name="fork">Doble</string>

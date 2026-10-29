@@ -1,11 +1,11 @@
 package lila.tournament
 
+import chess.IntRating
 import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
 import reactivemongo.pekkostream.cursorProducer
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
-import chess.IntRating
 
 import lila.core.chess.Rank
 import lila.core.perf.PerfId
@@ -28,16 +28,7 @@ final class LeaderboardApi(
 
   def bestByUser(user: User, page: Int) = paginator(user, page, sortBest = true)
 
-  def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
-    repo.coll
-      .find:
-        bdoc(
-          "u" -> userId,
-          "d".gte(range.start).lt(range.end)
-        )
-      .sort(sort.desc("d"))
-      .cursor[Entry](ReadPref.sec)
-      .list(100)
+  def byIds(ids: List[TourPlayerId]): Fu[List[Entry]] = repo.coll.byIds(ids, _.sec)
 
   def chart(user: User): Fu[ChartData] =
     repo.coll

@@ -132,6 +132,7 @@
 ເດີນໝາກໃດກໍໄດ້ເພື່ອໄປຕໍ່.</string>
   <string name="boardSetupComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮູ້ວິທີຈັດວາງກະດານໝາກຮຸກແລ້ວ.</string>
   <string name="castling">ການເຂົ້າປ້ອມ (Castling)</string>
+  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
   <string name="theSpecialKingMove">ການເດີນພິເສດຂອງຂຸນ</string>
   <string name="castlingIntro">ພາຂຸນຂອງທ່ານໄປຫາບ່ອນປອດໄພ ແລະ ໃຊ້ເຮືອຂອງທ່ານເພື່ອໂຈມຕີ!</string>
   <string name="castleKingSide">ເດີນຂຸນໄປ 2 ຫ້ອງ

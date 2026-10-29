@@ -3,12 +3,12 @@ import { h, thunk, type VNode } from 'snabbdom';
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, onInsert } from 'lib/view';
-import { ratingDiff, profileUrl } from 'lib/view/userLink';
+import { userLink } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
 
-import type { AnalysisSide, GamePhase } from '../interfaces';
+import type { AnalysisMetaSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -19,20 +19,16 @@ interface Advice {
 }
 
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
-  const player = getPlayer(data, color);
-  if (player.user)
-    return h('a.user-link.ulpt', { attrs: { href: profileUrl(player.user.username) } }, [
-      player.user.username,
-      ' ',
-      ratingDiff(player),
-    ]);
-  return h(
-    'span',
-    player.name ||
-      (player.ai && 'Stockfish level ' + player.ai) ||
-      (study && findTag(study.data.chapter.tags, color)) ||
-      'Anonymous',
-  );
+  const { user, ratingDiff, name, ai } = getPlayer(data, color);
+  return user
+    ? userLink({ ...user, name: user.username, ratingDiff, line: false })
+    : h(
+        'span',
+        name ||
+          (ai && 'Stockfish level ' + ai) ||
+          (study && findTag(study.data.chapter.tags, color)) ||
+          'Anonymous',
+      );
 };
 
 const advices: Advice[] = [
@@ -44,7 +40,7 @@ const advices: Advice[] = [
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const sideData = ctrl.data.analysis![color];
+  const sideData = ctrl.mainlineAnalysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}.text`), renderPlayer(ctrl, color)]),
@@ -61,7 +57,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
 const accuracyClass = (accuracy: number): string =>
   accuracy >= 85 ? 'good' : accuracy >= 70 ? 'inaccuracy' : accuracy >= 55 ? 'mistake' : 'blunder';
 
-const renderPhases = (side: AnalysisSide): VNode[] => {
+const renderPhases = (side: AnalysisMetaSide): VNode[] => {
   return [
     h(`div.advice-summary__phase`, [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
     ...phaseOrder
@@ -77,7 +73,7 @@ const renderPhases = (side: AnalysisSide): VNode[] => {
 
 const error = (nb: number, color: Color, advice: Advice) =>
   h(
-    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
+    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : '.no-error'),
     { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
     advice.i18n.asArray(nb, h('strong', nb)),
   );
@@ -132,8 +128,8 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.study?.practice) return undefined;
 
   if (
-    !ctrl.data.analysis ||
-    !ctrl.settings.showStaticAnalysis ||
+    !ctrl.mainlineAnalysis ||
+    !ctrl.settings.showMainlineAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
   ) {
     if (!ctrl.data.puzzle) return h('div.analyse__round-training');
@@ -141,8 +137,8 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   }
 
   // don't cache until the analysis is complete!
-  const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro;
+  const buster = ctrl.mainlineAnalysis.partial ? Math.random() : '';
+  let cacheKey = String(buster) + !!ctrl.retro + Boolean(ctrl.idbTree.hasLocalAnalysis);
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [

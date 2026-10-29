@@ -8,6 +8,10 @@
   }
 
   background: $c-bg-box;
+
+  @include if-transp {
+    background: transparent;
+  }
 }
 
 ::-webkit-scrollbar-thumb {

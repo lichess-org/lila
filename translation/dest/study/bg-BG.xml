@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Анотация със специални символи</string>
   <string name="theChapterIsTooShortToBeAnalysed">Тази глава е твърде къса и не може да бъде анализирана.</string>
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудниците в студията могат да поискат компютърен анализ.</string>
-  <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Не: позволи свободно разглеждане</string>
   <string name="pinnedStudyComment">Коментар на казуса</string>
   <string name="start">Начало</string>
-  <string name="save">Запази</string>
   <string name="clearChat">Изтрий чат съобщенията</string>
   <string name="deleteTheStudyChatHistory">Изтриване на чат историята? Това е необратимо!</string>
   <string name="deleteStudy">Изтрий казуса</string>

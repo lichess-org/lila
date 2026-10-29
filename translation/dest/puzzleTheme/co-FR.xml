@@ -38,6 +38,7 @@
   <string name="discoveredAttack">Attaccu scappellatu</string>
   <string name="doubleCheck">Scaccu doppiu</string>
   <string name="endgame">Finale</string>
+  <string name="enPassant">A presa passendu</string>
   <string name="exposedKing">Rè inariulatu</string>
   <string name="fork">Furcina</string>
 </resources>

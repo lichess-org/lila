@@ -13,8 +13,10 @@
   <string name="youHaveThirtySeconds">Vi havas 30 sekundojn por ĝuste mapi plej multajn kvadratojn kiel eble!</string>
   <string name="goAsLongAsYouWant">Ludi per via deziro, ne estas limo de la tempo!</string>
   <string name="showCoordinates">Montri koordinatojn</string>
+  <string name="showCoordsOnAllSquares">Koordinatoj sur ĉiu kvadrato</string>
   <string name="showPieces">Montri pecojn</string>
   <string name="startTraining">Komenci trejnadon</string>
   <string name="findSquare">Trovu kvadraton</string>
   <string name="nameSquare">Nomu kvadraton</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Ekzerciĝi nur kun iuj kolumnoj kaj vicoj</string>
 </resources>

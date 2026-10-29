@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
+  <string name="multipleChoices">Choix multiples. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquier</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Partie à l\'aveugle</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Afficher à gauche sur les appareils mobiles</string>
   <string name="inlineNotation">Notation en ligne</string>
-  <string name="showServerAnalysis">Afficher l\'analyse du serveur</string>
+  <string name="showMainlineAnalysis">Afficher l\'analyse de la variante principale</string>
   <string name="showBestMoveArrows">Afficher les flèches montrant les meilleurs coups</string>
   <string name="showManeuverArrows">Afficher les flèches montrant les manœuvres</string>
   <string name="showGauge">Afficher la barre d\'évaluation</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Afficher les pièces non défendues</string>
   <string name="showPinnedPieces">Afficher les pièces clouées</string>
   <string name="showCheckableKing">Afficher les échecs possibles</string>
+  <string name="showTrappedPieces">Afficher les pièces piégées</string>
   <string name="disclosureMode">Activer le masquage des variantes</string>
   <string name="generalSettings">Paramètres généraux</string>
   <string name="moveListSettings">Liste des coups</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Paramètres d\'analyse</string>
   <string name="maneuverArrowsHelp">Séquence de coups du moteur pour une pièce</string>
   <string name="hoverOverSettingLabelsForHelp">Placer la souris sur les étiquettes pour de l\'aide</string>
+  <string name="network">Réseau</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Vous utilisez le routage direct.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Vous utilisez le routage du réseau de diffusion de contenu (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Si vous avez des déconnexions fréquentes, essayez de changer de routage.</string>
+  <string name="useDirectRouting">Utiliser le routage direct</string>
+  <string name="useCdnRouting">Utiliser le routage CDN</string>
 </resources>

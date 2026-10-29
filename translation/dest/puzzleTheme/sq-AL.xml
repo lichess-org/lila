@@ -49,6 +49,7 @@
   <string name="doubleCheckDescription">Shah me dy figura njëherësh, si pasojë e një sulmi me zbulim, kur që të dy, guri që lëviz dhe guri i pazbuluar sulmojnë mbretin e kundërshtarit.</string>
   <string name="endgame">Fund loje</string>
   <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
+  <string name="enPassant">Prerja e ushtarit</string>
   <string name="epauletteMate">Mat spaletë</string>
   <string name="epauletteMateDescription">Dy katrorë shpëtimi ngjitur njëri me tjetrin, për një mbret nën shah, janë të zënë nga gurë të tjerë.</string>
   <string name="exposedKing">Mbreti i ekspozuar</string>

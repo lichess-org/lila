@@ -8,6 +8,7 @@ import type { Dialog } from 'lib/view';
 
 import { Game } from '../game';
 import type { Bot, BotOpts } from '../interfaces';
+import { setupDialog } from './view/setupDialog';
 
 interface Settings {
   color: ColorChoice;
@@ -17,7 +18,6 @@ interface Settings {
 }
 
 export default class SetupCtrl {
-  selectedBot?: Bot;
   timeControl: TimeControl;
   settings: Prop<Settings> = storedJsonProp<Settings>('botPlay.setup.settings', () => ({
     color: 'random',
@@ -35,36 +35,27 @@ export default class SetupCtrl {
     private readonly start: (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => void,
     readonly redraw: () => void,
   ) {
-    // this.selectedBot = this.opts.bots[0];
     const s = this.settings();
     this.color = prop(s.color);
     this.timeControl = timeControlFromStoredValues(
-      propWithEffect(s.clock ? 'realTime' : 'unlimited', this.redraw),
+      propWithEffect(s.clock ? 'realTime' : 'unlimited', () => this.dialog?.redraw()),
       ['realTime', 'unlimited'],
       s.time,
       s.increment,
       0,
-      this.redraw,
+      () => this.dialog?.redraw(),
       [],
     );
   }
 
-  select = (bot: Bot) => {
-    this.selectedBot = bot;
-    this.redraw();
+  select = async (bot: Bot) => {
+    this.dialog = await setupDialog(this, bot);
   };
 
-  cancel = () => {
-    this.selectedBot = undefined;
-    this.dialog?.close();
-    this.redraw();
-  };
-
-  play = () => {
-    if (!this.selectedBot) return;
-    this.dialog?.close();
+  play = (bot: Bot) => {
     this.saveSettings();
-    this.start(this.selectedBot, this.color(), clockConfig(this.timeControl));
+    this.dialog?.close();
+    this.start(bot, this.color(), clockConfig(this.timeControl));
   };
 
   private readonly saveSettings = () => {

@@ -74,6 +74,38 @@ export interface RoundSocketSend {
   ): void;
 }
 
+export type TakeBackOffers = { white?: true; black?: true };
+
+export interface Reloads {
+  rematchOffer: (color?: Color) => void;
+  rematchTaken: (nextId: string) => void;
+  drawOffer: (by?: Color) => void;
+}
+
+export interface ReloadEvent<T extends keyof Reloads> {
+  t: T;
+  d: Parameters<Reloads[T]>;
+}
+
+export interface SocketInEvents {
+  berserk: (color: Color) => void;
+  move: (move: ApiMove) => boolean;
+  drop: (move: ApiMove) => boolean;
+  takebackOffers: (offers: TakeBackOffers) => void;
+  reload: (d: ReloadEvent<keyof Reloads>) => void;
+  redirect: (d: { id: string; url: string }) => void;
+  clockInc: (o: { color: Color; time: Centis; total: Centis }) => void;
+  cclock: (o: ByColor<number>) => void;
+  crowd: (o: ByColor<boolean>) => void;
+  endData: (end: ApiEnd) => void;
+  checkCount: (d: ByColor<number>) => void;
+  simulPlayerMove: (gameId: string) => void;
+  simulEnd: (d: { id: string; name: string }) => void;
+  // From lila-ws
+  gone: (gone: boolean) => void;
+  goneIn: (goneIn: Seconds) => void;
+}
+
 export type EncodedDests = string | Record<string, string>;
 
 export interface RoundData extends GameData {
@@ -106,7 +138,8 @@ export interface Tv {
   flip: boolean;
 }
 
-export interface RoundProxy extends RoundSocket {
+export interface RoundProxy extends Omit<RoundSocket, 'handlers'> {
+  handlers: Record<string, (...args: unknown[]) => void>;
   analyse(): void;
   newOpponent(): void;
 }
@@ -172,11 +205,8 @@ export interface ApiEnd {
   winner?: Color;
   status: Status;
   abortedBy?: Color;
-  ratingDiff?: {
-    white: number;
-    black: number;
-  };
-  boosted: boolean;
+  ratingDiff?: ByColor<number>;
+  boosted?: true;
   clock?: {
     wc: Centis;
     bc: Centis;

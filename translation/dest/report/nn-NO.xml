@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Kva gjeld saka?</string>
+  <string name="cheat">Juks</string>
+  <string name="troll">Troll</string>
+  <string name="reportStall">Uthaling / Forlate spel</string>
+  <string name="reportBoost">Ratingmanipulasjon opp (boosting) eller ned (sandbagging) / Avtalt spel (partifiksing)</string>
+  <string name="reportVerbalAbuse">Verbal trakassering / Grovt språk / Trolling</string>
+  <string name="reportViolence">Vold / Trugsmål</string>
+  <string name="reportHarass">Trakassering / Mobbing / Forfølging</string>
+  <string name="reportSelfHarm">Sjølvmord / Sjølvskading</string>
+  <string name="reportHate">Hatefulle ytringar / Sexisme</string>
+  <string name="reportSpam">Spamming</string>
+  <string name="readMoreAboutLichessReports">Les meir om Lichess-rapportar</string>
+  <string name="reportMaximumCharacters">Maks 3000 teikn.</string>
+  <string name="reportCheatBoostHelp">Legg ved lenke til partiet/partia og forklar kva som er gale med åtferda til denne brukaren. Å berre påstå at brukaren juksar er ikkje nok, men gje ei nærare forklaring på korleis du kom til denne konklusjonen.</string>
+  <string name="reportUsernameHelp">Forklår kva som gjer brukarnamnet støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortel oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan handsama rapporten din raskare om du skriv på engelsk.</string>
+  <string name="provideOneCheatedGameLink">Oppgje minst ei lenke til eit parti som skal vurderast.</string>
+  <string name="thanksForTheReport">Takk for rapporten</string>
+  <string name="moderatorsWillReviewSoon">Moderatorane vil snart gå gjennom rapporten, og sette i verk høvelege tiltak.</string>
+  <string name="blockUserInMeantime">I mellomtida kan du blokkera denne brukaren:</string>
+</resources>

@@ -132,6 +132,7 @@
 Направи било који потез да наставиш.</string>
   <string name="boardSetupComplete">Честитке! Знаш како да поставиш шаховску таблу.</string>
   <string name="castling">Рокадирање</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="theSpecialKingMove">Посебан потез краља</string>
   <string name="castlingIntro">Доведи свог краља на сигурно и развиј свог топа за напад!</string>
   <string name="castleKingSide">Помери свог краља два поља

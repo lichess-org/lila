@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Annuler la minuterie ou refuser une demande</string>
   <string name="playPreferredMoveOrConfirmSomething">Jouer le coup préféré ou confirmer quelque chose</string>
   <string name="sleep">Sommeil (si le mot de réveil est activé)</string>
-  <string name="turnOffVoiceRecognition">Désactiver la reconnaissance vocale</string>
   <string name="showPuzzleSolution">Afficher la solution du problème</string>
+  <string name="voiceHelp">Aide - commandes vocales</string>
+  <string name="voiceSettings">Paramètres - commandes vocales</string>
+  <string name="pushShiftKeyToTalk">Appuyer sur la touche %s pour parler</string>
+  <string name="holdShiftKeyWhileSpeaking">Maintenir la touche Maj enfoncée tout en parlant</string>
+  <string name="microphone">Microphone</string>
+  <string name="noneSelected">Aucune sélection</string>
 </resources>

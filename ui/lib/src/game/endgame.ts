@@ -4,7 +4,7 @@ import { parseFen } from 'chessops/fen';
 import { makeSquare, opposite } from 'chessops/util';
 
 import { fenColor } from './chess';
-import { endgameGlyphs } from './glyphs';
+import { endgameGlyphs, type EndgameGlyph } from './glyphs';
 import type { StatusName } from './status';
 
 export interface EndgameResult {
@@ -21,45 +21,38 @@ type EndgameNode = {
 
 const endgameResult = (
   node: EndgameNode,
-  isLast: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult => {
-  const isTerminal = node.dests().size === 0,
-    isMate = node.check() && isTerminal,
-    isStalemate = !node.check() && isTerminal,
-    isGameEnd = isLast || isTerminal;
+  const outcome = node.outcome();
+  const isTerminal = node.dests().size === 0;
+  const isMate = isTerminal && node.check();
+  const isStalemate = isTerminal && !node.check() && outcome && !outcome.winner;
 
-  if (!isGameEnd) return {};
   return {
-    winner: isMate
-      ? opposite(fenColor(node.fen))
-      : isStalemate
-        ? undefined
-        : (node.outcome()?.winner ?? gameWinner),
+    winner: isMate ? opposite(fenColor(node.fen)) : isStalemate ? undefined : (outcome?.winner ?? gameWinner),
     status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
   };
 };
 
 export function endgameShapesForNode(
   node: EndgameNode,
-  isLast: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): DrawShape[] {
-  const result = endgameResult(node, isLast, gameWinner, gameStatus);
+  const result = endgameResult(node, gameWinner, gameStatus);
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
-export function findKingSquare(fen: FEN, color: Color): Key | undefined {
-  const king = parseFen(fen).unwrap(
-    setup => setup.board.kingOf(color),
+const glyphRoles: Role[] = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
+
+export function findGlyphSquare(fen: FEN, color: Color): Key | undefined {
+  const square = parseFen(fen).unwrap(
+    setup => glyphRoles.map(role => setup.board.pieces(color, role).first()).find(sq => sq !== undefined),
     _ => undefined,
   );
-  return king === undefined ? undefined : makeSquare(king);
+  return square === undefined ? undefined : makeSquare(square);
 }
-
-type EndgameGlyph = keyof typeof endgameGlyphs;
 
 const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
   status === 'mate'
@@ -91,17 +84,16 @@ export function endgameShapes(
 
   const shapes: DrawShape[] = [];
   const add = (color: Color, glyph: EndgameGlyph) => {
-    const king = findKingSquare(fen, color);
-    if (king)
+    const square = findGlyphSquare(fen, color);
+    if (square)
       shapes.push({
-        orig: king,
+        orig: square,
         brush: '',
         customSvg: { html: endgameGlyphs[glyph](0), center: 'orig' },
       });
   };
 
   if (winner) {
-    add(winner, 'win');
     add(opposite(winner), loserGlyph(status));
   } else {
     const glyph = drawGlyph(status);

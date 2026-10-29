@@ -1,43 +1,39 @@
 package lila.web
 
-import lila.core.config.AssetDomain
-
 object ContentSecurityPolicy:
 
-  def page(assetDomain: AssetDomain, connectSrcs: List[String]) =
+  def page(connectSrcs: List[String]) =
     lila.ui.ContentSecurityPolicy(
-      defaultSrc = List("'self'", assetDomain.value),
+      defaultSrc = List("'self'"),
       connectSrc = "'self'" :: "blob:" :: "data:" :: connectSrcs,
-      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
+      styleSrc = List("'self'", "'unsafe-inline'"),
       frameSrc = List(
         "'self'",
-        assetDomain.value,
         "www.youtube.com",
         "www.youtube-nocookie.com",
         "player.twitch.tv",
         "player.vimeo.com"
       ),
-      workerSrc = List("'self'", assetDomain.value, "blob:"),
+      workerSrc = List("'self'", "blob:"),
       imgSrc = List("'self'", "blob:", "data:", "*"),
-      mediaSrc = List("'self'", "blob:", assetDomain.value),
-      scriptSrc = List("'self'", assetDomain.value),
-      fontSrc = List("'self'", assetDomain.value),
+      mediaSrc = List("'self'", "blob:"),
+      scriptSrc = List("'self'"),
+      fontSrc = List("'self'"),
       baseUri = List("'none'")
     )
 
-  def embed(assetDomain: AssetDomain) =
-    lila.ui.ContentSecurityPolicy(
-      defaultSrc = List("'self'", assetDomain.value),
-      connectSrc = List("'self'", "blob:", "data:", assetDomain.value),
-      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
-      frameSrc = Nil,
-      workerSrc = Nil,
-      imgSrc = List("'self'", "blob:", "data:", "*"),
-      mediaSrc = Nil,
-      scriptSrc = List("'self'", assetDomain.value),
-      fontSrc = List("'self'", assetDomain.value),
-      baseUri = List("'none'")
-    )
+  val embed = lila.ui.ContentSecurityPolicy(
+    defaultSrc = List("'self'"),
+    connectSrc = List("'self'", "blob:", "data:"),
+    styleSrc = List("'self'", "'unsafe-inline'"),
+    frameSrc = Nil,
+    workerSrc = Nil,
+    imgSrc = List("'self'", "blob:", "data:", "*"),
+    mediaSrc = Nil,
+    scriptSrc = List("'self'"),
+    fontSrc = List("'self'"),
+    baseUri = List("'none'")
+  )
 
   def render(csp: lila.ui.ContentSecurityPolicy): String =
     import csp.*

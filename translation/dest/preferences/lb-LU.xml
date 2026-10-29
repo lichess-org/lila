@@ -15,6 +15,7 @@
   <string name="pgnLetter">Buschtaf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-Modus</string>
   <string name="showPlayerRatings">Spillerwäertungen uweisen</string>
+  <string name="showFlairs">Spiller-Flairen uweisen</string>
   <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
@@ -57,6 +58,7 @@
   <string name="notifyStreamStart">Streamer geet live</string>
   <string name="notifyGameEvent">Neies a Fernschachpartien</string>
   <string name="notifyChallenge">Erausfuerderungen</string>
+  <string name="notifyBroadcasts">Iwwerdroungen</string>
   <string name="notifyTimeAlarm">Zäit a Fernschachpartië leeft of</string>
   <string name="notifyBell">Benoriichtegung ob Lichess</string>
   <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>
@@ -64,6 +66,8 @@
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
   <string name="blindfold" comment="As in Blindfold chess">Blann</string>
+  <string name="generalSettings">Allgemeng</string>
   <string name="moveListSettings">Zuchlëscht</string>
   <string name="boardSettings">Briet</string>
+  <string name="network">Netzwierk</string>
 </resources>

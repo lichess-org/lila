@@ -54,6 +54,7 @@
   <string name="doubleCheckDescription">Faire échec avec deux pièces à la fois, à la suite d\'une attaque à la découverte où la pièce mobile et la pièce dévoilée attaquent le Roi adverse.</string>
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
+  <string name="enPassant">Prise en passant</string>
   <string name="enPassantAdjacentCaptureDescription">Tactique utilisant la « prise en passant », où un pion peut capturer un pion adverse qui vient de se placer à côté de lui en se déplaçant de deux cases au premier coup.</string>
   <string name="epauletteMate">Mat des épaulettes</string>
   <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>

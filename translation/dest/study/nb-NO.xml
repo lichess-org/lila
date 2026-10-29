@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Kommenter med symboler</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapittelet er for kort for analyse.</string>
   <string name="onlyContributorsCanRequestAnalysis">Bare bidragsyterne til studien kan be om maskinanalyse.</string>
-  <string name="getAFullComputerAnalysis">Få full maskinanalyse av hovedvarianten fra serveren.</string>
   <string name="makeSureTheChapterIsComplete">Sørg for at kapittelet er fullført. Du kan bare be om analyse én gang.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synkroniserte medlemmer ser den samme stillingen</string>
   <string name="shareChanges">Del endringer med tilskuere og lagre dem på serveren</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Nei: la folk se fritt gjennom</string>
   <string name="pinnedStudyComment">Fastspikrede studiekommentarer</string>
   <string name="start">Start</string>
-  <string name="save">Lagre</string>
   <string name="clearChat">Fjern samtalen</string>
   <string name="deleteTheStudyChatHistory">Slette studiens samtalehistorikk? Du kan ikke angre!</string>
   <string name="deleteStudy">Slett studie</string>
@@ -188,7 +186,7 @@
   <string name="customPositionTitle">Egendefinert stilling</string>
   <string name="customPositionText">Sett opp brettet slik du ønsker.&lt;br&gt;Egnet for å utforske sluttspill.</string>
   <string name="loadGameFromTheWebTitle">Last inn et parti fra nettet</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lim inn en URL til et parti&lt;br&gt;(for eksempel lichess.org/7fHIU0XI)&lt;br&gt;for å laste inn trekkene i kapittelet.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lim inn en lenke til et parti&lt;br&gt;(for eksempel lichess.org/game/7fHIU0XI)&lt;br&gt;for å laste inn trekkene i kapittelet.</string>
   <string name="fromFenStringTitle">Fra FEN-streng</string>
   <string name="fromFenStringText">Lim inn en stilling i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;for å starte kapittelet fra en stilling.</string>
   <string name="fromPgnGameTitle">Fra PGN-parti</string>
@@ -199,4 +197,9 @@
   <string name="doubleDefeat">Dobbelt tap</string>
   <string name="blackDefeatWhiteCanNotWin">Svart tap, men hvit kan ikke vinne</string>
   <string name="whiteDefeatBlackCanNotWin">Hvitt tap, men svart kan ikke vinne</string>
+  <string name="analysisEditor">Analyseredigerer</string>
+  <string name="clearLocal">Tøm lokal analyse?</string>
+  <string name="clearPublished">Tøm publisert analyse?</string>
+  <string name="requestAServerAnalysis">Be om en serveranalyse</string>
+  <string name="analyzeOnYourDevice">Analyser på enheten din</string>
 </resources>

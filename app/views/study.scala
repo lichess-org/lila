@@ -1,8 +1,8 @@
 package views.study
 
 import chess.format.pgn.PgnStr
-import play.api.libs.json.Json
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given

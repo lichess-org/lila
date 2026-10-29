@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">ஒரே காலத்தில் இரு துண்டுகளைக் கொண்டு அடக்குதல், ஒரு வெளிபடுத்திய தாக்குதலின் விளைவாக நகரும் துண்டு மற்றும் திரை மறை நின்ற துண்டு இரண்டும் எதிராளியின் அரசரைத் தாக்கும்.</string>
   <string name="endgame">கடையாட்டம்</string>
   <string name="endgameDescription">ஆட்டத்தின் இறுதிக் கட்டத்திலான சூழ்ச்சி.</string>
+  <string name="enPassant">மூலம்</string>
   <string name="exposedKing">அம்பலமான அரசர்</string>
   <string name="exposedKingDescription">ஒரு அரசரைச் சுற்றி சில பாதுகாவலர்கள் இருப்பது போன்ற ஒரு சூழ்ச்சி, இது பெரும்பாலும் முற்றுகைக்கு வழிவகுக்கிறது.</string>
   <string name="fork">கவர்</string>

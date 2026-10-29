@@ -11,7 +11,6 @@ import { glob, isFolder, subfolders, isClose } from './parse.ts';
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
 const fileTimes = new Map<AbsPath, number>();
-let activeTaskCount = 0;
 
 type Path = string;
 type AbsPath = string;
@@ -93,7 +92,7 @@ export function taskOk(ctx?: Context): boolean {
   return all.some(w => !w.monitorOnly) && all.every(w => w.status === 'ok');
 }
 
-export const tasksIdle = (): boolean => activeTaskCount === 0;
+export const tasksIdle = (): boolean => [...tasks.values()].every(x => x.status);
 
 export async function addIncludes(includes: CwdPath[], key: TaskKey): Promise<void> {
   const t = tasks.get(key);
@@ -147,7 +146,6 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
   try {
-    activeTaskCount++;
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
     if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.setStatus(t.ctx, 0);
@@ -157,8 +155,6 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
     else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${pc.gray(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
     if (t.ctx && !t.noEnvStatus) env.setStatus(t.ctx, -1);
-  } finally {
-    activeTaskCount--;
   }
 }
 

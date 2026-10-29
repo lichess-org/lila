@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
+  <string name="multipleChoices">Monivalinta. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Sokko</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Näytä mobiililaitteilla kello vasemmalla puolella</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="showServerAnalysis">Näytä palvelinanalyysi</string>
+  <string name="showMainlineAnalysis">Näytä päälinjan analyysi</string>
   <string name="showBestMoveArrows">Näytä parhaiden siirtojen nuolet</string>
   <string name="showManeuverArrows">Näytä manööverien nuolet</string>
   <string name="showGauge">Näytä arviopalkki</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">Näytä suojaamattomat nappulat</string>
   <string name="showPinnedPieces">Näytä kiinnitetyt nappulat</string>
   <string name="showCheckableKing">Näytä, kun kuningasta voi shakata</string>
+  <string name="showTrappedPieces">Näytä ansassa olevat nappulat</string>
   <string name="disclosureMode">Ota käyttöön muunnelmien piilotus</string>
   <string name="generalSettings">Yleiset</string>
   <string name="moveListSettings">Siirtoluettelo</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">Analyysiasetukset</string>
   <string name="maneuverArrowsHelp">Tietokoneen laskema yhden nappulan siirtosarja</string>
   <string name="hoverOverSettingLabelsForHelp">Saat ohjeita asetuksista viemällä osoittimen niiden päälle</string>
+  <string name="network">Verkko</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Käytät tällä hetkellä suoraa reititystä.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Käytät tällä hetkellä sisällönjakeluverkkoreititystä (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Jos yhteytesi katkeilee usein, voit kokeilla vaihtaa reititystä.</string>
+  <string name="useDirectRouting">Käytä suoraa reititystä</string>
+  <string name="useCdnRouting">Käytä CDN-reititystä</string>
 </resources>

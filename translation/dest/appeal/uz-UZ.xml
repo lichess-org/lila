@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="cleanAllGood">Akkauntingizda hech qanday cheklov yoki belgi yoʻq. Hammasi joyida!</string>
-  <string name="engineMarked">Akkauntingiz oʻyinlarda dvijok/kompyuter yordamidan foydalanganlik uchun cheklandi.</string>
-  <string name="engineMarkedInfo">Raqibingizdan ustun kelish maqsadida har qanday tashqi yordamdan foydalanib, bilimingiz yoki hisoblash qobiliyatingizni sunʼiy oshirishni biz gʻirromlik deb hisoblaymiz. Batafsil maʼlumot %s sahifasida.</string>
-  <string name="arenaBanned">Akkauntingiz arenalarga qoʻshilishdan bloklangan.</string>
-  <string name="prizeBanned">Akkauntingiz qimmatbaho sovrinli turnirlarda qatnashish huquqidan mahrum qilingan.</string>
-  <string name="boosterMarked">Akkauntingiz reytingni manipulyatsiya qilish/akkauntni boshqalar bilan boʻlishilgani uchun cheklandi.</string>
-  <string name="accountMuted">Chatdan foydalana olmaysiz.</string>
-  <string name="accountMutedInfo">%s bilan tanishib chiqing. Muloqot qoidalariga amal qilmaslik chat imkoniyatining cheklanishiga olib kelishi mumkin.</string>
-  <string name="excludedFromLeaderboards">Akkauntingiz peshqadamlar jadvalidan chiqarilgan.</string>
-  <string name="onlyOneAccountOnLeaderboards">Peshqadamlar jadvalida har bir kishi uchun faqat bitta hisob koʻrinishi mumkin.</string>
+  <string name="cleanAllGood">Akkauntingizda heç qanday çeklov yoki belgi yöq. Hammasi joyida!</string>
+  <string name="engineMarked">Akkauntingiz öyinlarda dvigatel/kompyuter yordamidan foydalanganlik uçun çeklandi.</string>
+  <string name="engineMarkedInfo">Raqibingizdan ustun keliş maqsadida har qanday taşqi yordamdan foydalanib, bilimingiz yoki hisoblaş qobiliyatingizni sunʼiy oşirişni biz ğirromlik deb hisoblaymiz. Batafsil maʼlumot %s sahifasida.</string>
+  <string name="arenaBanned">Akkauntingiz arenalarga qöşilişdan bloklangan.</string>
+  <string name="prizeBanned">Akkauntingiz qimmatbaho sovrinli turnirlarda qatnaşiş huquqidan mahrum qilingan.</string>
+  <string name="boosterMarked">Akkauntingiz reytingni manipulyatsiya qiliş/akkauntni boşqalar bilan bölişilgani uçun çeklandi.</string>
+  <string name="accountMuted">Çatdan foydalana olmaysiz.</string>
+  <string name="accountMutedInfo">%s bilan tanişib çiqing. Muloqot qoidalariga amal qilmaslik çat imkoniyatining çeklanişiga olib kelişi mumkin.</string>
+  <string name="excludedFromLeaderboards">Akkauntingiz peşqadamlar jadvalidan çiqarilgan.</string>
+  <string name="onlyOneAccountOnLeaderboards">Peşqadamlar jadvalida har bir kişi uçun faqat bitta hisob körinişi mumkin.</string>
   <string name="closedByModerators">Akkauntingiz moderatorlar tomonidan yopildi.</string>
-  <string name="blogRestriction">Sizda blog cheklovi bor.</string>
-  <string name="blogRestrictionInfo">%s bilan tanishib chiqing, ushbu qoidalarni buzish turli choralar koʻrilishiga olib kelishi mumkin.</string>
-  <string name="reportBanned">Moderatorlarga shikoyat yubora olmaysiz</string>
-  <string name="reportBannedInfo">Biz shikoyat tizimimizdan suiisteʼmol qilish holatlarini payqadik. Bu har xil sabablarga koʻra boʻlishi mumkin, masalan, notoʻgʻri kategoriyalarni qayta va qayta tanlash, behayo, nomunosib yoki haqoratli tildan foydalanish, haddan tashqari o\'yinlarni shikoyat qilish yoki nima uchun raqib qoidalarni buzdi deb oʻylashingizni koʻrsatmaslik.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Akkauntingiz oʻynashdan vaqtinchalik cheklangan.</string>
+  <string name="blogRestriction">Sizda blog çeklovi bor.</string>
+  <string name="blogRestrictionInfo">%s bilan tanişib çiqing, uşbu qoidalarni buziş turli çoralar körilişiga olib kelişi mumkin.</string>
+  <string name="reportBanned">Moderatorlarga şikoyat yubora olmaysiz</string>
+  <string name="reportBannedInfo">Biz şikoyat tizimimizdan suiisteʼmol qiliş holatlarini payqadik. Bu har xil sabablarga köra bölişi mumkin, masalan, notöğri kategoriyalarni qayta va qayta tanlaş, behayo, nomunosib yoki haqoratli tildan foydalaniş, haddan taşqari öyinlarni şikoyat qiliş yoki nima uçun raqib qoidalarni buzdi deb öylaşingizni körsatmaslik.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Akkauntingiz öynaşdan vaqtinçalik çeklangan.</string>
   <string name="communicationGuidelines">Muloqot qoidalari</string>
   <string name="blogEtiquette">Blog odobi</string>
-  <string name="fairPlay">Halol oʻyin</string>
+  <string name="fairPlay">Halol öyin</string>
 </resources>

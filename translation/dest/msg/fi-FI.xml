@@ -4,7 +4,8 @@
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Lataa uusi virallinen Lichess-sovellus osoitteesta %s.</string>
   <string name="modActionFeedback">Hei,
 
-käsittelimme raporttisi ja tartuimme toimeen. Vaikkemme voi kertoa toimiemme yksityiskohtia, kiitämme raportoinnistasi.
+Olemme käsitelleet ilmoitukesi ja ryhtyneet toimiin. Vaikkemme voi kertoa toimiemme yksityiskohtia, kiitämme ilmoituksestasi.
 
-Kiitos kun autat pitämään Lichessin hyvänä paikkana kaikille.</string>
+Kiitos, että autat pitämään Lichessin kaikille hyvänä paikkana.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Vanha sovellus ei enää tue tehtäviä. Asenna uusi Lichess -sovellus: %s</string>
 </resources>

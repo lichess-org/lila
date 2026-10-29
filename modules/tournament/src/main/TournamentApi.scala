@@ -1,25 +1,28 @@
 package lila.tournament
 
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
-import org.apache.pekko.stream.scaladsl.*
+import alleycats.Zero
+import chess.{ ByColor, IntRating }
 import com.roundeights.hasher.Algo
+import org.apache.pekko.stream.scaladsl.*
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import scalalib.paginator.Paginator
 import scalalib.Debouncer
 import scalalib.model.Minutes
-import chess.{ IntRating, ByColor }
-import alleycats.Zero
+import scalalib.paginator.Paginator
+
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 
 import lila.common.Bus
+import lila.core.chess.Rank
 import lila.core.game.LightPov
-import lila.core.round.{ RoundBus, GoBerserk }
+import lila.core.round.{ GoBerserk, RoundBus }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
-import lila.core.chess.Rank
-import lila.mon.extensions.*
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
+import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -55,7 +58,7 @@ final class TournamentApi(
     lila.core.user.PublicTitleOf
 ):
 
-  export tournamentRepo.byId as get
+  export tournamentRepo.{ byId as get, upcomingByTeams }
 
   def createTournament(
       setup: TournamentSetup,
@@ -128,6 +131,7 @@ final class TournamentApi(
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
     _ <- tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
+    _ <- tournamentRepo.removeForTeamsNotIn(tour.id, teamIds)
     _ <- tour.isCreated.so:
       for _ <- playerRepo.removeNotInTeams(tour.id, teamIds) yield updateNbPlayers(tour.id)
   yield
@@ -694,9 +698,14 @@ final class TournamentApi(
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 
-  def calendar: Fu[List[Tournament]] =
-    val from = nowInstant.minusDays(1)
-    tournamentRepo.calendar(from = from, to = from.plusYears(1))
+  object calendar:
+
+    private val cache = cacheApi.unit[List[Tournament]]("tournament.calendar"):
+      _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+        val from = nowInstant.minusDays(1)
+        tournamentRepo.calendar(from = from, to = from.plusYears(1))
+
+    def json(using Lang): Fu[JsObject] = cache.get({}).map(apiJsonView.calendar)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
     Paginator(
@@ -798,7 +807,7 @@ final class TournamentApi(
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
     if next.isScheduled then
-      lila.common
+      scalalib
         .ProductDiff(
           prev,
           next,

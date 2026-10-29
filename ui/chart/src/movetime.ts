@@ -3,6 +3,7 @@ import {
   BarElement,
   Chart,
   type ChartDataset,
+  type ChartConfiguration,
   LineController,
   LineElement,
   LinearScale,
@@ -41,7 +42,7 @@ export default async function (
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return undefined; // imported games
-  type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
+  type PlotSeries = ByColor<MovePoint[]>;
   type MovetimeDataset = ChartDataset<'line'> | ChartDataset<'bar', MovePoint[]>;
   const moveSeries: PlotSeries = {
     white: [],
@@ -165,14 +166,14 @@ export default async function (
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);
 
-  const config: Chart['config'] = {
+  const config: ChartConfiguration<'line' | 'bar'> = {
     type: 'line' /* Needed for compat. with plyline and divisionlines.
      * Makes the x-axis 'linear' instead of 'category'.
      * Side effect: makes the chart smaller than the canvas area.
      */,
     data: {
       labels,
-      datasets: datasets as ChartDataset[],
+      datasets: datasets as ChartDataset<'line' | 'bar'>[],
     },
     options: {
       maintainAspectRatio: false,

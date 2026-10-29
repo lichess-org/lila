@@ -157,6 +157,8 @@ Nato izberite, ali želite dovoliti ali blokirati obvestila strani Lichess.</str
 3. Kliknite Piškotki in dovoljenja za spletno mesto
 4. Pomaknite se navzdol in kliknite Samodejno predvajanje medijev
 5. Dodajte lichess.org v Dovoli</string>
+  <string name="makeBotTitle">Želiš izdelati bota na Lichessu?</string>
+  <string name="makeBotDescription">Če želite izvedeti, kako izdelati &lt;a href=\'%1$s\'&gt;lastnega šahovskega bota&lt;/a&gt; za igranje na Lichessu, preberite &lt;a href=\'%2$s\'&gt;to objavo na blogu o izdelavi botov&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Naj se ustavim pri igranju?</string>
   <string name="mentalHealthCondition">samostojno stanje duševnega zdravja</string>
   <string name="lichessUserstyles">Lichess uporabniški slogi</string>

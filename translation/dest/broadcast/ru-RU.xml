@@ -58,7 +58,7 @@
   <string name="teams">Клубы</string>
   <string name="boards">Доски</string>
   <string name="overview">Обзор</string>
-  <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или пуш-уведомление для трансляций в своих настройках.</string>
+  <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или всплывающее уведомление для трансляций в своих настройках.</string>
   <string name="uploadImage">Загрузить изображение турнира</string>
   <string name="noBoardsYet">Пока нет досок. Они появятся после загрузки партий.</string>
   <string name="noPlayersYet">Пока игроков нет. Они появятся сразу после загрузки партий.</string>
@@ -112,6 +112,7 @@
   <string name="tiebreaks">Тай-брейки</string>
   <string name="gameX">%s партий</string>
   <string name="knockouts">Нокауты</string>
+  <string name="pinPlayer">Закрепить игрока</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
 </resources>

@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Bertan behera utzi denboragailua edo eskaera ukatu</string>
   <string name="playPreferredMoveOrConfirmSomething">Mugitu hobetsitako jokaldia edo zerbait baieztatu</string>
   <string name="sleep">Lotara joan (esnatzeko hitza aktibo badago)</string>
-  <string name="turnOffVoiceRecognition">Desaktibatu ahots-ezagutzea</string>
   <string name="showPuzzleSolution">Erakutsi ariketaren ebazpena</string>
 </resources>

@@ -19,4 +19,6 @@
   <string name="findSquare">Ache a casa</string>
   <string name="nameSquare">Nome da casa</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Praticar só algumas fileiras e colunas</string>
+  <string name="enterTheCoordinate">Insira a coordenada</string>
+  <string name="pressEnterToStart">Pressione %s para começar</string>
 </resources>

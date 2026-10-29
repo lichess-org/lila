@@ -106,6 +106,7 @@
 Շարունակելու համար կատարեք որևէ քայլ։</string>
   <string name="boardSetupComplete">Շնորհավորո՜ւմ ենք։ Այժմ դուք գիտե՜ք, թե ինչպես պետք է շարեք խաղաքարերը շախմատի տախտակին։</string>
   <string name="castling">Փոխատեղում</string>
+  <string name="enPassant">Կողանցիկ հարված</string>
   <string name="theSpecialKingMove">Արքայի յուրահատուկ քայլ</string>
   <string name="castlingIntro">Արքան տեղափոխեք ապահով տեղ, և նավակը դուրս բերեք մարտի։</string>
   <string name="castleKingSide">Տեղաշարժեք ձեր արքան երկու վանդակ դեպի արքայական թևի նավակը՝ կարճ փոխատեղում կատարելու համար։</string>

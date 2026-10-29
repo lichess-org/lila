@@ -1,7 +1,7 @@
 import { defined, prop } from 'lib';
 import { throttle } from 'lib/async';
 import { pubsub, type PubsubEvents } from 'lib/pubsub';
-import type { ClientEval, PvData, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, PvData, TreeNode, TreePath } from 'lib/tree/types';
 
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import type { AnalyseSocketSend } from './socket';
@@ -29,11 +29,12 @@ function qualityCheck(ev: ClientEval): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant: VariantKey, ev: ClientEval): EvalPutData {
+function toPutData(variant: VariantKey, ev: ClientEval, engineId: string): EvalPutData {
   const data: EvalPutData = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
     depth: ev.depth,
+    engineId,
     pvs: ev.pvs.map(pv => {
       return {
         cp: pv.cp,
@@ -47,7 +48,7 @@ function toPutData(variant: VariantKey, ev: ClientEval): EvalPutData {
 }
 
 // from server eval to client eval
-function toCeval(e: ServerEval): ClientEval {
+function toCeval(e: EvalHit): ClientEval {
   const res: ClientEval = {
     fen: e.fen,
     nodes: e.knodes * 1000,
@@ -64,6 +65,7 @@ function toCeval(e: ServerEval): ClientEval {
   };
   if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
   else res.mate = res.pvs[0].mate;
+  if (e.engineId) res.engineId = e.engineId;
   res.cloud = true;
   return res;
 }
@@ -85,8 +87,8 @@ export default class EvalCache {
   private readonly onCrowd: PubsubEvents['socket.in.crowd'] = d => this.upgradable(d.nb > 2 && d.nb < 99999);
 
   onLocalCeval = throttle(500, () => {
-    const node = this.opts.getNode(),
-      ev = node.ceval;
+    const node = this.opts.getNode();
+    const ev = node.ceval;
     const fetched = this.fetchedByFen.get(node.fen);
     if (
       ev &&
@@ -98,7 +100,7 @@ export default class EvalCache {
       qualityCheck(ev) &&
       this.opts.canPut()
     ) {
-      this.opts.send('evalPut', toPutData(this.opts.variant, ev));
+      this.opts.send('evalPut', toPutData(this.opts.variant, ev, ev.engineId));
     }
   });
 

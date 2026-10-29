@@ -34,14 +34,14 @@ const clockX = (dur: number) => {
 };
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
-  const bottom = Math.max(0, ratingY(hook.rating)),
-    left = Math.max(0, clockX(hook.t)),
-    klass = [
-      hook.id,
-      'plot.new',
-      hook.ra ? 'rated' : 'casual',
-      hook.action === 'cancel' ? 'cancel' : '',
-    ].join('.');
+  const bottom = Math.max(0, ratingY(hook.rating));
+  const left = Math.max(0, clockX(hook.t));
+  const klass = [
+    hook.id,
+    'plot.new',
+    hook.ra ? 'rated' : 'casual',
+    hook.action === 'cancel' ? 'cancel' : '',
+  ].join('.');
   return h('span#' + klass, {
     key: hook.id,
     attrs: { 'data-icon': perfIcons[hook.perf], style: `bottom:${percents(bottom)};left:${percents(left)}` },

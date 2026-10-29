@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">ટાઈમર રદ કરો અથવા વિનંતી નકારો</string>
   <string name="playPreferredMoveOrConfirmSomething">પસંદગીની ચાલ રમો અથવા કંઈક પુષ્ટિ કરો</string>
   <string name="sleep">સ્લીપ (જો વેક વર્ડ સક્ષમ હોય તો)</string>
-  <string name="turnOffVoiceRecognition">વોઇસ રેકગ્નિશન બંધ કરો</string>
   <string name="showPuzzleSolution">પઝલનો ઉકેલ બતાવો</string>
 </resources>

@@ -15,7 +15,7 @@
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">حالت ذن</string>
   <string name="showPlayerRatings">نشان دادن درجه‌بندی بازیکنان</string>
-  <string name="showFlairs">نمایش نشان بازیکنان</string>
+  <string name="showFlairs">نمایش شکلک بازیکنان</string>
   <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیرهٔ تغییر اندازهٔ تخته</string>
   <string name="onlyOnInitialPosition">فقط در وضعیت آغازین</string>
@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای خودکار تساوی، در تکرار سه‌گانه</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
+  <string name="multipleChoices">انتخاب‌های چندگانه. </string>
   <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگانِ تخته» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">چشم‌بسته</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">در گوشی‌ها، نمایش در سمت چپ</string>
   <string name="inlineNotation">نشانه‌گذاریِ درخط</string>
-  <string name="showServerAnalysis">نمایشِ تحلیلِ کارساز</string>
+  <string name="showMainlineAnalysis">نمایش تحلیلِ شاخه اصلی</string>
   <string name="showBestMoveArrows">نمایشِ پیکان‌های بهترین حرکت</string>
   <string name="showManeuverArrows">نمایشِ پیکان‌های تَمهید</string>
   <string name="showGauge">نمایشِ میلهٔ ارزیابی</string>
@@ -82,6 +83,7 @@
   <string name="showUndefendedPieces">نمایشِ مُهره‌های بی‌دفاع</string>
   <string name="showPinnedPieces">نمایشِ مُهرهای آچمزیده</string>
   <string name="showCheckableKing">نمایشِ شاهِ کیش‌پذیر</string>
+  <string name="showTrappedPieces">نمایش مهره‌های گرفتار</string>
   <string name="disclosureMode">فعالسازیِ پنهاندنِ وَرتِش</string>
   <string name="generalSettings">عمومی</string>
   <string name="moveListSettings">فهرستِ حرکت</string>
@@ -89,4 +91,10 @@
   <string name="analysisSettings">تنظیماتِ تحلیل</string>
   <string name="maneuverArrowsHelp">دنبالهٔ حرکت‌های موتور برای یک مُهره</string>
   <string name="hoverOverSettingLabelsForHelp">برای راهنمایی، روی برچسب‌های تنظیمات پَرجایید</string>
+  <string name="network">شبکه</string>
+  <string name="youAreCurrentlyUsingDirectRouting">شما اکنون از مسیرِشِ مستقیم می‌بهرید.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">شما اکنون از مسیرِشِ شبکهٔ تحویلِ محتوا (شین.تَح.مُح) می‌بهرید.</string>
+  <string name="frequentDisconnectsAdvice">اگر مرتبا قطع می‌شوید، تغییرِ مسیرِش را امتحان کنید.</string>
+  <string name="useDirectRouting">استفاده از مسیرِشِ مستقیم</string>
+  <string name="useCdnRouting">استفاده از مسیرِشِ شین.تَح.مُح</string>
 </resources>

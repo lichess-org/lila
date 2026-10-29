@@ -51,6 +51,7 @@
   <string name="doubleCheckDescription">Þegar tveir taflmenn skáka samtímis, sem er afleiðing af fráleik þar sem bæði sá taflmaður sem er færður og sá sem er afhjúpaður hóta kóngi andstæðingsins.</string>
   <string name="endgame">Endatafl</string>
   <string name="endgameDescription">Bragðvísi sem kemur upp á endastigi skákarinnar.</string>
+  <string name="enPassant">Framhjáhlaup</string>
   <string name="exposedKing">Óvaldaður kóngur</string>
   <string name="exposedKingDescription">Bragðvísi sem felur í sér kóng með fáa taflmenn sem valda hann, sem oft leiðir til máts.</string>
   <string name="fork">Gaffall</string>

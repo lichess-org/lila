@@ -66,9 +66,6 @@ export interface Game {
   fen: string;
   lastMove: string;
   orient: Color;
-  clock?: {
-    white: number;
-    black: number;
-  };
+  clock?: ByColor<number>;
   winner?: Color;
 }

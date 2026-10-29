@@ -1,14 +1,14 @@
 package lila.tv
 
-import org.apache.pekko.actor.*
-import org.apache.pekko.stream.scaladsl.*
-import org.apache.pekko.pattern.pipe
 import chess.format.Fen
+import org.apache.pekko.actor.*
+import org.apache.pekko.pattern.pipe
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.common.actorBus.*
 import lila.common.Json.given
+import lila.common.actorBus.*
 import lila.core.LightUser
 import lila.core.game.TvSelect
 import lila.core.socket.makeMessage

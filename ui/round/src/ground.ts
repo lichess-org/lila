@@ -19,11 +19,11 @@ import * as util from './util';
 import { plyStep } from './util';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
-  const data = ctrl.data,
-    hooks = ctrl.makeCgHooks(),
-    step = plyStep(data, ctrl.ply),
-    playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
+  const data = ctrl.data;
+  const hooks = ctrl.makeCgHooks();
+  const step = plyStep(data, ctrl.ply);
+  const playing = ctrl.isPlaying();
+  const premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
 
   return {
     fen: step.fen,

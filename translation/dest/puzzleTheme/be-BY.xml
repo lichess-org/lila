@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
+  <string name="enPassant">Узяцце на праходзе</string>
   <string name="exposedKing">Адкрыты кароль</string>
   <string name="exposedKingDescription">Тактыка, уключаючая недастаткова абароненага караля, якая часта скончваецца матам.</string>
   <string name="fork">Відэлец</string>

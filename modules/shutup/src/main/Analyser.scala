@@ -1,7 +1,8 @@
 package lila.shutup
 
-import java.util.regex.Pattern
 import scalatags.Text.all.*
+
+import java.util.regex.Pattern
 
 import lila.common.constants.bannedYoutubeIds
 
@@ -47,6 +48,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       case '4' => 'a'
       case '5' => 's'
       case '7' => 't'
+      case '9' => 'g'
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
@@ -82,6 +84,8 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       } ++
       Dictionary.tr ++
       Dictionary.it ++
+      Dictionary.pt ++
+      Dictionary.arLatn ++
       bannedYoutubeIds
 
   private val latinBigRegex = {

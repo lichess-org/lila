@@ -7,7 +7,6 @@
   <plurals name="gamesPerDay">
     <item quantity="one">משחק %s כל יום</item>
     <item quantity="two">%s משחקים כל יום</item>
-    <item quantity="many">%s משחקים כל יום</item>
     <item quantity="other">%s משחקים כל יום</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">עריכת לוח ולוח ניתוחים עם %s</string>

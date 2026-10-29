@@ -3,8 +3,8 @@ package lila.game
 import chess.Status
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.game.Source
+import lila.db.dsl.{ *, given }
 
 object Query:
 
@@ -82,17 +82,14 @@ object Query:
       s"${F.playingUids}.1".in(userIds)
     )
 
-  // use the us index
-  def win(u: UserId) = user(u) ++ bdoc(F.winnerId -> u)
+  def winnerNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> u)
 
-  def loss(u: UserId) =
-    user(u) ++ bdoc(
-      F.status.in(Status.finishedWithWinner.map(_.id)),
-      F.winnerId -> bdoc(
-        "$exists" -> true,
-        "$ne" -> u
-      )
-    )
+  def loserNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> bdoc("$exists" -> true, "$ne" -> u))
+
+  // use the us index
+  def win(u: UserId) = user(u) ++ winnerNotUsingIndex(u)
+
+  def loss(u: UserId) = user(u) ++ loserNotUsingIndex(u)
 
   def opponents(u1: User, u2: User) =
     bdoc(F.playerUids.all(List(u1, u2).sortBy(_.count.game).map(_.id)))

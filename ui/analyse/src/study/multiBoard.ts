@@ -193,10 +193,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
-  const page = ctrl.page,
-    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage),
-    max = ctrl.maxPerPage();
+  const page = ctrl.page;
+  const from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1);
+  const to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  const max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
     pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
@@ -224,7 +224,6 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
           {
             hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
           },
-
           [broadcast.allTeams, ...allTeams].map((t, i) =>
             h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
           ),
@@ -282,7 +281,7 @@ export const previewContent = (
   round?: RelayRound,
   extraCgConfig?: () => Partial<CgConfig>,
   pins?: RelayPlayerPin,
-) => {
+): VNode[] => {
   const makeCgConfig = () => ({
     ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
     // previewToCgConfig sets the chapter orientation; the caller may want another one,
@@ -331,44 +330,47 @@ export const verticalEvalGauge = (
   cloudEval: MultiCloudEval,
 ): MaybeVNode => {
   const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
-  return chap.check === '#'
-    ? h(
-        baseTag + ` mini-game__gauge--set`,
-        {
-          attrs: {
-            'data-id': chap.id,
-            title: 'Checkmate',
-            style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
-          },
+
+  if (chap.check === '#') {
+    return h(
+      baseTag + ` mini-game__gauge--set`,
+      {
+        attrs: {
+          'data-id': chap.id,
+          title: 'Checkmate',
+          style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
         },
-        [h('tick')],
-      )
-    : h(
-        baseTag,
-        {
-          attrs: { 'data-id': chap.id },
-          hook: {
-            ...onInsert(cloudEval.observe),
-            postpatch(old, vnode) {
-              const elm = vnode.elm as HTMLElement;
-              const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
-              const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-              if (cev?.chances !== prevNodeCloud?.chances) {
-                elm.style.setProperty(
-                  '--multi-eval-percent',
-                  `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
-                );
-                if (cev) {
-                  elm.title = renderScore(cev);
-                  elm.classList.add('mini-game__gauge--set');
-                }
-              }
-              vnode.data!.cloud = cev;
-            },
-          },
+      },
+      [h('tick')],
+    );
+  }
+
+  return h(
+    baseTag,
+    {
+      attrs: { 'data-id': chap.id },
+      hook: {
+        ...onInsert(cloudEval.observe),
+        postpatch(old, vnode) {
+          const elm = vnode.elm as HTMLElement;
+          const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
+          const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
+          if (cev?.chances !== prevNodeCloud?.chances) {
+            elm.style.setProperty(
+              '--multi-eval-percent',
+              `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
+            );
+            if (cev) {
+              elm.title = renderScore(cev);
+              elm.classList.add('mini-game__gauge--set');
+            }
+          }
+          vnode.data!.cloud = cev;
         },
-        [h('tick')],
-      );
+      },
+    },
+    [h('tick')],
+  );
 };
 
 export const pinIcon = img(site.asset.flairSrc('objects.pushpin'), 'Pin player');

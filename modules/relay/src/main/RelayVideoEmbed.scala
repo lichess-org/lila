@@ -1,9 +1,9 @@
 package lila.relay
 
-import play.api.mvc.RequestHeader
-import lila.core.security.LilaCookie
-import play.api.mvc.Result
+import play.api.mvc.{ RequestHeader, Result }
+
 import lila.common.HTTPRequest
+import lila.core.security.LilaCookie
 
 enum RelayVideoEmbed:
   case No

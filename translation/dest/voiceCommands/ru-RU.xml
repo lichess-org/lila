@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Отменить таймер или отклонить запрос</string>
   <string name="playPreferredMoveOrConfirmSomething">Сыграть предпочтительный ход или подтвердить что-то</string>
   <string name="sleep">Перейти в режим сна (если задано слово для пробуждения)</string>
-  <string name="turnOffVoiceRecognition">Отключить распознавание голоса</string>
   <string name="showPuzzleSolution">Показать решение задачи</string>
+  <string name="voiceHelp">Голосовая помощь</string>
+  <string name="voiceSettings">Настройки голоса</string>
+  <string name="pushShiftKeyToTalk">Нажмите клавишу %s, чтобы говорить</string>
+  <string name="holdShiftKeyWhileSpeaking">Удерживайте клавишу Shift во время разговора</string>
+  <string name="microphone">Микрофон</string>
+  <string name="noneSelected">Ничего не выбрано</string>
 </resources>

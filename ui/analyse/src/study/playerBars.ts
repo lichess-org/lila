@@ -30,12 +30,12 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
   const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
-  const players = study.currentChapter().players,
-    tags = study.data.chapter.tags,
-    clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
-    tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
-    materialDiffs = renderMaterialDiffs(ctrl),
-    tagsMap = tagsToMap(tags);
+  const players = study.currentChapter().players;
+  const tags = study.data.chapter.tags;
+  const clocks = renderClocks(ctrl, selectClockPath(ctrl, study));
+  const tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor();
+  const materialDiffs = renderMaterialDiffs(ctrl);
+  const tagsMap = tagsToMap(tags);
 
   return COLORS.map(color =>
     renderPlayer(
@@ -75,85 +75,89 @@ function renderPlayer(
   relayPlayers?: RelayPlayers,
   relayTeamLeaderboard?: { show: boolean; leaderboard?: RelayTeamLeaderboard },
 ): VNode {
-  const showResult: boolean =
-      !defined(ctrl.study?.relay) ||
-      ctrl.study?.multiBoard.showResults() ||
-      ctrl.node.ply === ctrl.tree.lastPly(),
-    team = tags.get(`${color}team`),
-    rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined,
-    status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined,
-    result = showResult ? resultOf(tags, color === 'white') : undefined,
-    top = ctrl.bottomColor() !== color,
-    eloTag = tags.get(`${color}elo`),
-    fideIdTag = tags.get(`${color}fideid`),
-    fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
-    player: StudyPlayer = {
-      ...players?.[color],
-      name: tags.get(color),
-      title: tags.get(`${color}title`),
-      rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
-      fideId,
-    },
-    photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
+  const showResult =
+    !defined(ctrl.study?.relay) ||
+    ctrl.study?.multiBoard.showResults() ||
+    ctrl.node.ply === ctrl.tree.lastPly();
+  const team = tags.get(`${color}team`);
+  const rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined;
+  const status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined;
+  const result = showResult ? resultOf(tags, color === 'white') : undefined;
+  const top = ctrl.bottomColor() !== color;
+  const eloTag = tags.get(`${color}elo`);
+  const fideIdTag = tags.get(`${color}fideid`);
+  const fideId = fideIdTag ? parseInt(fideIdTag) : undefined;
+  const player: StudyPlayer = {
+    ...players?.[color],
+    name: tags.get(color),
+    title: tags.get(`${color}title`),
+    rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
+    fideId,
+  };
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round?.customScoring);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
     : result && hl(`${resultTag(result)}.result`, result);
-  return relayPlayers
-    ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-        hl('div.left', [
-          playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
-          hl('div.info-split', [
-            hl('div', [
-              !!player.title && userTitle(player),
-              playerId(player) &&
-                hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
-            ]),
-            hl('div.info-secondary', [
-              team
-                ? hl(
-                    'a.team',
-                    {
-                      on: {
-                        click: (ev: PointerEvent) => {
-                          ev.preventDefault();
-                          relayTeamLeaderboard?.show
-                            ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
-                            : ctrl.study?.relay?.openTab('teams');
-                        },
-                      },
-                    },
-                    team,
-                  )
-                : undefined,
-              playerFedFlag(player?.fed),
-              !!player.rating && hl('span.elo', `${player.rating}`),
-            ]),
-          ]),
-          resultNode,
-        ]),
-        materialDiffs[top ? 0 : 1],
-        clocks?.[color === 'white' ? 0 : 1],
-      ])
-    : hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-        hl('div.left', [
-          resultNode,
-          hl('span.info', [
-            team ? hl('span.team', team) : undefined,
-            playerFedFlag(player?.fed),
+
+  if (relayPlayers) {
+    const photo = fideId ? relayPlayers.fidePhoto(fideId) : undefined;
+
+    return hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+      hl('div.left', [
+        playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
+        hl('div.info-split', [
+          hl('div', [
             !!player.title && userTitle(player),
             playerId(player) &&
-              hl(
-                player.fideId ? 'a.name' : 'span.name',
-                { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
-                player.name,
-              ),
+              hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
+          ]),
+          hl('div.info-secondary', [
+            team
+              ? hl(
+                  'a.team',
+                  {
+                    on: {
+                      click: (ev: PointerEvent) => {
+                        ev.preventDefault();
+                        relayTeamLeaderboard?.show
+                          ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
+                          : ctrl.study?.relay?.openTab('teams');
+                      },
+                    },
+                  },
+                  team,
+                )
+              : undefined,
+            playerFedFlag(player?.fed),
             !!player.rating && hl('span.elo', `${player.rating}`),
           ]),
         ]),
-        materialDiffs[top ? 0 : 1],
-        clocks?.[color === 'white' ? 0 : 1],
-      ]);
+        resultNode,
+      ]),
+      materialDiffs[top ? 0 : 1],
+      clocks?.[color === 'white' ? 0 : 1],
+    ]);
+  }
+
+  return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+    hl('div.left', [
+      resultNode,
+      hl('span.info', [
+        team ? hl('span.team', team) : undefined,
+        playerFedFlag(player?.fed),
+        !!player.title && userTitle(player),
+        playerId(player) &&
+          hl(
+            player.fideId ? 'a.name' : 'span.name',
+            { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
+            player.name,
+          ),
+        !!player.rating && hl('span.elo', `${player.rating}`),
+      ]),
+    ]),
+    materialDiffs[top ? 0 : 1],
+    clocks?.[color === 'white' ? 0 : 1],
+  ]);
 }
 
 function resultOf(tags: TagMap, isWhite: boolean): string | undefined {

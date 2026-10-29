@@ -1,10 +1,11 @@
 package lila.pool
 
-import scalalib.WMMatching
-import scala.math.abs
 import chess.IntRating
+import scalalib.WMMatching
 
-import lila.core.pool.PoolMember
+import scala.math.abs
+
+import lila.core.pool.{ PoolConfigId, PoolMember }
 
 object MatchMaking:
 
@@ -12,18 +13,41 @@ object MatchMaking:
     def members = Vector(p1, p2)
     def userIds = members.map(_.userId)
     def ratingDiff = p1.ratingDiff(p2)
+    def has(u: UserId) = userIds.contains(u)
 
-  def apply(members: Vector[PoolMember]): Vector[Couple] =
-    val (lames, fairs) = members.partition(_.lame)
-    naive(lames) ++ (wmMatching(fairs) | naive(fairs))
+  def apply(members: Vector[PoolMember], monId: PoolConfigId): Vector[Couple] =
+    val (lames, fairs) = members.partition(_.marks.lame)
+    lamePairing(lames, monId) ++ (wmMatching(fairs) | naivePairing(fairs))
 
-  private def naive(members: Vector[PoolMember]): Vector[Couple] =
-    members
-      .sortBy(_.rating)(using intOrdering[IntRating].reverse)
+  private def naivePairing(members: Vector[PoolMember]): Vector[Couple] =
+    sortedByRating(members)
       .grouped(2)
       .collect:
         case Vector(p1, p2) => Couple(p1, p2)
       .toVector
+
+  private def lamePairing(unsorted: Vector[PoolMember], monId: PoolConfigId): Vector[Couple] =
+    val members = sortedByRating(unsorted)
+    val cheatMembers = members.filter(_.marks.engine)
+    val boostMembers = members.filter(m => m.marks.boost && !m.marks.engine)
+    val cheatPairings = naivePairing(cheatMembers)
+    val boostPairings = naivePairing(boostMembers)
+    // pair remaining lames with each other if they have missed 3 pairing rounds
+    val remaining = members.filterNot: p =>
+      cheatPairings.exists(_.has(p.userId)) || boostPairings.exists(_.has(p.userId))
+    val remainingPairings = naivePairing(remaining.filter(_.misses > 3))
+    List(
+      "cheat" -> (cheatMembers, cheatPairings),
+      "boost" -> (boostMembers, boostPairings),
+      "remaining" -> (remaining, remainingPairings)
+    ).foreach:
+      case (name, (players, pairings)) =>
+        lila.mon.lobby.pool.wave.lamePlayers(monId, name).record(players.size)
+        lila.mon.lobby.pool.wave.lamePairings(monId, name).increment(pairings.size)
+    cheatPairings ++ boostPairings ++ remainingPairings
+
+  private def sortedByRating(members: Vector[PoolMember]): Vector[PoolMember] =
+    members.sortBy(_.rating)(using intOrdering[IntRating].reverse)
 
   private object wmMatching:
 

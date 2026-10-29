@@ -1,6 +1,7 @@
 package lila.team
 package ui
 
+import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
 import lila.ui.*
@@ -34,19 +35,18 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         .option:
           a(cls := tab.active("requests"), href := routes.Team.requests)("Join requests")
       ,
-      ctx.isAuth.option(
-        a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams())
-      ),
-      ctx.isAuth.option(
-        a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates())
-      ),
-      ctx.isAuth.option(
-        a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams())
-      ),
-      a(cls := tab.active("all"), href := routes.Team.all())(trt.allTeams()),
-      ctx.isAuth.option(
-        a(cls := tab.active("form"), href := routes.Team.form)(trt.newTeam())
-      )
+      ctx.isAuth.option:
+        frag(
+          a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams()),
+          a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates()),
+          a(cls := tab.active("events"), href := routes.Team.events)(trt.teamEvents()),
+          a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams()),
+          div(cls := "sep")
+        )
+      ,
+      a(cls := tab.active("all"), href := routes.Team.all(), dataIcon := Icon.List)(trt.allTeams()),
+      ctx.isAuth.option:
+        a(cls := tab.active("form"), href := routes.Team.form, dataIcon := Icon.PlusButton)(trt.newTeam())
     )
 
   def teamTr(t: Team.WithMyLeadership)(using Context) =
@@ -124,11 +124,23 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       )
 
     def mine(teams: List[Team.WithMyLeadership])(using ctx: Context) =
-      TeamPage(trt.myTeams.txt()):
+      TeamPage(trt.myTeams.txt()).js(
+        esmInitBit(
+          "addToShortcuts",
+          "selector" -> ".team-shortcuts",
+          "contextual" -> JsArray(
+            teams.map: team =>
+              Json.obj("name" -> team.name, "url" -> routes.Team.show(team.id).url, "iconKey" -> "group")
+          )
+        )
+      ):
         main(cls := "team-list page-menu")(
           menu("mine".some),
           div(cls := "page-menu__content box")(
-            h1(cls := "box__top")(trt.myTeams()),
+            h1(cls := "box__top")(
+              trt.myTeams(),
+              button(cls := "button button-empty team-shortcuts", iconTag(Icon.StarOutline))
+            ),
             standardFlash.map(div(cls := "box__pad")(_)),
             ctx.me.filter(me => Team.maxJoin(me) < teams.size).map { me =>
               flashMessage("failure"):
@@ -187,6 +199,16 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
 
     private def noTeam()(using Context) =
       tbody(tr(td(colspan := "2")(br, trt.noTeamFound())))
+
+  def events(content: Frag)(using Context) =
+    TeamPage(trt.upcomingTeamEvents.txt()):
+      main(cls := "team-events page-menu")(
+        menu("events".some),
+        div(cls := "page-menu__content box")(
+          h1(cls := "box__top")(trt.upcomingTeamEvents()),
+          content
+        )
+      )
 
   def members(team: Team, members: Paginator[lila.core.LightUser])(using Translate) =
     div(cls := "team-show__members")(

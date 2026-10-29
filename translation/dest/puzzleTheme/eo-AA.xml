@@ -47,6 +47,7 @@
   <string name="doubleCheckDescription">Ŝakanta per du ŝakpecoj samtempe, kiel rezulto de malkovrita atako, kie kaj la moviĝa ŝakpeco kaj la malvualita ŝakpeco ataki la reĝo de la kontraŭulo.</string>
   <string name="endgame">Finaĵo</string>
   <string name="endgameDescription">Taktiko dum la lasta fazo de la ludo.</string>
+  <string name="enPassant">Preterpasa kapto</string>
   <string name="exposedKing">Neprotektita reĝo</string>
   <string name="exposedKingDescription">Taktiko temas pri reĝo kun iometaj defendantoj ĉirkaŭ ĝin, ofte kondukanta al ŝakmato.</string>
   <string name="fork">Forko</string>

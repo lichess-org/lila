@@ -53,6 +53,7 @@
   <string name="doubleCheckDescription">Ταυτόχρονο σαχ από δύο κομμάτια, ως αποτέλεσμα αποκάλυψης: τόσο το κομμάτι που μετακινήθηκε όσο και το κομμάτι το οποίο αποκάλυψε απειλούν τον αντίπαλο βασιλιά.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Τακτικά στην τελευταία φάση της παρτίδας.</string>
+  <string name="enPassant">Εν διελεύσει</string>
   <string name="enPassantAdjacentCaptureDescription">Τακτική με «αν πασάν», όπου ένα πιόνι αιχμαλωτίζει το αντίπαλο πιόνι το οποίο έκανε την αρχική του κίνηση δύο τετραγώνων.</string>
   <string name="epauletteMate">Ματ των επωμίδων</string>
   <string name="epauletteMateDescription">Ένας βασιλιάς στην άκρη της σκακιέρας δέχεται σαχ και τα δύο γειτονικά τετράγωνα διαφυγής του είναι κατειλημμένα από φιλικά κομμάτια.</string>
@@ -135,7 +136,7 @@
   <string name="superGMDescription">Τακτικά από παρτίδες οι οποίες παίχτηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει την αιχμαλώτιση, καθώς έχει περιορισμένες κινήσεις.</string>
-  <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
+  <string name="underPromotion">Υποπροαγωγή</string>
   <string name="underPromotionDescription">Προαγωγή σε ίππο, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλο τακτικό</string>
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>

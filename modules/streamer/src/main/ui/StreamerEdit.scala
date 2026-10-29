@@ -4,8 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   import helpers.{ *, given }

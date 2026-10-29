@@ -19,4 +19,6 @@
   <string name="findSquare">ابحث عن المربع</string>
   <string name="nameSquare">سمِّ المربع</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">تدرب فقط علي بعض الأعمدة &amp; الصفوف</string>
+  <string name="enterTheCoordinate">أدخل الإحداثيات</string>
+  <string name="pressEnterToStart">اضغط على %s للبدء</string>
 </resources>

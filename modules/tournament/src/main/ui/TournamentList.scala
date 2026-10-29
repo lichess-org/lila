@@ -7,8 +7,7 @@ import scalalib.paginator.Paginator
 import lila.rating.PerfType
 import lila.tournament.Schedule.Freq
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     communityMenu: Context ?=> Frag,
@@ -150,11 +149,11 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
           frag(
             spot.iconImg
               .map { i =>
-                img(cls := "img", src := assetUrl(s"images/$i"))
+                img(cls := "img", src := assetPath(s"images/$i"))
               }
               .getOrElse {
                 spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
-                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+                  case Icon.Globe => img(cls := "img icon", src := assetPath(s"images/globe.svg"))
                   case i => iconTag(i)(cls := "img")
                 }
               },

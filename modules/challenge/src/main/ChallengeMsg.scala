@@ -12,11 +12,12 @@ final class ChallengeMsg(msgApi: lila.core.msg.MsgApi)(using Executor):
       managedById: UserId,
       template: Option[Template]
   ): Funit =
-    List(users, users.swap)
-      .map(_.toPair)
-      .sequentiallyVoid { (u1, u2) =>
-        sendGameMessage(gameId, u1, u2, managedById, template)
-      }
+    if template.exists(_.value.toLowerCase.contains("{nomessage}")) then funit
+    else
+      List(users, users.swap)
+        .map(_.toPair)
+        .sequentiallyVoid: (u1, u2) =>
+          sendGameMessage(gameId, u1, u2, managedById, template)
 
   private def sendGameMessage(
       gameId: GameId,

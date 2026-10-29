@@ -42,6 +42,7 @@
   <string name="doubleCheckDescription">ერთდროული დარტყმა მეფეზე ორი ფიგურით , ერთი მოძრაობს და აცხადებს პირდაპირ ქიშს , ამავდროულად იხსნება უკან მდგომი შორსმსროლელი ფიგურაც.</string>
   <string name="endgame">ენდშპილი, დაბოლოება</string>
   <string name="endgameDescription">ტაქტიკა პარტიის ბოლო ფაზაში .</string>
+  <string name="enPassant">გავლით აყვანა</string>
   <string name="exposedKing">გაშიშვლებული მეფე</string>
   <string name="exposedKingDescription">დაუცველ ან არასაკმარისად დაცულ მეფეზე ხშირია შაშამათო შეტევა.</string>
   <string name="fork">ჩანგალი</string>

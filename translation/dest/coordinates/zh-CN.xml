@@ -19,4 +19,6 @@
   <string name="findSquare">寻找棋格</string>
   <string name="nameSquare">棋格坐标</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">仅练习特定横线与纵线</string>
+  <string name="enterTheCoordinate">输入坐标</string>
+  <string name="pressEnterToStart">按 %s 开始</string>
 </resources>

@@ -125,6 +125,7 @@
 بۆ بەردەوام بوون هەرجوڵەیەک بێت بیکە.</string>
   <string name="boardSetupComplete">پیرۆزە، تۆ ئێستا دەزانیت چۆن تەختەی شەترەنج رێکبخەی.</string>
   <string name="castling">کاستڵینگ</string>
+  <string name="enPassant">ئانپاسانت</string>
   <string name="theSpecialKingMove">جوڵەیەکی تایبەتی پاشا</string>
   <string name="castlingIntro">پاشاکەت بهێنە بۆ شوێنێکی سەلامەت، و قەڵاکەت بۆ هێرش بڵاوەپێبکە!</string>
   <string name="castleKingSide">پاشاکە دوو خانە بجوڵێنە تا کاستڵینگ بکەی لە لای پاشاکەت!</string>

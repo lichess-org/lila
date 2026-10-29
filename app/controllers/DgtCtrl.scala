@@ -26,7 +26,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
             ),
             isStudent = false
           ) >>
-            env.pref.api.saveTag(me, _.dgt, true)
+            env.pref.api.setDgt(me)
         .inject(Redirect(routes.DgtCtrl.config))
   }
 
@@ -34,7 +34,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     findToken.flatMap:
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
-        if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
+        if !ctx.pref.hasDgt then env.pref.api.setDgt(me)
         Ok.page(views.dgt.play(t.plain.value))
   }
 

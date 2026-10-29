@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="voiceCommands">Ovozli buyruqlar</string>
-  <string name="watchTheVideoTutorial">Video yoʻriqnomani koʻrish</string>
-  <string name="instructions1">Ovozni aniqlashni yoqish yoki oʻchirish uchun %1$s tugmasini bosing; ushbu yordam oynasini ochish uchun %2$s tugmasini bosing; nutq sozlamalarini oʻzgartirish uchun esa %3$s tugmasini bosing.</string>
-  <string name="instructions2">Qaysi yurish ekanligi aniq boʻlmasa, bir nechta strelkalar chiqadi. Kerakli yurishni tanlash uchun tegishli koʻrsatkichning rangi yoki raqamini ayting.</string>
-  <string name="instructions3">Agar strelkada radar aylanayotgan boʻlsa, doira toʻlishi bilan oʻsha yurish amalga oshadi. Bu vaqt ichida yurishni darhol bajarish uchun %1$s, bekorqilish uchun %2$s deb ayting yoki boshqa strelkaning rangi/raqamini ayting. Bu taymerni sozlamalarda oʻzgartirish yoki oʻchirib qoʻyish mumkin.</string>
-  <string name="instructions4">Shovqinli joylarda %s funksiyasini yoqing. Bu funksiya yoniq boʻlganda, buyruqlarni aytish vaqtida \"Shift\" tugmasini bosib turing.</string>
-  <string name="instructions5">Vertikallarni (a–h) aniqroq tanib olish uchun fonetik alifbodan foydalaning. </string>
-  <string name="instructions6">Ovozli yurish sozlamalari haqida batafsil maʼlumot %s berilgan.</string>
-  <string name="thisBlogPost">ushbu blogpostda</string>
-  <string name="moveToE4OrSelectE4Piece">e4 katagiga yurish yoki e4 dagi donani tanlash</string>
-  <string name="selectOrCaptureABishop">Filni tanlash yoki filni urib olish</string>
-  <string name="takeRookWithQueen">Farzin bilan ruxni urib olish</string>
+  <string name="watchTheVideoTutorial">Video yöriqnomani köriş</string>
+  <string name="instructions1">Ovozni aniqlaşni yoqiş yoki öçiriş uçun %1$s tugmasini bosing; uşbu yordam oynasini oçiş uçun %2$s tugmasini bosing; nutq sozlamalarini özgartiriş uçun esa %3$s tugmasini bosing.</string>
+  <string name="instructions2">Qaysi yuriş ekanligi aniq bölmasa, bir neçta strelkalar çiqadi. Kerakli yurişni tanlaş uçun tegişli körsatkiçning rangi yoki raqamini ayting.</string>
+  <string name="instructions3">Agar strelkada radar aylanayotgan bölsa, doira tölişi bilan öşa yuriş amalga oşadi. Bu vaqt içida yurişni darhol bajariş uçun %1$s, bekorqiliş uçun %2$s deb ayting yoki boşqa strelkaning rangi/raqamini ayting. Bu taymerni sozlamalarda özgartiriş yoki öçirib qöyiş mumkin.</string>
+  <string name="instructions4">Şovqinli joylarda %s funksiyasini yoqing. Bu funksiya yoniq bölganda, buyruqlarni aytiş vaqtida \"Şift\" tugmasini bosib turing.</string>
+  <string name="instructions5">Vertikallarni (a–h) aniqroq tanib oliş uçun fonetik alifbodan foydalaning. </string>
+  <string name="instructions6">Ovozli yuriş sozlamalari haqida batafsil maʼlumot %s berilgan.</string>
+  <string name="thisBlogPost">uşbu blogpostda</string>
+  <string name="moveToE4OrSelectE4Piece">e4 katagiga yuriş yoki e4 dagi donani tanlaş</string>
+  <string name="selectOrCaptureABishop">Filni tanlaş yoki filni urib oliş</string>
+  <string name="takeRookWithQueen">Farzin bilan ruxni urib oliş</string>
   <string name="castle">Rokirovka (qisqa yoki uzun)</string>
-  <string name="phoneticAlphabetIsBest">Fonetik alifbodan foydalanish eng ishonchli usuldir</string>
-  <string name="cancelTimerOrDenyARequest">Taymerni toʻxtatish yoki soʻrovni rad etish</string>
-  <string name="playPreferredMoveOrConfirmSomething">Tanlangan yurishni bajarish yoki amalni tasdiqlash</string>
-  <string name="sleep">Kutish rejimi (agar faollashtiruvchi soʻz yoqilgan boʻlsa)</string>
-  <string name="turnOffVoiceRecognition">Ovozni aniqlashni oʻchirish</string>
-  <string name="showPuzzleSolution">Masala yechimini koʻrsatish</string>
+  <string name="phoneticAlphabetIsBest">Fonetik alifbodan foydalaniş eng işonçli usuldir</string>
+  <string name="cancelTimerOrDenyARequest">Taymerni töxtatiş yoki sörovni rad etiş</string>
+  <string name="playPreferredMoveOrConfirmSomething">Tanlangan yurişni bajariş yoki amalni tasdiqlaş</string>
+  <string name="sleep">Kutiş rejimi (agar faollaştiruvçi söz yoqilgan bölsa)</string>
+  <string name="showPuzzleSolution">Masala yeçimini körsatiş</string>
+  <string name="voiceHelp">Ovoz yordami</string>
+  <string name="voiceSettings">Ovoz sozlamalari</string>
+  <string name="pushShiftKeyToTalk">Gapiriş uçun %s tugmasini bosing</string>
+  <string name="holdShiftKeyWhileSpeaking">Gapirayotganda “Şift” tugmasini bosib turing</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Heç narsa tanlanmadi</string>
 </resources>

@@ -39,5 +39,5 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.core.user.JsonVi
     case RequestWithUser(req, user) =>
       Json.obj(
         "request" -> req,
-        "user" -> userJson.full(user.user, user.perfs.some, withProfile = false)
+        "user" -> userJson.full(user.user, user.perfs.some, withProfile = false)(using none)
       )

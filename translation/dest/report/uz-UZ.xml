@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Muammo nimada?</string>
+  <string name="cheat">Çiting</string>
+  <string name="troll">Troll</string>
+  <string name="reportStall">Vaqtni çöziş / Öyinni tark etiş</string>
+  <string name="reportBoost">Reytingni soxtalaştiriş / Kelişilgan öyinlar</string>
+  <string name="reportVerbalAbuse">Oğzaki haqorat / Sökiniş / Trolling</string>
+  <string name="reportViolence">Zöravonlik / Döq-pöpisa</string>
+  <string name="reportHarass">Haqoratlaş / Tazyiq ötkaziş / Taʼqib qiliş</string>
+  <string name="reportSelfHarm">Öz joniga qasd qiliş / Öz-öziga jarohat yetkaziş</string>
+  <string name="reportHate">Nafratli sözlar / Seksizm</string>
+  <string name="reportSpam">Spam</string>
+  <string name="readMoreAboutLichessReports">Lichess şikoyatlari haqida köproq bilib oling</string>
+  <string name="reportMaximumCharacters">Maksimum: 3000 ta belgi.</string>
+  <string name="reportCheatBoostHelp">Öyin(lar) havolasini joylaştiring va bu foydalanuvçining xatti‑harakatlarida nima notöğri ekanligini tuşuntiring. Şunçaki “ğirromlik qilyapti” deb çeklanib qolmay, qanday qilib bu xulosaga kelganingizni aytib bering.</string>
+  <string name="reportUsernameHelp">Uşbu foydalanuvçi nomi nima uçun haqoratli ekanligini tuşuntiring. Şunçaki “bu haqoratomuz/noörin” deb qöya qolmasdan, nima sababdan bunday deb öylaşingizni asoslab bering. Ayniqsa, haqorat yaşirin bölsa, ingliz tilida bölmasa, jargon (sleng) bölsa yoki tarixiy/madaniy mazmunga ega bölsa.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Agar şikoyatingizni ingliz tilida yozsangiz, uni tezroq körib çiqa olamiz.</string>
+  <string name="provideOneCheatedGameLink">Iltimos kamida bitta öyinga havolani keltiring.</string>
+</resources>

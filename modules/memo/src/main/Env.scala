@@ -6,8 +6,8 @@ import play.api.{ ConfigLoader, Configuration }
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.given
 import lila.core.config.*
-import lila.core.id.ImageId
 import lila.core.data.Url
+import lila.core.id.ImageId
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
@@ -29,7 +29,7 @@ final class Env(
     net: NetConfig
 )(using Executor, Scheduler, play.api.Mode):
 
-  export net.{ domain, assetDomain }
+  given NetDomain = net.domain
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   given ConfigLoader[CloudflareConfig] = AutoConfig.loader

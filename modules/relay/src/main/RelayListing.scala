@@ -1,10 +1,11 @@
 package lila.relay
 
 import monocle.syntax.all.*
+
 import java.time.temporal.ChronoUnit
 
-import lila.memo.CacheApi.buildAsyncTimeout
 import lila.db.dsl.*
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.mon.extensions.*
 
 private final class RelayListing(

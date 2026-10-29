@@ -22,9 +22,9 @@ export function promote(ground: CgApi, key: Key, role: Role) {
 }
 
 export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
-  const d = ctrl.data,
-    pref = d.pref,
-    opts = ctrl.makeCgOpts();
+  const d = ctrl.data;
+  const pref = d.pref;
+  const opts = ctrl.makeCgOpts();
   const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,

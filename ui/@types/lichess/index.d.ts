@@ -19,10 +19,9 @@ interface Site {
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
     fideFedSrc(fideFed: FideFed): string;
-    loadCss(href: string, key?: string): Promise<void>;
-    loadCssPath(key: string): Promise<void>;
-    removeCss(href: string): void;
-    removeCssPath(key: string): void;
+    loadCss(loc: CssLocation): Promise<void>;
+    releaseCss(loc: CssLocation): void;
+    removeCss(loc: CssLocation): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
@@ -62,7 +61,8 @@ type Flair = string;
 type FideFed = string;
 type PatronColor = number;
 type Redraw = () => void;
-type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
+type RedirectTo = string | RedirectToObj;
+type RedirectToObj = { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -114,8 +114,7 @@ interface SoundI {
   setVoice(v: { name: string; lang: string }): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
-  sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
-  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): void;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
   sayOrPlay(name: string, text: string, cut?: boolean): void;
   preloadBoardSounds(): void;
@@ -132,8 +131,9 @@ interface Cookie {
   maxAge: number;
 }
 
+type CssLocation = { href: string; key?: string } | { key: string };
+
 interface AssetUrlOpts {
-  documentOrigin?: boolean;
   pathOnly?: boolean;
   pathVersion?: true | string;
 }
@@ -230,6 +230,7 @@ type Minutes = number;
 type Seconds = number;
 type Centis = number;
 type Millis = number;
+type Percentage = number;
 
 type ByColor<T> = Record<Color, T>;
 

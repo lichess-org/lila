@@ -6,7 +6,7 @@ import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
+import { snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -33,7 +33,6 @@ export interface ExplorerConfigData {
   mode: Prop<ExplorerMode[]>;
   byDbData: ByDbSettings;
   playerName: {
-    open: Prop<boolean>;
     value: StoredProp<string>;
     previous: Prop<string[]>;
   };
@@ -74,7 +73,6 @@ export class ExplorerConfigCtrl {
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
-        open: prevData?.playerName.open || prop(false),
         value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
@@ -163,7 +161,6 @@ const selectText = 'Select a Lichess player';
 const playerDb = (ctrl: ExplorerConfigCtrl) => {
   const name = ctrl.data.playerName.value();
   return h('div.player-db', [
-    ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
       h('label', i18n.site.player),
       h('div', [
@@ -172,7 +169,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
           h(
             `button.player-name${name ? '.active' : ''}`,
             {
-              hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
+              hook: bind('click', () => playerModal(ctrl)),
               attrs: name ? { title: selectText } : undefined,
             },
             name || selectText,
@@ -312,11 +309,6 @@ const monthSection = (ctrl: ExplorerConfigCtrl) => {
 };
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  let dlg: Dialog;
-  const onSelect = (name?: string) => {
-    ctrl.selectPlayer(name);
-    dlg.close();
-  };
   const nameToOptionalColor = (name?: string) => {
     if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
@@ -325,51 +317,56 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
   };
 
   return snabDialog({
+    closeButton: true,
     class: 'explorer__config__player__choice',
-    onClose() {
-      ctrl.data.playerName.open(false);
-      ctrl.root.redraw();
-    },
-    onInsert: dialog => (dlg = dialog).show(),
+    show: true,
     modal: true,
+    noScrollable: true,
     easyClose: 'clickOutside',
-    vnodes: [
-      h('h2', 'Personal opening explorer'),
-      h('div.input-wrapper', [
-        h('input', {
-          attrs: {
-            placeholder: i18n.study.searchByUsername,
-            spellcheck: 'false',
-          },
-          hook: onInsert<HTMLInputElement>(input =>
-            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
-          ),
-        }),
-      ]),
-      h(
-        'div.previous',
-        [
-          ...new Set([
-            ...(ctrl.myName ? [ctrl.myName] : []),
-            ...ctrl.participants,
-            ...ctrl.data.playerName.previous(),
-          ]),
-        ].map(name =>
-          h('div', { key: name }, [
-            h(
-              `button.button${nameToOptionalColor(name)}`,
-              { hook: bind('click', () => onSelect(name)) },
-              name,
+    render: (redraw, dlg) => {
+      const onSelect = (name?: string) => {
+        ctrl.selectPlayer(name);
+        ctrl.root.redraw();
+        dlg.close();
+      };
+      return [
+        h('h2', 'Personal opening explorer'),
+        h('div.input-wrapper', [
+          h('input', {
+            attrs: {
+              placeholder: i18n.study.searchByUsername,
+              spellcheck: 'false',
+            },
+            hook: onInsert<HTMLInputElement>(input =>
+              userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
             ),
-            name && ctrl.data.playerName.previous().includes(name)
-              ? h('button.remove', {
-                  attrs: dataIcon(licon.X),
-                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                })
-              : null,
-          ]),
+          }),
+        ]),
+        h(
+          'div.previous',
+          [
+            ...new Set([
+              ...(ctrl.myName ? [ctrl.myName] : []),
+              ...ctrl.participants,
+              ...ctrl.data.playerName.previous(),
+            ]),
+          ].map(name =>
+            h('div', { key: name }, [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                { hook: bind('click', () => onSelect(name)) },
+                name,
+              ),
+              name && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: dataIcon(licon.X),
+                    hook: bind('click', () => ctrl.removePlayer(name), redraw),
+                  })
+                : null,
+            ]),
+          ),
         ),
-      ),
-    ],
+      ];
+    },
   });
 };

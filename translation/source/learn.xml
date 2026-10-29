@@ -132,6 +132,7 @@ Right next to his queen.</string>
 Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">Castling</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">The special king move</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares

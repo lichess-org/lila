@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
 import lila.plan.{
   CustomerInfo,
   Freq,
@@ -16,7 +17,6 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
-import lila.common.HTTPRequest
 
 final class Plan(env: Env) extends LilaController(env):
 
@@ -166,7 +166,7 @@ final class Plan(env: Env) extends LilaController(env):
   )(using Context, Me) =
     env.plan.api.stripe
       .createSession(checkout, customerId, giftTo)
-      .fold(badStripeApiCall, JsonOk)
+      .fold(badStripeApiCall, Ok(_))
 
   def switchStripePlan(money: Money)(using me: Me) =
     env.plan.api
@@ -228,7 +228,7 @@ final class Plan(env: Env) extends LilaController(env):
                     routeUrl(routes.Plan.updatePaymentCallback).map(_ + "?session={CHECKOUT_SESSION_ID}")
                 )
               )
-              .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
+              .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))))
               .recover(badStripeApiCall)
           }
   }
@@ -259,13 +259,13 @@ final class Plan(env: Env) extends LilaController(env):
               env.plan.api.payPal
                 .createSubscription(checkout, me)
                 .map: sub =>
-                  JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+                  Ok(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
             else
               for
                 gifted <- checkout.giftTo.filterNot(ctx.is(_)).so(env.user.repo.enabledById)
                 // customer <- env.plan.api.userCustomer(me)
                 order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
-              yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+              yield Ok(Json.obj("order" -> Json.obj("id" -> order.id.value)))
         )
       }
   }

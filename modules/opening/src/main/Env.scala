@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.memo.CacheApi
-import lila.core.config.{ CollName, Secret }
 import lila.common.config.given
+import lila.core.config.{ CollName, NetDomain, RateLimit, Secret }
+import lila.memo.CacheApi
 
 @Module
 final class Env(
@@ -17,7 +17,7 @@ final class Env(
     appConfig: Configuration,
     cookieBaker: lila.core.security.LilaCookie,
     ws: StandaloneWSClient
-)(using Executor, lila.core.config.RateLimit):
+)(using Executor, NetDomain, RateLimit):
 
   private val explorerEndpoint = Url(appConfig.get[String]("explorer.internal_endpoint"))
   private val oauthToken = appConfig.get[Secret]("explorer.oauth_token")

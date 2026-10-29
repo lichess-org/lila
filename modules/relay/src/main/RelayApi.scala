@@ -1,7 +1,7 @@
 package lila.relay
 
-import org.apache.pekko.stream.scaladsl.*
 import alleycats.Zero
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
@@ -12,6 +12,8 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.{ Sync, WithTour }
 import lila.study.{
+  Chapter,
+  ChapterPreviewApi,
   Settings,
   Study,
   StudyApi,
@@ -20,9 +22,7 @@ import lila.study.{
   StudyMember,
   StudyMembers,
   StudyRepo,
-  StudyTopic,
-  Chapter,
-  ChapterPreviewApi
+  StudyTopic
 }
 
 final class RelayApi(
@@ -613,14 +613,14 @@ final class RelayApi(
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one(bid(studyId.into(RelayRoundId))).void
 
-  def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
+  def becomeStudyAdmin(studyId: StudyId)(using MyId): Funit =
     roundRepo
       .tourIdByStudyId(studyId)
       .flatMapz: tourId =>
         roundRepo
           .studyIdsOf(tourId)
           .flatMap:
-            _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
+            _.sequentiallyVoid(studyApi.becomeAdmin)
 
   private[relay] def setOwnerOfGroupOrTour(anyId: String, userId: UserId): Fu[List[RelayTourId]] =
     for

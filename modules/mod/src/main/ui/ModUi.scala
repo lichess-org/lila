@@ -5,11 +5,9 @@ import play.api.data.Form
 
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
-import lila.ui.*
-
 import lila.report.Mod
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ModUi(helpers: Helpers):
   import helpers.{ *, given }

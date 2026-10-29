@@ -2,8 +2,7 @@ package lila.ublog
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   import helpers.{ *, given }
@@ -20,7 +19,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       isInCarousel: Boolean
   )(using ctx: Context) =
     val imageUrl = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large))
-    Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
+    Page(s"${post.title} • ${trans.ublog.xBlog.txt(user.username)}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
       .graph:
@@ -33,13 +32,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         )
       .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
       .preloadImage(imageUrl)(helpers)
-      .copy(atomLinkTag =
-        link(
-          href := routes.Ublog.userAtom(user.username),
-          st.title := trans.ublog.xBlog.txt(user.username)
-        ).some
-      )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), trans.ublog.xBlog.txt(user.username)).some)
+      .flag(_.noRobots, !blog.crawlable || !post.crawlable)
       .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
@@ -64,7 +58,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               )(userLinkContent(user)),
               iconTag(Icon.InfoCircle)(
                 cls := "ublog-post__meta__disclaimer",
-                st.title := "Opinions expressed by Lichess contributors are their own."
+                st.title := trans.ublog.opinionsExpressedByContributorsAreTheirOwn.txt()
               ),
               post.lived.map: live =>
                 span(cls := "ublog-post__meta__date")(semanticDate(live.at)),
@@ -85,25 +79,27 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 editButton(post)
               else if !post.live then badTag(trans.ublog.thisIsADraft())
               else
-                a(
-                  titleOrText(trans.site.reportXToModerators.txt(user.username)),
-                  cls := "button button-empty ublog-post__meta__report",
-                  href := addQueryParams(
-                    routes.Report.form.url,
-                    Map(
-                      "username" -> user.username.value,
-                      "postUrl" -> routeUrl(ui.urlOfPost(post)).value,
-                      "from" -> "ublog"
-                    )
-                  ),
-                  dataIcon := Icon.CautionTriangle
-                )
+                (!UserId.isOfficial(user)).option:
+                  a(
+                    titleOrText(trans.site.reportXToModerators.txt(user.username)),
+                    cls := "button button-empty ublog-post__meta__report",
+                    href := addQueryParams(
+                      routes.Report.form.url,
+                      Map(
+                        "username" -> user.username.value,
+                        "postUrl" -> routeUrl(ui.urlOfPost(post)).value,
+                        "from" -> "ublog"
+                      )
+                    ),
+                    dataIcon := Icon.CautionTriangle
+                  )
               ,
               langList.nameByLanguage(post.language)
             ),
             div(cls := "ublog-post__topics")(
               post.topics.map: topic =>
-                a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
+                a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1)):
+                  topic.i18nKey()
             ),
             (~post.ads).option(
               div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
@@ -134,7 +130,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               ),
               (others.length > 0).option(
                 div(
-                  h2("You may also like"),
+                  h2(trans.ublog.youMayAlsoLike()),
                   div(cls := "ublog-post-cards")(
                     others.map:
                       ui.card(_, showAuthor = ui.ShowAt.top, showIntro = true)
@@ -192,7 +188,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       div(
         div(
           span(cls := "btn-rack")(
-            lila.core.ublog.Quality.values.map: q =>
+            UblogPost.Quality.values.map: q =>
               button(
                 cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
                 value := q.name
@@ -232,13 +228,3 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         span("Flagged", input(id := "flagged", value := ~post.automod.flatMap(_.flagged)))
       )
     )
-
-  def markdownForAgents(post: UblogPost): String =
-    s"""---
-title: ${post.title}
-description: ${post.intro}
-image: ${ui.thumbnailUrl(post, _.Size.Large)}
----
-
-${post.markdown}
-"""

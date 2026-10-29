@@ -40,12 +40,13 @@ object home:
             .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
             .add("playban", playban.map(lila.playban.TempBan.lobbyJson))
+            .add("lobbyShortcuts", ctx.pref.lobbyShortcuts)
         )
       )
       .css("lobby")
       .graph(
         OpenGraph(
-          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          image = assetFullUrl("logo/lichess-tile-wide.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl.into(Url),
           description = trans.site.siteDescription.txt()
@@ -149,7 +150,7 @@ object home:
             a(href := routes.Cms.tos)(trans.site.termsOfService()),
             a(href := "/privacy")(trans.site.privacy()),
             a(href := "/source")(trans.site.sourceCode()),
-            a(href := "/ads")("Ads"),
+            a(href := "/ads")(trans.site.blockAds()),
             views.bits.connectLinks
           )
         )

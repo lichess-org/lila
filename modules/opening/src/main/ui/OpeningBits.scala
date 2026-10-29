@@ -1,9 +1,10 @@
 package lila.opening
 package ui
 
-import scala.util.{ Failure, Success }
 import chess.opening.{ Opening, OpeningKey }
 import play.api.libs.json.*
+
+import scala.util.{ Failure, Success }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -141,6 +142,26 @@ final class OpeningBits(helpers: Helpers):
         li(a(href := openingUrl(op))(op.name), " ", op.pgn)
     )
   )
+
+  private def checkboxes[V](
+      field: play.api.data.Field,
+      options: Iterable[(V, String)],
+      checked: Set[V],
+      prefix: String = "op"
+  ) = st.group(cls := "radio"):
+    options.map { v =>
+      val id = s"${field.id}_${v._1}"
+      div(
+        st.input(
+          st.id := s"$prefix$id",
+          checked(v._1).option(st.checked),
+          tpe := "checkbox",
+          value := v._1.toString,
+          name := s"${field.name}[]"
+        ),
+        label(`for` := s"$prefix$id")(v._2)
+      )
+    }.toList
 
   private def exaggerateResults(result: ResultCounts) =
     import result.*

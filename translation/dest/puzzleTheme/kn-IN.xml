@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">ಚಲಿಸುವ ತುಂಡು ಮತ್ತು ಅನಾವರಣಗೊಂಡ ತುಂಡು ಎರಡೂ ಎದುರಾಳಿಯ ರಾಜನ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಪತ್ತೆಯಾದ ದಾಳಿಯ ಪರಿಣಾಮವಾಗಿ ಎರಡು ತುಣುಕುಗಳೊಂದಿಗೆ ಏಕಕಾಲದಲ್ಲಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="endgame">ಎಂಡ್‌ಗೇಮ್</string>
   <string name="endgameDescription">ಆಟದ ಕೊನೆಯ ಹಂತದಲ್ಲಿ ಒಂದು ತಂತ್ರ.</string>
+  <string name="enPassant">ಎನ್ ಪಾಸಂಟ್</string>
   <string name="exposedKing">ಬಹಿರಂಗ ರಾಜ</string>
   <string name="exposedKingDescription">ಅದರ ಸುತ್ತಲೂ ಕೆಲವು ರಕ್ಷಕರನ್ನು ಹೊಂದಿರುವ ರಾಜನನ್ನು ಒಳಗೊಂಡ ತಂತ್ರವು ಆಗಾಗ್ಗೆ ಚೆಕ್‌ಮೇಟ್‌ಗೆ ಕಾರಣವಾಗುತ್ತದೆ.</string>
   <string name="fork">ಫೋರ್ಕ್</string>

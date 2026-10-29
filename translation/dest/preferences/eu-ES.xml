@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
+  <string name="multipleChoices">Aukera anitzak. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Partida baten zehar taularen menua erabiliz desaktibatu daiteke</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>
@@ -72,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
-  <string name="showServerAnalysis">Erakutsi zerbitzariaren analisia</string>
+  <string name="showMainlineAnalysis">Erakutsi linea nagusiaren analisia</string>
   <string name="showBestMoveArrows">Erakutsi jokaldi onenen geziak</string>
   <string name="showManeuverArrows">Erakutsi maniobren geziak</string>
   <string name="showGauge">Erakutsi ebaluazioaren langa</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Analisiaren aukerak</string>
   <string name="maneuverArrowsHelp">Pieza batentzat motorearen joladi segida</string>
   <string name="hoverOverSettingLabelsForHelp">Jarri etiketen gainean ezarpenen laguntza lortzeko</string>
+  <string name="network">Sarea</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Bideratze zuzena erabiltzen ari zara.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">CDN bidezko bideratzea erabiltzen ari zara.</string>
+  <string name="frequentDisconnectsAdvice">Sarri deskonektatzen bazara, saiatu bideratzea aldatzen.</string>
+  <string name="useDirectRouting">Erabili zuzeneko bideratzea</string>
+  <string name="useCdnRouting">Erabili CDN bidezko bideratzea</string>
 </resources>

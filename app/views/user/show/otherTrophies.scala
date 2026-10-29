@@ -31,7 +31,7 @@ object otherTrophies:
         a(
           cls := "revol_trophy combo-trophy",
           ariaTitle(s"${revol.variant.name} Revolution"),
-          href := routes.Tournament.show(revol.tourId)
+          href := s"${routes.Tournament.show(revol.tourId)}?player=${info.user.username}"
         )(revol.iconChar.toString)
       },
       info.trophies.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
@@ -41,7 +41,7 @@ object otherTrophies:
           ariaTitle(t.kind.name),
           style := "width: 65px; margin: 0 3px!important;"
         ):
-          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
+          img(src := assetPath(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
       },
       info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
         trophy.kind.icon.map: iconChar =>

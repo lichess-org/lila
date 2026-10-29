@@ -52,3 +52,7 @@ select:-webkit-autofill {
   -webkit-text-fill-color: $c-font;
   box-shadow: 0 0 0 1000px color-mix(in oklab, $c-secondary 10%, $c-bg) inset;
 }
+
+:where(html.dark) input {
+  color-scheme: dark light;
+}

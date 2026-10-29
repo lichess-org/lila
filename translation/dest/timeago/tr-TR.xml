@@ -2,12 +2,12 @@
 <resources>
   <string name="justNow">şu anda</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">%s saniyede</item>
-    <item quantity="other">%s saniyede</item>
+    <item quantity="one">%s saniye içinde</item>
+    <item quantity="other">%s saniye içinde</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">%s dakikada</item>
-    <item quantity="other">%s dakikada</item>
+    <item quantity="one">%s dakika içinde</item>
+    <item quantity="other">%s dakika içinde</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">%s saatte</item>

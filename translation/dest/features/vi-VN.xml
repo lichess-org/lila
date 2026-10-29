@@ -16,7 +16,7 @@
   <string name="personalOpeningExplorerX">%1$s (cũng hoạt động trên %2$s)</string>
   <string name="personalOpeningExplorer">Khám phá khai cuộc cá nhân</string>
   <string name="globalOpeningExplorerInNbGames">Khám phá khai cuộc toàn cầu (%s ván cờ!)</string>
-  <string name="endgameTablebase">Sách tàn cuộc 7 quân tối đa</string>
+  <string name="endgameTablebase">Bảng dữ liệu cờ tàn cuộc 7 quân</string>
   <string name="downloadOrUploadAnyGameAsPgn">Tải về/Tải lên bất kỳ ván cờ nào dưới dạng PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, diễn đàn, đội, TV, nhắn tin, bạn bè, thách đấu</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Chủ đề sáng/tối, bàn cờ, quân cờ và nền tùy chỉnh</string>

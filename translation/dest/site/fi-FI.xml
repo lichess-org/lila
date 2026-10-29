@@ -165,6 +165,7 @@
   <string name="flipBoard">Käännä lauta</string>
   <string name="toggleLocalEngine">Paikallinen tietokone päälle/pois</string>
   <string name="engineSettings">Tietokoneasetukset</string>
+  <string name="engine">Kone</string>
   <string name="enginesFromStrongestToWeakest">Tietokoneet vahvimmasta heikoimpaan</string>
   <string name="illegalPosition">Laiton asema</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
@@ -459,6 +460,8 @@
     <item quantity="one">%s kaveri paikalla</item>
     <item quantity="other">%s kaveria paikalla</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Kavereita paikalla: %1$s
+Kavereita pelaamassa: %2$s</string>
   <string name="favoriteOpponents">Suosikkivastustajat</string>
   <string name="follow">Seuraa</string>
   <string name="following">Seurataan</string>
@@ -526,7 +529,7 @@
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
-  <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
+  <string name="reportXToModerators">Tee %s:sta ilmoitus moderaattoreille</string>
   <string name="profileCompletion">Profiilia täytetty: %s</string>
   <string name="xRating">%s-vahvuusluku</string>
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
@@ -557,6 +560,11 @@
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
   <string name="onlineBots">Online-botit</string>
+  <string name="aboutBotsOnLichess">Tietoa boteista Lichessissä</string>
+  <string name="featuredBots">Botit näytteillä</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Kokeilepa pelata näitä innovatiivisia shakkitietokoneita vastaan! Ne ovat suosikkejamme.</string>
+  <string name="communityBots">Yhteisön botit</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lisää Lichess-yhteisön luomia shakkitietokoneita. Niiden luojat isännöivät niitä eivätkä ne välttämättä ole aina verkossa.</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
@@ -579,17 +587,15 @@
   <string name="postEdited">muokattu</string>
   <string name="message">Viesti</string>
   <string name="createTheTopic">Luo aihe</string>
-  <string name="reportAUser">Raportoi käyttäjä</string>
+  <string name="reportAUser">Ilmoita käyttäjä</string>
   <string name="user">Käyttäjä</string>
   <string name="reason">Syy</string>
-  <string name="whatIsIheMatter">Mikä hätänä?</string>
   <string name="cheat">Huijaus</string>
   <string name="troll">Trolli</string>
   <string name="other">Muu</string>
   <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
   <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Voimme käsitellä ilmoituksesi nopeammin, jos kirjoitat meille englanniksi.</string>
-  <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
   <string name="thisTopicIsNowClosed">Tämä aihe on nyt suljettu.</string>
@@ -604,6 +610,7 @@
   <string name="clearField">Tyhjennä kenttä</string>
   <string name="orSeparator">Tai</string>
   <string name="logInByEmail">Kirjaudu sisään sähköpostilla</string>
+  <string name="emailLoginInstructions">Lähetämme sähköpostiisi linkin, jolla voit kirjautua sisään.</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
@@ -628,6 +635,8 @@
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>
+  <string name="defeatOnly">Vain hävitessä</string>
+  <string name="drawAndDefeat">Häviöstä tai tasapelistä</string>
   <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
   <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
@@ -689,13 +698,16 @@
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
-  <string name="aboutX">Tietoa %s</string>
+  <string name="aboutX">Tietoa %sistä</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
+  <string name="lichessUpdates">Lichessin päivitykset</string>
   <string name="contribute">Osallistu</string>
+  <string name="changelog">Muutosloki</string>
   <string name="termsOfService">Käyttöehdot</string>
   <string name="titleVerification">Arvonimen vahvistaminen</string>
   <string name="sourceCode">Lähdekoodi</string>
+  <string name="blockAds">Mainostenesto</string>
   <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
@@ -775,7 +787,9 @@
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
+  <string name="downloadMyGames">Lataa pelini</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
+  <string name="downloadResults">Lataa tulokset</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>
@@ -795,12 +809,14 @@
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
+  <string name="activeSessionsDescription">Tämä on luettelo laitteista ja sovelluksista, jotka kytkeytyvät käyttäjätiliisi. Jos huomaat mitään epäilyttävää, varmista &lt;a href=\'%1$s\'&gt;palautussähköpostiosoitteesi oikeellisuus&lt;/a&gt; ja &lt;a href=\'%2$s\'&gt;vaihda salasanasi&lt;/a&gt;.</string>
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
   <string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
   <string name="noChallenges">Ei haasteita.</string>
+  <string name="browserNotificationsDenied">Ilmoitusponnahdusikkunat poistettu käytöstä selaimen asetuksella</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
@@ -1026,8 +1042,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
-  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla. Ilman anteliasta yhteisöämme emme pystyisi pitämään sivustoa yllä. Kiitos liittymisestä tukijoihimme!  </string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö sekä täysin vapaa ja avoimen lähdekoodin ohjelmisto. Riipumme käyttäjien lahjoituksista, joilla katamme käyttökustannukset, kehitystyön ja sivustosisällön. Ilman anteliasta yhteisöä sivusto ei pysyisi käynnissä. Kiitos kun liityt joukkoomme!</string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
   <string name="stats">Tilastot</string>
   <string name="accessibility">Saavutettavuus</string>
@@ -1045,4 +1060,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="verifyingYourDevice">Vahvistetaan laitettasi...</string>
   <string name="chessOpenings">Shakkiavaukset</string>
   <string name="boards">Laudat</string>
+  <string name="write">Kirjoita</string>
+  <string name="preview">Esikatsele</string>
+  <string name="done">Tehty</string>
 </resources>

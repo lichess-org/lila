@@ -20,7 +20,7 @@
   <string name="chat">Tán gẫu</string>
   <string name="resign">Đầu hàng</string>
   <string name="checkmate">Chiếu hết</string>
-  <string name="stalemate">Hết nước đi hợp lệ</string>
+  <string name="stalemate">Hết nước đi</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
@@ -160,6 +160,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="toggleLocalEngine">Bật/tắt công cụ cục bộ</string>
   <string name="engineSettings">Thiết đặt công cụ</string>
+  <string name="engine">Công cụ</string>
   <string name="enginesFromStrongestToWeakest">Các công cụ từ mạnh nhất đến yếu nhất</string>
   <string name="illegalPosition">Thế cờ không hợp lệ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
@@ -431,6 +432,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s bạn trực tuyến</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Bạn bè đang trực tuyến: %1$s
+Bạn bè đang chơi: %2$s</string>
   <string name="favoriteOpponents">Đối thủ yêu thích</string>
   <string name="follow">Theo dõi</string>
   <string name="following">Đang theo dõi</string>
@@ -473,7 +476,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="wins">Thắng</string>
   <string name="losses">Thua</string>
   <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
-  <string name="standByX">%s chờ nhé, đang xếp cặp đấu, chuẩn bị sẵn sàng!</string>
+  <string name="standByX">Hãy sẵn sàng, đang ghép cặp đấu, chuẩn bị chiến nhé %s!</string>
   <string name="pause">Tạm rút</string>
   <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>
@@ -526,6 +529,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
   <string name="onlineBots">Các Bot trực tuyến</string>
+  <string name="aboutBotsOnLichess">Thông tin về bot trên Lichess</string>
+  <string name="featuredBots">Các bot nổi bật</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Hãy thử chơi những bot cờ vua sáng tạo này! Chúng là những chương trình mà chúng tôi yêu thích nhất.</string>
+  <string name="communityBots">Các bot cộng đồng</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Thêm nhiều bot cờ vua khác được tạo ra bởi cộng đồng Lichess. Chúng được lưu trữ bởi chính những người tạo ra chúng và có thể không phải lúc nào cũng trực tuyến.</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
@@ -551,14 +559,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="reportAUser">Báo cáo một kỳ thủ</string>
   <string name="user">Kỳ thủ</string>
   <string name="reason">Lý do</string>
-  <string name="whatIsIheMatter">Có chuyện gì vậy?</string>
   <string name="cheat">Gian lận</string>
   <string name="troll">Chọc tức, chơi khăm</string>
   <string name="other">Khác</string>
   <string name="reportCheatBoostHelp">Dán đường dẫn đến (các) ván cờ và giải thích hành vi sai của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", nhưng hãy cho chúng tôi biết bạn đã đi đến kết luận này như thế nào.</string>
   <string name="reportUsernameHelp">Giải thích những gì về tên người dùng này là xúc phạm. Đừng chỉ nói \"nó gây khó chịu/không phù hợp\", nhưng hãy cho chúng tôi biết bạn đã đi đến kết luận này như thế nào, đặc biệt nếu sự xúc phạm bị che giấu, không phải bằng tiếng Anh, là tiếng lóng, hoặc là một tài liệu tham khảo lịch sử/văn hóa.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Chúng tôi có thể xử lý báo cáo của bạn nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
-  <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
   <string name="importedByX">Được nhập bởi %s</string>
   <string name="thisTopicIsNowClosed">Chủ đề này hiện đã bị đóng.</string>
@@ -573,6 +579,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clearField">Dọn sạch trường</string>
   <string name="orSeparator">Hoặc</string>
   <string name="logInByEmail">Đăng nhập bằng email</string>
+  <string name="emailLoginInstructions">Chúng tôi sẽ gửi cho bạn một email chứa đường dẫn để đăng nhập.</string>
   <string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
   <string name="currentPassword">Nhập mật khẩu hiện tại</string>
   <string name="newPassword">Nhập mật khẩu mới</string>
@@ -597,6 +604,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
+  <string name="defeatOnly">Chỉ khi thua</string>
+  <string name="drawAndDefeat">Chỉ khi hòa hoặc thua</string>
   <string name="xCompetesInY">%1$s thi đấu ở %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
@@ -658,10 +667,13 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
+  <string name="lichessUpdates">Cập nhật từ Lichess</string>
   <string name="contribute">Đóng góp</string>
+  <string name="changelog">Nhật kí thay đổi</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
   <string name="titleVerification">Xác nhận danh hiệu</string>
   <string name="sourceCode">Mã Nguồn</string>
+  <string name="blockAds">Chặn quảng cáo</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
   <string name="hostColorX">Màu quân của người chủ trì: %s</string>
@@ -686,7 +698,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu của bạn khi đấu với mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian cộng thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
-  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
+  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Tỉ lệ mất tốt trung bình (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
@@ -695,6 +707,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
+  <string name="keyShowOrHideCurrentVariation">ẩn/hiện thế cờ hiện tại</string>
   <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyPreviousBranch">Nhánh trước</string>
   <string name="keyNextBranch">Nhánh tiếp theo</string>
@@ -738,7 +751,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="downloadAnnotated">Tải về kèm chú thích</string>
   <string name="downloadRaw">Tải về bản thô</string>
   <string name="downloadImported">Tải về tệp đã được nhập</string>
+  <string name="downloadMyGames">Tải về các ván đấu của tôi</string>
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
+  <string name="downloadResults">Tải xuống kết quả</string>
   <string name="crosstable">Tổng điểm đối đầu</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>
@@ -758,12 +773,14 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>
   <string name="disableKidMode">Tắt chế độ Trẻ em</string>
   <string name="security">Bảo mật</string>
+  <string name="activeSessionsDescription">Đây là danh sách các thiết bị và ứng dụng đang đăng nhập vào tài khoản của bạn. Nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào, hãy &lt;a href=\'%1$s\'&gt;kiểm tra địa chỉ email khôi phục&lt;/a&gt; và &lt;a href=\'%2$s\'&gt;thay đổi mật khẩu&lt;/a&gt;.</string>
   <string name="sessions">Phiên</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người đều được sử dụng tất cả các tính năng hoàn toàn miễn phí</string>
   <string name="viewTheSolution">Xem đáp án</string>
   <string name="noChallenges">Không có lời thách đấu nào.</string>
+  <string name="browserNotificationsDenied">Thông báo bật lên đã bị vô hiệu bởi cài đặt của trình duyệt</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
@@ -984,8 +1001,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là phần mềm hoàn toàn miễn phí/mã nguồn mở.
-Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức từ thiện và hoàn toàn là phần mềm mã nguồn mở miễn phí. Chúng tôi phụ thuộc vào sự đóng góp của người dùng để hỗ trợ chi phí hoạt động, phát triển và nội dung. Nếu không có cộng đồng hào phóng của chúng ta, chúng tôi sẽ không thể duy trì hoạt động của trang web. Cảm ơn bạn đã tham gia cùng chúng tôi!</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
   <string name="accessibility">Hỗ trợ tiếp cận</string>
@@ -1001,4 +1017,9 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="settings">Cài đặt</string>
   <string name="verifyingYourDevice">Đang xác minh thiết bị của bạn...</string>
+  <string name="chessOpenings">Khai cuộc cờ vua</string>
+  <string name="boards">Các bàn đấu</string>
+  <string name="write">Soạn thảo</string>
+  <string name="preview">Xem trước</string>
+  <string name="done">Hoàn thành</string>
 </resources>

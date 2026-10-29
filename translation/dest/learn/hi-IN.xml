@@ -118,6 +118,7 @@ to speed things up!</string>
 जारी रखने के लिए कोई भी मोहरा चलाये</string>
   <string name="boardSetupComplete">बधाई हो अब आप जानते है शतरंज के मोहरे कैसे जमाये जाते है</string>
   <string name="castling">केस्लिंग</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">विशेष राजा कदम</string>
   <string name="castlingIntro">सुरक्षा के लिए अपने राजा लाओ, और हमले के लिए अपनी हड्डी तैनात!</string>
   <string name="castleKingSide">राजा को दो कदम बढ़ाये 

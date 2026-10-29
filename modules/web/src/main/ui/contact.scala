@@ -4,8 +4,7 @@ package ui
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.ForumCategId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object contact:
 
@@ -198,13 +197,13 @@ object contact:
               "error-page",
               errorPage(),
               frag(
-                p(reportErrorPage()),
+                p(reportTheBug()),
                 howToReportBugs
               )
             ),
             Leaf(
               "security",
-              "Security vulnerability",
+              securityVulnerability(),
               p(
                 "Please refer to our ",
                 a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
@@ -213,9 +212,9 @@ object contact:
             ),
             Leaf(
               "other-bug",
-              "Other bug",
+              otherBug(),
               frag(
-                p("If you found a new bug, you may report it:"),
+                p(reportTheBug()),
                 howToReportBugs
               )
             )

@@ -6,9 +6,9 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.Json.given
 import lila.core.lilaism.LilaInvalid
 import lila.tree.Node
-import lila.common.Json.given
 
 final class GifExport(
     ws: StandaloneWSClient,
@@ -62,7 +62,7 @@ final class GifExport(
             .obj("fen" -> node.fen.value)
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty.option(500)) // more delay for last frame
-            .add("glyph", showGlyphs.so(node.glyphs.move.map(_.symbol)))
+            .add("glyph", showGlyphs.so(node.glyphs.toBase.move.map(_.symbol)))
             .add("pockets", node.crazyData.map(_.pockets))
         )
       case _ => arr

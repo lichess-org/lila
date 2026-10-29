@@ -105,7 +105,6 @@ final class Dev(env: Env) extends LilaController(env):
       env.web.settings.prizeTournamentMakers
     ),
     "Limits" -> List(
-      env.web.settings.apiTimeline,
       env.web.settings.apiExplorerGamesPerSecond,
       env.recap.parallelismSetting,
       env.fishnet.openingBookDepth
@@ -128,7 +127,8 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.lichobileAnnounceApi.lichobileUpgrade
+      env.web.lichobileAnnounceApi.lichobileUpgrade,
+      env.web.lichobileDisables.setting
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

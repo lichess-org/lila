@@ -28,7 +28,7 @@ export function initModule(): VoskModule {
     recs.remove();
     voskClient = await createVoskClient({
       modelUrl: url,
-      workerUrl: site.asset.url('npm/vosk/vosk.worker.js', { documentOrigin: true }),
+      workerUrl: site.asset.url('npm/vosk/vosk.worker.js'),
       wasmUrl: site.asset.url('npm/vosk/vosk.wasm'),
       logLevel: LOG_LEVEL,
     });

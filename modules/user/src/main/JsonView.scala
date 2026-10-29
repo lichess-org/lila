@@ -5,8 +5,8 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
-import lila.core.user.{ LightPerf, PlayTime, Profile }
 import lila.core.rating.UserRankMap
+import lila.core.user.{ LightPerf, PlayTime, Profile }
 import lila.rating.UserPerfsExt.perfsList
 
 final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user.JsonView:
@@ -19,24 +19,32 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       perfs: Option[UserPerfs | KeyedPerf],
       withProfile: Boolean,
       rankMap: Option[UserRankMap] = None
-  ): JsObject =
+  )(using me: Option[Me]): JsObject =
     if u.enabled.no then disabled(u.light)
     else
       base(u, perfs, rankMap) ++ Json
         .obj("createdAt" -> u.createdAt)
-        .add(
+        .add:
           "profile" -> u.profile
             .ifTrue(withProfile)
-            .map(p => Json.toJsObject(p.filterTroll(u.marks.troll)).noNull)
-        )
+            .map(_.filterTroll(u.marks.troll && !me.exists(_.is(u))))
+            .map(p => Json.toJsObject(p).noNull)
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
-  def roundPlayer(u: User, perf: Option[KeyedPerf]) =
+  def lichobileInfo(u: LightUser) =
+    Json
+      .obj("id" -> u.id, "username" -> u.name)
+      .add("title" -> u.title)
+      .add("patron" -> u.isPatron)
+
+  def roundPlayer(u: User, perf: Option[KeyedPerf])(using Option[Me]) =
     if u.enabled.no then disabled(u.light)
     else base(u, perf).add("online" -> isOnline.exec(u.id))
 
-  def base(u: User, perfs: Option[UserPerfs | KeyedPerf], rankMap: Option[UserRankMap] = None) =
+  def base(u: User, perfs: Option[UserPerfs | KeyedPerf], rankMap: Option[UserRankMap] = None)(using
+      me: Option[Me]
+  ) =
     Json
       .obj(
         "id" -> u.id,
@@ -47,7 +55,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       )
       .add("title" -> u.title)
       .add("flair" -> u.flair)
-      .add("tosViolation" -> u.lame)
+      .add("tosViolation" -> (u.lame && !me.exists(_.is(u))))
       .add("patron" -> u.isPatron)
       .add("patronColor" -> u.patronAndColor.map(_.color))
       .add("verified" -> u.isVerified)

@@ -104,13 +104,10 @@ object PlayerAssessment:
         case _ => 15)
 
     lazy val alwaysHasAdvantage: Boolean =
-      !analysis.infos.exists { info =>
-        info.cp.fold(info.mate.fold(false) { a =>
-          a.signum == color.fold(-1, 1)
-        }) { cp =>
-          color.fold(cp.centipawns < -100, cp.centipawns > 100)
-        }
-      }
+      analysis.infos.forall:
+        _.eval
+          .pov(color)
+          .forall(_.fold(_.centipawns >= -100, _.positive, true))
 
     lazy val flags: PlayerFlags = PlayerFlags(
       suspiciousErrorRate,

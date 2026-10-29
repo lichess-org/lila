@@ -31,8 +31,9 @@ object Score:
       draw = res.isEmpty.so(1),
       rp = rp
     )
+  // povs are newest first, as in activities.Corres.end
   def make(povs: List[lila.core.game.LightPov]): Score =
-    povs.foldLeft(summon[Zero[Score]].zero):
+    povs.reverse.foldLeft(summon[Zero[Score]].zero):
       case (score, pov) if pov.game.finished =>
         score.plus(
           make(

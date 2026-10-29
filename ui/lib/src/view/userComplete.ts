@@ -31,7 +31,7 @@ export function userComplete(opts: UserCompleteOpts): void {
     render: (o: LightUserOnline) => renderUserEntry(o, opts.tag),
     populate: opts.populate || (r => r.name),
     onSelect: opts.onSelect,
-    regex: /^[a-z][\w-]{2,29}$/i,
+    regex: /^[a-z][\w-]{3,28}$/i,
   });
   if (opts.focus) setTimeout(() => opts.input.focus());
 }

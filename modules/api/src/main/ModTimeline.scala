@@ -1,14 +1,14 @@
 package lila.api
 
-import lila.mod.{ Modlog, ModlogApi }
-import lila.appeal.{ Appeal, AppealMsg, AppealApi }
-import lila.user.{ Note, NoteApi }
-import lila.report.{ Report, ReportApi }
-import lila.playban.{ TempBan, PlaybanApi }
-import lila.core.perm.{ Permission, Granter }
-import lila.core.userId.ModId
+import lila.appeal.{ Appeal, AppealApi, AppealMsg }
 import lila.core.id.ReportId
+import lila.core.perm.{ Granter, Permission }
 import lila.core.shutup.PublicLine
+import lila.core.userId.ModId
+import lila.mod.{ Modlog, ModlogApi }
+import lila.playban.{ PlaybanApi, TempBan }
+import lila.report.{ Report, ReportApi }
+import lila.user.{ Note, NoteApi }
 
 case class ModTimeline(
     user: User,

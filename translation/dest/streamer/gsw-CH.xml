@@ -7,14 +7,14 @@
   <string name="currentlyStreaming">Streamt grad: %s</string>
   <string name="lastStream">Letschte Stream %s</string>
   <string name="becomeStreamer">Wird en Lichess Streamer</string>
-  <string name="doYouHaveStream">Häsch du än Twitch- oder än YouTube-Kanal?</string>
-  <string name="hereWeGo">Los geht\'s!</string>
+  <string name="doYouHaveStream">Häsch du en Twitch- oder en YouTube Kanal?</string>
+  <string name="hereWeGo">Los gaht\'s!</string>
   <string name="allStreamers">Alli Streamer</string>
   <string name="editPage">Streamersite bearbeite</string>
   <string name="yourPage">Dini Streamersite</string>
-  <string name="downloadKit">Streamer-Packet abelade</string>
+  <string name="downloadKit">Streamer Packet abelade</string>
   <string name="xIsStreaming">%s streamt grad</string>
-  <string name="rules">Streaming-Reglä</string>
+  <string name="rules">Streaming Reglä</string>
   <string name="rule1">Füeg s\'Stichwort \"lichess.org\" i dim Streamtitel i und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
   <string name="rule2">Entfern s\'Stichwort, wänn du grad nöd Lichess-bezoge streamsch.</string>
   <string name="rule3">Lichess wird automatisch din Stream erkänne und folgendi Zuesatzdienscht aktiviere:</string>
@@ -25,9 +25,10 @@
   <string name="perk2">Wird ad Schpitze vu de Streamerlischte gsetzt.</string>
   <string name="perk3">Mälds dine Lichess-Follower.</string>
   <string name="perk4">Zeig din Stream i dine Schpiel, Turnier und Schtudie.</string>
-  <string name="approved">Din Stream isch gnehmigt wordä.</string>
-  <string name="pendingReview">Din Stream wird vo Moderatorä überprüäft.</string>
+  <string name="approved">Din Stream isch g\'nehmigt worde.</string>
+  <string name="pendingReview">Din Stream wird vo de Moderatore prüeft.</string>
   <string name="pleaseFillIn">Bitte füll dini Streamer-Informatione us und lad es Bild ufe.</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du bereit bisch, als Lichess Streamer a\'zeigt z\'werde, %s.</string>
   <string name="submitForReview">Zur Prüefig schicke</string>
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="pleaseAllow">Du muesch mit bis zu 72 Schtund Bearbeitigszit rächne, bis din Streamer-Badge und din Itrag genehmigt werded.</string>
@@ -42,10 +43,10 @@
   <string name="visibility">Sichtbar uf de Streamersite</string>
   <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
-  <string name="tellUsAboutTheStream">Verzell üs i eim Satz öppis über din Stream</string>
-  <string name="longDescription">Ausführliche Beschreibung</string>
+  <string name="tellUsAboutTheStream">Verzell eus öppis über din Stream; i eim Satz</string>
+  <string name="longDescription">Usfüehrlichi Beschribig</string>
   <string name="xStreamerPicture">%s Streamerbild</string>
-  <string name="changePicture">Ändere/Lösche dein Bild</string>
-  <string name="uploadPicture">Lade ein Bild hoch</string>
-  <string name="maxSize">Maximali Größi: %s</string>
+  <string name="changePicture">Dis Bild ändere/lösche</string>
+  <string name="uploadPicture">Lad es Bild ufe</string>
+  <string name="maxSize">Maximali Grössi: %s</string>
 </resources>

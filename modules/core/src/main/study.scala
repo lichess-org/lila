@@ -23,6 +23,7 @@ trait Study:
   def name: StudyName
   def ownerId: UserId
   def visibility: Visibility
+  def isPrivate = visibility == Visibility.`private`
 
 enum Visibility:
   case `private`, unlisted, public

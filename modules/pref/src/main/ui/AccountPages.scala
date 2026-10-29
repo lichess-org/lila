@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.security.TurnstilePublicConfig
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.security.TurnstilePublicConfig
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }
@@ -169,7 +169,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               half = true,
               help = fixedRealName.option("Publicly titled profiles cannot change their real name")
             ): field =>
-              form3.input(field)(fixedRealName.option(disabled))
+              form3.input(field)(fixedRealName.option(inertAttr))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>

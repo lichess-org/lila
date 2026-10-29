@@ -1,9 +1,9 @@
 package controllers
 
 import lila.app.*
-import lila.push.WebSubscription
-import lila.oauth.AccessToken
 import lila.common.HTTPRequest
+import lila.oauth.AccessToken
+import lila.push.WebSubscription
 
 final class Push(env: Env) extends LilaController(env):
 

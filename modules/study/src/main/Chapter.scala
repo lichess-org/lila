@@ -7,7 +7,7 @@ import chess.{ ByColor, Centis, Color, Ply }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.tree.{ Branch, Root, Clock }
+import lila.tree.{ Branch, Clock, Root }
 
 case class Chapter(
     @Key("_id") id: StudyChapterId,
@@ -146,7 +146,12 @@ object Chapter:
 
   def relayInit = Relay(UciPath.root, none, none)
 
-  case class ServerEval(path: UciPath, done: Boolean)
+  case class ServerEval(
+      path: UciPath,
+      done: Boolean,
+      fromGameId: Option[GameId] = None,
+      version: Option[Int] = 1.some // 1+ means chapter has "comp" hints to allow clean analysis merge
+  )
 
   type BothClocks = ByColor[Option[Centis]]
 

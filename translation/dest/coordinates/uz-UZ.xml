@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Koordinatalar</string>
-  <string name="coordinateTraining">Koordinatalarni mashq qilish</string>
-  <string name="averageScoreAsWhiteX">Oq donalarda oʻrtacha ball: %s</string>
-  <string name="averageScoreAsBlackX">Qora donalarda oʻrtacha ball: %s</string>
-  <string name="knowingTheChessBoard">Shaxmat taxtasi koordinatalarini bilish bir necha sabablarga koʻra juda muhim mahoratdir:</string>
-  <string name="mostChessCourses">Aksariyat shaxmat kurslari va mashqlari algebraik notatsiyadan keng foydalanadi.</string>
-  <string name="talkToYourChessFriends">Bu shaxmatdagi doʻstlaringiz bilan muloqot qilishni osonlashtiradi, chunki ikkingiz ham bitta \"shaxmat tilini\" tushunasiz.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Agar koordinatalarni tezda aniqlay olsangiz, oʻyinni samaraliroq tahlil qila olasiz.</string>
-  <string name="aCoordinateAppears">Taxtada koordinata paydo boʻladi va siz unga mos keladigan katakchani bosishingiz kerak.</string>
-  <string name="aSquareIsHighlightedExplanation">Taxtada biror katakcha rang bilan ajratiladi va siz uning koordinatasini kiritishingiz kerak (masalan, \"e4\").</string>
-  <string name="youHaveThirtySeconds">30 sekund ichida imkon qadar koʻp katakchalarni toʻgʻri toping!</string>
-  <string name="goAsLongAsYouWant">Xohlaganingizcha davom eting, vaqt cheklanmagan!</string>
-  <string name="showCoordinates">Koordinatalarni koʻrsatish</string>
-  <string name="showCoordsOnAllSquares">Har katakda koordinatani koʻrsatish</string>
-  <string name="showPieces">Donalarni koʻrsatish</string>
-  <string name="startTraining">Mashqni boshlash</string>
-  <string name="findSquare">Katakchani toping</string>
-  <string name="nameSquare">Katakchani nomlang</string>
-  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Faqat maʼlum vertikal va gorizontallar boʻyicha mashq qilish</string>
+  <string name="coordinateTraining">Koordinatalarni maşq qiliş</string>
+  <string name="averageScoreAsWhiteX">Oq donalarda örtaça ball: %s</string>
+  <string name="averageScoreAsBlackX">Qora donalarda örtaça ball: %s</string>
+  <string name="knowingTheChessBoard">Şaxmat taxtasi koordinatalarini biliş bir neça sabablarga köra juda muhim mahoratdir:</string>
+  <string name="mostChessCourses">Aksariyat şaxmat kurslari va maşqlari algebraik notatsiyadan keng foydalanadi.</string>
+  <string name="talkToYourChessFriends">Bu şaxmatdagi döstlaringiz bilan muloqot qilişni osonlaştiradi, çunki ikkingiz ham bitta \"şaxmat tilini\" tuşunasiz.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Agar koordinatalarni tezda aniqlay olsangiz, öyinni samaraliroq tahlil qila olasiz.</string>
+  <string name="aCoordinateAppears">Taxtada koordinata paydo böladi va siz unga mos keladigan katakçani bosişingiz kerak.</string>
+  <string name="aSquareIsHighlightedExplanation">Taxtada biror katakça rang bilan ajratiladi va siz uning koordinatasini kiritişingiz kerak (masalan, \"e4\").</string>
+  <string name="youHaveThirtySeconds">30 sekund içida imkon qadar köp katakçalarni töğri toping!</string>
+  <string name="goAsLongAsYouWant">Xohlaganingizça davom eting, vaqt çeklanmagan!</string>
+  <string name="showCoordinates">Koordinatalarni körsatiş</string>
+  <string name="showCoordsOnAllSquares">Har katakda koordinatani körsatiş</string>
+  <string name="showPieces">Donalarni körsatiş</string>
+  <string name="startTraining">Maşqni boşlaş</string>
+  <string name="findSquare">Katakçani toping</string>
+  <string name="nameSquare">Katakçani nomlang</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Faqat maʼlum vertikal va gorizontallar böyiça maşq qiliş</string>
+  <string name="enterTheCoordinate">Koordinatani kiriting</string>
+  <string name="pressEnterToStart">Boşlaş uçun %s tugmasini bosing</string>
 </resources>

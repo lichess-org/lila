@@ -29,6 +29,7 @@
   <string name="doubleCheck">Topelt tuli</string>
   <string name="endgame">Lõppmäng</string>
   <string name="endgameDescription">Taktika mängu viimases faasis.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Paljas kuningas</string>
   <string name="exposedKingDescription">Taktika seoses kuningaga kellel on vähe kaitsjaid enda ümber, lõpeb tihti mattiga.</string>
   <string name="fork">Kahvel</string>

@@ -32,6 +32,14 @@ class LpvGameRegexTest extends munit.FunSuite:
     assert(forumMatches("https://boo.org:8080/abcd1234/white", re.gamePgnRe))
   }
 
+  test("forum links match game prefix") {
+    assert(forumMatches("https://boo.org:8080/game/abcd1234", re.gamePgnRe))
+  }
+
+  test("forum links match game prefix color") {
+    assert(forumMatches("https://boo.org:8080/game/abcd1234/white", re.gamePgnRe))
+  }
+
   test("forum links fail relative") {
     assert(!forumMatches("/12345678/black#123", re.gamePgnRe))
   }
@@ -114,12 +122,24 @@ class LpvGameRegexTest extends munit.FunSuite:
     assert(forumMatch("boo.org:8080/abcd1234wxyz#44", re.gamePgnRe).has("abcd1234"))
   }
 
+  test("forum links extract game id with prefix") {
+    assert(forumMatch("https://boo.org:8080/game/abcd1234/black#12", re.gamePgnRe).has("abcd1234"))
+  }
+
   test("blog links match basic") {
     assert(blogMatches("https://boo.org:8080/abcdefgh", re.gamePgnRe))
   }
 
   test("blog links match no scheme") {
     assert(blogMatches("boo.org:8080/12345678/white#123", re.gamePgnRe))
+  }
+
+  test("blog links match game prefix") {
+    assert(blogMatches("boo.org:8080/game/12345678", re.gamePgnRe))
+  }
+
+  test("blog links match game prefix color") {
+    assert(blogMatches("https://boo.org:8080/game/12345678/white#123", re.gamePgnRe))
   }
 
   test("blog links match full id") {
@@ -160,6 +180,10 @@ class LpvGameRegexTest extends munit.FunSuite:
 
   test("blog links extract game id 2") {
     assert(blogMatch("boo.org:8080/1234abcd1234#123", re.gamePgnRe).has("1234abcd"))
+  }
+
+  test("blog links extract game id with prefix") {
+    assert(blogMatch("boo.org:8080/game/zyxwvuts/black", re.gamePgnRe).has("zyxwvuts"))
   }
 
   test("blog links fail chapter regex no chapter") {

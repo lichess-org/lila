@@ -67,21 +67,13 @@ const webkitVersion = memoize<string | false>(
 
 export const shareIcon: () => LiconValue = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
-export type Feature =
-  | 'wasm'
-  | 'sharedMem'
-  | 'simd'
-  | 'relaxedSimd'
-  | 'dynamicImportFromWorker'
-  | 'bigint'
-  | 'structuredClone';
+export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'relaxedSimd' | 'dynamicImportFromWorker' | 'bigint';
 
 export const hasFeature = (feat: Feature): boolean => features().includes(feat);
 
 export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];
   if (typeof BigInt === 'function') features.push('bigint');
-  if (typeof structuredClone !== 'undefined') features.push('structuredClone');
   if (
     typeof WebAssembly === 'object' &&
     typeof WebAssembly.validate === 'function' &&

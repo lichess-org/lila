@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">टाइमर रद्द करा किंवा विनंती नाकारा</string>
   <string name="playPreferredMoveOrConfirmSomething">पसंतीची चाल खेळा किंवा कशाचीतरी पुष्टी करा</string>
   <string name="sleep">स्लीप (वेक शब्द सक्षम असल्यास)</string>
-  <string name="turnOffVoiceRecognition">आवाज ओळख बंद करा</string>
   <string name="showPuzzleSolution">कोड्याचं उत्तर दाखवा</string>
+  <string name="voiceHelp">ध्वनीर्सहायता</string>
+  <string name="voiceSettings">ध्वनी कोंदण</string>
+  <string name="pushShiftKeyToTalk">बोलण्यासाठी %s दाबा</string>
+  <string name="holdShiftKeyWhileSpeaking">ध्वनीबोलताना \"shift\" की दाबा</string>
+  <string name="microphone">ध्वनीविस्तारक </string>
+  <string name="noneSelected">काहीही निवडलेले नाही</string>
 </resources>

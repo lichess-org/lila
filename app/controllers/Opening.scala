@@ -30,7 +30,7 @@ final class Opening(env: Env) extends LilaController(env):
       RequireAuthIf((moves.sizeIs > 10 && req.client.isCrawler) || (moves.sizeIs > 6 && proxy.couldBeEnum)):
         limit.enumeration.opening(rateLimited):
           val cost = if ctx.isAuth then 1 else if UserAgentParser.trust.isSuspicious then 5 else 2
-          ipRateLimit(rateLimited, cost = cost):
+          ipRateLimit.knownProxy(rateLimited, cost = cost):
             env.opening.api
               .lookup(queryFromUrl(key, moves.some), proxy)
               .flatMap:

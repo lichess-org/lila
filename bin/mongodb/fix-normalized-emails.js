@@ -9,8 +9,8 @@ const gmailOrProton = [
 ];
 
 function normalize(email) {
-  let [name, domain] = email.toLowerCase().split('@');
-  [name] = name.split('+');
+  const [localPart, domain] = email.toLowerCase().split('@');
+  let name = localPart.split('+')[0];
 
   if (gmailOrProton.includes(domain)) name = name.replace(/\./g, '');
 

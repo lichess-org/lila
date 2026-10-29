@@ -1,15 +1,33 @@
 .forum-post {
   font-size: 1.1em;
-  border-top: $border;
-  padding: 0.5rem 0 0.5rem 0;
+  border-top: 1px solid $c-bg-zebra2;
+  padding: 0.75rem $box-padding;
+
+  @include if-transp-light {
+    border-top-color: $c-dimmer;
+  }
+
+  &:hover .forum-post__button {
+    visibility: visible;
+  }
+
+  &:nth-child(odd) {
+    background-color: color-mix(in oklab, $c-bg-zebra 50%, transparent);
+  }
+
+  &:last-child {
+    border-bottom: 1px solid $c-bg-zebra2;
+
+    @include if-transp-light {
+      border-bottom-color: $c-dimmer;
+    }
+  }
 
   &__metas {
-    > div {
-      @extend %flex-center;
+    @extend %flex-center;
 
-      flex: 1;
-      gap: 0.5em;
-    }
+    flex: 1;
+    gap: 0.5em;
 
     .author {
       color: $c-font-dim;
@@ -21,25 +39,25 @@
     a.author--op {
       @extend %box-radius;
 
-      padding: 0.2em;
+      padding: 0.2em 0.75em 0.2em 0.5em;
       background: color-mix(in oklab, $c-primary 12%, $c-bg);
-    }
-
-    &__actions {
-      @extend %flex-center-nowrap;
     }
 
     time {
       margin-inline-end: 0.25em;
     }
+
+    .user-link .line {
+      width: unset;
+      margin-right: 0.3em;
+    }
   }
 
-  &:hover .forum-post__button {
-    visibility: visible;
-  }
+  &__actions {
+    @extend %flex-center-nowrap;
 
-  &:last-child {
-    border-bottom: $border;
+    gap: 0.5em;
+    margin-left: auto;
   }
 
   &.erased {
@@ -116,8 +134,6 @@
 .forum-post__message {
   @extend %break-word, %zalgoverflow;
 
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
   text-align: start;
 
   a {

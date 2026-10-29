@@ -53,6 +53,7 @@
   <string name="doubleCheckDescription">Шах с две фигури едновременно. Получава се, когато преместената фигура дава шах заедно с далекобойна, която досега е била блокирана.</string>
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="epauletteMate">Еполетен мат</string>
   <string name="epauletteMateDescription">Две съседни полета за отстъпление на царя под шах са заети от негови собствени фигури.</string>
   <string name="exposedKing">Незащитен цар</string>

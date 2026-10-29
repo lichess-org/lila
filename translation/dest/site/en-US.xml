@@ -165,6 +165,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="toggleLocalEngine">Toggle local engine</string>
   <string name="engineSettings">Engine settings</string>
+  <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>
   <string name="illegalPosition">Illegal position</string>
   <string name="threefoldRepetition">Threefold repetition</string>
@@ -460,6 +461,8 @@ Playing rated games will increase stability.</string>
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Friends online: %1$s
+Friends playing: %2$s</string>
   <string name="favoriteOpponents">Favorite opponents</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>
@@ -544,6 +547,7 @@ Playing rated games will increase stability.</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
+  <string name="clearLocalData">Clear local data</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>
@@ -557,6 +561,11 @@ Playing rated games will increase stability.</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">About bots on Lichess</string>
+  <string name="featuredBots">Featured bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Try playing these innovative chess engines! They are our favourites.</string>
+  <string name="communityBots">Community bots</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online.</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>
@@ -582,14 +591,12 @@ Playing rated games will increase stability.</string>
   <string name="reportAUser">Report a user</string>
   <string name="user">User</string>
   <string name="reason">Reason</string>
-  <string name="whatIsIheMatter">What\'s the matter?</string>
   <string name="cheat">Cheat</string>
   <string name="troll">Troll</string>
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste a link to the game(s) and explain what is wrong with this user\'s behavior. Don\'t just say \"they cheat,\" but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don\'t just say \"it\'s offensive/inappropriate,\" but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">We can process your report faster if you write in English.</string>
-  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -604,6 +611,7 @@ Playing rated games will increase stability.</string>
   <string name="clearField">Clear field</string>
   <string name="orSeparator">Or</string>
   <string name="logInByEmail">Log in by email</string>
+  <string name="emailLoginInstructions">We will send you an email containing a link to log you in.</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -628,6 +636,8 @@ Playing rated games will increase stability.</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
+  <string name="defeatOnly">Defeat only</string>
+  <string name="drawAndDefeat">Draw and Defeat</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
@@ -692,10 +702,13 @@ Playing rated games will increase stability.</string>
   <string name="aboutX">About %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
+  <string name="lichessUpdates">Lichess updates</string>
   <string name="contribute">Contribute</string>
+  <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
+  <string name="blockAds">Block ads</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host color: %s</string>
@@ -775,7 +788,9 @@ Playing rated games will increase stability.</string>
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
+  <string name="downloadMyGames">Download my games</string>
   <string name="downloadAllGames">Download all games</string>
+  <string name="downloadResults">Download results</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
@@ -795,12 +810,14 @@ Playing rated games will increase stability.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
+  <string name="activeSessionsDescription">This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to &lt;a href=\'%1$s\'&gt;check your recovery email address&lt;/a&gt; and &lt;a href=\'%2$s\'&gt;change your password&lt;/a&gt;.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="viewTheSolution">View the solution</string>
   <string name="noChallenges">No challenges.</string>
+  <string name="browserNotificationsDenied">Notification popups disabled by browser setting</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>
@@ -1025,8 +1042,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organizing events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us!</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
   <string name="accessibility">Accessibility</string>
@@ -1044,4 +1060,7 @@ All operating costs, development, and content are funded solely by user donation
   <string name="verifyingYourDevice">Verifying your device...</string>
   <string name="chessOpenings">Chess openings</string>
   <string name="boards">Boards</string>
+  <string name="write">Write</string>
+  <string name="preview">Preview</string>
+  <string name="done">Done</string>
 </resources>

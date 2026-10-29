@@ -4,10 +4,10 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.config.*
 import lila.common.Bus
-import lila.core.id.RelayRoundId
+import lila.core.config.*
 import lila.core.fide.{ Federation, Tokenize }
+import lila.core.id.RelayRoundId
 
 @Module
 final class Env(

@@ -33,7 +33,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
     },
     [
       featuredPlayer(game, opposite(game.orientation), opts),
-      hl('a.cg-wrap', { attrs: { href: `/${game.id}/${game.orientation}` } }),
+      hl('a.cg-wrap', { attrs: { href: `/game/${game.id}/${game.orientation}` } }),
       featuredPlayer(game, game.orientation, opts),
     ],
   );
@@ -46,10 +46,10 @@ const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
 ];
 
 function renderDuel(ctrl: TournamentController) {
-  const battle = ctrl.data.teamBattle,
-    duelTeams = ctrl.data.duelTeams;
+  const battle = ctrl.data.teamBattle;
+  const duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
-    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/' + d.id } }, [
+    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/game/' + d.id } }, [
       battle &&
         duelTeams &&
         hl(

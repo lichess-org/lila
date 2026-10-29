@@ -3,8 +3,7 @@ package ui
 
 import lila.core.study.IdName
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StudyUi(helpers: Helpers):
   import helpers.{ *, given }

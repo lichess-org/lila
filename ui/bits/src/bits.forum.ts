@@ -13,6 +13,7 @@ site.load.then(() => {
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',
@@ -35,6 +36,7 @@ site.load.then(() => {
     .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-relocate-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',
@@ -113,10 +115,10 @@ site.load.then(() => {
   $('.quote.button').on(
     'click',
     debounce(function (this: HTMLButtonElement) {
-      const post = this.closest<HTMLElement>('.forum-post')!,
-        authorUsername = $(post).find('.author').attr('href')?.substring(3),
-        author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
-        reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
+      const post = this.closest<HTMLElement>('.forum-post')!;
+      const authorUsername = $(post).find('.author').attr('href')?.substring(3);
+      const author = authorUsername ? '@' + authorUsername : $(post).find('.author').text();
+      const reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
       const lines = quotedMarkdown(this.closest('article'))
         .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)') // unlink images
@@ -142,8 +144,8 @@ site.load.then(() => {
   );
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
-    const textarea = this,
-      topicId = $(this).attr('data-topic');
+    const textarea = this;
+    const topicId = $(this).attr('data-topic');
 
     if (!topicId) return;
 

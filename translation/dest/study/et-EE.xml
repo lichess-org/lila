@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Annoteerige glüüfidega</string>
   <string name="theChapterIsTooShortToBeAnalysed">See peatükk on liiga lühike analüüsimiseks.</string>
   <string name="onlyContributorsCanRequestAnalysis">Ainult selle uuringu panustajad saavad taotleda arvuti analüüsi.</string>
-  <string name="getAFullComputerAnalysis">Taotle täielikku serveripoolset arvuti analüüsi põhiliinist.</string>
   <string name="playing">Mängimas</string>
   <string name="next">Järgmine</string>
   <string name="shareAndExport">Jaga &amp; ekspordi</string>
@@ -115,7 +114,6 @@
   <string name="noLetPeopleBrowseFreely">Ei: lase inimestel sirvida vabalt</string>
   <string name="pinnedStudyComment">Kinnitatud uuringu kommentaar</string>
   <string name="start">Alusta</string>
-  <string name="save">Salvesta</string>
   <string name="deleteTheStudyChatHistory">Kas soovite kustutada uuringu vestluse ajaloo? Seda otsust ei saa tagasi võtta!</string>
   <string name="deleteStudy">Kustuta uuring</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Kas soovite kustutada terve uuringu? Seda otsust ei saa tagasi võtta! Kirjutage uuringu nimi otsuse kinnitamiseks: %s</string>
@@ -152,4 +150,5 @@
   <string name="playAgain">Mängi uuesti</string>
   <string name="whatWouldYouPlay">Mis sa mängiksid selles positsioonis?</string>
   <string name="youCompletedThisLesson">Palju õnne! Oled läbinud selle õppetunni.</string>
+  <string name="welcomeToLichessStudyTitle">Tere tulemast Lichessi õppekeskkonda!</string>
 </resources>

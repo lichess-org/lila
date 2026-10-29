@@ -11,8 +11,6 @@ object config:
   given ConfigLoader[EmailAddress] = strLoader
   given ConfigLoader[NetDomain] = strLoader
   given ConfigLoader[BaseUrl] = strLoader
-  given ConfigLoader[AssetDomain] = strLoader
-  given ConfigLoader[AssetBaseUrl] = strLoader
   given ConfigLoader[RateLimit] = boolLoader
   given ConfigLoader[Secret] = strLoader(Secret.apply)
   given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)

@@ -21,13 +21,13 @@ import type { Step } from '../interfaces';
 import * as util from '../util';
 import boardMenu from './boardMenu';
 
-const scrollMax = 99999,
-  moveTag = 'Z7yx',
-  indexTag = 'qZM',
-  indexTagUC = indexTag.toUpperCase(),
-  movesTag = 'aPp',
-  rmovesTag = 'i5d',
-  rbuttonsTag = 'bo3';
+const scrollMax = 99999;
+const moveTag = 'Z7yx';
+const indexTag = 'qZM';
+const indexTagUC = indexTag.toUpperCase();
+const movesTag = 'aPp';
+const rmovesTag = 'i5d';
+const rbuttonsTag = 'bo3';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -93,12 +93,12 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
-  const pending = ctrl.pendingStep(),
-    steps = pending ? [...ctrl.data.steps, pending] : ctrl.data.steps,
-    firstPly = util.firstPly(ctrl.data),
-    lastPly = util.lastPly(ctrl.data),
-    indexOffset = Math.trunc(firstPly / 2) + 1,
-    drawPlies = new Set(ctrl.data.game.drawOffers || []);
+  const pending = ctrl.pendingStep();
+  const steps = pending ? [...ctrl.data.steps, pending] : ctrl.data.steps;
+  const firstPly = util.firstPly(ctrl.data);
+  const lastPly = util.lastPly(ctrl.data);
+  const indexOffset = Math.trunc(firstPly / 2) + 1;
+  const drawPlies = new Set(ctrl.data.game.drawOffers || []);
 
   if (typeof lastPly === 'undefined') return [];
 
@@ -110,8 +110,8 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   }
   for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-  const els: LooseVNodes = [],
-    curPly = pending ? pending.ply : ctrl.ply;
+  const els: LooseVNodes = [];
+  const curPly = pending ? pending.ply : ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(
       hl(indexTag, i + indexOffset),
@@ -157,8 +157,8 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
 };
 
 function renderButtons(ctrl: RoundController) {
-  const firstPly = util.firstPly(ctrl.data),
-    lastPly = util.lastPly(ctrl.data);
+  const firstPly = util.firstPly(ctrl.data);
+  const lastPly = util.lastPly(ctrl.data);
   return hl(rbuttonsTag, [
     analysisButton(ctrl) || hl('div.noop'),
     [
@@ -209,39 +209,39 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
   });
 
 export function render(ctrl: RoundController): LooseVNode {
-  const d = ctrl.data,
-    moves =
-      ctrl.replayEnabledByPref() &&
-      hl(
-        movesTag,
-        {
-          hook: onInsert(el => {
-            el.addEventListener('mousedown', e => {
-              let node = e.target as HTMLElement,
-                offset = -2;
-              if (node.tagName !== moveTag.toUpperCase()) return;
-              while ((node = node.previousSibling as HTMLElement)) {
-                offset++;
-                if (node.tagName === indexTagUC) {
-                  if (ctrl.toSubmit) ctrl.submitMove(false);
-                  ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
-                  ctrl.redraw();
-                  break;
-                }
+  const d = ctrl.data;
+  const moves =
+    ctrl.replayEnabledByPref() &&
+    hl(
+      movesTag,
+      {
+        hook: onInsert(el => {
+          el.addEventListener('mousedown', e => {
+            let node = e.target as HTMLElement;
+            let offset = -2;
+            if (node.tagName !== moveTag.toUpperCase()) return;
+            while ((node = node.previousSibling as HTMLElement)) {
+              offset++;
+              if (node.tagName === indexTagUC) {
+                if (ctrl.toSubmit) ctrl.submitMove(false);
+                ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+                ctrl.redraw();
+                break;
               }
-            });
-            ctrl.autoScroll = () => autoScroll(el, ctrl);
-            if (ctrl.ply > 2) {
-              ctrl.autoScroll();
-              if (displayColumns() === 1) ctrl.autoScroll();
-              /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
+            }
+          });
+          ctrl.autoScroll = () => autoScroll(el, ctrl);
+          if (ctrl.ply > 2) {
+            ctrl.autoScroll();
+            if (displayColumns() === 1) ctrl.autoScroll();
+            /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
                is due to some needed data not loading in time. The second `autoScroll()` fixes the issue, since the throttle
                ensures a min wait of 100ms. */
-            }
-          }),
-        },
-        renderMoves(ctrl),
-      );
+          }
+        }),
+      },
+      renderMoves(ctrl),
+    );
   const renderMovesOrResult = moves ? moves : renderResult(ctrl);
   return (
     !ctrl.nvui &&

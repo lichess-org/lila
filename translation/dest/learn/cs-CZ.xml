@@ -102,6 +102,7 @@
   <string name="pawnsFormTheFrontLine">Pěšci tvoří první linii. Proveďte libovolný tah pro pokračování.</string>
   <string name="boardSetupComplete">Gratulujeme! Nyní víte, jaké je postavení figur na začátku hry.</string>
   <string name="castling">Rošáda</string>
+  <string name="enPassant">Braní mimochodem</string>
   <string name="theSpecialKingMove">Zvláštní tah krále</string>
   <string name="castlingIntro">Schovejte krále do bezpečí a vyviňte věž!</string>
   <string name="castleKingSide">Táhněte králem o 2 pole na kratší stranu šachovnice. Takto uděláte krátkou rošádu!</string>

@@ -123,6 +123,7 @@ Va al costat de la seva reina.</string>
 fer un moviment per continuar.</string>
   <string name="boardSetupComplete">Felicitats! Saps com configurar el tauler d\'escacs.</string>
   <string name="castling">Enroc</string>
+  <string name="enPassant">Captura al pas</string>
   <string name="theSpecialKingMove">El moviment especial del rei</string>
   <string name="castlingIntro">Assegura el rei, i desplega la teva torre per l\'atac!</string>
   <string name="castleKingSide">Mou el rei dues caselles 

@@ -26,6 +26,10 @@
     font-weight: bold;
   }
 
+  pearl.threat {
+    color: hsla(from $c-bad h s l / 0.75);
+  }
+
   .is-red::before {
     vertical-align: -3px;
   }
@@ -66,6 +70,21 @@
       &::before {
         vertical-align: top;
       }
+    }
+
+    .stop {
+      width: 1em;
+      height: 1em;
+      margin-inline: 1px 5px;
+      vertical-align: -1px;
+      border-radius: 2px;
+      background: $c-bad;
+      box-shadow: 0 0 0 1px #0005;
+    }
+
+    .stop:active,
+    .deeper:active::before {
+      filter: brightness(0.8);
     }
   }
 

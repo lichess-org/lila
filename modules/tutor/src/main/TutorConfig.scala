@@ -1,10 +1,12 @@
 package lila.tutor
 
-import java.time.{ LocalDate, LocalTime }
-import java.time.format.DateTimeFormatter
 import play.api.mvc.Call
+
+import java.time.format.DateTimeFormatter
+import java.time.{ LocalDate, LocalTime }
+
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Question, Filter, InsightDimension }
+import lila.insight.{ Filter, InsightDimension, Question }
 
 case class TutorConfig(user: UserId, from: Instant, to: Instant):
 
@@ -12,7 +14,7 @@ case class TutorConfig(user: UserId, from: Instant, to: Instant):
   val id = s"$user:$rangeStr"
 
   def period = (from, to)
-  lazy val days = daysBetween(from, to)
+  lazy val days = daysBetween(from, to) + 1
 
   object url:
     def root = routes.Tutor.report(user, rangeStr)

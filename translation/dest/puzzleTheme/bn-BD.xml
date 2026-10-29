@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">দুটি গুটি দিয়ে একসাথে চেক করা, আবিষ্কৃত আক্রমণের ফলস্বরূপ যেখানে যে গুটি সরে এবং যে গুটির রাস্তা পরিষ্কার হয় উভয়ই প্রতিপক্ষের রাজাকে আক্রমণ করে।</string>
   <string name="endgame">সমাপনী খেলা</string>
   <string name="endgameDescription">গেমের শেষ পর্যায়ের একটি ট্যাকটিক।</string>
+  <string name="enPassant">এন পাসান্ত</string>
   <string name="exposedKing">বহি:প্রকাশিত রাজা</string>
   <string name="exposedKingDescription">রাজার আশেপাশে অল্পসংখ্যক রক্ষককে কেন্দ্র করে একটি কৌশল, যা প্রায়ই কিস্তিমাতে পরিণত হয়।</string>
   <string name="fork">কাঁটাচামচ</string>

@@ -8,7 +8,8 @@ case class UserStatus(
     user: User,
     playban: Boolean,
     ublogHidden: Boolean,
-    modActions: List[String]
+    modActions: List[String],
+    modClosed: Boolean
 ):
   export user.{ id, enabled, marks }
 

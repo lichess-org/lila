@@ -3,19 +3,18 @@ package lila.mod
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.core.id.ForumCategId
+import lila.core.LightUser
+import lila.core.chat.TimeoutReason
+import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.core.irc.IrcApi
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
+import lila.core.study.Study
+import lila.core.user.KidMode
 import lila.db.dsl.{ *, given }
+import lila.memo.PicfitImage
 import lila.report.{ Mod, Report, Suspect }
 import lila.user.UserRepo
-import lila.core.chat.TimeoutReason
-import lila.core.user.KidMode
-import lila.core.LightUser
-import lila.core.id.ForumTopicSlug
-import lila.memo.PicfitImage
-import lila.core.study.Study
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -119,7 +118,22 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       }.nonEmptyOption
     )
 
-  def closedByMod(user: User): Fu[Boolean] =
+  def scheduleDelete(user: UserId)(using me: Me) = add:
+    Modlog(
+      me.myId.into(ModId),
+      user.some,
+      Modlog.scheduleDelete
+    )
+
+  def deleteAccount(user: UserId, tos: Boolean) = add:
+    Modlog(
+      UserId.lichess.into(ModId),
+      user.some,
+      Modlog.deleteAccount,
+      details = tos.option("partial due to tos violation")
+    )
+
+  def closedByMod(user: User): Fu[Boolean] = user.enabled.no.so:
     fuccess(user.marks.alt) >>| coll.exists(bdoc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def closedByTeacher(user: User): Fu[Boolean] =
@@ -237,6 +251,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       bdoc(
         "user".in(users),
         "mod" -> me.userId,
+        "action".in(markActions)
+      ),
+      _.sec
+    )
+
+  def markers(user: UserId): Fu[List[ModId]] =
+    coll.distinctEasy[ModId, List](
+      "mod",
+      bdoc(
+        "user" -> user,
         "action".in(markActions)
       ),
       _.sec

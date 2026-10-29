@@ -5,8 +5,7 @@ import play.api.data.Form
 
 import lila.core.id.SessionId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AccountSecurity(helpers: Helpers)(
     AccountPage: (String, String) => Context ?=> Page
@@ -25,25 +24,17 @@ final class AccountSecurity(helpers: Helpers)(
         div(cls := "box")(
           h1(cls := "box__top")(trans.site.security()),
           standardFlash.map(div(cls := "box__pad")(_)),
-          div(cls := "box__pad")(
+          div(cls := "box__pad security__header")(
             p(
-              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-              a(href := routes.Account.email)("check your recovery email address"),
-              " and ",
-              a(href := routes.Account.passwd)("change your password"),
-              "."
-            ),
-            (sessions.sizeIs > 1).option(
-              div(
-                "You can also ",
-                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
-                    trans.site.revokeAllSessions()
-                  )
-                ),
-                "."
+              trans.site.activeSessionsDescription.rawHtml(
+                routes.Account.email.url,
+                routes.Account.passwd.url
               )
-            )
+            ),
+            (sessions.sizeIs > 1).option:
+              postForm(cls := "revoke-all", action := routes.Account.signout("all")):
+                submitButton(cls := "button button-empty button-red yes-no-confirm"):
+                  trans.site.revokeAllSessions()
           ),
           table(sessions, curSessionId, clients, personalAccessTokens)
         )

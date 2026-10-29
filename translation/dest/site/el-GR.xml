@@ -164,6 +164,7 @@
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="engineSettings">Ρυθμίσεις μηχανής</string>
+  <string name="engine">Μηχανή</string>
   <string name="enginesFromStrongestToWeakest">Μηχανές από την ισχυρότερη στην ασθενέστερη</string>
   <string name="illegalPosition">Μη έγκυρη θέση</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
@@ -457,6 +458,8 @@
     <item quantity="one">%s φίλος/η συνδεδεμένος/η</item>
     <item quantity="other">%s Φίλοι συνδεδεμένοι</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Συνδεδεμένοι φίλοι: %1$s
+Φίλοι που παίζουν: %2$s</string>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
@@ -555,6 +558,11 @@
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
   <string name="onlineBots">Συνδεδεμένα bot</string>
+  <string name="aboutBotsOnLichess">Σχετικά με τα μποτ στο Lichess</string>
+  <string name="featuredBots">Επιλεγμένα μποτ</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Παίξτε με αυτές τις καινοτόμες σκακιστικές μηχανές! Είναι οι αγαπημένες μας.</string>
+  <string name="communityBots">Μποτ της κοινότητας</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Επιπλέον σκακιστικές μηχανές που έχουν δημιουργηθεί από την κοινότητα του Lichess. Καθώς δεν φιλοξενούνται στο Lichess, ενδέχεται να μην είναι πάντα διαθέσιμες.</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="descPrivate">Ιδιωτική περιγραφή</string>
@@ -580,14 +588,12 @@
   <string name="reportAUser">Αναφορά χρήστη</string>
   <string name="user">Χρήστης</string>
   <string name="reason">Αιτία</string>
-  <string name="whatIsIheMatter">Τι τρέχει;</string>
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλη</string>
-  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"Αυτοί έκλεβαν\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
-  <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη σε αυτές είναι παράξενη. Μη λέτε απλώς ότι «κλέβει», αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportUsernameHelp">Εξηγήστε γιατί το συγκεκριμένο όνομα χρήστη είναι προσβλητικό. Μην αναφέρετε μόνο ότι είναι «προσβλητικό» ή «ακατάλληλο». Εξηγήστε πώς καταλήξατε σε αυτό το συμπέρασμα, ιδίως αν η προσβολή δεν είναι προφανής, για παράδειγμα αν περιλαμβάνει ξενόγλωσση έκφραση, αργκό ή αναφορά σε ιστορικά ή πολιτισμικά γεγονότα.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Θα μπορέσουμε να εξετάσουμε την αναφορά σας πιο γρήγορα αν τη γράψετε στα αγγλικά.</string>
-  <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
@@ -602,6 +608,7 @@
   <string name="clearField">Καθαρισμός πεδίου</string>
   <string name="orSeparator">Ή</string>
   <string name="logInByEmail">Συνδεθείτε μέσω email</string>
+  <string name="emailLoginInstructions">Θα σας στείλουμε ένα email με τον σύνδεσμο σύνδεσης.</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
   <string name="newPassword">Νέος κωδικός πρόσβασης</string>
@@ -626,6 +633,8 @@
   <string name="onSlowGames">Σε αργά παιχνίδια</string>
   <string name="always">Πάντα</string>
   <string name="never">Ποτέ</string>
+  <string name="defeatOnly">Μόνο σε ήττα</string>
+  <string name="drawAndDefeat">Ισοπαλία και ήττα</string>
   <string name="xCompetesInY">Ο χρήστης %1$s ανταγωνίζεται στο %2$s</string>
   <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
@@ -690,10 +699,13 @@
   <string name="aboutX">Σχετικά με το %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) μια δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα ιστοσελίδα για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
+  <string name="lichessUpdates">Ενημερώσεις Lichess</string>
   <string name="contribute">Συνεισφέρετε</string>
+  <string name="changelog">Αρχείο αλλαγών</string>
   <string name="termsOfService">Όροι χρήσης</string>
   <string name="titleVerification">Επιβεβαίωση τίτλου</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
+  <string name="blockAds">Φραγή διαφημίσεων</string>
   <string name="simultaneousExhibitions">Σιμουλτανέ</string>
   <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
@@ -725,6 +737,7 @@
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
+  <string name="keyGoToPreviousOrNextLine">μετάβαση στη προηγούμενη/επόμενη γραμμή</string>
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyShowOrHideCurrentVariation">εμφάνιση/απόκρυψη βαριάντας</string>
@@ -772,7 +785,9 @@
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
+  <string name="downloadMyGames">Λήψη των παρτίδων μου</string>
   <string name="downloadAllGames">Λήψη όλων των παρτίδων</string>
+  <string name="downloadResults">Κατεβάστε τα αποτελέσματα</string>
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Κάντε κύλιση με τη ροδέλα του ποντικιού πάνω στη σκακιέρα για να μετακινηθείτε στην παρτίδα.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
@@ -792,12 +807,14 @@
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
   <string name="security">Ασφάλεια</string>
+  <string name="activeSessionsDescription">Αυτή είναι μια λίστα συσκευών και εφαρμογών όπου ο λογαριασμός σας είναι συνδεδεμένος. Αν παρατηρήσετε ύποπτη δραστηριότητα, φροντίστε να &lt;a href=\'%1$s\'&gt;ελέγξτε το email ανάκτησή σας&lt;/a&gt; και &lt;a href=\'%2$s\'&gt;αλλάξτε τον κωδικό σας&lt;/a&gt;.</string>
   <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
   <string name="noChallenges">Δεν έχετε προκλήσεις.</string>
+  <string name="browserNotificationsDenied">Οι ειδοποιήσεις έχουν απενεργοποιηθεί από τις ρυθμίσεις του περιηγητή</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Διαθέσιμο σε %s γλώσσες!</item>
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
@@ -1022,8 +1039,6 @@
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
   <string name="instructions">Οδηγίες</string>
   <string name="showMeEverything">Εμφάνιση όλων</string>
-  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
-Όλα τα έξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτονται αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Δεν υπάρχει τίποτα εδώ αυτή τη στιγμή.</string>
   <string name="stats">Στατιστικά</string>
   <string name="accessibility">Προσβασιμότητα</string>
@@ -1041,4 +1056,7 @@
   <string name="verifyingYourDevice">Επαλήθευση της συσκευής σας...</string>
   <string name="chessOpenings">Ανοίγματα</string>
   <string name="boards">Σκακιέρες</string>
+  <string name="write">Επεξεργασία</string>
+  <string name="preview">Προεπισκόπηση</string>
+  <string name="done">Ολοκληρώθηκε</string>
 </resources>

@@ -10,17 +10,17 @@ import scalalib.paginator.Paginator
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
+import lila.core.perf.UserWithPerfs
+import lila.core.security.IsProxy
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.security.IsProxy
-import lila.core.perf.UserWithPerfs
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
+import lila.mon.extensions.*
 import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.security.{ UserAgentParser, UserLogins }
 import lila.user.WithPerfsAndEmails
-import lila.mon.extensions.*
 
 final class User(
     override val env: Env,
@@ -46,13 +46,12 @@ final class User(
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
               case _ => roundC.watch(pov, userTv = user.some)
 
-  def tvExport(username: UserStr) = Anon:
-    env.game.cached
-      .lastPlayedPlayingId(username.id)
-      .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap:
-        case None => NotFound("No ongoing game")
-        case Some(gameId) => gameC.exportGame(gameId)
+  def tvExport(username: UserStr) = Anon: _ ?=>
+    Found(
+      env.round.playing
+        .lastPlayedPlayingId(username.id)
+        .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
+    )(gameC.exportGame)
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -63,11 +62,12 @@ final class User(
     env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
-    EnabledUser(username): u =>
-      negotiate(
-        renderShow(u),
-        gamesForLichobile(u, GameFilter.all.name, 1)
-      )
+    WithProxy: proxy ?=>
+      EnabledUser(username, proxy.some): u =>
+        negotiate(
+          renderShow(u),
+          gamesForLichobile(u, GameFilter.all.name, 1)
+        )
 
   def search(term: String) = Open: _ ?=>
     UserStr.read(term) match
@@ -78,79 +78,85 @@ final class User(
   private def isRestricted(using ctx: Context, proxy: IsProxy) =
     ctx.isAnon && (HTTPRequest.noReferer(ctx.req) || proxy.couldBeEnum)
 
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
-    WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited):
-        val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
-        def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
-        if HTTPRequest.isSynchronousHttp(ctx.req)
-        then
-          val cost =
-            if isGrantedOpt(_.UserModView) then 0
-            else if env.socket.isOnline.exec(u.id) then 1
-            else 2
-          userShowHtmlRateLimit(rateLimited, cost = cost):
-            for
-              as <- fetchActivity
-              nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
-              info <- env.userInfo.fetch(u, nbs, isRestricted)
-              _ <- env.userInfo.preloadTeams(info)
-              social <- env.socialInfo(u)
-              page <- renderPage:
-                lila.mon.chronoSync(lila.mon.user.segment("renderSync")):
-                  views.user.show.page.activity(as, info, social)
-            yield status(page).withCanonical(routes.User.show(u.username))
-        else
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
+      ctx: Context
+  )(using IsProxy): Fu[Result] =
+    limit.userProfileLimiter(rateLimited):
+      val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
+      def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
+      if HTTPRequest.isSynchronousHttp(ctx.req)
+      then
+        val cost =
+          if isGrantedOpt(_.UserModView) then 0
+          else if env.socket.isOnline.exec(u.id) then 1
+          else 2
+        userShowHtmlRateLimit.knownProxy(rateLimited, cost = cost):
           for
-            withPerfs <- env.user.perfsRepo.withPerfs(u)
             as <- fetchActivity
-            snip = lila.ui.Snippet(views.activity(withPerfs, as))
-          yield status(snip)
+            nbs <- showActivityAndGames
+              .so(ctx.me)
+              .soUse(env.userNbGames(u, withCrosstable = false, withPlaying = false))
+            info <- env.userInfo.fetch(u, nbs, isRestricted)
+            _ <- env.userInfo.preloadTeams(info)
+            social <- env.socialInfo(u)
+            page <- renderPage:
+              lila.mon.chronoSync(lila.mon.user.segment("renderSync")):
+                views.user.show.page.activity(as, info, social)
+          yield status(page).withCanonical(routes.User.show(u.username))
+      else
+        for
+          withPerfs <- env.user.perfsRepo.withPerfs(u)
+          as <- fetchActivity
+          snip = lila.ui.Snippet(views.activity(withPerfs, as))
+        yield status(snip)
 
-  def download(username: UserStr) = OpenBody:
+  def download(username: UserStr) = AuthBody { _ ?=> _ ?=>
     val user =
-      meOrFetch(username).dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
+      meOrFetch(username).map(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
     FoundPage(user):
       views.user.download(_)
+  }
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
-  def games(username: UserStr, filter: String, page: Int) = OpenBody:
+  def games(username: UserStr, filter: String, page: Int) = OpenBody: ctx ?=>
     Reasonable(page):
-      RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1):
+      val isSearch = filter == GameFilter.search.name
+      RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
         WithProxy: proxy ?=>
-          limit.enumeration.userProfile(rateLimited):
+          limit.userProfileLimiter(rateLimited):
             EnabledUser(username): u =>
-              val isSearch = filter == GameFilter.search.name
-              RequireAuthIf(isSearch):
-                negotiate(
-                  html = for
-                    nbs <- env.userNbGames(u, withCrosstable = true)
-                    filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                    pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
-                    _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                    _ <- env.tournament.cached.nameCache.preloadMany:
-                      pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
-                    _ <- env.swiss.cache.name.preloadMany:
-                      pag.currentPageResults.flatMap(_.swissId)
-                    res <-
-                      if HTTPRequest.isSynchronousHttp(ctx.req) then
-                        for
-                          info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
-                          _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
-                          social <- env.socialInfo(u)
-                          searchForm = (filters.current == GameFilter.search).option(
-                            lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
-                          )
-                          res <- Ok.page:
-                            views.user.show.page.games(info, pag, filters, searchForm, social)
-                        yield res
-                      else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
-                  yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                  json = gamesForLichobile(u, filter, page)
-                )
+              val full = !isRestricted
+              negotiate(
+                html = for
+                  nbs <- full.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = true, withPlaying = true))
+                  filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                  pag <- full.so(env.gamePaginator(u, nbs.some, filter = filters.current, page = page))
+                  _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+                  _ <- env.tournament.cached.nameCache.preloadMany:
+                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                  _ <- env.swiss.cache.name.preloadMany:
+                    pag.currentPageResults.flatMap(_.swissId)
+                  res <-
+                    if HTTPRequest.isSynchronousHttp(ctx.req) then
+                      for
+                        searchForm = (filters.current == GameFilter.search).option:
+                          lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
+                        info <- env.userInfo
+                          .fetch(u, nbs, restricted = isRestricted, withBlog = searchForm.isEmpty)
+                        _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                        social <- env.socialInfo(u)
+                        res <- Ok.page:
+                          views.user.show.page.games(info, pag, filters, searchForm, social)
+                      yield res
+                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
+                yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
+                json = gamesForLichobile(u, filter, page)
+              )
 
-  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def EnabledUser(username: UserStr, proxy: Option[IsProxy] = none)(
+      f: UserModel => Fu[Result]
+  )(using ctx: Context): Fu[Result] =
     if username.id.isGhost
     then
       negotiate(
@@ -165,7 +171,7 @@ final class User(
       meOrFetch(username).flatMap:
         case None =>
           env.api.anySearch
-            .redirect(username.value)
+            .redirect(username.value, proxy)
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
@@ -197,8 +203,8 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCacheSeconds(5),
-                json =
+                yield snip.privateCache(5.seconds),
+                json = // lichobile only
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
@@ -206,7 +212,7 @@ final class User(
                       "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation))
+          else Ok(views.user.bits.miniClosed(user.user, relation)).privateCache(10.minutes)
 
   def online = Anon:
     val max = 50
@@ -258,10 +264,10 @@ final class User(
           page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
-        json =
+        json = // lichobile only
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards)
+          JsonOk(leaderboards).publicCache(1.minute)
       )
     }
 
@@ -269,7 +275,7 @@ final class User(
     env.user.cached.top10.get {}.map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
-      JsonOk(leaderboards)
+      JsonOk(leaderboards).publicCache(1.minute)
     }
 
   def top(perfKey: PerfKey, page: Int) = Open:
@@ -277,19 +283,16 @@ final class User(
       env.user.cached
         .topPerfPager(perfKey, page)
         .flatMap: pager =>
-          negotiate(
-            Ok.page(views.user.list.top(perfKey, pager)),
-            topNbJson(pager.currentPageResults)
-          )
+          Ok.page(views.user.list.top(perfKey, pager))
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
-        JsonOk(leaderboards)
+        JsonOk(leaderboards).publicCache(1.minute)
       }
-    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
+    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson(_).publicCache(1.minute))
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -483,7 +486,7 @@ final class User(
       env.user.noteApi
         .getForMyPermissions(_)
         .flatMap(lila.user.JsonView.notes)
-        .map(JsonOk)
+        .map(Ok(_))
   }
 
   def apiWriteNote(username: UserStr) = ScopedBody(_.Note.Write) { ctx ?=> me ?=>
@@ -537,23 +540,25 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    val canCompute = req.client.isHuman && ctx.isAuth
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
-      negotiate(
-        Ok.async:
-          env.history
-            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
-            .map:
-              views.user.perfStatPage(data, _)
-        ,
-        JsonOk:
-          getBool("graph")
-            .optionFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-            .map: graph =>
-              env.perfStat.jsonView(data).add("graph", graph)
-      )
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open: _ ?=>
+    WithProxy:
+      val canCompute = req.client.isHuman && ctx.isAuth
+      limit.userProfileLimiter(rateLimited):
+        Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
+          negotiate(
+            Ok.async:
+              env.history
+                .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
+                .map(views.user.perfStatPage(data, _))
+            ,
+            JsonOk: // lichobile only
+              getBool("graph")
+                .optionFu:
+                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+                .map: graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
+            .map(_.privateCache(1.minute))
+          )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
@@ -606,7 +611,7 @@ final class User(
                         .add("online" -> env.socket.isOnline.exec(u.id))
                     })
                 else fuccess(Json.toJson(userIds))
-            yield JsonOk(result)
+            yield Ok(result)
 
   def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(perfKey.some.filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
@@ -625,7 +630,14 @@ final class User(
 
   def redirect(path: String) = Open:
     staticRedirect(path) |
-      UserStr.read(path).so(tryRedirect).getOrElse(notFound)
+      env.round
+        .pathRedirect(path)
+        .flatMapz:
+          case lichobilePov: Pov => roundC.renderPlayer(lichobilePov).dmap(some)
+          case call: Call => fuccess(MovedPermanently(call).some)
+        .orElse(env.challenge.api.redirect(path).map2(Redirect(_)))
+        .orElse(UserStr.read(path).so(tryRedirect))
+        .getOrElse(notFound)
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:

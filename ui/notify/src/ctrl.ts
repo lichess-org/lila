@@ -4,9 +4,9 @@ import { json as xhrJson, url as xhrUrl, text as xhrText } from 'lib/xhr';
 import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
-  let data: NotifyData | undefined,
-    initiating = true,
-    scrolling = false;
+  let data: NotifyData | undefined;
+  let initiating = true;
+  let scrolling = false;
 
   const readAllStorage = storage.make('notify-read-all');
 

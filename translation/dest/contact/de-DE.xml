@@ -54,7 +54,9 @@
   <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
   <string name="botRatingAbuse">Wenn ein Spieler gegen einen Bot spielt, kann es unter Umständen passieren, dass ein Sieg in einem gewertetem Spiel keine Punkte einbringt, falls der Spieler den Bot dazu benutzt, Wertungspunkte anzuhäufen.</string>
   <string name="errorPage">Fehlerseite</string>
-  <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
+  <string name="reportTheBug">Du kannst ihn melden:</string>
+  <string name="securityVulnerability">Sicherheitslücke</string>
+  <string name="otherBug">Anderes Problem</string>
   <string name="learnHowToMakeBroadcasts">Lerne deine eigenen Übertragungen auf Lichess zu machen</string>
   <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>
   <string name="engineAppeal">Markierung für Computerunterstützung/Betrug</string>

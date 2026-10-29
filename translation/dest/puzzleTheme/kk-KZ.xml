@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Ашылған шабуыл кезінде бірден екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына қойған шахтары.</string>
   <string name="endgame">Ойынсоңы</string>
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
+  <string name="enPassant">Жолай басу</string>
   <string name="exposedKing">Жалаңаш патша</string>
   <string name="exposedKingDescription">Қорғанысы нашар патша әдетте маттың иісін сезіп тұрады.</string>
   <string name="fork">Шанышқы</string>

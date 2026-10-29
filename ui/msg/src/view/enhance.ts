@@ -37,7 +37,7 @@ const expandGameIds = (html: string) =>
   html.replace(
     /(\s#)([\w]{8})($|[^\w-])/g,
     (_: string, bulkStart: string, id: string, suffix: string) =>
-      ' ' + linkReplace('/' + id, '#' + id, !bulkStart) + suffix,
+      ' ' + linkReplace('/game/' + id, '#' + id, !bulkStart) + suffix,
   );
 
 export const enhance = (str: string) =>
@@ -73,6 +73,7 @@ export function expandLpvs(el: HTMLElement) {
   const expandables: Expandable[] = [];
 
   el.querySelectorAll('a:not(.text)').forEach((a: HTMLAnchorElement) => {
+    if (a.closest('.lpv')) return;
     const link = parseLink(a);
     if (link)
       expandables.push({

@@ -1,14 +1,14 @@
 package lila.core
 package tournament
 
+import _root_.chess.ByColor
 import play.api.i18n.Lang
 import scalalib.model.Seconds
-import _root_.chess.ByColor
 
 import lila.core.chess.Rank
+import lila.core.game.Game
 import lila.core.id.{ TourId, TourPlayerId }
 import lila.core.userId.UserId
-import lila.core.game.Game
 
 enum Status(val id: Int):
   case created extends Status(10)
@@ -52,7 +52,7 @@ object leaderboard:
     extension (a: Ratio) def percent = (a.value * 100).toInt.atLeast(1)
 
   trait Api:
-    def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]]
+    def byIds(ids: List[TourPlayerId]): Fu[List[Entry]]
 
   trait Entry:
     def id: TourPlayerId
@@ -66,3 +66,5 @@ object leaderboard:
     // speed: Option[Schedule.Speed]
     // perf: PerfType
     def date: Instant
+
+  case class TourEntries(entries: List[Entry])

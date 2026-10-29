@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Schach mat zwou Figuren gläichzäiteg ginn als Resultat vun engem Ofzuchsugrëff, wou souwuel déi gespillte Figur ewéi och déi opgedeckte Figur de géigneresche Kinnek ugräifen.</string>
   <string name="endgame">Endspill</string>
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Exponéiert Kinnek</string>
   <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, dee vun wéinege Figuren verdeedegt gëtt, wat oft zu Schachmatt féiert.</string>
   <string name="fork">Forschett</string>

@@ -1,20 +1,20 @@
 package lila.team
 
 import org.apache.pekko.stream.Materializer
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.pekkostream.cursorProducer
 import scalalib.paginator.Paginator
 
-import lila.memo.RateLimit.LimitResult
+import lila.common.String.shorten
 import lila.core.LightUser
-import lila.core.notify.NotifyApi
 import lila.core.notify.NotificationContent.TeamUpdate as Notification
+import lila.core.notify.NotifyApi
 import lila.core.team.LightTeam
 import lila.db.dsl.{ *, given }
-import lila.common.String.shorten
+import lila.memo.RateLimit.LimitResult
 
 case class TeamUpdate[T, U](
-    @Key("_id") id: String,
+    @Key("_id") id: TeamUpdate.ID,
     team: T,
     text: Markdown,
     sender: U,
@@ -27,6 +27,7 @@ case class TeamUpdates[T](team: T, unread: Int, last: Instant)
 case class TeamUpdateSeen[T, U](msg: TeamUpdate[T, U], seen: Boolean)
 
 object TeamUpdate:
+  type ID = String
   type Recent = Paginator[TeamUpdateSeen[LightTeam, LightUser]]
   type ByTeams = List[TeamUpdates[LightTeam]]
   type DbTeamUpdate = TeamUpdate[TeamId, UserId]
@@ -54,7 +55,8 @@ final class TeamUpdateApi(
   def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamUpdate.Recent] =
     for
       msgs <- Paginator(updateRepo.teamRecent(team.id), page, maxPerPage)
-      _ <- msgs.currentPageResults.exists(!_.seen).so(updateRepo.markSeen(team.id))
+      seenIds = msgs.currentPageResults.filter(!_.seen).map(_.msg.id)
+      _ <- updateRepo.markSeen(seenIds)
       senders <- pageSenders(msgs)
     yield msgs.mapList: results =>
       for
@@ -111,7 +113,7 @@ final class TeamUpdateApi(
     yield ()
 
   private def markdownToHeadline(md: Markdown): String =
-    shorten(md.value.dropWhile(_ == '#'), 40).filterNot(Set('#', '*', '-'))
+    shorten(md.value.dropWhile(_ == '#'), 40)
 
   private def notifySubscribers(teamId: TeamId, notification: Notification): Funit =
     memberRepo.coll

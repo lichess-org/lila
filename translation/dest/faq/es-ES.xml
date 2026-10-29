@@ -166,6 +166,8 @@ Mostramos el icono de silencio para avisarte cuando esto suceda. A menudo, puede
 3. Haz clic en Cookies y permisos del sitio
 4. Desplázate hacia abajo y haz clic en Reproducción automática
 5. Añade a lichess.org en Habilitar</string>
+  <string name="makeBotTitle">¿Hacer un bot en Lichess?</string>
+  <string name="makeBotDescription">Si deseas aprender cómo hacer un &lt;a href=\'%1$s\'&gt;bot de ajedrez personalizado&lt;/a&gt; para jugar en Lichess, por favor lee &lt;a href=\'%2$s\'&gt;esta publicación sobre la creación de bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">¿Parar de jugar?</string>
   <string name="mentalHealthCondition">condición de salud mental independiente</string>
   <string name="lichessUserstyles">Estilos de usuario de Lichess</string>

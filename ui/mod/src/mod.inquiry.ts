@@ -70,9 +70,9 @@ site.load.then(() => {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });
-  $('#inquiry .actions.close').on('click', function (this: HTMLInputElement) {
+  $('#inquiry .actions.close').on('click', function (this: HTMLInputElement, event: Event) {
     if (noteStore.get() && !hasSeenNonEmptyNoteWarning) {
-      event!.preventDefault();
+      event.preventDefault();
       const readTime = 1000;
       setTimeout(() => (hasSeenNonEmptyNoteWarning = true), readTime);
       flashNotes(true);

@@ -4,8 +4,7 @@ package ui
 import lila.core.perf.UserWithPerfs
 import lila.core.user.Flag
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UserShow(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
@@ -33,7 +32,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               cls := "upt__info__top__flag",
               title := (!hasRoomForNameText).option(c.name)
             )(
-              img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
+              img(cls := "flag", src := assetPath(s"flags/${c.code}.webp")),
               hasRoomForNameText.option(c.shortName)
             )
           ,

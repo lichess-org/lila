@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
   <string name="onlyContributorsCanRequestAnalysis">Just Etüden Matwierkender kënnen eng Computer Analyse ufroen.</string>
-  <string name="getAFullComputerAnalysis">Vollstänneg serversäiteg Computeranalyse vun der Haaptvariant erhalen.</string>
   <string name="makeSureTheChapterIsComplete">Stell sécher dass d\'Kapitel vollstänneg ass. Du kanns eng Analyse just eemol ufroen.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">All SYNC-Memberen gesinn déi selwecht Stellung</string>
   <string name="shareChanges">Deel Ännerungen mat den Zuschauer an späicher se um Server</string>
@@ -120,7 +119,6 @@
   <string name="noLetPeopleBrowseFreely">Nee: Leit individuell browsen loossen</string>
   <string name="pinnedStudyComment">Ugepinnten Etüdenkommentar</string>
   <string name="start">Lass</string>
-  <string name="save">Späicheren</string>
   <string name="clearChat">Chat läschen</string>
   <string name="deleteTheStudyChatHistory">Etüdenchat läschen? Et gëtt keen zeréck!</string>
   <string name="deleteStudy">Etüd läschen</string>
@@ -184,4 +182,6 @@
   <string name="doubleDefeat">Duebel Néierlag</string>
   <string name="blackDefeatWhiteCanNotWin">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
   <string name="whiteDefeatBlackCanNotWin">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
+  <string name="requestAServerAnalysis">Eng Server-Analys ufroen</string>
+  <string name="analyzeOnYourDevice">Op dengem Apparat analyséieren</string>
 </resources>

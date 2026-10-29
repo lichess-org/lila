@@ -1,12 +1,13 @@
 package lila.study
 
-import scala.collection.immutable.SeqMap
-import org.apache.pekko.stream.scaladsl.*
+import chess.FideId
 import chess.format.UciPath
 import chess.format.pgn.Tags
-import chess.FideId
-import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
+
+import scala.collection.immutable.SeqMap
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -126,7 +127,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(F.gamebook, gamebook.nonEmpty.option(gamebook))
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
+  def setGlyphs(glyphs: lila.tree.Node.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmptyOption)
 
   def setClockAndDenorm(
       chapter: Chapter,
@@ -284,20 +285,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
                 id -> ~hash.get(id)
               .to(SeqMap)
 
-  def startServerEval(chapter: Chapter) =
-    coll:
-      _.updateField(
-        bid(chapter.id),
-        "serverEval",
-        Chapter.ServerEval(
-          path = chapter.root.mainlinePath,
-          done = false
-        )
-      )
-    .void
-
-  def completeServerEval(chapter: Chapter) =
-    coll(_.updateField(bid(chapter.id) ++ "serverEval".exists(true), "serverEval.done", true)).void
+  def updateServerEval(chapterId: StudyChapterId, done: Boolean, mainlinePath: Option[UciPath]) =
+    val update = mainlinePath match
+      case Some(path) => bset("serverEval" -> Chapter.ServerEval(path, done))
+      case _ => bset("serverEval.done" -> done)
+    coll(_.update.one(bid(chapterId), update)).void
 
   def countByStudyId(id: StudyId): Fu[Int] =
     coll(_.countSel(studyId(id)))
@@ -305,6 +297,16 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
 
   def update(c: Chapter): Funit = coll(_.update.one(bid(c.id), c.updateDenorm)).void
+
+  private[study] def updateAnalysis(previous: Chapter, next: Chapter): Funit =
+    val (sets, unsets) = BSONHandlers.treeDiff(previous.root, next.root)
+    coll:
+      _.update
+        .one(
+          bid(previous.id),
+          bset(sets ++ bdoc("serverEval" -> next.serverEval)) ++ unset(unsets)
+        )
+        .void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one(bid(id))).void
   def delete(c: Chapter): Funit = delete(c.id)

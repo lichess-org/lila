@@ -16,6 +16,7 @@
   <string name="quitTeam">Forlat klanen</string>
   <string name="manuallyReviewAdmissionRequests">Gå gjennom ønsker om å få bli med manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Kryss av for å kreve at spillere må skrive et ønske om å få bli med på laget, som du avslår eller godtar.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul listen over lagmedlemmer for personer som ikke er medlemmer.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagleder</item>
     <item quantity="other">Lagledere</item>
@@ -38,6 +39,8 @@
   <string name="teamUpdates">Lagoppdateringer</string>
   <string name="subToTeamUpdates">Abonner på lagoppdateringer</string>
   <string name="newTeamUpdate">Ny lagoppdatering</string>
+  <string name="teamEvents">Lagarrangementer</string>
+  <string name="upcomingTeamEvents">Kommende lagarrangementer</string>
   <string name="teamsIlead">Lag jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
   <string name="leadersChat">Ledersamtale</string>
@@ -49,6 +52,9 @@
   <string name="entryCode">Lagadgangskode</string>
   <string name="entryCodeDescriptionForLeader">(Valgfritt) En adgangskode som nye medlemmer må ha for å bli med på dette laget.</string>
   <string name="incorrectEntryCode">Feil adgangskode.</string>
+  <string name="forumLabel">Lagforum</string>
+  <string name="forumVisibilityHelp">Hvem kan se lagforumet på lagsiden?&lt;br&gt;Bare lagmedlemmer kan skrive innlegg i lagforumet.</string>
+  <string name="forumVisibilityNone">Skjul forumet</string>
   <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
   <string name="upcomingTournaments">Kommende turneringer</string>
   <string name="completedTourns">Fullførte turneringer</string>

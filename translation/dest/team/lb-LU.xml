@@ -22,6 +22,7 @@
   </plurals>
   <string name="teamBattle">Ekippekampf</string>
   <string name="teamTournament">Ekippenturnéier</string>
+  <string name="teamUpdates">Team-Updaten</string>
   <string name="introduction">Aféierung</string>
   <string name="teamIntroductionHelp">Kuerz Beschreiwung, déi op Ekippelëschten ze gesinn ass. Maximal 200 Zeechen.</string>
   <string name="teamDescriptionHelp">Vollstänneg Beschreiwung, déi op der Ekippesäit ze gesinn ass.</string>

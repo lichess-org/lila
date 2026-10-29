@@ -1,10 +1,10 @@
 package lila.tutor
 package ui
 
+import lila.insight.MeanRating
+import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
-import lila.insight.MeanRating
 
 final class TutorBits(helpers: Helpers)(
     val openingUrl: chess.opening.Opening => Call
@@ -25,7 +25,7 @@ final class TutorBits(helpers: Helpers)(
   def mascot =
     img(
       cls := "mascot",
-      src := assetUrl("images/mascot/octopus-shadow.svg")
+      src := assetPath("images/mascot/octopus-shadow.svg")
     )
 
   def mascotSays(content: Modifier*) = div(cls := "mascot-says")(

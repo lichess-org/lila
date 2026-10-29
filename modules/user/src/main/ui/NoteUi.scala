@@ -5,7 +5,6 @@ import scalalib.paginator.Paginator
 
 import lila.core.config.NetDomain
 import lila.ui.*
-
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class NoteUi(helpers: Helpers)(using NetDomain):

@@ -1,29 +1,34 @@
 #friend_box {
-  @include inline-end(0);
-
-  display: none;
-  position: fixed;
-  bottom: 0;
-  z-index: $z-friend-box-2;
-  background: $c-bg-popup;
-  overflow: hidden;
-  border-inline-start: $border;
-  border-top-left-radius: $small-box-radius-size;
+  position: relative;
+  overflow: visible;
   font-size: 0.9rem;
-  min-width: 150px;
-  max-height: 95%;
-  backface-visibility: hidden; // improve scroll perfs
 
-  @include mq-topnav-visible-and-tall {
-    display: block;
+  .friend_box_button {
+    height: $site-header-height;
+    line-height: $site-header-height;
+    padding: 0 0.7rem;
+
+    &::before {
+      font-size: 1.3em;
+    }
   }
 
-  .friend_box_title {
-    @extend %metal;
+  .friend_box_count {
+    white-space: nowrap;
+    padding: 0.5em 0.75em;
+  }
 
-    cursor: pointer;
-    padding: 3px 5px;
-    border-bottom: $border;
+  .content_wrap {
+    @include inline-start(calc(50% - 100px));
+    @extend %box-radius, %dropdown-shadow;
+
+    position: absolute;
+    top: $site-header-height;
+    z-index: $z-dropdown-109;
+    min-width: 200px;
+    max-height: 95vh;
+    overflow: hidden;
+    background: $c-bg-header-dropdown;
   }
 
   .content {
@@ -32,18 +37,24 @@
     max-height: 80vh;
     overflow-x: hidden;
     overflow-y: auto;
+    border-top: $border;
+
+    &:empty {
+      display: none;
+    }
 
     div {
       display: flex;
+      border-radius: $small-box-radius-size;
 
       &:hover {
-        background: color-mix(in oklab, $c-secondary 10%, $c-bg-popup);
+        background: color-mix(in oklab, $c-secondary 10%, $c-bg-header-dropdown);
       }
     }
 
     a {
       flex: 1 1 100%;
-      padding: 3px 0;
+      padding: 4px 0.25em;
       display: block;
       transition: background 0.13s;
 
@@ -54,7 +65,7 @@
       &.user-link {
         @extend %ellipsis;
 
-        max-width: 150px;
+        max-width: 200px;
       }
 
       &.tv {

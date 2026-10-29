@@ -10,13 +10,13 @@ import { expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBo
 import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
-  const $toggle = $('.mod-zone-toggle'),
-    $zone = $('.mod-zone-full');
+  const $toggle = $('.mod-zone-toggle');
+  const $zone = $('.mod-zone-full');
   let nbOthers = 100;
 
   function streamLoad() {
-    const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
-      streamDebounce = debounce(() => userMod($zone), 300);
+    const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
+    const streamDebounce = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));

@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Avbryt timeren eller avslå en forespørsel</string>
   <string name="playPreferredMoveOrConfirmSomething">Spill foretrukket trekk eller bekreft noe</string>
   <string name="sleep">Sov (hvis vekkeord er aktivert)</string>
-  <string name="turnOffVoiceRecognition">Skru av talegjenkjenning</string>
   <string name="showPuzzleSolution">Vis løsning for sjakknøtt</string>
+  <string name="voiceHelp">Hjelp for talekommandoer</string>
+  <string name="voiceSettings">Taleinnstillinger</string>
+  <string name="pushShiftKeyToTalk">Trykk på %s-tasten for å snakke</string>
+  <string name="holdShiftKeyWhileSpeaking">Hold skift-tasten nede mens du snakker</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Ingen valgt</string>
 </resources>

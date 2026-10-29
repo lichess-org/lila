@@ -5,18 +5,18 @@ import { pubsub } from 'lib/pubsub';
 import { wsSend } from 'lib/socket';
 import { spinnerHtml } from 'lib/view';
 
-import { loadCssPath, loadEsm } from './asset';
+import { loadCss, loadEsm } from './asset';
 import { addClinputKeyHandler } from './clinput';
 
 export default function () {
   const top = document.getElementById('top')!;
 
-  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
-    isVisible = (selector: string) => {
-      const el = document.querySelector(selector),
-        display = el && window.getComputedStyle(el).display;
-      return display && display !== 'none';
-    };
+  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`;
+  const isVisible = (selector: string) => {
+    const el = document.querySelector(selector);
+    const display = el && window.getComputedStyle(el).display;
+    return display && display !== 'none';
+  };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
   // Only for mq-topnav-visible in ui/lib/css/abstract/_media-queries.scss
@@ -59,13 +59,13 @@ export default function () {
   {
     // challengeApp
     let instance: Promise<any> | undefined;
-    const $toggle = $('#challenge-toggle'),
-      $countSpan = $toggle.find('span');
+    const $toggle = $('#challenge-toggle');
+    const $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
       if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
-      loadCssPath('challenge');
+      loadCss({ key: 'challenge' });
       instance = loadEsm('challenge', {
         init: {
           el: $el[0],
@@ -94,14 +94,14 @@ export default function () {
   {
     // notifyApp
     let instance: Promise<any> | undefined;
-    const $toggle = $('#notify-toggle'),
-      $countSpan = $toggle.find('span'),
-      selector = '#notify-app';
+    const $toggle = $('#notify-toggle');
+    const $countSpan = $toggle.find('span');
+    const selector = '#notify-app';
 
     const load = (data?: any) => {
       if (instance) return;
       const $el = $('#notify-app').html(initiatingHtml);
-      loadCssPath('notify');
+      loadCss({ key: 'notify' });
       instance = loadEsm('notify', {
         init: {
           el: $el.empty()[0],
@@ -152,7 +152,7 @@ export default function () {
     const load = memoize(() => loadEsm('dasher'));
     $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
       $(this).removeAttr('href');
-      loadCssPath('dasher');
+      loadCss({ key: 'dasher' });
       load();
     });
   }

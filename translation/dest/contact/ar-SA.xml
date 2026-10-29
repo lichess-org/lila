@@ -24,8 +24,8 @@
   <string name="changeUsernameCase">قم بزيارة هذه الصفحة لتغيير اسم المستخدم الخاص بك</string>
   <string name="cantChangeMore">لايمكن تغيير اكثر من حجم الأحرف، لأسباب تقنية، إنه مستحيل.</string>
   <string name="orCloseAccount">على الرغم من ذلك، يمكنك إغلاق حسابك الحالي، وإنشاء حساب جديد.</string>
-  <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
-  <string name="cantClearHistoryOrResetRatings">لا يمكنك مسح سجل مبارياتك أو سجل ألغازك أو إعادة ضبط تصنيفاتك.</string>
+  <string name="wantClearHistory">أريد مسح سجل مبارياتي أو إعادة ضبط تصنيفي</string>
+  <string name="cantClearHistoryOrResetRatings">لا يمكن مسح سجل المباريات أو الألغاز، أو إعادة ضبط التصنيفات.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
   <string name="toReportAPlayerUseForm">للإبلاغ عن لاعب، استعمل(ي) استمارة التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>
@@ -50,11 +50,13 @@
   <string name="insufficientMaterial">قطع غير كافية لعمل كش مات</string>
   <string name="fideMate">وفقاً للفقرة 6 من قوانين الشطرنج الصادرة عن الاتحاد الدولي للشطرنج، تعدّ المباراة تعادلاً إذا وصلت إلى وضع لا يمكن معه تنفيذ كش مات بأية سلسلة نقلات قانونية ممكنة</string>
   <string name="knightMate">من الممكن عمل كش مات للخص باستعمال الحصان والفيل فقط، وهذا حتى إذا كان للخصم أكثر من قطعة متبقية على الرقعة.</string>
-  <string name="noRatingPoints">لم يتم منح أي نقاط تقييم</string>
-  <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
+  <string name="noRatingPoints">لم تُمنح أي نِقَاط تصنيف</string>
+  <string name="ratedGame">تأكّد من أنك لعبت مباراة مُصنَّفة؛ فالمباريات غير المُصنَّفة لا تؤثر في تصنيفك.</string>
   <string name="botRatingAbuse">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
   <string name="errorPage">صفحة خطأ</string>
-  <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
+  <string name="reportTheBug">يمكنك الإبلاغ عنه:</string>
+  <string name="securityVulnerability">ثُغْرَة أمنية</string>
+  <string name="otherBug">خلل آخر</string>
   <string name="learnHowToMakeBroadcasts">تعلم كيفية بث بطولة على Lichess</string>
   <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>
   <string name="engineAppeal">علامة الغش او استخدام محرك</string>

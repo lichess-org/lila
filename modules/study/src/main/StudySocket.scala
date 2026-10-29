@@ -1,20 +1,19 @@
 package lila.study
 
+import cats.mtl.Handle.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.Glyph
 import play.api.libs.json.*
 import scalalib.actor.SyncActorMap
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.tree.Branch
-import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.core.study.Visibility
-import cats.mtl.Handle.*
-import lila.tree.Node.lichobileNodeJsonWriter
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.tree.Branch
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes, lichobileNodeJsonWriter }
 
 final private class StudySocket(
     api: StudyApi,
@@ -36,7 +35,7 @@ final private class StudySocket(
       _ == "true"
     )
 
-  def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
+  def onServerEval(studyId: StudyId, eval: serverEval.Progress): Unit =
     import eval.*
     send.exec(
       RP.Out.tellRoom(
@@ -345,7 +344,7 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setGlyphs(pos: Position.Ref, glyphs: Glyphs, who: Who) =
+  def setGlyphs(pos: Position.Ref, glyphs: lila.tree.Node.Glyphs, who: Who) =
     version(
       "glyphs",
       Json.obj(

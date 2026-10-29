@@ -2,6 +2,7 @@ package lila.study
 
 import chess.format.{ Fen, UciPath }
 import chess.variant.Variant
+
 import lila.tree.Branch
 
 private case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, insert: Boolean):

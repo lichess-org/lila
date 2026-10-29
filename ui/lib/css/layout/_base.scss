@@ -39,7 +39,7 @@ body {
   margin-top: $site-header-margin;
 
   @include mq-sticky-header {
-    margin-top: var(---sticky-gap);
+    margin-top: calc(var(---sticky-gap) + $site-header-margin);
   }
 
   &.full-screen {

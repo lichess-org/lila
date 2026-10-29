@@ -120,6 +120,7 @@
 Зрабіце які-небудзь ход, каб працягнуць.</string>
   <string name="boardSetupComplete">Віншуем! Зараз вы ведаеце, як ставіць фігуры на шахматнай дошцы.</string>
   <string name="castling">Ракіроўка</string>
+  <string name="enPassant">Узяцце на праходзе</string>
   <string name="theSpecialKingMove">Адмысловы ход караля</string>
   <string name="castlingIntro">Абараніце свайго караля і выведзіце ў бой ладдзю!</string>
   <string name="castleKingSide">Перасуньце свайго караля на дзве клеткі да ладдзі каралеўскага фланга!</string>

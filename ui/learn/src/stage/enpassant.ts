@@ -6,7 +6,7 @@ const imgUrl = assetUrl + 'images/learn/spinning-blades.svg';
 
 const stage: StageNoID = {
   key: 'enpassant',
-  title: i18n.site.enPassant,
+  title: i18n.learn.enPassant,
   subtitle: i18n.learn.theSpecialPawnMove,
   image: imgUrl,
   intro: i18n.learn.enPassantIntro,

@@ -14,14 +14,13 @@ import { sharedWasmMemory } from '../util';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
-  protocol: Protocol;
   module?: StockfishWeb;
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status: EngineNotifier | undefined,
+    readonly status: EngineNotifier,
+    private readonly protocol: Protocol = new Protocol(info),
   ) {
-    this.protocol = new Protocol();
     this.boot().catch(e => {
       this.failed = e;
       this.status?.({ error: String(e) });
@@ -34,7 +33,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   async boot(): Promise<void> {
     const [root, js] = [this.info.assets.root, this.info.assets.js];
-    const scriptUrl = site.asset.url(`${root}/${js}`, { documentOrigin: true });
+    const scriptUrl = site.asset.url(`${root}/${js}`);
     const makeModule = await import(scriptUrl);
     const module: StockfishWeb = await makeModule.default({
       wasmMemory: sharedWasmMemory(this.info.minMem!),
@@ -63,6 +62,7 @@ export class StockfishWebEngine implements CevalEngine {
           );
         }),
       );
+      this.status?.();
     }
     module.listen = (data: string) => {
       try {
@@ -102,7 +102,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   start = (work?: Work): void => this.protocol.compute(work);
   stop = (): void => this.protocol.compute(undefined);
-  engineName = (): string | undefined => this.protocol.engineName;
+  version = (): string | undefined => this.protocol.engineName;
   destroy = (): void => {
     this.module?.uci('quit');
     this.module = undefined;

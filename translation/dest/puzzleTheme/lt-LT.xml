@@ -44,6 +44,7 @@
   <string name="doubleCheckDescription">Šachas dviem figūrom vienu metu. Įvyksta po atidengimo atakos, kai ir perkelta figūra ir atidengta figūra puola priešininko karalių.</string>
   <string name="endgame">Endšpilis</string>
   <string name="endgameDescription">Taktika, skirta paskutinei žaidimo fazei.</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>

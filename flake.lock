@@ -14,9 +14,45 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1789546076,
+        "narHash": "sha256-zVxLZiSnmaaPLwnhj7pwmqe3axBg/C6nG5JZsJMh2g4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b1b875982b17dabde9b4a37f3e229e74913e6db3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sasso": "sasso"
+      }
+    },
+    "sasso": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1790988805,
+        "narHash": "sha256-B943e8TJDUcjuSZGMpqeD6Y4bfvDKZs9RGIqCPaDolE=",
+        "owner": "momiji-rs",
+        "repo": "sasso",
+        "rev": "a800e12c8e0e53975060d1e74a0716a170315a01",
+        "type": "github"
+      },
+      "original": {
+        "owner": "momiji-rs",
+        "ref": "v0.21.0",
+        "repo": "sasso",
+        "type": "github"
       }
     }
   },

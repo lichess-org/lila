@@ -73,7 +73,7 @@ export interface Dimension extends Metric {
 
 export type ViewTab = 'combined' | 'presets' | 'filters' | 'insights';
 
-export interface InsightChart extends Chart {
+export interface InsightChart extends Chart<'bar'> {
   updateData(d: InsightData): void;
 }
 

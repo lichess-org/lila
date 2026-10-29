@@ -4,9 +4,9 @@ import org.apache.pekko.actor.{ Cancellable, Scheduler }
 
 import scala.util.Success
 
+import lila.core.lilaism.LilaNoStackTrace
 import lila.game.GameExt.*
 import lila.game.{ GameRepo, Progress }
-import lila.core.lilaism.LilaNoStackTrace
 
 // NOT thread safe
 final private class GameProxy(
@@ -62,7 +62,7 @@ final private class GameProxy(
 
   def withGameOptionSync[A](f: Game => A): Option[A] =
     cache.value match
-      case Some(Success(Some(g))) => Some(f(g))
+      case Some(Success(Some(g))) => Option(f(g))
       case _ => None
 
   def terminate() = flushProgress()
