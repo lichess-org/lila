@@ -90,7 +90,7 @@ export class SoundCtrl extends PaneCtrl {
     });
   };
 
-  private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
+  private readonly getCurrent = (): Key => (site.sound.getSpeech() ? 'speech' : site.sound.theme);
 
   private readonly setVoiceRate = (v: string) => {
     localStorage.setItem('speech.rate', v);
@@ -159,8 +159,8 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private readonly set = (k: Key) => {
-    site.sound.speech(k === 'speech');
-    if (site.sound.speech()) {
+    site.sound.setSpeech(k === 'speech');
+    if (k === 'speech') {
       this.voiceSelectionDialog();
       site.sound.say('Speech synthesis ready');
       site.sound.changeSet('speech');
