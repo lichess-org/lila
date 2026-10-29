@@ -43,6 +43,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
       cacheControl("private", duration)
     def vary(headers: String*) = result.withHeaders(VARY -> headers.mkString(", "))
     def varyAccept = vary("Accept")
+    def varyLanguage = vary("Accept-Language")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =
