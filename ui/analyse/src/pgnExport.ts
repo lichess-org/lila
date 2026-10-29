@@ -14,7 +14,9 @@ interface PgnNode {
   san?: San;
 }
 
-function renderPgnTags(game: Game): string {
+function renderPgnTags(game: Game, headers?: Map<string, string>): string {
+  if (headers)
+    return [...headers].map(([name, value]) => `[${name} ${JSON.stringify(value)}]`).join('\n') + '\n\n';
   let txt = '';
   const tags: Array<[string, string]> = [];
   if (game.variant.key !== 'standard') tags.push(['Variant', game.variant.name]);
@@ -23,8 +25,15 @@ function renderPgnTags(game: Game): string {
   return txt;
 }
 
-export const renderFullTxt = (ctrl: AnalyseCtrl, root: TreeNodeLite = ctrl.tree.root): string =>
-  renderPgnTags(ctrl.data.game) + renderNodesTxt(root, true);
+export const renderFullTxt = (
+  ctrl: AnalyseCtrl,
+  root: TreeNodeLite = ctrl.tree.root,
+  includeAnnotations = false,
+  headers?: Map<string, string>,
+): string =>
+  renderPgnTags(ctrl.data.game, headers) +
+  renderNodesTxt(root, true, true, includeAnnotations) +
+  (headers ? ` ${headers.get('Result') ?? '*'}` : '');
 
 export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   if (!nodes[0]) return [];
