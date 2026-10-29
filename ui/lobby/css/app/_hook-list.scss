@@ -71,6 +71,10 @@
       &:nth-child(2) {
         max-width: 13vw;
         direction: rtl;
+
+        &:not(.sortable) {
+          text-align: left;
+        }
       }
     }
   }
