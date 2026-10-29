@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a new feature, an improvement to an existing feature, or an idea.
+labels: []
+type: feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for requesting a feature. Before submitting, please [search existing issues](https://github.com/lichess-org/lila/issues) to confirm this is not a duplicate.**
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like to add or change?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would this be useful?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional information
+    validations:
+      required: false
