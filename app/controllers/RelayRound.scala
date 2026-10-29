@@ -103,20 +103,16 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
-      negotiate(
-        html = WithRoundAndTour(ts, rs, id): rt =>
-          val sc = env.study.preview
-            .firstId(rt.round.studyId)
-            .flatMap:
-              // there might be no chapter after a round reset, let a new one be created
-              case None => env.study.api.byIdWithChapter(rt.round.studyId)
-              case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
-          sc.orNotFound: study =>
-            env.relay.videoEmbed.withCookie:
-              doShow(rt, study, _)
-        ,
-        json = doApiShow(id)
-      )
+      WithRoundAndTour(ts, rs, id): rt =>
+        val sc = env.study.preview
+          .firstId(rt.round.studyId)
+          .flatMap:
+            // there might be no chapter after a round reset, let a new one be created
+            case None => env.study.api.byIdWithChapter(rt.round.studyId)
+            case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
+        sc.orNotFound: study =>
+          env.relay.videoEmbed.withCookie:
+            doShow(rt, study, _)
 
   def apiShow(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId) =
     AnonOrScoped(_.Study.Read, _.Web.Mobile):
