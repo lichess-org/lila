@@ -181,7 +181,6 @@ export default class AnalyseCtrl implements CevalHandler {
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
     this.initialize(this.data, false);
-    this.initCeval();
     this.pendingCopy = propWithEffect(null, this.redraw);
     this.pendingDeletionPath = propWithEffect(null, this.redraw);
     this.initialPath = this.makeInitialPath();
@@ -197,7 +196,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
     if (location.hash === '#practice' || this.study?.data.chapter.practice) this.togglePractice();
     else if (location.hash === '#menu') requestIdleCallbackSafe(this.actionMenu.toggle, 500);
-    this.setCevalPracticeOpts();
+    this.initCeval();
     keyboard.bind(this);
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
@@ -353,7 +352,6 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval.reset();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -768,6 +766,7 @@ export default class AnalyseCtrl implements CevalHandler {
       },
       hideErrors: this.isEmbed,
       localEval: () => (this.node.ceval && !this.node.ceval.cloud ? this.node.ceval : null),
+      custom: this.study?.practice?.customCeval ?? this.practice?.customCeval,
       ...mergeOpts,
     };
     if (this.ceval) this.ceval.init(opts);
@@ -807,7 +806,7 @@ export default class AnalyseCtrl implements CevalHandler {
   startCevalIfEnabled = () => {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
-    if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
+    if (this.node.threefold || !this.cevalEnabled() || this.node.pos().isErr || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
@@ -917,22 +916,18 @@ export default class AnalyseCtrl implements CevalHandler {
     if (enable === !!this.practice) return;
     this.practice = undefined;
     if (!enable || !this.isCevalAllowed()) {
-      this.setCevalPracticeOpts();
+      this.initCeval();
       this.showGround();
       if (this.isCevalAllowed()) this.startCevalIfEnabled();
     } else {
       this.closeTools();
       this.threatMode(false);
       this.practice = makePractice(this);
-      this.setCevalPracticeOpts();
+      this.initCeval();
       this.setAutoShapes();
       this.startCevalIfEnabled();
     }
   };
-
-  private setCevalPracticeOpts() {
-    this.initCeval({ custom: this.study?.practice?.customCeval ?? this.practice?.customCeval });
-  }
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => this.study?.gamebookPlay;
 

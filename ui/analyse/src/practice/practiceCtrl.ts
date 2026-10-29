@@ -179,22 +179,23 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
         }
       }
       if (!played() && playable(node)) {
-        root.playUci(nodeBestUci(node)!);
         played(true);
+        root.playUci(nodeBestUci(node)!);
       } else root.redraw();
     }
   }
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(variant, root.node.fen))
-      root.explorer.fetchTablebaseHit(root.node.fen).then(
+    const node = root.node;
+    if (tablebaseGuaranteed(variant, node.fen))
+      root.explorer.fetchTablebaseHit(node.fen, 3000).then(
         hit => {
-          if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
-          checkCeval();
+          if (hit && node.fen === hit.fen) node.tbhit = hit;
+          if (root.node === node) checkCeval();
         },
         () => {
-          if (!defined(root.node.tbhit)) root.node.tbhit = null;
-          checkCeval();
+          if (!defined(node.tbhit)) node.tbhit = null;
+          if (root.node === node) checkCeval();
         },
       );
     else checkCeval();

@@ -74,7 +74,7 @@ export class CevalCtrl {
   lastStarted?: StartedState;
   showEnginePrefs: Toggle = toggle(false);
   wasUnloadedByAnotherWindow = false;
-
+  private unloadedState = CevalState.Initial;
   private readonly performanceMap = storedMap<Record<ThreadCount, NodesPerSecond[]>>(
     'ceval.perf',
     12,
@@ -146,6 +146,7 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.unloadedState = CevalState.Initial;
     this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
@@ -214,7 +215,7 @@ export class CevalCtrl {
   }
 
   get state(): CevalState {
-    return this.worker?.getState() ?? CevalState.Initial;
+    return this.worker?.getState() ?? this.unloadedState;
   }
 
   get canGoDeeper(): boolean {
@@ -269,6 +270,7 @@ export class CevalCtrl {
     if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
+    this.unloadedState = CevalState.Failed;
   }
 
   isFinished(search: Search, step: Step, isThreat: boolean): boolean {
