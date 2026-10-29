@@ -16,9 +16,7 @@ final class DgtUi(helpers: Helpers):
         h1(cls := "box__top")(trd.lichessAndDgt()),
         p(trd.thisPageAllowsConnectingDgtBoard()),
         br,
-        br,
         h2(trd.dgtBoardRequirements()),
-        br,
         p(trd.toConnectTheDgtBoard(s"LiveChess $liveChessVersion")),
         p(
           trd.downloadHere(
@@ -37,9 +35,9 @@ final class DgtUi(helpers: Helpers):
             a(href := routes.DgtCtrl.config)(trd.configurationSection())
           )
         ),
+        br,
         st.section(
           h2(trd.dgtBoardLimitations()),
-          br,
           p(trd.keepPlayPageOpen()),
           p(trd.boardWillAutoConnect()),
           p(
@@ -48,6 +46,7 @@ final class DgtUi(helpers: Helpers):
             trd.timeControlsForRatedGames()
           )
         ),
+        br,
         p(
           trd.whenReadySetupBoard(
             a(href := routes.DgtCtrl.play)(trans.site.play())
