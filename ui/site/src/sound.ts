@@ -176,10 +176,10 @@ export default new (class implements SoundI {
   enabled = () => this.theme !== 'silent' && this.getVolume() !== 0;
 
   getSpeech = (): boolean => this.theme === 'speech' || this.speechStorage.get();
-  setSpeech = (v: boolean) : boolean => {
+  setSpeech = (v: boolean): boolean => {
     this.speechStorage.set(v);
     return this.getSpeech();
-  }
+  };
 
   say = (text: string, cut = false, force = false, translated = false) =>
     this.sayLazy(() => text, cut, force, translated);
