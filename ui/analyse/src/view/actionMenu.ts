@@ -136,6 +136,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           {
             hook: bind('click', () =>
               domDialog({
+                closeButton: true,
                 cash: $('.continue-with.g_' + d.game.id),
                 modal: true,
                 show: true,

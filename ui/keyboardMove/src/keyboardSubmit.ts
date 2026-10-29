@@ -116,7 +116,7 @@ export function makeSubmit(opts: Opts, clear: () => void): Submit {
       }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
       if (['help', '?'].includes(v.toLowerCase())) {
-        opts.ctrl.helpModalOpen(true);
+        opts.ctrl.showHelp();
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {

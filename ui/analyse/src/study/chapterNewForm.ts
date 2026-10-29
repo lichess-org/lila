@@ -19,7 +19,6 @@ import {
   dataIcon,
   spinnerVdom,
   type Dialog,
-  type VNode,
   icon,
   button,
   h2,
@@ -67,10 +66,7 @@ const boardFen = (fen: FEN): string | undefined =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
-  dialog?: Dialog;
-  isOpen = toggle(false, val => {
-    if (!val) this.dialog?.close();
-  });
+  private dialog?: Dialog<StudyChapterNewForm>;
   initial = toggle(false);
   tab = storedProp<ChapterTab>('analyse.study.form.tab', 'init', str => str as ChapterTab);
   editor: LichessEditor | null = null;
@@ -88,19 +84,16 @@ export class StudyChapterNewForm {
     readonly root: AnalyseCtrl,
     private readonly currentChapter: () => StudyChapter,
   ) {
-    pubsub.on('analysis.closeAll', () => this.isOpen(false));
+    pubsub.on('analysis.closeAll', () => this.dialog?.close());
     this.orientation = root.bottomColor();
   }
 
-  open = () => {
-    pubsub.emit('analysis.closeAll');
-    this.orientation = this.root.bottomColor();
-    this.isOpen(true);
-    this.loadVariants();
-    this.initial(false);
-    this.isDefaultName(true);
-    this.setVariant(this.currentChapter().setup.variant.key);
-    this.chess960Position(518);
+  isOpen = () => {
+    return Boolean(this.dialog);
+  };
+
+  close = () => {
+    this.dialog?.close();
   };
 
   setVariant = (v: VariantKey) => {
@@ -117,12 +110,10 @@ export class StudyChapterNewForm {
     if (isStart && from !== to) this.editor.setFen(startFen(to));
   };
 
-  toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
-
   setTab = (key: ChapterTab) => {
     this.tab(key);
     if (key !== 'pgn' && this.orientation === 'automatic') this.orientation = 'white';
-    this.root.redraw();
+    this.redraw();
   };
 
   loadVariants = () => {
@@ -131,11 +122,6 @@ export class StudyChapterNewForm {
         this.variants = vs;
         this.redraw();
       });
-  };
-
-  openInitial = () => {
-    this.open();
-    this.initial(true);
   };
 
   submit = (d: Omit<ChapterData, 'initial'>) => {
@@ -150,13 +136,12 @@ export class StudyChapterNewForm {
           alert('You have reached the maximum number of chapters (64). Some of the games were not imported.');
         throw e;
       });
-    this.isOpen(false);
     this.setChaptersTab();
   };
   startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
-      site.asset.loadCssPath('bits.shepherd'),
+      site.asset.loadCss({ key: 'bits.shepherd' }),
     ]);
 
     tour.chapter(tab => {
@@ -164,305 +149,317 @@ export class StudyChapterNewForm {
       this.redraw();
     });
   };
-  redraw = this.root.redraw;
-}
 
-export function view(ctrl: StudyChapterNewForm): VNode {
-  const study = ctrl.root.study!;
-  const activeTab = ctrl.tab();
-  const makeTab = (key: ChapterTab, name: string, title: string) =>
-    button(
-      `.${key}`,
-      {
-        class: { active: activeTab === key },
-        type: 'button',
-        role: 'tab',
-        title,
-        tabindex: '0',
-        hook: onInsert(el => {
-          el.addEventListener('click', (e: Event) => {
-            ctrl.setTab(key);
-            e.preventDefault();
-          });
-        }),
-      },
-      name,
-    );
-  const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapter = study.data.chapter;
-  const mode = currentChapter.practice
-    ? 'practice'
-    : defined(currentChapter.conceal)
-      ? 'conceal'
-      : currentChapter.gamebook
-        ? 'gamebook'
-        : 'normal';
+  redraw = () => {
+    this.root.redraw();
+    this.dialog?.redraw();
+  };
 
-  return snabDialog({
-    class: 'chapter-new',
-    onClose() {
-      ctrl.editor?.close();
-      ctrl.dialog = undefined;
-      ctrl.isOpen(false);
-      ctrl.redraw();
-    },
-    modal: true,
-    onInsert: dlg => {
-      ctrl.dialog = dlg;
-      dlg.show();
-    },
-    vnodes: [
-      activeTab !== 'edit' &&
-        h2([i18n.study.newChapter, icon(licon.InfoCircle)('.help', { hook: bind('click', ctrl.startTour) })]),
-      hl(
-        'form.form3',
+  open = async (initial = false) => {
+    pubsub.emit('analysis.closeAll');
+    this.orientation = this.root.bottomColor();
+    this.loadVariants();
+    this.initial(initial);
+    this.isDefaultName(true);
+    this.setVariant(this.currentChapter().setup.variant.key);
+    this.chess960Position(518);
+    const study = this.root.study!;
+    const makeTab = (key: ChapterTab, name: string, title: string) => {
+      return button(
+        `.${key}`,
         {
-          hook: bindSubmit(e => {
-            const tab = ctrl.tab();
-            ctrl.submit({
-              name: fieldValue(e, 'name'),
-              game: fieldValue(e, 'game'),
-              variant: fieldValue(e, 'variant') as VariantKey,
-              pgn: fieldValue(e, 'pgn'),
-              orientation: fieldValue(e, 'orientation') as Orientation,
-              mode: fieldValue(e, 'mode') as ChapterMode,
-              fen:
-                tab === 'init' && ctrl.selectedVariant() === 'chess960'
-                  ? chess960IdToFEN(ctrl.chess960Position())
-                  : fieldValue(e, 'fen') || (tab === 'edit' ? ctrl.editorFen() : null),
-              isDefaultName: ctrl.isDefaultName(),
+          class: { active: this.tab() === key },
+          type: 'button',
+          role: 'tab',
+          title,
+          tabindex: '0',
+          hook: onInsert(el => {
+            el.addEventListener('click', (e: Event) => {
+              this.setTab(key);
+              e.preventDefault();
             });
-          }, ctrl.redraw),
+          }),
         },
-        [
-          div('.form-group', [
-            label('.form-label', { for: 'chapter-name' }, i18n.site.name),
-            input('text')('#chapter-name.form-control', {
-              minlength: 2,
-              maxlength: 80,
-              hook: onInsert<HTMLInputElement>(el => {
-                if (!el.value) {
-                  el.value = i18n.study.chapterX(ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
-                  el.onchange = () => ctrl.isDefaultName(false);
-                  el.select();
-                }
-                el.addEventListener('focus', () => el.select());
-                // set initial modal focus
-                setTimeout(() => el.focus());
+        name,
+      );
+    };
+    const gameOrPgn = this.tab() === 'game' || this.tab() === 'pgn';
+    const currentChapter = study.data.chapter;
+    const mode = currentChapter.practice
+      ? 'practice'
+      : defined(currentChapter.conceal)
+        ? 'conceal'
+        : currentChapter.gamebook
+          ? 'gamebook'
+          : 'normal';
+
+    this.dialog = await snabDialog<StudyChapterNewForm>({
+      closeButton: true,
+      class: 'chapter-new study-modal',
+      show: true,
+      ctx: this,
+      modal: true,
+      onClose: () => (this.dialog = undefined),
+      render: (_, dlg) => [
+        this.tab() !== 'edit' &&
+          h2([
+            i18n.study.newChapter,
+            icon(licon.InfoCircle)('.help', { hook: bind('click', this.startTour) }),
+          ]),
+        hl(
+          'form.form3',
+          {
+            hook: bindSubmit(e => {
+              const tab = this.tab();
+              this.submit({
+                name: fieldValue(e, 'name'),
+                game: fieldValue(e, 'game'),
+                variant: fieldValue(e, 'variant') as VariantKey,
+                pgn: fieldValue(e, 'pgn'),
+                orientation: fieldValue(e, 'orientation') as Orientation,
+                mode: fieldValue(e, 'mode') as ChapterMode,
+                fen:
+                  tab === 'init' && this.selectedVariant() === 'chess960'
+                    ? chess960IdToFEN(this.chess960Position())
+                    : fieldValue(e, 'fen') || (tab === 'edit' ? this.editorFen() : null),
+                isDefaultName: this.isDefaultName(),
+              });
+              dlg.close();
+            }, this.redraw),
+          },
+          [
+            div('.form-group', [
+              label('.form-label', { for: 'chapter-name' }, i18n.site.name),
+              input('text')('#chapter-name.form-control', {
+                minlength: 2,
+                maxlength: 80,
+                hook: onInsert<HTMLInputElement>(el => {
+                  if (!el.value) {
+                    el.value = i18n.study.chapterX(this.initial() ? 1 : this.chapters.size() + 1);
+                    el.onchange = () => this.isDefaultName(false);
+                    el.select();
+                  }
+                  el.addEventListener('focus', () => el.select());
+                  // set initial modal focus
+                  setTimeout(() => el.focus());
+                }),
               }),
-            }),
-          ]),
-          div('.tabs-horiz', { role: 'tablist' }, [
-            makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
-            makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
-            makeTab('game', 'URL', i18n.study.loadAGameByUrl),
-            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
-            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
-          ]),
-          activeTab === 'edit' &&
-            div(
-              '.board-editor-wrap',
-              {
-                hook: {
-                  insert(vnode) {
-                    xhrJson('/editor.json').then(async data => {
-                      data.el = vnode.elm;
-                      data.fen = ctrl.root.node.fen;
-                      data.embed = true;
-                      data.options = {
-                        inlineCastling: true,
-                        orientation: ctrl.orientation,
-                        onChange: ctrl.editorFen,
-                        coordinates: true,
-                        bindHotkeys: false,
-                      };
-                      ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
-                      ctrl.editorFen(ctrl.editor.getFen());
-                      ctrl.setEditorVariant(currentChapter.setup.variant.key, ctrl.selectedVariant());
-                    });
+            ]),
+            div('.tabs-horiz', { role: 'tablist', key: this.tab() }, [
+              makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
+              makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
+              makeTab('game', 'URL', i18n.study.loadAGameByUrl),
+              makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
+              makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
+            ]),
+            this.tab() === 'edit' &&
+              div(
+                '.board-editor-wrap',
+                {
+                  class: {
+                    is2d: document.getElementById('main-wrap')?.classList.contains('is2d') ?? false,
+                    is3d: document.getElementById('main-wrap')?.classList.contains('is3d') ?? false,
                   },
-                  destroy: () => (ctrl.editor = null),
-                },
-              },
-              [spinnerVdom()],
-            ),
-          activeTab === 'game' &&
-            div('.form-group', [
-              label('.form-label', { for: 'chapter-game' }, 'Load Lichess games'),
-              textarea()('#chapter-game.form-control', {
-                placeholder: i18n.study.urlOfTheGame,
-                hook: onInsert((el: HTMLTextAreaElement) => {
-                  el.addEventListener('change', () => el.reportValidity());
-                  el.addEventListener('input', () => {
-                    const ok = el.value
-                      .trim()
-                      .split('\n')
-                      .every(line =>
-                        line
-                          .trim()
-                          .match(
-                            new RegExp(
-                              `^((.*${location.host}/game/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`,
-                            ),
-                          ),
-                      );
-                    el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
-                  });
-                }),
-              }),
-            ]),
-          activeTab === 'fen' &&
-            div('.form-group', [
-              input('text')('#chapter-fen.form-control', {
-                value: ctrl.root.node.fen,
-                placeholder: i18n.study.loadAPositionFromFen,
-                spellcheck: 'false',
-                hook: onInsert((el: HTMLInputElement) => {
-                  el.addEventListener('change', () => el.reportValidity());
-                  el.addEventListener('input', _ => {
-                    if (parseFen(el.value.trim()).isOk) {
-                      el.setCustomValidity('');
-                      ctrl.root.node.fen = el.value;
-                    } else el.setCustomValidity('Invalid FEN');
-                  });
-                }),
-              }),
-              button(
-                '.button-link.preview-in-editor',
-                {
-                  hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
-                },
-                [icon(licon.Eye)('.text'), i18n.study.editor],
-              ),
-            ]),
-          activeTab === 'pgn' &&
-            div('.form-group', [
-              textarea()('#chapter-pgn.form-control', {
-                placeholder: i18n.study.pasteYourPgnTextHereUpToNbGames(ctrl.multiPgnMax),
-              }),
-              button(
-                '.button-link.import-from__chapter',
-                {
-                  type: 'button',
-                  hook: bind(
-                    'click',
-                    () => {
-                      xhrText(`/study/${study.data.id}/${study.vm.chapterId}.pgn`).then(pgnData =>
-                        $('#chapter-pgn').val(pgnData),
-                      );
-                      return false;
+                  hook: {
+                    insert(vnode) {
+                      xhrJson('/editor.json').then(async data => {
+                        data.el = vnode.elm;
+                        data.fen = dlg.ctx.root.node.fen;
+                        data.embed = true;
+                        data.options = {
+                          inlineCastling: true,
+                          orientation: dlg.ctx.orientation,
+                          onChange: dlg.ctx.editorFen,
+                          coordinates: true,
+                          bindHotkeys: false,
+                        };
+                        dlg.ctx.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
+                        dlg.ctx.editorFen(dlg.ctx.editor.getFen());
+                        dlg.ctx.setEditorVariant(currentChapter.setup.variant.key, dlg.ctx.selectedVariant());
+                      });
                     },
-                    undefined,
-                    false,
-                  ),
+                  },
                 },
-                i18n.study.importFromChapterX(study.currentChapter().name),
+                [spinnerVdom()],
               ),
-              window.FileReader &&
-                input('file')('#chapter-pgn-file.form-control', {
-                  accept: '.pgn',
-                  hook: bind('change', e => {
-                    const file = (e.target as HTMLInputElement).files![0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function () {
-                      (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value =
-                        reader.result as string;
-                    };
-                    reader.readAsText(file);
-                  }),
-                }),
-            ]),
-          div('.form-split', [
-            div('.form-group.form-half', [
-              label('.form-label', { for: 'chapter-variant' }, i18n.site.variant),
-              select(
-                '#chapter-variant.form-control',
-                {
-                  disabled: gameOrPgn,
-                  hook: bind('change', e => {
-                    const v = (e.target as HTMLSelectElement).value as VariantKey;
-                    ctrl.setEditorVariant(ctrl.selectedVariant(), v);
-                    ctrl.setVariant(v);
-                    if (v === 'racingKings') ctrl.editor?.setOrientation('white');
-                    if (v !== 'chess960') ctrl.chess960Position(518);
-                    ctrl.redraw();
-                  }),
-                },
-                gameOrPgn
-                  ? [opt({ value: 'standard' }, i18n.study.automatic)]
-                  : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
-              ),
-            ]),
-            div('.form-group.form-half', [
-              label('.form-label', { for: 'chapter-orientation' }, i18n.study.orientation),
-              select(
-                '#chapter-orientation.form-control',
-                {
-                  disabled: !gameOrPgn && ctrl.selectedVariant() === 'racingKings',
-                  props: { value: ctrl.orientation },
-                  hook: bind(
-                    'change',
-                    e => {
-                      ctrl.orientation = (e.target as HTMLInputElement).value as Color;
-                      ctrl.editor?.setOrientation(ctrl.orientation);
-                    },
-                    ctrl.redraw,
-                  ),
-                },
-                [...(activeTab === 'pgn' ? ['automatic' as const] : []), ...COLORS].map(orientation =>
-                  option(
-                    orientation,
-                    ctrl.orientation,
-                    orientation === 'automatic' ? i18n.study[orientation] : i18n.site[orientation],
-                    {
-                      key: orientation,
-                    },
-                  ),
-                ),
-              ),
-            ]),
-          ]),
-          activeTab === 'init' &&
-            ctrl.selectedVariant() === 'chess960' &&
-            div('.form-group.chess960-position', [
-              label('.form-label', i18n.site.chess960StartPosition(ctrl.chess960Position())),
-              div('.chess960-position__inputs', [
-                input('number')('.form-control', {
-                  min: 0,
-                  max: 959,
-                  value: ctrl.chess960Position(),
-                  hook: onInsert((el: HTMLInputElement) => {
+            this.tab() === 'game' &&
+              div('.form-group', [
+                label('.form-label', { for: 'chapter-game' }, 'Load Lichess games'),
+                textarea()('#chapter-game.form-control', {
+                  placeholder: i18n.study.urlOfTheGame,
+                  hook: onInsert((el: HTMLTextAreaElement) => {
+                    el.addEventListener('change', () => el.reportValidity());
                     el.addEventListener('input', () => {
-                      const pos = parseInt(el.value);
-                      if (!isNaN(pos) && pos >= 0 && pos <= 959) {
-                        ctrl.chess960Position(pos);
-                        ctrl.redraw();
-                      }
+                      const ok = el.value
+                        .trim()
+                        .split('\n')
+                        .every(line =>
+                          line
+                            .trim()
+                            .match(
+                              new RegExp(
+                                `^((.*${location.host}/game/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`,
+                              ),
+                            ),
+                        );
+                      el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
                     });
-                  }),
-                }),
-                button('.button.button-empty', {
-                  type: 'button',
-                  title: i18n.site.randomChess960Position,
-                  ...dataIcon(licon.DieSix),
-                  hook: bind('click', () => {
-                    ctrl.chess960Position(randomPositionId());
-                    ctrl.redraw();
                   }),
                 }),
               ]),
+            this.tab() === 'fen' &&
+              div('.form-group', [
+                input('text')('#chapter-fen.form-control', {
+                  value: this.root.node.fen,
+                  placeholder: i18n.study.loadAPositionFromFen,
+                  spellcheck: 'false',
+                  hook: onInsert((el: HTMLInputElement) => {
+                    el.addEventListener('change', () => el.reportValidity());
+                    el.addEventListener('input', () => {
+                      if (parseFen(el.value.trim()).isOk) {
+                        el.setCustomValidity('');
+                        dlg.ctx.root.node.fen = el.value;
+                      } else el.setCustomValidity('Invalid FEN');
+                    });
+                  }),
+                }),
+                button(
+                  '.button-link.preview-in-editor',
+                  {
+                    hook: bind('click', () => this.tab('edit'), this.redraw),
+                  },
+                  [icon(licon.Eye)('.text'), i18n.study.editor],
+                ),
+              ]),
+            this.tab() === 'pgn' &&
+              div('.form-group', [
+                textarea()('#chapter-pgn.form-control', {
+                  placeholder: i18n.study.pasteYourPgnTextHereUpToNbGames(this.multiPgnMax),
+                }),
+                button(
+                  '.button-link.import-from__chapter',
+                  {
+                    type: 'button',
+                    hook: bind(
+                      'click',
+                      () => {
+                        xhrText(`/study/${study.data.id}/${study.vm.chapterId}.pgn`).then(pgnData =>
+                          $('#chapter-pgn').val(pgnData),
+                        );
+                        return false;
+                      },
+                      undefined,
+                      false,
+                    ),
+                  },
+                  i18n.study.importFromChapterX(study.currentChapter().name),
+                ),
+                window.FileReader &&
+                  input('file')('#chapter-pgn-file.form-control', {
+                    accept: '.pgn',
+                    hook: bind('change', e => {
+                      const file = (e.target as HTMLInputElement).files![0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onload = function () {
+                        (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value =
+                          reader.result as string;
+                      };
+                      reader.readAsText(file);
+                    }),
+                  }),
+              ]),
+            div('.form-split', [
+              div('.form-group.form-half', [
+                label('.form-label', { for: 'chapter-variant' }, i18n.site.variant),
+                select(
+                  '#chapter-variant.form-control',
+                  {
+                    disabled: gameOrPgn,
+                    hook: bind('change', e => {
+                      const v = (e.target as HTMLSelectElement).value as VariantKey;
+                      this.setEditorVariant(this.selectedVariant(), v);
+                      this.setVariant(v);
+                      if (v === 'racingKings') this.editor?.setOrientation('white');
+                      if (v !== 'chess960') this.chess960Position(518);
+                      this.redraw();
+                    }),
+                  },
+                  gameOrPgn
+                    ? [opt({ value: 'standard' }, i18n.study.automatic)]
+                    : this.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
+                ),
+              ]),
+              div('.form-group.form-half', [
+                label('.form-label', { for: 'chapter-orientation' }, i18n.study.orientation),
+                select(
+                  '#chapter-orientation.form-control',
+                  {
+                    disabled: !gameOrPgn && this.selectedVariant() === 'racingKings',
+                    props: { value: this.orientation },
+                    hook: bind(
+                      'change',
+                      e => {
+                        this.orientation = (e.target as HTMLInputElement).value as Color;
+                        this.editor?.setOrientation(this.orientation);
+                      },
+                      this.redraw,
+                    ),
+                  },
+                  [...(this.tab() === 'pgn' ? ['automatic' as const] : []), ...COLORS].map(orientation =>
+                    option(
+                      orientation,
+                      this.orientation,
+                      orientation === 'automatic' ? i18n.study[orientation] : i18n.site[orientation],
+                      {
+                        key: orientation,
+                      },
+                    ),
+                  ),
+                ),
+              ]),
             ]),
-          div('.form-group', { class: { none: ctrl.isBroadcast } }, [
-            label('.form-label', { for: 'chapter-mode' }, i18n.study.analysisMode),
-            select(
-              '#chapter-mode.form-control',
-              modeChoices.map(c => option(c[0], mode, c[1])),
-            ),
-          ]),
-          div('.form-actions.single', [button('.button', { type: 'submit' }, i18n.study.createChapter)]),
-        ],
-      ),
-    ],
-  });
+            this.tab() === 'init' &&
+              this.selectedVariant() === 'chess960' &&
+              div('.form-group.chess960-position', [
+                label('.form-label', i18n.site.chess960StartPosition(this.chess960Position())),
+                div('.chess960-position__inputs', [
+                  input('number')('.form-control', {
+                    min: 0,
+                    max: 959,
+                    value: this.chess960Position(),
+                    hook: onInsert((el: HTMLInputElement) => {
+                      el.addEventListener('input', () => {
+                        const pos = parseInt(el.value);
+                        if (!isNaN(pos) && pos >= 0 && pos <= 959) {
+                          this.chess960Position(pos);
+                          this.redraw();
+                        }
+                      });
+                    }),
+                  }),
+                  button('.button.button-empty', {
+                    type: 'button',
+                    title: i18n.site.randomChess960Position,
+                    ...dataIcon(licon.DieSix),
+                    hook: bind('click', () => {
+                      this.chess960Position(randomPositionId());
+                      this.redraw();
+                    }),
+                  }),
+                ]),
+              ]),
+            div('.form-group', { class: { none: this.isBroadcast } }, [
+              label('.form-label', { for: 'chapter-mode' }, i18n.study.analysisMode),
+              select(
+                '#chapter-mode.form-control',
+                modeChoices.map(c => option(c[0], mode, c[1])),
+              ),
+            ]),
+            div('.form-actions.single', [button('.button', { type: 'submit' }, i18n.study.createChapter)]),
+          ],
+        ),
+      ],
+    });
+  };
 }

@@ -114,52 +114,6 @@
     }
   }
 
-  .selector {
-    flex: 1 1 100%;
-    margin: 0.5rem 0;
-
-    button {
-      @include transition(background);
-
-      display: block;
-      padding: 0.7rem 1rem;
-      width: 100%;
-      text-align: start;
-
-      @include mq-has-hover {
-        &:hover {
-          background: $c-dasher-light;
-        }
-      }
-
-      &.active {
-        background: $c-dasher !important;
-        color: $c-over !important;
-      }
-
-      &::before {
-        margin-inline: 0 8px;
-        font-size: 19px;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-
-        @include transition(opacity);
-      }
-
-      // don't show checkmarks on inactive selectors.
-
-      &.active::before {
-        opacity: 1;
-        color: $c-over !important;
-      }
-    }
-
-    &.large button {
-      padding: 1rem 1rem;
-    }
-  }
-
   .zen {
     margin: 0;
 
@@ -184,10 +138,6 @@
       margin: 5px 0 5px 5px;
     }
 
-    .selector a {
-      @extend %box-radius-left;
-    }
-
     input[type='range']:not(.rate) {
       flex: 0 0 1em;
       width: 1em;
@@ -200,22 +150,6 @@
 
     &.silent input[type='range'] {
       opacity: 0.2;
-    }
-
-    .dialog-content {
-      min-width: 240px;
-    }
-
-    div.rate {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      color: $c-font-dim;
-
-      input {
-        cursor: pointer;
-      }
     }
   }
 
@@ -231,5 +165,68 @@
     font-size: 1.2em;
     font-weight: bold;
     padding: 0.4em 0;
+  }
+}
+
+#dasher_app .selector,
+.voice-selection .selector {
+  flex: 1 1 100%;
+  margin: 0.5rem 0;
+
+  button {
+    @include transition(background);
+
+    display: block;
+    padding: 0.7rem 1rem;
+    width: 100%;
+    text-align: start;
+
+    @include mq-has-hover {
+      &:hover {
+        background: $c-dasher-light;
+      }
+    }
+
+    &.active {
+      background: $c-dasher !important;
+      color: $c-over !important;
+    }
+
+    &::before {
+      margin-inline: 0 8px;
+      font-size: 19px;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+
+      @include transition(opacity);
+    }
+
+    // don't show checkmarks on inactive selectors.
+
+    &.active::before {
+      opacity: 1;
+      color: $c-over !important;
+    }
+  }
+
+  &.large button {
+    padding: 1rem 1rem;
+  }
+}
+
+.voice-selection {
+  min-width: 240px;
+
+  .rate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: $c-font-dim;
+
+    input {
+      cursor: pointer;
+    }
   }
 }

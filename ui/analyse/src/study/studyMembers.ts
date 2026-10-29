@@ -10,7 +10,7 @@ import { textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseSocketSend } from '../socket';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import { makeCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import type StudyCtrl from './studyCtrl';
 
@@ -48,7 +48,7 @@ export class StudyMemberCtrl {
 
   constructor(readonly opts: Opts) {
     this.dict = prop(opts.initDict);
-    this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
+    this.inviteForm = makeCtrl(opts.send, this.dict, () => opts.tab('members'));
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
       this.inviteForm.spectators(names);
@@ -94,6 +94,7 @@ export class StudyMemberCtrl {
     const wasViewer = this.myMember() && !this.canContribute();
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
+    this.inviteForm.redraw();
     if (wasViewer && this.canContribute()) {
       if (once('study-tour')) this.opts.startTour();
       this.opts.onBecomingContributor();
@@ -223,7 +224,7 @@ export function view(ctrl: StudyCtrl): VNode {
     ),
     isOwner &&
       ordered.length < members.max &&
-      button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+      button('.add', { key: 'add', hook: bind('click', members.inviteForm.show) }, [
         icon(licon.PlusButton)(),
         hl('h3', i18n.study.addMembers),
       ]),

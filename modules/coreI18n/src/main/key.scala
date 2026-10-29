@@ -1771,7 +1771,6 @@ object I18nKey:
     val `deleteAccountConfirmText`: I18nKey = "settings:deleteAccountConfirmText"
 
   object site:
-    val `gameSetup`: I18nKey = "gameSetup"
     val `challengeAFriend`: I18nKey = "challengeAFriend"
     val `playAgainstComputer`: I18nKey = "playAgainstComputer"
     val `gameMode`: I18nKey = "gameMode"

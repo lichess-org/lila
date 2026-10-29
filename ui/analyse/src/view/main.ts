@@ -12,7 +12,6 @@ import { watchers } from 'lib/view/watchers';
 import crazyView from '@/crazy/crazyView';
 import type AnalyseCtrl from '@/ctrl';
 import forecastView from '@/forecast/forecastView';
-import { view as keyboardView } from '@/keyboard';
 import { relayView } from '@/study/relay/relayView';
 import type * as studyDeps from '@/study/studyDeps';
 import { studyView } from '@/study/studyView';
@@ -44,7 +43,6 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   return renderMain(
     ctx,
-    ctrl.keyboardHelp && keyboardView(ctrl),
     renderBoard(ctx),
     ctx.gaugeOn && cevalView.renderGauge(ctrl),
     crazyView(ctrl, ctrl.topColor(), 'top'),

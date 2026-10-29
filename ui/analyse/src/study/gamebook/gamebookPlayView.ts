@@ -7,7 +7,7 @@ import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
-  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.play')) }, [
+  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCss({ key: 'analyse.gamebook.play' })) }, [
     (state.comment || state.feedback === 'play' || state.feedback === 'end') &&
       hl('div.comment', { class: { hinted: state.showHint } }, [
         state.comment

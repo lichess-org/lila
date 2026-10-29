@@ -1,6 +1,5 @@
 import flairPickerLoader from 'bits/flairPicker';
 
-import { toggle } from 'lib';
 import { licon } from 'lib/licon';
 import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 
@@ -32,12 +31,11 @@ type Choice = [string, string];
 
 export class StudyForm {
   initAt = Date.now();
-  open = toggle(false);
+  open = () => view(this);
 
   constructor(
-    private readonly doSave: (data: FormData, isNew: boolean) => void,
+    readonly save: (data: FormData, isNew: boolean) => void,
     readonly getData: () => StudyData,
-    readonly redraw: Redraw,
     readonly relay?: RelayCtrl,
   ) {}
 
@@ -51,12 +49,7 @@ export class StudyForm {
   };
 
   openIfNew = () => {
-    if (this.isNew()) this.open(true);
-  };
-
-  save = (data: FormData, isNew: boolean) => {
-    this.doSave(data, isNew);
-    this.open(false);
+    if (this.isNew()) this.open();
   };
 }
 
@@ -72,7 +65,7 @@ const select = (s: Select): VNode =>
     ),
   ]);
 
-export function view(ctrl: StudyForm): VNode {
+function view(ctrl: StudyForm) {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const isEditable = !ctrl.relay?.isOfficial();
@@ -262,13 +255,11 @@ export function view(ctrl: StudyForm): VNode {
       ),
   ]);
   return snabDialog({
-    class: 'study-edit',
-    onClose() {
-      ctrl.open(false);
-      ctrl.redraw();
-    },
+    closeButton: true,
+    class: 'study-edit study-modal',
+    show: true,
     modal: true,
-    vnodes: [
+    render: (_, dlg) => [
       hl(
         'h2',
         ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
@@ -297,7 +288,8 @@ export function view(ctrl: StudyForm): VNode {
               },
               isNew,
             );
-          }, ctrl.redraw),
+            dlg.close();
+          }),
         },
         [
           formFields,

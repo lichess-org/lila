@@ -20,7 +20,6 @@ import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import * as control from '@/control';
 import type PuzzleCtrl from '@/ctrl';
-import { view as keyboardView } from '@/keyboard';
 
 import boardMenu from './boardMenu';
 import chessground from './chessground';
@@ -144,7 +143,6 @@ export default function (ctrl: PuzzleCtrl): VNode {
       controls(ctrl),
       ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       session(ctrl),
-      ctrl.keyboardHelp() && keyboardView(ctrl),
     ],
   );
 }

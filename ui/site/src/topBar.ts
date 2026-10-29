@@ -5,7 +5,7 @@ import { pubsub } from 'lib/pubsub';
 import { wsSend } from 'lib/socket';
 import { spinnerHtml } from 'lib/view';
 
-import { loadCssPath, loadEsm } from './asset';
+import { loadCss, loadEsm } from './asset';
 import { addClinputKeyHandler } from './clinput';
 
 export default function () {
@@ -65,7 +65,7 @@ export default function () {
     const load = function (data?: any) {
       if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
-      loadCssPath('challenge');
+      loadCss({ key: 'challenge' });
       instance = loadEsm('challenge', {
         init: {
           el: $el[0],
@@ -101,7 +101,7 @@ export default function () {
     const load = (data?: any) => {
       if (instance) return;
       const $el = $('#notify-app').html(initiatingHtml);
-      loadCssPath('notify');
+      loadCss({ key: 'notify' });
       instance = loadEsm('notify', {
         init: {
           el: $el.empty()[0],
@@ -152,7 +152,7 @@ export default function () {
     const load = memoize(() => loadEsm('dasher'));
     $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
       $(this).removeAttr('href');
-      loadCssPath('dasher');
+      loadCss({ key: 'dasher' });
       load();
     });
   }

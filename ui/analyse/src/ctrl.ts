@@ -120,7 +120,6 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     this.cevalEnabledProp(),
   );
-  keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
 
   treeView: TreeView;

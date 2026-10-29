@@ -328,6 +328,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   click: () => {
                     if (state.playable)
                       domDialog({
+                        closeButton: true,
                         cash: $('.continue-with'),
                         modal: true,
                         easyClose: 'clickOutside',

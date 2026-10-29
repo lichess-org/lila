@@ -5,7 +5,6 @@ import { onInsert, type MaybeVNodes } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
 import type TournamentController from '../ctrl';
-import { joinWithTeamSelector } from './battle';
 import * as created from './created';
 import * as finished from './finished';
 import * as started from './started';
@@ -48,6 +47,5 @@ export default function (ctrl: TournamentController) {
       ),
     ),
     ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(watchers) }) : null,
-    ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);
 }

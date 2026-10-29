@@ -4045,8 +4045,6 @@ interface I18n {
     gameOver: string;
     /** Games */
     games: string;
-    /** Game setup */
-    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
