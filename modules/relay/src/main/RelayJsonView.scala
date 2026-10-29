@@ -1,6 +1,7 @@
 package lila.relay
 
 import play.api.libs.json.*
+import play.api.i18n.Lang
 import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
@@ -14,6 +15,7 @@ import lila.core.socket.SocketVersion
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
 import lila.study.{ ChapterPreview, Settings }
+import lila.core.i18n.{ toLanguage, defaultLanguage }
 
 final class RelayJsonView(
     routeUrl: RouteUrl,
@@ -212,12 +214,12 @@ final class RelayJsonView(
       else if tour.active then 1.minute
       else 10.minutes
 
-  def responseCache(rt: RelayRound.WithTour, study: Study) =
-    Option.unless(rt.tour.isPrivate || study.isPrivate):
-      if rt.round.isFinished then 30.minutes
-      else if rt.round.hasStarted then 10.seconds
-      else if rt.round.startsSoonOrAfterPrevious then 1.minute
-      else 30.minutes
+  def responseCache(rt: RelayRound.WithTour, study: Study)(using lang: Lang) =
+    (toLanguage(lang) != defaultLanguage && !rt.tour.isPrivate && !study.isPrivate).so:
+      if rt.round.isFinished then 30.minutes.some
+      else if rt.round.hasStarted then none
+      else if rt.round.startsSoonOrAfterPrevious then 1.minute.some
+      else 30.minutes.some
 
 object RelayJsonView:
 
