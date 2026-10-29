@@ -85,7 +85,7 @@ object LameName:
 
   private val usernameRegex = lameWords(usernameWords).r
 
-  private lazy val usernameExplainRegex = ("(" + lameWords(usernameWords) + ")").r.unanchored
+  private lazy val usernameExplainRegex = s"(${lameWords(usernameWords)})".r.unanchored
 
   private def lameWords(list: List[String]): String =
     val extras = Map(

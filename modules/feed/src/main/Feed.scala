@@ -28,7 +28,7 @@ object Feed:
       flair: Option[Flair]
   ):
     lazy val dateStr = dateFormatter.print(at)
-    lazy val title = "Daily update - " + dateStr
+    lazy val title = s"Daily update - $dateStr"
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
 

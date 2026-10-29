@@ -118,7 +118,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 div(cls := "clas-team"):
                   val url = c.teamId match
                     case Some(teamId) => routes.Team.show(teamId).url
-                    case None => routes.Clas.edit(c.id).url + "#clas-team"
+                    case None => s"${routes.Clas.edit(c.id).url}#clas-team"
                   a(href := url, cls := "text", dataIcon := Icon.Trophy):
                     trans.site.tournaments()
             )

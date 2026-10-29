@@ -30,7 +30,7 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
   import OAuthSignedClient.Action
 
   private val config = appConfig.get[Configuration]("oauth.signedClients")
-  private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
+  private def signersOf(name: String) = config.get[List[String]](s"$name.secrets").map(Algo.hmac)
 
   private val requireSign = mode.isProd || false // for easier dev
 

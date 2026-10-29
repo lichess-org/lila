@@ -30,7 +30,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
     val words = apply(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex = { """(?iu)""" + bounds.wrap(words.map(Pattern.quote).mkString("(", "|", ")")) }.r
+      val regex = raw"(?iu)${bounds.wrap(words.map(Pattern.quote).mkString("(", "|", ")"))}".r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
   catch
@@ -70,17 +70,17 @@ object Analyser extends lila.core.shutup.TextAnalyser:
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
-      word + (if word.endsWith("e") then "s*+" else "[aeiou]?s*+")
+      s"$word${if word.endsWith("e") then "s*+" else "[aeiou]?s*+"}"
     } ++
       Dictionary.es.map { word =>
-        word + (if word.endsWith("e") then "" else "e?+") + "s?+"
+        s"$word${if word.endsWith("e") then "" else "e?+"}s?+"
       } ++
       Dictionary.hi ++
       Dictionary.fr.map { word =>
-        word + "[sx]?+"
+        s"$word[sx]?+"
       } ++
       Dictionary.de.map { word =>
-        word + (if word.endsWith("e") then "" else "e?+") + "[nrs]?+"
+        s"$word${if word.endsWith("e") then "" else "e?+"}[nrs]?+"
       } ++
       Dictionary.tr ++
       Dictionary.it ++
@@ -88,26 +88,18 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       Dictionary.arLatn ++
       bannedYoutubeIds
 
-  private val latinBigRegex = {
-    """(?i)\b""" +
-      latinWordsRegexes.mkString("(", "|", ")").replace("(", "(?:") +
-      """\b"""
-  }.r
+  private val latinBigRegex =
+    raw"""(?i)\b${latinWordsRegexes.mkString("(", "|", ")").replace("(", "(?:")}\b""".r
 
   // unicode compatible bounds
   // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
   object bounds:
     val pre = """(?<=[\s,.:;"'\?!]|^)"""
     val post = """(?=[\s,.:;"'\?!]|$)"""
-    def wrap(regex: String) = pre + regex + post
+    def wrap(regex: String) = s"$pre$regex$post"
 
-  private val ruBigRegex = {
-    """(?iu)""" + bounds.wrap:
-      Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:")
-  }.r
+  private val ruBigRegex =
+    raw"""(?iu)${bounds.wrap(Dictionary.ru.mkString("(", "|", ")").replace("(", "(?:"))}""".r
 
-  private val criticalRegex = {
-    """(?i)\b""" +
-      Dictionary.critical.mkString("(", "|", ")").replace("(", "(?:") +
-      """s?\b"""
-  }.r
+  private val criticalRegex =
+    raw"""(?i)\b${Dictionary.critical.mkString("(", "|", ")").replace("(", "(?:")}s?\b""".r

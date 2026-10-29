@@ -76,7 +76,7 @@ final private class Takebacker(
             _ = publishTakebackOffer(progress.game)
             events = List(Event.TakebackOffers(pov.color.white, pov.color.black))
           yield events -> board
-        case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
+        case _ => fufail(ClientError(s"[takebacker] invalid yes $pov"))
 
   def no(board: TakebackBoard)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackBoard)] =
     pov match
@@ -104,7 +104,7 @@ final private class Takebacker(
           _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
         yield events -> board.update(!color, _.decline)
-      case _ => fufail(ClientError("[takebacker] invalid no " + pov))
+      case _ => fufail(ClientError(s"[takebacker] invalid no $pov"))
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     game.canTakebackOrAddTime.so(isAllowedByPrefs(game, prefs))
@@ -133,12 +133,12 @@ final private class Takebacker(
             p.takeback == Pref.Takeback.ALWAYS || (p.takeback == Pref.Takeback.CASUAL && game.rated.no)
 
   private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]])(f: => Fu[A]): Fu[A] =
-    if !game.playable then fufail(ClientError("[takebacker] game is over " + game.id))
-    else if !game.canTakebackOrAddTime then fufail(ClientError("[takebacker] game disallows it " + game.id))
+    if !game.playable then fufail(ClientError(s"[takebacker] game is over ${game.id}"))
+    else if !game.canTakebackOrAddTime then fufail(ClientError(s"[takebacker] game disallows it ${game.id}"))
     else
       isAllowedByPrefs(game, prefs).flatMap:
         if _ then f
-        else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
+        else fufail(ClientError(s"[takebacker] disallowed by preferences ${game.id}"))
 
   private def rewind(pov: Pov, plies: Int)(using GameProxy): Fu[Events] =
     for

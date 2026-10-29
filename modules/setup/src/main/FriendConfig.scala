@@ -45,7 +45,7 @@ object FriendConfig extends BaseConfig:
       increment = i,
       days = d,
       rated = m.fold(Rated.default)(Rated.orDefault),
-      color = TriColor(c).err("Invalid color " + c),
+      color = TriColor(c).err(s"Invalid color $c"),
       fen = fen
     )
 

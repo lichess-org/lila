@@ -72,6 +72,8 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       )
 
   private def basePage(tour: Tournament)(using ctx: Context) =
+    val winnerDescription = tour.winnerId.fold("Winner is not yet decided."): winnerId =>
+      s"${titleNameOrId(winnerId)} takes the prize home!"
     Page(s"${tour.name()} #${tour.id}")
       .i18n(_.arena)
       .i18nOpt(tour.isTeamBattle, _.team)
@@ -82,10 +84,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
         url = routeUrl(routes.Tournament.show(tour.id)),
         description =
-          s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-            s"${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. " +
-            tour.winnerId.fold("Winner is not yet decided."): winnerId =>
-              s"${titleNameOrId(winnerId)} takes the prize home!"
+          s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. ${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. $winnerDescription"
       )
 
   object side:

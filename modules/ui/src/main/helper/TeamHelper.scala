@@ -31,4 +31,4 @@ trait TeamHelper:
   def teamFlair(flair: Flair): Tag =
     img(cls := "uflair", src := flairSrc(flair))
 
-  def teamForumUrl(id: TeamId) = routes.ForumCateg.show(ForumCategId("team-" + id))
+  def teamForumUrl(id: TeamId) = routes.ForumCateg.show(ForumCategId(s"team-$id"))

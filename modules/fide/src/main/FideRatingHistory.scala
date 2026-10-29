@@ -42,7 +42,7 @@ case class FideRatingHistory(
 private opaque type FideRatingPoint = Int // 2021031800
 private object FideRatingPoint extends OpaqueInt[FideRatingPoint]:
   def apply(date: YearMonth, elo: Elo): FideRatingPoint =
-    (date.toString.replace("-", "") + "%04d".format(elo.value)).toInt
+    s"${date.toString.replace("-", "")}${"%04d".format(elo.value)}".toInt
   extension (point: FideRatingPoint)
     def date: YearMonth =
       val dateNum = point.value / 10000

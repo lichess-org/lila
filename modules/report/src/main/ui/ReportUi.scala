@@ -76,7 +76,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
             cls := "form3",
-            action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
+            action := s"${routes.Report.create}${reqUser.so(u => s"?username=${u.username}")}"
           )(
             div(cls := "form-group")(
               aboutReports,
@@ -339,4 +339,4 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   private def shortenRight(text: String, maxLength: Int): Frag =
     val condensed = text.replaceAll("\\s+", " ").trim
     if condensed.length <= maxLength then condensed
-    else condensed.takeRight(maxLength - 3) + "..."
+    else s"${condensed.takeRight(maxLength - 3)}..."

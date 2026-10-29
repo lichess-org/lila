@@ -327,4 +327,4 @@ final class ChallengeUi(helpers: Helpers):
           case Challenge.ColorChoice.Random => Nil
           case choice => List("color" -> choice.trans.value)
       ).flatten.toMap
-      Url(addQueryParams(routeUrl(routes.Lobby.home).value, params) + "#friend")
+      Url(s"${addQueryParams(routeUrl(routes.Lobby.home).value, params)}#friend")

@@ -345,7 +345,7 @@ final class PushApi(
     val pushData = LazyFu.sync:
       Data(
         title = streamerName,
-        body = streamerName + " started streaming",
+        body = s"$streamerName started streaming",
         key = Key.streamStart,
         urgency = Urgency.Low,
         payload = payload(

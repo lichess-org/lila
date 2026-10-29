@@ -49,7 +49,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
         "state" -> state,
         "force_verify" -> forceVerify.toString
       )
-      s"${twitchCfg.authEndpoint}/authorize?" + lila.common.url.queryString(params)
+      s"${twitchCfg.authEndpoint}/authorize?${lila.common.url.queryString(params)}"
 
     def youtube(redirectUri: Url, state: State, forceVerify: Boolean): String =
       val params = Map(
@@ -61,7 +61,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
         "include_granted_scopes" -> "true",
         "state" -> state
       ) ++ forceVerify.option("prompt" -> "consent")
-      "https://accounts.google.com/o/oauth2/v2/auth?" + lila.common.url.queryString(params)
+      s"https://accounts.google.com/o/oauth2/v2/auth?${lila.common.url.queryString(params)}"
 
   def twitchUser(code: String, redirectUri: Url): Fu[Streamer.Twitch] =
     val body = Map(

@@ -28,7 +28,7 @@ final class AuthorizeUi(helpers: Helpers)(
       .flag(_.noHeader)
       .csp(_.withLegacyUnsafeInlineScripts):
         main(
-          cls := s"oauth box box-pad force-ltr${cssClass.so(c => " oauth--" + c)}"
+          cls := s"oauth box box-pad force-ltr${cssClass.so(c => s" oauth--$c")}"
         )(
           div(cls := "oauth__top")(
             logo,

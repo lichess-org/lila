@@ -61,15 +61,14 @@ final class IrcApi(
       .recentToUserForMod(user.id)
       .flatMap:
         case None =>
-          zulip.sendAndGetLink(stream, "/" + user.name):
+          zulip.sendAndGetLink(stream, s"/${user.name}"):
             val link = markdown.userLink(user.name)
             s"${markdown.userLink(mod.name)} :monkahmm: is looking at a $room report about **$link**"
 
         case Some(note) =>
-          zulip.sendAndGetLink(stream, "/" + user.name):
+          zulip.sendAndGetLink(stream, s"/${user.name}"):
             val link = markdown.userLink(user.name)
-            s"${markdown.modLink(mod.name)} :pepenote: **$link** (${markdown.userNotesLink(user.name)}):\n" +
-              markdown.linkifyUsers(note.text.take(2000))
+            s"${markdown.modLink(mod.name)} :pepenote: **$link** (${markdown.userNotesLink(user.name)}):\n${markdown.linkifyUsers(note.text.take(2000))}"
       .flatMapz: zulipLink =>
         noteApi.write(
           user.id,
@@ -81,7 +80,7 @@ final class IrcApi(
   def nameCloseVote(user: LightUser, details: String, reason: Option[String])(using
       mod: LightUser.Me
   ): Funit =
-    val topic = "/" + user.name
+    val topic = s"/${user.name}"
     zulip(_.mod.usernames, topic)(s"$details${reason.so(r => s", reason: $r")}") >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
@@ -94,7 +93,7 @@ final class IrcApi(
           )
 
   def fullCommExport(user: LightUser)(using mod: LightUser.Me): Funit =
-    val topic = "/" + user.name
+    val topic = s"/${user.name}"
     zulip(_.mod.trustSafety, topic):
       s"${markdown.modLink(mod.name)} exported all comms of ${markdown.userLink(user.name)}"
 
@@ -148,10 +147,9 @@ final class IrcApi(
   def ublogBlog(userId: UserId, mod: UserName, tier: Option[String], note: Option[String]): Funit =
     val user = lightUser(userId)
     zulip(_.blog, "Tier and plagiarism checks"):
-      s":note: ${markdown.userLink(user)} ${markdown.lichessLink(s"/@/${user.name}/blog", "blog")}" +
-        tier.fold(" note edit")(t => s" tier set to **${t.toUpperCase()}**") +
-        s" by **${markdown.modLink(mod)}**" +
-        note.so(n => s"\nnote: $n")
+      s":note: ${markdown.userLink(user)} ${markdown.lichessLink(s"/@/${user.name}/blog", "blog")}${tier.fold(" note edit")(
+          t => s" tier set to **${t.toUpperCase()}**"
+        )} by **${markdown.modLink(mod)}**${note.so(n => s"\nnote: $n")}"
 
   def payoutNotify(p: lila.core.msg.PayoutMessages): Funit =
     val messages =
@@ -197,10 +195,10 @@ final class IrcApi(
 
   def broadcastMissingFideId(id: RelayRoundId, name: String, players: List[(StudyChapterId, String)]): Funit =
     zulip(_.broadcast, "lila missing FIDE IDs"):
-      s"${players.size} players lack a FIDE ID in ${markdown.broadcastLink(id, name)}\n" + players
-        .map: (chapterId, playerName) =>
-          s"- ${markdown.broadcastGameLink(id, chapterId, playerName)}"
-        .mkString("\n")
+      s"${players.size} players lack a FIDE ID in ${markdown.broadcastLink(id, name)}\n${players
+          .map: (chapterId, playerName) =>
+            s"- ${markdown.broadcastGameLink(id, chapterId, playerName)}"
+          .mkString("\n")}"
 
   def broadcastAmbiguousPlayers(
       id: RelayRoundId,
@@ -208,10 +206,10 @@ final class IrcApi(
       players: List[(String, List[String])]
   ): Funit =
     zulip(_.broadcast, "lila ambiguous player replacements"):
-      s"${players.size} players have ambiguous name replacements in ${markdown.broadcastLink(id, name)}\n" + players
-        .map: (from, tos) =>
-          s"- $from -> ${tos.mkString(" | ")}"
-        .mkString("\n")
+      s"${players.size} players have ambiguous name replacements in ${markdown.broadcastLink(id, name)}\n${players
+          .map: (from, tos) =>
+            s"- $from -> ${tos.mkString(" | ")}"
+          .mkString("\n")}"
 
   def broadcastOrphanBoard(
       id: RelayRoundId,
@@ -225,11 +223,10 @@ final class IrcApi(
 
   def userAppeal(user: LightUser, markers: List[ModId])(using mod: LightUser.Me): Funit =
     zulip
-      .sendAndGetLink(_.mod.adminAppeal, "/" + user.name):
+      .sendAndGetLink(_.mod.adminAppeal, s"/${user.name}"):
         val link = markdown.lichessLink(s"/appeal/${user.name}", user.name)
         val markersTxt = markers.map(m => lightUser(m.userId).name).mkString(", ")
-        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**" +
-          markersTxt.nonEmpty.so(s" (marked by $markersTxt)")
+        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**${markersTxt.nonEmpty.so(s" (marked by $markersTxt)")}"
       .flatMapz: zulipAppealConv =>
         noteApi.write(user.id, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
@@ -239,8 +236,7 @@ final class IrcApi(
 
   def fidePhoto(playerPath: String, picUrl: Url)(using me: Me): Funit =
     zulip(_.content, "/fide player photos"):
-      s":camera: $playerPath by ${markdown.modLink(me.username)}\n" +
-        s"${markdown.fixImageUrl(picUrl.value)}"
+      s":camera: $playerPath by ${markdown.modLink(me.username)}\n${markdown.fixImageUrl(picUrl.value)}"
 
   def fidePhotoCredits(playerPath: String, credits: String)(using me: Me): Funit =
     zulip(_.content, "/fide player photos"):

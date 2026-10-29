@@ -52,7 +52,7 @@ object Line:
   private[chat] val separatorChars = // keep historical BC fields for DB data
     List(baseChar, trollChar, deletedChar, patronChar, flairChar, patronFlairChar)
   private val UserLineRegex = {
-    """(?s)([\w-~]{2,}+)([""" + separatorChars.mkString("") + """])(.++)"""
+    s"(?s)([\\w-~]{2,}+)([${separatorChars.mkString("")}])(.++)"
   }.r
   private[chat] def strToUserLine(str: String): Option[UserLine] = str match
     case UserLineRegex(username, sep, text) =>

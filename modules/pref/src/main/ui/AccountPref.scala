@@ -16,7 +16,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
     div(cls := List("none" -> (categ != active)))
 
   private def setting(name: Frag, body: Frag, settingId: String) =
-    st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
+    st.section(a(href := s"#$settingId")(h2(id := settingId)(name)), body)
 
   def apply(u: User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using Context) =
     AccountPage(

@@ -13,7 +13,7 @@ final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCach
   def teamRecent(updates: TeamUpdate.Recent, byTeam: TeamUpdate.ByTeams, team: Team, subscribed: Boolean)(
       using Context
   ) =
-    Page(team.name + " updates")
+    Page(s"${team.name} updates")
       .css("team.update")
       .js(esmInit("team.update"))
       .js(infiniteScrollEsmInit):

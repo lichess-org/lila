@@ -47,7 +47,7 @@ object ExternalEngine:
       maxHash = maxHash,
       variants = variants.filter(_.nonEmpty) | List(Variant.default.uciKey),
       officialStockfish = ~officialStockfish,
-      providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
+      providerSelector = Algo.sha256(s"providerSecret:$providerSecret").hex,
       providerData = providerData,
       userId = userId,
       clientSecret = s"ees_${SecureRandom.nextString(16)}"

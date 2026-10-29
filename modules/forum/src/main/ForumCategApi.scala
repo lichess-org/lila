@@ -30,7 +30,7 @@ final class ForumCategApi(
     val topic = ForumTopic.make(
       categId = categ.id,
       slug = ForumTopicSlug(s"$teamId-forum"),
-      name = name + " forum",
+      name = s"$name forum",
       userId = author,
       troll = false
     )

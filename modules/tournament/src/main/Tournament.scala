@@ -122,7 +122,7 @@ case class Tournament(
 
   def durationString =
     if minutes < 60 then s"${minutes}m"
-    else s"${minutes / 60}h" + (if minutes % 60 != 0 then s" ${minutes % 60}m" else "")
+    else s"${minutes / 60}h${if minutes % 60 != 0 then s" ${minutes % 60}m" else ""}"
 
   def berserkable = !noBerserk && clock.berserkable
   def streakable = !noStreak

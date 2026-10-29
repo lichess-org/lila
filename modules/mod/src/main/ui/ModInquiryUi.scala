@@ -311,7 +311,7 @@ final class ModInquiryUi(helpers: Helpers)(
     )
 
   private val farmWithRegex =
-    ("^Boosting: farms rating points from @(" + UserName.historicalRegex.pattern + ")").r.unanchored
+    raw"^Boosting: farms rating points from @(${UserName.historicalRegex.pattern})".r.unanchored
   private val sandbagWithRegex =
     "^Sandbagging: throws games to (.+)".r.unanchored
 

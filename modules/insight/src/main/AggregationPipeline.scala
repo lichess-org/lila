@@ -86,7 +86,8 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
               (acc, mat) =>
                 bdoc(
                   "$cond" -> barr(
-                    bdoc((if mat.negative then "$lt" else "$lte") -> barr("$" + F.moves("i"), mat.imbalance)),
+                    bdoc((if mat.negative then "$lt"
+                          else "$lte") -> barr("$" + F.moves("i"), mat.imbalance)),
                     mat.id,
                     acc
                   )

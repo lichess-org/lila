@@ -70,6 +70,8 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
       )
 
   private def basePage(s: Swiss, team: LightTeam) =
+    val winnerDescription = s.winnerId.fold("Winner is not yet decided."): winnerId =>
+      s"${titleNameOrId(winnerId)} takes the prize home!"
     Page(fullName(s, team))
       .css("swiss.show")
       .i18n(_.swiss, _.team)
@@ -77,10 +79,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
         title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
         url = routeUrl(routes.Swiss.show(s.id)),
         description =
-          s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
-            s"organized by ${team.name}. " +
-            s.winnerId.fold("Winner is not yet decided."): winnerId =>
-              s"${titleNameOrId(winnerId)} takes the prize home!"
+          s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament organized by ${team.name}. $winnerDescription"
       )
 
   def round(s: Swiss, r: SwissRoundNumber, team: LightTeam, pairings: Paginator[SwissPairing])(using

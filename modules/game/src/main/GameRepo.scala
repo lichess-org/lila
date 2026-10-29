@@ -366,10 +366,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     F.positionHashes -> true,
     F.playingUids -> true,
     F.unmovedRooks -> true,
-    ("p0." + PF.isOfferingDraw) -> true,
-    ("p1." + PF.isOfferingDraw) -> true,
-    ("p0." + PF.proposeTakebackAt) -> true,
-    ("p1." + PF.proposeTakebackAt) -> true
+    s"p0.${PF.isOfferingDraw}" -> true,
+    s"p1.${PF.isOfferingDraw}" -> true,
+    s"p0.${PF.proposeTakebackAt}" -> true,
+    s"p1.${PF.proposeTakebackAt}" -> true
   )
 
   def finish(

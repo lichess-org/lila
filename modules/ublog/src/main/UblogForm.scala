@@ -111,8 +111,8 @@ object UblogForm:
     def text = List(
       quality.so(q => s"quality = $q"),
       evergreen.so(e => s"evergreen = $e"),
-      flagged.so(f => "flagged = " + (if f == "" then "none" else s"\"$f\"")),
-      commercial.so(c => "commercial = " + (if c == "" then "none" else s"\"$c\"")),
+      flagged.so(f => s"flagged = ${if f == "" then "none" else s"\"$f\""}"),
+      commercial.so(c => s"commercial = ${if c == "" then "none" else s"\"$c\""}"),
       featured.so(f => s"featured = $f"),
       featuredUntil.so(d => s"featured days = $d")
     ).flatten.mkString(", ")
@@ -132,7 +132,7 @@ object UblogForm:
           flagged.flatMap(f => diffString("flagged", p.flagged, f)),
           commercial.flatMap(c => diffString("commercial", p.commercial, c)),
           featured.map: isFeatured =>
-            if isFeatured then s"add to carousel" + featuredUntil.so(days => s" $days days")
+            if isFeatured then s"add to carousel${featuredUntil.so(days => s" $days days")}"
             else "pull from carousel"
         ).flatten.mkString(", ")
 

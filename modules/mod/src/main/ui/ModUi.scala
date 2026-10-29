@@ -84,10 +84,10 @@ final class ModUi(helpers: Helpers):
                   td(
                     shorten(~log.details, 100),
                     log.context.map { c =>
-                      val shortText = c.text.map(t => frag(" " + shorten(t, 40)))
+                      val shortText = c.text.map(t => frag(s" ${shorten(t, 40)}"))
                       frag(
                         c.url
-                          .map(u => a(href := u, targetBlank)(shortText | frag(" " + u).some))
+                          .map(u => a(href := u, targetBlank)(shortText | frag(s" $u").some))
                           .orElse(shortText),
                         c.id.map(id => frag(s" #$id "))
                       )

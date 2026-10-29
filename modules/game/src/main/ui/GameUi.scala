@@ -122,26 +122,27 @@ final class GameUi(helpers: Helpers):
         (game.loser, game.turnColor) match
           case (Some(p), _) if p.color.white => trans.site.whiteLeftTheGame.txt()
           case (Some(_), _) => trans.site.blackLeftTheGame.txt()
-          case (None, White) => trans.site.whiteLeftTheGame.txt() + " • " + trans.site.draw.txt()
-          case (None, Black) => trans.site.blackLeftTheGame.txt() + " • " + trans.site.draw.txt()
+          case (None, White) => s"${trans.site.whiteLeftTheGame.txt()} • ${trans.site.draw.txt()}"
+          case (None, Black) => s"${trans.site.blackLeftTheGame.txt()} • ${trans.site.draw.txt()}"
       case S.Draw =>
         import lila.game.DrawReason.*
         game.drawReason match
           case Some(MutualAgreement) => trans.site.drawByMutualAgreement.txt()
-          case Some(FiftyMoves) => trans.site.fiftyMovesWithoutProgress.txt() + " • " + trans.site.draw.txt()
+          case Some(FiftyMoves) =>
+            s"${trans.site.fiftyMovesWithoutProgress.txt()} • ${trans.site.draw.txt()}"
           case Some(ThreefoldRepetition) =>
-            trans.site.threefoldRepetition.txt() + " • " + trans.site.draw.txt()
+            s"${trans.site.threefoldRepetition.txt()} • ${trans.site.draw.txt()}"
           case Some(InsufficientMaterial) =>
-            trans.site.insufficientMaterial.txt() + " • " + trans.site.draw.txt()
+            s"${trans.site.insufficientMaterial.txt()} • ${trans.site.draw.txt()}"
           case _ => trans.site.draw.txt()
       case S.InsufficientMaterialClaim =>
-        trans.site.drawClaimed.txt() + " • " + trans.site.insufficientMaterial.txt()
+        s"${trans.site.drawClaimed.txt()} • ${trans.site.insufficientMaterial.txt()}"
       case S.Outoftime =>
         (game.turnColor, game.loser) match
           case (White, Some(_)) => trans.site.whiteRanOutOfTime.txt()
-          case (White, None) => trans.site.whiteRanOutOfTime.txt() + " • " + trans.site.draw.txt()
+          case (White, None) => s"${trans.site.whiteRanOutOfTime.txt()} • ${trans.site.draw.txt()}"
           case (Black, Some(_)) => trans.site.blackRanOutOfTime.txt()
-          case (Black, None) => trans.site.blackRanOutOfTime.txt() + " • " + trans.site.draw.txt()
+          case (Black, None) => s"${trans.site.blackRanOutOfTime.txt()} • ${trans.site.draw.txt()}"
       case S.NoStart =>
         if game.loser.exists(_.color.white) then trans.site.whiteDidntMove.txt()
         else trans.site.blackDidntMove.txt()

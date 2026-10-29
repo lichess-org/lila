@@ -35,7 +35,7 @@ final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: N
       "msgs" -> list(nonEmptyText)
     ) { (username, reason, text, msgs) =>
       ReportSetup(
-        user = blockingFetchUser(username).err("Unknown username " + username),
+        user = blockingFetchUser(username).err(s"Unknown username $username"),
         reason = reason,
         text = text,
         msgs = msgs
@@ -55,7 +55,8 @@ final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: N
     lightUserAsync(username.id).await(1.second, "reportUser")
 
 object ReportForm:
-  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(?:game/)?(\w{8}|\w{12})""").r
+  private def gameLinkRegex(using domain: NetDomain) =
+    raw"${domain.value}/(?:game/)?(\w{8}|\w{12})".r
   def gameLinks(text: String)(using NetDomain) =
     gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
   def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty

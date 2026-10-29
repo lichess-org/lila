@@ -60,7 +60,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[ForumTopicSlug] =
     val slug = ForumTopicSlug:
-      ForumTopic.nameToId(name) + ~(it != 1).option("-" + it)
+      ForumTopic.nameToId(name) + ~(it != 1).option(s"-$it")
     // also take troll topic into accounts
     unsafe.byTree(categ.id, slug).flatMap { found =>
       if found.isDefined then nextSlug(categ, name, it + 1)

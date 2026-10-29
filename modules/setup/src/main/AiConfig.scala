@@ -68,7 +68,7 @@ object AiConfig extends BaseConfig:
       increment = i,
       days = d,
       level = level,
-      color = TriColor(c).err("Invalid color " + c),
+      color = TriColor(c).err(s"Invalid color $c"),
       fen = fen
     )
 

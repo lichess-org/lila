@@ -364,9 +364,8 @@ final class ReportApi(
             reporter = reporter,
             suspect = suspect,
             reason = reason,
-            text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
-              .mkString("/") +
-              s"]: $summary $url"
+            text = s"[AUTO ${(hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+                .mkString("/")}]: $summary $url"
           )
       candidate
         .flatMapz(create(_))

@@ -14,7 +14,7 @@ sealed trait Advice:
     withEval.so(evalComment.so(c => s"($c) ")) +
       (this.match
         case MateAdvice(seq, _, _, _) => seq.desc
-        case CpAdvice(judgment, _, _) => judgment.toString) + "." +
+        case CpAdvice(judgment, _, _) => s"${judgment.toString}.") +
       info.variation.headOption.so: move =>
         s" $move was best."
 

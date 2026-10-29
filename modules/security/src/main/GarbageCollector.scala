@@ -67,7 +67,7 @@ final class GarbageCollector(
             waitThenCollect(user, msg = s"Print ban: `$print`", quickly = quickly)
           case _ =>
             allRecentAltsAreMarked(alts).so: markedAlts =>
-              val msg = s"Prev marked users: ${markedAlts.map(o => "@" + o.username).mkString(", ")}"
+              val msg = s"Prev marked users: ${markedAlts.map(o => s"@${o.username}").mkString(", ")}"
               waitThenCollect(user, msg = msg, quickly = quickly)
     yield ()
 

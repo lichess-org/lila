@@ -234,7 +234,7 @@ final class ChatApi(
           case _ => none
 
     def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
-      val regex = s"^$userId[" + Line.separatorChars.mkString("") + "]"
+      val regex = s"^$userId[${Line.separatorChars.mkString("")}]"
       val update = pull("l".regex(regex, "i"))
       val allIds = for
         id <- gameIds
@@ -328,11 +328,11 @@ final class ChatApi(
 
     private def removeSelfMention(in: String, username: UserName) =
       if in.contains('@') then
-        ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username.value)
+        raw"""(?i)@(?<![\w@#/]@)$username(?![@\w-]|\.\w)""".r.replaceAllIn(in, username.value)
       else in
 
-    private val gameUrlRegex = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"
+    private val gameUrlRegex = raw"${Pattern.quote(netDomain.value)}\b/(\w{8})\w{4}\b".r
+    private val gameUrlReplace = s"${Matcher.quoteReplacement(netDomain.value)}/$$1"
 
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private val multilineRegex = """\n\n{1,}+""".r

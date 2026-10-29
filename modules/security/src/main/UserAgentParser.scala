@@ -57,7 +57,7 @@ object UserAgentParser:
     private val isRecentSafari = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
 
     private def isRecentBrowser(name: String, minVersion: Int): UaSection => Boolean =
-      val slashed = name + "/"
+      val slashed = s"$name/"
       val prefixLength = slashed.length
       (s: String) =>
         s.startsWith(slashed) &&
