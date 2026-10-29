@@ -22,7 +22,7 @@ export default function setupModal(ctrl: LobbyController) {
     modal: true,
     easyClose: 'clickOutside',
     render: () => {
-      const buttonText = {
+      const actionText = {
         hook: i18n.site.createLobbyGame,
         friend: setupCtrl.friendUser
           ? i18n.site.challengeX(setupCtrl.friendUser)
@@ -31,7 +31,7 @@ export default function setupModal(ctrl: LobbyController) {
       }[setupCtrl.gameType!];
       const disabled = !setupCtrl.valid() || setupCtrl.loading;
       return [
-        hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
+        hl('h2#lobby-setup-modal-title', actionText),
         hl('div.setup-content', views[setupCtrl.gameType!](ctrl)),
         hl('div.footer', [
           hl(
@@ -41,7 +41,7 @@ export default function setupModal(ctrl: LobbyController) {
               class: { disabled },
               on: { click: setupCtrl.submit },
             },
-            buttonText,
+            actionText,
           ),
           setupCtrl.loading && spinnerVdom(),
         ]),
