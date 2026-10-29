@@ -11,7 +11,7 @@ import lila.core.net.LichessMobileUa
 final class HttpFilter(
     net: NetConfig,
     parseMobileUa: RequestHeader => Option[LichessMobileUa]
-)(using val mat: Materializer)(using Executor)
+)(using val mat: Materializer, scheduler: Scheduler)(using Executor)
     extends Filter
     with ResponseHeaders:
 
@@ -25,11 +25,12 @@ final class HttpFilter(
         .map(fuccess)
         .getOrElse:
           val lilaReq = toLilaReq(using req)
-          handle(lilaReq).map: result =>
-            monitoring(lilaReq, startTime):
-              addContextualResponseHeaders(lilaReq):
-                addEmbedderPolicyHeaders(lilaReq):
-                  result
+          WarmupFilter(lilaReq).getOrElse:
+            handle(lilaReq).map: result =>
+              monitoring(lilaReq, startTime):
+                addContextualResponseHeaders(lilaReq):
+                  addEmbedderPolicyHeaders(lilaReq):
+                    result
 
   private def toLilaReq(using req: RequestHeader) =
     val clientName =
@@ -41,6 +42,17 @@ final class HttpFilter(
       else if req.path.startsWith("/fishnet/") then fishnet
       else browser
     req.addAttr(ClientName.reqAttr, clientName)
+
+  private object WarmupFilter:
+    private var justBooted = true
+    scheduler.scheduleOnce(20.seconds):
+      justBooted = false
+    private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
+    def apply(req: RequestHeader): Option[Fu[Result]] =
+      val reject = justBooted && {
+        req.path == "/account/info" || req.path.startsWith("/api/bot/") || !ClientName(req).isHuman
+      }
+      Option.when(reject)(response)
 
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
