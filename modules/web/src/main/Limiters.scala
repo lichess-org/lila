@@ -224,7 +224,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
         case Some(me) => auth(me.userId)
 
     object apiGet:
-      private val authLimit = 120
+      private val authLimit = 120 // per minute
       private val auth = RateLimit[UserId]((authLimit * 10 * 3), 3.minutes, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](20 * 3, 3.minutes, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10 * 3, 3.minutes, "broadcast.api.get.anon")
