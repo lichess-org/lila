@@ -52,14 +52,18 @@
     "lila-fishnet": {
       "flake": false,
       "locked": {
-        "path": "../lila-fishnet",
-        "type": "path"
+        "lastModified": 1793393377,
+        "narHash": "sha256-Qz+Ziv3D4INO9rycDOdo5FivZlefmJQO3LptoSh9sQg=",
+        "owner": "lichess-org",
+        "repo": "lila-fishnet",
+        "rev": "0e7ec64e91e5e11ec3ee6e86a9bb1b2b05404e4b",
+        "type": "github"
       },
       "original": {
-        "path": "../lila-fishnet",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "lichess-org",
+        "repo": "lila-fishnet",
+        "type": "github"
+      }
     },
     "lila-ws": {
       "flake": false,

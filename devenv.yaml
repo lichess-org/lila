@@ -11,8 +11,7 @@ inputs:
     url: github:lichess-org/lila-db-seed
     flake: false
   lila-fishnet:
-    # url: github:lichess-org/lila-fishnet
-    url: ../lila-fishnet
+    url: github:lichess-org/lila-fishnet
     flake: false
   fishnet:
     url: github:lichess-org/fishnet
