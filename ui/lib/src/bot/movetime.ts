@@ -43,11 +43,11 @@ function lineMix(from: Line, to: Line, mix: number): Line {
 
 // mean movetime from turn with a sin^2 ramp up to peak and quadratic decay
 function makeMovetimer(initial: Seconds, increment: Seconds, rating: number): (turn: number) => Seconds {
-  const cappedInitial = clamp(initial, { min: keys[0], max: keys[keys.length - 1] });
+  const cappedInitial = clamp(initial, { min: keys[0], max: keys.at(-1) });
 
   const index = keys.findIndex(i => i > cappedInitial);
   const lowerKey = index > 0 ? keys[index - 1] : keys[0];
-  const upperKey = index !== -1 ? keys[index] : keys[keys.length - 1];
+  const upperKey = index !== -1 ? keys[index] : keys.at(-1)!;
 
   const mix = upperKey === lowerKey ? 0 : (initial - lowerKey) / (upperKey - lowerKey);
   const lowerFrame = keyframes.get(lowerKey)!;

@@ -121,8 +121,8 @@ export default class OnlineFriends {
   toFriend = (titleName: TitleName): Friend => {
     const split = titleName.split(' ');
     return {
-      id: split[split.length - 1].toLowerCase(),
-      name: split[split.length - 1],
+      id: split.at(-1)!.toLowerCase(),
+      name: split.at(-1)!,
       title: split.length > 1 ? split[0] : undefined,
       playing: false,
     };

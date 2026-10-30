@@ -68,7 +68,7 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl, pinned: boolean, cloudEva
         hl(
           'span.relay-game__players',
           players.map((p, i) => {
-            const playerColor: Color = (c.orientation === 'black' ? COLORS : COLORS.slice().reverse())[i];
+            const playerColor: Color = (c.orientation === 'black' ? COLORS : COLORS.toReversed())[i];
             const coloredResult =
               showResults &&
               c.status &&

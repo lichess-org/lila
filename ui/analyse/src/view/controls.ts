@@ -30,7 +30,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.LessThan, 'prev', canJumpPrev),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline.at(-1)),
       ]),
       ctrl.study?.practice
         ? hl('button.fbt', {

@@ -95,7 +95,7 @@ function makeLite(game: LocalGame): LiteGame {
 
     fen: game.fen,
     turn: game.turn,
-    lastMove: !game.moves.length ? '' : game.moves[game.moves.length - 1].uci,
+    lastMove: !game.moves.length ? '' : game.moves.at(-1)!.uci,
     status: game.finished?.status?.id ?? status['started'],
     winner: game.finished?.winner,
   };

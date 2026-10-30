@@ -237,7 +237,7 @@ export class CevalCtrl {
 
   get showingCloud(): boolean {
     if (!this.lastStarted) return false;
-    const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
+    const curr = this.lastStarted.steps.at(-1)!;
     return Boolean(curr.ceval?.cloud);
   }
 
@@ -321,7 +321,7 @@ export class CevalCtrl {
   }
 
   private letCloudWin(ev: LocalEval, movetime: number | false, working: StartedState) {
-    const evNode = working.steps[working.steps.length - 1];
+    const evNode = working.steps.at(-1)!;
     const { engine, threads } = working.info;
     if (movetime && evNode.ceval?.cloud) {
       const cloudNodes = evNode.ceval.nodes; // TODO node efficiency if cloud has engineId
@@ -343,7 +343,7 @@ export class CevalCtrl {
 
   private readonly doStart = (s: StartedState) => {
     this.lastStarted = s;
-    const step = s.steps[s.steps.length - 1];
+    const step = s.steps.at(-1)!;
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
     if (this.isFinished(search, step, s.threatMode)) return;
 

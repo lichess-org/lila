@@ -182,7 +182,7 @@ export default async function (
       scales: axisOpts(
         firstPly + 1,
         // Omit game-ending action to sync acpl and movetime charts
-        labels.length - (labels[labels.length - 1].title.includes('-') ? 1 : 0),
+        labels.length - (labels.at(-1)?.title.includes('-') ? 1 : 0),
       ),
       plugins: {
         tooltip: {

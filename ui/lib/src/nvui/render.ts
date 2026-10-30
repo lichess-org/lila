@@ -180,11 +180,7 @@ export function renderBoard(
 
   const ranks: VNode[] = [];
   if (boardStyle === 'table') ranks.push(doFileHeaders());
-  ranks.push(
-    ...RANK_NAMES.slice()
-      .reverse()
-      .map(rank => doRank(pov, rank)),
-  );
+  ranks.push(...RANK_NAMES.toReversed().map(rank => doRank(pov, rank)));
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   if (pov === 'black') ranks.reverse();
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
@@ -251,8 +247,7 @@ const getPiecesByColor = (
   color: Color,
   pov?: Color,
 ): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
-  return ROLES.slice()
-    .reverse()
+  return ROLES.toReversed()
     .map(role => ({
       role,
       keys: keysWithPiece(pieces, role, color, pov),

@@ -42,7 +42,7 @@ export class IdbTree {
       [path, kids] = this.familyOf(path);
     }
     const i = kids.findIndex(k => fromPath.slice(path.length).startsWith(k.id));
-    const stepTo = which === 'next' ? (kids[i + 1] ?? kids[0]) : (kids[i - 1] ?? kids[kids.length - 1]);
+    const stepTo = which === 'next' ? (kids[i + 1] ?? kids[0]) : (kids[i - 1] ?? kids.at(-1));
     return !stepTo ? fromPath : path + stepTo.id;
   }
 

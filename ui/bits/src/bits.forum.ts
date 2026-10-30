@@ -235,7 +235,7 @@ function quotedMarkdown(postEl: HTMLElement | null): string {
   if (isNaN(startCap) || isNaN(endCap) || !source) return trimmed;
 
   const sourceLines = selection.toString().trim().split('\n');
-  const lastLine = sourceLines[sourceLines.length - 1].trim();
+  const lastLine = sourceLines.at(-1)!.trim();
 
   const startSource = source.indexOf(sourceLines[0].trim(), startCap);
   const endSource = source.lastIndexOf(lastLine, endCap) + lastLine.length;

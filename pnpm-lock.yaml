@@ -698,6 +698,9 @@ importers:
       bits:
         specifier: workspace:*
         version: link:../bits
+      core-js:
+        specifier: 3.51.0
+        version: 3.51.0
       dasher:
         specifier: workspace:*
         version: link:../dasher
@@ -1514,6 +1517,9 @@ packages:
   commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
+
+  core-js@3.51.0:
+    resolution: {integrity: sha512-7bDKx/5jm5MxzsXxc93g6Z2+4ZsuT/MddrfRmTDJNAkWsYWHU8EVNEsBiIEWnMAMCHMmRfUEjkuo3jeNBOIHRw==}
 
   cosmiconfig@9.0.2:
     resolution: {integrity: sha512-gtTZxTDau1wL7Y7zifc2dd8jHSK/k6BTx/2Xp/BpdlAdnlYWFVt7qhJqgwi7637yRwRQ3qL4ZidbB4I8tA5VOg==}
@@ -3160,6 +3166,8 @@ snapshots:
   colord@2.10.0: {}
 
   commander@11.1.0: {}
+
+  core-js@3.51.0: {}
 
   cosmiconfig@9.0.2(typescript@7.0.2):
     dependencies:

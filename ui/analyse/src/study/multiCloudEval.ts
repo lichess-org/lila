@@ -64,7 +64,7 @@ export class MultiCloudEval {
       .slice(0, 32);
     if (chapters.length) {
       const fensToRequest = new Set(chapters.map(c => c.fen));
-      const alreadyHasAllFens = [...fensToRequest].every(f => this.lastRequestedFens.has(f));
+      const alreadyHasAllFens = fensToRequest.isSubsetOf(this.lastRequestedFens);
       const worthSending = !alreadyHasAllFens || fensToRequest.size < this.lastRequestedFens.size / 1.5;
       if (worthSending) {
         this.lastRequestedFens = fensToRequest;

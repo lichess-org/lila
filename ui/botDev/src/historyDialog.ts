@@ -55,7 +55,7 @@ class HistoryDialog {
         { selector: '[data-action="copy"]', listener: this.copy },
       ],
     });
-    this.select(this.versions[this.versions.length - 1]);
+    this.select(this.versions.at(-1));
     this.dlg.show();
     const versionsEl = this.view.querySelector('.versions') as HTMLElement;
     versionsEl.scrollTop = versionsEl.scrollHeight;
@@ -74,8 +74,7 @@ class HistoryDialog {
     const versionsEl = this.view.querySelector('.versions') as HTMLElement;
     versionsEl.innerHTML = '';
     for (const bot of this.versions) {
-      const isLive =
-        bot === env.bot.localBots[this.host.uid] || bot === this.versions[this.versions.length - 1];
+      const isLive = bot === env.bot.localBots[this.host.uid] || bot === this.versions.at(-1);
       const version = bot.version;
       const div = frag<HTMLElement>(
         `<div class="version${isLive ? ' selected' : ''}" data-version="${version}">`,
@@ -151,7 +150,7 @@ class HistoryDialog {
   }
 
   get live() {
-    return this.versions[this.versions.length - 1];
+    return this.versions.at(-1)!;
   }
 
   json(hover?: BotVersionInfo) {

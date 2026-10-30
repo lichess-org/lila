@@ -26,8 +26,7 @@ export class SearchCtrl {
       render: (redraw, dlg) => {
         const cleanQuery = query.toLowerCase();
         const results = this.chapters.all().filter(c => c.name.toLowerCase().includes(cleanQuery));
-        const highlightRegex =
-          cleanQuery && new RegExp(cleanQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        const highlightRegex = cleanQuery && new RegExp(RegExp.escape(cleanQuery), 'gi');
         const setChapter = (id: string) => {
           this.rootSetChapter(id);
           dlg.close();

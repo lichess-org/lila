@@ -36,18 +36,15 @@ const logSuccess = (e: LogEvent) =>
 
 function renderLog(ctrl: RelayCtrl) {
   const url = ctrl.data.sync?.url;
-  const logLines = (ctrl.data.sync?.log || [])
-    .slice(0)
-    .reverse()
-    .map(e => {
-      const err =
-        e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
-      return hl(
-        'div' + (err ? '.err' : ''),
-        { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },
-        [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
-      );
-    });
+  const logLines = (ctrl.data.sync?.log || []).toReversed().map(e => {
+    const err =
+      e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
+    return hl(
+      'div' + (err ? '.err' : ''),
+      { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },
+      [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
+    );
+  });
   if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('icon.ddloader'), 'Polling source...']));
   return hl('div.log', logLines);
 }

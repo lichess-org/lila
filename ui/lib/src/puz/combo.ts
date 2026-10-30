@@ -25,9 +25,9 @@ export class Combo {
   percent = (): number => {
     const lvl = this.level();
     const levels = this.config.combo.levels;
-    const lastLevel = levels[levels.length - 1];
+    const lastLevel = levels.at(-1)!;
     if (lvl >= levels.length - 1) {
-      const range = lastLevel[0] - levels[levels.length - 2][0];
+      const range = lastLevel[0] - levels.at(-2)![0];
       return (((this.current - lastLevel[0]) / range) * 100) % 100;
     }
     const bounds = [levels[lvl][0], levels[lvl + 1][0]];

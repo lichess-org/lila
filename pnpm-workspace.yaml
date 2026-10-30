@@ -6,6 +6,7 @@ packages:
   - 'ui/*'
   - 'ui/@types/*'
 allowBuilds:
+  core-js: false
   esbuild: true
   protobufjs: false
 overrides:

@@ -283,7 +283,7 @@ async function preload(html: string): Promise<Node[]> {
   loader.append(frag(html));
   document.body.append(loader);
 
-  await Promise.all([
+  await Promise.allSettled([
     ...[...loader.querySelectorAll('img')].map(img =>
       img.complete
         ? img.decode().catch(() => {})

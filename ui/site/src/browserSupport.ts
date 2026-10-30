@@ -4,9 +4,6 @@ import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 
 export async function loadPolyfills(): Promise<void> {
-  if (!('structuredClone' in window)) {
-    (window as any).structuredClone = (x: unknown) => JSON.parse(JSON.stringify(x));
-  }
   await Promise.all([dialogPolyfill(), resizePolyfill()]);
 }
 

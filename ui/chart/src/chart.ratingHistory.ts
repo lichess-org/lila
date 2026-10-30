@@ -298,7 +298,7 @@ function renderChart({ data, singlePerfName }: Opts) {
 function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIndex: number) {
   const indexFilter = (_p: ChartPerf | PerfRatingHistory, i: number) =>
     !singlePerfName || i === singlePerfIndex;
-  const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points[d.points.length - 1])];
+  const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points.at(-1)!)];
   const filteredData = data.filter(indexFilter);
   const dates = filteredData.filter(p => p.points.length).flatMap(minMax);
   let startDate = dayjs.utc(Math.min(...dates));
@@ -341,17 +341,16 @@ function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];
 
-  const end = data[data.length - 1].ts;
-  const reversed = data.slice().reverse();
+  const end = data.at(-1)!.ts;
   const allDates: number[] = [];
   for (let i = begin; i <= end; i += oneStep) allDates.push(i);
   // Ensure latest rating is always included (regardless of step or begin)
-  if (allDates[allDates.length - 1] < end) {
+  if (allDates.at(-1)! < end) {
     allDates.push(end);
   }
   const result: Point[] = [];
   for (let j = 0; j < allDates.length; j++) {
-    const match = reversed.find(x => x.ts <= allDates[j]);
+    const match = data.findLast(x => x.ts <= allDates[j]);
     if (match) result.push({ x: allDates[j], y: match.rating });
   }
   return result;

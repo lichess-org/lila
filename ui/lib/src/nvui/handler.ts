@@ -215,8 +215,8 @@ export function lastCapturedCommandHandler(
 ) {
   const lastCaptured = (): string => {
     const fens = fensteps();
-    const oldFen = fens[fens.length - 2];
-    const currentFen = fens[fens.length - 1];
+    const oldFen = fens.at(-2)!;
+    const currentFen = fens.at(-1)!;
     if (!oldFen || !currentFen) return 'none';
     const oldBoardFen = oldFen.split(' ')[0];
     const currentBoardFen = currentFen.split(' ')[0];

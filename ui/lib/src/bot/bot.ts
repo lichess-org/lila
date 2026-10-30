@@ -123,7 +123,7 @@ export class Bot implements BotInfo, MoveSource {
       this.ctrl.zerofish.goFish(pos, fishSearch),
       zeroSearch && this.ctrl.zerofish.goZero(pos, zeroSearch),
     ]);
-    this.cp = fishResults.lines[fishResults.lines.length - 1][0].score;
+    this.cp = fishResults.lines.at(-1)![0].score;
 
     const { uci, cpl, movetime } = this.chooseMove(fishResults, fish?.depth ?? 0, zeroResults, args);
     if (cpl !== undefined && cpl < 1000) {
@@ -224,7 +224,7 @@ export class Bot implements BotInfo, MoveSource {
     moves.sort(weightSort);
 
     if (args.pos.moves?.length) {
-      const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
+      const last = args.pos.moves.at(-1)?.slice(2, 4);
       // if the current favorite is a capture of the opponent's last moved piece,
       // always take it, regardless of move quality decay
       if (moves[0].uci.slice(2, 4) === last) {

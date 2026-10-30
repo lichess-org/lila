@@ -106,7 +106,7 @@ export class LocalGame extends LocalGameData {
 
   get clock(): { white: number; black: number } | undefined {
     return this.moves.length
-      ? this.moves[this.moves.length - 1].clock
+      ? this.moves.at(-1)!.clock
       : Number.isFinite(this.initial)
         ? { white: this.initial, black: this.initial }
         : undefined;

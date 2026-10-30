@@ -81,7 +81,7 @@ export default class MsgCtrl {
           !data.convo.msgs[0]
         )
           return;
-        if (data.convo.msgs[0].date >= this.data.convo.msgs[this.data.convo.msgs.length - 1].date) return;
+        if (data.convo.msgs[0].date >= this.data.convo.msgs.at(-1)!.date) return;
         this.data.convo.msgs = this.data.convo.msgs.concat(data.convo.msgs);
         this.onLoadMsgs(data.convo.msgs);
         this.redraw();
@@ -176,7 +176,7 @@ export default class MsgCtrl {
 
   loadMoreContacts = () => {
     if (this.loadingContacts || !this.canGetMoreContacts) return;
-    const lastContact = this.data.contacts[this.data.contacts.length - 1];
+    const lastContact = this.data.contacts.at(-1);
     if (!lastContact) return;
     this.loadingContacts = true;
     this.redraw();

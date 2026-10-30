@@ -38,7 +38,7 @@ export function detectThreefold(nodeList: TreeNode[], node: TreeNode): void {
 // can be 3fold or 5fold
 export function add3or5FoldGlyphs(mainlineNodes: TreeNode[]): boolean {
   // only the last positition can be source of three/five-fold
-  const lastEpd = fenToEpd(mainlineNodes[mainlineNodes.length - 1].fen);
+  const lastEpd = fenToEpd(mainlineNodes.at(-1)!.fen);
   const repetitions = mainlineNodes.filter(n => fenToEpd(n.fen) === lastEpd);
   if (repetitions.length > 2) {
     const unicodeList = ['①', '②', '③', '④', '⑤'];

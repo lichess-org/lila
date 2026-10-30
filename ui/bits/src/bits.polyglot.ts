@@ -100,9 +100,7 @@ function makeBookPolyglot(bytes: DataView): PolyglotResult {
     const move = bytes.getUint16(i + 8);
     const weight = bytes.getUint16(i + 10);
 
-    const moves = book.get(hash) ?? [];
-    moves.push({ uci: shortToUci(move), weight });
-    book.set(hash, moves);
+    book.getOrInsertComputed(hash, () => []).push({ uci: shortToUci(move), weight });
   }
   deepFreeze(book);
   return { getMoves: getMoves(book), positions: book.size };

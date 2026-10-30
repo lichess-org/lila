@@ -149,7 +149,7 @@ export default new (class implements SoundI {
       o = JSON.parse(this.voiceStorage.get() ?? JSON.stringify(o));
     } catch {}
     const voiceMap = this.getVoiceMap();
-    return voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
+    return voiceMap.get(o.name) ?? voiceMap.values().find(v => v.lang.startsWith(o.lang));
   };
 
   getVoiceMap = (): Map<string, SpeechSynthesisVoice> => {

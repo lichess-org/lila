@@ -289,5 +289,5 @@ async function makeHash(value: unknown): Promise<string> {
   if (json === undefined) throw new TypeError('Verified values must be JSON-compatible');
   const bytes = new TextEncoder().encode(json);
   const digest = await window.crypto.subtle.digest('SHA-256', bytes);
-  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+  return new Uint8Array(digest).toHex();
 }

@@ -239,7 +239,7 @@ export class AssetDialog {
           ? 'name cannot contain /'
           : name.startsWith('.')
             ? 'name cannot start with period'
-            : [...this.server.values()].includes(name)
+            : this.server.values().some(value => value === name)
               ? 'that name is already in use'
               : undefined;
     if (error) alert(error);

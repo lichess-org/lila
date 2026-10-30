@@ -132,7 +132,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
 
 export function markdownPicfitRegex(origin = ''): RegExp {
   return new RegExp(
-    String.raw`!\[([^\n\]]*)\]\((${regexQuote(
+    String.raw`!\[([^\n\]]*)\]\((${RegExp.escape(
       origin,
     )}[^)\s]+[?&]path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})[^)]*)\)`,
     'gi',
@@ -158,8 +158,4 @@ function dragHandles(img: HTMLImageElement): HTMLElement[] {
   const span = img.closest('.markdown-img-container') ?? wrapImg({ img });
   span.firstElementChild!.classList.add('markdown-img-resizer');
   return [...span.querySelectorAll<HTMLElement>('.resize-handle')];
-}
-
-function regexQuote(origin: string) {
-  return origin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

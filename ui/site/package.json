@@ -6,6 +6,7 @@
     "@juggle/resize-observer": "^3.4.0",
     "@types/debounce-promise": "^3.1.9",
     "bits": "workspace:*",
+    "core-js": "3.51.0",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
     "dialog-polyfill": "0.5.6",
@@ -17,6 +18,7 @@
     },
     "bundle": [
       "src/site.*Embed.ts",
+      "src/site.core.ts",
       {
         "module": "src/site.ts",
         "inline": "src/site.inline.ts"

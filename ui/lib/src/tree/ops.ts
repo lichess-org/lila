@@ -33,7 +33,7 @@ export function collect<T extends TreeNodeBase>(from: T, pickChild: (node: T) =>
 export const childById = <T extends TreeNodeBase>(node: T, id: string): T | undefined =>
   node.children?.find(child => child.id === id) as T | undefined;
 
-export const last = <T extends TreeNodeBase>(nodeList: T[]): T | undefined => nodeList[nodeList.length - 1];
+export const last = <T extends TreeNodeBase>(nodeList: T[]): T | undefined => nodeList.at(-1);
 
 export function takePathWhile<T extends TreeNodeBase>(
   nodeList: T[],

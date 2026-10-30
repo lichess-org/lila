@@ -44,15 +44,9 @@ function listenToReload(container: HTMLElement): void {
 
 function replaceMenuItems(container: HTMLElement, items: MenuItem[]): void {
   const menu = getMenuFromDataAttr(container);
-  const newMenuItemsByCategory = items.reduce<Record<string, MenuItem[]>>((acc, item) => {
-    if (!acc[item.category ?? '']) {
-      acc[item.category ?? ''] = [];
-    }
-    acc[item.category ?? ''].push(item);
-    return acc;
-  }, {});
+  const newMenuItemsByCategory = Map.groupBy(items, item => item.category ?? '');
 
-  for (const [category, items] of Object.entries(newMenuItemsByCategory)) {
+  for (const [category, items] of newMenuItemsByCategory) {
     const categoryIndex = menu.items.findIndex(item => item.category === category);
     if (categoryIndex === -1) {
       menu.items.push(...items);

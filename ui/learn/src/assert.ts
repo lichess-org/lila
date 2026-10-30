@@ -53,7 +53,7 @@ export const lastMoveSan =
   (san: string): Assert =>
   (level: AssertData) => {
     const moves = level.chess.sanHistory();
-    return moves[moves.length - 1] === san;
+    return moves.at(-1) === san;
   };
 
 export function checkIn(nbMoves: number): Assert {

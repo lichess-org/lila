@@ -747,12 +747,9 @@ export default function (token: string): void {
       if (String(gameState.moves).length > 1) {
         const moves = gameState.moves.split(' ');
         if (verbose)
-          console.log(
-            `getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`,
-          );
-        if (moves.length % 2 === 0)
-          return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
-        else return { player: 'white', move: moves[moves.length - 1], by: gameInfo.white.id };
+          console.log(`getLastUCIMove - ${moves.length} moves detected. Last one: ${moves.at(-1)!}`);
+        if (moves.length % 2 === 0) return { player: 'black', move: moves.at(-1)!, by: gameInfo.black.id };
+        else return { player: 'white', move: moves.at(-1)!, by: gameInfo.white.id };
       }
     }
     if (verbose) console.log('getLastUCIMove - No moves.');

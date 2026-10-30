@@ -81,21 +81,19 @@ export interface OneTimeEvents {
 }
 
 export class Pubsub {
-  private readonly allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
+  private readonly pubsubEvents: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
   private readonly oneTimeEvents: Map<OneTimeKey, OneTimeHandler<OneTimeEvents[OneTimeKey]>> = new Map();
 
   on = <K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void => {
-    const subs = this.allSubs.get(name);
-    if (subs) subs.add(cb);
-    else this.allSubs.set(name, new Set([cb]));
+    this.pubsubEvents.getOrInsertComputed(name, () => new Set()).add(cb);
   };
 
   off = <K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void => {
-    this.allSubs.get(name)?.delete(cb);
+    this.pubsubEvents.get(name)?.delete(cb);
   };
 
   emit = <K extends keyof PubsubEvents>(name: K, ...args: Parameters<PubsubEvents[K]>): void => {
-    const callbacks = this.allSubs.get(name);
+    const callbacks = this.pubsubEvents.get(name);
     if (callbacks) {
       for (const cb of callbacks) {
         (cb as (...args: Parameters<PubsubEvents[K]>) => void)(...args);
@@ -104,14 +102,9 @@ export class Pubsub {
   };
 
   after<K extends OneTimeKey>(event: K): Promise<OneTimeEvents[K]> {
-    const found = this.oneTimeEvents.get(event);
-    if (found) return found.promise as Promise<OneTimeEvents[K]>;
-
-    const handler = {} as OneTimeHandler<OneTimeEvents[K]>;
-    handler.promise = new Promise<OneTimeEvents[K]>(resolve => (handler.resolve = resolve));
-    this.oneTimeEvents.set(event, handler);
-
-    return handler.promise;
+    return this.oneTimeEvents.getOrInsertComputed(event, () =>
+      Promise.withResolvers<OneTimeEvents[OneTimeKey]>(),
+    ).promise as Promise<OneTimeEvents[K]>;
   }
 
   complete<K extends OneTimeKey>(event: K, value?: OneTimeEvents[K]): void {
@@ -130,7 +123,7 @@ export class Pubsub {
 export const pubsub: Pubsub = new Pubsub();
 
 type OneTimeKey = keyof OneTimeEvents;
-interface OneTimeHandler<T = any> {
+interface OneTimeHandler<T> {
   promise: Promise<T>;
   resolve?: (value: T) => void;
 }

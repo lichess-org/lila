@@ -68,7 +68,7 @@ export function init(ctrl: RoundController): void {
   const setDrop = () => {
     if (activeCursor) document.body.classList.remove(activeCursor);
     if (crazyKeys.length > 0) {
-      const role = pieceRoles[crazyKeys[crazyKeys.length - 1] - 1];
+      const role = pieceRoles[crazyKeys.at(-1)! - 1];
       const color = ctrl.data.player.color;
       const crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;

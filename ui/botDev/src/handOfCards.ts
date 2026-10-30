@@ -461,7 +461,7 @@ class TouchDragShape {
     this.index = this.cards.indexOf(startCard);
   }
   get last(): DragFrame {
-    return this.recent[this.recent.length - 1];
+    return this.recent.at(-1)!;
   }
 
   update(e: PointerEvent): boolean {

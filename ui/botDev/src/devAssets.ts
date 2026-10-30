@@ -80,7 +80,11 @@ export class DevAssets {
   }
 
   deletedKeys(type: AssetType): string[] {
-    return [...this.server[type].entries()].filter(([, v]) => v.startsWith('.')).map(([k]) => k);
+    return this.server[type]
+      .entries()
+      .filter(([, value]) => value.startsWith('.'))
+      .map(([key]) => key)
+      .toArray();
   }
 
   isLocalOnly(key: string): boolean {
@@ -183,7 +187,7 @@ export class DevAssets {
       console.log(result, 'cancelled?');
       return undefined;
     }
-    const oldKey = [...this.idb.book.keyNames.entries()].find(([, n]) => n === name)?.[0];
+    const oldKey = this.idb.book.keyNames.entries().find(([, value]) => value === name)?.[0];
     const key = await hashBlob(result.polyglot);
     const asset = { blob: result.polyglot, name, user: myUserId() ?? 'anonymous' };
     const cover = { blob: result.cover, name, user: myUserId() ?? 'anonymous' };

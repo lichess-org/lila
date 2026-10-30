@@ -181,8 +181,6 @@ export class ChatCtrl {
 
   getTab(): Tab {
     const tabs = this.visibleTabs;
-    return this.chatEnabled()
-      ? (tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0])
-      : tabs[tabs.length - 1];
+    return this.chatEnabled() ? (tabs.find(t => t.key === this.storedTabKey()) ?? tabs[0]) : tabs.at(-1)!;
   }
 }

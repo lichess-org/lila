@@ -218,7 +218,7 @@ const titleText = (data: RoundStats): string =>
 const fillData = (viewers: RoundStats['viewers']) => {
   const points: chart.Point[] = [];
   if (!viewers.length) return [];
-  const last = viewers[viewers.length - 1];
+  const last = viewers.at(-1)!;
   points.push({ x: last[0], y: last[1] });
   viewers
     .slice(0, viewers.length - 2)
@@ -226,7 +226,7 @@ const fillData = (viewers: RoundStats['viewers']) => {
     .forEach(([behind, v]) => {
       const minuteGap = points.find(({ x }) => notNull(x) && x - behind <= 60);
       if (!minuteGap) {
-        for (let i = behind; i < points[points.length - 1].x!; i += 60) points.push({ x: i, y: v });
+        for (let i = behind; i < points.at(-1)!.x!; i += 60) points.push({ x: i, y: v });
       } else points.push({ x: behind, y: v });
     });
   return points.map(p => ({ x: notNull(p.x) ? p.x * 1000 : null, y: p.y })).reverse();

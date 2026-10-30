@@ -59,7 +59,7 @@ export function asData(f: Filter, facet: FilterFacetKey): { x: number; y: number
       { x: xs.max + 1, y: defaultVal },
     ];
   pts.unshift([xs.min - 1, pts[0][1]]);
-  pts.push([xs.max + 1, pts[pts.length - 1][1]]);
+  pts.push([xs.max + 1, pts.at(-1)![1]]);
   return pts.map(p => ({ x: p[0], y: p[1] }));
 }
 
@@ -97,7 +97,7 @@ export function evaluateFilter(f: Filter, x: FilterFacetValue): FilterFacetValue
           continue facetIteration;
         }
       }
-      value[facet] = to[to.length - 1][1];
+      value[facet] = to.at(-1)![1];
     }
   }
   return value;

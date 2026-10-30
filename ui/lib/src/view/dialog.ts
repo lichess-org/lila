@@ -119,11 +119,11 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   return o.show ? wrapper.show() : wrapper;
 }
 
-export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
+export async function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
   const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
   let vnode: VNode | Element = (o.parentEl ?? document.body).appendChild(document.createElement('div'));
-  let resolve: (dlg: Dialog<Ctx>) => void;
+  const { promise, resolve } = Promise.withResolvers<Dialog<Ctx>>();
   let dialog: Dialog<Ctx> | undefined;
   let dialogEl: HTMLDialogElement;
 
@@ -176,10 +176,8 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dia
       ],
     );
 
-  return new Promise<Dialog<Ctx>>(res => {
-    resolve = res;
-    vnode = patch(vnode, makeVNode());
-  });
+  vnode = patch(vnode, makeVNode());
+  return promise;
 }
 
 const easyCloseHandler = new (class {
@@ -222,7 +220,7 @@ const easyCloseHandler = new (class {
   };
 
   private get top(): DialogWrapper | undefined {
-    return this.stack[this.stack.length - 1];
+    return this.stack.at(-1);
   }
 })();
 
@@ -320,7 +318,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         else return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
       });
       const first = focii[0];
-      const last = focii[focii.length - 1];
+      const last = focii.at(-1);
       const focus = document.activeElement as HTMLElement;
 
       if (focus === last && !e.shiftKey) first?.focus();
