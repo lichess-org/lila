@@ -15,8 +15,7 @@ inputs:
     url: ../lila-fishnet
     flake: false
   fishnet:
-    # url: github:lichess-org/fishnet
-    url: ../fishnet
+    url: github:lichess-org/fishnet
     flake: false
   lila-ws:
     url: github:lichess-org/lila-ws

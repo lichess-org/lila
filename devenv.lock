@@ -20,14 +20,18 @@
     "fishnet": {
       "flake": false,
       "locked": {
-        "path": "../fishnet",
-        "type": "path"
+        "lastModified": 1793391351,
+        "narHash": "sha256-m18M+2QJ8SVbXA85/9pX3U9CFDwzEAC0/8n9yMHyJkg=",
+        "owner": "lichess-org",
+        "repo": "fishnet",
+        "rev": "f822c99e018b7228fe7179137b77c1307264230f",
+        "type": "github"
       },
       "original": {
-        "path": "../fishnet",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "lichess-org",
+        "repo": "fishnet",
+        "type": "github"
+      }
     },
     "lila-db-seed": {
       "flake": false,
