@@ -48,6 +48,7 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): UserAgent =
     req.headers.get(HeaderNames.USER_AGENT).fold(UserAgent.zero)(UserAgent(_))
 
+  val imagePreviewCrawler = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
   val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
   val isChrome113Plus = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
   val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
@@ -79,13 +80,9 @@ object HTTPRequest:
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 
-  def isImagePreviewCrawler(req: RequestHeader) = imagePreviewCrawlerMatcher(req)
-
-  private val imagePreviewCrawlerMatcher = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
-
-  final class UaMatcher(rStr: String):
-    private val pattern = rStr.r.pattern
-    def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
+  def UaMatcher(rStr: String): RequestHeader => Boolean =
+    val pattern = rStr.r.pattern
+    (req: RequestHeader) => pattern.matcher(userAgent(req).value).find
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
 
