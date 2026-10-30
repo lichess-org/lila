@@ -475,7 +475,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
       ,
       sortOpt.map: by =>
-        span(
+        span(cls := "sort")(
           trans.search.sortBy(),
           span(cls := "btn-rack")(
             a(btnCls(by == likes), href := route(filter, likes))(trans.site.like()),
