@@ -82,12 +82,12 @@ final class Export(env: Env) extends LilaController(env):
         )
         .pipe(stream("lichess-fen.gif"))
 
-  private def stream(filename: String, contentType: String = "image/gif", cache: FiniteDuration = 10.days)(
+  private def stream(filename: String, cache: FiniteDuration = 10.days)(
       upstream: Fu[Source[ByteString, ?]]
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
         .publicCache(cache)
-        .as(contentType)
+        .as("image/gif")
         .asAttachmentStream(filename)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }
