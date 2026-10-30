@@ -55,7 +55,10 @@ final class Account(
             _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
           yield
             env.user.lightUserApi.invalidate(me)
-            Redirect(routes.User.show(me.username)).flashSuccess
+            negotiate(
+              Redirect(routes.User.show(me.username)).flashSuccess,
+              jsonOkResult
+            )
       )
   }
 
