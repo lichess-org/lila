@@ -10,10 +10,18 @@ inputs:
   lila-db-seed:
     url: github:lichess-org/lila-db-seed
     flake: false
+  lila-fishnet:
+    url: github:lichess-org/lila-fishnet
+    flake: false
+  fishnet:
+    url: github:lichess-org/fishnet
+    flake: false
   lila-ws:
     url: github:lichess-org/lila-ws
     flake: false
 imports:
   - lila-db-seed
+  - lila-fishnet
   - lila-ws
+  - fishnet
 allowUnfree: true

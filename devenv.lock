@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "fishnet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793391351,
+        "narHash": "sha256-m18M+2QJ8SVbXA85/9pX3U9CFDwzEAC0/8n9yMHyJkg=",
+        "owner": "lichess-org",
+        "repo": "fishnet",
+        "rev": "f822c99e018b7228fe7179137b77c1307264230f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lichess-org",
+        "repo": "fishnet",
+        "type": "github"
+      }
+    },
     "lila-db-seed": {
       "flake": false,
       "locked": {
@@ -30,6 +46,22 @@
       "original": {
         "owner": "lichess-org",
         "repo": "lila-db-seed",
+        "type": "github"
+      }
+    },
+    "lila-fishnet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793393377,
+        "narHash": "sha256-Qz+Ziv3D4INO9rycDOdo5FivZlefmJQO3LptoSh9sQg=",
+        "owner": "lichess-org",
+        "repo": "lila-fishnet",
+        "rev": "0e7ec64e91e5e11ec3ee6e86a9bb1b2b05404e4b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lichess-org",
+        "repo": "lila-fishnet",
         "type": "github"
       }
     },
@@ -136,7 +168,9 @@
     "root": {
       "inputs": {
         "devenv": "devenv",
+        "fishnet": "fishnet",
         "lila-db-seed": "lila-db-seed",
+        "lila-fishnet": "lila-fishnet",
         "lila-ws": "lila-ws",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
