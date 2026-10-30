@@ -53,12 +53,12 @@ final class Account(
             _ <- env.user.repo.setProfile(me, profile)
             flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
             _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
-          yield
-            env.user.lightUserApi.invalidate(me)
-            negotiate(
+            res <- negotiate(
               Redirect(routes.User.show(me.username)).flashSuccess,
               jsonOkResult
             )
+            _ = env.user.lightUserApi.invalidate(me)
+          yield res
       )
   }
 
