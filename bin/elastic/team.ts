@@ -24,7 +24,7 @@ const properties: Properties = {
 
 const mapping: Mapping = {
   collection: 'team',
-  projection: { _id: 1, name: 1, description: 1, nbMembers: 1, enabled: 1 },
+  projection: { _id: 1, name: 1, description: 1, nbMembers: 1, enabled: 1, createdAt: 1 },
   mongoFilter: args => ({
     $or: [
       { createdAt: { $gte: args.from, ...(args.to ? { $lt: args.to } : {}) } },

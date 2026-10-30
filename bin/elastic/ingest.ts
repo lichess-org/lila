@@ -67,10 +67,9 @@ const metrics = {
   cycle: { timestamp: Date.now() / 1000, upserted: 0, deleted: 0, ok: true },
   cycles: { ok: 0, error: 0 },
   consecutiveFailures: 0,
-  indexing: Object.fromEntries(indexNames.map(index => [index, { upserted: 0, deleted: 0 }])) as Record<
-    IndexName,
-    { upserted: number; deleted: number }
-  >,
+  indexing: Object.fromEntries(
+    indexNames.map(index => [index, { upserted: 0, deleted: 0, rejected: 0 }]),
+  ) as Record<IndexName, { upserted: number; deleted: number; rejected: number }>,
 };
 
 try {
@@ -119,6 +118,13 @@ async function watch(context: Context) {
         upserted += written.upserted;
         deleted += written.deleted;
       }
+      await Promise.all(
+        context.args.indexes.map(async index => {
+          metrics.indexing[index].rejected = await context.mongo
+            .collection<WatchEvent>('elasticsearch_events')
+            .countDocuments({ index, rejected: true });
+        }),
+      );
       ok = result.ok;
       pending = ok && result.pending;
     } catch (e) {
@@ -210,9 +216,26 @@ async function backfill(index: IndexName, context: Context) {
   console.log(`${index}: backfill started`);
 
   const write = async (docs: MongoDoc[]) => {
-    const result = await writeToIndex(index, await mapping.operations(docs, context));
-    metrics.indexing[index].upserted += result.upserted;
-    metrics.indexing[index].deleted += result.deleted;
+    try {
+      const result = await writeToIndex(index, await mapping.operations(docs, context));
+      metrics.indexing[index].upserted += result.upserted;
+      metrics.indexing[index].deleted += result.deleted;
+      if (!result.ok) throw new Error(`${index}: bulk write failed, backfill stopped`);
+    } catch (error) {
+      const dates = docs
+        .map(doc => doc.createdAt ?? doc.ca ?? doc.lived?.at ?? doc.at)
+        .filter((date): date is Date => date instanceof Date && Number.isFinite(date.getTime()))
+        .map(date => date.getTime());
+      const dateRange = dates.length
+        ? `${new Date(Math.min(...dates)).toISOString()}..${new Date(Math.max(...dates)).toISOString()}`
+        : 'unavailable';
+      console.error(
+        `${index}: failed backfill batch (${docs.length} documents, ` +
+          `first=${docs[0]._id}, last=${docs.at(-1)!._id}, dates=${dateRange}); ` +
+          'batch dates are not a resume checkpoint',
+      );
+      throw error;
+    }
   };
 
   const cursor = context.mongo
@@ -286,7 +309,7 @@ async function writeToIndex(index: IndexName, operations: Operations) {
       bytes = 0;
       return true;
     } catch (error) {
-      console.error(`${index}:`, error);
+      console.error(`${index}: bulk request failed for ${batch.map(entry => entry.id).join(', ')}:`, error);
       result.ok = false;
       return false;
     }
@@ -489,6 +512,11 @@ async function startMetrics() {
       '# TYPE es_index_deletes_total counter',
       ...args.indexes.map(
         index => `es_index_deletes_total{index="${index}"} ${metrics.indexing[index].deleted}`,
+      ),
+      '# HELP es_index_rejected_events Rejected events retained in the mailbox.',
+      '# TYPE es_index_rejected_events gauge',
+      ...args.indexes.map(
+        index => `es_index_rejected_events{index="${index}"} ${metrics.indexing[index].rejected}`,
       ),
       '',
     ];

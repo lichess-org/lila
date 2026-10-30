@@ -372,3 +372,6 @@ db.relay_delay.createIndex({ at: 1 }, { expireAfterSeconds: 7200 });
 db.ranking.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.ranking.createIndex({ perf: 1, rating: -1 }, { partialFilterExpression: { stable: true } });
 db.ranking.createIndex({ perf: 1, rating: -1, expiresAt: -1 }, { partialFilterExpression: { stable: true } });
+
+// see bin/elastic/ingest.ts
+db.elasticsearch_events.createIndex({ index: 1, createdAt: 1, _id: 1 });
