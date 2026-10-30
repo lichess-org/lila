@@ -15,7 +15,7 @@ final class HttpFilter(
     extends Filter
     with ResponseHeaders:
 
-  private def logger = lila.log("http")
+  import HttpFilter.*
 
   def apply(handle: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))
@@ -85,10 +85,8 @@ final class HttpFilter(
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach(lila.mon.http.mobileCount(actionName, _))
-    HttpFilter
-      .apiAgent(req, client)
-      .foreach: agent =>
-        lila.mon.http.apiAgentCount(actionName, agent).increment()
+    apiAgent(req, client).foreach: agent =>
+      lila.mon.http.apiAgentCount(actionName, agent).increment()
     result
 
   private def serveAssets(res: Fu[Result]) =
@@ -98,7 +96,7 @@ final class HttpFilter(
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != net.domain.value &&
     HTTPRequest.isRedirectable(using req) &&
-    !HTTPRequest.isProgrammatic(req) &&
+    !isProgrammatic(req) &&
     // asset request, don't redirect
     !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
@@ -121,6 +119,8 @@ private object HttpFilter:
 
   import scalalib.net.UserAgent
 
+  private def logger = lila.log("http")
+
   def apiAgent(req: RequestHeader, client: ClientName): Option[String] =
     val isApiAgent = !client.isMobile && !client.isLichobile && {
       HTTPRequest.isApi(req) || req.path.endsWith(".pgn")
@@ -140,6 +140,5 @@ private object HttpFilter:
     HTTPRequest.isXhr(req) ||
       ClientName(req).isFishnet ||
       HTTPRequest.isApi(req) ||
-      isPrometheus(req) ||
       HTTPRequest.accepts(req).exists(_.startsWith("application/vnd.lichess.v")) ||
       req.path.startsWith("/prometheus-metrics/")

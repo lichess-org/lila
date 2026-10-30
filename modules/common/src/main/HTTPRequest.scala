@@ -109,12 +109,12 @@ object HTTPRequest:
     case Array(bearer, sign) => Bearer(bearer) -> sign.some
     case _ => (Bearer(raw), none)
 
-  private val webXhrAccepts = "application/web.lichess+json"
-  def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
-    a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
+    a == "application/web.lichess+json" ||
+      a.startsWith("application/json") ||
+      a.startsWith("application/vnd.lichess.v")
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
   def acceptsMarkdown(using req: RequestHeader) =
     accepts(req).contains("text/markdown") ||
