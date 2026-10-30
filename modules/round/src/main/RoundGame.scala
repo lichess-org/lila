@@ -42,5 +42,5 @@ object RoundGame:
   // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
   // are based on whose turn it is.
   def cannotLose(p: Pov) =
-    (p.isMyTurn && p.game.position.opponentHasInsufficientMaterial) ||
-      (!p.isMyTurn && p.game.position.playerHasInsufficientMaterial)
+    if p.isMyTurn then p.game.position.opponentHasInsufficientMaterial
+    else p.game.position.playerHasInsufficientMaterial
