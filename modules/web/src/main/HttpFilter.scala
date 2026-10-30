@@ -98,7 +98,7 @@ final class HttpFilter(
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != net.domain.value &&
     HTTPRequest.isRedirectable(using req) &&
-    !HTTPRequest.isProgrammatic(req) &&
+    !HttpFilter.isProgrammatic(req) &&
     // asset request, don't redirect
     !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
@@ -140,6 +140,5 @@ private object HttpFilter:
     HTTPRequest.isXhr(req) ||
       ClientName(req).isFishnet ||
       HTTPRequest.isApi(req) ||
-      isPrometheus(req) ||
       HTTPRequest.accepts(req).exists(_.startsWith("application/vnd.lichess.v")) ||
       req.path.startsWith("/prometheus-metrics/")
