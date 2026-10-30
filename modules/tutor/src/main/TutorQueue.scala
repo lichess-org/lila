@@ -76,28 +76,28 @@ final private class TutorQueue(
 
   def awaiting(user: UserId): Fu[Option[Awaiting]] =
     fetchStatus(user).flatMap:
-      case q: InQueue => waitingGames(user).map(Awaiting(q, _).some)
+      case q: Status.InQueue => waitingGames(user).map(Awaiting(q, _).some)
       case _ => fuccess(none)
 
   def fetchStatus(user: UserId): Fu[Status] =
     colls.queue:
       _.byId[Item](user).flatMap:
-        _.fold(fuccess(NotInQueue)): item =>
+        _.fold(fuccess(Status.NotInQueue)): item =>
           for
             position <- colls.queue(_.countSel(bdoc(F.requestedAt.lte(item.requestedAt))))
             avgDuration <- durationCache.get({})
             eta = ((position * avgDuration) / parallelism.get())
-          yield InQueue(item, position, eta)
+          yield Status.InQueue(item, position, eta)
 
 object TutorQueue:
 
   case class Item(config: TutorConfig, requestedAt: Instant, startedAt: Option[Instant] = none)
 
-  sealed trait Status
-  case object NotInQueue extends Status
-  case class InQueue(item: Item, position: Int, eta: FiniteDuration) extends Status
+  enum Status:
+    case NotInQueue
+    case InQueue(item: Item, position: Int, eta: FiniteDuration)
 
-  case class Awaiting(q: InQueue, games: List[(Pov, PgnStr)]):
+  case class Awaiting(q: Status.InQueue, games: List[(Pov, PgnStr)]):
     export q.item.config
 
   import TutorBsonHandlers.given
