@@ -34,7 +34,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           ? blocked('Bot accounts cannot send nor receive messages.')
           : convo.postable
             ? renderInteract(ctrl, user)
-            : blocked(`${user.name} doesn't accept new messages.`),
+            : blocked(i18n.msg.xDoesntAcceptNewMessages(user.name)),
     ]),
   ]);
 }

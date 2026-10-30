@@ -1927,6 +1927,8 @@ interface I18n {
     modActionFeedback: string;
     /** The old app no longer supports puzzles. Please install the new Lichess app: %s */
     oldAppNoLongerSupportsPuzzles: I18nFormat;
+    /** %s doesn't accept new messages. */
+    xDoesntAcceptNewMessages: I18nFormat;
   };
   nvui: {
     /** Actions */

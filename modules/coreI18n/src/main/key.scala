@@ -999,6 +999,7 @@ object I18nKey:
     val `lichobileNewAppDownload`: I18nKey = "msg:lichobileNewAppDownload"
     val `modActionFeedback`: I18nKey = "msg:modActionFeedback"
     val `oldAppNoLongerSupportsPuzzles`: I18nKey = "msg:oldAppNoLongerSupportsPuzzles"
+    val `xDoesntAcceptNewMessages`: I18nKey = "msg:xDoesntAcceptNewMessages"
 
   object nvui:
     val `featuredEvents`: I18nKey = "nvui:featuredEvents"
