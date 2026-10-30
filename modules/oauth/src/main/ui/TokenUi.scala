@@ -109,10 +109,9 @@ final class TokenUi(helpers: Helpers)(
               fieldset(
                 legend(categ()),
                 scopes.map: scope =>
-                  val disabled = {
-                    me.noBot && scope == OAuthScope.Bot.Play && me.count.game > 0
-                  } ||
-                    me.isBot && scope == OAuthScope.Board.Play
+                  val disabled =
+                    (me.noBot && scope == OAuthScope.Bot.Play && me.count.game > 0) ||
+                      (me.isBot && scope == OAuthScope.Board.Play)
                   val hidden = scope == OAuthScope.Web.Mod && !OAuthScope.canUseWebMod
                   val id = s"oauth-scope-${scope.key.replace(":", "_")}"
                   (!hidden).option(

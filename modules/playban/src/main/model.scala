@@ -82,10 +82,9 @@ case class UserRecord(
 
   private def rageSitRecidive =
     outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
-      rageSit.isTerrible || {
-        rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1
-      } ||
-      rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
+      rageSit.isTerrible ||
+      (rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1) ||
+      (rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2)
     }
 
 case class TempBan(date: Instant, mins: Int, reason: Option[String]):
