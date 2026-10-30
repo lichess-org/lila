@@ -1,5 +1,6 @@
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
+/// <reference path="./core.d.ts" />
 /// <reference path="./i18n.d.ts" />
 
 // file://./../../site/src/site.ts

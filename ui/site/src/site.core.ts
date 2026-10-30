@@ -13,6 +13,8 @@ import 'core-js/es/promise/with-resolvers.js';
 import 'core-js/es/regexp/escape.js';
 import 'core-js/es/set/index.js';
 import 'core-js/es/string/at.js';
+import 'core-js/es/symbol/async-dispose.js';
+import 'core-js/es/symbol/dispose.js';
 import 'core-js/es/typed-array/at.js';
 import 'core-js/es/typed-array/find-last.js';
 import 'core-js/es/typed-array/find-last-index.js';
