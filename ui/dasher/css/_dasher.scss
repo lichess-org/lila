@@ -210,6 +210,10 @@
     }
   }
 
+  &.zen button::before {
+    opacity: 0.5;
+  }
+
   &.large button {
     padding: 1rem 1rem;
   }
