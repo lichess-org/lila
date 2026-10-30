@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">このユーザー名のどこが攻撃的かを説明してください。ただ「攻撃的」「不適切」と言うのではなく、あなたがなぜそう思ったのか教えてください。中でも遠回しな表現、英語以外の言語、俗語、歴史・文化的要因に関係した場合は特に説明が必要です。</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">英語で書くと通報への対応が速くなります。</string>
   <string name="provideOneCheatedGameLink">不正のあった対局へのリンクを少なくともひとつ添えてください。</string>
+  <string name="thanksForTheReport">通報ありがとう</string>
+  <string name="moderatorsWillReviewSoon">モデレーターがまもなく確認し、適切な対応を行ないます。</string>
+  <string name="blockUserInMeantime">とりあえず、このユーザーをブロックできます：</string>
 </resources>

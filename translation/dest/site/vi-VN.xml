@@ -955,6 +955,8 @@ Bạn bè đang chơi: %2$s</string>
   <string name="onlyMembersOfTeam">Chỉ dành cho thành viên của đội</string>
   <string name="noRestriction">Không giới hạn</string>
   <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
+  <string name="minimumAccountAge">Tuổi tài khoản tối thiểu</string>
+  <string name="titledPlayersBypassRestriction">Những kỳ thủ có danh hiệu sẽ không bị ràng buộc bởi hạn chế này.</string>
   <string name="minimumRating">Hệ số tối thiểu</string>
   <string name="maximumWeeklyRating">Hệ số cao nhất trong tuần</string>
   <string name="positionInputHelp">Dán một FEN hợp lệ để bắt đầu tất cả ván đấu bằng một thế cờ nhất định đó.

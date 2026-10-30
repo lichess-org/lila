@@ -50,6 +50,8 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
     <item quantity="other">Zeig all %s Teams</item>
   </plurals>
   <string name="newTeamBattle">Neue Team Kampf</string>
+  <string name="startDate">Schtartdatum</string>
+  <string name="entryConditions">Itrits Bedingige</string>
   <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
   <string name="customStartDateHelp">I dinere eigene, lokale Zitzone. Das überschribt d\'Ischtellig \"Zit bis s Turnierbeginn\"</string>
   <string name="allowBerserk">Berserk erlaube</string>
@@ -89,4 +91,6 @@ Z. B.: En Durschnittsrang vo 3% würd heisse, dass du\'s würsch id top 3% vum T
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
   <string name="berserkRate">Berserk-Wertig</string>
   <string name="leaguesAndStreamerBattles">Ligas &amp; Streamer Kämpf</string>
+  <string name="allowBotAccounts">Erlaub beidi Konti</string>
+  <string name="allowBotAccountsDescription">Lass &lt;a href=\'%s\' target=\'_blank\'&gt;Bots&lt;/a&gt; am Turnier teilneh und mit ihrne Engines schpiele. Das schreckt menschlichi Schpiler oft ab.</string>
 </resources>

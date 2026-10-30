@@ -47,6 +47,8 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
     <item quantity="other">Tüm %s takımlarını görüntüleyin</item>
   </plurals>
   <string name="newTeamBattle">Yeni Takım Çarpışması</string>
+  <string name="startDate">Başlangıç tarihi</string>
+  <string name="entryConditions">Giriş koşulları</string>
   <string name="customStartDate">Özel başlangıç tarihi</string>
   <string name="customStartDateHelp">Kendi saat diliminizi kullanın. \"Turnuvaya kalan süre\" ayarı geçersiz kalacaktır</string>
   <string name="allowBerserk">Divane moduna izin ver</string>
@@ -83,4 +85,6 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="berserkRate">Divane oranı</string>
   <string name="leaguesAndStreamerBattles">Ligler &amp; Yayıncı Çarpışmaları</string>
+  <string name="allowBotAccounts">Bot hesaplara izin ver</string>
+  <string name="allowBotAccountsDescription">&lt;a href=\'%s\' target=\'_blank\'&gt;Botların&lt;/a&gt; turnuvaya katılmalarına ve kendi motorlarıyla oynamalarına izin verin. Bu durum genellikle insan oyuncuları uzaklaştırır.</string>
 </resources>

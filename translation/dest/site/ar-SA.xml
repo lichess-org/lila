@@ -1164,6 +1164,8 @@ https://lichess. org/report.</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
   <string name="noRestriction">لا قيود</string>
   <string name="minimumRatedGames">الحد الأدنى لعدد المباريات المُصنَّفة</string>
+  <string name="minimumAccountAge">الحد الأدنى لعمر الحساب</string>
+  <string name="titledPlayersBypassRestriction">يُستثنى اللاعبون الحاصلون على ألقاب من هذا القيد.</string>
   <string name="minimumRating">الحد الأدنى للتصنيف</string>
   <string name="maximumWeeklyRating">أعلى تصنيف أسبوعي</string>
   <string name="positionInputHelp">الصق رمز FEN صالحًا لبدء كل مباراة من وضعية محددة.
@@ -1221,6 +1223,7 @@ https://lichess. org/report.</string>
   <string name="offline" comment="status of a user">غير متصل </string>
   <string name="search">بحث</string>
   <string name="clearSearch">مسح البحث</string>
+  <string name="searchInX">البحث في «%s»</string>
   <string name="thereAreNoResultsForX">لا توجد نتائج لـ \"%s\"</string>
   <string name="tags">تصنيفات</string>
   <string name="enPassant">حقوق  الأخذ بالتجاوز </string>

@@ -530,7 +530,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="loadPosition">Pozisyon yükle</string>
   <string name="isPrivate">Özel</string>
-  <string name="reportXToModerators">%s \'i Moderatörlere bildir</string>
+  <string name="reportXToModerators">%s kullanıcısını moderatörlere bildir</string>
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
   <string name="xRating">Derecelendirme: %s</string>
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
@@ -622,8 +622,8 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
   <string name="privacyPolicy">Gizlilik politikası</string>
-  <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
-  <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
+  <string name="letOtherPlayersFollowYou">Diğer oyuncular sizi takip edebilsin</string>
+  <string name="letOtherPlayersChallengeYou">Diğer oyuncular size oyun teklif edebilsin</string>
   <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="none">Hiçbiri</string>
@@ -796,10 +796,10 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="primaryColorArrowsHowTo">Ctrl veya shift = kırmızı; command, alt veya meta = mavi; her birinden bir tuş = sarı.</string>
-  <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
+  <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj gönderebilsin</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
-  <string name="withNobody">Hiçkimse ile</string>
+  <string name="withNobody">Hiç kimse ile</string>
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
   <string name="withEverybody">Herkes ile</string>
   <string name="kidMode">Çocuk modu</string>
@@ -996,6 +996,8 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="onlyMembersOfTeam">Sadece takım üyeleri</string>
   <string name="noRestriction">Kısıtlama yok</string>
   <string name="minimumRatedGames">En düşük puanlı oyunlar</string>
+  <string name="minimumAccountAge">En düşük hesap yaşı</string>
+  <string name="titledPlayersBypassRestriction">Unvanlı oyuncular bu kısıtlamadan muaftır.</string>
   <string name="minimumRating">En düşük puan</string>
   <string name="maximumWeeklyRating">Haftalık en yüksek puan</string>
   <string name="positionInputHelp">Her oyunda belirli bir pozisyondan başlamak için geçerli FEN yazınız.
@@ -1053,6 +1055,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="offline" comment="status of a user">çevrimdışı</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
+  <string name="searchInX">\"%s\" içinde ara</string>
   <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>

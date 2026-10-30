@@ -47,6 +47,8 @@ Hãy chơi nhanh để chơi nhiều ván hơn và ghi được nhiều điểm 
     <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
   <string name="newTeamBattle">Giải Đa Đội Mới</string>
+  <string name="startDate">Ngày bắt đầu</string>
+  <string name="entryConditions">Điều kiện tham gia</string>
   <string name="customStartDate">Thời gian bắt đầu tùy chỉnh</string>
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Cuồng nộ</string>
@@ -85,4 +87,6 @@ Ví dụ, thứ hạng trung bình 3% có nghĩa là bạn nằm trong top 3% (c
   <string name="tournamentPairingsAreNowClosed">Đã đóng việc xếp cặp đấu.</string>
   <string name="berserkRate">Tỉ lệ Cuồng nộ</string>
   <string name="leaguesAndStreamerBattles">Các giải đấu tổng hợp &amp; Streamer Battles</string>
+  <string name="allowBotAccounts">Cho phép tài khoản bot</string>
+  <string name="allowBotAccountsDescription">Hãy cho phép &lt;a href=\'%s\' target=\'_blank\'&gt;các bot&lt;/a&gt; tham gia giải đấu và chơi bằng phần mềm của chúng. Điều này thường khiến người chơi cảm thấy khó chịu.</string>
 </resources>

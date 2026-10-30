@@ -51,6 +51,8 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
     <item quantity="other">Spoznajte %s ekip</item>
   </plurals>
   <string name="newTeamBattle">Nova skupinska bitka</string>
+  <string name="startDate">Začetni datum</string>
+  <string name="entryConditions">Pogoji za vstop</string>
   <string name="customStartDate">Začetni datum po meri</string>
   <string name="customStartDateHelp">V svojem lokalnem časovnem pasu. To preglasi nastavitev \"Čas pred začetkom turnirja\"</string>
   <string name="allowBerserk">Dovoli divjanje</string>
@@ -85,4 +87,6 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="onlyTitledHelp">Za pridružitev turnirju zahtevajte uradni naziv</string>
   <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="berserkRate">Delež divjanja</string>
+  <string name="allowBotAccounts">Dovoli račune botov</string>
+  <string name="allowBotAccountsDescription">Dovolite &lt;a href=\'%s\' target=\'_blank\'&gt;botom&lt;/a&gt;, da se pridružijo turnirju in igrajo s svojimi motorji. To pogosto odvrača človeške igralce.</string>
 </resources>

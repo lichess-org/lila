@@ -50,6 +50,7 @@
   <string name="numberOfRounds">Število krogov</string>
   <string name="numberOfRoundsHelp">Neparno število krogov omogoča optimalno barvno ravnovesje.</string>
   <string name="roundInterval">Interval med krogi</string>
+  <string name="customPairings">Prilagojene kombinacije</string>
   <string name="forbiddenPairings">Prepovedano delanje parov</string>
   <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
   <string name="manualPairings">Ročno sestavljanje parov v naslednjem krogu</string>

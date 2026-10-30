@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Azahl Runde</string>
   <string name="numberOfRoundsHelp">E ungradi Azahl Runde ermöglicht e optimali Farbeverteilig.</string>
   <string name="roundInterval">Zitabschtand zwüschet de Runde</string>
+  <string name="customPairings">Individuelli Paarige</string>
   <string name="forbiddenPairings">Verboteni Paarige</string>
   <string name="forbiddenPairingsHelp">Benutzernäme vu de Schpiler wo nöd paart werde dörfed (z. B. Gschwüschter). 2 Näme pro Zile, trännt dur en Leerschlag.</string>
   <string name="manualPairings">Nächschti Rundi mit manueller Paarig</string>

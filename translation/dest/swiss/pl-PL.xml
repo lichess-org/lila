@@ -50,6 +50,7 @@
   <string name="numberOfRounds">Liczba rund</string>
   <string name="numberOfRoundsHelp">Nieparzysta liczba rund pozwala na optymalną równowagę kolorów.</string>
   <string name="roundInterval">Interwał między rundami</string>
+  <string name="customPairings">Niestandardowe kojarzenie</string>
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="manualPairings">Ręczne parowanie w następnej rundzie</string>

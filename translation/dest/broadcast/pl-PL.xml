@@ -18,7 +18,7 @@
   <string name="broadcastCalendar">Kalendarz transmisji</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
   <string name="subscribedBroadcasts">Subskrybowane transmisje</string>
-  <string name="aboutBroadcasts">O transmisji</string>
+  <string name="aboutBroadcasts">O transmisjach</string>
   <string name="howToUseLichessBroadcasts">Jak korzystać z transmisji na Lichess.</string>
   <string name="theNewRoundHelp">Nowa runda będzie miała tych samych uczestników co poprzednia.</string>
   <string name="addRound">Dodaj rundę</string>
@@ -28,7 +28,7 @@
   <string name="tournamentName">Nazwa turnieju</string>
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
-  <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
+  <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. Możesz użyć %1$s dla dodatkowych opcji formatowania. Długość musi być mniejsza niż %2$s znaków.</string>
   <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>

@@ -33,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convide apenas pessoas que você conhece e que queiram participar efetivamente deste estudo.</string>
-  <string name="searchByUsername">Pesquisar por nome de usuário</string>
+  <string name="searchByUsername">Buscar por nome de usuário</string>
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
@@ -201,4 +201,5 @@
   <string name="clearPublished">Limpar análise publicada?</string>
   <string name="requestAServerAnalysis">Solicitar uma análise do computador</string>
   <string name="analyzeOnYourDevice">Analise no seu dispositivo</string>
+  <string name="searchChapters">Buscar capítulos</string>
 </resources>
