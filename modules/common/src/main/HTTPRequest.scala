@@ -43,8 +43,6 @@ object HTTPRequest:
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
-  def isPrometheus(req: RequestHeader) = req.path.startsWith("/prometheus-metrics/")
-
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
 
   def userAgent(req: RequestHeader): UserAgent =
@@ -112,7 +110,6 @@ object HTTPRequest:
     case _ => (Bearer(raw), none)
 
   private val webXhrAccepts = "application/web.lichess+json"
-  def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
@@ -122,9 +119,6 @@ object HTTPRequest:
     accepts(req).contains("text/markdown") ||
       queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
-  def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || ClientName(req).isFishnet || isApi(req) || isPrometheus(req) ||
-      accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")

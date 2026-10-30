@@ -122,3 +122,11 @@ private object HttpFilter:
     .trim
     .toLowerCase
     .nonEmptyOption | "-"
+
+  def isProgrammatic(req: RequestHeader) =
+    HTTPRequest.isXhr(req) ||
+      ClientName(req).isFishnet ||
+      HTTPRequest.isApi(req) ||
+      isPrometheus(req) ||
+      HTTPRequest.accepts(req).exists(_.startsWith("application/vnd.lichess.v")) ||
+      req.path.startsWith("/prometheus-metrics/")
