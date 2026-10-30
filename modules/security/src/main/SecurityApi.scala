@@ -143,7 +143,7 @@ final class SecurityApi(
         result = result.match
           case LoginCandidate.Result.Success(_) => true
           case _ => false,
-        name = result.name
+        name = result.productPrefix
       )
       .increment()
 
