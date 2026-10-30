@@ -266,8 +266,8 @@ async function writeToIndex(index: IndexName, operations: Operations) {
       });
       if (body.items.length !== batch.length)
         throw new Error(`bad bulk response: wanted ${batch.length} ops but got ${body.items.length}`);
-      body.items.forEach((item, index) => {
-        const entry = batch[index];
+      body.items.forEach((item, i) => {
+        const entry = batch[i];
         const response = item[entry.operation]!;
         if (
           !response.error &&
