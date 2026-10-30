@@ -82,7 +82,11 @@
   .filter-and-sort {
     flex-wrap: nowrap;
     white-space: nowrap;
-    gap: 0.6em;
+    gap: 1em;
+
+    .sort {
+      gap: 0.6em;
+    }
   }
 
   .calendar-mselect {
