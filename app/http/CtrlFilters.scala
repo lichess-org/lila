@@ -120,11 +120,6 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def NoCrawlersRes(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.req.client.isCrawler then notFound else result
 
-  def NoCrawlersUnlessPreview(result: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if ctx.req.client.isCrawler && !HTTPRequest.imagePreviewCrawler(ctx.req)
-    then notFound
-    else result
-
   def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
     if ctx.req.client.isCrawler && !ctx.isOAuth
     then default.zero

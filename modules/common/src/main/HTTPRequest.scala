@@ -48,7 +48,6 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): UserAgent =
     req.headers.get(HeaderNames.USER_AGENT).fold(UserAgent.zero)(UserAgent(_))
 
-  val imagePreviewCrawler = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
   val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
   val isChrome113Plus = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
   val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
