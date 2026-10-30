@@ -1,3 +1,4 @@
+import '../site/src/site.core';
 // @ts-expect-error dont want jsdom typings
 import { JSDOM } from 'jsdom';
 
