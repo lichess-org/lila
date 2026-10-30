@@ -15,7 +15,6 @@ export default new (class implements SoundI {
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
-  speechStorage = storage.boolean('speech.enabled');
   voiceStorage = storage.make('speech.voice');
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
@@ -66,7 +65,7 @@ export default new (class implements SoundI {
   resolvePath(name: Name): string | undefined {
     if (!this.enabled()) return undefined;
     let dir = this.theme;
-    if (this.theme === 'music' || this.getSpeech()) {
+    if (this.theme === 'music' || this.isSpeech()) {
       if (['move', 'capture', 'check', 'checkmate'].includes(name)) return undefined;
       dir = 'standard';
     }
@@ -175,18 +174,14 @@ export default new (class implements SoundI {
 
   enabled = () => this.theme !== 'silent' && this.getVolume() !== 0;
 
-  getSpeech = (): boolean => this.theme === 'speech' || this.speechStorage.get();
-  setSpeech = (v: boolean): boolean => {
-    this.speechStorage.set(v);
-    return this.getSpeech();
-  };
+  isSpeech = (): boolean => this.theme === 'speech';
 
   say = (text: string, cut = false, force = false, translated = false) =>
     this.sayLazy(() => text, cut, force, translated);
 
   sayLazy = (text: () => string, cut = false, force = false, translated = false): boolean => {
     if (typeof window.speechSynthesis === 'undefined') return false;
-    if (!this.getSpeech() && !force) return false;
+    if (!this.isSpeech() && !force) return false;
     this.nvuiReady()
       .then(() => {
         if (cut) speechSynthesis.cancel();
