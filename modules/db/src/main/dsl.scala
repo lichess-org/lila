@@ -399,7 +399,7 @@ object dsl extends dsl with Handlers:
         .cursor[Bdoc]()
         .list(Int.MaxValue)
         .dmap:
-          _.flatMap { _.getAsOpt[V](field) }
+          _.flatMap(_.getAsOpt[V](field))
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
       coll
@@ -408,7 +408,7 @@ object dsl extends dsl with Handlers:
         .cursor[Bdoc]()
         .list(Int.MaxValue)
         .dmap:
-          _.flatMap { _.getAsOpt[V](field) }
+          _.flatMap(_.getAsOpt[V](field))
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
       (nb > 0).so:
@@ -418,14 +418,14 @@ object dsl extends dsl with Handlers:
           .cursor[Bdoc]()
           .list(nb)
           .dmap:
-            _.flatMap { _.getAsOpt[V](field) }
+            _.flatMap(_.getAsOpt[V](field))
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll
         .find(selector, bdoc(field -> true).some)
         .one[Bdoc]
         .dmap:
-          _.flatMap { _.getAsOpt[V](field) }
+          _.flatMap(_.getAsOpt[V](field))
 
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
       coll
@@ -433,7 +433,7 @@ object dsl extends dsl with Handlers:
         .sort(sort)
         .one[Bdoc]
         .dmap:
-          _.flatMap { _.getAsOpt[V](field) }
+          _.flatMap(_.getAsOpt[V](field))
 
     def primitiveMap[I: BSONReader: BSONWriter, V](
         ids: Iterable[I],
@@ -449,7 +449,7 @@ object dsl extends dsl with Handlers:
             obj
               .getAsOpt[I]("_id")
               .flatMap: id =>
-                fieldExtractor(obj).map { id -> _ }
+                fieldExtractor(obj).map(id -> _)
           .toMap
 
     def updateUnchecked(selector: Bdoc, set: Bdoc): Unit =

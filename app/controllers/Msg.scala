@@ -31,7 +31,7 @@ final class Msg(env: Env) extends LilaController(env):
         .flatMap:
           case None => negotiate(Redirect(routes.Msg.home()), notFoundJson())
           case Some(c) =>
-            def json = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
+            def json = inboxJson(c.contact.id.some).map(_ + ("convo" -> env.msg.json.convo(c)))
             negotiateApi(
               html = Ok.async(json.map(views.msg.home)),
               api = _ => JsonOk(json)

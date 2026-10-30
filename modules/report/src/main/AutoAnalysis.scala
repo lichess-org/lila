@@ -30,7 +30,7 @@ final class AutoAnalysis(gameRepo: GameRepo, gameApi: GameApi)(using ec: Executo
             nowInstant.minusHours(2),
             10
           )
-          .dmap { as ++ _ }
+          .dmap(as ++ _)
       .map:
         _.filter: g =>
           gameApi.analysable(g) && !g.metadata.analysed

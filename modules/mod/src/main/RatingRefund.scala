@@ -56,10 +56,10 @@ final private class RatingRefund(
                 rating <- op.rating
               yield refs.add(victim, g.perfKey, -diff, rating)) | refs
 
-          def pointsToRefund(ref: Refund, curRating: IntRating, highest: Option[IntRating]): Int = {
+          def pointsToRefund(ref: Refund, curRating: IntRating, highest: Option[IntRating]): Int =
             (ref.diff.value - ((ref.diff.value + curRating.value - ref.topRating.value).atLeast(0)) / 2)
               .atMost(highest.fold(100)(_.value - curRating.value + 20))
-          }.squeeze(0, 150)
+              .squeeze(0, 150)
 
           def refundPoints(victim: WithPerf, pt: PerfType, points: Int): Funit =
             val newPerf = victim.perf.refund(points)

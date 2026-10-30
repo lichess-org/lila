@@ -12,10 +12,10 @@ final private class PuzzleCountApi(
   private type ThemeCount = Map[PuzzleTheme.Key, Int]
 
   def countsByTheme: Fu[ThemeCount] =
-    byThemeCache.get({})
+    byThemeCache.get {}
 
   def byTheme(theme: PuzzleTheme.Key): Fu[Int] =
-    countsByTheme.dmap { _.getOrElse(theme, 0) }
+    countsByTheme.dmap(_.getOrElse(theme, 0))
 
   def byAngle(angle: PuzzleAngle): Fu[Int] = angle match
     case PuzzleAngle.Theme(theme) => byTheme(theme)

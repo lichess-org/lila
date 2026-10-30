@@ -90,7 +90,7 @@ final class PuzzleBits(helpers: Helpers):
       PageModule(
         "puzzle.dashboard",
         dashOpt.so: dash =>
-          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
+          val mostPlayed = dash.mostPlayed.sortBy((key, _) => PuzzleTheme(key).name.txt())
           Json.obj(
             "radar" -> Json.obj(
               "labels" -> mostPlayed.map: (key, _) =>

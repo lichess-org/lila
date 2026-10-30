@@ -124,11 +124,11 @@ final class SimulApi(
                         publish()
 
   def removeApplicant(simulId: SimulId, user: User): Funit =
-    UpdateCreatedSimul(simulId) { _.removeApplicant(user.id) }
+    UpdateCreatedSimul(simulId)(_.removeApplicant(user.id))
 
   def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
     userApi.byId(userId).flatMapz { user =>
-      UpdateCreatedSimul(simulId) { _.accept(user.id, v) }
+      UpdateCreatedSimul(simulId)(_.accept(user.id, v))
     }
 
   def start(simulId: SimulId): Funit =

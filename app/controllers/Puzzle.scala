@@ -261,13 +261,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           selector
             .nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))
             .flatMap:
-              _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
+              _.fold(redirectNoPuzzle)(renderShow(_, angle, langPath = langPath))
         case _ =>
           Puz.toId(angleOrId) match
             case Some(id) =>
               Found(env.puzzle.api.puzzle.find(id)): puzzle =>
                 for
-                  _ <- ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) }
+                  _ <- ctx.me.so(env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle))
                   isDaily <- env.puzzle.daily.get.map(_.exists(_.puzzle.id == puzzle.id))
                   result <- renderShow(puzzle, PuzzleAngle.mix, langPath = langPath, isDaily = isDaily)
                 yield result
@@ -302,7 +302,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             selector
               .nextPuzzleFor(angle, color.some, PuzzleDifficulty.fromReqSession(req))
               .flatMap:
-                _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
+                _.fold(redirectNoPuzzle)(renderShow(_, angle, color = color))
 
   private val fetchRateLimit =
     env.security.ipTrust.rateLimit(300, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 5, others = 1))
@@ -333,7 +333,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiDashboard(days: Days) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
     JsonOptionOk:
-      env.puzzle.dashboard(me, days).map2 { env.puzzle.jsonView.dashboardJson(_, days) }
+      env.puzzle.dashboard(me, days).map2(env.puzzle.jsonView.dashboardJson(_, days))
   }
 
   def dashboard(days: Days, path: String = "home", u: Option[UserStr]) =
@@ -427,7 +427,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                       yield solves.map(env.puzzle.jsonView.roundJson.api.tupled)
                   case None =>
                     data.solutions
-                      .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
+                      .sequentiallyVoid(sol => env.puzzle.finisher.incPuzzlePlays(sol.id))
                       .inject(Nil)
                 given Option[Me] <- ctx.me.so(env.user.repo.me)
                 nextPuzzles <- WithPuzzlePerf:

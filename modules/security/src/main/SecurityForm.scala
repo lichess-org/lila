@@ -184,7 +184,7 @@ final class SecurityForm(
             "passwd" -> passwordMapping(candidate),
             "email" -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
           )(ChangeEmail.apply)(unapply)
-        ).fillOption(old.map { ChangeEmail("", _) })
+        ).fillOption(old.map(ChangeEmail("", _)))
 
   def setupTwoFactor(using Me) =
     authenticator

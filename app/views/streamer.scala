@@ -18,7 +18,7 @@ def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Seq[lila.a
 ) =
   ui.show(
     s,
-    perfRatings = perfs.best6Perfs.map { showPerfRating(perfs, _) },
+    perfRatings = perfs.best6Perfs.map(showPerfRating(perfs, _)),
     activities = views.activity(UserWithPerfs(s.user, perfs), activities)
   )
 

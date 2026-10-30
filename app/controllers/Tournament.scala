@@ -74,7 +74,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
           if _ then Ok.async(views.tournament.restricted(tour))
           else
             for
-              myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
+              myInfo <- ctx.me.so(jsonView.fetchMyInfo(tour, _))
               verdicts <- api.getVerdicts(tour, myInfo.isDefined)
               version <- env.tournament.version(tour.id)
               playerId = getUserStr("player").map(_.id)
@@ -278,7 +278,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
                     withScores = false,
                     withAllowList = true,
                     withDescription = true
-                  ).map { Ok(_) }
+                  ).map(Ok(_))
                 )
               yield result
         )
@@ -303,7 +303,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
                 withDescription = true
               )
             yield
-              discard { env.report.api.automodComms(data.automodText, routes.Tournament.show(tour.id).url) }
+              discard(env.report.api.automodComms(data.automodText, routes.Tournament.show(tour.id).url))
               Ok(json)
         )
       }

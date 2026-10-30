@@ -111,7 +111,7 @@ object Crosstable:
         id -> makeKey(o.user1.id, o.user2.id),
         score1 -> o.user1.score,
         score2 -> o.user2.score,
-        results -> o.results.map { writeResult(_, o.user1.id) }
+        results -> o.results.map(writeResult(_, o.user1.id))
       )
 
   private[game] given BSONDocumentReader[Matchup] with

@@ -330,9 +330,8 @@ Thank you all, you rock!""".some,
             Schedule(Hourly, Bullet, Standard, none, when.withMinute(30)),
             Schedule(Hourly, SuperBlitz, Standard, none, when),
             Schedule(Hourly, Blitz, Standard, none, when)
-          ) ::: {
+          ) :::
             (when.getHour % 2 == 0).so(List(Schedule(Hourly, Rapid, Standard, none, when)))
-          }
         }
         .map(_.plan),
       // hourly limited tournaments!
@@ -364,7 +363,7 @@ Thank you all, you rock!""".some,
         .map {
           // No berserk for rating-limited tournaments
           // Because berserking lowers the player rating
-          _.map { _.copy(noBerserk = true) }
+          _.map(_.copy(noBerserk = true))
         },
 
       // fast popular variant tournaments -- 2/3 of the time

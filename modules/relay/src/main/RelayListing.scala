@@ -18,7 +18,7 @@ private final class RelayListing(
 
   import RelayTour.tierPriority
 
-  def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
+  def active: Fu[List[RelayCard]] = activeCache.get {}.recoverDefault
 
   def activeTours: Fu[List[RelayTour.WithRounds]] = toursWithRounds
 

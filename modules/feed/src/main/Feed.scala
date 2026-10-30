@@ -68,20 +68,20 @@ final class FeedApi(
             mutableLastUpdates = ups.filter(_.published).take(7)
     def clear() =
       store.underlying.synchronous.invalidateAll()
-      store.get({}) // populate lastUpdate
+      store.get {} // populate lastUpdate
     def lastUpdates: Feed.GetLastUpdates = () => mutableLastUpdates
-    store.get({}) // populate lastUpdate
+    store.get {} // populate lastUpdate
 
   export cache.lastUpdates
 
   def recentJson: Fu[JsValue] =
     import jsonView.given
     for
-      updates <- cache.store.get({})
+      updates <- cache.store.get {}
       withRendered = updates.take(7).map(up => (up, feedMarkdown(up)))
     yield Json.toJson(withRendered)
 
-  def recentPublished = cache.store.get({}).map(_.filter(_.published))
+  def recentPublished = cache.store.get {}.map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 

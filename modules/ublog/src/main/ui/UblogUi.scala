@@ -159,7 +159,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             ),
             if posts.nbResults > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
+                posts.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
                 pagerNext(
                   posts,
                   p =>
@@ -193,7 +193,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             if posts.nbResults > 0 then
               val url = if blog.allows.edit then editUrlOfPost else urlOfPost
               div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, url) },
+                posts.currentPageResults.map(card(_, url)),
                 pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
               )
             else div(cls := "ublog-index__posts--empty")(trans.ublog.noDrafts())
@@ -447,7 +447,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             ),
             if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
+                posts.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
                 pagerNext(posts, np => route(np, filterOpt.getOrElse(QualityFilter.all), by).url)
               )
             else div(cls := "ublog-index__posts--empty")(onEmpty)

@@ -331,7 +331,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     env.perfStat.api
       .data(username, perfKey, computeIfNeeded = ctx.is(username))
       .map:
-        _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
+        _.fold[ApiResult](ApiResult.NoData)(data => ApiResult.Data(env.perfStat.jsonView(data)))
       .map(toHttp)
 
   def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>

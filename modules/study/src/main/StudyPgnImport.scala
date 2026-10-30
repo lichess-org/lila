@@ -93,7 +93,7 @@ object StudyPgnImport:
           if root.mainline.lastOption.so(_.isCommented) then root
           else
             ending.map(endComment).fold(root) { comment =>
-              root.updateMainlineLast { _.setComment(comment) }
+              root.updateMainlineLast(_.setComment(comment))
             }
 
         Result(

@@ -54,7 +54,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       groupLabel(field)(labelContent),
       content(field),
       errors(field),
-      help.map { helper(_) }
+      help.map(helper(_))
     )
 
   def input(field: Field, typ: String = "", klass: String = "") /*: BaseTagType*/ =
@@ -128,7 +128,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         ),
         groupLabel(field)(labelContent)
       ),
-      help.map { helper(_) }
+      help.map(helper(_))
     )
 
   def isChecked(field: Field): Boolean =

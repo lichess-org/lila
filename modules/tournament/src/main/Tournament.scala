@@ -88,9 +88,8 @@ case class Tournament(
   def pairingsClosed = secondsToFinish < Seconds(math.max(30, math.min(clock.limitSeconds.value / 2, 120)))
 
   def isStillWorthEntering = isEnterable && {
-    isMarathon || isUnique || {
-      secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
-    }
+    isMarathon || isUnique ||
+    secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
   }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)

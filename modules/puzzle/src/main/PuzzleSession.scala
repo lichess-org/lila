@@ -100,13 +100,12 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           else none
         reCreateReason match
           case Some(reason) =>
-            createSessionFor(reason)(angle, current.settings).tap { sessions.put(me.userId, _) }
+            createSessionFor(reason)(angle, current.settings).tap(sessions.put(me.userId, _))
           case None => fuccess(current)
 
   // renew the session often for provisional players
-  private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
+  private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew &&
     Math.abs((perf.intRating - session.rating).value) > 100
-  }
 
   private def createSessionFor(reason: String)(angle: PuzzleAngle, settings: PuzzleSettings)(using
       me: Me,

@@ -70,7 +70,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
   def unblock(u1: UserId, u2: UserId): Funit = remove(u1, u2)
 
   def unfollowMany(u1: UserId, u2s: Iterable[UserId]): Funit =
-    coll.delete.one(inIds(u2s.map { makeId(u1, _) })).void
+    coll.delete.one(inIds(u2s.map(makeId(u1, _)))).void
 
   def removeAllRelationsFrom(u1: UserId): Funit = coll.delete.one(bdoc("u1" -> u1)).void
 
@@ -96,7 +96,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
       .cursor[Bdoc]()
       .list(nb)
       .dmap:
-        _.flatMap { _.string("_id") }
+        _.flatMap(_.string("_id"))
       .flatMap: ids =>
         coll.delete.one(inIds(ids)).void
 

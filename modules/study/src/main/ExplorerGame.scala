@@ -80,7 +80,7 @@ private object ExplorerGameApi:
             case None => (parent, path, nodes)
         case Nil => (parent, path, nodes)
     val (parent, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
-    replay(parent, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
+    replay(parent, newNodes, variant, gameId).map(_ -> fromPath.+(path))
 
   private def replay(parent: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
     val setup = chess.Position.AndFullMoveNumber(variant, parent.fen)

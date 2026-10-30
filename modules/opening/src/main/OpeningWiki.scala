@@ -83,7 +83,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
     private val moveNumberRegex = """(\d+)\.""".r
     def render(key: OpeningKey)(markdown: Markdown): Html = renderer(s"opening:$key") {
-      markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
+      markdown.map(moveNumberRegex.replaceAllIn(_, "$1{DOT}"))
     }.map(_.replace("{DOT}", "."))
 
   private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki"):

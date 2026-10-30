@@ -174,7 +174,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           .ifTrue(ctx.kid.no)
           .ifTrue(!u.marks.troll || ctx.is(u))
           .flatMap(_.nonEmptyBio)
-          .map { bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400)) },
+          .map(bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400))),
         a(
           dataIcon := Icon.Swords,
           cls := List("bots__list__entry__play text" -> true),

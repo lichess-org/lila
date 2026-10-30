@@ -42,7 +42,7 @@ final class User(
         .orElse(env.round.lastPlayed(user.id))
         .flatMap:
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
-            ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
+            ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap(Pov(pov.game, _)) match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
               case _ => roundC.watch(pov, userTv = user.some)
 

@@ -89,7 +89,7 @@ final private class TwitchApi(
               (s.twitch.exists(_.id == helix.user_id)) && filter(TwitchStream(helix, s))
             .map: streamer =>
               if streamer.twitch.exists(_.login != helix.user_login)
-              then discard { repo.setTwitchLogin(streamer.id, helix.user_login) } // rare
+              then discard(repo.setTwitchLogin(streamer.id, helix.user_login)) // rare
               Twitch.TwitchStream(helix, streamer)
 
   def onMessage(rawBody: String, headers: Headers): Fu[Option[String]] =
@@ -294,7 +294,7 @@ final private class TwitchApi(
       _.refreshAfterWrite(55.minutes).buildAsyncFuture: _ =>
         renewToken()
 
-    def get: Fu[Secret] = cache.get({})
+    def get: Fu[Secret] = cache.get {}
 
     private def renewToken(): Fu[Secret] =
       ws.url(s"${cfg.authEndpoint}/token")

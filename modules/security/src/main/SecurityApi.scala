@@ -180,13 +180,13 @@ final class SecurityApi(
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
-          case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
+          case Some(userId) => userRepo.byId(userId).map2(u => Left(AppealUser(Me(u))))
           case None =>
             store.loginWithSessionId(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:
-                  _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+                  _.map(me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)))
             }
         : Fu[Option[AppealOrUser]]
       }

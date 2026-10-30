@@ -65,7 +65,7 @@ object OpeningQuery:
         val lowercase = (lila.common.String.decodeUriPath(str) | str).toLowerCase
         openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
       .map(_.pgn)
-      .flatMap { fromPgn(_, config) }
+      .flatMap(fromPgn(_, config))
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
     for

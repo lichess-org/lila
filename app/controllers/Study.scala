@@ -589,7 +589,7 @@ final class Study(
       case None => BadRequest("No search term provided")
       case Some(term) =>
         import lila.common.Json.given
-        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
+        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map(JsonOk(_))
 
   def topics = OpenOrScoped():
     for

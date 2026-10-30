@@ -71,12 +71,12 @@ final class TournamentLilaHttp(
   yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
-      "ongoingUserGames" -> {
+      "ongoingUserGames" ->
         duelStore
           .get(tour.id)
           .so[String]:
             _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",")
-      },
+      ,
       "standing" -> fullStanding
     )
     .add("noStreak" -> tour.noStreak)

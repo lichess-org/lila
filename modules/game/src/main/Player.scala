@@ -69,7 +69,7 @@ object Player:
     type Map = ByColor[Option[HoldAlert]]
     val emptyMap: Map = ByColor(none, none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
-    def suspicious(m: Map): Boolean = m.exists { _.exists(_.suspicious) }
+    def suspicious(m: Map): Boolean = m.exists(_.exists(_.suspicious))
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }

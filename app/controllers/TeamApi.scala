@@ -29,7 +29,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .flatMapz: team =>
           for
             joined <- ctx.useMe(api.isMember(id))
-            requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
+            requested <- ctx.userId.ifFalse(joined).so(env.team.requestRepo.exists(id, _))
             withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
             _ <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
           yield some:
@@ -104,7 +104,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(automodText), s"team:${team.id}", url.some)
               yield
-                discard { env.report.api.automodComms(automodText, url) }
+                discard(env.report.api.automodComms(automodText, url))
                 ApiResult.Done
           )
   }

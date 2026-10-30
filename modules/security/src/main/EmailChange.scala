@@ -65,7 +65,7 @@ ${trans.common_linkNotWorking.txt()}
       str
         .split(sep)
         .match
-          case Array(id, email) => EmailAddress.from(email).map { TokenPayload(UserId(id), _) }
+          case Array(id, email) => EmailAddress.from(email).map(TokenPayload(UserId(id), _))
           case _ => none
         .err("Invalid token payload")
     val to = a => s"${a.userId}$sep${a.email}"

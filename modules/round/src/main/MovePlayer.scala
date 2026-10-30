@@ -71,7 +71,7 @@ final private class MovePlayer(
   )(using GameProxy): Fu[Events] =
     if pov.game.hasAi then uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
+    if progress.game.finished then moveFinish(progress.game).dmap(progress.events ::: _)
     else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
       if pov.opponent.isOfferingDraw then round ! RoundBus.Draw(pov.player.id, false)
@@ -96,7 +96,7 @@ final private class MovePlayer(
                     lila.mon.fishnet.move(~game.aiLevel).increment()
                     notifyMove(moveOrDrop, progress.game)
                   events <-
-                    if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
+                    if progress.game.finished then moveFinish(progress.game).dmap(progress.events ::: _)
                     else fuccess(progress.events)
                 yield events
         else

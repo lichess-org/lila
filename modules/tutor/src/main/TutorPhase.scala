@@ -19,13 +19,13 @@ case class TutorPhases(list: List[TutorPhase]):
   val accuracyCompare = TutorCompare[Phase, AccuracyPercent](
     InsightDimension.Phase,
     TutorMetric.Accuracy,
-    list.map { phase => (phase.phase, phase.accuracy) }
+    list.map(phase => (phase.phase, phase.accuracy))
   )
 
   val awarenessCompare = TutorCompare[Phase, GoodPercent](
     InsightDimension.Phase,
     TutorMetric.Awareness,
-    list.map { phase => (phase.phase, phase.awareness) }
+    list.map(phase => (phase.phase, phase.awareness))
   )
 
   def compares = List(accuracyCompare, awarenessCompare)

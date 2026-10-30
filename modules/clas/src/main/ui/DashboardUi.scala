@@ -529,7 +529,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       user,
                       name = span(
                         strong(user.username),
-                        user.profile.flatMap(_.nonEmptyRealName).map { em(_) }
+                        user.profile.flatMap(_.nonEmptyRealName).map(em(_))
                       ).some,
                       withTitle = false
                     )

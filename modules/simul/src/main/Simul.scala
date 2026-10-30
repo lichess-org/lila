@@ -161,7 +161,7 @@ object Simul:
       featurable: Option[Boolean],
       conditions: SimulCondition.All
   ): Simul =
-    val hostPerf = host.perfs.bestPerf(variants.map { lila.rating.PerfType(_, Speed(clock.config.some)) })
+    val hostPerf = host.perfs.bestPerf(variants.map(lila.rating.PerfType(_, Speed(clock.config.some))))
     Simul(
       id = SimulId(ThreadLocalRandom.nextString(8)),
       name = name,

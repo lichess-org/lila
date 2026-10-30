@@ -56,7 +56,7 @@ final class Team(env: Env) extends LilaController(env):
     Reasonable(page):
       Ok.async:
         if text.trim.isEmpty
-        then paginator.popularTeams(page).map { views.team.list.all(_) }
+        then paginator.popularTeams(page).map(views.team.list.all(_))
         else
           for
             ids <- env.teamSearch(text, page)
@@ -125,7 +125,7 @@ final class Team(env: Env) extends LilaController(env):
             url = routes.Team.show(team.id).url
             _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
-            discard { env.report.api.automodComms(team.automodText, url) }
+            discard(env.report.api.automodComms(team.automodText, url))
             Redirect(url).flashSuccess
       )
   }
@@ -143,7 +143,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.members
         .bindFromRequest()
         .value
-        .so { api.kickMembers(team, _) }
+        .so(api.kickMembers(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -152,7 +152,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.blocklist
         .bindFromRequest()
         .value
-        .so { api.blocklist.set(team, _) }
+        .so(api.blocklist.set(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -272,7 +272,7 @@ final class Team(env: Env) extends LilaController(env):
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
-                discard { env.report.api.automodComms(team.automodText, url) }
+                discard(env.report.api.automodComms(team.automodText, url))
                 Redirect(url)
           )
   }

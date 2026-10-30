@@ -18,7 +18,7 @@ final private class FishnetRepo(
     _.expireAfterWrite(20.minutes).buildAsyncFuture: key =>
       clientColl.one[Client](bid(key))
 
-  def getEnabledClient(key: FishnetKey) = clientCache.get(key).dmap { _.filter(_.enabled) }
+  def getEnabledClient(key: FishnetKey) = clientCache.get(key).dmap(_.filter(_.enabled))
   def getOfflineClient: Fu[Client] =
     getEnabledClient(Client.offline.key).getOrElse(fuccess(Client.offline))
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =

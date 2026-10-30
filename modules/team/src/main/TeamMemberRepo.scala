@@ -44,7 +44,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
 
   private[team] def filterUserIdsInTeam(teamId: TeamId, users: Iterable[UserId]): Fu[List[UserId]] =
     users.nonEmpty.so:
-      coll.distinctEasy[UserId, List]("user", inIds(users.map { TeamMember.makeId(teamId, _) }), _.sec)
+      coll.distinctEasy[UserId, List]("user", inIds(users.map(TeamMember.makeId(teamId, _))), _.sec)
 
   def isSubscribed[U: UserIdOf](team: Team, user: U): Fu[Boolean] =
     coll.secondary.exists(selectId(team.id, user) ++ bdoc("unsub".neq(true)))

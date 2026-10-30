@@ -383,7 +383,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       views.auth.passwordReset(form | env.security.forms.passwordReset, fail)
 
   def passwordReset = Open:
-    renderPasswordReset(none, fail = none).map { Ok(_) }
+    renderPasswordReset(none, fail = none).map(Ok(_))
 
   def passwordResetApply =
     OpenBody:
@@ -395,7 +395,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             forms.passwordReset
               .bindFromRequest()
               .fold(
-                err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
+                err => renderPasswordReset(err.some, fail = "".some).map(BadRequest(_)),
                 data =>
                   env.security.passwordReset
                     .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):

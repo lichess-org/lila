@@ -185,7 +185,7 @@ final class Env(
       gameRepo
         .allPlaying(userId)
         .map:
-          _.foreach { pov => roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId)) }
+          _.foreach(pov => roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId)))
 
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
 

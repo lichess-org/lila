@@ -42,7 +42,7 @@ object PlanForm:
       countryCode: Option[String]
   ):
 
-    def name = (firstName, lastName).mapN { _ + " " + _ }
+    def name = (firstName, lastName).mapN(_ + " " + _)
 
     def country = Country.from(countryCode)
 

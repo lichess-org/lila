@@ -41,6 +41,6 @@ final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, Url) => Unit)(us
     private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10.minutes)
-        .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
+        .build(qs => signer.sha1(qs.replace(":", "%3A")).hex)
 
     def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"

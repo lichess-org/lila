@@ -66,7 +66,7 @@ final private class TutorQueue(
   yield povs.zip(initialFens).map { (pov, initialFen) =>
     import chess.format.pgn.*
     def playerTag(player: lila.core.game.Player) =
-      player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
+      player.userId.map(uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName))
     val fen = initialFen.orElse(pov.game.variant.exotic.option(pov.game.variant.initialFen))
     val tags = Tags(pov.game.players.flatMap(playerTag))
     val allTags = fen.map(f => Tag(_.FEN, f)).foldLeft(tags)(_ + _)
@@ -85,7 +85,7 @@ final private class TutorQueue(
         _.fold(fuccess(Status.NotInQueue)): item =>
           for
             position <- colls.queue(_.countSel(bdoc(F.requestedAt.lte(item.requestedAt))))
-            avgDuration <- durationCache.get({})
+            avgDuration <- durationCache.get {}
             eta = ((position * avgDuration) / parallelism.get())
           yield Status.InQueue(item, position, eta)
 

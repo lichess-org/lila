@@ -61,7 +61,7 @@ final class JsonView(
   )(using Lang): Fu[JsObject] =
     for
       data <- cachableData.get(tour.id)
-      myInfo <- myInfo.orLoad(me.so { fetchMyInfo(tour, _) })
+      myInfo <- myInfo.orLoad(me.so(fetchMyInfo(tour, _)))
       pauseDelay = me.flatMap: me =>
         pause.remainingDelay(me.userId, tour)
       full = !partial
@@ -77,12 +77,12 @@ final class JsonView(
             userApi.usingPerfOf(me, tour.perfType):
               verify(tour.conditions, tour.perfType)(using me)
       stats <- statsApi(tour)
-      shieldOwner <- full.so { shieldApi.currentOwner(tour) }
+      shieldOwner <- full.so(shieldApi.currentOwner(tour))
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
       yield getMyTeamIds(u.lightMe).map: teams =>
         battle.teams.intersect(teams.toSet).toList))
       teamStanding <- getTeamStanding(tour)
-      myTeam <- myInfo.flatMap(_.teamId).so { getMyRankedTeam(tour, _) }
+      myTeam <- myInfo.flatMap(_.teamId).so(getMyRankedTeam(tour, _))
       _ <- tour.teamBattle.so(battle => lightTeamApi.preload(battle.teams))
     yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
       .obj("standing" -> stand)

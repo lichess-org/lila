@@ -109,7 +109,7 @@ final class PuzzleOpeningApi(
     find(family.key.into(LilaOpeningFamily.Key))
 
   def find(family: LilaOpeningFamily.Key): Fu[Option[PuzzleOpening.FamilyWithCount]] =
-    collection.map { _.familyMap.get(family) }
+    collection.map(_.familyMap.get(family))
 
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache.get {}

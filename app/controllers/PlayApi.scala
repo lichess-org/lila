@@ -16,7 +16,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   }
 
   def botMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me ?=>
-    WithPovAsBot(id) { impl.move(_, uci, offeringDraw) }
+    WithPovAsBot(id)(impl.move(_, uci, offeringDraw))
   }
 
   def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me ?=>

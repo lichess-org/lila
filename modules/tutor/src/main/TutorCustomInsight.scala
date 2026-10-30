@@ -23,7 +23,7 @@ final private class TutorCustomInsight[A: TutorNumber](
           aggregateMine:
             InsightStorage.selectUserId(users.head.user.id) ++
               InsightStorage.gameMatcher(question.timeFilter(config).filters)
-        .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
+        .map(docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)))
         .monSuccess(lila.mon.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
         u.peerMatch.flatMap(peerMatch).map(_.peer) match

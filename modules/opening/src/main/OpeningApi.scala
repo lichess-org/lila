@@ -49,7 +49,7 @@ final class OpeningApi(
       config: OpeningConfig,
       proxy: IsProxy
   )(using ClientName, Option[Me]): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, config).so { compute(_, proxy) }
+    OpeningQuery(q, config).so(compute(_, proxy))
 
   private def compute(
       query: OpeningQuery,

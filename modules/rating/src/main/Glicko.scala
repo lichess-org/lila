@@ -85,9 +85,11 @@ object Glicko:
     colorAdvantage = ColorAdvantage.standard
   )
 
-  def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    calculator.previewDeviation(p.toGlickoPlayer, nowInstant, reverse)
-  }.atLeast(minDeviation).atMost(maxDeviation)
+  def liveDeviation(p: Perf, reverse: Boolean): Double =
+    calculator
+      .previewDeviation(p.toGlickoPlayer, nowInstant, reverse)
+      .atLeast(minDeviation)
+      .atMost(maxDeviation)
 
   given glickoHandler: BSONDocumentHandler[Glicko] = new BSON[Glicko]:
     def reads(r: BSON.Reader): Glicko = new Glicko(

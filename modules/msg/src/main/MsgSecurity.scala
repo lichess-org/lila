@@ -134,7 +134,7 @@ final private class MsgSecurity(
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
+      contactApi.contacts(orig, dest).flatMapz(post(_, isNew))
 
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       (
@@ -146,7 +146,7 @@ final private class MsgSecurity(
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             kidCheck(contacts, isNew) >>&
-            userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
+            userCache.getBotIds.map(botIds => !contacts.userIds.exists(botIds.contains))
         }
 
     private def create(contacts: Contacts): Fu[Boolean] =
@@ -171,7 +171,7 @@ final private class MsgSecurity(
       if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
-          case (true, true) => Bus.ask[Boolean, ClasBus] { ClasBus.CanKidsUseMessages(orig.id, dest.id, _) }
+          case (true, true) => Bus.ask[Boolean, ClasBus](ClasBus.CanKidsUseMessages(orig.id, dest.id, _))
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _ => fuFalse
@@ -180,7 +180,7 @@ final private class MsgSecurity(
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.ask[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
+    Bus.ask[Boolean, ClasBus](ClasBus.IsTeacherOf(teacher, student, _))
 
   private def isLeaderOf(contacts: Contacts) =
     Bus.ask[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))

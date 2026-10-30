@@ -17,7 +17,7 @@ trait StringHelper:
       case one :: Nil => one
       case first :: rest =>
         RawFrag:
-          frag(first :: rest.map { frag(separator, _) }).render
+          frag(first :: rest.map(frag(separator, _))).render
 
   extension (e: String)
     def active(other: String) = if e == other then "active" else ""

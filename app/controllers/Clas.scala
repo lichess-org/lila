@@ -304,7 +304,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def studentForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
-    if getBool("gen") then env.clas.nameGenerator().orNotFound { Ok(_) }
+    if getBool("gen") then env.clas.nameGenerator().orNotFound(Ok(_))
     else
       WithClassAndStudents(id): (clas, students) =>
         for
@@ -571,7 +571,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
   )(using Context, Me): Fu[Result] =
     WithClass(clasId): c =>
-      env.clas.api.student.activeOf(c).flatMap { f(c, _) }
+      env.clas.api.student.activeOf(c).flatMap(f(c, _))
 
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]

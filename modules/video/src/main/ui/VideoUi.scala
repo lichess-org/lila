@@ -54,7 +54,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ),
           div(cls := "meta box__pad")(
             div(cls := "target__wrapper")(
-              video.targets.map { t => div(cls := "target__box")(Target.name(t)) }
+              video.targets.map(t => div(cls := "target__box")(Target.name(t)))
             ),
             a(
               cls := "author",
@@ -103,7 +103,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             )
           ),
           div(cls := "list box__pad infinite-scroll")(
-            videos.currentPageResults.map { card(_, control) },
+            videos.currentPageResults.map(card(_, control)),
             (videos.currentPageResults.sizeIs < 4).option(
               div(cls := s"not_much nb_${videos.nbResults}")(
                 if videos.currentPageResults.isEmpty then trv.noVideosForTheseTags()
@@ -170,7 +170,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       span(cls := "reveal")(
         span(cls := "full-title")(vv.video.title),
         span(cls := "author")(vv.video.author),
-        span(cls := "target")(vv.video.targets.map { t => div(cls := "target__box")(Target.name(t)) })
+        span(cls := "target")(vv.video.targets.map(t => div(cls := "target__box")(Target.name(t))))
       )
     )
 
@@ -189,7 +189,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           span(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
         ),
         div(cls := "list infinite-scroll box__pad")(
-          videos.currentPageResults.map { card(_, control) },
+          videos.currentPageResults.map(card(_, control)),
           pagerNext(
             videos,
             np => s"${langHref(routes.Video.author(name))}?${control.queryString}&page=$np"
@@ -222,7 +222,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           searchForm(control.query)
         ),
         div(cls := "list infinitescroll box__pad")(
-          videos.currentPageResults.map { card(_, control) },
+          videos.currentPageResults.map(card(_, control)),
           (videos.currentPageResults.sizeIs < 4).option(
             div(cls := s"not_much nb_${videos.nbResults}")(
               if videos.currentPageResults.isEmpty then trans.site.thereAreNoResultsForX(~control.query)

@@ -386,7 +386,7 @@ final class ActivityUi(helpers: Helpers)(
       case None =>
         span(cls := "user-link")(
           player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
-          player.rating.ifTrue(ctx.pref.showRatings).map { rating => s" ($rating)" }
+          player.rating.ifTrue(ctx.pref.showRatings).map(rating => s" ($rating)")
         )
       case Some(user) =>
         a(

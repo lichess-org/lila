@@ -193,7 +193,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
         val fieldExistsMatcher: Bdoc = dimension.some
           .filter(InsightDimension.optionalDimensions.contains)
           .filter(dim => !question.filters.exists(_.dimension == dim))
-          .so { dim => bdoc(dim.dbKey.exists(true)) }
+          .so(dim => bdoc(dim.dbKey.exists(true)))
 
         def matchMoves(extraMatcher: Bdoc = emptyBdoc): Option[PipelineOperator] =
           combineDocs(

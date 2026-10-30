@@ -118,7 +118,7 @@ object Event:
       check = board.check,
       threefold = board.threefoldRepetition,
       fiftyMoves = board.variant.fiftyMoves(board.history),
-      promotion = move.promotion.map { Promotion(_, move.dest) },
+      promotion = move.promotion.map(Promotion(_, move.dest)),
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
       castle = move.castle.map(Castling(_, move.color)),
       state = state,
