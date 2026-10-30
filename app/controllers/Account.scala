@@ -57,7 +57,7 @@ final class Account(
             env.user.lightUserApi.invalidate(me)
             negotiate(
               Redirect(routes.User.show(me.username)).flashSuccess,
-              jsonFormSuccess
+              jsonOkResult
             )
       )
   }
