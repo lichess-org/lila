@@ -117,7 +117,7 @@ export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }
 
-export const loadPieces = new Promise<void>((resolve, reject) => {
+export const loadPieces = new Promise<void>(resolve => {
   if (document.getElementById('main-wrap')?.classList.contains('is3d')) return resolve();
   const style = window.getComputedStyle(document.body);
   const urls = COLORS.flatMap(c =>
@@ -141,6 +141,6 @@ export const loadPieces = new Promise<void>((resolve, reject) => {
       .then(() => {
         if (--assetsToDecode === 0) resolve();
       })
-      .catch(reject);
+      .catch(resolve);
   });
 });
