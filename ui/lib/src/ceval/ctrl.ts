@@ -109,14 +109,6 @@ export class CevalCtrl {
     });
   }
 
-  private stopFromOtherTab = (): void => {
-    if (this.isBackground || !this.worker) return;
-    this.worker.destroy();
-    this.worker = undefined; // release memory
-    this.wasUnloadedByAnotherWindow = true;
-    this.opts.redraw();
-  };
-
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
     this.reset();
@@ -341,6 +333,13 @@ export class CevalCtrl {
     }
     return false;
   }
+
+  private readonly stopFromOtherTab = (): void => {
+    if (this.isBackground || !this.worker) return;
+    this.unload();
+    this.wasUnloadedByAnotherWindow = true;
+    this.opts.redraw();
+  };
 
   private readonly doStart = (s: StartedState) => {
     this.lastStarted = s;
