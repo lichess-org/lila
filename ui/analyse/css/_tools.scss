@@ -4,6 +4,12 @@
   position: relative;
   background: $c-bg-box;
 
+  // the engine line hover board must be able to overflow the clipped box
+  &:has(.pv-board) {
+    overflow: visible;
+    z-index: 1;
+  }
+
   .ceval {
     flex: 0 0 44px;
   }
