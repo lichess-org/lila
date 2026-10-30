@@ -210,4 +210,6 @@
   <string name="clearPublished">Wyczyścić opublikowaną analizę?</string>
   <string name="requestAServerAnalysis">Poproś o analizę na serwerze</string>
   <string name="analyzeOnYourDevice">Analizuj na swoim urządzeniu</string>
+  <string name="searchChapters">Szukaj rozdziałów</string>
+  <string name="searchGames">Szukaj partii</string>
 </resources>

@@ -997,6 +997,8 @@ und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
   <string name="noRestriction">Keine Einschränkung</string>
   <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
+  <string name="minimumAccountAge">Mindestalter des Kontos</string>
+  <string name="titledPlayersBypassRestriction">Für Titelträger gilt diese Regelung nicht.</string>
   <string name="minimumRating">Niedrigste Wertungszahl</string>
   <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
   <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
@@ -1054,6 +1056,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Suchen</string>
   <string name="clearSearch">Neue Suche</string>
+  <string name="searchInX">Suche in \"%s\"</string>
   <string name="thereAreNoResultsForX">Keine Ergebnisse für \"%s\"</string>
   <string name="tags">Schlagwörter</string>
   <string name="enPassant">En passant</string>

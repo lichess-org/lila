@@ -202,4 +202,6 @@
   <string name="clearPublished">Gepubliceerde analyse wissen?</string>
   <string name="requestAServerAnalysis">Vraag een serveranalyse aan</string>
   <string name="analyzeOnYourDevice">Analyseer op je apparaat</string>
+  <string name="searchChapters">Zoek hoofdstukken</string>
+  <string name="searchGames">Zoek partijen</string>
 </resources>

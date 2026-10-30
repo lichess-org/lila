@@ -49,6 +49,8 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
     <item quantity="other">Ver los %s equipos</item>
   </plurals>
   <string name="newTeamBattle">Nueva batalla por equipos</string>
+  <string name="startDate">Fecha de inicio</string>
+  <string name="entryConditions">Condiciones de entrada</string>
   <string name="customStartDate">Fecha de inicio personalizada</string>
   <string name="customStartDateHelp">En tu zona horaria. Esto reemplazará la configuración de \"Tiempo antes de que comience el torneo\"</string>
   <string name="allowBerserk">Permitir Berserk</string>
@@ -88,4 +90,6 @@ Por ejemplo, una valoración media del 3% significa que has finalizado en el 3% 
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="leaguesAndStreamerBattles">Ligas y Batallas retransmitidas</string>
+  <string name="allowBotAccounts">Permitir cuentas bot</string>
+  <string name="allowBotAccountsDescription">Permitir que &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; se unan al torneo y jueguen con sus motores. Esto no suele gustar a los jugadores humanos.</string>
 </resources>

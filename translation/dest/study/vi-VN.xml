@@ -198,4 +198,6 @@
   <string name="clearPublished">Xóa phân tích đã được công bố?</string>
   <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
   <string name="analyzeOnYourDevice">Phân tích trên thiết bị của bạn</string>
+  <string name="searchChapters">Tìm chương</string>
+  <string name="searchGames">Tìm ván cờ</string>
 </resources>

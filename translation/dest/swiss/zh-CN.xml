@@ -29,6 +29,7 @@
   <string name="numberOfRounds">轮次数</string>
   <string name="numberOfRoundsHelp">奇数轮次能实现最佳颜色平衡。</string>
   <string name="roundInterval">轮次间隔</string>
+  <string name="customPairings">自定义配对</string>
   <string name="forbiddenPairings">禁止配对</string>
   <string name="forbiddenPairingsHelp">必须禁止一起对弈的棋手用户名（例如，兄弟姐妹）。每行两个用户名，用空格分隔。</string>
   <string name="manualPairings">手动指定下一轮配对</string>

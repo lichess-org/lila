@@ -1047,6 +1047,8 @@ in vplivajo na rejtinge igralcev</string>
   <string name="onlyMembersOfTeam">Samo člani ekipe</string>
   <string name="noRestriction">Brez omejitev</string>
   <string name="minimumRatedGames">Najmanjše število rangiranih iger</string>
+  <string name="minimumAccountAge">Najmanjša starost računa</string>
+  <string name="titledPlayersBypassRestriction">Igralci z nazivom so izvzeti iz te omejitve.</string>
   <string name="minimumRating">Najmanjši rejting</string>
   <string name="maximumWeeklyRating">Najvišji tedenski rejting</string>
   <string name="positionInputHelp">Prilepite veljaven FEN, da začnete vsako igro z določenega položaja.
@@ -1101,6 +1103,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="offline" comment="status of a user">brez povezave</string>
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
+  <string name="searchInX">Išči v »%s«</string>
   <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>

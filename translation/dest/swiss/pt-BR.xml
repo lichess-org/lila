@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Número de rodadas</string>
   <string name="numberOfRoundsHelp">Um número ímpar de rodadas permite um equilíbrio ideal das cores.</string>
   <string name="roundInterval">Intervalo entre rodadas</string>
+  <string name="customPairings">Pareamentos personalizados</string>
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
   <string name="manualPairings">Pareamentos manuais na próxima rodada</string>

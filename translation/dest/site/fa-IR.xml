@@ -1000,6 +1000,8 @@
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
+  <string name="minimumAccountAge">کمینهٔ عمرِ حساب</string>
+  <string name="titledPlayersBypassRestriction">بازیکنان عنوان‌دار شامل این محدودیت نمی‌شوند.</string>
   <string name="minimumRating">حداقل درجه‌بندی</string>
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
@@ -1057,6 +1059,7 @@
   <string name="offline" comment="status of a user">بُرون‌خط</string>
   <string name="search">جستجو</string>
   <string name="clearSearch">پاکیدنِ جستجو</string>
+  <string name="searchInX">جستجو در «%s»</string>
   <string name="thereAreNoResultsForX">برای «%s» نتیجه‌ای یافت نشد</string>
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>

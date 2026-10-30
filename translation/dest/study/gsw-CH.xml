@@ -195,4 +195,6 @@
   <string name="doubleDefeat">Beidi besiegt</string>
   <string name="blackDefeatWhiteCanNotWin">Schwarz besiegt, aber Wiss chann nöd günne</string>
   <string name="whiteDefeatBlackCanNotWin">Wiss besiegt, aber Schwarz chann nöd günne</string>
+  <string name="searchChapters">Suech Kapitel</string>
+  <string name="searchGames">Suech Schpiel</string>
 </resources>

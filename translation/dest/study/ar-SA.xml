@@ -218,4 +218,6 @@
   <string name="clearPublished">هل تريد مسح التحليل المنشور؟</string>
   <string name="requestAServerAnalysis">طلب تحليل على الخادم</string>
   <string name="analyzeOnYourDevice">حلّل على جهازك</string>
+  <string name="searchChapters">البحث في الفصول</string>
+  <string name="searchGames">البحث في المباريات</string>
 </resources>

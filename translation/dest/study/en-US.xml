@@ -202,4 +202,6 @@
   <string name="clearPublished">Clear published analysis?</string>
   <string name="requestAServerAnalysis">Request a server analysis</string>
   <string name="analyzeOnYourDevice">Analyze on your device</string>
+  <string name="searchChapters">Search chapters</string>
+  <string name="searchGames">Search games</string>
 </resources>

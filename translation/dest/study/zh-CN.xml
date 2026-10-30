@@ -198,4 +198,6 @@
   <string name="clearPublished">清除已发布的分析？</string>
   <string name="requestAServerAnalysis">请求服务器分析</string>
   <string name="analyzeOnYourDevice">本地分析</string>
+  <string name="searchChapters">搜索章节</string>
+  <string name="searchGames">搜索对局</string>
 </resources>

@@ -202,4 +202,6 @@
   <string name="clearPublished">Yayımlanan analiz temizlensin mi?</string>
   <string name="requestAServerAnalysis">Sunucu analizi iste</string>
   <string name="analyzeOnYourDevice">Kendi Cihazında Analiz Et</string>
+  <string name="searchChapters">Bölümleri ara</string>
+  <string name="searchGames">Oyunları ara</string>
 </resources>

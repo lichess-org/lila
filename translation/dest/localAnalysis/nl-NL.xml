@@ -10,7 +10,7 @@
   <string name="willUse" comment="A label preceding the chess engine that will be used to evaluate the full game if the user clicks the Analyse button.">Gebruikt</string>
   <string name="quality" comment="Label for a slider control to choose the overall strength/quality for an upcoming analysis.">Kwaliteit</string>
   <string name="publish" comment="Label for an action button that uploads/publishes a local analysis to the server to share it with others.">Publiceren</string>
-  <string name="chooseYourEngineSettings" comment="A brief instruction on how to trigger the analysis process.">Klik op Analyseer om de hoofdvariant te evalueren.</string>
+  <string name="chooseYourEngineSettings" comment="A brief instruction on how to trigger the analysis process.">Klik op Analyse om de hoofdvariant te evalueren.</string>
   <string name="bestResultsUseXWithYThreads" comment="%1$s is the engine name and %2$s is the ideal thread count for a standard main line analysis on the user's device. Recommended threads correspond to the number of CPU cores.">Voor de beste resultaten in de kortste tijd, gebruik %1$s met %2$s threads.</string>
   <string name="analysisUploadFailed" comment="An error message indicating failure to publish for an unspecified reason. This message should be friendly, vague, and counsel patience because the problem may be temporary.">Analyse-upload mislukt. Probeer het later opnieuw.</string>
   <string name="serverAnalysisInProgress" comment="An error message shown when a user attempts to publish a local analysis but a pending server analysis must complete first.">Er is een serveranalyse bezig voor deze partij. Je kunt het opnieuw proberen wanneer dit is voltooid.</string>

@@ -42,6 +42,8 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
     <item quantity="other">Vis alle %s lag</item>
   </plurals>
   <string name="newTeamBattle">Ny lagkamp</string>
+  <string name="startDate">Startdato</string>
+  <string name="entryConditions">Vilkår for registrering</string>
   <string name="customStartDate">Eigendefinert startdato</string>
   <string name="customStartDateHelp">I din tidssone. Dette overstyrar innstillinga «Tid før turnering startar»</string>
   <string name="allowBerserk">Tillat berserk</string>
@@ -81,4 +83,6 @@ Eit ranggjennemsnitt på 3 % tyder til dømes at du til vanleg endar mellom dei 
   <string name="tournamentPairingsAreNowClosed">Turneringsparingane er no stengde.</string>
   <string name="berserkRate">Berserkrate</string>
   <string name="leaguesAndStreamerBattles">Ligaer og strøymekampar</string>
+  <string name="allowBotAccounts">Tillat bot-kontoar</string>
+  <string name="allowBotAccountsDescription">La &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; bli med i turneringa og spela med motorane sine. Dette jagar ofte bort menneskelege spelarar.</string>
 </resources>

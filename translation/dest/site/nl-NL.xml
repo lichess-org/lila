@@ -507,7 +507,7 @@ Vrienden die spelen: %2$s</string>
   <string name="wins">Gewonnen</string>
   <string name="losses">Verloren</string>
   <string name="startingIn" comment="Displayed above a timer">Begint over</string>
-  <string name="standByX">Sta klaar %s, spelers worden gepaard, maak je gereed!</string>
+  <string name="standByX">Sta klaar %s, spelers worden gekoppeld, maak je gereed!</string>
   <string name="pause">Pauzeren</string>
   <string name="resume">Hervatten</string>
   <string name="youArePlaying">Je bent aan het spelen!</string>
@@ -996,6 +996,8 @@ en hebben effect op de rating van de spelers</string>
   <string name="onlyMembersOfTeam">Alleen leden van het team</string>
   <string name="noRestriction">Geen restrictie</string>
   <string name="minimumRatedGames">Minimumaantal partijen met rating</string>
+  <string name="minimumAccountAge">Minimale accountleeftijd</string>
+  <string name="titledPlayersBypassRestriction">Titelhouders omzeilen deze beperking.</string>
   <string name="minimumRating">Minimumrating</string>
   <string name="maximumWeeklyRating">Maximale wekelijkse rating</string>
   <string name="positionInputHelp">Plak een geldige FEN-code om een partij te beginnen vanaf een bepaalde stelling.
@@ -1052,6 +1054,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Zoeken</string>
   <string name="clearSearch">Zoekopdracht wissen</string>
+  <string name="searchInX">Zoeken in \"%s\"</string>
   <string name="thereAreNoResultsForX">Geen resultaten voor \"%s\"</string>
   <string name="tags">Labels</string>
   <string name="enPassant">En passant</string>
