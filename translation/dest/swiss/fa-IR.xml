@@ -36,6 +36,7 @@
   <string name="numberOfRounds">تعداد دورها</string>
   <string name="numberOfRoundsHelp">تعداد دورهای فرد، باعث ترازمندی رنگ (بازی با سفید و سیاه) بهینه می‌شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
+  <string name="customPairings">جفتیدنِ دلخواه</string>
   <string name="forbiddenPairings">رویارویی‌های ممنوع</string>
   <string name="forbiddenPairingsHelp">نام کاربری بازیکنانی که نباید با هم بازی کنند (مثلا خواهر و برادرها). دو نام کاربری در هر خط، با فاصله از هم جدا شوند.</string>
   <string name="manualPairings">رویارویی دستی در دور پسین</string>

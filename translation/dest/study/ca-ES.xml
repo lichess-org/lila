@@ -202,4 +202,6 @@
   <string name="clearPublished">Eliminar les anàlisis publicades?</string>
   <string name="requestAServerAnalysis">Demana una anàlisi al servidor</string>
   <string name="analyzeOnYourDevice">Analitza al teu dispositiu</string>
+  <string name="searchChapters">Cerca capítols</string>
+  <string name="searchGames">Cerca partides</string>
 </resources>

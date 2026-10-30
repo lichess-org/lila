@@ -50,6 +50,8 @@ Xoga rápido para disputar máis partidas e gañar máis puntos.</string>
     <item quantity="other">Ver todos os %s equipos</item>
   </plurals>
   <string name="newTeamBattle">Nova Batalla por Equipos</string>
+  <string name="startDate">Data de inicio</string>
+  <string name="entryConditions">Condicións de entrada</string>
   <string name="customStartDate">Data de comezo personalizada</string>
   <string name="customStartDateHelp">Na túa zona horaria local. Isto sobrescribe o axuste \"Tempo antes de que comece o torneo\"</string>
   <string name="allowBerserk">Berserk permitido</string>
@@ -89,4 +91,6 @@ Así, unha clasificación media do 3% significa que tipicamente ficas no 3% supe
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados.</string>
   <string name="berserkRate">Porcentaxe de Berserk</string>
   <string name="leaguesAndStreamerBattles">Ligas e Batallas de Presentadores</string>
+  <string name="allowBotAccounts">Permitir contas de bots</string>
+  <string name="allowBotAccountsDescription">Permitir que os &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; participen no torneo e xoguen cos seus motores de análise. Esta opción adoita espantar ós xogadores humanos.</string>
 </resources>

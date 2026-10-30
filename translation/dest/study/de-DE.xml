@@ -202,4 +202,6 @@
   <string name="clearPublished">Veröffentlichte Analyse löschen?</string>
   <string name="requestAServerAnalysis">Computer-Analyse anfordern</string>
   <string name="analyzeOnYourDevice">Auf deinem Gerät analysieren</string>
+  <string name="searchChapters">Kapitel durchsuchen</string>
+  <string name="searchGames">Partien durchsuchen</string>
 </resources>

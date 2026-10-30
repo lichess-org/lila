@@ -997,6 +997,8 @@ i impacten les puntuacions dels jugadors</string>
   <string name="onlyMembersOfTeam">Només membres de l\'equip</string>
   <string name="noRestriction">Sense restriccions</string>
   <string name="minimumRatedGames">Mínims partits puntuats</string>
+  <string name="minimumAccountAge">Edat mínima del compte</string>
+  <string name="titledPlayersBypassRestriction">Els jugadors titulats poden evitar aquesta restricció.</string>
   <string name="minimumRating">Puntuació mínima</string>
   <string name="maximumWeeklyRating">Puntuació màxima aquesta setmana</string>
   <string name="positionInputHelp">Enganxa un FEN vàlid per començar cada joc d\'una posició donada.
@@ -1054,6 +1056,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="offline" comment="status of a user">fora de línia</string>
   <string name="search">Cerca</string>
   <string name="clearSearch">Neteja la cerca</string>
+  <string name="searchInX">Cerca a \"%s\"</string>
   <string name="thereAreNoResultsForX">No hi ha resultats per \"%s\"</string>
   <string name="tags">Etiquetes</string>
   <string name="enPassant">Captura al pas</string>

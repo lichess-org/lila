@@ -997,6 +997,8 @@ og påverkar rangeringa til spelarane</string>
   <string name="onlyMembersOfTeam">Berre medlemar av laget</string>
   <string name="noRestriction">Inga avgrensingar</string>
   <string name="minimumRatedGames">Minste antal rangerte parti</string>
+  <string name="minimumAccountAge">Minstealder konto</string>
+  <string name="titledPlayersBypassRestriction">Tittelinnehavarar omgår begrensninga.</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
   <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
@@ -1054,6 +1056,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
+  <string name="searchInX">Søk i \"%s\"</string>
   <string name="thereAreNoResultsForX">Inga resultat for \"%s\"</string>
   <string name="tags">Etikettar</string>
   <string name="enPassant">En passant</string>

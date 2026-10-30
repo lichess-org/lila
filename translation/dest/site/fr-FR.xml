@@ -996,6 +996,8 @@ et ont un impact sur le classement des joueurs</string>
   <string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
   <string name="noRestriction">Sans restriction</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
+  <string name="minimumAccountAge">Âge minimum pour le compte</string>
+  <string name="titledPlayersBypassRestriction">Les joueurs titrés ne sont pas soumis à cette restriction.</string>
   <string name="minimumRating">Classement minimal</string>
   <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
   <string name="positionInputHelp">Collez un FEN valide pour commencer chaque partie à partir d\'une position donnée.
@@ -1053,6 +1055,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="offline" comment="status of a user">hors ligne</string>
   <string name="search">Rechercher</string>
   <string name="clearSearch">Réinitialiser la recherche</string>
+  <string name="searchInX">Rechercher dans \"%s\"</string>
   <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>

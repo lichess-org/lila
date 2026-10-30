@@ -52,6 +52,8 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
     <item quantity="other">Vezi toate cele %s de echipe</item>
   </plurals>
   <string name="newTeamBattle">Bătălie în echipă</string>
+  <string name="startDate">Dată de început</string>
+  <string name="entryConditions">Condiții de intrare</string>
   <string name="customStartDate">Data de început personalizată</string>
   <string name="customStartDateHelp">În fusul orar local. Acest lucru înlocuiește setarea \"Timp înainte de începerea turneului\"</string>
   <string name="allowBerserk">Permite Berserk</string>
@@ -90,4 +92,6 @@ De exemplu, o medie de clasament de 3% înseamnă că terminați de obicei în t
   <string name="tournamentPairingsAreNowClosed">Cuplările în turneu sunt acum încheiate.</string>
   <string name="berserkRate">Rata jocurilor Berserk</string>
   <string name="leaguesAndStreamerBattles">Bătălii de ligi și streameri</string>
+  <string name="allowBotAccounts">Permite conturile de bot</string>
+  <string name="allowBotAccountsDescription">Permiteți &lt;a href=\'%s\' target=\'_blank\'&gt;boților&lt;/a&gt; să se alăture turneului și să joace cu motoarele lor. Acest lucru îi respinge adesea pe jucătorii umani.</string>
 </resources>

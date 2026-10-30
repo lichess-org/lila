@@ -53,6 +53,8 @@
     <item quantity="other">عرض %s فرق</item>
   </plurals>
   <string name="newTeamBattle">معركة فريق جديدة</string>
+  <string name="startDate">تاريخ البدء</string>
+  <string name="entryConditions">شروط المشاركة</string>
   <string name="customStartDate">تاريخ بدأ مخصص</string>
   <string name="customStartDateHelp">في المنطقة الزمنية المحلية الخاصة بك. هذا يتجاوز إعداد \"الوقت قبل بدء البطولة\"</string>
   <string name="allowBerserk">السماح بالتحدي بنصف الوقت</string>
@@ -93,4 +95,6 @@
   <string name="tournamentPairingsAreNowClosed">انتهت منافسات البطولة.</string>
   <string name="berserkRate">معدل المخاطرة مع تفعيل وضع بيرسيرك</string>
   <string name="leaguesAndStreamerBattles">الدوريات &amp; منافسات مشغّلي البث المباشر</string>
+  <string name="allowBotAccounts">السماح لحسابات الروبوتات</string>
+  <string name="allowBotAccountsDescription">السماح لـ &lt;a href=\'%s\' target=\'_blank\'&gt;حسابات الروبوتات&lt;/a&gt; بالمشاركة في البطولة واللعب باستخدام محركات الشطرنج الخاصة بها. غالبًا ما يؤدي ذلك إلى نفور اللاعبين البشريين.</string>
 </resources>

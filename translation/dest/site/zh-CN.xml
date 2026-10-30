@@ -955,6 +955,8 @@
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">无限制</string>
   <string name="minimumRatedGames">最少排位对局数</string>
+  <string name="minimumAccountAge">最短账户注册时长</string>
+  <string name="titledPlayersBypassRestriction">头衔棋手可绕过此限制</string>
   <string name="minimumRating">最低等级分</string>
   <string name="maximumWeeklyRating">最高周等级分</string>
   <string name="positionInputHelp">粘贴一个有效的 FEN，使每场对局都从给定局面开始。
@@ -1012,6 +1014,7 @@
   <string name="offline" comment="status of a user">离线</string>
   <string name="search">搜索</string>
   <string name="clearSearch">清除搜索</string>
+  <string name="searchInX">在 \"%s\" 中搜索</string>
   <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>

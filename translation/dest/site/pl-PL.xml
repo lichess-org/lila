@@ -1079,6 +1079,8 @@ na ranking graczy</string>
   <string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
   <string name="noRestriction">Bez ograniczeń</string>
   <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
+  <string name="minimumAccountAge">Minimalny staż konta</string>
+  <string name="titledPlayersBypassRestriction">Nie dotyczy utytułowanych graczy.</string>
   <string name="minimumRating">Minimalny ranking</string>
   <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
   <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
@@ -1136,6 +1138,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Szukaj</string>
   <string name="clearSearch">Wyczyść wyszukiwanie</string>
+  <string name="searchInX">Szukaj w \"%s\"</string>
   <string name="thereAreNoResultsForX">Brak wyników dla \"%s\"</string>
   <string name="tags">Tagi</string>
   <string name="enPassant">Bicie w przelocie</string>

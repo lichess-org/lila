@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Nombre de rondes</string>
   <string name="numberOfRoundsHelp">Un nombre impair de rondes permet un équilibre optimal des couleurs.</string>
   <string name="roundInterval">Délai entre les rondes</string>
+  <string name="customPairings">Appariements personnalisés</string>
   <string name="forbiddenPairings">Appariements interdits</string>
   <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
   <string name="manualPairings">Appariements manuels pour la prochaine ronde</string>

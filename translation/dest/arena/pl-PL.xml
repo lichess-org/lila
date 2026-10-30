@@ -52,6 +52,8 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
     <item quantity="other">Zobacz wszystkie %s zespołów</item>
   </plurals>
   <string name="newTeamBattle">Nowa bitwa klubów</string>
+  <string name="startDate">Data rozpoczęcia</string>
+  <string name="entryConditions">Warunki dołączenia</string>
   <string name="customStartDate">Niestandardowa data rozpoczęcia</string>
   <string name="customStartDateHelp">W Twojej lokalnej strefie czasowej. Nadpisuje ustawienie \"Czas przed rozpoczęciem turnieju\"</string>
   <string name="allowBerserk">Zezwalaj na Berserk</string>
@@ -91,4 +93,6 @@ Na przykład średni ranking na poziomie 3% oznacza, że zazwyczaj kończysz w g
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="berserkRate">Berserków</string>
   <string name="leaguesAndStreamerBattles">Ligi &amp; Bitwy Streamerów</string>
+  <string name="allowBotAccounts">Zezwalaj na konta botów</string>
+  <string name="allowBotAccountsDescription">Pozwól &lt;a href=\'%s\' target=\'_blank\'&gt;botom&lt;/a&gt; dołączyć do turnieju i graj z ich silnikami. To często zniechęca prawdziwych graczy.</string>
 </resources>
