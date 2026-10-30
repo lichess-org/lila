@@ -370,6 +370,7 @@ bok yedin
 ezik
 gerizekal[iı]
 göt
+g[oö]t([uü](n[uü]|ne|nden)?|den|lek|e)
 gey(ler|sin|dir)?
 ibne
 ka[sş]ar
