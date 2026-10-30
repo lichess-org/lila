@@ -168,6 +168,9 @@ object HTTPRequest:
   def continent(req: RequestHeader): Option[Continent] =
     req.headers.get("X-Continent").flatMap(Continent.byCode.get)
 
+  def country(using req: RequestHeader): Option[CountryCode] =
+    CountryCode.from(req.headers.get("X-Country"))
+
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
   def name = toString

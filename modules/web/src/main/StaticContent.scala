@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.config.NetConfig
+import lila.core.net.CountryCode
 
 final class StaticContent(net: NetConfig):
 
@@ -80,8 +81,8 @@ Allow: /game/export/gif/thumbnail/
     "SE" -> "se",
     "AT" -> "at"
   )
-  def swagUrl(countryCode: Option[String]) =
-    val tld = swagStoreTlds.getOrElse(~countryCode, "net")
+  def swagUrl(countryCode: Option[CountryCode]) =
+    val tld = swagStoreTlds.getOrElse(countryCode.so(_.value), "net")
     s"https://lichess.myspreadshop.$tld/"
 
   val variantsJson = JsArray:

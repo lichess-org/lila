@@ -118,9 +118,8 @@ final class Plan(env: Env) extends LilaController(env):
     yield Redirect(routes.Plan.index())
   }
 
-  private def myCurrency(using ctx: Context) =
-    def ipCountry = env.security.geoIP(ctx.ip).flatMap(_.countryCode)
-    env.plan.currencyApi.guessCurrency(get("currency"), ipCountry)
+  private def myCurrency(using Context) =
+    env.plan.currencyApi.guessCurrency(get("currency"))
 
   def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
