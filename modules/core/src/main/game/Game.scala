@@ -199,7 +199,7 @@ case class Game(
     clock.exists: c =>
       started && playable && {
         c.outOfTime(turnColor, withGrace) ||
-        !c.isRunning && c.players.exists(_.elapsed.centis > 0)
+        (!c.isRunning && c.players.exists(_.elapsed.centis > 0))
       }
 
   private def outoftimeCorrespondence: Boolean =
