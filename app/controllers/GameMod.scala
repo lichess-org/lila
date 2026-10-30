@@ -32,7 +32,7 @@ final class GameMod(env: Env)(using org.apache.pekko.stream.Materializer) extend
       .filter: game =>
         filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
-      .mapConcat { Pov(_, user).toList }
+      .mapConcat(Pov(_, user).toList)
       .runWith(Sink.seq)
       .map(_.toList)
 

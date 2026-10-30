@@ -39,7 +39,7 @@ final class PuzzleReplayApi(
         replay <-
           if current.days == days && current.theme == theme && current.remaining.nonEmpty
           then fuccess(current)
-          else createReplayFor(me, days, theme).tap { replays.put(me.userId, _) }
+          else createReplayFor(me, days, theme).tap(replays.put(me.userId, _))
         puzzle <- replay.remaining.headOption.so: id =>
           colls.puzzle(_.byId[Puzzle](id))
       yield puzzle.map(_ -> replay)

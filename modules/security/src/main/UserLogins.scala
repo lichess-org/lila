@@ -223,7 +223,7 @@ object UserLogins:
       emails: Map[UserId, EmailAddress]
   ):
     def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
-      newUsers.find(_.is(o.user)).map { u => o.copy(user = u) }
+      newUsers.find(_.is(o.user)).map(u => o.copy(user = u))
     })
 
   def withMeSortedWithEmails(

@@ -101,7 +101,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
         .parallelVoid
 
   def nextOrderByStudy(sid: StudyId): Fu[Chapter.Order] =
-    coll(_.primitiveOne[Chapter.Order](studyId(sid), sort.desc("order"), "order")).dmap { ~_ + 1 }
+    coll(_.primitiveOne[Chapter.Order](studyId(sid), sort.desc("order"), "order")).dmap(~_ + 1)
 
   def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField(bid(chapterId), "conceal", conceal)).void

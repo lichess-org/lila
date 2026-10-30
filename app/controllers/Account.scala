@@ -120,7 +120,7 @@ final class Account(
               forWiki = wikiGranted
             )
           )
-          .dmap { Ok(_) }
+          .dmap(Ok(_))
   }
 
   def apiNowPlaying = Scoped()(doNowPlaying)

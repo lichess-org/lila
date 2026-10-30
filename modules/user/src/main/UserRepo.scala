@@ -257,7 +257,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .cursor[Bdoc](ReadPref.sec)
       .list(max)
       .map:
-        _.flatMap { _.getAsOpt[UserId](F.id) }
+        _.flatMap(_.getAsOpt[UserId](F.id))
 
   def idLikeCanBeVeryExpensive(regex: String, closed: Boolean): Fu[List[User]] =
     coll.find(F.id.regex(regex) ++ bdoc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
@@ -586,6 +586,5 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       (email.value != normalizedEmail.value).so(bdoc(F.verbatimEmail -> email))
     } ++ {
       blind.so(bdoc(F.blind -> true))
-    } ++ {
+    } ++
       kid.yes.so(bdoc(F.kid -> kid))
-    }

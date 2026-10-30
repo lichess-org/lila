@@ -21,9 +21,8 @@ final class StormSign(secret: Secret)(using Executor):
 
   def check(user: User, signed: String): Boolean = signed != "undefined" && {
     val correct =
-      !Uptime.startedSinceMinutes(5) || {
+      !Uptime.startedSinceMinutes(5) ||
         signer.sha1(store.get(user.id)).hash_=(signed)
-      }
     if correct then store.put(user.id, signed)
     correct
   }

@@ -44,7 +44,7 @@ final class StringToken[A](
                   .match
                     case ValueChecker.Same() => hashCurrentValue(payload).map(hashed ==)
                     case ValueChecker.Custom(f) => f(payload, hashed)
-                  .map { _.option(payload) }
+                  .map(_.option(payload))
           case _ => fuccess(none)
 
   private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex.take(fullHashSize)

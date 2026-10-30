@@ -30,8 +30,8 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions
       .map:
-        _.channels.map { (chan, champ) => chan.key -> champ }
-      .map { Json.toJson(_) }
+        _.channels.map((chan, champ) => chan.key -> champ)
+      .map(Json.toJson(_))
       .dmap(Api.ApiResult.Data.apply)
 
   private def lichessTv(channel: Channel)(using Context) =
@@ -52,8 +52,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               champs <- env.tv.tv.getChampions
               page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
             yield Ok(page).noCache,
-            api =
-              _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap { Ok(_) }
+            api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap(Ok(_))
           )
 
   def games = gamesChannel(Channel.Best.key)

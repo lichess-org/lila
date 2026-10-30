@@ -232,7 +232,7 @@ ${routeUrl(routes.Plan.index())}"""
                 text = Mailer.txt.addServiceNote {
                   s"""$hello
 
-${opponents.map { opponent => s"${showGame(opponent)} $gameUrl" }.mkString("\n\n")}
+${opponents.map(opponent => s"${showGame(opponent)} $gameUrl").mkString("\n\n")}
 
 $disableSettingNotice $disableLink"""
                 },

@@ -32,7 +32,7 @@ object UserWithModlog:
 def canGrant(permission: Permission)(using Me): Boolean =
   Granter(_.SuperAdmin) || {
     Granter(_.ChangePermission) && Permission.nonModPermissions(permission)
-  } || {
+  } ||
     Granter(_.Admin) && {
       Granter(permission) || Set[Permission](
         Permission.MonitoredCheatMod,
@@ -41,7 +41,6 @@ def canGrant(permission: Permission)(using Me): Boolean =
         Permission.PublicMod
       )(permission)
     }
-  }
 
 def canCloseAlt(using Me) = Granter(_.CloseAccount) && Granter(_.ViewPrintNoIP)
 

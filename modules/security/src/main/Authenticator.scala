@@ -66,16 +66,16 @@ final class Authenticator(
     passHasher.check(auth.bpass, newP)
 
   def authenticateById(id: UserId, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
-    loginCandidateById(id).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateById(id).map(_.flatMap(_.option(passwordAndToken)))
 
   def authenticateByEmail(
       email: NormalizedEmailAddress,
       passwordAndToken: PasswordAndToken
   ): Fu[Option[User]] =
-    loginCandidateByEmail(email).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateByEmail(email).map(_.flatMap(_.option(passwordAndToken)))
 
   def loginCandidate(useCase: String)(using me: Me): Fu[LoginCandidate] =
-    loginCandidateById(me.userId).dmap { _ | LoginCandidate(useCase, me, _ => false, false) }
+    loginCandidateById(me.userId).dmap(_ | LoginCandidate(useCase, me, _ => false, false))
 
   def loginCandidateById(id: UserId): Fu[Option[LoginCandidate]] =
     loginCandidate(bid(id))

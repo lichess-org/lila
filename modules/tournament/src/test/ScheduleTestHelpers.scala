@@ -86,13 +86,13 @@ object ScheduleTestHelpers:
       def addToMap(hour: Long, s: ScheduleWithInterval) =
         hourMap.getOrElseUpdate(hour, ArrayBuffer.empty).addOne(s)
 
-      existingSchedules.foreach { s => getAllHours(s).foreach { addToMap(_, s) } }
+      existingSchedules.foreach(s => getAllHours(s).foreach(addToMap(_, s)))
 
       possibleNewPlans
         .foldLeft(Nil): (newPlans, p) =>
-          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.getOrElse(_, Nil) }
+          val potentialConflicts = getConflictingHours(p).flatMap(hourMap.getOrElse(_, Nil))
           if p.conflictsWithFailOnUsurp(potentialConflicts) then newPlans
           else
-            getAllHours(p).foreach { addToMap(_, p) }
+            getAllHours(p).foreach(addToMap(_, p))
             p :: newPlans
         .reverse

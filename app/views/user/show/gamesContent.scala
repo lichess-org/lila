@@ -49,7 +49,7 @@ object gamesContent:
           )(
             if filterName == "playing" && pager.nbResults > 2 then
               pager.currentPageResults
-                .flatMap { Pov(_, u) }
+                .flatMap(Pov(_, u))
                 .map: pov =>
                   views.game.mini(pov)(cls := "paginated")
             else views.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx.is(u)),

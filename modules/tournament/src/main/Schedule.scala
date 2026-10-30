@@ -47,7 +47,7 @@ object Schedule:
 
     def build(using Translate): Tournament =
       val t = Tournament.scheduleAs(withConditions(schedule), startsAt, minutes)
-      buildFunc.fold(t) { _(t) }
+      buildFunc.fold(t)(_(t))
 
     def map(f: Tournament => Tournament) = copy(
       buildFunc = buildFunc.fold(f)(f.compose).some

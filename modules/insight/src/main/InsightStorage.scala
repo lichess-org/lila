@@ -26,7 +26,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
   def insert(p: InsightEntry) = coll(_.insert.one(p).void)
 
   def bulkInsert(ps: Seq[InsightEntry]) =
-    coll { _.insert.many(ps) }
+    coll(_.insert.many(ps))
 
   def update(p: InsightEntry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 

@@ -41,8 +41,7 @@ final class UblogApi(
       fetchCarouselFromDb().map(_.shuffled.take(9))
 
   def myCarousel(using kid: KidMode) =
-    for posts <- carouselCache.get({})
-    yield posts.filter(_.isLichess || kid.no)
+    for posts <- carouselCache.get {} yield posts.filter(_.isLichess || kid.no)
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost](bdoc("prismicId" -> id))
 
@@ -108,7 +107,7 @@ final class UblogApi(
       colls.blog.secondary
         .primitiveOne[Tier](bid(blogId.full), "tier")
         .dmap(_.exists(_ > Tier.HIDDEN))
-    canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
+    canView.flatMapz(blogPreview(blogId, nb).dmap(some))
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
     colls.post.secondary
@@ -376,11 +375,10 @@ final class UblogApi(
   }.flatMap: t =>
     modBlog(userId, t.some, none)
 
-  def canBlog(u: User) = u.isVerified || {
+  def canBlog(u: User) = u.isVerified ||
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isPatron
     }
-  }
 
   private[ublog] def aggregateVisiblePosts(
       select: Bdoc,

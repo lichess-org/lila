@@ -46,10 +46,10 @@ trait ResponseBuilder(using Executor)
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =
-      fua.flatMap { _.fold(notFound)(f) }
+      fua.flatMap(_.fold(notFound)(f))
   extension [A](fua: Fu[Boolean])
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
-      fua.flatMap { if _ then f else notFound }
+      fua.flatMap(if _ then f else notFound)
 
   def WithEnabledUserId(name: UserStr)(op: UserId => Fu[Result])(using Context) =
     name.validateId

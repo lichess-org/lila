@@ -39,7 +39,7 @@ final class TournamentStandingApi(
   // no need to invalidate createdCache, these are only cached when tour.isCreated
 
   private def compute(id: TourId, page: Int, withScores: Boolean): Fu[JsObject] =
-    cached.tourCache.byId(id).orFail(s"No such tournament: $id").flatMap { compute(_, page, withScores) }
+    cached.tourCache.byId(id).orFail(s"No such tournament: $id").flatMap(compute(_, page, withScores))
 
   private def playerIdsOnPage(tour: Tournament, page: Int): Fu[List[TourPlayerId]] =
     cached.ranking(tour).map { ranking =>
@@ -51,11 +51,11 @@ final class TournamentStandingApi(
     for
       rankedPlayers <-
         if page < 10 then playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
-        else playerIdsOnPage(tour, page).flatMap { playerRepo.byPlayerIdsOnPage(_, page) }
+        else playerIdsOnPage(tour, page).flatMap(playerRepo.byPlayerIdsOnPage(_, page))
       _ <- tour.realNames.so(lightUserApi.preloadRealNames(rankedPlayers.map(_.player.userId)))
       sheets <- rankedPlayers
         .map: p =>
-          cached.sheet(tour, p.player.userId).dmap { p.player.userId -> _ }
+          cached.sheet(tour, p.player.userId).dmap(p.player.userId -> _)
         .parallel
         .dmap(_.toMap)
       players <- rankedPlayers

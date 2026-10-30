@@ -40,7 +40,7 @@ final class InsightApi(
         withPovs
           .so:
             gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds).botN(4), user)
-          .map { Answer(question, clusters, _) }
+          .map(Answer(question, clusters, _))
       }
       .monSuccess(lila.mon.insight.user)
 

@@ -41,7 +41,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             post.image.map: image =>
               frag(
                 ui.thumbnail(post, _.Size.Large)(cls := "ublog-post__image"),
-                image.credit.map { p(cls := "ublog-post__image-credit")(_) }
+                image.credit.map(p(cls := "ublog-post__image-credit")(_))
               ),
             (ctx.is(user) || Granter.opt(_.ModerateBlog)).option(standardFlash),
             h1(cls := "ublog-post__title")(post.title),

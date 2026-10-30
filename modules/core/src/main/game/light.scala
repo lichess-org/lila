@@ -41,7 +41,7 @@ case class LightPov(game: LightGame, color: Color):
 
 object LightPov:
   def apply(game: LightGame, userId: UserId): Option[LightPov] =
-    game.playerByUserId(userId).map { p => LightPov(game, p.color) }
+    game.playerByUserId(userId).map(p => LightPov(game, p.color))
 
 trait GameLightRepo:
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[LightGame]]

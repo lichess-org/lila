@@ -17,7 +17,7 @@ final class StreamerApi(
   def forSubscriber(streamerName: UserStr)(using me: Option[MyId]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
       streamerFu.flatMapz: s =>
-        subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
+        subsRepo.isSubscribed(me.id, s.streamer).map(sub => s.copy(subscribed = sub).some)
 
   def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] = for
     users <- userApi.byIds(live.streams.map(_.streamer.userId))

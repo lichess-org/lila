@@ -94,7 +94,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
               br,
               "Only use if you know exactly what you're doing."
             ),
-            res.map { pre(_) },
+            res.map(pre(_)),
             postForm(action := routes.Dev.cliPost)(
               form3.input(form("command"))(autofocus),
               br,

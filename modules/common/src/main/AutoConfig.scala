@@ -15,7 +15,7 @@ import scala.quoted.*
   */
 
 given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
-  ConfigLoader.seqConfigLoader.map(_.map { loader.load(_, "") })
+  ConfigLoader.seqConfigLoader.map(_.map(loader.load(_, "")))
 
 given [A: ConfigLoader]: ConfigLoader[List[A]] =
   summon[ConfigLoader[Seq[A]]].map(_.toList)

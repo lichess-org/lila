@@ -19,13 +19,13 @@ case class TutorPieces(list: List[TutorPiece]):
   lazy val accuracyCompare = TutorCompare[Role, AccuracyPercent](
     InsightDimension.PieceRole,
     TutorMetric.Accuracy,
-    list.map { piece => (piece.role, piece.accuracy) }
+    list.map(piece => (piece.role, piece.accuracy))
   )
 
   lazy val awarenessCompare = TutorCompare[Role, GoodPercent](
     InsightDimension.PieceRole,
     TutorMetric.Awareness,
-    list.map { piece => (piece.role, piece.awareness) }
+    list.map(piece => (piece.role, piece.awareness))
   )
 
   def compares = List(accuracyCompare, awarenessCompare)

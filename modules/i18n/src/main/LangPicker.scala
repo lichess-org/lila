@@ -38,7 +38,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
 
   def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] =
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap
-    langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
+    langs.sortBy(mine.getOrElse(_, Int.MaxValue))
 
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language] = {
     toLanguage(prefLang) +: acceptLanguages(req).map(toLanguage)

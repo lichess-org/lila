@@ -85,7 +85,7 @@ object StudyAction:
 
   // copy/pasted from JsonView
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Reads[Shape] = Reads: js =>
     js.asOpt[JsObject]
       .flatMap { o =>

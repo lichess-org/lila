@@ -14,7 +14,7 @@ final class RevolutionApi(
   import Revolution.*
   import BSONHandlers.given
 
-  def active(u: User): Fu[List[Award]] = cache.getUnit.dmap { ~_.get(u.id) }
+  def active(u: User): Fu[List[Award]] = cache.getUnit.dmap(~_.get(u.id))
 
   private[tournament] def clear() = cache.invalidateUnit()
 

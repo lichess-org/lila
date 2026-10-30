@@ -48,4 +48,4 @@ final class PoolApi(
   def setOnlineSris(ids: Sris): Unit = actors.values.foreach(_ ! ids)
 
   private def sendTo(poolId: PoolConfigId, msg: Any) =
-    actors.get(poolId).foreach { _ ! msg }
+    actors.get(poolId).foreach(_ ! msg)

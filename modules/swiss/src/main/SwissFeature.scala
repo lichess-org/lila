@@ -92,4 +92,4 @@ final class SwissFeature(
           UnwindField("team"),
           Limit(nb)
         )
-      .map { _.flatMap(_.asOpt[Swiss]) }
+      .map(_.flatMap(_.asOpt[Swiss]))

@@ -326,7 +326,7 @@ abstract private[controllers] class LilaController(val env: Env)
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
     bindForm(form)(
-      form => err(form).dmap { BadRequest(_) },
+      form => err(form).dmap(BadRequest(_)),
       op
     )
 
@@ -386,6 +386,6 @@ abstract private[controllers] class LilaController(val env: Env)
       formBinding(req).foldLeft(form.data) { case (s, (key, values)) =>
         if key.endsWith("[]") then
           val k = key.dropRight(2)
-          s ++ values.zipWithIndex.map { (v, i) => s"$k[$i]" -> v }
+          s ++ values.zipWithIndex.map((v, i) => s"$k[$i]" -> v)
         else s + (key -> ~values.headOption)
       }

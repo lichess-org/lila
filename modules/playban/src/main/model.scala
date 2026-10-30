@@ -84,9 +84,8 @@ case class UserRecord(
     outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
       rageSit.isTerrible || {
         rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1
-      } || {
-        rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
-      }
+      } ||
+      rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
     }
 
 case class TempBan(date: Instant, mins: Int, reason: Option[String]):
@@ -158,5 +157,5 @@ object Outcome:
       .mapValues(_.size)
       .toList
       .sortBy(-_._2)
-      .map { (o, l) => s"$o($l)" }
+      .map((o, l) => s"$o($l)")
       .mkString(", ")

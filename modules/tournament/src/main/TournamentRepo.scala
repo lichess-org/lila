@@ -93,7 +93,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
             )
           )
         ).some,
-        project.map { p => bdoc(s"$$project" -> p) }
+        project.map(p => bdoc(s"$$project" -> p))
       ).flatten
     )
 
@@ -108,7 +108,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           Limit(max)
         )
       .map(_.flatMap(_.asOpt[Tournament]))
-      .dmap { new lila.db.paginator.StaticAdapter(_) }
+      .dmap(new lila.db.paginator.StaticAdapter(_))
 
   def finishedByFreqAdapter(freq: Schedule.Freq) =
     lila.db.paginator

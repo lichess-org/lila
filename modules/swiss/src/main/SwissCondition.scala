@@ -39,7 +39,7 @@ object SwissCondition:
           case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
           case c: MaxRating => c(perfType).map(c.withVerdict)
           case c: FlatCond => fuccess(c.withVerdict(c(perfType)))
-          case c: AccountAge => c.apply.map { c.withVerdict(_) }
+          case c: AccountAge => c.apply.map(c.withVerdict(_))
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled

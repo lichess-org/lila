@@ -113,7 +113,7 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig)(using Lang): Source[String, ?] =
     val playerSelect =
-      if config.finished then config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
+      if config.finished then config.vs.fold(Query.user(config.user.id))(Query.opponents(config.user, _))
       else
         config.vs
           .map(_.id)
@@ -208,7 +208,7 @@ final class GameApiV2(
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4): (game, pairing, teams) =>
-        enrich(config.flags)(game).dmap { (_, pairing, teams) }
+        enrich(config.flags)(game).dmap((_, pairing, teams))
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
         val opening = config.flags.opening.isDefined.so(gameOpening.atPly(game, false))
         config.format match

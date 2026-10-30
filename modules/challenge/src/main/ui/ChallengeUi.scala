@@ -167,7 +167,7 @@ final class ChallengeUi(helpers: Helpers):
                               cls := "friend-autocomplete",
                               placeholder := trans.search.search.txt()
                             ),
-                            error.map { p(cls := "error")(_) }
+                            error.map(p(cls := "error")(_))
                           )
                         )
                       ),

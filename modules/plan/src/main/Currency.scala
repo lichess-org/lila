@@ -68,7 +68,7 @@ final class CurrencyApi(
       .getOrElse:
         lila.common.HTTPRequest
           .country(using ctx.req)
-          .flatMap { code => Try(new Locale.Builder().setRegion(code.value).build()).toOption }
+          .flatMap(code => Try(new Locale.Builder().setRegion(code.value).build()).toOption)
           .flatMap(currencyOption)
           .orElse(currencyOption(ctx.lang.locale))
           .getOrElse(USD)

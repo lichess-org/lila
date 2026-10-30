@@ -30,5 +30,5 @@ object LilaFuture:
   ): Fu[T] =
     op().recoverWith:
       case e if retries > 0 =>
-        logger.foreach { _.info(s"$retries retries - ${e.getMessage}") }
+        logger.foreach(_.info(s"$retries retries - ${e.getMessage}"))
         org.apache.pekko.pattern.after(delay, scheduler)(retry(op, delay, retries - 1, logger))

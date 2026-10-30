@@ -221,7 +221,7 @@ final class ReportApi(
     (minutes > 60 * 24).so(securityApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
       playbansOf()(userId :: ids.toList)
         .map:
-          _.filter { (_, bans) => bans > 4 }
+          _.filter((_, bans) => bans > 4)
         .flatMap: bans =>
           val topSum = scalalib.HeapSort.topNToList(bans.values, 10).sum
           (topSum >= 80).so:
@@ -427,9 +427,8 @@ final class ReportApi(
       bdoc("room" -> r)
 
   private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
-    bdoc("open" -> true) ++ roomSelect(room) ++ {
+    bdoc("open" -> true) ++ roomSelect(room) ++
       exceptIds.nonEmpty.so(bdoc("_id".nin(exceptIds)))
-    }
 
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     selectOpenInRoom(room, exceptIds) ++ bdoc("inquiry".exists(false))
@@ -550,7 +549,7 @@ final class ReportApi(
       .map: users =>
         reports
           .flatMap: r =>
-            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline.exec(u.id)) }
+            users.find(_.id == r.user).map(u => Report.WithSuspect(r, u, isOnline.exec(u.id)))
           .sortBy(-_.urgency)
 
   def snooze(reportId: ReportId, duration: String)(using mod: Me): Fu[Option[Report]] =

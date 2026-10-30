@@ -44,7 +44,7 @@ case class AiConfig(
           )
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap(Pov(_, creatorColor))
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1

@@ -53,7 +53,7 @@ final class ForumCategApi(
       page: Int
   )(using Option[Me]): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
     categRepo.byId(id).flatMapz { categ =>
-      paginator.categTopics(categ, page).dmap { (categ, _).some }
+      paginator.categTopics(categ, page).dmap((categ, _).some)
     }
 
   def denormalize(categ: ForumCateg): Funit =

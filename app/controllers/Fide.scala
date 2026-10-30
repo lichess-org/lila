@@ -78,17 +78,16 @@ final class Fide(env: Env) extends LilaController(env):
           rendered <- renderPage(views.fide.federation.show(fed, playersList))
         yield Ok(rendered)
 
-  def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) {
-    ctx ?=> _ ?=>
-      Found(env.fide.playerApi.get(id)): p =>
-        ctx.body.body.file("photo") match
-          case Some(photo) =>
-            for
-              pic <- env.fide.playerApi.uploadPhoto(p, photo)
-              picUrl = FidePlayer.PlayerPhoto(env.memo.picfitUrl, pic.id, _.Small)
-              _ <- env.irc.api.fidePhoto(playerUrl(p).url, picUrl)
-            yield Redirect(routes.Coach.edit)
-          case None => Redirect(playerUrl(p))
+  def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) { ctx ?=> _ ?=>
+    Found(env.fide.playerApi.get(id)): p =>
+      ctx.body.body.file("photo") match
+        case Some(photo) =>
+          for
+            pic <- env.fide.playerApi.uploadPhoto(p, photo)
+            picUrl = FidePlayer.PlayerPhoto(env.memo.picfitUrl, pic.id, _.Small)
+            _ <- env.irc.api.fidePhoto(playerUrl(p).url, picUrl)
+          yield Redirect(routes.Coach.edit)
+        case None => Redirect(playerUrl(p))
   }
 
   def playerUpdate(id: chess.FideId) = SecureBody(_.FidePlayer) { ctx ?=> _ ?=>

@@ -25,7 +25,7 @@ final class Insight(env: Env) extends LilaController(env):
       )
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
-    Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
+    Accessible(username)(doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)))
 
   private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
       Context
@@ -54,7 +54,7 @@ final class Insight(env: Env) extends LilaController(env):
 
   def json(username: UserStr) =
     OpenOrScopedBody(parse.json)(): ctx ?=>
-      AccessibleApi(username) { processQuestion(_, ctx.body) }
+      AccessibleApi(username)(processQuestion(_, ctx.body))
 
   private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Translate) =
     if !lila.insight.JsonQuestion.isValid(body.body)
@@ -69,7 +69,7 @@ final class Insight(env: Env) extends LilaController(env):
               .ask(q, user)
               .flatMap(lila.insight.InsightChart.fromAnswer(env.user.lightUser))
               .map(env.insight.jsonView.chartWrites.writes)
-              .map { Ok(_) }
+              .map(Ok(_))
         )
 
   private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =

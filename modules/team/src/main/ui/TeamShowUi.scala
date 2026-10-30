@@ -30,7 +30,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
       .graph(
         title = s"${team.name} team",
         url = routeUrl(routes.Team.show(team.id)),
-        description = team.intro.so { shorten(_, 152) }
+        description = team.intro.so(shorten(_, 152))
       )
       .js(
         PageModule(

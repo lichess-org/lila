@@ -102,7 +102,7 @@ object RawHtml:
           sb.append:
             if isTldInternal then
               linkRender
-                .flatMap { _(allButScheme, text).map(_.render) }
+                .flatMap(_(allButScheme, text).map(_.render))
                 .getOrElse(s"""<a href="${
                     if allButScheme.isEmpty then "/"
                     else allButScheme

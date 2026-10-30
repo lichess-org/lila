@@ -17,7 +17,7 @@ object config:
 
   given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
-      c.getConfigList(k).asScala.toList.map { l.load(_) }
+      c.getConfigList(k).asScala.toList.map(l.load(_))
     }
 
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =

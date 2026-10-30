@@ -77,7 +77,7 @@ object embed:
         st.body(bodyModifiers)(
           body,
           page.ui.modulesInit(allModules, ctx.nonce.some),
-          pageModule.map { mod => frag(jsonScript(mod.data)) }
+          pageModule.map(mod => frag(jsonScript(mod.data)))
         )
       )
     )
