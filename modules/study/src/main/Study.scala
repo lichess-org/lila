@@ -61,7 +61,7 @@ case class Study(
     case _ => false
 
   def notable = likes.value > 10 ||
-    likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7))
+    (likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7)))
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)

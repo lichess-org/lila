@@ -375,10 +375,11 @@ final class UblogApi(
   }.flatMap: t =>
     modBlog(userId, t.some, none)
 
-  def canBlog(u: User) = u.isVerified ||
-    !u.isBot && {
+  def canBlog(u: User) = u.isVerified || (
+    !u.isBot && (
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isPatron
-    }
+    )
+  )
 
   private[ublog] def aggregateVisiblePosts(
       select: Bdoc,
