@@ -112,7 +112,7 @@ interface SoundI {
   getVoice(): SpeechSynthesisVoice | undefined;
   getVoiceMap(): Map<string, SpeechSynthesisVoice>;
   setVoice(v: { name: string; lang: string }): void;
-  speech(v?: boolean): boolean;
+  isSpeech(): boolean;
   changeSet(s: string): void;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): void;
   saySan(san?: San, cut?: boolean, force?: boolean): void;

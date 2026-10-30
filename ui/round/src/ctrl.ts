@@ -361,7 +361,7 @@ export default class RoundController implements MoveRootCtrl {
     this.resign(false);
 
     if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
-      if (site.sound.speech()) {
+      if (site.sound.isSpeech()) {
         const spoken = `${speakable(almostSanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
       }

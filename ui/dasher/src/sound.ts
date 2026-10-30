@@ -30,7 +30,7 @@ export class SoundCtrl extends PaneCtrl {
 
   render = (): VNode => {
     return h(
-      'div.sub.sound.' + this.getCurrent(),
+      'div.sub.sound.' + site.sound.theme,
       {
         hook: {
           insert: () => {
@@ -63,7 +63,7 @@ export class SoundCtrl extends PaneCtrl {
                 'button.text',
                 {
                   hook: bind('click', () => this.set(s[0])),
-                  class: { active: this.getCurrent() === s[0] },
+                  class: { active: site.sound.theme === s[0] },
                   attrs: { ...dataIcon(licon.Checkmark), type: 'button' },
                 },
                 [s[1], s[0] === 'speech' ? '...' : ''],
@@ -89,8 +89,6 @@ export class SoundCtrl extends PaneCtrl {
       },
     });
   };
-
-  private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
   private readonly setVoiceRate = (v: string) => {
     localStorage.setItem('speech.rate', v);
@@ -159,8 +157,7 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private readonly set = (k: Key) => {
-    site.sound.speech(k === 'speech');
-    if (site.sound.speech()) {
+    if (k === 'speech') {
       this.voiceSelectionDialog();
       site.sound.say('Speech synthesis ready');
       site.sound.changeSet('speech');
