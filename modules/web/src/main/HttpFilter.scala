@@ -48,9 +48,22 @@ final class HttpFilter(
     scheduler.scheduleOnce(20.seconds):
       justBooted = false
     private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
+    private val actions = Set(
+      "Account.info",
+      "User.redirect",
+      "Api.crosstable",
+      "Main.playerCount",
+      "Tournament.featured",
+      "Game.apiExportByUser",
+      "Push.mobileRegister",
+      "Api.cloudEval",
+      "User.autocomplete"
+    )
     def apply(req: RequestHeader): Option[Fu[Result]] =
       val reject = justBooted && {
-        req.path == "/account/info" || req.path.startsWith("/api/bot/") || !ClientName(req).isHuman
+        actions(HTTPRequest.actionName(req)) ||
+        req.path.startsWith("/api/bot/") ||
+        !ClientName(req).isHuman
       }
       Option.when(reject)(response)
 
