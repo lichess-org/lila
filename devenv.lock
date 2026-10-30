@@ -17,6 +17,18 @@
         "type": "github"
       }
     },
+    "fishnet": {
+      "flake": false,
+      "locked": {
+        "path": "../fishnet",
+        "type": "path"
+      },
+      "original": {
+        "path": "../fishnet",
+        "type": "path"
+      },
+      "parent": []
+    },
     "lila-db-seed": {
       "flake": false,
       "locked": {
@@ -32,6 +44,18 @@
         "repo": "lila-db-seed",
         "type": "github"
       }
+    },
+    "lila-fishnet": {
+      "flake": false,
+      "locked": {
+        "path": "../lila-fishnet",
+        "type": "path"
+      },
+      "original": {
+        "path": "../lila-fishnet",
+        "type": "path"
+      },
+      "parent": []
     },
     "lila-ws": {
       "flake": false,
@@ -136,7 +160,9 @@
     "root": {
       "inputs": {
         "devenv": "devenv",
+        "fishnet": "fishnet",
         "lila-db-seed": "lila-db-seed",
+        "lila-fishnet": "lila-fishnet",
         "lila-ws": "lila-ws",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
