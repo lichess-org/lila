@@ -301,6 +301,9 @@ importers:
 
   ui/bits:
     dependencies:
+      '@dragdroptouch/drag-drop-touch':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@emoji-mart/data':
         specifier: ^1.2.1
         version: 1.2.1
@@ -870,6 +873,9 @@ packages:
     engines: {node: '>=20.19.0'}
     peerDependencies:
       postcss-selector-parser: ^7.1.1
+
+  '@dragdroptouch/drag-drop-touch@2.0.3':
+    resolution: {integrity: sha512-4Yv1+S2Yxs/5iYLZyZYobAlCvIJPN6TYBjvJDyI9kH30GfBxA+ffHgKK2l00EyyBlUpB10j8BWAbRsgXRtBbPw==}
 
   '@emnapi/core@1.11.2':
     resolution: {integrity: sha512-TC8MkTuZUtcTSiFeuC0ksCh9QIJ5+F21MvZ4Wn4ORfYaFJ/0dsiudv5tVkejgwZlwQ39jL9WWDe2lz8x0WglOA==}
@@ -2658,6 +2664,8 @@ snapshots:
   '@csstools/selector-specificity@6.0.0(postcss-selector-parser@7.1.6)':
     dependencies:
       postcss-selector-parser: 7.1.6
+
+  '@dragdroptouch/drag-drop-touch@2.0.3': {}
 
   '@emnapi/core@1.11.2':
     dependencies:

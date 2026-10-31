@@ -63,6 +63,7 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
+            asks <- env.ask.repo.asksIn(post.markdown.value)
             html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
             viewedPost = env.ublog.viewCounter(post)
             page <- renderPage:
@@ -76,7 +77,7 @@ final class Ublog(env: Env) extends LilaController(env):
                 followable,
                 followed,
                 isInCarousel
-              )
+              ).copy(askFrags = asks.map(views.askUi.render))
           yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
@@ -134,7 +135,10 @@ final class Ublog(env: Env) extends LilaController(env):
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        editView(post, env.ublog.form(post))
+        env.ask.api
+          .decode(post.markdown.value)
+          .flatMap: editable =>
+            editView(post, env.ublog.form(post.copy(markdown = Markdown(editable))))
       .map(_.hasPersonalData)
   }
 

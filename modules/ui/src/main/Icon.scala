@@ -145,3 +145,4 @@ object Icon:
   val Cpu: Icon = "" // e07e
   val Prune: Icon = "" // e07f
   val Friends: Icon = "" // e080
+  val Mask: Icon = "" // e081
