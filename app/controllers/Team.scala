@@ -180,7 +180,7 @@ final class Team(env: Env) extends LilaController(env):
                       val text = lila.msg.MsgPreset.newPermissions(
                         if asMod then LightUser.fallback(UserName.lichess) else me.light,
                         team.team.light,
-                        change.perms.map(_.name),
+                        change.perms.map(_.name.txt()),
                         routeUrl(routes.Team.show(team.id))
                       )
                       env.msg.api.systemPost(SystemMsg.mustRead(change.user, text))

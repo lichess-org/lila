@@ -6157,6 +6157,38 @@ interface I18n {
     oneTeamPerLineHelp: string;
     /** Please add a new team leader before leaving, or close the team. */
     onlyLeaderLeavesTeam: string;
+    /** Manage leader permissions */
+    permAdminDesc: string;
+    /** Admin */
+    permAdminName: string;
+    /** Moderate the forum and chats */
+    permCommDesc: string;
+    /** Moderation */
+    permCommName: string;
+    /** Kick members of the team */
+    permKickDesc: string;
+    /** Kick */
+    permKickName: string;
+    /** Send team updates to members */
+    permPmAllDesc: string;
+    /** Updates */
+    permPmAllName: string;
+    /** Visible as leader on the team page */
+    permPublicDesc: string;
+    /** Public */
+    permPublicName: string;
+    /** Accept and decline join requests */
+    permRequestDesc: string;
+    /** Requests */
+    permRequestName: string;
+    /** Change settings and descriptions */
+    permSettingsDesc: string;
+    /** Settings */
+    permSettingsName: string;
+    /** Create, manage and join team tournaments */
+    permTourDesc: string;
+    /** Tournaments */
+    permTourName: string;
     /** Leave team */
     quitTeam: string;
     /** Remove someone from the team */

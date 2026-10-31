@@ -57,8 +57,8 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                     TeamSecurity.Permission.values.toList.map: perm =>
                       tr(
                         th(
-                          strong(perm.name),
-                          p(perm.desc)
+                          strong(perm.name()),
+                          p(perm.desc())
                         ),
                         t.leaders.mapWithIndex: (l, li) =>
                           td(dataLabel := l.user):
