@@ -2,6 +2,7 @@ package lila.report
 package ui
 
 import play.api.data.Form
+import play.api.libs.json.JsObject
 
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.perf.UserWithPerfs
@@ -180,6 +181,18 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                 st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
             )
+          )
+        )
+
+  def automodStatus(health: JsObject)(menu: Context ?=> Frag)(using Context, Me) =
+    Page("Automod health")
+      .css("mod.automod-status")
+      .js(PageModule("mod.automodStatus", health)):
+        main(cls := "page-menu")(
+          menu,
+          div(
+            cls := "box box-pad page-small automod-status",
+            data("url") := routes.Report.automodStatusXhr.url
           )
         )
 

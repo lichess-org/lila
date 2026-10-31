@@ -74,6 +74,16 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
+  def failedAutomod(page: Int): Fu[Paginator[UblogAutomod.Failed]] =
+    Paginator(
+      adapter = new AdapterLike[UblogAutomod.Failed]:
+        def nbResults = ublogApi.failedAutomodCount()
+        def slice(offset: Int, length: Int) = ublogApi.failedAutomod(offset, length)
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+
   def liveByTopic(
       topic: UblogTopic,
       filter: QualityFilter,
