@@ -73,13 +73,16 @@
     }
 
     .stop {
-      width: 1em;
-      height: 1em;
+      width: 11px;
+      height: 11px;
       margin-inline: 1px 5px;
       vertical-align: -1px;
       border-radius: 2px;
-      background: $c-bad;
-      box-shadow: 0 0 0 1px #0005;
+      background: #f55;
+      background: color-mix(in oklab, $c-dimmer 8%, #f55);
+      box-shadow:
+        0 1px 1px #4007,
+        0 -1px #faa5;
     }
 
     .stop:active,
