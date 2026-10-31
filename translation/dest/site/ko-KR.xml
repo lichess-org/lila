@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">게임 설정</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">친구에게 도전</string>
   <string name="playAgainstComputer">컴퓨터와 대국하기</string>
   <string name="gameMode">게임 모드</string>
@@ -478,6 +477,7 @@
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하세요!</string>
   <string name="pause">일시 중지</string>
   <string name="resume">재개</string>
+  <string name="stop">중지</string>
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="performance">퍼포먼스 레이팅</string>

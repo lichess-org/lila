@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configuración da partida</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar a unha amizade</string>
   <string name="playAgainstComputer">Xogar contra a máquina</string>
   <string name="gameMode">Modo de xogo</string>
@@ -510,6 +509,7 @@ Amizades xogando: %2$s</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
+  <string name="stop">Parar</string>
   <string name="youArePlaying">Estás xogando!</string>
   <string name="winRate">Porcentaxe de vitorias</string>
   <string name="performance">Rendemento</string>
