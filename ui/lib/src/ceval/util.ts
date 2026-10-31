@@ -47,7 +47,9 @@ export function showEngineError(engine: string, error: string): void {
         ? $html`
           <p>Your external engine does not appear to be connected.</p>
           <p>Please check the network and restart your provider if possible.</p>`
-        : $html`
+        : error.includes('Status 409')
+          ? $html`<pre>${escapeHtml(error)}</pre>`
+          : $html`
           <pre>${escapeHtml(error)}</pre>
           <h2>Things to try</h2>
           <ul>

@@ -83,6 +83,7 @@ export class ExternalEngine implements CevalEngine {
           },
         }),
       });
+      if (res.status === 409) throw new Error(`Status 409: ${await res.text()}`);
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
         if ('keepalive' in line) return;

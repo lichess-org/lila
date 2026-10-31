@@ -25,7 +25,8 @@ case class ExternalEngine(
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
     userId: UserId, // The user it has been registered for
-    clientSecret: String // Secret unique id of the registration
+    clientSecret: String, // Secret unique id of the registration
+    protocolVersion: Option[Int]
 )
 
 object ExternalEngine:
@@ -38,7 +39,8 @@ object ExternalEngine:
       officialStockfish: Option[Boolean],
       providerSecret: String,
       providerData: Option[String],
-      defaultDepth: Option[Int] // ignored for compatibility
+      defaultDepth: Option[Int], // ignored for compatibility
+      protocolVersion: Option[Int]
   ):
     def make(userId: UserId) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
@@ -50,7 +52,8 @@ object ExternalEngine:
       providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
       providerData = providerData,
       userId = userId,
-      clientSecret = s"ees_${SecureRandom.nextString(16)}"
+      clientSecret = s"ees_${SecureRandom.nextString(16)}",
+      protocolVersion = protocolVersion
     )
     def update(engine: ExternalEngine) = make(engine.userId).copy(
       _id = engine._id,
@@ -66,7 +69,8 @@ object ExternalEngine:
       "officialStockfish" -> optional(boolean),
       "providerSecret" -> nonEmptyText(16, 1024),
       "providerData" -> optional(text(maxLength = 8192)),
-      "defaultDepth" -> optional(number)
+      "defaultDepth" -> optional(number),
+      "protocolVersion" -> optional(number(min = 0))
     )(FormData.apply)(lila.common.unapply)
   )
 
@@ -80,7 +84,8 @@ object ExternalEngine:
         "maxHash" -> e.maxHash,
         "variants" -> e.variants,
         "providerData" -> e.providerData,
-        "clientSecret" -> e.clientSecret
+        "clientSecret" -> e.clientSecret,
+        "protocolVersion" -> e.protocolVersion.getOrElse(0)
       )
       .add("officialStockfish" -> e.officialStockfish)
   }
