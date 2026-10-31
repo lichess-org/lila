@@ -313,7 +313,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         val angle = PuzzleAngle.findOrMix(~get("angle"))
         val settings = reqSettings(angle)
         FoundOk(selector.nextPuzzleFor(angle, settings.color.map(some), settings.difficulty.some)):
-          env.puzzle.jsonView(_, none, none)
+          env.puzzle.jsonView(_, none, none, true)
 
   def frame = Anon:
     InEmbedContext:
