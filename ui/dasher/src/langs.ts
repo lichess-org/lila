@@ -41,7 +41,7 @@ export class LangsCtrl extends PaneCtrl {
       a('https://crowdin.com/project/lichess')(
         '.help.text',
         { 'data-icon': licon.Heart },
-        'Help translate Lichess',
+        i18n.site.helpTranslateLichess,
       ),
     ]);
 

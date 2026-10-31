@@ -4065,6 +4065,8 @@ interface I18n {
     hangOn: string;
     /** Help: */
     help: string;
+    /** Help translate Lichess */
+    helpTranslateLichess: string;
     /** Hide best move */
     hideBestMove: string;
     /** Host */
