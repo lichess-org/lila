@@ -72,24 +72,25 @@ function monitor(pkgs: string[]) {
       { cwd: env.typesDir, path: '*/package.json' },
       { cwd: env.typesDir, path: '*/*.d.ts' },
       { cwd: env.uiDir, path: '*/package.json' },
-      { cwd: env.uiDir, path: '*/tsconfig.json' },
+      { cwd: env.uiDir, path: 'tsconfig*.json' },
+      { cwd: env.uiDir, path: '*/tsconfig*.json' },
     ],
     debounce: 1000,
     monitorOnly: true,
     execute: async files => {
       // TODO - remove the clean(['ui/*/tsconfig.tsbuildinfo']) nonsense once our typescript release contains
       // https://github.com/microsoft/typescript-go/pull/4665. 7.0.2 does not
-      const cleanTsc = files.some(name => name.endsWith('tsconfig.json') || name.endsWith('.d.ts'));
+      const cleanTsc = files.some(name => /\/tsconfig[^/]*\.json$/.test(name) || name.endsWith('.d.ts'));
       if (files.some(name => name.endsWith('package.json'))) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
-        else if (cleanTsc) await clean(['ui/*/tsconfig.tsbuildinfo']);
+        else if (cleanTsc) await clean(['ui/.build/build/*.tsbuildinfo']);
         build(pkgs);
       } else if (cleanTsc) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
-        await clean(['ui/*/tsconfig.tsbuildinfo']);
+        await clean(['ui/.build/build/*.tsbuildinfo']);
         tsc();
         esbuild();
       }

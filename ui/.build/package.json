@@ -13,6 +13,7 @@
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
     "json-stringify-pretty-compact": "4.0.0",
+    "jsonc-parser": "3.3.1",
     "lightningcss": "^1.33.0",
     "micromatch": "4.0.8",
     "picocolors": "^1.1.1",

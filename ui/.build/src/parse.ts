@@ -15,8 +15,11 @@ export async function parsePackages(): Promise<void> {
     env.packages.set(pkgInfo.name, pkgInfo);
   }
 
+  const moduleNames = new Map([...env.packages.values()].map(pkg => [pkg.pkg.name ?? pkg.name, pkg.name]));
   for (const pkgInfo of env.packages.values()) {
-    const workspaceDeps = Object.keys(pkgInfo.pkg.dependencies ?? {}).filter(dep => env.packages.has(dep));
+    const workspaceDeps = Object.keys(pkgInfo.pkg.dependencies ?? {}).flatMap(
+      dep => moduleNames.get(dep) ?? [],
+    );
     env.workspaceDeps.set(pkgInfo.name, workspaceDeps);
   }
 }
