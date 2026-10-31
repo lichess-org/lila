@@ -34,6 +34,7 @@
   <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private and remain in your draft posts</string>
   <string name="includesPromotedContent">Includes promoted/sponsored content or referral links</string>
   <string name="mandatoryForSponsoredContent">Mandatory for sponsored content, affiliate links or commercial advertisement</string>
+  <string name="containsSponsoredContent">Contains sponsored content, affiliate links or commercial advertisement</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Sticky post</string>
   <string name="stickyPostHelp">When selected, this post will be listed first on your blog and on your profile.</string>
   <plurals name="publishedNbBlogPosts">
