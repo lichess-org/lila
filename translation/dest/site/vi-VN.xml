@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Thiết lập ván đấu</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Thách đấu một người bạn</string>
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>

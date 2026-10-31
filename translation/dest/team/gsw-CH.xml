@@ -39,6 +39,8 @@
   <string name="teamUpdates">Team updates</string>
   <string name="subToTeamUpdates">Team Updates abonniere</string>
   <string name="newTeamUpdate">Neus Team Update</string>
+  <string name="teamUpdatesPerWeek">Du chasch bis zu %1$s Team Updates pro Wuche verschicke. 
+&lt;strong&gt;%2$s&lt;/strong&gt; Updates verblibed bis %3$s.</string>
   <string name="teamEvents">Team Events</string>
   <string name="upcomingTeamEvents">Kommendi Team Events</string>
   <string name="teamsIlead">Teams wo ich leite</string>

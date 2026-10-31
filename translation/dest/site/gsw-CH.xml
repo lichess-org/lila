@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Schpielischtellige</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">En Fründ usefordere</string>
   <string name="playAgainstComputer">Schpill gäge de Computer</string>
   <string name="gameMode">Schpielart</string>
@@ -512,6 +511,7 @@ Fründe im Schpiel: %2$s</string>
   <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
   <string name="pause">Pausiere</string>
   <string name="resume">wieder ischtige</string>
+  <string name="stop">Stop</string>
   <string name="youArePlaying">Dis Schpiel fangt a!</string>
   <string name="winRate">Gwünn Rate</string>
   <string name="performance">Leischtig</string>

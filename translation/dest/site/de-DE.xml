@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Spieleinstellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
   <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
@@ -510,6 +509,7 @@ Freunde am Spielen: %2$s</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
   <string name="pause">Pausieren</string>
   <string name="resume">Fortsetzen</string>
+  <string name="stop">Stopp</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="performance">Turnierleistung</string>

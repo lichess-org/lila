@@ -3,6 +3,8 @@
   <string name="logInAsUsername">Identificar-se com: %s</string>
   <string name="welcome">Benvingut/da!</string>
   <string name="welcomeToLichess">Benvingut/da a lichess.org!</string>
+  <string name="welcomeToLichessX">Benvingut a Lichess, %s!</string>
+  <string name="verifyYourAccount">Verifica el teu compte</string>
   <string name="thisIsYourProfilePage">Aquesta és la teva pàgina de perfil.</string>
   <string name="enabledKidModeSuggestion">Utilitzarà un nen aquest compte? Potser vols habilitar %s.</string>
   <string name="whatNowSuggestions">I ara què? Aquí tens alguns suggeriments:</string>

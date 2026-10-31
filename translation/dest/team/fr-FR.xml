@@ -39,6 +39,7 @@
   <string name="teamUpdates">Mises à jour – équipe</string>
   <string name="subToTeamUpdates">Inscrivez-vous aux mises à jour – équipe</string>
   <string name="newTeamUpdate">Nouvelle mise à jour – équipe</string>
+  <string name="teamUpdatesPerWeek">Vous pouvez envoyer jusqu\'à %1$s mises à jour d\'équipe par semaine. Il reste &lt;strong&gt;%2$s&lt;/strong&gt; mises à jour jusqu\'au %3$s.</string>
   <string name="teamEvents">Tournois d\'équipe</string>
   <string name="upcomingTeamEvents">Tournois d\'équipe à venir</string>
   <string name="teamsIlead">Équipes que je gère</string>
