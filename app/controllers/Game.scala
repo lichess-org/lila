@@ -37,19 +37,18 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     else
       Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
         given Option[Me] = ctx.isFullAuth.so(ctx.me)
-        RequireAuthIf(!game.isStrongOrRecent):
-          val config = OneConfig(
-            format = Format.byRequest,
-            imported = getBool("imported"),
-            flags = requestPgnFlags(extended = true)
-          )
-          for
-            content <- env.api.gameApiV2.exportOne(game, config)
-            filename <- env.api.gameApiV2.filename(game, config.format)
-          yield Ok(content)
-            .asAttachment(filename)
-            .withHeaders(headersForApiOrApp*)
-            .as(gameContentType(config))
+        val config = OneConfig(
+          format = Format.byRequest,
+          imported = getBool("imported"),
+          flags = requestPgnFlags(extended = ctx.isAuth || game.isStrongOrRecent)
+        )
+        for
+          content <- env.api.gameApiV2.exportOne(game, config)
+          filename <- env.api.gameApiV2.filename(game, config.format)
+        yield Ok(content)
+          .asAttachment(filename)
+          .withHeaders(headersForApiOrApp*)
+          .as(gameContentType(config))
 
   def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
