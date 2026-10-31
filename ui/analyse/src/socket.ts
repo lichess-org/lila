@@ -2,7 +2,7 @@ import { ops as treeOps } from 'lib/tree/tree';
 import type { Shape } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
-import type { EvalGetData, EvalPutData, Opening, AnalysisUpdate } from './interfaces';
+import type { EvalGetData, EvalHit, EvalPutData, Opening, AnalysisUpdate } from './interfaces';
 import type { AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import type { FormData as StudyFormData } from './study/studyForm';
 
@@ -102,7 +102,9 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
     analysisProgress(data: AnalysisUpdate) {
       ctrl.mergeServerAnalysisData(data);
     },
-    evalHit: ctrl.evalCache.onCloudEval,
+    evalHit(hit: EvalHit) {
+      ctrl.evalCache.onCloudEval(hit);
+    },
   };
 
   function withoutStandardVariant(obj: { variant?: VariantKey }) {

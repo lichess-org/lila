@@ -67,3 +67,13 @@ $c-study-button: $c-accent;
   content: '⁉';
   font-size: 1.2em;
 }
+
+button.study-db-button {
+  padding: 4px;
+  font-size: 18px;
+  color: $c-font-dim;
+}
+
+body:has(dialog .study-db) button.study-db-button {
+  color: $c-primary;
+}

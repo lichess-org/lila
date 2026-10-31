@@ -1,0 +1,148 @@
+.study-db {
+  .bookmark-controls {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 4px;
+    margin: 8px;
+
+    .study-filter {
+      flex: 1;
+      margin: 0;
+      margin-inline-end: 4px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      font-size: 14px;
+    }
+  }
+
+  .bookmark-name {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  @include mq-has-hover {
+    .bookmark-rename {
+      visibility: hidden;
+    }
+
+    .bookmark-new-folder:hover {
+      color: $c-primary;
+    }
+
+    .bookmark-delete:not(:disabled):hover {
+      color: $c-bad;
+    }
+  }
+
+  .bookmark-name:hover .bookmark-rename {
+    visibility: visible;
+  }
+
+  .bookmark-rename {
+    font-size: 12px;
+    padding-top: 0;
+    color: $c-font-dim;
+
+    &:hover,
+    &:focus-visible {
+      color: $c-primary;
+    }
+  }
+
+  .bookmark-delete:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .bookmarks-body {
+    display: flex;
+    flex-direction: column;
+
+    > .studies {
+      flex: none;
+    }
+  }
+
+  .bookmark-row {
+    position: relative;
+    grid-template-columns: 12px 20px minmax(0, 1fr) 28px 18px max-content;
+    padding-inline-start: calc(4px + var(---bookmark-depth) * 12px);
+  }
+
+  .bookmark-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: $c-font-dim;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .bookmark-row[aria-expanded='true'] > .bookmark-toggle svg {
+    transform: rotate(90deg);
+  }
+
+  .bookmark-rename-form {
+    display: flex;
+    gap: 4px;
+    min-width: 0;
+
+    input {
+      min-width: 0;
+      width: 100%;
+      padding: 0 4px;
+    }
+
+    button {
+      flex: 0 0 24px;
+      padding: 0;
+      border: 0;
+      color: $c-primary;
+      background: none;
+    }
+  }
+
+  .bookmark-end {
+    position: relative;
+    flex: 1 0 48px;
+    text-align: center;
+  }
+
+  .bookmark-row[data-bookmark-drop]::after,
+  .bookmark-end[data-bookmark-drop]::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset-inline: calc(4px + var(---bookmark-depth, 0) * 12px) 0;
+    bottom: -1px;
+    height: 2px;
+    background: $c-primary;
+    pointer-events: none;
+  }
+
+  .bookmark-row[data-bookmark-drop='before']::after,
+  .bookmark-end[data-bookmark-drop]::after {
+    top: -1px;
+    bottom: auto;
+  }
+
+  .bookmark-row[data-bookmark-drop='inside']::after {
+    inset-inline-start: calc(16px + var(---bookmark-depth) * 12px);
+  }
+}

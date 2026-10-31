@@ -67,6 +67,11 @@ type RedirectToObj = { id: string; url: string; cookie?: Cookie };
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
   unbind(key: string): void;
+  unbind(
+    combination: string,
+    callback: (e: KeyboardEvent) => void,
+    action?: 'keypress' | 'keydown' | 'keyup',
+  ): void;
   bind(
     keys: string | string[],
     callback: (e: KeyboardEvent) => void,

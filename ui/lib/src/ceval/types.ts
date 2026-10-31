@@ -142,7 +142,7 @@ export interface PvBoard {
 }
 
 export interface CevalHandler {
-  ceval: CevalCtrl;
+  ceval?: CevalCtrl;
   nextNodeBest(): string | undefined;
   toggleThreatMode(v?: boolean): void;
   showEvalGauge: Prop<boolean>;

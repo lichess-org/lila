@@ -1,46 +1,41 @@
-export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void {
+export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): () => void {
   const events = ['mousemove', 'touchstart'];
 
-  let listening = false;
-  let active = true;
-  let lastSeenActive = performance.now();
+  let lastSeenActive: number | undefined = performance.now();
 
   const onActivity = () => {
-    if (!active) {
+    if (interval === undefined) return;
+    if (lastSeenActive === undefined) {
       // console.log('Wake up');
       onWakeUp();
     }
-    active = true;
     lastSeenActive = performance.now();
     stopListening();
   };
 
-  const startListening = () => {
-    if (!listening) {
-      events.forEach(e => document.addEventListener(e, onActivity));
-      listening = true;
-    }
-  };
-
   const stopListening = () => {
-    if (listening) {
-      events.forEach(e => document.removeEventListener(e, onActivity));
-      listening = false;
-    }
+    events.forEach(e => document.removeEventListener(e, onActivity));
   };
 
-  setInterval(() => {
-    if (active && performance.now() - lastSeenActive > delay) {
+  let interval: ReturnType<typeof setInterval> | undefined = setInterval(() => {
+    if (interval === undefined) return;
+    if (lastSeenActive !== undefined && performance.now() - lastSeenActive > delay) {
       // console.log('Idle mode');
+      lastSeenActive = undefined;
       onIdle();
-      active = false;
     }
-    startListening();
+    if (interval !== undefined) events.forEach(e => document.addEventListener(e, onActivity));
   }, 10000);
+
+  return () => {
+    clearInterval(interval);
+    interval = undefined;
+    stopListening();
+  };
 }
 
-export class Janitor {
-  private readonly cleanupTasks: (() => void)[] = [];
+export class Reaper {
+  private cleanupTasks?: (() => void)[] = [];
 
   addListener<T extends EventTarget, E extends Event>(
     target: T,
@@ -49,13 +44,25 @@ export class Janitor {
     options?: boolean | AddEventListenerOptions,
   ): void {
     target.addEventListener(type, listener, options);
-    this.cleanupTasks.push(() => target.removeEventListener(type, listener, options));
+    this.addCleanup(() => target.removeEventListener(type, listener, options));
   }
-  addCleanupTask(task: () => void): void {
-    this.cleanupTasks.push(task);
+
+  addCleanup(...task: (() => void)[]): void {
+    if (!this.cleanupTasks) task.forEach(t => t());
+    else this.cleanupTasks.push(...task);
   }
+
+  dispose(): void {
+    const tasks = this.cleanupTasks;
+    this.cleanupTasks = undefined;
+    for (const task of tasks ?? []) task();
+  }
+
+  get disposed(): boolean {
+    return this.cleanupTasks === undefined;
+  }
+
   cleanup(): void {
-    for (const task of this.cleanupTasks) task();
-    this.cleanupTasks.length = 0;
+    for (const task of this.cleanupTasks?.splice(0) ?? []) task();
   }
 }

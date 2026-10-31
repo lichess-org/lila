@@ -22,7 +22,8 @@ case class Study(
     topics: Option[StudyTopics] = None,
     flair: Option[Flair] = None,
     createdAt: Instant,
-    updatedAt: Instant
+    updatedAt: Instant,
+    metadataRevision: Long = 0
 ) extends hub.Study:
 
   import Study.*

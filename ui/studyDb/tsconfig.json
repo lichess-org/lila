@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": { "emitDeclarationOnly": true, "isolatedDeclarations": false },
+  "references": [{ "path": "../lib/tsconfig.json" }]
+}

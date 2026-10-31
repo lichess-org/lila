@@ -6,7 +6,7 @@ import { parseFen } from 'chessops/fen';
 import { type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 
-import { clamp } from '@/algo';
+import { clamp, isEquivalent } from '@/algo';
 import { throttleWithFlush } from '@/async';
 import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
@@ -86,7 +86,6 @@ export class CevalCtrl {
     disableLeakyAtomicsWaitAsync();
 
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
 
     // another tab has started ceval, we should stop:
@@ -110,7 +109,13 @@ export class CevalCtrl {
   }
 
   init(opts?: CevalOpts): void {
-    if (opts) this.opts = opts;
+    if (opts) {
+      if (JSON.stringify(opts.externalEngines) !== JSON.stringify(this.opts.externalEngines))
+        this.engines.externalEngines =
+          opts.externalEngines?.map(engine => ({ tech: 'EXTERNAL', preferred: true, ...engine })) ?? [];
+      this.opts = opts;
+    }
+    this.storedEngine = storedStringProp(`ceval.engine.${this.opts.variant.key}`, '');
     this.reset();
     this.rules = lichessRules(this.opts.variant.key);
     const pos = this.opts.initialFen
@@ -125,8 +130,8 @@ export class CevalCtrl {
     this.analysable =
       !pos?.isErr &&
       !!this.engines.getEngine({ rules: this.rules, nonStandardMaterial: this.nonStandardMaterial });
-    this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
-    if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
+    const active = this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
+    if (!isEquivalent(this.worker?.getInfo(), active)) this.unload();
   }
 
   available(): boolean {
@@ -400,6 +405,7 @@ export class CevalCtrl {
       dontStop: Boolean(this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
+      if (working.started !== this.lastStarted) return;
       this.curEval = ev;
       if (working.movetime && ev.bestmove && ev.bestmove !== '(none)') {
         ev.millis = Math.max(ev.millis, working.movetime);
@@ -418,9 +424,10 @@ export class CevalCtrl {
       working.emit(ev, meta);
     });
     return (ev: LocalEval | undefined, meta: EvalMeta) => {
+      if (working.started !== this.lastStarted) return emitter.clear();
       if (!ev) {
         working.emit(undefined, meta); // report error
-      } else if (working.started === this.lastStarted && (!working.fen || working.fen === ev.fen)) {
+      } else if (!working.fen || working.fen === ev.fen) {
         pubsub.emit('analysis.eval', structuredClone(ev), meta);
         if (ev.bestmove) emitter.flush(ev, meta);
         else emitter(ev, meta);

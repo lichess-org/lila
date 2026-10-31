@@ -4,6 +4,11 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.{ AtomicBoolean, AtomicReference }
+import scala.concurrent.Promise
+import scala.jdk.CollectionConverters.*
+
 import lila.core.config.*
 import lila.core.security.LilaCookie
 import lila.core.socket.{ GetVersion, SocketVersion }
@@ -35,7 +40,8 @@ final class Env(
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
-    baker: LilaCookie
+    baker: LilaCookie,
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
 )(using
     Executor,
     Scheduler,
@@ -58,6 +64,7 @@ final class Env(
 
   val studyRepo = StudyRepo(studyDb(CollName("study")))
   val chapterRepo = ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  val bookmarks = StudyBookmarks(studyDb(CollName("study_bookmarks")))
   private val topicRepo = StudyTopicRepo(studyDb(CollName("study_topic")))
   private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
@@ -114,6 +121,41 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
       _ <- api.deletePrivateByOwner(del.id)
+      searchIds <- studyRepo.searchIdsTouchedByUserDelete(del.id)
       _ <- studyRepo.anonymizeAllOf(del.id)
+      _ = searchIds.foreach(id => lila.common.Bus.pub(lila.core.study.IndexStudySearch(id)))
       _ <- topicApi.userTopicsDelete(del.id)
+      _ <- bookmarks.delete(del.id)
     yield ()
+
+  private val pendingRevisions = ConcurrentHashMap[StudyId, Long]()
+  private val revisionWrite = AtomicReference[Funit](funit)
+  private val shuttingDown = AtomicBoolean(false)
+  private val revisionFlush = summon[Scheduler].scheduleWithFixedDelay(5.seconds, 5.seconds): () =>
+    flushPendingRevisions().logFailure(logger)
+
+  lila.common.Bus.sub[lila.core.study.IndexStudySearch]: event =>
+    pendingRevisions.merge(event.studyId, 1L, _ + _)
+    if shuttingDown.get || event.now then flushPendingRevisions().logFailure(logger)
+
+  lila.common.Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "flush study metadata revisions"): () =>
+    shuttingDown.set(true)
+    revisionFlush.cancel()
+    flushPendingRevisions()
+
+  private def flushPendingRevisions(): Funit =
+    val completed = Promise[Unit]()
+    revisionWrite
+      .getAndSet(completed.future)
+      .transformWith: _ =>
+        val revisions = pendingRevisions.keys.asScala.toList
+          .map(studyId => studyId -> pendingRevisions.remove(studyId))
+          .filter(_._2 > 0)
+        studyRepo
+          .incrementMetadataRevisions(revisions.toMap)
+          .recoverWith:
+            case e =>
+              revisions.foreach((id, count) => pendingRevisions.merge(id, count, _ + _))
+              fufail(e)
+      .onComplete(completed.complete)
+    completed.future

@@ -1,7 +1,7 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import play.api.libs.json.Json
+import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 
 import lila.common.HTTPRequest

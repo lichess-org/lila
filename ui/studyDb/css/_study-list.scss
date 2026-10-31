@@ -1,0 +1,258 @@
+@mixin study-db-input {
+  min-width: 0;
+  padding: 6px 8px;
+  border: $border;
+  border-radius: $box-radius-size;
+  color: $c-font;
+  cursor: text;
+}
+
+.study-db {
+  .study-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 0 8px 8px;
+    touch-action: pan-y;
+  }
+
+  .study-filter {
+    @include study-db-input;
+
+    flex: none;
+    margin: 8px;
+
+    &:focus-visible {
+      outline: 2px solid $c-primary;
+      outline-offset: -2px;
+    }
+  }
+
+  .scroll-boundary {
+    height: 1px;
+  }
+
+  .studies {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .study-row {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) 28px 18px max-content;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 4px;
+    border-bottom: 1px solid hsl(from $c-border h s l / 0.5);
+    color: $c-font;
+    cursor: default;
+
+    &:hover,
+    &:focus-within {
+      background: $c-bg-zebra;
+    }
+
+    &.selected {
+      background: color-mix(in oklab, $c-primary 40%, $c-bg-high);
+    }
+
+    &[draggable='true'] {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $c-primary;
+      outline-offset: -2px;
+    }
+  }
+
+  .study-icon {
+    width: 20px;
+    height: 20px;
+    color: $c-font-dim;
+
+    &::before {
+      vertical-align: unset;
+    }
+  }
+
+  .study-navigation {
+    display: contents;
+  }
+
+  .study-chapter-count {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    white-space: nowrap;
+    color: $c-font-dim;
+    font-size: 12px;
+
+    &::after {
+      padding-inline-start: 3px;
+      font-family: lichess;
+      font-size: 10px;
+      content: $licon-DownTriangle;
+    }
+  }
+
+  .study-navigate {
+    display: inline-flex;
+    align-items: center;
+    justify-self: end;
+    height: 28px;
+    color: $c-font-dim;
+    font-size: 16px;
+  }
+
+  .study-navigate,
+  .study-chapter-count,
+  .study-icon[tabindex] {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $c-primary;
+      outline-offset: -2px;
+    }
+  }
+
+  .study-navigate:hover {
+    color: $c-primary;
+  }
+
+  .study-chapter-count:hover,
+  .study-icon[tabindex]:hover {
+    color: $c-font-clear !important;
+  }
+
+  .study-content {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 2px 6px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+
+    > * {
+      max-width: 100%;
+    }
+
+    button::before {
+      vertical-align: unset;
+    }
+  }
+
+  .study-name {
+    color: $c-font-clear;
+  }
+
+  .study-chapter {
+    font-size: 12px;
+    color: $c-font-dim;
+  }
+
+  .study-matches {
+    grid-column: 1 / -1;
+    padding: 4px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: $c-font-dim;
+  }
+
+  .study-name mark,
+  .bookmark-name mark,
+  .study-match mark {
+    padding: 0;
+    background: color-mix(in oklab, $c-brag 35%, transparent);
+    color: $c-font-clear;
+    font-weight: bold;
+  }
+
+  .study-match-chapter {
+    color: $c-font;
+  }
+
+  .study-public {
+    align-self: center;
+    font-size: 11px;
+    color: hsl(from $c-font h s l / 0.5);
+  }
+
+  .status,
+  .error {
+    padding: 16px 8px;
+    overflow-wrap: anywhere;
+    cursor: default;
+  }
+
+  .status {
+    text-align: center;
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .error {
+    color: $c-bad;
+
+    button {
+      display: block;
+      margin-top: 8px;
+      color: $c-font;
+      cursor: pointer;
+    }
+  }
+}
+
+#studyContentPreview {
+  position: absolute;
+  visibility: hidden;
+  z-index: $z-modal-alert-200 + 1;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 16px));
+  overflow-y: auto;
+  padding: 8px;
+  border: $border;
+  border-radius: $box-radius-size;
+  background: opaque($c-bg-high);
+  color: $c-font;
+  box-shadow: 0 4px 12px #0003;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 4px;
+  }
+
+  hr {
+    margin: 8px 0 6px;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+
+    &:hover,
+    &:focus-visible {
+      color: $c-primary;
+    }
+  }
+}

@@ -367,7 +367,7 @@ const noEvalStr = (ctrl: AnalyseCtrl) =>
       : '';
 
 function toggleLocalEvaluation(ctrl: AnalyseCtrl): void {
-  if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+  if (ctrl.isCevalAllowed() && ctrl.ceval?.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
 }
 
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
@@ -381,7 +381,7 @@ function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
   } else if (node.ceval) pvs = node.ceval.pvs;
-  const pos = setupPosition(lichessRules(ctrl.ceval.opts.variant.key), setup);
+  const pos = setupPosition(lichessRules(ctrl.variantKey), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);

@@ -49,7 +49,7 @@ export class FilterPane extends Pane {
     this.el.firstElementChild?.append(tabs);
     this.graphEl = frag<HTMLElement>(`<div class="graph-wrapper"><canvas></canvas></div>`);
     this.el.append(this.graphEl);
-    this.host.janitor.addCleanupTask(() => this.graph?.destroy());
+    this.host.reaper.addCleanup(() => this.graph?.destroy());
   }
 
   setEnabled(enabled?: boolean): boolean {

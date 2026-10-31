@@ -107,7 +107,7 @@ export const formToXhr = (el: HTMLFormElement, submitter?: HTMLButtonElement): P
     : Promise.reject(new Error(`Form has no action: ${el}`));
 };
 
-export type ProcessLine<T> = (line: T) => void;
+export type ProcessLine<T> = (line: T) => void | Promise<void>;
 
 /*
  * `response` is the result of a `fetch` request.
@@ -127,7 +127,7 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
     buf += decoder.decode(value || new Uint8Array(), { stream: !done });
     const parts = buf.split(matcher);
     if (!done) buf = parts.pop()!;
-    for (const part of parts) if (part) processLine(JSON.parse(part));
+    for (const part of parts) if (part) await processLine(JSON.parse(part));
   } while (!done);
 };
 

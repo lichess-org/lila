@@ -28,6 +28,7 @@ export class ChatCtrl {
   private maxLinesDrop = 50; // how many lines to drop at once
   private readonly storedTabKey: Prop<string>;
   private readonly allTabs: Tab[] = [];
+  private readonly subs: SubPair[] = [];
 
   chatEnabled: Prop<boolean>;
   moderation?: ModerationCtrl;
@@ -74,14 +75,14 @@ export class ChatCtrl {
 
     this.instanciateModeration();
 
-    const subs: SubPair[] = [
+    this.subs.push(
       ['socket.in.message', this.onMessage],
       ['socket.in.chat_timeout', this.onTimeout],
       ['socket.in.chat_reinstate', this.onReinstate],
       ['chat.writeable', this.onWriteable],
       ['chat.permissions', this.onPermissions],
-    ];
-    subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
+    );
+    this.subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
   }
 
   get isOptional(): boolean {
@@ -115,7 +116,16 @@ export class ChatCtrl {
     return true;
   };
 
-  listenToIncoming = (cb: (line: Line) => void): void => pubsub.on('socket.in.message', cb);
+  listenToIncoming = (cb: (line: Line) => void): void => {
+    this.subs.push(['socket.in.message', cb]);
+    pubsub.on('socket.in.message', cb);
+  };
+
+  destroy = (): void => {
+    this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
+    this.subs.length = 0;
+    if (this.plugin?.redraw === this.redraw) this.plugin.redraw = undefined;
+  };
 
   private readonly onTimeout = (userId: string): void => {
     let change = false;

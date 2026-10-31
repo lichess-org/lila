@@ -255,6 +255,7 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup] = Macros.handler
+  given BSONDocumentHandler[Chapter.Metadata] = Macros.handler
   given BSONHandler[Option[FideId]] = quickHandler(
     { case BSONInteger(v) => (v > 0).option(FideId(v)) },
     id => BSONInteger(id.so(_.value))
@@ -360,4 +361,5 @@ object BSONHandlers:
     private val writer = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer.writeTry(s).get
 
-  given studyHandler: BSONDocumentHandler[Study] = Macros.handler
+  given studyHandler: BSONDocumentHandler[Study] =
+    Macros.handlerOpts[Study, MacroOptions.ReadDefaultValues]

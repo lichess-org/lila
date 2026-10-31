@@ -5,12 +5,12 @@ import reactivemongo.api.bson.BSONDocument
 import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.common.LilaFuture.delay
+import lila.core.config.RateLimit
 import lila.core.shutup.ShutupApi
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
 import lila.core.{ LightUser, timeline as tl }
-import lila.core.config.RateLimit
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi
@@ -26,7 +26,8 @@ final class UblogApi(
     ublogAutomod: UblogAutomod,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    searchApi: lila.search.SearchClient
 )(using Executor, Scheduler, RateLimit)
     extends lila.core.ublog.UblogApi:
 
@@ -50,7 +51,8 @@ final class UblogApi(
     blog <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
-    _ <- colls.post.update.one(bid(prev.id), set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- colls.post.update.one(bid(prev.id), bset(bsonWriteObjTry[UblogPost](post).get))
+    _ <- searchApi.upsert(lila.search.SearchClient.Index.Ublog, post.id)
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
@@ -237,6 +239,7 @@ final class UblogApi(
 
   def delete(post: UblogPost): Funit = for
     _ <- colls.post.delete.one(bid(post.id))
+    _ <- searchApi.delete(lila.search.SearchClient.Index.Ublog, post.id)
     _ <- image.deleteAll(post)
   yield ()
 
@@ -290,6 +293,7 @@ final class UblogApi(
       case Some(id, likes, tier, title) =>
         for
           _ <- colls.post.updateField(bid(postId), "likes", likes)
+          _ <- (res.nModified > 0).so(searchApi.upsert(lila.search.SearchClient.Index.Ublog, id))
           _ =
             if res.nModified > 0 && v && tier > Tier.HIDDEN
             then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
@@ -380,6 +384,17 @@ final class UblogApi(
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isPatron
     )
   )
+
+  def filterVisiblePosts(
+      ids: Seq[UblogPostId]
+  ): Fu[Map[UblogPostId, UblogPost.PreviewPost]] = ids.nonEmpty.so:
+    colls.post
+      .aggregateList(ids.size, _.sec): framework =>
+        import framework.*
+        Match(inIds(ids) ++ bdoc("live" -> true)) ->
+          removeUnlistedOrClosedAndProjectForPreview(colls.post, framework)
+      .map: docs =>
+        docs.flatMap(_.asOpt[UblogPost.PreviewPost]).mapBy(_.id)
 
   private[ublog] def aggregateVisiblePosts(
       select: Bdoc,

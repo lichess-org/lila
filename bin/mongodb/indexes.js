@@ -315,13 +315,13 @@ db.security.createIndex({ ip: 1 });
 db.security.createIndex({ fp: 1 }, { sparse: 1 });
 db.study.createIndex({ ownerId: 1, createdAt: -1 });
 db.study.createIndex({ likes: 1, createdAt: -1 });
-db.study.createIndex({ ownerId: 1, updatedAt: -1 });
+db.study.createIndex({ ownerId: 1, updatedAt: -1, _id: -1 });
 db.study.createIndex({ likes: 1, updatedAt: -1 });
 db.study.createIndex({ rank: -1 });
 db.study.createIndex({ createdAt: -1 });
 db.study.createIndex({ updatedAt: -1 });
 db.study.createIndex({ likers: 1 });
-db.study.createIndex({ uids: 1 });
+db.study.createIndex({ uids: 1, updatedAt: -1, _id: -1 });
 db.study.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
 db.study.createIndex({ topics: 1, createdAt: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
 db.study.createIndex({ topics: 1, updatedAt: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
@@ -372,3 +372,6 @@ db.relay_delay.createIndex({ at: 1 }, { expireAfterSeconds: 7200 });
 db.ranking.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.ranking.createIndex({ perf: 1, rating: -1 }, { partialFilterExpression: { stable: true } });
 db.ranking.createIndex({ perf: 1, rating: -1, expiresAt: -1 }, { partialFilterExpression: { stable: true } });
+
+// see bin/elastic/ingest.ts
+db.elasticsearch_events.createIndex({ index: 1, createdAt: 1, _id: 1 });

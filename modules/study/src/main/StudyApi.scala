@@ -13,7 +13,7 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.study.Node.extensions.*
+import lila.study.Node.extensions.deleteNodeAtAndPruneComp
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
@@ -501,7 +501,7 @@ final class StudyApi(
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           for
-            _ <- newName.so(chapterRepo.setName(chapterId, _))
+            _ <- newName.so(chapterRepo.setName(chapter, _))
             _ <- doSetTags(study, chapter, tags, who)
           yield setStudyUpdated(study)
 
@@ -509,7 +509,10 @@ final class StudyApi(
     (tags != oldChapter.tags).so:
       val chapter = oldChapter.copy(tags = tags)
       for
-        _ <- chapterRepo.setTagsFor(chapter)
+        _ <- chapterRepo
+          .setTagsFor(chapter)
+          .addEffect: _ =>
+            if !study.isRelay then studyRepo.updateElasticIndex(study.id)
         _ <- StudyPgnTags
           .setRootClockFromTags(chapter)
           .so: c =>
@@ -717,6 +720,7 @@ final class StudyApi(
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
               if shouldUpdateChapterPreviews then invalidateAndSendChapterPreviews(study)
               setStudyUpdated(study)
+              studyRepo.updateElasticIndex(study.id)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -728,7 +732,9 @@ final class StudyApi(
           )
           (chapter != newChapter).so:
             for _ <- chapterRepo.update(newChapter)
-            yield sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
+            yield
+              studyRepo.updateElasticIndex(study.id)
+              sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
         }
 
   def deleteChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -756,7 +762,7 @@ final class StudyApi(
                   val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
                   newIdOpt.so: newId =>
                     doSetChapter(study, newId, who)
-            _ <- chapterRepo.delete(chapter.id)
+            _ <- chapterRepo.delete(chapter)
           yield
             if chapter.serverEval.isDefined
             then Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterId :: Nil))
@@ -834,7 +840,10 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       (study.visibility != visibility).so:
         for _ <- studyRepo.updateSomeFields(study.copy(visibility = visibility))
-        yield sendTo(study.id)(_.reloadAll)
+        yield
+          if study.visibility == hub.Visibility.public && visibility != study.visibility then
+            studyRepo.updateElasticIndex(study.id, now = true)
+          sendTo(study.id)(_.reloadAll)
 
   def addTopics(studyId: StudyId, topics: List[String]) =
     sequenceStudy(studyId): study =>
@@ -857,7 +866,10 @@ final class StudyApi(
               )
             (newStudy != study).so:
               for _ <- studyRepo.updateSomeFields(newStudy)
-              yield sendTo(study.id)(_.reloadAll)
+              yield
+                if study.visibility == hub.Visibility.public && newStudy.visibility != study.visibility then
+                  studyRepo.updateElasticIndex(study.id, now = true)
+                sendTo(study.id)(_.reloadAll)
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
@@ -875,6 +887,7 @@ final class StudyApi(
   def deletePrivateByOwner(userId: UserId): Funit = for
     studyIds <- studyRepo.deletePrivateByOwner(userId)
     _ <- studyIds.sequentiallyVoid: studyId =>
+      lila.common.Bus.pub(lila.core.study.RemoveStudy(studyId))
       for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, true)
       yield Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
     _ <- chapterRepo.deleteByStudyIds(studyIds)

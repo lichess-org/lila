@@ -9,6 +9,7 @@ let
   pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
   pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
   sasso = inputs.sasso.packages.${pkgs.stdenv.system}.default;
+  pkgs-elasticsearch = import inputs.nixpkgs-elasticsearch { system = pkgs.stdenv.system; };
 in
 {
   env = {
@@ -35,6 +36,8 @@ in
   services = {
     mongodb.enable = true;
     redis.enable = true;
+    elasticsearch.enable = true;
+    elasticsearch.package = pkgs-elasticsearch.elasticsearch8;
   };
 
   processes = {

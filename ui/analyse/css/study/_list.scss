@@ -78,7 +78,7 @@
   }
 }
 
-.study-list {
+main .study-list {
   @include mq-less-than-col3 {
     min-height: 16em;
     max-height: 16em;

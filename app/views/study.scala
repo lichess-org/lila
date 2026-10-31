@@ -51,6 +51,34 @@ def create(
     )
     .css("analyse.study.create")(ui.create(data, owner, contrib))
 
+def studyJson(
+    s: lila.study.Study,
+    data: lila.study.JsonView.JsData,
+    chatOption: Option[lila.chat.UserChat.Mine],
+    socketVersion: SocketVersion
+)(using ctx: Context) =
+  Json.obj(
+    "study" -> data.study
+      .add("admin", isGranted(_.StudyAdmin))
+      .add("showRatings", ctx.pref.showRatings),
+    "data" -> data.analysis,
+    "tagTypes" -> lila.study.StudyPgnTags.typesToString,
+    "userId" -> ctx.userId,
+    "chat" -> chatOption.map: c =>
+      views.chat.json(
+        c.chat,
+        c.lines,
+        name = trans.site.chatRoom.txt(),
+        timeout = c.timeout,
+        writeable = ctx.userId.exists(s.canChat),
+        public = true,
+        resource = lila.core.chat.PublicSource.Study(s.id),
+        localMod = ctx.userId.exists(s.canContribute)
+      ),
+    "socketUrl" -> socketUrl(s.id),
+    "socketVersion" -> socketVersion
+  ) ++ views.analyse.ui.explorerAndCevalConfig
+
 def show(
     s: lila.study.Study,
     chapter: lila.study.Chapter,
@@ -71,27 +99,7 @@ def show(
     .js(
       PageModule(
         "analyse.study",
-        Json.obj(
-          "study" -> data.study
-            .add("admin", isGranted(_.StudyAdmin))
-            .add("showRatings", ctx.pref.showRatings),
-          "data" -> data.analysis,
-          "tagTypes" -> lila.study.StudyPgnTags.typesToString,
-          "userId" -> ctx.userId,
-          "chat" -> chatOption.map: c =>
-            views.chat.json(
-              c.chat,
-              c.lines,
-              name = trans.site.chatRoom.txt(),
-              timeout = c.timeout,
-              writeable = ctx.userId.exists(s.canChat),
-              public = true,
-              resource = lila.core.chat.PublicSource.Study(s.id),
-              localMod = ctx.userId.exists(s.canContribute)
-            ),
-          "socketUrl" -> socketUrl(s.id),
-          "socketVersion" -> socketVersion
-        ) ++ views.analyse.ui.explorerAndCevalConfig
+        studyJson(s, data, chatOption, socketVersion)
       )
     )
     .flag(_.noRobots, !s.isPublic)

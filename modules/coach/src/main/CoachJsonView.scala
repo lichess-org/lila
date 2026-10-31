@@ -1,10 +1,10 @@
 package lila.coach
 
-import play.api.libs.json.*
-import play.api.i18n.Lang
-import scalalib.paginator.Paginator
-import scalalib.Json.given
 import monocle.syntax.all.*
+import play.api.i18n.Lang
+import play.api.libs.json.*
+import scalalib.Json.given
+import scalalib.paginator.Paginator
 
 import lila.common.Json.{ writeAs, given }
 import lila.core.id.ImageId

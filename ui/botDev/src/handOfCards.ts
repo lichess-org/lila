@@ -1,6 +1,6 @@
 import { frag } from 'lib';
 import { clamp, isEquivalent } from 'lib/algo';
-import { Janitor } from 'lib/event';
+import { Reaper } from 'lib/event';
 
 export interface CardData {
   imageUrl?: string;
@@ -17,7 +17,7 @@ export interface HandOfCards {
   remove(): void;
   resize(): void;
   redraw(): void;
-  events: Janitor;
+  events: Reaper;
 }
 
 export function handOfCards(opts: HandOpts): HandOfCards {
@@ -58,7 +58,7 @@ class HandOfCardsImpl {
     transform?: { x: number; y: number; angle: number };
     shape?: TouchDragShape;
   };
-  events: Janitor = new Janitor();
+  events: Reaper = new Reaper();
   rect: DOMRect;
   deckRect: DOMRect;
   lastCardData: CardData[];

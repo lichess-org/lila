@@ -4,7 +4,7 @@ import { frag } from 'lib';
 import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
-import { Janitor } from 'lib/event';
+import { Reaper } from 'lib/event';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
@@ -39,7 +39,7 @@ export class EditDialog {
   uid: string;
   panes: Panes;
   scratch: Map<string, WritableBot> = new Map();
-  janitor: Janitor = new Janitor();
+  reaper: Reaper = new Reaper();
 
   constructor(readonly color: Color) {
     this.view = frag<HTMLElement>($html`
@@ -63,11 +63,11 @@ export class EditDialog {
       closeButton: true,
       insert: [{ nodes: this.view }],
       actions: this.actions,
-      onClose: () => this.janitor.cleanup(),
+      onClose: () => this.reaper.cleanup(),
       onShow: () => this.deck.resize(),
     });
     pubsub.on('botdev.import.book', this.onBookImported);
-    this.janitor.addCleanupTask(() => pubsub.off('botdev.import.book', this.onBookImported));
+    this.reaper.addCleanup(() => pubsub.off('botdev.import.book', this.onBookImported));
     return this.dlg.show();
   }
 
@@ -193,7 +193,7 @@ export class EditDialog {
   }
 
   private makeEditView(): void {
-    this.janitor?.cleanup();
+    this.reaper?.cleanup();
     this.panes = new Panes();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = '';

@@ -26,8 +26,7 @@ import type { CevalCtrl } from '../ctrl';
 export const searchTicks: number[] = [1, 2, 4, 6, 8, 10, 12, 15, 20, 30];
 if (!isMobile()) searchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
 
-export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
-  const ceval = ctrl.ceval;
+export function renderCevalSettings(ctrl: CevalHandler, ceval: CevalCtrl): VNode | null {
   const info = ceval.info();
   const engine = ceval.engines.active();
   if (!ceval.showEnginePrefs() || !engine || !info) {
@@ -71,7 +70,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
         ),
       },
       [
-        engineSelection(ctrl),
+        engineSelection(ctrl, ceval),
         (id => {
           return div('.setting', { title: i18n.site.searchTimeDescription }, [
             label({ for: id }, i18n.site.searchTime),
@@ -204,8 +203,7 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
   $(tick).toggleClass('recommended', ceval.info()?.threads === ceval.recommendedThreads);
 }
 
-function engineSelection(ctrl: CevalHandler) {
-  const ceval = ctrl.ceval;
+function engineSelection(ctrl: CevalHandler, ceval: CevalCtrl) {
   const active = ceval.engines.active();
   const engines = ceval.engines.supporting({
     rules: ceval.rules,

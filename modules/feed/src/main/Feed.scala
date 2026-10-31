@@ -19,6 +19,7 @@ import lila.core.user.FlairApi
 object Feed:
 
   type ID = String
+  given scalalib.newtypes.SameRuntime[ID, String] = identity
 
   case class Update(
       @Key("_id") id: ID,
@@ -45,13 +46,14 @@ final class FeedApi(
     cacheApi: CacheApi,
     flairApi: FlairApi,
     jsonView: FeedJsonView,
-    feedMarkdown: FeedMarkdown
+    feedMarkdown: FeedMarkdown,
+    elastic: lila.search.SearchClient
 )(using
     Executor,
     Scheduler
 ):
-
-  import Feed.*
+  import Feed.{ *, given }
+  import lila.search.SearchClient.*
 
   private val max = Max(50)
 
@@ -86,10 +88,17 @@ final class FeedApi(
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
   def set(update: Update): Funit =
-    for _ <- coll.update.one(bid(update.id), update, upsert = true) yield cache.clear()
+    for
+      _ <- coll.update.one(bid(update.id), update, upsert = true)
+      _ <-
+        if update.public then elastic.upsert(Index.Feed, update.id) else elastic.delete(Index.Feed, update.id)
+    yield cache.clear()
 
   def delete(id: ID): Funit =
-    for _ <- coll.delete.one(bid(id)) yield cache.clear()
+    for
+      _ <- coll.delete.one(bid(id))
+      _ <- elastic.delete(Index.Feed, id)
+    yield cache.clear()
 
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
@@ -106,6 +115,26 @@ final class FeedApi(
         "flair" -> flairApi.formField(anyFlair = true, asAdmin = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
+
+  def search(text: String, page: Int): Fu[Paginator[Update]] =
+    val query = bool(
+      must = List(queryString(sanitizeQueryString(text), "content")),
+      filter = List(Json.obj("range" -> Json.obj("at" -> Json.obj("lte" -> "now"))))
+    )
+    val sorting = Json.arr(fieldSort("_score", "desc"), fieldSort("at", "desc"))
+    lila.search
+      .SearchPaginator(
+        adapter = new lila.search.SearchAdapter[Update]:
+          def nbResults = elastic.count(Index.Feed, query, text)
+          def slice(offset: Long, length: Long) =
+            elastic
+              .searchIds(Index.Feed, query, sorting, offset, length, text)
+              .flatMap(coll.byOrderedIds[Update, String](_)(_.id))
+        ,
+        currentPage = page,
+        maxPerPage = MaxPerPage(25)
+      )
+      .map(_.toPaginator)
 
 final class FeedPaginatorBuilder(coll: Coll)(using Executor):
   import Feed.*

@@ -112,7 +112,9 @@ export class IdbTree {
       delete node.threat;
     });
     pruneMainlineAnalysis(root);
-    return this.moveDb().then(db => db.put(this.id, { root }));
+    return this.moveDb()
+      .then(db => db.put(this.id, { root }))
+      .catch(consumeDatabaseUpgradeFailure);
   }
 
   async saveAnalysis(analysis: LocalAnalysisResult) {
@@ -131,7 +133,9 @@ export class IdbTree {
     if (this.noop || ceval.cloud) return undefined;
     const id = this.id;
     this.cache.cevals.set(path, ceval);
-    return this.cevalDb().then(db => db.put([id, path], { path, ceval }));
+    return this.cevalDb()
+      .then(db => db.put([id, path], { path, ceval }))
+      .catch(consumeDatabaseUpgradeFailure);
   }
 
   async load(): Promise<void> {
@@ -154,7 +158,7 @@ export class IdbTree {
       }
       for (const { path, ceval } of cevals) {
         this.ctrl.tree.updateAt(path, node => {
-          if (node.fen === ceval.fen && this.ctrl.ceval.preferLatestEval(ceval, node.ceval)) {
+          if (node.fen === ceval.fen && this.ctrl.ceval?.preferLatestEval(ceval, node.ceval)) {
             ceval.engineId ??= 'legacy'; // for now this is preferable to a messy idb version upgrade
             node.ceval = ceval;
           }
@@ -210,7 +214,9 @@ export class IdbTree {
   }
 
   private async saveCollapsed() {
-    return this.collapseDb().then(db => db.put(this.id, this.getCollapsed()));
+    return this.collapseDb()
+      .then(db => db.put(this.id, this.getCollapsed()))
+      .catch(consumeDatabaseUpgradeFailure);
   }
 
   private isCollapsible(node: TreeNodeLite, isMainline: boolean): boolean {
@@ -262,3 +268,8 @@ export class IdbTree {
 }
 
 type State = { movesDirty: boolean; cevals: Map<TreePath, LocalEval>; localAnalysis?: AnalysisMeta };
+
+function consumeDatabaseUpgradeFailure(err: any): undefined {
+  if (err?.name === 'InvalidStateError') return undefined;
+  throw err;
+}

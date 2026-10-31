@@ -5,6 +5,7 @@
     "jsx": "react",
     "jsxFactory": "jsx",
     "jsxFragmentFactory": "Fragment",
+    "allowImportingTsExtensions": true,
     "strict": true,
     "strictFunctionTypes": false,
     "strictPropertyInitialization": false,

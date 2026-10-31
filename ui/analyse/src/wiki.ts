@@ -22,18 +22,21 @@ export function wikiToggleBox() {
   });
 }
 
-export default function wikiTheory(): WikiTheory {
+export default function wikiTheory(root: () => HTMLElement): WikiTheory {
   const cache = new Map<string, string>();
-  const show = (html: string) => {
-    $('.analyse__wiki').toggleClass('empty', !html);
-    $('.analyse__wiki-text').html(html);
-  };
 
   const plyPrefix = (node: TreeNode) =>
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   return debounce(
     async (nodes: TreeNode[]) => {
+      const show = (html: string) => {
+        const element = root();
+        if (!element.isConnected) return;
+        element.querySelector('.analyse__wiki')?.classList.toggle('empty', !html);
+        const text = element.querySelector('.analyse__wiki-text');
+        if (text) text.innerHTML = html;
+      };
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
       const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
       if (pathParts.length > 30 || !path || path.length > 255 - 21) show('');
@@ -71,6 +74,6 @@ export default function wikiTheory(): WikiTheory {
   );
 }
 
-export function wikiClear() {
-  $('.analyse__wiki').toggleClass('empty', true);
+export function wikiClear(root: HTMLElement) {
+  root.querySelector('.analyse__wiki')?.classList.add('empty');
 }

@@ -1,9 +1,9 @@
 import { render as renderKeyboardMove } from 'keyboard-move';
 
-import { blurIfPrimaryClick } from 'lib';
+import { blurIfPrimaryClick, myUserId } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns, shareIcon } from 'lib/device';
+import { displayColumns, shareIcon, isTouchDevice } from 'lib/device';
 import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, bind, dataIcon, type LooseVNodes, onInsert, hl, icon } from 'lib/view';
@@ -90,6 +90,12 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
     makeTab('chapters', i18n.study[ctrl.relay ? 'nbGames' : 'nbChapters'](ctrl.chapters.list.size()));
 
   const tabs = hl('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
+    myUserId() &&
+      !isTouchDevice() &&
+      hl('button.narrow.study-db-button', {
+        attrs: { ...dataIcon(licon.ThreeCheckStack), title: 'Study database (ctrl-B)' },
+        on: { click: () => site.asset.loadEsm('studyDb') },
+      }),
     chaptersTab,
     ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
@@ -360,6 +366,11 @@ function sideTrailerNodes(study: StudyCtrl): LooseVNodes {
         max: () => window.innerHeight,
         initialMaxHeight: () => window.innerHeight / 3,
       }),
-    hl('div.chat__members.none', { hook: onInsert(watchers) }),
+    hl('div.chat__members.none', {
+      hook: {
+        insert: vnode => (vnode.data!.cleanupWatchers = watchers(vnode.elm as HTMLElement)),
+        destroy: vnode => vnode.data!.cleanupWatchers?.(),
+      },
+    }),
   ];
 }

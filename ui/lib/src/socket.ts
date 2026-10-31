@@ -63,12 +63,14 @@ export function wsConnect<T extends string = Tpe>(
   version: number | false,
   settings: Partial<Settings<T>> = {},
 ): WsSocket {
+  wsDestroy();
   return (siteSocket = new WsSocket(url, version, settings));
 }
 
 export function wsDestroy(): void {
-  siteSocket?.destroy();
+  const socket = siteSocket;
   siteSocket = undefined;
+  socket?.destroy();
 }
 
 export function wsSend(t: string, d?: any, o?: SocketSendOpts, noRetry?: boolean): void {
@@ -102,7 +104,10 @@ class WsSocket {
   private ws?: WebSocket;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
-  private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
+  private idleCleanup?: () => void;
+  private disconnectTimeout?: Timeout;
+  private readonly pendingTimeouts = new Set<Timeout>();
+  private ackable?: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   private lastPingTime: number = performance.now();
   private pongCount = 0;
   private tryOtherUrl = false;
@@ -144,7 +149,7 @@ class WsSocket {
 
   sign = (s: string): void => {
     this._sign = s;
-    this.ackable.sign(s);
+    this.ackable?.sign(s);
   };
 
   private readonly onOnline = (online: boolean): void => {
@@ -158,7 +163,8 @@ class WsSocket {
   };
 
   private readonly connect = (): void => {
-    this.destroy();
+    if (!this.ackable) return;
+    this.resetConnection();
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
       ...this.settings.params,
       v: this.version === false ? undefined : this.version,
@@ -166,9 +172,14 @@ class WsSocket {
     this.debug('connection attempt to ' + this.lastUrl);
     try {
       const ws = (this.ws = new WebSocket(this.lastUrl));
-      ws.onerror = e => this.onError(e);
-      ws.onclose = this.onClose;
-      ws.onopen = () => {
+      const receive =
+        <E extends Event>(handler: (event: E) => void) =>
+        (event: E) => {
+          if (this.ws === ws) handler(event);
+        };
+      ws.onerror = receive(this.onError);
+      ws.onclose = receive(this.onClose);
+      ws.onopen = receive(() => {
         this.lastUrl = ws.url;
         this.debug('connected to ' + this.lastUrl);
         this.onOnline(true);
@@ -177,14 +188,14 @@ class WsSocket {
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
         pubsub.emit('socket.open');
-        this.ackable.resend();
-      };
-      ws.onmessage = e => {
+        this.ackable?.resend();
+      });
+      ws.onmessage = receive((e: MessageEvent) => {
         if (e.data === '0') return this.pong();
         const m = JSON.parse(e.data);
         if (m.t === 'n') this.pong();
         this.handle(m);
-      };
+      });
     } catch (e) {
       this.onClose({ code: 4000, reason: String(e) } as CloseEvent);
     }
@@ -192,6 +203,7 @@ class WsSocket {
   };
 
   send = (t: string, d: Payload, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
+    if (!this.ackable) return;
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
@@ -213,7 +225,7 @@ class WsSocket {
         stack = `${e.message} ${navigator.userAgent}`;
       }
       if (!stack.includes('round.nvui')) {
-        setTimeout(() => {
+        this.defer(() => {
           if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
             this.send('rep', { n: `soc: ${message} ${stack}` });
           else wsDestroy();
@@ -221,7 +233,7 @@ class WsSocket {
       }
     }
     this.debug('send ' + message);
-    if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
       if (!noRetry) this.resendWhenOpen.push([t, msg.d, o]);
     } else this.ws.send(message);
   };
@@ -288,7 +300,7 @@ class WsSocket {
       if (m.v > this.version + 1) {
         if (retries > 0) {
           console.debug('version gap, retrying', m.v, this.version, retries);
-          setTimeout(() => this.handle(m, retries - 1), 200);
+          this.defer(() => this.handle(m, retries - 1), 200);
         } else {
           log(`${window.location.pathname}: version incoming ${m.v} vs current ${this.version}`);
           site.reload();
@@ -301,10 +313,10 @@ class WsSocket {
       case false:
         break;
       case 'resync':
-        setTimeout(() => site.reload('lila-ws resync'), 500);
+        this.defer(() => site.reload('lila-ws resync'), 500);
         break;
       case 'ack':
-        this.ackable.onServerAck(m.d);
+        this.ackable?.onServerAck(m.d);
         break;
       case 'batch':
         m.d.forEach(this.handle);
@@ -327,6 +339,27 @@ class WsSocket {
   };
 
   destroy = (): void => {
+    pubsub.off('socket.send', this.send);
+    this.ackable?.destroy();
+    this.ackable = undefined;
+    this.idleCleanup?.();
+    this.idleCleanup = undefined;
+    clearTimeout(this.disconnectTimeout);
+    this.pendingTimeouts.forEach(clearTimeout);
+    this.pendingTimeouts.clear();
+    this.resendWhenOpen = [];
+    this.resetConnection();
+  };
+
+  private readonly defer = (callback: () => void, delay: number): void => {
+    const timeout = setTimeout(() => {
+      this.pendingTimeouts.delete(timeout);
+      callback();
+    }, delay);
+    this.pendingTimeouts.add(timeout);
+  };
+
+  private readonly resetConnection = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.disconnect();
@@ -337,7 +370,7 @@ class WsSocket {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
-      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
+      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = null;
       ws.close();
     }
   };
@@ -361,20 +394,21 @@ class WsSocket {
   };
 
   private readonly onSuccess = (): void => {
-    if (pubsub.past('socket.hasConnected')) return;
-
-    pubsub.complete('socket.hasConnected');
-    let disconnectTimeout: Timeout | undefined;
-    idleTimer(
+    if (!pubsub.past('socket.hasConnected')) pubsub.complete('socket.hasConnected');
+    if (this.idleCleanup) return;
+    this.idleCleanup = idleTimer(
       10 * 60 * 1000,
       () => {
         this.options.idle = true;
-        disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);
+        this.disconnectTimeout = setTimeout(this.resetConnection, 2 * 60 * 60 * 1000);
       },
       () => {
         this.options.idle = false;
-        if (this.ws) clearTimeout(disconnectTimeout);
-        else if (this.options.reloadOnResume) location.reload();
+        clearTimeout(this.disconnectTimeout);
+        if (!this.ws) {
+          if (this.options.reloadOnResume) location.reload();
+          else this.connect();
+        }
       },
     );
   };
@@ -401,10 +435,16 @@ class Ackable {
   currentId = 1; // increment with each ackable message sent
   messages: MsgAck[] = [];
   private _sign: string;
+  private readonly interval: ReturnType<typeof setInterval>;
 
   constructor(readonly send: (t: string, d: Payload, o?: any) => void) {
-    setInterval(this.resend, 1200);
+    this.interval = setInterval(this.resend, 1200);
   }
+
+  destroy = (): void => {
+    clearInterval(this.interval);
+    this.messages = [];
+  };
 
   sign = (s: string): string => (this._sign = s);
 

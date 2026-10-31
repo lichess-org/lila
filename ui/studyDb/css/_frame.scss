@@ -1,0 +1,226 @@
+dialog:has(.study-db) {
+  backdrop-filter: none;
+  inset: auto;
+  margin: 0;
+  transform: none;
+  box-sizing: border-box;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  touch-action: none;
+  z-index: calc(#{$z-floating-20} + var(---study-db-frame-order, 0));
+
+  > .scrollable,
+  .study-db {
+    height: 100%;
+  }
+
+  > .scrollable {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .study-db {
+    padding: 0;
+    text-align: start;
+  }
+
+  &.dragging {
+    user-select: none;
+  }
+
+  &.tab-drop-target {
+    .content-frame,
+    .tab-ghost {
+      outline: 2px solid $c-primary;
+      outline-offset: -2px;
+    }
+  }
+}
+
+.study-db {
+  .inner-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-frame {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding-top: 8px;
+    border: $border;
+    border-radius: 0 0 $box-radius-size $box-radius-size;
+    background: opaque($c-bg-high);
+    overflow: hidden;
+  }
+
+  .tabs {
+    display: flex;
+    flex: none;
+    margin: 0 0 -1px;
+    overflow-x: auto;
+
+    > .tab-ghost {
+      display: flex;
+      flex: none;
+    }
+
+    button {
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 4px;
+      max-width: 160px;
+      padding: 8px;
+      border: $border;
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      background: opaque($c-bg-page);
+      color: $c-font-dim;
+      touch-action: none;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+
+      &.tab-dragging {
+        opacity: 0.5;
+      }
+
+      &.tab-ghost {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      &.active {
+        z-index: 1;
+        border-bottom-color: $c-bg-high;
+        background: opaque($c-bg-high);
+        color: $c-font;
+
+        @include mq-has-hover {
+          &:hover {
+            cursor: grab;
+          }
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $c-primary;
+        outline-offset: -2px;
+      }
+    }
+
+    button:not(.window-close)::before {
+      content: '';
+      width: 8px;
+      height: 16px;
+      background: radial-gradient(circle, hsl(from $c-font h s l / 0.5) 0.5px, transparent 1px) 0 0 / 4px 4px;
+      margin-inline-end: 4px;
+    }
+
+    button.window-close {
+      flex: 0 0 24px;
+      height: 24px;
+      align-self: flex-end;
+      margin-inline-start: auto;
+      justify-content: center;
+      padding: 3px 4px 4px;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $c-bad;
+        color: white;
+      }
+    }
+
+    .tab-icon {
+      font-family: lichess;
+      font-size: 18px;
+    }
+
+    .tab-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tab-close {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      font-size: 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: $c-bad;
+      }
+    }
+  }
+
+  .resize {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .resize-s {
+    left: 12px;
+    right: 12px;
+    height: 8px;
+    cursor: ns-resize;
+  }
+
+  .resize-e,
+  .resize-w {
+    top: 36px;
+    bottom: 12px;
+    width: 8px;
+    cursor: ew-resize;
+  }
+
+  .resize-se,
+  .resize-sw {
+    width: 12px;
+    height: 12px;
+  }
+
+  .resize-s,
+  .resize-se,
+  .resize-sw {
+    bottom: 0;
+  }
+
+  .resize-e,
+  .resize-se {
+    right: 0;
+  }
+
+  .resize-w,
+  .resize-sw {
+    left: 0;
+  }
+
+  .resize-sw {
+    cursor: nesw-resize;
+  }
+
+  .resize-se {
+    cursor: nwse-resize;
+  }
+}
+
+.tab-preview {
+  position: fixed;
+  z-index: $z-modal-alert-200 + 1;
+  box-sizing: border-box;
+  color: $c-font;
+  opacity: 0.7;
+  pointer-events: none;
+}

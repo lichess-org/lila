@@ -42,6 +42,7 @@ export interface StudyVm {
 export interface StudyData {
   id: string;
   name: string;
+  metadataRevision?: number;
   flair?: Flair;
   members: StudyMemberMap;
   position: Position;
@@ -50,6 +51,7 @@ export interface StudyData {
   visibility: Visibility;
   createdAt: number;
   from: string | object;
+  studyDbExcluded?: boolean;
   likes: number;
   isNew?: boolean;
   liked: boolean;

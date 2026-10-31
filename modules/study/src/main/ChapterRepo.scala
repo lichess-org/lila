@@ -99,6 +99,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
         .mapWithIndex: (id, index) =>
           c.updateField(studyId(study.id) ++ bid(id), "order", index + 1)
         .parallelVoid
+        .addEffect(_ => updateElasticIndex(study.id))
 
   def nextOrderByStudy(sid: StudyId): Fu[Chapter.Order] =
     coll(_.primitiveOne[Chapter.Order](studyId(sid), sort.desc("order"), "order")).dmap(~_ + 1)
@@ -147,7 +148,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
-  def setName(id: StudyChapterId, name: StudyChapterName) = coll(_.updateField(bid(id), "name", name)).void
+  def setName(chapter: Chapter, name: StudyChapterName) =
+    coll(_.updateField(bid(chapter.id), "name", name))
+      .addEffect(_ => updateElasticIndex(chapter.studyId))
+      .void
 
   // insert node and its children
   // and updates chapter denormalization
@@ -294,7 +298,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def countByStudyId(id: StudyId): Fu[Int] =
     coll(_.countSel(studyId(id)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
+  def insert(s: Chapter): Funit =
+    coll(_.insert.one(s.updateDenorm)).void.addEffect(_ => updateElasticIndex(s.studyId))
 
   def update(c: Chapter): Funit = coll(_.update.one(bid(c.id), c.updateDenorm)).void
 
@@ -309,6 +314,34 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
         .void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one(bid(id))).void
-  def delete(c: Chapter): Funit = delete(c.id)
+  def delete(c: Chapter): Funit = delete(c.id).addEffect(_ => updateElasticIndex(c.studyId))
 
   def studyId(id: StudyId) = bdoc("studyId" -> id)
+
+  def metadataByStudyIds(studyIds: Seq[StudyId]): Fu[Map[StudyId, List[Chapter.Metadata]]] =
+    studyIds.nonEmpty.so:
+      coll:
+        _.find(
+          bdoc("studyId".in(studyIds)),
+          bdoc(
+            "_id" -> true,
+            "studyId" -> true,
+            "name" -> true,
+            "setup" -> true,
+            "tags" -> true,
+            "order" -> true,
+            "ownerId" -> true,
+            "createdAt" -> true,
+            "description" -> true,
+            "conceal" -> true,
+            "practice" -> true,
+            "gamebook" -> true
+          ).some
+        )
+          .sort(sortOrder)
+          .cursor[Chapter.Metadata]()
+          .listAll()
+      .map(_.groupBy(_.studyId))
+
+  private def updateElasticIndex(studyId: StudyId) =
+    lila.common.Bus.pub(lila.core.study.IndexStudySearch(studyId))
