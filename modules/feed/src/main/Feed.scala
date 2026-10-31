@@ -8,6 +8,7 @@ import scalalib.paginator.Paginator
 
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 
+import lila.core.id.{ ForumTopicId, ForumTopicSlug }
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply
 import lila.db.dsl.{ *, given }
@@ -25,12 +26,24 @@ object Feed:
       content: Markdown,
       public: Boolean,
       at: Instant,
-      flair: Option[Flair]
+      flair: Option[Flair],
+      topicId: Option[ForumTopicId]
   ):
     lazy val dateStr = dateFormatter.print(at)
     lazy val title = "Daily update - " + dateStr
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
+
+  case class Comments(
+      topicId: ForumTopicId,
+      slug: ForumTopicSlug,
+      nbComments: Int,
+      lastCommentAt: Option[Instant],
+      lastCommentBy: Option[UserId]
+  )
+
+  case class View(update: Update, comments: Option[Comments]):
+    export update.*
 
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
   given BSONDocumentHandler[Update] = Macros.handler
@@ -45,7 +58,7 @@ final class FeedApi(
     cacheApi: CacheApi,
     flairApi: FlairApi,
     jsonView: FeedJsonView,
-    feedMarkdown: FeedMarkdown
+    val feedMarkdown: FeedMarkdown
 )(using
     Executor,
     Scheduler
@@ -91,8 +104,15 @@ final class FeedApi(
   def delete(id: ID): Funit =
     for _ <- coll.delete.one(bid(id)) yield cache.clear()
 
-  case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
-    def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
+  case class UpdateData(
+      content: Markdown,
+      public: Boolean,
+      at: Instant,
+      flair: Option[Flair],
+      comments: Boolean
+  ):
+    def toUpdate(id: Option[ID], topicId: Option[ForumTopicId] = None) =
+      Update(id.getOrElse(makeId), content, public, at, flair, topicId)
 
   def form(from: Option[Update]): Form[UpdateData] =
     import play.api.data.*
@@ -103,9 +123,10 @@ final class FeedApi(
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public" -> boolean,
         "at" -> ISOInstantOrTimestamp.mapping,
-        "flair" -> flairApi.formField(anyFlair = true, asAdmin = true)
+        "flair" -> flairApi.formField(anyFlair = true, asAdmin = true),
+        "comments" -> boolean
       )(UpdateData.apply)(unapply)
-    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
+    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair, u.topicId.isDefined)))
 
 final class FeedPaginatorBuilder(coll: Coll)(using Executor):
   import Feed.*
