@@ -31,7 +31,11 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
             )(
               errMsg(addLeaderForm),
               div(cls := "team-add-leader__input")(
-                st.input(name := "name", attrData("team-id") := t.id, placeholder := trans.site.username.txt()),
+                st.input(
+                  name := "name",
+                  attrData("team-id") := t.id,
+                  placeholder := trans.site.username.txt()
+                ),
                 form3.submit(trans.site.apply())
               )
             ),
