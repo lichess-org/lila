@@ -37,7 +37,7 @@ private final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConf
             "Content-Type" -> "application/json"
           )
       .flatMap: rsp =>
-        if rsp.status / 100 != 2 then fufail(lila.log.http(rsp.status, rsp.body))
+        if rsp.status / 100 != 2 then fufail(lila.log.http(rsp))
         else funit
       .recover:
         case err: Exception =>

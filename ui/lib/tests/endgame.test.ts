@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { endgameShapes } from '../src/game/endgame';
+import { endgameShapes, endgameShapesForNode } from '../src/game/endgame';
 import type { StatusName } from '../src/game/status';
 
 const origs = (fen: FEN, winner: Color | undefined, status: StatusName) =>
@@ -23,4 +23,21 @@ test('draw glyphs show for a side without a king', () => {
 
 test('no glyph for a side without pieces', () => {
   assert.deepStrictEqual(origs('8/8/8/8/8/8/8/6N1 b - - 0 28', 'white', 'variantEnd'), []);
+});
+
+test('no glyph if only valid move is a drop move in crazyhouse', () => {
+  assert.deepStrictEqual(
+    endgameShapesForNode(
+      {
+        fen: 'rk1Q4/ppp4p/2q1P3/4pP2/3pP3/3P4/PPP4P/R3K2R/n b - - 0 1',
+        outcome: () => undefined,
+        check: () => true,
+        dests: () => new Map<Key, Key[]>(),
+        drops: () => ['c8'],
+      },
+      undefined,
+      'created',
+    ),
+    [],
+  );
 });

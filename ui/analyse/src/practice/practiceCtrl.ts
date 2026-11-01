@@ -139,7 +139,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
             uci: best,
             san: prev.pos().unwrap(
               pos => makeSan(pos, parseUci(best)!),
-              _ => '--',
+              () => '--',
             ),
           }
         : undefined,

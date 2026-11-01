@@ -263,7 +263,7 @@ final private class TwitchApi(
       .void
 
   private def logFailed(context: String)(res: StandaloneWSResponse) =
-    if res.status / 100 != 2 then logger.warn(s"$context failed: ${lila.log.http(res.status, res.body)}")
+    if res.status / 100 != 2 then logger.warn(s"$context failed: ${lila.log.http(res)}")
 
   private def fetchStreams(ids: Seq[TwitchId]): Fu[Seq[HelixStream]] =
     ids.nonEmpty.so:
@@ -310,8 +310,8 @@ final private class TwitchApi(
               case Some(token) =>
                 logger.info("token renewed")
                 fuccess(Secret(token))
-              case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
-          case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
+              case _ => fufail(s"twitch.renewToken ${lila.log.http(res)}")
+          case res => fufail(s"twitch.renewToken ${lila.log.http(res)}")
 
   private def headersAuth = bearerToken.get.map { tmpToken =>
     Seq(

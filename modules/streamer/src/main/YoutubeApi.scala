@@ -138,10 +138,9 @@ final private class YoutubeApi(
         logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
         funit
       case res =>
-        logger.info(
+        logger.info:
           s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
-        )
-        fufail(s"YoutubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
+        fufail(s"YoutubeApi.channelSubscribe $channelId failed ${lila.log.http(res)}")
 
   // youtube does not provide a low quota API to check for videos on a known channel id
   // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.

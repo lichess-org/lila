@@ -1,5 +1,7 @@
 package lila.memo
 
+import scalalib.StringOps.addQueryParam
+
 import lila.core.id.ImageId
 
 final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, Url) => Unit)(using Executor):
@@ -16,6 +18,7 @@ final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, Url) => Unit)(us
   def automod(id: ImageId, dim: Option[Dimensions]) =
     display(id, "resize"):
       if dim.exists(_.vertical) then Dimensions.defaultHeight else Dimensions.defaultWidth
+    .map(addQueryParam(_, "automod_agent", "1"))
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.

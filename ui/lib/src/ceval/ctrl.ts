@@ -120,7 +120,7 @@ export class CevalCtrl {
       this.rules === 'chess' &&
       !!pos?.unwrap(
         pos => !isStandardMaterial(pos),
-        _ => false,
+        () => false,
       );
     this.analysable =
       !pos?.isErr &&
@@ -182,7 +182,7 @@ export class CevalCtrl {
         searchOverrides && 'by' in searchOverrides
           ? searchOverrides
           : {
-              multiPv: Math.min(this.storedPv(), searchOverrides?.maxMultiPv ?? Infinity),
+              multiPv: clamp(this.storedPv(), { min: 0, max: searchOverrides?.maxMultiPv }),
               by: { movetime: clamp(this.isDeeper() ? Infinity : this.storedMovetime(), { max: maxTime }) },
             },
     };
@@ -214,8 +214,6 @@ export class CevalCtrl {
   }
 
   get canGoDeeper(): boolean {
-    // recently raised from 99. keep an eye out for screenshots of wasm exceptions in github issues and
-    // feedback forum.
     return this.state !== CevalState.Computing && (this.opts.localEval?.()?.depth ?? 0) < 245;
   }
 
@@ -280,7 +278,8 @@ export class CevalCtrl {
   }
 
   preferLatestEval(latest: ClientEval, stored: ClientEval | undefined): boolean {
-    if (!stored) return true;
+    // Some search is better than no search. Custom search is always preferred
+    if (!stored || Boolean(this.opts.custom?.search)) return true;
 
     // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength
     const multipv = this.search.multiPv;
@@ -320,9 +319,9 @@ export class CevalCtrl {
     this.performanceMap(engine.id, snapshots);
   }
 
-  private letCloudWin(ev: LocalEval, movetime: number | false, working: StartedState) {
-    const evNode = working.steps[working.steps.length - 1];
-    const { engine, threads } = working.info;
+  private letCloudWin(ev: LocalEval, movetime: number | false, started: StartedState) {
+    const evNode = started.steps[started.steps.length - 1];
+    const { engine, threads } = started.info;
     if (movetime && evNode.ceval?.cloud) {
       const cloudNodes = evNode.ceval.nodes; // TODO node efficiency if cloud has engineId
       const nodesPerSecond =

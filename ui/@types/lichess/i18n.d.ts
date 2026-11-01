@@ -2605,7 +2605,7 @@ interface I18n {
     exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
-    /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
+    /** Hold the ctrl key while promoting to temporarily disable auto-promotion */
     explainPromoteToQueenAutomatically: string;
     /** Hides all ratings from Lichess, to help you focus on the game. */
     explainShowPlayerRatings: string;
