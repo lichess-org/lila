@@ -72,7 +72,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                       )
                 )
               ,
-              p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
+              p(cls := "form-help box__pad")(trans.team.demoteLeaderNote()),
               form3.actions(cls := "box__pad")(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(trans.site.save())

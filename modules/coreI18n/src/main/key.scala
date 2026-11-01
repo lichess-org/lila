@@ -3172,6 +3172,7 @@ object I18nKey:
     val `permKickDesc`: I18nKey = "team:permKickDesc"
     val `permAdminName`: I18nKey = "team:permAdminName"
     val `permAdminDesc`: I18nKey = "team:permAdminDesc"
+    val `demoteLeaderNote`: I18nKey = "team:demoteLeaderNote"
     val `nbMembers`: I18nKey = "team:nbMembers"
     val `teamLeaders`: I18nKey = "team:teamLeaders"
     val `xJoinRequests`: I18nKey = "team:xJoinRequests"

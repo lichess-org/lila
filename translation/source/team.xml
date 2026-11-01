@@ -80,30 +80,21 @@ You can't remove a team if a player has already joined the tournament.</string>
     <item quantity="one">One leader per team</item>
     <item quantity="other">%s leaders per team</item>
   </plurals>
-
-<!-- Just Test -->
-
   <string name="permPublicName">Public</string>
-  <string name="permPublicDesc">Visible as leader on the team page</string>
-  
+  <string name="permPublicDesc">Appear as a leader on the team page</string>
   <string name="permSettingsName">Settings</string>
-  <string name="permSettingsDesc">Change settings and descriptions</string>
-  
+  <string name="permSettingsDesc">Edit team settings and description</string>
   <string name="permTourName">Tournaments</string>
   <string name="permTourDesc">Create, manage and join team tournaments</string>
-  
   <string name="permCommName">Moderation</string>
-  <string name="permCommDesc">Moderate the forum and chats</string>
-  
+  <string name="permCommDesc">Moderate the forum and team chat</string>
   <string name="permRequestName">Requests</string>
-  <string name="permRequestDesc">Accept and decline join requests</string>
-  
+  <string name="permRequestDesc">Accept or decline join requests</string>
   <string name="permPmAllName">Updates</string>
-  <string name="permPmAllDesc">Send team updates to members</string>
-  
+  <string name="permPmAllDesc">Send updates to team members</string>
   <string name="permKickName">Kick</string>
-  <string name="permKickDesc">Kick members of the team</string>
-  
+  <string name="permKickDesc">Remove members from the team</string>
   <string name="permAdminName">Admin</string>
-  <string name="permAdminDesc">Manage leader permissions</string>
+  <string name="permAdminDesc">Manage leaders' permissions</string>
+  <string name="demoteLeaderNote">Note: To demote a leader, revoke all their permissions.</string>
 </resources>
