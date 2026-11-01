@@ -1,7 +1,7 @@
 .mini-game {
-  @extend %nowrap-hidden;
+  @extend %nowrap-hidden, %flex-column;
 
-  display: block;
+  gap: 4px;
 
   &,
   &:hover {
@@ -13,10 +13,26 @@
     @extend %page-text-shadow !optional;
 
     gap: 1ch;
-    padding: 4px 0 0 2px;
+    padding: 0;
 
     &:first-child {
-      padding: 0 0 4px 2px;
+      &:has(good) {
+        border-bottom: 2px solid $c-good;
+      }
+
+      &:has(bad) {
+        border-bottom: 2px solid $c-bad;
+      }
+    }
+
+    &:last-child {
+      &:has(good) {
+        border-top: 2px solid $c-good;
+      }
+
+      &:has(bad) {
+        border-top: 2px solid $c-bad;
+      }
     }
   }
 
