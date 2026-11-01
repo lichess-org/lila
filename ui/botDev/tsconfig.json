@@ -3,6 +3,7 @@
   "references": [
     { "path": "../bits/tsconfig.json" },
     { "path": "../lib/tsconfig.json" },
-    { "path": "../round/tsconfig.json" }
+    { "path": "../round/tsconfig.json" },
+    { "path": "../editor/tsconfig.json" }
   ]
 }
