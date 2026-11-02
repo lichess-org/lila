@@ -49,6 +49,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           .asAttachment(filename)
           .withHeaders(headersForApiOrApp*)
           .as(gameContentType(config))
+          .publicCache(Option.when(ctx.isAnon)(if game.playable then 1.minute else 1.day))
+          .varyAccept
 
   def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
