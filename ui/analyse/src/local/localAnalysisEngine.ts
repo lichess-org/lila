@@ -60,7 +60,7 @@ export class LocalAnalysisEngine {
   async analyse(
     custom: CustomCeval,
     division: Division,
-    status: (moves: number, totalMoves: number, nodesPerMove: number) => void,
+    status: (nodeIndex: number, totalNodes: number, nodesPerMove: number) => void,
   ): Promise<LocalAnalysisResult> {
     try {
       this.busy = true;
@@ -68,11 +68,13 @@ export class LocalAnalysisEngine {
       this.ctrl.initCeval({ emit: this.onEval, custom });
       const update = () => {
         const done = this.nodes.length - this.nodeIndex - 1;
-        status(done, this.nodes.length, this.nodesSearched / done);
+        status(Math.max(0, this.nodeIndex), this.nodes.length, this.nodesSearched / done);
       };
-      for (update(); this.isRunning(); update()) {
+      while (this.isRunning()) {
+        update();
         await this.evaluateNode();
       }
+      update();
       return this.review(division);
     } finally {
       this.busy = false;
@@ -94,7 +96,6 @@ export class LocalAnalysisEngine {
       this.nodes[this.nodeIndex].eval = {
         cp: ev.cp,
         mate: ev.mate,
-        best: ev.bestmove,
         fen: ev.fen,
         knodes: Math.round(ev.nodes / 1000),
         depth: ev.depth,
@@ -177,6 +178,7 @@ export class LocalAnalysisEngine {
         return;
       }
       const [parent, bad] = this.nodes.slice(i, i + 2);
+      if (bad.eval) bad.eval.best = lines[i].ucis[0];
       bad.comments = [{ id: randomId().slice(0, 4), by: 'lichess', comp: true, text: move.judgment.comment }];
       bad.glyphs = [{ ...move.judgment.glyph, comp: true }];
       parent.children.push(
