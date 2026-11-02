@@ -1,11 +1,10 @@
 package lila.tournament
 
-import chess.{ Black, ByColor, Color, White }
-import chess.IntRating
+import alleycats.Zero
+import chess.{ Black, ByColor, Color, IntRating, White }
 import monocle.syntax.all.*
 
 import lila.core.game.Source
-import alleycats.Zero
 
 final class AutoPairing(
     gameRepo: lila.core.game.GameRepo,

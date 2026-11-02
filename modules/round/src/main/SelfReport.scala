@@ -1,9 +1,10 @@
 package lila.round
 
+import chess.IntRating
 import scalalib.ThreadLocalRandom
 import scalalib.net.IpAddressStr
+
 import scala.util.matching.Regex
-import chess.IntRating
 
 import lila.core.net.IpAddress
 import lila.memo.SettingStore

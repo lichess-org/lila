@@ -1,10 +1,10 @@
 package views.report
 
 import lila.app.UiEnv.{ *, given }
-import lila.report.ui.PendingCounts
 import lila.rating.UserPerfsExt.bestPerfs
 import lila.report.Report.WithSuspect
 import lila.report.Room
+import lila.report.ui.PendingCounts
 
 val ui = lila.report.ui.ReportUi(helpers)(views.mod.ui.reportMenu)
 

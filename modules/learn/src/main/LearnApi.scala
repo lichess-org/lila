@@ -10,7 +10,7 @@ final class LearnApi(coll: Coll)(using Executor):
     reset(del.id)
 
   def get(user: UserId): Fu[LearnProgress] =
-    coll.one[LearnProgress](bid(user)).dmap { _ | LearnProgress.empty(user.id) }
+    coll.one[LearnProgress](bid(user)).dmap(_ | LearnProgress.empty(user.id))
 
   private def save(p: LearnProgress): Funit =
     coll.update.one(bid(p.id), p, upsert = true).void

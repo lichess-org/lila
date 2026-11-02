@@ -1,7 +1,7 @@
 package lila.tree
 
-import chess.format.pgn.{ Comment, Glyph }
 import chess.eval.*
+import chess.format.pgn.{ Comment, Glyph }
 
 sealed trait Advice:
   val judgment: Advice.Judgement
@@ -76,8 +76,10 @@ private[tree] object MateSequence:
   def apply(prev: Score, next: Score): Option[MateSequence] =
     (prev, next).some.collect:
       case (Score.Cp(_), Score.Mate(n)) if n.negative => MateCreated
+      case (Score.Cp(_), Score.mated) => MateCreated
       case (Score.Mate(p), Score.Cp(_)) if p.positive => MateLost
       case (Score.Mate(p), Score.Mate(n)) if p.positive && n.negative => MateLost
+      case (Score.Mate(p), Score.mated) if p.positive => MateLost
 private[tree] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,
@@ -89,10 +91,8 @@ private[tree] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     for
-      prevScore <- prev.eval.score
-      score <- info.eval.score
-      prevPovScore = prevScore.invertIf(info.color.black)
-      povScore = score.invertIf(info.color.black)
+      prevPovScore <- prev.eval.pov(info.color)
+      povScore <- info.eval.pov(info.color)
       prevPovCpOrZero = prevPovScore.cp.so(_.centipawns)
       povCpOrZero = povScore.cp.so(_.centipawns)
       sequence <- MateSequence(prevPovScore, povScore)

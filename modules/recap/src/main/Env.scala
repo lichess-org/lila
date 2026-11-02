@@ -3,8 +3,8 @@ package lila.recap
 import com.softwaremill.macwire.*
 
 import lila.core.config.CollName
+import lila.core.i18n.{ I18nKey, LangPicker, Translator }
 import lila.db.dsl.{ *, given }
-import lila.core.i18n.{ LangPicker, Translator, I18nKey }
 
 @Module
 final class Env(

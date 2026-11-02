@@ -46,10 +46,7 @@ interface EmergSound {
   play(): void;
   next?: number;
   delay: Millis;
-  playable: {
-    white: boolean;
-    black: boolean;
-  };
+  playable: ByColor<boolean>;
 }
 
 export interface SetData {

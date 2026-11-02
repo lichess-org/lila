@@ -1,9 +1,9 @@
 package lila.relay
 
-import scalalib.cache.OnceEvery
 import scalalib.StringOps.addQueryParam
+import scalalib.cache.OnceEvery
 
-import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.study.Chapter
 
 final private class RelayNotifier(

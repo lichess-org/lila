@@ -7,8 +7,8 @@ export default function (ctrl: Ctrl) {
     h('div.top', 'Definitions'),
     h(
       'div.content',
-      ['metric', 'dimension'].map(type => {
-        const data = ctrl.vm[type as 'metric' | 'dimension'];
+      (['metric', 'dimension'] as const).map(type => {
+        const data = ctrl.vm[type];
         return h('section.' + type, [h('h3', data.name), h('p', data.description)]);
       }),
     ),

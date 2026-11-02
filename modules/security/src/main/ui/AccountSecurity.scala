@@ -51,7 +51,7 @@ final class AccountSecurity(helpers: Helpers)(
         tr(
           td(cls := "icon")(
             span(
-              cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
+              cls := curSessionId.map(cur => s"is-${if cur == s.session.id then "gold" else "green"}"),
               dataIcon := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
             )
           ),

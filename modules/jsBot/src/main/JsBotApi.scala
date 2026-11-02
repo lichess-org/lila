@@ -1,8 +1,8 @@
 package lila.jsBot
 
+import lila.core.perm.Granter
 import lila.memo.CacheApi
 import lila.memo.CacheApi.{ buildAsyncTimeout, invalidateAll }
-import lila.core.perm.Granter
 
 final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor, Scheduler):
 
@@ -27,6 +27,6 @@ final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor
 
     def get(isInBetaTeam: MyId ?=> Fu[Boolean])(using Option[Me]): Fu[List[BotJson]] = for
       myKeys <- forMe(isInBetaTeam)
-      allBots <- all.get({})
+      allBots <- all.get {}
       myBots = allBots.filter(b => myKeys.contains(b.key)).sortLike(myKeys, _.key)
     yield myBots

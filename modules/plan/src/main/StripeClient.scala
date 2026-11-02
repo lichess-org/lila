@@ -27,10 +27,9 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       "cancel_url" -> urls.cancel,
       "customer" -> data.customerId.value,
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
-    ) ::: {
+    ) :::
       // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
       (mode == StripeMode.setup).so(List("payment_method_types[]" -> "card"))
-    }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
     val args =
@@ -183,12 +182,12 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
               },
             fuccess
           )
-      case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
+      case 404 => fufail(new NotFoundException(res.status, s"[stripe] Not found"))
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
-          case None => fufail { new InvalidRequestException(status, res.body) }
-          case Some(error) => fufail { new InvalidRequestException(status, error) }
-      case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
+          case None => fufail(new InvalidRequestException(status, res.body))
+          case Some(error) => fufail(new InvalidRequestException(status, error))
+      case status => fufail(new StatusException(status, s"[stripe] Response status: $status"))
 
   private def isDeleted(js: JsValue): Boolean =
     js.asOpt[JsObject].flatMap { o =>

@@ -1,12 +1,13 @@
 package lila.recap
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.ByColor
-import lila.common.SimpleOpening
 import chess.format.pgn.SanStr
-import lila.recap.Recap.Counted
-import lila.core.game.Source
 import play.api.libs.json.JsObject
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.common.SimpleOpening
+import lila.core.game.Source
+import lila.recap.Recap.Counted
 
 case class Recap(
     @Key("_id") id: UserId,

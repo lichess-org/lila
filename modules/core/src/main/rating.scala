@@ -4,8 +4,8 @@ package rating
 import _root_.chess.IntRating
 import _root_.chess.rating.IntRatingDiff
 
-import lila.core.perf.PerfKey
 import lila.core.lilaism.Lilaism.nonEmptyOption
+import lila.core.perf.PerfKey
 
 type UserRank = Int
 type UserRankMap = Map[PerfKey, UserRank]

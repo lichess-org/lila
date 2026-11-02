@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, PgnStr }
 
 import scala.language.implicitConversions
 
@@ -8,6 +8,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
 import lila.study.BSONHandlers.given
+import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.Root
 
 // in lila.study to have access to PgnImport
@@ -62,3 +63,69 @@ class BsonHandlersTest extends munit.FunSuite:
     val expectedTreeStr =
       "0 List(1.e4 (Branches: List(2.e5 FV (Branches: List()), 2.d5 (Branches: List()))))"
     assertEquals(treeStr, expectedTreeStr)
+
+  test("Score writes.reads == identity"):
+    import chess.eval.{ Score, WhiteScore }
+    val handler = summon[reactivemongo.api.bson.BSONHandler[WhiteScore]]
+    List(
+      Score.cp(0),
+      Score.cp(-250),
+      Score.cp(999_999),
+      Score.cp(-999_999),
+      Score.mate(3),
+      Score.mate(-1),
+      Score.mate(2147),
+      Score.mate(-2147),
+      Score.mated,
+      Score.MateGiven
+    )
+      .map(WhiteScore.fromWhite(_))
+      .foreach: score =>
+        assertEquals(handler.readTry(handler.writeTry(score).get).get, score)
+
+  test("node comp hints survive round trip"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val withComp = root.updateChildrenAt(path, _.setComp).get
+    val roundTripped = treeBson.reads(treeBson.writes(w, withComp))
+    assert(roundTripped.nodeAt(path).exists(_.comp))
+
+  test("annotation comp hints survive round trip"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val withServerAnnotations = root
+      .updateChildrenAt(
+        path,
+        _.copy(
+          glyphs = NodeGlyphs.fromBase(BaseGlyphs.fromList(BaseGlyph.find(4).toList), comp = true),
+          comments = lila.tree.Node.Comments.empty + Comment(
+            Comment.Id.make,
+            chess.format.pgn.Comment("Computer comment"),
+            Comment.Author.Lichess,
+            comp = true
+          )
+        )
+      )
+      .get
+    val roundTripped = treeBson.reads(treeBson.writes(w, withServerAnnotations))
+    val node = roundTripped.nodeAt(path).get
+    assert(node.glyphs.value.exists(_.comp))
+    assert(node.comments.value.exists(_.comp))
+
+  test("engine continuations stay first after their shared initial branch"):
+    val userRoot = StudyPgnImport.result("1. e4 e5 2. Nf3 Nc6", Nil).toOption.get.root
+    val engineLine = StudyPgnImport
+      .result("1. e4 c5 2. Nf3 d6", Nil)
+      .toOption
+      .get
+      .root
+      .children
+      .first
+      .map: line =>
+        line.copy(children = line.children.updateAllWith(_.setComp)).setComp
+      .get
+    val merged = serverEval.mergeAnalysis(userRoot, chess.format.UciPath.root, engineLine)
+    val sharedInitial = merged.children.first.get
+    assert(!sharedInitial.comp)
+    assertEquals(sharedInitial.children.first.map(_.move.san.value), Some("c5"))
+    assert(sharedInitial.children.first.exists(_.comp))

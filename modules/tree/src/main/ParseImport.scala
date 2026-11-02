@@ -1,10 +1,10 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags }
+import chess.format.pgn.{ ParsedMainline, ParsedPgn, Parser, PgnStr, SanWithMetas, Tags }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
-import chess.format.pgn.{ ParsedMainline, SanWithMetas }
+
 import lila.core.game.ClockHistory
 
 case class TagResult(status: Status, points: Outcome.GamePoints):
@@ -22,7 +22,7 @@ case class ImportResult(
 )
 
 object ParseImport:
-  private val maxPlies = 600
+  private val maxPlies = Analysis.MAX_PLIES
 
   def full(pgn: PgnStr): Either[ErrorStr, ImportResult] =
     catchOverflow: () =>
@@ -106,7 +106,7 @@ object ParseImport:
       n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
     val whiteRemainder = if parsed.toPosition.color.white then 0 else 1
     val byColor = ByColor
-      .fromPair(clocks.zipWithIndex.partition { (_, i) => i % 2 == whiteRemainder })
+      .fromPair(clocks.zipWithIndex.partition((_, i) => i % 2 == whiteRemainder))
       .map(_.view.map(_._1).toVector)
     Option.when(byColor.exists(_.exists(_.value != 0)))(byColor)
 

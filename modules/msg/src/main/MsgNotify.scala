@@ -3,7 +3,7 @@ package lila.msg
 import org.apache.pekko.actor.Cancellable
 
 import lila.common.String.shorten
-import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.db.dsl.{ *, given }
 
 final private class MsgNotify(

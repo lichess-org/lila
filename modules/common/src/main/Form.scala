@@ -4,10 +4,11 @@ import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Form as PlayForm, FormError, Mapping, FieldMapping, validation as V }
+import play.api.data.{ FieldMapping, Form as PlayForm, FormError, Mapping, validation as V }
+import scalalib.Iso
+
 import java.lang
 import java.time.{ LocalDate, LocalDateTime, ZoneId }
-import scalalib.Iso
 import scala.util.Try
 
 object Form:

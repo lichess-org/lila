@@ -22,7 +22,6 @@ export interface SoundData {
 
 export class SoundCtrl extends PaneCtrl {
   private readonly list: Sound[];
-  private showVoiceSelection = false;
 
   constructor(root: DasherCtrl) {
     super(root);
@@ -31,7 +30,7 @@ export class SoundCtrl extends PaneCtrl {
 
   render = (): VNode => {
     return h(
-      'div.sub.sound.' + this.getCurrent(),
+      'div.sub.sound.' + site.sound.theme,
       {
         hook: {
           insert: () => {
@@ -64,7 +63,7 @@ export class SoundCtrl extends PaneCtrl {
                 'button.text',
                 {
                   hook: bind('click', () => this.set(s[0])),
-                  class: { active: this.getCurrent() === s[0] },
+                  class: { active: site.sound.theme === s[0] },
                   attrs: { ...dataIcon(licon.Checkmark), type: 'button' },
                 },
                 [s[1], s[0] === 'speech' ? '...' : ''],
@@ -72,31 +71,24 @@ export class SoundCtrl extends PaneCtrl {
             ),
           ),
         ]),
-        this.voiceSelectionDialog(),
       ],
     );
   };
 
   private readonly voiceSelectionDialog = () => {
-    if (!this.showVoiceSelection) return undefined;
-    const content = this.renderVoiceSelection();
-    if (!content) return undefined;
+    if (!site.sound.getVoiceMap().size) return undefined;
     return snabDialog({
-      onClose: () => {
-        this.showVoiceSelection = false;
-        this.redraw();
-      },
+      closeButton: true,
+      class: 'voice-selection',
+      show: true,
       modal: true,
       easyClose: 'clickOutside',
-      vnodes: content,
-      onInsert: dlg => {
-        dlg.show();
+      render: redraw => this.renderVoiceSelection(redraw),
+      onShow: dlg => {
         dlg.view.querySelector('.active')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       },
     });
   };
-
-  private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
   private readonly setVoiceRate = (v: string) => {
     localStorage.setItem('speech.rate', v);
@@ -105,52 +97,50 @@ export class SoundCtrl extends PaneCtrl {
   };
   private rateInput?: HTMLInputElement;
 
-  private renderVoiceSelection(): VNode[] | false {
+  private renderVoiceSelection(redraw: Redraw): VNode[] {
     const selectedVoice = site.sound.getVoice();
     const voiceMap = site.sound.getVoiceMap();
     const rate = Number(localStorage.getItem('speech.rate')) || 1;
-    return voiceMap.size === 0
-      ? false
-      : [
-          h('div.rate', [
-            'Speech rate',
-            h('input.rate', {
-              attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
-              hook: onInsert<HTMLInputElement>(el => {
-                this.rateInput = el;
-                el.onchange = () => this.setVoiceRate(el.value);
-              }),
-            }),
-            h('button', {
-              attrs: { type: 'button', ...dataIcon(licon.Back) },
-              hook: bind('click', () => this.setVoiceRate('1')),
-            }),
-          ]),
-          h(
-            'div.selector',
-            [...voiceMap.keys()]
-              .sort((a, b) => a.localeCompare(b))
-              .map(name =>
-                h(
-                  'button.text',
-                  {
-                    hook: bind('click', event => {
-                      const target = event.target as HTMLElement;
-                      site.sound.setVoice(voiceMap.get(target.textContent)!);
-                      site.sound.say('Speech synthesis ready');
-                      this.redraw();
-                    }),
-                    class: { active: name === selectedVoice?.name },
-                    attrs: {
-                      ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
-                      type: 'button',
-                    },
-                  },
-                  name,
-                ),
-              ),
+    return [
+      h('div.rate', [
+        'Speech rate',
+        h('input.rate', {
+          attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
+          hook: onInsert<HTMLInputElement>(el => {
+            this.rateInput = el;
+            el.onchange = () => this.setVoiceRate(el.value);
+          }),
+        }),
+        h('button', {
+          attrs: { type: 'button', ...dataIcon(licon.Back) },
+          hook: bind('click', () => this.setVoiceRate('1')),
+        }),
+      ]),
+      h(
+        'div.selector',
+        [...voiceMap.keys()]
+          .sort((a, b) => a.localeCompare(b))
+          .map(name =>
+            h(
+              'button.text',
+              {
+                hook: bind('click', event => {
+                  const target = event.target as HTMLElement;
+                  site.sound.setVoice(voiceMap.get(target.textContent)!);
+                  site.sound.say('Speech synthesis ready');
+                  redraw();
+                }),
+                class: { active: name === selectedVoice?.name },
+                attrs: {
+                  ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
+                  type: 'button',
+                },
+              },
+              name,
+            ),
           ),
-        ];
+      ),
+    ];
   }
 
   private readonly postSet = throttlePromiseDelay(
@@ -167,9 +157,8 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private readonly set = (k: Key) => {
-    site.sound.speech(k === 'speech');
-    if (site.sound.speech()) {
-      this.showVoiceSelection = true;
+    if (k === 'speech') {
+      this.voiceSelectionDialog();
       site.sound.say('Speech synthesis ready');
       site.sound.changeSet('speech');
       this.postSet('speech');

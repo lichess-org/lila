@@ -1,13 +1,13 @@
 package lila.relay
 
-import scala.util.matching.Regex
+import com.softwaremill.tagging.*
 import io.mola.galimatias.URL
 import play.api.libs.ws.*
-import com.softwaremill.tagging.*
 
-import lila.memo.HttpProxy
-import lila.memo.SettingStore
+import scala.util.matching.Regex
+
 import lila.memo.SettingStore.Formable.given
+import lila.memo.{ HttpProxy, SettingStore }
 
 private opaque type CanProxy = Boolean
 private object CanProxy extends YesNo[CanProxy]

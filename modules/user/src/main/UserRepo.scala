@@ -10,7 +10,7 @@ import scalalib.model.{ Days, LangTag }
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.security.HashedPassword
-import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode, RealName }
+import lila.core.user.{ KidMode, Plan, PlayTime, Profile, RealName, RoleDbKey, TotpSecret, UserMark }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 
@@ -257,7 +257,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .cursor[Bdoc](ReadPref.sec)
       .list(max)
       .map:
-        _.flatMap { _.getAsOpt[UserId](F.id) }
+        _.flatMap(_.getAsOpt[UserId](F.id))
 
   def idLikeCanBeVeryExpensive(regex: String, closed: Boolean): Fu[List[User]] =
     coll.find(F.id.regex(regex) ++ bdoc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
@@ -336,15 +336,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
-  def disable(user: User, keepEmail: Boolean, forever: Boolean): Funit =
+  def disable(user: User, forever: Boolean): Funit =
     val sets = bdoc(F.enabled -> false).++(forever.so(bdoc(F.foreverClosed -> true)))
-    val unsets = List(F.roles.some, keepEmail.option(F.mustConfirmEmail)).flatten
+    val unsets = List(F.roles.some).flatten
     coll.update
       .one(
         bid(user.id),
         bdoc("$set" -> sets) ++
           unset(unsets) ++
-          keepEmail.not.so(bdoc("$rename" -> bdoc(F.email -> F.prevEmail)))
+          bdoc("$rename" -> bdoc(F.email -> F.prevEmail))
       )
       .void
 
@@ -586,6 +586,5 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       (email.value != normalizedEmail.value).so(bdoc(F.verbatimEmail -> email))
     } ++ {
       blind.so(bdoc(F.blind -> true))
-    } ++ {
+    } ++
       kid.yes.so(bdoc(F.kid -> kid))
-    }

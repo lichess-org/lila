@@ -37,12 +37,11 @@ object PlayerAssessment:
     pov.player.blurs.booleans.sliding(12).map(_.count(identity)).max
 
   private def highlyConsistentMoveTimeStreaksOf(pov: Pov): Boolean =
-    pov.game.clock.exists(_.estimateTotalSeconds > 60) && {
+    pov.game.clock.exists(_.estimateTotalSeconds > 60) &&
       Statistics
         .slidingMoveTimesCvs(pov)
         .so:
           _.exists(Statistics.cvIndicatesHighlyFlatTimesForStreaks)
-    }
 
   private def antichessCorrectedGameAssessment(
       assessment: GameAssessment,
@@ -93,9 +92,8 @@ object PlayerAssessment:
     val moderateChunkBlurRate: Boolean = blursMatter && highestChunkBlurs >= 8
 
     lazy val highlyConsistentMoveTimes: Boolean =
-      game.clock.exists(_.estimateTotalSeconds > 60) && {
+      game.clock.exists(_.estimateTotalSeconds > 60) &&
         moveTimeCoefVariation(pov).so(cvIndicatesHighlyFlatTimes)
-      }
 
     lazy val suspiciousErrorRate: Boolean =
       listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match
@@ -104,13 +102,10 @@ object PlayerAssessment:
         case _ => 15)
 
     lazy val alwaysHasAdvantage: Boolean =
-      !analysis.infos.exists { info =>
-        info.cp.fold(info.mate.fold(false) { a =>
-          a.signum == color.fold(-1, 1)
-        }) { cp =>
-          color.fold(cp.centipawns < -100, cp.centipawns > 100)
-        }
-      }
+      analysis.infos.forall:
+        _.eval
+          .pov(color)
+          .forall(_.fold(_.centipawns >= -100, _.positive, true))
 
     lazy val flags: PlayerFlags = PlayerFlags(
       suspiciousErrorRate,

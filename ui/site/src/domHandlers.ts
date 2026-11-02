@@ -64,20 +64,29 @@ export function addDomHandlers() {
       return false;
     });
 
-  $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
-    const $a = $(this).addClass('processing').css('opacity', 0.3);
-    const dropdownOverflowParent = this.closest<HTMLElement>('.dropdown-overflow');
-    if (dropdownOverflowParent) {
-      dropdownOverflowParent.dispatchEvent(new CustomEvent('reload', { detail: this.href }));
-    } else {
-      xhrText(this.href, { method: 'post' }).then(html => {
-        if ($a.hasClass('aclose')) $a.hide();
-        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-        else $a.replaceWith(html);
-      });
-    }
-    return false;
-  });
+  $('body')
+    .on('click', '.relation-button', function (this: HTMLAnchorElement) {
+      const $a = $(this).addClass('processing').css('opacity', 0.3);
+      const dropdownOverflowParent = this.closest<HTMLElement>('.dropdown-overflow');
+      if (dropdownOverflowParent) {
+        dropdownOverflowParent.dispatchEvent(new CustomEvent('reload', { detail: this.href }));
+      } else {
+        xhrText(this.href, { method: 'post' }).then(html => {
+          if ($a.hasClass('aclose')) $a.hide();
+          else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+          else $a.replaceWith(html);
+        });
+      }
+      return false;
+    })
+    .on('change', '.mselect__toggle--mask', function (this: HTMLInputElement) {
+      const mselectMask = document.querySelector<HTMLLabelElement>('.mselect__fullscreen-mask');
+      const active = this.checked
+        ? this
+        : document.querySelector<HTMLInputElement>('.mselect__toggle--mask:checked');
+      if (active) mselectMask?.setAttribute('for', active.id);
+      else mselectMask?.removeAttribute('for');
+    });
 
   $('.user-autocomplete').each(function (this: HTMLInputElement) {
     const focus = this.autofocus;

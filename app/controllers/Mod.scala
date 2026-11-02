@@ -1,22 +1,22 @@
 package controllers
 
-import scala.annotation.nowarn
-
 import alleycats.Zero
 import play.api.libs.json.Json
 import play.api.mvc.*
 
+import scala.annotation.nowarn
+
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ImageId
+import lila.core.msg.SystemMsg
 import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
 import lila.core.userId.ModId
-import lila.core.msg.SystemMsg
-import lila.mod.{ Modlog, ModUserSearch }
-import lila.report.{ Mod as AsMod, Suspect }
+import lila.mod.{ ModUserSearch, Modlog }
 import lila.mon.extensions.*
+import lila.report.{ Mod as AsMod, Suspect }
 
 final class Mod(
     env: Env,
@@ -215,7 +215,7 @@ final class Mod(
   }
 
   def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    env.user.lightUser(username.id).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
+    env.user.lightUser(username.id).orNotFound(env.irc.api.usertableCheck(_).inject(NoContent))
   }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
@@ -464,7 +464,7 @@ final class Mod(
           val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
           (api.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
             newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
-          } >> {
+          } >>
             Permission
               .ofDbKeys(permissions)
               .exists(p =>
@@ -472,8 +472,8 @@ final class Mod(
                   Permission.ContentTeam
                 ) || p.grants(Permission.BroadcastTeam)
               )
-              .so(env.plan.api.setLifetime(user))
-          }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
+              .so(env.plan.api.setLifetime(user)))
+            .inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )
   }
 
@@ -501,7 +501,7 @@ final class Mod(
         email
           .so: em =>
             tryWith(em, em.value)
-              .orElse(username.so { tryWith(em, _) })
+              .orElse(username.so(tryWith(em, _)))
               .recover(lila.db.recoverDuplicateKey(_ => none))
           .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
   }

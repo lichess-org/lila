@@ -11,7 +11,8 @@ case class UblogBlog(
     modNote: Option[String]
 ):
   def visible = tier >= UblogBlog.Tier.UNLISTED
-  def listed = tier >= UblogBlog.Tier.LOW
+  def listed = tier >= UblogBlog.Tier.REGULAR
+  def crawlable = tier >= UblogBlog.Tier.CRAWLABLE
 
   def userId = id match
     case UblogBlog.Id.User(userId) => userId
@@ -23,21 +24,19 @@ object UblogBlog:
   object Tier extends RelaxedOpaqueInt[Tier]:
     val HIDDEN: Tier = 0
     val UNLISTED: Tier = 1
-    val LOW: Tier = 2
-    val NORMAL: Tier = 3
-    val HIGH: Tier = 4
+    val REGULAR: Tier = 2
+    val CRAWLABLE: Tier = 4
 
     def default(user: User) =
       if user.marks.troll then Tier.HIDDEN
       else if user.kid.yes then Tier.UNLISTED
-      else Tier.LOW
+      else Tier.REGULAR
 
     val options = List(
       HIDDEN -> "Hidden",
       UNLISTED -> "Unlisted",
-      LOW -> "Low",
-      NORMAL -> "Normal",
-      HIGH -> "High"
+      REGULAR -> "Regular",
+      CRAWLABLE -> "Crawlable"
     )
 
     def name(tier: Tier) = options.collectFirst {

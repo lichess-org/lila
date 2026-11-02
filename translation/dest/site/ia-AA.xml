@@ -427,11 +427,9 @@
   <string name="reportAUser">Reportar un usator</string>
   <string name="user">Usator</string>
   <string name="reason">Ration</string>
-  <string name="whatIsIheMatter">Que es le problema?</string>
   <string name="cheat">Fraude</string>
   <string name="troll">Troll</string>
   <string name="other">Altere</string>
-  <string name="error.provideOneCheatedGameLink">Per favor, provide al minus un ligamine de un partita fraudate.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Iste topico es ora claudite.</string>
   <string name="blog">Blog</string>

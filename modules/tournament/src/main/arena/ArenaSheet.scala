@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import chess.variant.Variant
+
 import lila.core.LightUser.IsBotSync
 
 // most recent first

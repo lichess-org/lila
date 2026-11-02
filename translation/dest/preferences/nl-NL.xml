@@ -20,7 +20,7 @@
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="inGameOnly">Alleen tijdens partij</string>
-  <string name="exceptInGame">Uitgezonderd tijdens partijen</string>
+  <string name="exceptInGame">Behalve tijdens partij</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wanneer resterende tijd &lt; 10 seconden</string>
@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Geblinddoekt</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Toon links op mobiele apparaten</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="showServerAnalysis">Toon serveranalyse</string>
+  <string name="showMainlineAnalysis">Toon analyse hoofdvariant</string>
   <string name="showBestMoveArrows">Toon beste zet-pijlen</string>
   <string name="showManeuverArrows">Toon manoeuvre-pijlen</string>
   <string name="showGauge">Toon evaluatiebalk</string>
@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Toon onverdedigde stukken</string>
   <string name="showPinnedPieces">Toon gepende stukken</string>
   <string name="showCheckableKing">Toon schaakbare koning</string>
+  <string name="showTrappedPieces">Toon ingesloten stukken</string>
   <string name="disclosureMode">Varianten verbergen</string>
   <string name="generalSettings">Algemeen</string>
   <string name="moveListSettings">Zettenlijst</string>

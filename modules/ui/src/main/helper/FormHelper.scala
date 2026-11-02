@@ -1,11 +1,13 @@
 package lila.ui
 
 import play.api.data.*
-import scala.util.Try
 import play.api.i18n.Lang
 import scalalib.data.SimpleMemo
-import lila.ui.ScalatagsTemplate.*
+
+import scala.util.Try
+
 import lila.core.security.TurnstilePublicConfig
+import lila.ui.ScalatagsTemplate.*
 
 trait FormHelper:
   self: I18nHelper & AssetHelper =>
@@ -41,26 +43,6 @@ trait FormHelper:
         href := "https://www.markdownguide.org/cheat-sheet/",
         targetBlank
       )("Markdown")
-
-  def checkboxes[V](
-      field: play.api.data.Field,
-      options: Iterable[(V, String)],
-      checked: Set[V],
-      prefix: String = "op"
-  ) = st.group(cls := "radio"):
-    options.map { v =>
-      val id = s"${field.id}_${v._1}"
-      div(
-        st.input(
-          st.id := s"$prefix$id",
-          checked(v._1).option(st.checked),
-          tpe := "checkbox",
-          value := v._1.toString,
-          name := s"${field.name}[]"
-        ),
-        label(`for` := s"$prefix$id")(v._2)
-      )
-    }.toList
 
   def translatedBooleanIntChoices(using Translate) =
     List(

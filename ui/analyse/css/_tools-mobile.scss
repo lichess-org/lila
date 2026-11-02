@@ -33,11 +33,12 @@
     flex-wrap: wrap;
 
     .fbt {
+      @include box-radius-top;
+
       flex: 1;
       margin: 3px 2px 0;
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
-      border-radius: $box-radius-size $box-radius-size 0 0;
       background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
 
       &:not(.move) {

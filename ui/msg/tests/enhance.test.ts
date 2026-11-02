@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test, { describe } from 'node:test';
 
-import { each } from '../../.test/helpers.mts';
+import { each } from '#/helpers';
+
 import { enhance, imgurRegex } from '../src/view/enhance';
 
 describe('imgur matching', () => {
@@ -35,14 +36,14 @@ test('bulk message ids should have a text class', () => {
   assert.strictEqual(
     enhance('Your game with @somebody is ready: #gameIdXX.'),
     'Your game with <a target="_blank" rel="nofollow noreferrer" href="/@/somebody">@somebody</a> is ready: ' +
-      '<a class="text" target="_blank" rel="nofollow noreferrer" href="/gameIdXX">#gameIdXX</a>.',
+      '<a class="text" target="_blank" rel="nofollow noreferrer" href="/game/gameIdXX">#gameIdXX</a>.',
   );
 });
 
 test('regular game links should not have a text class', () => {
   assert.strictEqual(
-    enhance('I played a game: https://lichess.org/GameIdXX'),
-    'I played a game: <a target="_blank" rel="nofollow noreferrer" href="https://lichess.org/GameIdXX">lichess.org/GameIdXX</a>',
+    enhance('I played a game: https://lichess.org/game/GameIdXX'),
+    'I played a game: <a target="_blank" rel="nofollow noreferrer" href="https://lichess.org/game/GameIdXX">lichess.org/game/GameIdXX</a>',
   );
 });
 

@@ -3,8 +3,8 @@ package lila.notify
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
+import lila.db.dsl.{ *, given }
 import lila.ui.Icon
 
 final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor):

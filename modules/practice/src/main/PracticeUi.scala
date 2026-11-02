@@ -51,7 +51,7 @@ final class PracticeUi(helpers: Helpers)(
               img(
                 cls := "practice-side__decoration",
                 alt := "Decorative image of a robotic golem",
-                src := assetUrl("images/practice/robot-golem.svg")
+                src := assetPath("images/practice/robot-golem.svg")
               ),
               div(cls := "practice-side__title")(
                 h1(trans.site.practice()),

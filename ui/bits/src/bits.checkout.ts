@@ -128,7 +128,7 @@ export function initModule({
 
   const getGiftDest = () => {
     const raw = ($userInput.val() as string).trim().toLowerCase();
-    return raw !== myUserId() && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+    return raw !== myUserId() && /^[a-z0-9][\w-]{2,29}$/.test(raw) ? raw : null;
   };
 
   const toggleCheckout = () => {

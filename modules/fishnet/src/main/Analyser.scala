@@ -3,10 +3,10 @@ package lila.fishnet
 import chess.Ply
 import scalalib.cache.OnceEvery
 
-import lila.mon.extensions.*
 import lila.analyse.AnalysisRepo
 import lila.core.id
 import lila.fishnet.Work.{ Origin, Sender }
+import lila.mon.extensions.*
 
 final class Analyser(
     repo: FishnetRepo,

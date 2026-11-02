@@ -37,7 +37,7 @@ export class BotLoader {
       defBots ?? (await xhr.json('/bots').then(res => res.bots)),
       this.zerofish ??
         makeZerofish({
-          locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+          locator: (file: string) => site.asset.url(`npm/${file}`),
         }).then(zf => (this.zerofish = zf)),
     ];
     for (const b of [...bots].filter(Bot.isValid)) {
@@ -94,7 +94,7 @@ export class BotLoader {
     return netPromise.then(net => net.data);
   }
 
-  getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+  getBook(key: string): Promise<OpeningBook | undefined> {
     if (!key) return Promise.resolve(undefined);
     if (this.book.has(key)) return Promise.resolve(this.book.get(key));
     const bookPromise =
@@ -116,7 +116,7 @@ export class BotLoader {
     return botAssetUrl('sound', key);
   }
 
-  nameOf(uid?: string): string {
+  nameOf(uid: string | undefined): string {
     return !uid || uid === myUserId()
       ? (myUsername() ?? 'Anonymous')
       : (uid.startsWith('#') && this.bots.get(uid)?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);

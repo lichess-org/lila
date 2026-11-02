@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Impostazioni partita</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Lancia una sfida</string>
   <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
@@ -576,13 +575,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="reportAUser">Segnala un utente</string>
   <string name="user">Utente</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qual è il problema?</string>
   <string name="cheat">Imbrogli</string>
   <string name="troll">Provocazioni</string>
   <string name="other">Altro</string>
   <string name="reportCheatBoostHelp">Incolla il link della partita(o partite) e spiega cosa non va sul comportamento di questo utente. Non dire solamente \"ha barato\", ma invece dici come sei arrivato a questa conclusione.</string>
   <string name="reportUsernameHelp">Spiegaci cosa vi è di offensivo in questo nome utente. Non dire solamente \"è offensivo/inappopriato\", ma invece dici come sei arrivato a questa conclusione, soprattutto se l\'insulto è offuscato, non in inglese, in linguaggio giovanile, oppure se è un riferimento storico/culturale.</string>
-  <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="importedByX">Importato da %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
@@ -1012,8 +1009,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
   <string name="instructions">Istruzioni</string>
   <string name="showMeEverything">Mostra tutto</string>
-  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
-Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
   <string name="accessibility">Accessibilità</string>

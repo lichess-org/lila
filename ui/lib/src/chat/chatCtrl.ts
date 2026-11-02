@@ -169,7 +169,7 @@ export class ChatCtrl {
         resourceId: this.data.resourceId,
         redraw: this.redraw,
       });
-      site.asset.loadCssPath('lib.chat.mod');
+      site.asset.loadCss({ key: 'lib.chat.mod' });
     }
   };
 

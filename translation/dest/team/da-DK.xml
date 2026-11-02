@@ -39,6 +39,8 @@
   <string name="teamUpdates">Holdopdateringer</string>
   <string name="subToTeamUpdates">Abonner på holdopdateringer</string>
   <string name="newTeamUpdate">Ny holdopdatering</string>
+  <string name="teamEvents">Holdbegivenheder</string>
+  <string name="upcomingTeamEvents">Kommende holdbegivenheder</string>
   <string name="teamsIlead">Hold jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Måske du bør linke til en af disse kommende turneringer?</string>
   <string name="leadersChat">Holdleder-chat</string>

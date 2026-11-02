@@ -23,7 +23,6 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="castling">Enroque</string>
-  <string name="enPassant">Captura ao paso</string>
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza que se move como a descuberta atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
+  <string name="enPassant">Captura ao paso</string>
   <string name="enPassantAdjacentCaptureDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón do rival que acaba de poñerse ó seu carón nunha columna adxacente gracias ó seu movemento inicial de dúas casas.</string>
   <string name="epauletteMate">Mate das xarreteiras</string>
   <string name="epauletteMateDescription">As dúas casas de escape a ámbolos dous lados do rei en xaque están ocupadas.</string>

@@ -53,7 +53,6 @@
   <string name="ratedGame">Провери да си одиграо/ла рангирану партију. Нерангиране партије не утичу на играчев рејтинг.</string>
   <string name="botRatingAbuse">У одређеним случајевима када се игра против бот налога, рангирана партије можда не додели бодове ако установимо да играч злоупотребљава бота за рејтинг бодове.</string>
   <string name="errorPage">Страница грешке</string>
-  <string name="reportErrorPage">Ако си видео/ла страницу грешке, можеш је пријавити:</string>
   <string name="banAppeal">Жалба на забрану или IP ограничење</string>
   <string name="engineAppeal">Ознака рачунара или варања</string>
   <string name="sendAppealTo">Можеш послати жалбу на %s.</string>

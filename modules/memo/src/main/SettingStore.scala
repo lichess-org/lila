@@ -1,13 +1,14 @@
 package lila.memo
 
-import scala.util.Try
-import scala.util.matching.Regex
 import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONHandler
 import scalalib.Iso
 
-import lila.core.data.{ Ints, Strings, UserIds, Text }
+import scala.util.Try
+import scala.util.matching.Regex
+
+import lila.core.data.{ Ints, Strings, Text, UserIds }
 import lila.core.perm.Permission
 import lila.db.dsl.*
 

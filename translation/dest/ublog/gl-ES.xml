@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunidade</string>
   <string name="communityBlogs">Blogs da comunidade</string>
+  <string name="best">Mellores</string>
+  <string name="all">Todas</string>
   <string name="byMonth">Por mes</string>
   <string name="byTopic">Por tema</string>
   <string name="byLichess">De Lichess</string>
@@ -59,11 +61,24 @@
   <string name="deleteBlog">Borra para sempre esta publicación</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">As seguintes páxinas web proporcionan imaxes de balde. Por favor, asegúrate de cumprir as condicións da licenza da imaxe que vas usar.</string>
   <string name="selectPostTopics">Selecciona os temas dos que trata este artigo</string>
+  <string name="topicChess">Xadrez</string>
+  <string name="topicPuzzle">Crebacabezas</string>
+  <string name="topicTactics">Táctica</string>
+  <string name="topicStrategy">Estratexia</string>
+  <string name="topicChessEngine">Motores de xadrez</string>
+  <string name="topicChessBot">Bots de xadrez</string>
+  <string name="topicChessPersonalities">Personalidades de xadrez</string>
+  <string name="topicOverTheBoard">Cara a cara</string>
+  <string name="topicSoftwareDevelopment">Desenvolvemento de software</string>
+  <string name="topicOffTopic">Outros temas</string>
+  <string name="topicPosts">%s artigos</string>
   <string name="etiquette">Etiqueta</string>
   <string name="safeAndRespectfulContent">Por favor, publica só contido seguro e respectuoso. Non copies o contido doutra persoa.</string>
   <string name="noCopyrightedImages">Emprega soamente imaxes que non teñan dereitos de autor doutra persoa.</string>
   <string name="inappropriateContentAccountClosed">Calquera cousa inadecuada pode facer que pechemos a túa conta.</string>
   <string name="blogTips">Os nosos sinxelos consellos para escribir boas publicacións</string>
   <string name="discussThisBlogPostInTheForum">Falar desta publicación no foro</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">As opinións expresadas polos colaboradores do Lichess son as súas opinións persoais.</string>
+  <string name="youMayAlsoLike">Tamén che pode gustar</string>
   <string name="youBlockedByBlogAuthor">Estás bloqueado polo autor do blog.</string>
 </resources>

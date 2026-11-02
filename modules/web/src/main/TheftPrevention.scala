@@ -37,7 +37,7 @@ trait TheftPrevention:
             .flatMap(game.playerById)
             .filterNot(_.hasUser)
         .filterNot(_.isAi)
-        .map { Pov(game, _) }
+        .map(Pov(game, _))
 
   protected lazy val theftResponse = Unauthorized(
     jsonError("This game requires authentication")

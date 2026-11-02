@@ -1,19 +1,21 @@
 package lila.relay
 
 import play.api.libs.json.*
+import play.api.i18n.Lang
 import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
-import lila.core.config.RouteUrl
-import lila.memo.PicfitUrl
-import lila.relay.RelayTour.{ WithLastRound, WithRounds }
-import lila.study.ChapterPreview
-import lila.study.Settings
-import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
-import lila.core.i18n.Translate
+import lila.core.config.RouteUrl
+import lila.core.study.Study
 import lila.core.fide.PhotosJson
+import lila.core.i18n.Translate
+import lila.core.socket.SocketVersion
+import lila.memo.PicfitUrl
+import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
+import lila.study.{ ChapterPreview, Settings }
+import lila.core.i18n.{ toLanguage, defaultLanguage }
 
 final class RelayJsonView(
     routeUrl: RouteUrl,
@@ -88,23 +90,23 @@ final class RelayJsonView(
       .add("group" -> group)
       .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
 
-  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config, Translate): JsObject = t match
+  def tourWithAnyRound(
+      t: RelayTour | WithLastRound | WithFirstRound | RelayCard
+  )(using Config, Translate): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
-    case tr: WithLastRound =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
-        .add("group" -> tr.group)
+    case tr: WithLastRound => tourWithThisRound(tr)
+    case tr: WithFirstRound => tourWithThisRound(tr)
     case tr: RelayCard =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
+      tourWithThisRound(tr)
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(roundListWriter.writes(tr.link)))
-        .add("group" -> tr.group)
+
+  private def tourWithThisRound(tr: RelayRound.AndTourAndGroup)(using Config, Translate): JsObject =
+    Json
+      .obj(
+        "tour" -> fullTour(tr.tour),
+        "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
+      )
+      .add("group" -> tr.group)
 
   def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using writer: OWrites[RelayRound]): JsObject =
     writer.writes(rt.round) ++ Json
@@ -160,6 +162,7 @@ final class RelayJsonView(
         Json
           .obj("language" -> s.language)
           .add("title" -> s.title)
+          .add("continent" -> s.continent.map(_.code))
           .add("tier" -> rt.tour.tier)
 
   def makeData(
@@ -204,6 +207,24 @@ final class RelayJsonView(
 
   def search(tours: Paginator[WithLastRound | RelayCard])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
+
+  def responseCacheByLang(tour: RelayTour)(using Lang) =
+    isDefaultLanguage.so(responseCache(tour))
+
+  def responseCache(tour: RelayTour)(using Lang) =
+    Option.when(isDefaultLanguage && !tour.isPrivate):
+      if ~tour.live then 10.seconds
+      else if tour.active then 1.minute
+      else 10.minutes
+
+  def responseCache(rt: RelayRound.WithTour, study: Study)(using Lang) =
+    (isDefaultLanguage && !rt.tour.isPrivate && !study.isPrivate).so:
+      if rt.round.isFinished then 30.minutes.some
+      else if rt.round.hasStarted then none
+      else if rt.round.startsSoonOrAfterPrevious then 1.minute.some
+      else 10.minutes.some
+
+  private def isDefaultLanguage(using lang: Lang) = toLanguage(lang) == defaultLanguage
 
 object RelayJsonView:
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Oyun quruluşu</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Dostuna meydan oxu</string>
   <string name="gameMode">Oyun modu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
@@ -527,12 +526,10 @@
   <string name="reportAUser">Istifadəçi şikayət et</string>
   <string name="user">İstifadəçi</string>
   <string name="reason">Səbəb</string>
-  <string name="whatIsIheMatter">Problem nədir?</string>
   <string name="cheat">Hiylə</string>
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
   <string name="reportCheatBoostHelp">Oyunun (oyunların) linkini yapışdırın və istifadəçinin yanlış davranışını açıqlayın. Sadəcə \"bu hiylədir\" deməyin, bu qənaətə necə gəldiyinizi bizə deyin.</string>
-  <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
   <string name="blog">Blog</string>

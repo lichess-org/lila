@@ -88,7 +88,7 @@ def games(
               )
             ),
             tbody(
-              games.fold(_.map(_ -> None), _.map { (pov, ass) => pov -> Some(ass) }).map {
+              games.fold(_.map(_ -> None), _.map((pov, ass) => pov -> Some(ass))).map {
                 case (pov, assessment) =>
                   val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(

@@ -1,25 +1,49 @@
 import { type Rules } from 'chessops/types';
 
+import { pubsub } from 'lib/pubsub';
+
 import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
 import { xhrHeader } from '@/xhr';
 
 import type { CevalCtrl } from '../ctrl';
+import type { NodeEfficiencyVsFishnet } from '../types';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 
-interface WithMake {
-  info: BrowserEngineInfo;
-  make: (e: BrowserEngineInfo) => CevalEngine;
-}
+// These comments can be deleted after at least one other person scrolls past them
+//
+// nodeEfficiencyVsFishnet is the inverse constant multiple of 1,000,000 nodes for a given engine to achieve
+// strength parity with the current fishnet playing at a fixed 1,000,000 nodes per move.
+//
+// `go nodes (1_000_000 / nodeEfficiencyVsFishnet)` on the measured engine should play 50/50/x vs
+// `go nodes 1_000_000` on fishnet's official stockfish version (or fairy stockfish HCE for variants)
+//
+// I used https://github.com/disservin/fastchess with 200 round binary searches to zero in on this value for
+// the 1MB smallnet using 1 thread and default hash. The remaining ones for older wasms are "estimated"
+//
+// When a new fishnet is released, the previous fishnet should be compared against it.
+// That factor should then be scaled into the existing nodeEfficiencyVsFishnet values. This can be
+// done programmatically at startup to reduce code churn.
+//
+// Letting them float against the current fishnet seems better than pinning everything to a fixed
+// arbitrary fishnet version. But it can always be pinned (or abandoned) down the road.
+//
+// We are mostly interested in relating one engine strength to another instead of absolute
+// values. An undefined node efficiency (external engine) is considered 1x
 
 export class Engines {
-  private activeEngine: EngineInfo | undefined = undefined;
-  localEngineMap: Map<string, WithMake>;
+  localEngineMap: Map<string, { info: BrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine }>;
   externalEngines: ExternalEngineInfo[];
+  private activeEngine: EngineInfo | undefined = undefined;
+  readonly retiredEnginesVsFishnet: Map<string, NodeEfficiencyVsFishnet> = new Map([
+    // This map is a placeholder for search node efficiency of retired engines vs the latest fishnet
+    // Live engines should define the EngineInfo.nodeEfficiencyVsFishnet field instead
+    ['__example_legacy_engine_id', { chess: 0.001, variant: 0.001 }],
+  ]);
 
   constructor(private readonly ctrl: CevalCtrl) {
     type Variant = { key: Rules; nnue: string };
@@ -52,6 +76,7 @@ export class Engines {
           short: 'SF 19 94MB',
           url: 'https://github.com/lichess-org/stockfish-web#sf_19-stockfish-19',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 1.0 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
           supportsCloudEval: true,
@@ -70,9 +95,9 @@ export class Engines {
           short: 'SF 19 1MB',
           url: 'https://github.com/lichess-org/stockfish-web#sf_19_smallnet-stockfish-19-with-sscg13size-optimize-nnue',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.146 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          supportsCloudEval: true,
           supportsPuzzleReport: true,
           preferred: true,
           assets: {
@@ -89,6 +114,8 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 3 }, // 3 is a compromise.
+          // Depending on variant, NNUE can add anywhere from +200 to +1000 ELO according to download page.
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: [key],
           supportsCloudEval: true,
@@ -107,6 +134,7 @@ export class Engines {
           short: 'SF 14',
           url: 'https://github.com/lichess-org/stockfish-nnue.wasm',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.05 },
           obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
           minMem: 2048,
@@ -126,6 +154,7 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 1 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: ['chess', ...variants.map(v => v.key)],
           supportsNonStandardMaterial: true,
@@ -143,6 +172,7 @@ export class Engines {
           short: 'SF 11',
           url: 'https://github.com/lichess-org/stockfish.wasm',
           tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005 },
           requires: ['sharedMem'],
           minThreads: 1,
           assets: {
@@ -160,6 +190,7 @@ export class Engines {
           name: 'Stockfish 11 Multi-Variant',
           short: 'SF 11 MV',
           tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 0.5 },
           requires: ['sharedMem'],
           minThreads: 1,
           variants: ['chess', ...variants.map(v => v.key)],
@@ -183,6 +214,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: ['wasm'],
           obsoletedBy: 'sharedMem',
           assets: {
@@ -202,6 +234,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: [],
           obsoletedBy: 'wasm',
           assets: {
@@ -213,7 +246,7 @@ export class Engines {
         make: (e: BrowserEngineInfo) => new SimpleEngine(e),
       },
     ];
-    this.localEngineMap = new Map<string, WithMake>(
+    this.localEngineMap = new Map(
       browserEngines
         .filter(
           e =>
@@ -226,11 +259,15 @@ export class Engines {
       this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', preferred: true, ...e })) ?? [];
   }
 
-  getEngine(selector?: { id?: string; rules: Rules; nonStandardMaterial: boolean }): EngineInfo | undefined {
+  getEngine(selector?: {
+    id?: string;
+    rules?: Rules;
+    nonStandardMaterial?: boolean;
+  }): EngineInfo | undefined {
     const id = selector?.id ?? this.activeEngine?.id;
     const engines = this.supporting({
-      rules: selector?.rules || 'chess',
-      nonStandardMaterial: !!selector?.nonStandardMaterial,
+      rules: selector?.rules ?? this.ctrl.rules,
+      nonStandardMaterial: selector?.nonStandardMaterial ?? this.ctrl.nonStandardMaterial,
     });
     return engines.find(info => info.id === id) ?? engines.find(info => info.preferred) ?? engines[0];
   }
@@ -254,7 +291,7 @@ export class Engines {
     return this.activeEngine;
   }
 
-  get external(): ExternalEngineInfo | undefined {
+  external(): ExternalEngineInfo | undefined {
     return this.activeEngine?.tech === 'EXTERNAL' ? this.activeEngine : undefined;
   }
 
@@ -268,8 +305,8 @@ export class Engines {
   }
 
   supporting(selector: {
-    rules: Rules;
-    nonStandardMaterial: boolean;
+    rules?: Rules;
+    nonStandardMaterial?: boolean;
     filter?: 'browser' | 'external';
   }): EngineInfo[] {
     const engines: EngineInfo[] = [
@@ -278,8 +315,8 @@ export class Engines {
     ];
     return engines.filter(
       info =>
-        (!selector.nonStandardMaterial || info.supportsNonStandardMaterial) &&
-        (info.variants ?? ['chess']).includes(selector.rules),
+        (!selector.nonStandardMaterial || info.supportsNonStandardMaterial === true) &&
+        (!selector.rules || (info.variants ?? ['chess']).includes(selector.rules)),
     );
   }
 
@@ -292,6 +329,14 @@ export class Engines {
       : this.localEngineMap.get(e.id)!.make(e);
   }
 
+  nodeEfficiencyVsFishnet(id: string, rules: Rules = this.ctrl.rules): number | undefined {
+    const local = this.localEngineMap.get(id)?.info.nodeEfficiencyVsFishnet;
+    const external = this.externalEngines.find(e => e.id === id)?.nodeEfficiencyVsFishnet;
+    const retired = this.retiredEnginesVsFishnet.get(id);
+    if (rules === 'chess') return local?.chess ?? external?.chess ?? retired?.chess;
+    return local?.variant ?? external?.variant ?? retired?.variant;
+  }
+
   private readonly statusCallback = (
     status: { download?: { bytes: number; total: number }; error?: string } = {},
   ): void => {
@@ -300,9 +345,14 @@ export class Engines {
       log(status.error);
       this.ctrl.engineFailed(status.error);
     }
+    if (status.download) {
+      pubsub.emit('ceval.engine.download', status.download);
+    }
     this.ctrl.opts.redraw();
   };
 }
+
+export const maxBrowserHash: number = maxHashMB();
 
 function maxHashMB() {
   if (isAndroid()) return 64; // budget androids are easy to crash @ 128
@@ -311,12 +361,18 @@ function maxHashMB() {
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 
-const maxHash = maxHashMB();
-const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
+const maxThreads = navigator.hardwareConcurrency || 4;
+
+type GivenInDefaults = 'minThreads' | 'maxThreads';
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type LooseBrowserEngineInfo = Optional<BrowserEngineInfo, GivenInDefaults>;
+type WithMake = { info: LooseBrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine };
+
+const withDefaults = (engine: LooseBrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['chess'],
   minMem: 1024,
-  maxHash,
+  maxHash: maxBrowserHash,
   minThreads: 2,
-  maxThreads: 32,
+  maxThreads,
   ...engine,
 });

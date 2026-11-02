@@ -5,8 +5,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
-import lila.core.socket.{ GetVersion, SocketVersion }
 import lila.core.security.LilaCookie
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(

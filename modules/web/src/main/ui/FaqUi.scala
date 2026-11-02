@@ -348,7 +348,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.enableDisableNotificationPopUps.txt(),
             p(
               img(
-                src := assetUrl("images/connection-info.png"),
+                src := assetPath("images/connection-info.png"),
                 alt := trf.viewSiteInformationPopUp.txt()
               )
             ),

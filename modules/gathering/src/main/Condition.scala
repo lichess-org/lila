@@ -1,7 +1,7 @@
 package lila.gathering
 
-import scalalib.model.Days
 import chess.IntRating
+import scalalib.model.Days
 
 import lila.core.LightUser
 import lila.core.LightUser.Me
@@ -141,7 +141,7 @@ object Condition:
     def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
       else if allowAnyTitledUser && me.title.isDefined then Accepted
-      else Refused { _ => "Your name is not in the tournament line-up." }
+      else Refused(_ => "Your name is not in the tournament line-up.")
     def userIds: Set[UserId] = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
     def allows(u: LightUser): Boolean =

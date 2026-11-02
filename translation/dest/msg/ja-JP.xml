@@ -7,4 +7,5 @@
 先日のあなたの通報内容を検討して対応しました。対応の内容は明かせませんが通報に感謝します。
 
 Lichess を誰もが気持ちよく遊べる場所にするため力を貸してくださってありがとう。</string>
+  <string name="oldAppNoLongerSupportsPuzzles">古いアプリはタクティクス問題に対応していません。新しい Lichess アプリをインストールしてください： %s</string>
 </resources>

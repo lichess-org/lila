@@ -1,9 +1,9 @@
 package lila.oauth
 
+import io.mola.galimatias.URL
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.*
-import io.mola.galimatias.URL
 
 final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }

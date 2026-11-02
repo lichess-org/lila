@@ -54,7 +54,9 @@
   <string name="ratedGame">Make sure you have played a rated game. Casual games do not affect your rating.</string>
   <string name="botRatingAbuse">In certain circumstances when playing against a bot account, a rated game may not award points if we determine that the player is abusing the bot for rating points.</string>
   <string name="errorPage">Error page</string>
-  <string name="reportErrorPage">If you faced an error page, you may report it:</string>
+  <string name="reportTheBug">You may report it:</string>
+  <string name="securityVulnerability">Security vulnerability</string>
+  <string name="otherBug">Other bug</string>
   <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>

@@ -19,4 +19,6 @@
   <string name="findSquare">マスを探す</string>
   <string name="nameSquare">マスの名前を入力</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">一部のファイルとランクだけ練習</string>
+  <string name="enterTheCoordinate">座標を入力してください</string>
+  <string name="pressEnterToStart">%s を押してスタート</string>
 </resources>

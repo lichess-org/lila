@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Zrušit časovač nebo zamítnout možnost</string>
   <string name="playPreferredMoveOrConfirmSomething">Zahrát tah nebo něco tvrdit</string>
   <string name="sleep">Uspí se (pokud je probouzející se příkaz povolen)</string>
-  <string name="turnOffVoiceRecognition">Vypnout rozpoznávání hlasu</string>
   <string name="showPuzzleSolution">Ukázat řešení</string>
 </resources>

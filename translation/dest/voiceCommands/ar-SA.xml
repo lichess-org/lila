@@ -2,9 +2,9 @@
 <resources>
   <string name="voiceCommands">الأوامر الصوتية</string>
   <string name="watchTheVideoTutorial">شاهد الفيديو التوضيحي</string>
-  <string name="instructions1">استخدم زر %1$s لتبديل الصوت، الزر %2$s لفتح حوار المساعدة، وقائمة %3$s لتغيير إعدادات الكلام.</string>
-  <string name="instructions2">تشير الأسهم إلى عدة نقلات حين لا نكون واثقين، حدد لون أو رَقْم السهم الذي يشير إلى النقلة لاختيارها.</string>
-  <string name="instructions3">إذا ظهرت علامة الرادار، فستُلعب نقلتك عند اكتمال الدائرة. خلال ذلك، يمكنك قول %1$s للعب النقلة على الفور، أو قول %2$s لإلغاء الحركة واختيار أخرى بلون/رقم سهم مختلف. يمكن تعديل هذا المؤقت أو إيقاف تشغيله في الإعدادات.</string>
+  <string name="instructions1">استخدم زر %1$s لتفعيل التعرّف على الصوت أو إيقافه، وزر %2$s لفتح نافذة المساعدة هذه، وقائمة %3$s لتغيير إعدادات الكلام.</string>
+  <string name="instructions2">نعرض أسهمًا لعدة نقلات عندما لا نكون متأكدين. انطق لون سهم النقلة أو رقمها لتحديده.</string>
+  <string name="instructions3">إذا ظهر على أحد الأسهم مؤشر رادار دائري متحرك، فسيتم تنفيذ النقلة عند اكتمال الدائرة. خلال هذه الفترة، يمكنك فقط قول %1$s لتنفيذ النقلة فورًا، أو %2$s لإلغائها، أو نطق لون سهم آخر أو رقمه لتحديده. يمكنك ضبط هذا المؤقّت أو إيقافه من الإعدادات.</string>
   <string name="instructions4">استخدم %s في الأماكن الصاخبة لتحسين التعرف على الأوامر الصوتية. وعند تفعيل هذا الخِيار، اضغط باستمرار على مفتاح Shift في أثناء التحدث بالأوامر.</string>
   <string name="instructions5">استخدم الأبجدية الصوتية لتسهيل التعرف على أعمدة رقعة الشطرنج. </string>
   <string name="instructions6">%s يشرح إعدادات الأوامر الصوتية بالتفصيل.</string>
@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">ألغ المؤقت أو أرفض الطلب</string>
   <string name="playPreferredMoveOrConfirmSomething">لعب النقلة المفضلة أو التأكد من شيئ ما</string>
   <string name="sleep">وضع النوم (إذا تم تمكين كلمة الاستيقاظ)</string>
-  <string name="turnOffVoiceRecognition">إيقاف التعرف على الصوت</string>
   <string name="showPuzzleSolution">إظهار حل اللغز</string>
+  <string name="voiceHelp">المساعدة الصوتية</string>
+  <string name="voiceSettings">إعدادات الصوت</string>
+  <string name="pushShiftKeyToTalk">اضغط مطولًا على المفتاح %s للتحدث</string>
+  <string name="holdShiftKeyWhileSpeaking">اضغط باستمرار على مفتاح Shift أثناء التحدث</string>
+  <string name="microphone">الميكروفون</string>
+  <string name="noneSelected">لم يتم تحديد أيٍّ منها</string>
 </resources>

@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">Anulați cronometrul sau refuzați o cerere</string>
   <string name="playPreferredMoveOrConfirmSomething">Redă mutarea preferată sau confirmă ceva</string>
   <string name="sleep">Somn (dacă cuvântul de trezire este activat)</string>
-  <string name="turnOffVoiceRecognition">Dezactivați recunoașterea vocală</string>
   <string name="showPuzzleSolution">Arată soluţia de puzzle</string>
+  <string name="voiceHelp">Ajutor vocal</string>
+  <string name="voiceSettings">Setări vocale</string>
+  <string name="pushShiftKeyToTalk">Apăsați tasta %s pentru a vorbi</string>
+  <string name="holdShiftKeyWhileSpeaking">Țineți apăsată tasta Shift în timp ce vorbiți</string>
+  <string name="microphone">Microfon</string>
+  <string name="noneSelected">Nimic selectat</string>
 </resources>

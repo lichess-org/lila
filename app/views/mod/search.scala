@@ -7,9 +7,9 @@ import lila.app.UiEnv.{ *, given }
 import lila.core.net.IpAddress
 import lila.core.security.FingerHash
 import lila.mod.IpRender.RenderIp
+import lila.mod.ModUserSearchResult
 import lila.security.IpTrust
 import lila.user.WithPerfsAndEmails
-import lila.mod.ModUserSearchResult
 
 object search:
 

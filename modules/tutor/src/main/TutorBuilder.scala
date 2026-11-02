@@ -1,5 +1,6 @@
 package lila.tutor
 
+import lila.common.LilaFuture
 import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.db.dsl.{ *, given }
 import lila.insight.{
@@ -11,9 +12,8 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.rating.PerfType
-import lila.common.LilaFuture
 import lila.mon.extensions.*
+import lila.rating.PerfType
 
 final private class TutorBuilder(
     colls: TutorColls,
@@ -32,7 +32,7 @@ final private class TutorBuilder(
   def apply(config: TutorConfig): Fu[TutorFullReport] = for
     user <- userApi.withPerfs(config.user).orFail(s"No such user ${config.user}")
     chrono = lila.mon.Chronometer.lapTry(produce(user)(using config))
-    _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
+    _ = chrono.mon(r => lila.mon.tutor.buildFull(r.isSuccess))
     lap <- chrono.lap
     report <- lap.result.toFuture
     doc = bsonWriteObjTry(report).get ++ bdoc("_id" -> report.id, "millis" -> lap.millis)
@@ -52,7 +52,7 @@ final private class TutorBuilder(
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
       .monSuccess(lila.mon.tutor.buildSegment("peer-matches"))
     tutorUsers = perfStats
-      .map { (pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
+      .map((pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)))
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(lila.mon.tutor.buildSegment("fishnet-analysis"))

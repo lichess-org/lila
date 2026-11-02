@@ -75,12 +75,12 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
     )
 
   def renderTourOfGroup(group: RelayGroup)(tour: RelayTour)(using Context) =
-    link(tour, routes.RelayTour.show(tour.slug, tour.id).url, ~tour.live)(
+    link(tour, tour.call.url, ~tour.live)(
       cls := s"relay-card--tier-${tour.tier.so(_.v)}"
     )(tourBody(tour, group.name.shortTourName(tour.name)))
 
   def empty(t: RelayTour)(using Translate) =
-    link(t, routes.RelayTour.show(t.slug, t.id).url, ~t.live)(tourBody(t, t.name))
+    link(t, t.call.url, ~t.live)(tourBody(t, t.name))
 
   private def tourBody(t: RelayTour, name: RelayTour.Name)(using Translate) = frag(
     image(t),

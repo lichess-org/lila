@@ -3,6 +3,7 @@ package ui
 
 import scalalib.paginator.Paginator
 
+import lila.common.ClientName
 import lila.core.config.NetDomain
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -11,7 +12,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
   import trans.video as trv
 
-  private def page(title: String, control: UserControl)(using ctx: Context) =
+  private def page(title: String, control: UserControl)(using Context) =
     Page(title)
       .css("bits.video")
       .js(infiniteScrollEsmInit)
@@ -22,7 +23,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           div(cls := "page-menu__content box")(body)
         )
 
-  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using ctx: Context) =
+  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using Context, ClientName) =
     page(s"${video.title} • ${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
@@ -53,7 +54,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ),
           div(cls := "meta box__pad")(
             div(cls := "target__wrapper")(
-              video.targets.map { t => div(cls := "target__box")(Target.name(t)) }
+              video.targets.map(t => div(cls := "target__box")(Target.name(t)))
             ),
             a(
               cls := "author",
@@ -72,7 +73,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             similar.map(card(_, control))
         )
 
-  def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
+  def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using Context, ClientName) =
     val tagString = control.filter.tags.nonEmptyOption.so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
@@ -102,7 +103,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             )
           ),
           div(cls := "list box__pad infinite-scroll")(
-            videos.currentPageResults.map { card(_, control) },
+            videos.currentPageResults.map(card(_, control)),
             (videos.currentPageResults.sizeIs < 4).option(
               div(cls := s"not_much nb_${videos.nbResults}")(
                 if videos.currentPageResults.isEmpty then trv.noVideosForTheseTags()
@@ -130,35 +131,36 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           )
         )
 
-  private def menu(control: UserControl)(using ctx: Context) =
+  private def menu(control: UserControl)(using Context) =
     st.aside(cls := "page-menu__menu")(
       lila.ui.bits.subnav(
         control.tags.map: t =>
           val checked = control.filter.tags contains t.tag
+          val visible = checked || t.nb.forall(_ > 0)
           a(
+            noFollow,
             cls := List(
               "checked" -> checked,
-              "full" -> (checked || t.nb > 0),
-              "empty" -> !(checked || t.nb > 0)
+              "full" -> visible,
+              "empty" -> !visible
             ),
-            href := (checked || t.nb > 0)
+            href := (checked || t.nb.forall(_ > 0))
               .option(s"${langHref(routes.Video.index)}?${control.toggleTag(t.tag).queryString}")
           )(
             span(t.tag.capitalize),
-            (!checked && t.nb > 0).option(em(t.nb))
+            (!checked && t.nb.forall(_ > 0)).option(em(t.nb))
           )
       ),
-      div(cls := "under-tags")(
-        if control.filter.tags.nonEmpty then
+      control.filter.tags.nonEmpty.option:
+        div(cls := "under-tags"):
           a(cls := "button button-empty", href := langHref(routes.Video.index))(trans.site.clearSearch())
-        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
-      )
     )
 
-  def card(vv: VideoView, control: UserControl)(using ctx: Context): Frag =
+  def card(vv: VideoView, control: UserControl)(using ctx: Context, client: ClientName): Frag =
+    val queryString = client.isHuman.so(control.queryString)
     a(
       cls := "card paginated",
-      href := s"${langHref(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
+      href := s"${langHref(routes.Video.show(vv.video.id))}?$queryString"
     )(
       vv.view.option(span(cls := "view")("watched")),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
@@ -168,11 +170,11 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       span(cls := "reveal")(
         span(cls := "full-title")(vv.video.title),
         span(cls := "author")(vv.video.author),
-        span(cls := "target")(vv.video.targets.map { t => div(cls := "target__box")(Target.name(t)) })
+        span(cls := "target")(vv.video.targets.map(t => div(cls := "target__box")(Target.name(t))))
       )
     )
 
-  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using ctx: Context) =
+  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using Context, ClientName) =
     page(s"$name • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
@@ -187,7 +189,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           span(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
         ),
         div(cls := "list infinite-scroll box__pad")(
-          videos.currentPageResults.map { card(_, control) },
+          videos.currentPageResults.map(card(_, control)),
           pagerNext(
             videos,
             np => s"${langHref(routes.Video.author(name))}?${control.queryString}&page=$np"
@@ -195,7 +197,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def notFound(control: UserControl)(using ctx: Context) =
+  def notFound(control: UserControl)(using Context) =
     page(trv.videoNotFound.txt(), control):
       boxTop(
         h1(
@@ -212,31 +214,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     form(cls := "search", method := "GET", action := langHref(routes.Video.index)):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
 
-  def tags(ts: List[TagNb], control: UserControl)(using ctx: Context) =
-    page(s"${trans.site.tags.txt()} • ${trv.freeChessVideos.txt()}", control):
-      frag(
-        boxTop(
-          h1(
-            a(
-              cls := "text",
-              dataIcon := Icon.Back,
-              href := s"${langHref(routes.Video.index)}?${control.queryString}"
-            )(
-              trv.allNbVideoTags(ts.size.toString())
-            )
-          )
-        ),
-        div(cls := "tag-list box__pad")(
-          ts.sortBy(_.tag).map { t =>
-            a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
-              t.tag.capitalize,
-              em(" " + t.nb)
-            )
-          }
-        )
-      )
-
-  def search(videos: Paginator[VideoView], control: UserControl)(using Context) =
+  def search(videos: Paginator[VideoView], control: UserControl)(using Context, ClientName) =
     page(s"${control.query.getOrElse(trans.site.search.txt())} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
@@ -244,7 +222,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           searchForm(control.query)
         ),
         div(cls := "list infinitescroll box__pad")(
-          videos.currentPageResults.map { card(_, control) },
+          videos.currentPageResults.map(card(_, control)),
           (videos.currentPageResults.sizeIs < 4).option(
             div(cls := s"not_much nb_${videos.nbResults}")(
               if videos.currentPageResults.isEmpty then trans.site.thereAreNoResultsForX(~control.query)

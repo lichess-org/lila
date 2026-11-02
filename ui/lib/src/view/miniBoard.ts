@@ -21,6 +21,8 @@ export const initMiniBoardWith = (node: HTMLElement, config: CgConfig): void => 
     coordinates: false,
     viewOnly: !node.getAttribute('data-playable'),
     drawable: { enabled: false, visible: false },
+    // scoped to the board, not the body: a page can hold many of these
+    addDimensionsCssVarsTo: node,
     ...config,
   };
   domData.set(node, 'chessground', makeChessground(node, cgConfig));
@@ -53,8 +55,13 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
   const $el = $(node).removeClass('mini-game--init');
   const $cg = $el.find('.cg-wrap');
   const turnColor = fenColor(fen);
+  const cgEl = $cg[0] as HTMLElement;
 
-  domData.set($cg[0] as Element, 'chessground', (withCg ?? makeChessground)($cg[0] as HTMLElement, config));
+  domData.set(
+    cgEl,
+    'chessground',
+    (withCg ?? makeChessground)(cgEl, { ...config, addDimensionsCssVarsTo: cgEl }),
+  );
 
   COLORS.forEach(color =>
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {

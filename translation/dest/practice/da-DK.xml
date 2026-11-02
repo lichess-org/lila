@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="makesPerfect">gør din skak perfekt</string>
+  <string name="signUpToSaveYourProgress">Tilmeld dig for at gemme dine fremskridt</string>
+  <string name="secHeadCheckmates">Skakmat</string>
+  <string name="secHeadFundamentalTactics">Grundlæggende taktikker</string>
+  <string name="secHeadAdvancedTactics">Avancerede taktikker</string>
+  <string name="secHeadPawnEndgames">Bondeslutspil</string>
+  <string name="secHeadRookEndgames">Tårnslutspil</string>
+  <string name="stNamPieceCheckmatesI">Mat med officerer I</string>
+  <string name="stNamCheckmatePatternsI">Skakmatmønstre I</string>
+  <string name="stNamCheckmatePatternsII">Skakmatmønstre II</string>
+  <string name="stNamCheckmatePatternsIII">Skakmatmønstre III</string>
+  <string name="stNamCheckmatePatternsIV">Skakmatmønstre IV</string>
+  <string name="stNamPieceCheckmatesII">Mat med officerer II</string>
+  <string name="stNamKnightAndBishopMate">Mat med springer og løber</string>
+  <string name="stNamThePin">Bindingen</string>
+  <string name="stNamTheSkewer">Spiddet</string>
+  <string name="stNamTheFork">Gaflen</string>
+  <string name="stNamDiscoveredAttacks">Afdækkerangreb</string>
+  <string name="stNamDoubleCheck">Dobbeltskak</string>
+  <string name="stNamOverloadedPieces">Overbelastede brikker</string>
+  <string name="stNamZwischenzug">Mellemtræk</string>
+  <string name="stNamXRay">Røntgen</string>
+  <string name="stNamZugzwang">Træktvang</string>
+  <string name="stNamInterference">Obstruktion</string>
+  <string name="stNamGreekGift">Græsk gave</string>
+  <string name="stNamDeflection">Afledning</string>
+  <string name="stNamAttraction">Lokkedue</string>
+  <string name="stNamUnderpromotion">Underforvandling</string>
+  <string name="stNamDesperado">Desperado</string>
+  <string name="stNamCounterCheck">Modskak</string>
+  <string name="stNamUndermining">Undergravning</string>
+  <string name="stNamClearance">Rydning</string>
+  <string name="stNamKeySquares">Nøglefelter</string>
+  <string name="stNamOpposition">Opposition</string>
+  <string name="stDesBasicCheckmates">Grundlæggende mat</string>
+  <string name="stDesRecognizeThePatterns">Genkend mønstrene</string>
+  <string name="stDesChallengingCheckmates">Udfordrende mat</string>
+  <string name="stDesInteractiveLesson">Interaktiv lektion</string>
+  <string name="stDesVersusAQueen">Mod en dronning</string>
+  <string name="stDesBroadenYourKnowledge">Udvid din viden</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Tårnslutspil med flere bønder</string>
+</resources>

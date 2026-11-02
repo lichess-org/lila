@@ -1,16 +1,15 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
+import chess.Outcome.Points
+import chess.format.pgn.*
+import chess.{ FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
-import chess.format.pgn.*
-import chess.{ FideId, PlayerName, IntRating }
-import chess.Outcome.Points
+import scala.collection.immutable.SeqMap
 
 import lila.core.fide.{ PlayerToken, Tokenize }
-import lila.study.ChapterPreview
-import lila.study.StudyPlayer
 import lila.relay.RelayGroup.ScoreGroup
+import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
 
@@ -84,7 +83,7 @@ object RelayTeam:
     def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
     def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
     def forall(f: A => Boolean) = f(a) && f(b)
-    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else if f(b) then Some(b) else None
+    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else Some(b).filter(f)
     def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
     def reverse = Pair(b, a)
 
@@ -296,7 +295,7 @@ final class RelayTeamLeaderboard(
       cache
         .get(tourId)
         .map: l =>
-          JsonStr(Json.stringify(Json.toJson(l.values.toList)))
+          JsonStr(Json.toJson(l.values.toList))
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate

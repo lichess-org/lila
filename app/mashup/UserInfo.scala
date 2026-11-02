@@ -7,13 +7,13 @@ import play.api.data.Form
 import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
-import lila.core.user.User
 import lila.core.perm.Granter
+import lila.core.user.User
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
+import lila.mon.extensions.*
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.mon.extensions.*
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -88,17 +88,17 @@ object UserInfo:
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
+      crosstableApi: lila.game.CrosstableApi,
+      playingUsers: lila.round.PlayingUsers
   )(using Executor):
-    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
+    def apply(u: User, withCrosstable: Boolean, withPlaying: Boolean)(using me: Me): Fu[NbGames] =
       (
-        withCrosstable.so:
-          me
-            .filter(u.isnt(_))
-            .traverse: me =>
-              crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
+        (withCrosstable && u.isnt(me)).so:
+          crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable")).dmap(some)
         ,
-        gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
+        withPlaying.so:
+          playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying"))
+        ,
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
         bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)

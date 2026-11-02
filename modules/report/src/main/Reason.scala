@@ -22,6 +22,7 @@ enum Reason:
   def key = toString.toLowerCase
   def name = if this == AltPrint then "Print" else toString
   def isComm = Reason.comm(this)
+  def isAuto = this == Playbans || this == AltPrint
 
 object Reason:
   val all = values.toList
@@ -30,6 +31,9 @@ object Reason:
   val comm = Set(Comm, Sexism, VerbalAbuse, Violence, Harass, SelfHarm, Hate, Spam)
   val autoBlock = comm
   val flagText = "[FLAG]"
+
+  /** the reasons a user may pick, excluding the ones we file automatically */
+  val userSelectable = all.filterNot(_.isAuto)
 
   given Iso.StringIso[Reason] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 

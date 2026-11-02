@@ -1,14 +1,14 @@
 package lila.tournament
 
-import org.apache.pekko.stream.scaladsl.*
-import lila.mon.extensions.*
 import io.lettuce.core.RedisClient
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
 
 import lila.common.Json.given
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.core.chess.Rank
+import lila.mon.extensions.*
 
 final class TournamentLilaHttp(
     tournamentRepo: TournamentRepo,
@@ -71,12 +71,12 @@ final class TournamentLilaHttp(
   yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
-      "ongoingUserGames" -> {
+      "ongoingUserGames" ->
         duelStore
           .get(tour.id)
           .so[String]:
             _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",")
-      },
+      ,
       "standing" -> fullStanding
     )
     .add("noStreak" -> tour.noStreak)

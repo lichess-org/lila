@@ -48,7 +48,7 @@ final case class ApiAiConfig(
           )
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap(Pov(_, creatorColor))
 
   def autoVariant =
     if variant.standard && fen.exists(!_.isInitial)

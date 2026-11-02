@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
-    sasso.url = "github:momiji-rs/sasso/v0.19.3";
+    sasso.url = "github:momiji-rs/sasso/v0.21.0";
   };
 
   outputs =
@@ -48,12 +48,12 @@
           nodejs = prev."nodejs_${nodeMajorVersion}";
 
           esbuild = prev.esbuild.overrideAttrs (previousAttrs: rec {
-            version = "0.25.11";
+            version = "0.28.2";
             src = prev.fetchFromGitHub {
               owner = "evanw";
               repo = "esbuild";
               rev = "v${version}";
-              hash = "sha256-GLvIAVfd7xyCFrYhQWs2TK63voz7gFm3yUXXFq6VZ74=";
+              hash = "sha256-I1u+9U5Oj/KzxSjCxwyitwSuDKimatkbC3R2OtaUsfM=";
             };
           });
         };

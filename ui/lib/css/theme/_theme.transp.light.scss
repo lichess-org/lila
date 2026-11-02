@@ -2,15 +2,12 @@ html.transp.light {
   --c-primary: hsl(209 79% 46%);
   --c-base: hsl(0 0% 15%);
   --c-font: hsl(0 0% 20%);
-  --c-clearer: hsl(0 0% 5%);
-  --c-dimmer: hsl(0 0% 90%);
   --c-border: hsl(0 0% 80% / 0.8);
   --c-body-gradient: hsl(var(---site-hue) 2% 86% / 0.8);
   --c-brag-hover: hsl(from var(--c-brag) h 100 30);
   --c-bg: hsl(0 0% 100% / 0.6);
   --c-bg-page: hsl(var(---site-hue) 10% 92%);
-  --c-bg-font: hsl(0 0% 20%);
-  --c-bg-opaque: hsl(0 0% 100% / 0.9);
+  --c-bg-opaque: hsl(var(---site-hue) 2% 95% / 0.95);
   --c-bg-low: hsl(0 0% 100% / 0.5);
   --c-bg-mid: hsl(0 0% 85% / 0.4);
   --c-bg-zebra: hsl(0 0% 100% / 0.28);

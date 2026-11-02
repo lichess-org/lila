@@ -14,7 +14,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
     (game.bookmarks > 0).so(exists(game.id, userId))
 
   def exists(game: Game, user: Option[UserId]): Fu[Boolean] =
-    user.so { exists(game, _) }
+    user.so(exists(game, _))
 
   def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[GameId]] =
     user.so: u =>

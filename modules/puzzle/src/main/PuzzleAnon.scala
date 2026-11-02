@@ -32,8 +32,20 @@ final class PuzzleAnon(
       else ThreadLocalRandom.oneOf(puzzles.filter(_.color == color))
     nextTry(1)
 
-  def getBatchFor(angle: PuzzleAngle, diff: PuzzleDifficulty, nb: Int): Fu[Vector[Puzzle]] =
-    pool.get(angle -> diff).map(_.take(nb)).mon(lila.mon.puzzle.selector.anon.batch(nb))
+  def getBatchFor(
+      angle: PuzzleAngle,
+      diff: PuzzleDifficulty,
+      nb: Int,
+      color: Option[Color]
+  ): Fu[Vector[Puzzle]] =
+    pool
+      .get(angle -> diff)
+      .map: puzzles =>
+        color
+          .fold(puzzles): c =>
+            puzzles.filter(_.color == c)
+          .take(nb)
+      .mon(lila.mon.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 150
 

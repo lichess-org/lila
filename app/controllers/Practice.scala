@@ -1,7 +1,8 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.libs.json.*
+
+import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.practice.JsonView.given

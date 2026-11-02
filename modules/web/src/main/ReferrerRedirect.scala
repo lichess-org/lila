@@ -1,13 +1,13 @@
 package lila.web
 
 import io.mola.galimatias.URL
+import play.api.mvc.RequestHeader
 
 import scala.util.Try
 
+import lila.common.HTTPRequest
 import lila.core.config.BaseUrl
 import lila.core.net.ValidReferrer
-import play.api.mvc.RequestHeader
-import lila.common.HTTPRequest
 
 final class ReferrerRedirect(baseUrl: BaseUrl):
 

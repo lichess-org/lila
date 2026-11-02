@@ -14,6 +14,6 @@
   <string name="phoneticAlphabetIsBest">D\'phoneetescht Alphabet ass am beschten</string>
   <string name="playPreferredMoveOrConfirmSomething">De preferéierten Zuch spillen oder eppes bestätegen</string>
   <string name="sleep">Schlofen (wann d\'Wuert fir z\'erwächen aktivéiert ass)</string>
-  <string name="turnOffVoiceRecognition">Sproocherkennung desaktivéieren</string>
   <string name="showPuzzleSolution">Léisung vun der Aufgab weisen</string>
+  <string name="microphone">Mikrofon</string>
 </resources>

@@ -2,10 +2,10 @@ package lila.coach
 
 import play.api.data.*
 import play.api.data.Forms.*
+import scalalib.model.LangTag
 
 import lila.common.Form.{ tagifyValues, given }
 import lila.core.data.RichText
-import scalalib.model.LangTag
 
 object CoachProfileForm:
 

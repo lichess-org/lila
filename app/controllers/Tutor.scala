@@ -6,7 +6,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.rating.PerfType
-import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorConfig, TutorAvailability }
+import lila.tutor.{ TutorAvailability, TutorConfig, TutorFullReport, TutorPerfReport }
 
 final class Tutor(env: Env) extends LilaController(env):
 

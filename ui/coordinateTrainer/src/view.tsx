@@ -22,8 +22,7 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl) => {
                   remove: { opacity: '0', transform: 'translate(-8px, 60px)' },
                 }
               : undefined
-          }
-        >
+          }>
           <text>{modifier === 'current' ? ctrl.currentKey : ctrl.nextKey}</text>
         </g>
       ))}
@@ -76,45 +75,40 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
 
   return (
     <div class="coordinate-input">
-      {ctrl.coordinateInputMethod() === 'buttons' ? (
-        <div class="files-ranks">
-          {[...FILES, ...RANKS].map(fileOrRank => (
-            <button
-              class="button button-empty file-rank"
-              on={{
-                click: () => {
-                  if (ctrl.playing) {
-                    ctrl.keyboardInput.value += fileOrRank;
-                    ctrl.checkKeyboardInput();
-                  }
-                },
-              }}
-            >
-              {fileOrRank}
-            </button>
-          ))}
-        </div>
-      ) : null}
+      <div class="files-ranks">
+        {[...FILES, ...RANKS].map(fileOrRank => (
+          <button
+            class="button button-empty file-rank"
+            on={{
+              click: () => {
+                if (ctrl.playing) {
+                  ctrl.keyboardInput.value += fileOrRank;
+                  ctrl.checkKeyboardInput();
+                }
+              },
+            }}>
+            {fileOrRank}
+          </button>
+        ))}
+      </div>
       <div class="voice-container">{renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')}</div>
       <div class="keyboard-container">
         <span>
           <input
             type="text"
             class="keyboard"
-            hook={onInsert<HTMLInputElement>(el => (ctrl.keyboardInput = el))}
+            hook={onInsert<HTMLInputElement>(el => {
+              el.focus();
+              ctrl.keyboardInput = el;
+            })}
             on={{ keyup: ctrl.onKeyboardInputKeyUp }}
           />
           {ctrl.playing ? (
-            <span>Enter the coordinate</span>
+            <span>{i18n.coordinates.enterTheCoordinate}</span>
           ) : (
-            <strong>
-              Press <kbd>enter</kbd> to start
-            </strong>
+            <strong>{i18n.coordinates.pressEnterToStart.asArray(<kbd>enter</kbd>)}</strong>
           )}
         </span>
-        <button class="button button-empty" on={{ click: () => ctrl.toggleInputMethod() }}>
-          {ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons'}
-        </button>
       </div>
     </div>
   );

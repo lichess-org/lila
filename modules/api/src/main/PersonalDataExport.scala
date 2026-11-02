@@ -131,7 +131,7 @@ final class PersonalDataExport(
             Match("l".regexStart(s"${user.id} ", "i"))
           )
         .documentSource()
-        .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
+        .map(_.string("l").so(_.drop(user.id.value.size + 1)))
         .throttle(heavyPerSecond, 1.second)
 
     val spectatorGameChats =

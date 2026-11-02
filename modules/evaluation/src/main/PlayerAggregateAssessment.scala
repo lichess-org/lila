@@ -1,7 +1,8 @@
 package lila.evaluation
 
-import scala.math.sqrt
 import chess.IntRating
+
+import scala.math.sqrt
 
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRating
@@ -34,7 +35,7 @@ case class PlayerAggregateAssessment(
     val bannable: Boolean = false
 
     def sigDif(dif: Int)(a: Option[(Int, Int, Int)], b: Option[(Int, Int, Int)]): Option[Boolean] =
-      (a, b).mapN { (a, b) => b._1 - a._1 > dif }
+      (a, b).mapN((a, b) => b._1 - a._1 > dif)
 
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
@@ -121,4 +122,4 @@ object PlayerAggregateAssessment:
 
   import lila.core.game.{ Game, Pov }
   case class WithGames(pag: PlayerAggregateAssessment, games: List[Game]):
-    def pov(pa: PlayerAssessment) = games.find(_.id == pa.gameId).map { Pov(_, pa.color) }
+    def pov(pa: PlayerAssessment) = games.find(_.id == pa.gameId).map(Pov(_, pa.color))

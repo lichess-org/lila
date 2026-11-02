@@ -1,15 +1,16 @@
 @include crosstable-small;
 
 .crosstable {
-  @extend %box-neat-force;
+  @extend %box-bordered;
 
   width: 100%;
   line-height: 1.9em;
   display: flex;
+  overflow: hidden;
 
   fill,
   povs {
-    background: $c-bg-box;
+    background: $c-bg-zebra;
     flex: 1 1 auto;
   }
 

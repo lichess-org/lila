@@ -1,16 +1,16 @@
 package lila.ublog
 
-import scala.util.Success
 import play.api.i18n.Lang
 import reactivemongo.api.bson.*
+
+import scala.util.Success
 
 import lila.db.dsl.{ *, given }
 
 private object UblogBsonHandlers:
 
-  import UblogPost.{ LightPost, PreviewPost, Recorded, Featured }
+  import UblogPost.{ LightPost, PreviewPost, Recorded, Featured, Quality }
   import UblogAutomod.Assessment
-  import lila.core.ublog.Quality
 
   given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
@@ -43,7 +43,8 @@ private object UblogBsonHandlers:
       "lived" -> true,
       "featured" -> true,
       "topics" -> true,
-      "sticky" -> true
+      "sticky" -> true,
+      "language" -> true
     )
 
   val userLiveSort = bdoc("sticky" -> -1, "lived.at" -> -1)

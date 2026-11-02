@@ -2,7 +2,7 @@
   "name": "bin",
   "type": "module",
   "dependencies": {
-    "@types/node": "^24.13.5",
+    "@types/node": "^24.19.0",
     "cheerio": "^1.2.0",
     "fast-xml-parser": "^5.11.1",
     "mongodb": "6.16.0"

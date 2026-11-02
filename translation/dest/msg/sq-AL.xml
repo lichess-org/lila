@@ -2,4 +2,5 @@
 <resources>
   <string name="lichobileNewAppAvailable">Ka një aplikacion të ri gati për Lichess në celular!</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Ju lutemi, shkarkoni aplikacionin e ri zyrtar Lichess që nga %s.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Aplikacioni i vjetër s’mbulon më puzzle-et. Ju lutemi, instaloni aplikacionin e ri Lichess: %s</string>
 </resources>

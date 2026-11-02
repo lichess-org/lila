@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">प्रतीक के साथ टिप्पणी करें</string>
   <string name="theChapterIsTooShortToBeAnalysed">यह अध्याय विश्लेषण के लिए बहुत छोटा है</string>
   <string name="onlyContributorsCanRequestAnalysis">केवल अध्ययन योगदानकर्ता ही कंप्यूटर विश्लेषण का अनुरोध कर सकते हैं।</string>
-  <string name="getAFullComputerAnalysis">मेनलाइन का पूर्ण सर्वर-साइड कंप्यूटर विश्लेषण प्राप्त करें।</string>
   <string name="makeSureTheChapterIsComplete">सुनिश्चित करें कि अध्याय पूरा हो गया है। आप केवल एक बार विश्लेषण का अनुरोध कर सकते हैं</string>
   <string name="allSyncMembersRemainOnTheSamePosition">सभी SYNC सदस्य एक ही स्थिति पर रहेंगे</string>
   <string name="shareChanges">दर्शकों के साथ परिवर्तन साझा करें और उन्हें सर्वर पर सहेजें</string>
@@ -118,7 +117,6 @@
   <string name="noLetPeopleBrowseFreely">नहीं सभी लोगो को अपनी इच्छा से ब्राउज करने दें</string>
   <string name="pinnedStudyComment">रुकिए पढ़िए विचार रखिए</string>
   <string name="start">शुरू करिए</string>
-  <string name="save">बचा कर रखिए</string>
   <string name="clearChat">बातें मिटा दे</string>
   <string name="deleteTheStudyChatHistory">क्या इस पड़ाई से सम्बन्धित बातों को मिटा देना चाहिए? इससे पीछे जाने का कोई रास्ता शेष नहीं है!</string>
   <string name="deleteStudy">अध्याय को मिटा दे</string>

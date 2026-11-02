@@ -106,10 +106,7 @@ export interface FeaturedGame {
   lastMove: string;
   white: FeaturedPlayer;
   black: FeaturedPlayer;
-  c?: {
-    white: number;
-    black: number;
-  };
+  c?: ByColor<number>;
   winner?: Color;
 }
 

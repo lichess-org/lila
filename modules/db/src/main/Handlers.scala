@@ -1,10 +1,11 @@
 package lila.db
 
-import scala.util.{ Failure, NotGiven, Success, Try }
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scalalib.model.Percent
+
+import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.{ *, given }
 import lila.core.net.IpAddress
@@ -242,5 +243,5 @@ trait Handlers:
       handlerB: BSONHandler[B]
   ): BSONHandler[(Option[A], Option[B])] = quickHandler(
     { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[B])) },
-    { (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull)) }
+    (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull))
   )

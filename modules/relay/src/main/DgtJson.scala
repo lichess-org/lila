@@ -1,9 +1,9 @@
 package lila.relay
 
+import chess.format.pgn.{ Move, PgnStr, SanStr, Tag, Tags }
+import chess.{ ByColor, Outcome }
 import play.api.libs.json.*
 import scalalib.model.Seconds
-import chess.{ Outcome, ByColor }
-import chess.format.pgn.{ PgnStr, SanStr, Move, Tag, Tags }
 
 private object DgtJson:
 
@@ -26,12 +26,12 @@ private object DgtJson:
   ):
     def tags(round: Int, game: Int, date: Option[String]) = Tags:
       List(
-        white.flatMap(_.fullName).map { Tag(_.White, _) },
-        white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
-        white.flatMap(_.fideid).map { Tag(_.WhiteFideId, _) },
-        black.flatMap(_.fullName).map { Tag(_.Black, _) },
-        black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
-        black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
+        white.flatMap(_.fullName).map(Tag(_.White, _)),
+        white.flatMap(_.title).map(Tag(_.WhiteTitle, _)),
+        white.flatMap(_.fideid).map(Tag(_.WhiteFideId, _)),
+        black.flatMap(_.fullName).map(Tag(_.Black, _)),
+        black.flatMap(_.title).map(Tag(_.BlackTitle, _)),
+        black.flatMap(_.fideid).map(Tag(_.BlackFideId, _)),
         result.map(Tag(_.Result, _)),
         Tag(_.Round, s"$round.$game").some,
         date.map(Tag(_.Date, _))
@@ -43,8 +43,8 @@ private object DgtJson:
       pairings: List[RoundJsonPairing]
   ):
     def formattedDate = date.map(_.replace("-", "."))
-    def firstNonEmptyPairingIndex: Option[Int] =
-      pairings.indexWhere(_.nonEmpty).some.filter(_ >= 0)
+    def firstNonEmptyPairingIndexes(nb: Int): Vector[Int] =
+      pairings.zipWithIndex.view.filter(_._1.nonEmpty).map(_._2).take(nb).toVector
 
   case class ClockJson(white: Option[Seconds], black: Option[Seconds], time: Long):
     def referenceTime: Instant = millisToInstant(time)

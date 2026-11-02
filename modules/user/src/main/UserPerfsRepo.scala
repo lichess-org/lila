@@ -1,9 +1,9 @@
 package lila.user
 
-import reactivemongo.api.*
-import reactivemongo.api.bson.*
 import chess.IntRating
 import chess.rating.glicko.Glicko
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.WithPerf
@@ -102,7 +102,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
       )
       .one[Bdoc]
       .dmap:
-        _.flatMap { docPerf(_, perfKey) }
+        _.flatMap(docPerf(_, perfKey))
 
   def perfOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Perf] =
     perfOptionOf(u, perfKey).dmap(_ | Perf.default)

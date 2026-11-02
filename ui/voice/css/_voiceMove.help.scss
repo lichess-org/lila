@@ -1,5 +1,10 @@
 .voice-move-help {
-  max-width: 800px;
+  max-width: min(800px, 92dvw);
+  min-width: min(500px, 50dvh);
+
+  &.help h2 {
+    margin-bottom: 0.25rem;
+  }
 
   td.tips li {
     list-style: disc;
@@ -13,6 +18,7 @@
 
   table {
     align-self: start;
+    table-layout: fixed;
   }
 
   voice {
@@ -40,15 +46,19 @@
   }
 
   .big-table {
+    table-layout: auto;
+
     td {
       @extend %nowrap-ellipsis;
-
-      padding: 0 1em;
     }
 
     tr {
+      td:nth-child(odd) {
+        padding-inline-start: 0.5rem;
+      }
+
       td:nth-child(even) {
-        border-right: 1px solid $c-brag;
+        border-right: 1px solid $c-border;
       }
 
       td:last-child {

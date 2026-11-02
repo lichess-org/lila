@@ -2,12 +2,12 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.SanStr
-import chess.{ ByColor, Color, Status }
 import chess.rating.IntRatingDiff
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
+import chess.{ ByColor, Color, Status }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.ThreadLocalRandom
 
 import lila.core.game.*
@@ -25,10 +25,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def game(gameId: GameId): Fu[Option[Game]] = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondary.byId[Game](gameId)
 
-  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
+  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
-  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] = gameIds.nonEmpty.so:
+  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.sec)(_.id)
 
   val light: lila.core.game.GameLightRepo = new:
@@ -45,7 +45,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll.one[Game](bid(gameId) ++ Query.finished)
 
   def player(gameId: GameId, color: Color): Fu[Option[Player]] =
-    game(gameId).dmap2 { _.player(color) }
+    game(gameId).dmap2(_.player(color))
 
   def player(gameId: GameId, playerId: GamePlayerId): Fu[Option[Player]] =
     game(gameId).dmap: gameOption =>
@@ -55,10 +55,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: GameId, color: Color): Fu[Option[Pov]] =
-    game(gameId).dmap2 { Pov(_, color) }
+    game(gameId).dmap2(Pov(_, color))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    game(playerRef.gameId).dmap { _.flatMap { _.playerIdPov(playerRef.playerId) } }
+    game(playerRef.gameId).dmap(_.flatMap(_.playerIdPov(playerRef.playerId)))
 
   def pov(fullId: GameFullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
@@ -79,7 +79,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def recentPovsByUserFromSecondary[U: UserIdOf](user: U, nb: Int, select: Bdoc = emptyBdoc): Fu[List[Pov]] =
     recentGamesFromSecondaryCursor(Query.user(user) ++ select)
       .list(nb)
-      .map { _.flatMap(Pov(_, user)) }
+      .map(_.flatMap(Pov(_, user)))
 
   def recentGamesFromSecondaryCursor(select: Bdoc = emptyBdoc) =
     coll
@@ -229,7 +229,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll
       .list[Game](Query.nowPlaying(user.id), maxPlaying.value + 5)
       .dmap:
-        _.flatMap { Pov(_, user) }
+        _.flatMap(Pov(_, user))
+
+  def countNowPlaying(userId: UserId): Fu[Int] = coll.secondary.countSel(Query.nowPlaying(userId))
 
   def countWhereUserTurn(userId: UserId): Fu[Int] = coll
     .countSel(
@@ -256,12 +258,12 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .find(Query.recentlyPlaying(userId), bid(true).some)
       .sort(Query.sortMovedAtNoIndex)
       .one[Bdoc](readPreference = ReadPref.pri)
-      .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
+      .dmap(_.flatMap(_.getAsOpt[GameId](F.id)))
 
   def allPlaying[U: UserIdOf](user: U): Fu[List[Pov]] =
     coll
       .list[Game](Query.nowPlaying(user))
-      .dmap { _.flatMap { Pov(_, user) } }
+      .dmap(_.flatMap(Pov(_, user)))
 
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     coll
@@ -269,14 +271,14 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
-      .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)) }
+      .dmap(_.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)))
 
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
-    coll
+    coll.secondary
       .find(Query.user(userId), bid(true).some)
       .sort(sort.desc(F.createdAt))
       .one[Bdoc]
-      .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
+      .dmap(_.flatMap(_.getAsOpt[GameId](F.id)))
 
   def setTv(id: GameId) = coll.updateFieldUnchecked(bid(id), F.tvAt, nowInstant)
 
@@ -289,7 +291,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game](bid(id) ++ Query.analysed(true))
 
-  def exists(id: GameId) = coll.exists(bid(id))
+  def exists(id: GameId) = coll.secondary.exists(bid(id))
+  def existsPri(id: GameId) = coll.exists(bid(id))
 
   def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String](bid(id), F.tournamentId)
 
@@ -481,11 +484,11 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         WithInitialFen(game, fen).some
 
   def withInitialFen(game: Game): Fu[WithInitialFen] =
-    initialFen(game).dmap { WithInitialFen(game, _) }
+    initialFen(game).dmap(WithInitialFen(game, _))
 
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
     games.parallel: game =>
-      initialFen(game).dmap { game -> _ }
+      initialFen(game).dmap(game -> _)
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll.countSel(query(Query))
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))
@@ -516,7 +519,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         )
       .map(_.flatMap: obj =>
         obj.getAsOpt[UserId](F.id).flatMap { id =>
-          obj.int("gs").map { id -> _ }
+          obj.int("gs").map(id -> _)
         })
 
   def random: Fu[Option[Game]] =

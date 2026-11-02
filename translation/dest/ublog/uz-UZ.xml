@@ -2,68 +2,83 @@
 <resources>
   <string name="community">Hamjamiyat</string>
   <string name="communityBlogs">Hamjamiyat bloglari</string>
+  <string name="best">Eng sara</string>
+  <string name="all">Barçasi</string>
   <string name="byMonth">Oyma‑oy</string>
-  <string name="byTopic">Mavzu boʻyicha</string>
+  <string name="byTopic">Mavzu böyiça</string>
   <string name="byLichess">Lichess tomonidan</string>
-  <string name="myFriends">Doʻstlarim</string>
+  <string name="myFriends">Döstlarim</string>
   <string name="myLikes">Menga yoqqanlar</string>
   <string name="myBlog">Mening blogim</string>
   <string name="likedBlogs">Menga yoqqan blog postlar</string>
-  <string name="blogPostsByFriends">Doʻstlaringiz bloglari</string>
+  <string name="blogPostsByFriends">Döstlaringiz bloglari</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blog post</item>
     <item quantity="other">%s blog post</item>
   </plurals>
-  <string name="continueReadingPost">Davomini oʻqish</string>
+  <string name="continueReadingPost">Davomini öqiş</string>
   <string name="lichessBlogPostsFromXYear">%s‑yildagi Lichess blog postlari</string>
   <string name="previousBlogPosts">Oldingi blog postlar</string>
   <string name="xBlog">%s\'ning blogi</string>
   <string name="newPost">Yangi post</string>
   <string name="editYourBlogPost">Blog postingizni tahrirlang</string>
-  <string name="saveDraft">Qoralamani saqlash</string>
+  <string name="saveDraft">Qoralamani saqlaş</string>
   <string name="postTitle">Post sarlavhasi</string>
-  <string name="postIntro">Post kirish qismi</string>
+  <string name="postIntro">Post kiriş qismi</string>
   <string name="postBody">Post asosiy qismi</string>
   <string name="drafts">Qarolamalar</string>
-  <string name="published">Chop etildi</string>
-  <string name="createBlogDiscussion">Kommentlarga ruxsat berish</string>
-  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu yaratiladi</string>
-  <string name="publishOnYourBlog">Blogda chop etish</string>
+  <string name="published">Çop etildi</string>
+  <string name="createBlogDiscussion">Kommentlarga ruxsat beriş</string>
+  <string name="createBlogDiscussionHelp">Postingizni muhokama qiliş uçun forumda yangi mavzu yaratiladi</string>
+  <string name="publishOnYourBlog">Blogda çop etiş</string>
   <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
-  <string name="includesPromotedContent">Homiylik, reklama yoki tavsiya (referral) havolalarni oʻz ichiga oladi</string>
-  <string name="mandatoryForSponsoredContent">Homiylangan kontent, hamkorlik (affiliate) havolalari yoki tijoriy reklamalar uchun majburiy</string>
-  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
-  <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
+  <string name="includesPromotedContent">Homiylik, reklama yoki tavsiya (referral) havolalarni öz içiga oladi</string>
+  <string name="mandatoryForSponsoredContent">Homiylangan kontent, hamkorlik (affiliate) havolalari yoki tijoriy reklamalar uçun majburiy</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qöyiş</string>
+  <string name="stickyPostHelp">Agar belgilansa, uşbu post profilingizdagi sönggi xabarlar röyxatida va blogingizda birinçi bölib körsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blog post joyladi</item>
     <item quantity="other">%s ta blog post joylandi</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Bir marta koʻrilgan</item>
-    <item quantity="other">%s marta koʻrilgan</item>
+    <item quantity="other">%s marta körilgan</item>
   </plurals>
   <string name="xPublishedY">%1$s post joyladi: %2$s</string>
-  <string name="thisPostIsPublished">Ushbu post joylandi</string>
+  <string name="thisPostIsPublished">Uşbu post joylandi</string>
   <string name="thisIsADraft">Bu qoralama</string>
-  <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
-  <string name="noDrafts">Qoralamalar yoʻq.</string>
-  <string name="latestBlogPosts">Soʻnggi blog postlar</string>
-  <string name="recentPosts">Soʻnggi postlar</string>
+  <string name="noPostsInThisBlogYet">Uşbu blogda hozirça postlar yöq.</string>
+  <string name="noDrafts">Qoralamalar yöq.</string>
+  <string name="latestBlogPosts">Sönggi blog postlar</string>
+  <string name="recentPosts">Sönggi postlar</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">Bitta postni koʻrish</item>
-    <item quantity="other">Barcha %s ta postni koʻrish</item>
+    <item quantity="one">Bitta postni köriş</item>
+    <item quantity="other">Barça %s ta postni köriş</item>
   </plurals>
-  <string name="imageAlt">Rasm uchun muqobil matn</string>
+  <string name="imageAlt">Rasm uçun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
   <string name="coverImage">Muqova rasmi</string>
-  <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalash shartlariga rioya qilishingizni soʻraymiz.</string>
+  <string name="deleteBlog">Uşbu blog postini butunlay öçirib taşlaş</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalaş şartlariga rioya qilişingizni söraymiz.</string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
+  <string name="topicChess">Şaxmat</string>
+  <string name="topicPuzzle">Masala</string>
+  <string name="topicTactics">Taktikalar</string>
+  <string name="topicStrategy">Strategiya</string>
+  <string name="topicChessEngine">Şaxmat dvijogi</string>
+  <string name="topicChessBot">Şaxmat boti</string>
+  <string name="topicChessPersonalities">Şaxmat şaxslari</string>
+  <string name="topicOverTheBoard">Taxta ustida</string>
+  <string name="topicSoftwareDevelopment">Dasturlaş</string>
+  <string name="topicOffTopic">Mavzudan taşqari</string>
+  <string name="topicPosts">%s ta post</string>
   <string name="etiquette">Etiket</string>
-  <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
+  <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning işini köçirib olmang.</string>
   <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>
-  <string name="inappropriateContentAccountClosed">Har qanday nomunosib kontent profilingiz yopilishiga sabab boʻlishi mumkin.</string>
-  <string name="blogTips">Sifatli post yozish boʻyicha foydali tavsiyalar</string>
-  <string name="discussThisBlogPostInTheForum">Ushbu postni forumda muhokama qilish</string>
+  <string name="inappropriateContentAccountClosed">Har qanday nomunosib kontent profilingiz yopilişiga sabab bölişi mumkin.</string>
+  <string name="blogTips">Sifatli post yoziş böyiça foydali tavsiyalar</string>
+  <string name="discussThisBlogPostInTheForum">Uşbu postni forumda muhokama qiliş</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess iştirokçilarining fikrlari ularning şaxsiy qaraşlaridir.</string>
+  <string name="youMayAlsoLike">Sizga yoqişi mumkin</string>
   <string name="youBlockedByBlogAuthor">Blog muallifi sizni bloklagan.</string>
 </resources>

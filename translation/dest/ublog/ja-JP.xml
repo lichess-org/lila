@@ -2,6 +2,8 @@
 <resources>
   <string name="community">コミュニティ</string>
   <string name="communityBlogs">コミュニティブログ</string>
+  <string name="best">推奨</string>
+  <string name="all">全部</string>
   <string name="byMonth">月別</string>
   <string name="byTopic">トピック別</string>
   <string name="byLichess">Lichess 公式</string>
@@ -55,11 +57,23 @@
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">以下のウェブサイトは画像を無料で提供しています。使用する画像のライセンス条件に従ってください。</string>
   <string name="selectPostTopics">ブログ投稿に合ったトピックを選ぶ</string>
+  <string name="topicChess">チェス</string>
+  <string name="topicPuzzle">問題</string>
+  <string name="topicTactics">タクティクス</string>
+  <string name="topicStrategy">ストラテジー</string>
+  <string name="topicChessEngine">チェスエンジン</string>
+  <string name="topicChessBot">チェスボット</string>
+  <string name="topicChessPersonalities">チェス関連人物</string>
+  <string name="topicOverTheBoard">OTB（対面対局）</string>
+  <string name="topicSoftwareDevelopment">ソフトウェア開発</string>
+  <string name="topicOffTopic">オフトピック</string>
   <string name="etiquette">エチケット</string>
   <string name="safeAndRespectfulContent">投稿できるのは安全で他者の権利を尊重したコンテンツだけです。他の人のコンテンツをコピーしてはいけません。</string>
   <string name="noCopyrightedImages">使えるのは他の人が著作権を持っていない画像だけです。</string>
   <string name="inappropriateContentAccountClosed">不適切な内容の場合、あなたのアカウントを停止することがあります。</string>
   <string name="blogTips">すばらしいブログを書くための簡単なヒント</string>
   <string name="discussThisBlogPostInTheForum">このブログ記事についてフォーラムで話す</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess への投稿者が表明した意見はその人自身のものです。</string>
+  <string name="youMayAlsoLike">おすすめ</string>
   <string name="youBlockedByBlogAuthor">ブログの筆者によってブロックされています。</string>
 </resources>

@@ -405,11 +405,9 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="reportAUser">Ulanyjy report et</string>
   <string name="user">Ulanyjy</string>
   <string name="reason">Sebäp</string>
-  <string name="whatIsIheMatter">Näme bolýär?</string>
   <string name="cheat">Kezzaplyk</string>
   <string name="troll">Trol</string>
   <string name="other">Başga</string>
-  <string name="error.provideOneCheatedGameLink">Iň az 1 kezzapçylykly oýna salgy beriň.</string>
   <string name="by">%s tarapyndan</string>
   <string name="thisTopicIsNowClosed">Bu mowzuk häzir ýapyk.</string>
   <string name="blog">Blog</string>

@@ -49,4 +49,22 @@
   <string name="stDesAVeryPowerfulTactic">راهکنشی بسیار قدرتمند</string>
   <string name="stDesTheyHaveTooMuchWork">کارشان خیلی زیاد است</string>
   <string name="stDesInBetweenMoves">حرکت بِینابِین</string>
+  <string name="stDesAttackingThroughAnEnemyPiece">حمله با عبور از مهره دشمن</string>
+  <string name="stDesBeingForcedToMove">مجبور به حرکت بودن</string>
+  <string name="stDesInterposeAPieceToGreatEffect">اَندرنهیدنِ شدیدا موثرِ مهره‌ای</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">مطالعهٔ قربانی هدیهٔ یونانی</string>
+  <string name="stDesDistractingADefender">منحرف کردن دفاعگر</string>
+  <string name="stDesLureAPieceToABadSquare">تطمیعِ مهره‌ای به خانه‌ای بد</string>
+  <string name="stDesPromoteButNotToAQueen">ارتقا - اما نه به وزیر!</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">مهره‌ای تباهیده است، اما هنوز می‌تواند کمک کند</string>
+  <string name="stDesRespondToACheckWithACheck">پاسخ به کیش، با کیش</string>
+  <string name="stDesRemoveTheDefendingPiece">برچیدنِ مهرهٔ دفاعگر</string>
+  <string name="stDesGetOutOfTheWay">از سر راه برو کنار!</string>
+  <string name="stDesReachAKeySquare">رسیدن به خانه‌ای کلیدی</string>
+  <string name="stDesTakeTheOpposition">کسبِ تقابل</string>
+  <string name="stDesVersusAQueen">علیهِ وزیر</string>
+  <string name="stDesAndPassiveRookVsRook">و رخِ نافعال علیه رخ</string>
+  <string name="stDesLucenaAndPhilidor">لوسِنا و فیلیدُر</string>
+  <string name="stDesBroadenYourKnowledge">دانش‌تان را بگسترید</string>
+  <string name="stDesRookEndingsWithSeveralPawns">آخربازی رخ با چند پیاده</string>
 </resources>

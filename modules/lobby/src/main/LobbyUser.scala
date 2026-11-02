@@ -5,13 +5,14 @@ import chess.rating.RatingProvisional
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.pool.Blocking
+import lila.core.user.UserMarks
 import lila.rating.UserPerfsExt.perfsList
 import lila.rating.{ Glicko, PerfType }
 
 private[lobby] case class LobbyUser(
     id: UserId,
     username: UserName,
-    lame: Boolean,
+    marks: UserMarks,
     bot: Boolean,
     perfMap: LobbyUser.PerfMap,
     blocking: Blocking
@@ -31,7 +32,7 @@ private[lobby] object LobbyUser:
     LobbyUser(
       id = user.id,
       username = user.username,
-      lame = user.lame,
+      marks = user.marks,
       bot = user.isBot,
       perfMap = perfMapOf(user.perfs),
       blocking = blocking

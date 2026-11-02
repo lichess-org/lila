@@ -1,8 +1,8 @@
 package lila.study
 
 import org.apache.pekko.stream.scaladsl.*
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.core.study as hub
 import lila.core.study.Visibility

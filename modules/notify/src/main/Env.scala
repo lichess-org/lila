@@ -1,10 +1,11 @@
 package lila.notify
 
 import com.softwaremill.macwire.*
+
 import lila.common.Bus
-import lila.db.dsl.Coll
 import lila.core.config.CollName
-import lila.core.notify.{ NotificationContent, GetNotifyAllows }
+import lila.core.notify.{ GetNotifyAllows, NotificationContent }
+import lila.db.dsl.Coll
 
 @Module
 final class Env(

@@ -19,7 +19,7 @@ def notFound(msg: Option[String]) =
       ),
       div(cls := "game")(
         iframe(
-          src := staticAssetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+          src := staticAssetPath(s"vendor/ChessPursuit/bin-release/index.html"),
           st.frameborder := 0,
           widthA := 400,
           heightA := 500,

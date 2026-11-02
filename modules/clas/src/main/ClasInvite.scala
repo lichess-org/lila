@@ -3,9 +3,9 @@ package lila.clas
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
-import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.i18n.I18nKey.clas as trans
 import lila.core.i18n.Translate
+import lila.core.id.{ ClasId, ClasInviteId }
 
 case class ClasInvite(
     @Key("_id") id: ClasInviteId, // random

@@ -1,8 +1,8 @@
 package lila.clas
 
-import lila.db.dsl.{ *, given }
 import lila.core.config.CollName
 import lila.core.id.ClasId
+import lila.db.dsl.{ *, given }
 
 private final class ClasColls(db: lila.db.Db)(using Executor):
   val clas = db(CollName("clas_clas"))

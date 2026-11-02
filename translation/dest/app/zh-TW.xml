@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessMobileApp">Lichess 行動 app</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">回到 Lichess app</string>
+  <string name="ifAppDoesNotOpenAutomatically">如果 app 沒有自動啟動，請點 %s 按鈕。</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">開啟 Lichess app</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">在 GitHub 檢視 %s</string>
+  <string name="allReleases">所有釋出版本</string>
+  <string name="downloadOnAppleAppStore">從蘋果 App Store 下載</string>
+  <string name="downloadOnGooglePlay">從 Google Play下載</string>
+  <string name="downloadOnFdroid">從 F-Droid 下載</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess 行動螢幕</string>
+</resources>

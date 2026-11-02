@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Commenta con segni convenzionali</string>
   <string name="theChapterIsTooShortToBeAnalysed">Il capitolo è troppo breve per essere analizzato.</string>
   <string name="onlyContributorsCanRequestAnalysis">Solo i partecipanti allo studio possono richiedere un\'analisi del computer.</string>
-  <string name="getAFullComputerAnalysis">Richiedi un\'analisi completa del computer della variante principale.</string>
   <string name="makeSureTheChapterIsComplete">Assicurati che il capitolo sia completo. Puoi richiedere l\'analisi solo una volta.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tutti i membri in SYNC rimangono sulla stessa posizione</string>
   <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
@@ -122,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">No: ognuno potrà scorrere i capitoli indipendentemente</string>
   <string name="pinnedStudyComment">Commento dello studio</string>
   <string name="start">Inizia</string>
-  <string name="save">Salva</string>
   <string name="clearChat">Cancella chat</string>
   <string name="deleteTheStudyChatHistory">Vuoi davvero eliminare la cronologia della chat? Sarà persa per sempre!</string>
   <string name="deleteStudy">Elimina studio</string>

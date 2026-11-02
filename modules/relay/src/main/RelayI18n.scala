@@ -1,7 +1,7 @@
 package lila.relay
 
-import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey.*
+import lila.core.i18n.Translate
 
 private object RelayI18n:
 

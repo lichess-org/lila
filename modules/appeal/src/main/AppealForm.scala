@@ -3,7 +3,7 @@ package lila.appeal
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ options, numberIn, cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, numberIn, options }
 
 object AppealForm:
 

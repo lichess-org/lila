@@ -23,7 +23,6 @@
   <string name="bodenMate">Matto di Boden</string>
   <string name="bodenMateDescription">Due alfieri danno matto lungo diagonali perpendicolari ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="castling">Arrocco</string>
-  <string name="enPassant">Wenn Passant (presa al varco)</string>
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
@@ -54,6 +53,7 @@
   <string name="doubleCheckDescription">Scacco con due pezzi contemporaneamente, conseguente a un attacco di scoperta in cui sia il pezzo appena mosso che il pezzo scoperto attaccano il re avversario.</string>
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
+  <string name="enPassant">Wenn Passant (presa al varco)</string>
   <string name="epauletteMate">Matto di controspallina</string>
   <string name="epauletteMateDescription">Due case di fuga utilizzabili dal re sotto scacco adiacenti sono occupate da altri pezzi </string>
   <string name="exposedKing">Re esposto</string>

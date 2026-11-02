@@ -1,10 +1,11 @@
 import { myUserId } from 'lib';
+import { pubsub } from 'lib/pubsub';
 
 export class Settings {
   constructor(
     public readonly showGauge = true,
     public readonly inline = false,
-    public readonly showStaticAnalysis = true,
+    public readonly showMainlineAnalysis = true,
     public readonly disclosureMode = false,
     public readonly showLiveAnnotations = false,
     public readonly showBestMoveArrows = true,
@@ -14,6 +15,7 @@ export class Settings {
     public readonly showUndefendedPieces = false,
     public readonly showPinnedPieces = false,
     public readonly showCheckableKing = false,
+    public readonly showTrappedPieces = false,
   ) {}
 }
 
@@ -42,6 +44,7 @@ export class SettingsCtrl extends Settings {
     const oldValue = this[key];
     if (oldValue === value) return;
     this[key] = value;
+    if (key === 'showMainlineAnalysis') pubsub.emit('analysis.comp.toggle', value);
     this.onUpdateSettings?.(key);
     this.save();
   }

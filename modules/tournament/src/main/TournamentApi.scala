@@ -1,25 +1,28 @@
 package lila.tournament
 
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
-import org.apache.pekko.stream.scaladsl.*
+import alleycats.Zero
+import chess.{ ByColor, IntRating }
 import com.roundeights.hasher.Algo
+import org.apache.pekko.stream.scaladsl.*
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import scalalib.paginator.Paginator
 import scalalib.Debouncer
 import scalalib.model.Minutes
-import chess.{ IntRating, ByColor }
-import alleycats.Zero
+import scalalib.paginator.Paginator
+
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 
 import lila.common.Bus
+import lila.core.chess.Rank
 import lila.core.game.LightPov
-import lila.core.round.{ RoundBus, GoBerserk }
+import lila.core.round.{ GoBerserk, RoundBus }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
-import lila.core.chess.Rank
-import lila.mon.extensions.*
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
+import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -55,7 +58,7 @@ final class TournamentApi(
     lila.core.user.PublicTitleOf
 ):
 
-  export tournamentRepo.byId as get
+  export tournamentRepo.{ byId as get, upcomingByTeams }
 
   def createTournament(
       setup: TournamentSetup,
@@ -169,7 +172,7 @@ final class TournamentApi(
                       .parallelVoid: pairing =>
                         autoPairing(tour, pairing, ranking.ranking)
                           .mon(lila.mon.tournament.pairing.createAutoPairing)
-                          .map { socket.startGame(tour.id, _) }
+                          .map(socket.startGame(tour.id, _))
                       .mon(lila.mon.tournament.pairing.createInserts)
                       .andDo:
                         lila.mon.tournament.pairing.batchSize.record(pairings.size)
@@ -421,7 +424,7 @@ final class TournamentApi(
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
             if isPause
-            then cached.ranking(tour).map { _.ranking.get(userId).exists(_ < 7) }
+            then cached.ranking(tour).map(_.ranking.get(userId).exists(_ < 7))
             else fuccess(isStalling)
         yield
           if pausable then pause.add(userId)
@@ -563,7 +566,7 @@ final class TournamentApi(
           publish()
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.rated.yes.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
+    tour.rated.yes.so(userApi.perfOptionOf(userId, tour.perfType)).flatMap { perf =>
       playerRepo.update(tour.id, userId): player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
@@ -695,9 +698,14 @@ final class TournamentApi(
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 
-  def calendar: Fu[List[Tournament]] =
-    val from = nowInstant.minusDays(1)
-    tournamentRepo.calendar(from = from, to = from.plusYears(1))
+  object calendar:
+
+    private val cache = cacheApi.unit[List[Tournament]]("tournament.calendar"):
+      _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+        val from = nowInstant.minusDays(1)
+        tournamentRepo.calendar(from = from, to = from.plusYears(1))
+
+    def json(using Lang): Fu[JsObject] = cache.get {}.map(apiJsonView.calendar)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
     Paginator(
@@ -795,11 +803,11 @@ final class TournamentApi(
       .recentIdsByTourAndUserId(tour.id, userId, nb)
       .flatMap(gameRepo.light.gamesFromPrimary)
       .map:
-        _.flatMap { LightPov(_, userId) }
+        _.flatMap(LightPov(_, userId))
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
     if next.isScheduled then
-      lila.common
+      scalalib
         .ProductDiff(
           prev,
           next,
@@ -846,7 +854,7 @@ final class TournamentApi(
     private val throttler = new lila.common.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
-      if !tour.isTeamBattle then throttler(tour.id, 15.seconds) { publishNow(tour.id) }
+      if !tour.isTeamBattle then throttler(tour.id, 15.seconds)(publishNow(tour.id))
 
 private object TournamentApi:
 

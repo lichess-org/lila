@@ -59,7 +59,7 @@ final class JsonView(
     Json
       .obj(
         "id" -> c.id,
-        "url" -> s"$baseUrl/${c.id}",
+        "url" -> s"$baseUrl/game/${c.id}",
         "status" -> c.status.name,
         "challenger" -> c.challengerUser,
         "destUser" -> c.destUser,

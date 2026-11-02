@@ -2,8 +2,8 @@ package lila.racer
 
 import scalalib.cuteName.CuteNameGenerator
 
-import lila.core.id.SessionId
 import lila.core.LightUser
+import lila.core.id.SessionId
 
 case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: Instant, score: Int):
 

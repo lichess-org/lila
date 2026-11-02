@@ -1,8 +1,8 @@
 package lila.round
 package ui
 
-import chess.variant.{ Crazyhouse, Variant }
 import chess.Square
+import chess.variant.{ Crazyhouse, Variant }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -16,6 +16,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
+      .i18nOpt(ctx.pref.hasVoice, _.voiceCommands)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove, _.variant)
       .flag(_.zoom)
@@ -23,7 +24,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
 
   def povOpenGraph(pov: Pov)(using Translate) =
     OpenGraph(
-      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
+      image = Url(routes.Export.gameThumbnail(pov.gameId, None, None)).some,
       title = titleGame(pov.game),
       url = routeUrl(routes.Round.watcher(pov.gameId, pov.color)),
       description = describePov(pov)

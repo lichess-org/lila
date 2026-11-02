@@ -3,7 +3,7 @@ package lila.security
 import com.roundeights.hasher.Implicits.*
 import play.api.data.{ Form, FormError }
 
-import lila.core.email.{ UserStrOrEmail, NormalizedEmailAddress }
+import lila.core.email.{ NormalizedEmailAddress, UserStrOrEmail }
 import lila.core.security.{ ClearPassword, HashedPassword }
 import lila.db.dsl.{ *, given }
 import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }
@@ -11,7 +11,13 @@ import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }
 case class LoginForm(username: UserStrOrEmail, password: ClearPassword)
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 type CredentialCheck = ClearPassword => Boolean
-case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean, must2fa: Boolean = false):
+case class LoginCandidate(
+    user: User,
+    check: CredentialCheck,
+    isBlanked: Boolean,
+    pwned: Option[IsPwned] = none,
+    must2fa: Boolean = false
+):
   import LoginCandidate.*
   import lila.user.TotpSecret.verify
   def apply(p: PasswordAndToken): Result =
@@ -36,6 +42,7 @@ object LoginCandidate:
     case WeakPassword extends Result(none)
     case MissingTotpToken extends Result(none)
     case InvalidTotpToken extends Result(none)
+    case BlockLeaked extends Result(none)
 
   def totpError(form: Form[?]) = form.errors match
     case List(FormError("", Seq(err), _)) =>
@@ -57,16 +64,16 @@ final class Authenticator(
     passHasher.check(auth.bpass, newP)
 
   def authenticateById(id: UserId, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
-    loginCandidateById(id).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateById(id).map(_.flatMap(_.option(passwordAndToken)))
 
   def authenticateByEmail(
       email: NormalizedEmailAddress,
       passwordAndToken: PasswordAndToken
   ): Fu[Option[User]] =
-    loginCandidateByEmail(email).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateByEmail(email).map(_.flatMap(_.option(passwordAndToken)))
 
   def loginCandidate(using me: Me): Fu[LoginCandidate] =
-    loginCandidateById(me.userId).dmap { _ | LoginCandidate(me, _ => false, false) }
+    loginCandidateById(me.userId).dmap(_ | LoginCandidate(me, _ => false, false))
 
   def loginCandidateById(id: UserId): Fu[Option[LoginCandidate]] =
     loginCandidate(bid(id))

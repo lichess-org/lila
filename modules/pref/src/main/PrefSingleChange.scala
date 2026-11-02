@@ -68,8 +68,8 @@ object PrefSingleChange:
       _.focus(_.uiRoundness).replace(v),
     changing(_.bgImg)(v => _.setBgImgUrl(v)),
     changing(_.bgOpacity)(v => _.setBgOpacity(v)),
-    changing(_.sayGG): v =>
-      _.copy(sayGG = v)
+    changing(_.sayGG)(v => _.copy(sayGG = v)),
+    changing[Option[lila.core.fide.Federation.Id]](_.favFed)(v => _.copy(favFed = v))
   ).map: change =>
     change.field -> change
   .toMap

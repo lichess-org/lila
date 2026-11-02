@@ -1,8 +1,9 @@
 package lila.fishnet
 
+import chess.eval.Eval.Cp
+import chess.eval.Score
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import chess.eval.Eval.{ Cp, Mate }
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
@@ -17,9 +18,7 @@ object JsonApi:
 
     def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= Analyser.maxPlies + 1)
 
-    case class Stockfish(
-        flavor: Option[String]
-    ):
+    case class Stockfish(flavor: Option[String], version: Option[String]):
       def isNnue = flavor.has("nnue")
 
     case class Acquire() extends Request
@@ -53,7 +52,7 @@ object JsonApi:
 
     case class Evaluation(
         pv: List[Uci],
-        score: Evaluation.Score,
+        score: Option[Score],
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
@@ -63,19 +62,14 @@ object JsonApi:
 
       val cappedPv = pv.take(lila.analyse.Info.LineMaxPlies)
 
-      def isCheckmate = score.mate.has(Mate(0))
-      def mateFound = score.mate.isDefined
-      def deadDraw = score.cp.has(Cp(0))
+      def mateFound = score.forall(_.isMateFound) // filtered ambiguous #+/-0 is also mate
+      def deadDraw = score.exists(_.cp.has(Cp(0)))
 
     object Evaluation:
 
       enum EvalOrSkip:
         case Skipped
         case Evaluated(eval: Evaluation)
-
-      case class Score(cp: Option[Cp], mate: Option[Mate]):
-        def invert = copy(cp.map(_.invert), mate.map(_.invert))
-        def invertIf(cond: Boolean) = if cond then invert else this
 
       val npsCeil = 10_000_000
 
@@ -118,14 +112,22 @@ object JsonApi:
     import Request.Evaluation.EvalOrSkip
     given Reads[Request.Stockfish] = Json.reads
     given Reads[Request.Acquire] = Json.reads
-    given Reads[Request.Evaluation.Score] = Json.reads
+    val scoreReads: Reads[Option[Score]] = Reads: js =>
+      (js.int("cp"), js.int("mate"), js.boolean("mateGiven")) match
+        case (Some(cp), _, _) => JsSuccess(Score.cp(cp).some)
+        case (_, Some(0), Some(true)) => JsSuccess(Score.MateGiven.some)
+        case (_, Some(0), Some(false)) => JsSuccess(Score.mated.some)
+        // older clients send mate 0 also when the side to move has won
+        case (_, Some(0), None) => JsSuccess(none)
+        case (_, Some(mate), _) => JsSuccess(Score.mate(mate).some)
+        case _ => JsError("expected cp or mate")
     given Reads[List[Uci]] = Reads.of[String].map(Uci.readList(_).getOrElse(Nil))
 
     given EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv")
         .readNullable[List[Uci]]
         .map(~_)
-        .and((__ \ "score").read[Request.Evaluation.Score])
+        .and((__ \ "score").read(using scoreReads))
         .and((__ \ "time").readNullable[Int])
         .and((__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)))
         .and((__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)))

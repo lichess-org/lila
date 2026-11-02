@@ -77,6 +77,8 @@ function monitor(pkgs: string[]) {
     debounce: 1000,
     monitorOnly: true,
     execute: async files => {
+      // TODO - remove the clean(['ui/*/tsconfig.tsbuildinfo']) nonsense once our typescript release contains
+      // https://github.com/microsoft/typescript-go/pull/4665. 7.0.2 does not
       const cleanTsc = files.some(name => name.endsWith('tsconfig.json') || name.endsWith('.d.ts'));
       if (files.some(name => name.endsWith('package.json'))) {
         if (!env.install) env.exit('Exiting due to package.json change');

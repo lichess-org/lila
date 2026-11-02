@@ -1,6 +1,7 @@
 import type { VNode } from 'snabbdom';
 
 import type { Prop, Toggle } from 'lib';
+import type { Dialog } from 'lib/view';
 
 export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
 export type Listener = (msgText: string, msgType: MsgType) => void;
@@ -51,7 +52,7 @@ export interface VoiceCtrl {
   enabled: (enabled?: boolean) => boolean;
   toggle: () => void;
   flash: () => void;
-  showHelp: (v?: boolean | 'list') => boolean | 'list';
+  helpDialog?: Dialog;
   pushTalk: Prop<boolean>;
   showPrefs: Toggle;
   module: () => VoiceModule | undefined;

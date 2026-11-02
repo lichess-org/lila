@@ -2,8 +2,10 @@ package lila.web
 
 import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.BaseUrl
+
+type Cacheability = "public" | "private"
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
 
@@ -29,7 +31,19 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES -> "0"
     )
-    def headerCacheSeconds(seconds: Int) = result.withHeaders(CACHE_CONTROL -> s"max-age=$seconds")
+    private def cacheControl(scope: Cacheability, duration: FiniteDuration): Result =
+      result.withHeaders(CACHE_CONTROL -> s"${scope}, max-age=${duration.toSeconds.toInt}")
+    private def cacheControl(scope: Cacheability, duration: Option[FiniteDuration]): Result =
+      duration.fold(result)(cacheControl(scope, _))
+    def publicCache(duration: FiniteDuration): Result =
+      cacheControl("public", duration)
+    def publicCache(duration: Option[FiniteDuration]): Result =
+      cacheControl("public", duration)
+    def privateCache(duration: FiniteDuration): Result =
+      cacheControl("private", duration)
+    def vary(headers: String*) = result.withHeaders(VARY -> headers.mkString(", "))
+    def varyAccept = vary("Accept")
+    def varyLanguage = vary("Accept-Language")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =

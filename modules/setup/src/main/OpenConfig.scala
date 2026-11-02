@@ -1,8 +1,8 @@
 package lila.setup
 
-import chess.{ Clock, Rated }
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
+import chess.{ Clock, Rated }
 import scalalib.model.Days
 
 import lila.core.game.GameRule

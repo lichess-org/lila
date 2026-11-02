@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">Ischtellige</string>
-  <string name="closeAccount">Benutzerkonto schlüsse</string>
+  <string name="closeAccount">Konto schlüsse</string>
   <string name="managedAccountCannotBeClosed">Dis Konto wird verwaltet, es chann nöd geschlosse werde.</string>
   <string name="cantOpenSimilarAccount">Es isch nöd erlaubt es neus Konto mit em gliche Name z\'eröffne, au wänn d\'Gross- und d\'Chlischribig andersch isch.</string>
   <string name="cancelKeepAccount">Löschig abbräche und mis Konto b\'halte</string>
   <string name="closeAccountAreYouSure">Bisch sicher, dass du dis Konto schlüsse wottsch?</string>
-  <string name="thisAccountIsClosed">Das Benutzerkonto isch g\'schlosse.</string>
+  <string name="thisAccountIsClosed">Das Konto isch g\'schlosse.</string>
+  <string name="wereSorryToSeeYouGo">Es tuet eus leid, dass du eus verlahsch.</string>
+  <string name="closeAccountForeverLabel">Für immer schlüsse: E Wiedereröffnig unmöglich mache</string>
+  <string name="closeAccountForeverWarning">Mach, dass das Konto nümme frei-g\'schaltet werde chann: Wänn du das Chäschtli a-chrüzisch, chönnd - uf din Wunsch - nöd mal Admins dis Konto wieder frei schalte.</string>
+  <string name="deleteYourAccount">Lösch dis Konto</string>
+  <string name="deleteAccountWarning">Sobald du dis Konto g\'löscht häsch, wirds bi Lichess entfernt und eusi Admins chönnds nümme für dich wieder herstelle.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Würdsch stattdesse lieber %s?</string>
+  <string name="closeYourAccount">schlüss dis Konto</string>
+  <string name="deleteAccountConfirmText">Ich han verstande, dass g\'löschti Konti nümme reaktiviert werde chönnd</string>
 </resources>

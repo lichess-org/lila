@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunidad</string>
   <string name="communityBlogs">Blogs de la comunidad</string>
+  <string name="best">Mejor</string>
+  <string name="all">Todos</string>
   <string name="byMonth">Por mes</string>
   <string name="byTopic">Por tema</string>
   <string name="byLichess">Por Lichess</string>
@@ -59,11 +61,24 @@
   <string name="deleteBlog">Eliminar esta entrada del blog definitivamente</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Los siguientes sitios proporcionan imágenes gratis. Por favor, asegúrate de cumplir con las condiciones de licencia para la imagen que utilizas.</string>
   <string name="selectPostTopics">Selecciona los temas sobre los que trata tu entrada</string>
+  <string name="topicChess">Ajedrez</string>
+  <string name="topicPuzzle">Ejercicio</string>
+  <string name="topicTactics">Táctica</string>
+  <string name="topicStrategy">Estrategia</string>
+  <string name="topicChessEngine">Motor de ajedrez</string>
+  <string name="topicChessBot">Bot de ajedrez</string>
+  <string name="topicChessPersonalities">Personalidades del ajedrez</string>
+  <string name="topicOverTheBoard">Sobre el tablero</string>
+  <string name="topicSoftwareDevelopment">Desarrollo de software</string>
+  <string name="topicOffTopic">Fuera del tema</string>
+  <string name="topicPosts">%s publicaciones</string>
   <string name="etiquette">Normas de convivencia</string>
   <string name="safeAndRespectfulContent">Por favor, publica solo contenido seguro y respetuoso. No copies el contenido de otra persona.</string>
   <string name="noCopyrightedImages">Solo utiliza imágenes que no tengan derechos de autor.</string>
   <string name="inappropriateContentAccountClosed">Cualquier cosa inapropiada puede causar el cierre de tu cuenta.</string>
   <string name="blogTips">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta publicación en el foro</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Las opiniones expresadas por los colaboradores de Lichess son solo suyas.</string>
+  <string name="youMayAlsoLike">También te podría gustar</string>
   <string name="youBlockedByBlogAuthor">Estás bloqueado por el autor del blog.</string>
 </resources>

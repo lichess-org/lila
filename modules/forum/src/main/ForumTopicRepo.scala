@@ -1,8 +1,8 @@
 package lila.forum
 
 import lila.core.forum.ForumTopicMini
-import lila.db.dsl.{ *, given }
 import lila.core.id.ForumTopicSlug
+import lila.db.dsl.{ *, given }
 
 import Filter.*
 

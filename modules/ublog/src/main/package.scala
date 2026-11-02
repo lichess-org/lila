@@ -16,5 +16,6 @@ val markdownOptions = lila.memo.MarkdownOptions(
   code = true,
   timestamp = false,
   maxPgns = lila.memo.Max(50),
-  toastUi = true
+  toastUi = true,
+  linkRel = "ugc"
 )

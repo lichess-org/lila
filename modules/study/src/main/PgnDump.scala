@@ -1,9 +1,9 @@
 package lila.study
 
-import org.apache.pekko.stream.scaladsl.*
-import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
+import org.apache.pekko.stream.scaladsl.*
+import play.api.mvc.RequestHeader
 import scalalib.StringOps.slug
 
 import lila.tree.Node.{ Shape, Shapes }
@@ -31,8 +31,10 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    (flags.comments && chapter.serverEval.exists(_.done))
-      .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
+    flags.comments
+      .so(chapter.serverEval)
+      .filter(_.done)
+      .so(eval => analyser.byId(eval.fromGameId.fold(Analysis.Id(study.id, chapter.id))(Analysis.Id(_))))
       .map(ofChapter(study, flags)(chapter, _))
 
   def requestPgnFlags(default: WithFlags = defaultFlags)(using RequestHeader): WithFlags =
@@ -124,7 +126,7 @@ final class PgnDump(
       analysis: Option[Analysis]
   ): PgnStr =
     val tags = makeTags(study, chapter)(using flags)
-    val pgn = rootToPgn(chapter.root, tags)(using flags)
+    val pgn = rootToPgn(chapter.root, tags, study.ownerId.some)(using flags)
     annotator.toPgnString(analysis.fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
@@ -139,18 +141,28 @@ object PgnDump:
   val fullFlags = WithFlags(true, true, true, true)
   val withoutOrientation = fullFlags.copy(orientation = false)
 
-  // the Annotator tag already names the exporting user, so their own comments
-  // are left without an [%anno], which keeps it off the usual single author study
-  case class Exporter(annotator: Option[String]):
+  // Omit [%anno] for the study owner even when an imported chapter has a different Annotator.
+  // Keep matching the tag for external authors and exports without a study owner.
+  case class Exporter(annotator: Option[String], owner: Option[UserId]):
     def owns(id: UserId, name: String): Boolean =
-      annotator.exists(StudyPgnImport.annotatorMatches(_, id, name))
+      owner.contains(id) || annotator.exists(StudyPgnImport.annotatorMatches(_, id, name))
     def owns(name: String): Boolean =
       annotator.exists(_.toLowerCase == name.toLowerCase)
 
-  private def exporterOf(tags: Tags) = Exporter(tags("annotator"))
+  private def exporterOf(tags: Tags, owner: Option[UserId]) = Exporter(tags("annotator"), owner)
 
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    given Exporter = exporterOf(tags)
+    given Exporter = exporterOf(tags, none)
+    toPgn(root, tags, comments)
+
+  def rootToPgn(root: Root, tags: Tags, owner: Option[UserId] = none)(using flags: WithFlags): Pgn =
+    given Exporter = exporterOf(tags, owner)
+    val comments =
+      if flags.comments then InitialComments(commentsWithShapes(root))
+      else InitialComments.empty
+    toPgn(root, tags, comments)
+
+  private def toPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags, Exporter): Pgn =
     lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
       Pgn(
         tags,
@@ -158,13 +170,6 @@ object PgnDump:
         root.children.first.map(branchToTree(_, root.children.variationsOnly)),
         root.ply.next
       )
-
-  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
-    given Exporter = exporterOf(tags)
-    val comments =
-      if flags.comments then InitialComments(commentsWithShapes(root))
-      else InitialComments.empty
-    rootToPgn(root, tags, comments)
 
   private def branchToTree(branch: Branch, variations: List[Branch])(using
       flags: WithFlags
@@ -184,7 +189,7 @@ object PgnDump:
   private def branchToMove(node: Branch)(using flags: WithFlags)(using Exporter) =
     chessPgn.Move(
       san = node.move.san,
-      glyphs = flags.comments.so(node.glyphs),
+      glyphs = flags.comments.so(node.glyphs.toBase),
       comments = flags.comments.so(commentsWithShapes(node)),
       opening = none,
       result = none,

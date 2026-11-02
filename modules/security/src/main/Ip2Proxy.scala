@@ -1,13 +1,13 @@
 package lila.security
 
 import play.api.libs.json.*
-import play.api.mvc.RequestHeader
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.RequestHeader
 
+import lila.common.HTTPRequest
 import lila.core.net.IpAddress
 import lila.core.security.{ Ip2ProxyApi, IsProxy }
-import lila.common.HTTPRequest
 import lila.mon.extensions.*
 
 final class Ip2ProxySkip extends Ip2ProxyApi:

@@ -10,13 +10,12 @@ final class Search(env: Env) extends LilaController(env):
     env.game.cached.nbTotal.flatMap: nbGames =>
       val page = p.atLeast(1)
       Reasonable(page, Max(100)):
-        val cost = scala.math.sqrt(page.toDouble).toInt
         def concurrencyLimited =
           val form = searchForm
             .bindFromRequest()
             .withError(key = "", message = "Please only send one request at a time")
           TooManyRequests.page(views.gameSearch.index(form, none, nbGames))
-        limit.search(me.userId, rateLimited, cost = cost):
+        limit.search(me.userId, rateLimited, cost = scala.math.sqrt(page.toDouble).toInt):
           limit.searchConcurrency(me.userId, concurrencyLimited):
             bindForm(searchForm)(
               failure =>

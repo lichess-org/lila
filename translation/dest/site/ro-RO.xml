@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configurare joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
@@ -170,6 +169,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="toggleLocalEngine">Comută motorul local</string>
   <string name="engineSettings">Setări motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motoare de la cele mai puternice la cele mai slabe</string>
   <string name="illegalPosition">Poziţie ilegală</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
@@ -490,6 +490,8 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
     <item quantity="few">%s prieteni online</item>
     <item quantity="other">%s de prieteni online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Prieteni online: %1$s
+Prieteni jucând: %2$s</string>
   <string name="favoriteOpponents">Adversari preferați</string>
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
@@ -539,6 +541,7 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>
   <string name="resume">Continuare</string>
+  <string name="stop">Stop</string>
   <string name="youArePlaying">Te joci!</string>
   <string name="winRate">Procent de câștig</string>
   <string name="performance">Performanță</string>
@@ -621,14 +624,12 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="reportAUser">Raportează un utilizator</string>
   <string name="user">Utilizator</string>
   <string name="reason">Motiv</string>
-  <string name="whatIsIheMatter">Care este problema?</string>
   <string name="cheat">Trișează</string>
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la comportamentul acestui utilizator. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
   <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"jignește/e inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Îți putem procesa raportul mai rapid dacă scrii în engleză.</string>
-  <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importat de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
@@ -824,7 +825,9 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadMyGames">Descarcă jocurile mele</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
+  <string name="downloadResults">Descărcare rezultate</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Derulează peste tablă pentru a te deplasa în joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>
@@ -1035,6 +1038,8 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
   <string name="noRestriction">Fără restricții</string>
   <string name="minimumRatedGames">Numar minim de partide evaluate jucate</string>
+  <string name="minimumAccountAge">Vârsta minimă a contului</string>
+  <string name="titledPlayersBypassRestriction">Jucătorii cu titlu oficial nu sunt supuși acestei restricții.</string>
   <string name="minimumRating">Rating minim</string>
   <string name="maximumWeeklyRating">Rating săptămânal maxim</string>
   <string name="positionInputHelp">Lipiți un FEN valid pentru a începe fiecare joc dintr-o poziție dată.
@@ -1081,8 +1086,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="ourEventTips">Sfaturile noastre pentru organizarea evenimentelor</string>
   <string name="instructions">Instrucțiuni</string>
   <string name="showMeEverything">Afișează-mi tot</string>
-  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
-Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
+  <string name="lichessPatronInfo">Lichess este o organizație caritabilă și software complet gratuit/libre open source. Depindem de donațiile utilizatorilor pentru a sprijini costurile noastre de operare, dezvoltarea și conținutul. Fără comunitatea noastră generoasă, nu am putea păstra site-ul funcțional. Vă mulțumim pentru că v-ați alăturat!</string>
   <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
   <string name="stats">Statistici</string>
   <string name="accessibility">Accesibilitate</string>
@@ -1093,6 +1097,7 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="offline" comment="status of a user">deconectat</string>
   <string name="search">Căutare</string>
   <string name="clearSearch">Șterge căutarea</string>
+  <string name="searchInX">Căută în \"%s\"</string>
   <string name="thereAreNoResultsForX">Niciun rezultat pentru \"%s\"</string>
   <string name="tags">Etichete</string>
   <string name="enPassant">En passant legale</string>

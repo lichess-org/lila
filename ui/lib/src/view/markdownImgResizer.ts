@@ -1,5 +1,5 @@
 import { clamp } from '@/algo';
-import { type Prop, frag } from '@/index';
+import { type Prop, frag, escapeHtml } from '@/index';
 import { json as xhrJson } from '@/xhr';
 
 export type UpdateImageHook =
@@ -107,7 +107,10 @@ export function wrapImg(arg: { img: HTMLImageElement } | { src: string; alt: str
         <i class="resize-handle left"></i>
       </span>
     </span>`);
-  const img = 'img' in arg ? arg.img : frag<HTMLImageElement>(`<img src="${arg.src}" alt="${arg.alt}">`);
+  const img =
+    'img' in arg
+      ? arg.img
+      : frag<HTMLImageElement>(`<img src="${escapeHtml(arg.src)}" alt="${escapeHtml(arg.alt)}">`);
   if ('img' in arg) img.replaceWith(span);
   span.querySelector('span')?.prepend(img);
   return span;

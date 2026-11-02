@@ -33,6 +33,7 @@ final class SetupUi(helpers: Helpers):
 
   def filter(form: Form[?])(using ctx: Context) = frag(
     st.form(novalidate)(
+      p(cls := "header")(trans.site.filterGames()),
       table(
         tbody(
           tr(cls := "filter-variant")(
@@ -173,6 +174,6 @@ final class SetupUi(helpers: Helpers):
       val perfType = PerfType(chess.variant.Standard, s)
       (
         s.id.toString,
-        perfType.trans + " - " + perfType.desc,
+        s"${perfType.trans} - ${perfType.desc}",
         none
       )

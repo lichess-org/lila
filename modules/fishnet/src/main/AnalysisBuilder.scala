@@ -1,22 +1,29 @@
 package lila.fishnet
 
-import chess.{ Position, Ply }
+import chess.eval.WhiteScore
 import chess.format.Uci
 import chess.format.pgn.SanStr
+import chess.{ Ply, Position }
 
-import lila.tree.{ Analysis, Eval, Info }
+import lila.tree.{ Analysis, Engine, Eval, Info }
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
 
 final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
-  def apply(client: Client, work: Work.Analysis, evals: List[EvalOrSkip]): Fu[Analysis] =
-    partial(client, work, evals.map(some), isPartial = false)
+  def apply(
+      client: Client,
+      work: Work.Analysis,
+      engineVersion: Option[String],
+      evals: List[EvalOrSkip]
+  ): Fu[Analysis] =
+    partial(client, work, engineVersion, evals.map(some), isPartial = false)
 
   def partial(
       client: Client,
       work: Work.Analysis,
+      engineVersion: Option[String],
       evals: List[Option[EvalOrSkip]],
       isPartial: Boolean = true
   ): Fu[Analysis] =
@@ -26,6 +33,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
        * https://github.com/lichess-org/lichobile/issues/722
        */
       val cached = if isPartial then cachedFull - 0 else cachedFull
+      val merged = mergeEvalsAndCached(work, evals, cached)
       def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
 
       val setup = Position.AndFullMoveNumber(work.game.variant, work.game.initialFen)
@@ -39,11 +47,20 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
               setup.ply,
               Analysis(
                 id = Analysis.Id(work.game.studyId, work.game.id),
-                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+                initialScore =
+                  merged.headOption.flatten.flatMap(_.score).map(WhiteScore(_, work.startPly.turn)),
+                infos = makeInfos(merged, work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                fk = (!client.lichess).option(client.key.value),
                 date = nowInstant,
-                nodesPerMove = work.origin.map(_.nodesPerMove)
+                engine = Engine(
+                  work.origin.fold(1_000_000)(_.nodesPerMove),
+                  client.instance.fold(Analysis.EngineId.fishnet)(instance =>
+                    Analysis.EngineId.fishnet(instance.version.value)
+                  ),
+                  client.userId,
+                  engineVersion.getOrElse(Engine.unknownVersion),
+                  fishnetKey = Option.unless(client.lichess)(client.key)
+                )
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
@@ -76,8 +93,8 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals
-      .filterNot(_.exists(_.isCheckmate))
+    val ambiguousEnd = evals.lastOption.flatten.exists(_.score.isEmpty)
+    (if ambiguousEnd then evals.init else evals)
       .sliding(2)
       .toList
       .zip(moves)
@@ -87,10 +104,10 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
             case first :: rest if first != move => first :: rest
             case _ => Nil
           val best = variation.headOption
-          val info = Info(
-            ply = startedAtPly + index + 1,
-            eval = Eval(after.score.cp, after.score.mate, best),
+          val ply = startedAtPly + index + 1
+          Info(
+            ply = ply,
+            eval = Eval(after.score.map(WhiteScore(_, ply.turn)), best),
             variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
           )
-          if info.ply.isOdd then info.invert else info
         case ((_, _), index) => Info(startedAtPly + index + 1, lila.tree.evals.empty, Nil)

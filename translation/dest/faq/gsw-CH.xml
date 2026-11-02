@@ -167,6 +167,8 @@ S\'rote Symbol macht dich druf ufmerksam, wänn das passiert. Oft chann mer lich
 3. Klick \"Cookies and Site Permissions\"
 4. Scroll abwärts und klick \"Media autoplay\"
 5. \"Lichess.org\" zum Erlaube bi-füege</string>
+  <string name="makeBotTitle">En Bot uf Lichess erstelle?</string>
+  <string name="makeBotDescription">Zum Erfahre, wie mer en &lt;a href=\'%1$s\'&gt;eigene Schach-Bot&lt;/a&gt; für Lichess erstellt, lies bitte &lt;a href=\'%2$s\'&gt;de Blockbitrag zum Thema \"Bot-Erstellung\"&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Mich sälber vum Schpille abhalte?</string>
   <string name="mentalHealthCondition">eigene, geischtige G\'sundheitszueschtand</string>
   <string name="lichessUserstyles">Lichess Benutzerstil</string>

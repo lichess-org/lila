@@ -54,7 +54,9 @@
   <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende partijen hebben geen invloed op de rating van de spelers.</string>
   <string name="botRatingAbuse">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
   <string name="errorPage">Foutpagina</string>
-  <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
+  <string name="reportTheBug">Je kunt het melden:</string>
+  <string name="securityVulnerability">Beveiligingskwetsbaarheid</string>
+  <string name="otherBug">Andere fout</string>
   <string name="learnHowToMakeBroadcasts">Lees hoe je je eigen uitzendingen op Lichess maakt</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
   <string name="engineAppeal">Schaakcomputer of valsspelmarkering</string>

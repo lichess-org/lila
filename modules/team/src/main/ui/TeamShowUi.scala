@@ -1,13 +1,12 @@
 package lila.team
 package ui
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 import scalalib.paginator.Paginator
 
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 import lila.team.Team
-
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -31,7 +30,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
       .graph(
         title = s"${team.name} team",
         url = routeUrl(routes.Team.show(team.id)),
-        description = team.intro.so { shorten(_, 152) }
+        description = team.intro.so(shorten(_, 152))
       )
       .js(
         PageModule(

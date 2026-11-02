@@ -64,7 +64,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                             url = routes.ForumPost.redirect(post.id).url
                             _ <- env.memo.picfitApi
                               .addRef(Markdown(post.text), lila.forum.picRef(post.id), url.some)
-                            _ = discard { maybeAutomod(post) }
+                            _ = discard(maybeAutomod(post))
                           yield Redirect(url)
                   )
                 }
@@ -84,7 +84,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 post <- postApi.editPost(postId, data.changes)
                 url = routes.ForumPost.redirect(post.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(post.text), lila.forum.picRef(post.id), url.some)
-                _ = discard { maybeAutomod(post) }
+                _ = discard(maybeAutomod(post))
               yield Redirect(url)
         )
       yield res

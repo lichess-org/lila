@@ -1,9 +1,10 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.common.Form.{ cleanNonEmptyText, into }
 import lila.relay.RelayGroup.ScoreGroup
 import lila.relay.RelayTour.TourPreview
-import lila.common.Form.{ into, cleanNonEmptyText }
 
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,

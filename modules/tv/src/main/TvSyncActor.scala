@@ -33,7 +33,7 @@ final private class TvSyncActor(
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
 
   private def forward[A](channel: Tv.Channel, msg: Any) =
-    channelActors.get(channel).foreach { _ ! msg }
+    channelActors.get(channel).foreach(_ ! msg)
 
   protected val process: SyncActor.Receive =
 

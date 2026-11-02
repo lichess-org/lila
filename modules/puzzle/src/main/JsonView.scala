@@ -1,15 +1,15 @@
 package lila.puzzle
 
-import chess.format.*
 import chess.IntRating
+import chess.format.*
 import chess.rating.IntRatingDiff
-import scalalib.model.Days
 import play.api.libs.json.*
+import scalalib.model.Days
 
 import lila.common.Json.given
 import lila.core.i18n.Translate
-import lila.tree.{ Branch, Node }
 import lila.core.net.ApiVersion
+import lila.tree.{ Branch, Node }
 
 final class JsonView(
     gameJson: GameJson,

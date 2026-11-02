@@ -29,7 +29,7 @@ case class Page(
     pageModule: Option[PageModule] = None,
     openGraph: Option[OpenGraph] = None,
     csp: Option[Update[ContentSecurityPolicy]] = None,
-    atomLinkTag: Option[Tag] = None,
+    atomLink: Option[(Call, String)] = None,
     withHrefLangs: Option[LangPath] = None,
     flags: Set[PageFlags] = Set.empty,
     transform: Update[Frag] = identity,
@@ -52,7 +52,7 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page = copy(withHrefLangs = path.some)
-  def preloadImage(url: Url)(helper: AssetHelper): Page = headAppend(helper.imagePreload(url))
+  def preloadImage(url: Url)(helper: AssetHelper): Page = headAppend(helper.imagePreloadUrl(url))
   def preloadImage(url: Option[Url])(helper: AssetHelper): Page =
     url.fold(this)(preloadImage(_)(helper))
   def headAppend(f: Frag): Page = transformHead(head => frag(head, f))

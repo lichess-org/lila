@@ -1,17 +1,17 @@
 package lila.api
 package ui
 
+import lila.appeal.AppealMsg
+import lila.common.ClientName
+import lila.core.chat.PublicSource
+import lila.core.config.NetDomain
+import lila.core.i18n.Translate
+import lila.core.userId.ModId
+import lila.mod.Modlog
+import lila.shutup.{ Analyser, PublicLine }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.mod.Modlog
-import lila.appeal.AppealMsg
 import lila.user.Note
-import lila.core.config.NetDomain
-import lila.core.userId.ModId
-import lila.shutup.{ PublicLine, Analyser }
-import lila.core.chat.PublicSource
-import lila.core.i18n.Translate
-import lila.common.ClientName
 
 final class ModTimelineUi(helpers: Helpers)(
     publicLineSource: PublicSource => (Translate, ClientName) ?=> Frag

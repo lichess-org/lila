@@ -60,6 +60,7 @@ export class EditDialog {
 
   async show(): Promise<Dialog> {
     this.dlg = await domDialog({
+      closeButton: true,
       insert: [{ nodes: this.view }],
       actions: this.actions,
       onClose: () => this.janitor.cleanup(),
@@ -227,6 +228,7 @@ export class EditDialog {
     const input = frag<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
     domDialog({
       class: 'dev-view',
+      closeButton: true,
       htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
       insert: [
         { nodes: input, selector: 'span' },
@@ -290,6 +292,7 @@ export class EditDialog {
       </div>`);
     const dlg = await domDialog({
       insert: [{ nodes: view }],
+      closeButton: true,
       easyClose: 'clickOutside',
       show: true,
       actions: [
@@ -316,6 +319,7 @@ export class EditDialog {
       </div>`);
     const dlg = await domDialog({
       insert: [{ nodes: view }],
+      closeButton: true,
       easyClose: 'clickOutside',
       show: true,
       actions: [

@@ -1,12 +1,13 @@
 package lila.fide
 
-import monocle.syntax.all.*
-import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.FideTC
+import monocle.syntax.all.*
+import play.api.i18n.Lang
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import java.util.Locale
 
 import lila.core.fide.Federation.*
-import play.api.i18n.Lang
-import java.util.Locale
 
 case class Federation(
     @Key("_id") id: Id,

@@ -10,11 +10,6 @@ import Dependencies.*
 // rather than wiring up packaging we don't ship.
 Global / lintUnusedKeysOnLoad := false
 
-// Remote cache using BuildBuddy.io
-val buildBuddyToken = sys.env.get("BUILD_BUDDY_TOKEN").filter(_.nonEmpty)
-Global / remoteCache := buildBuddyToken.map(_ => uri("grpcs://lichess.buildbuddy.io"))
-Global / remoteCacheHeaders ++= buildBuddyToken.map(t => s"x-buildbuddy-api-key=$t").toSeq
-
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
@@ -58,6 +53,7 @@ javaOptions ++= {
     Seq.empty
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
+ThisBuild / semanticdbEnabled := true
 ThisBuild / usePipelining := false
 // the following settings come from the PlayScala plugin, which I removed
 // shellPrompt := PlayCommands.playPrompt
@@ -136,7 +132,7 @@ lazy val db = module("db",
 
 lazy val memo = module("memo",
   Seq(db, mon, markdown),
-  Seq(scaffeine, bloomFilter) ++ playWs.bundle
+  Seq(scaffeine, probabilisticDataStructures) ++ playWs.bundle
 )
 
 lazy val i18n = module("i18n",
@@ -147,7 +143,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
+      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn localAnalysis nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg report".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -210,7 +206,7 @@ lazy val feed = module("feed",
 
 lazy val ublog = module("ublog",
   Seq(search, report),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val evaluation = module("evaluation",
@@ -301,7 +297,7 @@ lazy val pool = module("pool",
 
 lazy val activity = module("activity",
   Seq(puzzle),
-  Seq()
+  tests.bundle
 )
 
 lazy val lobby = module("lobby",
@@ -476,7 +472,7 @@ lazy val teamSearch = module("teamSearch",
 
 lazy val clas = module("clas",
   Seq(user, puzzle),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val bookmark = module("bookmark",

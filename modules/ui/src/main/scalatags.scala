@@ -8,6 +8,7 @@ import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
+
 import lila.core.i18n.{ I18nKey, Translate }
 
 // collection of lila attrs
@@ -145,7 +146,7 @@ trait ScalatagsExtensions:
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
-    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach { av.apply(t, a, _) }
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach(av.apply(t, a, _))
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with

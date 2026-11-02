@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Cancella un timer o nega una richiesta</string>
   <string name="playPreferredMoveOrConfirmSomething">Gioca la mossa selezionata o conferma qualcosa</string>
   <string name="sleep">Sospensione (se è attivo il risveglio con comando vocale)</string>
-  <string name="turnOffVoiceRecognition">Disattiva il riconoscimento vocale</string>
   <string name="showPuzzleSolution">Mostra la soluzione del puzzle</string>
 </resources>

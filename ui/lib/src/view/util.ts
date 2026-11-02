@@ -1,6 +1,9 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 
 import { numberFormat } from '@/i18n';
+import { pubsub } from '@/pubsub';
+
+import { onInsert, type MaybeVNode, type MaybeVNodes } from './snabbdom';
 
 const ratio2percent = (r: number): string => Math.round(100 * r) + '%';
 
@@ -25,4 +28,15 @@ export function numberRow(name: string, value: any, typ?: string): VNode {
           : numberFormat(value),
     ),
   ]);
+}
+
+export function toggleBox(legend: MaybeVNode, content: MaybeVNodes, open?: boolean): VNode {
+  return h(
+    'fieldset.toggle-box.toggle-box--toggle',
+    {
+      class: { 'toggle-box--toggle-off': !open },
+      hook: onInsert(_ => pubsub.emit('content-loaded')),
+    },
+    [h('legend', legend), h('div', content)],
+  );
 }

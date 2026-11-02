@@ -1,4 +1,5 @@
 package controllers
+
 package team
 
 import play.api.data.Form
@@ -55,7 +56,7 @@ final class Team(env: Env) extends LilaController(env):
     Reasonable(page):
       Ok.async:
         if text.trim.isEmpty
-        then paginator.popularTeams(page).map { views.team.list.all(_) }
+        then paginator.popularTeams(page).map(views.team.list.all(_))
         else
           for
             ids <- env.teamSearch(text, page)
@@ -124,7 +125,7 @@ final class Team(env: Env) extends LilaController(env):
             url = routes.Team.show(team.id).url
             _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
-            discard { env.report.api.automodComms(team.automodText, url) }
+            discard(env.report.api.automodComms(team.automodText, url))
             Redirect(url).flashSuccess
       )
   }
@@ -142,7 +143,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.members
         .bindFromRequest()
         .value
-        .so { api.kickMembers(team, _) }
+        .so(api.kickMembers(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -151,7 +152,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.blocklist
         .bindFromRequest()
         .value
-        .so { api.blocklist.set(team, _) }
+        .so(api.blocklist.set(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -217,7 +218,7 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.explain)(
         _ => funit,
         explain =>
-          api.delete(team, me.value, explain) >>
+          api.delete(team, me.userId, explain) >>
             env.mod.logApi.deleteTeam(team.id, explain)
       )
         .inject(Redirect(routes.Team.all(1)).flashSuccess)
@@ -271,7 +272,7 @@ final class Team(env: Env) extends LilaController(env):
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
-                discard { env.report.api.automodComms(team.automodText, url) }
+                discard(env.report.api.automodComms(team.automodText, url))
                 Redirect(url)
           )
   }
@@ -418,6 +419,12 @@ final class Team(env: Env) extends LilaController(env):
     WithEnabledTeamOrClas(id)(showUpdates, orElse)
   }
 
+  def events = Auth { _ ?=> me ?=>
+    limit.anyPageByUser(me.myId, rateLimited):
+      env.teamInfo.events.flatMap: (teamIds, events) =>
+        Ok.page(views.team.events(teamIds, events))
+  }
+
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
       team.isClas.not.so:
@@ -464,10 +471,9 @@ final class Team(env: Env) extends LilaController(env):
   private def renderUpdateForm(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-    unsubs <- env.team.cached.unsubs.get(team.id)
     limiter <- env.team.update.limiter.status(team.id)
     links = views.team.updateEventLinks(tours, swiss)
-    page <- renderPage(views.team.admin.updateForm(team, form, links, unsubs, limiter))
+    page <- renderPage(views.team.admin.updateForm(team, form, links, limiter))
   yield Ok(page)
 
   def updateSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>

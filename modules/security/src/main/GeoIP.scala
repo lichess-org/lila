@@ -9,7 +9,7 @@ import play.api.ConfigLoader
 import scala.util.Try
 
 import lila.common.autoconfig.*
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, CountryCode }
 import lila.core.security.IsProxy
 
 final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
@@ -61,7 +61,7 @@ object GeoIP:
 
 case class Location(
     country: String,
-    countryCode: Option[String],
+    countryCode: Option[CountryCode],
     region: Option[String],
     city: Option[String]
 ):
@@ -80,7 +80,7 @@ object Location:
   def apply(res: CityResponse): Location =
     Location(
       Option(res.getCountry).flatMap(c => Option(c.getName)) | unknown.country,
-      Option(res.getCountry).flatMap(c => Option(c.getIsoCode)),
+      Option(res.getCountry).flatMap(c => Option(c.getIsoCode)).map(CountryCode.apply),
       Option(res.getMostSpecificSubdivision).flatMap(s => Option(s.getName())),
       Option(res.getCity).flatMap(c => Option(c.getName))
     )

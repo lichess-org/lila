@@ -2,8 +2,8 @@ package lila.jsBot
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.*
 import lila.common.config.GetRelativeFile
+import lila.core.config.*
 
 @Module
 final class Env(

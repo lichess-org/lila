@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Cộng đồng</string>
   <string name="communityBlogs">Các Blog cộng đồng</string>
+  <string name="best">Hay nhất</string>
+  <string name="all">Tất cả</string>
   <string name="byMonth">Theo tháng</string>
   <string name="byTopic">Theo chủ đề</string>
   <string name="byLichess">Bởi Lichess</string>
@@ -55,11 +57,24 @@
   <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Các trang web sau đây cung cấp hình ảnh miễn phí. Vui lòng đảm bảo bạn tuân thủ các điều kiện cấp phép đối với hình ảnh bạn sử dụng.</string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
+  <string name="topicChess">Cờ vua</string>
+  <string name="topicPuzzle">Câu đố</string>
+  <string name="topicTactics">Chiến thuật</string>
+  <string name="topicStrategy">Chiến lược</string>
+  <string name="topicChessEngine">Công cụ cờ vua</string>
+  <string name="topicChessBot">Bot cờ vua</string>
+  <string name="topicChessPersonalities">Các nhân vật cờ vua</string>
+  <string name="topicOverTheBoard">Chơi ngoại tuyến trên bàn cờ</string>
+  <string name="topicSoftwareDevelopment">Phát triển Phần mềm</string>
+  <string name="topicOffTopic">Ngoài lề</string>
+  <string name="topicPosts">Các bài đăng về %s</string>
   <string name="etiquette">Quy tắc</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai.</string>
   <string name="noCopyrightedImages">Chỉ sử dụng những hình ảnh không thuộc bản quyền của người khác.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
   <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Các ý kiến ​​được bày tỏ bởi những người đóng góp cho Lichess là ý kiến ​​của cá nhân họ.</string>
+  <string name="youMayAlsoLike">Có thể bạn cũng thích</string>
   <string name="youBlockedByBlogAuthor">Bạn đã bị chặn bởi tác giả blog.</string>
 </resources>

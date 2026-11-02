@@ -65,10 +65,10 @@ final class SwissStandingApi(
 
   private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first"):
     _.expireAfterWrite(1.minute)
-      .buildAsyncFuture { compute(_, 1) }
+      .buildAsyncFuture(compute(_, 1))
 
   private def compute(id: SwissId, page: Int): Fu[JsObject] =
-    mongo.swiss.byId[Swiss](id).orFail(s"No such tournament: $id").flatMap { compute(_, page) }
+    mongo.swiss.byId[Swiss](id).orFail(s"No such tournament: $id").flatMap(compute(_, page))
 
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for

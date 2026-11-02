@@ -1,12 +1,13 @@
 package lila.insight
 
-import chess.format.pgn.SanStr
-import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
+import chess.format.pgn.SanStr
+import chess.{ Centis, Clock, Ply, Position, Role, Stats }
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice }
 import lila.common.SimpleOpening
 import lila.game.Blurs.booleans
+import lila.tree.forceAsCp
 
 case class RichPov(
     pov: Pov,
@@ -79,13 +80,11 @@ final private class PovToEntry(
 
   private def makeMoves(from: RichPov): List[InsightMove] =
     val sideAndStart = from.pov.sideAndStart
-    def cpDiffs = from.analysis.so { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    def cpDiffs = from.analysis.so(AccuracyCP.diffsList(sideAndStart, _).toVector)
     val accuracyPercents = from.analysis.map:
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
-    val prevInfos = from.analysis.so { an =>
-      AccuracyCP.prevColorInfos(sideAndStart, an).pipe { is =>
-        from.pov.color.fold(is, is.map(_.invert))
-      }
+    val prevScores = from.analysis.so { an =>
+      AccuracyCP.prevColorInfos(sideAndStart, an).map(_.eval.pov(from.pov.color))
     }
     val roles = from.pov.game.sansOf(from.pov.color).map(sanToRole)
     val boards =
@@ -104,7 +103,7 @@ final private class PovToEntry(
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
       .mapWithIndex { case ((((((role, board), blur), timeCv), clock), movetime), i) =>
         val ply = Ply(i * 2 + from.pov.color.fold(1, 2))
-        val prevInfo = prevInfos.lift(i)
+        val prevScore = prevScores.lift(i).flatten // from the point of view of the player
         val awareness = from.advices
           .get(ply - 1)
           .flatMap:
@@ -125,7 +124,7 @@ final private class PovToEntry(
           accs
             .lift(i)
             .orElse:
-              if i == boards.size - 1 then // last eval missing if checkmate
+              if i == boards.size - 1 then // last eval missing if checkmate, in old analyses
                 (~from.pov.win && from.pov.game.status.is(_.Mate)).option(AccuracyPercent.perfect)
               else none // evals can be missing in super long games (300 plies, used to be 200)
         }
@@ -135,9 +134,9 @@ final private class PovToEntry(
           tenths = movetime.map(_.roundTenths),
           clockPercent = from.clock.flatMap(clk => clock.map(ClockPercent(clk, _))),
           role = role,
-          eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
+          eval = prevScore.map(_.forceAsCp.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
-          winPercent = prevInfo.map(_.eval).flatMap(_.score).map(WinPercent.fromScore),
+          winPercent = prevScore.map(WinPercent.fromScore),
           accuracyPercent = accuracyPercent,
           material = board.materialImbalance * from.pov.color.fold(1, -1),
           awareness = awareness,
@@ -163,7 +162,7 @@ final private class PovToEntry(
 
   private def coefVariation(a: Seq[Int]): Option[Float] =
     val s = Stats(a)
-    s.stdDev.map { _ / s.mean }
+    s.stdDev.map(_ / s.mean)
 
   private def queenTrade(from: RichPov) = QueenTrade:
     from.division.end.map(_.value).fold(from.boards.last.some)(from.boards.toList.lift) match

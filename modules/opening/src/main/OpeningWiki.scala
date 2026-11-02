@@ -5,9 +5,10 @@ import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 
+import lila.core.config.NetDomain
+import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perm.Granter
 
 case class OpeningWiki(
     markup: Option[Html],
@@ -18,7 +19,10 @@ case class OpeningWiki(
   def markupForMove(move: String): Option[Html] =
     markup.map(OpeningWiki.filterMarkupForMove(move))
 
-final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using Executor):
+final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using
+    NetDomain,
+    Executor
+):
 
   import OpeningWiki.Revision
 
@@ -79,7 +83,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
     private val moveNumberRegex = """(\d+)\.""".r
     def render(key: OpeningKey)(markdown: Markdown): Html = renderer(s"opening:$key") {
-      markdown.map { moveNumberRegex.replaceAllIn(_, "$1{DOT}") }
+      markdown.map(moveNumberRegex.replaceAllIn(_, "$1{DOT}"))
     }.map(_.replace("{DOT}", "."))
 
   private val cache = cacheApi[OpeningKey, OpeningWiki](1024, "opening.wiki"):

@@ -287,19 +287,14 @@
   }
 
   &__mselect {
-    position: unset;
-    flex: auto;
-
     @include fluid-size('font-size', 12px, 19px);
 
+    position: unset;
+    flex: auto;
     white-space: wrap;
 
     &.mselect__active {
       overflow: visible;
-    }
-
-    .fullscreen-mask {
-      display: block;
     }
 
     .mselect__item {

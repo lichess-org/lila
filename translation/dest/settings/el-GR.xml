@@ -7,5 +7,12 @@
   <string name="cancelKeepAccount">Ακύρωση και διατήρηση του λογαριασμού μου</string>
   <string name="closeAccountAreYouSure">Θέλετε σίγουρα να κλείσετε τον λογαριασμό σας;</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
-  <string name="closeYourAccount">κλείστε τον λογαριασμό σας</string>
+  <string name="wereSorryToSeeYouGo">Λυπούμαστε που φεύγετε.</string>
+  <string name="closeAccountForeverLabel">Οριστικό κλείσιμο: δεν είναι δυνατή η επαναφορά</string>
+  <string name="closeAccountForeverWarning">Αποτρέπει την επανενεργοποίηση του λογαριασμού σας. Ακόμα και οι διαχειριστές δεν θα μπορούν να επανενεργοποιήσουν τον λογαριασμό σας, αν το ζητήσετε αργότερα.</string>
+  <string name="deleteYourAccount">Διαγράψτε τον λογαριασμό σας</string>
+  <string name="deleteAccountWarning">Μόλις διαγράψετε τον λογαριασμό σας, θα αφαιρεθεί από το Lichess. Ακόμα και οι διαχειριστές μας δεν θα μπορούν να τον επαναφέρουν.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Μήπως προτιμάτε να %s;</string>
+  <string name="closeYourAccount">κλείσετε τον λογαριασμό σας</string>
+  <string name="deleteAccountConfirmText">Κατανοώ ότι δεν γίνεται να ανακτηθούν λογαριασμοί που έχουν διαγραφεί</string>
 </resources>

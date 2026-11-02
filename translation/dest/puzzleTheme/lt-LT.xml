@@ -19,7 +19,6 @@
   <string name="bodenMate">Bodeno matas</string>
   <string name="bodenMateDescription">Du puolantys rikiai susikryžiojančiose įstrižainėse atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="castling">Rokiruotės</string>
-  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Šachas dviem figūrom vienu metu. Įvyksta po atidengimo atakos, kai ir perkelta figūra ir atidengta figūra puola priešininko karalių.</string>
   <string name="endgame">Endšpilis</string>
   <string name="endgameDescription">Taktika, skirta paskutinei žaidimo fazei.</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>

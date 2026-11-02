@@ -1,11 +1,11 @@
 package lila.jsBot
 package ui
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
+import lila.common.Json.given
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class JsBotUi(helpers: Helpers):
   import helpers.*
@@ -42,6 +42,7 @@ final class JsBotUi(helpers: Helpers):
       .css(ctx.pref.hasVoice.option("voice"))
       .js(PageModule(moduleName, data))
       .js(Esm("round"))
+      .i18nOpt(ctx.pref.hasVoice, _.voiceCommands)
       .csp(_.withWebAssembly)
       .flag(_.zoom):
         main(cls := "bot-play-app")

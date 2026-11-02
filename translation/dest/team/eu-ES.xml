@@ -16,6 +16,7 @@
   <string name="quitTeam">Taldetik atera</string>
   <string name="manuallyReviewAdmissionRequests">Eskuz egiaztatu sartzeko eskaerak</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Aukeratuta badago, taldera sartzeko eskaera bidali beharko da eta hori eskuz onartu edo baztertu beharko duzu.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ezkutatu taldearen kide-zerrenda kide ez direnentzat.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Taldean sartzeko kodea</string>
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>
   <string name="incorrectEntryCode">Sarrera-kode okerra.</string>
+  <string name="forumLabel">Taldearen foroa</string>
+  <string name="forumVisibilityHelp">Nork ikusi dezakeu taldearen foroa taldearen orrian?&lt;br&gt;Taldearen kideek bakarrik idatzi dezakete taldearen foroan.</string>
+  <string name="forumVisibilityNone">Ezkutatu foroa</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
   <string name="upcomingTournaments">Hurrengo txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>

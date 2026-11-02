@@ -1,15 +1,16 @@
 package lila.ublog
 
-import java.time.YearMonth
-
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
+import scalalib.model.Language
 import scalalib.paginator.{ AdapterLike, Paginator }
 
-import scalalib.model.Language
+import java.time.YearMonth
+
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
+import lila.ublog.UblogPost.Quality
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -121,10 +122,10 @@ final class UblogPaginator(
 
   private def selectQuality(filter: QualityFilter, offTopic: Boolean = false): Bdoc =
     filter match
-      case QualityFilter.all => bdoc("automod.quality".gte(if offTopic then Quality.spam else Quality.weak))
-      case QualityFilter.best => bdoc("automod.quality".gte(if offTopic then Quality.weak else Quality.good))
-      case QualityFilter.weak => bdoc("automod.quality" -> Quality.weak)
-      case QualityFilter.spam => bdoc("automod.quality" -> Quality.spam)
+      case QualityFilter.all => bdoc("quality".gte(if offTopic then Quality.spam else Quality.weak))
+      case QualityFilter.best => bdoc("quality".gte(if offTopic then Quality.weak else Quality.good))
+      case QualityFilter.weak => bdoc("quality" -> Quality.weak)
+      case QualityFilter.spam => bdoc("quality" -> Quality.spam)
       case QualityFilter.pending => pendingReviewSelect
 
   object liveByFollowed:

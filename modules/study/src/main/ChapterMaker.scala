@@ -109,7 +109,7 @@ final private class ChapterMaker(
   def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
-      data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
+      data.fen.filterNot(_.isInitial).flatMap(Fen.readWithMoveNumber(variant, _)) match
         case Some(game) =>
           Root(
             ply = game.ply,
@@ -191,14 +191,24 @@ final private class ChapterMaker(
       .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
       .map: goodFen =>
-        val fromGame = GameToRoot(game, goodFen, withClocks = true)
+        def gameToRoot(withEndComment: Boolean) =
+          GameToRoot(game, goodFen, withClocks = true, withEndComment = withEndComment)
         pgnOpt.flatMap(StudyPgnImport.result(_, Nil).toOption.map(_.root)) match
-          case Some(r) => fromGame.merge(r)
-          case None => fromGame
+          case Some(r) => gameToRoot(!hasGameEndComment(game, r)).merge(r)
+          case None => gameToRoot(withEndComment = false)
+
+  private def hasGameEndComment(game: Game, root: Root): Boolean =
+    game.finished &&
+      root.mainline.lastOption.exists: last =>
+        val result = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some)
+        val status = lila.tree.StatusText(game.status, game.winnerColor, game.variant)
+        val text = s"$result $status"
+        last.comments.value.exists: comment =>
+          comment.text.value == text && comment.by == lila.tree.Node.Comment.Author.Lichess
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
-    s"""$escapedDomain/(\\w{8,12})"""
+    s"""$escapedDomain/game/(\\w{8,12})"""
   }.r.unanchored
 
   @scala.annotation.tailrec
@@ -247,7 +257,7 @@ private object ChapterMaker:
         .so(_.linesIterator.take(Study.maxChapters.value).toList)
         .map(_.trim)
         .filter(_.nonEmpty)
-        .map { g => copy(game = g.some) }
+        .map(g => copy(game = g.some))
         .some
         .filter(_.sizeIs > 1)
 

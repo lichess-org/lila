@@ -1,10 +1,10 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
+import lila.common.ClientName
+import lila.core.chat.PublicSource
 import lila.mod.ui.*
 import lila.shutup.Analyser.highlightBad
-import lila.core.chat.PublicSource
-import lila.common.ClientName
 
 lazy val ui = ModUi(helpers)
 lazy val userTable = ModUserTableUi(helpers, ui)

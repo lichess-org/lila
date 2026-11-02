@@ -8,7 +8,7 @@ import lila.core.perm.{ Permission, Granter }
 object extensions:
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
-    Some(Tuple.fromProductTyped(p))
+    Option(Tuple.fromProductTyped(p))
 
   import scalalib.model.LangTag
   import play.api.i18n.Lang

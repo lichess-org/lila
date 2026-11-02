@@ -1,8 +1,8 @@
 package lila.security
 
-import lila.user.UserRepo
 import lila.core.security.UserTrust
 import lila.core.user.FlagCode
+import lila.user.UserRepo
 
 private final class UserTrustApi(
     cacheApi: lila.memo.CacheApi,

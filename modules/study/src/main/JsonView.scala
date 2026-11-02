@@ -5,9 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.i18n.Translate
+import lila.core.pref.Pref
 import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.core.pref.Pref
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -178,7 +178,7 @@ object JsonView:
     )
 
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri] = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:

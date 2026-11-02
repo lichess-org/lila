@@ -2,8 +2,8 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.mon.Chronometer.syncMon
 import lila.db.dsl.*
+import lila.mon.Chronometer.syncMon
 import lila.tree.{ Branch, Branches, Root }
 
 import BSONHandlers.{ readBranch, writeBranch }
@@ -46,7 +46,7 @@ private object StudyFlatTree:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
       syncMon(lila.mon.study.tree.write):
-        root.children.toList.flatMap { traverse(_, UciPath.root) }
+        root.children.toList.flatMap(traverse(_, UciPath.root))
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES).so:

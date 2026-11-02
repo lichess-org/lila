@@ -53,7 +53,6 @@
   <string name="ratedGame">Asegúrate de xugar una partida por puntuación. Les partíes amistoses nun afecten a les puntuaciones de los xugadores.</string>
   <string name="botRatingAbuse">Al xugar contra una cuenta de bot, pue que una partida por puntos nun se contabilice si determinese que\'l xugador abusa del bot pa consiguir puntos.</string>
   <string name="errorPage">Páxina d\'error</string>
-  <string name="reportErrorPage">Si una páxina date error, puedes reportala:</string>
   <string name="learnHowToMakeBroadcasts">Apriende cómo facer les tos propies emisiones en Lichess</string>
   <string name="banAppeal">Apelar por un bloquéu o una restricción de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>

@@ -1,14 +1,15 @@
 package lila.gameSearch
 package ui
 
-import java.time.format.DateTimeFormatter
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 import scalalib.paginator.Paginator
 
+import java.time.format.DateTimeFormatter
+
+import lila.common.ClientName
 import lila.core.i18n.Translate
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class GameSearchUi(helpers: Helpers)(
     gameWidgets: Seq[Game] => Context ?=> ClientName ?=> Frag

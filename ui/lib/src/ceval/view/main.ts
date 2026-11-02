@@ -25,6 +25,7 @@ import {
   div,
   span,
   button,
+  makeExoticTag,
 } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
@@ -49,14 +50,24 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
   const t: Array<VNode | string> = [];
-  if (!ceval.opts.custom && ceval.canGoDeeper)
-    t.push(
-      button('.deeper', {
-        title: i18n.site.goDeeper,
-        'data-icon': licon.PlusButton,
-        hook: bind('click', ceval.goDeeper),
-      }),
-    );
+  if (!ceval.opts.custom) {
+    if (ceval.canGoDeeper) {
+      t.push(
+        button('.deeper', {
+          title: i18n.site.goDeeper,
+          'data-icon': licon.PlusButton,
+          hook: bind('click', ceval.goDeeper),
+        }),
+      );
+    } else if (ceval.isComputing) {
+      t.push(
+        button('.stop', {
+          title: i18n.site.stop,
+          hook: bind('click', ceval.stopWorker),
+        }),
+      );
+    }
+  }
   const { depthText, npsText } = localInfo(ctrl, evs.client);
 
   t.push(depthText);
@@ -142,16 +153,18 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   gaugeTicks ??= Array.from({ length: 7 }, (_, i) =>
     hl('tick', { class: { zero: i === 3 }, attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
-  const bestEv = getBestEval(ctrl);
+  const outcome = ctrl.getNode().outcome();
+  const bestEv = outcome ? undefined : getBestEval(ctrl);
   let ev;
-  if (bestEv) {
+  if (outcome) ev = outcome.winner === 'white' ? 1 : outcome.winner === 'black' ? -1 : 0;
+  else if (bestEv) {
     ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return div(
     '.eval-gauge',
     {
-      class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
+      class: { empty: !outcome && !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
       attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
     },
     gaugeTicks,
@@ -166,9 +179,10 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   const server = node.eval;
   const threatMode = ctrl.threatMode();
   const threat = threatMode ? node.threat : undefined;
-  const bestEv = getBestEval(ctrl);
+  const bestEv = threat ?? getBestEval(ctrl);
   const search = ceval.search;
   const download = ceval.download;
+  const makePearl = makeExoticTag(threat ? 'pearl.threat' : 'pearl');
   let pearl: LooseVNode;
   let percent = 0;
   if (client) {
@@ -180,16 +194,17 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   }
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
-  } else if (!enabled) {
-    pearl = h('pearl', h('icon'));
+  } else if (!enabled && !server) {
+    pearl = makePearl(h('icon'));
   } else if (typeof bestEv?.cp !== 'undefined') {
-    pearl = h('pearl', renderEval(bestEv.cp));
+    pearl = makePearl(renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = h('pearl', '#' + bestEv.mate);
+    pearl = makePearl(['#' + bestEv.mate]);
   } else {
-    if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
-    else pearl = h('pearl', h('icon.ddloader'));
+    if (!enabled) pearl = makePearl(h('icon'));
+    else if (node.outcome() || node.threefold) pearl = makePearl('-');
+    else if (ceval.state === CevalState.Failed) pearl = makePearl(icon(licon.CautionCircle)('.is-red'));
+    else pearl = makePearl(h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -425,15 +440,17 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
 }
 
 function renderPvWrapToggle(): VNode {
-  return span('.pv-wrap-toggle', {
+  const toggle = (el: HTMLElement, e: Event) => {
+    e.stopPropagation();
+    $(el).closest('.pv').toggleClass('pv--nowrap');
+  };
+  return button('.pv-wrap-toggle', {
     hook: onInsert(el => {
-      for (const event of ['touchstart', 'mousedown']) {
-        el.addEventListener(event, (e: Event) => {
-          e.stopPropagation();
-          e.preventDefault();
-          $(el).closest('.pv').toggleClass('pv--nowrap');
-        });
-      }
+      el.addEventListener('touchstart', e => {
+        e.preventDefault();
+        toggle(el, e);
+      });
+      el.addEventListener('mousedown', e => toggle(el, e));
     }),
   });
 }

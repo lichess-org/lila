@@ -2,7 +2,9 @@
 <resources>
   <string name="logInAsUsername">Ilogge als %s</string>
   <string name="welcome">Willkomme!</string>
-  <string name="welcomeToLichess">Wilkomme bi Lichess.org!</string>
+  <string name="welcomeToLichess">Willkomme bi Lichess!</string>
+  <string name="welcomeToLichessX">Willkomme bi Lichess, %s!</string>
+  <string name="verifyYourAccount">Beschtätig dis Konto</string>
   <string name="thisIsYourProfilePage">Das isch dini Profil Site.</string>
   <string name="enabledKidModeSuggestion">Wird es Chind de Account benutze? Möchtsch villicht de %s aktiviere?</string>
   <string name="whatNowSuggestions">Was sofort? Da sind es paar Vorschläg:</string>

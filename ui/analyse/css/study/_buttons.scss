@@ -19,11 +19,20 @@ $c-study-button: $c-accent;
     flex: 1 9 10%;
   }
 
+  .comp-off & .serverEval {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
   .behind {
+    @include box-radius;
+
     background: $c-bad;
     color: $c-over;
     padding: 0 5px;
-    border-radius: $box-radius-size;
     margin-inline-end: 4px;
   }
 

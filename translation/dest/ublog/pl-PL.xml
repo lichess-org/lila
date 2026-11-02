@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Społeczność</string>
   <string name="communityBlogs">Blogi społeczności</string>
+  <string name="best">Najlepsze</string>
+  <string name="all">Wszystkie</string>
   <string name="byMonth">Według miesiąca</string>
   <string name="byTopic">Według tematu</string>
   <string name="byLichess">Według Lichess</string>
@@ -67,11 +69,24 @@
   <string name="deleteBlog">Usuń bezpowrotnie ten wpis na blogu</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Następujące strony internetowe udostępniają obrazy za darmo. Upewnij się, że spełniasz warunki licencjonowania dla obrazu, którego używasz.</string>
   <string name="selectPostTopics">Wybierz tematy, których dotyczy Twój post</string>
+  <string name="topicChess">Szachy</string>
+  <string name="topicPuzzle">Zadania</string>
+  <string name="topicTactics">Taktyka</string>
+  <string name="topicStrategy">Strategia</string>
+  <string name="topicChessEngine">Silnik szachowy</string>
+  <string name="topicChessBot">Bot szachowy</string>
+  <string name="topicChessPersonalities">Osobowości szachowe</string>
+  <string name="topicOverTheBoard">Przy szachownicy</string>
+  <string name="topicSoftwareDevelopment">Rozwój oprogramowania</string>
+  <string name="topicOffTopic">Poza tematem</string>
+  <string name="topicPosts">%s postów</string>
   <string name="etiquette">Etykieta</string>
   <string name="safeAndRespectfulContent">Publikuj proszę wyłącznie wyważone i taktowne treści. Nie kopiuj materiałów od innych.</string>
   <string name="noCopyrightedImages">Używaj tylko obrazów, które nie są chronione prawem autorskim.</string>
   <string name="inappropriateContentAccountClosed">Każda niestosowna rzecz może spowodować zamknięcie Twojego konta.</string>
   <string name="blogTips">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
   <string name="discussThisBlogPostInTheForum">Omów ten wpis na forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Opinie wypowiadane przez współtworzących Lichessa są ich opiniami.</string>
+  <string name="youMayAlsoLike">Możesz również polubić</string>
   <string name="youBlockedByBlogAuthor">Jesteś zablokowany przez autora bloga.</string>
 </resources>

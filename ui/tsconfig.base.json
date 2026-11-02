@@ -1,6 +1,9 @@
 {
   "exclude": ["${configDir}/tests", "${configDir}/dist"],
   "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "jsx",
+    "jsxFragmentFactory": "Fragment",
     "outDir": "${configDir}/dist",
     "rootDir": "${configDir}/src",
     "strict": true,

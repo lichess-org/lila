@@ -1,6 +1,7 @@
 package lila.perfStat
 
 import chess.IntRating
+
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
 import lila.core.rating.UserRankMap
@@ -49,8 +50,8 @@ final class PerfStatApi(
                 perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
                 distribution <- u.perfs(perfKey).established.optionFu(weeklyRatingDistribution(perfKey))
                 percentile = calcPercentile(distribution, u.perfs(perfKey).intRating)
-                percentileLow = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
-                percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
+                percentileLow = perfStat.lowest.flatMap(r => calcPercentile(distribution, r.int))
+                percentileHigh = perfStat.highest.flatMap(r => calcPercentile(distribution, r.int))
                 _ = lightUserApi.preloadUser(u.user)
                 _ <- lightUserApi.preloadMany(perfStat.userIds)
               yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)

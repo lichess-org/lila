@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
-import { freshImport } from '../../.test/helpers.mts';
+import { freshImport } from '#/helpers';
 
 describe('test formatter', () => {
   test('lang code formatting', async () => {

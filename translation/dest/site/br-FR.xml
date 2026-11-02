@@ -585,11 +585,9 @@
   <string name="reportAUser">Diskleriañ un implijer d\'an habaskaerien</string>
   <string name="user">Implijer</string>
   <string name="reason">Abeg</string>
-  <string name="whatIsIheMatter">Peseurt kudenn zo?</string>
   <string name="cheat">Trucherezh</string>
   <string name="troll">Troll</string>
   <string name="other">All</string>
-  <string name="error.provideOneCheatedGameLink">Roit d\'an nebeutañ ul liamm hag a gas d\'ur c\'hrogad trucherezh ennañ.</string>
   <string name="by">gant %s</string>
   <string name="importedByX">Enportzhiet gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>

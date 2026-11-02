@@ -3,12 +3,11 @@ package ui
 
 import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
-
-import lila.ui.*
-import lila.common.Json.given
-
-import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
+
+import lila.common.Json.given
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -41,6 +40,7 @@ final class PuzzleBits(helpers: Helpers):
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
         trans.puzzle.byOpenings()
       ),
+      div(cls := "sep"),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
       ),
@@ -90,7 +90,7 @@ final class PuzzleBits(helpers: Helpers):
       PageModule(
         "puzzle.dashboard",
         dashOpt.so: dash =>
-          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
+          val mostPlayed = dash.mostPlayed.sortBy((key, _) => PuzzleTheme(key).name.txt())
           Json.obj(
             "radar" -> Json.obj(
               "labels" -> mostPlayed.map: (key, _) =>

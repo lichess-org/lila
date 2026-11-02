@@ -23,7 +23,6 @@
   <string name="bodenMate">Mat van Boden</string>
   <string name="bodenMateDescription">Twee lopers op kruisende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
   <string name="castling">Rokeren</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Schaak geven met twee stukken tegelijk als gevolg van een aftrekaanval waarbij zowel het verplaatste als het geactiveerde stuk de koning van de tegenstander aanvalt.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">Tactiek met betrekking tot de en passant-regel, waarbij een pion een vijandelijke pion kan slaan die vanuit zijn beginpositie twee velden naar voren wordt gezet.</string>
   <string name="epauletteMate">Epaulettenmat</string>
   <string name="epauletteMateDescription">Twee aangrenzende ontsnappingsvakjes voor een koning in schaak worden bezet door andere stukken.</string>

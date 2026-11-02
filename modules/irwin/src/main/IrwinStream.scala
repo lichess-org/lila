@@ -49,7 +49,7 @@ final class IrwinStream:
           "pgn" -> game.sans.mkString(" "),
           "emts" -> moveTimes,
           "analysis" -> analysis.map {
-            _.infos.map { info =>
+            _.infos.filterNot(_.eval.isGameOver).map { info =>
               info.cp
                 .map { cp =>
                   Json.obj("cp" -> cp.value)

@@ -42,7 +42,7 @@ export default async function (
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return undefined; // imported games
-  type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
+  type PlotSeries = ByColor<MovePoint[]>;
   type MovetimeDataset = ChartDataset<'line'> | ChartDataset<'bar', MovePoint[]>;
   const moveSeries: PlotSeries = {
     white: [],

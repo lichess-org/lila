@@ -8,7 +8,7 @@ private object Dictionary:
 
   def en = dict("""
 (burn|d[i\|\\]e|rot) [i\|\\]n hel+
-(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
+(f++|ph)(u++|e++|a++)c?k(er|r|y?o?u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hel+
 (k[il]+|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
@@ -35,6 +35,7 @@ boner
 boo+b
 bozo
 brain(dea?d|les+)
+buffoon
 bug+er
 bu[ck]+ake
 bul+sh[i\|\\]t
@@ -43,7 +44,7 @@ che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
 ch[i\|\\][ck]+en
 ch[i\|\\]nk
-chitter
+ch[i\|\\]t+(ing|e[dr])
 cl[i\|\\]t(oris|)
 clown
 co[ck]+(su[ck]+(er|ing)|)
@@ -64,7 +65,7 @@ dumb(as+|)
 dyke
 eng[i\|\\]ne
 foresk[i\|\\]n
-fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|)
+fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|y?o?u|)
 gangbang(e?d|)
 gay
 go (and )?bomb
@@ -271,7 +272,7 @@ hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
 idiota
-imbecil
+imb[eé]cil
 madre
 malparid[ao]
 maric[oó]na?
@@ -283,6 +284,7 @@ payas[ao]
 pendejo
 po(l+|y)a
 put(ic|it|)[ao]
+suic[ií]date
 trampa
 trampos[ao]
 tu eres put\w*
@@ -299,6 +301,7 @@ cretino
 di merda
 figa
 frocio
+imbecill[ei]
 li mortacci tua
 putt?ana
 stronzo
@@ -318,6 +321,7 @@ laude ka?rle
   def fr = dict("""
 batard
 blaireau
+bouffon(ne)?
 con+ard?
 cr[eé]tin
 encul[eé]r?
@@ -351,6 +355,7 @@ wi(chs|x++)er
 
   def pt = dict("""
 lixo
+smt
 """)
 
   def tr = dict("""
@@ -365,6 +370,8 @@ bok yedin
 ezik
 gerizekal[iı]
 göt
+g[oö]t([uü](n[uü]|ne|nden)?|den|lek|e)
+gey(ler|sin|dir)?
 ibne
 ka[sş]ar
 oç+
@@ -376,6 +383,12 @@ s[ii̇]k[ei](yim|cem|rim|m|k)
 s[ii̇]kt[ii̇]r
 yar+a[gğ][iı] yediniz
 yar+ak kafa(l[iı]|s[iı])
+""")
+
+  def arLatn = dict("""
+k[eiou]+s+ ?[eiou](m+[aei]?k|khtak)
+(sh|s?ch)arm(o++u*+|u++)(t++|6)a*+
+khara
 """)
 
   def critical = dict("""

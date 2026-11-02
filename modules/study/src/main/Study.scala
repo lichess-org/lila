@@ -51,7 +51,6 @@ case class Study(
 
   def isPublic = visibility == Visibility.public
   def isUnlisted = visibility == Visibility.unlisted
-  def isPrivate = visibility == Visibility.`private`
 
   def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
@@ -61,9 +60,8 @@ case class Study(
     case _: From.Relay => true
     case _ => false
 
-  def notable = likes.value > 10 || {
-    likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7))
-  }
+  def notable = likes.value > 10 ||
+    (likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7)))
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)

@@ -1,12 +1,12 @@
 package lila.fishnet
 
-import org.apache.pekko.actor.CoordinatedShutdown
 import chess.format.Uci
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.*
+import org.apache.pekko.actor.CoordinatedShutdown
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.round.{ Tell, RoundBus, FishnetStart }
+import lila.core.round.{ FishnetStart, RoundBus, Tell }
 
 final class FishnetRedis(
     client: RedisClient,

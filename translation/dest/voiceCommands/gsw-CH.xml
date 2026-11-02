@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Timer abbräche oder e Afrag ablehne</string>
   <string name="playPreferredMoveOrConfirmSomething">Bevorzugte Zug spiele oder öppis bestätige</string>
   <string name="sleep">Ruhezueschtand (wänn es Weckwort aktiviert isch)</string>
-  <string name="turnOffVoiceRecognition">Spracherkännig usschalte</string>
   <string name="showPuzzleSolution">Zeig d\'Lösung vu de Ufgab</string>
 </resources>

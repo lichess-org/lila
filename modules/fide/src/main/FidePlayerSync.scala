@@ -1,17 +1,18 @@
 package lila.fide
 
+import chess.rating.{ Elo, KFactor }
+import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import org.apache.pekko.stream.contrib.ZipInputStreamSource
 import org.apache.pekko.stream.scaladsl.*
-import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
-import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
-import java.util.zip.ZipInputStream
-import java.time.YearMonth
 
-import lila.mon.extensions.*
+import java.time.YearMonth
+import java.util.zip.ZipInputStream
+
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class FidePlayerSync(
     repo: FideRepo,

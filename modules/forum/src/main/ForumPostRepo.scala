@@ -36,7 +36,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     coll.countSel(selectTopic(post.topicId) ++ bdoc("createdAt" -> lt(post.createdAt)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
-    coll.primitiveOne[ForumPostId](selectTopic(topicId), sort.createdAsc, "_id").dmap { _ contains postId }
+    coll.primitiveOne[ForumPostId](selectTopic(topicId), sort.createdAsc, "_id").dmap(_ contains postId)
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))

@@ -53,7 +53,6 @@
   <string name="ratedGame">בדקו אם שיחקתם משחק מדורג. משחק לא מדורג לא משפיע על הדירוג (מד הכושר).</string>
   <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק הוא מול בוט, משחק מדורג עשוי לא להעניק נקודות אם ייקבע שהשחקן/ית מנצל/ת את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
-  <string name="reportErrorPage">אם נתקלת בשגיאה בעמוד, אפשר לדווח על זה:</string>
   <string name="learnHowToMakeBroadcasts">למדו כיצד ליצור הקרנות חיות של טורנירים ב־Lichess</string>
   <string name="banAppeal">ערעור על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן שימוש במנוע או רמאות</string>

@@ -1,22 +1,35 @@
 nodeVersion: 24.20.0
+autoDedupe: true
 allowBuilds:
   esbuild: true
-ignoredOptionalDependencies:
-  - '@esbuild/*-arm'
-  - '@esbuild/*-ia32'
-  - '@esbuild/*-loong64'
-  - '@esbuild/*-mips64el'
-  - '@esbuild/*-ppc64'
-  - '@esbuild/*-riscv64'
-  - '@esbuild/*-s390x'
-  - '@esbuild/aix-*'
-  - '@esbuild/android-*'
-  - '@esbuild/freebsd-*'
-  - '@esbuild/openbsd-*'
-  - '@esbuild/openharmony-*'
-  - '@esbuild/netbsd-*'
-  - '@esbuild/sunos-*'
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - sasso-native-* # 2026/10/07 remove me
-  - sasso # 2026/10/07 remove me
+  - pnpm
+ignoredOptionalDependencies:
+  - '*arm-*'
+  - '*ia32-*'
+  - '*-ia32*'
+  - '*loong64-*'
+  - '*-loong64*'
+  - '*mips64el-*'
+  - '*-mips64el*'
+  - '*ppc64-*'
+  - '*-ppc64*'
+  - '*riscv64-*'
+  - '*-riscv64*'
+  - '*s390x-*'
+  - '*-s390x*'
+  - '*aix-*'
+  - '*-aix*'
+  - '*android-*'
+  - '*-android*'
+  - '*freebsd-*'
+  - '*-freebsd*'
+  - '*openbsd-*'
+  - '*-openbsd*'
+  - '*openharmony-*'
+  - '*-openharmony*'
+  - '*netbsd-*'
+  - '*-netbsd*'
+  - '*sunos-*'
+  - '*-sunos*'

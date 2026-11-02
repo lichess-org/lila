@@ -18,7 +18,7 @@ final class Env(
   export net.baseUrl
 
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
-  lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
+  lazy val lilaVersion = WebConfig.LilaVersion.read(appConfig)
 
   val manifest = wire[AssetManifest]
 
@@ -43,6 +43,8 @@ final class Env(
 
   val lichobileAnnounceApi = wire[LichobileAnnounceApi]
 
+  val playerCounter = wire[PlayerCounter]
+
   AnnounceApi.setupPeriodicUpdate()
   PrometheusReporter.setupPeriodicMonitor()
 
@@ -51,11 +53,6 @@ final class Env(
     import lila.memo.SettingStore.Strings.given
     import lila.memo.SettingStore.UserIds.given
 
-    val apiTimeline = settingStore[Int](
-      "apiTimelineEntries",
-      default = 10,
-      text = "API timeline entries to serve".some
-    )
     val noDelaySecret = settingStore[Strings](
       "noDelaySecrets",
       default = Strings(Nil),
@@ -73,3 +70,17 @@ final class Env(
       default = 300,
       text = "Opening explorer games per second".some
     )
+
+  object lichobileDisables:
+    import lila.core.data.Strings
+    import lila.memo.SettingStore.Strings.given
+    import lila.core.i18n.{ I18nKey, Translate }
+
+    val setting = settingStore[Strings](
+      "lichobileDisables",
+      default = Strings(List("anonPuzzle")),
+      text = "Parts of the websites that are disabled for lichobile".some
+    )
+    def anonPuzzle(using Translate): Option[String] =
+      Option.when(setting.get().value.contains("anonPuzzle")):
+        I18nKey.msg.oldAppNoLongerSupportsPuzzles.txt("lichess.org/app")

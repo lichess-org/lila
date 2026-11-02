@@ -19,7 +19,6 @@
   <string name="bodenMate">Мат Бодэна</string>
   <string name="bodenMateDescription">Два нападаючых слана па перакрыжаваных дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="castling">Ракіроўка</string>
-  <string name="enPassant">Узяцце на праходзе</string>
   <string name="castlingDescription">Адпраўце караля ў бяспеку і выведзіце ладдзю ў атаку.</string>
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
+  <string name="enPassant">Узяцце на праходзе</string>
   <string name="exposedKing">Адкрыты кароль</string>
   <string name="exposedKingDescription">Тактыка, уключаючая недастаткова абароненага караля, якая часта скончваецца матам.</string>
   <string name="fork">Відэлец</string>

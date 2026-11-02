@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import java.time.Instant
 
 import lila.study.StudySocket.Protocol.In.AtPosition
+import lila.study.Node.extensions.*
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 
@@ -84,7 +85,7 @@ object StudyAction:
 
   // copy/pasted from JsonView
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Reads[Shape] = Reads: js =>
     js.asOpt[JsObject]
       .flatMap { o =>

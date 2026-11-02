@@ -7,7 +7,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
-import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, typeIn, tagifyValues, given }
+import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, tagifyValues, typeIn, given }
 import lila.core.study.Visibility
 
 object StudyForm:

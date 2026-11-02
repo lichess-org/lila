@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configuración da partida</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar a unha amizade</string>
   <string name="playAgainstComputer">Xogar contra a máquina</string>
   <string name="gameMode">Modo de xogo</string>
@@ -165,6 +164,7 @@
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="toggleLocalEngine">Activar/desactivar o motor de análise local</string>
   <string name="engineSettings">Axustes do motor de análise</string>
+  <string name="engine">Motor de análise</string>
   <string name="enginesFromStrongestToWeakest">Motores de análise de máis forte a máis feble</string>
   <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
@@ -460,6 +460,8 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
     <item quantity="one">%s amizade conectada</item>
     <item quantity="other">%s amizades conectadas</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amizades conectadas: %1$s
+Amizades xogando: %2$s</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
@@ -507,6 +509,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
+  <string name="stop">Parar</string>
   <string name="youArePlaying">Estás xogando!</string>
   <string name="winRate">Porcentaxe de vitorias</string>
   <string name="performance">Rendemento</string>
@@ -588,14 +591,12 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Que pasou?</string>
   <string name="cheat">Trampa</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Poderemos procesar máis rápido a túa denuncia se escribes en Inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida para a súa revisión.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema xa está pechado.</string>
@@ -787,7 +788,9 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="downloadAnnotated">Descargar anotada</string>
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
+  <string name="downloadMyGames">Descargar as miñas partidas</string>
   <string name="downloadAllGames">Descargar todas as partidas</string>
+  <string name="downloadResults">Descargar os resultados</string>
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
@@ -993,6 +996,8 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="onlyMembersOfTeam">Só membros do equipo</string>
   <string name="noRestriction">Sen restrición</string>
   <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
+  <string name="minimumAccountAge">Idade mínima da conta</string>
+  <string name="titledPlayersBypassRestriction">Os xogadores titulados poden eludir esta restrición.</string>
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Máxima puntuación semanal</string>
   <string name="positionInputHelp">Pega un FEN válido para comezar as partidas dende unha posición determinada.
@@ -1039,7 +1044,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
   <string name="showMeEverything">Amósamo todo</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto. Dependemos das doazóns dos usuarios para sufragar os custos de funcionamento, desenvolvemento e de contidos. Sen a nosa xenerosa comunidade non seriamos quen de manter o sitio funcionando. Grazas por unirte a nós!  </string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto. Dependemos das doazóns dos usuarios para sufragar os custos de funcionamento, desenvolvemento e de contidos. Sen a nosa xenerosa comunidade non seriamos quen de manter o sitio funcionando. Grazas por unirte a nós!</string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Accesibilidade</string>
@@ -1050,6 +1055,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="offline" comment="status of a user">desconectado</string>
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
+  <string name="searchInX">Buscar en \"%s\"</string>
   <string name="thereAreNoResultsForX">Non hai resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Captura ao paso</string>

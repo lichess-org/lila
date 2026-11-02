@@ -24,7 +24,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi, routeUrl: Rou
     "finished" -> finished
   )
 
-  def calendar(tournaments: List[Tournament])(using Translate): JsObject =
+  private[tournament] def calendar(tournaments: List[Tournament])(using Translate): JsObject =
     Json.obj(
       "since" -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
       "to" -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay.plusDays(1)),

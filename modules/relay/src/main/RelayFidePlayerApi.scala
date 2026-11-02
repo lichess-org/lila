@@ -1,7 +1,7 @@
 package lila.relay
 
+import chess.format.pgn.{ Tag, TagType, Tags }
 import chess.{ ByColor, FideId, FideTC, PlayerTitle }
-import chess.format.pgn.{ Tag, Tags, TagType }
 
 import lila.core.fide.Player
 
@@ -37,7 +37,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
           List(
             Tag(_.fideIds(color), fide.id.toString).some,
             Tag(_.names(color), fide.name).some,
-            fide.title.map { title => Tag(_.titles(color), title.value) },
+            fide.title.map(title => Tag(_.titles(color), title.value)),
             fide.ratingOfOrStandard(tc).map(rating => Tag(_.elos(color), rating.toString))
           ).flatten
       removeEmptyFieldTags(tags) ++ fideTags

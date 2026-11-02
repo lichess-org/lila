@@ -3,6 +3,7 @@ package lila.core.lilaism
 import alleycats.Zero
 import com.typesafe.config.Config
 import scalalib.future.FutureAfter
+
 import java.util.concurrent.TimeUnit
 import scala.collection.BuildFrom
 import scala.concurrent.{ ExecutionContext as EC, Future }
@@ -47,12 +48,6 @@ trait LilaLibraryExtensions extends CoreExports:
     inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
       self.fold(f)(_.raise)
 
-  extension (self: String) def nonEmptyOption: Option[String] = if self.nonEmpty then Some(self) else None
-  extension [K, V](self: Map[K, V])
-    def nonEmptyOption: Option[Map[K, V]] = if self.nonEmpty then Some(self) else None
-  extension [A, M <: Iterable](self: M[A])
-    def nonEmptyOption: Option[M[A]] = if self.nonEmpty then Some(self) else None
-
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
@@ -89,7 +84,7 @@ trait LilaLibraryExtensions extends CoreExports:
         other.indexOf(f(x)) < other.indexOf(f(y))
     def tailOption: Option[List[A]] = list match
       case Nil => None
-      case _ :: rest => Some(rest)
+      case _ :: rest => Option(rest)
     def tailSafe: List[A] = tailOption.getOrElse(Nil)
     def indexOption(a: A) = Option(list.indexOf(a)).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
@@ -136,7 +131,7 @@ trait LilaLibraryExtensions extends CoreExports:
       Future.traverse(list)(f)
 
     def parallelN[B](n: Int)(f: A => Fu[B])(using Executor): Funit =
-      list.iterator.grouped(n).toList.sequentially { g => Future.traverse(g)(f).void }.void
+      list.iterator.grouped(n).toList.sequentially(g => Future.traverse(g)(f).void).void
 
     def parallelVoid[B](f: A => Fu[B])(using Executor): Fu[Unit] =
       list.iterator
@@ -177,8 +172,8 @@ trait LilaLibraryExtensions extends CoreExports:
 
     def thenPp(using Executor): Fu[A] =
       fua.addEffects(
-        e => pprint.pprintln("[failure] " + e),
-        a => pprint.pprintln("[success] " + a)
+        e => pprint.pprintln(s"[failure] $e"),
+        a => pprint.pprintln(s"[success] $a")
       )
 
     def thenPp(msg: String)(using Executor): Fu[A] =
@@ -190,19 +185,19 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (fua: Fu[Boolean])
 
     infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fub else fuFalse }(using EC.parasitic)
+      fua.flatMap(if _ then fub else fuFalse)(using EC.parasitic)
 
     infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fuTrue else fub }(using EC.parasitic)
+      fua.flatMap(if _ then fuTrue else fub)(using EC.parasitic)
 
     infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if _ then fub else fuccess(zero.zero) }(using EC.parasitic)
+      fua.flatMap(if _ then fub else fuccess(zero.zero))(using EC.parasitic)
 
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if _ then fb else zero.zero }(using EC.parasitic)
+      fua.map(if _ then fb else zero.zero)(using EC.parasitic)
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
-    inline def not = fua.map { !_ }(using EC.parasitic)
+    inline def not = fua.map(!_)(using EC.parasitic)
 
   extension [A](p: PairOf[A])
     def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))

@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Topluluk</string>
   <string name="communityBlogs">Topluluk blogları</string>
+  <string name="best">En iyi</string>
+  <string name="all">Tümü</string>
   <string name="byMonth">Aya göre</string>
   <string name="byTopic">Konuya göre</string>
   <string name="byLichess">Lichess\'ten</string>
@@ -59,11 +61,24 @@
   <string name="deleteBlog">Bu blog gönderisini kalıcı olarak sil</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Aşağıdaki web siteleri görselleri ücretsiz olarak sunar. Lütfen kullandığınız görselin lisans koşullarına uyduğunuzdan emin olun.</string>
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
+  <string name="topicChess">Satranç</string>
+  <string name="topicPuzzle">Bulmaca</string>
+  <string name="topicTactics">Taktikler</string>
+  <string name="topicStrategy">Strateji</string>
+  <string name="topicChessEngine">Satranç motoru</string>
+  <string name="topicChessBot">Satranç botu</string>
+  <string name="topicChessPersonalities">Satranç kişilikleri</string>
+  <string name="topicOverTheBoard">Tahta üzerinde</string>
+  <string name="topicSoftwareDevelopment">Yazılım Geliştirme</string>
+  <string name="topicOffTopic">Konu dışı</string>
+  <string name="topicPosts">%s gönderi</string>
   <string name="etiquette">Görgü kuralları</string>
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
   <string name="noCopyrightedImages">Sadece başka birine ait telif hakkı olmayan görüntüleri kullanın.</string>
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
   <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>
   <string name="discussThisBlogPostInTheForum">Bu blog gönderisini forumda tartış</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess yazarlarının dile getirdiği görüşler kendilerine aittir.</string>
+  <string name="youMayAlsoLike">Bunları da beğenebilirsiniz</string>
   <string name="youBlockedByBlogAuthor">Blog yazarı tarafından engellendiniz.</string>
 </resources>

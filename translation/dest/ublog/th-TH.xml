@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">ชุมชน</string>
+  <string name="communityBlogs">บล็อกของชุมชน</string>
+  <string name="best">ดีที่สุด</string>
+  <string name="all">ทุกอัน</string>
   <string name="byMonth">ตามเดือน</string>
   <string name="byTopic">ตามหัวข้อ</string>
   <string name="byLichess">โดย Lichess</string>
@@ -8,6 +11,7 @@
   <string name="myLikes">การกดชอบ</string>
   <string name="myBlog">บล็อกของฉัน</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
+  <string name="blogPostsByFriends">บล็อกที่ถูกโพสต์จากเพื่อนๆ</string>
   <plurals name="blogPosts">
     <item quantity="other">%sบล็อกที่โพสต์</item>
   </plurals>
@@ -27,6 +31,8 @@
   <string name="createBlogDiscussionHelp">ระบบจะสร้างหัวข้อในฟอรัมเพื่อให้ผู้คนสามารถแสดงความคิดเห็นในโพสต์ของคุณได้</string>
   <string name="publishOnYourBlog">เผยแพร่ในบล็อกของคุณ</string>
   <string name="publishHelp">หากตรวจสอบแล้ว โพสต์จะปรากฏบนบล็อกของคุณ ถ้าไม่โพสต์จะถูกตั้งค่าเป็นส่วนตัวในส่วนร่างโพสต์</string>
+  <string name="includesPromotedContent">มีเนื้อหาที่ได้รับการส่งเสริม/สนับสนุน หรือลิงก์แนะนำ</string>
+  <string name="mandatoryForSponsoredContent">จำเป็นต้องระบุสำหรับเนื้อหาที่ได้รับการสนับสนุน ลิงก์พันธมิตร หรือโฆษณาเชิงพาณิชย์</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">โพสต์ปักหมุด</string>
   <string name="stickyPostHelp">หากตรวจสอบแล้ว โพสต์นี้จะปรากฏเป็นอันดับแรกในโพสต์ล่าสุดในโปรไฟล์ของคุณและในบล็อกของคุณ</string>
   <plurals name="publishedNbBlogPosts">
@@ -41,14 +47,30 @@
   <string name="noPostsInThisBlogYet">ยังไม่มีบล็อกถูกโพสต์</string>
   <string name="noDrafts">ไม่มีฉบับร่างให้แสดง</string>
   <string name="latestBlogPosts">โพสต์บล็อกล่าสุด</string>
+  <string name="recentPosts">โพสต์ล่าสุด</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">ดู %s โพสต์</item>
   </plurals>
   <string name="imageAlt">ข้อความแสดงแทนรูปภาพ</string>
   <string name="imageCredit">เครดิตภาพ</string>
+  <string name="coverImage">ภาพปก</string>
   <string name="deleteBlog">ลบโพสต์บล็อกนี้อย่างถาวร</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">เว็บไซต์ต่อไปนี้มีรูปภาพให้ใช้งานได้ฟรี โปรดตรวจสอบให้แน่ใจว่าคุณปฏิบัติตามเงื่อนไขการอนุญาตใช้งานสำหรับรูปภาพที่คุณนำไปใช้</string>
   <string name="selectPostTopics">เลือกหัวข้อที่โพสต์ของคุณเกี่ยวกับ</string>
+  <string name="topicChess">หมากรุก</string>
+  <string name="topicPuzzle">ปริศนา</string>
+  <string name="topicTactics">กลวิธี</string>
+  <string name="topicStrategy">กลยุทธ์</string>
+  <string name="topicChessEngine">เอ็นจินหมากรุก</string>
+  <string name="topicChessBot">บอทในหมากรุก</string>
+  <string name="topicChessPersonalities">บุคคลในวงการหมากรุก</string>
+  <string name="topicOverTheBoard">เล่นบนกระดานจริง</string>
+  <string name="topicSoftwareDevelopment">การพัฒนาซอฟต์แวร์</string>
+  <string name="topicOffTopic">นอกประเด็น</string>
+  <string name="topicPosts">โพสต์ของ %s</string>
+  <string name="etiquette">กฎเกณฑ์</string>
   <string name="safeAndRespectfulContent">กรุณาโพสต์เฉพาะเนื้อหาที่ปลอดภัยและสุภาพเท่านั้น ห้ามคัดลอกเนื้อหาของผู้อื่น</string>
+  <string name="noCopyrightedImages">ใช้เฉพาะภาพที่ไม่มีลิขสิทธิ์ของผู้อื่นเท่านั้น</string>
   <string name="inappropriateContentAccountClosed">อะไรก็ตามที่ไม่เหมาะสมอาจทำให้บัญชีของคุณโดนปิดได้</string>
   <string name="blogTips">เคล็ดลับง่ายๆของเราในการเขียนบล็อกที่ดี</string>
   <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>

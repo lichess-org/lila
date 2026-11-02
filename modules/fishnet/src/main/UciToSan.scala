@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import chess.format.pgn.SanStr
-import chess.{ Position, Ply }
+import chess.{ Ply, Position }
 
 import lila.analyse.{ Analysis, Info }
 import lila.core.lilaism.LilaException

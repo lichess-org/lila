@@ -69,7 +69,7 @@ final private class LobbySyncActor(
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
-        gameApi.nbPlaying(user.id).foreach { nbPlaying =>
+        gameApi.countNowPlaying(user.id).foreach { nbPlaying =>
           if lila.core.game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
             seekApi
@@ -102,7 +102,7 @@ final private class LobbySyncActor(
         .mon(lila.mon.lobby.socket.getSris)
         .result
         .logFailure(logger, err => s"broom cannot get sris from socket: $err")
-        .foreach { this ! WithPromise(_, promise) }
+        .foreach(this ! WithPromise(_, promise))
 
     case WithPromise(Sris(sris), promise) =>
       poolApi.setOnlineSris(Sris(sris))
@@ -126,7 +126,7 @@ final private class LobbySyncActor(
     case Resync => socket ! HookIds(hookRepo.ids)
 
     case HookSub(member, true) =>
-      socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
+      socket ! AllHooksFor(member, hookRepo.filter(biter.showHookTo(_, member)).toSeq)
 
     case HookThieve.HookBus.GetCandidates(clock, promise) =>
       promise.success(HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))

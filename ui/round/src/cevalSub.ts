@@ -19,7 +19,7 @@ export function subscribe(ctrl: RoundController): void {
   // Notify tabs to disable ceval. Unless this game is loaded directly on a
   // position being analysed, there is plenty of time (7 moves, in most cases)
   // for this to take effect.
-  storage.fire('ceval.disable');
+  storage.fire('ceval.pullThePlug');
 
   storage.make('ceval.fen').listen(e => {
     const d = ctrl.data;

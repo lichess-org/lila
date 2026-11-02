@@ -31,8 +31,8 @@ object Crosstable:
     val nbGames = (user1.score + user2.score) / 10
 
     def user(id: UserId): Option[User] =
-      if id == user1.id then Some(user1)
-      else if id == user2.id then Some(user2)
+      if id == user1.id then Option(user1)
+      else if id == user2.id then Option(user2)
       else None
 
     def toList = List(user1, user2)
@@ -53,8 +53,8 @@ object Crosstable:
       else this
 
     def winnerId =
-      if user1.score > user2.score then Some(user1.id)
-      else if user1.score < user2.score then Some(user2.id)
+      if user1.score > user2.score then Option(user1.id)
+      else if user1.score < user2.score then Option(user2.id)
       else None
 
   case class Result(gameId: GameId, winnerId: Option[UserId])
@@ -93,8 +93,8 @@ object Crosstable:
             users = Users(User(UserId(u1Id), r.intD(score1)), User(UserId(u2Id), r.intD(score2))),
             results = r.get[List[String]](results).map { r =>
               r.drop(8) match
-                case "" => Result(GameId(r), Some(UserId(u1Id)))
-                case "-" => Result(GameId(r.take(8)), Some(UserId(u2Id)))
+                case "" => Result(GameId(r), Option(UserId(u1Id)))
+                case "-" => Result(GameId(r.take(8)), Option(UserId(u2Id)))
                 case "=" => Result(GameId(r.take(8)), none)
                 case _ => sys.error(s"Invalid result string $r")
             }
@@ -111,7 +111,7 @@ object Crosstable:
         id -> makeKey(o.user1.id, o.user2.id),
         score1 -> o.user1.score,
         score2 -> o.user2.score,
-        results -> o.results.map { writeResult(_, o.user1.id) }
+        results -> o.results.map(writeResult(_, o.user1.id))
       )
 
   private[game] given BSONDocumentReader[Matchup] with

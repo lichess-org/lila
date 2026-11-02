@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Anzahl der Runden</string>
   <string name="numberOfRoundsHelp">Eine ungerade Anzahl der Runden ermöglicht eine optimale Farbverteilung.</string>
   <string name="roundInterval">Zeitabstand zwischen den Runden</string>
+  <string name="customPairings">Eigene Paarungen</string>
   <string name="forbiddenPairings">Verbotene Paarungen</string>
   <string name="forbiddenPairingsHelp">Benutzernamen von Spielern, die nicht gegeneinander spielen dürfen (zum Beispiel Geschwister). Zwei Benutzernamen pro Zeile, getrennt durch ein Leerzeichen.</string>
   <string name="manualPairings">Manuelle Paarungen in der nächsten Runde</string>

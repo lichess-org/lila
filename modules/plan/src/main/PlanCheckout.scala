@@ -1,10 +1,10 @@
 package lila.plan
 
-import java.util.Currency
-
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
+
+import java.util.Currency
 
 import lila.mon.extensions.*
 
@@ -54,10 +54,10 @@ final class PlanCheckoutForm(
       "freq" -> nonEmptyText,
       "gift" -> optional(lila.common.Form.username.historicalField)
         .verifying("That player doesn't want to be gifted Patron", _.forall(u => !blockingIsBlockedBy(u)))
-        .verifying("Unknown receiver", n => n.forall { blockingFetchUser(_).isDefined })
+        .verifying("Unknown receiver", n => n.forall(blockingFetchUser(_).isDefined))
         .verifying(
           "Receiver is already a Patron",
-          n => n.forall { blockingFetchUser(_).fold(true)(!_.isPatron) }
+          n => n.forall(blockingFetchUser(_).fold(true)(!_.isPatron))
         ),
       "coverFees" -> optional(boolean)
     )(make(pricing.currency))(_ => none)

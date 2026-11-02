@@ -2,15 +2,14 @@ package lila.playban
 
 import chess.{ Centis, Color, Status }
 import reactivemongo.api.bson.*
-import scalalib.model.Days
+import scalalib.cache.OnceEvery
+import scalalib.model.{ Days, Seconds }
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.Source
 import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
 import lila.db.dsl.{ *, given }
-import scalalib.cache.OnceEvery
-import scalalib.model.Seconds
 
 final class PlaybanApi(
     coll: Coll,
@@ -162,9 +161,8 @@ final class PlaybanApi(
     status.is(_.Resign) && game.hasFewerMovesThanExpected && {
       val veryQuick = (game.clock.fold(600)(_.estimateTotalSeconds / 3)).atMost(60)
       game.durationSeconds.exists(_ < veryQuick)
-    } && {
+    } &&
       game.loserUserId.exists(loser => !quickResignCasualOnce(loser))
-    }
 
   private def handleQuickResign(game: Game, userId: UserId): Funit =
     Pov(game, userId).foreach(feedback.quickResign)
@@ -223,7 +221,7 @@ final class PlaybanApi(
       Match(bid(userId) ++ bdoc("b".exists(true))) -> List(
         Project(bdoc("bans" -> bdoc("$size" -> "$b")))
       )
-    .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
+    .map(~_.flatMap(_.getAsOpt[Int]("bans")))
 
   val rageSitOf: lila.core.playban.RageSitOf = rageSitCache.get
 

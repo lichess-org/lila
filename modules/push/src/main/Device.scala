@@ -1,10 +1,12 @@
 package lila.push
 
-import scala.math.Ordered.orderingToOrdered
 import scalalib.net.UserAgent
 
-import lila.core.net.LichessMobileVersion
+import scala.math.Ordered.orderingToOrdered
+
 import lila.common.HTTPRequest
+import lila.core.net.LichessMobileVersion
+
 import LichessMobileVersion.given
 
 final private case class Device(

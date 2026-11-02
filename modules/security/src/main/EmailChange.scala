@@ -23,7 +23,7 @@ final class EmailChange(
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
         val url = routeUrl(routes.Account.emailConfirm(token))
-        loggerAuth.info(s"Change email URL ${user.username} $email $url")
+        loggerAuth.info(s"Change email requested for ${user.id}")
         mailer.sendOrFail:
           Mailer.Message(
             to = email,
@@ -65,7 +65,7 @@ ${trans.common_linkNotWorking.txt()}
       str
         .split(sep)
         .match
-          case Array(id, email) => EmailAddress.from(email).map { TokenPayload(UserId(id), _) }
+          case Array(id, email) => EmailAddress.from(email).map(TokenPayload(UserId(id), _))
           case _ => none
         .err("Invalid token payload")
     val to = a => s"${a.userId}$sep${a.email}"

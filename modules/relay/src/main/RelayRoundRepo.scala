@@ -1,7 +1,7 @@
 package lila.relay
 
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 import lila.relay.RelayRound.WithTour

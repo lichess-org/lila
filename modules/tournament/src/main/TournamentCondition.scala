@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
-import lila.core.user.{ UserApi, PublicTitleOf }
+import lila.core.user.{ PublicTitleOf, UserApi }
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.rating.PerfType
@@ -39,9 +39,9 @@ object TournamentCondition:
         .parallel:
           case c: MaxRating => c(perfType).map(c.withVerdict)
           case c: FlatCond => fuccess(c.withVerdict(c(perfType)))
-          case c: TeamMember => c.apply.map { c.withVerdict(_) }
-          case c: AccountAge => c.apply.map { c.withVerdict(_) }
-          case c: Titled => c.apply.map { c.withVerdict(_) }
+          case c: TeamMember => c.apply.map(c.withVerdict(_))
+          case c: AccountAge => c.apply.map(c.withVerdict(_))
+          case c: Titled => c.apply.map(c.withVerdict(_))
         .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
@@ -51,7 +51,7 @@ object TournamentCondition:
     ): Fu[WithVerdicts] =
       listWithBots
         .parallel:
-          case c: TeamMember => c.apply.map { c.withVerdict(_) }
+          case c: TeamMember => c.apply.map(c.withVerdict(_))
           case c => fuccess(WithVerdict(c, Accepted))
         .dmap(WithVerdicts.apply)
 

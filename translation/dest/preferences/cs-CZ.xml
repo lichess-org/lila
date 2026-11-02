@@ -72,7 +72,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Páska přes oči</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Zobrazit vlevo na mobilních zařízeních</string>
   <string name="inlineNotation">Řádková notace</string>
-  <string name="showServerAnalysis">Zobrazit serverovou analýzu</string>
   <string name="showBestMoveArrows">Zobrazit šipky nejlepšího tahu</string>
   <string name="showManeuverArrows">Zobrazit šipky manévru</string>
   <string name="showGauge">Zobrazit měřítko hodnocení</string>

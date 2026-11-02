@@ -146,6 +146,10 @@ export default class StudyCtrl {
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
     };
+    pubsub.on('analysis.comp.toggle', enabled => {
+      if (enabled) this.vm.toolTab('serverEval');
+      else if (this.vm.toolTab() === 'serverEval') this.vm.toolTab('tags');
+    });
 
     this.members = new StudyMemberCtrl({
       initDict: data.members,
@@ -183,11 +187,10 @@ export default class StudyCtrl {
           !data.chapter.setup.fromFen &&
           !this.relay
         ) {
-          this.chapters.newForm.openInitial();
+          this.chapters.newForm.open(true);
         }
       },
       () => data,
-      this.redraw,
       this.relay,
     );
     this.commentForm = new CommentForm(ctrl);
@@ -216,13 +219,12 @@ export default class StudyCtrl {
       this.relay?.fullRoundName() || data.name,
       this.chapters.list,
       this.setChapter,
-      this.redraw,
+      !!this.relay,
     );
 
     this.topics = new TopicsCtrl(
       topics => this.send('setTopics', topics),
       () => data.topics || [],
-      this.redraw,
     );
 
     this.share = new StudyShare(
@@ -263,7 +265,7 @@ export default class StudyCtrl {
   startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
-      site.asset.loadCssPath('bits.shepherd'),
+      site.asset.loadCss({ key: 'bits.shepherd' }),
     ]);
 
     tour.study(this.ctrl);
@@ -336,6 +338,10 @@ export default class StudyCtrl {
     (!this.relay?.tourShow() || site.blindMode) &&
     !this.isGamebookPlay() &&
     (this.data.chapter.features.computer || this.data.chapter.practice);
+
+  canMergeAnalysisCleanly() {
+    return !this.data.chapter.serverEval || Number(this.data.chapter.serverEval?.version) > 0;
+  }
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
@@ -424,8 +430,8 @@ export default class StudyCtrl {
     },
   );
 
-  onSetPath = throttle(300, (path: TreePath) => {
-    if (this.vm.mode.sticky && path !== this.data.position.path)
+  onSetPath = throttle(300, (path: TreePath, node: TreeNode) => {
+    if (this.vm.mode.sticky && !node.comp && path !== this.data.position.path)
       this.makeChange('setPath', this.addChapterId({ path }));
   });
 
@@ -576,7 +582,7 @@ export default class StudyCtrl {
 
   setPath = (path: TreePath, node: TreeNode) => {
     this.arrowHistory = [];
-    this.onSetPath(path);
+    this.onSetPath(path, node);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
   deleteNode = (path: TreePath) =>
@@ -615,8 +621,7 @@ export default class StudyCtrl {
   };
   toggleStudyFormIfAllowed = () => {
     if (!this.members.isOwner()) return;
-    this.form.open.toggle();
-    this.redraw();
+    this.form.open();
   };
   goToPrevChapter = () => {
     const chapter = this.prevChapter();
@@ -645,11 +650,11 @@ export default class StudyCtrl {
   };
   updateHistoryAndAddressBar = () => {
     if (this.ctrl.isEmbed) return;
-    const studyUrl = this.baseUrl();
-    const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
-    if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
+    const chapterUrl = `${this.baseUrl()}/${this.vm.chapterId}`;
+    if (this.relay) this.relay.updateAddressBar(this.baseUrl(), chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
+  chapterConfigUrl = () => `/study/${this.data.id}/${this.vm.chapterId}/config`;
   socketSendNodeData = () => {
     if (!this.isWriting()) return false;
     const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };

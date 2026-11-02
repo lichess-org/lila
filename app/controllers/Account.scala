@@ -7,13 +7,12 @@ import play.api.mvc.*
 import views.account.pages
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.id.SessionId
-import lila.security.SecurityForm.Reopen
+import lila.core.net.ValidReferrer
+import lila.core.security.ClearPassword
 import lila.core.user.KidMode
 import lila.security.IsPwned
-import lila.core.security.ClearPassword
-import lila.core.net.ValidReferrer
+import lila.security.SecurityForm.Reopen
 
 final class Account(
     env: Env,
@@ -54,9 +53,12 @@ final class Account(
             _ <- env.user.repo.setProfile(me, profile)
             flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
             _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
-          yield
-            env.user.lightUserApi.invalidate(me)
-            Redirect(routes.User.show(me.username)).flashSuccess
+            res <- negotiate(
+              Redirect(routes.User.show(me.username)).flashSuccess,
+              jsonOkResult
+            )
+            _ = env.user.lightUserApi.invalidate(me)
+          yield res
       )
   }
 
@@ -73,29 +75,30 @@ final class Account(
           Redirect(routes.Account.username).flashFailure(e.getMessage)
   }
 
-  def info = Auth { ctx ?=> me ?=>
-    if !HTTPRequest.isLichobile(req)
-    then notFoundJson()
-    else
-      negotiateJson:
+  private val lichobileInfoCache =
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](2_048, "lichobile.infoCache"):
+      _.expireAfterWrite(20.seconds).buildAsyncFuture: uid =>
         for
-          povs <- env.round.proxyRepo.urgentGames(me)
-          nbChallenges <- env.challenge.api.countInFor.get(me)
-          playban <- env.playban.api.currentBan(me)
-        yield Ok:
+          povs <- env.round.proxyRepo.urgentGames(uid)
+          nbChallenges <- env.challenge.api.countInFor.get(uid)
+          pref <- env.pref.api.byId(uid)
+          u = env.user.lightUserApi.syncFallback(uid)
+        yield JsonStr:
           env.user.jsonView
-            .full(me, none, withProfile = false) ++ Json
+            .lichobileInfo(u) ++ Json
             .obj(
-              "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = true),
+              "prefs" -> lila.pref.lichobile(pref),
               "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
               "nbChallenges" -> nbChallenges,
               "online" -> true
             )
-            .add("kid" -> ctx.kid)
-            .add("troll" -> me.marks.troll)
-            .add("playban" -> playban)
             .add("announce" -> env.web.lichobileAnnounceApi.get)
-        .headerCacheSeconds(15)
+
+  def info = Auth { _ ?=> me ?=>
+    env.web.playerCounter.lichobile.hit()
+    env.user.lightUserApi.preloadUser(me)
+    for json <- lichobileInfoCache.get(me.userId)
+    yield JsonStrOk(json).privateCache(20.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
@@ -120,7 +123,7 @@ final class Account(
               forWiki = wikiGranted
             )
           )
-          .dmap { JsonOk(_) }
+          .dmap(Ok(_))
   }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
@@ -177,7 +180,7 @@ final class Account(
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
     Found(env.user.repo.email(me)): email =>
-      JsonOk(Json.obj("email" -> email.value))
+      Ok(Json.obj("email" -> email.value))
   }
 
   def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
@@ -191,7 +194,7 @@ final class Account(
         managed <- env.clas.api.student.isManaged(me)
         res <- FormFuResult(form)(err => renderPage(pages.email(err, managed))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
-          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
+          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited()):
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
@@ -313,7 +316,7 @@ final class Account(
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    JsonOk(Json.obj("kid" -> me.kid.yes))
+    Ok(Json.obj("kid" -> me.kid.yes))
   }
 
   def kidPost = AuthBody { ctx ?=> me ?=>
@@ -383,7 +386,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited()):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)

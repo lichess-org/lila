@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">ໃສ່ສັນຍະລັກວິເຄາະ (Glyphs)</string>
   <string name="theChapterIsTooShortToBeAnalysed">ບົດນີ້ສັ້ນເກີນໄປທີ່ຈະວິເຄາະ.</string>
   <string name="onlyContributorsCanRequestAnalysis">ສະເພາະຜູ້ມີສ່ວນຮ່ວມໃນບົດສຶກສາເທົ່ານັ້ນທີ່ສາມາດຮ້ອງຂໍການວິເຄາະດ້ວຍຄອມພິວເຕີ.</string>
-  <string name="getAFullComputerAnalysis">ຮັບການວິເຄາະດ້ວຍຄອມພິວເຕີແບບເຕັມຮູບແບບຈາກເຊີເວີສຳລັບສາຍຫຼັກ.</string>
   <string name="makeSureTheChapterIsComplete">ກວດສອບໃຫ້ແນ່ໃຈວ່າບົດນີ້ສຳເລັດແລ້ວ. ທ່ານສາມາດຮ້ອງຂໍການວິເຄາະໄດ້ພຽງແຕ່ຄັ້ງດຽວ.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">ສະມາຊິກທີ່ຊິງໂຄໄນ (Sync) ທັງໝົດຈະຢູ່ໃນຕຳແໜ່ງດຽວກັນ</string>
   <string name="shareChanges">ແບ່ງປັນການປ່ຽນແປງໃຫ້ຜູ້ຊົມ ແລະ ບັນທຶກລົງໃນເຊີເວີ</string>
@@ -118,7 +117,6 @@
   <string name="noLetPeopleBrowseFreely">ບໍ່: ໃຫ້ທຸກຄົນເບິ່ງໄດ້ຢ່າງອິດສະຫຼະ</string>
   <string name="pinnedStudyComment">ປັກໝຸດຄວາມຄິດເຫັນຂອງບົດສຶກສາ</string>
   <string name="start">ເລີ່ມ</string>
-  <string name="save">ບັນທຶກ</string>
   <string name="clearChat">ລຶບການສົນທະນາ</string>
   <string name="deleteTheStudyChatHistory">ລຶບປະຫວັດການສົນທະນາຂອງບົດສຶກສານີ້ບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
   <string name="deleteStudy">ລຶບບົດສຶກສາ</string>

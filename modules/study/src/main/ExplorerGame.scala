@@ -1,7 +1,7 @@
 package lila.study
 
+import chess.format.pgn.{ Comment as CommentStr, Parser, Tags }
 import chess.format.{ Fen, Uci, UciPath }
-import chess.format.pgn.{ Parser, Tags, Comment as CommentStr }
 import chess.variant.Variant
 
 import lila.tree.Node.Comment
@@ -80,7 +80,7 @@ private object ExplorerGameApi:
             case None => (parent, path, nodes)
         case Nil => (parent, path, nodes)
     val (parent, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
-    replay(parent, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
+    replay(parent, newNodes, variant, gameId).map(_ -> fromPath.+(path))
 
   private def replay(parent: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
     val setup = chess.Position.AndFullMoveNumber(variant, parent.fen)

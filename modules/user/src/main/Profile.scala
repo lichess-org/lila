@@ -10,12 +10,12 @@ object Profile:
     def officialRating: Option[OfficialRating] =
       import p.*
       fideRating
-        .map { OfficialRating("fide", _) }
-        .orElse(uscfRating.map { OfficialRating("uscf", _) })
-        .orElse(ecfRating.map { OfficialRating("ecf", _) })
-        .orElse(rcfRating.map { OfficialRating("rcf", _) })
-        .orElse(cfcRating.map { OfficialRating("cfc", _) })
-        .orElse(dsbRating.map { OfficialRating("dsb", _) })
+        .map(OfficialRating("fide", _))
+        .orElse(uscfRating.map(OfficialRating("uscf", _)))
+        .orElse(ecfRating.map(OfficialRating("ecf", _)))
+        .orElse(rcfRating.map(OfficialRating("rcf", _)))
+        .orElse(cfcRating.map(OfficialRating("cfc", _)))
+        .orElse(dsbRating.map(OfficialRating("dsb", _)))
 
     def filterTroll(troll: Boolean): Profile = p.copy(
       bio = p.bio.ifFalse(troll),

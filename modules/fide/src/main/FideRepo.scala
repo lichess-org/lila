@@ -1,10 +1,11 @@
 package lila.fide
 
-import scala.util.Success
-import java.time.YearMonth
-import chess.{ FideId, FideTC }
 import chess.rating.Elo
+import chess.{ FideId, FideTC }
 import reactivemongo.api.bson.*
+
+import java.time.YearMonth
+import scala.util.Success
 
 import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }

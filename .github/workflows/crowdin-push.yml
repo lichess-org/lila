@@ -1,11 +1,8 @@
 name: Crowdin Push
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'translation/source/**'
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
@@ -16,9 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          filter: tree:0
+          sparse-checkout: translation/source
+
+      - name: Checkout deployed commit
+        run: |
+          sha=$(curl -fsS https://lichess.org/api/version | jq -er .server.commit)
+          git checkout $sha
 
       - name: crowdin action
-        uses: crowdin/github-action@9c23991700c0ec5256fd41089b9d9d7d540e424e # v3.3.0
+        uses: crowdin/github-action@959dc74ac104447731cba99a016f85d0ae719788 # v3.5.0
         with:
           upload_sources: true
           upload_translations: false

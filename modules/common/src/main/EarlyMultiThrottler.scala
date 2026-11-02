@@ -49,7 +49,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor, Sch
     case x => logger.warn(s"EarlyMultiThrottler Unsupported message $x")
 
   def execute(work: Work): Funit =
-    lila.common.LilaFuture.makeItLast(work.cooldown) { work.run() }
+    lila.common.LilaFuture.makeItLast(work.cooldown)(work.run())
 
 private object EarlyMultiThrottlerActor:
   case class Work(

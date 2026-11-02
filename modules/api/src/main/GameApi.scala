@@ -19,7 +19,7 @@ final private[api] class GameApi(
     net: NetConfig,
     apiToken: Secret,
     gameRepo: lila.game.GameRepo,
-    gameCache: lila.game.Cached,
+    playingUsers: lila.round.PlayingUsers,
     analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: lila.game.CrosstableApi,
     gameOpening: lila.game.GameOpening
@@ -65,7 +65,7 @@ final private[api] class GameApi(
         sort = bdoc(G.createdAt -> -1),
         _.sec
       ).withNbResults(
-        if ~playing then gameCache.nbPlaying(users._1.id)
+        if ~playing then playingUsers.nbPlayingRealtime(users._1.id)
         else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
       ),
       currentPage = page,

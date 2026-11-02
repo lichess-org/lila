@@ -1,13 +1,11 @@
 .email-confirm-banner {
-  @extend %flex-center-center;
+  @extend %flex-center-center-nowrap;
 
-  flex-wrap: nowrap;
   gap: 0.6em;
   padding: 1em;
   background: $c-primary;
   color: $c-over !important;
   font-size: 1.3em;
-  display: flex;
   position: fixed;
   bottom: 0;
   left: 0;

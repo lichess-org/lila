@@ -4,6 +4,10 @@ $c-mselect: $c-primary;
   position: relative;
   white-space: nowrap;
 
+  &:has(> .mselect__toggle--mask:checked) {
+    z-index: $z-mselect-111;
+  }
+
   &__toggle {
     position: absolute;
     z-index: -1;

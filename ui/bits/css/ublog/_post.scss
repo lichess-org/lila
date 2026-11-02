@@ -213,8 +213,9 @@
   }
 
   fieldset {
+    @include box-radius;
+
     border: $border;
-    border-radius: $box-radius-size;
     padding: 1rem 1.5rem 1.5rem;
   }
 

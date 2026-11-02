@@ -26,12 +26,14 @@
   <string name="tournamentWrite">Tạo, cập nhật và tham gia các giải đấu</string>
   <string name="racerWrite">Tạo và tham gia đua câu đố</string>
   <string name="puzzleRead">Đọc các hoạt động câu đố</string>
+  <string name="puzzleWrite">Giải câu đố</string>
   <string name="teamRead">Đọc thông tin riêng của đội</string>
   <string name="teamWrite">Tham gia và rời khỏi đội</string>
   <string name="manageTeamsYouLead">Quản lý các đội bạn lãnh đạo: gửi tin nhắn trực tiếp, loại bỏ thành viên</string>
   <string name="followRead">Đọc người chơi đã theo dõi</string>
   <string name="followWrite">Theo dõi và bỏ theo dõi những người chơi khác</string>
   <string name="msgWrite">Gửi tin nhắn riêng đến những kỳ thủ khác</string>
+  <string name="readWriteNotesOnPlayers">Đọc và ghi chú từ các kỳ thủ khác</string>
   <string name="boardPlay">Chơi với bàn cờ API</string>
   <string name="botPlay">Chơi cờ với bot API</string>
   <string name="engineRead">Xem và sử dụng động cơ máy tính bên ngoài</string>

@@ -1,8 +1,8 @@
 package lila.round
 
-import org.apache.pekko.stream.scaladsl.*
-import chess.format.{ Uci, UciDump, Fen }
+import chess.format.{ Fen, Uci, UciDump }
 import chess.{ ByColor, Centis, Ply, Position }
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus

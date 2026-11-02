@@ -1,15 +1,15 @@
 package lila.fishnet
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.config.given
 import lila.common.autoconfig.*
+import lila.common.config.given
 import lila.core.config.*
 
 @Module
@@ -90,7 +90,7 @@ final class Env(
   wire[Cleaner]
 
   private def disable(keyOrUser: String) =
-    repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
+    repo.toKey(keyOrUser).flatMap(repo.enableClient(_, v = false))
 
   lila.common.Cli.handle():
     case "fishnet" :: "client" :: "create" :: name :: Nil =>
@@ -107,7 +107,7 @@ final class Env(
     case "fishnet" :: "client" :: "delete" :: key :: Nil =>
       repo.toKey(key).flatMap(repo.deleteClient).inject("done!")
     case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-      repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
+      repo.toKey(key).flatMap(repo.enableClient(_, v = true)).inject("done!")
     case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
   Bus.sub[lila.core.mod.MarkCheater]:

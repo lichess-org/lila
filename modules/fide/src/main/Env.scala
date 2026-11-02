@@ -1,15 +1,15 @@
 package lila.fide
 
+import chess.FideId
 import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import chess.FideId
+import scalalib.paginator.Paginator
 
+import lila.common.autoconfig.given
 import lila.core.config.CollName
 import lila.core.fide.*
-import lila.common.autoconfig.given
 import lila.memo.{ CacheApi, PicfitApi, PicfitUrl }
-import scalalib.paginator.Paginator
 
 @Module
 final class Env(

@@ -1,8 +1,9 @@
 package lila.core
 package relay
 
-import lila.core.id.{ StudyId, RelayRoundId }
 import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.core.id.{ RelayRoundId, StudyId }
 
 case class RoundIdName(@Key("_id") id: RelayRoundId, name: String)
 

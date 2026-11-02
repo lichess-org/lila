@@ -139,7 +139,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
             uci: best,
             san: prev.pos().unwrap(
               pos => makeSan(pos, parseUci(best)!),
-              _ => '--',
+              () => '--',
             ),
           }
         : undefined,
@@ -179,22 +179,23 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
         }
       }
       if (!played() && playable(node)) {
-        root.playUci(nodeBestUci(node)!);
         played(true);
+        root.playUci(nodeBestUci(node)!);
       } else root.redraw();
     }
   }
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(variant, root.node.fen))
-      root.explorer.fetchTablebaseHit(root.node.fen).then(
+    const node = root.node;
+    if (tablebaseGuaranteed(variant, node.fen))
+      root.explorer.fetchTablebaseHit(node.fen, 3000).then(
         hit => {
-          if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
-          checkCeval();
+          if (hit && node.fen === hit.fen) node.tbhit = hit;
+          if (root.node === node) checkCeval();
         },
         () => {
-          if (!defined(root.node.tbhit)) root.node.tbhit = null;
-          checkCeval();
+          if (!defined(node.tbhit)) node.tbhit = null;
+          if (root.node === node) checkCeval();
         },
       );
     else checkCeval();
@@ -269,7 +270,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     customCeval: {
       search: () =>
         masteryMode() && !isMyTurn()
-          ? 300 * 1000
+          ? { maxMovetime: 300 * 1000 }
           : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),

@@ -2,7 +2,6 @@ package lila.i18n
 
 import play.api.data.*
 import play.api.data.Forms.*
-
 import scalalib.model.Language
 
 object LangForm:

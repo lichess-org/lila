@@ -18,7 +18,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def byIdFor(id: ChallengeId, dest: User) =
     coll.find(bid(id) ++ bdoc("destUser.id" -> dest.id)).one[Challenge]
 
-  def exists(id: ChallengeId) = coll.countSel(bid(id)).dmap(0 <)
+  def exists(id: ChallengeId) = coll.secondary.countSel(bid(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.so: challenger =>
@@ -119,10 +119,9 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_.plusHours(3)))
   def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled, Some(_.plusHours(3)))
   def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
-    setStatus(challenge, Status.Declined, Some(_.plusHours(3))) >> {
+    setStatus(challenge, Status.Declined, Some(_.plusHours(3))) >>
       (reason != Challenge.DeclineReason.default)
         .so(coll.updateField(bid(challenge.id), "declineReason", reason).void)
-    }
   private[challenge] def accept(challenge: Challenge) =
     setStatus(challenge, Status.Accepted, Some(_.plusHours(3)))
 
@@ -135,7 +134,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         bdoc(
           "$set" -> bdoc(
             "status" -> status.id,
-            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(nowInstant) }
+            "expiresAt" -> expiresAt.fold(inTwoWeeks)(_(nowInstant))
           )
         )
       )

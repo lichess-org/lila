@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">เกิดอะไรขึ้น?</string>
+  <string name="cheat">มันโกง</string>
+  <string name="troll">มันป่วน</string>
+  <string name="reportStall">มันถ่วงเวลา / มันออกจากเกม</string>
+  <string name="reportBoost">มันโกงคะแนน / มันรับจ้างปั๊มแรงก์ / มันล็อกผลการแข่งขัน</string>
+  <string name="reportVerbalAbuse">มันด่าทอ / มันใช้ถ้อยคำหยาบคาย / มันปั่นหัวฉัน</string>
+  <string name="reportViolence">มันใช้ความรุนแรง / มันข่มขู่ฉัน</string>
+  <string name="reportHarass">มันคุกคามฉัน / มันบูลลี่ฉัน / ฉันโดนมันสะกดรอยตาม</string>
+  <string name="reportSelfHarm">เขาจะ ฆตต / เขาจะทำร้ายตัวเอง</string>
+  <string name="reportHate">มันพูดแสดงความเกลียดชัง / มันเหยียดเพศ</string>
+  <string name="reportSpam">สแปม</string>
+  <string name="readMoreAboutLichessReports">อ่านเพิ่มเติมเกี่ยวกับรายงานบน Lichess</string>
+  <string name="reportMaximumCharacters">สูงสุด 3000 ตัวอักษร</string>
+  <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกมที่มีปัญหา และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าพูดแค่ว่า \"เขาโกง\" แต่อธิบายด้วยว่าทำไมถึงคิดแบบนั้น</string>
+  <string name="reportUsernameHelp">โปรดอธิบายเหตุผลที่ชื่อผู้ใช้นี้ไม่เหมาะสมหรือส่อไปในทางลบ ไม่ใช่ระบุแค่ว่า \"มันไม่เหมาะสม\" แต่ขอให้ช่วยอธิบายที่มาหรือเหตุผลประกอบด้วย โดยเฉพาะอย่างยิ่งหากประเด็นความไม่เหมาะสมนั้นไม่ชัดเจน เป็นภาษาอื่นที่ไม่ใช่ภาษาอังกฤษ เป็นคำแสลง หรือมีการอ้างอิงถึงบริบททางประวัติศาสตร์หรือวัฒนธรรม</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">เราสามารถดำเนินการเกี่ยวกับรายงานของคุณได้รวดเร็วยิ่งขึ้นหากคุณเขียนเป็นภาษาอังกฤษ</string>
+  <string name="provideOneCheatedGameLink">โปรดแนบอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีปัญหา</string>
+</resources>

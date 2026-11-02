@@ -17,6 +17,11 @@
   <string name="cancelTimerOrDenyARequest">タイマーのキャンセルかリクエストの拒否</string>
   <string name="playPreferredMoveOrConfirmSomething">選んだ手を指すか yes と答えてください。</string>
   <string name="sleep">スリープ（ウェイクワードが有効な時）</string>
-  <string name="turnOffVoiceRecognition">音声認識をオフにする</string>
   <string name="showPuzzleSolution">問題の解答を表示</string>
+  <string name="voiceHelp">音声ヘルプ</string>
+  <string name="voiceSettings">音声設定</string>
+  <string name="pushShiftKeyToTalk">%s キーを押して話す</string>
+  <string name="holdShiftKeyWhileSpeaking">話す間、シフトキーは押したままで</string>
+  <string name="microphone">マイク</string>
+  <string name="noneSelected">何も選択なし</string>
 </resources>

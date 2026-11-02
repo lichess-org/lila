@@ -3,12 +3,11 @@ package lila.studySearch
 import com.softwaremill.macwire.*
 import scalalib.paginator.*
 
+import lila.core.study.StudyOrder
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{ Query, StudySorting }
+import lila.search.spec.{ Order as SpecOrder, Query, StudySortField, StudySorting }
 import lila.study.Study
-import lila.search.spec.{ Order as SpecOrder, StudySortField }
-import lila.core.study.StudyOrder
 import lila.study.ui.StudyFormat
 
 final class Env(

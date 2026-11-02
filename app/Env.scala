@@ -5,8 +5,8 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
-import lila.core.config.*
 import lila.common.config.GetRelativeFile
+import lila.core.config.*
 
 final class Env(
     val config: Configuration,
@@ -116,7 +116,7 @@ final class Env(
   val userInfo = wire[mashup.UserInfo.UserInfoApi]
   val teamInfo = wire[mashup.TeamInfoApi]
   val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  val pageCache = wire[http.PageCache]
+  val homeCache = wire[http.HomeCache]
 
   lila.common.Bus.sub[lila.tv.RenderFeaturedJs]:
     case lila.tv.RenderFeaturedJs(game, promise) =>

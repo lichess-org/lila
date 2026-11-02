@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.{ ByColor, Color, DecayingStats, Status }
 import chess.rating.IntRatingDiff
+import chess.{ ByColor, Color, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }
@@ -52,7 +52,7 @@ final private class Finisher(
     else if game.player(!game.player.color).isOfferingDraw then
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
-      val winner = Some(!game.player.color).ifFalse(game.position.opponentHasInsufficientMaterial)
+      val winner = Option(!game.player.color).ifFalse(game.position.opponentHasInsufficientMaterial)
       for
         events <- apply(game, _.Outoftime, winner)
         _ = winner.foreach: w =>
@@ -64,7 +64,7 @@ final private class Finisher(
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if game.isMandatory || game.metadata.hasRule(_.noAbort) then
-        apply(game, _.NoStart, Some(!culprit.color))
+        apply(game, _.NoStart, Option(!culprit.color))
       else
         apply(
           game,
@@ -140,7 +140,7 @@ final private class Finisher(
       users <- userApi.pairWithPerfs(game.userIdPair)
       ratingDiffs <- updateCountAndPerfs(game, users)
     yield
-      message.foreach { messenger(game, _) }
+      message.foreach(messenger(game, _))
       gameRepo.game(game.id).foreach { newGame =>
         newGame.foreach(proxy.setFinishedGame)
         val finish = FinishGame(newGame | game, users)

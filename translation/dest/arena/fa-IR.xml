@@ -50,6 +50,8 @@
     <item quantity="other">دیدن همه‌ی %s تیم</item>
   </plurals>
   <string name="newTeamBattle">مبارزه تیمی جدید</string>
+  <string name="startDate">تاریخ آغاز</string>
+  <string name="entryConditions">شرایط ورود</string>
   <string name="customStartDate">تنظیم تاریخ شروع</string>
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
   <string name="allowBerserk">اجازهٔ دیوانگی</string>
@@ -89,4 +91,6 @@
   <string name="tournamentPairingsAreNowClosed">تعیین حریف به اتمام رسیده است.</string>
   <string name="berserkRate">امتیاز برسرک</string>
   <string name="leaguesAndStreamerBattles">جُرگ‌ها و نبردهای جَریانگران</string>
+  <string name="allowBotAccounts">اجازه به حساب‌های رَت</string>
+  <string name="allowBotAccountsDescription">بگذارید &lt;a href=\'%s\' target=\'_blank\'&gt;رَت‌ها&lt;/a&gt; به مسابقات بپیوندند و با موتورهایشان بازی کنند. این کار اغلب بازیکنان انسانی را فراری می‌دهد.</string>
 </resources>

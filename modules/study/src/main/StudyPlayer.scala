@@ -1,7 +1,8 @@
 package lila.study
 
-import chess.{ ByColor, PlayerName, PlayerTitle, FideId, Centis, IntRating }
 import chess.format.pgn.{ Tag, Tags }
+import chess.{ ByColor, Centis, FideId, IntRating, PlayerName, PlayerTitle }
+
 import lila.core.fide.Federation
 
 case class StudyPlayer(

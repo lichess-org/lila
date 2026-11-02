@@ -26,7 +26,7 @@ object page:
     Page(s"${u.username} : ${trans.activity.activity.txt()}")
       .graph(
         OpenGraph(
-          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          image = assetFullUrl("logo/lichess-tile-wide.png").some,
           title = u.titleUsernameWithBestRating,
           url = routeUrl(routes.User.show(u.username)),
           description = ui.describeUser(u)
@@ -104,7 +104,7 @@ object page:
     import ui.transLocalize
     filter match
       case GameFilter.all => transLocalize(trans.site.nbGames, u.count.game)
-      case GameFilter.me => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.me => nbs.withMe.so(transLocalize(trans.site.nbGamesWithYou, _))
       case GameFilter.rated => transLocalize(trans.site.nbRated, u.count.rated)
       case GameFilter.win => transLocalize(trans.site.nbWins, u.count.win)
       case GameFilter.loss => transLocalize(trans.site.nbLosses, u.count.loss)

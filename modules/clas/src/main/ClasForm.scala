@@ -4,8 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.clas.Student.RealName
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.mon.extensions.*
 
 final class ClasForm(
@@ -65,7 +65,7 @@ final class ClasForm(
     def invite(c: Clas) = Form:
       mapping(
         "username" -> lila.common.Form.username.historicalField
-          .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
+          .verifying("Unknown username", blockingFetchUser(_).exists(!_.isBot))
           .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)

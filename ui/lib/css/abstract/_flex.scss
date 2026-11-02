@@ -3,8 +3,12 @@
   flex-flow: row wrap;
 }
 
+%flex-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 %flex-center {
-  /* extends %flex-wrap */
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -17,15 +21,20 @@
 }
 
 %flex-center-center {
-  /* extends %flex-center */
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
 
+%flex-center-center-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
 %flex-between {
-  /* extends %flex-center */
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -33,7 +42,6 @@
 }
 
 %flex-between-nowrap {
-  /* extends %flex-center */
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -48,7 +56,6 @@
 }
 
 %flex-around {
-  /* extends %flex-center */
   display: flex;
   flex-flow: row wrap;
   align-items: center;

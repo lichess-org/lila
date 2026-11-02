@@ -1,11 +1,11 @@
 package lila.tournament
 
+import alleycats.Zero
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Rated, Speed }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
-import alleycats.Zero
 
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
@@ -49,6 +49,9 @@ case class Tournament(
   def isTeamBattle = teamBattle.isDefined
   def isTeamRelated = isTeamBattle || conditions.teamMember.isDefined
   def singleTeamId: Option[TeamId] = conditions.teamMember.map(_.teamId)
+  def selectTeam(myTeams: Set[TeamId]): Option[TeamId] = singleTeamId match
+    case Some(teamId) => teamId.some.filter(myTeams.contains)
+    case None => teamBattle.flatMap(_.teams.intersect(myTeams).headOption)
 
   def name(full: Boolean = true)(using Translate): String =
     if isMarathon || isUnique then name
@@ -85,9 +88,8 @@ case class Tournament(
   def pairingsClosed = secondsToFinish < Seconds(math.max(30, math.min(clock.limitSeconds.value / 2, 120)))
 
   def isStillWorthEntering = isEnterable && {
-    isMarathon || isUnique || {
-      secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
-    }
+    isMarathon || isUnique ||
+    secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
   }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)

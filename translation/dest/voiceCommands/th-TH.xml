@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">ยกเลิกเวลาหรือปฏิเสธคำขอ</string>
   <string name="playPreferredMoveOrConfirmSomething">เล่นตาเดินที่เสนอหรือยืนยันบางอย่างก่อน</string>
   <string name="sleep">นอนหลับ (หากเปิดใช้งานคำปลุก)</string>
-  <string name="turnOffVoiceRecognition">ปิดการแยกแยะเสียง</string>
   <string name="showPuzzleSolution">แสดงคำตอบของปริศนา</string>
 </resources>

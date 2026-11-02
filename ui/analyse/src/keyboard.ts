@@ -1,7 +1,5 @@
-import type { VNode } from 'snabbdom';
-
 import { pubsub } from 'lib/pubsub';
-import { snabDialog } from 'lib/view';
+import { domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
@@ -14,6 +12,7 @@ export const keyToMouseEvent = (key: string, eventName: string, selector: string
   );
 
 export const bind = (ctrl: AnalyseCtrl) => {
+  if (location.hash === '#keyboard') showHelp(ctrl);
   addModifierKeyListeners(ctrl);
   const kbd = window.site.mousetrap;
   kbd
@@ -59,15 +58,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
     })
     .bind('f', ctrl.flip)
     .bind('b', () => window.location.assign(ctrl.boardEditorUrl()))
-    .bind('?', () => {
-      ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');
-      ctrl.redraw();
-    })
+    .bind('?', () => showHelp(ctrl))
     .bind('l', () => {
       if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
-    .bind('z', () => ctrl.settings.set('showStaticAnalysis', !ctrl.settings.showStaticAnalysis))
+    .bind('z', () => ctrl.settings.set('showMainlineAnalysis', !ctrl.settings.showMainlineAnalysis))
     .bind('a', () => ctrl.settings.set('showBestMoveArrows', !ctrl.settings.showBestMoveArrows))
     .bind('v', () => ctrl.settings.set('showVariationArrows', !ctrl.settings.showVariationArrows))
     .bind('x', () => ctrl.toggleThreatMode())
@@ -102,17 +97,17 @@ export const bind = (ctrl: AnalyseCtrl) => {
   });
 };
 
-export const view = (ctrl: AnalyseCtrl): VNode =>
-  snabDialog({
+export const showHelp = (ctrl: AnalyseCtrl) => {
+  pubsub.emit('analysis.closeAll');
+  return domDialog({
+    closeButton: true,
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     modal: true,
+    show: true,
     easyClose: 'clickOutside',
-    onClose() {
-      ctrl.keyboardHelp = false;
-      ctrl.redraw();
-    },
   });
+};
 
 function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   let modifierOnly = false;
@@ -126,7 +121,10 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
 
   document.addEventListener('keyup', e => {
     if (!modifierOnly) return;
+
     modifierOnly = false;
+    if (document.querySelector<HTMLElement>('dialog:modal')) return;
+
     const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
 
     if (isShift && ctrl.fork.select('next')) ctrl.setAutoShapes();

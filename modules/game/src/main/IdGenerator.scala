@@ -2,11 +2,11 @@ package lila.game
 
 import scalalib.SecureRandom
 
+import lila.common.BatchProvider
 import lila.core.game.{ Game, NewGame }
 import lila.core.id.GameId
-import lila.common.BatchProvider
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends lila.core.game.IdGenerator:
 
@@ -38,7 +38,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
         .monValue: collisions =>
           lila.mon.game.idGenerator(collisions.size)
         .flatMap: collisions =>
-          games(collisions.size).dmap { _ ++ (ids.diff(collisions)) }
+          games(collisions.size).dmap(_ ++ (ids.diff(collisions)))
         .map(_.toList)
 
   def withUniqueId(sloppy: NewGame): Fu[Game] =

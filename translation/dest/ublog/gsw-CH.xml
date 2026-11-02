@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">G\'meinschaft</string>
+  <string name="communityBlogs">G\'meinschafts Blogs</string>
+  <string name="best">s\'Beschte</string>
+  <string name="all">Alles</string>
   <string name="byMonth">Mündlich</string>
   <string name="byTopic">Nach Thema</string>
   <string name="byLichess">Vu Lichess</string>
   <string name="myFriends">Mini Fründ*inne</string>
-  <string name="myLikes">Mini Bevorzugte</string>
+  <string name="myLikes">Mis Bevorzugte</string>
   <string name="myBlog">Min Blog</string>
   <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
+  <string name="blogPostsByFriends">Blog Biträg vu Fründe</string>
   <plurals name="blogPosts">
     <item quantity="one">%s Blog-Bitrag</item>
     <item quantity="other">%s Blog-Biträg</item>
   </plurals>
   <string name="continueReadingPost">De Bitrag witer läse</string>
-  <string name="lichessBlogPostsFromXYear">Lichess Blog-Biträg im Jahr %s</string>
-  <string name="previousBlogPosts">Vorherigi Blog-Biträg</string>
+  <string name="lichessBlogPostsFromXYear">Lichess Blog Biträg im Jahr %s</string>
+  <string name="previousBlogPosts">Vorherigi Blog Biträg</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">Neue Bitrag</string>
-  <string name="editYourBlogPost">Din Blog-Bitrag bearbeite</string>
+  <string name="editYourBlogPost">Din Blog Bitrag bearbeite</string>
   <string name="saveDraft">Entwurf schpeichere</string>
   <string name="postTitle">Bitrag Titel</string>
   <string name="postIntro">Bitrag Iileitig</string>
@@ -28,34 +32,53 @@
   <string name="createBlogDiscussionHelp">Es Forum - Thema erschtelle, für Lüt wo din Bitrag wänd kommentiere</string>
   <string name="publishOnYourBlog">Machs i dim Blog öffentlich</string>
   <string name="publishHelp">Isch er aktiviert, wird de Bitrag i dim Blog zeigt. Wänn nöd, wird er i dine Entwürf, privat blibe</string>
-  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Post-Chläber</string>
-  <string name="stickyPostHelp">Wänn das aktiviert isch, chunnt de Post im Profil als Erschte vu de neuschte Biträg und i dim Blog.</string>
+  <string name="includesPromotedContent">Hät beworbeni/g\'sponsereti Inhalt oder Empfehligslinks</string>
+  <string name="mandatoryForSponsoredContent">Obligatorisch für g\'sponsereti Inhält, Affiliate Links oder kommerzielli Werbig</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Post Chläber</string>
+  <string name="stickyPostHelp">Wänn das g\'wählt isch, chunt de Bitrag im Blog und i dim Profil als Erschte.</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Hät en Blog-Bitrag veröffentlicht</item>
-    <item quantity="other">Hät %s Blog-Biträg veröffentlicht</item>
+    <item quantity="one">Hät en Blog Bitrag veröffentlicht</item>
+    <item quantity="other">Hät %s Blog Biträg veröffentlicht</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Eimal aglueget</item>
     <item quantity="other">%s Mal aglueget</item>
   </plurals>
   <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
-  <string name="thisPostIsPublished">De Bitrag isch veröffentlicht worde</string>
+  <string name="thisPostIsPublished">De Bitrag isch öffentlich</string>
   <string name="thisIsADraft">Das isch en Entwurf</string>
   <string name="noPostsInThisBlogYet">Bis jetzt no kei Biträg i dem Blog.</string>
   <string name="noDrafts">Kei Entwürf zum zeige.</string>
-  <string name="latestBlogPosts">Neuschti Blog-Biträg</string>
+  <string name="latestBlogPosts">Neuschti Blog Biträg</string>
+  <string name="recentPosts">Aktuelli Biträg</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">Ein Post zeige</item>
+    <item quantity="one">Ein Bitrag zeige</item>
     <item quantity="other">Zeig all %s Biträg</item>
   </plurals>
-  <string name="imageAlt">Alternative Bildtegscht</string>
-  <string name="imageCredit">Bild Herkunft</string>
-  <string name="deleteBlog">Lösch de Blog-Post definitiv</string>
-  <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
+  <string name="imageAlt">Bild Beschribigstegscht</string>
+  <string name="imageCredit">Bildquälle</string>
+  <string name="coverImage">Titelbild</string>
+  <string name="deleteBlog">Lösch de Blog Bitrag für immer</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Die folgende Website stelled Bilder choschtelos zur Verfüegig. Bitte lueg, dass du d\'Lizänzbedingige für das vu dir verwändeti Bild ihaltsch.</string>
+  <string name="selectPostTopics">Wähl d\'Theme vu dim Bitrag</string>
+  <string name="topicChess">Schach</string>
+  <string name="topicPuzzle">Ufgab</string>
+  <string name="topicTactics">Taktik</string>
+  <string name="topicStrategy">Schtrategie</string>
+  <string name="topicChessEngine">Schach Engine</string>
+  <string name="topicChessBot">Schach Bot</string>
+  <string name="topicChessPersonalities">Schach Persönlichkeite</string>
+  <string name="topicOverTheBoard">Übers Brätt</string>
+  <string name="topicSoftwareDevelopment">Software Entwicklig</string>
+  <string name="topicOffTopic">Nebem Thema</string>
+  <string name="topicPosts">%s Biträg</string>
+  <string name="etiquette">Umgangsforme</string>
   <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
-  <string name="noCopyrightedImages">Verwend nume söttige Bilder, wo nid vo öppert andersem g\'copyrighted sind.</string>
+  <string name="noCopyrightedImages">Verwänd usschliesslich Bilder, ohni Urheberrächt vu Dritte.</string>
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
-  <string name="blogTips">Eusi eifache Tips, für tolli Blog-Biträg</string>
-  <string name="discussThisBlogPostInTheForum">Diskutier de Blog-Bitrag im Forum</string>
+  <string name="blogTips">Eusi eifache Tips, für tolli Blog Biträg</string>
+  <string name="discussThisBlogPostInTheForum">Diskutier de Blog Bitrag im Forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Meinige vu Lichess Mitwürkende sind usschliesslich ihri persönliche.</string>
+  <string name="youMayAlsoLike">Das g\'fallt dir villicht au</string>
   <string name="youBlockedByBlogAuthor">De Autor vu dem Blog hät dich blockiert.</string>
 </resources>

@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.TurnstilePublicConfig
-import lila.core.misc.AuthCustomUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -27,7 +27,7 @@ final class AuthUi(helpers: Helpers):
   def customLogo(c: AuthCustomUi) =
     div(cls := "oauth__connection")(
       img(
-        src := assetUrl(c.imagePath),
+        src := assetPath(c.imagePath),
         alt := c.name,
         cls := "oauth__connection__service"
       ),
@@ -262,10 +262,10 @@ final class AuthUi(helpers: Helpers):
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
-          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
+          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichessX(user.username)),
           postForm(action := addReferrer(routes.Auth.signupConfirmEmailPost(token).url)):
             submitButton(cls := "button button-fat button-no-upper")(
-              trans.onboarding.logInAsUsername(user.username)
+              trans.onboarding.verifyYourAccount()
             )
         )
 

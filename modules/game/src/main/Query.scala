@@ -3,8 +3,8 @@ package lila.game
 import chess.Status
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.game.Source
+import lila.db.dsl.{ *, given }
 
 object Query:
 
