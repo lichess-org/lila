@@ -156,8 +156,8 @@ class LocalAnalysisDialog {
       const result = await engine.analyse(
         this.customSearch,
         division,
-        (moves: number, totalMoves: number, nodesPerMove: number) => {
-          this.updateEngineStatus(moves, totalMoves, nodesPerMove);
+        (nodeIndex: number, totalNodes: number, nodesPerMove: number) => {
+          this.updateEngineStatus(nodeIndex, totalNodes, nodesPerMove);
           this.chart?.updateData(this.chartData, engine.nodes);
           redraw();
         },
