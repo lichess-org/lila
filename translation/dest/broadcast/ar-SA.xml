@@ -19,7 +19,7 @@
     <item quantity="other">%s مشاهد</item>
   </plurals>
   <string name="liveBroadcasts">بث البطولة المباشرة</string>
-  <string name="broadcastCalendar">تقويم البث</string>
+  <string name="broadcastCalendar">جدول البث المباشر</string>
   <string name="newBroadcast">بث مباشر جديد</string>
   <string name="subscribedBroadcasts">البث المُشترك به</string>
   <string name="aboutBroadcasts">حول البثوث</string>
@@ -64,7 +64,7 @@
   <string name="overview">لمحة عامة</string>
   <string name="subscribeTitle">اشترك ليتم إعلامك عند بداية كل جولة. يمكنك تفعيل الجرس أو  الإشعارات للبث في إعدادات حسابك.</string>
   <string name="uploadImage">رفع صورة البطولة</string>
-  <string name="noBoardsYet">لا توجد لوحات الآن. ستظهر بمجرد رفع المباريات.</string>
+  <string name="noBoardsYet">لا توجد مباريات معروضة حتى الآن. ستظهر هنا بمجرد رفعها.</string>
   <string name="noPlayersYet">لا يوجد أي لاعبين حتى الآن. سيظهرون فور تحميل المباريات.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">يمكن إضافة اللوحات عبر مصدرها أو عبر %s</string>
   <string name="startsAfter">تبدأ بعد%s</string>

@@ -992,6 +992,8 @@
   <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
   <string name="noRestriction">Χωρίς περιορισμούς</string>
   <string name="minimumRatedGames">Ελάχιστος αριθμός βαθμολογημένων παρτίδων</string>
+  <string name="minimumAccountAge">Ελάχιστη ηλικία λογαριασμού</string>
+  <string name="titledPlayersBypassRestriction">Οι παίκτες με τίτλο παρακάμπτουν αυτόν τον περιορισμό.</string>
   <string name="minimumRating">Ελάχιστη βαθμολογία</string>
   <string name="maximumWeeklyRating">Μέγιστη εβδομαδιαία βαθμολογία</string>
   <string name="positionInputHelp">Επικολλήστε ένα έγκυρο FEN αν θέλετε κάθε παρτίδα να ξεκινάει από μια συγκεκριμένη θέση.
@@ -1048,6 +1050,7 @@
   <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
+  <string name="searchInX">Αναζήτηση στο \"%s\"</string>
   <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>

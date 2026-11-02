@@ -48,6 +48,8 @@
     <item quantity="other">모두 %s개 팀 보기</item>
   </plurals>
   <string name="newTeamBattle">새 팀 배틀</string>
+  <string name="startDate">시작일</string>
+  <string name="entryConditions">참가 조건</string>
   <string name="customStartDate">시작 시간 설정</string>
   <string name="customStartDateHelp">당신의 현지 시간대입니다. \"토너먼트 시작까지 시간\" 설정을 덮어씁니다.</string>
   <string name="allowBerserk">버서크 모드 허용</string>
@@ -87,4 +89,6 @@
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 이제 종료되었습니다.</string>
   <string name="berserkRate">버서크 비율</string>
   <string name="leaguesAndStreamerBattles">리그 &amp; 스트리머 배틀</string>
+  <string name="allowBotAccounts">봇 계정 허용</string>
+  <string name="allowBotAccountsDescription">&lt;a href=\'%s\' target=\'_blank\'&gt;봇&lt;/a&gt;이 토너먼트에 참가하여 엔진으로 수를 둘 수 있도록 합니다. 인간 플레이어들이 불편감을 느낄 수 있습니다.</string>
 </resources>

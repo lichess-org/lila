@@ -197,4 +197,6 @@
   <string name="doubleDefeat">Διπλή ήττα</string>
   <string name="blackDefeatWhiteCanNotWin">Τα μαύρα χάνουν, αλλά τα λευκά δεν μπορούν να κερδίσουν</string>
   <string name="whiteDefeatBlackCanNotWin">Τα λευκά χάνουν, αλλά τα μαύρα δεν μπορούν να κερδίσουν</string>
+  <string name="searchChapters">Αναζήτηση κεφαλαίων</string>
+  <string name="searchGames">Αναζήτηση παρτίδων</string>
 </resources>
