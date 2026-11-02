@@ -6389,6 +6389,8 @@ interface I18n {
     community: string;
     /** Community blogs */
     communityBlogs: string;
+    /** Contains sponsored content, affiliate links or commercial advertisement */
+    containsSponsoredContent: string;
     /** Continue reading this post */
     continueReadingPost: string;
     /** Cover image */
