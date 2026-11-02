@@ -136,7 +136,6 @@ final class SecurityApi(
   }.tap: result =>
     lila.mon.security.login
       .attempt(
-        useCase = candidate.fold("-")(_.useCase),
         byEmail = EmailAddress.isValid(login.value),
         pwned = candidate.flatMap(_.pwned).exists(_.yes),
         leaked = usernamePasswordLeaked,

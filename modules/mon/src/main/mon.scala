@@ -401,7 +401,6 @@ object security:
     val loadTime = gauge("security.geoip.loadTime").withoutTags()
   object login:
     def attempt(
-        useCase: String,
         byEmail: Boolean,
         pwned: Boolean,
         leaked: Boolean,
@@ -410,7 +409,6 @@ object security:
     ) =
       counter("security.login.attempt").withTags:
         tags(
-          "useCase" -> useCase,
           "by" -> (if byEmail then "email" else "name"),
           "pwned" -> pwned,
           "leaked" -> leaked,
