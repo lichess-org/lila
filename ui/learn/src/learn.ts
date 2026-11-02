@@ -8,6 +8,7 @@ import {
   type VNode,
 } from 'snabbdom';
 
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import { Coords } from 'lib/prefs';
 import { pubsub } from 'lib/pubsub';
 
@@ -50,6 +51,7 @@ interface LearnServerOpts {
 }
 
 export async function initModule({ data, pref }: LearnServerOpts) {
+  await initChessgroundFactory();
   const _storage = storage(data);
   const opts: LearnOpts = {
     storage: _storage,

@@ -7,6 +7,7 @@ import {
   styleModule,
 } from 'snabbdom';
 
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import menuHover from 'lib/menuHover';
 
 import CoordinateTrainerCtrl from './ctrl';
@@ -15,7 +16,8 @@ import view from './view';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
-export function initModule(config: CoordinateTrainerConfig) {
+export async function initModule(config: CoordinateTrainerConfig): Promise<void> {
+  await initChessgroundFactory();
   const ctrl = new CoordinateTrainerCtrl(config, redraw);
   const element = document.getElementById('trainer')!;
   element.innerHTML = '';

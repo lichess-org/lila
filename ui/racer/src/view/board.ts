@@ -1,6 +1,6 @@
-import { Chessground as makeChessground } from 'chessground3D';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts } from 'lib/puz/run';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';

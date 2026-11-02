@@ -7,10 +7,13 @@ import type { RacerOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule, propsModule, styleModule]);
 
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
+
 import view from './view/main';
 
-export async function initModule(opts: RacerOpts) {
-  await site.asset.loadPieces;
+export async function initModule(opts: RacerOpts): Promise<void> {
+  await Promise.all([site.asset.loadPieces, initChessgroundFactory()]);
+
   const element = document.querySelector('.racer-app') as HTMLElement;
 
   let vnode: VNode;

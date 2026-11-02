@@ -1,5 +1,4 @@
-import { Chessground as makeChessground } from 'chessground3D';
-
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts, povMessage } from 'lib/puz/run';

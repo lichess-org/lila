@@ -1,5 +1,6 @@
 import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import menuHover from 'lib/menuHover';
 
 import EditorCtrl from './ctrl';
@@ -10,7 +11,8 @@ const patch = init([classModule, attributesModule, propsModule, eventListenersMo
 
 export type { LichessEditor } from './interfaces';
 
-export function initModule(config: Config): LichessEditor {
+export async function initModule(config: Config): Promise<LichessEditor> {
+  await initChessgroundFactory();
   const ctrl = new EditorCtrl(config, redraw);
 
   const el = config.el || document.getElementById('board-editor')!;

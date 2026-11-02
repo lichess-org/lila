@@ -1,8 +1,8 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
-import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { plyColor } from 'lib/game/chess';

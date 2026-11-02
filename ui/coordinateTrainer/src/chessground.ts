@@ -1,7 +1,7 @@
 import type { Elements } from '@lichess-org/chessground/types';
-import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { pubsub } from 'lib/pubsub';

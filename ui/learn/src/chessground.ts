@@ -1,6 +1,6 @@
-import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import { isSafari } from 'lib/device';
 import { Coords } from 'lib/prefs';
 import { onInsert } from 'lib/view';

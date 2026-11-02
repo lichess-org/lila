@@ -2,6 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 
 import { myUserId } from 'lib';
 import standaloneChat from 'lib/chat/standalone';
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import { finished, type TourPlayer } from 'lib/game';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import menuHover from 'lib/menuHover';
@@ -19,7 +20,7 @@ import { main as view } from './view/main';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
-  await site.asset.loadPieces;
+  await Promise.all([site.asset.loadPieces, initChessgroundFactory()]);
   return opts.data.local ? app(opts) : boot(opts, app);
 }
 

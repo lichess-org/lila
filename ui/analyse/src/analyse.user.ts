@@ -1,3 +1,4 @@
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import { wsConnect } from 'lib/socket';
 
 import type { AnalyseOpts } from '@/interfaces';
@@ -11,8 +12,14 @@ export { patch };
 const start = makeStart(patch);
 const boot = makeBoot(start);
 
-export async function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: AnalyseOpts }) {
-  await site.asset.loadPieces;
+export async function initModule({
+  mode,
+  cfg,
+}: {
+  mode: 'userAnalysis' | 'replay';
+  cfg: AnalyseOpts;
+}): Promise<void> {
+  await Promise.all([site.asset.loadPieces, initChessgroundFactory()]);
   if (mode === 'replay') boot(cfg);
   else userAnalysis(cfg);
 }

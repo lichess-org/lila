@@ -1,3 +1,4 @@
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import { wsConnect } from 'lib/socket';
 
 import type { AnalyseOpts } from '../interfaces';
@@ -10,8 +11,8 @@ export { patch };
 
 const start = makeStart(patch, studyDeps);
 
-export async function initModule(cfg: AnalyseOpts) {
-  await site.asset.loadPieces;
+export async function initModule(cfg: AnalyseOpts): Promise<void> {
+  await Promise.all([site.asset.loadPieces, initChessgroundFactory()]);
   cfg.socketSend = wsConnect(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion ?? false, {
     options: { reloadOnResume: true },
     receive: (t: string, d: any) => analyse.socketReceive(t, d),

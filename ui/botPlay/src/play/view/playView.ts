@@ -1,4 +1,4 @@
-import { Chessground } from 'chessground3D';
+import { Chessground } from '@lichess-org/chessground';
 
 import { repeater } from 'lib';
 import { type BotInfo, Bot } from 'lib/bot/bot';

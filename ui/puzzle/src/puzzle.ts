@@ -1,5 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 
+import { initChessgroundFactory } from 'lib/chessgroundFactory';
 import menuHover from 'lib/menuHover';
 
 import PuzzleCtrl from './ctrl';
@@ -8,8 +9,8 @@ import view from './view/main';
 
 const patch = init([classModule, attributesModule]);
 
-export async function initModule(opts: PuzzleOpts) {
-  await site.asset.loadPieces;
+export async function initModule(opts: PuzzleOpts): Promise<void> {
+  await Promise.all([site.asset.loadPieces, initChessgroundFactory()]);
   const element = document.querySelector('main.puzzle') as HTMLElement;
   const ctrl = new PuzzleCtrl(opts, redraw);
   const nvui = site.blindMode && (await site.asset.loadEsm<NvuiPlugin>('puzzle.nvui', { init: ctrl }));

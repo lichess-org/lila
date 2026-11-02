@@ -1,6 +1,6 @@
-import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
+import { Chessground as makeChessground } from 'lib/chessgroundFactory';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { Coords, ShowResizeHandle } from 'lib/prefs';
