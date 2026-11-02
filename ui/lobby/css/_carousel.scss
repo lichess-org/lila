@@ -11,7 +11,7 @@
   }
 
   &__track {
-    @extend %flex-wrap;
+    @extend %flex-nowrap;
 
     width: fit-content;
     align-items: stretch;
