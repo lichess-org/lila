@@ -10,7 +10,6 @@ import scala.collection.immutable.SeqMap
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.core.fide.Federation
 import lila.relay.RelayGroup.ScoreGroup
-import lila.relay.RelayTeam.TeamMatch
 import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
@@ -315,7 +314,7 @@ final class RelayTeamLeaderboard(
             .map: (studyId, chaps) =>
               val roundId = studyId.into(RelayRoundId)
               val teamMatches = chaps
-                .foldLeft(List.empty[TeamMatch]):
+                .foldLeft(List.empty[RelayTeam.TeamMatch]):
                   case (roundMatches, (chapterId, tags)) =>
                     val withNewTeamGame = for
                       players <- StudyPlayer.fromTags(tags)
@@ -327,7 +326,7 @@ final class RelayTeamLeaderboard(
                       game = withFed.mapWithColor: (c, p) =>
                         RelayPlayer.Game.make(round, chapterId, p._2, c, tags, tourTC)
                       teams <- players.traverse(_.team)
-                      teamMatch = roundMatches.find(_.isSameMatchup(teams)) | TeamMatch(
+                      teamMatch = roundMatches.find(_.isSameMatchup(teams)) | RelayTeam.TeamMatch(
                         roundId,
                         teams.map(RelayTeam.TeamWithGames(_, SeqMap.empty)),
                         Nil,
