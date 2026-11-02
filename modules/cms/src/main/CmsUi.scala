@@ -7,8 +7,7 @@ import lila.cms.CmsForm.CmsPageData
 import lila.core.config.ImageGetOrigin
 import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -210,14 +209,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
         frag("Content"),
         help = trans.site.embedsAvailable().some
       ): field =>
-        frag(
-          form3.textarea(field)(),
-          div(
-            cls := "markdown-toastui",
-            attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"),
-            attr("data-image-download-origin") := imageGetOrigin
-          )
-        ),
+        bits.markdownEditor(MarkdownRealm.cms):
+          form3.textarea(field)(autocomplete := "off")
+      ,
       form3.split(
         form3.checkboxGroup(form("live"), raw("Live"), half = true)
       ),

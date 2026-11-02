@@ -1,6 +1,6 @@
-import { h, type VNodeData } from 'snabbdom';
+import { type VNodeData } from 'snabbdom';
 
-import { spinnerVdom as spinner } from 'lib/view';
+import { div, spinnerVdom as spinner } from 'lib/view';
 
 import type LobbyController from '../ctrl';
 import renderSeeks from './correspondence';
@@ -10,8 +10,8 @@ import renderRealTime from './realTime/main';
 import renderTabs from './tabs';
 
 export default function (ctrl: LobbyController) {
-  let body,
-    data: VNodeData = {};
+  let body;
+  let data: VNodeData = {};
   const redirBlock = ctrl.redirecting && ctrl.tab !== 'pools';
   if (redirBlock) body = spinner();
   else
@@ -31,8 +31,8 @@ export default function (ctrl: LobbyController) {
         break;
     }
   const contentKey = ctrl.tab === 'real_time' ? `${ctrl.tab}-${ctrl.mode}` : ctrl.tab;
-  return h(`div.lobby__app.lobby__app-${ctrl.tab}.lck-${contentKey}`, [
-    h('div.tabs-horiz', { attrs: { role: 'tablist' } }, renderTabs(ctrl)),
-    h(`div.lobby__app__content.l${redirBlock ? 'redir' : ctrl.tab}`, data, body),
+  return div(`.lobby__app.lobby__app-${ctrl.tab}.lck-${contentKey}`, [
+    div('.tabs-horiz', { role: 'tablist' }, renderTabs(ctrl)),
+    div(`.lobby__app__content.l${redirBlock ? 'redir' : ctrl.tab}`, data, body),
   ]);
 }

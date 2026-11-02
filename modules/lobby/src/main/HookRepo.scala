@@ -1,7 +1,10 @@
 package lila.lobby
 
-import scala.collection.View
 import scalalib.HeapSort
+
+import scala.collection.View
+
+import lila.core.id.SessionId
 import lila.core.socket.Sri
 
 // NOT thread safe.
@@ -38,7 +41,7 @@ final private class HookRepo:
 
   // O(n)
   // invoked when a hook is added
-  def bySid(sid: String) = hooks.values.find(_.sid.has(sid))
+  def bySid(sid: SessionId) = hooks.values.find(_.sid.has(sid))
 
   // O(n)
   // invoked regularly when cleaning up socket sris

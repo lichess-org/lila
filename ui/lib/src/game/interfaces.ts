@@ -1,5 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
+import type { NodeCrazy } from '@/tree/types';
+
 import type { Status } from './status';
 
 export interface GameData {
@@ -36,7 +38,7 @@ export interface Game {
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
-  perf: string;
+  perf: VariantKey | Speed;
   rules?: GameRule[];
 }
 
@@ -129,7 +131,7 @@ export interface PlayerUser {
   patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
-  perfs: Record<string, Perf>;
+  perfs: Partial<Record<VariantKey | Speed, Perf>>;
 }
 
 export interface Perf {
@@ -159,17 +161,11 @@ export interface CheckState {
   check?: boolean | (() => boolean);
 }
 
-export interface CheckCount {
-  white: number;
-  black: number;
-}
+export type CheckCount = ByColor<number>;
 
 export type MaterialDiffSide = Record<Role, number>;
 
-export interface MaterialDiff {
-  white: MaterialDiffSide;
-  black: MaterialDiffSide;
-}
+export type MaterialDiff = ByColor<MaterialDiffSide>;
 
 export interface RoundStep {
   ply: Ply;
@@ -177,5 +173,5 @@ export interface RoundStep {
   san: San;
   uci: Uci;
   check?: boolean;
-  crazy?: Record<string, any>;
+  crazy?: NodeCrazy;
 }

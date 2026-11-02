@@ -114,8 +114,6 @@ object SimulForm:
         .verifying("Invalid host extra time.", _.clock.valid)
     )
 
-  def setText = Form(single("text" -> text))
-
   case class Setup(
       name: String,
       clockTime: LimitMinutes,
@@ -137,7 +135,7 @@ object SimulForm:
         hostExtraTimePerPlayer = clockExtraPerPlayer
       )
 
-    def actualVariants = variants.flatMap { Variant(_) }
+    def actualVariants = variants.flatMap(Variant(_))
 
     def realPosition = position.filterNot(_.isInitial)
 

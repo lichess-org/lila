@@ -1,5 +1,6 @@
 package lila.tutor
 
+import lila.common.LilaFuture
 import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.db.dsl.{ *, given }
 import lila.insight.{
@@ -11,9 +12,8 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.rating.PerfType
-import lila.common.LilaFuture
 import lila.mon.extensions.*
+import lila.rating.PerfType
 
 final private class TutorBuilder(
     colls: TutorColls,
@@ -32,10 +32,10 @@ final private class TutorBuilder(
   def apply(config: TutorConfig): Fu[TutorFullReport] = for
     user <- userApi.withPerfs(config.user).orFail(s"No such user ${config.user}")
     chrono = lila.mon.Chronometer.lapTry(produce(user)(using config))
-    _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
+    _ = chrono.mon(r => lila.mon.tutor.buildFull(r.isSuccess))
     lap <- chrono.lap
     report <- lap.result.toFuture
-    doc = bsonWriteObjTry(report).get ++ $doc("_id" -> report.id, "millis" -> lap.millis)
+    doc = bsonWriteObjTry(report).get ++ bdoc("_id" -> report.id, "millis" -> lap.millis)
     _ <- colls.report(_.insert.one(doc).void)
     _ <- notifyOf(report)
   yield report
@@ -52,7 +52,7 @@ final private class TutorBuilder(
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
       .monSuccess(lila.mon.tutor.buildSegment("peer-matches"))
     tutorUsers = perfStats
-      .map { (pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
+      .map((pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)))
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(lila.mon.tutor.buildSegment("fishnet-analysis"))
@@ -75,16 +75,16 @@ final private class TutorBuilder(
       .map: (pt, rating) =>
         colls.report:
           _.one[Bdoc](
-            $doc(
-              TutorFullReport.F.perfs -> $doc(
-                "$elemMatch" -> $doc(
+            bdoc(
+              TutorFullReport.F.perfs -> bdoc(
+                "$elemMatch" -> bdoc(
                   "perf" -> pt.id,
-                  "stats.rating".$gte(rating.map(_ - ratingDelta)).$lte(rating.map(_ + ratingDelta))
+                  "stats.rating".gte(rating.map(_ - ratingDelta)).lte(rating.map(_ + ratingDelta))
                 )
               ),
-              TutorFullReport.F.at.$gt(nowInstant.minusMonths(1)) // index hit
+              TutorFullReport.F.at.gt(nowInstant.minusMonths(1)) // index hit
             ),
-            $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
+            bdoc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )
             .map: docO =>
               for

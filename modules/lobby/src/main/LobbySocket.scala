@@ -1,14 +1,14 @@
 package lila.lobby
 
-import play.api.libs.json.*
-import scalalib.actor.SyncActor
-import scalalib.Maths.boxedNormalDistribution
 import chess.IntRating
+import play.api.libs.json.*
+import scalalib.Maths.boxedNormalDistribution
+import scalalib.actor.SyncActor
 
-import lila.common.Json.given
 import lila.common.Bus
+import lila.common.Json.given
 import lila.core.game.ChangeFeatured
-import lila.core.pool.{ PoolConfigId, PoolMember, PoolFrom }
+import lila.core.pool.{ PoolConfigId, PoolFrom, PoolMember }
 import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
@@ -73,9 +73,9 @@ final class LobbySocket(
             hookSubscriberSris
               .diff(idleSris)
               .withFilter { sri =>
-                members.getIfPresent(sri).exists { biter.showHookTo(hook, _) }
+                members.getIfPresent(sri).exists(biter.showHookTo(hook, _))
               }
-              .map { Sri(_) },
+              .map(Sri(_)),
             makeMessage("had", hook.render)
           )
         )
@@ -123,7 +123,7 @@ final class LobbySocket(
     private def tellActive(msg: JsObject): Unit = send.exec(Out.tellLobbyActive(msg))
 
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
-      send.exec(P.Out.tellSris(hookSubscriberSris.diff(idleSris).map { Sri(_) }, msg))
+      send.exec(P.Out.tellSris(hookSubscriberSris.diff(idleSris).map(Sri(_)), msg))
 
     import lila.common.Json.given
     private def gameStartRedirect(pov: Pov) = makeMessage(
@@ -149,7 +149,7 @@ final class LobbySocket(
   private val poolLimitPerSri = lila.memo.RateLimit[SriStr](
     credits = 14,
     duration = 30.seconds,
-    key = "lobby.hook_pool.member"
+    limiterKey = "lobby.hook_pool.member"
   )
 
   private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
@@ -209,7 +209,7 @@ final class LobbySocket(
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
-                lame = user.lame,
+                marks = user.marks,
                 blocking = user.blocking.map(_ ++ blocking)
               )
             )
@@ -238,7 +238,7 @@ final class LobbySocket(
               socketKit.baseHandler(P.In.ConnectUser(u.id))
               relationApi.fetchBlocking(u.id)
             .map: blocks =>
-              val member = Member(sri, user.map { LobbyUser.make(_, lila.core.pool.Blocking(blocks)) })
+              val member = Member(sri, user.map(LobbyUser.make(_, lila.core.pool.Blocking(blocks))))
               actor ! Join(member)
               member
         }

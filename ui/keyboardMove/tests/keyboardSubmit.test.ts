@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { beforeEach, describe, test } from 'node:test';
 
 import { destsToUcis, sanWriter } from 'lib/game';
-import { type Prop, propWithEffect } from 'lib/index';
+import { propWithEffect } from 'lib/index';
 
 import { makeSubmit } from '../src/keyboardSubmit.js';
 
@@ -17,7 +17,7 @@ function spy() {
 }
 
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-const toDestsMap = (obj: object) => new Map(Object.entries(obj)) as Dests;
+const toDestsMap = (obj: Record<string, string[]>) => new Map(Object.entries(obj)) as Dests;
 const fenDestsToSans = (fen: string, dests: Record<string, string[]>) =>
   sanWriter(fen, destsToUcis(toDestsMap(dests)));
 
@@ -43,7 +43,7 @@ const defaultCtrl = {
   update: () => null,
   usedSan: true,
   legalSans: fenDestsToSans(startingFen, {}),
-  helpModalOpen: propWithEffect(false, () => null),
+  showHelp: unexpectedErrorThrower('showHelp'),
   isFocused: propWithEffect(false, () => null),
 };
 const defaultClear = unexpectedErrorThrower('clear');
@@ -147,17 +147,17 @@ describe('keyboardSubmit', () => {
   });
 
   test('opens help modal with ?', () => {
-    const mockSetHelpModalOpen = spy();
+    const mockShowHelp = spy();
     const submit = makeSubmit(
       {
         input: document.createElement('input'),
-        ctrl: { ...defaultCtrl, helpModalOpen: mockSetHelpModalOpen as unknown as Prop<boolean> },
+        ctrl: { ...defaultCtrl, showHelp: mockShowHelp },
       },
       mockClear,
     );
     submit('?', { isTrusted: true });
-    mockSetHelpModalOpen.calledTimes(1);
-    mockSetHelpModalOpen.calledWith(true);
+    mockShowHelp.calledTimes(1);
+    mockShowHelp.calledWith();
     mockClear.calledTimes(1);
   });
 
@@ -197,8 +197,8 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via UCI', () => {
-      const mockSan = spy(),
-        mockSelect = spy();
+      const mockSan = spy();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -240,8 +240,8 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via ICCF', () => {
-      const mockSan = spy(),
-        mockSelect = spy();
+      const mockSan = spy();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),

@@ -5,9 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.i18n.Translate
+import lila.core.pref.Pref
 import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.core.pref.Pref
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -24,7 +24,7 @@ final class JsonView(
   )(using me: Option[Me], pref: Pref) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
+      Settings.UserSelection.allows(selection(study.settings), study, me)
 
     for
       liked <- me.so(studyRepo.liked(study, _))
@@ -89,7 +89,8 @@ final class JsonView(
         "owner" -> lightUserApi.sync(s.study.ownerId),
         "chapters" -> s.chapters.take(Study.previewNbChapters),
         "topics" -> s.study.topicsOrEmpty,
-        "members" -> s.study.members.members.values.take(Study.previewNbMembers)
+        "members" -> s.study.members.members.values.take(Study.previewNbMembers),
+        "visibility" -> s.study.visibility
       )
       .add("flair", s.study.flair)
 
@@ -177,7 +178,7 @@ object JsonView:
     )
 
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri] = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:

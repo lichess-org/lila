@@ -25,9 +25,9 @@
   <string name="cantChangeMore">Pienien ja isojen kirjainten vaihtamista lukuun ottamatta mitään ei voi muuttaa. Teknisistä syistä se on suorastaan mahdotonta.</string>
   <string name="orCloseAccount">Voit kuitenkin sen sijaan sulkea nykyisen tunnuksesi ja avata uuden.</string>
   <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
-  <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
+  <string name="cantClearHistoryOrResetRatings">Pelihistoriasi, tehtävähistoriasi tai vahvuuslukujesi nollaaminen ei ole mahdollista.</string>
   <string name="wantReport">Haluan ilmoittaa pelaajan</string>
-  <string name="toReportAPlayerUseForm">Ilmoittaaksesi pelaajasta, käytä raporttilomaketta</string>
+  <string name="toReportAPlayerUseForm">Ilmoita pelaaja käyttämällä ilmoituslomaketta</string>
   <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>
   <string name="doNotReportInForum">Älä ilmoita pelaajia foorumilla.</string>
   <string name="doNotSendReportEmails">Älä lähetä meille ilmoituksia sähköpostilla.</string>
@@ -35,8 +35,8 @@
   <string name="onlyReports">Vain lomakkeen kautta tapahtuvalla ilmoituksella on vaikutusta.</string>
   <string name="wantReportBug">Haluan ilmoittaa viasta</string>
   <string name="reportBugInForum">Foorumin Lichess Feedback -osiossa</string>
-  <string name="reportWebsiteIssue">Lichessin verkkosivusto-ongelmaksi GitHubissa</string>
-  <string name="reportMobileIssue">Lichessin mobiilisovellusongelmaksi GitHubissa</string>
+  <string name="reportWebsiteIssue">Lichessin verkkosivusto-ongelmasta GitHubissa</string>
+  <string name="reportMobileIssue">Lichessin mobiilisovellusongelmasta GitHubissa</string>
   <string name="reportBugInDiscord">Lichessin Discord-palvelimella</string>
   <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
   <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
@@ -52,9 +52,11 @@
   <string name="knightMate">On mahdollista matittaa pelkällä ratsulla ja lähetillä, jos vastustajalla on pelkkä kuningas laudalla.</string>
   <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Joissakin tilanteissa bottia vastaan pelatusta pisteytetystä pelistä ei välttämättä saa pisteitä, jos pelaajan katsotaan käyttävän bottia hyväkseen pisteiden saamiseksi.</string>
+  <string name="botRatingAbuse">Joissakin tilanteissa bottia vastaan pelatusta pisteytetystä pelistä ei välttämättä saa pisteitä, jos pelaajan katsotaan käyttävän bottia hyväkseen pisteiden saamiseksi.</string>
   <string name="errorPage">Virhesivu</string>
-  <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
+  <string name="reportTheBug">Voit ilmoittaa virheestä:</string>
+  <string name="securityVulnerability">Turvahaavoittuvuus</string>
+  <string name="otherBug">Muu bugi</string>
   <string name="learnHowToMakeBroadcasts">Opi pitämään omia lähetyksiä Lichessissä</string>
   <string name="banAppeal">Valita porttikiellosta tai IP-estosta</string>
   <string name="engineAppeal">Tietokone- tai huijarimerkinnästä</string>
@@ -63,15 +65,24 @@
   <string name="ifLegit">Jos valituksesi on pätevä, kumoamme porttikiellon pikimmiten.</string>
   <string name="accountLost">Jos kuitenkin olet käyttänyt kerrankin tietokonetta apunasi, tunnuksesi on valitettavasti mennyttä.</string>
   <string name="doNotDeny">Älä kiellä huijaustasi. Jos haluat saada luvan uuden käyttäjätunnuksen luomiseen, myönnä tekosi ja osoita, että ymmärrät tehneesi virheen.</string>
-  <string name="otherRestriction">Muu rajoitus</string>
+  <string name="otherRestriction">Muusta rajoituksesta</string>
   <string name="collaboration">Yhteistyö, lakiasiat, kaupallisuus</string>
   <string name="monetizing">Lichessin kaupallistaminen</string>
   <string name="buyingLichess">Lichessin ostaminen</string>
   <string name="authorizationToUse">Lichessin käyttöluvat</string>
   <string name="welcomeToUse">Saat vapaasti käyttää Lichessiä omiin tarkoituksiisi, myös kaupallisiin tarkoituksiin.</string>
   <string name="videosAndBooks">Lichess saa näkyä videoillasi, ja saat painattaa Lichessistä tehtyjä kuvakaappauksia kirjoihisi.</string>
-  <string name="creditAppreciated">Arvostamme Lichessin mainintaa, mutta emme vaadi sitä.</string>
+  <string name="creditAppreciated">Arvostamme Lichessin mainitsemista, mutta emme vaadi sitä.</string>
   <string name="noneOfTheAbove">Ei mitään näistä</string>
   <string name="sendEmailAt">Lähetä sähköpostia osoitteeseen %s.</string>
   <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro Lichess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>
+  <string name="monetiseNotInterested">Emme ole kiinnostuneita minkäänlaisista keinoista Lichessin kaupallistamiseksi.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Emme koskaan näytä minkäänlaisia mainoksia, emme seuraa pelaajiamme emmekä osta tai myy liikennettä tai käyttäjiä.</string>
+  <string name="monetiseNoMarketingEmail">Älä lähetä meille markkinointia, seurantaa tai mainontaa koskevaa sähköpostia.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Kannustamme kaikkia %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">estämään kaikenlaiset mainokset ja seurantaohjelmat</string>
+  <string name="broadcastTournamentOnLichess">Lähetä turnaus Lichessissä</string>
+  <string name="ifYouWantToBroadcastClause1">Jos haluat turnauksesi virallisen lähetyksen Lichessiin tai jos sinulla on kysymyksiä lähetyksistämme:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Ota yhteyttä lähetystiimiimme osoitteessa %1$s tai %2$s.</string>
+  <string name="ourDiscordServer">Discord-palvelimellamme</string>
 </resources>

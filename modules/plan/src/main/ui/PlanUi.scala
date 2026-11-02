@@ -1,14 +1,15 @@
 package lila.plan
 package ui
 
-import java.util.Currency
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.*
+import java.util.Currency
+
 import lila.core.LightUser
 import lila.plan.PlanPricingApi.pricingWrites
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddress):
   import helpers.{ *, given }
@@ -28,7 +29,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       bestScores: Paginator[LightUser],
       pricing: PlanPricing
   )(using ctx: Context) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so(l => s"&locale=$l")
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .i18n(_.patron)
@@ -102,8 +103,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               div(cls := "wrapper")(
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
-                  p(trp.weRelyOnSupport()),
-                  p("Click donate to view payment options based on your device and currency.")
+                  p(trp.weRelyOnSupport())
                 ),
                 div(cls := "content")(
                   div(
@@ -251,12 +251,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         )
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(
-                        select(name := "currency")(
-                          CurrencyApi.currencyList.map: cur =>
-                            st.option(
-                              value := cur.getCurrencyCode,
-                              (pricing.currencyCode == cur.getCurrencyCode).option(selected)
-                            )(showCurrency(cur))
+                        form3.selectLowLevel(
+                          "currency",
+                          CurrencyApi.currencyList.map(c => c.getCurrencyCode -> showCurrency(c)),
+                          selected = pricing.currencyCode.some
                         )
                       )
                     )
@@ -479,10 +477,9 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                           else "0.01"
                         },
                         name := "amount",
-                        value := {
+                        value :=
                           (info.subscription.item.price.currency == pricing.currency)
                             .so(info.subscription.item.price.money.amount.toString)
-                        }
                       ),
                       submitButton(cls := "button")(trans.site.apply()),
                       a(dataForm := "switch")(trans.site.cancel())

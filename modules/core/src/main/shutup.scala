@@ -1,8 +1,8 @@
 package lila.core
 package shutup
 
-import lila.core.userId.UserId
 import lila.core.chat.PublicSource
+import lila.core.userId.UserId
 
 case class PublicLine(text: String, from: PublicSource, date: Instant)
 

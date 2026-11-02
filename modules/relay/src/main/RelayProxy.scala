@@ -1,36 +1,34 @@
 package lila.relay
 
-import scala.util.matching.Regex
+import com.softwaremill.tagging.*
 import io.mola.galimatias.URL
 import play.api.libs.ws.*
-import com.softwaremill.tagging.*
 
-import lila.memo.SettingStore
-import lila.core.config.{ Credentials, HostPort }
+import scala.util.matching.Regex
+
+import lila.memo.SettingStore.Formable.given
+import lila.memo.{ HttpProxy, SettingStore }
 
 private opaque type CanProxy = Boolean
 private object CanProxy extends YesNo[CanProxy]
 
 private type ProxySelector = URL => CanProxy ?=> Option[DefaultWSProxyServer]
 
-final private class RelayProxy(
-    proxyCredentials: SettingStore[Option[Credentials]] @@ ProxyCredentials,
-    proxyHostPort: SettingStore[Option[HostPort]] @@ ProxyHostPort,
-    proxyDomainRegex: SettingStore[Regex] @@ ProxyDomainRegex
-):
+final class RelayProxy(proxy: HttpProxy, settingStore: SettingStore.Builder):
 
-  val select: ProxySelector = url =>
+  import SettingStore.Regex.given
+  val domainRegex = settingStore[Regex](
+    "relayProxyDomainRegex",
+    default = "-".r,
+    text = "Broadcast: source domains that use a proxy, as a regex".some
+  ).taggedWith[ProxyDomainRegex]
+
+  private[relay] val select: ProxySelector = url =>
     allowed ?=>
-      for
-        hostPort <- proxyHostPort.get()
-        if allowed.yes
-        proxyRegex = proxyDomainRegex.get()
-        if proxyRegex.toString.nonEmpty
-        if proxyRegex.unanchored.matches(url.host.toString)
-        creds = proxyCredentials.get()
-      yield DefaultWSProxyServer(
-        host = hostPort.host,
-        port = hostPort.port,
-        principal = creds.map(_.user),
-        password = creds.map(_.password.value)
-      )
+      allowed.yes.so:
+        for
+          proxy <- proxy.select()
+          proxyRegex = domainRegex.get()
+          if proxyRegex.toString.nonEmpty
+          if proxyRegex.unanchored.matches(url.host.toString)
+        yield proxy

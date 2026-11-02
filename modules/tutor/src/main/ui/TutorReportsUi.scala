@@ -1,13 +1,14 @@
 package lila.tutor
 package ui
 
-import java.time.LocalDate
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import lila.ui.ScalatagsTemplate.{ *, given }
+import java.time.LocalDate
+
 import lila.insight.MeanRating
 import lila.memo.RateLimit
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TutorReportsUi(helpers: Helpers, bits: TutorBits):
   import helpers.{ *, given }

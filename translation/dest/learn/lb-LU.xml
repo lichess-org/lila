@@ -99,7 +99,7 @@ andeem du den Ugräifer schléis.</string>
 duerch deng Verdeedegung!</string>
   <string name="escapeOrBlock">Entkomm mat dengem Kinnek 
 oder block den Ugrëff!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
+  <string name="outOfCheckComplete">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
   <string name="mateInOne">Matt an 1</string>
   <string name="defeatTheOpponentsKing">Bezwéng dem Géigner säi Kinnek</string>
   <string name="mateInOneIntro">Du gewënns wann däin Géigner en Schach net verdeedegen kann.</string>
@@ -127,6 +127,7 @@ Direkt nieft senger Damm.</string>
 Spill een zuch fir weiderzemaachen.</string>
   <string name="boardSetupComplete">Felicitatioun! Du wees wéi een d\'Schachbriet opbaut.</string>
   <string name="castling">Rochade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">De speziellen Kinnekszuch</string>
   <string name="castlingIntro">Bréng de Kinnek a Sécherheet an den Tuerm op Ugrëffspositoun!</string>
   <string name="castleKingSide">Beweeg däi Kinnek zwee Felder 

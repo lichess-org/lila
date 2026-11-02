@@ -13,7 +13,7 @@
   }
 
   &__btn,
-  form {
+  > form {
     @extend %flex-center-nowrap, %metal;
 
     justify-content: center;
@@ -38,10 +38,24 @@
       border: 0;
     }
 
+    &:first-child:last-child {
+      @extend %box-radius;
+    }
+
     icon {
       @extend %roboto;
 
       letter-spacing: -1px;
+    }
+  }
+
+  > form {
+    overflow: hidden;
+
+    .btn-rack__btn {
+      border-radius: 0 !important;
+      border: 0;
+      box-shadow: none;
     }
   }
 

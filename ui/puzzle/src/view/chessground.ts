@@ -5,13 +5,14 @@ import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { Coords, ShowResizeHandle } from 'lib/prefs';
 import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion, {
     hook: {
-      insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      ...onInsert(el => ctrl.setChessground(makeChessground(el, makeConfig(ctrl)))),
       destroy: () => {
         // ctrl.disableGooglyEyes();
         ctrl.ground().destroy();

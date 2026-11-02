@@ -1,29 +1,30 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { pubsub } from 'lib/pubsub';
-import { colors } from 'lib/setup/color';
+import { colorChoiceName, colors } from 'lib/setup/color';
 import { colorButtons } from 'lib/setup/view/color';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 import { snabDialog, bind, hl } from 'lib/view';
 
+import type { Bot } from '@/interfaces';
+
 import type SetupCtrl from '../setupCtrl';
 
-export const setupDialog = (ctrl: SetupCtrl) => {
-  const bot = ctrl.selectedBot;
-  if (!bot) return;
-  return snabDialog({
+export const setupDialog = (ctrl: SetupCtrl, bot: Bot) =>
+  snabDialog({
+    closeButton: true,
     class: `bot-setup__dialog bot-color--${bot.key}`,
-    onClose: ctrl.cancel,
+    show: true,
+    onClose: ctrl.redraw,
     modal: true,
     noScrollable: true,
     easyClose: 'clickOutside',
-    onInsert(dialog) {
-      ctrl.dialog = dialog;
-      dialog.show();
+    onShow() {
+      ctrl.redraw();
       pubsub.emit('content-loaded');
     },
-    vnodes: [
+    render: () => [
       hl('img.bot-setup__dialog__image', {
-        attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
+        attrs: { src: bot.image && botAssetUrl('image', bot.image) },
       }),
       hl('h2.bot-setup__dialog__title', bot.name),
       hl('div.bot-setup__dialog__desc', bot.description),
@@ -38,7 +39,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       hl(
         'button.button',
         {
-          hook: bind('click', ctrl.play),
+          hook: bind('click', () => ctrl.play(bot)),
           attrs: { disabled: !ctrl.timeControl.valid() },
           class: { disabled: !ctrl.timeControl.valid() },
         },
@@ -46,9 +47,9 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       ),
     ],
   });
-};
 
 const settingsPreview = (ctrl: SetupCtrl) => {
-  const color = colors.find(c => c.key === ctrl.color())?.name ?? 'random';
-  return [color, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
+  const color = colors.find(c => c === ctrl.color()) ?? 'random';
+  const colorName = colorChoiceName(color);
+  return [colorName, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
 };

@@ -24,7 +24,7 @@ final class SwissCache(
   val name = cacheApi.sync[SwissId, Option[String]](
     name = "swiss.name",
     initialCapacity = 8_192,
-    compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
+    compute = id => mongo.swiss.primitiveOne[String](bid(id), "name"),
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
     expireAfter = Syncache.ExpireAfter.Access(20.minutes)
@@ -40,14 +40,14 @@ final class SwissCache(
       val max = 5
       for
         enterable <- mongo.swiss.primitive[SwissId](
-          $doc("teamId" -> teamId, "finishedAt".$exists(false)),
-          $sort.asc("startsAt"),
+          bdoc("teamId" -> teamId, "finishedAt".exists(false)),
+          sort.asc("startsAt"),
           nb = max,
           "_id"
         )
         finished <- mongo.swiss.primitive[SwissId](
-          $doc("teamId" -> teamId, "finishedAt".$exists(true)),
-          $sort.desc("startsAt"),
+          bdoc("teamId" -> teamId, "finishedAt".exists(true)),
+          sort.desc("startsAt"),
           nb = max - enterable.size,
           "_id"
         )

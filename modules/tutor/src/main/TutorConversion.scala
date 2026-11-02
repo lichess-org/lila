@@ -1,10 +1,11 @@
 package lila.tutor
 
 import chess.eval.WinPercent
+
 import lila.db.dsl.{ *, given }
 import lila.insight.*
-import lila.insight.InsightEntry.BSONFields as F
 import lila.insight.BSONHandlers.given
+import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
@@ -22,7 +23,7 @@ object TutorConversion:
       List(Filter(InsightDimension.Perf, perfs))
     )
     val select =
-      $doc(F.analysed -> true, F.moves -> $doc("$elemMatch" -> $doc("w".$gt(WinPercent(66.6)), "i".$gt(1))))
+      bdoc(F.analysed -> true, F.moves -> bdoc("$elemMatch" -> bdoc("w".gt(WinPercent(66.6)), "i".gt(1))))
     val compute = TutorCustomInsight(users, question, "conversion", _.conversion) { docs =>
       for
         doc <- docs
@@ -36,7 +37,7 @@ object TutorConversion:
       import coll.AggregationFramework.*
       val groupByPerf = GroupField(F.perf)(
         "win" -> Sum(
-          $doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Win.id)), 1, 0))
+          bdoc("$cond" -> barr(bdoc("$eq" -> barr(s"$$${F.result}", Result.Win.id)), 1, 0))
         ),
         "nb" -> SumAll
       )

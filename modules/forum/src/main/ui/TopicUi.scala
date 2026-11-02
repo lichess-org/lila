@@ -5,11 +5,11 @@ import play.api.data.{ Field, Form }
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
+import lila.common.Form.pairOf
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,
@@ -108,7 +108,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
-      .csp(_.withInlineIconFont.withTwitter)
+      .csp(_.withInlineIconFont)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,
@@ -168,7 +168,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
                 postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
                   button(cls := "button button-empty button-red")(
-                    if topic.closed then "Reopen" else "Close"
+                    if topic.closed then trans.site.reopen() else trans.site.close()
                   )
                 )
               ),
@@ -183,9 +183,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               canModCateg.option(relocateModal(categ))
             )
           ),
-          for
-            given Me <- ctx.me
-            (form, captcha) <- formWithCaptcha
+          for (form, captcha) <- formWithCaptcha
           yield postForm(
             cls := "form3 reply",
             action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",
@@ -269,14 +267,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
       st.form(method := "post", cls := "form3")(
-        st.select(
-          name := "reason",
-          cls := "form-control"
-        )(
-          st.option(value := "")("no message"),
-          deletionPresets.map: reason =>
-            st.option(value := reason)(reason)
-        ),
+        form3.selectLowLevel("reason", deletionPresets.map(pairOf), default = "no message".some),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
           form3.submit(
@@ -294,16 +285,12 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )
 
   private def relocateModal(from: lila.forum.ForumCateg) =
+    val options = relocateTo.collect:
+      case (slug, name) if slug != from.id.value => (slug, name)
     div(cls := "forum-relocate-modal none")(
       p("Move the entire thread to another forum"),
       st.form(method := "post", cls := "form3")(
-        st.select(
-          name := "categ",
-          cls := "form-control"
-        )(
-          relocateTo.collect:
-            case (slug, name) if slug != from.id.value => st.option(value := slug)(name)
-        ),
+        form3.selectLowLevel("categ", options),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
           form3.submit(frag("Relocate the thread"))(cls := "button-red")

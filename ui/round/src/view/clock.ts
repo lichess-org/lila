@@ -34,14 +34,14 @@ const onTheSide = (round: RoundController) => (color: Color, position: TopOrBott
 
 function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   const d = ctrl.data;
-  if (finished(d) || aborted(d)) return;
+  if (finished(d) || aborted(d)) return undefined;
   return hl(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&
       hl(
         'div.rclock-turn__text',
         d.player.spectator
-          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
+          ? i18n.site[`${d.game.player}Plays`]
           : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
       ),
   );
@@ -61,12 +61,7 @@ const goBerserk = (ctrl: RoundController, color: Color) =>
     hook: bind('click', ctrl.goBerserk),
   });
 
-const clockSide = (
-  ctrl: RoundController,
-  color: Color,
-  position: TopOrBottom,
-  ranks: TournamentRanks | undefined,
-) =>
+const clockSide = (ctrl: RoundController, color: Color, position: TopOrBottom, ranks?: TournamentRanks) =>
   ranks &&
   !showBerserk(ctrl, color) &&
   hl('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]);

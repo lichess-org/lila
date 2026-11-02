@@ -6,31 +6,42 @@ import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ numberIn, typeIn, given }
+import lila.core.i18n.{ I18nKey, Translate }
 import lila.core.security.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 
-  override def toString = s"Speed: $showSpeeds; Rating: $showRatings"
+  override def toString = s"Speed: $showSpeedsEnglish; Rating: $showRatings"
 
   def isDefault = this == OpeningConfig.default
 
   def showRatings: String =
-    showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)
-  def showSpeeds: String =
-    showContiguous(speeds.toList.sorted.map(_.name), OpeningConfig.contiguousSpeeds)
+    showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)(identity, identity)
+  def showSpeeds(using Translate): String =
+    showContiguous(speeds.toList.sorted, OpeningConfig.contiguousSpeeds)(
+      _.key.value,
+      OpeningConfig.speedLabel
+    )
+
+  // the log needs no translator, and stays readable
+  private def showSpeedsEnglish: String =
+    showContiguous(speeds.toList.sorted, OpeningConfig.contiguousSpeeds)(_.key.value, _.name)
 
   // shows contiguous rating ranges, or distinct ratings
   // 1600 to 2200
   // or 1600, 2000, 2200
-  private def showContiguous(list: List[String], reference: String): String = list match
+  private def showContiguous[A](list: List[A], reference: String)(
+      stableId: A => String,
+      label: A => String
+  ): String = list match
     case Nil => "All"
-    case List(single) => single
+    case List(single) => label(single)
     case first :: rest =>
       val many = first :: rest
-      val hash = many.mkString(",")
+      val hash = many.map(stableId).mkString(",")
       if reference == hash then "All"
-      else if reference.contains(hash) then s"$first to ${rest.lastOption | first}"
-      else many.mkString(", ")
+      else if reference.contains(hash) then s"${label(first)} → ${label(rest.lastOption | first)}"
+      else many.map(label).mkString(", ")
 
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
@@ -59,7 +70,7 @@ object OpeningConfig:
       Speed.Classical,
       Speed.Correspondence
     )
-  val contiguousSpeeds = allSpeeds.map(_.name).mkString(",")
+  val contiguousSpeeds = allSpeeds.map(_.key.value).mkString(",")
 
   val default = OpeningConfig(allRatings.drop(1).toSet, allSpeeds.drop(1).toSet)
 
@@ -90,4 +101,13 @@ object OpeningConfig:
   )
 
   val ratingChoices = allRatings.zip(allRatings.map(_.toString))
-  val speedChoices = allSpeeds.map(_.id).zip(allSpeeds.map(_.name))
+  def speedChoices(using Translate): List[(chess.SpeedId, String)] =
+    allSpeeds.map(s => (s.id, speedLabel(s)))
+
+  private[opening] def speedLabel(speed: Speed)(using Translate): String = speed match
+    case Speed.UltraBullet => I18nKey.site.ultraBullet.txt()
+    case Speed.Bullet => I18nKey.site.bullet.txt()
+    case Speed.Blitz => I18nKey.site.blitz.txt()
+    case Speed.Rapid => I18nKey.site.rapid.txt()
+    case Speed.Classical => I18nKey.site.classical.txt()
+    case Speed.Correspondence => I18nKey.site.correspondence.txt()

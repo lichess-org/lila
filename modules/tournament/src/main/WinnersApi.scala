@@ -72,12 +72,12 @@ final class WinnersApi(
   private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
       .find:
-        $doc(
+        bdoc(
           "schedule.freq" -> freq.name,
-          "startsAt".$gt(since.minusHours(12)),
-          "winner".$exists(true)
+          "startsAt".gt(since.minusHours(12)),
+          "winner".exists(true)
         )
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
@@ -135,7 +135,7 @@ final class WinnersApi(
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
     if tour.scheduleFreq.exists(_.isDailyOrBetter) then
-      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
+      scheduler.scheduleOnce(5.seconds)(allCache.invalidate {})
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = all.map: winners =>
     if winners.userIds contains userId then allCache.invalidate {}

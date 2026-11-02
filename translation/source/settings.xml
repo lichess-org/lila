@@ -8,4 +8,12 @@
   <string name="cancelKeepAccount">Cancel and keep my account</string>
   <string name="closeAccountAreYouSure">Are you sure you want to close your account?</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
+  <string name="wereSorryToSeeYouGo">We're sorry to see you go.</string>
+  <string name="closeAccountForeverLabel">Close forever: make it impossible to reopen</string>
+  <string name="closeAccountForeverWarning">Prevent reopening the account later. If you tick this box, even administrators will be unable to reopen your account at your request.</string>
+  <string name="deleteYourAccount">Delete your account</string>
+  <string name="deleteAccountWarning">Once you delete your account, it's removed from Lichess and our administrators won't be able to bring it back for you.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Would you like to %s instead?</string>
+  <string name="closeYourAccount">close your account</string>
+  <string name="deleteAccountConfirmText">I understand that deleted accounts aren't recoverable</string>
 </resources>

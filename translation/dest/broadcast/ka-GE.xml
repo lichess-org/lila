@@ -14,9 +14,7 @@
   <string name="downloadAllRounds">ჩამოტვირთე ყველა ტური</string>
   <string name="resetRound">გადატვირთე ეს ტური</string>
   <string name="deleteRound">წაშალე ეს ტური</string>
-  <string name="definitivelyDeleteRound">ახლავე წაშალე ტური და ყველა პარტია.</string>
   <string name="deleteAllGamesOfThisRound">წაშალე ყველა ამ ტურის პარტია. წყაროს ჭირდება გააქტიურება ან თავიდან შექმნა.</string>
   <string name="editRoundStudy">შეასწორე ტურის გაკვეთილი</string>
   <string name="deleteTournament">წაშალე ეს ტურნირი</string>
-  <string name="definitivelyDeleteTournament">აუცილებლად მთლიანად წაშალე ტურნირი. ყველა ტური და ყველა პარტია.</string>
 </resources>

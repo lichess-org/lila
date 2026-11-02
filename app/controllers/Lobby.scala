@@ -2,10 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.*
 import lila.common.Json.given
-import scalalib.model.Language
 
 final class Lobby(env: Env) extends LilaController(env):
 
@@ -15,24 +15,22 @@ final class Lobby(env: Env) extends LilaController(env):
       "pools" -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
-      "domain" -> env.net.assetDomain
+      "domain" -> env.net.domain
     )
   )
 
   def home = Open:
     negotiate(
       serveHtmlHome,
-      json =
-        val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-        Ok(lobbyJson).headerCacheSeconds(expiration)
+      json = Ok(lobbyJson).publicCache(7.days)
     )
 
-  private def serveHtmlHome(using ctx: Context) =
+  private def serveHtmlHome(using Context) =
     env
-      .pageCache: () =>
+      .homeCache: () =>
         keyPages.homeHtml.map: html =>
           Ok(html).withCanonical("").noCache
-      .map(env.security.lilaCookie.ensure(ctx.req))
+      .map(env.security.lilaCookie.ensure)
 
   def homeLang(lang: Language) =
     staticRedirect(lang.value).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))
@@ -44,13 +42,5 @@ final class Lobby(env: Env) extends LilaController(env):
   def seeks = OpenOrScoped():
     negotiateJson:
       ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
-        Ok(JsArray(seeks.map(_.render))).headerCacheSeconds(10)
+        Ok(JsArray(seeks.map(_.render))).privateCache(10.seconds)
       }
-
-  def timeline = Auth { _ ?=> me ?=>
-    Ok.snipAsync:
-      env.timeline.entryApi
-        .userEntries(me)
-        .map(views.timeline.entries)
-    .map(_.headerCacheSeconds(20))
-  }

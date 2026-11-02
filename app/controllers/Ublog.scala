@@ -1,19 +1,19 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
-import play.api.mvc.Result
 import play.api.libs.json.*
+import play.api.mvc.Result
+import scalalib.model.Language
+
+import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import scalalib.model.Language
+import lila.core.i18n.toLanguage
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
-import lila.core.i18n.toLanguage
-import lila.ublog.UblogForm.ModPostData
-import lila.common.HTTPRequest
+import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
+import lila.ublog.{ UblogBlog, UblogByMonth, UblogPost }
 
 final class Ublog(env: Env) extends LilaController(env):
 
@@ -43,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if !post.visibleByCrawlers && ctx.req.client.isCrawler
+      if !post.crawlable && ctx.req.client.isCrawler
       then notFound
       else if slug == post.slug && post.isUserBlog(username) then handlePost(post)
       else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))
@@ -54,33 +54,30 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKidsUnlessOfficial(createdBy):
       WithBlogOf(createdBy): (user, blog) =>
         (canViewBlogOf(user, blog) && post.canView).so:
-          if HTTPRequest.acceptsMarkdown
-          then Ok(views.ublog.post.markdownForAgents(post)).withHeaders(asMarkdown)
-          else
-            for
-              otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
-              liked <- ctx.user.so(env.ublog.api.liked(post))
-              followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-              prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-              blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-              isInCarousel <- isGrantedOpt(_.ModerateBlog)
-                .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
-              followable = prefFollowable && !blocked
-              html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
-              viewedPost = env.ublog.viewCounter(post)
-              page <- renderPage:
-                views.ublog.post.page(
-                  user,
-                  blog,
-                  viewedPost,
-                  html,
-                  otherPosts,
-                  liked,
-                  followable,
-                  followed,
-                  isInCarousel
-                )
-            yield Ok(page)
+          for
+            otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
+            liked <- ctx.user.so(env.ublog.api.liked(post))
+            followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+            prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+            blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+            isInCarousel <- isGrantedOpt(_.ModerateBlog)
+              .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
+            followable = prefFollowable && !blocked
+            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+            viewedPost = env.ublog.viewCounter(post)
+            page <- renderPage:
+              views.ublog.post.page(
+                user,
+                blog,
+                viewedPost,
+                html,
+                otherPosts,
+                liked,
+                followable,
+                followed,
+                isInCarousel
+              )
+          yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
@@ -126,39 +123,26 @@ final class Ublog(env: Env) extends LilaController(env):
       else if allows(blog.allows) then f(user, blog)
       else Unauthorized("Not your blog to edit")
 
-  def form(username: UserStr) = Auth { ctx ?=> me ?=>
+  def getEditForm(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.edit): (user, _) =>
-        Ok.page(views.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
-  }
-
-  def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
-    NotForKids:
-      WithBlogOf(username, _.edit): (user, _) =>
-        bindForm(env.ublog.form.create)(
-          err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
-          data =>
-            limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
-              env.ublog.api
-                .create(data, user)
-                .map: post =>
-                  lila.mon.ublog.create(user.id).increment()
-                  Redirect(editUrlOfPost(post)).flashSuccess
-        )
+        env.ublog.api
+          .newPost(user)
+          .flatMap(_.fold(rateLimited)(post => Redirect(editUrlOfPost(post))))
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        views.ublog.form.edit(post, env.ublog.form.edit(post))
+        editView(post, env.ublog.form(post))
       .map(_.hasPersonalData)
   }
 
-  def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
+  def postEditForm(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       Found(env.ublog.api.findEditableByMe(id)): prev =>
-        bindForm(env.ublog.form.edit(prev))(
-          err => BadRequest.page(views.ublog.form.edit(prev, err)),
+        bindForm(env.ublog.form(prev))(
+          err => BadRequest.page(editView(prev, err)),
           data =>
             env.ublog.api.update(data, prev).flatMap { post =>
               logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
@@ -166,6 +150,9 @@ final class Ublog(env: Env) extends LilaController(env):
         )
 
   }
+
+  private def editView(post: UblogPost, form: play.api.data.Form[UblogPostData])(using Context) =
+    views.ublog.form.edit(post, form, post.isEmpty.option(anyCaptcha))
 
   def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
@@ -243,36 +230,22 @@ final class Ublog(env: Env) extends LilaController(env):
       yield Redirect(routes.Ublog.modShowCarousel)
   }
 
-  def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
+  def modPost(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      ctx.body.body.validate(using ModPostData.reads) match
-        case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
-        case JsSuccess(data, _) =>
+      bindForm(lila.ublog.UblogForm.modForm)(
+        jsonFormError,
+        data =>
           for
-            mod <- env.ublog.api.modPost(post, data)
-            featured <- env.ublog.api.setFeatured(post, data)
+            modPost <- env.ublog.api.modPost(post, data)
+            featured <- env.ublog.api.setFeatured(modPost, data)
+            newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
+            next <- (newPost.modQuality.isDefined && post.isPendingQuality).so(env.ublog.api.nextToReview)
           yield
-            if data.hasUpdates then logModAction(post, data.diff(post))
-            Ok.snip(
-              views.ublog.post.modTools(
-                post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),
-                carousel.has(post.id)
-              )
-            )
-  }
-
-  def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(postId)): post =>
-      for
-        mod <- env.ublog.api.triggerAutomod(post.copy(automod = none, featured = none))
-        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
-        _ <- logModAction(post, "reassess")
-      yield Ok.snip(
-        views.ublog.post.modTools(
-          post.copy(automod = mod.orElse(post.automod), featured = none),
-          isInCarousel = false
-        )
+            if data.hasUpdates then logModAction(newPost, data.diff(post))
+            next match
+              case Some(n) => Redirect(routes.Ublog.post(n.created.by, n.slug, n.id)).flashSuccess
+              case None => Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
       )
   }
 
@@ -289,7 +262,7 @@ final class Ublog(env: Env) extends LilaController(env):
               .delete(post)
               .flatMap: newPost =>
                 logModAction(newPost, "delete image")
-        .inject(Redirect(urlOfPost(post)).flashSuccess)
+        .inject(Ok)
         .recover { case e: Exception =>
           BadRequest(e.getMessage)
         }
@@ -297,7 +270,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Ok.async:
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
@@ -317,7 +290,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def communityIndex(l: Option[Lang], filterOpt: Option[QualityFilter], page: Int)(using Context) =
     NotForKids:
-      Reasonable(page, Max(200)):
+      Reasonable(page, Max(30)):
         pageHit
         Ok.async:
           val language = l.map(toLanguage)
@@ -332,11 +305,13 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+          .as(ATOM)
+          .publicCache(10.minutes)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Ok.async:
           env.ublog.paginator.liveByLiked(page).map(views.ublog.ui.liked)
   }
@@ -348,7 +323,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open:
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Found(lila.ublog.UblogTopic.fromUrl(str)): top =>
           val filter = updateFilter(filterOpt)
           Ok.async:
@@ -363,7 +338,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def byMonth(year: Int, month: Int, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open: ctx ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Found(UblogByMonth.readYearMonth(year, month)): yearMonth =>
           val filter = updateFilter(filterOpt)
           Ok.async:
@@ -376,17 +351,21 @@ final class Ublog(env: Env) extends LilaController(env):
       for
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
-      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
+      yield Ok
+        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .as(ATOM)
+        .publicCache(10.minutes)
+        .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
+      MovedPermanently(routes.Ublog.post(UserName.lichess, post.slug, post.id))
 
   def search(text: String, by: BlogsBy, page: Int) = Open: ctx ?=>
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
+        ids <- env.ublog.search.fetchResults(queryText, by, lila.ublog.UblogPost.Quality.weak.some, page)
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)

@@ -1,15 +1,15 @@
 package lila.simul
 
-import akka.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import monocle.syntax.all.*
+import org.apache.pekko.actor.*
 import play.api.libs.json.Json
-import scalalib.paginator.Paginator
 import scalalib.Debouncer
+import scalalib.paginator.Paginator
 
-import lila.common.Json.given
 import lila.common.Bus
+import lila.common.Json.given
 import lila.core.perf.UserWithPerfs
 import lila.core.socket.SendToFlag
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
@@ -124,11 +124,11 @@ final class SimulApi(
                         publish()
 
   def removeApplicant(simulId: SimulId, user: User): Funit =
-    UpdateCreatedSimul(simulId) { _.removeApplicant(user.id) }
+    UpdateCreatedSimul(simulId)(_.removeApplicant(user.id))
 
   def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
     userApi.byId(userId).flatMapz { user =>
-      UpdateCreatedSimul(simulId) { _.accept(user.id, v) }
+      UpdateCreatedSimul(simulId)(_.accept(user.id, v))
     }
 
   def start(simulId: SimulId): Funit =
@@ -163,11 +163,6 @@ final class SimulApi(
           socket.aborted(simul.id)
           publish()
       }
-
-  def setText(simulId: SimulId, text: String): Funit =
-    repo.find(simulId).flatMapz { simul =>
-      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
-    }
 
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:
@@ -219,10 +214,10 @@ final class SimulApi(
       yield ()
 
   def idToName(id: SimulId): Fu[Option[String]] =
-    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
+    repo.coll.primitiveOne[String](bid(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
-    repo.coll.primitiveOne[TeamId]($id(id), "team")
+    repo.coll.primitiveOne[TeamId](bid(id), "team")
 
   def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
     Paginator(

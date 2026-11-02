@@ -1,16 +1,16 @@
 package lila.ublog
 
-import scala.util.Success
 import play.api.i18n.Lang
 import reactivemongo.api.bson.*
+
+import scala.util.Success
 
 import lila.db.dsl.{ *, given }
 
 private object UblogBsonHandlers:
 
-  import UblogPost.{ LightPost, PreviewPost, Recorded, Featured }
+  import UblogPost.{ LightPost, PreviewPost, Recorded, Featured, Quality }
   import UblogAutomod.Assessment
-  import lila.core.ublog.Quality
 
   given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
@@ -31,10 +31,10 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogAutomod.Assessment] = Macros.handler
 
-  val postProjection = $doc("likers" -> false)
-  val lightPostProjection = $doc("title" -> true)
+  val postProjection = bdoc("likers" -> false)
+  val lightPostProjection = bdoc("title" -> true)
   val previewPostProjection =
-    $doc(
+    bdoc(
       "blog" -> true,
       "title" -> true,
       "intro" -> true,
@@ -43,7 +43,16 @@ private object UblogBsonHandlers:
       "lived" -> true,
       "featured" -> true,
       "topics" -> true,
-      "sticky" -> true
+      "sticky" -> true,
+      "language" -> true
     )
 
-  val userLiveSort = $doc("sticky" -> -1, "lived.at" -> -1)
+  val userLiveSort = bdoc("sticky" -> -1, "lived.at" -> -1)
+
+  def pendingReviewSelect = bdoc(
+    "automod.quality" -> Quality.good,
+    "quality" -> Quality.weak,
+    "modQuality".exists(false),
+    "live" -> true,
+    "lived.at".gt(nowInstant.minusMonths(1))
+  )

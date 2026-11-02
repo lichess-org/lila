@@ -44,7 +44,7 @@ case class AiConfig(
           )
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap(Pov(_, creatorColor))
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
@@ -106,7 +106,7 @@ object AiConfig extends BaseConfig:
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =
-      $doc(
+      bdoc(
         "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
         "t" -> o.time,

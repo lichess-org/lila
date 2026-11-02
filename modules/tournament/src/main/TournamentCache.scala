@@ -24,6 +24,7 @@ final class TournamentCache(
     def created(id: TourId) = byId(id).dmap(_.filter(_.isCreated))
     def started(id: TourId) = byId(id).dmap(_.filter(_.isStarted))
     def enterable(id: TourId) = byId(id).dmap(_.filter(_.isEnterable))
+    def finished(id: TourId) = byId(id).dmap(_.filter(_.isFinished))
 
   val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](
     name = "tournament.name",

@@ -1,15 +1,14 @@
 package lila.gathering
 
+import chess.IntRating
 import play.api.data.Forms.*
 import play.api.data.Mapping
 import scalalib.model.Days
-import chess.IntRating
 
 import lila.common.Form.{ *, given }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam
 import lila.gathering.Condition.*
-import lila.core.i18n.I18nKey as trans
-import lila.core.i18n.Translate
 
 object ConditionForm:
 
@@ -46,8 +45,8 @@ object ConditionForm:
   val minRating = optional:
     mapping("rating" -> numberIn(minRatings).into[IntRating])(MinRating.apply)(_.rating.some)
 
-  val titled: Mapping[Option[Titled.type]] =
-    optional(boolean).transform(_.contains(true).option(Titled), _.isDefined.option(true))
+  val titled: Mapping[Option[Titled]] =
+    optional(boolean).transform(_.contains(true).option(Titled()), _.isDefined.option(true))
 
   val bots: Mapping[Option[Bots]] =
     optional(boolean).transform(_.contains(true).option(Bots(true)), _.exists(_.allowed).option(true))

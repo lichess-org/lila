@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Uzi rulumilon sur la tabelo por ripeti movojn</string>
   <string name="correspondenceEmailNotification">Tage retpoŝta sciigo listante viajn korespondajn partiojn</string>
   <string name="notifyStreamStart">Filmprezentisto iĝas vive</string>
-  <string name="notifyInboxMsg">Nova enirkesto mesaĝo</string>
-  <string name="notifyForumMention">Foruma komento mencias vin</string>
-  <string name="notifyInvitedStudy">Studa invito</string>
   <string name="notifyGameEvent">Koresponde ludaj novaĵoj</string>
   <string name="notifyChallenge">Defioj</string>
-  <string name="notifyTournamentSoon">Turniro baldaŭ komencos</string>
   <string name="notifyTimeAlarm">Koresponda horloĝo baldaŭ finiĝas</string>
   <string name="notifyBell">Sonorilaj sciigoj en Lichess mem</string>
   <string name="notifyPush">Aparta sciigo kiam vi ne ĉe Licess</string>

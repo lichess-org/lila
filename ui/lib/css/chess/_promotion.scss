@@ -1,7 +1,7 @@
 #promotion-choice {
   @include inline-end(0);
 
-  background: $m-bg--fade-30;
+  background: rgb(from $c-bg r g b / calc(alpha * 0.7));
   z-index: $z-cg__promotion-205;
   position: absolute;
   width: var(---cg-width, 100%);

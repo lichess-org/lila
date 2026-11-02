@@ -1,18 +1,19 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
-import play.api.libs.json.*
-import scalalib.Debouncer
-import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
+import chess.{ ByColor, Color, FideId, FideTC, IntRating, Outcome, PlayerName }
+import play.api.libs.json.*
+import scalalib.Debouncer
 
+import scala.collection.immutable.SeqMap
+
+import lila.common.Json.given
+import lila.core.fide.{ Federation, PhotosJson, Player as FidePlayer }
+import lila.memo.CacheApi
+import lila.relay.RelayGroup.ScoreGroup
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
-import lila.memo.CacheApi
-import lila.core.fide.{ PhotosJson, Federation, Player as FidePlayer }
-import lila.common.Json.given
-import lila.relay.RelayGroup.ScoreGroup
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -180,7 +181,7 @@ private final class RelayPlayerApi(
     _.expireAfterWrite(1.minute).buildAsyncFuture: sg =>
       import RelayPlayer.json.given
       for players <- cache.get(sg)
-      yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
+      yield JsonStr(Json.toJson(players.values.toList))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(cache.get)
@@ -188,8 +189,8 @@ private final class RelayPlayerApi(
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(jsonCache.get)
 
-  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
-    _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](256, "relay.players.photos.json"):
+    _.expireAfterWrite(20.seconds).buildAsyncFuture: tourId =>
       for
         sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
@@ -252,7 +253,7 @@ private final class RelayPlayerApi(
       rounds <-
         if RelayGroup.sgIsParallel(tours)
         then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-        else tourIds.flatTraverse(roundRepo.byTourOrdered)
+        else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct

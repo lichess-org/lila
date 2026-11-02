@@ -84,7 +84,7 @@ $c-bg-position-y: 2px;
     padding-right: 0.8ch;
     padding-top: 0.2em;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0 / 0.5);
     transition: color ease-out 0.5s;
 
     .racer__race__track--boost & {
@@ -188,16 +188,16 @@ $c-bg-position-y: 2px;
 }
 
 $car-colors: (
-  0: hsl(274, 100%, 59%),
-  1: hsl(240, 100%, 67%),
+  0: hsl(274 100% 59%),
+  1: hsl(240 100% 67%),
   2: #008000,
   3: #b22222,
-  4: hsl(16, 80%, 62%),
+  4: hsl(16 80% 62%),
   5: #9acd32,
   6: #ff4500,
   7: #2e8b57,
   8: #daa520,
-  9: hsl(32, 75%, 47%),
+  9: hsl(32 75% 47%),
 );
 
 @each $index, $color in $car-colors {

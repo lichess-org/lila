@@ -1,8 +1,8 @@
 package lila.analyse
 
-import chess.{ ByColor, Color }
-import chess.eval.WinPercent
 import chess.eval.Eval.Cp
+import chess.eval.WinPercent
+import chess.{ ByColor, Color, Division, Ply }
 import scalalib.Maths
 import scalalib.model.Percent
 
@@ -54,32 +54,32 @@ for x in xs:
       }.atMost(100).atLeast(0)
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
-    val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals =
       if pov.color == pov.startColor
-      then lila.tree.evals.initial :: subjectiveEvals
-      else subjectiveEvals
+      then evals
+      else evals.drop(1)
     alignedEvals
+      .map(_.pov(pov.color))
       .grouped(2)
       .collect:
         case List(e1, e2) =>
           for
-            before <- e1.score.map(WinPercent.fromScore)
-            after <- e2.score.map(WinPercent.fromScore)
+            before <- e1.map(WinPercent.fromScore)
+            after <- e2.map(WinPercent.fromScore)
           yield AccuracyPercent.fromWinPercents(before, after)
       .flatten
       .toList
 
   def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
-    fromEvalsAndPov(pov, analysis.infos.map(_.eval))
+    fromEvalsAndPov(pov, analysis.infosWithInitial.map(_.eval))
 
   def gameAccuracy(startColor: Color, analysis: Analysis): Option[ByColor[AccuracyPercent]] =
-    gameAccuracy(startColor, analysis.infos.map(_.eval.forceAsCp))
+    gameAccuracy(startColor, analysis.infosWithInitial.map(_.eval.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
   def gameAccuracy(startColor: Color, cps: List[Option[Cp]]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents = (Some(Cp.initial) :: cps).map(_.map(WinPercent.fromCentiPawns))
-    val windowSize = (cps.size / 10).squeeze(2, 8)
+    val allWinPercents = cps.map(_.map(WinPercent.fromCentiPawns))
+    val windowSize = ((cps.size - 1) / 10).squeeze(2, 8)
 
     val windows = List.fill(windowSize.atMost(allWinPercents.size) - 2)(allWinPercents.take(windowSize))
       ::: allWinPercents.sliding(windowSize).toList
@@ -111,3 +111,19 @@ for x in xs:
     yield AccuracyPercent((weighted + harmonic) / 2)
 
     ByColor(colorAccuracy)
+
+  // Accuracy of each color within each game phase, reusing gameAccuracy on the phase's moves.
+  def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[GamePhase, AccuracyPercent]] =
+    div.middle.so: middlePly =>
+      def phaseOf(ply: Ply): GamePhase =
+        if ply < middlePly then "opening" else if div.end.exists(_ <= ply) then "endgame" else "middlegame"
+
+      val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] = for
+        phase <- phaseNames
+        slice = analysis.infosWithInitial.filter(i => phaseOf(i.ply) == phase || phaseOf(i.ply + 1) == phase)
+        accuracy <- slice.headOption.so: before =>
+          gameAccuracy(before.ply.turn, slice.map(_.eval.forceAsCp))
+      yield phase -> accuracy
+
+      ByColor[Map[GamePhase, AccuracyPercent]]: color =>
+        byPhase.map((phase, acc) => phase -> acc(color)).toMap

@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">ચાલને ફરીથી ચલાવવા માટે બોર્ડ પર સ્ક્રોલ કરો</string>
   <string name="correspondenceEmailNotification">તમારી પત્રવ્યવહારની રમતોની સૂચિબદ્ધ દૈનિક મેઇલ સૂચના</string>
   <string name="notifyStreamStart">સ્ટ્રીમર લાઇવ થાય છે</string>
-  <string name="notifyInboxMsg">નવો ઇનબોક્સ સંદેશ</string>
-  <string name="notifyForumMention">ફોરમની ટિપ્પણીમાં તમારો ઉલ્લેખ છે</string>
-  <string name="notifyInvitedStudy">સ્ટડી આમંત્રણ</string>
   <string name="notifyGameEvent">પત્રવ્યવહારની રમતનાં અપડેટ્સ</string>
   <string name="notifyChallenge">પડકારો</string>
-  <string name="notifyTournamentSoon">ટુર્નામેન્ટ ટૂંક સમયમાં શરૂ થઈ રહી છે</string>
   <string name="notifyTimeAlarm">પત્રવ્યવહારની ઘડિયાળનો સમય પૂરો થઈ રહ્યો છે</string>
   <string name="notifyBell">Lichess ની અંદર ઘંટડીની સૂચના</string>
   <string name="notifyPush">જ્યારે તમે Lichess પર ન હોવ ત્યારે ડિવાઇસની સૂચના</string>

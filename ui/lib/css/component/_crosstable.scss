@@ -1,15 +1,16 @@
 @include crosstable-small;
 
 .crosstable {
-  @extend %box-neat-force;
+  @extend %box-bordered;
 
   width: 100%;
   line-height: 1.9em;
   display: flex;
+  overflow: hidden;
 
   fill,
   povs {
-    background: $c-bg-box;
+    background: $c-bg-zebra;
     flex: 1 1 auto;
   }
 
@@ -50,7 +51,7 @@
   &__matchup {
     flex: 1 1 auto;
     font-weight: bold;
-    background: $m-primary_bg--mix-20;
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
   }
 
   povs {
@@ -72,7 +73,7 @@
     }
 
     &.current a {
-      background: $m-accent_bg--mix-70;
+      background: color-mix(in oklab, $c-accent 70%, $c-bg);
       color: #fff;
       opacity: 1 !important;
     }

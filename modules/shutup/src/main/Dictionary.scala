@@ -7,10 +7,10 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(burn|die|rot) in hell
-(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
-go to hell
-(kill|hang|ne[ck]+|unalive) my ?self
+(burn|d[i\|\\]e|rot) [i\|\\]n hel+
+(f++|ph)(u++|e++|a++)c?k(er|r|y?o?u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
+go to hel+
+(k[il]+|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -20,40 +20,41 @@ anal(plug|se[ckx]+|)
 anus
 ape
 arse(hole|wipe|)
-ass
+ass+
 as+(hole|fag)
 autist(ic|)
-au[cs]+hwitz
+au[cs]+hw[i\|\\]tz
 bastard?
 be[ea]++t?ch
-b(iy?t?|t)ch
+b([i\|\\]y?t?|t)ch
 blow(job|)
 blumpkin
 bol+o[ck]+
 bomb (yo)?ur?(self)?
 boner
-boob
+boo+b
 bozo
 brain(dea?d|les+)
-bugg+er
+buffoon
+bug+er
 bu[ck]+ake
-bull?shit
+bul+sh[i\|\\]t
 cancer
 che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
-chi[ck]+en
-chink
-chitter
-clit(oris|)
+ch[i\|\\][ck]+en
+ch[i\|\\]nk
+ch[i\|\\]t+(ing|e[dr])
+cl[i\|\\]t(oris|)
 clown
 co[ck]+(su[ck]+(er|ing)|)
 condom
-coon
+coo+n
 coward?
-crip+le
+cr[i\|\\]p+le
 cry(baby|ing|)
 cu[ck]+(old|)
-cun+ilingu
+cun+(ilingu|t)
 di[ck]+(head|face|su[ck]+er|)
 dildo
 dog+ystyle
@@ -62,13 +63,13 @@ douche(bag|)
 downsie?
 dumb(as+|)
 dyke
-engine
-foreskin
-fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|)
+eng[i\|\\]ne
+foresk[i\|\\]n
+fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|y?o?u|)
 gangbang(e?d|)
 gay
 go (and )?bomb
-gobshite?
+gobsh[i\|\\]te?
 gook
 gypo
 gypsy
@@ -83,7 +84,7 @@ humping
 incest
 jerk
 jiz+(um|)
-kill (you|u)
+k[il]+ (you|u)
 labia
 lamer?
 lesbo
@@ -91,7 +92,7 @@ lo++ser++
 mag+ot
 masturbat(e?[dr]+|ion|ing|)
 mf\b
-milf
+m[i\|\\]lf
 molest(e?[dr]+|ing|)
 mong
 monkey
@@ -99,8 +100,10 @@ mor+on+
 mother(fu[ck]+(er|)|)
 mthrf[ck]+r
 murder (you|u)
-na+zi+
-[nv]i+g+[ae]+[hr]?
+na+z[i\|\\]+
+(ne|)gro[i\|\\]*d
+n[ei]?gro?
+[nv][i\|\\]*g+[ae]+[hr]?
 nonce
 noo++b
 nutsa[ck]+
@@ -110,24 +113,24 @@ paki
 pathetic
 pa?ederast
 pe*nis?
-pig
+p[i\|\\]g
 pimp
-piss
-poo+f
+pis+
+poo+f(ter|)
 poo+n
 poo++p(face|)
 po?rn(hub|)
 pos\b
-pri[ck]+
-prostitute
+pr[i\|\\][ck]+
+prost[i\|\\]tute
 punani
-pus+(i|y|ie|)
+pu?s+([i\|\\]|y|[i\|\\]e|)
 que+r
-rapist
+rap[i\|\\]st
 rat\b
 rect(al|um)
 retard(ed|)
-rimjob
+r[i\|\\]mjob
 run
 sandbag+(e[dr]+|ing|)
 scared?
@@ -139,7 +142,7 @@ semen
 se([ck]+s|x)
 shagg?(e?d|)
 she?male
-shi?t(z|e|y|ty|bag|)
+sh[i\|\\]?t(z|e|y|ty|bag|)
 sis+y
 s[ck]ank
 slag
@@ -148,18 +151,18 @@ slut
 spastic
 spaz
 sperm
-spi[ck]+
+sp[i\|\\][ck]+
 spooge
 spunk
 smurf+(e?[dr]+|ing|)
 stfu
 stupid
 subhuman
-suicided?
+su[i\|\\]c[i\|\\]ded?
 su[ck]+er
 su[ck]+(e?d|) m[ey]
 sybau
-ter+orist
+ter+or[i\|\\]st
 tit+(ies|y|)(fu[ck]+(er|)|)
 tos+er
 tran+(y|ie)
@@ -168,7 +171,7 @@ turd
 twat
 unalive (you|u)
 vag
-vagin(a|al|)
+vag[i\|\\]?n(a|al|)
 vibrator
 vulva
 w?hore
@@ -183,12 +186,12 @@ wog
 suka
 blyat
 gandon
-p[ie]d[aoe]?r
+p[ie]d[aoe]?r(|ac|as)
 uebok
 (|на|по)ху(й|и|ю|е|ё|ям?и?|йням?и?|йнёй|йней|йло|йла|йлу|йцам?и?|йцу|йцо|иням?и?|инёй|иней|ило|ила|илу)
 (|от)муд[оа](хать|хал|хала|хали|ки?|кам?и?|ков|звону?)
 (|от|по)cос(и|ать|ала?|ни|нуть?|нешь?|нёшь?)
-(|от|с|про|за|на)пизд(|а|ы|е|у|еть|ел|ела|ели|ить|ил|ила|или|ошить?|ошил|ошила|ошили|охать|охал|охала|охали|юлить?|юлил|юлила|юлили|ярить?|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить?|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецу|еца|ецкий|абол|атый|атая|атое|ос|он)
+(|от|с|про|за|на)пизд(|а|ы|е|у|еть|ел|ела|ели|ить|ил|ила|или|ошить?|ошил|ошила|ошили|охать|охал|охала|охали|юк|юлить?|юлил|юлила|юлили|ярить?|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить?|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецу|еца|ецкий|абол|атый|атая|атое|ос|он)
 (|отъ?|вы|до|за|у|про|на|съ?)(е|ё)ба(|л|ла|ли|ло|лся|льник|ть|на?|нн?о|нул|нула|нулся|нн?ый?|нько|н[её]тесь|н[её]шь?ся)
 (|отъ?|вы|до|за|у|про)(е|ё)б(аш)?(у|и|ите|ете|ёте|ёшся|ешся|етесь|ётесь|ить|еть)
 (вы|до|за|у|про)(е|ё)бывае?(ть?ся|тесь|те|л|ла)
@@ -219,6 +222,7 @@ uebok
 муд(ень|[ао]звон)(|ам?и?|у|ов|е|ы)
 [оа]хуе(|л|ла|ли|ло|ть|ет|ешь?|нн?о|нн?а|нен|вать|вш[иы]й|вшая|вшое)
 п[ие]д(о|а|е|)р(ас(тр?|)|)(а|у|ами?|оми?|е|ы|ов|ах|)
+п[ие]др(|ил)(ах?|ами?|ы|у|е|ой|ай|ом|ов|ав)
 пидрил(|ам?и?|е|у|ы)
 поебен[ьие]
 (при|полу)дур(ок|кам?и?|ков|ки)
@@ -254,20 +258,21 @@ uebok
 """)
 
   def es = dict("""
+basura
 bolud[oa]
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)
-chupa ?pija
+chupa ?(pija|pol+a|verga)
 chupame
 cobarde
 est[úu]pid[ao]
-gilipollas
-hdp
+gilipol+as
+hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
 idiota
-imbecil
+imb[eé]cil
 madre
 malparid[ao]
 maric[oó]na?
@@ -277,9 +282,9 @@ mierda
 moduler[ao]
 payas[ao]
 pendejo
-po(ll|y)a
-put[ao]
-putica
+po(l+|y)a
+put(ic|it|)[ao]
+suic[ií]date
 trampa
 trampos[ao]
 tu eres put\w*
@@ -296,6 +301,7 @@ cretino
 di merda
 figa
 frocio
+imbecill[ei]
 li mortacci tua
 putt?ana
 stronzo
@@ -309,20 +315,22 @@ sparati
 bh?o?sdi?ke?
 chut(iy[ae]|)
 gaa?ndu?
+laude ka?rle
 """)
 
   def fr = dict("""
 batard
-connard
+blaireau
+bouffon(ne)?
+con+ard?
 cr[eé]tin
 encul[eé]r?
-fdp
+f[2d]p
 pd
 pute
 p[eé]d[eé]raste
 salope
 triche(ur|)
-conn?ard?
 """)
 
   def de = dict("""
@@ -330,6 +338,7 @@ angsthase
 arschloch
 bl(ö|oe|o)dmann?
 drecksa(u|ck)
+feigling
 fick(|er)
 fotze
 hurensohn
@@ -344,6 +353,11 @@ untermensch
 wi(chs|x++)er
 """)
 
+  def pt = dict("""
+lixo
+smt
+""")
+
   def tr = dict("""
 am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 amc[iı]k
@@ -356,6 +370,8 @@ bok yedin
 ezik
 gerizekal[iı]
 göt
+g[oö]t([uü](n[uü]|ne|nden)?|den|lek|e)
+gey(ler|sin|dir)?
 ibne
 ka[sş]ar
 oç+
@@ -369,24 +385,29 @@ yar+a[gğ][iı] yediniz
 yar+ak kafa(l[iı]|s[iı])
 """)
 
+  def arLatn = dict("""
+k[eiou]+s+ ?[eiou](m+[aei]?k|khtak)
+(sh|s?ch)arm(o++u*+|u++)(t++|6)a*+
+khara
+""")
+
   def critical = dict("""
 (die|burn)s? irl
-(f|ph)a++g+([oi]t|)
+(f|ph)a++g+([oi]+t|t|)
 (gets?|from|of|by|on|wish|(yo)?u) cancer
-(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
-(ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
-(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther(fucker)?)
+(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|sui?ci?de?)
+(ho?pe|wish)(es|s)? ((yo?)?[uy](r (fami?l[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die?|burn)
+(k[il]+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
-gas the
-g?kys
+gas+ the
+g?kys+
 gets? (bombed|shot)
-k y s
-ky5
+(k+ ?y+ ?s+)+
 (l|1|ı|\|)<ys
-n[1i]g+er
+n[i\|\\]g+e?r
 rap(ed?|e?ing)
-rope
-subhuman
+rope\b
+su?bhu?ma?n
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

@@ -7,7 +7,7 @@
   <string name="kingsideCastle">킹사이드 캐슬</string>
   <string name="queensideCastle">퀸사이드 캐슬</string>
   <string name="promoteC8ToQueen">c8칸을 퀸으로 승급하기</string>
-  <string name="dropARookAtB4">룩을 b4칸에 낙하하기 (크레이지하우스에서만 가능)</string>
+  <string name="dropARookAtB4">룩을 b4칸에 배치하기 (크레이지하우스에서만 가능)</string>
   <string name="offerOrAcceptDraw">무승부를 제안 혹은 승낙하기</string>
   <string name="readOutClocks">남은 시간 소리내어 읽기</string>
   <string name="readOutOpponentName">상대의 이름 읽기</string>

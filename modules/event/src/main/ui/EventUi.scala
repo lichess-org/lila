@@ -50,7 +50,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
     e.icon match
       case None => iconTag(Icon.Mic)(cls := "img")
       case Some(c) if c == EventForm.icon.broadcast => iconTag(Icon.RadioTower)(cls := "img")
-      case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
+      case Some(c) => img(cls := "img", src := assetPath(s"images/$c"))
 
   def show(e: Event, description: Option[Html])(using Context) =
     Page(e.title)

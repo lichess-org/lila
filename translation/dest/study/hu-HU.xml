@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Lépések megjelölése</string>
   <string name="theChapterIsTooShortToBeAnalysed">A fejezet túl rövid számítógépes elemzéshez.</string>
   <string name="onlyContributorsCanRequestAnalysis">Csak a tanulmány szerkesztői kérhetnek számítógépes elemzést.</string>
-  <string name="getAFullComputerAnalysis">Teljes szerveroldali számítógépes elemzés kérése a főváltozatról.</string>
   <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Minden szinkronizált tag ugyanazt az állást látja</string>
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>
@@ -65,7 +64,6 @@
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
   <string name="currentChapterUrl">URL erre a fejezetre</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Ezzel a linkkel beágyazhatod a fejezetet a Lichess blogodban vagy a fórumon</string>
   <string name="startAtInitialPosition">Kezdés a kiinduló állásból</string>
   <string name="startAtX">Kezdés innen: %s</string>
   <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
@@ -123,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
   <string name="pinnedStudyComment">Rögzített megjegyzés a tanulmányhoz</string>
   <string name="start">Mehet</string>
-  <string name="save">Mentés</string>
   <string name="clearChat">Chat törlése</string>
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeket a tanulmányból? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>
@@ -188,8 +185,6 @@ Használd játszmák elemzésére és jegyzetek készítésére,&lt;br&gt;beszé
   <string name="fromInitialPositionText">Csak egy táblaelrendezés egy új játékhoz.&lt;br&gt;Ideális megnyitások tanulmányozásához.</string>
   <string name="customPositionTitle">Saját állás</string>
   <string name="customPositionText">Állítsd be a táblát neked megfelelően!&lt;br&gt;Ideális mattvégjátékok felfedezéséhez.</string>
-  <string name="loadExistingLichessGameTitle">Tölts be egy létező Lichess játszmát</string>
-  <string name="loadExistingLichessGameText">Illessz be egy Lichess parti URL-jét&lt;br&gt;(például lichess.org/7fHIU0XI)&lt;br&gt;A lépések betöltődnek a fejezetbe.</string>
   <string name="fromFenStringTitle">Egy FEN karakterláncból</string>
   <string name="fromFenStringText">Illessz be egy állást FET formátumban&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;,hogy egy állásból kezdd a fejezetet.</string>
   <string name="fromPgnGameTitle">Egy PGN játszmából</string>

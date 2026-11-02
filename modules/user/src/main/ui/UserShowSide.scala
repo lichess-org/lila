@@ -1,12 +1,12 @@
 package lila.user
 package ui
 
+import scalalib.model.Days
+
 import lila.core.perf.{ PuzPerf, UserWithPerfs }
 import lila.rating.UserWithPerfs.hasVariantRating
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
-import scalalib.model.Days
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UserShowSide(helpers: Helpers):
   import helpers.{ *, given }

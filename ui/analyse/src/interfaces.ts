@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 
-import type { ExternalEngineInfo } from 'lib/ceval';
+import type { ExternalEngineInfoFromServer } from 'lib/ceval';
 import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
 import type { Player, Status, Source, Clock } from 'lib/game';
 import type { Coords, MoveEvent } from 'lib/prefs';
@@ -47,7 +47,7 @@ export interface AnalyseData {
   spectator?: boolean; // for compat with GameData, for game functions
   takebackable: boolean;
   moretimeable: boolean;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
@@ -59,7 +59,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface AnalysePref {
@@ -75,15 +75,16 @@ export interface AnalysePref {
   moveEvent: MoveEvent;
 }
 
-export interface ServerEvalData {
+export interface AnalysisUpdate {
   ch: string;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   tree: TreeNodeLite;
   division?: Division;
 }
 
 export interface EvalHit {
   fen: FEN;
+  engineId?: string;
   knodes: number;
   depth: number;
   pvs: PvDataServer[];
@@ -115,7 +116,7 @@ export interface Game {
   importedBy?: string;
   division?: Division;
   opening?: Opening;
-  perf: string;
+  perf: Perf;
   rated?: boolean;
   threefold?: boolean;
 }
@@ -131,19 +132,30 @@ export interface Division {
   end?: number;
 }
 
-export interface Analysis {
+export interface AnalysisMeta {
   id: string;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  white: AnalysisMetaSide;
+  black: AnalysisMetaSide;
   partial?: boolean;
+  engine?: AnalysisEngineInfo;
 }
 
-export interface AnalysisSide {
+export interface AnalysisEngineInfo {
+  nodesPerMove: number;
+  id: string;
+  userId: string;
+  engineVersion: string;
+}
+
+export type GamePhase = 'opening' | 'middlegame' | 'endgame';
+
+export interface AnalysisMetaSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;
   blunder: number;
   accuracy: number;
+  phases?: Partial<Record<GamePhase, number>>;
 }
 
 export interface AnalyseOpts {
@@ -186,6 +198,7 @@ export interface EvalGetData {
 
 export interface EvalPutData extends ServerEval {
   variant?: VariantKey;
+  engineId: string;
 }
 
 export type Conceal = false | 'conceal' | 'hide' | null;

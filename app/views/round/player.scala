@@ -30,7 +30,6 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resource = lila.core.chat.PublicSource.Player(pov.gameId),
-          voiceChat = ctx.canVoiceChat,
           opponentId = pov.opponent.userId
         )
       case Right((c, res)) =>

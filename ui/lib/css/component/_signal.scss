@@ -6,34 +6,34 @@ signal {
   white-space: nowrap;
 }
 
-signal > icon {
+signal > i {
   width: 20%;
   margin-inline-start: 1px;
   display: inline-block;
   height: 40%;
-  background-color: $m-secondary_dimmer--mix-82;
+  background-color: color-mix(in oklab, $c-secondary 82%, $c-dimmer);
 }
 
-signal > icon:nth-child(2) {
+signal > i:nth-child(2) {
   height: 60%;
 }
 
-signal > icon:nth-child(3) {
+signal > i:nth-child(3) {
   height: 80%;
 }
 
-signal > icon:nth-child(4) {
+signal > i:nth-child(4) {
   height: 100%;
 }
 
-signal.q1 > icon {
+signal.q1 > i {
   background-color: $c-bad;
 }
 
-signal.q2 > icon {
+signal.q2 > i {
   background-color: $c-warn;
 }
 
-signal > icon.off {
+signal > i.off {
   background-color: $c-shade;
 }

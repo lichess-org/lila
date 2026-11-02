@@ -3,15 +3,15 @@ import { licon } from 'lib/licon';
 import { bind, dataIcon, hl, type LooseVNode, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
+import explorerView from '@/explorer/explorerView';
+import { view as forkView } from '@/fork';
 import type { ConcealOf } from '@/interfaces';
+import practiceView from '@/practice/practiceView';
+import retroView from '@/retrospect/retroView';
 import { renderNextChapter } from '@/study/nextChapter';
 import type * as studyDeps from '@/study/studyDeps';
 import { addChapterId, renderResult, type ViewContext } from '@/view/components';
 
-import explorerView from '../explorer/explorerView';
-import { view as forkView } from '../fork';
-import practiceView from '../practice/practiceView';
-import retroView from '../retrospect/retroView';
 import { view as actionMenu } from './actionMenu';
 
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {

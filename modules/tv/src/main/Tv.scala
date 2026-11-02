@@ -1,7 +1,6 @@
 package lila.tv
 
-import chess.PlayerTitle
-import chess.IntRating
+import chess.{ IntRating, PlayerTitle }
 import scalalib.actor.SyncActor
 
 import lila.core.LightUser
@@ -80,7 +79,7 @@ object Tv:
       val variant: Option[V.Variant] = None
   ):
     def isFresh(g: Game): Boolean = fresh(secondsSinceLastMove, g)
-    def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
+    def filter(c: Candidate): Boolean = filters.forall(_(c)) && isFresh(c.game)
     val key = lila.common.String.lcfirst(toString)
     case Best
         extends Channel(

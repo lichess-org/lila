@@ -11,7 +11,7 @@ trait TeamHelper:
   protected def syncBelongsTo: (TeamId, UserId) => Boolean
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
-    ctx.userId.exists { syncBelongsTo(teamId, _) }
+    ctx.userId.exists(syncBelongsTo(teamId, _))
 
   def teamIdToLight(id: TeamId): LightTeam =
     lightTeamSync(id).getOrElse(LightTeam(id, id.value, none))

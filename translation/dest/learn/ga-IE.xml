@@ -103,7 +103,7 @@ le píosa ag iasacht a tógáil.</string>
 trí do chosaint!</string>
   <string name="escapeOrBlock">Éalaigh leis an rí
 nó an iasacht a blocáil!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
+  <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i mbeart amháin</string>
   <string name="defeatTheOpponentsKing">Cloígh rí an chéile comhraic</string>
   <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
@@ -131,6 +131,7 @@ Díreach in aice lena bhanríon.</string>
 Déan aon bheart le leanúint.</string>
   <string name="boardSetupComplete">Comhghairdeas! Tá a fhios agat anois leagan amach clár fichille.</string>
   <string name="castling">Caisliú</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
   <string name="castlingIntro">Cuir do rí chuig sábháilteachta, agus scaoil do caiseal le haghaidh ionsaí!</string>
   <string name="castleKingSide">Bog do rí dhá chearnóg

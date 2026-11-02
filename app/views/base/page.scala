@@ -4,8 +4,8 @@ import scalalib.StringUtils.escapeHtmlRaw
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.ui.{ RenderedPage, PageFlags }
 import lila.mon.extensions.*
+import lila.ui.{ PageFlags, RenderedPage }
 
 object page:
 
@@ -24,9 +24,9 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    imagePreload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}")),
+    imagePreload(assetPath(s"images/board/${ctx.pref.currentTheme.file}")),
     ctx.pref.is3d.option:
-      imagePreload(assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
+      imagePreload(assetPath(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
   )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
@@ -35,6 +35,10 @@ object page:
       s"---board-contrast:${ctx.pref.board.contrast};" +
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
+
+  def htmlStyle(using ctx: Context) =
+    s"---ui-roundness:${ctx.pref.uiRoundness}px;" +
+      s"---bg-opacity:${ctx.pref.bgOpacity};"
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
@@ -45,11 +49,13 @@ object page:
       anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
+    val preventIndexing =
+      p.flags(PageFlags.noRobots) || !netConfig.crawlable || lila.i18n.LangPicker.pageOverride.check(ctx.req)
     val pageFrag = frag(
       doctype,
       htmlTag(
-        (ctx.impersonatedBy.isEmpty && !ctx.blind)
-          .option(cls := ctx.pref.themeColorClass),
+        (ctx.impersonatedBy.isEmpty && !ctx.blind).option(cls := ctx.pref.currentThemeHtmlClass),
+        style := htmlStyle,
         topComment,
         head(
           charset,
@@ -72,18 +78,21 @@ object page:
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
+          link(rel := "mask-icon", href := staticAssetPath("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
+          preventIndexing.option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
-          p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { loc =>
-            val url =
-              if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
-              else escapeHtmlRaw(loc).replace("&amp;", "&")
-            raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
-          },
+          atomLinkTag.tupled(p.atomLink | dailyNewsAtom),
+          pref.isTransparentBg
+            .option(pref.bgImgUrl)
+            .map: loc =>
+              val url =
+                if loc.startsWith("/assets/") then assetPath(loc.drop(8))
+                else escapeHtmlRaw(loc).replace("&amp;", "&")
+              raw:
+                s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
+          ,
           fontsPreload,
           boardPreload,
           manifests,
@@ -91,14 +100,13 @@ object page:
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
           lichessFontFaceCss,
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
-          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
-            .so(systemThemeScript(ctx.nonce))
+          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP || ctx.impersonatedBy.isDefined)
+            .so(systemThemeScript(ctx.nonce, ctx.pref.isTransparentBg))
         ).pipe(p.transformHead),
         st.body(
-          cls := {
-            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
+          cls :=
             List(
-              baseClass -> true,
+              s"coords-${pref.coordsClass}" -> true,
               "simple-board" -> pref.simpleBoard,
               "piece-letter" -> pref.pieceNotationIsLetter,
               "blind-mode" -> ctx.blind,
@@ -110,8 +118,7 @@ object page:
               "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)
-            )
-          },
+            ),
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser := ctx.userId,
@@ -122,7 +129,7 @@ object page:
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce := ctx.nonce,
-          dataTheme := pref.currentBg,
+          dataTheme := pref.currentThemeData,
           dataBoard := pref.currentTheme.name,
           dataPieceSet := pref.currentPieceSet.name,
           dataBoard3d := pref.is3d.option(pref.currentTheme3d.name),
@@ -130,13 +137,12 @@ object page:
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           attr("data-i18n-catalog") := assetHelper.manifest
             .js(s"i18n/${ctx.lang.code}")
-            .map(name => staticAssetUrl(s"compiled/$name")),
+            .map(name => staticAssetPath(s"compiled/$name")),
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
-          assetsMissingTroubleshooting,
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
-          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map(views.mod.ui.impersonate(_)),
           netConfig.stageBanner.option(views.bits.stage),
           anonOnboarding.map: u =>
             frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email)),
@@ -165,7 +171,7 @@ object page:
           bottomHtml,
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
-          p.pageModule.map { mod => frag(jsonScript(mod.data)) }
+          p.pageModule.map(mod => frag(jsonScript(mod.data)))
         )
       )
     )

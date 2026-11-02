@@ -1,8 +1,9 @@
 package lila.tutor
 
-import scala.util.Try
 import chess.ByColor
 import reactivemongo.api.bson.*
+
+import scala.util.Try
 
 import lila.db.dsl.{ *, given }
 import lila.insight.InsightPerfStats
@@ -41,11 +42,11 @@ private object TutorBsonHandlers:
             b <- bothOpt
             v <- handler.writeOpt(b.mine.value)
             p <- handler.writeOpt(b.peer)
-          yield $arr(v, BSONInteger(b.mine.count), p)
+          yield barr(v, BSONInteger(b.mine.count), p)
         }.getOrElse(BSONNull)
     )
   given [A](using BSONHandler[A], Ordering[A]): BSONHandler[TutorBothValues[A]] =
-    summon[BSONHandler[TutorBothOption[A]]].as(_.get, Some(_))
+    summon[BSONHandler[TutorBothOption[A]]].as(_.get, Option(_))
 
   given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
 

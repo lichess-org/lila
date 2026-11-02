@@ -3,6 +3,7 @@ package lila.evalCache
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.libs.json.JsObject
+import scalalib.ThreadLocalRandom
 
 import lila.core.chess.MultiPv
 import lila.db.AsyncCollFailingSilently
@@ -26,7 +27,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   private[evalCache] def drop(variant: Variant, fen: Fen.Full): Funit =
     Id.from(variant, fen)
       .so: id =>
-        coll(_.delete.one($id(id)).void)
+        coll(_.delete.one(bid(id)).void)
 
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[CloudEval]] =
     cache.get(id).map(_.flatMap(_.makeBestMultiPvEval(multiPv)))
@@ -34,6 +35,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   private val cache = cacheApi[Id, Option[EvalCacheEntry]](16_384, "evalCache"):
     _.expireAfterWrite(4.minutes).buildAsyncFuture: id =>
       coll: c =>
-        c.one[EvalCacheEntry]($id(id))
+        c.one[EvalCacheEntry](bid(id))
           .addEffect: res =>
-            if res.isDefined then c.updateFieldUnchecked($id(id), "usedAt", nowInstant)
+            if res.isDefined && ThreadLocalRandom.odds(4) then
+              c.updateFieldUnchecked(bid(id), "usedAt", nowInstant)

@@ -4,10 +4,10 @@ import type { TreeNodeBase, TreeNodeLite, TreePath } from './types';
 
 export function withMainlineChild<U, T extends TreeNodeBase>(
   node: T,
-  f: (node: TreeNodeBase) => U,
+  f: (node: T) => U | undefined,
 ): U | undefined {
   const next = node.children?.[0];
-  return next ? f(next) : undefined;
+  return next ? f(next as T) : undefined;
 }
 
 export function findInMainline<T extends TreeNodeBase>(
@@ -21,8 +21,8 @@ export function findInMainline<T extends TreeNodeBase>(
 // returns a list of nodes collected from the original one
 export function collect<T extends TreeNodeBase>(from: T, pickChild: (node: T) => T | undefined): T[] {
   const nodes = [from];
-  let n = from,
-    c;
+  let n = from;
+  let c;
   while ((c = pickChild(n))) {
     nodes.push(c);
     n = c;
@@ -34,9 +34,6 @@ export const childById = <T extends TreeNodeBase>(node: T, id: string): T | unde
   node.children?.find(child => child.id === id) as T | undefined;
 
 export const last = <T extends TreeNodeBase>(nodeList: T[]): T | undefined => nodeList[nodeList.length - 1];
-
-export const nodeAtPly = <T extends TreeNodeBase>(nodeList: T[], ply: number): T | undefined =>
-  nodeList.find(node => node.ply === ply);
 
 export function takePathWhile<T extends TreeNodeBase>(
   nodeList: T[],

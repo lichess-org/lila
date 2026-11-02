@@ -104,7 +104,7 @@
 हा घोडा तुम्हाला शह देत आहे!</string>
   <string name="escapeOrBlock">राजा सोबत पळून जा
 किंवा हल्ला अवरोधित करा!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
+  <string name="outOfCheckComplete">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
   <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
   <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
@@ -132,6 +132,7 @@
 पुढे जाण्यासाठी कोणतीही चाल करा.</string>
   <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ पट कसे लावायचे ते आपल्याला माहित आहे.</string>
   <string name="castling">किल्लेकोट</string>
+  <string name="enPassant">एन पसांट</string>
   <string name="theSpecialKingMove">राजाची विशेष चाल</string>
   <string name="castlingIntro">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा!</string>
   <string name="castleKingSide">तुमच्या राजाला दोन घर चालवा

@@ -38,7 +38,9 @@ export const boardMenu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = !myUserId(); // oxlint-disable-line no-inferrable-types The simplification collides with our TS config.
+  // The simplification collides with our TS config.
+  // oxlint-disable-next-line no-inferrable-types
+  anonymous: boolean = !myUserId();
 
   constructor(readonly redraw: Redraw) {}
 

@@ -21,7 +21,7 @@ final private class FishnetLimiter(
   private val RequestLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 120,
     duration = 1.day,
-    key = "request_analysis.ip"
+    limiterKey = "request_analysis.ip"
   )
 
   private def concurrentCheck(sender: Work.Sender) =
@@ -30,9 +30,9 @@ final private class FishnetLimiter(
       case Work.Sender(userId, ip, _, _) =>
         analysisColl
           .exists(
-            $or(
-              $doc("sender.ip" -> ip),
-              $doc("sender.userId" -> userId)
+            or(
+              bdoc("sender.ip" -> ip),
+              bdoc("sender.userId" -> userId)
             )
           )
           .not

@@ -20,7 +20,7 @@ final private class PlanExpiration(
           user <- userApi.byId(patron.userId).orFail(s"Missing user for $patron")
           expire = user.plan.lifetime.not
           _ <- expire.so:
-            patronColl.update.one($id(patron.id), patron.removePayPal).void
+            patronColl.update.one(bid(patron.id), patron.removePayPal).void
           _ <- expire.so:
             disableUserPlanOf(user)
         yield if expire then logger.info(s"Expired $patron")

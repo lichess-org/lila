@@ -1,11 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Mobile app
-    url: https://github.com/lichess-org/mobile
+  - name: 📱 Mobile app
+    url: https://github.com/lichess-org/mobile/issues
     about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first.
-  - name: Legacy Mobile app
+  - name: 📵 Legacy Mobile app
     url: https://github.com/lichess-org/lichobile/issues
-    about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first. If you are using the legacy app, you are strongly advised to install the latest app from https://lichess.org/app
-  - name: Support
+    about: Issues for the legacy mobile app are tracked in a separate repository. Please check for duplicates first. If you are using the legacy app, you are strongly advised to install the latest app from https://lichess.org/app
+  - name: 🛠️ Docker development setup
+    url: https://github.com/lichess-org/lila-docker/issues
+    about: Issues for the Docker development setup are tracked in a separate repository. Please check for duplicates first.
+  - name: 💬 Support
     url: https://discord.gg/lichess
     about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, Lichess Forum, StackOverflow, or join our Discord.

@@ -10,13 +10,14 @@ import lila.common.Form.{
   into,
   mustNotContainLichess,
   numberIn,
+  tagifyValues,
   given
 }
 import lila.core.captcha.CaptchaApi
 import lila.core.team.Access
 import lila.core.user.FlairApi
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor
@@ -95,19 +96,20 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
 
   def createWithCaptcha(using Me) = create -> captcha.any
 
-  val pmAll = Form:
-    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))
+  val update = Form:
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000)).into[Markdown]
 
   val explain = Form:
-    single("explain" -> cleanText(minLength = 3, maxLength = 9000))
+    single("explain" -> cleanText(minLength = 3, maxLength = 4_000))
 
   def members = Form:
-    single("members" -> nonEmptyText)
+    import lila.common.Json.given
+    single("members" -> tagifyValues.field[UserStr, List[UserId]]("value")(_.flatMap(_.validateId)))
 
   val blocklist = Form:
     val sep = "\n"
     single:
-      "names" -> cleanText(maxLength = 9000)
+      "names" -> cleanText(maxLength = 9_000)
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   val searchDeclinedForm: Form[Option[UserStr]] = Form(
@@ -117,7 +119,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   val subscribe = Form(single("subscribe" -> optional(boolean)))
 
   private def teamExists(setup: TeamSetup) =
-    teamRepo.coll.exists($id(Team.nameToId(setup.name)))
+    teamRepo.coll.exists(bid(Team.nameToId(setup.name)))
 
 private case class TeamSetup(
     name: String,

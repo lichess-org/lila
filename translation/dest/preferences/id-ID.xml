@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Gulir pada papan untuk mengulang gerakan</string>
   <string name="correspondenceEmailNotification">Email harian yang berisi daftar permainan korespondensi anda</string>
   <string name="notifyStreamStart">Streamer memulai siaran</string>
-  <string name="notifyInboxMsg">Pesan masuk</string>
-  <string name="notifyForumMention">Komentar forum menyebutkan Anda</string>
-  <string name="notifyInvitedStudy">Undangan studi</string>
   <string name="notifyGameEvent">Update permainan korespondensi</string>
   <string name="notifyChallenge">Tantangan</string>
-  <string name="notifyTournamentSoon">Turnamen akan segera dimulai</string>
   <string name="notifyTimeAlarm">Waktu korespondensi akan habis</string>
   <string name="notifyBell">Notifikasi bel didalam Lichess</string>
   <string name="notifyPush">Notifikasi perangkat saat anda tidak di Lichess</string>

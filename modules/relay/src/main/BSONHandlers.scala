@@ -1,12 +1,12 @@
 package lila.relay
 
+import chess.FideTC
+import chess.tiebreak.{ CutModifier, LimitModifier, Tiebreak }
 import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import chess.tiebreak.Tiebreak
-import chess.tiebreak.{ CutModifier, LimitModifier }
-import chess.FideTC
+import lila.core.net.Continent
 
 object BSONHandlers:
 
@@ -35,7 +35,7 @@ object BSONHandlers:
         case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
         case ids: Upstream.Ids => upstreamIdsHandler.writeTry(ids).get
         case users: Upstream.Users => upstreamUsersHandler.writeTry(users).get
-      doc ++ up.roundIds.nonEmptyOption.so(ids => $doc("roundIds" -> ids))
+      doc ++ up.roundIds.nonEmptyOption.so(ids => bdoc("roundIds" -> ids))
 
   import SyncLog.Event
   given BSONDocumentHandler[Event] = Macros.handler
@@ -87,17 +87,18 @@ object BSONHandlers:
     }.err(s"Invalid tiebreak ${r.debug}")
 
     def writes(w: BSON.Writer, t: Tiebreak) =
-      $doc("code" -> t.code) ++
+      bdoc("code" -> t.code) ++
         t.foldModifier(
-          $empty,
-          cut => if cut == CutModifier.None then $empty else $doc("cutModifier" -> cut.code),
-          limit => $doc("limitModifier" -> limit.value)
+          emptyBdoc,
+          cut => if cut == CutModifier.None then emptyBdoc else bdoc("cutModifier" -> cut.code),
+          limit => bdoc("limitModifier" -> limit.value)
         )
 
   given BSONHandler[RelayRound.CustomScoring] = Macros.handler
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
   given BSONDocumentHandler[RelayPinnedStream] = Macros.handler
+  given BSONHandler[Continent] = valueMapHandler(Continent.byCode)(_.code)
   given BSONDocumentHandler[RelayTour.Spotlight] = Macros.handler
   given BSONDocumentHandler[RelayTour.Info] = Macros.handler
   given BSONDocumentHandler[RelayTour.Dates] = Macros.handler

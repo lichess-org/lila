@@ -18,15 +18,16 @@
   }
 
   &__menu {
-    @extend %box-radius-bottom, %popup-shadow;
+    @extend %box-radius, %popup-shadow;
 
     display: none;
     position: absolute;
     z-index: $z-dropdown-109;
     width: 100%;
-    background: $c-bg-popup;
+    background: $c-bg-zebra;
     border: $border;
     margin-top: -1px;
+    overflow: hidden;
   }
 
   &--open &__menu {
@@ -47,6 +48,12 @@
   &__list {
     max-height: 250px;
     overflow-y: auto;
+    border-top: $border;
+    background: $c-bg-popup;
+
+    &::-webkit-scrollbar-track {
+      background: $c-bg-popup;
+    }
   }
 
   &__item {
@@ -56,7 +63,7 @@
 
     &:hover,
     &.focus {
-      background: $c-bg-high;
+      background: $c-bg-zebra;
     }
 
     &.selected {

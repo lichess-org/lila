@@ -2,11 +2,13 @@ import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
-import { bind, dataIcon } from 'lib/view';
-import { ratingDiff } from 'lib/view/userLink';
+import { bind, dataIcon, onInsert } from 'lib/view';
+import { userLink } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { findTag } from '../study/studyChapters';
+import type AnalyseCtrl from '@/ctrl';
+import { findTag } from '@/study/studyChapters';
+
+import type { AnalysisMetaSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -16,21 +18,17 @@ interface Advice {
   symbol: string;
 }
 
-const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
-  const p = getPlayer(ctrl.data, color);
-  if (p.user)
-    return h('a.user-link.ulpt', { attrs: { href: '/@/' + p.user.username } }, [
-      p.user.username,
-      ' ',
-      ratingDiff(p),
-    ]);
-  return h(
-    'span',
-    p.name ||
-      (p.ai && 'Stockfish level ' + p.ai) ||
-      (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
-      'Anonymous',
-  );
+const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
+  const { user, ratingDiff, name, ai } = getPlayer(data, color);
+  return user
+    ? userLink({ ...user, name: user.username, ratingDiff, line: false })
+    : h(
+        'span',
+        name ||
+          (ai && 'Stockfish level ' + ai) ||
+          (study && findTag(study.data.chapter.tags, color)) ||
+          'Anonymous',
+      );
 };
 
 const advices: Advice[] = [
@@ -39,33 +37,43 @@ const advices: Advice[] = [
   { kind: 'blunder', i18n: i18n.site.numberBlunders, symbol: '??' },
 ];
 
+const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
+
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data,
-    sideData = d.analysis![color];
+  const sideData = ctrl.mainlineAnalysis![color];
 
   return h('div.advice-summary__side', [
-    h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
-    h('div.advice-summary__acpl', [
-      h('strong', sideData.acpl),
-      h('span', ` ${i18n.site.averageCentipawnLoss}`),
-    ]),
-    h('div.advice-summary__accuracy', [
-      h('strong', [sideData.accuracy, '%']),
-      h('span', [
-        i18n.site.accuracy,
-        ' ',
-        h('a', {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
-        }),
+    h('div.advice-summary__player', [h(`icon.is.color-icon.${color}.text`), renderPlayer(ctrl, color)]),
+    h('div.advice-summary__sections', [
+      h('div.advice-summary__acpl', [
+        ...advices.map(a => error(sideData[a.kind], color, a)),
+        h('div', [h('strong', sideData.acpl), h('span', ` ${i18n.site.averageCentipawnLoss}`)]),
       ]),
+      h('div.advice-summary__accuracy', [...renderPhases(sideData)]),
     ]),
   ]);
 }
 
+const accuracyClass = (accuracy: number): string =>
+  accuracy >= 85 ? 'good' : accuracy >= 70 ? 'inaccuracy' : accuracy >= 55 ? 'mistake' : 'blunder';
+
+const renderPhases = (side: AnalysisMetaSide): VNode[] => {
+  return [
+    h(`div.advice-summary__phase`, [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
+    ...phaseOrder
+      .filter(phase => side.phases?.[phase] !== undefined)
+      .map(phase =>
+        h(`div.advice-summary__phase.${accuracyClass(side.phases![phase]!)}`, [
+          h('strong', `${side.phases![phase]}%`),
+          h('span', i18n.site[phase]),
+        ]),
+      ),
+  ];
+};
+
 const error = (nb: number, color: Color, advice: Advice) =>
   h(
-    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
+    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : '.no-error'),
     { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
     advice.i18n.asArray(nb, h('strong', nb)),
   );
@@ -74,13 +82,11 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
   return h(
     'div.advice-summary',
     {
-      hook: {
-        insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: HTMLElement) {
-            ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
-          });
-        },
-      },
+      hook: onInsert(elem => {
+        $(elem).on('click', 'div.symbol', function (this: HTMLElement) {
+          ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
+        });
+      }),
     },
     [
       playerTable(ctrl, 'white'),
@@ -93,7 +99,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n.site.learnFromYourMistakes,
+            ctrl.bottomIsWhite() ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -102,37 +108,37 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
 
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;
-  return (
-    puzzle &&
+  if (!puzzle) return undefined;
+  return h(
+    'div.analyse__puzzle',
     h(
-      'div.analyse__puzzle',
-      h(
-        'a.button-link.text',
-        {
-          attrs: {
-            ...dataIcon(licon.ArcheryTarget),
-            href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
-          },
+      'a.button-link.text',
+      {
+        attrs: {
+          ...dataIcon(licon.ArcheryTarget),
+          href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
-        ['Recommended puzzle training', h('br'), puzzle.name],
-      ),
-    )
+      },
+      ['Recommended puzzle training', h('br'), puzzle.name],
+    ),
   );
 }
 
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.study?.practice) return;
+  if (ctrl.study?.practice) return undefined;
 
   if (
-    !ctrl.data.analysis ||
-    !ctrl.settings.showStaticAnalysis ||
+    !ctrl.mainlineAnalysis ||
+    !ctrl.settings.showMainlineAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
-  )
+  ) {
+    if (!ctrl.data.puzzle) return h('div.analyse__round-training');
     return h('div.analyse__round-training', puzzleLink(ctrl));
+  }
 
   // don't cache until the analysis is complete!
-  const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro;
+  const buster = ctrl.mainlineAnalysis.partial ? Math.random() : '';
+  let cacheKey = String(buster) + !!ctrl.retro + ctrl.bottomColor() + Boolean(ctrl.idbTree.hasLocalAnalysis);
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [

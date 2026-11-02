@@ -1,7 +1,9 @@
+import { type Rules } from 'chessops/types';
+
 import type { LocalEval } from '@/tree/types';
 
 import { defined } from '../index';
-import type { Work } from './types';
+import type { Work, EngineInfo } from './types';
 
 export class Protocol {
   public engineName?: string;
@@ -14,7 +16,10 @@ export class Protocol {
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  constructor(readonly variantMap?: (v: VariantKey) => string) {}
+  constructor(
+    readonly info: EngineInfo,
+    readonly variantMap?: (v: Rules) => string,
+  ) {}
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -65,21 +70,29 @@ export class Protocol {
       const work = this.work;
       this.work = undefined;
       if (work) {
-        const ceval = this.currentEval ?? { millis: 0, fen: work.currentFen, depth: 0, nodes: 0, pvs: [] };
+        const ceval = this.currentEval ?? {
+          millis: 0,
+          fen: work.currentFen,
+          depth: 0,
+          nodes: 0,
+          pvs: [],
+          engineId: this.info.id,
+        };
         ceval.bestmove = parts[1];
         if (parts[2] === 'ponder') ceval.ponder = parts[3];
         if (!work.stopRequested) work.emit(ceval, work);
       }
       this.swapWork();
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
-      let depth = 0,
-        nodes,
-        multiPv = 1,
-        millis,
-        evalType,
-        isMate = false,
-        povEv,
-        moves: string[] = [];
+      this.throwOnFatalError(parts);
+      let depth = 0;
+      let nodes;
+      let multiPv = 1;
+      let millis;
+      let evalType;
+      let isMate = false;
+      let povEv;
+      let moves: string[] = [];
       for (let i = 1; i < parts.length; i++) {
         switch (parts[i]) {
           case 'depth':
@@ -139,6 +152,7 @@ export class Protocol {
             cp: isMate ? undefined : ev,
             mate: isMate ? ev : undefined,
             pvs: [pvData],
+            engineId: this.info.id,
           };
         }
       } else if (this.currentEval) {
@@ -156,8 +170,8 @@ export class Protocol {
       console.warn(`SF: ${command}`);
   }
 
-  uciVariant(key: VariantKey): string {
-    return this.variantMap?.(key) ?? (key === 'threeCheck' ? '3check' : key.toLowerCase());
+  uciVariant(key: Rules): string {
+    return this.variantMap?.(key) ?? key;
   }
 
   private emit(ev = this.currentEval, work = this.work) {
@@ -193,7 +207,8 @@ export class Protocol {
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
       const [by, value] = Object.entries(this.work.search)[0];
-      this.send(`go ${by} ${value}`);
+      const cmd = Number.isFinite(value) ? `go ${by} ${value}` : 'go';
+      this.send(cmd);
     }
   }
 
@@ -205,5 +220,19 @@ export class Protocol {
 
   isComputing(): boolean {
     return !!this.work && !this.work.stopRequested;
+  }
+
+  private throwOnFatalError(info: string[]): void {
+    if (info[1] !== 'string' || !info.slice(2, 4).some(e => e.toLowerCase().startsWith('error'))) return;
+    if (this.currentEval) this.currentEval.bestmove = '(none)';
+    if (this.work)
+      this.work.emit(undefined, {
+        threatMode: false,
+        path: this.work.path,
+        ply: this.work.ply,
+        error: info.slice(2).join(' '),
+      });
+    this.disconnected();
+    throw new Error(info.slice(2).join(' '));
   }
 }

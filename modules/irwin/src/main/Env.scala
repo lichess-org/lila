@@ -39,7 +39,7 @@ final class Env(
   if appConfig.get[Boolean]("kaladin.enabled") then
 
     scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
-      (for
+      for
         leaders <- tournamentApi.allCurrentLeadersInStandard
         suspects <-
           leaders.toList
@@ -53,14 +53,14 @@ final class Env(
             .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
-      yield ())
+      yield ()
     scheduler.scheduleWithFixedDelay(15.minutes, 15.minutes): () =>
-      (for
+      for
         topOnline <- userCache.getTop50Online
         suspects = topOnline.map(_.user).map(Suspect.apply)
         _ <- irwinApi.requests.topOnline(suspects)
         _ <- kaladinApi.topOnline(suspects)
-      yield ())
+      yield ()
 
     scheduler.scheduleWithFixedDelay(83.seconds, 5.seconds): () =>
       kaladinApi.readResponses

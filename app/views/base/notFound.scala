@@ -19,7 +19,7 @@ def notFound(msg: Option[String]) =
       ),
       div(cls := "game")(
         iframe(
-          src := staticAssetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+          src := staticAssetPath(s"vendor/ChessPursuit/bin-release/index.html"),
           st.frameborder := 0,
           widthA := 400,
           heightA := 500,
@@ -34,7 +34,7 @@ def notFound(msg: Option[String]) =
     )
 
 def notFoundEmbed(msg: Option[String])(using EmbedContext) =
-  views.base.embed.site(title = msg | "Page not found", cssKeys = List("bits.embed-not-found"))(
+  views.base.embed.site(title = msg | "Page not found", cssKeys = List("bits.not-found-embed"))(
     main(cls := "not-found page-small box box-pad")(
       header(
         h1("404"),

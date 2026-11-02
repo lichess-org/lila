@@ -26,11 +26,9 @@
   <string name="downloadAllRounds">Спампаваць усе туры</string>
   <string name="resetRound">Скасаваць гэты тур</string>
   <string name="deleteRound">Выдаліць гэты тур</string>
-  <string name="definitivelyDeleteRound">Канчаткова выдаліць ​​тур і ўсе яго гульні.</string>
   <string name="deleteAllGamesOfThisRound">Выдаліць усе гульні гэтага тура. Для іх паўторнага стварэння крыніца павінна быць актыўнай.</string>
   <string name="editRoundStudy">Рэдагаваць навучанне туру</string>
   <string name="deleteTournament">Выдаліць гэты турнір</string>
-  <string name="definitivelyDeleteTournament">Канчаткова выдаліць увесь турнір, усе яго туры і ўсе гульні.</string>
   <string name="showScores">Паказваць ачкі гульцоў па рэзультатах гульняў</string>
   <string name="replacePlayerTags">Па жаданні: змяніць імёны, рэйтынгі і званні гульцоў</string>
   <string name="fideFederations">Федэрацыі FIDE</string>
@@ -85,6 +83,6 @@
   <string name="tiebreaks">Тайбрэйкі</string>
   <string name="gameX">Гульня %s</string>
   <string name="knockouts">Накаўты</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До%s</string>
 </resources>

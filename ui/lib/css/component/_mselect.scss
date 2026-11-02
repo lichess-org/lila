@@ -4,6 +4,10 @@ $c-mselect: $c-primary;
   position: relative;
   white-space: nowrap;
 
+  &:has(> .mselect__toggle--mask:checked) {
+    z-index: $z-mselect-111;
+  }
+
   &__toggle {
     position: absolute;
     z-index: -1;
@@ -32,12 +36,6 @@ $c-mselect: $c-primary;
     }
   }
 
-  &__toggle:checked ~ .mselect__label {
-    @include transition(opacity);
-
-    opacity: 0;
-  }
-
   &__toggle:focus-visible ~ .mselect__label {
     outline: $outline;
   }
@@ -60,9 +58,9 @@ $c-mselect: $c-primary;
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
 
-      @media (width <= $small) {
+      @media (max-width: $small) {
         position: fixed;
-        top: 50%;
+        top: calc(50vh - $site-header-height);
         transform: translateY(-50%) scale(1, 1);
 
         dialog & {

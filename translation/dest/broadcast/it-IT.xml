@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Scarica tutti i round</string>
   <string name="resetRound">Reimposta questo turno</string>
   <string name="deleteRound">Elimina questo turno</string>
-  <string name="definitivelyDeleteRound">Elimina definitivamente il turno e le sue partite.</string>
   <string name="deleteAllGamesOfThisRound">Elimina tutte le partite di questo turno. L\'emittente dovrà essere attiva per poterli ricreare.</string>
   <string name="editRoundStudy">Modifica lo studio del turno</string>
   <string name="deleteTournament">Elimina questo torneo</string>
-  <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
   <string name="showScores">Mostra i punteggi dei giocatori in base ai risultati del gioco</string>
   <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
   <string name="fideFederations">Federazioni FIDE</string>
@@ -56,7 +54,7 @@
   <string name="overview">Panoramica</string>
   <string name="subscribeTitle">Iscriviti per ricevere notifiche sull\'inizio di ogni round. Puoi attivare o disattivare la campanella o le notifiche push per le dirette nelle preferenze del tuo account.</string>
   <string name="uploadImage">Carica immagine del torneo</string>
-  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Esse compariranno non appena i giochi saranno stati caricati.</string>
+  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Compariranno non appena le partite saranno state caricate.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Le scacchiere possono essere caricate con una sorgente o tramite %s</string>
   <string name="startsAfter">Inizia tra %s</string>
   <string name="startVerySoon">Questa trasmissione inizierà a breve.</string>
@@ -107,6 +105,6 @@
   <string name="tiebreaks">Tiebreak</string>
   <string name="gameX">Partita %s</string>
   <string name="knockouts">KO</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

@@ -1,7 +1,7 @@
 package lila.forum
 
-import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.db.dsl.{ *, given }
 
 final private class ForumCategRepo(val coll: Coll)(using Executor):
 
@@ -14,11 +14,11 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
       (Granter.of(_.ModerateForum)(u), Granter.of(_.Diagnostics)(u))
     coll
       .find(
-        $or(
+        or(
           List(
-            ($doc("team".$exists(false)) ++ (!isMod).so($doc("hidden".$ne(true)))).some,
-            teams.nonEmpty.option($doc("team".$in(teams))),
-            isDev.option($id(ForumCateg.diagnosticId))
+            ("team".exists(false) ++ (!isMod).so(bdoc("hidden".neq(true)))).some,
+            teams.nonEmpty.option(bdoc("team".in(teams))),
+            isDev.option(bid(ForumCateg.diagnosticId))
           ).flatten*
         )
       )
@@ -26,4 +26,4 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
       .list(100)
 
   def nbPosts(id: String): Fu[Int] =
-    coll.primitiveOne[Int]($id(id), "nbPosts").dmap(~_)
+    coll.primitiveOne[Int](bid(id), "nbPosts").dmap(~_)

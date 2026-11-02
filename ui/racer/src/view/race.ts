@@ -1,15 +1,13 @@
-import { h, type VNodes } from 'snabbdom';
-
+import { div, makeExoticTag, span, type VNode } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
-import type { Boost } from '../boost';
-import type RacerCtrl from '../ctrl';
-import type { PlayerWithScore } from '../interfaces';
+import type RacerCtrl from '@/ctrl';
+import type { PlayerWithScore } from '@/interfaces';
 
 // to [0,1]
 type RelativeScore = (score: number) => number;
 
-const trackHeight = 25;
+const TRACK_HEIGHT = 25;
 
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
@@ -19,17 +17,17 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const relative: RelativeScore = score => (score - minMoves) / delta;
   const bestScore = players.reduce((b, p) => (p.score > b ? p.score : b), 0);
   const myName = ctrl.player().name;
-  const tracks: VNodes = [];
+  const tracks: VNode[] = [];
   players.forEach((p, i) => {
     const isMe = p.name === myName;
-    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i, ctrl.vehicle[i]);
+    const track = renderTrack(relative, isMe, bestScore, ctrl, p, i);
     if (isMe) tracks.unshift(track);
     else tracks.push(track);
   });
-  return h(
-    'div.racer__race',
-    { attrs: { style: `height:${players.length * trackHeight + 14}px` } },
-    h('div.racer__race__tracks', tracks),
+  return div(
+    '.racer__race',
+    { style: { height: `${players.length * TRACK_HEIGHT + 14}px` } },
+    div('.racer__race__tracks', tracks),
   );
 };
 
@@ -37,41 +35,38 @@ const renderTrack = (
   relative: RelativeScore,
   isMe: boolean,
   bestScore: number,
-  boost: Boost,
+  ctrl: RacerCtrl,
   player: PlayerWithScore,
   index: number,
-  vehicle: number,
 ) => {
-  return h(
-    'div.racer__race__track',
+  return div(
+    '.racer__race__track',
     {
       class: {
         'racer__race__track--me': isMe,
         'racer__race__track--first': !!player.score && player.score === bestScore,
-        'racer__race__track--boost': boost.isBoosting(index),
+        'racer__race__track--boost': ctrl.boost.isBoosting(index),
       },
     },
     [
-      h(
-        'div.racer__race__player',
+      div(
+        '.racer__race__player',
         {
-          attrs: {
-            style: `transform:translateX(${
-              relative(player.score) * 95 * (document.dir === 'rtl' ? -1 : 1)
-            }%)`,
+          style: {
+            transform: `translateX(${relative(player.score) * 95 * (document.dir === 'rtl' ? -1 : 1)}%)`,
           },
         },
         [
-          h(`div.racer__race__player__car.car-${index}.vehicle${vehicle}`, [vehicle]),
-          h('span.racer__race__player__name', playerLink(player, isMe)),
+          div(`.racer__race__player__car.car-${index}.vehicle${ctrl.vehicle[index]}`, ctrl.vehicle[index]),
+          span('.racer__race__player__name', playerLink(player, isMe)),
         ],
       ),
-      h('div.racer__race__score', player.score),
+      div('.racer__race__score', player.score),
     ],
   );
 };
 
+const anonymous = makeExoticTag('anonymous', { title: 'Anonymous player' });
+
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
-  player.id
-    ? userLink({ ...player, line: false })
-    : h('anonymous', { attrs: { title: 'Anonymous player' } }, [player.name, isMe ? ' (you)' : undefined]);
+  player.id ? userLink({ ...player, line: false }) : anonymous([player.name, isMe ? ' (you)' : undefined]);

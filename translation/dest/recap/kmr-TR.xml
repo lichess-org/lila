@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Silav, %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Te îsal çi kiriye?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Te îsal çi kiriye?</string>
 	<string name="initTitle">Çi saleke şetrencê ya xweş te derbas kir!</string>
 	<string name="noGamesText">Te îsal tu lîstik neleyîstine.</string>
 	<string name="noGamesCta">Tu dixwazî niha bileyîzî?</string>

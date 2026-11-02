@@ -31,13 +31,10 @@
     <item quantity="one">o lukin e lipu wan</item>
     <item quantity="other">o lukin e lipu ale pi jan %s</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">o pana e sitelen tawa lipu sina</string>
   <string name="imageAlt">ijo pi sitelen ni</string>
   <string name="imageCredit">tan sitelen</string>
   <string name="deleteBlog">o weka e lipu ni lon tenpo ale</string>
-  <string name="safeToUseImages">sina ken kepeken sitelen ni: </string>
   <string name="selectPostTopics">lipu sina li toki lon seme? o pana e nimi</string>
-  <string name="useImagesYouMadeYourself">sina ken kepeken e sitelen pi pali sina e sitelen pi ilo Lichess. sina ken ala kepeken sitelen pi jo sina ala</string>
   <string name="safeAndRespectfulContent">o sitelen ala e ijo jaki e ijo ike. o lanpan ala e lipu pi jan ante</string>
   <string name="inappropriateContentAccountClosed">sina sitelen anu pana e ijo jaki la sina ken kama ken ala kepeken ilo Lichess</string>
   <string name="blogTips">sona pona mi tawa pali lipu</string>

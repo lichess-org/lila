@@ -3,8 +3,16 @@
   <string name="settings">تنظیمات</string>
   <string name="closeAccount">بستن حساب</string>
   <string name="managedAccountCannotBeClosed">حساب‌تان مدیریت می‌شود و نمی‌توان آن را بست.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">شما نمی توانید حساب جدیدی با این نام کاربری باز کنید، حتی اگر با دستگاه دیگری وارد شوید.</string>
+  <string name="cantOpenSimilarAccount">شما نمی توانید حساب جدیدی با این نام کاربری باز کنید، حتی اگر با دستگاه دیگری وارد شوید.</string>
   <string name="cancelKeepAccount">لغو و نگهداری حساب کاربری</string>
   <string name="closeAccountAreYouSure">آیا از بستن حساب کابری خود مطمئن هستید؟</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">این حساب بسته شده است</string>
+  <string name="thisAccountIsClosed">این حساب بسته شده است</string>
+  <string name="wereSorryToSeeYouGo">از رفتن‌تان متاسفیم.</string>
+  <string name="closeAccountForeverLabel">بستنِ تا اَبَد: بازگشایی آن را ناممکن کنید</string>
+  <string name="closeAccountForeverWarning">جلوی بازگشایی حساب در آینده را بگیرید. اگر این مربع را هَفتک زنید، حتی مدیران هم نمی‌توانند حساب‌تان را به درخواست‌تان بازگشایند.</string>
+  <string name="deleteYourAccount">حذفِ حساب‌تان</string>
+  <string name="deleteAccountWarning">به محض اینکه حساب‌تان را بحذفید، از Lichess برچیده می‌شود و مدیران ما دیگر نمی‌توانند آن را برای تان بازگردانند.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">مایلید در عوض %s؟</string>
+  <string name="closeYourAccount">حساب‌تان را ببندید</string>
+  <string name="deleteAccountConfirmText">متوجهم که حساب‌های حذفیده بازیاب‌پذیر نیستند</string>
 </resources>

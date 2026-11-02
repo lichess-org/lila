@@ -42,10 +42,14 @@ $user-list-width: 35ch;
   }
 }
 
-.tournament-leaderboards__item h2 {
-  display: flex;
-  align-items: center;
+.tournament-leaderboards {
   overflow: hidden;
+
+  &__item h2 {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
 }
 
 .tournament-shields {

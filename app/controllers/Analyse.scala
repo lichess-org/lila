@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import play.api.libs.json.{ Json, JsArray }
+import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -9,7 +9,7 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.tree.ExportOptions
+import lila.tree.{ Analysis, ExportOptions }
 
 final class Analyse(
     env: Env,
@@ -41,9 +41,15 @@ final class Analyse(
         users <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
+          val pgnFlags = PgnDump.WithFlags(
+            clocks = false,
+            rating = ctx.pref.showRatings,
+            opening = ctx.isAuth.option(true)
+          )
+          val opening = pgnFlags.opening.so(env.game.gameOpening.atPly(pov.game, _))
           (
             env.analyse.analyser.get(pov.game),
-            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.metadata.analysed.not.so(env.fishnet.api.userAnalysisExists(Analysis.Id(pov.gameId))),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
@@ -52,23 +58,25 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
+              opening = opening,
+              pgnFlags
             )
           ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
             env.api.roundApi
               .review(
                 pov,
                 users,
+                analysis,
+                opening.map(_.opening),
+                initialFen = initialFen,
                 tv = userTv.map: u =>
                   lila.round.OnTv.User(u.id),
-                analysis,
-                initialFen = initialFen,
                 withFlags = ExportOptions(
                   movetimes = true,
                   clocks = true,
                   division = true,
                   rating = ctx.pref.showRatings,
-                  lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+                  lichobileCompat = HTTPRequest.isLichobile,
                   puzzles = true
                 )
               )
@@ -78,7 +86,7 @@ final class Analyse(
                     pov,
                     data,
                     initialFen,
-                    env.analyse.annotator(pgn, pov.game, analysis).render,
+                    env.analyse.annotator(pgn, pov.game, analysis, opening).render,
                     analysis,
                     analysisInProgress,
                     simul,
@@ -132,12 +140,12 @@ final class Analyse(
     analysis <- env.analyse.analyser.get(pov.game)
     simul <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, none, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
       views.analyse.replay.forCrawler(
         pov,
         initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).render,
+        env.analyse.annotator(pgn, pov.game, analysis, none).render,
         simul,
         crosstable
       )
@@ -145,17 +153,17 @@ final class Analyse(
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me).map { list =>
-      JsonOk(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
+      Ok(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
     }
   }
 
   def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     Found(env.analyse.externalEngine.find(me, id)): engine =>
-      JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+      Ok(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
-    HTTPRequest.bearer(ctx.req).so { bearer =>
+    HTTPRequest.bearer.so: (bearer, _) =>
       val tokenId = AccessToken.idFrom(bearer)
       bindForm(lila.analyse.ExternalEngine.form)(
         jsonFormError,
@@ -164,7 +172,6 @@ final class Analyse(
             Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )
-    }
   }
 
   def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
@@ -173,7 +180,7 @@ final class Analyse(
         jsonFormError,
         data =>
           env.analyse.externalEngine.update(engine, data).map { engine =>
-            JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            Ok(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )
   }
@@ -181,3 +188,8 @@ final class Analyse(
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id).elseNotFound(jsonOkResult)
   }
+
+  def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
+    env.analyse.jsonView
+      .augmentLocalAnalysis(ctx.body.body)
+      .fold(errs => JsonBadRequest(errs.mkString("\n")).toFuccess, Ok(_))

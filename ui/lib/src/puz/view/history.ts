@@ -5,7 +5,7 @@ import { parseUci } from 'chessops/util';
 import { h, type VNode } from 'snabbdom';
 
 import type { Toggle } from '@/index';
-import type { PuzCtrl } from '@/puz/interfaces';
+import type { PuzCtrl, Round } from '@/puz/interfaces';
 import { initMiniBoardWith, onInsert } from '@/view';
 
 const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
@@ -26,12 +26,14 @@ const toggleButton = (prop: Toggle, title: string): VNode =>
   );
 
 export default (ctrl: PuzCtrl): VNode => {
-  const slowIds = slowPuzzleIds(ctrl),
-    filters = ctrl.filters,
-    buttons: VNode[] = [
-      toggleButton(filters.fail, i18n.storm.failedPuzzles),
-      toggleButton(filters.slow, i18n.storm.slowPuzzles),
-    ];
+  const slowIds = slowPuzzleIds(ctrl);
+  const filters = ctrl.filters;
+  const unfinishedId = ctrl.run.unfinishedId;
+  const klass = (r: Round) => (r.puzzle.id === unfinishedId ? 'unfinished' : r.win ? 'good' : 'bad');
+  const buttons: VNode[] = [
+    toggleButton(filters.fail, i18n.storm.failedPuzzles),
+    toggleButton(filters.slow, i18n.storm.slowPuzzles),
+  ];
   if (filters.skip) buttons.push(toggleButton(filters.skip, i18n.storm.skippedPuzzle));
   return h('div.puz-history.box.box-pad', [
     h('div.box__top', [h('h2', i18n.storm.puzzlesPlayed), h('div.box__top__actions', buttons)]),
@@ -40,13 +42,13 @@ export default (ctrl: PuzCtrl): VNode => {
       ctrl.run.history
         .filter(
           r =>
-            (!r.win || !filters.fail()) &&
+            ((!r.win && r.puzzle.id !== unfinishedId) || !filters.fail()) &&
             (!slowIds || slowIds.has(r.puzzle.id)) &&
             (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId),
         )
         .map(round =>
           h('div.puz-history__round', { key: round.puzzle.id }, [
-            h('a.puz-history__round__puzzle.mini-board.cg-wrap.is2d', {
+            h(`a.puz-history__round__puzzle.mini-board.cg-wrap.is2d.${klass(round)}`, {
               attrs: {
                 href: `/training/${round.puzzle.id}`,
                 target: '_blank',
@@ -64,7 +66,7 @@ export default (ctrl: PuzCtrl): VNode => {
             }),
             h('span.puz-history__round__meta', [
               h('span.puz-history__round__result', [
-                h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                h(klass(round), Math.round(round.millis / 1000) + 's'),
                 ctrl.pref.ratings ? h('rating', round.puzzle.rating) : '',
               ]),
               h('span.puz-history__round__id', '#' + round.puzzle.id),

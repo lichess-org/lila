@@ -5,9 +5,9 @@ import com.softwaremill.tagging.*
 
 import lila.core.config
 import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
-import lila.memo.{ RateLimit, CacheApi }
-import lila.game.core.insight.InsightDb
 import lila.db.AsyncColl
+import lila.game.core.insight.InsightDb
+import lila.memo.{ CacheApi, RateLimit }
 
 @Module
 final class Env(
@@ -45,7 +45,7 @@ final class Env(
 
   val api = wire[TutorApi]
 
-  val limit = RateLimit[UserId](credits = 3, duration = 24.hour, key = "tutor.user")
+  val limit = RateLimit[UserId](credits = 3, duration = 24.hour, limiterKey = "tutor.user")
 
 final private class TutorColls(val report: AsyncColl, val queue: AsyncColl)
 trait NbAnalysis

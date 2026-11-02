@@ -46,7 +46,6 @@
   <string name="annotateWithGlyphs">Bi glîfan îzah bike</string>
   <string name="theChapterIsTooShortToBeAnalysed">Ev beş pir kurt e bo analîzkirinê.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tenê beşdarên xebatê dikarin analîza kombersê daxwaz bikin.</string>
-  <string name="getAFullComputerAnalysis">Ji bo vê xeta sereke analîzeke kombersê ya bi hûrgilî werbigire.</string>
   <string name="makeSureTheChapterIsComplete">Pê bawer be ku beş temam bûye. Tu dikarî tenê carekê analîzê bixwazî.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Hemû endamên senkronîze li eynî pozîsyonê dimînin</string>
   <string name="shareChanges">Guhertinan bi temaşevanan re parve bike û wan qeydê ser rajekerê bike</string>
@@ -110,7 +109,6 @@
   <string name="noLetPeopleBrowseFreely">Na: bihêle ku herkes bi serbestî bigere</string>
   <string name="pinnedStudyComment">Şîroveya xebatê ya zeliqandî</string>
   <string name="start">Dest pê bike</string>
-  <string name="save">Qeyd bike</string>
   <string name="clearChat">Gotûbêjê paqij bike</string>
   <string name="deleteTheStudyChatHistory">Bila dîroka gotûbêja xebatê were jêbirin? Jê veger tine!</string>
   <string name="deleteStudy">Xebatê jê bibe</string>

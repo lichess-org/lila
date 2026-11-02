@@ -71,6 +71,7 @@ typescript_postamble = """};
 
 export type Licon = typeof licon;
 export type LiconKey = keyof Licon;
+export type LiconValue = Licon[LiconKey];
 """
 
 def main():

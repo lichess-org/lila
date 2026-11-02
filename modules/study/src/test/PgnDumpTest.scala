@@ -4,7 +4,7 @@ import chess.format.pgn.*
 import chess.format.{ Fen, Uci }
 import chess.{ Ply, variant }
 
-import lila.tree.{ Branch, Branches, Root }
+import lila.tree.{ Branch, Branches, Clock, Node as TreeNode, Root }
 
 class PgnDumpTest extends munit.FunSuite:
 
@@ -127,3 +127,28 @@ class PgnDumpTest extends munit.FunSuite:
       rootToPgn(tree).value,
       "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
     )
+
+  test("disabled flags"):
+    val move = node(1, "e2e4", "e4").copy(
+      comments = TreeNode.Comments(
+        List(TreeNode.Comment(TreeNode.Comment.Id("i"), Comment("note"), TreeNode.Comment.Author.Lichess))
+      ),
+      clock = Clock(chess.Centis(6000)).some
+    )
+    val tree = root.copy(children = children(move, node(1, "g1f3", "Nf3")))
+    val flags = P.fullFlags.copy(comments = false, variations = false, clocks = false)
+    assertEquals(P.rootToPgn(tree, Tags.empty)(using flags).render.value, "1. e4")
+
+  test("force variation"):
+    val tree = root.copy(children = children(node(1, "e2e4", "e4").copy(forceVariation = true)))
+    assertEquals(rootToPgn(tree).value, "1. e4 (1. e4)")
+
+  test("max supported depth"):
+    val mainline = Node.MAX_PLIES
+      .to(1)
+      .by(-1)
+      .foldLeft(none[Branch]): (child, ply) =>
+        val (uci, san) = if ply % 2 == 1 then "e2e4" -> "e4" else "e7e5" -> "e5"
+        node(ply, uci, san, child.fold(Branches.empty)(children(_))).some
+    val tree = root.copy(children = children(mainline.get))
+    assert(rootToPgn(tree).value.endsWith("300. e4 e5"))

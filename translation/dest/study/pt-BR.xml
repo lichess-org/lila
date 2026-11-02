@@ -33,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convide apenas pessoas que você conhece e que queiram participar efetivamente deste estudo.</string>
-  <string name="searchByUsername">Pesquisar por nome de usuário</string>
+  <string name="searchByUsername">Buscar por nome de usuário</string>
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar com símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é muito curto para ser analisado.</string>
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de um estudo podem solicitar uma análise de computador.</string>
-  <string name="getAFullComputerAnalysis">Obter uma análise completa dos movimentos pelo servidor.</string>
   <string name="makeSureTheChapterIsComplete">Certifique-se de que o capítulo está completo. Você só pode solicitar análise uma vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros em SYNC veem a mesma posição</string>
   <string name="shareChanges">Compartilhar as alterações com os espectadores e salvá-las no servidor</string>
@@ -65,7 +64,7 @@
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Você pode colar isso no fórum para incluir o estudo na publicação</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.">Você pode colar isto no fórum ou no seu blog do Lichess para incorporar o capítulo.</string>
   <string name="startAtInitialPosition">Começar na posição inicial</string>
   <string name="startAtX">Começar em %s</string>
   <string name="embedInYourWebsite">Incorporar em seu site ou blog</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Não: deixe as pessoas navegarem livremente</string>
   <string name="pinnedStudyComment">Comentário de estudo afixado</string>
   <string name="start">Iniciar</string>
-  <string name="save">Salvar</string>
   <string name="clearChat">Limpar conversação</string>
   <string name="deleteTheStudyChatHistory">Excluir o histórico de conversação do estudo? Não há volta!</string>
   <string name="deleteStudy">Excluir estudo</string>
@@ -187,8 +185,7 @@
   <string name="fromInitialPositionText">Uma configuração para partidas novas.&lt;br&gt;Boa para estudar aberturas.</string>
   <string name="customPositionTitle">Posição personalizada</string>
   <string name="customPositionText">Monte do seu jeito.&lt;br&gt;Bom para estudar finais.</string>
-  <string name="loadExistingLichessGameTitle">Carregar um jogo de lichess existente</string>
-  <string name="loadExistingLichessGameText">Cole a URL de um jogo&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para inserir as jogadas no capítulo.</string>
+  <string name="loadGameFromTheWebTitle">Carregar uma partida da web</string>
   <string name="fromFenStringTitle">De uma sequência FEN</string>
   <string name="fromFenStringText">Cole uma posição FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para iniciar o capítulo a partir dela.</string>
   <string name="fromPgnGameTitle">A partir de um jogo PGN</string>
@@ -199,4 +196,10 @@
   <string name="doubleDefeat">Derrota dupla</string>
   <string name="blackDefeatWhiteCanNotWin">Pretas perderam, mas brancas não podem vencer</string>
   <string name="whiteDefeatBlackCanNotWin">Brancas perderam, mas pretas não podem vencer</string>
+  <string name="analysisEditor">Editor de análise</string>
+  <string name="clearLocal">Limpar análise local?</string>
+  <string name="clearPublished">Limpar análise publicada?</string>
+  <string name="requestAServerAnalysis">Solicitar uma análise do computador</string>
+  <string name="analyzeOnYourDevice">Analise no seu dispositivo</string>
+  <string name="searchChapters">Buscar capítulos</string>
 </resources>

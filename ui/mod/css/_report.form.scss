@@ -1,10 +1,19 @@
 .report-inbox-msgs {
   ul {
+    @extend %flex-column;
+
+    gap: 1em;
     max-height: 40vh;
     overflow-y: auto;
   }
 
-  li input {
-    margin-right: 1ch;
+  li {
+    @extend %flex-center-nowrap;
+
+    gap: 1em;
+  }
+
+  label {
+    cursor: pointer;
   }
 }

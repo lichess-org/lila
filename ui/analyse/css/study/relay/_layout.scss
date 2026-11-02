@@ -25,9 +25,19 @@ body {
   }
 }
 
+.analyse__tools {
+  height: auto;
+}
+
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
+
+    @include if-transp {
+      @include back-blur;
+
+      backdrop-filter: none;
+    }
 
     &__side {
       grid-area: side;

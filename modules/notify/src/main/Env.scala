@@ -1,10 +1,11 @@
 package lila.notify
 
 import com.softwaremill.macwire.*
+
 import lila.common.Bus
-import lila.db.dsl.Coll
 import lila.core.config.CollName
-import lila.core.notify.{ NotificationContent, GetNotifyAllows }
+import lila.core.notify.{ GetNotifyAllows, NotificationContent }
+import lila.db.dsl.Coll
 
 @Module
 final class Env(
@@ -14,7 +15,7 @@ final class Env(
     getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
     subsRepo: lila.core.relation.SubscriptionRepo
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -28,9 +29,9 @@ final class Env(
 
   val getAllows = GetNotifyAllows(api.prefs.allows)
 
-  // api actor
   Bus.sub[lila.core.notify.NotifiedBatch]: batch =>
     api.markAllRead(batch.userIds)
+
   Bus.sub[lila.core.game.CorresAlarmEvent]:
     case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
       api.notifyOne(userId, NotificationContent.CorresAlarm(pov.game.id, opponent))

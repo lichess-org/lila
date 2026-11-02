@@ -5,7 +5,7 @@ import { Bot } from 'lib/bot/bot';
 import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
 import { licon, type LiconValue } from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { type VNode, hl, onInsert, bind, domDialog, iconTag, dataIcon } from 'lib/view';
+import { type VNode, hl, onInsert, bind, domDialog, dataIcon, icon } from 'lib/view';
 
 import { domIdToUid, uidToDomId } from './devBotCtrl';
 import { env } from './devEnv';
@@ -100,13 +100,11 @@ function ratingText(uid: string, speed: LocalSpeed): string {
 
 function ratingSpan(p: Bot): VNode {
   const glicko = env.dev.getRating(p.uid, env.game.speed);
-  return hl('span.stats', [iconTag(speedIcon(env.game.speed)), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
+  return hl('span.stats', [icon(speedIcon(env.game.speed))(), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
 }
 
 function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
   switch (speed) {
-    case 'classical':
-      return licon.Turtle;
     case 'rapid':
       return licon.Rabbit;
     case 'blitz':
@@ -114,6 +112,9 @@ function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
     case 'bullet':
     case 'ultraBullet':
       return licon.Bullet;
+    case 'classical':
+    default:
+      return licon.Turtle;
   }
 }
 
@@ -294,6 +295,7 @@ function fen(): VNode {
 function roundRobin() {
   domDialog({
     class: 'round-robin-dialog',
+    closeButton: true,
     htmlText: `<h2>round robin participants</h2>
     <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
       .map(p => {
@@ -357,8 +359,8 @@ function showBotSelector(clickedEl: HTMLElement) {
   main.classList.add('with-cards');
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
-    const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
-    drops.push({ el, selected });
+    const uid = env.bot[el.dataset.color as Color]?.uid;
+    drops.push({ el, selected: uid && uidToDomId(uid) });
   });
   botSelector = handOfCards({
     viewEl: main,

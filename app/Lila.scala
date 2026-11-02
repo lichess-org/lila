@@ -1,10 +1,9 @@
 package lila.app
 
-import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.inject.DefaultApplicationLifecycle
+import org.apache.pekko.actor.ActorSystem
 import play.api.http.{ FileMimeTypes, HttpRequestHandler }
-import play.api.inject.ApplicationLifecycle
+import play.api.inject.{ ApplicationLifecycle, DefaultApplicationLifecycle }
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
@@ -60,6 +59,7 @@ final class LilaComponents(
     )
 
   given ActorSystem = actorSystem
+  given Scheduler = actorSystem.scheduler
 
   given StandaloneWSClient =
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
@@ -84,7 +84,7 @@ final class LilaComponents(
     c.result
 
   val httpFilters = Seq(
-    lila.web.HttpFilter(env.net, lila.security.Mobile.LichessMobileUa.parse)
+    new lila.web.HttpFilter(env.net, lila.security.Mobile.LichessMobileUa.parse)
   )
 
   override lazy val httpErrorHandler =

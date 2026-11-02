@@ -15,7 +15,6 @@ Punika kaca profil: %1$s  sampeyan bisa nggawe pribadi ing %2$s.
 
 Seneng - seneng, lan muga-muga potongan-potongan sampeyan tansah nemokake dalan menyang raja mungsuh sampeyan!</string>
   <string name="logInToLichess">Log ing kanggo lichess.org, %s</string>
-  <string name="common_orPaste">(Klik ora bisa? Coba pasting menyang browser panjenengan!)</string>
   <string name="common_note">Iki minangka email layanan sing ana gandhengane karo panggunaan sampeyan %s.</string>
   <string name="common_contact">Kanggo hubungi kita, mangga nggunakake %s.</string>
 </resources>

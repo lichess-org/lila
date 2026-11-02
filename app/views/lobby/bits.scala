@@ -40,7 +40,7 @@ object bits:
       p(trans.site.showUnreadLichessMessage()),
       p:
         a(cls := "button button-fat", href := routes.Msg.convo(UserId.lichess)):
-          trans.site.clickHereToReadIt()
+          trans.site.readTheMessage()
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(using Context) =

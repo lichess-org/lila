@@ -2,8 +2,8 @@ package lila.api
 
 import lila.common.Bus
 import lila.core.perm.Granter
-import lila.user.UserDelete
 import lila.db.dsl.{ *, given }
+import lila.user.UserDelete
 
 /* There are 2 flavours of account termination.
 |                           | disable                          | delete                |
@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 | reopen                    | available to user                | strictly impossible   |
 | games                     | intact                           | anonymized            |
 | username                  | intact, no reuse                 | anonymized, no reuse  |
-| email                     | kept for reopening, no reuse[^1] | deleted, no reuse[^1] |
+| email                     | kept for reopening               | deleted               |
 | profile data              | hidden                           | deleted               |
 | sessions and oauth tokens | closed                           | deleted               |
 | patron subscription       | canceled                         | canceled              |
@@ -25,13 +25,12 @@ import lila.db.dsl.{ *, given }
 | tournaments created       | hidden                           | anonymized            |
 | forum posts               | intact                           | deleted               |
 | teams/classes joined      | quit                             | quit                  |
-| team/classes created      | intact[^2]                       | intact[^2]            |
-| classes joiated           | intact[^2]                       | intact[^2]            |
+| team/classes created      | intact *                         | intact *              |
+| classes created           | intact *                         | intact *              |
 | puzzle history            | hidden                           | deleted               |
 | follows and blocks        | deleted                          | deleted               |
 
-[^1] the email address of a closed account can be re-used to make a new account, up to 4 times per month.
-[^2] classes and teams have a life of their own. Close them manually if you want to, before deleting your account.
+ * classes and teams have a life of their own. Close them manually if you want to, before deleting your account.
  */
 final class AccountTermination(
     userRepo: lila.user.UserRepo,
@@ -59,7 +58,7 @@ final class AccountTermination(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     _ <- isEssential(u.id).so:
@@ -69,7 +68,7 @@ final class AccountTermination(
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose = !selfClose && Granter(_.CloseAccount)
     tos = u.marks.dirty || modClose || playbanned
-    _ <- userRepo.disable(u, keepEmail = tos, forever = forever)
+    _ <- userRepo.disable(u, forever = forever)
     _ <- roundApi.resignAllGamesOf(u.id)
     followedIds <- relationApi.accountTermination(u)
     _ <- rankingApi.remove(u.id)
@@ -93,10 +92,12 @@ final class AccountTermination(
     _ <- appealApi.onAccountClose(u)
     _ <- ublogApi.onAccountClose(u)
     _ <- (u.marks.troll || u.marks.alt).so(activityWrite.unfollowAll(u, followedIds))
+    _ = selfClose.not.so(modApi.afterModClose(u))
   yield Bus.pub(lila.core.security.CloseAccount(u.id))
 
   def scheduleDelete(u: User)(using Me): Funit = for
     _ <- disable(u, forever = false)
+    _ <- modLogApi.scheduleDelete(u.id)
     _ <- email.delete(u)
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant).some)
   yield ()
@@ -139,17 +140,21 @@ final class AccountTermination(
     _ <- tokenApi.revokeAllByUser(u.id)
     _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
+    _ <- modLogApi.deleteAccount(u.id, tos)
   yield
     // a lot of deletion is done by modules listening to the following event:
     Bus.pub(lila.core.user.UserDelete(u))
 
-  private def deleteAllGameChats(u: User) = gameRepo
-    .docCursor(lila.game.Query.user(u.id), $id(true).some)
-    .documentSource()
-    .mapConcat(_.getAsOpt[GameId]("_id").toList)
-    .grouped(100)
-    .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
-    .run()
+  def deleteAllGameChats(u: User) =
+    import lila.game.Query
+    import lila.core.game.Source.*
+    gameRepo
+      .docCursor(Query.user(u.id) ++ Query.sourceIn(List(Lobby, Pool, Friend, Api)), bid(true).some)
+      .documentSource()
+      .mapConcat(_.getAsOpt[GameId]("_id").toList)
+      .grouped(100)
+      .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
+      .run()
 
   private val isEssential: Set[UserId] =
     Set(

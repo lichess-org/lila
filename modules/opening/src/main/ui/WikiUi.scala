@@ -2,8 +2,7 @@ package lila.opening
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class WikiUi(helpers: Helpers, bits: OpeningBits):
   import helpers.{ *, given }

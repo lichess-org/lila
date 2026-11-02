@@ -100,7 +100,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">আপনার প্রতিরক্ষক দ্বারা
 দাবার ঘোরাটি চেক করা হচ্ছে!</string>
   <string name="escapeOrBlock">রাজার সাথে পালান অথবা হামলা বন্ধ করুন!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">অভিনন্দন! আপনার রাজা নেওয়া যাবে না,
+  <string name="outOfCheckComplete">অভিনন্দন! আপনার রাজা নেওয়া যাবে না,
 নিশ্চিত হন আপনি চেকের বিরুদ্ধে রক্ষা করতে পারবেন!</string>
   <string name="mateInOne">এক সহচরে</string>
   <string name="defeatTheOpponentsKing">প্রতিদ্বন্দ্বী রাজাকে পরাজিত</string>
@@ -129,6 +129,7 @@
 অবিরত রাখার জন্য যে কোন চাল তৈরি করে.</string>
   <string name="boardSetupComplete">অভিনন্দন! আপনি জানেন কিভাবে দাবার বোর্ড সেটাপ করতে হয়.</string>
   <string name="castling">কাস্টেলিং</string>
+  <string name="enPassant">এন পাসান্ত</string>
   <string name="theSpecialKingMove">বিশেষ রাজাকে সরান</string>
   <string name="castlingIntro">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য!</string>
   <string name="castleKingSide">আপনার রাজাকে দুই বর্গ সরান 

@@ -1,9 +1,8 @@
 package lila.tournament
 
-import chess.Rated
 import chess.format.Fen
 import chess.variant.Variant
-import chess.IntRating
+import chess.{ IntRating, Rated }
 import reactivemongo.api.bson.*
 
 import lila.core.id.TourPlayerId
@@ -40,6 +39,7 @@ object BSONHandlers:
   import TournamentCondition.bsonHandler
 
   given tourHandler: BSON[Tournament] with
+
     def reads(r: BSON.Reader) =
       val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
       val position: Option[Fen.Standard] =
@@ -49,7 +49,7 @@ object BSONHandlers:
           .orElse(r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen)) // for BC
       val startsAt = r.date("startsAt")
       val conditions = r.getD[TournamentCondition.All]("conditions")
-      Tournament(
+      val tour = Tournament(
         id = r.get[TourId]("_id"),
         name = r.str("name"),
         status = r.get[Status]("status"),
@@ -73,13 +73,16 @@ object BSONHandlers:
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
         startsAt = startsAt,
         winnerId = r.getO[UserId]("winner"),
-        featuredId = r.getO[GameId]("featured"),
+        featured = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r.strO("description"),
+        payouts = r.getO[Payouts]("payouts"),
         hasChat = r.boolO("chat").getOrElse(true)
       )
+      if false && tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
+
     def writes(w: BSON.Writer, o: Tournament) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "name" -> o.name,
         "status" -> o.status,
@@ -99,9 +102,10 @@ object BSONHandlers:
         "createdBy" -> o.nonLichessCreatedBy,
         "startsAt" -> w.date(o.startsAt),
         "winner" -> o.winnerId,
-        "featured" -> o.featuredId,
+        "featured" -> o.featured,
         "spotlight" -> o.spotlight,
         "description" -> o.description,
+        "payouts" -> o.payouts,
         "chat" -> (!o.hasChat).option(false)
       )
 
@@ -121,7 +125,7 @@ object BSONHandlers:
         bot = r.boolD("bot")
       )
     def writes(w: BSON.Writer, o: Player) =
-      $doc(
+      bdoc(
         "_id" -> o._id,
         "tid" -> o.tourId,
         "uid" -> o.userId,
@@ -156,7 +160,7 @@ object BSONHandlers:
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
     def writes(w: BSON.Writer, o: Pairing) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "tid" -> o.tourId,
         "s" -> o.status.id,
@@ -183,7 +187,7 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "u" -> o.userId,
         "t" -> o.tourId,

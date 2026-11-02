@@ -1,16 +1,15 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
+import chess.Outcome.Points
+import chess.format.pgn.*
+import chess.{ FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
-import chess.format.pgn.*
-import chess.{ FideId, PlayerName, IntRating }
-import chess.Outcome.Points
+import scala.collection.immutable.SeqMap
 
 import lila.core.fide.{ PlayerToken, Tokenize }
-import lila.study.ChapterPreview
-import lila.study.StudyPlayer
 import lila.relay.RelayGroup.ScoreGroup
+import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
 
@@ -24,7 +23,7 @@ private class RelayTeamsTextarea(val text: String):
   private type PlayerNameStr = String
 
   lazy val teams: Map[TeamName, List[PlayerNameStr | FideId]] = text.linesIterator
-    .take(1000)
+    .take(1500)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
@@ -70,7 +69,11 @@ object RelayTeam:
         copy(players =
           players.updated(
             id,
-            players.get(id).fold(player)(rp => rp.copy(games = rp.games ++ player.games))
+            players
+              .get(id)
+              .fold(player)(rp =>
+                rp.copy(games = rp.games ++ player.games, score = rp.score |+| player.score)
+              )
           )
         )
     def points = players.values.toList.foldMap(_.score)
@@ -80,7 +83,7 @@ object RelayTeam:
     def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
     def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
     def forall(f: A => Boolean) = f(a) && f(b)
-    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else if f(b) then Some(b) else None
+    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else Some(b).filter(f)
     def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
     def reverse = Pair(b, a)
 
@@ -292,7 +295,7 @@ final class RelayTeamLeaderboard(
       cache
         .get(tourId)
         .map: l =>
-          JsonStr(Json.stringify(Json.toJson(l.values.toList)))
+          JsonStr(Json.toJson(l.values.toList))
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
@@ -314,7 +317,7 @@ final class RelayTeamLeaderboard(
           rounds <-
             if RelayGroup.sgIsParallel(tours)
             then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-            else tourIds.flatTraverse(roundRepo.byTourOrdered)
+            else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
           roundIds = rounds.map(_.id)
           matches <- roundIds.flatTraverse(teamTable.table)
         yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>

@@ -1,7 +1,8 @@
 package lila.relay
 
-import lila.study.Chapter
 import chess.format.pgn.Tags
+
+import lila.study.Chapter
 import lila.tree.Node
 
 object RelayUpdatePlan:

@@ -20,7 +20,7 @@
     -1px 0 0 #20222c,
     0 1px 0 #20222c,
     0 -1px 0 #20222c,
-    0 3px 13px rgba(0, 0, 0, 0.08);
+    0 3px 13px rgb(0 0 0 / 0.08);
 }
 
 .flatpickr-calendar.open,
@@ -273,16 +273,16 @@
   line-height: 50%;
   opacity: 0;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgb(255 255 255 / 0.15);
   box-sizing: border-box;
 }
 
 .numInputWrapper span:hover {
-  background: rgba(192, 187, 167, 0.1);
+  background: rgb(192 187 167 / 0.1);
 }
 
 .numInputWrapper span:active {
-  background: rgba(192, 187, 167, 0.2);
+  background: rgb(192 187 167 / 0.2);
 }
 
 .numInputWrapper span::after {
@@ -299,7 +299,7 @@
 .numInputWrapper span.arrowUp::after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 4px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 4px solid rgb(255 255 255 / 0.6);
   top: 26%;
 }
 
@@ -310,7 +310,7 @@
 .numInputWrapper span.arrowDown::after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid rgba(255, 255, 255, 0.6);
+  border-top: 4px solid rgb(255 255 255 / 0.6);
   top: 40%;
 }
 
@@ -320,11 +320,11 @@
 }
 
 .numInputWrapper span svg path {
-  fill: rgba(255, 255, 255, 0.5);
+  fill: rgb(255 255 255 / 0.5);
 }
 
 .numInputWrapper:hover {
-  background: rgba(192, 187, 167, 0.05);
+  background: rgb(192 187 167 / 0.05);
 }
 
 .numInputWrapper:hover span {
@@ -356,7 +356,7 @@
 }
 
 .flatpickr-current-month span.cur-month:hover {
-  background: rgba(192, 187, 167, 0.05);
+  background: rgb(192 187 167 / 0.05);
 }
 
 .flatpickr-current-month .numInputWrapper {
@@ -398,7 +398,7 @@
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
   font-size: 100%;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255 255 255 / 0.5);
   background: transparent;
   pointer-events: none;
 }
@@ -430,7 +430,7 @@
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
-  background: rgba(192, 187, 167, 0.05);
+  background: rgb(192 187 167 / 0.05);
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
@@ -507,7 +507,7 @@ span.flatpickr-weekday {
   border: 1px solid transparent;
   border-radius: 150px;
   box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgb(255 255 255 / 0.95);
   cursor: pointer;
   font-weight: 400;
   width: 14.2857%;
@@ -614,7 +614,7 @@ span.flatpickr-weekday {
 .flatpickr-day.notAllowed,
 .flatpickr-day.notAllowed.prevMonthDay,
 .flatpickr-day.notAllowed.nextMonthDay {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgb(255 255 255 / 0.3);
   background: transparent;
   border-color: transparent;
   cursor: default;
@@ -623,7 +623,7 @@ span.flatpickr-weekday {
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover {
   cursor: not-allowed;
-  color: rgba(255, 255, 255, 0.1);
+  color: rgb(255 255 255 / 0.1);
 }
 
 .flatpickr-day.week.selected {
@@ -661,7 +661,7 @@ span.flatpickr-weekday {
   display: block;
   width: 100%;
   max-width: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgb(255 255 255 / 0.3);
   background: transparent;
   cursor: default;
   border: none;
@@ -704,11 +704,11 @@ span.flatpickr-weekday {
 }
 
 .flatpickr-time .numInputWrapper span.arrowUp::after {
-  border-bottom-color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgb(255 255 255 / 0.95);
 }
 
 .flatpickr-time .numInputWrapper span.arrowDown::after {
-  border-top-color: rgba(255, 255, 255, 0.95);
+  border-top-color: rgb(255 255 255 / 0.95);
 }
 
 .flatpickr-time.hasSeconds .numInputWrapper {
@@ -729,7 +729,7 @@ span.flatpickr-weekday {
   padding: 0;
   height: inherit;
   line-height: inherit;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgb(255 255 255 / 0.95);
   font-size: 14px;
   position: relative;
   box-sizing: border-box;
@@ -755,7 +755,7 @@ span.flatpickr-weekday {
   height: inherit;
   float: left;
   line-height: inherit;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgb(255 255 255 / 0.95);
   font-weight: bold;
   width: 2%;
   user-select: none;

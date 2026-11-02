@@ -44,7 +44,6 @@
   <string name="annotateWithGlyphs">Глифлар белән өзек бирү</string>
   <string name="theChapterIsTooShortToBeAnalysed">Бу баб бик кыска таһлил колынды.</string>
   <string name="onlyContributorsCanRequestAnalysis">Өйрәнеш һиссадәрләр компьютер чишелешен тәлап итмәк.</string>
-  <string name="getAFullComputerAnalysis">Барча сервер-яктагы компьютер чишлешен асасий юнәлеш алыгыз.</string>
   <string name="makeSureTheChapterIsComplete">Бабның тәгликъ икәнлегендә очаныч һасил колмак. Сез таһлилне фәкать бир мәртә колышыңыз мөмкин.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Барлык SYNC әгъзалары һаман хәләттә кылмак</string>
   <string name="shareChanges">Үзгәрешләрне тамашачылар белән юшәрик колыш вә аларны серверда саклау</string>
@@ -58,7 +57,6 @@
   <string name="downloadGame">Йөкләш уенны</string>
   <string name="studyUrl">Өйрәнеш URL</string>
   <string name="currentChapterUrl">Хәзерге баб URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Сез җайлаштырасыз форумны ябыштырыш колыш</string>
   <string name="open">Ачу</string>
   <string name="orientation">Урнашу</string>
   <string name="analysisMode">Вәдъ әл-тәһлил</string>
@@ -80,7 +78,6 @@
   <string name="members">Катнашучылар</string>
   <string name="everyone">Һәркем</string>
   <string name="start">Башла</string>
-  <string name="save">Сакла</string>
   <string name="goodMove">Якшы йөрү</string>
   <string name="mistake">Хата</string>
   <string name="blunder">Зур хата</string>

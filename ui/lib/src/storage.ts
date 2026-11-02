@@ -58,7 +58,7 @@ export const storedBooleanPropWithEffect = (
 ): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
 
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
-  storedProp(k, defaultValue, str => Number(str));
+  storedProp(k, defaultValue, Number);
 
 export const storedIntPropWithEffect = (
   k: string,

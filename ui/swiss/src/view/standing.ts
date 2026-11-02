@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { bind, iconTag, type MaybeVNodes, onInsert } from 'lib/view';
+import { bind, icon, type MaybeVNodes, onInsert } from 'lib/view';
 
 import type SwissCtrl from '../ctrl';
 import type { Player } from '../interfaces';
@@ -20,8 +20,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       h(
         'td.rank',
         player.absent && ctrl.data.status !== 'finished'
-          ? iconTag(licon.Pause, { title: 'Absent' })
-          : [player.rank],
+          ? icon(licon.Pause)({ title: 'Absent' })
+          : player.rank,
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
       h(
@@ -38,7 +38,10 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                     ? h(p, title('Late'), '½')
                     : h(
                         'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
-                        { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
+                        {
+                          attrs: { key: p.g, href: `/game/${p.g}` },
+                          hook: onInsert(site.powertip.manualGame),
+                        },
                         p.o ? '*' : p.w ? '1' : p.w === false ? '0' : '½',
                       ),
             )

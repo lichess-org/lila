@@ -1,6 +1,7 @@
 package lila.insight
 
 import chess.IntRating
+
 import lila.rating.Glicko
 
 opaque type PeersRatingRange = PairOf[IntRating]

@@ -2,14 +2,16 @@ import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
 
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
+import { api } from 'lib/api';
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
 
-import type AnalyseCtrl from '../ctrl';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import { detectThreefold } from '../nodeFinder';
+import type AnalyseCtrl from '@/ctrl';
+import { tablebaseGuaranteed } from '@/explorer/explorerCtrl';
+import { detectThreefold } from '@/nodeFinder';
+
 import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
@@ -54,28 +56,33 @@ export interface PracticeCtrl {
 
 export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
-  const variant = root.data.game.variant.key,
-    running = prop(true),
-    comment = prop<Comment | null>(null),
-    hovering = prop<{ uci: string } | null>(null),
-    hinting = prop<Hinting | null>(null),
-    played = prop(false),
-    altCastles = {
-      e1a1: 'e1c1',
-      e1h1: 'e1g1',
-      e8a8: 'e8c8',
-      e8h8: 'e8g8',
-    };
+  const variant = root.data.game.variant.key;
+  const running = prop(true);
+  const comment = prop<Comment | null>(null);
+  const hovering = prop<{ uci: string } | null>(null);
+  const hinting = prop<Hinting | null>(null);
+  const played = prop(false);
+  const altCastles = {
+    e1a1: 'e1c1',
+    e1h1: 'e1g1',
+    e8a8: 'e8c8',
+    e8h8: 'e8g8',
+  };
 
   function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
     if (!node.ceval) return false;
+    if (api.overrides.practiceCommentReady)
+      return api.overrides.practiceCommentReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis } = node.ceval;
     return Boolean(bestmove || nodes >= 400_000 || (millis ?? 0) > 1000);
   }
 
   function playable(node: TreeNode): boolean {
     if (!node.ceval) return false;
+    if (api.overrides.practiceEvalReady) return api.overrides.practiceEvalReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis, cloud } = node.ceval;
     return masteryMode()
       ? !root.ceval.isComputing
@@ -93,7 +100,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
   const nodeBestUci = (node: TreeNode): Uci | undefined => node.tbhit?.best || node.ceval?.pvs[0].moves[0];
 
   function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
-    let verdict: Verdict, best: Uci | undefined;
+    let verdict: Verdict;
+    let best: Uci | undefined;
     const outcome = node.outcome();
 
     if (outcome?.winner) verdict = 'goodMove';
@@ -131,7 +139,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
             uci: best,
             san: prev.pos().unwrap(
               pos => makeSan(pos, parseUci(best)!),
-              _ => '--',
+              () => '--',
             ),
           }
         : undefined,
@@ -171,22 +179,23 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
         }
       }
       if (!played() && playable(node)) {
-        root.playUci(nodeBestUci(node)!);
         played(true);
+        root.playUci(nodeBestUci(node)!);
       } else root.redraw();
     }
   }
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(variant, root.node.fen))
-      root.explorer.fetchTablebaseHit(root.node.fen).then(
+    const node = root.node;
+    if (tablebaseGuaranteed(variant, node.fen))
+      root.explorer.fetchTablebaseHit(node.fen, 3000).then(
         hit => {
-          if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
-          checkCeval();
+          if (hit && node.fen === hit.fen) node.tbhit = hit;
+          if (root.node === node) checkCeval();
         },
         () => {
-          if (!defined(root.node.tbhit)) root.node.tbhit = null;
-          checkCeval();
+          if (!defined(node.tbhit)) node.tbhit = null;
+          if (root.node === node) checkCeval();
         },
       );
     else checkCeval();
@@ -245,8 +254,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
-        prev = hinting();
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
+      const prev = hinting();
       if (!best || prev?.mode === 'move') hinting(null);
       else
         hinting({
@@ -261,8 +270,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     customCeval: {
       search: () =>
         masteryMode() && !isMyTurn()
-          ? 60 * 1000
-          : { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true },
+          ? { maxMovetime: 300 * 1000 }
+          : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },

@@ -3,7 +3,8 @@ import { richHTML } from 'lib/richText';
 import { onInsert, hl, initMiniGames } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
-import type SimulCtrl from '../ctrl';
+import type SimulCtrl from '@/ctrl';
+
 import created from './created';
 import pairings from './pairings';
 import results from './results';

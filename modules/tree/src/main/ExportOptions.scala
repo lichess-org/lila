@@ -10,6 +10,7 @@ case class ExportOptions(
     puzzles: Boolean = false,
     nvui: Boolean = false,
     lichobileCompat: Boolean = false
-)
+)(using val me: Option[Me])
+
 object ExportOptions:
-  val default = ExportOptions()
+  val default = ExportOptions()(using none)

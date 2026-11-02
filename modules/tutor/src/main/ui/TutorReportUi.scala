@@ -40,7 +40,7 @@ final class TutorReportUi(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi
         ),
         full.perfs.nonEmpty.option(tutorConcepts),
         div(cls := "tutor__perfs tutor-cards")(
-          full.perfs.toList.map { perfReportCard(full, _) }
+          full.perfs.toList.map(perfReportCard(full, _))
         )
       )
 

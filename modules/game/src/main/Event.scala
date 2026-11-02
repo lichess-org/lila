@@ -2,8 +2,8 @@ package lila.game
 
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
-import chess.variant.Crazyhouse
 import chess.rating.IntRatingDiff
+import chess.variant.Crazyhouse
 import chess.{
   Bitboard,
   Centis,
@@ -13,8 +13,8 @@ import chess.{
   Drop as ChessDrop,
   Move as ChessMove,
   Ply,
-  PromotableRole,
   Position,
+  PromotableRole,
   Square,
   Status
 }
@@ -118,7 +118,7 @@ object Event:
       check = board.check,
       threefold = board.threefoldRepetition,
       fiftyMoves = board.variant.fiftyMoves(board.history),
-      promotion = move.promotion.map { Promotion(_, move.dest) },
+      promotion = move.promotion.map(Promotion(_, move.dest)),
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
       castle = move.castle.map(Castling(_, move.color)),
       state = state,
@@ -172,7 +172,6 @@ object Event:
     )
 
   object PossibleMoves:
-    // We need to keep this implementation for compatibility
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
@@ -185,11 +184,17 @@ object Event:
           dests.foreach(s => sb.append(s.key))
         JsString(sb.toString)
 
+    // We need to keep this implementation for lichobile compatibility
     def oldJson(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
-        moves.foldLeft(JsObject(Nil)):
-          case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key).mkString))
+        val fields = Array.newBuilder[(String, JsValue)]
+        fields.sizeHint(moves.size)
+        moves.foreach: (orig, dests) =>
+          val sb = new java.lang.StringBuilder(dests.count * 2)
+          dests.foreach(s => sb.append(s.key))
+          fields += (orig.key -> JsString(sb.toString))
+        JsObject(fields.result())
 
   case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"

@@ -1,7 +1,8 @@
 package lila.puzzle
 
-import lila.memo.CacheApi
 import chess.IntRating
+
+import lila.memo.CacheApi
 
 private case class PuzzleSession(
     settings: PuzzleSettings,
@@ -27,10 +28,9 @@ private case class PuzzleSession(
 
   override def toString = s"$path:$positionInPath($settings)"
 
-case class PuzzleSettings(
-    difficulty: PuzzleDifficulty,
-    color: Option[Color]
-)
+case class PuzzleSettings(difficulty: PuzzleDifficulty, color: Option[Color]):
+  def in(angle: PuzzleAngle) = if angle.opening.isDefined then this else copy(color = none)
+
 object PuzzleSettings:
   val default = PuzzleSettings(PuzzleDifficulty.default, none)
   def default(color: Option[Color]) = PuzzleSettings(PuzzleDifficulty.default, color)
@@ -84,7 +84,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           _.map: next =>
             (!prev.exists(next.similarTo)).so(sessions.put(me.userId, fuccess(next)))
 
-  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](16_384, "puzzle.session"):
+  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32_768, "puzzle.session"):
     _.expireAfterWrite(1.hour).buildAsync()
 
   private[puzzle] def continueOrCreateSessionFor(
@@ -100,21 +100,18 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           else none
         reCreateReason match
           case Some(reason) =>
-            createSessionFor(reason)(angle, current.settings).tap { sessions.put(me.userId, _) }
+            createSessionFor(reason)(angle, current.settings).tap(sessions.put(me.userId, _))
           case None => fuccess(current)
 
   // renew the session often for provisional players
-  private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
+  private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew &&
     Math.abs((perf.intRating - session.rating).value) > 100
-  }
 
   private def createSessionFor(reason: String)(angle: PuzzleAngle, settings: PuzzleSettings)(using
       me: Me,
       perf: Perf
   ): Fu[PuzzleSession] =
-    val validSettings =
-      if angle.opening.isDefined then settings
-      else settings.copy(color = none) // only opening sessions can have a color choice
+    val validSettings = settings.in(angle)
     pathApi
       .nextFor(s"session.$reason")(angle, PuzzleTier.top, validSettings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")

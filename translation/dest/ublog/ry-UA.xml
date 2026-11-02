@@ -34,14 +34,10 @@
     <item quantity="few">Указати %s публікацій</item>
     <item quantity="other">Указати %s публікації</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Наладовати образчик для публікації</string>
   <string name="imageAlt">Опис образчика</string>
   <string name="imageCredit">Права на образчик</string>
   <string name="deleteBlog">Докус стерти сю публікацію</string>
-  <string name="safeToUseImages">Мож безопасно хосновати образчикы 
-из такых сайтув: </string>
   <string name="selectPostTopics">Уберіт тему свої публікації</string>
-  <string name="useImagesYouMadeYourself">Вы можете хосновати свої образчикы, фоткы, скріншоты Lichess... Вшытко, што не пудлїгат авторському правови.</string>
   <string name="safeAndRespectfulContent">Указуйте лем безопасный контент и контент, што честує вшыткых. Не копіруйте чужоє.</string>
   <string name="inappropriateContentAccountClosed">Через нелагодный контент можут закрыти вам акаунт.</string>
   <string name="blogTips">Наші прості тіпы, як писати добрі публікації</string>

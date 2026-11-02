@@ -20,9 +20,8 @@ $chat-height: calc(90vh - 300px);
   padding: 1.5rem $block-gap;
 
   .header {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
-    flex-flow: row nowrap;
     text-transform: uppercase;
 
     .clock {

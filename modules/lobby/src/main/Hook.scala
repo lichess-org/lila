@@ -1,22 +1,22 @@
 package lila.lobby
 
 import chess.variant.Variant
-import chess.IntRating
-import chess.{ Clock, Rated, Speed }
+import chess.{ Clock, IntRating, Rated, Speed }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 
+import lila.core.id.SessionId
 import lila.core.perf.UserWithPerfs
+import lila.core.pool.IsClockCompatible
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.rating.PerfType
-import lila.core.pool.IsClockCompatible
 
 // realtime chess, volatile
 case class Hook(
     id: String,
     sri: Sri, // owner socket sri
-    sid: Option[String], // owner cookie (used to prevent multiple hooks)
+    sid: Option[SessionId], // owner cookie (used to prevent multiple hooks)
     variant: Variant.Id,
     clock: Clock.Config,
     rated: Rated,
@@ -55,7 +55,7 @@ case class Hook(
 
   def userId = user.map(_.id)
   def username = user.fold(UserName.anonymous)(_.username)
-  def lame = user.so(_.lame)
+  def lame = user.so(_.marks.lame)
 
   lazy val perfType: PerfType = lila.rating.PerfType(realVariant, speed)
 
@@ -101,7 +101,7 @@ object Hook:
       rated: Rated,
       color: TriColor,
       user: Option[UserWithPerfs],
-      sid: Option[String],
+      sid: Option[SessionId],
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,
       boardApi: Boolean = false
@@ -129,7 +129,7 @@ object Hook:
       rating = h.rating | lila.rating.Glicko.default.intRating,
       provisional = h.provisional,
       ratingRange = h.manualRatingRange,
-      lame = h.user.so(_.lame),
+      marks = h.user.so(_.marks),
       blocking = h.user.so(_.blocking),
       rageSitCounter = 0
     )

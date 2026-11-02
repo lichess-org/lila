@@ -8,8 +8,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.perm.Granter
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -26,8 +25,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       .js(ratingChart.map: rc =>
         esmInit(
           "chart.ratingHistory",
-          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
+          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.key}'}")
         ))
+      .i18n(_.variant)
       .css("user.perf.stat"):
         main(cls := s"page-menu")(
           st.aside(cls := "page-menu__menu")(side),
@@ -94,7 +94,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   private def glicko(u: User, pt: PerfType, perf: Perf, percentile: Option[Double])(using Context): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.site.perfRatingX(
+        trans.site.perfRatingLabel(
           strong(
             if perf.glicko.clueless then "?"
             else decimal(perf.glicko.rating).toString
@@ -109,10 +109,12 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             )("(", tps.provisional(), ")")
           )
         ),
-        ". ",
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
-          span(cls := "details")(
-            percentileText(u, pt, percentile)
+          frag(
+            " ",
+            span(cls := "details")(
+              percentileText(u, pt, percentile)
+            )
           )
         }
       ),
@@ -219,11 +221,11 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
-        a(
+        gameLink(
           cls := "glpt",
           href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${u.username}"
         ):
-          (absClientInstant(r.at))
+          absClientInstant(r.at)
       )
     case None => div(h2(title(emptyFrag)), " ", span(tps.notEnoughGames()))
 
@@ -241,19 +243,19 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     s.from match
       case Some(from) =>
         tps.fromXToY(
-          a(
+          gameLink(
             cls := "glpt",
             href := s"${routes.Round.watcher(from.gameId, Color.white)}?pov=${u.username}"
           ):
-            (absClientInstant(from.at))
+            absClientInstant(from.at)
           ,
           s.to match
             case Some(to) =>
-              a(
+              gameLink(
                 cls := "glpt",
                 href := s"${routes.Round.watcher(to.gameId, Color.white)}?pov=${u.username}"
               ):
-                (absClientInstant(to.at))
+                absClientInstant(to.at)
             case None => tps.now()
         )
       case None => nbsp
@@ -297,7 +299,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             tr(
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
-                a(
+                gameLink(
                   cls := "glpt",
                   href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${user.username}"
                 ):

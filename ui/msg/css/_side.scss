@@ -40,7 +40,7 @@
 
         width: 100%;
         margin: auto 2em;
-        border-radius: 99px;
+        border-radius: calc($box-radius-size * 2);
         background: $c-bg-box;
         padding: 0.6em 1.2em;
       }
@@ -56,12 +56,12 @@
       cursor: pointer;
 
       &:hover {
-        background: $m-secondary_bg--mix-15;
+        background: color-mix(in oklab, $c-secondary 15%, $c-bg);
       }
 
       &:active,
       &.active {
-        background: $m-secondary_bg--mix-30;
+        background: color-mix(in oklab, $c-secondary 30%, $c-bg);
       }
 
       .user-link {

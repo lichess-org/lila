@@ -20,10 +20,10 @@
   <string name="doubleCheck">lawa mije li ken moli tan ijo tu</string>
   <string name="doubleCheckDescription">ijo musi wan li tawa, li open e nasin utala tawa ijo musi ante. ijo musi tu li utala e lawa mije lon tenpo sama.</string>
   <string name="endgame">pini musi</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="exposedKing">lawa mije li awen ala</string>
   <string name="exposedKingDescription">ijo musi pi mute lili li awen e lawa mije. ken mute la, lawa mije li kama moli.</string>
   <string name="fork">utala pi nasin tu</string>
-  <string name="forkDescription">ijo musi wan li utala e ijo musi tu.</string>
   <string name="hangingPiece">ijo musi pi awen ike</string>
   <string name="hangingPieceDescription">jan ante li awen ala anu awen ike e ijo musi ona. o anpa e ijo musi ona!</string>
   <string name="knightEndgame">pini musi pi soweli tawa</string>
@@ -55,7 +55,6 @@
   <string name="pin">ken tawa ala</string>
   <string name="pinDescription">ijo musi li tawa la, ijo musi suli pi kule sama li ken anpa.</string>
   <string name="promotion">kama wawa pi jan utala</string>
-  <string name="promotionDescription">o wawa e jan utala sina.</string>
   <string name="sacrificeDescription">o weka e ijo musi lon tenpo ni tawa ni: kama pona li lon tenpo kama.</string>
   <string name="short">musi lili pi tenpo lili</string>
   <string name="shortDescription">o kama pona lon tenpo tawa tu.</string>

@@ -41,7 +41,7 @@
     }
   }
 
-  @media (max-width: at-least($xx-small)) {
+  @media (max-width: at-most($xx-small)) {
     display: none;
   }
 

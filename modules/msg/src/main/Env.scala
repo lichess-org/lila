@@ -4,11 +4,13 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.Json.given
+import lila.common.autoconfig.given
 import lila.core.config.*
 import lila.core.socket.remote.TellUserIn
 
 @Module
 final class Env(
+    appConfig: play.api.Configuration,
     baseUrl: BaseUrl,
     db: lila.db.Db,
     lightUserApi: lila.core.user.LightUserApi,
@@ -29,7 +31,7 @@ final class Env(
 )(using
     Executor,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):
@@ -54,7 +56,7 @@ final class Env(
 
   val systemMsg = wire[MsgByLichess]
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.NotifyMany):
     case "msg" :: "multi" :: orig :: dests :: words =>
       api.cliMultiPost(
         UserStr(orig),
@@ -62,13 +64,19 @@ final class Env(
         words.mkString(" ")
       )
 
-  Bus.sub[lila.core.msg.SystemMsg]:
-    case lila.core.msg.SystemMsg(userId, text) =>
-      api.systemPost(userId, text)
+  Bus.sub[lila.core.msg.SystemMsg](api.systemPost(_))
+
+  private val payoutsUrl = appConfig.get[Url]("payouts.portal")
+
+  Bus.sub[lila.core.msg.PayoutMessages]: p =>
+    payoutsUrl.value.nonEmpty.so:
+      p.userIds.foreach: userId =>
+        api.postPreset(userId, MsgPreset.payoutEligible(payoutsUrl, p))
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>
-      msg.get[UserId]("d").foreach { api.setRead(userId, _) }
+      given MyId = userId.into(MyId)
+      msg.get[UserId]("d").foreach(api.setRead)
     case TellUserIn.Send(userId, msg) =>
       for
         obj <- msg.obj("d")

@@ -1,8 +1,8 @@
 package lila.round
 
 import chess.{ ByColor, Color }
-
 import scalalib.data.Preload
+
 import lila.game.GameExt.withClock
 import lila.game.{ Event, Progress }
 import lila.pref.{ Pref, PrefApi }
@@ -32,7 +32,12 @@ final class Moretimer(messenger: Messenger, prefApi: PrefApi):
       if force then fuccess(true)
       else (!game.hasRule(_.noGiveTime)).so(isAllowedByPrefs(game, prefs))
 
-  private[round] def give(game: Game, colors: List[Color], unchecked: FiniteDuration): Progress =
+  private[round] def give(
+      game: Game,
+      colors: List[Color],
+      unchecked: FiniteDuration,
+      reboot: Boolean = false
+  ): Progress =
     game.clock.fold(Progress(game)): clock =>
       val duration =
         if unchecked < minTime then minTime
@@ -42,8 +47,8 @@ final class Moretimer(messenger: Messenger, prefApi: PrefApi):
       val newClock = colors.foldLeft(clock): (c, color) =>
         c.giveTime(color, centis)
       colors.foreach: c =>
-        messenger.volatile(game, s"$c + ${duration.toSeconds} seconds")
-      (game.withClock(newClock)) ++ colors.map { Event.ClockInc(_, centis, newClock) }
+        messenger.volatile(game, s"$c + ${duration.toSeconds} seconds", reboot = reboot)
+      (game.withClock(newClock)) ++ colors.map(Event.ClockInc(_, centis, newClock))
 
   private def tellTheBus(game: Game): Unit =
     if lila.game.Game.isBoardCompatible(game) then

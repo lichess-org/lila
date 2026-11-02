@@ -41,7 +41,7 @@ export default class RelayCtrl {
   ) {
     this.round = this.data.rounds.find(r => r.id === this.study.data.id)!;
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3, v =>
-      v ? study.ctrl.ceval.reset() : study.ctrl.startCeval(),
+      v ? study.ctrl.ceval.reset() : study.ctrl.startCevalIfEnabled(),
     );
     this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
     this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
@@ -80,6 +80,7 @@ export default class RelayCtrl {
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
       fideId => data.photos[fideId],
       this.redraw,
+      data.group,
     );
     this.teamLeaderboard = new RelayTeamLeaderboard(
       this.data.tour.id,
@@ -185,7 +186,7 @@ export default class RelayCtrl {
 
   isPinnedStreamOngoing = () => {
     if (!this.data.pinned) return false;
-    if (this.round.finished) return false;
+    if (this.round.finishedAt) return false;
     return Date.now() >= this.round.startsAt! - 1000 * 3600;
   };
 

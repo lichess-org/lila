@@ -3,9 +3,9 @@ package chat
 
 import play.api.libs.json.JsObject
 
+import lila.core.data.Url
 import lila.core.id.*
 import lila.core.userId.*
-import lila.core.data.Url
 
 case class ChatLine(chatId: ChatId, line: Line, json: JsObject)
 case class OnTimeout(chatId: ChatId, userId: UserId)
@@ -71,7 +71,7 @@ opaque type ResourceId = String
 object ResourceId extends OpaqueString[ResourceId]
 
 enum TimeoutReason(val key: String, val name: String):
-  lazy val shortName = name.split(';').lift(0) | name
+  lazy val shortName = name.split(';').headOption | name
   case PublicShaming extends TimeoutReason("shaming", "public shaming; please use lichess.org/report")
   case Insult extends TimeoutReason("insult", s"disrespecting other players; see $etiquetteUrl")
   case Spam extends TimeoutReason("spam", s"spamming the chat; see $etiquetteUrl")

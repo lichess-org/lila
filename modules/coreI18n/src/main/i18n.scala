@@ -59,7 +59,7 @@ trait LangList:
 
 trait LangPicker:
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language]
-  def byStrOrDefault(str: Option[String]): Lang
+  def byLangTagOrDefault(lt: Option[LangTag]): Lang
 
 // play's req.acceptLanguages can throw exceptions if request headers are malformed
 def playAcceptLanguages(req: RequestHeader): Seq[Lang] =

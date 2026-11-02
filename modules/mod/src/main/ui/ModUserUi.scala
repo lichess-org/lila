@@ -4,11 +4,10 @@ package ui
 import lila.core.perm.Permission
 import lila.core.playban.RageSit
 import lila.evaluation.Display
-import lila.ui.*
-import lila.user.{ ClosedFlags, WithPerfsAndEmails }
-
-import ScalatagsTemplate.{ *, given }
 import lila.report.Report
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.user.{ ClosedFlags, WithPerfsAndEmails }
 
 def mzSection(key: String): Tag =
   div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
@@ -44,7 +43,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
       u: User,
       emails: lila.core.user.Emails,
       closedFlags: Option[ClosedFlags],
-      pmPresets: ModPresets
+      pmPresets: PmPresets
   )(using Context, Me): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(

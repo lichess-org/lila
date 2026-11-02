@@ -7,7 +7,8 @@
     margin: 0;
   }
 
-  button {
+  button,
+  a.fbt {
     @extend %box-radius;
 
     &.resign,
@@ -131,6 +132,8 @@
 
     border-bottom: $border;
     position: relative;
+    padding: 0 8px 8px;
+    gap: 4px;
 
     /* for rematch-decline */
     .fbt {
@@ -179,7 +182,7 @@
       margin-inline-start: 2em;
     }
 
-    @media (width <= $xxx-small) {
+    @media (max-width: $xxx-small) {
       margin-inline-start: 0;
     }
   }
@@ -187,15 +190,14 @@
   .rematch {
     &.fbt {
       @extend %metal;
+      @include transition;
 
       font-size: 1.2em;
       height: 6rem;
-
-      @include transition;
     }
 
     &.me {
-      background: $m-primary_bg--mix-80;
+      background: color-mix(in oklab, $c-primary 80%, $c-bg);
     }
 
     @keyframes rubber-band {
@@ -270,28 +272,31 @@
     }
 
     &.fbt:not(.disabled):hover {
-      background: $m-primary_bg--mix-70;
+      @include with-button-shadow(
+        hsl(from $c-primary h s calc(l + 32)),
+        hsl(from $c-primary h s calc(l - 18)),
+        hsl(from $c-primary h s calc(l + 44)),
+        hsl(from $c-primary h s calc(l - 14))
+      );
+
+      background: $c-primary;
       color: #fff;
       animation: none;
     }
 
     &-decline {
       @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
+      @include inline-end(-25px);
+      @include transition;
 
       justify-content: center;
       position: absolute;
       top: 0;
-
-      @include inline-end(-25px);
-
       width: 25px;
       height: 6rem;
       border: 0;
       opacity: 0.7;
-      background: $m-bad_bg--mix-50;
-
-      @include transition;
-
+      background: color-mix(in oklab, $c-bad 50%, $c-bg);
       display: none;
 
       @include mq-at-least-col2 {
@@ -301,10 +306,9 @@
       &:hover {
         background: $c-bad;
         color: $c-over;
+        width: 35px;
 
         @include inline-end(-36px);
-
-        width: 35px;
       }
     }
   }

@@ -9,8 +9,8 @@ import lila.core.data.RichText
 import lila.core.user.{ Flag, Profile }
 import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.data.Url
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,
@@ -25,10 +25,10 @@ final class CoachUi(helpers: Helpers)(
   def titleName(c: Coach.WithUser) =
     frag(c.user.title.map(t => s"$t "), c.user.realNameOrUsername)
 
-  def thumbnailUrl(c: Coach) =
+  def thumbnailUrl(c: Coach): Url =
     c.picture match
       case Some(image) => picfitUrl.thumbnail(image)(Coach.imageDimensions)
-      case _ => assetUrl("images/placeholder.png")
+      case _ => assetFullUrl("images/placeholder.png")
 
   def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageDimensions.width) =
     img(
@@ -63,7 +63,7 @@ final class CoachUi(helpers: Helpers)(
                 flagInfo(profile).map: c =>
                   frag(
                     span(cls := "flag")(
-                      img(src := assetUrl(s"flags/${c.code}.webp")),
+                      img(src := assetPath(s"flags/${c.code}.webp")),
                       " ",
                       c.name
                     )

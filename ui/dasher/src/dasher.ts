@@ -12,8 +12,8 @@ export function load(): Promise<DasherCtrl> {
 }
 
 export default async function initModule(): Promise<DasherCtrl> {
-  let vnode: VNode,
-    ctrl: DasherCtrl | undefined = undefined;
+  let vnode: VNode;
+  let ctrl: DasherCtrl | undefined = undefined;
 
   const $el = $('#dasher_app').html(`<div class="initiating">${spinnerHtml}</div>`);
   const element = $el.empty()[0] as HTMLElement;

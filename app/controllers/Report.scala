@@ -2,13 +2,13 @@ package controllers
 package report
 
 import play.api.data.*
-import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
+import play.api.mvc.{ AnyContentAsFormUrlEncoded, RequestHeader, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ReportId
-import lila.report.ui.PendingCounts
 import lila.report.Room.Scores
+import lila.report.ui.PendingCounts
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
@@ -18,13 +18,13 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
-    if env.streamer.liveApi.isStreaming(me.user.id) && !getBool("force")
+    if env.streamer.liveApi.isStreaming(me.userId) && !getBool("force")
     then Forbidden.page(views.site.message.streamingMod)
-    else renderList(env.report.modFilters.get(me).fold("all")(_.key))
+    else renderList(env.report.modFilters.get.fold("all")(_.key))
   }
 
-  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
-    env.report.modFilters.set(me, Room(room))
+  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> _ ?=>
+    env.report.modFilters.set(Room(room))
     Room(room).forall(Room.isGranted).so(renderList(room))
   }
 
@@ -46,24 +46,15 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
-    api.inquiries
-      .toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
-      .flatMap: (prev, next) =>
-        prev
-          .filter(_.isAppeal)
-          .map(_.user)
-          .so(env.appeal.api.setUnreadById)
-          .inject(
-            next.fold(
-              Redirect:
-                if prev.exists(_.isAppeal)
-                then routes.Appeal.queue()
-                else routes.Report.list
-            )(onInquiryStart)
-          )
+    for
+      (prev, next) <- api.inquiries.toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
+      appeal = prev.flatMap(p => p.appealTopic.map(p.user -> _))
+    yield next.fold(
+      Redirect(if appeal.isDefined then routes.Appeal.modQueue else routes.Report.list)
+    )(onInquiryStart)
   }
 
-  private def onInquiryStart(inquiry: ReportModel): Result =
+  private def onInquiryStart(inquiry: ReportModel)(using RequestHeader): Result =
     if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
     else if inquiry.is(_.Comm) then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
@@ -82,18 +73,19 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _ => none
-    def thenGoTo =
+    def thenGoTo: Option[String] =
       dataOpt
         .flatMap(_.get("then"))
         .flatMap(_.headOption)
         .flatMap:
           case "profile" => modC.userUrl(inquiry.user, mod = true).some
           case url => url.some
+        .orElse(env.web.referrerRedirect.fromReq.map(_.value))
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
-        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.modQueue)
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
@@ -113,9 +105,11 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .byId(id)
       .flatMap:
         _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
-          inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
-            api.process(inquiry) >>
-            onInquiryAction(inquiry, processed = true)
+          for
+            _ <- inquiry.appealTopic.so(env.appeal.api.setReadIfUnread(inquiry.user.id, _))
+            _ <- api.process(inquiry)
+            result <- onInquiryAction(inquiry, processed = true)
+          yield result
   }
 
   def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
@@ -156,13 +150,17 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   private val reportRateLimit =
     env.security.ipTrust.rateLimit(30, 3.hours, "report.create", _.proxyMultiplier(3))
 
-  def create = AuthBody { _ ?=> me ?=>
+  def create = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     bindForm(env.report.forms.create)(
       err =>
-        for
-          user <- getUserStr("username").so(env.user.repo.byId)
-          page <- renderPage(views.report.ui.form(err, user, none))
-        yield BadRequest(page),
+        negotiate(
+          html =
+            for
+              user <- getUserStr("username").so(env.user.repo.byId)
+              page <- renderPage(views.report.ui.form(err, user, none))
+            yield BadRequest(page),
+          json = jsonFormError(err)
+        ),
       data =>
         if me.is(data.user.id) then BadRequest("You cannot report yourself")
         else
@@ -170,7 +168,11 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
             for
               _ <- api.create(data, Reporter(me), Nil)
               _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
-            yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+              res <- negotiate(
+                Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value),
+                jsonOkResult
+              )
+            yield res
     )
   }
 

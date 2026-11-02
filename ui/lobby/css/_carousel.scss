@@ -6,9 +6,13 @@
   gap: $block-gap;
   position: relative;
 
+  .ublog-post-card {
+    box-shadow: none; // trimmed by .carousel { overflow: hidden }
+  }
+
   &__track {
-    display: flex;
-    flex-flow: row nowrap;
+    @extend %flex-nowrap;
+
     width: fit-content;
     align-items: stretch;
   }

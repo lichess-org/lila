@@ -11,7 +11,7 @@ final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: InsightStorage
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   import gameRepo.gameHandler
 
@@ -82,7 +82,7 @@ final private class InsightIndexer(
             .addFailureEffect: e =>
               logger.warn(e.getMessage, e)
             .map(_.toOption)
-        val query = gameQuery(user) ++ $doc(lila.game.Game.BSONFields.createdAt.$gte(from))
+        val query = gameQuery(user) ++ bdoc(lila.game.Game.BSONFields.createdAt.gte(from))
         gameRepo
           .sortedCursor(query, Query.sortChronological)
           .documentSource(maxGames.value)

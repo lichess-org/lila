@@ -16,7 +16,7 @@
   <string name="hordeTitle">Um lado tem um grande número de peões, o outro tem um exército normal.</string>
   <string name="racingKings">Corrida dos Reis</string>
   <string name="racingKingsTitle">Leve o seu rei para o outro lado do tabuleiro para ganhar.</string>
-  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouse">Troca-peças</string>
   <string name="crazyhouseTitle">As peças capturadas podem ser colocadas de volta no tabuleiro em vez de mover uma peça.</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="fromPositionTitle">Xadrez padrão de uma posição personalizada</string>

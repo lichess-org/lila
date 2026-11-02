@@ -4,6 +4,7 @@ import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
 import { licon } from '@/licon';
+import { onInsert } from '@/view/snabbdom';
 import * as xhr from '@/xhr';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {
@@ -21,12 +22,11 @@ export function toggleBoxInit(): void {
 
 export function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
   return {
-    insert: (v: VNode) => {
-      const el = v.elm as HTMLInputElement;
+    ...onInsert<HTMLInputElement>(el => {
       el.value = String(read());
       el.addEventListener('input', () => write(parseInt(el.value)));
       el.addEventListener('mouseout', () => el.blur());
-    },
+    }),
     update: (_, v: VNode) => {
       (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
     },
@@ -62,7 +62,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
       $input.attr('type', type);
       $button.toggleClass('revealed', type === 'text');
-      $input[0]?.focus();
+      $button.attr('aria-pressed', String(type === 'text'));
     });
   });
 };

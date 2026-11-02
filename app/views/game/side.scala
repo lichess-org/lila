@@ -104,7 +104,7 @@ def meta(
               trans.site.chess960StartPosition(
                 a(
                   targetBlank,
-                  href := "https://chess960.net/wp-content/uploads/2018/02/chess960-starting-positions.pdf"
+                  href := "https://chess960.net/pub/chess960-positions.pdf"
                 )(number)
               )
             )

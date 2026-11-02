@@ -41,7 +41,7 @@ private final class ContactApi(userColl: Coll)(using Executor):
     userColl
       .byOrderedIds[Contact, UserId](
         List(orig, dest),
-        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true, F.seenAt -> true).some
+        bdoc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true, F.seenAt -> true).some
       )(_.id)
       .map:
         case List(o, d) => Contacts(o, d).some

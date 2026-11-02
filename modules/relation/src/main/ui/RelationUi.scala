@@ -5,8 +5,7 @@ import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelationUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -47,7 +46,8 @@ final class RelationUi(helpers: Helpers):
       user: lila.core.LightUser,
       relation: Option[Relation],
       followable: Boolean,
-      blocked: Boolean
+      blocked: Boolean,
+      messageable: Boolean
   )(using ctx: Context) =
     val blocks = relation.contains(Relation.Block)
     List(
@@ -92,7 +92,7 @@ final class RelationUi(helpers: Helpers):
                 Some("relation-button")
               )
             ,
-            (!blocked && !blocks && !user.isBot).option(
+            (messageable && !blocked && !blocks && !user.isBot).option(
               MenuItem(
                 trans.site.composeMessage.txt(),
                 Icon.BubbleSpeech,

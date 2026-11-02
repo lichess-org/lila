@@ -5,11 +5,10 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.id.ImageId
-import lila.ui.*
-import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
-
-import ScalatagsTemplate.{ *, given }
+import lila.relay.RelayRound.WithTourAndStudy
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,
@@ -72,6 +71,7 @@ final class RelayUi(helpers: Helpers)(
 
   def showPreload(rt: WithTourAndStudy, data: RelayJsonView.JsData)(using Translate): Tag =
     main(cls := "analyse is-relay has-relay-tour")(
+      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload")),
       div(cls := "box relay-tour")(
         div(cls := "relay-tour__header")(
           div(cls := "relay-tour__header__content")(
@@ -85,8 +85,7 @@ final class RelayUi(helpers: Helpers)(
             rt.tour.image.map: imgId =>
               img(src := thumbnail.url(imgId, _.Size.Large))
         )
-      ),
-      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
+      )
     )
 
   object thumbnail:

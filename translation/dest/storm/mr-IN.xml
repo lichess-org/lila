@@ -57,6 +57,6 @@
   <string name="thisMonth">या महिन्यात</string>
   <string name="allTime">सर्वकालीन</string>
   <string name="clickToReload">परत भारण्यासाठी इथे दाबा</string>
-  <string name="thisRunHasExpired">ही धाव कालबाह्य झाली!</string>
-  <string name="thisRunWasOpenedInAnotherTab">ही श्रेणी दुसऱ्या जागी उघडली गेली आहे!</string>
+  <string name="thisRunHasExpired">हे धाव कालबाह्य झाले!</string>
+  <string name="thisRunWasOpenedInAnotherTab">हे धाव दुसऱ्या जागी उघडले गेले आहे!</string>
 </resources>

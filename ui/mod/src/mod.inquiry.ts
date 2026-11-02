@@ -10,14 +10,12 @@ site.load.then(() => {
   const noteStore = storage.make('inquiry-note');
   const usernameNoteStore = storage.make('inquiry-note-user');
   const username = $('#inquiry').data('username');
-  const $notes = $('#inquiry .notes');
-
   if (username !== usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
-  const noteTextArea = $notes.find('textarea')[0] as HTMLTextAreaElement;
+  const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
   const syncNoteValue = () => (noteTextArea.value = noteStore.get() || '');
   let hasSeenNonEmptyNoteWarning = false;
-  $notes.on('mouseenter', () => {
+  $('#inquiry .notes').on('mouseenter', () => {
     syncNoteValue();
     noteTextArea.focus();
   });
@@ -29,6 +27,7 @@ site.load.then(() => {
   }
 
   const loadNotes = () => {
+    const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
     $notes.find('form button[value=copy-url]').on('click', event => {
       event.preventDefault();
@@ -71,9 +70,9 @@ site.load.then(() => {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });
-  $('#inquiry .actions.close').on('click', function (this: HTMLInputElement) {
+  $('#inquiry .actions.close').on('click', function (this: HTMLInputElement, event: Event) {
     if (noteStore.get() && !hasSeenNonEmptyNoteWarning) {
-      event!.preventDefault();
+      event.preventDefault();
       const readTime = 1000;
       setTimeout(() => (hasSeenNonEmptyNoteWarning = true), readTime);
       flashNotes(true);

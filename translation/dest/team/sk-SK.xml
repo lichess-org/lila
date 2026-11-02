@@ -36,17 +36,11 @@
   <string name="willBeReviewed">Vaša žiadosť o vstup do družstva bude posúdená vedúcim družstva.</string>
   <string name="beingReviewed">Vaša žiadosť o vstup do družstva je posudzovaná vedúcim družstva.</string>
   <string name="requestDeclined">Vedúci družstva zamietol vašu žiadosť o vstup.</string>
-  <string name="subToTeamMessages">Prihlásiť sa k odberu správ družstva</string>
   <string name="teamBattle">Súboj družstiev</string>
   <string name="teamBattleOverview">Súboj viacerých družstiev, pričom každý hráč získava body pre svoje družstvo</string>
   <string name="teamTournament">Turnaj družstiev</string>
   <string name="teamTournamentOverview">Turnaj formou arény, do ktorého sa môžu pripojiť iba členovia vášho družstva</string>
   <string name="swissTournamentOverview">Švajčiarsky systém turnaja, do ktorého sa môžu zapojiť len členovia vášho družstva</string>
-  <string name="messageAllMembers">Správa všetkým členom</string>
-  <string name="messageAllMembersOverview">Poslať súkromnú správu každému členovi družstva</string>
-  <string name="messageAllMembersLongDescription">Poslať súkromnú správu VŠETKÝM členom družstva.
-Týmto spôsobom môžete aj zavolať hráčov do turnaja alebo súboja družstiev.
-Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť vaše družstvo.</string>
   <string name="teamsIlead">Družstvá ktoré vediem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možno budete chcieť prepojiť jeden z týchto blížiacich sa turnajov?</string>
   <string name="leadersChat">Diskusia vedúcich</string>

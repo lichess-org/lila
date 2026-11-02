@@ -14,7 +14,7 @@ Næstu skákir halda áfram að gefa tvöföld stig þar til þér tekst ekki a�
 Það er að segja, sigur gefur 4 stig, jafntefli 2 stig og tap gefur enn engin stig.
 
 Til dæmis gefa tveir sigrar og eitt jafntefli samtals 6 stig: 2 + 2 + (2 x 1)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserk á Arena-mótum</string>
+  <string name="berserk">Berserk á Arena-mótum</string>
   <string name="berserkAnswer">Þegar skákmaður ýtir á Berserk-hnappinn í upphafi skákar missir hann helminginn af tíma sínum, en sigurinn gefur eitt aukastig á mótinu.
 
 Að notast við Berserk í tímaskorðum með viðbótartíma hættir einnig við þann viðbótartíma (1+2 er undantekning, það gefur 1+0).
@@ -26,7 +26,6 @@ Berserk gefur aðeins aukastig ef þú leikur a. m. k. 7 leiki í skákinni.</st
   <string name="howIsTheWinnerDecidedAnswer">Þeir skákmenn (eða sá skákmaður) með flest stig eftir ákveðinn tíma mótsins verða útnefndir sigurvegarar.
 
 Þegar tveir eða fleiri skákmenn hafa jafnmörg stig, þá miðar bráðabaninn við frammistöðuna á mótinu.</string>
-  <string name="howDoesPairingWork">Hvernig eru viðureignir ákvarðaðar?</string>
   <string name="howDoesPairingWorkAnswer">Þegar mótið hefst, mætast keppendur í samræmi við skákstig sín.
 Um leið og þú hefur lokið við skák skaltu skila þér aftur í salinn: þar mun þér verða úthlutað andstæðingi sem svipaður þér að stigum. Þetta lágmarkar biðtímann, þótt það þýði að þú gætir ekki mætt öllum þátttakendum.
 Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna fleiri stigum.</string>
@@ -64,16 +63,13 @@ Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna flei
   <string name="myTournaments">Mótin mín</string>
   <string name="editTournament">Breyta móti</string>
   <string name="editTeamBattle">Breyta liðsorrustu</string>
-  <string name="defender">Núverandi meistari</string>
   <string name="pickYourTeam">Veldu lið þiit</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvaða lið munt þú keppa fyrir í þessari orrustu?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Til þess að taka þátt þarftu að vera meðlimur í einu af þessum liðum!</string>
   <string name="created">Stofnað</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Nýlega tekið þátt í</string>
+  <string name="recentlyPlayed">Nýlega tekið þátt í</string>
   <string name="bestResults">Besti árangurinn</string>
   <string name="tournamentStats">Tölfræði móta</string>
-  <string name="rankAvgHelp">Meðalstaðan gefur til kynna hlutfall af stöðu þinni. Lægra er betra. 
-Til dæmis, ef þú ert í 3. sæti á móti með 100 skákmönnum jafngildir það 3%. Að vera í 10. sæti á móti með 1000 skákmönnum jafngildir 1%.</string>
   <string name="medians">miðgildi</string>
   <string name="allAveragesAreX">Öll meðaltöl á þessari síðu eru %s.</string>
   <string name="total">Samtals</string>

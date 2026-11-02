@@ -30,7 +30,7 @@ object Settings:
 
     val byKey = values.mapBy(_.key)
 
-    def allows(sel: UserSelection, study: Study, userId: Option[UserId]): Boolean = sel match
+    def allows[U: UserIdOf](sel: UserSelection, study: Study, userId: Option[U]): Boolean = sel match
       case Nobody => false
       case Everyone => true
       case Member => userId.so(study.isMember)

@@ -3,7 +3,7 @@ package lila.tournament
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.core.tournament.leaderboard.Ratio
+import lila.core.tournament.leaderboard.{ Ratio, TourEntries }
 import lila.db.dsl.{ *, given }
 
 final private class LeaderboardIndexer(
@@ -16,7 +16,7 @@ final private class LeaderboardIndexer(
   import BSONHandlers.given
 
   // def generateAll: Funit =
-  //   leaderboardRepo.coll.delete.one($empty) >>
+  //   leaderboardRepo.coll.delete.one(emptyBdoc) >>
   //     tournamentRepo.coll
   //       .find(tournamentRepo.finishedSelect)
   //       .sort($sort desc "startsAt")
@@ -31,9 +31,11 @@ final private class LeaderboardIndexer(
   //       .run()
   //       .void
 
-  def indexOne(tour: Tournament): Funit =
-    (leaderboardRepo.coll.delete.one($doc("t" -> tour.id)) >>
-      generateTourEntries(tour)).flatMap(saveEntries)
+  def indexOne(tour: Tournament): Funit = for
+    _ <- leaderboardRepo.coll.delete.one(bdoc("t" -> tour.id))
+    entries <- generateTourEntries(tour)
+    _ <- saveEntries(entries)
+  yield lila.common.Bus.pub(TourEntries(entries))
 
   private def saveEntries(entries: Seq[Entry]): Funit =
     entries.nonEmpty.so(leaderboardRepo.coll.insert.many(entries).void)

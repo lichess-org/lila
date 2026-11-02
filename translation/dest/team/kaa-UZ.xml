@@ -30,12 +30,9 @@
   <string name="willBeReviewed">Siziń qosılıw sorawıńız komanda lideri tárepinen kórip shıǵadı.</string>
   <string name="beingReviewed">Sisiń qosılıw sorawıńız komanda lideri tárepinen kórip shıǵılmaqta.</string>
   <string name="requestDeclined">Siziń qosılıw sorawıńız komanda lideri tárepinen biykarlandı.</string>
-  <string name="subToTeamMessages">Komanda xabarlarına jazılıw</string>
   <string name="teamTournament">Komanda turniri</string>
   <string name="teamTournamentOverview">Arena turnirine tek ǵana siziń komandańız aǵzaları qosıla aladı</string>
   <string name="swissTournamentOverview">Shvecarsha turnirge tek ǵana siziń komandańız aǵzaları qosıla aladı</string>
-  <string name="messageAllMembers">Bárshe aǵzalarǵa xat jiberiw</string>
-  <string name="messageAllMembersOverview">Komanda hár bir aǵzasına jeke xabar jiberiw</string>
   <string name="teamsIlead">Men jetekshilik qılıp atırǵan komanlarım</string>
   <string name="leadersChat">Jetekshiler sáwbeti</string>
   <string name="closeTeam">Komandanı jabıw</string>

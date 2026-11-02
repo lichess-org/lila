@@ -51,7 +51,6 @@ case class Study(
 
   def isPublic = visibility == Visibility.public
   def isUnlisted = visibility == Visibility.unlisted
-  def isPrivate = visibility == Visibility.`private`
 
   def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
@@ -61,9 +60,8 @@ case class Study(
     case _: From.Relay => true
     case _ => false
 
-  def notable = likes.value > 10 || {
-    likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7))
-  }
+  def notable = likes.value > 10 ||
+    (likes.value > 5 && createdAt.isBefore(nowInstant.minusDays(7)))
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
@@ -81,8 +79,6 @@ case class Study(
   def nbMembers = members.members.size
 
   def withoutMembers = copy(members = StudyMembers.empty)
-
-  def light = LightStudy(isPublic, members.contributorIds)
 
   def topicsOrEmpty = topics | StudyTopics.empty
 
@@ -135,16 +131,15 @@ object Study:
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
-
   def makeId = StudyId(ThreadLocalRandom.nextString(8))
 
   def make(
       user: User,
       from: From,
-      id: Option[StudyId] = None,
-      name: Option[StudyName] = None,
-      settings: Option[Settings] = None
+      id: Option[StudyId],
+      name: Option[StudyName],
+      settings: Option[Settings],
+      visibility: Visibility = Visibility.unlisted
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
@@ -153,7 +148,7 @@ object Study:
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
-      visibility = Visibility.unlisted,
+      visibility = visibility,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),

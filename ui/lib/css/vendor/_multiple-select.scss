@@ -59,18 +59,18 @@
   padding: 0;
   position: absolute;
   z-index: 1000;
-  background: $c-bg-box;
+  background: $c-bg-opaque;
   border: $border;
 }
 
 .ms-drop.bottom {
   top: 100%;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 5px rgb(0 0 0 / 0.15);
 }
 
 .ms-drop.top {
   bottom: 100%;
-  box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -4px 5px rgb(0 0 0 / 0.15);
 }
 
 .ms-search {

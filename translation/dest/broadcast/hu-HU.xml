@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Összes játszma letöltése</string>
   <string name="resetRound">A forduló újrakezdése</string>
   <string name="deleteRound">A forduló törlése</string>
-  <string name="definitivelyDeleteRound">A forduló és játszmáinak végleges törlése.</string>
   <string name="deleteAllGamesOfThisRound">Minden játék törlése ebben a fordulóban. A forrásnak aktívnak kell lennie, hogy újra létre lehessen hozni őket.</string>
   <string name="editRoundStudy">Forduló tanulmányának szerkesztése</string>
   <string name="deleteTournament">Verseny törlése</string>
-  <string name="definitivelyDeleteTournament">Az egész verseny végleges törlése az összes fordulóval és játszmáival együtt.</string>
   <string name="showScores">Mutasd a játékosok pontszámait a játszmaeredmények alapján</string>
   <string name="replacePlayerTags">Opcionális: játékosnevek, értékszámok és titulusok változtatása</string>
   <string name="fideFederations">FIDE szövetségek</string>

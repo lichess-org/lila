@@ -15,7 +15,6 @@
 Hapa upo ukurasa wa wasifu wako: %1$s. Waweza kuubinafsisha kwa %2$s.
 Kuwa na furaha, na huenda vipande vyako daima vipate njia ya kufikia mfalme wa mpinzani wako!</string>
   <string name="logInToLichess">Ingia kwa lichess.org, %s</string>
-  <string name="common_orPaste">(Kubonyeza haifanyi kazi? Jaribu kuibandika ndani ya kivinjari chako!)</string>
   <string name="common_note">Hii ni barua pepe ya huduma inayohusika na matumizi yako ya %s.</string>
   <string name="common_contact">Kuwasiliana nasi, tafadhali tumia %s.</string>
 </resources>

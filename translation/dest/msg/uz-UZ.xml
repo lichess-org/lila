@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Yangi Lichess mobil ilovasi tayyor!</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Yangi rasmiy Lichess ilovasini %s manzilidan yuklab oling.</string>
+  <string name="lichobileNewAppAvailable">Yangi Lichess mobil ilovasi tayyor!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Yangi rasmiy Lichess ilovasini %s manzilidan yuklab oling.</string>
+  <string name="modActionFeedback">Salom,
+
+Biz sizning sönggi şikoyatingizni körib çiqdik va tegişli çoralarni kördik. Körilgan çoralar haqidagi tafsilotlarni oşkor qila olmasak‑da, şikoyatingiz uçun minnatdorçilik bildiramiz.
+
+Lichess barça uçun yaxşi joy bölib qolişiga yordam berganingiz uçun rahmat.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Eski ilova endi masalalarni qöllab-quvvatlamaydi. Iltimos, yangi Lichess ilovasini örnating: %s</string>
 </resources>

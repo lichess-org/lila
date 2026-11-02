@@ -2,8 +2,8 @@ package lila.notify
 
 import reactivemongo.api.bson.*
 
-import lila.core.notify.{ Allows, PrefEvent }
 import lila.core.notify as core
+import lila.core.notify.{ Allows, PrefEvent }
 
 object Allows:
   import NotificationPref.*
@@ -25,6 +25,7 @@ case class NotificationPref(
     gameEvent: Allows,
     invitedStudy: Allows,
     broadcastRound: Allows = NotificationPref.default.broadcastRound,
+    teamUpdate: Allows = NotificationPref.default.teamUpdate,
     correspondenceEmail: Boolean
 ):
   def allows(event: PrefEvent): Allows = event match
@@ -36,6 +37,7 @@ case class NotificationPref(
     case PrefEvent.gameEvent => gameEvent
     case PrefEvent.invitedStudy => invitedStudy
     case PrefEvent.broadcastRound => broadcastRound
+    case PrefEvent.teamUpdate => teamUpdate
 
 object NotificationPref:
   export lila.core.notify.NotificationPref.*
@@ -51,6 +53,7 @@ object NotificationPref:
     gameEvent = core.Allows(PUSH),
     invitedStudy = core.Allows(BELL | PUSH),
     broadcastRound = core.Allows(BELL | PUSH),
+    teamUpdate = core.Allows(BELL | PUSH),
     correspondenceEmail = false
   )
 
@@ -71,6 +74,7 @@ object NotificationPref:
         "gameEvent" -> allowsMapping,
         "invitedStudy" -> allowsMapping,
         "broadcastRound" -> allowsMapping,
+        "teamUpdate" -> allowsMapping,
         "correspondenceEmail" -> boolean
       )(NotificationPref.apply)(lila.notify.unapply)
     )

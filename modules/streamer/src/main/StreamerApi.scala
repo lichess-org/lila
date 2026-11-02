@@ -17,7 +17,7 @@ final class StreamerApi(
   def forSubscriber(streamerName: UserStr)(using me: Option[MyId]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
       streamerFu.flatMapz: s =>
-        subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
+        subsRepo.isSubscribed(me.id, s.streamer).map(sub => s.copy(subscribed = sub).some)
 
   def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] = for
     users <- userApi.byIds(live.streams.map(_.streamer.userId))
@@ -101,7 +101,7 @@ final class StreamerApi(
     picfitApi
       .uploadFile(picture, userId = by.id, s"streamer:${s.id}".some, requestAutomod = false)
       .flatMap: pic =>
-        repo.withColl(coll => coll.update.one($id(s.id), $set("picture" -> pic.id))).void
+        repo.withColl(coll => coll.update.one(bid(s.id), set("picture" -> pic.id))).void
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val (prevRequested, prevGranted, currRequested, currGranted) =

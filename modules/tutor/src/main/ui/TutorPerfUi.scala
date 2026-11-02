@@ -1,10 +1,11 @@
 package lila.tutor
 package ui
 
+import chess.Color
+
 import lila.insight.{ InsightPosition, Phase }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import chess.Color
 
 final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
   import helpers.given

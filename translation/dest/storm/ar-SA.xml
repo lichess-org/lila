@@ -33,7 +33,7 @@
   <string name="combo">مجموعة</string>
   <string name="time">الوقت</string>
   <string name="timePerMove">الوقت لكل نقلة</string>
-  <string name="highestSolved">تقييم أصعب لغز تم حله</string>
+  <string name="highestSolved">أعلى تصنيف للألغاز التي تم حلّها</string>
   <string name="puzzlesPlayed">الألغاز التي لعبتها سابقا</string>
   <string name="newRun">سباق جديد</string>
   <string name="endRun">انهاء السباق</string>

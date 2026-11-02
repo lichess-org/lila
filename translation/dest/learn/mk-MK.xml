@@ -101,7 +101,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">Коњот ти се пробива
 низ одбраната!</string>
   <string name="escapeOrBlock">Избегни со кралот или блокирај го нападот!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Честитки! Кралот не може да биде земен, осигурај се дека можеш да се одбраниш од шах!</string>
+  <string name="outOfCheckComplete">Честитки! Кралот не може да биде земен, осигурај се дека можеш да се одбраниш од шах!</string>
   <string name="mateInOne">Мат во еден потег</string>
   <string name="defeatTheOpponentsKing">Порази го противничкиот крал</string>
   <string name="mateInOneIntro">Победуваш кога противникот не може да се одбрани од шах позиција.</string>
@@ -128,6 +128,7 @@
 Направи потег за да продолжиш.</string>
   <string name="boardSetupComplete">Честитки! Сега знаеш како се поставува шаховската табла.</string>
   <string name="castling">Рокада</string>
+  <string name="enPassant">Ан Пасан</string>
   <string name="theSpecialKingMove">Специјалниот потег на кралот</string>
   <string name="castlingIntro">Заштити си го кралот и намести го топот за напад!</string>
   <string name="castleKingSide">Помести го кралот две полиња за да 

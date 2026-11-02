@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
+import chess.format.pgn.{ Glyph, Tag, Tags, Comment as CommentStr }
 import chess.variant.*
 import chess.{ Square, White }
 import play.api.libs.json.*
@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import java.time.Instant
 
 import lila.study.StudySocket.Protocol.In.AtPosition
+import lila.study.Node.extensions.*
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 
@@ -43,11 +44,18 @@ class StudyIntegrationTest extends munit.FunSuite:
   import Helpers.*
   import StudyAction.*
 
+  // a real export names the study owner in the Annotator tag, which keeps [%anno] off their comments
+  val annotatorTags = Tags(List(Tag(_.Annotator, s"https://lichess.org/@/$userId")))
+
+  extension (pgn: String)
+    def cleanTags: String =
+      pgn.linesIterator.filterNot(_.startsWith("[")).mkString("\n").trim
+
   test("all actions"):
     TestCase.all.foreach: testCase =>
       val chapter = defaultChapter(testCase.variant)
       val output = chapter.execute(testCase.actions).get
-      assertEquals(rootToPgn(output.root).value, testCase.expected)
+      assertEquals(rootToPgn(output.root, annotatorTags).value.cleanTags, testCase.expected)
 
 case class TestCase(variant: Variant, actions: List[StudyAction], expected: String)
 
@@ -77,7 +85,7 @@ object StudyAction:
 
   // copy/pasted from JsonView
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Reads[Shape] = Reads: js =>
     js.asOpt[JsObject]
       .flatMap { o =>
@@ -123,11 +131,11 @@ object StudyAction:
       case _ => throw Exception(s"cannot parse $str")
 
   // combined of StudySocket.moveOrDrop & StudyApi.addNode
-  def moveOrDrop(chapter: Chapter, move: AnaAny): Option[Chapter] =
-    move
-      .branch(chapter.setup.variant)
-      .toOption
-      .flatMap(b => chapter.addNode(b.withoutChildren, move.path, None))
+  def moveOrDrop(chapter: Chapter, move: AnaAny): Option[Chapter] = for
+    fromNode <- chapter.root.nodeAt(move.path)
+    branch <- move.branch(chapter.setup.variant, fromNode.fen).toOption
+    c <- chapter.addNode(branch.withoutChildren, move.path, None)
+  yield c
 
   def deleteNodeAt(chapter: Chapter, position: Position.Ref) =
     chapter.updateRoot: root =>

@@ -28,7 +28,6 @@
   <string name="approved">உங்கள் தொடரோட்டம் அங்கீகரிக்கப்பட்டது.</string>
   <string name="pendingReview">உங்கள் தொடரோட்டம் மதிப்பீட்டாளர்களால் மதிப்பாய்வு செய்யப்படுகிறது.</string>
   <string name="pleaseFillIn">உங்கள் தொடரோட்ட தகவலைப் பூர்த்தி செய்து, படத்தைப் பதிவேற்றவும்.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">நீங்கள் லிசெஸ் தொடரோடியாகப் பட்டியலிட தயாராக இருக்கும்போது, %s</string>
   <string name="submitForReview">மதிப்பாய்விற்கு சமர்ப்பிக்கவும்</string>
   <string name="streamerLanguageSettings">லிசெஸ் தொடரோடி பக்கம் உங்கள் தொடரோட்ட மேடையினால் வழங்கப்பட்ட மொழிவழி உங்கள் பார்வையாளர்களைக் குறிவைக்கிறது. நீங்கள் தொடரோட்ட பயன்படுத்தும் செயலிகள் அல்லது சேவையில் உங்கள் சதுரங்க தொடரோட்டத்திற்கான சரியான இயல்புநிலை மொழியை அமைக்கவும்.</string>
   <string name="streamerName">லிசெஸ் இல் உங்கள் தொடரோடி பெயர்</string>
@@ -36,8 +35,8 @@
     <item quantity="one">சுருக்கமாக வைக்கவும்: அதிகபட்சம் %s எழுத்து</item>
     <item quantity="other">சுருக்கமாக வைத்திருங்கள்: அதிகபட்சம் %s எழுத்துக்கள்</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">தொடரோடிகள் பக்கத்தில் புலப்படும்</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">மட்டுநிறுத்துனர்களால் அங்கீகரிக்கப்படும்போது</string>
+  <string name="visibility">தொடரோடிகள் பக்கத்தில் புலப்படும்</string>
+  <string name="whenApproved">மட்டுநிறுத்துனர்களால் அங்கீகரிக்கப்படும்போது</string>
   <string name="headline">தலையங்கம்</string>
   <string name="tellUsAboutTheStream">உங்கள் தொடரோட்டம் பற்றி ஒரே வாக்கியத்தில் சொல்லுங்கள்</string>
   <string name="longDescription">நீண்ட விளக்கம்</string>

@@ -3,8 +3,9 @@ import { isTouchDevice } from 'lib/device';
 import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { SettingsCtrl, SettingKey } from '../settingsCtrl';
+import type AnalyseCtrl from '@/ctrl';
+import { showHelp } from '@/keyboard';
+import type { SettingsCtrl, SettingKey } from '@/settingsCtrl';
 
 type Listener = (e: Event, ctrl: SettingsCtrl, key: SettingKey) => void;
 
@@ -18,8 +19,8 @@ type Setting = {
 };
 
 const settings: Record<SettingKey, Setting> = {
-  showStaticAnalysis: {
-    label: i18n.preferences.showServerAnalysis,
+  showMainlineAnalysis: {
+    label: i18n.preferences.showMainlineAnalysis,
     shortcutHtml: '<kbd>z</kbd>',
     group: i18n.preferences.generalSettings,
     helpHtml: videoHtml('info-static-analysis'),
@@ -40,7 +41,7 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-disclosure-mode'),
   },
-  showLiveGlyphs: {
+  showLiveAnnotations: {
     label: i18n.preferences.showLiveGlyphs,
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-live-annotations'),
@@ -86,13 +87,31 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.boardSettings,
     helpHtml: videoHtml('info-checkable-king'),
   },
+  showTrappedPieces: {
+    label: i18n.preferences.showTrappedPieces,
+    group: i18n.preferences.boardSettings,
+    helpHtml: videoHtml('info-trapped-pieces'),
+  },
 };
 
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
+  let scrollableDiv: HTMLElement | null = null;
+  const flexTamer = () => {
+    scrollableDiv ??= document.querySelector<HTMLElement>('.analysis-settings-dialog');
+    if (!scrollableDiv || isTouchDevice()) return;
+
+    // we reflow, then freeze height as sized by initial content so hover targets can't be moved by shrinkage
+    scrollableDiv.style.width = scrollableDiv.style.height = '';
+    const { width, height } = scrollableDiv.getBoundingClientRect();
+    scrollableDiv.style.width = `${width}px`;
+    scrollableDiv.style.height = `${height}px`;
+  };
+  if (!isTouchDevice()) window.addEventListener('resize', flexTamer);
   return domDialog({
     class: 'analysis-settings-dialog',
+    closeButton: true,
     htmlText: '<h2>Analysis settings</h2>',
-    append: [{ node: settingsView(ctrl.settings) }],
+    insert: [{ nodes: settingsView(ctrl.settings) }],
     modal: !isTouchDevice(),
     easyClose: 'clickOutside',
     show: true,
@@ -100,10 +119,10 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.show-all', result: 'showKeyboardShortcuts' },
       { selector: '.ok', result: 'ok' },
     ],
+    onShow: flexTamer,
     onClose: dlg => {
-      if (dlg.returnValue !== 'showKeyboardShortcuts') return;
-      ctrl.keyboardHelp = true;
-      ctrl.redraw();
+      window.removeEventListener('resize', flexTamer);
+      if (dlg.returnValue === 'showKeyboardShortcuts') showHelp(ctrl);
     },
   });
 }
@@ -148,54 +167,55 @@ export function settingsView(ctrl: SettingsCtrl): HTMLElement {
 }
 
 function setupTouchHelp(view: HTMLElement) {
-  view.querySelectorAll<HTMLElement>('.help-button').forEach(el => {
+  view.querySelectorAll<HTMLElement>('.help-button').forEach(async el => {
     const key = el.dataset.key as SettingKey;
-    if (!settings[key]) return;
-    const htmlText = settings[key].helpHtml;
+    if (!settings[key]?.helpHtml) return;
+    const nodes = await preload(settings[key].helpHtml);
 
     el.addEventListener('click', () =>
-      domDialog({ htmlText, class: 'setting-popup', noCloseButton: true, show: true, easyClose: 'anyClick' }),
+      domDialog({
+        class: 'setting-popup',
+        insert: [{ nodes }],
+        show: true,
+        easyClose: 'anyClick',
+        onShow: dlg => dlg.view.querySelector('video')?.play(),
+      }),
     );
   });
 }
 
 function setupHoverHelp(view: HTMLElement) {
   const helpEl = () => view.querySelector<HTMLElement>('.help-container')!.firstElementChild!;
-  const helpPanes = { keyboardHelp: helpEl() } as Record<string, Element>;
+  const keyboardHelp = helpEl();
+  let resetTimeout: number | undefined;
 
-  let hoverTimeout: number;
   view.querySelectorAll<HTMLElement>('.hover-help').forEach(el => {
     const key = el.dataset.key as SettingKey;
     const setting = settings[key];
     if (!setting?.helpHtml) return;
 
-    el.addEventListener('mouseenter', () => {
-      clearTimeout(hoverTimeout);
-      hoverTimeout = setTimeout(
-        () => {
-          const helpPaneEl =
-            helpPanes[key] ??
-            frag<HTMLElement>($html`
-              <fieldset class="help-pane" data-key="${key}">
-                <legend>${setting.label}</legend>
-                ${setting.helpHtml}
-              </fieldset>`);
-          helpEl().replaceWith(helpPaneEl);
-          if (helpPanes[key]) helpPaneEl.querySelector<HTMLVideoElement>('video')?.play();
-          helpPanes[key] = helpPaneEl;
-        },
-        helpEl() === helpPanes.keyboardHelp ? 400 : 0,
+    el.addEventListener('mouseenter', async () => {
+      const fieldset = frag<HTMLElement>(
+        `<fieldset class="help-pane" data-key="${key}"><legend>${setting.label}</legend></fieldset>`,
       );
+      clearTimeout(resetTimeout);
+      fieldset.append(...(await preload(setting.helpHtml!)));
+      if (!el.matches(':hover')) return;
+
+      helpEl().replaceWith(fieldset);
+      fieldset.querySelector<HTMLVideoElement>('video')?.play();
     });
     el.addEventListener('mouseleave', () => {
-      clearTimeout(hoverTimeout);
-      hoverTimeout = setTimeout(() => helpEl().replaceWith(helpPanes.keyboardHelp), 700);
+      resetTimeout = setTimeout(() => {
+        if (!view.querySelector('.hover-help:hover')) helpEl().replaceWith(keyboardHelp);
+      }, 300);
     });
   });
   if (document.querySelector('main.analyse')) return; // keyboard help is triggered by analyse snabbdom
-  helpPanes.keyboardHelp.querySelector('button')!.addEventListener('click', () =>
+  keyboardHelp.querySelector('button')!.addEventListener('click', () =>
     domDialog({
       class: 'help.keyboard-help',
+      closeButton: true,
       htmlUrl: '/analysis/help',
       easyClose: 'clickOutside',
       modal: true,
@@ -206,13 +226,12 @@ function setupHoverHelp(view: HTMLElement) {
 
 function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
   const setting = settings[key];
-  const label = setting.helpHtml
-    ? isTouchDevice()
+  const label =
+    setting.helpHtml && isTouchDevice()
       ? `<button class="help-button" data-key="${key}" data-icon="${licon.InfoCircle}">${setting.label}</button>`
-      : `<span class="hover-help" data-key="${key}">${setting.label}</span>`
-    : setting.label;
+      : `<span>${setting.label}</span>`;
   return $html`
-    <span class="setting">
+    <span class="setting${setting.helpHtml ? ' hover-help' : ''}" data-key="${key}">
       ${label}
       <span class="form-check__input">
         <input data-key="${key}" id="${key}" type="checkbox" ${ctrl[key] ? 'checked' : ''}>
@@ -235,21 +254,53 @@ function helpHtml() {
       <fieldset class="help-pane" data-key="keyboardShortcuts">
         <legend>${i18n.site.keyboardShortcuts}</legend>
         <div class="setting inert">${i18n.site.flipBoard}<kbd>f</kbd></div>
-        <div class="setting inert">Toggle local engine<kbd>l</kbd></div>
+        <div class="setting inert">${i18n.site.toggleLocalEngine}<kbd>l</kbd></div>
         ${settingShortcutsHtml}
-        <button class="button button-empty button-dim show-all">Show all</button>
+        <button class="button button-empty button-dim show-all">${i18n.site.more}</button>
       </fieldset>
-    </div>
-    <div class="hover-hint">${i18n.preferences.hoverOverSettingLabelsForHelp}</div>`;
+    </div>`;
 }
+
+// iOS Safari has trouble rendering HTMLDialogElement content with replaced elements (i.e. <video>). It
+// can't do flex without glitching, it treats block as inline, hence the <br> after videoHtml and imageHtml
 
 function videoHtml(path: string) {
   return $html`
     <video autoplay loop muted playsinline preload="auto">
       <source src="${site.asset.url('video/' + path + '.webm')}" type="video/webm">
-    </video>`;
+    </video>
+    <br>`;
 }
 
 function imageHtml(path: string) {
-  return `<img src="${site.asset.url('images/help/' + path + '.webp')}" alt="">`;
+  return `<img src="${site.asset.url('images/help/' + path + '.webp')}" alt=""><br>`;
+}
+
+async function preload(html: string): Promise<Node[]> {
+  const loader = frag<HTMLElement>(
+    `<div style="position: fixed; left: -100000px; top: 0; visibility: hidden"></div>`,
+  );
+  loader.append(frag(html));
+  document.body.append(loader);
+
+  await Promise.all([
+    ...[...loader.querySelectorAll('img')].map(img =>
+      img.complete
+        ? img.decode().catch(() => {})
+        : new Promise<void>(resolve =>
+            ['load', 'error'].forEach(e => img.addEventListener(e, () => resolve(), { once: true })),
+          ),
+    ),
+    ...[...loader.querySelectorAll<HTMLMediaElement>('audio, video')].map(media => {
+      media.preload = 'auto';
+      media.load();
+      return media.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA
+        ? Promise.resolve()
+        : new Promise<void>(resolve =>
+            ['loadeddata', 'error'].forEach(e => media.addEventListener(e, () => resolve(), { once: true })),
+          );
+    }),
+  ]);
+  loader.remove();
+  return [...loader.childNodes];
 }

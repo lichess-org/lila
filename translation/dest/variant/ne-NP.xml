@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="fromPositionTitle">आफ्नै रोजाइको स्थितिबाट मानक शतरञ्ज खेल्नुहोस्।</string>
+</resources>

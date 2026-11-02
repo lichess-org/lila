@@ -3,12 +3,12 @@ package lila.studySearch
 import com.softwaremill.macwire.*
 import scalalib.paginator.*
 
+import lila.core.study.StudyOrder
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{ Query, StudySorting }
+import lila.search.spec.{ Order as SpecOrder, Query, StudySortField, StudySorting }
 import lila.study.Study
-import lila.search.spec.{ Order as SpecOrder, StudySortField }
-import lila.core.study.StudyOrder
+import lila.study.ui.StudyFormat
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
@@ -18,7 +18,7 @@ final class Env(
 
   val api: StudySearchApi = wire[StudySearchApi]
 
-  def apply(text: String, order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def apply(text: String, order: StudyOrder, page: Int)(using me: Option[Me])(using format: StudyFormat) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query =

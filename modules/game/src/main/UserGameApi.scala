@@ -52,7 +52,6 @@ final class UserGameApi(
         "bookmarks" -> g.bookmarks
       )
       .add("analysed" -> g.metadata.analysed)
-      .add("opening" -> g.opening)
       .add("lastMove" -> g.lastMoveKeys)
       .add("clock" -> g.clock)
       .add("correspondence" -> g.daysPerTurn.map { d =>

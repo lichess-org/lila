@@ -11,11 +11,12 @@ trait TeamApi:
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
   def forumAccessOf(teamId: TeamId): Fu[Access]
   def leaderIds(teamId: TeamId): Fu[Set[UserId]]
+  def creatorOf(teamId: TeamId): Fu[Option[UserId]]
   def isMember(teamId: TeamId)(using MyId): Fu[Boolean]
   def isLeader(team: TeamId)(using MyId): Fu[Boolean]
-  def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]]
+  def filterUserIdsInTeam(teamId: TeamId, users: Iterable[UserId]): Fu[List[UserId]]
   def hasCommPerm(team: TeamId)(using MyId): Fu[Boolean]
-  def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamData]
+  def cursor: reactivemongo.pekkostream.PekkoStreamCursor[TeamData]
 
 enum Access(val id: Int):
   case None extends Access(0)

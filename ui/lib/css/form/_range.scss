@@ -1,20 +1,21 @@
+// https://css-tricks.com/sliding-nightmare-understanding-range-input/
 @mixin range-thumb {
-  // https://css-tricks.com/sliding-nightmare-understanding-range-input/
+  @include box-radius;
 
   border: 1px solid $c-font-dimmer;
   height: 1em;
   width: 1.5em;
-  border-radius: 12px;
   background: $c-bg-box;
   cursor: pointer;
 }
 
 @mixin range-track {
+  @include box-radius;
+
   width: 100%;
   height: 1em;
   cursor: pointer;
   background: $c-shade;
-  border-radius: 0.5em;
 }
 
 input.range {
@@ -49,13 +50,11 @@ input.range {
   }
 
   &::-ms-fill-lower {
-    background: rgba(191, 191, 191, 0.78);
-    border-radius: 11.8px;
+    background: rgb(191 191 191 / 0.78);
   }
 
   &::-ms-fill-upper {
-    background: rgba(214, 214, 214, 0.78);
-    border-radius: 11.8px;
+    background: rgb(214 214 214 / 0.78);
   }
 
   &::-ms-thumb {

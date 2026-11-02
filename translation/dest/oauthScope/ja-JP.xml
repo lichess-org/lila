@@ -6,6 +6,11 @@
   <string name="tokenDescription">トークンの説明</string>
   <string name="rememberTokenUse">このトークンの目的を記録するため</string>
   <string name="whatTheTokenCanDo">このトークンであなたの代わりに行える操作：</string>
+  <string name="oauthCatUserAccount">ユーザーアカウント</string>
+  <string name="oauthCatPlayGames">対局する</string>
+  <string name="oauthCatStudiesBroadcasts">研究と配信</string>
+  <string name="oauthCatExternalPlay">外部プレイ</string>
+  <string name="oauthCatExternalEngine">外部エンジン</string>
   <string name="doNotShareIt">トークンは他の人にあなたのアカウントへのアクセスを許可します。誰にもシェアしないように！</string>
   <string name="copyTokenNow">すぐに新しい個人アクセストークンをコピーしておいてください。二度と表示されませんので！</string>
   <string name="preferenceRead">設定を見る</string>
@@ -19,12 +24,14 @@
   <string name="tournamentWrite">トーナメントを作成・更新し、参加する</string>
   <string name="racerWrite">PuzzleRacer を作成し参加する</string>
   <string name="puzzleRead">タクティクス問題の活動を見る</string>
+  <string name="puzzleWrite">問題を解く</string>
   <string name="teamRead">非公開のチーム情報を見る</string>
   <string name="teamWrite">チームに対する加入・脱退・管理</string>
-  <string name="teamLead">リーダーを務めるチームの管理：PM の送信、メンバーの追放</string>
+  <string name="manageTeamsYouLead">リーダーを務めるチームの管理：メッセージの送信、メンバーの追放</string>
   <string name="followRead">フォローした相手を見る</string>
   <string name="followWrite">フォローする、フォロー解除する</string>
   <string name="msgWrite">他の人にプライベートメッセージを送信する</string>
+  <string name="readWriteNotesOnPlayers">他のプレイヤーへのメモを読み書きする</string>
   <string name="boardPlay">ボード API を使って対局する</string>
   <string name="botPlay">ボット API を使って対局する</string>
   <string name="engineRead">自作外部エンジンの表示と使用</string>

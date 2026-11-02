@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.perm.Granter
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
+import lila.streamer.{ Platform, Streamer as StreamerModel, StreamerForm }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -25,17 +25,18 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def live = apiC.ApiRequest:
     env.api.mobile.featuredStreamers.map(apiC.toApiResult)
 
-  def show(username: UserStr, redirect: Boolean) = Open:
+  def show(username: UserStr, redirect: Boolean) = Open: ctx ?=>
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
+        val liveStreamer = env.streamer.liveApi.of(s)
         redirect
-          .so(env.streamer.liveApi.of(s).map(_.stream.flatMap(_.redirectToLiveUrl)))
+          .so(liveStreamer.map(_.stream.flatMap(_.redirectToLiveUrl)))
           .flatMap:
             case Some(url) => Redirect(url.value)
             case None =>
               for
-                sws <- env.streamer.liveApi.of(s)
-                activity <- env.activity.read.recentAndPreload(sws.user)
+                sws <- liveStreamer
+                activity <- ctx.isAuth.so(env.activity.read.recentAndPreload(sws.user))
                 perfs <- env.user.perfsRepo.perfsOf(sws.user)
                 page <- renderPage(views.streamer.show(sws, perfs, activity))
               yield Ok(page)
@@ -79,8 +80,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               .flatMap:
                 case Some(change) =>
                   if change.decline then logApi.streamerDecline(s.user.id, change.reason)
-                  change.list.foreach { logApi.streamerList(s.user.id, _) }
-                  change.tier.foreach { logApi.streamerTier(s.user.id, _) }
+                  change.list.foreach(logApi.streamerList(s.user.id, _))
+                  change.tier.foreach(logApi.streamerTier(s.user.id, _))
                   if data.approval.quick.isDefined
                   then
                     env.streamer.pager.nextRequestId.map: nextId =>

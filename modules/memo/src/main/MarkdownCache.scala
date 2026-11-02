@@ -2,16 +2,18 @@ package lila.memo
 
 import scalalib.future.TimeoutException
 
-import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
-import lila.mon.extensions.*
+import lila.common.Bus
 import lila.core.config
-import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
+import lila.core.misc.lpv.{ Lpv as LpvBus, LpvEmbed }
+import lila.markdown.{ MarkdownRender, MarkdownToastUi }
+import lila.mon.extensions.*
 
 case class MarkdownOptions(
     autoLink: Boolean = false,
     list: Boolean = false,
     table: Boolean = false,
     header: Boolean = false,
+    headerAnchorLink: Boolean = false,
     strikeThrough: Boolean = false,
     blockQuote: Boolean = false,
     code: Boolean = false,
@@ -19,14 +21,15 @@ case class MarkdownOptions(
     maxPgns: Max = Max(0),
     toastUi: Boolean = false,
     sourceMap: Boolean = false,
-    removeHtmlEntities: Boolean = false
+    removeHtmlEntities: Boolean = false,
+    allowedTags: Set[String] = Set.empty,
+    linkRel: String = "noreferrer nofollow"
 )
 
-final class MarkdownCache(
-    cacheApi: CacheApi,
-    netDomain: config.NetDomain,
-    assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
+    mode: play.api.Mode,
+    netDomain: config.NetDomain
+):
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
@@ -47,8 +50,7 @@ final class MarkdownCache(
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })
       .getOrElse:
-        val processor = bodyProcessor(key, opts)
-        val html = processor(markdown)
+        val html = bodyProcessor(key, opts)(markdown)
         cache.put((key, markdown, opts), fuccess(html))
         html
 
@@ -75,7 +77,7 @@ final class MarkdownCache(
           case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
         .void
 
-    def expand = MarkdownRender.PgnSourceExpand(netDomain, cache.getIfPresent)
+    def expand = MarkdownRender.PgnSourceExpand(cache.getIfPresent)
 
   private def getRenderer(opts: MarkdownOptions): MarkdownRender =
     renderMap.getOrElseUpdate(
@@ -85,14 +87,17 @@ final class MarkdownCache(
         list = opts.list,
         strikeThrough = opts.strikeThrough,
         header = opts.header,
+        headerAnchorLink = opts.headerAnchorLink,
         blockQuote = opts.blockQuote,
         code = opts.code,
         timestamp = opts.timestamp,
         table = opts.table,
         sourceMap = opts.sourceMap,
         removeHtmlEntities = opts.removeHtmlEntities,
+        allowedTags = opts.allowedTags,
+        linkRel = opts.linkRel,
         pgnExpand = pgnCache.expand.some,
-        assetDomain = assetDomain.some
+        netDomain = netDomain.some
       )
     )
 

@@ -1,13 +1,13 @@
 package lila.tv
 package ui
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
+import lila.common.ClientName
+import lila.core.i18n.Translate
+import lila.game.ui.GameUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.game.ui.GameUi
-import lila.core.i18n.Translate
-import lila.common.ClientName
 
 final class TvUi(helpers: lila.ui.Helpers)(
     gameUi: GameUi,
@@ -56,7 +56,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
             div(cls := "tv-history")(
               h2(trans.site.previouslyOnLichessTV()),
               div(cls := "now-playing"):
-                history.map { gameUi.mini(_) }
+                history.map(gameUi.mini(_))
             )
           )
         )

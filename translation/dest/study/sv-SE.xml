@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nyligen uppdaterade</string>
   <string name="mostPopular">Mest populära</string>
   <string name="alphabetical">Alfabetisk</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -47,7 +48,6 @@
   <string name="annotateWithGlyphs">Kommentera med glyfer</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitlet är för kort för att analyseras.</string>
   <string name="onlyContributorsCanRequestAnalysis">Endast studiens bidragsgivare kan begära en datoranalys.</string>
-  <string name="getAFullComputerAnalysis">Hämta en fullständig serveranalys av huvudlinjen.</string>
   <string name="makeSureTheChapterIsComplete">Försäkra dig om att kapitlet är färdigt. Du kan bara begära analysen en gång.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alla SYNC-medlemmar är kvar på samma position</string>
   <string name="shareChanges">Dela ändringar med åskådare och spara dem på servern</string>
@@ -63,7 +63,6 @@
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studiens URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Du kan klistra in detta i forumet för att infoga</string>
   <string name="startAtInitialPosition">Start vid ursprunglig position</string>
   <string name="startAtX">Börja på %s</string>
   <string name="embedInYourWebsite">Infoga på din hemsida eller blogg</string>
@@ -121,7 +120,6 @@
   <string name="noLetPeopleBrowseFreely">Nej: låt alla bläddra fritt</string>
   <string name="pinnedStudyComment">Ständigt synlig studiekommentar</string>
   <string name="start">Starta</string>
-  <string name="save">Spara</string>
   <string name="clearChat">Rensa Chatten</string>
   <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
   <string name="deleteStudy">Ta bort studie</string>
@@ -185,8 +183,6 @@
   <string name="fromInitialPositionText">Bara en bräduppställning för ett nytt parti.&lt;br&gt;Passar för att utforska öppningar.</string>
   <string name="customPositionTitle">Från position</string>
   <string name="customPositionText">Ställ in brädet sim di vill ha det.&lt;br&gt;Passar för att utforska slutspel.</string>
-  <string name="loadExistingLichessGameTitle">Ladda ett befintligt lichess-parti</string>
-  <string name="loadExistingLichessGameText">Klistra in en länk till ett lichess-parti&lt;br&gt;(som till exempel lichess.org/7fHIU0XI)&lt;br&gt;för att hämta partiets drag till kapitlet.</string>
   <string name="fromFenStringTitle">Från en FEN-sträng</string>
   <string name="fromFenStringText">Klistra in en position i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;för att starta kapitlet från en position.</string>
   <string name="fromPgnGameTitle">Från ett PGN-parti</string>

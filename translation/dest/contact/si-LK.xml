@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Case එකට​ වඩා අපට වෙනස් කළ නොහැක. තාක්ෂණික හේතූන් මත, එය සම්පූර්ණයෙන්ම කළ නොහැකි ය.</string>
   <string name="orCloseAccount">කෙසේ වෙතත්, ඔබට ඔබගේ ජංගම ගිණුම වසා දමා නව එකක් සෑදිය හැක.</string>
   <string name="wantClearHistory">මට මගේ ඉතිහාසය හෝ ශ්‍රේණිගත කිරීම හිස් කිරීමට අවශ්‍යයි</string>
-  <string name="cantClearHistory">ඔබගේ ක්‍රීඩා ඉතිහාසය, ප්‍රහේලිකා ඉතිහාසය, හෝ ශ්‍රේණිගත කිරීම් හිස් කිරීමට නොහැක.</string>
   <string name="wantReport">මට ක්‍රීඩකයෙකු වාර්තා කිරීමට අවශ්‍යයි</string>
   <string name="toReportAPlayerUseForm">ක්‍රීඩකයෙකු වාර්තා කිරීමට, වාර්තා පෝරමය භාවිතා කරන්න</string>
   <string name="youCanAlsoReachReportPage">පැතිකඩ පිටුවක ඇති %s වාර්තා බොත්තම ක්ලික් කිරීමෙන් ඔබට එම පිටුවට ළඟා විය හැක.</string>

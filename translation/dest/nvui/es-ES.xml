@@ -55,7 +55,8 @@
   <string name="sanLongCastling" comment="O-O-O in standard notation">enroque largo</string>
   <string name="sanDroppedOn" comment="crazyhouse @">se coloca en</string>
   <string name="invalidMove">Movimiento no válido</string>
-  <string name="premoveCancelled">Premovimiento cancelado</string>
+  <string name="premoveCancelled">Premovimiento cancelado
+</string>
   <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona enter para cancelar</string>
   <string name="pockets" comment="Crazyhouse pockets">Bolsillos</string>
   <string name="copyToClipboard">Copiar %s al portapapeles</string>

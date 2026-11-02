@@ -23,7 +23,7 @@
     }
 
     &[href]:hover {
-      background: $m-bg-page_bg--mix-50;
+      background: color-mix(in oklab, $c-bg-page 50%, $c-bg);
 
       &::before {
         color: $c-link;

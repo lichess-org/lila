@@ -127,7 +127,7 @@
     color: $c-bad;
 
     &:hover {
-      color: $m-bad--lighten-11;
+      color: hsl(from $c-bad h s calc(l + 11));
     }
   }
 
@@ -136,7 +136,7 @@
     color: $c-secondary;
 
     &:hover {
-      color: $m-secondary--lighten-11;
+      color: hsl(from $c-secondary h s calc(l + 11));
     }
 
     &.disabled {
@@ -365,7 +365,7 @@
       padding: 1em 1em 0.5em 0.5em;
 
       &.hidden {
-        background: $m-paper_dimmer--mix-50;
+        background: color-mix(in oklab, $c-paper 50%, $c-dimmer);
 
         canvas {
           display: none;
@@ -383,7 +383,7 @@
 
       z-index: $z-above-dialog-12;
       justify-content: center;
-      background: $m-paper_dimmer--mix-50;
+      background: color-mix(in oklab, $c-paper 50%, $c-dimmer);
       flex: auto;
       height: 32px;
       user-select: none;
@@ -413,7 +413,7 @@
 
       &:hover {
         cursor: pointer;
-        background: $m-paper_dimmer--mix-75;
+        background: color-mix(in oklab, $c-paper 75%, $c-dimmer);
         color: $c-font-clearer;
       }
     }

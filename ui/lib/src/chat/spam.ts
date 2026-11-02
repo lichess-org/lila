@@ -50,10 +50,10 @@ const spamRegex = new RegExp(
     .join('|'),
 );
 
-const suspLink = (txt: string) => !!txt.match(spamRegex);
+const suspLink = (txt: string) => spamRegex.test(txt);
 
 const followMeRegex = /follow me|join my team/i;
-const followMe = (txt: string) => !!txt.match(followMeRegex);
+const followMe = (txt: string) => followMeRegex.test(txt);
 
 const teamUrlRegex = /lichess\.org\/team\//i;
-export const hasTeamUrl = (txt: string): boolean => !!txt.match(teamUrlRegex);
+export const hasTeamUrl = (txt: string): boolean => teamUrlRegex.test(txt);

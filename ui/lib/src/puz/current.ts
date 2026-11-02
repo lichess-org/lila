@@ -25,9 +25,9 @@ export default class CurrentPuzzle {
     return pos;
   };
 
-  expectedMove = (): string => this.line[this.moveIndex + 1];
+  expectedMove = (): Uci => this.line[this.moveIndex + 1];
 
-  lastMove = (): string => this.line[this.moveIndex];
+  lastMove = (): Uci => this.line[this.moveIndex];
 
   isOver = (): boolean => this.moveIndex >= this.line.length - 1;
 

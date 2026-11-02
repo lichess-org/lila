@@ -17,7 +17,7 @@ object Statistics:
   // Coefficient of Variance
   def coefVariation(a: List[Int]): Option[Float] =
     val s = Stats(a)
-    s.stdDev.map { _ / s.mean }
+    s.stdDev.map(_ / s.mean)
 
   // ups all values by 0.1s
   // as to avoid very high variation on bullet games
@@ -57,7 +57,7 @@ object Statistics:
         .some
 
   def moderatelyConsistentMoveTimes(pov: Pov): Boolean =
-    moveTimeCoefVariation(pov).so { cvIndicatesModeratelyFlatTimes(_) }
+    moveTimeCoefVariation(pov).so(cvIndicatesModeratelyFlatTimes(_))
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: Pov): Boolean =

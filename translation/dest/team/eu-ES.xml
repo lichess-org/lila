@@ -16,6 +16,7 @@
   <string name="quitTeam">Taldetik atera</string>
   <string name="manuallyReviewAdmissionRequests">Eskuz egiaztatu sartzeko eskaerak</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Aukeratuta badago, taldera sartzeko eskaera bidali beharko da eta hori eskuz onartu edo baztertu beharko duzu.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ezkutatu taldearen kide-zerrenda kide ez direnentzat.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
@@ -30,17 +31,14 @@
   <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
   <string name="beingReviewed">Taldearen arduraduna zure eskaera gainbegiratzen ari da.</string>
   <string name="requestDeclined">Zure eskaera taldearen arduradunak ukatu egin du.</string>
-  <string name="subToTeamMessages">Harpidetu taldearen mezuetara</string>
   <string name="teamBattle">Taldeen arteko txapelketa</string>
   <string name="teamBattleOverview">Hainbat talderen arteko txapelketa, jokalari bakoitzak bere taldearentzat irabazten ditu puntuak</string>
   <string name="teamTournament">Talde barruko txapelketa</string>
   <string name="teamTournamentOverview">Taldeko kideak diren erabiltzaileek bakarrik parte hartu dezaketen txapelketa</string>
   <string name="swissTournamentOverview">Zure taldeko kideek bakarrik parte hartu dezaketen txapelketa suitzarra</string>
-  <string name="messageAllMembers">Kide guztiei mezua bidali</string>
-  <string name="messageAllMembersOverview">Taldeko kide guztiei mezu pribatu bat bidali</string>
-  <string name="messageAllMembersLongDescription">Taldearen kide guztiei mezua bidali-
-Adibidez talde barruko edo taldeen arteko txapelketetan parte hartzeko deialdiak egiteko erabili dezakezu.
-Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.</string>
+  <string name="teamUpdates">Taldearen eguneratzeak</string>
+  <string name="subToTeamUpdates">Harpidetu taldearen eguneratzeetara</string>
+  <string name="newTeamUpdate">Taldearen eguneratzea</string>
   <string name="teamsIlead">Kapitain naizen taldeak</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Jokatuko diren txapelketa hauetakoren baten lotura bidali nahi duzu?</string>
   <string name="leadersChat">Kapitainen txata</string>
@@ -52,6 +50,9 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="entryCode">Taldean sartzeko kodea</string>
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>
   <string name="incorrectEntryCode">Sarrera-kode okerra.</string>
+  <string name="forumLabel">Taldearen foroa</string>
+  <string name="forumVisibilityHelp">Nork ikusi dezakeu taldearen foroa taldearen orrian?&lt;br&gt;Taldearen kideek bakarrik idatzi dezakete taldearen foroan.</string>
+  <string name="forumVisibilityNone">Ezkutatu foroa</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
   <string name="upcomingTournaments">Hurrengo txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>

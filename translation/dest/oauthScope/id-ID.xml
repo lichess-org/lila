@@ -21,7 +21,6 @@
   <string name="puzzleRead">Baca aktivitas puzzle</string>
   <string name="teamRead">Baca informasi tim privat</string>
   <string name="teamWrite">Bergabung dan keluar tim</string>
-  <string name="teamLead">Kelola tim yang dipimpin: kirim pesan, tendang anggota</string>
   <string name="followRead">Baca pemain yang diikuti</string>
   <string name="followWrite">Ikut dan batal ikut pemain lain</string>
   <string name="msgWrite">Kirim pesan pribadi ke pemain lain</string>

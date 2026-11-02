@@ -1,9 +1,10 @@
 package lila.study
 
+import chess.FideId
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 import chess.variant.Variant
-import chess.FideId
+
 import lila.tree.Clock
 
 private case class SetTag(chapterId: StudyChapterId, name: String, value: String):
@@ -66,8 +67,8 @@ object StudyPgnTags:
           yield
             val newTags = List(
               Tag(_.names(color), player.name).some,
-              player.title.map { title => Tag(_.titles(color), title.value) },
-              fedName.map { fed => Tag(_.teams(color), fed) }
+              player.title.map(title => Tag(_.titles(color), title.value)),
+              fedName.map(fed => Tag(_.teams(color), fed))
             ).flatten
             Option(tags ++ Tags(newTags))
 

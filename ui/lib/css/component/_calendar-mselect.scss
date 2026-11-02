@@ -1,9 +1,13 @@
 .calendar-mselect {
-  @extend %box-neat, %flex-between-nowrap;
+  @extend %box-bordered, %flex-between-nowrap;
 
   font-size: 1.5em;
   background: $c-bg-zebra;
   padding: 1em 2em;
+
+  @include if-transp {
+    backdrop-filter: none;
+  }
 
   &--top {
     margin-bottom: 2em;

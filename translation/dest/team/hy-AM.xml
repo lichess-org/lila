@@ -30,17 +30,11 @@
   <string name="willBeReviewed">Ընդգրկվելու Ձեր հայտը պետք է հաստատի թիմի ղեկավարը։</string>
   <string name="beingReviewed">Ընդգրկվելու Ձեր հայտն ուսումնասիրում է թիմի ղեկավարը։</string>
   <string name="requestDeclined">Թիմի ղեկավարը մերժել է ընդգրկվելու Ձեր հայտը։</string>
-  <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
   <string name="teamBattle">Միջակումբային մրցաշար</string>
   <string name="teamBattleOverview">Մի քանի թիմի մրցաշար, յուրաքանչյուր խաղացող միավորներ է վաստակում իր թիմի համար</string>
   <string name="teamTournament">Թիմային մրցաշար</string>
   <string name="teamTournamentOverview">Արենա, որին կարող են մասնակցել միայն ձեր թիմի անդամները</string>
   <string name="swissTournamentOverview">Շվեյցարական մրցաշարեր, որոնց կարող են մասնակցել միայն ձեր թիմի անդամները</string>
-  <string name="messageAllMembers">Հաղորդագրություն բոլոր մասնակիցներին</string>
-  <string name="messageAllMembersOverview">Ուղարկել անձնական հաղորդագրություն թիմի բոլոր անդամներին</string>
-  <string name="messageAllMembersLongDescription">Ուղարկել անձնական հաղորդագրություն թիմի բոլոր անդամներին։
-Կարելի է օգտագործել խաղացողներին մրցաշարի կամ թիմային մրցամարտի հրավիրելու համար։
-Այն խաղացողները, որոնք չեն ցանկանում ստանալ Ձեր հաղորդագրությունները, կարող են լքել թիմը։</string>
   <string name="teamsIlead">Իմ ղեկավարած թիմերը</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Չե՞ք ցանկանում կցել առաջիկա մրցաշարերից մեկը</string>
   <string name="leadersChat">Ղեկավարների զրուցարան</string>

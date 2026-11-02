@@ -21,7 +21,7 @@ final class ForumPaginator(
         collection = postRepo.coll,
         selector = postRepo.selectCateg(categ.id),
         projection = none,
-        sort = $sort.createdDesc
+        sort = sort.createdDesc
       ).withLotsOfResults,
       currentPage = page,
       maxPerPage = MaxPerPage(30)
@@ -36,7 +36,7 @@ final class ForumPaginator(
         collection = postRepo.coll,
         selector = postRepo.forUser(me).selectTopic(topic.id),
         projection = none,
-        sort = $sort.createdAsc
+        sort = sort.createdAsc
       ).mapFutureList(textExpand.manyPosts),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
@@ -64,7 +64,7 @@ final class ForumPaginator(
                 Skip(offset),
                 Limit(length),
                 PipelineOperator:
-                  $lookup.simple(
+                  lookup.simple(
                     from = postRepo.coll,
                     as = "post",
                     local = if me.exists(_.marks.troll) then "lastPostIdTroll" else "lastPostId",

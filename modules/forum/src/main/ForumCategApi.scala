@@ -2,8 +2,8 @@ package lila.forum
 
 import scalalib.paginator.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.id.ForumTopicSlug
+import lila.db.dsl.{ *, given }
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,
@@ -46,14 +46,14 @@ final class ForumCategApi(
     categRepo.coll.insert.one(categ).void >>
       postRepo.coll.insert.one(post).void >>
       topicRepo.coll.insert.one(topic.withPost(post)).void >>
-      categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
+      categRepo.coll.update.one(bid(categ.id), categ.withPost(topic, post)).void
 
   def show(
       id: ForumCategId,
       page: Int
   )(using Option[Me]): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
     categRepo.byId(id).flatMapz { categ =>
-      paginator.categTopics(categ, page).dmap { (categ, _).some }
+      paginator.categTopics(categ, page).dmap((categ, _).some)
     }
 
   def denormalize(categ: ForumCateg): Funit =
@@ -67,7 +67,7 @@ final class ForumCategApi(
       _ <-
         categRepo.coll.update
           .one(
-            $id(categ.id),
+            bid(categ.id),
             categ.copy(
               nbTopics = nbTopics,
               nbPosts = nbPosts,

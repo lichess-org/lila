@@ -3,7 +3,7 @@ package lila.pref
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ numberIn, stringIn, tolerantBoolean }
+import lila.common.Form.{ into, numberIn, stringIn, tolerantBoolean }
 
 object PrefForm:
 
@@ -61,6 +61,10 @@ object PrefForm:
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
     val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
+    val uiRoundness = "uiRoundness" -> number(0, 15)
+    val bgOpacity = "bgOpacity" -> number(5, 100)
+    val favFed =
+      "favFed" -> optional(nonEmptyText(minLength = 2, maxLength = 6).into[lila.core.fide.Federation.Id])
 
   def pref(lichobile: Boolean) = Form(
     mapping(

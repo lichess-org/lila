@@ -4,8 +4,8 @@ import { BotCtrl } from './botCtrl';
 import type { BotOpts } from './interfaces';
 
 export async function initModule(opts: BotOpts) {
-  const element = document.querySelector('main.bot-play') as HTMLElement,
-    patch = init([classModule, attributesModule, eventListenersModule]);
+  const element = document.querySelector('main.bot-play') as HTMLElement;
+  const patch = init([classModule, attributesModule, eventListenersModule]);
 
   const ctrl = new BotCtrl(opts, redraw);
 

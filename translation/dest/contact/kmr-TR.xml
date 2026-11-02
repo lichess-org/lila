@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Hûn nikarin ji dozê bêtir biguherînin. Ji ber sedemên teknîkî, ew ne gengaz e.</string>
   <string name="orCloseAccount">Lê, tu dikarî hesabê xwe yê niha bigirî û hesabekî nû çê bikî.</string>
   <string name="wantClearHistory">Ez dixwazim dîrok an rêjeya xwe paqij bikim</string>
-  <string name="cantClearHistory">Ne gengaz e ku hûn dîroka lîstika xwe, dîroka puzzle, an nirxan paqij bikin.</string>
   <string name="wantReport">Ez dixwazim lîstikvanek rapor bikim</string>
   <string name="toReportAPlayerUseForm">Ji bo raporkirina lîstikvanek, forma raporê bikar bînin</string>
   <string name="youCanAlsoReachReportPage">Her weha hûn dikarin bi tikandina bişkoka raporê ya %s a li ser rûpelek profîlê xwe bigihînin wê rûpelê.</string>

@@ -20,7 +20,7 @@ private object PrefHandlers:
       )
 
     def writes(w: BSON.Writer, o: Pref.BoardPref) =
-      $doc(
+      bdoc(
         "brightness" -> o.brightness,
         "contrast" -> o.contrast,
         "opacity" -> o.opacity,
@@ -72,15 +72,17 @@ private object PrefHandlers:
         resizeHandle = r.getD("resizeHandle", d.resizeHandle),
         moveEvent = r.getD("moveEvent", d.moveEvent),
         agreement = r.getD("agreement", 0),
+        uiRoundness = r.getD("uiRoundness", d.uiRoundness),
         board = r.getD("board", d.board),
-        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | d.blogFilter,
+        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.byName.get) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
-        tags = r.getD("tags", d.tags)
+        hasDgt = r.getD("hasDgt", d.hasDgt),
+        favFed = r.getO[lila.core.fide.Federation.Id]("favFed")
       )
 
     def writes(w: BSON.Writer, o: Pref) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "bg" -> o.bg,
         "bgImg" -> o.bgImg,
@@ -120,10 +122,12 @@ private object PrefHandlers:
         "moveEvent" -> o.moveEvent,
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle" -> o.resizeHandle,
+        "uiRoundness" -> o.uiRoundness,
         "agreement" -> o.agreement,
         "usingAltSocket" -> o.usingAltSocket,
         "board" -> o.board,
         "blogFilter" -> o.blogFilter.ordinal,
         "sayGG" -> o.sayGG,
-        "tags" -> o.tags
+        "hasDgt" -> o.hasDgt,
+        "favFed" -> o.favFed
       )

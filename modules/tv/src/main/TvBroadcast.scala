@@ -1,14 +1,14 @@
 package lila.tv
 
-import akka.actor.*
-import akka.stream.scaladsl.*
-import akka.pattern.pipe
 import chess.format.Fen
+import org.apache.pekko.actor.*
+import org.apache.pekko.pattern.pipe
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.common.actorBus.*
 import lila.common.Json.given
+import lila.common.actorBus.*
 import lila.core.LightUser
 import lila.core.game.TvSelect
 import lila.core.socket.makeMessage
@@ -39,7 +39,7 @@ final private class TvBroadcast(
 
     case TvBroadcast.Connect(compat) =>
       sender() ! Source
-        .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
+        .queue[JsValue](8, org.apache.pekko.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue { queue =>
           val client = Client(queue, compat)
           self ! Add(client)

@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ Rated, Clock, Speed }
+import chess.{ Clock, Rated, Speed }
 import scalalib.model.Days
 
 import lila.core.data.Template

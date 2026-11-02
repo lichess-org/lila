@@ -35,7 +35,7 @@
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">gömd</string>
+  <string name="hidden">dold</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>
@@ -45,13 +45,13 @@
   <string name="difficultyLevel">Svårighetsgrad</string>
   <string name="normal">Normal</string>
   <string name="easier">Lättare</string>
-  <string name="easiest">Lättaste</string>
+  <string name="easiest">Lättast</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">En poäng under ditt pusselbetyg</item>
     <item quantity="other">%s poäng under ditt pusselbetyg</item>
   </plurals>
   <string name="harder">Svårare</string>
-  <string name="hardest">Svåraste</string>
+  <string name="hardest">Svårast</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">En poäng över ditt pusselbetyg</item>
     <item quantity="other">%s poäng över ditt pusselbetyg</item>
@@ -65,7 +65,7 @@
   <string name="strengths">Styrkor</string>
   <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
-  <string name="failed">olöst</string>
+  <string name="failed">fel</string>
   <string name="streakDescription">Lös gradvis svårare pussel och bygg en vinstserie. Det finns ingen klocka, så ta din tid. Ett feldrag och spelet är över! Men du kan skippa ett drag per session.</string>
   <string name="yourStreakX">Din vinstserie: %s</string>
   <string name="streakSkipExplanation">Skippa detta drag för att bevara din vinstserie! Fungerar bara en gång per spel.</string>

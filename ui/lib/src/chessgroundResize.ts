@@ -9,15 +9,6 @@ type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
-let boundChessgroundResize = false;
-
-export const bindChessgroundResizeOnce = (f: () => void): void => {
-  if (!boundChessgroundResize) {
-    boundChessgroundResize = true;
-    bindChessgroundResize(f);
-  }
-};
-
 export const dispatchChessgroundResize = (): boolean =>
   document.body.dispatchEvent(new Event('chessground.resize'));
 
@@ -38,17 +29,17 @@ export default function resizeHandle(
   const startResize = (start: MouchEvent) => {
     start.preventDefault();
 
-    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove',
-      mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
-      startPos = eventPosition(start)!,
-      initialZoom = parseInt(window.getComputedStyle(document.body).getPropertyValue('---zoom'));
+    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove';
+    const mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup';
+    const startPos = eventPosition(start)!;
+    const initialZoom = parseInt(window.getComputedStyle(document.body).getPropertyValue('---zoom'));
     let zoom = initialZoom;
 
     const saveZoom = debounce(() => xhr.text(`/pref/zoom?v=${zoom}`, { method: 'post' }), 700);
 
     const resize = (move: MouchEvent) => {
-      const pos = eventPosition(move)!,
-        delta = pos[0] - startPos[0] + pos[1] - startPos[1];
+      const pos = eventPosition(move)!;
+      const delta = pos[0] - startPos[0] + pos[1] - startPos[1];
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 

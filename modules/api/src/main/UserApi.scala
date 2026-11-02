@@ -10,8 +10,8 @@ import lila.core.config.*
 import lila.core.perf.UserWithPerfs
 import lila.core.user.PublicFideIdOf
 import lila.rating.PerfType
-import lila.user.Trophy
 import lila.round.UrgentGames
+import lila.user.Trophy
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -19,6 +19,7 @@ final class UserApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     gameCache: lila.game.Cached,
+    playingUsers: lila.round.PlayingUsers,
     userApi: lila.user.UserApi,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
@@ -39,7 +40,7 @@ final class UserApi(
   export userApi.withPerfs
   import UserApi.Opts
 
-  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
+  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None)(using Option[Me]): JsObject = {
     val (light, userJson) = u match
       case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
       case u: LightUser => (u, Json.toJsObject(u))
@@ -47,19 +48,13 @@ final class UserApi(
       Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
-  def extended(
-      username: UserStr,
-      opts: Opts
-  )(using Option[Me], Lang): Fu[Option[JsObject]] =
+  def extended(username: UserStr, opts: Opts)(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
         extended(_, opts).dmap(some)
 
-  def extended(
-      u: User | UserWithPerfs,
-      opts: Opts
-  )(using as: Option[Me], lang: Lang): Fu[JsObject] =
+  def extended(u: User | UserWithPerfs, opts: Opts)(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User => userApi.withPerfs(u)
       case u: UserWithPerfs => fuccess(u)
@@ -71,10 +66,10 @@ final class UserApi(
           (
             opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption),
             as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            as.isDefined.so(prefApi.followable(u.id)),
-            as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
+            (opts.withRelation && as.isDefined).so(prefApi.followable(u.id)),
+            opts.withRelation.so(as).map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
-            gameCache.nbPlaying(u.id),
+            if as.isDefined then playingUsers.nbPlayingAll(u.id) else playingUsers.nbPlayingRealtime(u.id),
             gameCache.nbImportedBy(u.id),
             (withTrophies && !u.lame).optionFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),
@@ -140,7 +135,7 @@ final class UserApi(
                             Json.obj("channel" -> y.fullUrl)
                         )
                   ) ++
-                  as.isDefined.so:
+                  (opts.withRelation && as.isDefined).so:
                     Json.obj(
                       "followable" -> followable,
                       "following" -> relation.exists(_.isFollow),
@@ -153,6 +148,7 @@ final class UserApi(
     Opts(
       withTrophies = false,
       withCanChallenge = me.exists(_.isnt(user)),
+      withRelation = true,
       withPlayban = me.exists(_.is(user)),
       urgent = urgent
     )
@@ -215,6 +211,7 @@ object UserApi:
   case class Opts(
       withTrophies: Boolean,
       withCanChallenge: Boolean,
+      withRelation: Boolean,
       withProfile: Boolean = true,
       withRank: Boolean = false,
       withPlayban: Boolean = false,

@@ -51,7 +51,7 @@
       margin-inline-end: 5px;
     }
 
-    .timeout a {
+    .timeout button {
       @extend %nowrap-ellipsis;
       @include transition;
 
@@ -61,16 +61,16 @@
       margin-inline-start: -10px;
     }
 
-    .timeout a::before {
+    .timeout button::before {
       opacity: 0;
       transition: 0.3s;
     }
 
-    .timeout a:hover {
+    .timeout button:hover {
       margin-inline-start: 0;
     }
 
-    .timeout a:hover::before {
+    .timeout button:hover::before {
       opacity: 1;
       margin-inline-end: 2px;
     }

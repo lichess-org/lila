@@ -1,7 +1,7 @@
 package lila.mod
 
-import chess.{ Black, ByColor, Color, White }
 import chess.rating.IntRatingDiff
+import chess.{ Black, ByColor, Color, White }
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
 
@@ -29,18 +29,18 @@ final class AssessApi(
   import lila.analyse.AnalyseBsonHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    assessRepo.coll.delete.one($id(del.id))
+    assessRepo.coll.delete.one(bid(del.id))
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
-    assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
+    assessRepo.coll.update.one(bid(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: UserId) =
     assessRepo.coll.byId[PlayerAssessment](id)
 
   private def getPlayerAssessmentsByUserId(userId: UserId, nb: Int) =
     assessRepo.coll
-      .find($doc("userId" -> userId))
-      .sort($sort.desc("date"))
+      .find(bdoc("userId" -> userId))
+      .sort(sort.desc("date"))
       .cursor[PlayerAssessment](ReadPref.sec)
       .list(nb)
 
@@ -65,7 +65,7 @@ final class AssessApi(
 
   private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
-      .distinctEasy[GameId, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}")))
+      .distinctEasy[GameId, Set]("gameId", inIds(povs.map(p => s"${p.gameId}/${p.color.name}")))
       .flatMap { existingIds =>
         val missing = povs.collect:
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
@@ -75,7 +75,7 @@ final class AssessApi(
             .flatMap { ans =>
               povs
                 .flatMap: pov =>
-                  ans.get(pov.gameId).map { pov -> _ }
+                  ans.get(pov.gameId).map(pov -> _)
                 .parallelVoid: (pov, analysis) =>
                   gameRepo.holdAlert.game(pov.game).flatMap { holdAlerts =>
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
@@ -136,10 +136,9 @@ final class AssessApi(
       shouldAssess.so {
         createPlayerAssessment(PlayerAssessment.make(game.pov(White), analysis, holdAlerts.white)) >>
           createPlayerAssessment(PlayerAssessment.make(game.pov(Black), analysis, holdAlerts.black))
-      } >> {
+      } >>
         (shouldAssess && thenAssessUser).so:
           game.whitePlayer.userId.so(assessUser) >> game.blackPlayer.userId.so(assessUser)
-      }
     }
 
   def assessUser(userId: UserId): Funit =
@@ -150,7 +149,7 @@ final class AssessApi(
             .getTitle(userId)
             .flatMap:
               case None =>
-                modApi.autoMark(
+                modApi.autoEngine(
                   SuspectId(userId),
                   playerAggregateAssessment.reportText(3)
                 )(using UserId.lichessAsMe)

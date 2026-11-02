@@ -3,16 +3,16 @@
  * Copyright (C) 2016 Lightbend Inc. <http://www.lightbend.com>
  */
 
-package akka.stream.contrib
+package org.apache.pekko.stream.contrib
 
-import akka.stream.Attributes.{ InputBuffer, name }
-import akka.stream.contrib.ZipInputStreamSource.ZipEntryData
-import akka.stream.impl.Stages.DefaultAttributes.IODispatcher
-import akka.stream.scaladsl.Source
-import akka.stream.stage.{ GraphStageLogic, GraphStageWithMaterializedValue, OutHandler }
-import akka.stream.{ Attributes, Outlet, SourceShape }
-import akka.util.ByteString
-import akka.util.ByteString.ByteString1C
+import org.apache.pekko.stream.Attributes.{ InputBuffer, name }
+import org.apache.pekko.stream.contrib.ZipInputStreamSource.ZipEntryData
+import org.apache.pekko.stream.impl.Stages.DefaultAttributes.IODispatcher
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.stream.stage.{ GraphStageLogic, GraphStageWithMaterializedValue, OutHandler }
+import org.apache.pekko.stream.{ Attributes, Outlet, SourceShape }
+import org.apache.pekko.util.ByteString
+import org.apache.pekko.util.ByteString.ByteString1C
 
 import java.util.zip.{ ZipEntry, ZipInputStream }
 import scala.annotation.tailrec

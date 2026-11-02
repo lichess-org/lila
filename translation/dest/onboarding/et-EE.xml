@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">Logi sisse kui %s</string>
+  <string name="welcome">Tere tulemast!</string>
+  <string name="welcomeToLichess">Tere tulemast Lichessi!</string>
+  <string name="thisIsYourProfilePage">See on sinu profiilileht.</string>
+  <string name="enabledKidModeSuggestion">Kas seda kontot hakkab kasutama laps? Vahest soovid aktiveerida %s.</string>
+  <string name="whatNowSuggestions">Mis nüüd? Siin on mõned soovitused:</string>
+  <string name="learnChessRules">Õpi malereegleid.</string>
+  <string name="improveWithChessTacticsPuzzles">Arenda oma oskusi maletaktika pusledega.</string>
+  <string name="playTheArtificialIntelligence">Mängi tehisaruga.</string>
+  <string name="playOpponentsFromAroundTheWorld">Mängi vastastega kogu maailmast.</string>
+  <string name="followYourFriendsOnLichess">Jälgi oma sõpru Lichessis.</string>
+  <string name="playInTournaments">Osale turniiridel.</string>
+  <string name="learnFromXAndY">Õpi %1$s ja %2$s eeskujul.</string>
+  <string name="configureLichess">Seadista Lichess oma maitse järgi.</string>
+  <string name="exploreTheSiteAndHaveFun">Tutvu veebisaidiga ja lõbutse :)</string>
+</resources>

@@ -21,6 +21,7 @@ object page:
       active = active,
       contentCls = "page box box-pad force-ltr"
     ).css("bits.page")
+      .headAppend((active == "about").option(staticContent.organizationScript))
       .headAppend(views.cms.alternateMarkdown(p)):
         views.cms.pageContent(p)
 
@@ -34,6 +35,15 @@ object page:
 
   def webmasters(using Context) =
     ui.webmasters(lila.pref.PieceSet.all.map(_.name))
+
+  def survey =
+    Page(title = "User Survey")
+      .flag(_.noRobots)
+      .js(Esm("bits.survey"))(
+        main(cls := "survey-redirect")(
+          h1("Redirecting...")
+        )
+      )
 
 object variant:
 

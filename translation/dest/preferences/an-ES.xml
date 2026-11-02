@@ -55,12 +55,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Fe servir la rodeta d\'o rate pa reproducir chugadas</string>
   <string name="correspondenceEmailNotification">Correu electronico diario de notificación con as tuyas partidas per correspondiencia</string>
   <string name="notifyStreamStart">Un presentador ye en vivo</string>
-  <string name="notifyInboxMsg">Nuevo mensache en a servilla de dentrada</string>
-  <string name="notifyForumMention">Un comentario d\'o foro t\'ha mencionau</string>
-  <string name="notifyInvitedStudy">Invitación a un estudio</string>
   <string name="notifyGameEvent">Actualizacions de partidas per correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
-  <string name="notifyTournamentSoon">Lo torneyo encomienza luego</string>
   <string name="notifyTimeAlarm">Se ye acorando lo tiempo en una partida per correspondiencia</string>
   <string name="notifyBell">Notificación emerchent en Lichess</string>
   <string name="notifyPush">Notificación de dispositivo cuan no sigas en Lichess</string>

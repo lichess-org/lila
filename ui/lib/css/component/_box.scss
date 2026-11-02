@@ -4,6 +4,11 @@ $vp-max-width: 1200px;
 .box {
   @extend %box-shadow;
 
+  @include if-transp {
+    @include back-blur;
+  }
+
+  position: relative;
   background: $c-bg-box;
 
   &-pad {
@@ -32,12 +37,6 @@ $vp-max-width: 1200px;
 
   &__pad {
     @extend %box-padding-horiz;
-  }
-
-  @include if-transp {
-    position: relative;
-
-    @include back-blur;
   }
 }
 

@@ -22,14 +22,14 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           _ <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
         yield pager
 
-  def show(id: TeamId) = OpenOrScoped(): ctx ?=>
+  def show(id: TeamId) = OpenOrScoped(_.Team.Read): ctx ?=>
     JsonOptionOk:
       api
         .teamEnabled(id)
         .flatMapz: team =>
           for
             joined <- ctx.useMe(api.isMember(id))
-            requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
+            requested <- ctx.userId.ifFalse(joined).so(env.team.requestRepo.exists(id, _))
             withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
             _ <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
           yield some:
@@ -71,7 +71,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
 
-  def teamsOf(username: UserStr) = Scoped(): ctx ?=>
+  def teamsOf(username: UserStr) = Scoped(_.Team.Read): ctx ?=>
     Found(meOrFetch(username)): user =>
       import env.team.jsonView.given
       JsonOk:
@@ -104,7 +104,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(automodText), s"team:${team.id}", url.some)
               yield
-                discard { env.report.api.automodComms(automodText, url) }
+                discard(env.report.api.automodComms(automodText, url))
                 ApiResult.Done
           )
   }
@@ -127,13 +127,13 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           lila.security.logger.warn:
             s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}"
         fuccess(ApiResult.Limited)
-      limit.teamKick(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
+      limit.teamKick(me.myId, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
         api.kick(team, username.id).inject(ApiResult.Done)
   }
 
   private def WithOwnedTeamEnabled(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: TeamModel => Fu[ApiResult]
-  )(using me: Me): Fu[Result] =
+  )(using Me): Fu[Result] =
     api
       .teamEnabled(teamId)
       .flatMap:

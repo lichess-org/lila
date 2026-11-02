@@ -4,13 +4,13 @@ import reactivemongo.api.bson.*
 import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.UserRankMap
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.rating.UserRankMap
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
-import lila.rating.{ PerfType, UserPerfs }
 import lila.mon.extensions.*
+import lila.rating.{ PerfType, UserPerfs }
 
 final class Cached(
     userRepo: UserRepo,
@@ -75,7 +75,7 @@ final class Cached(
   def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
   private def userIdsLikeFetch(text: UserSearch) =
-    userRepo.userIdsLikeFilter(text, $empty, 12)
+    userRepo.userIdsLikeFilter(text, emptyBdoc, 12)
 
   private val userIdsLikeCache = cacheApi[UserSearch, List[UserId]](1024, "user.like"):
     _.expireAfterWrite(5.minutes).buildAsyncTimeout()(userIdsLikeFetch)

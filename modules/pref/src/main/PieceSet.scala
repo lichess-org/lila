@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.libs.json.*
+
 import lila.common.Json.given
 
 opaque type Featured = Boolean
@@ -54,6 +55,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("cooke"),
     PieceSet("monarchy", Featured.Yes),
     PieceSet("papercut"),
+    PieceSet("minimal-warmth"),
     PieceSet("governor"),
     PieceSet("dubrovny", Featured.Yes),
     PieceSet("shahi-ivory-brown"),

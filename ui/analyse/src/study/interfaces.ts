@@ -125,6 +125,7 @@ export interface StudyChapter {
 export interface StudyChapterServerEval {
   done: boolean;
   path: string;
+  version?: number;
 }
 
 interface StudyChapterSetup {
@@ -182,10 +183,7 @@ export interface ChapterPreview extends ChapterPreviewBase {
   playing: boolean;
 }
 
-export interface StudyPlayers {
-  white: StudyPlayer;
-  black: StudyPlayer;
-}
+export type StudyPlayers = ByColor<StudyPlayer>;
 
 export type FederationId = string;
 export interface Federation {
@@ -234,7 +232,6 @@ export interface EditChapterData {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -245,7 +242,6 @@ export interface AnaDrop {
   role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: FEN;
   path: string;
   ch?: string;
 }

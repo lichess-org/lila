@@ -1,8 +1,8 @@
 package views.study
 
 import chess.format.pgn.PgnStr
-import play.api.libs.json.Json
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
@@ -87,7 +87,6 @@ def show(
               writeable = ctx.userId.exists(s.canChat),
               public = true,
               resource = lila.core.chat.PublicSource.Study(s.id),
-              voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),
           "socketUrl" -> socketUrl(s.id),
@@ -97,7 +96,7 @@ def show(
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
     .graph(
       OpenGraph(
         title = s.name.value,

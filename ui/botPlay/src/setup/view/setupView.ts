@@ -5,10 +5,9 @@ import { miniBoard } from '@/ground';
 import { type Bot } from '@/interfaces';
 
 import type SetupCtrl from '../setupCtrl';
-import { setupDialog } from './setupDialog';
 
 export const setupView = (ctrl: SetupCtrl) =>
-  hl('main.bot-app.bot-setup', [setupDialog(ctrl), viewOngoing(ctrl), viewBotList(ctrl)]);
+  hl('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl)]);
 
 const viewOngoing = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGameWorthResuming();
@@ -31,7 +30,7 @@ const viewBotList = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGameWorthResuming();
   return hl(
     'div.bot-setup__bots',
-    { class: { 'bot-setup--blur': !!ctrl.selectedBot } },
+    { class: { 'bot-setup--blur': !!ctrl.dialog?.dialog.open } },
     ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot, !!g && bot.key === g.game.botKey)),
   );
 };

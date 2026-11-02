@@ -20,7 +20,6 @@ import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import * as control from '@/control';
 import type PuzzleCtrl from '@/ctrl';
-import { view as keyboardView } from '@/keyboard';
 
 import boardMenu from './boardMenu';
 import chessground from './chessground';
@@ -144,7 +143,6 @@ export default function (ctrl: PuzzleCtrl): VNode {
       controls(ctrl),
       ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       session(ctrl),
-      ctrl.keyboardHelp() && keyboardView(ctrl),
     ],
   );
 }
@@ -154,38 +152,34 @@ function session(ctrl: PuzzleCtrl): MaybeVNode {
 
   if (!rounds.length) return undefined;
 
-  const current = ctrl.data.puzzle.id;
+  const { id: currentId } = ctrl.data.puzzle;
+  const { theme } = ctrl.session;
 
   return hl('div.puzzle__session', [
-    rounds.map(round => {
+    rounds.map(({ id, result, ratingDiff }) => {
       const rd =
-        round.ratingDiff && ctrl.opts.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+        ratingDiff && ctrl.opts.showRatings ? (ratingDiff > 0 ? '+' + ratingDiff : ratingDiff) : null;
 
       return h(
-        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+        `a.result-${result}`,
         {
-          key: round.id,
-          class: { current: current === round.id },
+          key: id,
+          class: { current: currentId === id, 'result-empty': !rd },
           attrs: {
-            href: `/training/${ctrl.session.theme}/${round.id}`,
+            href: `/training/${theme}/${id}`,
             ...(ctrl.streak ? { target: '_blank' } : {}),
           },
         },
         rd,
       );
     }),
-    rounds.some(r => r.id === current)
-      ? !ctrl.streak &&
-        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+    rounds.some(r => r.id === currentId)
+      ? !ctrl.streak && hl('a.session-new', { key: 'new', attrs: { href: `/training/${theme}` } })
       : hl(
           'a.result-cursor.current',
           {
-            key: current,
-            attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
+            key: currentId,
+            attrs: ctrl.streak ? {} : { href: `/training/${theme}/${currentId}` },
           },
           ctrl.streak && (ctrl.streak.data.index + 1).toString(),
         ),

@@ -1,7 +1,7 @@
 package lila.round
 
-import akka.actor.*
-import akka.stream.scaladsl.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.common.LilaStream
 import lila.core.round.{ Abandon, RoundBus }
@@ -18,7 +18,7 @@ final private class Titivate(
     roundApi: lila.core.round.RoundApi,
     gameRepo: GameRepo,
     chatApi: lila.chat.ChatApi
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends Actor:
 
   private type GameOrFail = Either[(GameId, Throwable), Game]

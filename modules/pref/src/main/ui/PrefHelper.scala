@@ -131,7 +131,6 @@ trait PrefHelper:
     )
 
   def translatedStudyInviteChoices(using Translate) = privacyBaseChoices
-  def translatedVoiceChatChoices(using Translate) = privacyBaseChoices
   private def privacyBaseChoices(using Translate) =
     List(
       (lila.core.pref.StudyInvite.NEVER, trans.site.never.txt()),
@@ -156,6 +155,6 @@ trait PrefHelper:
   def translatedSayGGChoices(using Translate) =
     List(
       (Pref.SayGG.NO, trans.site.never.txt()),
-      (Pref.SayGG.DEFEAT, "Defeat only"),
-      (Pref.SayGG.DRAW, "Draw and defeat")
+      (Pref.SayGG.DEFEAT, trans.site.defeatOnly.txt()),
+      (Pref.SayGG.DRAW, trans.site.drawAndDefeat.txt())
     )

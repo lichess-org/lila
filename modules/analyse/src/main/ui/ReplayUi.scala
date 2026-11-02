@@ -1,14 +1,14 @@
 package lila.analyse
 package ui
 
-import chess.variant.*
 import chess.format.Fen
 import chess.format.pgn.PgnStr
+import chess.variant.*
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
   import helpers.{ *, given }
@@ -18,17 +18,16 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       pov: Pov,
       pgn: PgnStr,
       graph: OpenGraph,
+      chessground: Frag,
       gameSide: Option[Frag],
       crosstable: Option[Tag]
-  )(using Context) =
-    Page(analyseUi.titleOf(pov))
+  ) =
+    Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
-      .graph(graph)
-      .csp(analyseUi.bits.cspExternalEngine)
-      .flag(_.noRobots):
+      .graph(graph):
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(gameSide),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          div(cls := "analyse__board main-board")(chessground),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           div(cls := "analyse__underboard")(
@@ -63,7 +62,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       a(cls := "text game-gif", dataIcon := Icon.Download)(trans.site.gameAsGIF()),
       copyMeLink(
         fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
-        trans.site.screenshotCurrentPosition()
+        trans.site.positionAsImage()
       )(cls := "position-gif")
     )
 
@@ -79,7 +78,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     analyseUi.bits
-      .page(analyseUi.titleOf(pov))
+      .page(analyseUi.titleFull(pov))
       .css("analyse.round")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(ctx.blind.option("round.nvui"))
@@ -134,16 +133,44 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                   div(cls := "analyse__underboard__panels")(
                     analysable.option(
                       div(cls := "computer-analysis")(
-                        if hasAnalysis then div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                        else
-                          postForm(
-                            cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
-                            action := routes.Analyse.requestAnalysis(gameId)
-                          ):
-                            submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                                trans.site.requestAComputerAnalysis()
+                        if hasAnalysis then
+                          div(id := "acpl-chart-container", cls := "analysis-chart")(
+                            canvas(id := "acpl-chart"),
+                            div(cls := "analysis-chart-actions")(
+                              i(
+                                cls := "analysis-editor",
+                                role := "button",
+                                tabindex := "0",
+                                title := trans.study.analysisEditor.txt(),
+                                dataIcon := Icon.Cogs
+                              ),
+                              i(
+                                cls := "delete none",
+                                role := "button",
+                                tabindex := "0",
+                                title := trans.study.clearLocal.txt(),
+                                dataIcon := Icon.X
                               )
+                            )
+                          )
+                        else
+                          frag(
+                            postForm(
+                              cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
+                              action := routes.Analyse.requestAnalysis(gameId)
+                            )(
+                              submitButton(cls := "button text")(
+                                span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                  trans.study.requestAServerAnalysis()
+                                )
+                              )
+                            ),
+                            button(cls := "button text analysis-editor", tpe := "button")(
+                              span(cls := "is3 text", dataIcon := Icon.Cogs)(
+                                trans.study.analyzeOnYourDevice()
+                              )
+                            )
+                          )
                       )
                     ),
                     div(cls := "move-times")(

@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import { type Toggle, toggle } from 'lib';
-import { pubsub } from 'lib/pubsub';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
@@ -34,7 +33,7 @@ export class PieceCtrl extends PaneCtrl {
     const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.more() ? 4 : 3);
     const pieceImage = (t: string) =>
       this.is3d
-        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
+        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.webp`
         : site.manifest.hashed[`piece/${t}/wN.webp`]
           ? `piece/${t}/wN.webp`
           : `piece/${t}/wN.svg`;
@@ -67,7 +66,6 @@ export class PieceCtrl extends PaneCtrl {
     if (!this.is3d) {
       pieceVarRules(t);
     }
-    pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {

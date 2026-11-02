@@ -1,7 +1,8 @@
 import fg from 'fast-glob';
 import { promises as fs } from 'node:fs';
+import pc from 'picocolors';
 
-import { env, c } from './env.ts';
+import { env } from './env.ts';
 
 const globOpts: fg.Options = {
   absolute: true,
@@ -25,14 +26,19 @@ const allGlobs = [
 export async function clean(globs?: string[] | 'force'): Promise<void> {
   if (!env.clean && !globs) return;
 
-  for (const glob of Array.isArray(globs) ? globs : allGlobs) {
-    env.log(`Cleaning '${c.cyan(glob)}'...`);
-    for await (const f of fg.stream(glob, { cwd: env.rootDir, ...globOpts })) {
-      if (f.includes('ui/.build') && !f.includes('/build')) continue; // skip .build/node_modules
-      if (f.slice(-1) === '/') await fs.rm(f, { recursive: true });
-      else await fs.unlink(f);
-    }
+  const startedAt = Date.now();
+  const patterns = Array.isArray(globs) ? globs : allGlobs;
+  for (const glob of patterns) {
+    env.log(`Cleaning '${pc.cyan(glob)}'...`);
   }
+
+  const files = new Set(
+    (await Promise.all(patterns.map(glob => fg(glob, { cwd: env.rootDir, ...globOpts }))))
+      .flat()
+      .filter(f => !f.includes('ui/.build') || f.includes('/build')),
+  );
+  await Promise.all([...files].map(f => (f.endsWith('/') ? fs.rm(f, { recursive: true }) : fs.unlink(f))));
+  env.log(`Done ${pc.gray(`(${((Date.now() - startedAt) / 1000).toFixed(3)}s)`)}`);
 }
 
 export async function deepClean(): Promise<void> {

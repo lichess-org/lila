@@ -1,0 +1,32 @@
+name: Reviewable comment
+
+on:
+  workflow_run:
+    workflows: [Reviewable]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.head_repository.full_name != github.repository
+    steps:
+      - name: Ask the author to allow edits from maintainers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          pulls=$(gh api -X GET "repos/$GH_REPO/pulls" -f head="$HEAD_OWNER:$HEAD_BRANCH" -f state=open)
+          for pr in $(jq -r --arg sha "$HEAD_SHA" '.[] | select(.head.sha == $sha) | .number' <<< "$pulls"); do
+            gh pr review "$pr" \
+              --request-changes \
+              --body "Please allow edits from maintainers on your pull request. See how to enable them [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork#enabling-repository-maintainer-permissions-on-existing-pull-requests)"
+          done

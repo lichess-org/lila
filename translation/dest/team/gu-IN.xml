@@ -30,16 +30,11 @@
   <string name="willBeReviewed">તમારી જોડાવાની વિનંતીની ટીમ લીડર દ્વારા સમીક્ષા કરવામાં આવશે.</string>
   <string name="beingReviewed">તમારી જોડાવાની વિનંતીની ટીમ લીડર દ્વારા સમીક્ષા થઈ રહી છે.</string>
   <string name="requestDeclined">તમારી જોડાવાની વિનંતી ટીમ લીડર દ્વારા અસ્વીકાર કરવામાં આવી હતી.</string>
-  <string name="subToTeamMessages">ટીમના સંદેશાઓ માટે સબ્સ્ક્રાઇબ કરો</string>
   <string name="teamBattle">ટીમ બેટલ</string>
   <string name="teamBattleOverview">બહુવિધ ટીમોની લડાઈ, દરેક ખેલાડી તેમની ટીમ માટે પોઈન્ટ મેળવે છે</string>
   <string name="teamTournament">ટીમ ટુર્નામેન્ટ</string>
   <string name="teamTournamentOverview">એક એરેના ટુર્નામેન્ટ જેમાં ફક્ત તમારી ટીમના સભ્યો જ જોડાઈ શકે છે</string>
   <string name="swissTournamentOverview">એક સ્વિસ ટુર્નામેન્ટ જેમાં ફક્ત તમારી ટીમના સભ્યો જ જોડાઈ શકે છે</string>
-  <string name="messageAllMembers">બધા સભ્યોને સંદેશ મોકલો</string>
-  <string name="messageAllMembersOverview">ટીમના દરેક સભ્યને ખાનગી સંદેશ મોકલો</string>
-  <string name="messageAllMembersLongDescription">ટીમના બધા સભ્યોને ખાનગી સંદેશ મોકલો.
-તમે આનો ઉપયોગ ખેલાડીઓને ટૂર્નામેન્ટ અથવા ટીમ બેટલમાં જોડાવા માટે બોલાવવા માટે કરી શકો છો. જે ખેલાડીઓને તમારા સંદેશા પ્રાપ્ત કરવા ન ગમતા હોય તેઓ ટીમ છોડી શકે છે.</string>
   <string name="teamsIlead">હું જે ટીમોનું નેતૃત્વ કરું છું</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">તમે આમાંથી કોઈ આગામી ટુર્નામેન્ટ ને લિંક કરવા ઈચ્છો છો?</string>
   <string name="leadersChat">લીડર્સ ચેટ</string>

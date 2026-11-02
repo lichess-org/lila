@@ -1,5 +1,8 @@
 import { Picker } from 'emoji-mart';
 
+import { currentTheme } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
+
 type Config = {
   element: HTMLElement;
   close: (e: PointerEvent) => void;
@@ -8,22 +11,22 @@ type Config = {
 
 export async function initModule(cfg: Config): Promise<void> {
   if (cfg.element.classList.contains('emoji-done')) return;
-  const theme =
-    document.body.dataset.theme === 'system'
-      ? 'auto'
-      : document.body.dataset.theme === 'light'
-        ? 'light'
-        : 'dark';
+
+  const locale = getPickerLang();
+  const pickerLocaleData = locale !== 'en' ? (await localeLoaders[locale]()).default : undefined;
+
   const opts = {
     ...cfg,
     onClickOutside: cfg.close,
     data: makeEmojiData,
-    categories: categories.map(categ => categ[0]),
+    categories: CATEGORIES.map(categ => categ[0]),
     categoryIcons,
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
-    theme,
+    i18n: pickerLocaleData,
+    locale,
+    theme: currentTheme(),
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new Picker(opts);
@@ -31,6 +34,13 @@ export async function initModule(cfg: Config): Promise<void> {
   cfg.element.prepend(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');
   $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
+  pubsub.on('theme', () => picker.update({ theme: currentTheme() }));
+}
+
+function getPickerLang(): PickerLocale {
+  const htmlLang = $('html').attr('lang') ?? 'en-GB';
+  const lang = htmlLang.split('-')[0];
+  return (lang === 'en' || lang in localeLoaders ? lang : 'en') as PickerLocale;
 }
 
 const makeEmojiData = async () => {
@@ -38,7 +48,7 @@ const makeEmojiData = async () => {
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
   return {
-    categories: categories.map(([id, name]) => ({
+    categories: CATEGORIES.map(([id, name]) => ({
       id,
       name,
       emojis: lines.filter(line => line.startsWith(id)),
@@ -64,7 +74,7 @@ const makeEmojiData = async () => {
   };
 };
 
-const categories: [string, string][] = [
+const CATEGORIES: [string, string][] = [
   ['smileys', 'Smileys'],
   ['people', 'People'],
   ['nature', 'Animals & Nature'],
@@ -90,3 +100,29 @@ const categoryIcons = {
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M39.61 196.8L74.8 96.29C88.27 57.78 124.6 32 165.4 32H346.6C387.4 32 423.7 57.78 437.2 96.29L472.4 196.8C495.6 206.4 512 229.3 512 256V448C512 465.7 497.7 480 480 480H448C430.3 480 416 465.7 416 448V400H96V448C96 465.7 81.67 480 64 480H32C14.33 480 0 465.7 0 448V256C0 229.3 16.36 206.4 39.61 196.8V196.8zM109.1 192H402.9L376.8 117.4C372.3 104.6 360.2 96 346.6 96H165.4C151.8 96 139.7 104.6 135.2 117.4L109.1 192zM96 256C78.33 256 64 270.3 64 288C64 305.7 78.33 320 96 320C113.7 320 128 305.7 128 288C128 270.3 113.7 256 96 256zM416 320C433.7 320 448 305.7 448 288C448 270.3 433.7 256 416 256C398.3 256 384 270.3 384 288C384 305.7 398.3 320 416 320z"></path></svg>`,
   },
 };
+
+const localeLoaders = {
+  ar: () => import('@emoji-mart/data/i18n/ar.json'),
+  be: () => import('@emoji-mart/data/i18n/be.json'),
+  cs: () => import('@emoji-mart/data/i18n/cs.json'),
+  de: () => import('@emoji-mart/data/i18n/de.json'),
+  es: () => import('@emoji-mart/data/i18n/es.json'),
+  fa: () => import('@emoji-mart/data/i18n/fa.json'),
+  fi: () => import('@emoji-mart/data/i18n/fi.json'),
+  fr: () => import('@emoji-mart/data/i18n/fr.json'),
+  hi: () => import('@emoji-mart/data/i18n/hi.json'),
+  it: () => import('@emoji-mart/data/i18n/it.json'),
+  ja: () => import('@emoji-mart/data/i18n/ja.json'),
+  ko: () => import('@emoji-mart/data/i18n/ko.json'),
+  nl: () => import('@emoji-mart/data/i18n/nl.json'),
+  pl: () => import('@emoji-mart/data/i18n/pl.json'),
+  pt: () => import('@emoji-mart/data/i18n/pt.json'),
+  ru: () => import('@emoji-mart/data/i18n/ru.json'),
+  sa: () => import('@emoji-mart/data/i18n/sa.json'),
+  tr: () => import('@emoji-mart/data/i18n/tr.json'),
+  uk: () => import('@emoji-mart/data/i18n/uk.json'),
+  vi: () => import('@emoji-mart/data/i18n/vi.json'),
+  zh: () => import('@emoji-mart/data/i18n/zh.json'),
+};
+
+type PickerLocale = 'en' | keyof typeof localeLoaders;

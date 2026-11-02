@@ -54,7 +54,6 @@
   <string name="annotateWithGlyphs">Anotovať pomocou glyphov</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitola je príliš krátka na analýzu.</string>
   <string name="onlyContributorsCanRequestAnalysis">Oba prispievatelia k tejto štúdii môžu požiadať a počítačovú analýzu.</string>
-  <string name="getAFullComputerAnalysis">Získajte úplnú počítačovú analýzu hlavného variantu na strane servera.</string>
   <string name="makeSureTheChapterIsComplete">Uistite sa, že kapitola je kompletná. Požiadať o analýzu môžete iba raz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
@@ -71,7 +70,6 @@
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vložte pre zobrazenie vo fóre</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="embedInYourWebsite">Vložte na svoju webstránku alebo blog</string>
@@ -131,7 +129,6 @@
   <string name="noLetPeopleBrowseFreely">No: povoľte ľudom voľne prehľadávať</string>
   <string name="pinnedStudyComment">Pripnutý komentár k učivu</string>
   <string name="start">Štart</string>
-  <string name="save">Uložiť</string>
   <string name="clearChat">Vymazať čet</string>
   <string name="deleteTheStudyChatHistory">Definitívne vymazať históriu četu k tejto štúdii? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať štúdiu</string>
@@ -195,8 +192,6 @@
   <string name="fromInitialPositionText">Len nastavenie šachovnice pre novú partiu.&lt;br&gt;Vhodné na štúdium otvorení.</string>
   <string name="customPositionTitle">Vlastná pozícia</string>
   <string name="customPositionText">Nastavte si šachovnicu podľa seba.&lt;br&gt;Vhodné na štúdium koncoviek.</string>
-  <string name="loadExistingLichessGameTitle">Nehrať existujúcu lichess partiu</string>
-  <string name="loadExistingLichessGameText">Vložte URL adresu lichess partie&lt;br&gt;(napríklad lichess.org/7fHIU0XI)&lt;br&gt;na načítanie ťahov partie v kapitole.</string>
   <string name="fromFenStringTitle">Z reťazca FEN</string>
   <string name="fromFenStringText">Vloženie pozície vo formáte FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;na spustenie kapitoly od pozície.</string>
   <string name="fromPgnGameTitle">Z PGN partie</string>

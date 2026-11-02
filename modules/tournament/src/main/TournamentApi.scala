@@ -1,25 +1,28 @@
 package lila.tournament
 
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
-import akka.stream.scaladsl.*
+import alleycats.Zero
+import chess.{ ByColor, IntRating }
 import com.roundeights.hasher.Algo
+import org.apache.pekko.stream.scaladsl.*
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import scalalib.paginator.Paginator
 import scalalib.Debouncer
 import scalalib.model.Minutes
-import chess.{ IntRating, ByColor }
-import alleycats.Zero
+import scalalib.paginator.Paginator
+
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 
 import lila.common.Bus
+import lila.core.chess.Rank
 import lila.core.game.LightPov
-import lila.core.round.{ RoundBus, GoBerserk }
+import lila.core.round.{ GoBerserk, RoundBus }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
-import lila.core.chess.Rank
-import lila.mon.extensions.*
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
+import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -44,16 +47,18 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
-    ircApi: lila.irc.IrcApi
+    ircApi: lila.core.irc.IrcApi,
+    teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
-    akka.actor.ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.actor.ActorSystem,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.core.user.PublicTitleOf
 ):
 
-  export tournamentRepo.byId as get
+  export tournamentRepo.{ byId as get, upcomingByTeams }
 
   def createTournament(
       setup: TournamentSetup,
@@ -126,6 +131,7 @@ final class TournamentApi(
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
     _ <- tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
+    _ <- tournamentRepo.removeForTeamsNotIn(tour.id, teamIds)
     _ <- tour.isCreated.so:
       for _ <- playerRepo.removeNotInTeams(tour.id, teamIds) yield updateNbPlayers(tour.id)
   yield
@@ -147,39 +153,44 @@ final class TournamentApi(
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
     )).so(Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
-      cached
-        .ranking(tour)
-        .mon(lila.mon.tournament.pairing.createRanking)
-        .flatMap: ranking =>
-          pairingSystem
-            .createPairings(tour, users, ranking, smallTourNbActivePlayers)
-            .mon(lila.mon.tournament.pairing.createPairings)
-            .flatMap:
-              case Nil => funit
-              case pairings =>
-                pairingRepo.insert(pairings.map(_.pairing)) >>
-                  pairings
-                    .parallelVoid: pairing =>
-                      autoPairing(tour, pairing, ranking.ranking)
-                        .mon(lila.mon.tournament.pairing.createAutoPairing)
-                        .map { socket.startGame(tour.id, _) }
-                    .mon(lila.mon.tournament.pairing.createInserts)
-                    .andDo:
-                      lila.mon.tournament.pairing.batchSize.record(pairings.size)
-                      waitingUsers.registerPairedUsers(
-                        tour.id,
-                        pairings.view.flatMap(_.pairing.users).toSet
-                      )
-                      socket.reload(tour.id)
-                      hadPairings.put(tour.id)
-                      featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
-        .monSuccess(lila.mon.tournament.pairing.create)
-        .chronometer
-        .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
-        .result)
+      for
+        ranking <- cached.ranking(tour).mon(lila.mon.tournament.pairing.createRanking)
+        playing <- pairingRepo.playingUserIds(tour.id)
+        idle = users.removePairedUsers(playing)
+        _ <- (idle.size > 1)
+          .so:
+            if users != idle
+            then logger.warn(s"Almost paired a playing player in ${forTour.id}")
+            pairingSystem
+              .createPairings(tour, idle, ranking, smallTourNbActivePlayers)
+              .mon(lila.mon.tournament.pairing.createPairings)
+              .flatMap:
+                case Nil => funit
+                case pairings =>
+                  pairingRepo.insert(pairings.map(_.pairing)) >>
+                    pairings
+                      .parallelVoid: pairing =>
+                        autoPairing(tour, pairing, ranking.ranking)
+                          .mon(lila.mon.tournament.pairing.createAutoPairing)
+                          .map(socket.startGame(tour.id, _))
+                      .mon(lila.mon.tournament.pairing.createInserts)
+                      .andDo:
+                        lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                        waitingUsers.registerPairedUsers(
+                          tour.id,
+                          pairings.view.flatMap(_.pairing.users).toSet
+                        )
+                        socket.reload(tour.id)
+                        hadPairings.put(tour.id)
+                        featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
+          .monSuccess(lila.mon.tournament.pairing.create)
+          .chronometer
+          .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
+          .result
+      yield ())
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    tour.featuredId
+    tour.featured
       .ifTrue(pairings.nonEmpty)
       .so(pairingRepo.byId)
       .map2(RankedPairing(ranking))
@@ -211,7 +222,7 @@ final class TournamentApi(
   yield
     cached.tourCache.clear(tour.id)
     publish()
-    socket.reload(tour.id)
+    socket.finish(tour.id)
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "finish")(cached.tourCache.started) { tour =>
@@ -241,6 +252,7 @@ final class TournamentApi(
               callbacks.clearWinnersCache(tour)
               callbacks.clearTrophyCache(tour)
               duelStore.remove(tour)
+              notifyPayoutWinners(tour).logFailure(logger, _ => s"${tour.id} notifyPayoutWinners")
     }
 
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
@@ -267,6 +279,21 @@ final class TournamentApi(
             case rp if rp.rank <= 100 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
+
+  private def notifyPayoutWinners(tour: Tournament): Funit =
+    import lila.tournament.Tournament.tournamentUrl
+    import lila.core.msg.PayoutMessages
+    tour.payouts.so: payouts =>
+      for userIds <-
+          if tour.isTeamBattle then
+            for
+              rankedTeams <- cached.battle.teamStanding.get(tour.id)
+              owners <- rankedTeams.take(payouts.nbWinners).traverse(rt => teamApi.creatorOf(rt.teamId))
+            yield owners.flatten
+          else
+            for players <- playerRepo.bestByTour(tour.id, payouts.nbWinners)
+            yield players.map(_.userId)
+      yield Bus.pub(PayoutMessages(userIds, tour.name, tournamentUrl(tour.id)))
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds
@@ -397,7 +424,7 @@ final class TournamentApi(
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
             if isPause
-            then cached.ranking(tour).map { _.ranking.get(userId).exists(_ < 7) }
+            then cached.ranking(tour).map(_.ranking.get(userId).exists(_ < 7))
             else fuccess(isStalling)
         yield
           if pausable then pause.add(userId)
@@ -539,7 +566,7 @@ final class TournamentApi(
           publish()
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.rated.yes.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
+    tour.rated.yes.so(userApi.perfOptionOf(userId, tour.perfType)).flatMap { perf =>
       playerRepo.update(tour.id, userId): player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
@@ -643,7 +670,7 @@ final class TournamentApi(
   def notableFinished = cached.notableFinishedCache.get {}
 
   private def scheduledCreatedAndStarted =
-    tournamentRepo.scheduledCreated(Minutes(6)).zip(tournamentRepo.scheduledStarted)
+    tournamentRepo.scheduledCreated(Minutes(6 * 60)).zip(tournamentRepo.scheduledStarted)
 
   // when loading /tournament
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
@@ -671,9 +698,14 @@ final class TournamentApi(
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 
-  def calendar: Fu[List[Tournament]] =
-    val from = nowInstant.minusDays(1)
-    tournamentRepo.calendar(from = from, to = from.plusYears(1))
+  object calendar:
+
+    private val cache = cacheApi.unit[List[Tournament]]("tournament.calendar"):
+      _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+        val from = nowInstant.minusDays(1)
+        tournamentRepo.calendar(from = from, to = from.plusYears(1))
+
+    def json(using Lang): Fu[JsObject] = cache.get {}.map(apiJsonView.calendar)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
     Paginator(
@@ -771,19 +803,19 @@ final class TournamentApi(
       .recentIdsByTourAndUserId(tour.id, userId, nb)
       .flatMap(gameRepo.light.gamesFromPrimary)
       .map:
-        _.flatMap { LightPov(_, userId) }
+        _.flatMap(LightPov(_, userId))
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    next.homepageSince.map: start =>
-      if prev.forall(_.homepageSince != start.some) then
-        ircApi.bbb(
-          me,
-          "arena",
-          next.name,
-          routes.Tournament.show(next.id),
-          start,
-          next.finishesAt.some
+    if next.isScheduled then
+      scalalib
+        .ProductDiff(
+          prev,
+          next,
+          ignoredFields =
+            Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
+          nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
         )
+        .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
@@ -815,16 +847,14 @@ final class TournamentApi(
       tournamentTop(tourId).map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
-          Bus.pub(
-            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync))
-          )
+          Bus.pub(lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)))
           lastPublished.put(tourId, top.hashCode)
       }
 
     private val throttler = new lila.common.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
-      if !tour.isTeamBattle then throttler(tour.id, 15.seconds) { publishNow(tour.id) }
+      if !tour.isTeamBattle then throttler(tour.id, 15.seconds)(publishNow(tour.id))
 
 private object TournamentApi:
 

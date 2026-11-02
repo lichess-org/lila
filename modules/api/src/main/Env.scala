@@ -1,7 +1,7 @@
 package lila.api
 
-import akka.actor.*
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
@@ -57,12 +57,14 @@ final class Env(
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
-    clasApi: lila.clas.ClasApi
+    clasApi: lila.clas.ClasApi,
+    recapEnv: lila.recap.Env,
+    playerCounter: lila.web.PlayerCounter
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,
     ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator
 ):
 
@@ -117,6 +119,13 @@ final class Env(
     accountTermination.garbageCollect(gc.userId)
   Bus.sub[lila.core.playban.RageSitClose]: close =>
     accountTermination.lichessDisable(close.userId)
+
+  lila.common.Cli.handle():
+    case "push" :: "recap" :: user :: year :: Nil =>
+      for
+        (title, body) <- recapEnv.translateNotif(UserId(user), year)
+        _ <- pushEnv.pushApi.recap(UserId(user), year.toInt, title, body)
+      yield s"""Sent "$title""""
 
   lila.i18n.Registry.asyncLoadLanguages()
 

@@ -1,6 +1,6 @@
 export default function (): void {
-  const form = document.getElementById('dgt-config') as HTMLFormElement,
-    voiceSelector = document.getElementById('dgt-speech-voice') as HTMLSelectElement;
+  const form = document.getElementById('dgt-config') as HTMLFormElement;
+  const voiceSelector = document.getElementById('dgt-speech-voice') as HTMLSelectElement;
 
   (function populateVoiceList() {
     if (!voiceSelector || typeof speechSynthesis === 'undefined') return;

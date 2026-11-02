@@ -1,14 +1,22 @@
-package lila.common
+package lila.markdown
 
 import chess.format.pgn.PgnStr
 
-import lila.core.config.{ AssetDomain, NetDomain }
+import lila.core.lilaism.Lilaism.*
+import lila.core.config.NetDomain
 import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:
 
+  given NetDomain = NetDomain("l.org")
+
   val render: Markdown => Html =
-    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true, list = true)("test")
+    new MarkdownRender(
+      netDomain = NetDomain("lichess.org").some,
+      header = true,
+      headerAnchorLink = true,
+      list = true
+    )("test")
 
   test("autolinks add rel"):
     val md = Markdown("https://example.com")
@@ -38,7 +46,7 @@ class MarkdownTest extends munit.FunSuite:
   val chapterUrl = s"http://l.org/study/$studyId/$chapterId"
   val pgns =
     Map(gameId.value -> LpvEmbed.PublicPgn(gamePgn), chapterId.value -> LpvEmbed.PublicPgn(chapterPgn))
-  val expander = MarkdownRender.PgnSourceExpand(domain, pgns.get)
+  val expander = MarkdownRender.PgnSourceExpand(pgns.get)
   val mdRender = MarkdownRender(pgnExpand = expander.some)("test")
 
   test("markdown dont embed explicit links"):
@@ -46,7 +54,7 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <a href="$gameUrl">game</a> bar</p>
+        s"""<p>foo <a href="$gameUrl" target="_self" rel="nofollow noreferrer">game</a> bar</p>
 """
     )
   test("markdown game embeds auto link"):
@@ -65,10 +73,10 @@ class MarkdownTest extends munit.FunSuite:
         s"""<p>prefix <div data-pgn="$gamePgn" class="lpv--autostart is2d" data-ply="1">$gameUrl#1</div> suffix</p>
 """
     )
-  test("markdown image whitelist pass - exact domain match to AssetDomain conf"):
+  test("markdown image whitelist pass - exact domain match to NetDomain conf"):
     assertEquals(
-      render(Markdown("![image](https://lichess1.org/image.png)")),
-      Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
+      render(Markdown("![image](https://lichess.org/image.png)")),
+      Html("""<p><img src="https://lichess.org/image.png" alt="image" /></p>
 """)
     )
   test("markdown image whitelist pass - exact domain match to one from list"):
@@ -85,7 +93,7 @@ class MarkdownTest extends munit.FunSuite:
     )
   test("markdown image whitelist pass - local dev site with port"):
     val render: Markdown => Html =
-      new MarkdownRender(assetDomain = AssetDomain("localhost:8080").some, header = true)("test")
+      new MarkdownRender(netDomain = NetDomain("localhost:8080").some, header = true)("test")
 
     assertEquals(
       render(Markdown("![image](http://localhost:8080/image.png)")),
@@ -120,6 +128,30 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       render(Markdown("# heading")),
       Html("""<h1><a href="#heading" id="heading"></a>heading</h1>
+""")
+    )
+
+  val allowedTags = MarkdownRender(allowedTags = Set("kbd", "video", "center", "details", "summary"))
+  test("cms render whitelisted tags"):
+    val renderCms = allowedTags("test")
+    assertEquals(
+      renderCms(Markdown(raw"""Use \<kbd>Ctrl\</kbd> and \<center>save\</center>.""")),
+      Html("""<p>Use <kbd>Ctrl</kbd> and <center>save</center>.</p>
+""")
+    )
+
+  test("cms disallow unwhitelisted tags"):
+    val renderCms = allowedTags("test")
+    assertEquals(
+      renderCms(Markdown("<script>alert(1)</script> <kbd class=\"key\">Ctrl</kbd>")),
+      Html("""<p>&lt;script&gt;alert(1)&lt;/script&gt; &lt;kbd class=&quot;key&quot;&gt;Ctrl</kbd></p>
+""")
+    )
+
+  test("cms moar test"):
+    assertEquals(
+      MarkdownRender()("test")(Markdown("<kbd>Ctrl</kbd>")),
+      Html("""<p>&lt;kbd&gt;Ctrl&lt;/kbd&gt;</p>
 """)
     )
 
@@ -214,7 +246,7 @@ Line 2""")
   test("markdown datetime rendering"):
     val renderTimestamp: Markdown => Html =
       new MarkdownRender(
-        assetDomain = AssetDomain("lichess1.org").some,
+        netDomain = NetDomain("lichess.org").some,
         header = true,
         list = true,
         timestamp = true

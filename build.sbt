@@ -53,17 +53,18 @@ javaOptions ++= {
     Seq.empty
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
+ThisBuild / semanticdbEnabled := true
 ThisBuild / usePipelining := false
 // the following settings come from the PlayScala plugin, which I removed
 // shellPrompt := PlayCommands.playPrompt
 ivyLoggingLevel := UpdateLogging.DownloadOnly
 
 // format: off
-libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
+libraryDependencies ++= pekko.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded, catsMtl
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, catsMtl
 ) ++ tests.bundle
 
 // influences the compilation order
@@ -72,14 +73,14 @@ lazy val modules = Seq(
   // level 1
   core, coreI18n,
   // level 2
-  ui, common, tree,
+  common, ui, mon, tree, markdown,
   // level 3
-  db, room, search,
+  db, room,
   // level 4
   memo, rating,
   // level 5
   game, gathering, study, user, puzzle, analyse,
-  report, pref, chat, playban, lobby, mailer, oauth,
+  report, pref, chat, playban, lobby, mailer, oauth, search,
   // level 6
   insight, evaluation, storm,
   // level 7
@@ -93,7 +94,7 @@ lazy val modules = Seq(
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
-  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
+  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, irc
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -116,9 +117,12 @@ lazy val mon = module("mon",
 
 lazy val common = module("common",
   Seq(core),
-  Seq(
-    kamon.core, scaffeine, apacheText, chess.playJson,
-  ) ++ flexmark.bundle
+  Seq(kamon.core, scaffeine, apacheText, chess.playJson)
+)
+
+lazy val markdown = module("markdown",
+  Seq(core),
+  flexmark.bundle
 )
 
 lazy val db = module("db",
@@ -127,8 +131,8 @@ lazy val db = module("db",
 )
 
 lazy val memo = module("memo",
-  Seq(db, mon),
-  Seq(scaffeine, bloomFilter) ++ playWs.bundle
+  Seq(db, mon, markdown),
+  Seq(scaffeine, probabilisticDataStructures) ++ playWs.bundle
 )
 
 lazy val i18n = module("i18n",
@@ -139,7 +143,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
+      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn localAnalysis nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg report".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -202,7 +206,7 @@ lazy val feed = module("feed",
 
 lazy val ublog = module("ublog",
   Seq(search, report),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val evaluation = module("evaluation",
@@ -241,7 +245,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(memo, ui, irc),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -293,7 +297,7 @@ lazy val pool = module("pool",
 
 lazy val activity = module("activity",
   Seq(puzzle),
-  Seq()
+  tests.bundle
 )
 
 lazy val lobby = module("lobby",
@@ -327,7 +331,7 @@ lazy val gathering = module("gathering",
 )
 
 lazy val tournament = module("tournament",
-  Seq(gathering, room, memo, irc),
+  Seq(gathering, room, memo),
   Seq(lettuce) ++ tests.bundle
 ).dependsOn(coreI18n % "test->test")
 
@@ -421,11 +425,6 @@ lazy val push = module("push",
   playWs.bundle ++ Seq(googleOAuth)
 )
 
-lazy val irc = module("irc",
-  Seq(common, mon),
-  playWs.bundle
-)
-
 lazy val mailer = module("mailer",
   Seq(memo, ui),
   Seq(hasher, play.mailer)
@@ -473,7 +472,7 @@ lazy val teamSearch = module("teamSearch",
 
 lazy val clas = module("clas",
   Seq(user, puzzle),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val bookmark = module("bookmark",
@@ -525,6 +524,11 @@ lazy val ui = module("ui",
     val dirs = baseDirectory.value / ".." / ".." / "conf"
     (dirs * "routes").get() ++ (dirs * "*.routes").get()
   }
+)
+
+lazy val irc = module("irc",
+  Seq(common, mon),
+  playWs.bundle
 )
 
 lazy val web = module("web",

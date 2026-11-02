@@ -55,12 +55,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Pomakni kotačić miša iznad ploče za pregled poteza</string>
   <string name="correspondenceEmailNotification">Dnevna obavijest putem pošte s popisom vaših dopisnih igara</string>
   <string name="notifyStreamStart">Streamer ide uživo</string>
-  <string name="notifyInboxMsg">Nova poruka u ulaznoj pošti</string>
-  <string name="notifyForumMention">Forumski komentar vas spominje</string>
-  <string name="notifyInvitedStudy">Poziv za Study</string>
   <string name="notifyGameEvent">Ažuriranja dopisnih igara</string>
   <string name="notifyChallenge">Izazovi</string>
-  <string name="notifyTournamentSoon">Turnir započinje ubrzo</string>
   <string name="notifyTimeAlarm">Sat za dopisivanje ističe</string>
   <string name="notifyBell">Obavijest zvonom unutar Lichessa</string>
   <string name="notifyPush">Obavijest uređaja kada niste na Lichess-u</string>

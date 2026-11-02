@@ -12,7 +12,7 @@ export function promotionView(ctrl: RunCtrl) {
   const { promotionCtrl } = ctrl.levelCtrl;
   const { promoting } = promotionCtrl;
   const { chessground: ground } = ctrl;
-  if (!promoting || !ground) return;
+  if (!promoting || !ground) return undefined;
 
   const color = opposite(ground.state.turnColor);
   const orientation = ground.state.orientation;

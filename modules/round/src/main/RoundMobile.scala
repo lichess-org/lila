@@ -2,14 +2,14 @@ package lila.round
 
 import chess.Color
 import play.api.libs.json.{ JsArray, JsObject, Json }
+import scalalib.data.Preload
 
 import lila.chat.Chat
 import lila.common.Json.given
-import scalalib.data.Preload
-import lila.pref.Pref
-import lila.round.RoundGame.*
-import lila.round.Forecast.given
 import lila.core.LightUser
+import lila.pref.Pref
+import lila.round.Forecast.given
+import lila.round.RoundGame.*
 
 object RoundMobile:
 
@@ -58,7 +58,7 @@ final class RoundMobile(
 
   import RoundMobile.*
 
-  def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
+  def online(gameSockets: List[GameAndSocketStatus])(using me: MyId): Fu[JsArray] =
     gameSockets
       .flatMap: gs =>
         Pov(gs.game, me).map(_ -> gs.socket)

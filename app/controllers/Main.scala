@@ -1,17 +1,17 @@
 package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.id.{ GameFullId, ImageId }
-import lila.web.{ StaticContent, WebForms }
-import scalalib.model.Language
+import lila.ui.MarkdownRealm
 
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    bindForm(WebForms.blind)(
+    bindForm(lila.web.WebForms.blind)(
       _ => BadRequest,
       (enable, redirect) =>
         Redirect(redirect).withCookies:
@@ -40,14 +40,18 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect(StaticContent.appStoreUrl)
+    Redirect(env.web.static.appStoreUrl.value)
 
   def redirectToSwag = Anon:
-    Redirect(StaticContent.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
+    Redirect(env.web.static.swagUrl(lila.common.HTTPRequest.country))
 
   private def serveApp(using Context) =
     pageHit
     FoundPage(env.cms.renderKey("mobile"))(views.mobile)
+
+  def playerCount = Open:
+    NoCrawlers(env.web.playerCounter.website.hit())
+    NoContent
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -61,12 +65,12 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
-      then StaticContent.robotsTxt
+      then env.web.static.robotsTxt
       else "User-agent: *\nDisallow: /"
+    .publicCache(1.hour)
 
-  def manifest = Anon:
-    JsonOk:
-      StaticContent.manifest(env.net)
+  val manifest = Anon:
+    Ok(env.web.static.manifest).publicCache(1.hour)
 
   def getFishnet = Open:
     pageHit
@@ -85,8 +89,11 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     pageHit
     Ok.page(views.site.page.faq)
 
-  def temporarilyDisabled(@annotation.nowarn path: String) = Open:
+  def survey = Open:
     pageHit
+    Ok.page(views.site.page.survey)
+
+  def temporarilyDisabled(@annotation.nowarn path: String) = Open:
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def helpPath(path: String) = Open:
@@ -109,23 +116,18 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then
-      lila.web.PrometheusReporter
-        .latestScrapeData()
-        .fold(NotFound("No metrics found")): data =>
-          lila.mon.prometheus.lines.update(data.lines.count.toDouble)
-          Ok(data)
+    then Ok(lila.web.PrometheusReporter.latestScrapeData()).publicCache(59.seconds)
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:
     MovedPermanently:
-      StaticContent.legacyQaQuestion(id)
+      env.web.static.legacyQaQuestion(id)
 
   def devAsset(@annotation.nowarn v: String, path: String, file: String) = assetsC.at(path, file)
 
-  def uploadImage(rel: String) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
+  def uploadImage(realm: MarkdownRealm) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     lila.core.security
-      .canUploadImages(rel)
+      .canUploadImages(realm.key)
       .so:
         limit.imageUpload(rateLimited):
           ctx.body.body.file("image") match
@@ -134,22 +136,31 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
               val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
               (for
                 image <- env.memo.picfitApi.uploadFile(image, me, none, meta)
-                maxWidth = lila.ui.bits.imageDesignWidth(rel)
+                maxWidth = realm.imageDesignWidth
                 url = meta match
-                  case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
-                    maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
+                  case Some(info) if info.dim.width > maxWidth =>
+                    env.memo.picfitUrl.resize(image.id, Left(maxWidth)).some
                   case _ => env.memo.picfitUrl.raw(image.id).some
-              yield JsonOk(Json.obj("imageUrl" -> url))).recover:
+              yield Ok(Json.obj("imageUrl" -> url))).recover:
                 case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
-  def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>
+  def imageUrl(realm: MarkdownRealm, id: ImageId, width: Int) = Auth { _ ?=> me ?=>
     if width < 1 then JsonBadRequest("Invalid width")
     else
-      JsonOk(
-        Json.obj(
-          "imageUrl" -> env.memo.picfitUrl
-            .resize(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
-        )
-      )
+      limit.preview(me.userId, rateLimited):
+        Ok(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
+  }
+
+  def markdownPreview(realm: MarkdownRealm) = AuthBody(parse.tolerantText) { ctx ?=> me ?=>
+    val renderKey = s"${realm.key}:${me.userId}"
+    val options = realm match
+      case MarkdownRealm.blog => lila.ublog.markdownOptions
+      case MarkdownRealm.cms => lila.cms.markdownOptions
+      case _ => env.forum.textExpand.markdownOptions
+
+    env.memo.markdown
+      .toHtml(renderKey, Markdown(ctx.body.body), options)
+      .map(_.frag)
+      .map(Ok.snip(_))
   }

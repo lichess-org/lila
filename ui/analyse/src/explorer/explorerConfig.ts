@@ -2,10 +2,11 @@ import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
+import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
+import { snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -32,7 +33,6 @@ export interface ExplorerConfigData {
   mode: Prop<ExplorerMode[]>;
   byDbData: ByDbSettings;
   playerName: {
-    open: Prop<boolean>;
     value: StoredProp<string>;
     previous: Prop<string[]>;
   };
@@ -73,7 +73,6 @@ export class ExplorerConfigCtrl {
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
-        open: prevData?.playerName.open || prop(false),
         value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
@@ -162,7 +161,6 @@ const selectText = 'Select a Lichess player';
 const playerDb = (ctrl: ExplorerConfigCtrl) => {
   const name = ctrl.data.playerName.value();
   return h('div.player-db', [
-    ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
       h('label', i18n.site.player),
       h('div', [
@@ -171,7 +169,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
           h(
             `button.player-name${name ? '.active' : ''}`,
             {
-              hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
+              hook: bind('click', () => playerModal(ctrl)),
               attrs: name ? { title: selectText } : undefined,
             },
             name || selectText,
@@ -183,7 +181,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+          ` ${i18n.site[`as${capitalize(ctrl.data.color())}`]}`,
         ),
       ]),
     ]),
@@ -205,15 +203,15 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render?: (t: T) => VNode) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render: (t: T) => VNode | string) =>
   (v: T) =>
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst(String(v)) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: ucfirst(String(v)) },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : i18n(v as string),
+      render(v),
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -221,7 +219,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
     speedSection(ctrl),
     h('section.rating', [
       h('label', i18n.site.averageElo),
-      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating, r => r.toString()))),
     ]),
     monthSection(ctrl),
   ]);
@@ -229,13 +227,13 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
     h('label', i18n.site.mode),
-    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode, m => i18n.site[m]))),
   ]);
 
 const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
@@ -254,8 +252,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
       value: prop() > max ? max : prop(),
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -266,7 +263,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
@@ -286,8 +283,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
       value: prop().split('-')[0],
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -298,79 +294,79 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
 };
 
-const monthSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.date', [
-    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', [
-      i18n.site.until,
-      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
-    ]),
+const monthSection = (ctrl: ExplorerConfigCtrl) => {
+  const db = ctrl.data.byDb();
+  return h('section.date', [
+    h('label', [i18n.site.since, monthInput(db.since, () => '', ctrl.root.redraw)]),
+    h('label', [i18n.site.until, monthInput(db.until, db.since, ctrl.root.redraw)]),
   ]);
+};
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  let dlg: Dialog;
-  const onSelect = (name: string | undefined) => {
-    ctrl.selectPlayer(name);
-    dlg.close();
-  };
-  const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) return;
+  const nameToOptionalColor = (name?: string) => {
+    if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
+
   return snabDialog({
+    closeButton: true,
     class: 'explorer__config__player__choice',
-    onClose() {
-      ctrl.data.playerName.open(false);
-      ctrl.root.redraw();
-    },
-    onInsert: dialog => (dlg = dialog).show(),
+    show: true,
     modal: true,
+    noScrollable: true,
     easyClose: 'clickOutside',
-    vnodes: [
-      h('h2', 'Personal opening explorer'),
-      h('div.input-wrapper', [
-        h('input', {
-          attrs: {
-            placeholder: i18n.study.searchByUsername,
-            spellcheck: 'false',
-          },
-          hook: onInsert<HTMLInputElement>(input =>
-            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
-          ),
-        }),
-      ]),
-      h(
-        'div.previous',
-        [
-          ...new Set([
-            ...(ctrl.myName ? [ctrl.myName] : []),
-            ...ctrl.participants,
-            ...ctrl.data.playerName.previous(),
-          ]),
-        ].map(name =>
-          h('div', { key: name }, [
-            h(
-              `button.button${nameToOptionalColor(name)}`,
-              { hook: bind('click', () => onSelect(name)) },
-              name,
+    render: (redraw, dlg) => {
+      const onSelect = (name?: string) => {
+        ctrl.selectPlayer(name);
+        ctrl.root.redraw();
+        dlg.close();
+      };
+      return [
+        h('h2', 'Personal opening explorer'),
+        h('div.input-wrapper', [
+          h('input', {
+            attrs: {
+              placeholder: i18n.study.searchByUsername,
+              spellcheck: 'false',
+            },
+            hook: onInsert<HTMLInputElement>(input =>
+              userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
             ),
-            name && ctrl.data.playerName.previous().includes(name)
-              ? h('button.remove', {
-                  attrs: dataIcon(licon.X),
-                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                })
-              : null,
-          ]),
+          }),
+        ]),
+        h(
+          'div.previous',
+          [
+            ...new Set([
+              ...(ctrl.myName ? [ctrl.myName] : []),
+              ...ctrl.participants,
+              ...ctrl.data.playerName.previous(),
+            ]),
+          ].map(name =>
+            h('div', { key: name }, [
+              h(
+                `button.button${nameToOptionalColor(name)}`,
+                { hook: bind('click', () => onSelect(name)) },
+                name,
+              ),
+              name && ctrl.data.playerName.previous().includes(name)
+                ? h('button.remove', {
+                    attrs: dataIcon(licon.X),
+                    hook: bind('click', () => ctrl.removePlayer(name), redraw),
+                  })
+                : null,
+            ]),
+          ),
         ),
-      ),
-    ],
+      ];
+    },
   });
 };

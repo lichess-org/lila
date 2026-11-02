@@ -21,7 +21,6 @@
   <string name="puzzleRead">Legi puzlan aktivecon</string>
   <string name="teamRead">Legi privatan teaman informon</string>
   <string name="teamWrite">Aliĝi kaj forlasi teamojn</string>
-  <string name="teamLead">Administri teamojn, kiujn vi estras: sendi PM-ojn, forpeli membrojn</string>
   <string name="followRead">Legi sekvatajn ludantojn</string>
   <string name="followWrite">Sekvi kaj malsekvi aliajn ludantojn</string>
   <string name="msgWrite">Sendi privatajn mesaĝojn al aliaj ludantoj</string>

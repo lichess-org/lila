@@ -8,7 +8,7 @@
   <string name="materialDifference">Material desoreka</string>
   <string name="boardHighlights">Taulan markak erakutsi (azken jokaldia eta xakea)</string>
   <string name="pieceDestinations">Piezen norakoak (jokaldi zuzenak eta aurre-jokaldiak)</string>
-  <string name="boardCoordinates">Taularen koordinatutak (A-H, 1-8)</string>
+  <string name="boardCoordinates">Taularen koordinatuak (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
   <string name="chessPieceSymbol">Xake piezen ikurra</string>
@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
+  <string name="multipleChoices">Aukera anitzak. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Partida baten zehar taularen menua erabiliz desaktibatu daiteke</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>
@@ -56,13 +57,13 @@
   <string name="scrollOnTheBoardToReplayMoves">Mugitu taula gainean jokaldiak ikusteko</string>
   <string name="correspondenceEmailNotification">Jaso emailez zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
   <string name="notifyStreamStart">Esataria zuzenean dago</string>
-  <string name="notifyInboxMsg">Mezu berria postontzian</string>
-  <string name="notifyForumMention">Foroko erantzunean aipatu zaituzte</string>
-  <string name="notifyInvitedStudy">Azterlanreko gonbidapena</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Mezu berri zuzena</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Foroko aipamenak</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Azterlanerako gonbidapenak</string>
   <string name="notifyGameEvent">Posta bidezko partidetan eguneraketa</string>
   <string name="notifyChallenge">Erronkak</string>
-  <string name="notifyTournamentSoon">Txapelketa laster hasiko da</string>
-  <string name="notifyBroadcasts">Harpidetu zaren zuzenekoak</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Txapelketa hasieren gogorarazpenak</string>
+  <string name="notifyBroadcasts">Zuzenekoak</string>
   <string name="notifyTimeAlarm">Posta bidezko partidaren denbora amaitzen ari da</string>
   <string name="notifyBell">Kanpai bidezko jakinarazpena Lichess barruan</string>
   <string name="notifyPush">Gailuko jakinarazpena Lichessen ez zaudenean</string>
@@ -72,8 +73,27 @@
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
+  <string name="showMainlineAnalysis">Erakutsi linea nagusiaren analisia</string>
+  <string name="showBestMoveArrows">Erakutsi jokaldi onenen geziak</string>
+  <string name="showManeuverArrows">Erakutsi maniobren geziak</string>
+  <string name="showGauge">Erakutsi ebaluazioaren langa</string>
+  <string name="showMoveAnnotationsOnBoard">Erakutsi jokaldien komentarioak</string>
+  <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
+  <string name="showLiveGlyphs">Motorearen zuzeneko komentarioak</string>
+  <string name="showUndefendedPieces">Erakutsi defentsarik ez duten piezak</string>
+  <string name="showPinnedPieces">Erakutsi iltzatutako piezak</string>
+  <string name="showCheckableKing">Erakutsi xake egin dakiokeen erregea</string>
+  <string name="disclosureMode">Erakutsi aldaerak ezkutatzea</string>
   <string name="generalSettings">Orokorra</string>
   <string name="moveListSettings">Jokaldi zerrenda</string>
   <string name="boardSettings">Taula</string>
   <string name="analysisSettings">Analisiaren aukerak</string>
+  <string name="maneuverArrowsHelp">Pieza batentzat motorearen joladi segida</string>
+  <string name="hoverOverSettingLabelsForHelp">Jarri etiketen gainean ezarpenen laguntza lortzeko</string>
+  <string name="network">Sarea</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Bideratze zuzena erabiltzen ari zara.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">CDN bidezko bideratzea erabiltzen ari zara.</string>
+  <string name="frequentDisconnectsAdvice">Sarri deskonektatzen bazara, saiatu bideratzea aldatzen.</string>
+  <string name="useDirectRouting">Erabili zuzeneko bideratzea</string>
+  <string name="useCdnRouting">Erabili CDN bidezko bideratzea</string>
 </resources>

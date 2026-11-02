@@ -13,12 +13,12 @@ final class RelayPlayerTour(
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
-  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTourId]](256, "relay.player.tourIds"):
-    _.expireAfterWrite(10.minutes).buildAsyncFuture: fideId =>
+  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTourId]](512, "relay.player.tourIds"):
+    _.expireAfterWrite(20.minutes).buildAsyncFuture: fideId =>
       chapterRepo
         .studyIdsByRelayFideId(fideId)
         .flatMap: studyIds =>
-          colls.round.distinctEasy[RelayTourId, List]("tourId", $inIds(studyIds))
+          colls.round.distinctEasy[RelayTourId, List]("tourId", inIds(studyIds))
 
   def playerTours(player: Player, page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
     tourIdsCache

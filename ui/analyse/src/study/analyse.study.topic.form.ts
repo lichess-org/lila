@@ -5,7 +5,7 @@ import Sortable from 'sortablejs';
 import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 
 site.load.then(() => {
-  const input = document.getElementById('form3-topics') as HTMLInputElement;
+  const input = document.getElementById('form3-topics') as HTMLTextAreaElement;
   const tagify = new Tagify(input, {
     pattern: /.{2,}/,
     maxTags: parseInt(input?.dataset['max'] ?? '64'),
@@ -14,7 +14,7 @@ site.load.then(() => {
     (term: string) => xhrJson(xhrUrl('/study/topic/autocomplete', { term })),
     300,
   );
-  let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options
+  let clickDebounce: ReturnType<typeof setTimeout> | undefined; // https://yaireo.github.io/tagify/#section-advance-options
   tagify
     .on('input', e => {
       const term = (e.detail as Tagify.BaseTagData).value.trim();

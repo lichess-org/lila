@@ -6,6 +6,8 @@ export lila.core.lilaism.Lilaism.{ Game as CoreGame, Pov as CorePov, *, given }
 export lila.common.extensions.*
 export lila.core.id.{ GameFullId, GamePlayerId, GameAnyId }
 
+type GameQuickOpening = lila.core.game.Game => Option[chess.opening.Opening]
+
 private lazy val logger = lila.log("game")
 
 def rematchAlternatesColor(game: lila.core.game.Game, users: List[Option[lila.core.user.User]]): Boolean =

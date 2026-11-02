@@ -1,5 +1,3 @@
-import { parseUci } from 'chessops/util';
-
 import { type Prop, defined, prop } from 'lib';
 import { throttle } from 'lib/async';
 import { type WithGround } from 'lib/game/ground';
@@ -10,6 +8,7 @@ import { Combo } from 'lib/puz/combo';
 import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
 import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { playAndTestUciMutatingPosition } from 'lib/puz/moveTest';
 import { makeCgOpts } from 'lib/puz/run';
 import { getNow, puzzlePov, sound } from 'lib/puz/util';
 import { wsConnect, wsSend } from 'lib/socket';
@@ -143,6 +142,7 @@ export default class RacerCtrl implements PuzCtrl {
       : undefined;
 
   end = (): void => {
+    this.run.unfinishedId = this.run.current.puzzle.id;
     this.pushToHistory(false); // add last unsolved puzzle
     this.setGround();
     this.redraw();
@@ -179,9 +179,8 @@ export default class RacerCtrl implements PuzCtrl {
     else {
       this.run.moves++;
       this.promotion.cancel();
-      const pos = puzzle.position();
-      pos.play(parseUci(uci)!);
-      if (pos.isCheckmate() || uci === puzzle.expectedMove()) {
+      const correct = playAndTestUciMutatingPosition(puzzle.position(), puzzle.expectedMove(), uci);
+      if (correct) {
         puzzle.moveIndex++;
         this.localScore++;
         this.run.combo.inc();

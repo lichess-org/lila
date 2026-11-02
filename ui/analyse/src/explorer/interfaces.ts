@@ -7,10 +7,6 @@ export type ExplorerDb = 'lichess' | 'masters' | 'player';
 export type ExplorerMode = 'casual' | 'rated';
 export type ExplorerSpeed = Speed;
 
-export interface PlayerOpts {
-  name: string;
-}
-
 export interface ExplorerOpts {
   endpoint: string;
   tablebaseEndpoint: string;

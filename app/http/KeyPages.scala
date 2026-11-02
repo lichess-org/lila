@@ -12,11 +12,12 @@ final class KeyPages(val env: Env)(using Executor)
     with RequestContext
     with CtrlPage
     with lila.web.CtrlErrors
+    with lila.web.CtrlGivens
     with ControllerHelpers:
 
-  def home(status: Results.Status)(using ctx: Context): Fu[Result] =
+  def home(status: Results.Status)(using Context): Fu[Result] =
     homeHtml.map: html =>
-      env.security.lilaCookie.ensure(ctx.req)(status(html))
+      env.security.lilaCookie.ensure(status(html))
 
   def homeHtml(using ctx: Context): Fu[lila.ui.RenderedPage] =
     env
@@ -33,7 +34,6 @@ final class KeyPages(val env: Env)(using Executor)
       .mon(lila.mon.lobby.segment("preloader.total"))
       .flatMap: h =>
         ctx.me.filter(_.hasTitle).foreach(env.msg.systemMsg.twoFactorReminder(_))
-        ctx.me.filterNot(_.hasEmail).foreach(env.msg.systemMsg.emailReminder(_))
         renderPage:
           lila.mon.chronoSync(lila.mon.lobby.segment("renderSync")):
             views.lobby.home(h)
@@ -44,7 +44,7 @@ final class KeyPages(val env: Env)(using Executor)
   def notFoundEmbed(msg: Option[String])(using EmbedContext): Result =
     NotFound.snip(views.base.notFoundEmbed(msg))
 
-  def blacklisted(using ctx: Context): Result =
-    if lila.security.Mobile.Api.requested(ctx.req)
+  def blacklisted(using Context): Result =
+    if lila.security.Mobile.Api.requested
     then Unauthorized(jsonError(views.site.message.blacklistedMessage))
     else Unauthorized(views.site.message.blacklistedSnippet)

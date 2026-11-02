@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="secHeadCheckmates">Mattok</string>
+  <string name="secHeadPawnEndgames">Gyalogvégjátékok</string>
+  <string name="secHeadRookEndgames">Bástyavégjátékok</string>
+  <string name="stNamThePin">A kötés</string>
+  <string name="stNamTheSkewer">A nyárs</string>
+  <string name="stNamTheFork">A villa</string>
+  <string name="stNamDiscoveredAttacks">Felfedett támadás</string>
+  <string name="stNamDoubleCheck">Kettős sakk</string>
+  <string name="stNamZugzwang">Lépéskényszer</string>
+  <string name="stNamGreekGift">Görögajándék</string>
+  <string name="stNamKeySquares">Kulcsmezők</string>
+  <string name="stNamOpposition">Oppozíció</string>
+</resources>

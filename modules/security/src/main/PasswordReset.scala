@@ -1,19 +1,15 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.api.mvc.{ Cookie, RequestHeader, Session }
 import scalatags.Text.all.*
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
-import lila.mailer.Mailer
-import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
+import lila.mailer.Mailer
 import lila.memo.RateLimit
-
-object PasswordReset:
-
-  enum Origin:
-    case Lichess, Takex3
+import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
     mailer: Mailer,
@@ -23,15 +19,11 @@ final class PasswordReset(
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
   import Mailer.html.*
-  import PasswordReset.Origin
 
-  def send(user: User, email: EmailAddress, origin: Origin = Origin.Lichess)(using lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val confirmRoute = origin match
-        case Origin.Takex3 => routes.Auth.passwordResetConfirmTakex3(token)
-        case Origin.Lichess => routes.Auth.passwordResetConfirm(token)
-      val url = routeUrl(confirmRoute)
+      val url = routeUrl(routes.Auth.passwordResetConfirm(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
@@ -43,7 +35,7 @@ ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}"""),
+${trans.common_linkNotWorking.txt()}"""),
           htmlBody = emailMessage(
             pDesc(trans.passwordReset_intro()),
             p(trans.passwordReset_clickOrIgnore()),
@@ -61,8 +53,8 @@ ${trans.common_orPaste.txt()}"""),
         case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
   val limiter: RateLimit.RateLimiter[(EmailAddress, IpAddress)] = RateLimit.combine(
-    RateLimit[EmailAddress](credits = 3, duration = 1.day, key = "password.reset.email"),
-    RateLimit[IpAddress](credits = 20, duration = 1.day, key = "password.reset.ip")
+    RateLimit[EmailAddress](credits = 3, duration = 1.day, limiterKey = "password.reset.email"),
+    RateLimit[IpAddress](credits = 20, duration = 1.day, limiterKey = "password.reset.ip")
   )
 
   private val tokener = StringToken.withLifetimeAndFutureValue[UserId](
@@ -74,3 +66,16 @@ ${trans.common_orPaste.txt()}"""),
         email <- userRepo.email(id)
       yield ~hash + email.so(_.value)
   )
+
+object PasswordReset:
+
+  object cookie:
+
+    private val name = "email_pw_reset"
+
+    def get(using req: RequestHeader): Option[EmailAddress] =
+      EmailAddress.from(req.session.get(name))
+
+    def set(lilaCookie: LilaCookie, email: EmailAddress)(using RequestHeader): Cookie =
+      lilaCookie.withSession(remember = false): _ =>
+        Session.emptyCookie + (name -> email.value)

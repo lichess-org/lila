@@ -1,9 +1,9 @@
 package lila.rating
 
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
-
 import chess.IntRating
 import chess.rating.glicko.Glicko
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
+
 import lila.core.perf.{ Perf, PuzPerf }
 import lila.db.BSON
 import lila.db.dsl.given

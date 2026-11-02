@@ -1,9 +1,9 @@
 package lila.plan
 package ui
 
+import lila.core.plan.{ PatronColor, PatronTier }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.plan.{ PatronTier, PatronColor }
 
 final class PlanStyle(helpers: Helpers):
   import helpers.{ *, given }

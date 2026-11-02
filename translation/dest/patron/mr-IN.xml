@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Lichess ला शक्य करणारे प्रख्यात आश्रयदाते</string>
   <string name="whereMoneyGoes">पैसे कुठे जातात?</string>
   <string name="serversAndDeveloper">सर्वप्रथम, शक्तिशाली सर्व्हर्स.
-त्यानंतर आम्ही एका पूर्ण-वेळ विकसकला पगार देतो: %s, जे Lichess चे संस्थापक आहेत.</string>
+त्यानंतर आम्ही एका पूर्ण-वेळ विकसकला पगार देतो: %s, जे Lichess चे संस्थापक आहेत.
+</string>
   <string name="costBreakdown">खर्चाचा तपशीलवार आढावा पहा</string>
   <string name="officialNonProfit">Lichess ही एक अधिकृत विना-नफा संस्था आहे का?</string>
   <string name="actOfCreation">हो, ही आहे निर्मितीची प्रक्रिया (फ्रेंच भाषेत)</string>
   <string name="changeMonthlySupport">मी माझी मासिक वर्गणी बदलू किंवा रद्द करू शकतो का?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">जर तुमच्या रक्कमेची मध्यस्थी PayPal द्वारे केली जात असेल, तर तुम्ही तुमच्या PayPal खात्यामधून तुमचे समर्थन रद्द करू शकता किंवा तुम्ही %1$s आणि आम्ही तुमच्यासाठी ते करू. जर तुम्ही PayPal न वापरता Stripe वापरले असेल तर तुम्ही तुमच्या देणगीची रक्कम %2$s वर बदलू शकता.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">आश्रयदाता पृष्ठ</string>
+  <string name="changeSupport">जर तुमच्या रक्कमेची मध्यस्थी PayPal द्वारे केली जात असेल, तर तुम्ही तुमच्या PayPal खात्यामधून तुमचे समर्थन रद्द करू शकता किंवा तुम्ही %1$s आणि आम्ही तुमच्यासाठी ते करू. जर तुम्ही PayPal न वापरता Stripe वापरले असेल तर तुम्ही तुमच्या देणगीची रक्कम %2$s वर बदलू शकता.</string>
+  <string name="patronPage">आश्रयदाता पृष्ठ</string>
   <string name="contactSupport">Lichess समर्थनशी संपर्क साधा</string>
   <string name="otherMethods">देणगी देण्याचे इतर मार्ग कोणते?</string>
   <string name="lichessIsRegisteredWith">Lichess ची नोंदणी %s बरोबर झाली आहे.</string>

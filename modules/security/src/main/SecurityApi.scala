@@ -10,16 +10,17 @@ import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
-import lila.core.id.SessionId
-import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
-import lila.core.perm.Permission
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.id.SessionId
 import lila.core.misc.oauth.AccessTokenId
+import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
+import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.perm.Permission
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
+import lila.security.UserAgentParser.isDangerousDevice
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -48,7 +49,7 @@ final class SecurityApi(
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
+  private def loadedLoginForm(candidate: Option[LoginCandidate])(using req: RequestHeader): Form[Result] =
     import LoginCandidate.Result.*
     Form(
       mapping(
@@ -62,28 +63,32 @@ final class SecurityApi(
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
           case Success(_) => FormValid
-          case InvalidUsernameOrPassword =>
+          case InvalidUsernameOrPassword | BlockLeaked =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
           case WeakPassword =>
-            Invalid(
+            Invalid:
               Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
-            )
           case Must2fa =>
-            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
+            Invalid(Seq(if isDangerousDevice.isDefined then must2faDevice else must2faNetwork))
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
 
-  private def must2fa(req: RequestHeader, pwned: IsPwned): Fu[Option[IsProxy]] =
+  private val must2faNetwork = ValidationError:
+    "2-Factor Authentication is required to log in from this network."
+  private val must2faDevice = ValidationError:
+    "2-Factor Authentication is required to log in from this device, because it lacks critical security updates. Please update your OS and browser, or use another one to setup 2FA on your account."
+
+  private def must2fa(pwned: IsPwned)(using req: RequestHeader): Fu[Option[String]] =
     ip2proxy
       .ofReq(req)
       .map: p =>
-        if p == IsProxy.public || p == IsProxy.tor then p.some
-        else
-          pwned.yes.so:
-            p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+        if p == IsProxy.public || p == IsProxy.tor then p.value.some
+        else if pwned.yes
+        then p.name.exists(proxy2faSetting.get().value.has(_)).option(p.value)
+        else UserAgentParser.isDangerous(HTTPRequest.userAgent(req))
 
   def loadLoginForm(str: UserStrOrEmail, pwned: IsPwned)(using
       req: RequestHeader
@@ -96,27 +101,50 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(req, pwned).map:
-            _.fold(candidate.some): p =>
-              lila.mon.security.login.proxy(p.value).increment()
-              candidate.copy(must2fa = true).some
+          must2fa(pwned)
+            .map:
+              _.fold(candidate): reason =>
+                logger.info(s"Login $str must2fa: $reason (pwned: $pwned)")
+                lila.mon.security.login.must2fa(reason).increment()
+                candidate.copy(must2fa = true)
+            .map(_.copy(pwned = pwned.some).some)
       .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       login: UserStrOrEmail,
       password: ClearPassword,
       token: Option[String]
-  ): LoginCandidate.Result =
+  )(using req: RequestHeader): LoginCandidate.Result = {
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.pub(LoginWithBlankedPassword(c.user.id))
         BlankedPassword
-      else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
-        lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
-        WeakPassword
-      else result
+      else
+        val blockLeaked =
+          HTTPRequest.isLichobile && usernamePasswordLeaked && result.match
+            case Success(user) if user.totpSecret.isEmpty => true
+            case _ => false
+        if blockLeaked then
+          logger.info(s"Block lichobile login with leaked user+pass ${HTTPRequest.printClient(req)}")
+          BlockLeaked
+        else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
+          lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
+          WeakPassword
+        else result
+  }.tap: result =>
+    lila.mon.security.login
+      .attempt(
+        byEmail = EmailAddress.isValid(login.value),
+        pwned = candidate.flatMap(_.pwned).exists(_.yes),
+        leaked = usernamePasswordLeaked,
+        result = result.match
+          case LoginCandidate.Result.Success(_) => true
+          case _ => false,
+        name = result.productPrefix
+      )
+      .increment()
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion], pwned: IsPwned)(using
       req: RequestHeader
@@ -142,33 +170,36 @@ final class SecurityApi(
       _ <- store.save(isSignup = true, userId, req, apiVersion, fp = fp, proxy, pwned)
     yield ()
 
+  private def usernamePasswordLeaked(using req: RequestHeader): Boolean =
+    req.headers.get("x-upl").exists(lila.common.Form.trueish)
+
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
-  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
+  def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
     if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
-          case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
+          case Some(userId) => userRepo.byId(userId).map2(u => Left(AppealUser(Me(u))))
           case None =>
-            store.authInfo(sessionId).flatMapz { d =>
+            store.loginWithSessionId(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:
-                  _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+                  _.map(me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)))
             }
         : Fu[Option[AppealOrUser]]
       }
 
-  def oauthScoped(req: RequestHeader, required: lila.oauth.EndpointScopes): OAuthServer.AuthFu =
+  def oauthScoped(required: lila.oauth.EndpointScopes)(using RequestHeader): OAuthServer.AuthFu =
     oAuthServer
-      .authReq(req, required)
+      .authReq(required)
       .map: access =>
-        upsertOauth(access, req)
+        upsertOauth(access)
         stripRolesOfOAuthUser(access.scoped)
 
   private object upsertOauth:
     private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessTokenId](1.hour)
-    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
+    def apply(access: OAuthScope.Access)(using req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
@@ -222,17 +253,17 @@ final class SecurityApi(
   export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
       "user",
-      $doc(
+      bdoc(
         field -> value,
-        "date".$gt(nowInstant.minusYears(1))
+        "date".gt(nowInstant.minusYears(1))
       ),
       _.sec
     )

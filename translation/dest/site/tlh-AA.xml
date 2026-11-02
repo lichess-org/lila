@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Quj cher</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">jup qaD</string>
   <string name="playAgainstComputer">De\'wI\' qaD</string>
   <string name="gameMode">Quj lo\'</string>
@@ -100,10 +99,6 @@
   <string name="blunder">Qagh</string>
   <string name="mistake">Qagh</string>
   <string name="inaccuracy">QaghHom</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s Qagh</item>
-    <item quantity="other">%s Qaghmey</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qagh</item>
     <item quantity="other">%s Qaghmey</item>
@@ -166,7 +161,6 @@
   <string name="kidMode">puq lo\'</string>
   <string name="kidModeExplanation">Yichu\' qechvetlh. loQ cha\'Dich Qoyqu\' \'ach yIHeghqu\'. wa\'vatlh lI\' DapoQbejtaHvIS, ghoSpu\'lI\', \'e\' yIchaw\'meH lIngeH.</string>
   <string name="enableKidMode">puq lo\' chu\'</string>
-  <string name="transparent">Dem</string>
   <string name="blackWinsGame">Qap QujwI\' qIj</string>
   <string name="sorry">jIQoS }}:(</string>
   <string name="why">qatlh?</string>

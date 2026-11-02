@@ -14,6 +14,11 @@
     cursor: inherit;
   }
 
+  &.image-dragover cg-board {
+    outline: 4px dashed $c-primary;
+    outline-offset: 2px;
+  }
+
   .copyables {
     grid-area: copyables;
     margin: 2rem 0 0 1rem;

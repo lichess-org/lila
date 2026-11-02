@@ -1,18 +1,15 @@
 package lila.round
 
-import akka.actor.*
-import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
-import play.api.Configuration
-import scala.util.matching.Regex
 import chess.ByColor
+import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
+import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.{ Bus, Uptime }
+import lila.common.{ Bus, Uptime, HTTPRequest }
 import lila.core.config.*
-import lila.core.round.{ RoundBus, CurrentlyPlaying }
+import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo
-import lila.memo.SettingStore
 import lila.round.RoundGame.*
 
 @Module
@@ -36,7 +33,6 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
-    gameCache: lila.game.Cached,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
@@ -51,10 +47,10 @@ final class Env(
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
     userNoteApi: lila.core.user.NoteApi,
     settingStore: lila.memo.SettingStore.Builder,
-    shutdown: akka.actor.CoordinatedShutdown
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
     Executor,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit,
     lila.game.IdGenerator
@@ -120,9 +116,6 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
-  lazy val currentlyPlaying = CurrentlyPlaying: userId =>
-    gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
-
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     gameRepo.lastPlayed(userId).flatMap(_.traverse(proxyRepo.upgradeIfPresent))
 
@@ -131,26 +124,13 @@ final class Env(
   scheduler.scheduleAtFixedRate(10.minute, 10.minute): () =>
     correspondenceEmail.tick()
 
-  import SettingStore.Regex.given
-  val selfReportEndGame = settingStore[Regex](
-    "selfReportEndGame",
-    default = "-".r,
-    text = "Self reports that end the game".some
-  ).taggedWith[SelfReportEndGame]
-
-  val selfReportMarkUser = settingStore[Regex](
-    "selfReportMarkUser",
-    default = "-".r,
-    text = "Self reports that mark the user".some
-  ).taggedWith[SelfReportMarkUser]
-
   lazy val selfReport = wire[SelfReport]
 
   lazy val recentTvGames = wire[RecentTvGames]
 
   private lazy val farmBoostDetection = wire[FarmBoostDetection]
 
-  lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
+  private lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 
   lazy val forecastApi: ForecastApi = ForecastApi(coll = db(config.forecastColl), roundApi = roundApi)
 
@@ -184,7 +164,8 @@ final class Env(
 
   lazy val moretimer = wire[Moretimer]
 
-  val playing = wire[PlayingUsers]
+  lazy val playing = wire[PlayingUsers]
+  export playing.currentlyPlaying
 
   val apiMoveStream = wire[ApiMoveStream]
 
@@ -204,7 +185,7 @@ final class Env(
       gameRepo
         .allPlaying(userId)
         .map:
-          _.foreach { pov => roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId)) }
+          _.foreach(pov => roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId)))
 
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
 
@@ -218,5 +199,11 @@ final class Env(
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
 
-private trait SelfReportEndGame
-private trait SelfReportMarkUser
+  import play.api.mvc.{ RequestHeader, Call }
+  def pathRedirect(path: String)(using RequestHeader): Fu[Option[Call | Pov]] =
+    GameAnyId(path).fullId
+      .so(proxyRepo.pov)
+      .map2: p =>
+        if HTTPRequest.isLichobile then p else routes.Round.player(p.fullId)
+      .orElse:
+        GameId.from(path).so(proxyRepo.game).map2(g => routes.Round.watcher(g.id, Color.white))

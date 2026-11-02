@@ -23,28 +23,8 @@ object config:
   opaque type NetDomain = String
   object NetDomain extends OpaqueString[NetDomain]
 
-  opaque type AssetDomain = String
-  object AssetDomain extends OpaqueString[AssetDomain]
-
-  opaque type AssetBaseUrl = String
-  object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
-
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
-
-  case class Credentials(user: String, password: Secret):
-    def show = s"$user:${password.value}"
-  object Credentials:
-    def read(str: String): Option[Credentials] = str.split(":") match
-      case Array(user, password) => Credentials(user, Secret(password)).some
-      case _ => none
-
-  case class HostPort(host: String, port: Int):
-    def show = s"$host:$port"
-  object HostPort:
-    def read(str: String): Option[HostPort] = str.split(":") match
-      case Array(host, port) => port.toIntOption.map(HostPort(host, _))
-      case _ => none
 
   type RouteUrl = play.api.mvc.Call => data.Url
 
@@ -52,8 +32,6 @@ object config:
       domain: NetDomain,
       prodDomain: NetDomain,
       baseUrl: BaseUrl,
-      assetDomain: AssetDomain,
-      assetBaseUrl: AssetBaseUrl,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

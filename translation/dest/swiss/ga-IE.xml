@@ -75,7 +75,6 @@ Cuir scóir gach chéile comhraic a bhuaigh an t-imreoir agus leath scór gach c
   <string name="pairingsA">Leis an %1$s, curtha i bhfeidhm ag %2$s, de réir an %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Cad a tharlóidh má bhíonn níos mó babhtaí ag an gcomórtas ná imreoirí?</string>
   <string name="moreRoundsThanPlayersA">Nuair a bheidh gach péire féideartha imeartha, cuirfear deireadh leis an gcomórtas agus fógrófar buaiteoir.</string>
-  <string name="restrictedToTeamsQ">Cén fáth go bhfuil sé teoranta d’fhoirne?</string>
   <string name="restrictedToTeamsA">Níl comórtais swiss oiriúnach do fhicheall ar líne.
 Éilíonn siad poncúlacht, dúthracht agus foighne ó imreoirí.
 Is dóigh linn gur dóichí go gcomhlíonfar na coinníollacha seo laistigh d’fhoireann ná i gcomórtais dhomhanda.</string>
@@ -91,7 +90,6 @@ Féadfaidh siad a bheith páirteach arís sa chomórtas am ar bith.</string>
 Faigheann imreoirí déanacha seacha amháin, fiú má chaill siad roinnt babhtaí.</string>
   <string name="willSwissReplaceArenasQ">An athsholáthair swiss in ionad comórtais airéine?</string>
   <string name="willSwissReplaceArenasA">Is gnéithe comhlántacha iad.</string>
-  <string name="roundRobinQ">Cad faoi Round Robin?</string>
   <string name="roundRobinA">Ba mhaith linn é a chur leis, ach ar an drochuair ní oibríonn Round Robin ar líne.
 Is é an chúis atá leis nach bhfuil aon bhealach cóir déileáil le daoine a fhágann an comórtas go luath. Ní féidir linn a bheith ag súil go n-imreoidh gach imreoir a gcluichí go léir in imeacht ar líne. Ní tharlóidh sé, agus mar thoradh air sin bheadh an chuid is mó de chomórtais Round Robin lochtach agus éagórach, rud a thugann aghaidh ar an gcúis atá leo a bheith ann.
 Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná comórtas Swiss a imirt le líon an-ard babhtaí. Ansin imreofar gach péire féideartha sula gcríochnóidh an comórtas.</string>
@@ -127,5 +125,4 @@ Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná com
   <string name="similarToOTB">Cosúil le comórtais TB (thar bord)</string>
   <string name="unlimitedAndFree">Neamhtheoranta agus saor in aisce</string>
   <string name="predefinedUsers">Ná lig ach d\'úsáideoirí réamhshainithe páirt a ghlacadh</string>
-  <string name="forbiddedUsers">Mura bhfuil an liosta seo folamh, beidh cosc ar úsáideoirí atá as láthair ón liosta seo a bheith páirteach ann. Ainm úsáideora amháin in aghaidh an líne.</string>
 </resources>

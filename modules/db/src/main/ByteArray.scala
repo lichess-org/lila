@@ -2,8 +2,6 @@ package lila.db
 
 import reactivemongo.api.bson.*
 
-import scala.util.Try
-
 case class ByteArray(value: Array[Byte]):
 
   def isEmpty = value.lengthIs == 0
@@ -21,9 +19,6 @@ case class ByteArray(value: Array[Byte]):
 object ByteArray:
 
   val empty = ByteArray(Array())
-
-  def fromHexStr(hexStr: String): Try[ByteArray] =
-    Try(ByteArray(hex.str2Hex(hexStr)))
 
   given arrayByteHandler: BSONHandler[Array[Byte]] = dsl.quickHandler[Array[Byte]](
     { case v: BSONBinary => v.byteArray },
@@ -56,19 +51,6 @@ object ByteArray:
   private object hex:
 
     private val HEX_CHARS: Array[Char] = "0123456789abcdef".toCharArray
-
-    /** Turns a hexadecimal String into an array of Byte. */
-    def str2Hex(str: String): Array[Byte] =
-      val sz = str.length / 2
-      val bytes = new Array[Byte](sz)
-
-      var i = 0
-      while i < sz do
-        val t = 2 * i
-        bytes(i) = Integer.parseInt(str.substring(t, t + 2), 16).toByte
-        i += 1
-
-      bytes
 
     /** Turns an array of Byte into a String representation in hexadecimal. */
     def hex2Str(bytes: Array[Byte]): String =

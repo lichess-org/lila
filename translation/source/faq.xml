@@ -142,18 +142,19 @@ Click the lock icon next to the lichess.org address in the URL bar of your brows
 
 Then select whether to allow or block notifications from Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Enable autoplay for sounds?</string>
-  <string name="enableAutoplayForSoundsA">Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads.
+  <string name="mostBrowsersPreventSoundAutoplay">Most browsers prevent sound from playing on newly-visited pages to protect users.
 
-The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something. On some mobile browsers, touch dragging a piece does not count as a click. In that case you must tap the board to allow sound at the start of each game.
+The mute icon appears when your browser prevents lichess.org from playing a sound. This restriction is typically lifted once you click something.
+On some mobile browsers, touch-dragging a piece does not count as a click. In that case, you must tap the board to allow sound at the start of each game.
 
-We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
+We show the red mute icon to alert you when this happens. You can explicitly allow lichess.org to play sounds on most browsers. Here are instructions to permit the website to play audio on recent versions of some popular browsers:</string>
   <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
 2. Press Ctrl+i on Linux/Windows or ⌘+i on macOS
 3. Click the Permissions tab
 4. Allow Audio and Video on lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Go to lichess.org
-2. Click the lock icon in the address bar
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Go to lichess.org
+2. Click the site information icon in the address bar
 3. Click Site Settings
 4. Allow Sound</string>
   <string name="enableAutoplayForSoundsSafari">1. Go to lichess.org
@@ -165,11 +166,13 @@ We show the red icon to alert you when this happens. Often you can explicitly al
 3. Click Cookies and Site Permissions
 4. Scroll down and click Media autoplay
 5. Add lichess.org to Allow</string>
-<string name="stopMyselfFromPlaying">Stop myself from playing?</string>
-<string name="mentalHealthCondition">stand-alone mental health condition</string>
-<string name="lichessUserstyles">Lichess userstyles</string>
-<string name="fewerLobbyPools">fewer lobby pools</string>
-<string name="adviceOnMitigatingAddiction">We regularly receive messages from users asking us for help to stop them from playing too much.
+  <string name="makeBotTitle">Make a bot on Lichess?</string>
+  <string name="makeBotDescription">To learn how to build a &lt;a href='%1$s'&gt;custom chess bot&lt;/a&gt; to play on Lichess, please read &lt;a href='%2$s'&gt;this blog post about creating bots&lt;/a&gt;.</string>
+  <string name="stopMyselfFromPlaying">Stop myself from playing?</string>
+  <string name="mentalHealthCondition">stand-alone mental health condition</string>
+  <string name="lichessUserstyles">Lichess userstyles</string>
+  <string name="fewerLobbyPools">fewer lobby pools</string>
+  <string name="adviceOnMitigatingAddiction">We regularly receive messages from users asking us for help to stop them from playing too much.
 
 While Lichess doesn’t ban or block players except for Terms of Service violations, we recommend the use of external tools to limit excessive playing behavior. Some common suggestions for website blockers include %1$s, %2$s, and %3$s. If you want to keep using the site but not get tempted by fast time controls, you might also be interested in %4$s, here is one with %5$s.
 

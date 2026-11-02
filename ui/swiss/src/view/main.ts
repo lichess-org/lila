@@ -1,3 +1,4 @@
+import { COLORS } from 'chessops';
 import flatpickr from 'flatpickr';
 
 import standaloneChat from 'lib/chat/standalone';
@@ -14,9 +15,11 @@ import {
   onInsert,
   type LooseVNodes,
   hl,
+  type MaybeVNodes,
+  a,
 } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
-import { numberRow } from 'lib/view/util';
+import { numberRow, toggleBox } from 'lib/view/util';
 import { watchers } from 'lib/view/watchers';
 
 import type SwissCtrl from '../ctrl';
@@ -95,7 +98,7 @@ function controls(ctrl: SwissCtrl): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return undefined;
   return hl(
     'form.schedule-next-round',
     {
@@ -141,52 +144,45 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       i18n.team.joinTeam,
     );
 
-  if (d.canJoin)
-    return ctrl.joinSpinner
-      ? spinnerVdom()
-      : hl(
-          'button.fbt.text.highlight',
-          {
-            attrs: dataIcon(licon.PlayTriangle),
-            hook: bind(
-              'click',
-              async () => {
-                if (d.password) {
-                  const p = await prompt(i18n.site.tournamentEntryCode);
-                  if (p !== null) ctrl.join(p);
-                } else ctrl.join();
-              },
-              ctrl.redraw,
-            ),
-          },
-          i18n.site.join,
-        );
+  if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
+
+  if (ctrl.joinSpinner) return spinnerVdom();
+
+  const promptEntryCodeOrJoin = async () => {
+    if (d.password) {
+      const p = await prompt(i18n.site.tournamentEntryCode);
+      if (p !== null) ctrl.join(p);
+    } else ctrl.join();
+  };
 
   if (d.me && d.status !== 'finished')
     return d.me.absent
-      ? ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text.highlight',
-            { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            i18n.site.join,
-          )
-      : ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text',
-            { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            i18n.site.withdraw,
-          );
+      ? hl(
+          'button.fbt.text.highlight',
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
+          i18n.site.join,
+        )
+      : hl(
+          'button.fbt.text',
+          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+          i18n.site.withdraw,
+        );
 
-  return undefined;
+  return hl(
+    'button.fbt.text.highlight',
+    {
+      attrs: dataIcon(licon.PlayTriangle),
+      hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
+    },
+    i18n.site.join,
+  );
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
   const gameId = ctrl.data.me?.gameId;
   return (
     gameId &&
-    hl('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
+    hl('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/game/' + gameId } }, [
       i18n.site.youArePlaying,
       hl('br'),
       i18n.site.joinTheGame,
@@ -200,24 +196,24 @@ function confetti(data: SwissData) {
     data.isRecentlyFinished &&
     once('tournament.end.canvas.' + data.id) &&
     hl('canvas#confetti', {
-      hook: {
-        insert: _ => site.asset.loadEsm('bits.confetti'),
-      },
+      hook: onInsert(() => site.asset.loadEsm('bits.confetti')),
     })
   );
 }
 
+const downloadLink = (href: string, text: MaybeVNodes) =>
+  a(href)('.text', { 'data-icon': licon.Download, download: true }, text);
+
 function stats(ctrl: SwissCtrl) {
-  const s = ctrl.data.stats,
-    slots = ctrl.data.round * ctrl.data.nbPlayers;
+  const s = ctrl.data.stats;
+  const slots = ctrl.data.round * ctrl.data.nbPlayers;
   if (!s) return undefined;
   return hl('div.swiss__stats', [
     hl('h2', i18n.site.tournamentComplete),
     hl('table', [
       ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
       numberRow(i18n.site.gamesPlayed, s.games),
-      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
-      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
+      ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [s[`${c}Wins`], slots], 'percent')),
       numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
       numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
       numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
@@ -228,43 +224,14 @@ function stats(ctrl: SwissCtrl) {
         { attrs: { href: `/swiss/${ctrl.data.id}/round/1` } },
         i18n.swiss.viewAllXRounds(ctrl.data.round),
       ),
-      hl('br'),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
-        'Download TRF file',
-      ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
-        },
-        'Download results as NDJSON',
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
-            download: true,
-          },
-        },
-        'Download results as CSV',
-      ),
-      hl('br'),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
-        },
-        'Swiss API documentation',
-      ),
+    ]),
+    hl('div.swiss__stats__downloads', [
+      toggleBox(i18n.site.download, [
+        downloadLink(`/swiss/${ctrl.data.id}.trf`, [i18n.site.downloadResults, ' (TRF)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/games`, [i18n.site.downloadAllGames, ' (PGN)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/results`, [i18n.site.downloadResults, ' (NDJSON)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/results?as=csv`, [i18n.site.downloadResults, ' (CSV)']),
+      ]),
     ]),
   ]);
 }

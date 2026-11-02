@@ -20,7 +20,7 @@
   <string name="itMovesDiagonally">يتحرك بشكل قطري</string>
   <string name="bishopIntro">التالي سنتعلم كيفية المناورة بالفيل!</string>
   <string name="youNeedBothBishops">فيل للمربعات الفاتحة، والآخر للمربعات الداكنة. ستحتاج كليهما!</string>
-  <string name="bishopComplete">تهانينا! لقد تعلمت قيادة الفيل.</string>
+  <string name="bishopComplete">تهانينا! لقد تعلمت الآن تحريك الفيل.</string>
   <string name="theQueen">الوزير</string>
   <string name="queenCombinesRookAndBishop">الوزير = رخ + فيل</string>
   <string name="queenIntro">اسمحوا لي أن أقدم قطعة الشطرنج الأقوى. إنه الوزير!</string>
@@ -48,7 +48,7 @@
   <string name="captureThenPromote">التقط، ثم رقي!</string>
   <string name="useAllThePawns">استخدم جميع البيادق!
 لا حاجة للترقية.</string>
-  <string name="aPawnOnTheSecondRank">البيدق على الصف الثاني يمكن أن يتحرك لمربعين في نقلة واحدة!</string>
+  <string name="aPawnOnTheSecondRank">يمكن للبيدق في الصف الثاني أن يتقدّم مربعين 2 دفعةً واحدة!</string>
   <string name="grabAllTheStarsNoNeedToPromote">إجمع كل النجوم!
 لا حاجة للترقية.</string>
   <string name="pawnComplete">تهانينا! لقد أصبحت تعرف كل شيء عن البيادق.</string>
@@ -87,7 +87,7 @@
   <string name="youCanGetOutOfCheckByTaking">يمكنك الخروج من الكش بأخذ القطعة المهاجمة.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">هذا الحصان يعطي كش متجاوزًا دفاعاتك!</string>
   <string name="escapeOrBlock">اهرب بالملك أو أعق الهجوم!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">تهانينا! لا يمكن ابدأ أن يؤخذ ملكك، تأكد دائما أنك تستطيع الدفاع ضد الكش!</string>
+  <string name="outOfCheckComplete">تهانينا! لا يمكن ابدأ أن يؤخذ ملكك، تأكد دائما أنك تستطيع الدفاع ضد الكش!</string>
   <string name="mateInOne">كش مات بنقلة واحدة</string>
   <string name="defeatTheOpponentsKing">اقتل ملك خصمك</string>
   <string name="mateInOneIntro">ستفوز إذا لم يتمكن خصمك من الدفاع عن ملكه من الكش.</string>
@@ -107,6 +107,7 @@
 العب أي نقلة للمتابعة.</string>
   <string name="boardSetupComplete">تهانينا! تعلمت كيف ترتب القطع على رقعة الشطرنج.</string>
   <string name="castling">التبييت</string>
+  <string name="enPassant">الأخذ بالتجاوز</string>
   <string name="theSpecialKingMove">نقلة الملك المميزة</string>
   <string name="castlingIntro">أمن ملكك، وأحضر رخك إلى وَسَط الرقعة!</string>
   <string name="castleKingSide">حرك ملكك مربعين للتبييت في جناح الملك!</string>

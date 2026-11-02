@@ -24,7 +24,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   val apiList = OpenOrScoped(): ctx ?=>
     fetchSimuls.flatMap: (pending, created, started, finished) =>
-      env.simul.jsonView.apiAll(pending, created, started, finished).map(JsonOk)
+      env.simul.jsonView.apiAll(pending, created, started, finished).map(Ok(_))
 
   val homeReload = Open:
     fetchSimuls.flatMap: (pending, created, started, finished) =>
@@ -88,13 +88,6 @@ final class Simul(env: Env) extends LilaController(env):
   def reject(simulId: SimulId, userId: UserStr) = Open:
     AsHost(simulId): simul =>
       env.simul.api.accept(simul.id, userId.id, v = false).inject(jsonOkResult)
-
-  def setText(simulId: SimulId) = OpenBody:
-    AsHost(simulId): simul =>
-      bindForm(forms.setText)(
-        _ => BadRequest,
-        text => env.simul.api.setText(simul.id, text).inject(jsonOkResult)
-      )
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:

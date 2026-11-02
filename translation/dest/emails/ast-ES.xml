@@ -16,7 +16,6 @@ Esta ye la so páxina de perfil: %1$s. Puedes personalizalo en %2$s.
 
 ¡Préstate y que les tos pieces siempres atopen el camín escontra\'l rei del to oponente!</string>
   <string name="logInToLichess">Empecipia sesión en lichess.org, %s</string>
-  <string name="common_orPaste">(¿Facer clic nun funciona? ¡Intenta pegalo nel to navegador!)</string>
   <string name="common_note">Este ye un corréu electrónicu de serviciu rellacionáu col to usu de %s.</string>
   <string name="common_contact">Para ponete en contactu con nós, utiliza %s.</string>
 </resources>

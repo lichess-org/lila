@@ -5,11 +5,9 @@ import play.api.data.Form
 
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
-import lila.ui.*
-
 import lila.report.Mod
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ModUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -81,7 +79,7 @@ final class ModUi(helpers: Helpers):
               logs.map: log =>
                 tr(
                   td(momentFromNow(log.date)),
-                  td(log.user.map { u => userIdLink(u.some, params = "?mod") }),
+                  td(log.user.map(u => userIdLink(u.some, params = "?mod"))),
                   td(log.showAction.capitalize),
                   td(
                     shorten(~log.details, 100),
@@ -144,7 +142,7 @@ final class ModUi(helpers: Helpers):
         )
       )
 
-  def presets(group: String, form: Form[?])(using Context) =
+  def presets(group: ModPresets.Group, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
       main(cls := "page-menu modMenu")(
         menu("presets"),
@@ -154,14 +152,14 @@ final class ModUi(helpers: Helpers):
               s"$group presets",
               small(
                 " / ",
-                ModPresets.groups.filter(group !=).map { group =>
-                  a(href := routes.Mod.presets(group))(s"$group presets")
+                ModPresets.Group.values.filter(group !=).map { group =>
+                  a(href := routes.Mod.presets(group.toString))(s"$group presets")
                 }
               )
             )
           ),
           standardFlash,
-          postForm(action := routes.Mod.presetsUpdate(group))(
+          postForm(action := routes.Mod.presetsUpdate(group.toString))(
             form3.group(
               form("v"),
               raw(""),

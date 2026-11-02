@@ -1,27 +1,27 @@
 package lila.bot
 
-import akka.actor.*
-import akka.stream.scaladsl.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 import scalalib.net.UserAgent
 
+import lila.bot.OnlineApiUsers.*
 import lila.chat.{ Chat, UserLine }
 import lila.common.Bus
 import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
-import lila.core.round.{ Tell, RoundBus }
+import lila.core.round.{ RoundBus, Tell }
 import lila.core.user.KidMode
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
+  BoardMoretime,
   BoardTakeback,
   BoardTakebackOffer,
-  BoardMoretime,
   MoveGameEvent
 }
-import lila.bot.OnlineApiUsers.*
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -31,7 +31,7 @@ final class GameStateStream(
   import GameStateStream.*
 
   private val blueprint =
-    Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
+    Source.queue[Option[JsObject]](32, org.apache.pekko.stream.OverflowStrategy.dropHead)
 
   def apply(init: WithInitialFen, as: Color)(using
       lang: Lang,

@@ -1,5 +1,7 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
+@import 'retro'; // now available via local analysis
+@import 'round-training';
 
 $label-width: 5ch;
 
@@ -17,6 +19,8 @@ $label-width: 5ch;
   }
 
   .copyable {
+    @include backdrop-blur-if-transparent;
+
     flex: 1 1 auto;
   }
 
@@ -29,19 +33,19 @@ $label-width: 5ch;
       overflow-x: hidden;
 
       &.is-error {
-        background: $m-bad_bg--mix-20;
-        box-shadow: 0 0 13px 2px $m-bad_bg--mix-20;
+        background: color-mix(in oklab, $c-bad 20%, $c-bg);
+        box-shadow: 0 0 13px 2px color-mix(in oklab, $c-bad 20%, $c-bg);
       }
     }
   }
 
   .bottom-item {
+    @include transition;
+
     position: absolute;
     top: 100%;
     visibility: hidden;
     opacity: 0;
-
-    @include transition;
 
     @media (prefers-reduced-motion: reduce) {
       // Keep the button visible until it was focused

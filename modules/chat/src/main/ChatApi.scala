@@ -1,8 +1,10 @@
 package lila.chat
 
+import cats.data.OptionT
+
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
+import lila.core.chat.{ OnReinstate, OnTimeout, PublicSource }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
@@ -26,7 +28,7 @@ final class ChatApi(
   import Chat.given
   export userChat.{ write, volatile, timeout, system }
 
-  def exists(id: ChatId) = coll.exists($id(id))
+  def exists(id: ChatId) = coll.exists(bid(id))
 
   object userChat:
 
@@ -107,7 +109,7 @@ final class ChatApi(
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)
 
-    def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
+    def clear(chatId: ChatId) = coll.delete.one(bid(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
       val line = UserLine(UserName.lichess, text, troll = false, deleted = false)
@@ -129,16 +131,17 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     )(using mod: MyId): Funit =
-      coll
-        .byId[UserChat](chatId.value)
-        .zip(userApi.me(mod))
-        .zip(userApi.byId(userId))
-        .flatMap:
-          case ((Some(chat), Some(me)), Some(user))
-              if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
-                scope == ChatTimeout.Scope.Local =>
+      def canTimeOut(using Me) =
+        isMod || (busChan(BusChan) == BusChan.study && isRelayMod) || scope == ChatTimeout.Scope.Local
+      val res = for
+        chat <- OptionT(coll.byId[UserChat](chatId.value))
+        me <- OptionT(userApi.me(mod))
+        user <- OptionT(userApi.byId(userId))
+        _ <- OptionT.liftF:
+          canTimeOut(using me).so:
             doTimeout(chat, user, reason, scope, text, busChan)(using me)
-          case _ => funit
+      yield ()
+      res.getOrElse(())
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout
@@ -161,7 +164,7 @@ final class ChatApi(
       userApi
         .byId(username)
         .flatMapz: user =>
-          chatTimeout.history(user, 20).dmap { UserModInfo(user, _).some }
+          chatTimeout.history(user, 20).dmap(UserModInfo(user, _).some)
 
     private def doTimeout(
         c: UserChat,
@@ -181,29 +184,28 @@ final class ChatApi(
             UserLine(UserName.lichess, text = lineText, troll = false, deleted = false)
           val c2 = c.markDeleted(user)
           val chat = line.fold(c2)(c2.add)
-          for _ <- coll.update.one($id(chat.id), chat)
+          for _ <- coll.update.one(bid(chat.id), chat)
           yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
               publishLine(chat.id, l, busChan)
             if isMod || isRelayMod then
-              Bus.pub(
+              Bus.pub:
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
                   reason = reason,
                   text = text
                 )
-              )
-              if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
+            if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat = c.markDeleted(user)
       val change = chat != c
       change
         .so:
-          for _ <- coll.update.one($id(chat.id), chat)
+          for _ <- coll.update.one(bid(chat.id), chat)
           yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
@@ -233,17 +235,17 @@ final class ChatApi(
 
     def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
       val regex = s"^$userId[" + Line.separatorChars.mkString("") + "]"
-      val update = $pull("l".$regex(regex, "i"))
+      val update = pull("l".regex(regex, "i"))
       val allIds = for
         id <- gameIds
         both <- List(id.value, s"${id.value}/w")
       yield both
-      coll.update.one($inIds(allIds), update, multi = true).void
+      coll.update.one(inIds(allIds), update, multi = true).void
 
   private object Speaker:
     def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
     import lila.core.user.BSONFields as F
-    val projection = lila.db.dsl.$doc(
+    val projection = lila.db.dsl.bdoc(
       F.username -> true,
       F.title -> true,
       F.plan -> true,
@@ -293,18 +295,18 @@ final class ChatApi(
     for json <- jsonView.asyncLine(line)
     yield publish(chatId, ChatLine(chatId, line, json), busChan)
 
-  def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
+  def remove(chatId: ChatId) = coll.delete.one(bid(chatId)).void
 
-  def removeAll(chatIds: List[ChatId]) = coll.delete.one($inIds(chatIds)).void
+  def removeAll(chatIds: List[ChatId]) = coll.delete.one(inIds(chatIds)).void
 
   private def persistLine(chatId: ChatId, line: lila.core.chat.Line): Funit =
     import lila.chat.Line.given
     coll.update
       .one(
-        $id(chatId),
-        $doc(
-          "$push" -> $doc(
-            Chat.BSONFields.lines -> $doc(
+        bid(chatId),
+        bdoc(
+          "$push" -> bdoc(
+            Chat.BSONFields.lines -> bdoc(
               "$each" -> List(line),
               "$slice" -> -150
             )
@@ -321,7 +323,7 @@ final class ChatApi(
     def preprocessUserInput(in: String, username: Option[UserName]): Option[String] =
       val out1 = multiline:
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
-      val out2 = username.fold(out1) { removeSelfMention(out1, _) }
+      val out2 = username.fold(out1)(removeSelfMention(out1, _))
       out2.take(Line.textMaxSize).nonEmptyOption
 
     private def removeSelfMention(in: String, username: UserName) =

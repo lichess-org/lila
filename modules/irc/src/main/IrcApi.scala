@@ -1,13 +1,14 @@
 package lila.irc
 
 import play.api.mvc.Call
+import scalalib.DiffStr
 
 import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
-import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
+import lila.core.userId.ModId
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -17,10 +18,11 @@ final class IrcApi(
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
-  import IrcApi.{ userRegex, postRegex }
+  private val userRegex = UserName.atRegex.pattern
+  private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
-    def link(url: String, name: String) = s"[$name]($url)"
+    def link(url: Url, name: String) = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](${net.baseUrl}$path)"
     def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String = userLink(user.name)
@@ -41,6 +43,9 @@ final class IrcApi(
     def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
     def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
     def time(t: Instant) = s"<time:$t>"
+    def diff(diff: DiffStr) = s"```diff\n$diff\n```"
+    def spoiler(heading: String, content: String) = s"```spoiler $heading\n$content\n```"
+    def quote(content: String) = s"```quote\n$content\n```"
 
   def commReportBurst(user: LightUser): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
@@ -121,11 +126,10 @@ final class IrcApi(
     zulip(_.mod.commsPublic, "forum-log"):
       s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  type BBB = "arena" | "event"
-  def bbb(by: MyId, tpe: BBB, name: String, url: Call, from: Instant, to: Option[Instant]): Funit =
+  def bbb(by: MyId, tpe: "arena" | "event", name: String, url: Call, diff: DiffStr): Funit =
     val link = markdown.lichessLink(url.url, name)
-    val times = s"${markdown.time(from)} → ${to.fold("?")(markdown.time)}"
-    val text = s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link $times"
+    val text =
+      s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n${markdown.spoiler("changes", markdown.diff(diff))}"
     zulip(_.bbb, "log")(text)
 
   def ublogPost(
@@ -149,15 +153,23 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
+  def payoutNotify(p: lila.core.msg.PayoutMessages): Funit =
+    val messages =
+      s"${markdown.link(p.tourUrl, p.tourName)}\n\nPlayers notified:" :: p.userIds.map(id =>
+        markdown.userLink(lightUser(id))
+      )
+    messages.sequentiallyVoid: content =>
+      zulip.sendAndGetLink(_.adminPrizes, p.tourName)(content)
+
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
-      s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
+      s"${markdown.userLink(lightUser(senderId))}:\n${markdown.quote(content)}"
 
   def broadcastTourUpdate(
       tourName: String,
       tourSlug: String,
       tourId: RelayTourId,
-      diff: String,
+      diff: DiffStr,
       impersonatedBy: Option[ModId] = None
   )(using
       userId: MyId
@@ -166,7 +178,7 @@ final class IrcApi(
     val impersonator = impersonatedBy.map(id => lightUser(id.userId))
     val channelUser = impersonator.getOrElse(user)
     zulip(_.broadcastLogs, s"/${channelUser.name}"):
-      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n```diff\n$diff\n```"
+      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n${markdown.diff(diff)}"
 
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
@@ -211,11 +223,13 @@ final class IrcApi(
     zulip(_.broadcast, s"orphan boards - $tier tier"):
       s"""${markdown.broadcastGameLink(id, chapterId, name)} $boardName"""
 
-  def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
+  def userAppeal(user: LightUser, markers: List[ModId])(using mod: LightUser.Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.name):
         val link = markdown.lichessLink(s"/appeal/${user.name}", user.name)
-        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**"
+        val markersTxt = markers.map(m => lightUser(m.userId).name).mkString(", ")
+        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**" +
+          markersTxt.nonEmpty.so(s" (marked by $markersTxt)")
       .flatMapz: zulipAppealConv =>
         noteApi.write(user.id, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
@@ -235,7 +249,7 @@ final class IrcApi(
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
       markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
-        markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
+        markdown.link(Url(s"${net.baseUrl}/training/export/gif/thumbnail/$id.gif"), ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
@@ -273,8 +287,3 @@ final class IrcApi(
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
-
-object IrcApi:
-
-  private val userRegex = lila.common.String.atUsernameRegex.pattern
-  private val postRegex = lila.common.String.forumPostPathRegex.pattern

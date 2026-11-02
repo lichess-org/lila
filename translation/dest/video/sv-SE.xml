@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="chessVideos">Schackvideor</string>
+  <string name="allVideosAreFree">Alla videor är gratis för alla.</string>
+  <string name="selectTagsToFilter">Välj taggar för att filtrera videorna.</string>
+  <string name="weHaveCarefullySelectedX">Vi har noggrant valt %s videor hittills!</string>
   <string name="freeChessVideos">Gratis schackvideor</string>
+  <string name="xFreeCarefullyCurated">%s gratis, noggrant utvalda schackvideor</string>
+  <string name="xCuratedChessVideos">%s utvalda schackvideor</string>
+  <string name="xWithTagsY">%1$s med taggar %2$s</string>
+  <string name="freeForAll">gratis för alla</string>
+  <plurals name="nbVideosFound">
+    <item quantity="one">%s video hittades</item>
+    <item quantity="other">%s videor hittades</item>
+  </plurals>
+  <string name="noVideosForTheseTags">Inga videor för de här taggarna:</string>
+  <string name="thatsAllWeGotForTheseTags">Det är allt vi har för de här taggarna:</string>
+  <string name="thatsAllWeGotForThisSearchX">Det är allt vi har för den här sökningen: \"%s\"</string>
+  <string name="viewMoreTags">Visa mer taggar</string>
   <string name="videoNotFound">Video hittades inte!</string>
+  <string name="xByY">%1$s av %2$s</string>
+  <string name="allNbVideoTags">Alla %s videotaggar</string>
 </resources>

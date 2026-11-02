@@ -2,7 +2,7 @@ import { prop, type Prop, scrollTo } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon, button } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
@@ -10,7 +10,7 @@ import { textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseSocketSend } from '../socket';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import { makeCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import type StudyCtrl from './studyCtrl';
 
@@ -48,7 +48,7 @@ export class StudyMemberCtrl {
 
   constructor(readonly opts: Opts) {
     this.dict = prop(opts.initDict);
-    this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
+    this.inviteForm = makeCtrl(opts.send, this.dict, () => opts.tab('members'));
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
       this.inviteForm.spectators(names);
@@ -94,6 +94,7 @@ export class StudyMemberCtrl {
     const wasViewer = this.myMember() && !this.canContribute();
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
+    this.inviteForm.redraw();
     if (wasViewer && this.canContribute()) {
       if (once('study-tour')) this.opts.startTour();
       this.opts.onBecomingContributor();
@@ -134,64 +135,70 @@ export class StudyMemberCtrl {
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const members = ctrl.members,
-    isOwner = members.isOwner();
+  const { members, data } = ctrl;
+  const isOwner = members.isOwner();
 
-  function statusIcon(member: StudyMember) {
-    const contrib = member.role === 'w';
+  function statusIcon({ user, role }: StudyMember) {
+    const contrib = role === 'w';
     return hl(
       'span.status',
       {
         class: {
           contrib,
-          active: members.active.has(member.user.id),
-          online: members.isOnline(member.user.id),
+          active: members.active.has(user.id),
+          online: members.isOnline(user.id),
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      [iconTag(contrib ? licon.User : licon.Eye)],
+      icon(contrib ? licon.User : licon.Eye)(),
     );
   }
 
-  function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return hl('icon.act', {
-        attrs: dataIcon(licon.Gear),
-        hook: bind(
-          'click',
-          () => members.config(members.config() === member.user.id ? null : member.user.id),
-          ctrl.redraw,
-        ),
-      });
-    if (!isOwner && member.user.id === members.opts.myId)
-      return hl('icon.act.leave', {
-        attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
-        hook: bind('click', members.leave, ctrl.redraw),
-      });
+  function configButton(ctrl: StudyCtrl, { user }: StudyMember) {
+    if (isOwner && (user.id !== members.opts.myId || data.admin))
+      return button(
+        '.act',
+        {
+          hook: bind(
+            'click',
+            () => members.config(members.config() === user.id ? null : user.id),
+            ctrl.redraw,
+          ),
+        },
+        icon(licon.Gear)(),
+      );
+    if (!isOwner && user.id === members.opts.myId)
+      return button(
+        '.act.leave',
+        {
+          title: i18n.study.leaveTheStudy,
+          hook: bind('click', members.leave, ctrl.redraw),
+        },
+        icon(licon.InternalArrow)(),
+      );
     return undefined;
   }
 
-  function memberConfig(member: StudyMember): VNode {
-    const roleId = 'member-role';
+  function memberConfig({ user, role }: StudyMember): VNode {
     return hl(
       'm-config',
       {
-        key: member.user.id + '-config',
+        key: user.id + '-config',
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
         cmnToggleWrap({
-          id: roleId,
+          id: 'member-role',
           name: i18n.study.contributor,
-          checked: member.role === 'w',
-          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          checked: role === 'w',
+          change: v => members.setRole(user.id, v ? 'w' : 'r'),
           redraw: ctrl.redraw,
         }),
         hl(
           'div.kick',
-          hl(
-            'a.button.button-red.button-empty.text',
-            { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
+          button(
+            '.button.button-red.button-empty.text',
+            { ...dataIcon(licon.X), hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
             i18n.study.kick,
           ),
         ),
@@ -217,24 +224,22 @@ export function view(ctrl: StudyCtrl): VNode {
     ),
     isOwner &&
       ordered.length < members.max &&
-      hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        hl('div.left', [
-          hl('span.status', iconTag(licon.PlusButton)),
-          hl('div.user-link', i18n.study.addMembers),
-        ]),
+      button('.add', { key: 'add', hook: bind('click', members.inviteForm.show) }, [
+        icon(licon.PlusButton)(),
+        hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&
-      ctrl.data.admin &&
+      data.admin &&
       hl(
         'form.admin',
         {
           key: ':admin',
           hook: bindNonPassive('submit', () => {
-            xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+            xhrTextRaw(`/study/${data.id}/admin`, { method: 'post' }).then(() => location.reload());
             return false;
           }),
         },
-        [hl('button.button.button-red.button-thin', 'Enter as admin')],
+        button('.button.button-red.button-thin', 'Enter as admin'),
       ),
   ]);
 }

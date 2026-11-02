@@ -1,0 +1,39 @@
+name: Prune CodeQL caches
+
+on:
+  schedule:
+    - cron: '32 3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: prune-codeql-caches
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete CodeQL caches unused for three days
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          cutoff="$(date -u -d "3 days ago" +%s)"
+
+          gh api --paginate \
+            "/repos/$REPOSITORY/actions/caches?per_page=100" \
+            --jq '.actions_caches[]
+              | select(.key | startswith("codeql-"))
+              | select((.last_accessed_at | fromdateiso8601) < '"$cutoff"')
+              | .id' |
+          while read -r cache_id; do
+            echo "Deleting CodeQL cache $cache_id"
+
+            gh api --method DELETE \
+              "/repos/$REPOSITORY/actions/caches/$cache_id"
+          done

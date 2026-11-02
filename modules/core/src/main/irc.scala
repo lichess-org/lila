@@ -1,9 +1,12 @@
 package lila.core
 package irc
 
-import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
-import lila.core.userId.{ UserId, MyId, ModId, UserName }
+import play.api.mvc.Call
+import scalalib.DiffStr
+
+import lila.core.id.{ RelayRoundId, RelayTourId, StudyChapterId, UblogPostId }
 import lila.core.study.data.StudyChapterName
+import lila.core.userId.{ ModId, MyId, UserId, UserName }
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other
@@ -44,8 +47,13 @@ trait IrcApi:
       tourName: String,
       tourSlug: String,
       tourId: RelayTourId,
-      diff: String,
+      diff: DiffStr,
       impersonatedBy: Option[ModId] = None
-  )(using
-      MyId
+  )(using MyId): Funit
+  def bbb(
+      by: MyId,
+      tpe: "arena" | "event",
+      name: String,
+      url: Call,
+      diff: DiffStr
   ): Funit

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Annoter avec des symboles</string>
   <string name="theChapterIsTooShortToBeAnalysed">Le chapitre est trop court pour être analysé.</string>
   <string name="onlyContributorsCanRequestAnalysis">Seuls les contributeurs de l\'étude peuvent demander une analyse informatique.</string>
-  <string name="getAFullComputerAnalysis">Obtenez une analyse en ligne complète de la ligne principale.</string>
   <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
@@ -65,7 +64,7 @@
   <string name="downloadGame">Télécharger la partie</string>
   <string name="studyUrl">URL de l\'étude</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vous pouvez collez ce lien dans le forum afin de l’insérer</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.">Vous pouvez coller ce lien dans le forum ou votre blogue pour intégrer le chapitre.</string>
   <string name="startAtInitialPosition">Commencer à partir du début</string>
   <string name="startAtX">Débuter à %s</string>
   <string name="embedInYourWebsite">Intégrer dans votre site ou blog</string>
@@ -123,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
-  <string name="save">Enregistrer</string>
   <string name="clearChat">Effacer le tchat</string>
   <string name="deleteTheStudyChatHistory">Supprimer l\'historique du tchat de l\'étude ? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>
@@ -187,8 +185,8 @@
   <string name="fromInitialPositionText">Échiquier pour une nouvelle partie.&lt;br&gt;Convient pour explorer les ouvertures.</string>
   <string name="customPositionTitle">Position personnalisée</string>
   <string name="customPositionText">Configurez l\'échiquier comme vous le voulez.&lt;br&gt;Convient pour explorer les finales.</string>
-  <string name="loadExistingLichessGameTitle">Ouvrir une partie Lichess existante</string>
-  <string name="loadExistingLichessGameText">Collez l\'URL d\'une partie Lichess&lt;br&gt;(ex. lichess.org/7fHIU0XI)&lt;br&gt;pour insérer les coups de la partie dans le chapitre.</string>
+  <string name="loadGameFromTheWebTitle">Charger une partie à partir du Web</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Collez l\'URL d\'une partie&lt;br&gt;(ex. lichess.org/game/7fHIU0XI)&lt;br&gt;pour entrer les coups dans le chapitre.</string>
   <string name="fromFenStringTitle">À partir d\'une position en format FEN</string>
   <string name="fromFenStringText">Collez une position en format FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;pour ouvrir le chapitre à partir d\'une position.</string>
   <string name="fromPgnGameTitle">À partir d\'une partie en format PGN</string>
@@ -199,4 +197,11 @@
   <string name="doubleDefeat">Double défaite</string>
   <string name="blackDefeatWhiteCanNotWin">Défaite des noirs, mais les blancs ne peuvent pas gagner</string>
   <string name="whiteDefeatBlackCanNotWin">Défaite des blancs, mais les noirs ne peuvent pas gagner</string>
+  <string name="analysisEditor">Éditeur d\'analyse</string>
+  <string name="clearLocal">Supprimer l\'analyse locale?</string>
+  <string name="clearPublished">Supprimer l\'analyse publiée?</string>
+  <string name="requestAServerAnalysis">Demander une analyse par le serveur</string>
+  <string name="analyzeOnYourDevice">Analyser sur votre appareil</string>
+  <string name="searchChapters">Rechercher dans les chapitres</string>
+  <string name="searchGames">Rechercher dans les parties</string>
 </resources>

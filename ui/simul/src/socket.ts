@@ -9,7 +9,7 @@ type SimulMessage =
 export type SimulTpe = SimulMessage['tpe'];
 export type SimulSocket = {
   send: SocketSend;
-  receive(message: SimulMessage): void | false;
+  receive(message: SimulMessage): void;
 };
 
 export function makeSocket(send: SocketSend, ctrl: SimulCtrl): SimulSocket {
@@ -27,9 +27,6 @@ export function makeSocket(send: SocketSend, ctrl: SimulCtrl): SimulSocket {
         case 'hostGame':
           ctrl.data.host.gameId = message.data;
           ctrl.redraw();
-          return;
-        default:
-          return false;
       }
     },
   };

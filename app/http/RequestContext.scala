@@ -15,22 +15,22 @@ trait RequestContext(using Executor):
   val env: Env
 
   def makeContext(using req: RequestHeader): Fu[Context] = for
-    userCtx <- makeUserContext(req)
+    userCtx <- makeUserContext
     lang = getAndSaveLang(req, userCtx.me)
-    pref <- env.pref.api.get(userCtx.me, req)
+    pref <- env.pref.api.getWithReq(userCtx.me)
   yield Context(req, lang, userCtx, pref)
 
   def makeBodyContext[A](using req: Request[A]): Fu[BodyContext[A]] = for
-    userCtx <- makeUserContext(req)
+    userCtx <- makeUserContext
     lang = getAndSaveLang(req, userCtx.me)
-    pref <- env.pref.api.get(userCtx.me, req)
+    pref <- env.pref.api.getWithReq(userCtx.me)
   yield BodyContext(req, lang, userCtx, pref)
 
   def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
     val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
-      .get(scoped.me, req)
+      .getWithReq(scoped.me)
       .map:
         Context(req, lang, userCtx, _)
 
@@ -38,14 +38,14 @@ trait RequestContext(using Executor):
     val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
-      .get(scoped.me, req)
+      .getWithReq(scoped.me)
       .map:
         BodyContext(req, lang, userCtx, _)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = LangPicker(req, me.flatMap(_.lang))
-    me.filter(_.lang.forall(_ != lang.toTag)).foreach { env.user.repo.setLang(_, lang) }
-    lang
+    me.filter(_.lang.forall(_ != lang.toTag)).foreach(env.user.repo.setLang(_, lang))
+    LangPicker.pageOverride.get(req) | lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -78,9 +78,8 @@ trait RequestContext(using Executor):
     if env.mode.isDev then env.web.manifest.update()
     f(using EmbedContext(ctx))
 
-  private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
-    env.security.api
-      .restoreUser(req)
+  private def makeUserContext(using req: RequestHeader): Fu[LoginContext] =
+    env.security.api.restoreUser
       .map:
         case Some(Left(AppealUser(me))) if lila.web.ClosedLogin.acceptsPath(req) =>
           FingerPrintedUser(me, true).some

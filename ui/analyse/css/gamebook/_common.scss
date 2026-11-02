@@ -3,6 +3,7 @@
 
   .right {
     @extend %flex-center;
+    @include backdrop-blur-if-transparent;
 
     align-items: stretch;
     justify-content: flex-end;

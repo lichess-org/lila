@@ -1,9 +1,10 @@
+import { COLORS } from 'chessops';
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
-import { type MaybeVNodes } from 'lib/view';
-import { numberRow } from 'lib/view/util';
+import { a, type MaybeVNodes } from 'lib/view';
+import { numberRow, toggleBox } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
 import type { TournamentData } from '../interfaces';
@@ -21,26 +22,29 @@ function confetti(data: TournamentData): VNode | undefined {
   return undefined;
 }
 
+const downloadLink = (href: string, text: MaybeVNodes) =>
+  a(href)('.text', { 'data-icon': licon.Download, download: true }, text);
+
 function stats(ctrl: TournamentController): VNode | undefined {
   const data = ctrl.data;
-  if (!data.stats) return undefined;
+  const stats = data.stats;
+  if (!stats) return undefined;
   const tableData = [
-    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.stats.averageRating, 'raw') : null,
-    numberRow(i18n.site.gamesPlayed, data.stats.games),
-    numberRow(i18n.site.movesPlayed, data.stats.moves),
-    numberRow(i18n.site.whiteWins, [data.stats.whiteWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.blackWins, [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.drawRate, [data.stats.draws, data.stats.games], 'percent'),
+    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, stats.averageRating, 'raw') : null,
+    numberRow(i18n.site.gamesPlayed, stats.games),
+    numberRow(i18n.site.movesPlayed, stats.moves),
+    ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [stats[`${c}Wins`], stats.games], 'percent')),
+    numberRow(i18n.site.drawRate, [stats.draws, stats.games], 'percent'),
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(i18n.arena.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(numberRow(i18n.arena.berserkRate, [stats.berserks / 2, stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [
     h('h2', i18n.site.tournamentComplete),
     h('table', tableData),
-    h('div.tour__stats__links.force-ltr', [
+    h('div.tour__stats__downloads', [
       ...(data.teamBattle
         ? [
             h(
@@ -51,47 +55,16 @@ function stats(ctrl: TournamentController): VNode | undefined {
             h('br'),
           ]
         : []),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      data.me &&
-        h(
-          'a.text',
-          {
-            attrs: {
-              'data-icon': licon.Download,
-              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
-              download: true,
-            },
-          },
-          'Download my games',
-        ),
-      h(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
-        },
-        'Download results as NDJSON',
-      ),
-      h(
-        'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/results?as=csv`,
-            download: true,
-          },
-        },
-        'Download results as CSV',
-      ),
-      h('br'),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
-        'Arena API documentation',
-      ),
+      toggleBox(i18n.site.download, [
+        downloadLink(`/api/tournament/${data.id}/games`, [i18n.site.downloadAllGames, ' (PGN)']),
+        data.me &&
+          downloadLink(`/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`, [
+            i18n.site.downloadMyGames,
+            ' (PGN)',
+          ]),
+        downloadLink(`/api/tournament/${data.id}/results`, [i18n.site.downloadResults, ' (NDJSON)']),
+        downloadLink(`/api/tournament/${data.id}/results?as=csv`, [i18n.site.downloadResults, ' (CSV)']),
+      ]),
     ]),
   ]);
 }

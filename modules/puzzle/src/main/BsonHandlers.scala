@@ -3,6 +3,7 @@ package lila.puzzle
 import chess.format.{ Fen, Uci }
 import chess.rating.glicko.Glicko
 import reactivemongo.api.bson.*
+
 import scala.util.{ Success, Try }
 
 import lila.db.BSON
@@ -66,7 +67,7 @@ private object BsonHandlers:
       themes = r.getsD[PuzzleRound.Theme](themes)
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
-      $doc(
+      bdoc(
         id -> r.id,
         win -> r.win,
         fixedAt -> r.fixedAt,

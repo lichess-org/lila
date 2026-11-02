@@ -1,10 +1,9 @@
 package lila.simul
 
 import chess.format.Fen
-import chess.variant.Variant
-import chess.{ Color, Speed }
-import chess.IntRating
 import chess.rating.RatingProvisional
+import chess.variant.Variant
+import chess.{ Color, IntRating, Speed }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
@@ -162,7 +161,7 @@ object Simul:
       featurable: Option[Boolean],
       conditions: SimulCondition.All
   ): Simul =
-    val hostPerf = host.perfs.bestPerf(variants.map { lila.rating.PerfType(_, Speed(clock.config.some)) })
+    val hostPerf = host.perfs.bestPerf(variants.map(lila.rating.PerfType(_, Speed(clock.config.some))))
     Simul(
       id = SimulId(ThreadLocalRandom.nextString(8)),
       name = name,

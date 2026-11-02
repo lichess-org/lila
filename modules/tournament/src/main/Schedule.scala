@@ -2,9 +2,9 @@ package lila.tournament
 
 import cats.derived.*
 import chess.Clock.{ IncrementSeconds, LimitSeconds }
+import chess.IntRating
 import chess.format.Fen
 import chess.variant.Variant
-import chess.IntRating
 
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.gathering.Condition
@@ -47,7 +47,7 @@ object Schedule:
 
     def build(using Translate): Tournament =
       val t = Tournament.scheduleAs(withConditions(schedule), startsAt, minutes)
-      buildFunc.fold(t) { _(t) }
+      buildFunc.fold(t)(_(t))
 
     def map(f: Tournament => Tournament) = copy(
       buildFunc = buildFunc.fold(f)(f.compose).some

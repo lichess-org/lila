@@ -9,11 +9,12 @@ import lila.core.forum.BusForum
 import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
 import lila.core.misc.streamer.StreamStart
 import lila.core.round.CorresMoveEvent
+import lila.core.tournament.leaderboard.TourEntries
 
 @Module
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
-    practiceStudies: lila.core.practice.GetStudies,
+    practiceStudies: lila.ui.practice.GetStudies,
     gameRepo: lila.core.game.GameRepo,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
@@ -53,7 +54,7 @@ final class Env(
 
   Bus.sub[lila.core.ublog.UblogPost.Create]: create =>
     write.ublogPost(create.post)
-  Bus.sub[lila.core.practice.OnComplete](write.practice(_))
+  Bus.sub[lila.core.misc.practice.OnComplete](write.practice(_))
   Bus.sub[lila.core.simul.OnStart]: start =>
     write.simul(start.simul)
   Bus.sub[CorresMoveEvent]:
@@ -71,6 +72,8 @@ final class Env(
     case lila.core.team.JoinTeam(id, userId) => write.team(id, userId)
   Bus.sub[lila.core.swiss.SwissFinish]:
     case lila.core.swiss.SwissFinish(swissId, ranking) => write.swiss(swissId, ranking)
+  Bus.sub[TourEntries]: e =>
+    write.tourEntries(e.entries)
 
   Bus.sub[StreamStart]:
     case StreamStart(userId, _) => write.streamStart(userId)

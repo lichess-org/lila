@@ -54,12 +54,8 @@
   <string name="scrollOnTheBoardToReplayMoves">ಚಲನೆಗಳನ್ನು ಮರುಪಂದ್ಯ ಮಾಡಲು ಬೋರ್ಡ್ ಮೇಲೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ</string>
   <string name="correspondenceEmailNotification">ನಿಮ್ಮ ಪತ್ರವ್ಯವಹಾರದ ಆಟಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡುವ ದೈನಂದಿನ ಇಮೇಲ್</string>
   <string name="notifyStreamStart">ಸ್ಟ್ರೀಮರ್ ಲೈವ್ ಆಗುತ್ತದೆ</string>
-  <string name="notifyInboxMsg">ಹೊಸ ಇನ್‌ಬಾಕ್ಸ್ ಸಂದೇಶ</string>
-  <string name="notifyForumMention">ಫೋರಮ್ ಕಾಮೆಂಟ್ ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸುತ್ತದೆ</string>
-  <string name="notifyInvitedStudy">ಅಧ್ಯಯನ ಆಹ್ವಾನ</string>
   <string name="notifyGameEvent">ಪತ್ರವ್ಯವಹಾರದ ಆಟದ ನವೀಕರಣಗಳು</string>
   <string name="notifyChallenge">ಸವಾಲುಗಳು</string>
-  <string name="notifyTournamentSoon">ಶೀಘ್ರದಲ್ಲೇ ಟೂರ್ನಿ ಆರಂಭ</string>
   <string name="notifyTimeAlarm">ಪತ್ರವ್ಯವಹಾರ ಗಡಿಯಾರ ಮುಗಿಯುತ್ತಿದೆ</string>
   <string name="notifyBell">Lichess ಒಳಗೆ ಬೆಲ್ ಅಧಿಸೂಚನೆ</string>
   <string name="notifyPush">ನೀವು Lichess ನಲ್ಲಿ ಇಲ್ಲದಿರುವಾಗ ಸಾಧನದ ಅಧಿಸೂಚನೆ</string>

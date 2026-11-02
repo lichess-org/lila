@@ -53,7 +53,6 @@
   <string name="annotateWithGlyphs">Дадаць знакавую анатацыю</string>
   <string name="theChapterIsTooShortToBeAnalysed">Раздел занадта кароткі для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
-  <string name="getAFullComputerAnalysis">Атрымайце поўны серверны кампутарны аналіз галоўнай лініі.</string>
   <string name="makeSureTheChapterIsComplete">Пераканайцеся, што раздзел гатоў. Вы можаце запрасіць аналіз толькі адзін раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усе сінхранізаваныя ўдзельнікі застаюцца на аднолькавай пазіцыі</string>
   <string name="shareChanges">Падзяліцца зменамі з гледачамі та захаваць іх на серверы</string>
@@ -68,7 +67,6 @@
   <string name="downloadGame">Спампаваць гульню</string>
   <string name="studyUrl">URL навучання</string>
   <string name="currentChapterUrl">URL бягучага раздзелу</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Вы можаце ўставіць гэта на форум, каб убудаваць</string>
   <string name="startAtInitialPosition">Пачынаць у пачатковай пазіцыі</string>
   <string name="startAtX">Пачынаць з %s</string>
   <string name="embedInYourWebsite">Убудаваць у свой сайт або блог</string>
@@ -128,7 +126,6 @@
   <string name="noLetPeopleBrowseFreely">Не: хай людзі вольна праглядаюць пазіцыі</string>
   <string name="pinnedStudyComment">Замацаваць каментар да занятку</string>
   <string name="start">Пачаць</string>
-  <string name="save">Захаваць</string>
   <string name="clearChat">Ачысціць чат</string>
   <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="deleteStudy">Выдаліць навучанне</string>

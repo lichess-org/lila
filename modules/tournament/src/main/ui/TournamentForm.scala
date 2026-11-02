@@ -10,8 +10,7 @@ import lila.gathering.GatheringClock
 import lila.gathering.ui.GatheringFormUi
 import lila.tournament.crud.CrudForm
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
@@ -28,6 +27,9 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val translatedVariantChoicesWithVariants: Translate ?=> List[(String, String, Option[String])]
 ):
   import helpers.{ *, given }
+
+  private val gatheringFormUi = GatheringFormUi(helpers)
+  import gatheringFormUi.*
 
   def create(form: Form[?], leaderTeams: List[LightTeam])(using Context) =
     given prefix: FormPrefix = FormPrefix.empty
@@ -90,11 +92,14 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val fields = tourFields(form, none)
     frag(
       form3.globalError(form),
-      form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.tournament(), toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
-        form3.split(fields.description)
+        form3.split(
+          description(form.prefix("description")),
+          payouts(form.prefix("payouts"))
+        )
       ),
-      form3.fieldset("Games", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.games(), toggle = true.some, disabled = fields.frozen)(
         fields.clock,
         form3.split(fields.variant, fields.startPosition)
       ),
@@ -108,11 +113,12 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val fields = tourFields(form, tour.some)
     frag(
       form3.globalError(form),
-      form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.tournament(), toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
-        form3.split(fields.description)
+        form3.split(description(form.prefix("description"))),
+        payouts(form.prefix("payouts"))
       ),
-      form3.fieldset("Games", toggle = false.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.games(), toggle = false.some, disabled = fields.frozen)(
         fields.clock,
         form3.split(fields.variant, fields.startPosition)
       ),
@@ -121,8 +127,6 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       featuresFields(form, fields)
     )
 
-  private val gatheringFormUi = GatheringFormUi(helpers)
-
   def conditionFields(
       form: Form[?],
       fields: TourFields,
@@ -130,7 +134,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       tour: Option[Tournament]
   )(using ctx: Context)(using FormPrefix) =
     form3.fieldset(
-      "Entry conditions",
+      trans.arena.entryConditions(),
       toggle = tour.exists(_.conditions.list.nonEmpty).some,
       disabled = fields.frozen
     )(
@@ -149,24 +153,24 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         }
       ),
       form3.split(
-        gatheringFormUi.nbRatedGame(form.prefix("conditions.nbRatedGame.nb")),
-        gatheringFormUi.accountAge(form.prefix("conditions.accountAge"))
+        nbRatedGame(form.prefix("conditions.nbRatedGame.nb")),
+        accountAge(form.prefix("conditions.accountAge"))
       ),
       form3.split(
-        gatheringFormUi.minRating(form.prefix("conditions.minRating.rating")),
-        gatheringFormUi.maxRating(form.prefix("conditions.maxRating.rating"))
+        minRating(form.prefix("conditions.minRating.rating")),
+        maxRating(form.prefix("conditions.maxRating.rating"))
       ),
       form3.split(
-        gatheringFormUi.allowList(form.prefix("conditions.allowList")),
+        allowList(form.prefix("conditions.allowList")),
         (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
-          gatheringFormUi.titled(form.prefix("conditions.titled"))
+          titled(form.prefix("conditions.titled"))
         ,
-        gatheringFormUi.bots(form.prefix("conditions.bots"), fields.disabledAfterStart)
+        bots(form.prefix("conditions.bots"), fields.disabledAfterStart)
       )
     )
 
   def featuresFields(form: Form[?], fields: TourFields)(using ctx: Context)(using FormPrefix) =
-    form3.fieldset("Features", toggle = false.some, disabled = fields.frozen)(
+    form3.fieldset(trans.clas.features(), toggle = false.some, disabled = fields.frozen)(
       form3.split(
         form3.checkboxGroup(
           form.prefix("berserkable"),
@@ -403,22 +407,14 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
     form3.group(form.prefix("waitMinutes"), trans.site.timeBeforeTournamentStarts(), half = true):
       form3.select(_, TournamentForm.waitMinuteChoices)
   def waitStart =
-    form3.fieldset("Start date", toggle = tour.forall(_.isCreated).some, disabled = frozen)(
+    form3.fieldset(trans.arena.startDate(), toggle = tour.forall(_.isCreated).some, disabled = frozen)(
       form3.split(waitMinutes, startDate)
     )
-  def description =
-    form3.group(
-      form.prefix("description"),
-      trans.site.tournDescription(),
-      help = trans.site.tournDescriptionHelp().some,
-      half = true
-    )(form3.textarea(_)(rows := 4))
   def entryCode =
     form3.group(
       form.prefix("password"),
       trans.site.tournamentEntryCode(),
-      help = trans.site.makePrivateTournament().some,
-      half = true
+      help = trans.site.makePrivateTournament().some
     )(form3.input(_)(autocomplete := "off"))
   def startDate = tour
     .forall(_.isCreated)

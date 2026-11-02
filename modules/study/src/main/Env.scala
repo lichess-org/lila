@@ -5,6 +5,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
+import lila.core.security.LilaCookie
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -16,6 +17,7 @@ final class Env(
     divider: lila.core.game.Divider,
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening,
     userApi: lila.core.user.UserApi,
     flairApi: lila.core.user.FlairApi,
     explorer: lila.core.game.Explorer,
@@ -32,11 +34,12 @@ final class Env(
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    baker: LilaCookie
 )(using
     Executor,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.config.RateLimit,
     lila.core.fide.Federation.Guess,
     lila.core.fide.GetPlayer,
@@ -68,11 +71,11 @@ final class Env(
 
   private lazy val studyInvite = wire[StudyInvite]
 
-  private lazy val serverEvalRequester = wire[ServerEval.Requester]
+  private lazy val serverEvalRequester = wire[serverEval.Requester]
 
   private lazy val sequencer = wire[StudySequencer]
 
-  lazy val serverEvalMerger = wire[ServerEval.Merger]
+  lazy val serverEvalMerger = wire[serverEval.Merger]
 
   lazy val topicApi = wire[StudyTopicApi]
 
@@ -86,6 +89,8 @@ final class Env(
 
   lazy val gifExport = GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
+  lazy val formatStore = wire[ui.StudyFormatStore]
+
   def findConnectedUsersIn(studyId: StudyId)(filter: Iterable[UserId] => Fu[List[UserId]]): Fu[List[UserId]] =
     studyRepo
       .membersById(studyId)
@@ -98,7 +103,7 @@ final class Env(
                 isConnected(studyId, streamer).dmap(_.option(streamer))
               .dmap(_.flatten)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "study" :: "rank" :: "reset" :: Nil =>
       studyRepo.resetAllRanks.map: count =>
         s"$count done"
@@ -108,8 +113,7 @@ final class Env(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      studyIds <- studyRepo.deletePrivateByOwner(del.id)
-      _ <- chapterRepo.deleteByStudyIds(studyIds)
+      _ <- api.deletePrivateByOwner(del.id)
       _ <- studyRepo.anonymizeAllOf(del.id)
       _ <- topicApi.userTopicsDelete(del.id)
     yield ()

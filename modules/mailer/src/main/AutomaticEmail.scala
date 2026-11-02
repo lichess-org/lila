@@ -232,7 +232,7 @@ ${routeUrl(routes.Plan.index())}"""
                 text = Mailer.txt.addServiceNote {
                   s"""$hello
 
-${opponents.map { opponent => s"${showGame(opponent)} $gameUrl" }.mkString("\n\n")}
+${opponents.map(opponent => s"${showGame(opponent)} $gameUrl").mkString("\n\n")}
 
 $disableSettingNotice $disableLink"""
                 },
@@ -257,7 +257,7 @@ $disableSettingNotice $disableLink"""
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>
-      lila.common.Bus.pub(SystemMsg(user.id, txt))
+      lila.common.Bus.pub(SystemMsg.standard(user.id, txt))
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body).pipe: body =>

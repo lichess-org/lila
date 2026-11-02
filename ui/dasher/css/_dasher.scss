@@ -1,15 +1,18 @@
-@import 'link';
+@import 'theme';
 @import 'board';
+@import 'link';
 @import 'piece';
 
 #dasher_app {
   @extend %box-radius-left;
 
-  #top.scrolled & {
-    border-radius: 0 0 0 $box-radius-size;
-  }
-
   width: 225px;
+
+  @include if-transp {
+    &::before {
+      @extend %box-radius-left;
+    }
+  }
 
   .spinner {
     margin: 20px auto;
@@ -60,14 +63,16 @@
 
   .langs {
     form {
-      max-height: 400px;
+      max-height: 408px;
       overflow: auto;
+      border-bottom: $border;
 
       button {
-        display: block;
-        padding: 0.7rem 0.7rem 0.7rem 1rem;
+        display: flex;
+        padding: 0.7rem;
         width: 100%;
-        text-align: left;
+        justify-content: space-between;
+        border-inline-start: 4px solid transparent;
 
         &:hover {
           background: $c-dasher-light;
@@ -76,13 +81,16 @@
     }
 
     .accepted {
-      border-inline-start: 4px solid $c-dasher;
+      border-color: $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-over !important;
-      border-inline-start: none;
+
+      .lang-code {
+        color: $c-over;
+      }
     }
 
     .help {
@@ -91,63 +99,32 @@
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
-        @extend %box-radius-bottom;
+        @extend %box-radius-bottom-left;
 
         background: $c-link;
         color: $c-over;
       }
     }
-  }
 
-  .selector {
-    flex: 1 1 100%;
-    margin: 0.5rem 0;
-
-    button {
-      display: block;
-      padding: 0.7rem 1rem;
-      width: 100%;
-      text-align: start;
-
-      @include transition(background);
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          background: $c-dasher-light;
-        }
-      }
-
-      &.active {
-        background: $c-dasher !important;
-        color: $c-over !important;
-      }
-
-      &::before {
-        margin-inline: 0 8px;
-        font-size: 19px;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-
-        @include transition(opacity);
-      }
-
-      // don't show checkmarks on inactive selectors.
-
-      &.active::before {
-        opacity: 1;
-        color: $c-over !important;
-      }
-    }
-
-    &.large button {
-      padding: 1rem 1rem;
+    .lang-code {
+      font-family: monospace;
+      font-size: 80%;
+      line-height: 18px;
+      color: $c-font-dimmer;
     }
   }
 
   .zen {
-    button::before {
-      opacity: 0.5;
+    margin: 0;
+
+    button {
+      padding: 0.5rem 1rem;
+
+      &::before {
+        opacity: 0.5;
+        font-size: 18px;
+        margin-inline: 0 0.4em;
+      }
     }
 
     &:hover button::before {
@@ -161,11 +138,7 @@
       margin: 5px 0 5px 5px;
     }
 
-    .selector a {
-      @extend %box-radius-left;
-    }
-
-    input[type='range'] {
+    input[type='range']:not(.rate) {
       flex: 0 0 1em;
       width: 1em;
       margin: 1rem;
@@ -178,30 +151,6 @@
     &.silent input[type='range'] {
       opacity: 0.2;
     }
-
-    .dialog-content {
-      min-width: 240px;
-    }
-  }
-
-  .background {
-    .image {
-      padding: 12px;
-
-      label {
-        display: block;
-        font-size: 0.9em;
-        padding: 0 5px 5px 5px;
-      }
-    }
-
-    input {
-      padding: 5px;
-      border: 1px solid #444;
-      width: 100%;
-      background-color: #3e3e3e;
-      color: #fff;
-    }
   }
 
   .piece .list {
@@ -209,7 +158,7 @@
   }
 
   .button.more {
-    @extend %box-radius-bottom;
+    @extend %box-radius-bottom-left;
 
     width: 100%;
     color: $c-over;
@@ -217,65 +166,71 @@
     font-weight: bold;
     padding: 0.4em 0;
   }
+}
 
-  .background #gallery {
-    $thumb-w: 160px; // see bin/make-gallery
-    $thumb-h: 90px;
+#dasher_app .selector,
+.voice-selection .selector {
+  flex: 1 1 100%;
+  margin: 0.5rem 0;
 
-    @include inline-end(0);
-    @include backdrop-blur-if-transparent;
+  button {
+    @include transition(background);
 
-    position: absolute;
-    top: 100%;
-    background-color: #000b;
+    display: block;
+    padding: 0.7rem 1rem;
+    width: 100%;
+    text-align: start;
 
-    #images-viewport {
-      max-height: 30vh;
-      overflow: hidden auto;
-    }
-
-    #images-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-
-      @media (min-width: at-least($x-small)) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      background-attachment: scroll;
-
-      div {
-        margin: 1px;
-        width: $thumb-w;
-        height: $thumb-h;
-        background-color: transparent;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #ffffff16;
-        }
-
-        &.selected {
-          outline: #afa 1px solid;
-        }
+    @include mq-has-hover {
+      &:hover {
+        background: $c-dasher-light;
       }
     }
 
-    #url {
-      padding: 0.5rem 0.5rem 0.7rem;
-      display: flex;
+    &.active {
+      background: $c-dasher !important;
+      color: $c-over !important;
+    }
+
+    &::before {
+      margin-inline: 0 8px;
+      font-size: 19px;
+      justify-content: center;
       align-items: center;
+      opacity: 0;
 
-      label {
-        margin: 0 1rem 0 0.5rem;
-        font-size: 1rem;
-      }
+      @include transition(opacity);
+    }
 
-      input {
-        padding: 0.5rem;
-        flex: 1 1 auto;
-        background-color: #181818dd;
-      }
+    // don't show checkmarks on inactive selectors.
+
+    &.active::before {
+      opacity: 1;
+      color: $c-over !important;
+    }
+  }
+
+  &.zen button::before {
+    opacity: 0.5;
+  }
+
+  &.large button {
+    padding: 1rem 1rem;
+  }
+}
+
+.voice-selection {
+  min-width: 240px;
+
+  .rate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: $c-font-dim;
+
+    input {
+      cursor: pointer;
     }
   }
 }

@@ -1,7 +1,7 @@
 package lila.core
 package perm
 
-import lila.core.user.{ Me, User, RoleDbKey }
+import lila.core.user.{ Me, RoleDbKey, User }
 
 object Granter:
 
@@ -90,13 +90,14 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PrizeBan extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case ModMessage extends Permission("MOD_MESSAGE", "Send mod messages")
   case Impersonate extends Permission("IMPERSONATE", "Impersonate")
-  case DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")
+  case RelayStream extends Permission("RELAY_STREAM", "Broadcast Live stream")
   case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
-  case Cli extends Permission("CLI", "Command line")
-  case Settings extends Permission("SETTINGS", "Lila settings")
+  case Cli extends Permission("CLI", "Command line base permission") // tho most commands require SUPER_ADMIN
+  case Settings
+      extends Permission("SETTINGS", "Settings base permission") // tho most settings require SUPER_ADMIN
   case Streamers extends Permission("STREAMERS", "Manage streamers")
   case Verified extends Permission("VERIFIED", "Verified badge")
   case Pages extends Permission("PAGES", "Lichess pages")
@@ -104,12 +105,13 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MonitoredCheatMod extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
   case MonitoredBoostMod extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
   case MonitoredCommMod extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
-  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay), "Study/Broadcast admin")
+  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay, RelayStream), "Study/Broadcast admin")
   case ApiHog extends Permission("API_HOG", "API hog")
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
   case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
+  case NotifyMany extends Permission("NOTIFY_MANY", "Notify many users with CLI")
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",
@@ -202,6 +204,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           CloseAccount,
           GdprErase,
           SetEmail,
+          FreePatron,
           DisableTwoFactor
         ),
         "Email answerer"
@@ -242,7 +245,9 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          Feed
+          Feed,
+          Settings,
+          NotifyMany
         ),
         "Admin"
       )
@@ -256,7 +261,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FullCommsExport,
           PayPal,
           Cli,
-          Settings,
           TitleRequest
         ),
         "Super Admin"
@@ -286,6 +290,7 @@ object Permission:
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
   val allByDbKey: Map[RoleDbKey, Permission] = all.mapBy(_.dbKey)
+  val allByKeyLower: Map[String, Permission] = all.mapBy(_.key.toLowerCase)
 
   def apply(u: User): Set[Permission] = ofDbKeys(u.roles)
   def ofDbKey(dbKey: RoleDbKey): Option[Permission] = allByDbKey.get(dbKey)

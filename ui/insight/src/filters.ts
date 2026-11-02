@@ -1,18 +1,20 @@
 import { h } from 'snabbdom';
 
+import { onInsert } from 'lib/view';
+
 import type Ctrl from './ctrl';
 import type { Dimension } from './interfaces';
 
 const select = (ctrl: Ctrl) => (dimension: Dimension) => {
-  if (dimension.key === 'date') return;
+  if (dimension.key === 'date') return undefined;
   const single = dimension.key === 'period';
   return h(
     'select',
     {
       attrs: { multiple: true },
       hook: {
-        insert: vnode =>
-          $(vnode.elm).multipleSelect({
+        ...onInsert(el =>
+          $(el).multipleSelect({
             placeholder: dimension.name,
             width: '100%',
             selectAll: false,
@@ -20,11 +22,9 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
             single,
             minimumCountSelected: 10,
             onClick: view =>
-              ctrl.setFilter(
-                dimension.key,
-                single ? [view.value] : $(vnode.elm).multipleSelect('getSelects'),
-              ),
+              ctrl.setFilter(dimension.key, single ? [view.value] : $(el).multipleSelect('getSelects')),
           }),
+        ),
         postpatch: (_oldVnode, vnode) => {
           if (Object.keys(ctrl.vm.filters).length === 0) $(vnode.elm).multipleSelect('uncheckAll');
         },

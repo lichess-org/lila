@@ -54,16 +54,21 @@
     }
 
     &__result {
-      @extend %box-radius-left;
+      @extend %box-radius-left, %box-shadow;
 
       overflow: hidden;
     }
 
     .lpv {
       flex: 0 0 calc(100% - #{$result-width});
+      border-radius: 0 $box-radius-size $box-radius-size 0;
 
       @include mq-col-many {
         flex: 0 0 300px;
+      }
+
+      cg-board {
+        @extend %box-radius-top-right;
       }
     }
 

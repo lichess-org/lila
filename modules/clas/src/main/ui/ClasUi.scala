@@ -1,8 +1,7 @@
 package lila.clas
 package ui
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -88,11 +87,10 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
               href := routes.Clas.studentShow(clas.clas.id, s.userId)
             )(s.realName)
         )
-      } | {
+      } |
         a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(
           trans.clas.newClass()
         )
-      }
     )
 
   object search:

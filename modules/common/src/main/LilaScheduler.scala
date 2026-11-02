@@ -1,5 +1,7 @@
 package lila.common
 
+import scalalib.future.TimeoutException
+
 import lila.core.config
 
 /* Schedules an async function to be run periodically
@@ -20,8 +22,11 @@ object LilaScheduler:
     def runAndScheduleNext(): Unit =
       run()
         .withTimeout(timeout(config).value, s"LilaScheduler $name")
+        .addFailureEffect:
+          case TimeoutException(msg) => lila.log.system.warn(s"LilaScheduler $name timeout: $msg")
+          case e => lila.log.system.warn(s"LilaScheduler $name failed: ${e.getMessage}")
         .addEffectAnyway:
-          scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }
+          scheduler.scheduleOnce(every(config).value)(runAndScheduleNext())
 
     scheduler
       .scheduleOnce(initialDelay(config).value):
@@ -40,7 +45,7 @@ object LilaScheduler:
       run()
         .withTimeout(timeout(config).value, s"LilaScheduler $name")
         .addEffects: prev =>
-          scheduler.scheduleOnce(delay(prev.toOption)(config).value) { runAndScheduleNext() }
+          scheduler.scheduleOnce(delay(prev.toOption)(config).value)(runAndScheduleNext())
 
     scheduler
       .scheduleOnce(initialDelay(config).value):

@@ -58,7 +58,6 @@ PlayerE 1
   <string name="pairingsA">ໃຊ້ %1$s, ເຊິ່ງຈັດການໂດຍ %2$s, ຕາມຂໍ້ກຳນົດຂອງ %3$s.</string>
   <string name="moreRoundsThanPlayersQ">ຈະເກີດຫຍັງຂຶ້ນຫາກການແຂ່ງຂັນມີຈຳນວນຮອບຫຼາຍກວ່າຜູ້ຫຼິ້ນ?</string>
   <string name="moreRoundsThanPlayersA">ເມື່ອການຈັບຄູ່ທີ່ເປັນໄປໄດ້ທັງໝົດໄດ້ຫຼິ້ນສຳເລັດແລ້ວ, ການແຂ່ງຂັນຈະສິ້ນສຸດລົງ ແລະ ປະກາດຜູ້ຊະນະ.</string>
-  <string name="restrictedToTeamsQ">ເປັນຫຍັງຈຶ່ງຈຳກັດສະເພາະທີມ?</string>
   <string name="restrictedToTeamsA">ການແຂ່ງຂັນແບບສະວິດບໍ່ໄດ້ຖືກອອກແບບມາສຳລັບໝາກຮຸກອອນລາຍ. ມັນຕ້ອງການຄວາມກົງຕໍ່ເວລາ, ຄວາມຕັ້ງໃຈ ແລະ ຄວາມອົດທົນຈາກຜູ້ຫຼິ້ນ.
 ພວກເຮົາຄິດວ່າເງື່ອນໄຂເຫຼົ່ານີ້ມີໂອກາດທີ່ຈະປະສົບຜົນສຳເລັດພາຍໃນທີມຫຼາຍກວ່າການແຂ່ງຂັນແບບທົ່ວໄປ.</string>
   <string name="numberOfByesQ">ຜູ້ຫຼິ້ນສາມາດໄດ້ຮັບບາຍ (Bye) ຈັກຄັ້ງ?</string>
@@ -79,7 +78,6 @@ PlayerE 1
 ຜູ້ທີ່ເຂົ້າຮ່ວມຊ້າຈະໄດ້ຮັບບາຍພຽງຄັ້ງດຽວ ເຖິງວ່າຈະຂາດໄປຫຼາຍຮອບກໍຕາມ.</string>
   <string name="willSwissReplaceArenasQ">ການແຂ່ງຂັນແບບສະວິດຈະມາແທນທີ່ແບບອາຣີນາບໍ່?</string>
   <string name="willSwissReplaceArenasA">ບໍ່, ພວກມັນແມ່ນຟີເຈີທີ່ສົ່ງເສີມເຊິ່ງກັນ ແລະ ກັນ.</string>
-  <string name="roundRobinQ">ແລ້ວລະບົບພົບກັນໝົດ (Round Robin) ເດ?</string>
   <string name="roundRobinA">ພວກເຮົາຢາກເພີ່ມມັນເຂົ້າໄປ, ແຕ່ໂຊກຮ້າຍທີ່ລະບົບພົບກັນໝົດ (Round Robin) ບໍ່ເໝາະສົມສຳລັບອອນລາຍ.
 ເຫດຜົນແມ່ນຍ້ອນບໍ່ມີວິທີທີ່ຍຸຕິທຳໃນການຈັດການກັບຜູ້ຫຼິ້ນທີ່ອອກຈາກການແຂ່ງຂັນກ່ອນກຳນົດ. ພວກເຮົາບໍ່ສາມາດຄາດຫວັງໃຫ້ທຸກຄົນຫຼິ້ນຄົບທຸກເກມໃນການແຂ່ງຂັນອອນລາຍໄດ້. ຫາກມັນບໍ່ເກີດຂຶ້ນ, ການແຂ່ງຂັນກໍຈະບໍ່ຍຸຕິທຳ.
 ສິ່ງທີ່ໃກ້ຄຽງທີ່ສຸດກັບລະບົບພົບກັນໝົດຄືການຫຼິ້ນແບບສະວິດທີ່ມີຈຳນວນຮອບຫຼາຍໆ.</string>
@@ -115,7 +113,6 @@ PlayerE 1
   <string name="similarToOTB">ຄ້າຍຄືກັບການແຂ່ງຂັນໃນກະດານຈິງ (OTB)</string>
   <string name="unlimitedAndFree">ບໍ່ຈຳກັດ ແລະ ຟຣີ</string>
   <string name="predefinedUsers">ອະນຸຍາດສະເພາະຜູ້ໃຊ້ທີ່ກຳນົດໄວ້ເຂົ້າຮ່ວມ</string>
-  <string name="forbiddedUsers">ຫາກລາຍຊື່ນີ້ມີຂໍ້ມູນ, ຜູ້ໃຊ້ທີ່ບໍ່ມີໃນລາຍຊື່ຈະຖືກຫ້າມເຂົ້າຮ່ວມ. ໜຶ່ງຊື່ຜູ້ໃຊ້ຕໍ່ແຖວ.</string>
   <string name="playYourGames">ຫຼິ້ນເກມຂອງທ່ານ</string>
   <string name="byes">ບາຍ (Byes)</string>
   <string name="absences">ການຂາດ</string>

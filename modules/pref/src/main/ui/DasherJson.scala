@@ -20,7 +20,7 @@ object DasherJson:
       "background" -> Json
         .obj(
           "current" -> Pref.Bg.asString.get(pref.bg),
-          "image" -> pref.bgImgOrDefault
+          "image" -> pref.bgImgUrl
         )
         .add("gallery", gallery),
       "board" -> Json.obj(

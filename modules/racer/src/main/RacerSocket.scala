@@ -54,7 +54,7 @@ object RacerSocket:
           }
         case P.RawMsg("racer/score", raw) =>
           raw.get(3) { case Array(raceId, playerId, scoreStr) =>
-            scoreStr.toIntOption.map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
+            scoreStr.toIntOption.map(PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _))
           }
         case P.RawMsg("racer/start", raw) =>
           raw.get(2) { case Array(raceId, playerId) =>

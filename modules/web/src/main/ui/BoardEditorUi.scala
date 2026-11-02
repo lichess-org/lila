@@ -6,8 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 final class BoardEditorUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -26,6 +25,7 @@ final class BoardEditorUi(helpers: Helpers):
       )
       .i18n(_.variant)
       .css("editor")
+      .csp(_.withWebAssembly)
       .flag(_.zoom)
       .graph(
         title = "Chess board editor",

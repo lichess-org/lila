@@ -35,7 +35,8 @@
   <string name="celebratedPatrons">Hinir rómuðu velunnarar sem setja strik í reikninginn við rekstur Lichess</string>
   <string name="whereMoneyGoes">Hvert fara peningarnir?</string>
   <string name="serversAndDeveloper">Fyrst og fremst í öfluga tölvuinnviði.
-Síðan borgum við forritara í fullu starfi: %s, stofnanda Lichess.</string>
+Síðan borgum við forritara í fullu starfi: %s, stofnanda Lichess.
+</string>
   <string name="costBreakdown">Sjáðu sundurliðaðan heildarkostnað á yfirgripsmikinn hátt</string>
   <string name="officialNonProfit">Er Lichess-stofnunin formlega óhagnaðardrifin?</string>
   <string name="actOfCreation">Já, hér er stofnskráin (á frönsku)</string>

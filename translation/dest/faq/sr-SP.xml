@@ -90,6 +90,7 @@
   <string name="usernamesNotOffensive">Генерално, корисничка имена не требају бити: увредљива, лажно представљати неког другог или рекламе. Можеш прочитати више о %1$s.</string>
   <string name="guidelines">смерницама</string>
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
+  <string name="usernamesCannotBeChanged">Не, корисничка имена не могу бити промењена због техничких и практичних разлога. Твоје корисничко име је сачувано на превише места: у базама података, извозима, дневницима и мислима људи. Међутим, дозвољавамо једнократну промену у твојим великим и малим словима.</string>
   <string name="uniqueTrophies">Јединствени трофеји</string>
   <string name="ownerUniqueTrophies">Тај трофеј је јединствен у историји Lichess-а, нико осим %1$s га никад неће имати.</string>
   <string name="aHourlyBulletTournament">часовни Метак-шах турнир</string>

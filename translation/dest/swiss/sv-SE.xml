@@ -65,7 +65,6 @@ Lägg ihop poängen för varje motståndare som spelaren slår och hälften av p
   <string name="pairingsA">Med %1$s, implementerat av %2$s, i enlighet med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Vad händer om turneringen har fler ronder än spelare?</string>
   <string name="moreRoundsThanPlayersA">När alla möjliga möten har spelats kommer turneringen att avslutas och en vinnare utses.</string>
-  <string name="restrictedToTeamsQ">Varför gäller det enbart för lag?</string>
   <string name="restrictedToTeamsA">Schweizer-turneringar var inte avsedda för online schack. De kräver punktlighet, engagemang och tålamod från spelare.
 Vi tror att dessa villkor har större sannolikhet att uppfyllas inom ett lag än i globala turneringar.</string>
   <string name="numberOfByesQ">Hur många frironder kan en spelare kan få?</string>
@@ -86,7 +85,6 @@ Arrangören kan besluta att låta dem delta i tävlingen ändå.</string>
 Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</string>
   <string name="willSwissReplaceArenasQ">Kommer schweizer att ersätta arena-turneringar?</string>
   <string name="willSwissReplaceArenasA">Nej. De är kompletterande funktioner.</string>
-  <string name="roundRobinQ">Hur är det med Berger/alla-möter-alla?</string>
   <string name="roundRobinA">Vi skulle vilja lägga till det, men tyvärr fungerar inte Round Robin online. Anledningen är att det inte finns något rättvist sätt att hantera när människor lämnar turneringen i förtid. Vi kan inte förvänta oss att alla spelare spelar alla sina partier i ett online-event. Det kommer bara inte att hända, och som ett resultat skulle de flesta Round Robin turneringar vara bristfälliga och orättvisa, vilket motverkar syftet med turneringen. Det närmaste du kan komma till Round Robin online är att spela en schweizisk turnering med ett mycket stort antal rundor. Då kommer alla möjliga parningar att spelas innan turneringen slutar.</string>
   <string name="otherSystemsQ">Vad med andra lottningssystem?</string>
   <string name="otherSystemsA">Vi planerar inte att lägga till fler lottningssystem på Lichess just nu.</string>
@@ -120,7 +118,6 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="similarToOTB">Liknar OTB-turneringar</string>
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
   <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
-  <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
   <string name="playYourGames">Spela dina partier</string>
   <string name="byes">Frirundor</string>
   <string name="absences">Frånvaro</string>

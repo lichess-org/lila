@@ -55,7 +55,7 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-15;
+      background: color-mix(in oklab, $c-primary 15%, $c-bg);
     }
   }
 

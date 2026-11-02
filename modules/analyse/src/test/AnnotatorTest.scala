@@ -1,18 +1,21 @@
 package lila.analyse
+
 import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
+import chess.opening.OpeningDb
 import chess.{ ByColor, Node, Ply }
 
 import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.id.GamePlayerId
 import lila.core.user.LightUserApiMinimal
-import lila.tree.Eval
+import lila.tree.{ Engine, Eval, Analysis }
 
 class AnnotatorTest extends munit.FunSuite:
 
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   val annotator = Annotator(NetDomain("l.org"))
+  val engine = Engine.unknown
   def makeGame(g: chess.Game) =
     lila.core.game
       .newGame(
@@ -25,8 +28,9 @@ class AnnotatorTest extends munit.FunSuite:
       .sloppy
   val emptyPgn = Pgn(Tags.empty, InitialComments.empty, None, Ply.initial)
   def withAnnotator(pgn: Pgn) = pgn.copy(tags = pgn.tags + Tag(name = "Annotator", value = "l.org"))
-  val emptyAnalysis = Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, None, None)
-  val emptyEval = Eval(none, none, none)
+  val emptyAnalysis =
+    Analysis(Analysis.Id(GameId("abcd")), None, Nil, Ply.initial, nowInstant, Engine.unknown)
+  val emptyEval = Eval(none, none)
 
   val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")
   val playedGame: chess.Game =
@@ -44,13 +48,13 @@ class AnnotatorTest extends munit.FunSuite:
 
   test("empty game"):
     assertEquals(
-      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), none),
+      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), none, none),
       withAnnotator(emptyPgn)
     )
 
   test("empty analysis"):
     assertEquals(
-      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), emptyAnalysis.some),
+      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), emptyAnalysis.some, none),
       withAnnotator(emptyPgn)
     )
 
@@ -70,8 +74,9 @@ class AnnotatorTest extends munit.FunSuite:
       ).some,
       Ply.firstMove
     )
+    val opening = OpeningDb.search(List(SanStr("a3"), SanStr("g6"), SanStr("g4")))
 
     assertEquals(
-      annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
+      annotator(dumped, makeGame(playedGame), none, opening).copy(tags = Tags.empty).render,
       PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
     )

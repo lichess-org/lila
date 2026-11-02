@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { numberSpread } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { bind, iconTag } from 'lib/view';
+import { bind, icon, onInsert } from 'lib/view';
 
 import { hashNavigate } from '../hashRouting';
 import { getStageRank } from '../score';
@@ -36,12 +36,9 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
-              hook: {
-                insert: vnode => {
-                  const el = vnode.elm as HTMLElement;
-                  setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
-                },
-              },
+              hook: onInsert(el => {
+                setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
+              }),
             },
             '0',
           ),
@@ -52,11 +49,11 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title),
-              iconTag(licon.GreaterThan),
+              icon(licon.GreaterThan)(),
             ])
           : null,
         h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
-          iconTag(licon.LessThan),
+          icon(licon.LessThan)(),
           i18n.learn.backToMenu,
         ]),
       ]),

@@ -1,9 +1,9 @@
 package lila.recap
 
 import play.api.libs.json.*
+
 import lila.common.Json.{ *, given }
-import lila.common.SimpleOpening
-import lila.common.LilaOpeningFamily
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.core.game.Source
 import lila.core.user.LightUserApi
 

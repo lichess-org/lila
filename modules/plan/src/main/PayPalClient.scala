@@ -1,7 +1,5 @@
 package lila.plan
 
-import java.util.Currency
-
 import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
@@ -11,12 +9,14 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme }
 
-import lila.mon.extensions.*
+import java.util.Currency
+
 import lila.common.Json.given
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
 import lila.memo.CacheApi
+import lila.mon.extensions.*
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -186,13 +186,13 @@ final private class PayPalClient(
 
   private def get[A: Reads](url: String): Fu[A] =
     logger.debug(s"GET $url")
-    request(url).flatMap { _.get().flatMap(response[A]) }
+    request(url).flatMap(_.get().flatMap(response[A]))
 
   private def postOne[A: Reads](url: String, data: JsObject): Fu[A] = post[A](url, data)
 
   private def post[A: Reads](url: String, data: JsObject): Fu[A] =
     logger.info(s"POST $url $data")
-    request(url).flatMap { _.post(data).flatMap(response[A]) }
+    request(url).flatMap(_.post(data).flatMap(response[A]))
 
   private def postOneNoResponse(url: String, data: JsObject): Funit =
     logger.info(s"POST $url $data")
@@ -218,12 +218,12 @@ final private class PayPalClient(
             errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
             fuccess
           )
-      case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
+      case 404 => fufail(new NotFoundException(res.status, s"[paypal] Not found"))
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
-          case None => fufail { new InvalidRequestException(status, res.body) }
-          case Some(error) => fufail { new InvalidRequestException(status, error) }
-      case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
+          case None => fufail(new InvalidRequestException(status, res.body))
+          case Some(error) => fufail(new InvalidRequestException(status, error))
+      case status => fufail(new StatusException(status, s"[paypal] Response status: $status"))
 
   private val tokenCache = cacheApi.unit[AccessToken]("paypal.token"):
     _.refreshAfterWrite(10.minutes).buildAsyncFuture: _ =>

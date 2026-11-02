@@ -3,7 +3,7 @@ function gatherRecentUsers() {
     {
       $match: {
         enabled: true,
-        seenAt: { $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30) },
+        seenAt: { $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 60) },
       },
     },
     { $project: { lang: 1 } },
@@ -49,13 +49,5 @@ function filterLichobileUsers() {
   print(db.lm_user_recent_nomobile.estimatedDocumentCount());
 }
 
-function addLang() {
-  db.lm_user_recent_nomobile.find({ lang: { $exists: 0 } }).forEach(user => {
-    const has = db.user4.findOne({ _id: user._id, lang: { $exists: 1 } }, { lang: 1 });
-    if (has) db.lm_user_recent_nomobile.updateOne({ _id: user._id }, { $set: { lang: has.lang } });
-  });
-}
-
-// gatherRecentUsers();
-// filterLichobileUsers();
-addLang();
+gatherRecentUsers();
+filterLichobileUsers();

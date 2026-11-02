@@ -17,16 +17,15 @@ final class AsyncDb(
     }
 
   private def makeDb: Future[DB] =
-    connection.flatMap { case (conn, dbName) =>
+    connection.flatMap: (conn, dbName) =>
       conn.database(dbName.getOrElse("lichess"))
-    }
 
   private val dbCache = new SingleFutureCache[DB](
     compute = () => makeDb,
     expireAfterMillis = 1000
   )
 
-  def apply(name: CollName) = new AsyncColl(name, () => dbCache.get.dmap(_.collection(name.value)))
+  def apply(name: CollName) = new AsyncColl(name, () => dbCache.get.map(_.collection(name.value)))
 
 final class Db(
     name: String,

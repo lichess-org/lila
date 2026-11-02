@@ -3,6 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { blurOnEscape } from 'lib';
 import { throttle } from 'lib/async';
 import { hookMobileMousedown } from 'lib/device';
+import { onInsert } from 'lib/view';
 import { fullName } from 'lib/view/userLink';
 
 import type MsgCtrl from '@/ctrl';
@@ -14,22 +15,19 @@ export const renderInput = (ctrl: MsgCtrl): VNode =>
   h('div.msg-app__side__search', [
     h('input', {
       attrs: { value: '', placeholder: i18n.site.searchOrStartNewDiscussion },
-      hook: {
-        insert(vnode) {
-          const input = vnode.elm as HTMLInputElement;
-          input.addEventListener(
-            'input',
-            throttle(500, () => ctrl.searchInput(input.value.trim())),
-          );
-          blurOnEscape(input);
-          input.addEventListener('blur', () =>
-            setTimeout(() => {
-              input.value = '';
-              ctrl.searchInput('');
-            }, 500),
-          );
-        },
-      },
+      hook: onInsert<HTMLInputElement>(input => {
+        input.addEventListener(
+          'input',
+          throttle(500, () => ctrl.searchInput(input.value.trim())),
+        );
+        blurOnEscape(input);
+        input.addEventListener('blur', () =>
+          setTimeout(() => {
+            input.value = '';
+            ctrl.searchInput('');
+          }, 500),
+        );
+      }),
     }),
   ]);
 

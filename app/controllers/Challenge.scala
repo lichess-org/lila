@@ -8,21 +8,21 @@ import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
 import lila.game.AnonCookie
+import lila.memo.RateLimit.Limited
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
-import lila.memo.RateLimit.Limited
 
 final class Challenge(env: Env) extends LilaController(env):
   def api = env.challenge.api
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
-      api.allFor(me).map(env.challenge.jsonView.apply).map(JsonOk)
+      api.allFor(me).map(env.challenge.jsonView.apply).map(Ok(_))
   }
 
   def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
     for all <- api.allFor(me, 300)
-    yield JsonOk(env.challenge.jsonView.all(all))
+    yield Ok(env.challenge.jsonView.all(all))
   }
 
   def show(id: ChallengeId, @annotation.nowarn color: Option[Color]) = Open:
@@ -39,7 +39,7 @@ final class Challenge(env: Env) extends LilaController(env):
           fullId <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
           socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id).dmap(some))
           json = env.challenge.jsonView.apiAndMobile(c, socketVersion, dir.some, fullId)
-        yield JsonOk(json)
+        yield Ok(json)
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -59,21 +59,20 @@ final class Challenge(env: Env) extends LilaController(env):
     json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
     res <- negotiate(
       html =
-        val color = get("color").flatMap(Color.fromName)
         if mine then
           targetSuggestions.flatMap: targets =>
-            val page = views.challenge.mine(c, json, targets, error, color)
+            val page = views.challenge.mine(c, json, targets, error, getColor())
             if error.isDefined then BadRequest.page(page) else Ok.page(page)
         else
           Ok.async:
             for
               challenger <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
               relation <- (ctx.userId, c.challengerUserId).tupled.so(env.relation.api.fetchRelation.tupled)
-            yield views.challenge.theirs(c, json, challenger, color, relation)
+            yield views.challenge.theirs(c, json, challenger, getColor(), relation)
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-  yield env.security.lilaCookie.ensure(ctx.req)(res)
+  yield env.security.lilaCookie.ensure(res)
 
   private def targetSuggestions(using me: Option[Me]) = me.so: me =>
     for
@@ -100,12 +99,12 @@ final class Challenge(env: Env) extends LilaController(env):
       isForMe(c).so:
         allow:
           api
-            .accept(c, ctx.req.sid, color)
+            .accept(c, ctx.req.sid.map(_.value), color)
             .flatMap:
               _.fold("The Challenge has already been accepted".raise): pov =>
                 negotiateApi(
                   html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
-                  api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
+                  api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map(Ok(_))
                 )
             .flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
         .rescue: err =>
@@ -215,7 +214,7 @@ final class Challenge(env: Env) extends LilaController(env):
                     env.game.gameRepo
                       .game(id.into(GameId))
                       .dmap:
-                        _.flatMap { Pov(_, me) }
+                        _.flatMap(Pov(_, me))
                       .flatMapz: p =>
                         env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
                       .flatMap:
@@ -228,7 +227,7 @@ final class Challenge(env: Env) extends LilaController(env):
                               val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
                               allow:
                                 for
-                                  access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                  access <- env.oAuth.server.auth(bearer -> none, required, ctx.req.some)
                                   _ <- raiseIf(!pov.opponent.isUser(access.me)):
                                     OAuthServer.AuthError("Not the opponent token")
                                 yield
@@ -255,6 +254,7 @@ final class Challenge(env: Env) extends LilaController(env):
             if game.hasAi
             then
               getAs[Bearer]("token1")
+                .map(_ -> none)
                 .traverse(env.oAuth.server.auth(_, accepted, req.some))
                 .map:
                   _.exists(a => game.hasUserId(a.scoped.user.id)).option(startNow)
@@ -327,7 +327,7 @@ final class Challenge(env: Env) extends LilaController(env):
                           if config.keepAliveStream then
                             val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
                             jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                          else createNow().inject(JsonOk(json))
+                          else createNow().inject(Ok(json))
                       yield res
               yield res
             .rescue: err =>
@@ -364,13 +364,12 @@ final class Challenge(env: Env) extends LilaController(env):
             env.challenge.api
               .createOpen(config)
               .map: challenge =>
-                JsonOk:
-                  val url = s"${env.net.baseUrl}/${challenge.id}"
+                Ok:
+                  val url = s"${env.net.baseUrl}/game/${challenge.id}"
                   env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
                     "urlWhite" -> s"$url?color=white",
                     "urlBlack" -> s"$url?color=black"
                   )
-          .dmap(_.as(JSON))
     )
 
   def offerRematchForGame(gameId: GameId) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
@@ -391,4 +390,4 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
-    req.sid orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)
+    req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

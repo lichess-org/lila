@@ -1,14 +1,14 @@
 package lila.security
 
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.ws.StandaloneWSClient
-import bloomfilter.mutable.BloomFilter
-import akka.stream.scaladsl.*
 import scalalib.net.Domain
+import se.thanh.pds.bloomfilter.BloomFilter
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import DisposableEmailDomain.*
 
@@ -35,14 +35,13 @@ final class DisposableEmailDomain(
                 nextBloom.add(domain)
                 nb + 1
       .map: nb =>
-        bloomFilter.dispose()
         bloomFilter = nextBloom
         lila.mon.email.disposableDomain.update(nb)
 
   def isDisposable(domain: Domain): Boolean =
     val all = expandDomains(domain)
     !all.exists(DisposableEmailDomain.whitelisted) && all.exists: d =>
-      bloomFilter.mightContain(d.lower.value) ||
+      bloomFilter.contains(d.lower.value) ||
         domainFragmentRegex.find(d.lower.value)
 
   // foo.bar.aaa.com -> List(aaa.com, bar.aaa.com, foo.bar.aaa.com)
@@ -54,10 +53,6 @@ final class DisposableEmailDomain(
 
   def asMxRecord(domain: Domain): Boolean =
     isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
-
-  def mightBeTypo(domain: Domain): Boolean =
-    // gmail.com is very often misspelled
-    domain.value.startsWith("g") && scalalib.Levenshtein.isDistanceLessThan(domain.value, "gmail.com", 2)
 
 private object DisposableEmailDomain:
 
@@ -275,5 +270,6 @@ private object DisposableEmailDomain:
       "startmail.com",
       "palaciodegranda.com",
       "laudepalaciogranda.com",
-      "mozmail.com" // Mozilla Firefox Relay Domain
+      "mozmail.com", // Mozilla Firefox Relay Domain
+      "improvmx.com" // email forwarding for domains you own
     )

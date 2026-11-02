@@ -1,5 +1,5 @@
 import { clamp } from '@/algo';
-import { type Prop, frag } from '@/index';
+import { type Prop, frag, escapeHtml } from '@/index';
 import { json as xhrJson } from '@/xhr';
 
 export type UpdateImageHook =
@@ -11,6 +11,7 @@ export type ResizeArgs = {
   update: UpdateImageHook;
   origin: string;
   designWidth: number;
+  realm: string;
 };
 
 export async function wireMarkdownImgResizers({
@@ -18,12 +19,13 @@ export async function wireMarkdownImgResizers({
   update,
   designWidth,
   origin,
+  realm,
 }: ResizeArgs): Promise<void> {
   const globalImageLinkRe = markdownPicfitRegex(origin);
   let matching = 0;
 
   for (const img of root.querySelectorAll<HTMLImageElement>('img')) {
-    if (!`![](${img.src})`.match(globalImageLinkRe)) continue;
+    if (`![](${img.src})`.search(globalImageLinkRe) === -1) continue;
     const index = matching++;
 
     if (img.closest('.markdown-img-resizer')) continue; // already wrapped
@@ -73,13 +75,13 @@ export async function wireMarkdownImgResizers({
         if (handle.hasPointerCapture(down.pointerId)) handle.releasePointerCapture(down.pointerId);
         img.style.willChange = '';
         handle.style.cursor = '';
-        if ('url' in update) return urlUpdate(img, update);
+        if ('url' in update) return urlUpdate(img, realm, update);
 
         const markdown = update.markdown();
         const link = [...markdown.matchAll(globalImageLinkRe)][index];
         if (!link?.[1] || !img.dataset.widthRatio) return;
 
-        const { imageUrl } = await xhrJson(`/image-url/${link[3]}?width=${img.dataset.resizeWidth}`);
+        const { imageUrl } = await xhrJson(`/image-url/${realm}/${link[3]}?width=${img.dataset.resizeWidth}`);
         const before = markdown.slice(0, link.index);
         const after = markdown.slice(link.index + link[0].length);
         const newMarkdown = before + `![${link[1]}](${imageUrl})` + after;
@@ -105,7 +107,10 @@ export function wrapImg(arg: { img: HTMLImageElement } | { src: string; alt: str
         <i class="resize-handle left"></i>
       </span>
     </span>`);
-  const img = 'img' in arg ? arg.img : frag<HTMLImageElement>(`<img src="${arg.src}" alt="${arg.alt}">`);
+  const img =
+    'img' in arg
+      ? arg.img
+      : frag<HTMLImageElement>(`<img src="${escapeHtml(arg.src)}" alt="${escapeHtml(arg.alt)}">`);
   if ('img' in arg) img.replaceWith(span);
   span.querySelector('span')?.prepend(img);
   return span;
@@ -134,11 +139,15 @@ export function markdownPicfitRegex(origin = ''): RegExp {
   );
 }
 
-const imageIdRe = /&path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&/i;
+const imageIdRe = /&path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})&/i;
 
-async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook, { url: unknown }>) {
+async function urlUpdate(
+  img: HTMLImageElement,
+  realm: string,
+  update: Extract<UpdateImageHook, { url: unknown }>,
+) {
   const imageId = img.src.match(imageIdRe)?.[1];
-  const { imageUrl } = await xhrJson(`/image-url/${imageId}?width=${img.dataset.resizeWidth}`);
+  const { imageUrl } = await xhrJson(`/image-url/${realm}/${imageId}?width=${img.dataset.resizeWidth}`);
   const preloadImg = new Image();
   preloadImg.src = imageUrl;
   await preloadImg.decode();

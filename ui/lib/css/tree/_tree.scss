@@ -1,5 +1,25 @@
-$c-transp-border: $m-font--fade-88;
+$c-annotation-border: var(--c-annotation-border, rgb(from $c-font r g b / calc(alpha * 0.2)));
 $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
+
+@mixin annotation-color($name) {
+  .#{$name} {
+    --c-base: var(--c-#{$name});
+  }
+
+  .#{$name},
+  .#{$name} + lines:not(lines lines) > branch,
+  &-inline .#{$name} + interrupt:not(:has(interrupt)) {
+    --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
+
+    & interrupt {
+      --c-annotation-border: #{$c-annotation-border};
+    }
+  }
+
+  .#{$name}.active {
+    --c-annotation-border: var(--c-#{$name});
+  }
+}
 
 .tview2 {
   white-space: normal;
@@ -10,29 +30,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     --c-base: var(--c-primary);
   }
 
-  .inaccuracy {
-    --c-base: var(--c-inaccuracy);
-  }
-
-  .mistake {
-    --c-base: var(--c-mistake);
-  }
-
-  .blunder {
-    --c-base: var(--c-blunder);
-  }
-
-  .good {
-    --c-base: var(--c-good);
-  }
-
-  .brilliant {
-    --c-base: var(--c-brilliant);
-  }
-
-  .interesting {
-    --c-base: var(--c-interesting);
-  }
+  @include annotation-color(inaccuracy);
+  @include annotation-color(mistake);
+  @include annotation-color(blunder);
+  @include annotation-color(good);
+  @include annotation-color(brilliant);
+  @include annotation-color(interesting);
 
   .anchor {
     position: relative;
@@ -60,10 +63,13 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     @include prevent-select;
   }
 
+  &.comp {
+    border-bottom: 1px dotted #666;
+  }
+
   &.active {
     color: white;
-    background: $m-primary--alpha-85;
-    background: color-mix(in srgb, var(--c-base) 85%, transparent);
+    background: color-mix(in oklab, var(--c-base) 85%, transparent);
 
     shapes,
     eval,
@@ -72,7 +78,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     }
 
     .disclosure {
-      background-color: $c-font-dimmer;
+      background-color: white;
     }
   }
 
@@ -101,14 +107,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.pending-deletion {
     border-radius: unset;
-    background: $m-bad--alpha-30 !important;
-    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
+    background: color-mix(in oklab, $c-bad 30%, transparent) !important;
   }
 
   &.pending-copy {
     border-radius: unset;
-    background: $m-good--alpha-30 !important;
-    background: color-mix(in srgb, $c-good 30%, transparent) !important;
+    background: color-mix(in oklab, $c-good 30%, transparent) !important;
   }
 }
 
@@ -182,7 +186,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   > branch {
-    border-inline-start: 2px solid $c-transp-border;
+    border-inline-start: 2px solid $c-annotation-border;
     margin-inline-start: -9px;
     position: absolute;
     width: 8px;
@@ -190,23 +194,22 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   > branch::after {
-    margin-top: 0.8em;
+    margin-top: calc(1.15em - 2px);
     content: ' ';
-    border-top: 2px solid $c-transp-border;
+    border-top: 2px solid $c-annotation-border;
     position: absolute;
     width: 7px;
     height: 2px;
   }
 
   &:last-child > branch {
-    height: calc(0.8em + 2px) !important;
+    height: 1.15em;
   }
 }
 
 .tview2 lines {
   display: block;
   margin-block: 2px;
-  margin-inline-start: 1px;
   padding-inline-start: 2px;
   overflow-x: clip;
 
@@ -261,7 +264,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2 .disclosure {
   display: inline-block;
-  background-color: $c-transp-border;
+  background-color: $c-annotation-border;
   vertical-align: -2px;
   align-self: center;
   width: $disclosure-btn-size;
@@ -280,7 +283,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   + san::before,
   + index::before {
-    color: $c-transp-border;
+    color: $c-annotation-border;
   }
 }
 
@@ -288,8 +291,8 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   position: absolute;
   pointer-events: none;
   inset-inline-start: 0;
-  border-inline-start: 2px solid $c-transp-border;
-  border-top: 2px solid $c-transp-border;
+  border-inline-start: 2px solid $c-annotation-border;
+  border-top: 2px solid $c-annotation-border;
 }
 
 .tview2 .disclosure-connector.riser {
@@ -349,13 +352,13 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   color: $c-font-dimmer;
 
   + move {
-    border-inline-end: $c-transp-border;
+    border-inline-end: $c-annotation-border;
   }
 }
 
 .tview2-column line {
   move {
-    @extend %box-radius;
+    border-radius: $small-box-radius-size;
   }
 
   comment {
@@ -380,8 +383,8 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   flex: 0 0 100%;
   max-width: 100%;
   background: $c-bg-zebra;
-  border-top: 1px solid $c-transp-border;
-  border-bottom: 1px solid $c-transp-border;
+  border-top: 1px solid $c-annotation-border;
+  border-bottom: 1px solid $c-annotation-border;
 
   > comment {
     @extend %break-word;
@@ -389,7 +392,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     color: var(--c-base);
     display: block;
     padding: 3px 5px;
-    border-inline-start: 2px solid $c-transp-border;
+    border-inline-start: 2px solid $c-annotation-border;
   }
 }
 
@@ -398,12 +401,11 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   .mainline {
     font-weight: bold;
-    background: color-mix(in srgb, $c-clearer 4%, transparent);
+    background: color-mix(in oklab, $c-clearer 4%, transparent);
   }
 
   move {
-    @extend %box-radius;
-
+    border-radius: $small-box-radius-size;
     margin-inline-end: 2px;
     font-size: 13px;
     font-weight: bold;
@@ -419,11 +421,18 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     overflow-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
+    color: var(--c-base);
   }
 
   inline::before,
   inline::after {
     vertical-align: 0.7em;
+  }
+
+  .disclosure {
+    width: 13px;
+    height: 13px;
+    margin-inline-start: 2px;
   }
 }
 
@@ -436,7 +445,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 @media (hover: hover) {
   .tview2 move:not(.active):hover {
     background: $c-bg-zebra2;
-    background: color-mix(in srgb, var(--c-base) 15%, transparent);
+    background: color-mix(in oklab, var(--c-base) 15%, transparent);
     color: $c-font-clear;
 
     eval,
@@ -460,5 +469,11 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   .tview2 move:hover .disclosure:hover {
     background-color: $c-font-dim;
     cursor: pointer;
+  }
+}
+
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .tview2 move.active {
+    background: $c-primary;
   }
 }

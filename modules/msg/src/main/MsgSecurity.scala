@@ -38,13 +38,13 @@ final private class MsgSecurity(
   private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24.hour,
-    key = "msg_create.user"
+    limiterKey = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1.minute,
-    key = "msg_reply.user"
+    limiterKey = "msg_reply.user"
   )
 
   private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1.minute)
@@ -67,7 +67,6 @@ final private class MsgSecurity(
             case false => fuccess(Block)
             case _ =>
               isLimited(contacts, isNew, unlimited, text)
-                .map(_ orElse isFakeTeamMessage(rawText, unlimited))
                 .map(_ orElse isSpam(text))
                 .map(_ orElse isTroll(contacts))
                 .map(_ orElse isAlt(contacts))
@@ -115,10 +114,6 @@ final private class MsgSecurity(
           else limitWith(CreateLimitPerUser)
       else fuccess(limitWith(ReplyLimitPerUser))
 
-    private def isFakeTeamMessage(text: String, unlimited: Boolean): Option[Verdict] =
-      (!unlimited && text.contains("You received this because you are subscribed to messages of the team"))
-        .option(FakeTeamMessage)
-
     private def isSpam(text: String): Option[Verdict] =
       spam.detect(text).option(Spam)
 
@@ -139,7 +134,7 @@ final private class MsgSecurity(
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
+      contactApi.contacts(orig, dest).flatMapz(post(_, isNew))
 
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       (
@@ -151,7 +146,7 @@ final private class MsgSecurity(
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             kidCheck(contacts, isNew) >>&
-            userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
+            userCache.getBotIds.map(botIds => !contacts.userIds.exists(botIds.contains))
         }
 
     private def create(contacts: Contacts): Fu[Boolean] =
@@ -167,8 +162,8 @@ final private class MsgSecurity(
     // unless they deleted the thread.
     private def reply(contacts: Contacts): Fu[Boolean] =
       colls.thread.exists(
-        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
-          $doc("del".$ne(contacts.dest.id))
+        bid(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
+          bdoc("del".neq(contacts.dest.id))
       )
 
     private def kidCheck(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
@@ -176,7 +171,7 @@ final private class MsgSecurity(
       if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
-          case (true, true) => Bus.ask[Boolean, ClasBus] { ClasBus.CanKidsUseMessages(orig.id, dest.id, _) }
+          case (true, true) => Bus.ask[Boolean, ClasBus](ClasBus.CanKidsUseMessages(orig.id, dest.id, _))
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _ => fuFalse
@@ -185,7 +180,7 @@ final private class MsgSecurity(
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.ask[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
+    Bus.ask[Boolean, ClasBus](ClasBus.IsTeacherOf(teacher, student, _))
 
   private def isLeaderOf(contacts: Contacts) =
     Bus.ask[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
@@ -203,7 +198,6 @@ private object MsgSecurity:
   case object Alt extends Mute
   case object Spam extends Mute
   case object Dirt extends Mute
-  case object FakeTeamMessage extends Reject
   case object Block extends Reject
   case object Limit extends Reject
   case object Invalid extends Reject

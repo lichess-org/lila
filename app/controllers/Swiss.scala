@@ -10,7 +10,7 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
@@ -75,15 +75,13 @@ final class Swiss(
               playerInfo = playerInfo,
               isInTeam = isInTeam
             )
-          yield JsonOk(json)
+          yield Ok(json)
       )
 
   def apiShow(id: SwissId) = Anon:
-    env.swiss.cache.swissCache
-      .byId(id)
-      .flatMap:
-        case Some(swiss) => JsonOk(apiJson(swiss))
-        case _ => notFoundJson()
+    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+      for json <- apiJson(swiss)
+      yield Ok(json).publicCache(1.minute)
 
   private def apiJson(swiss: SwissModel)(using Context) =
     for
@@ -118,13 +116,13 @@ final class Swiss(
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        Ok.page(views.swiss.form.create(env.swiss.forms.create(me), teamId))
+        Ok.page(views.swiss.form.create(env.swiss.forms.create, teamId))
   }
 
   def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        bindForm(env.swiss.forms.create(me))(
+        bindForm(env.swiss.forms.create)(
           err => BadRequest.page(views.swiss.form.create(err, teamId)),
           data =>
             tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
@@ -142,7 +140,7 @@ final class Swiss(
         .isGranted(teamId, _.Tour)
         .flatMap:
           if _ then
-            bindForm(env.swiss.forms.create(me))(
+            bindForm(env.swiss.forms.create)(
               doubleJsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
@@ -183,12 +181,12 @@ final class Swiss(
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
+      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(swiss)))
   }
 
   def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
+      bindForm(env.swiss.forms.edit(swiss))(
         err => BadRequest.page(views.swiss.form.edit(swiss, err)),
         data => for _ <- env.swiss.api.update(swiss.id, data) yield Redirect(routes.Swiss.show(id))
       )
@@ -196,8 +194,8 @@ final class Swiss(
 
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
-        err => jsonFormError(err),
+      bindForm(env.swiss.forms.edit(swiss))(
+        jsonFormError,
         data =>
           env.swiss.api.update(swiss.id, data) >>
             FoundOk(env.swiss.api.update(swiss.id, data))(apiJson)
@@ -222,28 +220,27 @@ final class Swiss(
 
   def standing(id: SwissId, page: Int) = Anon:
     WithSwiss(id): swiss =>
-      JsonOk:
-        env.swiss.standingApi(swiss, page)
+      for json <- env.swiss.standingApi(swiss, page)
+      yield Ok(json).publicCache(swissResponseTtl(swiss))
 
   def pageOf(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.pageOf(swiss, userId.id)): page =>
-        JsonOk:
-          env.swiss.standingApi(swiss, page)
+        for json <- env.swiss.standingApi(swiss, page)
+        yield Ok(json).publicCache(swissResponseTtl(swiss))
 
   def player(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
       Found(env.swiss.api.playerInfo(swiss, userId.id)): player =>
-        JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
+        Ok(lila.swiss.SwissJson.playerJsonExt(swiss, player)).publicCache(swissResponseTtl(swiss))
 
   def exportTrf(id: SwissId) = Anon:
-    env.swiss.cache.swissCache
-      .byId(id)
-      .map:
-        case None => NotFound("Tournament not found")
-        case Some(swiss) =>
-          Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
-            .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
+    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+      Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
+        .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
+        .publicCache(swissResponseTtl(swiss))
+
+  private def swissResponseTtl(swiss: SwissModel) = if swiss.isFinished then 1.day else 5.seconds
 
   def byTeam(id: TeamId) = Anon:
     apiC.jsonDownload:

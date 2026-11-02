@@ -104,7 +104,7 @@ hüjüm edýän çöpi iýmek bilen.</string>
 goragyňyzyň bar bolmagyna garamazdan!</string>
   <string name="escapeOrBlock">Şany gaçyryň
 ýa-da hüjümi gabzaň!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gutlaýarys! Şaňyz asla ele geçirilmez, şaha garşy häzir boluň!</string>
+  <string name="outOfCheckComplete">Gutlaýarys! Şaňyz asla ele geçirilmez, şaha garşy häzir boluň!</string>
   <string name="mateInOne">1 göçümde mat</string>
   <string name="defeatTheOpponentsKing">Garşydaşyň şasyny ýeňiň</string>
   <string name="mateInOneIntro">Garşydaşyňyz şahdan goranyp bilmeýän wagty ýeňiş gazanýaňyz.</string>
@@ -132,6 +132,7 @@ Wezir öz reňkinde durmaly.</string>
 Dowam etmek üçin bir göçüm ediň.</string>
   <string name="boardSetupComplete">Gutlaýarys! Küşt tagtasy düzülişini doly bilýäňiz.</string>
   <string name="castling">Rakirowka</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Şanyň aýratyn göçümi</string>
   <string name="castlingIntro">Şaňyzy asudalyga getiriň we ruhyňyzy hüjüm üçin öňe sürüň!</string>
   <string name="castleKingSide">Şaňyzy 2 öýjük süýşüriň

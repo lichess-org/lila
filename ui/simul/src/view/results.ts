@@ -3,8 +3,8 @@ import { h } from 'snabbdom';
 
 import { status } from 'lib/game';
 
-import type SimulCtrl from '../ctrl';
-import type { Pairing } from '../interfaces';
+import type SimulCtrl from '@/ctrl';
+import type { Pairing } from '@/interfaces';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.results', [
@@ -27,8 +27,8 @@ export default function (ctrl: SimulCtrl) {
   ]);
 }
 
-const NumberFirstRegex = /^(\d+)\s(.+)$/,
-  NumberLastRegex = /^(.+)\s(\d+)$/;
+const NumberFirstRegex = /^(\d+)\s(.+)$/;
+const NumberLastRegex = /^(.+)\s(\d+)$/;
 
 const splitNumber = (s: string) => {
   let found: string[] | null;

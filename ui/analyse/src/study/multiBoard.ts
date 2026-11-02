@@ -9,7 +9,7 @@ import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, img, dataIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -53,6 +53,14 @@ export class MultiBoardCtrl {
       (!t || c.players?.white.team === t || c.players?.black.team === t)
     );
   };
+  private readonly chapterTeamPov = (c: ChapterPreview) => {
+    const t = this.teamSelect();
+    return t && c.players?.white.team === t
+      ? 'white'
+      : t && c.players?.black.team === t
+        ? 'black'
+        : undefined;
+  };
   private readonly chapterSorter = (pins: RelayPlayerPin) => (a: ChapterPreview, b: ChapterPreview) => {
     const aPinned = pins.isChapterPinned(a);
     const bPinned = pins.isChapterPinned(b);
@@ -68,9 +76,13 @@ export class MultiBoardCtrl {
   pager = (): Paginator<ChapterPreview> => {
     const maxPerPage = this.maxPerPage();
     const filteredResults = this.chapters.all().filter(this.chapterFilter);
+    const withTeamPOV = filteredResults.map(c => ({
+      ...c,
+      orientation: this.chapterTeamPov(c) ?? c.orientation,
+    }));
     const sortedResults = this.relay?.players.pins.anyPinned()
-      ? filteredResults.sort(this.chapterSorter(this.relay.players.pins))
-      : filteredResults;
+      ? withTeamPOV.sort(this.chapterSorter(this.relay.players.pins))
+      : withTeamPOV;
     const currentPageResults = sortedResults.slice((this.page - 1) * maxPerPage, this.page * maxPerPage);
     const nbResults = sortedResults.length;
     const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
@@ -151,9 +163,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
     h(
       'div.now-playing',
       {
-        hook: {
-          insert: gameLinksListener(study.chapterSelect),
-        },
+        hook: onInsert(gameLinksListener(study.chapterSelect)),
       },
       makePreviews(
         pager.currentPageResults,
@@ -183,10 +193,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
-  const page = ctrl.page,
-    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage),
-    max = ctrl.maxPerPage();
+  const page = ctrl.page;
+  const from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1);
+  const to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  const max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
     pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
@@ -208,13 +218,15 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const allTeams = ctrl.computeTeamList();
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
-    ? h(
-        'select',
-        {
-          hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
-        },
-        [i18n.broadcast?.allTeams || 'All teams', ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+    ? requiresI18n('broadcast', ctrl.redraw, broadcast =>
+        h(
+          'select',
+          {
+            hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+          },
+          [broadcast.allTeams, ...allTeams].map((t, i) =>
+            h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+          ),
         ),
       )
     : undefined;
@@ -232,6 +244,7 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   lastMove: uciToMove(cp.lastMove),
   turnColor: fenColor(cp.fen),
   check: !!cp.check,
+  orientation: cp.orientation,
 });
 
 const makePreviews = (
@@ -268,9 +281,12 @@ export const previewContent = (
   round?: RelayRound,
   extraCgConfig?: () => Partial<CgConfig>,
   pins?: RelayPlayerPin,
-) => {
+): VNode[] => {
   const makeCgConfig = () => ({
     ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
+    // previewToCgConfig sets the chapter orientation; the caller may want another one,
+    // like the liveboard following the main board flip.
+    orientation,
     ...(extraCgConfig ? extraCgConfig() : {}),
   });
   return [
@@ -286,7 +302,6 @@ export const previewContent = (
               vnode.data!.cg = makeChessground(el, {
                 coordinates: false,
                 viewOnly: true,
-                orientation,
                 drawable: { enabled: false, visible: false },
                 ...makeCgConfig(),
               });
@@ -294,9 +309,12 @@ export const previewContent = (
             },
             postpatch(old, vnode) {
               if (!showResults) return;
-              if (old.data!.fen !== preview.fen) old.data!.cg?.set(makeCgConfig());
+              const oldCg: CgApi = old.data!.cg;
+              // `cg.getFen()` is boardFen not fullFen
+              if (old.data!.fen !== preview.fen || oldCg.state.orientation !== orientation)
+                oldCg.set(makeCgConfig());
               vnode.data!.fen = preview.fen;
-              vnode.data!.cg = old.data!.cg;
+              vnode.data!.cg = oldCg;
             },
           },
         }),
@@ -311,65 +329,71 @@ export const verticalEvalGauge = (
   orientation: Color,
   cloudEval: MultiCloudEval,
 ): MaybeVNode => {
-  const tag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
-    chap.check === '#' ? ' mini-game__gauge--set' : ''
-  }`;
-  return chap.check === '#'
-    ? h(tag, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
-        h('span.mini-game__gauge__black', {
-          attrs: { style: `height: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` },
-        }),
-        h('tick'),
-      ])
-    : h(
-        tag,
-        {
-          attrs: { 'data-id': chap.id },
-          hook: {
-            ...onInsert(cloudEval.observe),
-            postpatch(old, vnode) {
-              const elm = vnode.elm as HTMLElement;
-              const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
-              const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-              if (cev?.chances !== prevNodeCloud?.chances) {
-                (elm.firstChild as HTMLElement).style.height = `${Math.round(
-                  ((1 - (cev?.chances || 0)) / 2) * 100,
-                )}%`;
-                if (cev) {
-                  elm.title = renderScore(cev);
-                  elm.classList.add('mini-game__gauge--set');
-                }
-              }
-              vnode.data!.cloud = cev;
-            },
-          },
+  const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
+
+  if (chap.check === '#') {
+    return h(
+      baseTag + ` mini-game__gauge--set`,
+      {
+        attrs: {
+          'data-id': chap.id,
+          title: 'Checkmate',
+          style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
         },
-        [h('span.mini-game__gauge__black'), h('tick')],
-      );
+      },
+      [h('tick')],
+    );
+  }
+
+  return h(
+    baseTag,
+    {
+      attrs: { 'data-id': chap.id },
+      hook: {
+        ...onInsert(cloudEval.observe),
+        postpatch(old, vnode) {
+          const elm = vnode.elm as HTMLElement;
+          const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
+          const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
+          if (cev?.chances !== prevNodeCloud?.chances) {
+            elm.style.setProperty(
+              '--multi-eval-percent',
+              `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
+            );
+            if (cev) {
+              elm.title = renderScore(cev);
+              elm.classList.add('mini-game__gauge--set');
+            }
+          }
+          vnode.data!.cloud = cev;
+        },
+      },
+    },
+    [h('tick')],
+  );
 };
 
-export const pinIcon = () =>
-  hl('img.pinned-icon', { attrs: { alt: '', src: site.asset.flairSrc('objects.pushpin') } });
+export const pinIcon = img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
 
 const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   h('span.mini-game__user', [
     playerFedFlag(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
     player.rating ? h('span.rating', player.rating.toString()) : undefined,
-    pinned ? pinIcon() : undefined,
+    pinned ? pinIcon('.pinned-icon') : undefined,
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
-  const turnColor = fenColor(chapter.fen);
   const timeleft = computeTimeLeft(chapter, color);
+  if (!defined(timeleft)) return undefined;
+
+  const turnColor = fenColor(chapter.fen);
   const ticking = turnColor === color && otbClockIsRunning(chapter.fen);
-  return defined(timeleft)
-    ? h(
-        'span.mini-game__clock.mini-game__clock',
-        { class: { 'clock--run': ticking } },
-        formatMs(timeleft * 1000),
-      )
-    : undefined;
+  return h(
+    'span.mini-game__clock.mini-game__clock',
+    { class: { 'clock--run': ticking } },
+    formatMs(timeleft * 1000),
+  );
 };
 
 const computeTimeLeft = (preview: ChapterPreview, color: Color) => {

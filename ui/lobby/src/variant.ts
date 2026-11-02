@@ -1,22 +1,17 @@
 import { storage } from 'lib/storage';
 import { confirm } from 'lib/view';
 
-const variantConfirms: Record<string, string> = {
-  chess960: `${i18n.variant.chess960}\n\n${i18n.variant.chess960Title}`,
-  kingOfTheHill: `${i18n.variant.kingOfTheHill}\n\n${i18n.variant.kingOfTheHillTitle}`,
-  threeCheck: `${i18n.variant.threeCheck}\n\n${i18n.variant.threeCheckTitle}`,
-  antichess: `${i18n.variant.antichess}\n\n${i18n.variant.antichessTitle}`,
-  atomic: `${i18n.variant.atomic}\n\n${i18n.variant.atomicTitle}`,
-  horde: `${i18n.variant.horde}\n\n${i18n.variant.hordeTitle}`,
-  racingKings: `${i18n.variant.racingKings}\n\n${i18n.variant.racingKingsTitle}`,
-  crazyhouse: `${i18n.variant.crazyhouse}\n\n${i18n.variant.crazyhouseTitle}`,
-};
+type ActualVariant = Exclude<VariantKey, 'standard' | 'fromPosition'>;
 
-const storageKey = (key: string) => 'lobby.variant.' + key;
+const variantConfirm = (variant: ActualVariant): string =>
+  `${i18n.variant[variant]}\n\n${i18n.variant[`${variant}Title`]}`;
 
-export default async function (variant: string | undefined) {
-  if (!variant || !variantConfirms[variant] || storage.get(storageKey(variant))) return true;
-  const confirmed = await confirm(variantConfirms[variant]);
+const storageKey = (key: ActualVariant) => `lobby.variant.${key}`;
+
+export default async function (variant?: VariantKey) {
+  if (!variant || variant === 'standard' || variant === 'fromPosition' || storage.get(storageKey(variant)))
+    return true;
+  const confirmed = await confirm(variantConfirm(variant));
   if (confirmed) storage.set(storageKey(variant), '1');
   return confirmed;
 }

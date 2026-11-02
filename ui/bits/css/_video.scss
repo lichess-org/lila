@@ -94,7 +94,7 @@
       left: 5px;
       z-index: 2;
       padding: 3px 5px;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgb(0 0 0 / 0.7);
       color: #ddd;
       text-transform: uppercase;
       font-weight: bold;
@@ -230,32 +230,6 @@
   .under-tags {
     margin: 1em 0;
     text-align: center;
-  }
-
-  .tag-list {
-    text-align: justify;
-
-    a {
-      @extend %box-radius;
-
-      color: $c-font;
-      display: inline-block;
-      padding: 3px 5px;
-      margin: 5px 5px;
-      background: $c-bg-zebra;
-      text-transform: capitalize;
-
-      &:hover {
-        @extend %button-shadow;
-
-        background: $c-bg-box;
-      }
-
-      em {
-        font-weight: bold;
-        color: $c-accent;
-      }
-    }
   }
 
   #video {

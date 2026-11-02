@@ -1,9 +1,9 @@
 package lila.web
 package ui
 
+import lila.core.i18n.Translate
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.*
-import lila.core.i18n.Translate
 
 object bits:
 

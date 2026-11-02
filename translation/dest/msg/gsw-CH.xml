@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">Es git e neui Liches Mobile App!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Bitte die neu, offiziell Lichess App abelade: %s.</string>
+  <string name="modActionFeedback">Hallo,
+
+mir händ dini letscht Mäldig prüeft und entsprächendi Massnahmen ergriffen. Au wänn mir kei Detail zu de ergriffene Massnahmen nenne chönd, wüssed mir dini Mäldig z\'schätze.
+
+Viele Dank für dini Hilf, Lichess zume a\'gnehme Ort für all z\'mache.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Die alt App underschtützt d\'Ufgabe nümme. Bitte installier die neu Lichess App: %s</string>
+</resources>

@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">已發佈新版本！</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">請前往 %s 更新應用程式。</string>
+  <string name="modActionFeedback">你好，
+
+我們已收到您近期提交的報告並採取了相應措施。雖然我們無法透露具體細節，但我們十分感謝您的報告。
+
+感謝您為維護 Lichess 的良好環境所做的貢獻。</string>
+</resources>

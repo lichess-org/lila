@@ -42,7 +42,7 @@ export class ForkCtrl {
     return true;
   }
 
-  hover(uci: Uci | undefined | null) {
+  hover(uci: Uci | null) {
     this.hoveringIndex = this.forks.findIndex(n => n.uci === uci);
     if (isTouchDevice() || this.hoveringIndex < 0) this.hoveringIndex = undefined;
   }
@@ -73,7 +73,7 @@ export class ForkCtrl {
   }
 }
 
-const eventToIndex = (e: MouseEvent): number | undefined => {
+const eventToIndex = (e: MouseEvent): number => {
   const target = e.target as HTMLElement;
   return parseInt(
     (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || '',
@@ -81,9 +81,9 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
 };
 
 export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  if (ctrl.retro?.isSolving() || ctrl.study?.hideMoves()) return;
+  if (ctrl.retro?.isSolving() || ctrl.study?.hideMoves()) return undefined;
   ctrl.fork.update();
-  if (!ctrl.fork.isVisible) return;
+  if (!ctrl.fork.isVisible) return undefined;
   const isMainline = concealOf && ctrl.onMainline;
   return hl(
     'div.analyse__fork',
@@ -101,19 +101,21 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       }),
     },
     ctrl.visibleChildren().map((node, it) => {
-      const classes = {
-        selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
-        correct: ctrl.isGamebook() && it === 0,
-        wrong: ctrl.isGamebook() && it > 0,
-      };
       const conceal = isMainline && concealOf(true)(ctrl.path + node.id, node);
-      if (!conceal)
-        return hl(
-          'move',
-          { class: classes, attrs: { 'data-it': it } },
-          renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
-        );
-      return undefined;
+      if (conceal) return undefined;
+
+      return hl(
+        'move',
+        {
+          class: {
+            selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
+            correct: ctrl.isGamebook() && it === 0,
+            wrong: ctrl.isGamebook() && it > 0,
+          },
+          attrs: { 'data-it': it },
+        },
+        renderIndexAndMove(node, ctrl.settings.showMainlineAnalysis, ctrl.settings.showMainlineAnalysis),
+      );
     }),
   );
 }

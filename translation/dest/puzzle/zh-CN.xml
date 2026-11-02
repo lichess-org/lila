@@ -64,7 +64,7 @@
   <string name="history">解题历史</string>
   <string name="solved">已解答</string>
   <string name="failed">失败</string>
-  <string name="streakDescription">逐步挑战更难的谜题，构建您的连胜纪录。这里没有时间限制，所以请慢慢思考。一步走错，挑战即告结束！但每次挑战过程中，您可以跳过一步棋。</string>
+  <string name="streakDescription">逐步挑战更难的谜题，构建您的连胜纪录。没有时间限制，请从容思考。一步走错，挑战即告结束！每次挑战，均可跳过一步棋。</string>
   <string name="yourStreakX">您的连胜纪录：%s</string>
   <string name="streakSkipExplanation">跳过此步以保持您的连胜！每次挑战只能使用一次。</string>
   <string name="continueTheStreak">继续连胜</string>

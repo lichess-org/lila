@@ -84,7 +84,7 @@ Y no pierdas las tuyas.</string>
   <string name="youCanGetOutOfCheckByTaking">Puedes salir del jaque capturando la pieza que ataca al rey.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">¡Este caballo está dándote jaque por encima de tus defensas!</string>
   <string name="escapeOrBlock">¡Escapa con el rey o bloquea el ataque!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">¡Felicidades! No puedes permitir que capturen tu rey, ¡ten tus defensas listas para un jaque!</string>
+  <string name="outOfCheckComplete">¡Felicidades! No puedes permitir que capturen tu rey, ¡ten tus defensas listas para un jaque!</string>
   <string name="mateInOne">Mate en una</string>
   <string name="defeatTheOpponentsKing">Derrota al rey enemigo</string>
   <string name="mateInOneIntro">Ganas cuando tu oponente no puede defenderse de un jaque.</string>
@@ -103,6 +103,7 @@ Y no pierdas las tuyas.</string>
   <string name="pawnsFormTheFrontLine">Los peones forman la línea delantera. Mueve cualquier pieza para continuar.</string>
   <string name="boardSetupComplete">¡Felicidades! Ya sabes cómo colocar las piezas en el tablero.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura al paso</string>
   <string name="theSpecialKingMove">El movimiento especial del rey</string>
   <string name="castlingIntro">¡Pon a tu rey a salvo y despliega tu torre para atacar!</string>
   <string name="castleKingSide">Mueve tu rey dos casillas para hacer un enroque corto.</string>

@@ -16,7 +16,6 @@
 
 Smagiai praleiskite laiką, ir tegul jūsų figūros visuomet randa kelią iki varžovo karaliaus!</string>
   <string name="logInToLichess">Prisijunkite prie lichess.org, %s</string>
-  <string name="common_orPaste">(Spustelėjimas neveikia? Pabandykite nukopijuoti į naršyklę!)</string>
   <string name="common_note">Tai yra aptarnavimo laiškas, susijęs su %s naudojimu.</string>
   <string name="common_contact">Norėdami susisiekti, naudokite %s.</string>
 </resources>

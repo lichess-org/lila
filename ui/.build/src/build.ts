@@ -1,11 +1,11 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
-import { relative, join } from 'node:path';
 import { chdir } from 'node:process';
+import pc from 'picocolors';
 
 import { definedUnique } from './algo.ts';
 import { clean } from './clean.ts';
-import { env, errorMark, c } from './env.ts';
+import { env, errorMark } from './env.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
 import { hash } from './hash.ts';
 import { i18n } from './i18n.ts';
@@ -23,31 +23,40 @@ export async function build(pkgs: string[]): Promise<void> {
   try {
     try {
       chdir(env.rootDir);
-      if (env.install) execSync('pnpm install', { stdio: 'inherit' });
-      if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
+      if (env.install) {
+        env.log(
+          execSync(`pnpm install --color=${env.noColor ? 'never' : 'always'}`, {
+            encoding: 'utf8',
+          }),
+          'pnpm',
+        );
+      }
+      if (!pkgs.length) env.log(`Parsing packages in '${pc.cyan(env.uiDir)}'`);
 
       await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
 
       pkgs
         .filter(x => !env.packages.has(x))
-        .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
+        .forEach(x => env.exit(`${errorMark} - unknown package '${pc.magenta(x)}'`));
 
       env.building =
         pkgs.length === 0 ? [...env.packages.values()] : definedUnique(pkgs.flatMap(p => env.deps(p)));
 
-      if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
+      if (pkgs.length) env.log(`Building ${pc.gray(env.building.map(x => x.name).join(', '))}`);
     } finally {
       monitor(pkgs);
     }
     await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
   } catch (e) {
     env.log(`${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`);
-    if (env.watch) env.log(c.grey('Watching...'));
+    if (env.watch) env.log(pc.gray('Watching...'));
     else env.exit();
   }
 }
 
 export function stopBuild(): Promise<any> {
+  env.mustSucceed.clear();
+  env.onSuccess.clear();
   stopTask();
   stopSass();
   stopManifest(true);
@@ -55,29 +64,32 @@ export function stopBuild(): Promise<any> {
 }
 
 function monitor(pkgs: string[]) {
-  if (!env.watch) return;
+  if (!env.watch) return undefined;
   return makeTask({
     key: 'monitor',
     includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
-      { cwd: env.uiDir, path: '*/package.json' },
       { cwd: env.typesDir, path: '*/*.d.ts' },
+      { cwd: env.uiDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/tsconfig.json' },
     ],
     debounce: 1000,
     monitorOnly: true,
     execute: async files => {
-      if (files.some(x => x.endsWith('package.json'))) {
+      // TODO - remove the clean(['ui/*/tsconfig.tsbuildinfo']) nonsense once our typescript release contains
+      // https://github.com/microsoft/typescript-go/pull/4665. 7.0.2 does not
+      const cleanTsc = files.some(name => name.endsWith('tsconfig.json') || name.endsWith('.d.ts'));
+      if (files.some(name => name.endsWith('package.json'))) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
-        else await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
+        else if (cleanTsc) await clean(['ui/*/tsconfig.tsbuildinfo']);
         build(pkgs);
-      } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
+      } else if (cleanTsc) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
-        await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
+        await clean(['ui/*/tsconfig.tsbuildinfo']);
         tsc();
         esbuild();
       }

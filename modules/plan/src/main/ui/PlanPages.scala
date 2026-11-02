@@ -1,9 +1,9 @@
 package lila.plan
 package ui
 
+import lila.core.LightUser
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LightUser
 
 final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
   import helpers.{ *, given }
@@ -53,7 +53,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
               ),
               tr(unlimited)(
-                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16+ NNUE")
+                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 19")
               ),
               tr(unlimited)(
                 a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(

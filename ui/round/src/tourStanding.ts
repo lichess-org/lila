@@ -4,6 +4,7 @@ import type { ChatPlugin } from 'lib/chat/interfaces';
 import type { Team, TourPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { dataIcon, onInsert } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;
@@ -20,7 +21,7 @@ export const tourStandingCtrl = (
   key: 'tourStanding',
   name,
   view(): VNode {
-    return h('div', { hook: onInsert(_ => site.asset.loadCssPath('round.tour-standing')) }, [
+    return h('div', { hook: onInsert(_ => site.asset.loadCss({ key: 'round.tour-standing' })) }, [
       team ? h('h3.text', { attrs: dataIcon(licon.Group) }, team.name) : null,
       h('table.slist', [
         h(
@@ -29,7 +30,7 @@ export const tourStandingCtrl = (
             h('tr.' + p.n, [
               h('td.name', [
                 h('span.rank', i + 1),
-                h('a.user-link.ulpt', { attrs: { href: `/@/${p.n}` } }, (p.t ? p.t + ' ' : '') + p.n),
+                h('a.user-link.ulpt', { attrs: { href: profileUrl(p.n) } }, (p.t ? p.t + ' ' : '') + p.n),
               ]),
               h('td.total', p.f ? { class: { 'is-gold': true }, attrs: dataIcon(licon.Fire) } : {}, p.s),
             ]),

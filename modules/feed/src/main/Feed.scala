@@ -1,10 +1,12 @@
 package lila.feed
 
 import play.api.data.Form
+import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scalalib.paginator.Paginator
+
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply
@@ -25,17 +27,11 @@ object Feed:
       at: Instant,
       flair: Option[Flair]
   ):
-    lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
     lazy val dateStr = dateFormatter.print(at)
     lazy val title = "Daily update - " + dateStr
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
 
-  private val renderer = lila.common.MarkdownRender(
-    autoLink = false,
-    strikeThrough = true,
-    timestamp = true
-  )
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
   given BSONDocumentHandler[Update] = Macros.handler
 
@@ -44,7 +40,16 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor, Scheduler):
+final class FeedApi(
+    coll: Coll,
+    cacheApi: CacheApi,
+    flairApi: FlairApi,
+    jsonView: FeedJsonView,
+    feedMarkdown: FeedMarkdown
+)(using
+    Executor,
+    Scheduler
+):
 
   import Feed.*
 
@@ -55,29 +60,36 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
     val store = cacheApi.unit[List[Update]]("feed.store"):
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         coll
-          .find($empty)
-          .sort($sort.desc("at"))
+          .find(emptyBdoc)
+          .sort(sort.desc("at"))
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
             mutableLastUpdates = ups.filter(_.published).take(7)
     def clear() =
       store.underlying.synchronous.invalidateAll()
-      store.get({}) // populate lastUpdate
-    def lastUpdate: Feed.GetLastUpdates = () => mutableLastUpdates
-    store.get({}) // populate lastUpdate
+      store.get {} // populate lastUpdate
+    def lastUpdates: Feed.GetLastUpdates = () => mutableLastUpdates
+    store.get {} // populate lastUpdate
 
-  export cache.lastUpdate
+  export cache.lastUpdates
 
-  def recentPublished = cache.store.get({}).map(_.filter(_.published))
+  def recentJson: Fu[JsValue] =
+    import jsonView.given
+    for
+      updates <- cache.store.get {}
+      withRendered = updates.take(7).map(up => (up, feedMarkdown(up)))
+    yield Json.toJson(withRendered)
+
+  def recentPublished = cache.store.get {}.map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
   def set(update: Update): Funit =
-    for _ <- coll.update.one($id(update.id), update, upsert = true) yield cache.clear()
+    for _ <- coll.update.one(bid(update.id), update, upsert = true) yield cache.clear()
 
   def delete(id: ID): Funit =
-    for _ <- coll.delete.one($id(id)) yield cache.clear()
+    for _ <- coll.delete.one(bid(id)) yield cache.clear()
 
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
@@ -103,10 +115,10 @@ final class FeedPaginatorBuilder(coll: Coll)(using Executor):
       adapter = Adapter[Update](
         collection = coll,
         selector =
-          if includeAll then $empty
-          else $doc("public" -> true, "at".$lt(nowInstant)),
+          if includeAll then emptyBdoc
+          else bdoc("public" -> true, "at".lt(nowInstant)),
         projection = none,
-        sort = $sort.desc("at")
+        sort = sort.desc("at")
       ),
       page,
       MaxPerPage(25)

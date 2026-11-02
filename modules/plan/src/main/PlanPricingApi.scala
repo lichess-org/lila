@@ -1,7 +1,9 @@
 package lila.plan
 
-import java.util.Currency
 import play.api.libs.json.*
+
+import java.util.Currency
+
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
 
@@ -86,10 +88,9 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
               "stripe" -> list.flatten,
               "myCurrency" -> placeholder
             )
-          .map(Json.stringify)
-          .dmap(JsonStr.apply)
+          .map(JsonStr.apply)
     def apply(currency: Currency): Fu[JsonStr] =
-      cache.get({}).map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
+      cache.get {}.map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
 
   private def convertAndRound(money: Money, to: Currency, nice: Boolean = true): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { m =>

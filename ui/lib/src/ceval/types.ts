@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops';
+
 import type { Feature } from '@/device';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from '@/tree/types';
 import type { MaybeVNode } from '@/view';
@@ -8,16 +10,17 @@ import type { CevalCtrl } from './ctrl';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
-export type EngineTrust = 'cloudEval' | 'staticAnalysis' | 'puzzleReport';
+export type NodeEfficiencyVsFishnet = Partial<Record<'chess' | 'variant', number>>;
 
 export interface EvalMeta {
   path: TreePath;
   ply: number;
   threatMode: boolean;
+  error?: string;
 }
 
 export interface Work extends EvalMeta {
-  variant: VariantKey;
+  variant: Rules;
   threads: number;
   hashSize?: number;
   gameId?: string; // send ucinewgame when changed
@@ -27,7 +30,7 @@ export interface Work extends EvalMeta {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: LocalEval, meta: EvalMeta) => void;
+  emit: (ev: LocalEval | undefined, meta: EvalMeta) => void;
 }
 
 export interface BaseEngineInfo {
@@ -35,19 +38,21 @@ export interface BaseEngineInfo {
   name: string;
   short?: string;
   url?: string;
-  variants?: VariantKey[];
-  minThreads?: number;
-  maxThreads?: number;
+  variants?: Rules[];
+  supportsNonStandardMaterial?: boolean;
+  minThreads: number;
+  maxThreads: number;
   maxHash?: number;
   maxMovetime?: number;
   requires?: Feature[];
-  capabilities?: EngineTrust[];
+  supportsPuzzleReport?: boolean;
+  supportsCloudEval?: boolean;
+  nodeEfficiencyVsFishnet?: NodeEfficiencyVsFishnet; // analysis strength per node compared to fishnet's big dogs
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
-  variants: VariantKey[];
+  variants: Rules[];
   maxHash: number;
-  maxThreads: number;
   providerData?: string;
   clientSecret: string;
   officialStockfish?: boolean;
@@ -56,7 +61,7 @@ export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
 
 export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
   tech: 'EXTERNAL';
-  cloudEval?: false;
+  preferred: true;
 }
 
 export interface BrowserEngineInfo extends BaseEngineInfo {
@@ -66,6 +71,7 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
+  preferred?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
@@ -86,6 +92,7 @@ export enum CevalState {
 export interface CevalEngine {
   getInfo(): EngineInfo;
   getState(): CevalState;
+  version?(): string | undefined;
   start(work: Work): void;
   stop(): void;
   destroy(): void;
@@ -102,7 +109,8 @@ export interface EngineArgs {
 
 export interface CustomSearch {
   engine?: EngineArgs;
-  search?: () => Search | Millis; // pass number as millis to cap user defined search
+  search?: () => Search | { maxMultiPv?: number; maxMovetime?: Millis };
+  canBackground?: boolean;
 }
 
 export interface CustomCeval extends CustomSearch {
@@ -113,12 +121,14 @@ export interface CustomCeval extends CustomSearch {
 export interface CevalOpts {
   variant: Variant;
   initialFen?: string;
-  emit: (ev: LocalEval, meta: EvalMeta) => void;
+  emit: (ev: LocalEval | undefined, meta: EvalMeta) => void;
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   onSelectEngine?: () => void;
+  localEval?: () => LocalEval | null; // so canGoDeeper is correct when ceval.curEval has no value yet
   externalEngines?: ExternalEngineInfoFromServer[];
   custom?: CustomCeval; // hides switch, threat, and go deeper buttons
+  hideErrors?: boolean;
 }
 
 export interface Hovering {
@@ -141,11 +151,12 @@ export interface CevalHandler {
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): TreeNode;
+  getNodeKey?: () => string;
   clearCeval: () => void;
-  startCeval: () => void;
+  startCevalIfEnabled: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  showStaticAnalysis?: () => boolean;
+  showEvaluation?: () => boolean;
 }
 
 export interface NodeEvals {

@@ -3,8 +3,16 @@
   <string name="settings">Ayarlar</string>
   <string name="closeAccount">Hesabı kapat</string>
   <string name="managedAccountCannotBeClosed">Hesabınız başkası tarafından yönetiliyor, kapatılamaz.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Büyük-küçük harf değişiklikleri yapsanız dahi aynı kullanıcı adıyla yeni bir hesap açamazsınız.</string>
+  <string name="cantOpenSimilarAccount">Büyük-küçük harf değişiklikleri yapsanız dahi aynı kullanıcı adıyla yeni bir hesap açamazsınız.</string>
   <string name="cancelKeepAccount">Vazgeç ve hesabımı koru</string>
   <string name="closeAccountAreYouSure">Hesabınızı kapatmak istediğinize emin misiniz?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Hesap kapatılmıştır.</string>
+  <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
+  <string name="wereSorryToSeeYouGo">Aramızdan ayrıldığınız için üzgünüz.</string>
+  <string name="closeAccountForeverLabel">Sonsuza dek kapat: Yeniden açılmasını imkansız kıl</string>
+  <string name="closeAccountForeverWarning">Hesabın daha sonra yeniden açılmasını önleyin. Bu kutuyu işaretlerseniz, siz talep etseniz bile yöneticiler hesabınızı yeniden açamayacaktır.</string>
+  <string name="deleteYourAccount">Hesabınızı silin</string>
+  <string name="deleteAccountWarning">Hesabınızı sildiğinizde, hesap Lichess\'ten kaldırılır ve yöneticilerimiz onu sizin için geri getiremez.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Bunun yerine %s ister misiniz?</string>
+  <string name="closeYourAccount">hesabını kapat</string>
+  <string name="deleteAccountConfirmText">Silinen hesapların kurtarılamayacağını anlıyorum</string>
 </resources>

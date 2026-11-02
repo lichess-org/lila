@@ -48,8 +48,7 @@ private final class TimelineApi(
               .forumAccessOf(teamId)
               .flatMap:
                 case Access.Members =>
-                  fus.flatMap: us =>
-                    teamApi.filterUserIdsInTeam(teamId, us).map(_.toList)
+                  fus.flatMap(teamApi.filterUserIdsInTeam(teamId, _))
                 case Access.Leaders =>
                   fus.flatMap: us =>
                     teamApi.leaderIds(teamId).map(us.toSet.intersect).map(_.toList)

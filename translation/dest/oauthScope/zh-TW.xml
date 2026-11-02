@@ -21,7 +21,6 @@
   <string name="puzzleRead">閱讀謎題動態</string>
   <string name="teamRead">閱讀私人團隊資訊</string>
   <string name="teamWrite">加入與離開團隊</string>
-  <string name="teamLead">管理你所領導的團體：傳送私訊與踢除成員</string>
   <string name="followRead">閱讀跟隨玩家</string>
   <string name="followWrite">跟隨與取消跟隨其他玩家</string>
   <string name="msgWrite">傳送私訊給其他玩家</string>

@@ -4,7 +4,6 @@ package game
 import _root_.chess.Color.White
 import _root_.chess.format.UciDump
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ Standard, Variant }
 import _root_.chess.{
   ByColor,
@@ -13,20 +12,20 @@ import _root_.chess.{
   Color,
   CorrespondenceClock,
   Game as ChessGame,
-  Rated,
-  Ply,
-  Speed,
-  Status,
+  IntRating,
   Outcome,
-  IntRating
+  Ply,
+  Rated,
+  Speed,
+  Status
 }
 import scalalib.model.Days
 
+import lila.core.game.ClockHistory.bothClockStates
 import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.game.ClockHistory.bothClockStates
 
 case class Game(
     id: GameId,
@@ -109,7 +108,7 @@ case class Game(
 
   // not UCI. Only for lastMove display purposes.
   def lastMoveKeys: Option[String] =
-    history.lastMove.map(UciDump.lastMove(_, variant))
+    history.lastMove.map(UciDump.lastMove(_, position))
 
   def updatePlayer(color: Color, f: Player => Player) =
     copy(players = players.update(color, f))
@@ -199,9 +198,8 @@ case class Game(
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock.exists: c =>
       started && playable && {
-        c.outOfTime(turnColor, withGrace) || {
-          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
-        }
+        c.outOfTime(turnColor, withGrace) ||
+        (!c.isRunning && c.players.exists(_.elapsed.centis > 0))
       }
 
   private def outoftimeCorrespondence: Boolean =
@@ -252,14 +250,12 @@ case class Game(
     case a :: Nil => Some((a + IntRating(1500)).map(_ / 2))
     case _ => None
 
+  def isStrongOrRecent = averageUsersRating.exists(_.value >= 2200) ||
+    createdAt.isAfter(nowInstant.minus(10.days))
+
   def isPgnImport = pgnImport.isDefined
 
   def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)
-
-  lazy val opening: Option[Opening.AtPly] =
-    if !fromPosition && Variant.list.openingSensibleVariants(variant)
-    then OpeningDb.search(sans)
-    else none
 
   def pov(c: Color) = Pov(this, c)
   def povs: ByColor[Pov] = ByColor(pov)

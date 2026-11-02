@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">بۆ دووبارەکردنەوەی جوڵەکان، تختەی شەتڕەنجەکە بەرەو سەر و خوار بجوڵێنە</string>
   <string name="correspondenceEmailNotification">ئیمەیڵی ڕۆژانە کە نامە ناردنەکەت لە یاریەکاندا دەخاتە ڕوو</string>
   <string name="notifyStreamStart">کەسێک دەچێتە پەخشی ڕاستەوخۆ</string>
-  <string name="notifyInboxMsg">پەیامی نوێ</string>
-  <string name="notifyForumMention">کۆمێنتێک لە مەکۆکەدا ئاماژە بە تۆ دەکات</string>
-  <string name="notifyInvitedStudy">بانگهێشتنامەی خوێندن</string>
   <string name="notifyGameEvent">نوێکردنەوەی نامەناردن لە یاریدا</string>
   <string name="notifyChallenge">بەرەنگاریەکان</string>
-  <string name="notifyTournamentSoon">بەم زووانە پاڵەوانێتییەکە دەستپێدەکات</string>
   <string name="notifyTimeAlarm">کاتژمێری نامەنارد تەواو بووە</string>
   <string name="notifyBell">زەنگی ئاگادارکردنەوەی لە ناو Lichess</string>
   <string name="notifyPush">ئاگادارکردنەوەی ئامێرەکەت کاتێک لەسەر Lichess نیت</string>

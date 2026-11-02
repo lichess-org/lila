@@ -169,13 +169,12 @@ export default class Mousetrap {
   };
 
   private readonly handleKeyEvent = (e: KeyboardEvent) => {
+    if (document.querySelector<HTMLElement>('dialog:modal')) return;
     const el = e.target as HTMLElement;
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination === 'esc' ||
-        (el.tagName !== 'INPUT' &&
-          el.tagName !== 'SELECT' &&
-          el.tagName !== 'TEXTAREA' &&
+        (!['INPUT', 'SELECT', 'OPTION', 'TEXTAREA'].includes(el.tagName) &&
           !el.isContentEditable &&
           !el.hasAttribute('trap-bypass'))
       ) {

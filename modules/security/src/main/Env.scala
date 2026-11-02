@@ -1,17 +1,17 @@
 package lila.security
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.config.GetRelativeFile
 import lila.core.config.*
 import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
-import lila.oauth.OAuthServer
-import lila.common.config.GetRelativeFile
+import lila.oauth.{ AccessTokenApi, OAuthServer }
 
 @Module
 final class Env(
@@ -25,6 +25,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
+    accessTokenApi: AccessTokenApi,
     mongoCache: lila.memo.MongoCache.Api,
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
@@ -35,7 +36,7 @@ final class Env(
 )(using
     Executor,
     play.api.Mode,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 )(using scheduler: Scheduler):
@@ -63,7 +64,7 @@ final class Env(
 
   lazy val authenticator = wire[Authenticator]
 
-  lazy val turnstileCookie = TurnstileCookie(lilaCookie, config.loginTokenSecret)
+  lazy val turnstileCookie = TurnstileCookie(lilaCookie, config.turnstileCookieSecret)
   val turnstilePublicConfig = config.turnstile.public
   lazy val turnstile: Turnstile =
     if config.turnstile.enabled then wire[TurnstileReal]

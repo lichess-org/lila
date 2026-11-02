@@ -33,11 +33,9 @@
   <string name="downloadAllRounds">Elŝuti ĉiujn raŭndojn</string>
   <string name="resetRound">Restarigi ĉi tiun raŭndon</string>
   <string name="deleteRound">Forigi ĉi tiun raŭndon</string>
-  <string name="definitivelyDeleteRound">Sendube forigi la raŭndon kaj ĉiujn ĝiajn ludojn.</string>
   <string name="deleteAllGamesOfThisRound">Forigi ĉiujn ludojn de ĉi tiu raŭndo. La fonto devos esti aktiva por rekrei ilin.</string>
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
-  <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
   <string name="replacePlayerTags">Nedeviga: anstataŭigi nomojn de ludantoj, rangojn kaj titolojn</string>
   <string name="fideFederations">FIDE federacioj</string>
   <string name="top10Rating">La 10 plej bonaj</string>
@@ -84,6 +82,6 @@
   <string name="finals">Finaloj</string>
   <string name="tiebreaks">Egalrompoj</string>
   <string name="gameX">Ludo %s</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Malpli ol %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Malpli ol %s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Malpli ol %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Malpli ol %s</string>
 </resources>

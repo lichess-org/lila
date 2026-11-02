@@ -60,7 +60,6 @@ object Team:
   case class WithLeaders(team: Team, leaders: List[TeamMember]):
     export team.*
     def hasAdminCreator = leaders.exists(l => l.is(team.createdBy) && l.hasPerm(_.Admin))
-    def publicLeaders = leaders.filter(_.hasPerm(_.Public))
 
   case class IdAndLeaderIds(id: TeamId, leaderIds: Set[UserId])
 
@@ -68,6 +67,19 @@ object Team:
     export team.*
 
   case class WithPublicLeaderIds(team: Team, publicLeaders: List[UserId])
+
+  case class TeamShow(
+      team: Team,
+      leaders: List[TeamMember],
+      member: Option[TeamMember],
+      myRequest: Option[TeamRequest],
+      requests: List[RequestWithUser],
+      update: Option[TeamUpdate[?, UserId]]
+  ):
+    val mine = member.isDefined
+    val ledByMe = member.exists(_.perms.nonEmpty)
+    val publicLeaders = leaders.filter(_.hasPerm(_.Public))
+    def havePerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
 
   import chess.variant.Variant
   val variants: Map[Variant.LilaKey, LightTeam] = Variant.list.all.view.collect {

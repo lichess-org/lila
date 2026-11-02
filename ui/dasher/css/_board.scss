@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import '../../lib/css/theme/board/boards';
 
 #dasher_app .board {
@@ -10,25 +11,34 @@
   .list button {
     @extend %flex-center-center;
 
-    flex: 0 0 33%;
+    flex: 0 0 33.33%;
     height: 40px;
   }
 
-  .list span {
+  .list button .preview {
     display: block;
     width: 64px;
     height: 32px;
+    transition: transform 200ms;
+    border: $border;
+  }
+
+  .list button .preview > span {
+    display: block;
+    width: 100%;
+    height: 100%;
 
     body:not(.simple-board) & {
-      filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+      filter: brightness(calc(var(---board-brightness) / 100)) brightness(var(--preview-hover-brightness, 1))
+        contrast(calc(var(---board-contrast) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
+    }
+
+    html.transp & {
+      opacity: calc(var(---board-opacity) / 100);
     }
   }
 
-  .list button:hover {
-    filter: brightness(1.05);
-  }
-
-  .list button:hover span {
+  .list button:hover .preview {
     transform: scale(1.05);
   }
 
@@ -82,11 +92,17 @@
   &.d2 {
     @each $name, $theme in $board-themes-2d {
       .#{$name} {
-        $file-ext: map-get($theme, file-ext);
-        $name-override: map-get($theme, name-override);
-        $file-name: if($name-override, $name-override, $name);
+        $file-ext: map.get($theme, file-ext);
+        $name-override: map.get($theme, name-override);
+        $file-name: $name;
 
-        @if $file-name == 'newspaper' {
+        @if $name-override {
+          $file-name: $name-override;
+        }
+
+        // svg boards live in a subdirectory and ship no thumbnail, so they scale the
+        // board itself. Keyed on the extension, as in _board-2d.scss.
+        @if $file-ext == 'svg' {
           background-image: url(../images/board/svg/#{$file-name}.svg);
           background-size: 256px;
         } @else {
@@ -97,9 +113,9 @@
   }
 
   &.d3 {
-    @each $name in map-keys($board-themes-3d) {
+    @each $name in map.keys($board-themes-3d) {
       .#{$name} {
-        background-image: url(../images/staunton/board/#{$name}.thumbnail.png);
+        background-image: url(../images/staunton/board/#{$name}.thumbnail.webp);
       }
     }
   }

@@ -1,10 +1,11 @@
 package lila.relay
 
+import play.api.libs.json.JsObject
 import scalalib.paginator.Paginator
 
-import lila.relay.RelayTour.WithLastRound
 import lila.core.i18n.Translate
-import play.api.libs.json.JsObject
+import lila.core.net.Continent
+import lila.relay.RelayTour.WithLastRound
 
 case class RelayHome(ongoing: List[RelayCard], recent: List[WithLastRound], past: Paginator[WithLastRound])
 
@@ -12,18 +13,16 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     using scheduler: Scheduler
 ):
 
-  private def home: Fu[RelayHome] = for
+  def cacheTtl(page: Int) = if page == 1 then 10.seconds else 10.minutes
+
+  def get: Fu[RelayHome] = for
     active <- listing.active
     past <- pager.inactive(1)
     (recent, reallyPast) = stealRecentFromPast(past.currentPageResults)
   yield RelayHome(active, recent, past.withCurrentPageResults(reallyPast))
 
-  def get(page: Int): Fu[RelayHome | Paginator[WithLastRound]] =
-    if page == 1 then home
-    else pager.inactive(page)
-
   def getJson(page: Int)(using RelayJsonView.Config, Translate): Fu[JsObject] =
-    if page == 1 then home.map(jsonView.home)
+    if page == 1 then get.map(jsonView.home)
     else pager.inactive(page).map(jsonView.top(Nil, _))
 
   private def stealRecentFromPast(past: Seq[WithLastRound]): (List[WithLastRound], List[WithLastRound]) =
@@ -37,8 +36,11 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
 
   object spotlight:
     def get: List[RelayCard] = cache
+    def getForContinent(continent: Option[Continent]): List[RelayCard] =
+      cache.filter(_.tour.spotlight.forall(_.visibleFrom(continent)))
+    def hasContinentRestriction: Boolean = cache.exists(_.tour.spotlight.exists(_.continent.isDefined))
     private var cache: List[RelayCard] = Nil
-    scheduler.scheduleWithFixedDelay(10.seconds, listing.activeCacheTtl): () =>
+    scheduler.scheduleWithFixedDelay(cacheTtl(1), listing.activeCacheTtl): () =>
       listing.active.value.foreach:
         _.foreach: cards =>
           cache = cards

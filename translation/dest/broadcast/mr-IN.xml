@@ -34,14 +34,14 @@
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
   <string name="resetRound">ही फेरी परत चालू करा</string>
   <string name="deleteRound">फेरी रद्द करा</string>
-  <string name="definitivelyDeleteRound">फेरी आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">फेरी आणि त्याचे सर्व खेळ निश्चितपणे हटवा.</string>
   <string name="deleteAllGamesOfThisRound">या फेरीतील सर्व खेळ हटवा. ते पुन्हा तयार करण्यासाठी स्त्रोत सक्रिय असणे आवश्यक आहे.</string>
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
-  <string name="definitivelyDeleteTournament">संपूर्ण स्पर्धा, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व खेळ निश्चितपणे हटवा.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">सर्व फेऱ्या आणि सामन्यांसह ही स्पर्धा कायमची काढून टाकायची का?</string>
   <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
   <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
-  <string name="fideFederations">FIDE संघराज्ये </string>
+  <string name="fideFederations">FIDE संघराज्ये</string>
   <string name="top10Rating">सर्वोच्च १० मानांकनांची सरासरी</string>
   <string name="fidePlayers">FIDE खेळाडू</string>
   <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>
@@ -57,6 +57,7 @@
   <string name="subscribeTitle">प्रत्येक फेरी सुरू झाल्यावर सूचना मिळवण्यासाठी सदस्यता घ्या. तुम्ही तुमच्या खाते प्राधान्यांमध्ये प्रसारणासाठी बेल किंवा पुश सूचना निवडू शकता.</string>
   <string name="uploadImage">स्पर्धेचे चित्र टाका</string>
   <string name="noBoardsYet">आता पट नाही आहेत. हे खेळ टाकल्यावर दिसतील.</string>
+  <string name="noPlayersYet">अद्याप कोणतेही खेळाडू नाहीत. खेळ आयात झाल्यावर ते दिसू लागतील.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोता बरोबर किंवा %s ने भारले जाऊ शकतात</string>
   <string name="startsAfter">%s नंतर चालू होईल</string>
   <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
@@ -107,6 +108,7 @@
   <string name="tiebreaks">बरोबरीभंग फेऱ्या</string>
   <string name="gameX">खेळ %s</string>
   <string name="knockouts">बाद फेऱ्या</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
+  <string name="pinPlayer">खेळाडू ठळकपणे दर्शवा</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
 </resources>

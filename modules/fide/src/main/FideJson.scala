@@ -1,6 +1,7 @@
 package lila.fide
 
 import play.api.libs.json.*
+
 import lila.common.Json.{ *, given }
 import lila.core.fide.PhotosJson
 
@@ -30,7 +31,7 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
         "year" -> p.year
       )
       .add("title" -> p.title)
-      .add("inactive" -> p.inactive)
+      .add("inactive" -> p.isInactive)
       .add("standard" -> p.standard)
       .add("rapid" -> p.rapid)
       .add("blitz" -> p.blitz)

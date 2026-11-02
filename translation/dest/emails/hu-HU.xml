@@ -16,7 +16,6 @@ A profilodat itt találod: %1$s. Itt állíthatod be tetszésed szerint: %2$s.
 
 Jó szórakozást kívánunk, és mindig találd meg az utat az ellenfél királyához!</string>
   <string name="logInToLichess">Bejelentkezés a lichess.org-ra, %s</string>
-  <string name="common_orPaste">(Nem működik a kattintás? Próbáld beilleszteni a böngésződ címsorába!)</string>
   <string name="common_note">Ez egy szolgálati e-mail, ami ezzel kapcsolatos: %s.</string>
   <string name="common_contact">Itt léphetsz kapcsolatba velünk: %s.</string>
 </resources>

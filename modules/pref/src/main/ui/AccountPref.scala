@@ -4,8 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
   import helpers.{ *, given }
@@ -151,7 +150,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
                 div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
-                  "Multiple choices. ",
+                  trp.multipleChoices(),
                   trp.explainCanThenBeTemporarilyDisabled()
                 )
               ),
@@ -246,13 +245,14 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 tbody(
                   List(
                     a(href := routes.Streamer.index())(trp.notifyStreamStart()) -> "streamStart",
-                    trp.notifyForumMention() -> "mention",
-                    trp.notifyInvitedStudy() -> "invitedStudy",
-                    trp.notifyInboxMsg() -> "privateMessage",
+                    trp.notifyForumMentions() -> "mention",
+                    trp.notifyStudyInvites() -> "invitedStudy",
+                    trp.notifyDirectMessage() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
-                    trp.notifyTournamentSoon() -> "tournamentSoon",
+                    trp.notifyTournamentStartReminders() -> "tournamentSoon",
                     trp.notifyBroadcasts() -> "broadcastRound",
-                    trp.notifyGameEvent() -> "gameEvent"
+                    trp.notifyGameEvent() -> "gameEvent",
+                    trans.team.teamUpdates() -> "teamUpdate"
                   ).map(makeRow(form))
                 )
               ),
@@ -303,18 +303,15 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
     )
 
   def network(cfRouting: Boolean)(using ctx: Context) =
-    AccountPage("Network", "network"):
+    AccountPage(trp.network.txt(), "network"):
       div(cls := "box box-pad")(
         standardFlash,
-        h1(cls := "box__top")("Network"),
+        h1(cls := "box__top")(trp.network()),
         flashMessage("quiet")(
-          "You are currently using ",
-          if cfRouting then "Content Delivery Network (CDN) routing."
-          else "direct routing.",
+          if cfRouting then trp.youAreCurrentlyUsingCdnRouting()
+          else trp.youAreCurrentlyUsingDirectRouting(),
           br,
-          if cfRouting
-          then "This feature is experimental but may improve reliability in some regions."
-          else "If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things."
+          trp.frequentDisconnectsAdvice()
         ),
         br,
         postForm(action := routes.Pref.networkPost):
@@ -322,5 +319,5 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             name := "cfRouting",
             value := !cfRouting,
             cls := "button"
-          )(if cfRouting then "Use direct routing" else "Use CDN routing")
+          )(if cfRouting then trp.useDirectRouting() else trp.useCdnRouting())
       )

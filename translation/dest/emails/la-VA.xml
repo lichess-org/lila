@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Confirma tuum lichess.org rationem, %s</string>
+  <string name="emailConfirm_intro">Gratias tibi agimus quod apud Lichess te inscripsisti!</string>
   <string name="passwordReset_subject">Signum vestrum lichess.org repone, %s</string>
   <string name="welcome_subject">Bene advenisti ad lichess.org, %s</string>
 </resources>

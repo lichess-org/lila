@@ -7,13 +7,13 @@ import play.api.data.Form
 import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
-import lila.core.user.User
 import lila.core.perm.Granter
+import lila.core.user.User
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
+import lila.mon.extensions.*
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.mon.extensions.*
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -46,22 +46,33 @@ object UserInfo:
       relation: Option[lila.relation.Relation],
       notes: List[lila.user.Note],
       followable: Boolean,
-      blocked: Boolean
+      blocked: Boolean,
+      messageable: Boolean
   )
 
   final class SocialApi(
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
-  ):
+  )(using Executor):
     def apply(u: User)(using ctx: Context): Fu[Social] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(lila.mon.user.segment("relation"))),
         ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
         ctx.isAuth.so(prefApi.followable(u.id).mon(lila.mon.user.segment("followable"))),
-        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(lila.mon.user.segment("blocks")))
+        ctx.userId.so(relationApi.fetchBlocks(u.id, _).mon(lila.mon.user.segment("blocks"))),
+        ctx.me.soUse(messageable(u.id))
       ).mapN(Social.apply)
+
+    def messageable(userId: UserId)(using me: Me): Fu[Boolean] =
+      if Granter(_.PublicMod) then fuTrue
+      else
+        prefApi
+          .getMessage(userId)
+          .flatMap:
+            case lila.core.pref.Message.NEVER => fuccess(false)
+            case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
+            case lila.core.pref.Message.ALWAYS => fuccess(true)
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
@@ -77,18 +88,17 @@ object UserInfo:
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
-  ):
-    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+      crosstableApi: lila.game.CrosstableApi,
+      playingUsers: lila.round.PlayingUsers
+  )(using Executor):
+    def apply(u: User, withCrosstable: Boolean, withPlaying: Boolean)(using me: Me): Fu[NbGames] =
       (
-        withCrosstable.so:
-          me
-            .filter(u.isnt(_))
-            .traverse: me =>
-              crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
+        (withCrosstable && u.isnt(me)).so:
+          crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable")).dmap(some)
         ,
-        gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
+        withPlaying.so:
+          playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying"))
+        ,
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
         bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)
@@ -118,8 +128,10 @@ object UserInfo:
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(lila.mon.user.segment("trophies")),
         (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(lila.mon.user.segment("simul"))),
-        showRatings.so(ratingChartApi(user)).mon(lila.mon.user.segment("ratingChart")),
-        (!user.is(UserId.lichess) && !user.isBot).so:
+        showRatings
+          .so(ratingChartApi(user, computeIfNeeded = ctx.isAuth))
+          .mon(lila.mon.user.segment("ratingChart")),
+        (full && user.isnt(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
         (withBlog && full).so(ublogApi.userBlogPreviewFor(user, 3)),

@@ -4,8 +4,8 @@ import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
 import lila.memo.PicfitImage
-import lila.report.ui.PendingCounts
 import lila.report.Room.Scores
+import lila.report.ui.PendingCounts
 
 lazy val imageQueueUi = lila.mod.ui.ImageQueueUi(helpers, picfitUrl)
 
@@ -14,7 +14,14 @@ def imageQueue(
     scores: Scores,
     pending: PendingCounts
 )(using Context, Me) =
-  views.report.ui.list.layout("image", scores, pending, Seq("mod.imageQueue"), infiniteScrollEsmInit)(
+  views.report.ui.list.layout(
+    "Images",
+    "image",
+    scores,
+    pending,
+    Seq("mod.imageQueue"),
+    infiniteScrollEsmInit
+  )(
     views.mod.ui.menu("image")
   ):
     imageQueueUi.show(images)

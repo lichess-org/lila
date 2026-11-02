@@ -2,26 +2,21 @@ import { INITIAL_FEN } from 'chessops/fen';
 
 import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
+import { variants } from 'lib/game/perf';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
-import {
-  allTimeModeKeys,
-  timeControlFromStoredValues,
-  timeModes,
-  type TimeControl,
-} from 'lib/setup/timeControl';
+import { timeModes, timeControlFromStoredValues, type TimeControl } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/view';
+import { alert, type Dialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variants } from './options';
+import setupModal from './view/setup/modal';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
 
 export default class SetupController {
-  root: LobbyController;
   store: Record<GameType, Prop<SetupStore>>;
   gameType: GameType | null = null;
   lastValidFen = '';
@@ -43,8 +38,7 @@ export default class SetupController {
 
   timeControl: TimeControl;
 
-  constructor(ctrl: LobbyController) {
-    this.root = ctrl;
+  constructor(readonly root: LobbyController) {
     this.color = propWithEffect('random', this.onPropChange);
     // Initialize stores with default props as necessary
     this.store = {
@@ -54,12 +48,8 @@ export default class SetupController {
     };
   }
 
-  // Namespace the store by username for user specific modal settings
-  private readonly storeKey = (gameType: GameType) =>
-    `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
-
   makeSetupStore = (gameType: GameType) =>
-    storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
+    storedJsonProp<SetupStore>(`lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`, () => ({
       variant: 'standard',
       fen: '',
       timeMode: gameType === 'hook' ? 'realTime' : 'unlimited',
@@ -81,7 +71,7 @@ export default class SetupController {
     const canChangeTimeMode = !!this.root.me || this.gameType !== 'hook';
     this.timeControl = timeControlFromStoredValues(
       propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange),
-      canChangeTimeMode ? allTimeModeKeys : ['realTime'],
+      canChangeTimeMode ? timeModes : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
       forceOptions?.days ?? storeProps.days,
@@ -118,11 +108,15 @@ export default class SetupController {
     }
   };
 
-  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) =>
-    this.gameType &&
+  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) => {
+    if (!this.gameType) return;
+
+    // Don't persist position passed through URL
+    const prevSetup = this.forced?.fen ? this.store[this.gameType]() : undefined;
+
     this.store[this.gameType]({
-      variant: this.variant(),
-      fen: this.fen(),
+      variant: prevSetup?.variant ?? this.variant(),
+      fen: prevSetup?.fen ?? this.fen(),
       timeMode: this.timeControl.mode(),
       time: this.timeControl.time(),
       increment: this.timeControl.increment(),
@@ -134,6 +128,7 @@ export default class SetupController {
       aiLevel: this.aiLevel(),
       ...override,
     });
+  };
 
   private readonly savePropsToStoreExceptRating = () =>
     this.gameType &&
@@ -148,7 +143,7 @@ export default class SetupController {
   private readonly onPropChange = () => {
     if (this.isProvisional()) this.savePropsToStoreExceptRating();
     else this.savePropsToStore();
-    this.root.redraw();
+    this.dialog?.redraw();
   };
 
   private readonly onDropdownChange = () => {
@@ -165,12 +160,12 @@ export default class SetupController {
       }
       this.savePropsToStore();
     }
-    this.root.redraw();
+    this.dialog?.redraw();
   };
 
   private readonly propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
-  openModal = (
+  openModal = async (
     gameType: Exclude<GameType, 'local'>,
     forceOptions?: ForceSetupOptions,
     friendUser?: string,
@@ -184,13 +179,14 @@ export default class SetupController {
     this.variantMenuOpen(false);
     this.forced = forceOptions;
     this.loadPropsFromStore(forceOptions);
+    this.dialog = await setupModal(this.root);
   };
 
-  closeModal?: () => void; // managed by view/setup/modal.ts
+  dialog?: Dialog;
 
   toggleVariantMenu = () => {
     this.variantMenuOpen.toggle();
-    this.root.redraw();
+    this.dialog?.redraw();
   };
 
   validateFen = debounce(() => {
@@ -207,11 +203,11 @@ export default class SetupController {
         () => {
           this.fenError = false;
           this.lastValidFen = fen;
-          this.root.redraw();
+          this.dialog?.redraw();
         },
         () => {
           this.fenError = true;
-          this.root.redraw();
+          this.dialog?.redraw();
         },
       );
   }, 300);
@@ -249,19 +245,14 @@ export default class SetupController {
 
   propsToFormData = (color: ColorChoice) =>
     xhr.form({
-      variant: keyToId(this.variant(), variants).toString(),
+      variant: variants.findIndex(v => v === this.variant()) + 1,
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-      timeMode: keyToId(this.timeControl.mode(), timeModes).toString(),
+      timeMode: timeModes.findIndex(tm => tm === this.timeControl.mode()),
       time: this.timeControl.time().toString(),
-      time_range: this.timeControl.timeV().toString(),
       increment: this.timeControl.increment().toString(),
-      increment_range: this.timeControl.incrementV().toString(),
       days: this.timeControl.days().toString(),
-      days_range: this.timeControl.daysV().toString(),
       mode: this.gameMode() === 'casual' ? '0' : '1',
       ratingRange: this.ratingRange(),
-      ratingRange_range_min: this.ratingMin().toString(),
-      ratingRange_range_max: this.ratingMax().toString(),
       level: this.aiLevel().toString(),
       color,
     });
@@ -301,13 +292,13 @@ export default class SetupController {
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
-      this.closeModal?.();
+      this.dialog?.close();
       return;
     }
 
     if (this.gameType === 'hook') this.root.setTab(this.timeControl.isRealTime() ? 'real_time' : 'seeks');
     this.loading = true;
-    this.root.redraw();
+    this.dialog?.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
@@ -320,7 +311,7 @@ export default class SetupController {
       });
     } catch (_) {
       this.loading = false;
-      this.root.redraw();
+      this.dialog?.redraw();
       await alert('Sorry, we encountered an error while creating your game. Please try again.');
       return;
     }
@@ -339,13 +330,13 @@ export default class SetupController {
       if (response.status === 403) {
         // 403 FORBIDDEN closes this modal because challenges to the recipient
         // will not be accepted.  see friend() in controllers/Setup.scala
-        this.closeModal?.();
+        this.dialog?.close();
       }
     } else if (redirected) {
       location.href = url;
     } else {
       this.loading = false;
-      this.closeModal?.();
+      this.dialog?.close();
     }
   };
 }

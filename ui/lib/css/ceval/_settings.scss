@@ -20,7 +20,10 @@
       display: none;
     }
   }
+}
 
+#ceval-settings,
+.local-analysis-dialog {
   .setting {
     @extend %flex-center-nowrap;
 
@@ -84,7 +87,7 @@
         border-bottom: 3px solid $c-primary;
 
         &:hover {
-          border-color: $m-primary_white--mix-80;
+          border-color: color-mix(in oklab, $c-primary 80%, white);
         }
 
         &.arrow-down {
@@ -102,12 +105,14 @@
         border-color: $c-secondary;
 
         &:hover {
-          border-color: $m-secondary_white--mix-80;
+          border-color: color-mix(in oklab, $c-secondary 80%, white);
         }
       }
     }
   }
+}
 
+#ceval-settings {
   .engine-info-button {
     color: $c-font-dim;
     margin-inline-start: 1em;

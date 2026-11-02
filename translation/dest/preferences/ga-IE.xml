@@ -51,12 +51,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Scrollaigh ar an gclár chun bearta a athimirt</string>
   <string name="correspondenceEmailNotification">Ríomhphost laethúil ag liostú do chluichí comhfhreagrais</string>
   <string name="notifyStreamStart">Sraoilleán ag craoladh beo</string>
-  <string name="notifyInboxMsg">Teachtaireacht nua sa bosca isteach</string>
-  <string name="notifyForumMention">Luann trácht an fhóraim tú</string>
-  <string name="notifyInvitedStudy">Déan staidéar ar an gcuireadh</string>
   <string name="notifyGameEvent">Nuashonruithe cluiche comhfhreagrais</string>
   <string name="notifyChallenge">Dúshláin</string>
-  <string name="notifyTournamentSoon">Comórtas ag tosú go luath</string>
   <string name="notifyTimeAlarm">Clog comhfhreagrais ag rith amach</string>
   <string name="notifyBell">Fógra cloig laistigh de Lichess</string>
   <string name="notifyPush">Fógra gléis nuair nach bhfuil tú ar Lichess</string>

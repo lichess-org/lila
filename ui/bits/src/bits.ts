@@ -41,6 +41,8 @@ export function initModule(args: { fn: string } & any): void {
       return validateEmail();
     case 'emailErrorCheck':
       return emailErrorCheck();
+    case 'appealTopicSelect':
+      return appealTopicSelect();
     default:
       console.error('Unknown bits function', args.fn);
   }
@@ -93,6 +95,11 @@ function embedReasonToggle() {
   });
 }
 
+const SECOND = 1000;
+const MINUTE = SECOND * 60;
+const HOUR = MINUTE * 60;
+const DAY = HOUR * 24;
+
 function eventCountdown() {
   $('.event .countdown').each(function () {
     if (!this.dataset.seconds) return;
@@ -101,20 +108,15 @@ function eventCountdown() {
     const seconds = parseInt(this.dataset.seconds) - 1;
     const target = Date.now() + seconds * 1000;
 
-    const second = 1000,
-      minute = second * 60,
-      hour = minute * 60,
-      day = hour * 24;
-
     const redraw = function () {
       const distance = target - Date.now();
 
       if (distance > 0) {
-        $el.find('.days').text(Math.floor(distance / day).toString());
-        $el.find('.hours').text(Math.floor((distance % day) / hour).toString());
-        $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString());
+        $el.find('.days').text(Math.floor(distance / DAY).toString());
+        $el.find('.hours').text(Math.floor((distance % DAY) / HOUR).toString());
+        $el.find('.minutes').text(Math.floor((distance % HOUR) / MINUTE).toString());
         $el.find('.seconds').text(
-          Math.floor((distance % minute) / second)
+          Math.floor((distance % MINUTE) / SECOND)
             .toString()
             .padStart(2, '0'),
         );
@@ -123,7 +125,7 @@ function eventCountdown() {
         site.reload();
       }
     };
-    const interval = setInterval(redraw, second);
+    const interval = setInterval(redraw, SECOND);
 
     redraw();
   });
@@ -176,27 +178,30 @@ function relayForm() {
     selectDrags: $('.drop-target'),
   });
 
-  const $source = $('#form3-syncSource'),
-    showSource = () =>
-      $('.relay-form__sync').each(function (this: HTMLElement) {
-        this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
-      });
+  const $source = $('#form3-syncSource');
+  const showSource = () =>
+    $('.relay-form__sync').each(function (this: HTMLElement) {
+      this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
+    });
 
   $source.on('change', showSource);
   showSource();
 }
 
+const githubRepoRoot = 'https://github.com/lichess-org/lila';
+
 function setAssetInfo() {
   $('#asset-version-date').text(site.info.date);
   $('#asset-version-commit')
-    .attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit)
+    .attr('href', githubRepoRoot + '/commits/' + site.info.commit)
+    .attr('target', '_blank')
     .find('pre')
     .text(site.info.commit.slice(0, 7));
   $('#asset-version-upcoming')
-    .attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master')
+    .attr('href', githubRepoRoot + '/compare/' + site.info.commit + '...master')
+    .attr('target', '_blank')
     .find('pre')
     .text('...');
-  $('#asset-version-message').text(site.info.message);
 }
 
 function streamerSubscribe() {
@@ -253,4 +258,9 @@ function emailErrorCheck() {
     } else setTimeout(() => fetchError(backoff * 1.5), backoff);
   };
   fetchError(3000);
+}
+function appealTopicSelect() {
+  $('.appeal-filters').on('change', function (this: HTMLSelectElement) {
+    location.href = `/appeal/queue?topic=${this.value}`;
+  });
 }

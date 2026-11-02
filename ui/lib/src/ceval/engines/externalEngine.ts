@@ -10,19 +10,21 @@ import {
   CevalState,
 } from '../types';
 
-interface ExternalEngineOutput {
-  time: number;
-  depth: number;
-  nodes: number;
-  pvs: {
-    depth: number;
-    cp?: number;
-    mate?: number;
-    moves: Uci[];
-  }[];
-  bestmove?: Uci;
-  ponder?: Uci;
-}
+type ExternalEngineOutput =
+  | { keepalive: true }
+  | {
+      time: number;
+      depth: number;
+      nodes: number;
+      pvs: {
+        depth: number;
+        cp?: number;
+        mate?: number;
+        moves: Uci[];
+      }[];
+      bestmove?: Uci;
+      ponder?: Uci;
+    };
 
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
@@ -31,7 +33,7 @@ export class ExternalEngine implements CevalEngine {
 
   constructor(
     private readonly opts: ExternalEngineInfo,
-    private readonly status: EngineNotifier | undefined,
+    private readonly status: EngineNotifier,
   ) {}
 
   getState(): CevalState {
@@ -55,6 +57,9 @@ export class ExternalEngine implements CevalEngine {
 
   private async analyse(work: Work, signal: AbortSignal): Promise<void> {
     try {
+      if ('movetime' in work.search && work.search.movetime === Infinity) {
+        work.search.movetime = 1000 * 60 * 60 * 24;
+      }
       const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
       const res = await fetch(url.href, {
         signal,
@@ -80,6 +85,7 @@ export class ExternalEngine implements CevalEngine {
       });
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
+        if ('keepalive' in line) return;
         work.emit(
           {
             bestmove: line.bestmove,
@@ -91,6 +97,7 @@ export class ExternalEngine implements CevalEngine {
             cp: line.pvs[0]?.cp,
             mate: line.pvs[0]?.mate,
             pvs: line.pvs,
+            engineId: this.opts.id,
           },
           { threatMode: work.threatMode, path: work.path, ply: work.ply },
         );
@@ -111,7 +118,7 @@ export class ExternalEngine implements CevalEngine {
     this.req?.abort();
   }
 
-  engineName(): string {
+  version(): string {
     return this.opts.name;
   }
 

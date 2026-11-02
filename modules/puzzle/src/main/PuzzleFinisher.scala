@@ -1,8 +1,8 @@
 package lila.puzzle
 
-import chess.{ Rated, ByColor }
 import chess.rating.IntRatingDiff
 import chess.rating.glicko.{ Glicko, GlickoCalculator }
+import chess.{ ByColor, Rated }
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus
@@ -149,9 +149,9 @@ final private[puzzle] class PuzzleFinisher(
                             .void
                     _ <- colls.puzzle.map:
                       _.updateUnchecked(
-                        $id(puzzle.id),
-                        $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
-                          $set(Puzzle.BSONFields.glicko -> glicko)
+                        bid(puzzle.id),
+                        inc(Puzzle.BSONFields.plays -> bint(1)) ++ newPuzzleGlicko.so { glicko =>
+                          set(Puzzle.BSONFields.glicko -> glicko)
                         }
                       )
                     _ = if prevRound.isEmpty then
@@ -164,8 +164,7 @@ final private[puzzle] class PuzzleFinisher(
                         )
                   yield (round -> userPerf).some
 
-  private val canUpdatePuzzleRating =
-    lila.memo.RateLimit[UserId](300, 1.day, key = "puzzle.canUpdatePuzzleRating")
+  private val canUpdatePuzzleRating = lila.memo.RateLimit[UserId](300, 1.day, "puzzle.canUpdatePuzzleRating")
 
   private object ponder:
 
@@ -214,4 +213,4 @@ final private[puzzle] class PuzzleFinisher(
       else glicko._1.average(glicko._2, weightOf(angle, win))
 
   def incPuzzlePlays(puzzleId: PuzzleId): Funit =
-    colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
+    colls.puzzle.map(_.incFieldUnchecked(bid(puzzleId), Puzzle.BSONFields.plays))

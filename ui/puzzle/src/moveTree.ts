@@ -54,11 +54,11 @@ const makeNode = (pos: Position, move: Move, ply: number, san: San): TreeNode =>
   });
 
 export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
-  if (ctrl.mode === 'view') return;
-  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
+  if (ctrl.mode === 'view') return undefined;
+  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return undefined;
 
   const playedByColor = plyOpponentColor(ctrl.node.ply);
-  if (playedByColor === ctrl.pov) return;
+  if (playedByColor === ctrl.pov) return undefined;
 
   const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1);
   const nextUci = ctrl.data.puzzle.solution[nodes.length];

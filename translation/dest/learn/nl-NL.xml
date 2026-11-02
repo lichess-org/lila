@@ -103,7 +103,7 @@ door het aanvallende stuk te slaan.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Het paard zet je schaak
 door je verdediging heen!</string>
   <string name="escapeOrBlock">Ontsnap met de koning of blokkeer de aanval!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gefeliciteerd! Je koning kan nooit geslagen worden, zorg ervoor dat je je kunt verdedigen als je schaak staat!</string>
+  <string name="outOfCheckComplete">Gefeliciteerd! Je koning kan nooit geslagen worden, zorg ervoor dat je je kunt verdedigen als je schaak staat!</string>
   <string name="mateInOne">Mat in één</string>
   <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
   <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
@@ -122,11 +122,12 @@ Zij staan in de hoeken.</string>
   <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
   <string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
   <string name="placeTheQueen">Plaats de dame! Zij staat op haar eigen kleur.</string>
-  <string name="placeTheKing">Plaats de koning! Aan de zijde van zijn koningin.</string>
+  <string name="placeTheKing">Plaats de koning! Aan de zijde van zijn dame.</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. 
 Doe een willekeurige welke zet om door te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet klaarzetten.</string>
   <string name="castling">Rokeren</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">De speciale koningszet</string>
   <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor de aanval!</string>
   <string name="castleKingSide">Beweeg je koning twee vakjes
@@ -181,7 +182,7 @@ Pion = 1
 De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
   <string name="queenOverBishop">Sla het stuk
 met de hoogste waarde!
-Koningin &gt; Loper</string>
+Dame &gt; Loper</string>
   <string name="pieceValueExchange">Neem het stuk met de hoogste waarde!
  Ruil niet een hoger gewaardeerd stuk in voor een minder waardevol.</string>
   <string name="pieceValueLegal">Neem het stuk

@@ -23,7 +23,7 @@ final class ChatTimeout(
         if scope == Scope.Global then global.put(user.id)
         coll.insert
           .one(
-            $doc(
+            bdoc(
               "_id" -> ThreadLocalRandom.nextString(8),
               "chat" -> chat.id,
               "mod" -> mod.id,
@@ -37,25 +37,25 @@ final class ChatTimeout(
 
   def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
     fuccess(global.get(userId)) >>| coll.exists:
-      $doc(
+      bdoc(
         "chat" -> chatId,
         "user" -> userId,
-        "expiresAt".$exists(true)
+        "expiresAt".exists(true)
       )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find($doc("user" -> user.id)).sort($sort.desc("createdAt")).cursor[UserEntry]().list(nb)
+    coll.find(bdoc("user" -> user.id)).sort(sort.desc("createdAt")).cursor[UserEntry]().list(nb)
 
   def checkExpired: Fu[List[Reinstate]] =
     coll
       .list[Reinstate](
-        $doc(
-          "expiresAt".$lt(nowInstant)
+        bdoc(
+          "expiresAt".lt(nowInstant)
         )
       )
       .flatMap:
         case Nil => fuccess(Nil)
-        case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true).inject(objs)
+        case objs => coll.unsetField(inIds(objs.map(_._id)), "expiresAt", multi = true).inject(objs)
 
 object ChatTimeout:
 

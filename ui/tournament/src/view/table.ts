@@ -1,7 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { licon } from 'lib/licon';
-import { type VNode, bind, onInsert, hl, initMiniGames, iconTag } from 'lib/view';
+import { type VNode, bind, onInsert, hl, initMiniGames, icon } from 'lib/view';
 
 import type TournamentController from '../ctrl';
 import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
@@ -14,7 +14,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
     hl('span.mini-game__user', [
       hl('strong', '#' + player.rank),
       renderPlayer(player, true, opts.showRatings, false),
-      player.berserk && iconTag(licon.Berserk, { cls: 'berserk', title: 'Berserk' }),
+      player.berserk && icon(licon.Berserk)('.berserk', { title: 'Berserk' }),
     ]),
     game.c
       ? hl(`span.mini-game__clock.mini-game__clock--${color}`, {
@@ -33,7 +33,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
     },
     [
       featuredPlayer(game, opposite(game.orientation), opts),
-      hl('a.cg-wrap', { attrs: { href: `/${game.id}/${game.orientation}` } }),
+      hl('a.cg-wrap', { attrs: { href: `/game/${game.id}/${game.orientation}` } }),
       featuredPlayer(game, game.orientation, opts),
     ],
   );
@@ -46,10 +46,10 @@ const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
 ];
 
 function renderDuel(ctrl: TournamentController) {
-  const battle = ctrl.data.teamBattle,
-    duelTeams = ctrl.data.duelTeams;
+  const battle = ctrl.data.teamBattle;
+  const duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
-    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/' + d.id } }, [
+    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/game/' + d.id } }, [
       battle &&
         duelTeams &&
         hl(

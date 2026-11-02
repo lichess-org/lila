@@ -45,10 +45,10 @@ object userId:
   object MyId extends TotalWrapper[MyId, String]:
     given Conversion[MyId, UserId] = UserId(_)
     given UserIdOf[MyId] = u => u
-    given (using id: MyId): Option[MyId] = Some(id)
+    given (using id: MyId): Option[MyId] = Option(id)
     given (using me: Me): MyId = me.myId
+    given (using me: Option[Me]): Option[MyId] = me.map(_.myId)
     given [M[_]]: Conversion[M[MyId], M[UserId]] = u => UserId.from(MyId.raw(u))
-    given Conversion[Me, MyId] = _.myId
     extension (me: MyId)
       inline def userId: UserId = me.into(UserId)
       inline def modId: ModId = me.into(ModId)
@@ -63,6 +63,11 @@ object userId:
     val anonymous: UserName = "Anonymous"
     val lichess: UserName = "lichess"
     val anonMod: String = "A Lichess Moderator"
+    // Matches a lichess username with an '@' prefix if it is used as a single
+    // word (i.e. preceded and followed by space or appropriate punctuation):
+    // Yes: everyone says @ornicar is a pretty cool guy
+    // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
+    val atRegex = """@(?<![\w@#/\[]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String
@@ -85,10 +90,11 @@ object userId:
   // "chess-" is a valid username prefix, but not a valid username
   opaque type UserSearch = String
   object UserSearch extends OpaqueString[UserSearch]:
-    private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
+    private val regex = "(?i)[a-z0-9][a-z0-9_-]{3,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
-      if regex.matches(clean) then Some(clean.toLowerCase) else None
+      Option.when(regex.matches(clean))(clean.toLowerCase)
 
   opaque type ModId = String
-  object ModId extends OpaqueUserId[ModId]
+  object ModId extends OpaqueUserId[ModId]:
+    val lichess: ModId = UserId.lichess

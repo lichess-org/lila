@@ -6,13 +6,13 @@ final class Dev(env: Env) extends LilaController(env):
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
     Ok.page:
-      views.dev.settings(settingsList)
+      views.dev.settings(settingsListForMe)
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
+    settingsListForMe.flatMap(_._2).find(_.id == id).so { setting =>
       bindForm(setting.form)(
-        _ => BadRequest.page(views.dev.settings(settingsList)),
+        _ => BadRequest.page(views.dev.settings(settingsListForMe)),
         v =>
           lila.log.system.info(s"setting ${me.username} changes $id from ${setting.get()} to ${v.toString}")
           setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
@@ -37,7 +37,7 @@ final class Dev(env: Env) extends LilaController(env):
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
     isGranted(_.Cli).so:
-      runCommand(ctx.body.body).map { Ok(_) }
+      runCommand(ctx.body.body).map(Ok(_))
   }
 
   def ipTiers = Secure(_.IpTiers) { ctx ?=> _ ?=>
@@ -68,6 +68,11 @@ final class Dev(env: Env) extends LilaController(env):
       res <- env.api.cli.run(command.split(" ").toList)
     yield res
 
+  private def settingsListForMe(using me: Me) =
+    settingsList.flatMap: (categ, settings) =>
+      val sets = settings.filter(s => isGranted(s.perm))
+      sets.nonEmpty.option(categ -> sets)
+
   private lazy val settingsList = List[(String, List[lila.memo.SettingStore[?]])](
     "Moderation" -> List(
       env.security.ugcArmedSetting,
@@ -78,8 +83,8 @@ final class Dev(env: Env) extends LilaController(env):
       env.report.discordScoreThresholdSetting
     ),
     "Cheat" -> List(
-      env.round.selfReportEndGame,
-      env.round.selfReportMarkUser,
+      env.round.selfReport.endGameSetting,
+      env.round.selfReport.markUserSetting,
       env.bot.boardReport.domainSetting
     ),
     "Security" -> List(
@@ -100,15 +105,14 @@ final class Dev(env: Env) extends LilaController(env):
       env.web.settings.prizeTournamentMakers
     ),
     "Limits" -> List(
-      env.web.settings.apiTimeline,
       env.web.settings.apiExplorerGamesPerSecond,
       env.recap.parallelismSetting,
       env.fishnet.openingBookDepth
     ),
     "Broadcast" -> List(
-      env.relay.proxyDomainRegex,
-      env.relay.proxyHostPort,
-      env.relay.proxyCredentials
+      env.relay.proxy.domainRegex,
+      env.memo.proxy.hostPort,
+      env.memo.proxy.credentials
     ),
     "Tutor" -> List(
       env.tutor.nbAnalysisSetting,
@@ -123,7 +127,8 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.lichobileAnnounceApi.lichobileUpgrade
+      env.web.lichobileAnnounceApi.lichobileUpgrade,
+      env.web.lichobileDisables.setting
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

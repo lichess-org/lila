@@ -1,4 +1,3 @@
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { MoveMetadata } from '@lichess-org/chessground/types';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
@@ -35,6 +34,7 @@ export class PromotionCtrl {
     private readonly withGround: WithGround,
     private readonly onCancel: () => void,
     private readonly redraw: Redraw,
+    private readonly variant: () => VariantKey = () => 'standard',
     private readonly autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 
@@ -47,6 +47,14 @@ export class PromotionCtrl {
         ((dest[1] === '8' && g.state.turnColor === 'black') ||
           (dest[1] === '1' && g.state.turnColor === 'white'))
       ) {
+        if (
+          this.variant() === 'atomic' &&
+          (premovePiece ? g.state.pieces.get(dest)?.color === opposite(premovePiece.color) : !!meta?.captured)
+        ) {
+          if (premovePiece) this.setPrePromotion(dest, 'queen');
+          else this.doPromote({ orig, dest, hooks }, 'queen');
+          return true;
+        }
         if (this.prePromotionRole && meta?.premove) {
           this.doPromote({ orig, dest, hooks }, this.prePromotionRole);
           return true;
@@ -94,7 +102,7 @@ export class PromotionCtrl {
 
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
-    if (!promoting) return;
+    if (!promoting) return undefined;
     promoting.hooks.show?.(this, antichess ? [...PROMOTABLE_ROLES, 'king'] : PROMOTABLE_ROLES);
 
     return (
@@ -131,9 +139,9 @@ export class PromotionCtrl {
       g.setAutoShapes([
         {
           orig: dest,
-          piece: { color: opposite(g.state.turnColor), role, opacity: 0.8 },
+          piece: { color: opposite(g.state.turnColor), role },
           brush: '',
-        } as DrawShape,
+        },
       ]),
     );
   }

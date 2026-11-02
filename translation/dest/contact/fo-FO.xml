@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Av tøkniligum ávum ber ikki til at broyta annað enn støddina á bókstavum; um teir eru við stórum ella smáum.</string>
   <string name="orCloseAccount">Hinvegin ber til hjá tær at steingja tína núverandi kontu og stovna eina nýggja.</string>
   <string name="wantClearHistory">Eg vil strika mína hendingagongd ella mítt styrkital</string>
-  <string name="cantClearHistory">Tað er ikki møguligt at strika tínar talv- og uppgávuhendingagongdir ella styrkitøl tíni.</string>
   <string name="wantReport">Eg vil melda ein telvara</string>
   <string name="toReportAPlayerUseForm">Til tess at melda ein telvara, nýt fráboðanaroyðublaðið</string>
   <string name="youCanAlsoReachReportPage">Tú røkkur eisini teirri síðuni við at klikkja %s fráboðanarknøttin á eini vangamyndssíðu.</string>
@@ -53,7 +52,6 @@
   <string name="noRatingPoints">Eingi ratingstig vórðu givin</string>
   <string name="ratedGame">Ver vísur í, at tú telvaði eitt talv, ið varð styrkismett. Óformell talv ávirka ikki styrkitalið hjá telvaranum.</string>
   <string name="errorPage">Skeivleikasíða</string>
-  <string name="reportErrorPage">Um tú barst við eina síðu við skeivleikum, kanst tú boða frá tí:</string>
   <string name="banAppeal">Bið um eitt bann ella eina IP-avmarking</string>
   <string name="engineAppeal">Fráboðan um svik ella talvteldu</string>
   <string name="sendAppealTo">Tú kanst senda eina áheitan til %s.</string>

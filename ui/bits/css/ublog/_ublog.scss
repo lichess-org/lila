@@ -8,11 +8,6 @@
   gap: 2rem;
   padding-top: 2rem;
   padding-bottom: 3rem;
-
-  > * {
-    padding: 0;
-    margin: 0;
-  }
 }
 
 .ublog-index .box__top {
@@ -85,11 +80,11 @@
   }
 
   .filter-and-sort {
-    gap: 2rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 1em;
 
-    > span {
-      flex-wrap: nowrap;
-      white-space: nowrap;
+    .sort {
       gap: 0.6em;
     }
   }
@@ -98,6 +93,12 @@
     flex: auto;
     padding: 0.2em;
     gap: 0;
+    background: none;
+    border: none;
+
+    a {
+      font-size: 1.25em;
+    }
 
     div {
       gap: 0.5em;
@@ -108,15 +109,17 @@
     }
   }
 
-  .descending::after {
+  .descending::after,
+  .ascending::after {
     margin-inline-start: 1ch;
     font-family: lichess;
+  }
+
+  .descending::after {
     content: $licon-DownTriangle;
   }
 
   .ascending::after {
-    margin-inline-start: 1ch;
-    font-family: lichess;
     content: $licon-UpTriangle;
   }
 
@@ -208,16 +211,7 @@
   text-align: center;
 }
 
-.ublog-mod-assess-footer span {
-  margin-inline-start: auto;
-}
-
-.ublog-mod-assess-footer .spinner {
-  width: 2em;
-  height: 2em;
-}
-
-#mod-tools,
+#ublog-mod-tools,
 .filter-and-sort,
 .search-sort {
   .btn-rack__btn {

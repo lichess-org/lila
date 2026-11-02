@@ -17,7 +17,6 @@
   <string name="downloadAllRounds">Lejupielādēt visus raundus</string>
   <string name="resetRound">Atiestatīt šo raundu</string>
   <string name="deleteRound">Dzēst šo raundu</string>
-  <string name="definitivelyDeleteRound">Neatgriezeniski dzēst raundu un tā spēles.</string>
   <string name="deleteAllGamesOfThisRound">Izdzēst visas šī raunda spēles. To atjaunošanai būs nepieciešams aktīvs avots.</string>
   <string name="fideFederations">FIDE federācijas</string>
   <string name="top10Rating">10 labāko spēlētāju reitings</string>

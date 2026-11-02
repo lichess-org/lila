@@ -1,6 +1,6 @@
 package lila.web
 
-import akka.stream.scaladsl.Source
+import org.apache.pekko.stream.scaladsl.Source
 import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -25,9 +25,8 @@ trait ResponseBuilder(using Executor)
   val jsonOkResult = JsonOk(jsonOkBody)
   def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
-  def JsonOk(body: JsValue): Result = Ok(body).as(JSON)
-  def JsonOk[A: Writes](body: A): Result = Ok(Json.toJson(body)).as(JSON)
-  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.dmap(JsonOk)
+  def JsonOk[A: Writes](body: A): Result = Ok(Json.toJson(body))
+  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua.map(JsonOk)
   def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua.map(_.fold(notFoundJson())(JsonOk))
   def JsonStrOk(str: JsonStr): Result = Ok(str).as(JSON)
   def JsonBadRequest(body: JsValue): Result = BadRequest(body).as(JSON)
@@ -35,7 +34,7 @@ trait ResponseBuilder(using Executor)
   def JsonLimited(limited: Limited): Result = TooManyRequests(Json.toJson(limited)).as(JSON)
 
   def strToNdJson(source: Source[String, ?]): Result =
-    Ok.chunked(source).as(ndJson.contentType).noProxyBuffer
+    Ok.chunked(source).as(NDJSON).noProxyBuffer
 
   def jsToNdJson(source: Source[JsValue, ?]): Result =
     strToNdJson(ndJson.jsToString(source))
@@ -44,12 +43,12 @@ trait ResponseBuilder(using Executor)
     strToNdJson(ndJson.jsOptToString(source))
 
   def jsToNdJson(source: Seq[JsValue]): Result =
-    Ok(source.map(Json.stringify).mkString("\n")).as(ndJson.contentType)
+    Ok(source.map(Json.stringify).mkString("\n")).as(NDJSON)
 
   /* We roll our own action, as we don't want to compose play Actions. */
   def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
     import play.api.libs.streams.Accumulator
-    import akka.util.ByteString
+    import org.apache.pekko.util.ByteString
     def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
       parser(rh).mapFuture:
         case Left(r) => fuccess(r)
@@ -69,4 +68,6 @@ trait ResponseBuilder(using Executor)
     "donate" -> "/patron",
     "how-to-cheat" -> "/page/how-to-cheat"
   )
-  def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }
+  def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map(MovedPermanently(_))
+
+  def MovedPermanently(call: Call): Result = MovedPermanently(call.url)

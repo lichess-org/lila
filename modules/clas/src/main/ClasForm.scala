@@ -4,8 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.clas.Student.RealName
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.mon.extensions.*
 
 final class ClasForm(
@@ -65,7 +65,7 @@ final class ClasForm(
     def invite(c: Clas) = Form:
       mapping(
         "username" -> lila.common.Form.username.historicalField
-          .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
+          .verifying("Unknown username", blockingFetchUser(_).exists(!_.isBot))
           .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
@@ -81,20 +81,10 @@ final class ClasForm(
 
     def release = Form(single("email" -> signupForm.emailField))
 
-    def manyCreate(max: Int): Form[ManyNewStudent] = Form:
-      mapping(
-        "realNames" -> cleanNonEmptyText
-      )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
-        s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
-        _.realNames.lengthIs <= max
-      )
-
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1.second, "clasInviteUser")
 
 object ClasForm:
-
-  private val realNameMaxSize = 100
 
   case class ClasData(
       name: String,
@@ -138,7 +128,3 @@ object ClasForm:
         realName = realName,
         notes = notes
       )
-
-  case class ManyNewStudent(realNamesText: String):
-    def realNames = RealName.from:
-      realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList

@@ -9,13 +9,13 @@ import {
   bishopAttacks,
 } from 'chessops/attacks';
 import { Board } from 'chessops/board';
-import { Chess } from 'chessops/chess';
+import { Chess, type Context } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
 import { SquareSet } from 'chessops/squareSet';
 import { type Role, type Color, type Piece, type NormalMove, COLORS, type Square } from 'chessops/types';
 import { parseSquare, opposite, squareRank, squareFile, squareFromCoords } from 'chessops/util';
 
-import type { Pin, Undefended, Checkable } from './interfaces';
+import type { Pin, Undefended, Checkable, Trapped } from './interfaces';
 
 export const boardAnalysisVariants = [
   'standard',
@@ -44,10 +44,10 @@ function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role):
   const attackers: PieceOnSquare[] = [];
   const colorSet = cb[byColor];
 
-  const add = (set: SquareSet) => {
-    for (const s of set) {
-      const p = cb.get(s);
-      if (p && (!byRole || p.role === byRole)) attackers.push({ piece: p, square: s });
+  const add = (squares: SquareSet) => {
+    for (const square of squares) {
+      const piece = cb.get(square);
+      if (piece && (!byRole || piece.role === byRole)) attackers.push({ piece, square });
     }
   };
 
@@ -57,6 +57,8 @@ function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role):
   add(rookAttacks(square, cb.occupied).intersect(colorSet).intersect(cb.rooksAndQueens()));
   add(bishopAttacks(square, cb.occupied).intersect(colorSet).intersect(cb.bishopsAndQueens()));
 
+  // pins are only needed to filter attackers, so skip the scan when there are none
+  if (attackers.length === 0) return attackers;
   const pins = detectPins(cb);
   const usableAttacker = (attacker: PieceOnSquare): boolean => {
     if (attacker.piece.role === 'king' && isSquareAttacked(square, opposite(byColor), cb)) return false;
@@ -71,47 +73,46 @@ function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role):
   return attackers.filter(usableAttacker);
 }
 
-export function detectPins(board: Board): Pin[] {
+export function detectPins(cb: Board): Pin[] {
   const pins: Pin[] = [];
-  const cb = board;
-  const occupied = cb.occupied;
+  const { occupied } = cb;
 
-  for (const s of occupied) {
-    const piece = board.get(s);
+  for (const square of occupied) {
+    const piece = cb.get(square);
     if (!piece) continue;
     if (piece.role !== 'bishop' && piece.role !== 'rook' && piece.role !== 'queen') continue;
 
-    const attackSet = attacks(piece, s, occupied);
+    const attackSet = attacks(piece, square, occupied);
     const pinnedCandidates = attackSet.intersect(cb[opposite(piece.color)]);
 
-    for (const p of pinnedCandidates) {
-      const raySet = ray(s, p);
-      const xray = attacks(piece, s, occupied.without(p)).intersect(raySet);
-      const targets = xray.intersect(occupied).without(p);
+    for (const pinned of pinnedCandidates) {
+      const raySet = ray(square, pinned);
+      const xray = attacks(piece, square, occupied.without(pinned)).intersect(raySet);
+      const targets = xray.intersect(occupied).without(pinned);
 
-      for (const t of targets) {
-        if (!between(s, t).has(p)) continue;
+      for (const target of targets) {
+        if (!between(square, target).has(pinned)) continue;
 
-        const target = board.get(t);
-        if (!target || target.color === piece.color) continue;
+        const targetPiece = cb.get(target);
+        if (!targetPiece || targetPiece.color === piece.color) continue;
 
-        const pinnedPiece = board.get(p);
+        const pinnedPiece = cb.get(pinned);
         if (!pinnedPiece) continue;
 
-        if (target.role === 'king') {
+        if (targetPiece.role === 'king') {
           // Absolute pin
-          pins.push({ pinned: p, pinner: s, target: t });
+          pins.push({ pinned, pinner: square, target });
         } else {
           // Relative pin
-          const valTarget = values[target.role],
-            valPinned = values[pinnedPiece.role],
-            valAttacker = values[piece.role];
+          const valTarget = values[targetPiece.role];
+          const valPinned = values[pinnedPiece.role];
+          const valAttacker = values[piece.role];
 
           if (
             valTarget > valPinned && // Back piece is worth more than front piece
-            (!isSquareAttacked(t, target.color, cb) || valTarget > valAttacker) // Back piece is undefended OR worth more than the attacker
+            (!isSquareAttacked(target, targetPiece.color, cb) || valTarget > valAttacker) // Back piece is undefended OR worth more than the attacker
           ) {
-            pins.push({ pinned: p, pinner: s, target: t });
+            pins.push({ pinned, pinner: square, target });
           }
         }
         break;
@@ -124,7 +125,7 @@ export function detectPins(board: Board): Pin[] {
 const epTargetPawnSq = (epSquare: Square): Square =>
   squareFromCoords(squareFile(epSquare), squareRank(epSquare) === 2 ? 3 : 4)!;
 
-const lookupKey = (board: Board, target: Piece) => `${board.occupied.hi},${board.occupied.lo},${target.role}`;
+const lookupKey = ({ occupied }: Board, target: Piece) => `${occupied.hi},${occupied.lo},${target.role}`;
 
 interface SEEResult {
   balance: number;
@@ -173,7 +174,7 @@ function getSEE(
   return result;
 }
 
-export function detectUndefended(board: Board, epSquare: Square | undefined): Undefended[] {
+export function detectUndefended(board: Board, epSquare?: Square): Undefended[] {
   const undefended: Undefended[] = [];
   const cb = board;
   for (let i = 0; i < 64; i++) {
@@ -193,12 +194,11 @@ export function detectUndefended(board: Board, epSquare: Square | undefined): Un
 }
 
 export function detectCheckable(
-  board: Board,
+  cb: Board,
   epSquare: Square | undefined,
   castlingRights: SquareSet,
 ): Checkable[] {
   const checkable: Checkable[] = [];
-  const cb = board;
 
   for (const color of COLORS) {
     const kSq = cb.kingOf(color);
@@ -230,8 +230,10 @@ export function detectCheckable(
 
     for (const [fromStr, tos] of dests) {
       if (checkFound) break;
-      const from = parseSquare(fromStr),
-        piece = board.get(from);
+
+      const from = parseSquare(fromStr);
+      const piece = cb.get(from);
+
       if (!piece) continue;
 
       for (const toStr of tos) {
@@ -273,4 +275,135 @@ export function detectCheckable(
     if (checkFound) checkable.push({ king: kSq, check: checkFound });
   }
   return checkable;
+}
+
+const MIN_MATERIAL_LOSS = 2;
+
+const positionFor = (board: Board, turn: Color, castlingRights: SquareSet, epSquare?: Square) =>
+  Chess.fromSetup({
+    board,
+    turn,
+    castlingRights,
+    epSquare,
+    halfmoves: 0,
+    fullmoves: 1,
+    pockets: undefined,
+    remainingChecks: undefined,
+  });
+
+const play = (pos: Chess, from: Square, to: Square): Chess => {
+  const promotion = pos.board.pawn.has(from) && SquareSet.backranks().has(to) ? 'queen' : undefined;
+  const next = pos.clone();
+  next.play({ from, to, promotion });
+  return next;
+};
+
+// a mate must give check, so a move that cannot give check is skipped without playing it;
+// this may keep some non-checking moves, never drops a checking one
+const mayGiveCheck = ({ board, epSquare }: Chess, from: Square, to: Square): boolean => {
+  const piece = board.get(from)!;
+  const isEnPassant = piece.role === 'pawn' && to === epSquare;
+  const isPromotion = piece.role === 'pawn' && SquareSet.backranks().has(to);
+  if (piece.role === 'king' || isEnPassant || isPromotion) return true;
+  const defenderKing = board.kingOf(opposite(piece.color));
+  if (defenderKing === undefined) return true;
+  const occupied = board.occupied.without(from).with(to);
+  const enemies = board[piece.color];
+  return (
+    attacks(piece, to, occupied).has(defenderKing) ||
+    rookAttacks(defenderKing, occupied).intersects(enemies.intersect(board.rooksAndQueens()).without(from)) ||
+    bishopAttacks(defenderKing, occupied).intersects(
+      enemies.intersect(board.bishopsAndQueens()).without(from),
+    )
+  );
+};
+
+const hasMateInOne = (pos: Chess): boolean => {
+  for (const [from, tos] of pos.allDests()) {
+    for (const to of tos) if (mayGiveCheck(pos, from, to) && play(pos, from, to).isCheckmate()) return true;
+  }
+  return false;
+};
+
+// whether the opponent of `color` would have a mate in one if `color` could pass
+const mateThreat = (board: Board, color: Color, castlingRights: SquareSet): (() => boolean) => {
+  let threatened: boolean | undefined;
+  return () => {
+    if (threatened === undefined) {
+      const passed = positionFor(board, opposite(color), castlingRights);
+      threatened = !('error' in passed) && hasMateInOne(passed.value);
+    }
+    return threatened;
+  };
+};
+
+const isLostOn = (board: Board, piece: Piece, square: Square): boolean =>
+  getSEE(square, false, piece, board, new Map(), false).balance >= MIN_MATERIAL_LOSS;
+
+const losesMaterial = (board: Board, piece: Piece, from: Square, to: Square): boolean => {
+  const after = board.clone();
+  after.take(from);
+  const captured = after.set(to, piece);
+  const { balance } = getSEE(to, false, piece, after, new Map(), false);
+  return balance - (captured ? values[captured.role] : 0) >= MIN_MATERIAL_LOSS;
+};
+
+// every move loses the piece, or allows a mate in one the opponent did not already have
+const hasNoSafeMove = (pos: Chess, ctx: Context, from: Square, mateThreatened: () => boolean): boolean => {
+  const piece = pos.board.get(from)!;
+  for (const to of pos.dests(from, ctx)) {
+    if (losesMaterial(pos.board, piece, from, to)) continue;
+    if (mateThreatened()) return false;
+    const escape = pos.clone();
+    escape.play({ from, to });
+    if (!hasMateInOne(escape)) return false;
+  }
+  return true;
+};
+
+// the piece is already lost where it stands, or the opponent has a safe move that attacks it without opening an escape
+const canBeWon = (board: Board, color: Color, castlingRights: SquareSet, square: Square): boolean => {
+  const piece = board.get(square)!;
+  if (isLostOn(board, piece, square)) return true;
+  const res = positionFor(board, opposite(color), castlingRights);
+  if ('error' in res) return false;
+  const opp = res.value;
+  for (const [from, tos] of opp.allDests()) {
+    const attacker = board.get(from)!;
+    for (const to of tos) {
+      // capturing the piece outright was covered by isLostOn above
+      if (to === square || losesMaterial(board, attacker, from, to)) continue;
+      const next = play(opp, from, to);
+      if (!isLostOn(next.board, piece, square)) continue;
+      const ctx = next.ctx();
+      // an attack with check leaves no time to rescue the piece
+      if (ctx.checkers.nonEmpty()) return true;
+      if (hasNoSafeMove(next, ctx, square, mateThreat(next.board, color, next.castles.castlingRights)))
+        return true;
+    }
+  }
+  return false;
+};
+
+export function detectTrapped(board: Board, castlingRights: SquareSet, epSquare?: Square): Trapped[] {
+  const trapped: Trapped[] = [];
+
+  for (const color of COLORS) {
+    const res = positionFor(board, color, castlingRights, epSquare);
+    if ('error' in res) continue;
+    const pos = res.value;
+    const ctx = pos.ctx();
+    // pieces restricted to answering a check are not trapped
+    if (ctx.checkers.nonEmpty()) continue;
+
+    const mateThreatened = mateThreat(board, color, castlingRights);
+    // pawns are fixed in place more often than trapped
+    for (const square of board[color].diff(board.pawn).diff(board.king)) {
+      // a piece with no legal moves is blocked, not trapped
+      if (pos.dests(square, ctx).isEmpty()) continue;
+      if (hasNoSafeMove(pos, ctx, square, mateThreatened) && canBeWon(board, color, castlingRights, square))
+        trapped.push({ square });
+    }
+  }
+  return trapped;
 }

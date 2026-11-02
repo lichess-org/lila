@@ -1,10 +1,10 @@
 package lila.memo
 
-import akka.stream.scaladsl.Source
+import org.apache.pekko.stream.scaladsl.Source
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.config.{ CollName, ImageGetOrigin, Secret }
 import lila.core.id.ImageId
-import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 
 case class PicfitImage(
     @Key("_id") id: ImageId,
@@ -45,4 +45,4 @@ case class ImageAutomod(flagged: Option[String] = none)
 
 case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
 
-case class HashedSource(source: Source[akka.util.ByteString, ?], sha256: Array[Byte])
+case class HashedSource(source: Source[org.apache.pekko.util.ByteString, ?], sha256: Array[Byte])

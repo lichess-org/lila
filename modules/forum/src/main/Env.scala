@@ -33,7 +33,7 @@ final class Env(
     markdown: lila.memo.MarkdownCache,
     picfitApi: lila.memo.PicfitApi,
     ws: StandaloneWSClient
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   private val config = appConfig.get[ForumConfig]("forum")(using AutoConfig.loader)
 
@@ -44,7 +44,7 @@ final class Env(
   private lazy val detectLanguage =
     DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
-  private lazy val textExpand = wire[ForumTextExpand]
+  lazy val textExpand = wire[ForumTextExpand]
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 

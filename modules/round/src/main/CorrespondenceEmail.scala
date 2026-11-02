@@ -1,5 +1,5 @@
 package lila.round
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import java.time.{ Duration, LocalTime }
 
@@ -8,12 +8,12 @@ import lila.core.game.GameRepo
 import lila.core.misc.mailer.*
 import lila.core.notify.NotifyApi
 import lila.db.dsl.{ *, given }
-import lila.user.UserRepo
 import lila.mon.extensions.*
+import lila.user.UserRepo
 
 final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyApi: NotifyApi)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   private val (runAfter, runBefore) = (LocalTime.parse("05:00"), LocalTime.parse("05:10"))
@@ -24,7 +24,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def run() =
     opponentStream
-      .map { Bus.pub(_) }
+      .map(Bus.pub(_))
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
       .monSuccess(lila.mon.round.correspondenceEmail.time)
@@ -35,23 +35,23 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
         import framework.*
         // hit partial index
         List(
-          Match($doc("correspondenceEmail" -> true)),
-          Project($id(true)),
+          Match(bdoc("correspondenceEmail" -> true)),
+          Project(bid(true)),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $doc("enabled" -> true)),
-                $doc("$project" -> $id(true))
+                bdoc("$match" -> bdoc("enabled" -> true)),
+                bdoc("$project" -> bid(true))
               )
             )
           ),
           Unwind("user"),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = gameRepo.coll,
               as = "games",
               local = "_id",

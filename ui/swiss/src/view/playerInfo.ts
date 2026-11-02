@@ -11,7 +11,7 @@ import { isOutcome } from '../util';
 import { player as renderPlayer } from './util';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.playerInfoId) return;
+  if (!ctrl.playerInfoId) return undefined;
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
@@ -62,8 +62,8 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             'tr.glpt.' + (res === '1' ? '.win' : res === '0' ? '.loss' : ''),
             {
               key: round,
-              attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              attrs: { 'data-href': '/game/' + p.g + (p.c ? '' : '/black') },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
               hl('th', round),
@@ -91,8 +91,8 @@ function result(p: Pairing): string {
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement,
-    p = site.powertip;
+  const el = vnode.elm as HTMLElement;
+  const p = site.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }

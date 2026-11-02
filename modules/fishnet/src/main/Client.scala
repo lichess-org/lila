@@ -6,9 +6,10 @@ import scalalib.SecureRandom
 import scala.util.{ Failure, Success, Try }
 
 import lila.core.net.IpAddress
+import lila.tree.FishnetKey
 
 case class Client(
-    _id: Client.Key, // API key used to authenticate and assign move or analysis
+    _id: FishnetKey, // API key used to authenticate and assign move or analysis
     userId: UserId, // lichess user ID
     skill: Client.Skill, // what can this client do
     instance: Option[Client.Instance], // last seen instance
@@ -38,7 +39,7 @@ object Client:
   given UserIdOf[Client] = _.userId
 
   val offline = Client(
-    _id = Key("offline"),
+    _id = FishnetKey("offline"),
     userId = UserId("offline"),
     skill = Skill.All,
     instance = None,
@@ -46,10 +47,10 @@ object Client:
     createdAt = nowInstant
   )
 
-  opaque type Key = String
-  object Key extends OpaqueString[Key]
   opaque type Version = String
-  object Version extends OpaqueString[Version]
+  object Version extends OpaqueString[Version]:
+    def readFromUA(using ua: scalalib.net.UserAgent): Option[Client.Version] =
+      ua.value.split("/", 2).lift(1) // fishnet-<os>-<arch>/<version>
 
   case class Instance(version: Version, ip: IpAddress, seenAt: Instant):
 
@@ -88,4 +89,4 @@ object Client:
           )
         case Failure(error) => Failure(error)
 
-  def makeKey = Key(SecureRandom.nextString(8))
+  private[fishnet] def makeKey = FishnetKey(SecureRandom.nextString(8))

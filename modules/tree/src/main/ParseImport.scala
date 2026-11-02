@@ -1,10 +1,10 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags }
+import chess.format.pgn.{ ParsedMainline, ParsedPgn, Parser, PgnStr, SanWithMetas, Tags }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
-import chess.format.pgn.{ ParsedMainline, SanWithMetas }
+
 import lila.core.game.ClockHistory
 
 case class TagResult(status: Status, points: Outcome.GamePoints):
@@ -22,7 +22,7 @@ case class ImportResult(
 )
 
 object ParseImport:
-  private val maxPlies = 600
+  private val maxPlies = Analysis.MAX_PLIES
 
   def full(pgn: PgnStr): Either[ErrorStr, ImportResult] =
     catchOverflow: () =>
@@ -87,24 +87,26 @@ object ParseImport:
       case Some("time forfeit") => Status.Outoftime
       case Some("rules infraction") => Status.Cheat
       case Some(txt) if txt.contains("won on time") => Status.Outoftime
-      case _ => Status.UnknownFinish
+      case _ => if tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.UnknownFinish
 
     tags.points
       .map(points => TagResult(status, points))
       .filter(_.status > Status.Started)
-      .orElse {
-        game.position.status.flatMap: status =>
-          Outcome
-            .guessPointsFromStatusAndPosition(status, game.position.winner)
-            .map(TagResult(status, _))
-      }
+      .orElse:
+        val pos = game.position
+        pos.status
+          .filter(s => s != Status.Draw || pos.variant.isInsufficientMaterial(pos))
+          .flatMap: status =>
+            Outcome
+              .guessPointsFromStatusAndPosition(status, pos.winner)
+              .map(TagResult(status, _))
 
   private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
       n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
     val whiteRemainder = if parsed.toPosition.color.white then 0 else 1
     val byColor = ByColor
-      .fromPair(clocks.zipWithIndex.partition { (_, i) => i % 2 == whiteRemainder })
+      .fromPair(clocks.zipWithIndex.partition((_, i) => i % 2 == whiteRemainder))
       .map(_.view.map(_._1).toVector)
     Option.when(byColor.exists(_.exists(_.value != 0)))(byColor)
 

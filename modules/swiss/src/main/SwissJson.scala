@@ -6,11 +6,11 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.socket.SocketVersion
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
-import lila.gathering.GreatPlayer
 import lila.gathering.GatheringJson.*
+import lila.gathering.GreatPlayer
+import lila.mon.extensions.*
 import lila.quote.Quote.given
 
 final class SwissJson(
@@ -46,7 +46,7 @@ final class SwissJson(
       playerInfo: Option[SwissPlayer.ViewExt] = None
   ): Fu[JsObject] = {
     for
-      myInfo <- me.so { fetchMyInfo(swiss, _) }
+      myInfo <- me.so(fetchMyInfo(swiss, _))
       page = reqPage.orElse(myInfo.map(_.page)).getOrElse(1)
       standing <- standingApi(swiss, page)
       podium <- podiumJson(swiss)
@@ -67,7 +67,7 @@ final class SwissJson(
       .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion)
-      .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
+      .add("playerInfo" -> playerInfo.map(playerJsonExt(swiss, _)))
       .add("podium" -> podium)
       .add("stats" -> stats)
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
@@ -83,11 +83,11 @@ final class SwissJson(
             .so:
               mongo.pairing
                 .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
+                  bdoc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
+                  bdoc(f.id -> true).some
                 )
                 .one[Bdoc]
-                .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
+                .dmap(_.flatMap(_.getAsOpt[GameId](f.id)))
             .flatMap: gameId =>
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
@@ -104,8 +104,8 @@ final class SwissJson(
           SwissPlayer.fields: f =>
             mongo.player.update
               .one(
-                $id(SwissPlayer.makeId(swiss.id, user.id)),
-                $set(f.rating -> perf.intRating)
+                bid(SwissPlayer.makeId(swiss.id, user.id)),
+                set(f.rating -> perf.intRating)
               )
               .void
       yield ()
@@ -114,8 +114,8 @@ final class SwissJson(
     swiss.isFinished.so:
       SwissPlayer.fields { f =>
         mongo.player
-          .find($doc(f.swissId -> swiss.id))
-          .sort($sort.desc(f.score))
+          .find(bdoc(f.swissId -> swiss.id))
+          .sort(sort.desc(f.score))
           .cursor[SwissPlayer]()
           .list(3)
           .flatMap { top3 =>
@@ -124,7 +124,7 @@ final class SwissJson(
               .map(_.userId)
               .filter(w => swiss.winnerId.forall(w !=))
               .foreach:
-                mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
+                mongo.swiss.updateField(bid(swiss.id), "winnerId", _).void
 
             userApi.filterLame(top3.map(_.userId)).map { lame =>
               JsArray(
@@ -179,6 +179,7 @@ object SwissJson:
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
       .add("position" -> swiss.settings.position.map(fullFen => position(fullFen.opening)))
+      .add("payouts" -> swiss.settings.payouts)
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json
@@ -241,7 +242,7 @@ object SwissJson:
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
       if pairing.isOngoing then "o"
-      else pairing.resultFor(player.userId).fold("d") { r => if r then "w" else "l" }
+      else pairing.resultFor(player.userId).fold("d")(r => if r then "w" else "l")
     s"${pairing.gameId}$status"
 
   private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =

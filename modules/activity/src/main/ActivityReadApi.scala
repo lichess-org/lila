@@ -1,8 +1,8 @@
 package lila.activity
 
+import chess.Speed.Correspondence
 import play.api.i18n.Lang
 import scalalib.HeapSort
-import chess.Speed.Correspondence
 
 import lila.core.chess.Rank
 import lila.core.game.LightPov
@@ -14,7 +14,7 @@ import lila.mon.extensions.*
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.core.game.GameRepo,
-    getPracticeStudies: lila.core.practice.GetStudies,
+    getPracticeStudies: lila.ui.practice.GetStudies,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
     simulApi: lila.core.simul.SimulApi,
@@ -34,7 +34,7 @@ final class ActivityReadApi(
     activities <-
       coll(
         _.find(regexId(u.id))
-          .sort($sort.desc("_id"))
+          .sort(sort.desc("_id"))
           .cursor[Activity]()
           .list(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
@@ -52,7 +52,7 @@ final class ActivityReadApi(
     _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
   yield ()
 
-  private def one(practiceStudies: Option[lila.core.practice.Studies], a: Activity): Fu[ActivityView] =
+  private def one(practiceStudies: Option[lila.ui.practice.GetStudy], a: Activity): Fu[ActivityView] =
     for
       allForumPosts <- a.forumPosts.traverse: p =>
         forumPostApi
@@ -103,22 +103,20 @@ final class ActivityReadApi(
         .traverse: studies =>
           studyApi.publicIdNames(studies.value)
         .dmap(_.filter(_.nonEmpty))
-      tours <- a.games
-        .exists(_.hasNonCorres)
-        .so:
-          val dateRange = TimeInterval(a.date, a.date.plusDays(1))
+      tours <- a.tours
+        .traverse: tours =>
           tourLeaderApi
-            .timeRange(a.id.userId, dateRange)
-            .dmap: entries =>
-              entries.nonEmpty.option(
+            .byIds(tours.value)
+            .map: entries =>
+              entries.nonEmpty.option:
                 ActivityView.Tours(
                   nb = entries.size,
                   best = HeapSort.topN(entries, activities.maxSubEntries)(using
                     Ordering.by[lila.core.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
                   )
                 )
-              )
-            .mon(lila.mon.user.segment("activity.tours"))
+        .dmap(_.flatten)
+        .mon(lila.mon.user.segment("activity.tours"))
       swisses <-
         a.swisses.so: swisses =>
           toSwissesView(swisses.value).dmap(_.nonEmptyOption)
@@ -146,8 +144,8 @@ final class ActivityReadApi(
 
   def recentSwissRanks(userId: UserId): Fu[List[(SwissIdName, Rank)]] =
     coll(
-      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
-        .sort($sort.desc("_id"))
+      _.find(regexId(userId) ++ bdoc(BSONHandlers.ActivityFields.swisses.exists(true)))
+        .sort(sort.desc("_id"))
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>
@@ -180,4 +178,4 @@ final class ActivityReadApi(
       gameRepo.light
         .gamesFromSecondary(gameIds)
         .dmap:
-          _.flatMap { LightPov(_, userId) }.nonEmptyOption
+          _.flatMap(LightPov(_, userId)).nonEmptyOption

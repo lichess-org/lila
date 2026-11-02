@@ -1,9 +1,10 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.common.Form.{ cleanNonEmptyText, into }
 import lila.relay.RelayGroup.ScoreGroup
 import lila.relay.RelayTour.TourPreview
-import lila.common.Form.{ into, cleanNonEmptyText }
 
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,
@@ -13,6 +14,9 @@ case class RelayGroup(
 ):
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
     scoreGroups.flatMap(_.find(_.contains(tourId)))
+  def call = routes.RelayTour.show(name.toSlug, id.into(RelayTourId))
+  def remove(others: Set[RelayTourId]): Option[RelayGroup] =
+    tours.filterNot(others.contains).toNel.map(newTours => copy(tours = newTours))
 
 object RelayGroup:
 
@@ -30,7 +34,7 @@ object RelayGroup:
   object Name extends OpaqueString[Name]:
     extension (name: Name)
       def shortTourName(tour: RelayTour.Name): RelayTour.Name =
-        if tour.value.startsWith(name.value)
+        if tour.value.startsWith(name.value) && tour.value != name.value
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
       def toSlug =
@@ -139,16 +143,17 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
-  def byId(id: RelayGroupId): Fu[Option[RelayGroup]] = coll.byId[RelayGroup](id)
+  def byId(id: RelayGroupId): Fu[Option[RelayGroup]] =
+    coll.byId[RelayGroup](id).recoverDefault
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
-    coll.find($doc("tours" -> tourId)).one[RelayGroup]
+    coll.find(bdoc("tours" -> tourId)).one[RelayGroup]
 
   def idByTour(tourId: RelayTourId): Fu[Option[RelayGroupId]] =
-    coll.primitiveOne[RelayGroupId]($doc("tours" -> tourId), "_id")
+    coll.primitiveOne[RelayGroupId](bdoc("tours" -> tourId), "_id")
 
   def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
-    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
+    coll.find(bdoc("tours".in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
 
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[NonEmptyList[RelayTourId]] =
     byTour(tourId).map(_.fold(NonEmptyList.one(tourId))(_.tours))
@@ -159,15 +164,21 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
       current <- prev match
         case Some(prev) =>
           data.update(prev) match
-            case None => coll.delete.one($id(prev.id)).inject(none)
-            case Some(next) => coll.update.one($id(prev.id), next).inject(prev.some)
+            case None => coll.delete.one(bid(prev.id)).inject(none)
+            case Some(next) => coll.update.one(bid(prev.id), next).inject(prev.some)
         case None =>
           data.make.so: group =>
             coll.insert.one(group).inject(group.some)
       // make sure the tours of this group are not in other groups
       _ <- current.so: cur =>
-        cur.tours.toList.traverseVoid: tour =>
-          coll.update.one($doc("_id".$ne(cur.id), "tours" -> tour), $pull("tours" -> tour), multi = true)
+        for
+          tourIdSet = current.so(_.tours.toList.toSet)
+          otherGroups <- coll.list[RelayGroup]("tours".in(tourIdSet) ++ "_id".neq(cur.id))
+          _ <- otherGroups.traverseVoid: otherGroup =>
+            otherGroup.remove(tourIdSet) match
+              case None => coll.delete.one(bid(otherGroup.id))
+              case Some(next) => coll.update.one(bid(otherGroup.id), next)
+        yield ()
     yield ()
 
 final class RelayGroupCrowdSumCache(
@@ -186,12 +197,12 @@ final class RelayGroupCrowdSumCache(
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
       res <- colls.round.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("tourId".$in(tourIds.toList), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+        Match(bdoc("tourId".in(tourIds.toList), "crowdAt".gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
 
 final class RelayGroupApi(groupRepo: RelayGroupRepo, cacheApi: lila.memo.CacheApi)(using Executor):
-  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
+  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](256, "relay.players.scoreGroup"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       for group <- groupRepo.byTour(tourId)
       yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)

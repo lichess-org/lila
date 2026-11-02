@@ -1,19 +1,18 @@
 package lila.insight
 
-import chess.{ Color, Role }
-import chess.IntRating
 import chess.eval.WinPercent
 import chess.rating.IntRatingDiff
+import chess.{ Color, IntRating, Role }
 import reactivemongo.api.bson.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.SimpleOpening
+import lila.core.game.Source
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.game.BSONHandlers.sourceHandler
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
-import lila.core.game.Source
-import lila.game.BSONHandlers.sourceHandler
 
 object BSONHandlers:
 

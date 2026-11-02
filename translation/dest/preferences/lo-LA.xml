@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">ເລື່ອນເທິງກະດານເພື່ອເບິ່ງການເດີນໝາກຍ້ອນຫຼັງ</string>
   <string name="correspondenceEmailNotification">ອີເມວແຈ້ງເຕືອນລາຍການເກມ Correspondence ລາຍວັນ</string>
   <string name="notifyStreamStart">ສະຕຣີມເມີເລີ່ມໄລ້ສົດ</string>
-  <string name="notifyInboxMsg">ມີຂໍ້ຄວາມໃໝ່ໃນກ່ອງຂໍ້ຄວາມ</string>
-  <string name="notifyForumMention">ມີຄົນກ່າວເຖິງທ່ານໃນຟໍຣຳ</string>
-  <string name="notifyInvitedStudy">ຄຳເຊີນເຂົ້າຮ່ວມການສຶກສາ (Study)</string>
   <string name="notifyGameEvent">ການເຄື່ອນໄຫວໃນເກມ Correspondence</string>
   <string name="notifyChallenge">ຄຳທ້າດວນ</string>
-  <string name="notifyTournamentSoon">ການແຂ່ງຂັນກຳລັງຈະເລີ່ມໃນໄວໆນີ້</string>
   <string name="notifyTimeAlarm">ເວລາໃນເກມ Correspondence ໃກ້ຈະໝົດ</string>
   <string name="notifyBell">ການແຈ້ງເຕືອນຮູບກະດິ່ງພາຍໃນ Lichess</string>
   <string name="notifyPush">ການແຈ້ງເຕືອນເທິງອຸປະກອນເມື່ອບໍ່ໄດ້ເປີດ Lichess</string>

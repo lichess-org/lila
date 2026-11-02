@@ -27,17 +27,11 @@
   <string name="willBeReviewed">ຄຳຮ້ອງຂໍເຂົ້າຮ່ວມຂອງທ່ານຈະຖືກກວດສອບໂດຍຜູ້ນຳທີມ.</string>
   <string name="beingReviewed">ຄຳຮ້ອງຂໍເຂົ້າຮ່ວມຂອງທ່ານກຳລັງຖືກກວດສອບໂດຍຜູ້ນຳທີມ.</string>
   <string name="requestDeclined">ຄຳຮ້ອງຂໍເຂົ້າຮ່ວມຂອງທ່ານຖືກປະຕິເສດໂດຍຜູ້ນຳທີມ.</string>
-  <string name="subToTeamMessages">ຕິດຕາມຂໍ້ຄວາມຈາກທີມ</string>
   <string name="teamBattle">ການສູ້ຮົບລະຫວ່າງທີມ</string>
   <string name="teamBattleOverview">ການສູ້ຮົບຂອງຫຼາຍໆທີມ, ໂດຍຜູ້ຫຼິ້ນແຕ່ລະຄົນຈະເກັບຄະແນນໃຫ້ທີມຂອງຕົນເອງ</string>
   <string name="teamTournament">ການແຂ່ງຂັນພາຍໃນທີມ</string>
   <string name="teamTournamentOverview">ການແຂ່ງຂັນແບບ Arena ທີ່ສະເພາະສະມາຊິກໃນທີມຂອງທ່ານເທົ່ານັ້ນທີ່ສາມາດເຂົ້າຮ່ວມໄດ້</string>
   <string name="swissTournamentOverview">ການແຂ່ງຂັນແບບ Swiss ທີ່ສະເພາະສະມາຊິກໃນທີມຂອງທ່ານເທົ່ານັ້ນທີ່ສາມາດເຂົ້າຮ່ວມໄດ້</string>
-  <string name="messageAllMembers">ສົ່ງຂໍ້ຄວາມຫາສະມາຊິກທັງໝົດ</string>
-  <string name="messageAllMembersOverview">ສົ່ງຂໍ້ຄວາມສ່ວນຕົວຫາສະມາຊິກທຸກຄົນໃນທີມ</string>
-  <string name="messageAllMembersLongDescription">ສົ່ງຂໍ້ຄວາມສ່ວນຕົວຫາສະມາຊິກທັງໝົດຂອງທີມ.
-ທ່ານສາມາດໃຊ້ສິ່ງນີ້ເພື່ອເອີ້ນຜູ້ຫຼິ້ນໃຫ້ເຂົ້າຮ່ວມການແຂ່ງຂັນ ຫຼື ການສູ້ຮົບລະຫວ່າງທີມ.
-ຜູ້ຫຼິ້ນທີ່ບໍ່ມັກຮັບຂໍ້ຄວາມຂອງທ່ານອາດຈະອອກຈາກທີມ.</string>
   <string name="teamsIlead">ທີມທີ່ຂ້ອຍນຳພາ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">ທ່ານອາດຈະຕ້ອງການເຊື່ອມຕໍ່ກັບການແຂ່ງຂັນທີ່ກຳລັງຈະມາເຖິງເຫຼົ່ານີ້ບໍ?</string>
   <string name="leadersChat">ຫ້ອງສົນທະນາຂອງຜູ້ນຳ</string>

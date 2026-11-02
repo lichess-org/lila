@@ -18,4 +18,5 @@
   <string name="startTraining">Training ufänken</string>
   <string name="findSquare">Feld fannen</string>
   <string name="nameSquare">Feld benennen</string>
+  <string name="pressEnterToStart">Dréck %s fir unzefänken</string>
 </resources>

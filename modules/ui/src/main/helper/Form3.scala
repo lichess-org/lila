@@ -47,14 +47,14 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List(
         "form-group" -> true,
         "is-invalid" -> field.hasErrors,
-        "form-half" -> half,
+        (if half then "form-half" else "form-full") -> true,
         klass -> klass.nonEmpty
       )
     )(
       groupLabel(field)(labelContent),
       content(field),
       errors(field),
-      help.map { helper(_) }
+      help.map(helper(_))
     )
 
   def input(field: Field, typ: String = "", klass: String = "") /*: BaseTagType*/ =
@@ -128,7 +128,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         ),
         groupLabel(field)(labelContent)
       ),
-      help.map { helper(_) }
+      help.map(helper(_))
     )
 
   def isChecked(field: Field): Boolean =
@@ -142,22 +142,32 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       required: Boolean = false
   ): Frag =
     frag(
-      st.select(
-        st.id := id(field),
-        name := field.name,
+      selectLowLevel(field.name, options, field.value, default, disabled, required)(
         cls := "form-control",
-        disabled.option(st.disabled),
-        required.option(st.required)
-      )(validationModifiers(field))(
-        default.map { option(value := "")(_) },
-        options.toSeq.map { (value, name) =>
-          option(
-            st.value := value.toString,
-            field.value.has(value.toString).option(selected)
-          )(name)
-        }
+        st.id := id(field)
       ),
       disabled.option(hidden(field))
+    )
+
+  def selectLowLevel(
+      field: String,
+      options: Iterable[(Any, String)],
+      selected: Option[String] = None,
+      default: Option[String] = None,
+      disabled: Boolean = false,
+      required: Boolean = false
+  ): Tag =
+    st.select(
+      name := field,
+      disabled.option(st.disabled),
+      required.option(st.required)
+    )(
+      default.map(option(value := "")(_)),
+      options.toSeq.map: (value, name) =>
+        option(
+          st.value := value.toString,
+          selected.has(value.toString).option(st.selected)
+        )(name)
     )
 
   def textarea(
@@ -224,7 +234,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         reveal.option(passwordRevealButton)
       )
 
-  def passwordRevealButton = button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye)
+  def passwordRevealButton(using Translate) =
+    button(
+      cls := "password-reveal",
+      tpe := "button",
+      ariaTitle(trans.site.showPassword.txt()),
+      aria("pressed") := "false"
+    )(dataIcon := Icon.Eye)
 
   def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(
@@ -289,7 +305,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           st.select(st.id := id(field), name := field.name, cls := "form-control")(
             current.map(f => option(value := f, selected := ""))
           ),
-          img(src := current.fold(Url(""))(formHelper.flairSrc(_)))
+          img(src := current.fold(Path(""))(formHelper.flairSrc(_)))
         ),
         div(
           cls := "flair-picker none",

@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import lila.tree.CloudEval
+
 import JsonApi.Request.Evaluation
 
 trait IFishnetEvalCache:
@@ -22,12 +23,7 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
         val pv = eval.pvs.head
         i -> Evaluation(
           pv = pv.moves.value.toList,
-          score = Evaluation
-            .Score(
-              cp = pv.score.cp,
-              mate = pv.score.mate
-            )
-            .invertIf((work.startPly + i).isOdd), // fishnet evals are from POV
+          score = pv.score.pov((work.startPly + i).turn).some, // fishnet evals are from POV
           time = none,
           nodes = eval.knodes.intNodes.some,
           nps = none,

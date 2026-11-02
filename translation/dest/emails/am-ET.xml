@@ -15,7 +15,6 @@
 
 ይዝናኑ፣ እና ቁርጥራጮችዎ ሁል ጊዜ ወደ ተቃዋሚዎ ንጉስ መንገዳቸውን ይፈልጉ!</string>
   <string name="logInToLichess">ወደ lichess.org፣ %s ይግቡ</string>
-  <string name="common_orPaste">(አይሰራም የሚለውን ጠቅ በማድረግ? ወደ አሳሽዎ ለመለጠፍ ይሞክሩ!)</string>
   <string name="common_note">ይህ ከእርስዎ የ%s አጠቃቀም ጋር የተያያዘ የአገልግሎት ኢሜይል ነው።.</string>
   <string name="common_contact">እኛን ለማግኘት፣ እባክዎ %s ይጠቀሙ።.</string>
 </resources>

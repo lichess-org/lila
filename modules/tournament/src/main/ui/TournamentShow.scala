@@ -1,18 +1,17 @@
 package lila.tournament
 package ui
 
-import play.api.libs.json.*
 import chess.Rated
+import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
 import lila.core.team.LightTeam
-import lila.gathering.ui.GatheringUi
 import lila.gathering.Condition.WithVerdicts
+import lila.gathering.ui.GatheringUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]
@@ -147,16 +146,17 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 else trans.team.joinLichessVariantTeam(link)
               ),
           div(cls := "scrollable-content")(
-            tour.description.map: d =>
+            shieldOwner.map: owner =>
               st.section(cls := "description")(
-                shieldOwner.map: owner =>
-                  p(cls := "defender", dataIcon := Icon.Shield)(
-                    trans.arena.defender(),
-                    userIdLink(owner.some)
-                  ),
-                markdownLinksOrRichText(d)
+                p(cls := "defender", dataIcon := Icon.Shield)(
+                  trans.arena.defenderLabel(),
+                  " ",
+                  userIdLink(owner.some)
+                )
               ),
-            gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
+            tour.description.map: d =>
+              st.section(cls := "description")(markdownLinksOrRichText(d)),
+            tour.payouts.map(gathering.payouts),
             List(
               tour.noBerserk.option(
                 div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
@@ -179,8 +179,11 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 )
               })
           ),
+          gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
           tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
-          tour.description.isDefined.option(button(cls := "disclosure"))
+          List(shieldOwner, tour.description, tour.payouts)
+            .exists(_.isDefined)
+            .option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),
@@ -190,7 +193,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
-          img(src := staticAssetUrl("images/icons/bot.webp")),
+          img(src := staticAssetPath("images/icons/bot.webp")),
           div(
             h2("Bot tournament"),
             p(
@@ -259,7 +262,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         p(tra.berserkAnswer()),
         h2(tra.howIsTheWinnerDecided()),
         p(tra.howIsTheWinnerDecidedAnswer()),
-        h2(tra.howDoesPairingWork()),
+        h2(tra.howArePlayersPaired()),
         p(tra.howDoesPairingWorkAnswer()),
         h2(tra.howDoesItEnd()),
         p(tra.howDoesItEndAnswer()),
@@ -277,15 +280,23 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           ),
           tbody(
             tr(
-              td(trans.site.standard(), ", Chess960, Horde"),
+              td(fragList(List(trans.variant.standard(), trans.variant.chess960(), trans.variant.horde()))),
               td(30)
             ),
             tr(
-              td("Antichess, Crazyhouse, King of the Hill"),
+              td(
+                fragList(
+                  List(trans.variant.antichess(), trans.variant.crazyhouse(), trans.variant.kingOfTheHill())
+                )
+              ),
               td(20)
             ),
             tr(
-              td("Three check, Atomic, Racing Kings"),
+              td(
+                fragList(
+                  List(trans.variant.threeCheck(), trans.variant.atomic(), trans.variant.racingKings())
+                )
+              ),
               td(10)
             )
           )

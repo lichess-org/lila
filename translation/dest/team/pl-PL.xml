@@ -18,6 +18,7 @@
   <string name="quitTeam">Opuść klub</string>
   <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ukryj listę graczy klubu przed innymi graczami.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
@@ -36,17 +37,16 @@
   <string name="willBeReviewed">Twoja prośba o dołączenie zostanie sprawdzona przez kapitana klubu.</string>
   <string name="beingReviewed">Twoja prośba o dołączenie jest sprawdzana przez kapitana klubu.</string>
   <string name="requestDeclined">Twoja prośba o dołączenie została odrzucona przez lidera klubu.</string>
-  <string name="subToTeamMessages">Subskrybuj wiadomości klubowe</string>
   <string name="teamBattle">Bitwa klubów</string>
   <string name="teamBattleOverview">Bitwa klubów, każdy gracz zdobywa punkty dla swojego klubu</string>
   <string name="teamTournament">Turniej klubowy</string>
   <string name="teamTournamentOverview">Turniej Arena do którego mogą dołączyć tylko członkowie twojego klubu</string>
   <string name="swissTournamentOverview">Turniej szwajcarski, do którego mogą dołączyć tylko gracze twojego klubu</string>
-  <string name="messageAllMembers">Powiadom wszystkich członków klubu</string>
-  <string name="messageAllMembersOverview">Wyślij prywatną wiadomość do każdego członka klubu</string>
-  <string name="messageAllMembersLongDescription">Wyślij prywatną wiadomość do WSZYSTKICH członków klubu.
-Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki klubowej.
-Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
+  <string name="teamUpdates">Wiadomości klubowe</string>
+  <string name="subToTeamUpdates">Subskrybuj wiadomości klubowe</string>
+  <string name="newTeamUpdate">Nowa wiadomość klubowa</string>
+  <string name="teamEvents">Wydarzenia klubowe</string>
+  <string name="upcomingTeamEvents">Nadchodzące wydarzenia klubowe</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="leadersChat">Czat liderów</string>
@@ -58,6 +58,9 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="entryCode">Klubowy kod dostępu</string>
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
+  <string name="forumLabel">Forum klubu</string>
+  <string name="forumVisibilityHelp">Kto może zobaczyć forum klubu na stronie klubu?&lt;br&gt;Tylko gracze klubu mogą pisać na forum klubu.</string>
+  <string name="forumVisibilityNone">Ukryj forum</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
   <string name="upcomingTournaments">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>

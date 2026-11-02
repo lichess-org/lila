@@ -67,6 +67,7 @@ public/piece/cooke | [fejfar](https://github.com/fejfar) | [CC BY-NC-SA 4.0](htt
 public/piece/monarchy | [slither77](https://github.com/slither77) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/xkcd | [Randall Munroe](https://xkcd.com/about) | [CC BY-NC-SA 2.5](https://xkcd.com/license.html)
 public/piece/Firi | [James Faure](https://github.com/jfaure/Firi-pieceset) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+public/piece/minimal-warmth | [blunder_reign](https://lichess.org/@/blunder_reign) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -115,5 +116,4 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
-- [PeerJS](https://peerjs.com/) for voice chat
 - [crowdin](https://crowdin.com/project/lichess) for localization

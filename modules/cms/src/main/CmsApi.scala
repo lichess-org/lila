@@ -20,7 +20,7 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
   def get(id: CmsPageId): Fu[Option[CmsPage]] = coll.byId[CmsPage](id)
 
   def get(key: CmsPageKey, lang: Language): Fu[Option[CmsPage]] =
-    coll.one[CmsPage]($doc("key" -> key, "language" -> lang))
+    coll.one[CmsPage](bdoc("key" -> key, "language" -> lang))
 
   def withAlternatives(id: CmsPageId): Fu[Option[NonEmptyList[CmsPage]]] =
     get(id).flatMapz: page =>
@@ -29,7 +29,7 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
 
   def getAlternatives(key: CmsPageKey): Fu[List[CmsPage]] =
     coll
-      .list[CmsPage]($doc("key" -> key))
+      .list[CmsPage](bdoc("key" -> key))
       .map(_.sortLike(langList.popularLanguages.toVector, _.language))
 
   def render(key: CmsPageKey, liveCheck: Boolean = false)(using Context): Fu[Option[Render]] =
@@ -46,15 +46,15 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
   def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
     render(key).map(RenderOpt(key, _))
 
-  def list: Fu[List[CmsPage]] = coll.list[CmsPage]($empty)
+  def list: Fu[List[CmsPage]] = coll.list[CmsPage](emptyBdoc)
 
   def create(page: CmsPage): Funit = coll.insert.one(page).void
 
   def update(prev: CmsPage, data: CmsForm.CmsPageData)(using me: MyId): Fu[CmsPage] =
     val page = data.update(prev, me)
-    coll.update.one($id(page.id), page).inject(page)
+    coll.update.one(bid(page.id), page).inject(page)
 
-  def delete(id: CmsPageId): Funit = coll.delete.one($id(id)).void
+  def delete(id: CmsPageId): Funit = coll.delete.one(bid(id)).void
 
   def getBestFor(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage]] =
     val queryLang = ctx.req.getQueryString("lang").flatMap(Lang.get).map(toLanguage)
@@ -62,7 +62,7 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
       case Some(query) => List(query)
       case None => langPicker.preferedLanguages(ctx.req, ctx.lang) :+ defaultLanguage
     coll
-      .list[CmsPage]($doc("key" -> key, "language".$in(prefered)))
+      .list[CmsPage](bdoc("key" -> key, "language".in(prefered)))
       .map: pages =>
         prefered.collectFirstSome: language =>
           pages.find(_.language == language)

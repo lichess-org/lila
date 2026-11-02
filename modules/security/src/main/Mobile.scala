@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
+import play.api.libs.json.Json
 import scalalib.net.UserAgent
 
 import lila.common.HTTPRequest
@@ -9,19 +10,24 @@ import lila.core.socket.Sri
 
 object Mobile:
 
-  object AppVersion:
-    def mustUpgrade(v: String) = v.headOption.flatMap(_.toString.toIntOption).exists(_ < 6)
-
   object Api:
 
     val currentVersion = ApiVersion.lichobile
+
+    val lichobileStatusJson = Json.obj(
+      "api" -> Json.obj(
+        "current" -> currentVersion.value,
+        "olds" -> Json.arr()
+      ),
+      "mustUpgrade" -> true
+    )
 
     val acceptedVersions: Set[ApiVersion] = ApiVersion.from(Set(1, 2, 3, 4, 5, 6))
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
 
-    def requested(req: RequestHeader) = requestVersion(req).isDefined
+    def requested(using req: RequestHeader) = requestVersion(req).isDefined
 
   // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala

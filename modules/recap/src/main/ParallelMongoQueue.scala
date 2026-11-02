@@ -1,10 +1,10 @@
 package lila.recap
 
-import lila.db.dsl.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.common.Uptime
-import lila.common.LilaScheduler
+
+import lila.common.{ LilaScheduler, Uptime }
+import lila.db.dsl.*
 
 /* Enqueue heavy computations. Generic, could be move out of recap for reuse.
  * - persists the queue, allowing unbounded queue size and resiliency
@@ -60,9 +60,9 @@ final class ParallelMongoQueue[A: BSONHandler](
   LilaScheduler(s"ParallelQueue($name).poll", _.Every(1.second), _.AtMost(5.seconds), _.Delay(startAfter)):
 
     def fetchEntriesToProcess: Fu[List[Entry[A]]] =
-      coll.find($empty).sort($sort.asc(F.createdAt)).cursor[Entry[A]]().list(parallelism())
+      coll.find(emptyBdoc).sort(sort.asc(F.createdAt)).cursor[Entry[A]]().list(parallelism())
 
-    def start(id: A): Funit = coll.updateField($id(id), F.startedAt, nowInstant).void
+    def start(id: A): Funit = coll.updateField(bid(id), F.startedAt, nowInstant).void
 
     // we only wait for enqueuing - NOT for the computation
     def computeThenRemoveFromQueue(id: A): Funit =
@@ -70,7 +70,7 @@ final class ParallelMongoQueue[A: BSONHandler](
       yield computation(id).foreach: _ =>
         remove(id)
 
-    def remove(id: A): Funit = coll.delete.one($id(id)).void
+    def remove(id: A): Funit = coll.delete.one(bid(id)).void
 
     fetchEntriesToProcess.flatMap: entries =>
       monitoring.parallelism.update(entries.size)

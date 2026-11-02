@@ -1,18 +1,18 @@
 package lila.relation
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
-
-import lila.db.dsl.{ *, given }
-import lila.core.user.UserRepo
+import org.apache.pekko.stream.scaladsl.*
+import play.api.libs.json.JsObject
 import reactivemongo.api.bson.BSONDocumentReader
+import reactivemongo.pekkostream.cursorProducer
+
 import lila.core.LightUser
 import lila.core.socket.IsOnline
-import play.api.libs.json.JsObject
+import lila.core.user.UserRepo
+import lila.db.dsl.{ *, given }
 
 final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   private val coll = colls.relation
@@ -20,8 +20,8 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
   def follow(perSecond: MaxPerSecond)(using me: Me): Source[Seq[UserId], ?] =
     coll
       .find(
-        $doc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow),
-        $doc(F.to -> true, "_id" -> false).some
+        bdoc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow),
+        bdoc(F.to -> true, "_id" -> false).some
       )
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.sec)
@@ -65,20 +65,20 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow)),
+          Match(bdoc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow)),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = F.to,
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $doc("enabled" -> true, "_id" -> $doc("$ne" -> UserId.lichess))),
-                $doc("$project" -> (projection ++ $doc("seenAt" -> true)))
+                bdoc("$match" -> bdoc("enabled" -> true, "_id" -> bdoc("$ne" -> UserId.lichess))),
+                bdoc("$project" -> (projection ++ bdoc("seenAt" -> true)))
               )
             )
           ),
-          Project($doc("user" -> true, "_id" -> false)),
+          Project(bdoc("user" -> true, "_id" -> false)),
           UnwindField("user"),
           ReplaceRootField("user"),
           Sort(Descending("seenAt")),

@@ -1,15 +1,17 @@
 // no side effects allowed due to re-export by index.ts
 
-import type { Rules } from 'chessops';
+import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
+import { type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
-import { storedIntProp, storedStringProp, storage } from '@/storage';
-import type { LocalEval, TreePath } from '@/tree/types';
+import { storedIntProp, storedStringProp, storage, storedMap } from '@/storage';
+import type { ClientEval, LocalEval, TreePath } from '@/tree/types';
 
 import { prop, type Prop, type Toggle, toggle } from '../index';
 import { Engines } from './engines/engines';
@@ -26,7 +28,7 @@ import {
   type EngineInfo,
   CevalState,
 } from './types';
-import { sanIrreversible, showEngineError, fewerCores } from './util';
+import { sanIrreversible, showEngineError, disableLeakyAtomicsWaitAsync } from './util';
 import { povChances } from './winningChances';
 
 interface SearchInfo {
@@ -36,15 +38,29 @@ interface SearchInfo {
   hashSize: number;
 }
 
-interface Started {
+interface StartedState {
   path: TreePath;
   steps: Step[];
   gameId?: string;
   threatMode: boolean;
+  info: SearchInfo;
 }
+
+type WorkingState = {
+  started: StartedState;
+  fen?: string;
+  emit: CevalOpts['emit'];
+  background: boolean;
+  movetime: number | false;
+  dontStop: boolean;
+};
+
+type ThreadCount = number;
+type NodesPerSecond = number;
 
 export class CevalCtrl {
   rules: Rules;
+  nonStandardMaterial: boolean;
   analysable: boolean;
   engines: Engines;
   storedEngine: Prop<string>;
@@ -55,31 +71,41 @@ export class CevalCtrl {
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
   isDeeper: Toggle = toggle(false);
   curEval: LocalEval | null = null;
-  lastStarted?: Started;
+  lastStarted?: StartedState;
   showEnginePrefs: Toggle = toggle(false);
-
+  wasUnloadedByAnotherWindow = false;
+  private unloadedState = CevalState.Initial;
+  private readonly performanceMap = storedMap<Record<ThreadCount, NodesPerSecond[]>>(
+    'ceval.perf',
+    12,
+    () => ({}),
+  );
   private worker?: CevalEngine;
 
   constructor(public opts: CevalOpts) {
+    disableLeakyAtomicsWaitAsync();
+
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp('ceval.engine', this.engines.defaultId);
+    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
 
     // another tab has started ceval, we should stop:
-    storage.make('ceval.fen').listen(() => {
-      this.worker?.destroy();
-      this.worker = undefined; // release memory
-      this.opts.redraw();
-    });
+    storage.make('ceval.fen').listen(this.stopFromOtherTab);
+    storage.make('ceval.pullThePlug').listen(this.stopFromOtherTab);
 
     document.addEventListener('visibilitychange', () => {
-      if (this.engines.external) return;
-      if (this.curEval?.bestmove) return;
-      if (!this.lastStarted) return;
-      if (!this.analysable) return;
-
+      if (
+        this.engines.external() ||
+        this.curEval?.bestmove ||
+        !this.lastStarted ||
+        !this.analysable ||
+        this.isBackground ||
+        !isTouchDevice()
+      ) {
+        return;
+      }
       if (document.hidden) this.worker?.stop();
-      else if (this.curEval) this.doStart(this.lastStarted);
+      else this.doStart(this.lastStarted);
     });
   }
 
@@ -87,15 +113,24 @@ export class CevalCtrl {
     if (opts) this.opts = opts;
     this.reset();
     this.rules = lichessRules(this.opts.variant.key);
+    const pos = this.opts.initialFen
+      ? parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x))
+      : undefined;
+    this.nonStandardMaterial =
+      this.rules === 'chess' &&
+      !!pos?.unwrap(
+        pos => !isStandardMaterial(pos),
+        () => false,
+      );
     this.analysable =
-      !this.opts.initialFen ||
-      parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup)).isOk;
+      !pos?.isErr &&
+      !!this.engines.getEngine({ rules: this.rules, nonStandardMaterial: this.nonStandardMaterial });
     this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
-    if (this.worker?.getInfo().id !== this.engines.active().id) this.unload();
+    if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
   }
 
   available(): boolean {
-    return !document.hidden && this.analysable;
+    return (this.isBackground || !(document.hidden && isTouchDevice())) && this.analysable;
   }
 
   goDeeper = (): void => {
@@ -106,79 +141,80 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.unloadedState = CevalState.Initial;
+    this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
     this.download = undefined;
   };
 
-  start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
-    if (!this.available() || this.wasUnloaded) return false;
+  start = (path: string, steps: Step[], threatMode = false, gameId?: string): boolean => {
+    if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
-    this.doStart({ path, steps, gameId, threatMode });
+    this.doStart({ path, steps, gameId, threatMode, info: this.info()! });
     return true;
+  };
+
+  stopWorker = (): void => {
+    this.worker?.stop();
   };
 
   setThreads = (threads: number): void => storage.set('ceval.threads', threads.toString());
 
-  info(custom?: CustomSearch): SearchInfo {
-    const maybeSearch = custom?.search?.();
-    const maxTime = Number(maybeSearch) || this.engines.active().maxMovetime;
+  info(customSearch?: CustomSearch): SearchInfo | undefined {
+    const searchOverrides = customSearch?.search?.();
+    const engine = this.engines.getEngine({ id: customSearch?.engine?.id });
+    if (!engine) return undefined;
+    const maxTime =
+      (searchOverrides && 'maxMovetime' in searchOverrides && searchOverrides.maxMovetime) ||
+      engine.maxMovetime;
     return {
+      engine,
       threads: clamp(
-        custom?.engine?.threads ?? (Number(storage.get('ceval.threads')) || this.recommendedThreads),
-        { min: this.engines.active().minThreads, max: this.maxThreads },
+        customSearch?.engine?.threads ?? (Number(storage.get('ceval.threads')) || this.recommendedThreads),
+        { min: engine.minThreads, max: engine.maxThreads },
       ),
-      hashSize: clamp(custom?.engine?.hashSize ?? Number(storage.get('ceval.hash-size')), {
+      hashSize: clamp(customSearch?.engine?.hashSize ?? Number(storage.get('ceval.hash-size')), {
         min: 16,
-        max: this.engines.active().maxHash,
+        max: engine.maxHash,
       }),
-      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || this.engines.active(),
       search:
-        typeof maybeSearch === 'object'
-          ? maybeSearch
+        searchOverrides && 'by' in searchOverrides
+          ? searchOverrides
           : {
-              multiPv: this.storedPv(),
+              multiPv: clamp(this.storedPv(), { min: 0, max: searchOverrides?.maxMultiPv }),
               by: { movetime: clamp(this.isDeeper() ? Infinity : this.storedMovetime(), { max: maxTime }) },
             },
     };
   }
 
   get search(): Search {
-    return this.info(this.opts.custom).search;
+    return this.info(this.opts.custom)?.search ?? { by: { movetime: 0 }, multiPv: 0 };
   }
 
   get recommendedThreads(): number {
     return (
-      this.engines.external?.maxThreads ??
+      this.engines.external()?.maxThreads ??
       clamp(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
-        min: this.engines.active().minThreads ?? 1,
-        max: this.maxThreads,
+        min: this.engines.active()?.minThreads ?? 1,
+        max: this.engines.active()?.maxThreads,
       })
-    );
-  }
-
-  get maxThreads(): number {
-    return (
-      this.engines.external?.maxThreads ??
-      (fewerCores()
-        ? Math.min(this.engines.active().maxThreads ?? 32, navigator.hardwareConcurrency)
-        : (this.engines.active().maxThreads ?? 32))
     );
   }
 
   get isInfinite(): boolean {
     return (
       this.storedMovetime() === Number.POSITIVE_INFINITY &&
-      !Number.isFinite(this.engines.active().maxMovetime)
+      !Number.isFinite(this.engines.active()?.maxMovetime)
     );
   }
 
   get state(): CevalState {
-    return this.worker?.getState() ?? CevalState.Initial;
+    return this.worker?.getState() ?? this.unloadedState;
   }
 
   get canGoDeeper(): boolean {
-    return this.state !== CevalState.Computing && (this.curEval?.depth ?? 0) < 99;
+    return this.state !== CevalState.Computing && (this.opts.localEval?.()?.depth ?? 0) < 245;
   }
 
   get isComputing(): boolean {
@@ -186,17 +222,21 @@ export class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return !!this.engines.active().capabilities?.includes('cloudEval');
+    return Boolean(this.engines.active()?.supportsCloudEval);
   }
 
-  get wasUnloaded(): boolean {
-    return !this.worker && !!this.lastStarted; // another tab started ceval
+  get engineVersion(): string | undefined {
+    return (this.engines.external() && this.worker?.version?.()) || this.engines.active()?.name;
+  }
+
+  get isBackground(): boolean {
+    return this.opts.custom?.canBackground === true;
   }
 
   get showingCloud(): boolean {
     if (!this.lastStarted) return false;
     const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
-    return !!curr.ceval?.cloud;
+    return Boolean(curr.ceval?.cloud);
   }
 
   setHashSize = (hash: number): void => storage.set('ceval.hash-size', hash.toString());
@@ -207,6 +247,12 @@ export class CevalCtrl {
     this.opts.onSelectEngine?.();
   };
 
+  private unload(): void {
+    this.worker?.stop();
+    this.worker?.destroy();
+    this.worker = undefined;
+  }
+
   setPvBoard = (pvBoard: PvBoard | null): void => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
@@ -214,21 +260,94 @@ export class CevalCtrl {
 
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
-    showEngineError(this.engines.active().name, msg);
+    if (!this.opts.hideErrors) showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
+    this.unloadedState = CevalState.Failed;
   }
 
-  private readonly doStart = (s: Started) => {
+  isFinished(search: Search, step: Step, isThreat: boolean): boolean {
+    return (
+      !this.isDeeper() &&
+      'movetime' in search.by &&
+      !step.ceval?.cloud &&
+      (isThreat ? (step.threat?.millis ?? 0) : (step.ceval?.millis ?? 0)) >= search.by.movetime &&
+      step.ceval?.pvs.length === search.multiPv &&
+      step.ceval?.engineId === this.engines.active()?.id
+    );
+  }
+
+  preferLatestEval(latest: ClientEval, stored: ClientEval | undefined): boolean {
+    // Some search is better than no search. Custom search is always preferred
+    if (!stored || Boolean(this.opts.custom?.search)) return true;
+
+    // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength
+    const multipv = this.search.multiPv;
+    if (stored.pvs.length === multipv && latest.pvs.length !== multipv) return false;
+    if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
+
+    // If the engine has changed and neither are cloud, prefer the latest eval regardless of strength
+    if (!stored.cloud && !latest.cloud && stored.engineId !== latest.engineId) return true;
+
+    // By user expectation when going deeper, the latest engine eval always wins regardless of strength
+    if (this.isDeeper() && !latest.cloud) return true;
+
+    // If engines match or one is cloud, the latest eval wins when its node count is equal or higher
+    return latest.nodes >= stored.nodes;
+  }
+
+  nodesPerSecond(engineId: string, threads: number): number | undefined {
+    const snapshots = this.performanceMap(engineId);
+    if (!snapshots) return undefined;
+
+    const average = (arr: number[]) => arr.reduce((a: number, b: number) => a + b, 0) / arr.length;
+
+    const perfs: number[] = [];
+    for (const thread in snapshots) {
+      perfs.push((average(snapshots[thread]) * threads) / Number(thread));
+    }
+    return average(perfs);
+  }
+
+  private snapshotPerformance(ev: LocalEval) {
+    const { engine, threads } = this.info()!;
+    if (!engine || ev.depth > 24) return;
+
+    const snapshots = this.performanceMap(engine.id);
+    (snapshots[threads] ??= []).push(ev.nodes / (ev.millis / 1000));
+    snapshots[threads] = snapshots[threads].slice(-16);
+    this.performanceMap(engine.id, snapshots);
+  }
+
+  private letCloudWin(ev: LocalEval, movetime: number | false, started: StartedState) {
+    const evNode = started.steps[started.steps.length - 1];
+    const { engine, threads } = started.info;
+    if (movetime && evNode.ceval?.cloud) {
+      const cloudNodes = evNode.ceval.nodes; // TODO node efficiency if cloud has engineId
+      const nodesPerSecond =
+        ev.millis > 500
+          ? Math.max(1, Math.round(ev.nodes / (ev.millis / 1000)))
+          : this.nodesPerSecond(engine.id, threads);
+      return nodesPerSecond && Math.round(nodesPerSecond * (movetime / 1000)) < cloudNodes;
+    }
+    return false;
+  }
+
+  private readonly stopFromOtherTab = (): void => {
+    if (this.isBackground || !this.worker) return;
+    this.unload();
+    this.wasUnloadedByAnotherWindow = true;
+    this.opts.redraw();
+  };
+
+  private readonly doStart = (s: StartedState) => {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
-    const { search, threads, hashSize } = this.info(this.opts.custom);
-    const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
-    if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
-      return;
-    }
+    const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
+    if (this.isFinished(search, step, s.threatMode)) return;
+
     const work: Work = {
-      variant: this.opts.variant.key,
+      variant: this.rules,
       threads,
       hashSize,
       gameId: s.gameId,
@@ -243,10 +362,11 @@ export class CevalCtrl {
       threatMode: s.threatMode,
       emit: this.makeThrottledEmitter(),
     };
-
     if (s.threatMode) {
-      const c = step.ply % 2 === 1 ? 'w' : 'b';
-      const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
+      const fields = step.fen.split(' ');
+      fields[1] = step.ply % 2 === 1 ? 'w' : 'b';
+      fields[3] = '-'; // no en passant square in threat mode
+      const fen = fields.join(' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
@@ -260,54 +380,52 @@ export class CevalCtrl {
       }
     }
 
-    if (this.worker?.getInfo().id !== this.engines.active().id) this.unload();
-    this.worker ??= this.engines.makeEngine({ id: this.engines.active().id, variant: this.opts.variant.key });
+    if (this.worker?.getInfo().id !== engine.id) this.unload();
+    this.worker ??= this.engines.makeEngine({
+      id: engine.id,
+      rules: this.rules,
+      nonStandardMaterial: this.nonStandardMaterial,
+    });
     this.worker.start(work);
   };
 
-  private unload(): void {
-    this.worker?.stop();
-    this.worker?.destroy();
-    this.worker = undefined;
-  }
-
   private makeThrottledEmitter() {
     // 'working' properties are bound for closure
-    const working = {
+    const working: WorkingState = {
       started: this.lastStarted!,
-      fen: undefined as string | undefined,
       emit: this.opts.emit,
+      background: this.isBackground,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
-      dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
+      dontStop: Boolean(this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
-      if (working.fen && working.fen !== ev.fen) return emitter.clear();
-
       this.curEval = ev;
-
+      if (working.movetime && ev.bestmove && ev.bestmove !== '(none)') {
+        ev.millis = Math.max(ev.millis, working.movetime);
+      }
+      this.snapshotPerformance(ev);
       if (!working.fen) {
-        working.fen = this.curEval.fen;
-        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
+        working.fen = ev.fen;
+        if (!working.background) storage.fire('ceval.fen', ev.fen); // will pause other tabs
       }
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
-      if (this.lastStarted && !working.dontStop) {
-        const evNode = working.started.steps[working.started.steps.length - 1];
-        if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
-          const targetNodes = evNode.ceval.nodes;
-          const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
-
-          if (likelyNodes < targetNodes) this.worker?.stop();
-        }
+      if (!working.dontStop && this.letCloudWin(ev, working.movetime, working.started)) {
+        this.worker?.stop();
       }
-      working.emit(this.curEval, meta);
+      working.emit(ev, meta);
     });
-    return (ev: LocalEval, meta: EvalMeta) => {
-      pubsub.emit('analysis.eval', structuredClone(ev), meta);
-      if (working.started !== this.lastStarted) emitter.clear();
-      else if (ev.bestmove) emitter.flush(ev, meta);
-      else emitter(ev, meta);
+    return (ev: LocalEval | undefined, meta: EvalMeta) => {
+      if (!ev) {
+        working.emit(undefined, meta); // report error
+      } else if (working.started === this.lastStarted && (!working.fen || working.fen === ev.fen)) {
+        pubsub.emit('analysis.eval', structuredClone(ev), meta);
+        if (ev.bestmove) emitter.flush(ev, meta);
+        else emitter(ev, meta);
+      } else {
+        emitter.clear();
+      }
     };
   }
 }

@@ -129,7 +129,7 @@ object Icon:
   val Disc: Icon = "" // e06b
   val Wings: Icon = "" // e06c
   val DiscOutline: Icon = "" // e06d
-  val Handset: Icon = "" // e06e
+  val Language: Icon = "" // e06e
   val ArrowThruApple: Icon = "" // e06f
   val Clipboard: Icon = "" // e070
   val Move: Icon = "" // e071
@@ -143,3 +143,5 @@ object Icon:
   val Logo: Icon = "" // e07a
   val Switch: Icon = "" // e07b
   val Cpu: Icon = "" // e07e
+  val Prune: Icon = "" // e07f
+  val Friends: Icon = "" // e080

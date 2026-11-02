@@ -1,5 +1,6 @@
 package lila.security
 
+import com.roundeights.hasher.Algo
 import play.api.ConfigLoader
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
@@ -9,11 +10,10 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 import scalalib.Iso
-import com.roundeights.hasher.Algo
 
-import lila.common.{ HTTPRequest, ClientName }
 import lila.common.autoconfig.*
 import lila.common.config.given
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.*
 import lila.core.security.TurnstilePublicConfig
 
@@ -79,7 +79,8 @@ final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Execut
       ok.addEffect: ok =>
         if ok then Turnstile.monitor(Turnstile.Result.CookieSkip)
   private def serialize(login: LoginForm) =
-    Algo.hmac(secret.value).sha256(s"${login.username}${login.password.value}").hex.take(16)
+    val msg = s"turnstile|${login.username.value.length}|${login.username}|${login.password.value}"
+    Algo.hmac(secret.value).sha256(msg).hex.take(16)
   private def readFromReq(using req: RequestHeader): Option[Token] = req.cookies.get(name).map(_.value)
 
 final class TurnstileReal(
@@ -101,7 +102,7 @@ final class TurnstileReal(
 
   protected def verify(response: String)(using req: RequestHeader): Fu[Result] =
     given Conversion[Result, Fu[Result]] = fuccess
-    def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.printReqAndClient(req)}")
+    def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.print(req)}")
     def missingResponse: Result =
       logInfo("missing")
       Result.Missing

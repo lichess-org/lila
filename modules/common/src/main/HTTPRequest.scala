@@ -1,14 +1,15 @@
 package lila.common
 
-import scala.util.matching.Regex
-
 import play.api.http.HeaderNames
+import play.api.libs.typedmap.TypedKey
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-import play.api.libs.typedmap.TypedKey
-import scalalib.net.{ UserAgent, Bearer }
+import scalalib.net.{ Bearer, UserAgent }
+
+import scala.util.matching.Regex
 
 import lila.common.Form.trueish
+import lila.core.data.UntypedFormRequest
 import lila.core.net.*
 
 object HTTPRequest:
@@ -21,7 +22,8 @@ object HTTPRequest:
   def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
-  def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req) && !isLichessMobile(req)
+  def isRedirectable(using req: RequestHeader) =
+    isSynchronousHttp(req) && isSafe(req) && !isLichessMobile
 
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
@@ -41,8 +43,6 @@ object HTTPRequest:
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
-  def isPrometheus(req: RequestHeader) = req.path.startsWith("/prometheus-metrics/")
-
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
 
   def userAgent(req: RequestHeader): UserAgent =
@@ -53,9 +53,9 @@ object HTTPRequest:
   val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
-  def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
+  def isLichessMobile(using req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
   def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
-  def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
+  def isLichobile(using req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
     isLichessMobile(ua).so:
@@ -79,13 +79,9 @@ object HTTPRequest:
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 
-  def isImagePreviewCrawler(req: RequestHeader) = imagePreviewCrawlerMatcher(req)
-
-  private val imagePreviewCrawlerMatcher = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
-
-  final class UaMatcher(rStr: String):
-    private val pattern = rStr.r.pattern
-    def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
+  def UaMatcher(rStr: String): RequestHeader => Boolean =
+    val pattern = rStr.r.pattern
+    (req: RequestHeader) => pattern.matcher(userAgent(req).value).find
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
 
@@ -98,32 +94,28 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
+    s"${ipAddressStr(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
-  def printReqAndClient(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
-
-  def bearer(req: RequestHeader): Option[Bearer] = for
+  def bearer(using req: RequestHeader): Option[(Bearer, Option[String])] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
     prefix = "Bearer "
     if authorization.startsWith(prefix)
-  yield Bearer(authorization.stripPrefix(prefix))
+    raw = authorization.stripPrefix(prefix)
+  yield raw.split(':') match
+    case Array(bearer, sign) => Bearer(bearer) -> sign.some
+    case _ => (Bearer(raw), none)
 
-  def isOAuth(req: RequestHeader) = bearer(req).isDefined
-
-  private val webXhrAccepts = "application/web.lichess+json"
-  def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
-    a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
+    a == "application/web.lichess+json" ||
+      a.startsWith("application/json") ||
+      a.startsWith("application/vnd.lichess.v")
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
   def acceptsMarkdown(using req: RequestHeader) =
     accepts(req).contains("text/markdown") ||
       queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
-  def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || ClientName(req).isFishnet || isApi(req) || isPrometheus(req) ||
-      accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
@@ -147,6 +139,9 @@ object HTTPRequest:
   def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
     queryStringGet(name).map(sr.apply)
 
+  def fromFormOrQuery(name: String)(using req: UntypedFormRequest): Option[String] =
+    req.body.get(name).flatMap(_.headOption).filter(_.nonEmpty).orElse(queryStringGet(name))
+
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value
     ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
@@ -157,6 +152,15 @@ object HTTPRequest:
 
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
+
+  def asn(req: RequestHeader): Option[ASN] =
+    ASN.from(req.headers.get("X-ASN").flatMap(_.toIntOption))
+
+  def continent(req: RequestHeader): Option[Continent] =
+    req.headers.get("X-Continent").flatMap(Continent.byCode.get)
+
+  def country(using req: RequestHeader): Option[CountryCode] =
+    CountryCode.from(req.headers.get("X-Country"))
 
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown

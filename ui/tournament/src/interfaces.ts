@@ -106,20 +106,14 @@ export interface FeaturedGame {
   lastMove: string;
   white: FeaturedPlayer;
   black: FeaturedPlayer;
-  c?: {
-    white: number;
-    black: number;
-  };
+  c?: ByColor<number>;
   winner?: Color;
 }
 
-export interface SimplePlayer {
-  name: string;
+export interface SimplePlayer extends LightUserNoId {
   rating: number;
-  title?: string;
-  flair?: string;
   provisional?: boolean;
-  patronColor?: PatronColor;
+  realName?: string;
 }
 
 interface FeaturedPlayer extends SimplePlayer {
@@ -220,6 +214,7 @@ export type DuelTeams = Record<string, string>;
 export interface PodiumPlayer extends LightUser {
   performance?: number;
   nb: Nb;
+  realName?: string;
 }
 
 export interface Nb {

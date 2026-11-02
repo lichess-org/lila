@@ -11,7 +11,7 @@ final class ForumDelete(
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
     picfitApi: lila.memo.PicfitApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   def allByUser(user: User)(using Me): Funit =
     postRepo.unsafe

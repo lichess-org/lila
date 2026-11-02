@@ -13,11 +13,11 @@
     }
 
     &.cancel td {
-      background: $m-secondary--fade-60;
+      background: rgb(from $c-secondary r g b / calc(alpha * 0.4));
     }
 
     &.join:hover td {
-      background: $m-accent--fade-50;
+      background: $c-accent-cloud;
       color: #fff;
     }
 
@@ -42,6 +42,7 @@
 
     &.sortable {
       cursor: pointer;
+      text-align: center;
     }
 
     &.sortable:hover,
@@ -49,10 +50,15 @@
       font-weight: normal;
     }
 
-    &.sort .is::before {
+    .is {
+      position: absolute;
+      margin-inline-start: calc(-1.2em - 3px);
+      visibility: hidden;
+    }
+
+    &.sort .is {
       opacity: 0.7;
-      margin-inline-end: 3px;
-      content: $licon-DownTriangle;
+      visibility: visible;
     }
 
     &.player {
@@ -65,7 +71,10 @@
       &:nth-child(2) {
         max-width: 13vw;
         direction: rtl;
-        text-align: left;
+
+        &:not(.sortable) {
+          text-align: left;
+        }
       }
     }
   }
@@ -76,7 +85,7 @@
     padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: $m-bg--fade-50;
+    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
 
     &:first-child {
       padding-inline-start: 2em;
@@ -102,6 +111,11 @@
         max-width: 25vw;
       }
     }
+  }
+
+  &:has(th.sortable) td:nth-child(2),
+  &:has(th.sortable) td:nth-child(3) {
+    text-align: center;
   }
 
   tbody.stepping {

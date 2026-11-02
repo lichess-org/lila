@@ -3,8 +3,16 @@
   <string name="settings">Cài đặt</string>
   <string name="closeAccount">Đóng tài khoản</string>
   <string name="managedAccountCannotBeClosed">Tài khoản của bạn đang bị quản lý, hiện không thể đóng.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Bạn không được phép tạo tài khoản trùng tên, kể cả khác chữ hoa, thường.</string>
+  <string name="cantOpenSimilarAccount">Bạn không được phép tạo tài khoản trùng tên, kể cả khác chữ hoa, thường.</string>
   <string name="cancelKeepAccount">Hủy và giữ lại tài khoản của tôi</string>
   <string name="closeAccountAreYouSure">Bạn chắc chắn là bạn muốn đóng tài khoản của mình không?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Tài khoản này đã bị đóng</string>
+  <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
+  <string name="wereSorryToSeeYouGo">Chúng tôi rất tiếc khi thấy bạn rời đi.</string>
+  <string name="closeAccountForeverLabel">Đóng cửa vĩnh viễn: khiến việc mở lại tài khoản là không thể</string>
+  <string name="closeAccountForeverWarning">Ngăn việc mở lại tài khoản sau này. Nếu bạn chọn ô này, ngay cả các quản trị viên cũng không thể mở lại tài khoản của bạn theo yêu cầu của bạn.</string>
+  <string name="deleteYourAccount">Xóa tài khoản</string>
+  <string name="deleteAccountWarning">Sau khi bạn xóa tài khoản, tài khoản đó sẽ bị xóa khỏi Lichess và quản trị viên của chúng tôi sẽ không thể khôi phục lại tài khoản đó cho bạn.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Thay vào đó bạn có muốn %s không?</string>
+  <string name="closeYourAccount">đóng tài khoản của bạn</string>
+  <string name="deleteAccountConfirmText">Tôi hiểu rằng các tài khoản bị xóa sẽ không thể khôi phục được</string>
 </resources>

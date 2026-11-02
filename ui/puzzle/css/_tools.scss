@@ -43,6 +43,10 @@
     &:hover glyph {
       color: $c-font-dim;
     }
+
+    &.active glyph {
+      color: white;
+    }
   }
 }
 

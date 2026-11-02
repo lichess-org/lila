@@ -111,7 +111,7 @@
 
     &.as-mod {
       li:hover {
-        background: $m-accent_bg--mix-10;
+        background: color-mix(in oklab, $c-accent 10%, $c-bg);
       }
     }
 
@@ -123,11 +123,12 @@
 
   &__say {
     @include padding-direction(3px, 20px, 3px, 4px);
+    @extend %box-radius-bottom;
 
     flex: 0 0 auto;
     border: 0;
+    padding-inline: 6px;
     border-top: $border;
-    border-radius: 0;
 
     &:focus {
       outline: 1px solid $c-primary;

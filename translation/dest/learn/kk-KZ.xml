@@ -102,7 +102,7 @@
 шах қоюға қабілетті!</string>
   <string name="escapeOrBlock">Патшамен қашыңыз
 не шабуылды бөгеңіз!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
+  <string name="outOfCheckComplete">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
   <string name="mateInOne">Бір қадамды мат</string>
   <string name="defeatTheOpponentsKing">Қарсыластың патшасын жеңіңіз</string>
   <string name="mateInOneIntro">Қарсыластың шахтан құтылу жолы болмағанда, сіз жеңесіз.</string>
@@ -130,6 +130,7 @@
 Бір жүріс жасаңыз.</string>
   <string name="boardSetupComplete">Құтты болсын! Енді шахмат тақтасын ойынға дайындауды білесіз.</string>
   <string name="castling">Бекіну</string>
+  <string name="enPassant">Жолай басу</string>
   <string name="theSpecialKingMove">Патшаның ерекше жүрісі</string>
   <string name="castlingIntro">Патшаны қорғаулы жерге кіргізіп, тура тасын шабуылға даярлаңыз!</string>
   <string name="castleKingSide">Патша-жақты бекіну үшін

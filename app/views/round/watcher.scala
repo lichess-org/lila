@@ -25,7 +25,6 @@ def watcher(
       withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
       public = true,
       resource = lila.core.chat.PublicSource.Watcher(pov.gameId),
-      voiceChat = ctx.canVoiceChat,
       opponentId = pov.opponent.userId
     )
 
@@ -50,20 +49,4 @@ def watcher(
         ui.roundAppPreload(pov),
         div(cls := "round__underboard")(views.game.ui.crosstable.option(cross, pov.game)),
         div(cls := "round__underchat")(underchat(pov.game))
-      )
-
-def crawler(pov: Pov)(using Context) =
-  Page(gameVsText(pov.game, withRatings = true))
-    .css("round")
-    .flag(_.zoom)
-    .graph(ui.povOpenGraph(pov)):
-      main(cls := "round")(
-        st.aside(cls := "round__side")(
-          views.game.side.meta(pov, none, none, none, none, bookmarked = false),
-          div(
-            h1(titleGame(pov.game)),
-            p(ui.describePov(pov))
-          )
-        ),
-        div(cls := "round__board main-board")(ui.povChessground(pov))
       )

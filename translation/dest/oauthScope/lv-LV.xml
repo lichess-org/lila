@@ -21,7 +21,6 @@
   <string name="puzzleRead">Skatīt uzdevumu aktivitāti</string>
   <string name="teamRead">Skatīt privāto komandu informāciju</string>
   <string name="teamWrite">Pievienoties komandām un tās pamest</string>
-  <string name="teamLead">Pārvaldīt komandas, ko vadat: sūtīt ziņas, izmest dalībniekus</string>
   <string name="followRead">Skatīt spēlētājus, kam sekojat</string>
   <string name="followWrite">Sekot un pārtraukt sekot spēlētājiem</string>
   <string name="msgWrite">Sūtīt privātas ziņas citiem spēlētājam</string>

@@ -1,25 +1,25 @@
 package lila.mod
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.Json.given
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.security.UserSignup
 import lila.core.team.TeamCreate
-import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
+import lila.user.UserRepo
 
-final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream.Materializer):
+final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using org.apache.pekko.stream.Materializer):
 
   def markedSince(since: Instant): Source[UserId, ?] =
     logRepo.coll
       .find(
-        $doc("action".$in(List("engine", "booster", "cheatDetected")), "date" -> $doc("$gt" -> since)),
-        $doc("user" -> true).some
+        bdoc("action".in(List("engine", "booster", "cheatDetected")), "date" -> bdoc("$gt" -> since)),
+        bdoc("user" -> true).some
       )
-      .sort($doc("date" -> 1))
+      .sort(bdoc("date" -> 1))
       .batchSize(100)
       .cursor[Bdoc]()
       .documentSource()
@@ -32,7 +32,7 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
   object events:
 
     private val blueprint = Source
-      .queue[UserSignup | TeamCreate](32, akka.stream.OverflowStrategy.dropHead)
+      .queue[UserSignup | TeamCreate](32, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .map:
         case UserSignup(user, email, req, fp, suspIp) =>
           Json

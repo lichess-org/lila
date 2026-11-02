@@ -68,10 +68,10 @@
   <string name="releaseDesc1">Дипломиран налог се више не може управљати. Ученик ће сам моћи да укључи/искључи дечији режим и промени лозинку.</string>
   <string name="releaseDesc2">Ученик ће остати у часу након што му/јој је налог дипломиран.</string>
   <string name="realUniqueEmail">Стварна, јединствена имејл адреса ученика. Послаћемо имејл за потврду на њу, са линком за дипломирање налога.</string>
-  <string name="closeStudent">Затворите налог</string>
-  <string name="closeTheAccount">Трајно затворите налог ученика.</string>
-  <string name="closeDesc1">Овај ученик никад више неће моћи да користи свој налог. Затварање је трајно. Постарајте се да ученик ово разуме и да се слаже.</string>
-  <string name="closeDesc2">Можда желите да дате ученику контролу над њиховим налогом, како би могли да наставе да га користе.</string>
+  <string name="closeStudent">Затвори налог</string>
+  <string name="closeTheAccount">Затвори ученички налог заувек.</string>
+  <string name="closeDesc1">Ученик никада више неће моћи користити овај налог. Затварање је коначно. Побрини се да ученик разуме и слаже се.</string>
+  <string name="closeDesc2">Можда ипак желите дати ученику контролу над налогом, како би га могао/ла наставити користити.</string>
   <string name="teachers">Учитељи</string>
   <plurals name="nbTeachers">
     <item quantity="one">Учитељ</item>

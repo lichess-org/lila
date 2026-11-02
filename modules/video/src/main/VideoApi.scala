@@ -1,8 +1,10 @@
 package lila.video
 
+import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import scalalib.paginator.*
 
+import lila.common.HTTPRequest
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*
@@ -22,13 +24,21 @@ final private[video] class VideoApi(
     userOption match
       case None =>
         fuccess:
-          videos.map { VideoView(_, view = false) }
+          videos.map(VideoView(_, view = false))
       case Some(user) =>
         view
           .seenVideoIds(user, videos)
           .map: ids =>
             videos.map: v =>
               VideoView(v, ids contains v.id)
+
+  def withUserControl[A](f: UserControl => Fu[A])(using me: Option[Me])(using RequestHeader): Fu[A] =
+    val reqTags = HTTPRequest.queryStringGet("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
+    val tagNbs = if me.isDefined then tag.paths(reqTags) else tag.popularNotNumeric
+    tagNbs
+      .map: tags =>
+        UserControl(filter = Filter(reqTags), tags = tags, query = HTTPRequest.queryStringGet("q"))
+      .flatMap(f)
 
   object video:
 
@@ -43,11 +53,11 @@ final private[video] class VideoApi(
         .map: word =>
           s""""$word""""
         .mkString(" ")
-      val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
+      val textScore = bdoc("score" -> bdoc("$meta" -> "textScore"))
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $text(q),
+          selector = textSearch(q),
           projection = textScore.some,
           sort = textScore,
           _.sec
@@ -59,28 +69,28 @@ final private[video] class VideoApi(
     def save(video: Video): Funit =
       videoColl.update
         .one(
-          $id(video.id),
-          $doc("$set" -> video),
+          bid(video.id),
+          bdoc("$set" -> video),
           upsert = true
         )
         .void
 
     def removeNotIn(ids: List[Video.ID]): Fu[Int] =
-      videoColl.delete.one($doc("_id".$nin(ids))).map(_.n)
+      videoColl.delete.one(bdoc("_id".nin(ids))).map(_.n)
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.updateField($id(id), "metadata", metadata).void
+      videoColl.updateField(bid(id), "metadata", metadata).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinctEasy[String, List]("_id", $empty, _.sec)
+      videoColl.distinctEasy[String, List]("_id", emptyBdoc, _.sec)
 
     def popular(user: Option[UserId], page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $empty,
+          selector = emptyBdoc,
           projection = none,
-          sort = $doc("metadata.refreshedAt" -> -1),
+          sort = bdoc("metadata.refreshedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -93,9 +103,9 @@ final private[video] class VideoApi(
         Paginator(
           adapter = new Adapter[Video](
             collection = videoColl,
-            selector = $doc("tags".$all(tags)),
+            selector = bdoc("tags".all(tags)),
             projection = none,
-            sort = $doc("metadata.refreshedAt" -> -1),
+            sort = bdoc("metadata.refreshedAt" -> -1),
             _.sec
           ).mapFutureList(videoViews(user)),
           currentPage = page,
@@ -106,9 +116,9 @@ final private[video] class VideoApi(
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $doc("author" -> author),
+          selector = bdoc("author" -> author),
           projection = none,
-          sort = $doc("metadata.publishedAt" -> -1),
+          sort = bdoc("metadata.publishedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -120,16 +130,16 @@ final private[video] class VideoApi(
         .aggregateList(maxDocs = max, _.sec): framework =>
           import framework.*
           Match(
-            $doc(
-              "tags".$in(video.tags),
-              "_id".$ne(video.id)
+            bdoc(
+              "tags".in(video.tags),
+              "_id".neq(video.id)
             )
           ) -> List(
             AddFields:
-              $doc(
-                "int" -> $doc(
-                  "$size" -> $doc(
-                    "$setIntersection" -> $arr("$tags", video.tags)
+              bdoc(
+                "int" -> bdoc(
+                  "$size" -> bdoc(
+                    "$setIntersection" -> barr("$tags", video.tags)
                   )
                 )
               )
@@ -155,7 +165,7 @@ final private[video] class VideoApi(
     def find(videoId: Video.ID, userId: UserId): Fu[Option[View]] =
       viewColl
         .find(
-          $doc(
+          bdoc(
             View.BSONFields.id -> View.makeId(videoId, userId)
           )
         )
@@ -166,7 +176,7 @@ final private[video] class VideoApi(
     def hasSeen(user: UserId, video: Video): Fu[Boolean] =
       viewColl
         .countSel(
-          $doc(
+          bdoc(
             View.BSONFields.id -> View.makeId(video.id, user)
           )
         )
@@ -175,7 +185,7 @@ final private[video] class VideoApi(
     def seenVideoIds(user: UserId, videos: Seq[Video]): Fu[Set[Video.ID]] =
       viewColl.distinctEasy[String, Set](
         View.BSONFields.videoId,
-        $inIds(videos.map: v =>
+        inIds(videos.map: v =>
           View.makeId(v.id, user)),
         _.sec
       )
@@ -186,29 +196,31 @@ final private[video] class VideoApi(
 
     def allPopular: Fu[List[TagNb]] = popularCache.getUnit
 
+    def popularNotNumeric: Fu[List[TagNb]] =
+      allPopular.map:
+        _.filterNot(_.isNumeric)
+
     private val max = 25
 
     private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths"):
       _.expireAfterAccess(10.minutes).buildAsyncFuture: filterTags =>
         val allPaths =
-          if filterTags.isEmpty then
-            allPopular.map: tags =>
-              tags.filterNot(_.isNumeric)
+          if filterTags.isEmpty then popularNotNumeric
           else
             videoColl
               .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
                 import framework.*
-                Match($doc("tags".$all(filterTags))) -> List(
-                  Project($doc("tags" -> true)),
+                Match(bdoc("tags".all(filterTags))) -> List(
+                  Project(bdoc("tags" -> true)),
                   UnwindField("tags"),
                   GroupField("tags")("nb" -> SumAll)
                 )
-              .dmap { _.flatMap(_.asOpt[TagNb]) }
+              .dmap(_.flatMap(_.asOpt[TagNb]))
 
-        allPopular.zip(allPaths).map { case (all, paths) =>
+        allPopular.zip(allPaths).map { (all, paths) =>
           val tags = all
             .map: t =>
-              paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0))
+              paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0.some))
             .filterNot(_.empty)
             .take(max)
           val missing = filterTags.filterNot: t =>
@@ -217,7 +229,7 @@ final private[video] class VideoApi(
             all.find(_.tag == t)
           list.sortBy: t =>
             if filterTags contains t.tag then Int.MinValue
-            else -t.nb
+            else t.nb.so(-_)
         }
 
     private val popularCache = cacheApi.unit[List[TagNb]]("video.popular"):
@@ -225,7 +237,7 @@ final private[video] class VideoApi(
         videoColl
           .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
             import framework.*
-            Project($doc("tags" -> true)) -> List(
+            Project(bdoc("tags" -> true)) -> List(
               UnwindField("tags"),
               GroupField("tags")("nb" -> SumAll),
               Sort(Descending("nb"))

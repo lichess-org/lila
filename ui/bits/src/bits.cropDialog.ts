@@ -65,8 +65,9 @@ export async function initModule(o?: CropOpts): Promise<void> {
   });
 
   const dlg = await domDialog({
+    closeButton: true,
     class: 'crop-viewer',
-    css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ key: 'bits.cropDialog' }, { href: 'npm/cropper.min.css' }],
     modal: true,
     easyClose: 'clickOutside',
     htmlText: $html`
@@ -76,7 +77,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
         <button class="button button-empty cancel">cancel</button>
         <button class="button submit">submit</button>
       </span>`,
-    append: [{ where: '.crop-view', node: container }],
+    insert: [{ selector: '.crop-view', nodes: container }],
     actions: [
       { selector: '.dialog-actions > .cancel', listener: (_, d) => d.close() },
       { selector: '.dialog-actions > .submit', listener: crop },

@@ -2,10 +2,9 @@ package lila.mod.ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
 import lila.memo.{ PicfitImage, PicfitUrl }
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
   import helpers.*

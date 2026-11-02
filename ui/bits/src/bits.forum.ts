@@ -1,6 +1,7 @@
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
+import { debounce } from 'lib/async';
 import { tempStorage } from 'lib/storage';
 import { domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -12,6 +13,7 @@ site.load.then(() => {
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',
@@ -34,6 +36,7 @@ site.load.then(() => {
     .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-relocate-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',
@@ -72,7 +75,7 @@ site.load.then(() => {
     $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    if (this.innerHTML.match(/(^|<br>)&gt;/)) {
+    if (/(^|<br>)&gt;/.test(this.innerHTML)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
@@ -109,43 +112,40 @@ site.load.then(() => {
       setMode(textarea, 'write');
     });
 
-  const quoted = new Set<string>();
+  $('.quote.button').on(
+    'click',
+    debounce(function (this: HTMLButtonElement) {
+      const post = this.closest<HTMLElement>('.forum-post')!;
+      const authorUsername = $(post).find('.author').attr('href')?.substring(3);
+      const author = authorUsername ? '@' + authorUsername : $(post).find('.author').text();
+      const reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
-  $('.quote.button').on('click', function (this: HTMLButtonElement) {
-    const post = this.closest<HTMLElement>('.forum-post')!,
-      authorUsername = $(post).find('.author').attr('href')?.substring(3),
-      author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
-      reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
+      const lines = quotedMarkdown(this.closest('article'))
+        .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)') // unlink images
+        .split('\n');
+      if (/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/.test(lines[0])) lines.shift();
 
-    const lines = (
-      quotedMarkdown(this.closest('article')) ??
-      post.querySelector('.forum-post__message-source')!.textContent
-    )
-      .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)')
-      .split('\n');
-    if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
+      if (lines.length === 0) return;
 
-    if (lines.length === 0) return;
+      const quote =
+        `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
+        lines
+          .map(line => `> ${line}\n`)
+          .join('')
+          .trim() +
+        '\n\n';
 
-    const quote =
-      `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
-      lines
-        .map(line => `> ${line}\n`)
-        .join('')
-        .trim() +
-      '\n\n';
-
-    if (quoted.has(quote)) return;
-    quoted.add(quote);
-    setMode(reply, 'write');
-    reply.value = reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
-    const caretOffset = reply.selectionStart + quote.length;
-    reply.setSelectionRange(caretOffset, caretOffset);
-  });
+      setMode(reply, 'write');
+      reply.value =
+        reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
+      const caretOffset = reply.selectionStart + quote.length;
+      reply.setSelectionRange(caretOffset, caretOffset);
+    }, 100),
+  );
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
-    const textarea = this,
-      topicId = $(this).attr('data-topic');
+    const textarea = this;
+    const topicId = $(this).attr('data-topic');
 
     if (!topicId) return;
 
@@ -208,19 +208,23 @@ site.load.then(() => {
   });
 
   $('form.reply').on('submit', () => {
-    if (submittingReply) return false;
+    if (submittingReply) return;
     replyStorage.remove();
     submittingReply = true;
   });
   if (replyEl?.value) replyEl.scrollIntoView(); // scrollto if pre-populated
 });
 
-function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
+function quotedMarkdown(postEl: HTMLElement | null): string {
+  const source = postEl?.querySelector('.forum-post__message-source')?.textContent;
+  if (!source) return '';
+
+  const trimmed = source.slice(0, 400) + (source.length > 400 ? '...' : '');
   const selection = window.getSelection();
-  if (!postEl || !selection || selection.rangeCount === 0) return undefined;
+  if (!selection || selection.rangeCount === 0) return trimmed;
 
   const r = selection.getRangeAt(0);
-  if (!postEl?.contains(r.startContainer) || !postEl.contains(r.endContainer)) return undefined;
+  if (!postEl?.contains(r.startContainer) || !postEl.contains(r.endContainer)) return trimmed;
 
   const startEl =
     r.startContainer.nodeType === 3 ? r.startContainer.parentElement : (r.startContainer as Element);
@@ -228,9 +232,7 @@ function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
 
   const startCap = Number(startEl?.closest<HTMLElement>('[data-ms]')?.dataset.ms);
   const endCap = Number(endEl?.closest<HTMLElement>('[data-me]')?.dataset.me);
-  const source = postEl.querySelector('.forum-post__message-source')?.textContent;
-
-  if (isNaN(startCap) || isNaN(endCap) || !source) return undefined;
+  if (isNaN(startCap) || isNaN(endCap) || !source) return trimmed;
 
   const sourceLines = selection.toString().trim().split('\n');
   const lastLine = sourceLines[sourceLines.length - 1].trim();

@@ -12,7 +12,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { winningChances } from 'lib/ceval';
+import { defined } from 'lib';
+import { renderEval, winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';
@@ -65,7 +66,7 @@ export default async function (
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
-    mainline.slice(1).map(node => {
+    mainline.slice(1).forEach(node => {
       const isWhite = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
       if (node.eval?.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
@@ -77,7 +78,6 @@ export default async function (
       const winchance = winningChances.povChances('white', { cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
-
       const { advice, color: glyphColor } = glyphProperties(node);
       const label = turn + dots + ' ' + node.san;
       let annotation = '';
@@ -153,19 +153,9 @@ export default async function (
           callbacks: {
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
-              if (!ev) return ''; // Pos is mate
-              let e = 0,
-                mateSymbol = '',
-                advantageSign = '';
-              if (ev.cp) {
-                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                if (ev.cp > 0) advantageSign = '+';
-              }
-              if (ev.mate) {
-                e = ev.mate;
-                mateSymbol = '#';
-              }
-              return i18n.site.advantage + ': ' + mateSymbol + advantageSign + e;
+              if (defined(ev?.mate)) return i18n.site.advantage + ': #' + ev.mate;
+              if (defined(ev?.cp)) return i18n.site.advantage + ': ' + renderEval(ev.cp);
+              return '';
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },

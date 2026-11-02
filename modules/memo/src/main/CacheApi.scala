@@ -1,8 +1,9 @@
 package lila.memo
 
+import alleycats.Zero
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
-import alleycats.Zero
+
 import scala.collection.mutable.WeakHashMap
 
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
@@ -80,7 +81,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
   def actualCapacity(c: Int): Int =
     if mode.isProd then c
-    else math.sqrt(c.toDouble).toInt.atLeast(1)
+    else math.cbrt(c.toDouble).toInt.atLeast(1)
 
 object CacheApi:
 

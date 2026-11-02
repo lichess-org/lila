@@ -59,7 +59,7 @@ final private[team] class PaginatorBuilder(
   private trait MembersAdapter:
     val team: Team
     val nbResults = fuccess(team.nbMembers)
-    val sorting = $sort.desc("date")
+    val sorting = sort.desc("date")
     val selector = memberRepo.teamQuery(team.id)
 
   final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
@@ -67,7 +67,7 @@ final private[team] class PaginatorBuilder(
       for
         docs <-
           memberRepo.coll
-            .find(selector, $doc("user" -> true, "_id" -> false).some)
+            .find(selector, bdoc("user" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
             .cursor[Bdoc]()
@@ -83,7 +83,7 @@ final private[team] class PaginatorBuilder(
       for
         docs <-
           memberRepo.coll
-            .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
+            .find(selector, bdoc("user" -> true, "date" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
             .cursor[Bdoc]()
@@ -107,7 +107,7 @@ final private[team] class PaginatorBuilder(
       extends AdapterLike[RequestWithUser]:
     val nbResults = requestRepo.countDeclinedByTeam(team.id)
     private def selector = requestRepo.teamDeclinedQuery(team.id, userQuery)
-    private def sorting = $sort.desc("date")
+    private def sorting = sort.desc("date")
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
       for

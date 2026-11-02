@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops';
+
 import { Cache } from '../cache';
 import { Protocol } from '../protocol';
 import {
@@ -39,7 +41,7 @@ export class ThreadedEngine implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status: EngineNotifier | undefined,
-    readonly variantMap?: (v: string) => string,
+    readonly variantMap?: (v: Rules) => string,
   ) {}
 
   onError = (err: Error): void => {
@@ -66,12 +68,12 @@ export class ThreadedEngine implements CevalEngine {
 
   private async boot() {
     const [root, js, wasm, pathVersion] = [
-        this.info.assets.root,
-        this.info.assets.js,
-        this.info.assets.wasm,
-        this.info.assets.version,
-      ],
-      wasmPath = `${root}/${wasm}`;
+      this.info.assets.root,
+      this.info.assets.js,
+      this.info.assets.wasm,
+      this.info.assets.version,
+    ];
+    const wasmPath = `${root}/${wasm}`;
 
     let wasmBinary: ArrayBuffer | undefined;
     if (this.info.id === '__sf14nnue') {
@@ -123,7 +125,7 @@ export class ThreadedEngine implements CevalEngine {
 
   async start(work: Work): Promise<void> {
     if (!this.protocol) {
-      this.protocol = new Protocol(this.variantMap);
+      this.protocol = new Protocol(this.info, this.variantMap);
       this.boot().catch(this.onError);
     }
     this.protocol.compute(work);
@@ -132,6 +134,8 @@ export class ThreadedEngine implements CevalEngine {
   stop(): void {
     this.protocol?.compute(undefined);
   }
+
+  version = (): string | undefined => this.protocol?.engineName;
 
   destroy(): void {
     this.module?.postMessage('quit');

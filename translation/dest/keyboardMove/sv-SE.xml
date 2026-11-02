@@ -16,7 +16,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Om ovanstående drags notation är obekant, lär dig mer här:</string>
   <string name="includingAXToIndicateACapture">Att inkludera ett \"x\" för att ange en slagen pjäs är valfritt</string>
   <string name="bothTheLetterOAndTheDigitZero">Både bokstaven \"o\" och siffran noll \"0\" kan användas vid rockad</string>
-  <string name="ifItIsLegalToCastleBothWays">Om rockad är tillåtet åt båda hållen, använd &lt;Enter&gt; för kort rockad</string>
+  <string name="ifItIsLegalToCastleBothWays">Om rockad är tillåten åt båda hållen, använd enter-tangenten för att göra en kort rockad</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Stor bokstav har endast betydelse i tvetydiga situationer med en löpare (B) och b-bonden</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">För att ange ett drag i förväg, skriv bara det önskade draget innan det är din tur</string>
 </resources>

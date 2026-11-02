@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
-import lila.fide.{ FidePlayer, Federation }
+import lila.fide.{ Federation, FidePlayer }
 
 final class Fide(env: Env) extends LilaController(env):
 
@@ -23,8 +23,8 @@ final class Fide(env: Env) extends LilaController(env):
   def show(id: chess.FideId, slug: String, page: Int) = Open:
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
-        env.fide.repo.player
-          .fetch(id)
+        env.fide.playerApi
+          .get(id)
           .flatMap:
             case None => NotFound.page(views.fide.player.notFound(id))
             case Some(player) =>
@@ -46,12 +46,12 @@ final class Fide(env: Env) extends LilaController(env):
   def apiShow(id: chess.FideId) = Anon:
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
-        Found(env.fide.playerApi.withFollow(id))(JsonOk)
+        Found(env.fide.playerApi.withFollow(id))(JsonOk(_).publicCache(1.hour))
 
-  def apiRatings(id: chess.FideId) = Anon:
-    WithProxy:
-      limit.enumeration.fidePlayer(rateLimited):
-        JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))
+  def apiRatings(id: chess.FideId) = AnonOrScoped():
+    def proceed = JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))
+    if isGrantedOpt(_.ApiHog) then proceed
+    else WithProxy(limit.enumeration.fidePlayer(rateLimited)(proceed))
 
   def apiSearch(q: String) = Anon:
     env.fide.search(q.some, 1, FidePlayerOrder.default).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
@@ -78,21 +78,20 @@ final class Fide(env: Env) extends LilaController(env):
           rendered <- renderPage(views.fide.federation.show(fed, playersList))
         yield Ok(rendered)
 
-  def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) {
-    ctx ?=> _ ?=>
-      Found(env.fide.repo.player.fetch(id)): p =>
-        ctx.body.body.file("photo") match
-          case Some(photo) =>
-            for
-              pic <- env.fide.playerApi.uploadPhoto(p, photo)
-              picUrl = FidePlayer.PlayerPhoto(env.memo.picfitUrl, pic.id, _.Small)
-              _ <- env.irc.api.fidePhoto(playerUrl(p).url, picUrl)
-            yield Redirect(routes.Coach.edit)
-          case None => Redirect(playerUrl(p))
+  def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) { ctx ?=> _ ?=>
+    Found(env.fide.playerApi.get(id)): p =>
+      ctx.body.body.file("photo") match
+        case Some(photo) =>
+          for
+            pic <- env.fide.playerApi.uploadPhoto(p, photo)
+            picUrl = FidePlayer.PlayerPhoto(env.memo.picfitUrl, pic.id, _.Small)
+            _ <- env.irc.api.fidePhoto(playerUrl(p).url, picUrl)
+          yield Redirect(routes.Coach.edit)
+        case None => Redirect(playerUrl(p))
   }
 
   def playerUpdate(id: chess.FideId) = SecureBody(_.FidePlayer) { ctx ?=> _ ?=>
-    Found(env.fide.repo.player.fetch(id)): p =>
+    Found(env.fide.playerApi.get(id)): p =>
       bindForm(FidePlayer.form.credit(p))(
         _ => funit,
         credit =>

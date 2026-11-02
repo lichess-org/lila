@@ -13,7 +13,7 @@ Is fiú pointí dúbailte iad na cluichí a leanann go dtí go caillfear cluiche
 Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfear pointe do cailluint cluiche.
 
 Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Airéine Báiní</string>
+  <string name="berserk">Airéine Báiní</string>
   <string name="berserkAnswer">Nuair a chliceálann imreoir an cnaipe Báiní ag tús an chluiche, cailleann siad leath a gcuid ama ar an chlog, ach faigheann siad pointe comórtais breise amháin don bua.
 
 Ag dul le Bainí i maor ama le incrimint caillfear an t-incrimint fosta (is eisceacht é 1 + 2, tugann sé 1 + 0).
@@ -25,7 +25,6 @@ Ní thugann Berserk pointe breise ach má imríonn tú 7 mbeart ar a laghad sa c
   <string name="howIsTheWinnerDecidedAnswer">Fógrófar an ficheallaí (ficheallaithe) leis na pointí is mó ag deireadh theorainn ama socraithe an chomórtais mar bhuaiteoir (buaiteoirí).
 
 Nuair a bhíonn an líon céanna pointí ag beirt fhicheallaí nó níos mó, is é feidhmíocht an chomórtais an babhta réitigh.</string>
-  <string name="howDoesPairingWork">Conas a oibríonn an phéireáil?</string>
   <string name="howDoesPairingWorkAnswer">Ag tús an chomórtais, cuirtear imreoirí le chéile bunaithe ar a rátáil.
 Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an chomórtais: ansin beidh tú curtha le himreoir gar do do rátáil. Cinntíonn sé seo an t-íosmhéid ama feithimh, ach b’fhéidir nach dtabharfaidh tú imir le gach imreoir eile sa chomórtas.
 Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>

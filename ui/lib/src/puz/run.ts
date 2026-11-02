@@ -2,6 +2,8 @@ import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import { chessgroundDests } from 'chessops/compat';
 import { makeFen } from 'chessops/fen';
 
+import { capitalize } from '@/game';
+
 import type { Run } from './interfaces';
 
 export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConfig => {
@@ -23,7 +25,5 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConf
   };
 };
 
-export const povMessage = (run: Run): string =>
-  run.pov === 'white'
-    ? i18n.storm.youPlayTheWhitePiecesInAllPuzzles
-    : i18n.storm.youPlayTheBlackPiecesInAllPuzzles;
+export const povMessage = ({ pov }: Run): string =>
+  i18n.storm[`youPlayThe${capitalize(pov)}PiecesInAllPuzzles`];

@@ -56,7 +56,6 @@
   <plurals name="nbPendingInvitations">
     <item quantity="one">הזמנה אחת ממתינה</item>
     <item quantity="two">%s הזמנות ממתינות</item>
-    <item quantity="many">%s הזמנות ממתינות</item>
     <item quantity="other">%s הזמנות ממתינות</item>
   </plurals>
   <string name="pending">ממתין</string>
@@ -79,13 +78,11 @@
   <plurals name="nbTeachers">
     <item quantity="one">מורה</item>
     <item quantity="two">%s מורים</item>
-    <item quantity="many">%s מורים</item>
     <item quantity="other">%s מורים</item>
   </plurals>
   <plurals name="nbStudents">
     <item quantity="one">תלמיד</item>
     <item quantity="two">%s תלמידים</item>
-    <item quantity="many">%s תלמידים</item>
     <item quantity="other">%s תלמידים</item>
   </plurals>
   <string name="students">תלמידים</string>

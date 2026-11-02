@@ -1,10 +1,10 @@
 package lila.api
 
+import lila.clas.Clas
 import lila.core.id.ClasId
 import lila.swiss.{ Swiss, SwissApi }
-import lila.tournament.{ Tournament, TournamentApi }
 import lila.team.{ Team, TeamApi }
-import lila.clas.Clas
+import lila.tournament.{ Tournament, TournamentApi }
 
 final class ClasApi(
     clasApi: lila.clas.ClasApi,
@@ -19,7 +19,10 @@ final class ClasApi(
 
   def onSwissCreate(swiss: Swiss): Funit =
     WithStudents(swiss.teamId): students =>
-      swissApi.joinManyNoChecks(swiss.id, students)
+      swiss.settings.conditions.allowList match
+        case None => swissApi.joinManyNoChecks(swiss.id, students)
+        case Some(allowList) =>
+          swissApi.joinManyNoChecks(swiss.id, allowList.userIds.intersect(students.toSet).toList)
 
   def onArenaCreate(tour: Tournament): Funit =
     tour.singleTeamId.so: teamId =>

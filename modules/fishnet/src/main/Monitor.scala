@@ -10,8 +10,9 @@ final private class Monitor(
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, scheduler: Scheduler):
 
+  val statusTtl = 1.minute
   val statusCache = cacheApi.unit[Monitor.Status]("fishnet.monitor.status"):
-    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    _.refreshAfterWrite(statusTtl).buildAsyncTimeout(): _ =>
       repo.status.compute
 
   private val monBy = lila.mon.fishnet.analysis.by
@@ -47,12 +48,12 @@ final private class Monitor(
         }
       }
       (nb > 0).option(sum / nb)
-    avgOf(_.time).foreach { monBy.movetime(userId).record(_) }
+    avgOf(_.time).foreach(monBy.movetime(userId).record(_))
     if result.stockfish.isNnue then
-      avgOf(_.nodes).foreach { monBy.node(userId).record(_) }
-      avgOf(_.cappedNps).foreach { monBy.nps(userId).record(_) }
-    avgOf(e => Depth.raw(e.depth)).foreach { monBy.depth(userId).record(_) }
-    avgOf(_.pv.size.some).foreach { monBy.pvSize(userId).record(_) }
+      avgOf(_.nodes).foreach(monBy.node(userId).record(_))
+      avgOf(_.cappedNps).foreach(monBy.nps(userId).record(_))
+    avgOf(e => Depth.raw(e.depth)).foreach(monBy.depth(userId).record(_))
+    avgOf(_.pv.size.some).foreach(monBy.pvSize(userId).record(_))
 
     val significantPvSizes =
       result.evaluations.withFilter(e => !(e.mateFound || e.deadDraw)).map(_.pv.size)
@@ -105,16 +106,13 @@ object Monitor:
           "queued" -> s.queued,
           "oldest" -> s.oldest
         )
-      JsonStr(
-        Json.stringify(
-          Json.obj(
-            "analysis" -> Json.obj(
-              "user" -> statusFor(user),
-              "system" -> statusFor(system)
-            )
+      JsonStr:
+        Json.obj(
+          "analysis" -> Json.obj(
+            "user" -> statusFor(user),
+            "system" -> statusFor(system)
           )
         )
-      )
 
   private val monResult = lila.mon.fishnet.client.result
 

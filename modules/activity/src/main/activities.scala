@@ -4,6 +4,7 @@ import alleycats.Zero
 
 import lila.activity.Score.plus
 import lila.core.chess.Rank
+import lila.core.id.TourPlayerId
 import lila.core.rating.Score
 
 object activities:
@@ -69,6 +70,9 @@ object activities:
     extension (a: Simuls) def +(s: SimulId): Simuls = s :: a.value
     given Zero[Simuls] = Zero(Nil)
 
+  opaque type Tours = List[TourPlayerId]
+  object Tours extends TotalWrapper[Tours, List[TourPlayerId]]
+
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]):
     def add(gameId: GameId, moved: Boolean, ended: Boolean) =
       Corres(
@@ -88,15 +92,15 @@ object activities:
         val newIds = (id :: ids).distinct
         copy(
           ids = newIds.take(maxSubEntries),
-          nb = nb.map(1 +).orElse((newIds.size > maxSubEntries).option(newIds.size))
+          nb = nb.map(1 +).orElse((newIds.sizeIs > maxSubEntries).option(newIds.size))
         )
     def isEmpty = ids.isEmpty
   given Zero[FollowList] = Zero(FollowList(Nil, None))
   given Zero[Follows] = Zero(Follows(None, None))
 
   case class Follows(in: Option[FollowList], out: Option[FollowList]):
-    def addIn(id: UserId) = copy(in = Some(~in + id))
-    def addOut(id: UserId) = copy(out = Some(~out + id))
+    def addIn(id: UserId) = copy(in = Option(~in + id))
+    def addOut(id: UserId) = copy(out = Option(~out + id))
     def isEmpty = in.forall(_.isEmpty) && out.forall(_.isEmpty)
     def allUserIds = in.so(_.ids) ::: out.so(_.ids)
 

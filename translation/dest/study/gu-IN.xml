@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">ગ્લિફ્સ સાથે ટીકા કરો</string>
   <string name="theChapterIsTooShortToBeAnalysed">આ પ્રકરણ ખૂબ નાનું છે અને તેનું વિશ્લેષણ કરી શકાતું નથી.</string>
   <string name="onlyContributorsCanRequestAnalysis">ફક્ત અભ્યાસ ફાળો આપનારાઓ જ કમ્પ્યુટર વિશ્લેષણની વિનંતી કરી શકે છે.</string>
-  <string name="getAFullComputerAnalysis">મેઈનલાઈનનું સંપૂર્ણ સર્વર-સાઇડ કમ્પ્યુટર વિશ્લેષણ મેળવો.</string>
   <string name="makeSureTheChapterIsComplete">ખાતરી કરો કે પ્રકરણ પૂર્ણ થયું છે. તમે ફક્ત એક જ વાર વિશ્લેષણની વિનંતી કરી શકો છો.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">બધા SYNC સભ્યો એક જ પદ પર રહે છે.</string>
   <string name="shareChanges">દર્શકો સાથે ફેરફારો શેર કરો અને તેમને સર્વર પર સાચવો</string>
@@ -65,7 +64,6 @@
   <string name="downloadGame">રમત ડાઉનલોડ કરો</string>
   <string name="studyUrl">અભ્યાસ URL</string>
   <string name="currentChapterUrl">વર્તમાન પ્રકરણ URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">તમે આને ફોરમમાં અથવા તમારા લાઇચેસ બ્લોગમાં એમ્બેડ કરવા માટે પેસ્ટ કરી શકો છો</string>
   <string name="startAtInitialPosition">શરૂઆતની સ્થિતિથી શરૂઆત કરો</string>
   <string name="startAtX">%s થી શરૂ કરો</string>
   <string name="embedInYourWebsite">તમારી વેબસાઇટમાં એમ્બેડ કરો</string>
@@ -123,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">ના: લોકોને મુક્તપણે બ્રાઉઝ કરવા દો</string>
   <string name="pinnedStudyComment">પિન કરેલી અભ્યાસ ટિપ્પણી</string>
   <string name="start">Start</string>
-  <string name="save">સાચવો</string>
   <string name="clearChat">ચેટ સાફ કરો</string>
   <string name="deleteTheStudyChatHistory">અભ્યાસ ચેટ ઇતિહાસ કાઢી નાખો છો? પાછા ફરવાનું કોઈ કારણ નથી!</string>
   <string name="deleteStudy">અભ્યાસ કાઢી નાખો</string>
@@ -187,8 +184,6 @@
   <string name="fromInitialPositionText">નવી રમત માટે ફક્ત એક બોર્ડ સેટઅપ.  &lt;br&gt; ખુલ્લી જગ્યાઓ શોધવા માટે યોગ્ય.</string>
   <string name="customPositionTitle">કસ્ટમ સ્થિતિ</string>
   <string name="customPositionText">બોર્ડને તમારી રીતે સેટ કરો.&lt;br&gt;એન્ડગેમ્સનું અન્વેષણ કરવા માટે યોગ્ય.</string>
-  <string name="loadExistingLichessGameTitle">હાલની Lichess ગેમ લોડ કરો</string>
-  <string name="loadExistingLichessGameText">રમતના ચાલને પ્રકરણમાં લોડ કરવા માટે lichess રમત URL&lt;br&gt;(જેમ કે lichess.org/7fHIU0XI)&lt;br&gt;પેસ્ટ કરો.</string>
   <string name="fromFenStringTitle">FEN સ્ટ્રિંગમાંથી</string>
   <string name="fromFenStringText">પ્રકરણને પોઝિશનથી શરૂ કરવા માટે FEN ફોર્મેટમાં પોઝિશન પેસ્ટ કરો&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;.</string>
   <string name="fromPgnGameTitle">PGN ગેમમાંથી</string>

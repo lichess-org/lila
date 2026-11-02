@@ -1,36 +1,60 @@
-import { lichessRules } from 'chessops/compat';
+import { type Rules } from 'chessops/types';
 
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, EngineTrust, CevalEngine } from '@/ceval';
+import { pubsub } from 'lib/pubsub';
+
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
 import { xhrHeader } from '@/xhr';
 
 import type { CevalCtrl } from '../ctrl';
+import type { NodeEfficiencyVsFishnet } from '../types';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 
-interface WithMake {
-  info: BrowserEngineInfo;
-  make: (e: BrowserEngineInfo) => CevalEngine;
-}
+// These comments can be deleted after at least one other person scrolls past them
+//
+// nodeEfficiencyVsFishnet is the inverse constant multiple of 1,000,000 nodes for a given engine to achieve
+// strength parity with the current fishnet playing at a fixed 1,000,000 nodes per move.
+//
+// `go nodes (1_000_000 / nodeEfficiencyVsFishnet)` on the measured engine should play 50/50/x vs
+// `go nodes 1_000_000` on fishnet's official stockfish version (or fairy stockfish HCE for variants)
+//
+// I used https://github.com/disservin/fastchess with 200 round binary searches to zero in on this value for
+// the 1MB smallnet using 1 thread and default hash. The remaining ones for older wasms are "estimated"
+//
+// When a new fishnet is released, the previous fishnet should be compared against it.
+// That factor should then be scaled into the existing nodeEfficiencyVsFishnet values. This can be
+// done programmatically at startup to reduce code churn.
+//
+// Letting them float against the current fishnet seems better than pinning everything to a fixed
+// arbitrary fishnet version. But it can always be pinned (or abandoned) down the road.
+//
+// We are mostly interested in relating one engine strength to another instead of absolute
+// values. An undefined node efficiency (external engine) is considered 1x
 
 export class Engines {
-  private activeEngine: EngineInfo | undefined = undefined;
-  localEngineMap: Map<string, WithMake>;
+  localEngineMap: Map<string, { info: BrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine }>;
   externalEngines: ExternalEngineInfo[];
+  private activeEngine: EngineInfo | undefined = undefined;
+  readonly retiredEnginesVsFishnet: Map<string, NodeEfficiencyVsFishnet> = new Map([
+    // This map is a placeholder for search node efficiency of retired engines vs the latest fishnet
+    // Live engines should define the EngineInfo.nodeEfficiencyVsFishnet field instead
+    ['__example_legacy_engine_id', { chess: 0.001, variant: 0.001 }],
+  ]);
 
   constructor(private readonly ctrl: CevalCtrl) {
-    type Variant = { key: VariantKey; nnue: string };
+    type Variant = { key: Rules; nnue: string };
     const variants: Variant[] = [
       { key: 'antichess', nnue: 'antichess-dd3cbe53cd4e' },
       { key: 'atomic', nnue: 'atomic-2cf13ff256cc' },
       { key: 'crazyhouse', nnue: 'crazyhouse-8ebf84784ad2' },
       { key: 'horde', nnue: 'horde-28173ddccabe' },
-      { key: 'kingOfTheHill', nnue: 'kingofthehill-978b86d0e6a4' },
-      { key: 'threeCheck', nnue: '3check-cb5f517c228b' },
-      { key: 'racingKings', nnue: 'racingkings-636b95f085e3' },
+      { key: 'kingofthehill', nnue: 'kingofthehill-978b86d0e6a4' },
+      { key: '3check', nnue: '3check-cb5f517c228b' },
+      { key: 'racingkings', nnue: 'racingkings-636b95f085e3' },
     ];
     const relaxedSimdPair = (base: WithMake): [WithMake, WithMake] => [
       {
@@ -47,56 +71,62 @@ export class Engines {
     const browserEngines: WithMake[] = [
       ...relaxedSimdPair({
         info: {
-          id: '__sf_dev',
-          name: 'Stockfish 18 dev · 85MB',
-          short: 'SF 18 dev 85MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260609-415ff793',
+          id: '__sf_19',
+          name: 'Stockfish 19 · 94MB',
+          short: 'SF 19 94MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_19-stockfish-19',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 1.0 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
-          capabilities: ['cloudEval', 'staticAnalysis', 'puzzleReport'],
+          supportsCloudEval: true,
+          supportsPuzzleReport: true,
           assets: {
             root: 'npm/stockfish-web',
-            js: 'sf_dev.js',
+            js: 'sf_19.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
       ...relaxedSimdPair({
         info: {
-          id: '__sf_18',
-          name: 'Stockfish 18 · 108MB',
-          short: 'SF 18 108MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_18-stockfish-18',
+          id: '__sf_19_smallnet',
+          name: 'Stockfish 19 · 1MB',
+          short: 'SF 19 1MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_19_smallnet-stockfish-19-with-sscg13size-optimize-nnue',
           tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 2560,
-          capabilities: ['cloudEval', 'puzzleReport'],
-          assets: {
-            root: 'npm/stockfish-web',
-            js: 'sf_18.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-      }),
-      ...relaxedSimdPair({
-        info: {
-          id: '__sf_18_smallnet',
-          name: 'Stockfish 18 · 15MB',
-          short: 'SF 18 15MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_18_smallnet-stockfish-18-with-sscg13threat-small',
-          tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.146 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          capabilities: ['cloudEval', 'puzzleReport'],
+          supportsPuzzleReport: true,
+          preferred: true,
           assets: {
             root: 'npm/stockfish-web',
-            nnue: ['nn-4ca89e4b3abf.nnue'],
-            js: 'sf_18_smallnet.js',
+            js: 'sf_19_smallnet.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
+      ...variants.map(({ key, nnue }: Variant): WithMake => ({
+        info: {
+          id: `__fsfnnue-${key}`,
+          name: 'Fairy Stockfish 14+ NNUE',
+          short: 'FSF 14+',
+          url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
+          tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 3 }, // 3 is a compromise.
+          // Depending on variant, NNUE can add anywhere from +200 to +1000 ELO according to download page.
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          variants: [key],
+          supportsCloudEval: true,
+          assets: {
+            root: 'npm/stockfish-web',
+            nnue: [`${nnue}.nnue`],
+            js: 'fsf_14.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      })),
       {
         info: {
           id: '__sf14nnue',
@@ -104,6 +134,7 @@ export class Engines {
           short: 'SF 14',
           url: 'https://github.com/lichess-org/stockfish-nnue.wasm',
           tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.05 },
           obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
           minMem: 2048,
@@ -116,26 +147,6 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.statusCallback),
       },
-      ...variants.map(
-        ({ key, nnue }: Variant): WithMake => ({
-          info: {
-            id: `__fsfnnue-${key}`,
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
-            tech: 'NNUE',
-            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-            variants: [key],
-            capabilities: ['cloudEval', 'staticAnalysis'],
-            assets: {
-              root: 'npm/stockfish-web',
-              nnue: [`${nnue}.nnue`],
-              js: 'fsf_14.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-        }),
-      ),
       {
         info: {
           id: '__fsfhce',
@@ -143,8 +154,10 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 1 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          variants: variants.map(v => v.key),
+          variants: ['chess', ...variants.map(v => v.key)],
+          supportsNonStandardMaterial: true,
           assets: {
             root: 'npm/stockfish-web',
             js: 'fsf_14.js',
@@ -154,32 +167,12 @@ export class Engines {
       },
       {
         info: {
-          id: '__sf11mv',
-          name: 'Stockfish 11 Multi-Variant',
-          short: 'SF 11 MV',
-          tech: 'HCE',
-          requires: ['sharedMem'],
-          minThreads: 1,
-          variants: variants.map(v => v.key),
-          assets: {
-            version: 'a022fa',
-            root: 'npm/stockfish-mv.wasm',
-            js: 'stockfish.js',
-            wasm: 'stockfish.wasm',
-          },
-        },
-        make: (e: BrowserEngineInfo) =>
-          new ThreadedEngine(e, undefined, (v: VariantKey) =>
-            v === 'antichess' ? 'giveaway' : lichessRules(v),
-          ),
-      },
-      {
-        info: {
           id: '__sf11hce',
           name: 'Stockfish 11 HCE',
           short: 'SF 11',
           url: 'https://github.com/lichess-org/stockfish.wasm',
           tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005 },
           requires: ['sharedMem'],
           minThreads: 1,
           assets: {
@@ -193,6 +186,27 @@ export class Engines {
       },
       {
         info: {
+          id: '__sf11mv',
+          name: 'Stockfish 11 Multi-Variant',
+          short: 'SF 11 MV',
+          tech: 'HCE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 0.5 },
+          requires: ['sharedMem'],
+          minThreads: 1,
+          variants: ['chess', ...variants.map(v => v.key)],
+          supportsNonStandardMaterial: true,
+          assets: {
+            version: 'a022fa',
+            root: 'npm/stockfish-mv.wasm',
+            js: 'stockfish.js',
+            wasm: 'stockfish.wasm',
+          },
+        },
+        make: (e: BrowserEngineInfo) =>
+          new ThreadedEngine(e, undefined, (v: Rules) => (v === 'antichess' ? 'giveaway' : v)),
+      },
+      {
+        info: {
           id: '__sfwasm',
           name: 'Stockfish WASM',
           short: 'Stockfish',
@@ -200,6 +214,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: ['wasm'],
           obsoletedBy: 'sharedMem',
           assets: {
@@ -219,6 +234,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: [],
           obsoletedBy: 'wasm',
           assets: {
@@ -230,7 +246,7 @@ export class Engines {
         make: (e: BrowserEngineInfo) => new SimpleEngine(e),
       },
     ];
-    this.localEngineMap = new Map<string, WithMake>(
+    this.localEngineMap = new Map(
       browserEngines
         .filter(
           e =>
@@ -240,48 +256,42 @@ export class Engines {
         .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
     );
     this.externalEngines =
-      this.ctrl.opts.externalEngines?.map(e => ({
-        tech: 'EXTERNAL',
-        maxMovetime: 30 * 1000, // broker timeouts prevent long search
-        ...e,
-      })) ?? [];
+      this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', preferred: true, ...e })) ?? [];
   }
 
   getEngine(selector?: {
     id?: string;
-    variant?: VariantKey;
-    capability?: EngineTrust;
+    rules?: Rules;
+    nonStandardMaterial?: boolean;
   }): EngineInfo | undefined {
     const id = selector?.id ?? this.activeEngine?.id;
-    const variant = selector?.variant || 'standard';
-    const localEngines = [...this.localEngineMap.values()]
-      .filter(e => !selector?.capability || e.info.capabilities?.includes(selector.capability))
-      .map(e => e.info);
-    return (
-      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
-      localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
-      localEngines.find(e => e.variants?.includes(variant)) ??
-      this.externalEngines.find(e => externalEngineSupports(e, variant))
-    );
+    const engines = this.supporting({
+      rules: selector?.rules ?? this.ctrl.rules,
+      nonStandardMaterial: selector?.nonStandardMaterial ?? this.ctrl.nonStandardMaterial,
+    });
+    return engines.find(info => info.id === id) ?? engines.find(info => info.preferred) ?? engines[0];
   }
 
-  active(): EngineInfo {
-    this.activeEngine ??= this.getEngine({ variant: this.ctrl.opts.variant.key });
-    return this.activeEngine!;
+  active(): EngineInfo | undefined {
+    this.activeEngine ??= this.getEngine({
+      rules: this.ctrl.rules,
+      nonStandardMaterial: this.ctrl.nonStandardMaterial,
+    });
+    return this.activeEngine;
   }
 
   setActive(id: string): EngineInfo | undefined {
     if (!this.activeEngine || id !== this.activeEngine.id) {
-      this.activeEngine = this.getEngine({ id, variant: this.ctrl.opts.variant.key });
+      this.activeEngine = this.getEngine({
+        id,
+        rules: this.ctrl.rules,
+        nonStandardMaterial: this.ctrl.nonStandardMaterial,
+      });
     }
     return this.activeEngine;
   }
 
-  get defaultId(): string {
-    return this.localEngineMap.values().next().value!.info.id;
-  }
-
-  get external(): ExternalEngineInfo | undefined {
+  external(): ExternalEngineInfo | undefined {
     return this.activeEngine?.tech === 'EXTERNAL' ? this.activeEngine : undefined;
   }
 
@@ -294,32 +304,37 @@ export class Engines {
     return true;
   }
 
-  supporting(
-    variant: VariantKey,
-    capability?: EngineTrust,
-    filter: 'browser' | 'external' | 'all' = 'all',
-  ): EngineInfo[] {
-    const engines: EngineInfo[] = [];
-    if (filter !== 'browser') {
-      engines.push(...this.externalEngines.filter(e => externalEngineSupports(e, variant)));
-    }
-    if (filter !== 'external') {
-      for (const { info } of this.localEngineMap.values()) {
-        if (!info.variants?.includes(variant)) continue;
-        if (capability && !info.capabilities?.includes(capability)) continue;
-        engines.push(info);
-      }
-    }
-    return engines;
+  supporting(selector: {
+    rules?: Rules;
+    nonStandardMaterial?: boolean;
+    filter?: 'browser' | 'external';
+  }): EngineInfo[] {
+    const engines: EngineInfo[] = [
+      ...(selector.filter !== 'browser' ? this.externalEngines : []),
+      ...(selector.filter !== 'external' ? [...this.localEngineMap.values()].map(e => e.info) : []),
+    ];
+    return engines.filter(
+      info =>
+        (!selector.nonStandardMaterial || info.supportsNonStandardMaterial === true) &&
+        (!selector.rules || (info.variants ?? ['chess']).includes(selector.rules)),
+    );
   }
 
-  makeEngine(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
+  makeEngine(selector?: { id?: string; rules: Rules; nonStandardMaterial: boolean }): CevalEngine {
     const e = (this.activeEngine = this.getEngine(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant}`);
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.rules}`);
 
     return e.tech === 'EXTERNAL'
       ? new ExternalEngine(e, this.statusCallback)
       : this.localEngineMap.get(e.id)!.make(e);
+  }
+
+  nodeEfficiencyVsFishnet(id: string, rules: Rules = this.ctrl.rules): number | undefined {
+    const local = this.localEngineMap.get(id)?.info.nodeEfficiencyVsFishnet;
+    const external = this.externalEngines.find(e => e.id === id)?.nodeEfficiencyVsFishnet;
+    const retired = this.retiredEnginesVsFishnet.get(id);
+    if (rules === 'chess') return local?.chess ?? external?.chess ?? retired?.chess;
+    return local?.variant ?? external?.variant ?? retired?.variant;
   }
 
   private readonly statusCallback = (
@@ -330,33 +345,34 @@ export class Engines {
       log(status.error);
       this.ctrl.engineFailed(status.error);
     }
+    if (status.download) {
+      pubsub.emit('ceval.engine.download', status.download);
+    }
     this.ctrl.opts.redraw();
   };
 }
 
-function externalEngineSupports(e: EngineInfo, v: VariantKey) {
-  const names = [v.toLowerCase()];
-  if (v === 'standard' || v === 'fromPosition' || v === 'chess960') names.push('chess');
-  if (v === 'threeCheck') names.push('3check');
-  if (v === 'antichess') names.push('giveaway');
-  return (e.variants ?? []).filter(v => names.includes(v.toLowerCase())).length;
-}
+export const maxBrowserHash: number = maxHashMB();
 
 function maxHashMB() {
-  if (isAndroid())
-    return 64; // budget androids are easy to crash @ 128
-  else if (isIPad())
-    return 64; // iPadOS safari pretends to be desktop but acts more like iphone
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 
-const maxHash = maxHashMB();
-const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
-  variants: ['standard', 'chess960', 'fromPosition'],
+const maxThreads = navigator.hardwareConcurrency || 4;
+
+type GivenInDefaults = 'minThreads' | 'maxThreads';
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type LooseBrowserEngineInfo = Optional<BrowserEngineInfo, GivenInDefaults>;
+type WithMake = { info: LooseBrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine };
+
+const withDefaults = (engine: LooseBrowserEngineInfo): BrowserEngineInfo => ({
+  variants: ['chess'],
   minMem: 1024,
-  maxHash,
+  maxHash: maxBrowserHash,
   minThreads: 2,
-  maxThreads: 32,
+  maxThreads,
   ...engine,
 });

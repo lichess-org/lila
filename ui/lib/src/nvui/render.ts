@@ -3,7 +3,7 @@ import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { charToRole, roleToChar } from 'chessops/util';
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 
-import { plyToTurn, sanToWords } from '@/game';
+import { plyToTurn, sanToWords, transRole } from '@/game';
 import type { CrazyPocket, NodeCrazy, TreeComment, TreeNode, TreePath } from '@/tree/types';
 
 import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
@@ -18,7 +18,7 @@ export const renderPieceStyle = (ch: string, pieceStyle: PieceStyle): string =>
         : `${ch.replace('N', 'K').replace('n', 'k')}${charToRole(ch)!.slice(1)}`;
 
 export const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
-  prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
+  prefixStyle === 'letter' ? (color === 'white' ? 'w' : 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
 export const renderPieceStr = (
   ch: string,
@@ -90,12 +90,8 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
         ? ([key1], [key2]) => key2.localeCompare(key1)
         : ([key1], [key2]) => key1.localeCompare(key2),
     )
-    .reduce<string[]>(
-      (acc, [key, p]) =>
-        key.includes(rankOrFile)
-          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`)
-          : acc,
-      [],
+    .flatMap(([key, p]) =>
+      key.includes(rankOrFile) ? [`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`] : [],
     );
   return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
 }
@@ -238,7 +234,7 @@ export function renderMainline(
 export const renderComments = (node: TreeNode, style: MoveStyle): string =>
   node.comments?.map(c => ` ${augmentLichessComment(c, style)}`).join('.') ?? '';
 
-export const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
+export const isKey = (maybeKey: string): maybeKey is Key => /^[a-h][1-8]$/.test(maybeKey);
 
 export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
@@ -257,14 +253,10 @@ const getPiecesByColor = (
 ): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
   return ROLES.slice()
     .reverse()
-    .reduce<{ role: Role; keys: Key[] }[]>(
-      (lists, role) =>
-        lists.concat({
-          role,
-          keys: keysWithPiece(pieces, role, color, pov),
-        }),
-      [],
-    )
+    .map(role => ({
+      role,
+      keys: keysWithPiece(pieces, role, color, pov),
+    }))
     .filter(l => l.keys.length);
 };
 
@@ -296,9 +288,6 @@ const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =
         (_, san) => `Best move was ${renderSan(san, undefined, style)}`,
       )
     : comment.text;
-
-const transRole = (role: Role): string =>
-  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
 const nato: Record<Files, string> = {
   a: 'alpha',

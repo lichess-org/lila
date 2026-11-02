@@ -34,6 +34,10 @@
     <item quantity="one">musi toki %s li pini</item>
     <item quantity="other">musi toki %s li pini</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">sina pini e musi pi tenpo suno pi %1$s %2$s</item>
+    <item quantity="other">sina pini e musi mute pi tenpo suno pi %1$s %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">ona li open lukin e jan %s</item>
     <item quantity="other">ona li open lukin e jan %s</item>

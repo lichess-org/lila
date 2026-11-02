@@ -116,7 +116,7 @@ export const categs: Categ[] = rawCategs.map(c => ({
   stages: c.stages.map(s => ({ ...s, id: stageId++ })),
 }));
 
-const stages: Stage[] = categs.reduce<Stage[]>((prev, c) => prev.concat(c.stages), []);
+const stages: Stage[] = categs.flatMap(c => c.stages);
 
 const stagesByKey: Record<string, Stage> = Object.fromEntries(stages.map(s => [s.key, s]));
 
@@ -129,5 +129,5 @@ export const byKey = stagesByKey;
 export function stageIdToCategId(stageId: number): number | undefined {
   const stage = stagesById[stageId];
   const maybeFound = categs.findIndex(c => c.stages.some(s => s.key === stage.key));
-  return maybeFound >= 0 ? maybeFound : undefined;
+  return maybeFound !== -1 ? maybeFound : undefined;
 }

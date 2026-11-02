@@ -3,6 +3,7 @@ import { TextareaEditor } from '@textcomplete/textarea';
 
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import type { UserCompleteResult } from 'lib/view/userComplete';
+import { profileUrl } from 'lib/view/userLink';
 import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
@@ -36,7 +37,7 @@ site.load.then(() => {
             );
         },
         template: ({ online, name, patron, title }: LightUserOnline) =>
-          `<span class="ulpt user-link${online ? ' online' : ''}" data-href="/@/${name}">` +
+          `<span class="ulpt user-link${online ? ' online' : ''}" data-href="${profileUrl(name)}">` +
           `<icon class="line${patron ? ' patron' : ''}"></icon>` +
           `${title ? '<span class="utitle">' + title + '</span>&nbsp;' : ''}${name}</span>`,
         replace: ({ name }: LightUserOnline) => `$1${name}\n`,

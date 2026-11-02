@@ -68,7 +68,7 @@ export default class SwissCtrl {
     this.pages[data.page] = this.readStanding(data).players;
   };
 
-  setPage = (page: number | undefined) => {
+  setPage = (page?: number) => {
     if (page && page !== this.page && page >= 1 && page <= this.pager().nbPages) {
       this.page = page;
       xhr.loadPage(this, page);

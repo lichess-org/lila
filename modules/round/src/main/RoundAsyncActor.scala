@@ -1,6 +1,5 @@
 package lila.round
 
-import alleycats.Zero
 import chess.{ ByColor, Centis, Color }
 import play.api.libs.json.*
 import scalalib.actor.AsyncActor
@@ -9,9 +8,9 @@ import lila.core.round.*
 import lila.core.socket.{ GetVersion, SocketSend, SocketVersion, makeMessage, userLag }
 import lila.game.GameExt.*
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
+import lila.mon.extensions.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.round.RoundGame.*
-import lila.mon.extensions.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -337,8 +336,8 @@ final private class RoundAsyncActor(
     case WsBoot =>
       handle: game =>
         game.playable.so:
-          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
-          val progress = moretimer.give(game, Color.all, 20.seconds)
+          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.", reboot = true)
+          val progress = moretimer.give(game, Color.all, 20.seconds, reboot = true)
           proxy.save(progress).inject(progress.events)
 
     case RoundBus.BotConnected(color, v) =>
@@ -471,19 +470,6 @@ object RoundAsyncActor:
 
   private val monitor =
     AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
-
-  private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
-
-    def decline = TakebackBoard(nbDeclined + 1, nowInstant.some)
-
-    def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
-
-    def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
-
-    def reset = takebackBoardZero.zero
-
-  private[round] given takebackBoardZero: Zero[TakebackBoard] =
-    Zero(TakebackBoard(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

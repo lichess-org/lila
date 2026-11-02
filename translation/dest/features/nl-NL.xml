@@ -9,7 +9,7 @@
     <item quantity="other">%s partijen per dag</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Bordinstellingen en analysebord met %s</string>
-  <string name="cloudEngineAnalysis">Analyse door cloudengine</string>
+  <string name="cloudEngineAnalysis">Analyse door cloudcomputer</string>
   <string name="studies">Studies (deelbare en persistente analyse)</string>
   <string name="chessInsights">Schaakinzichten (gedetailleerde analyse van je spellen)</string>
   <string name="allChessBasicsLessons">Alle schaak basislessen</string>

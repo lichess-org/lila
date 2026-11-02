@@ -3,7 +3,6 @@ import { displayColumns, isTouchDevice } from 'lib/device';
 import { type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
-import { view as keyboardView } from '@/keyboard';
 import {
   type RelayViewContext,
   viewContext,
@@ -31,18 +30,13 @@ export function relayView(
     const resizable = displayColumns() > (ctx.hasRelayTour ? 1 : 2);
 
     return [
-      renderRelayTour(ctx),
       tourSide(ctx, resizable && deps.relayManager(relay, study)),
+      renderRelayTour(ctx),
       !resizable && deps.relayManager(relay, study),
     ];
   };
 
-  return renderMain(
-    ctx,
-    ctrl.keyboardHelp && keyboardView(ctrl),
-    deps.studyView.overboard(study),
-    ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx),
-  );
+  return renderMain(ctx, ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx));
 }
 
 function renderBoardView(ctx: RelayViewContext) {

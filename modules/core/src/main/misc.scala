@@ -4,9 +4,9 @@ package misc
 import play.api.i18n.Lang
 import scalalib.data.LazyFu
 
-import lila.core.id.{ GameId, ClasId, PuzzleId }
-import lila.core.userId.*
+import lila.core.id.{ ClasId, GameId, PuzzleId }
 import lila.core.user.Me
+import lila.core.userId.*
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -65,4 +65,16 @@ package analysis:
 
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
 
+package practice:
+  import lila.core.id.{ StudyId, StudyChapterId }
+  case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)
+
 case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang: Lang)
+
+enum AppealTopic:
+  case cheat, boost, close, comm, rank, arena, prize, report, play, chat, blog, streamer, warning, legacy
+  def key = toString
+object AppealTopic:
+  def byKey = values.mapBy(_.toString)
+
+type AppealPresetTag = AppealTopic | "any" | "none"

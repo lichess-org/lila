@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">o kama sona</string>
-  <string name="byPlaying">o musi!</string>
+  <string name="byPlaying">tan musi!</string>
   <string name="menu">lipu open</string>
   <string name="progressX">pali: %s</string>
   <string name="resetMyProgress">o ala e pali mi</string>
@@ -93,7 +93,7 @@ taso, sina ken awen e ona kepeken ijo ante!</string>
 tawa soweli tawa ni!</string>
   <string name="escapeOrBlock">o tawa e lawa mije
 anu pini e utala!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">pona a! jan ante li anpa e lawa mije sina la, sina anpa. o awen e ona lon tenpo ale!</string>
+  <string name="outOfCheckComplete">pona a! jan ante li anpa e lawa mije sina la, sina anpa. o awen e ona lon tenpo ale!</string>
   <string name="mateInOne">o moli e lawa mije lon tenpo wan</string>
   <string name="defeatTheOpponentsKing">o moli e lawa mije pi jan musi ante</string>
   <string name="mateInOneIntro">ijo ante li utala e lawa mije la, jan musi ona li ken ala pini e ni la, lawa mije li moli. jan ante li pini pona!</string>
@@ -121,6 +121,7 @@ ona li wile lon poka pi lawa meli.</string>
 o pali e tawa.</string>
   <string name="boardSetupComplete">pona a! sina sona e ni: nasin pi open musi li seme?</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="theSpecialKingMove">lawa mije en tomo utala li ken tawa lon tenpo sama</string>
   <string name="castlingIntro">o awen e lawa mije. o tawa e tomo utala tawa ni: ona li ken utala e ijo ante!</string>
   <string name="castleKingSide">o tawa e lawa mije sina tawa ma tu pi poka mije!</string>

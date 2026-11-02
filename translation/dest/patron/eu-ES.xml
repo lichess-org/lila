@@ -40,8 +40,8 @@ Ondoren garatzaile baten soldata ordaintzen dugu: %s, Lichessen sortzailea.</str
   <string name="officialNonProfit">Benetan da Lichess irabazi asmorik gabekoa?</string>
   <string name="actOfCreation">Bai, hemen dago eratze-akta (frantsesez)</string>
   <string name="changeMonthlySupport">Aldatu/Ezeztatu dezaket nire hileroko babesa?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Zure ordainketak PayPal bidez prozesatzen badira, zure PayPal kontuan utzi dezakezu bertan behera edo aldatu zure dohaintza, edo %1$s eta zuregatik egin dezakegu. Ez bazenuen PayPal erabili eta zure ordainketak Stripek kudeatzen baditu, zure dohaintza %2$s bertan behera utzi edo aldatu dezakezu.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">babeslearen orrialdean</string>
+  <string name="changeSupport">Zure ordainketak PayPal bidez prozesatzen badira, zure PayPal kontuan utzi dezakezu bertan behera edo aldatu zure dohaintza, edo %1$s eta zuregatik egin dezakegu. Ez bazenuen PayPal erabili eta zure ordainketak Stripek kudeatzen baditu, zure dohaintza %2$s bertan behera utzi edo aldatu dezakezu.</string>
+  <string name="patronPage">babeslearen orrialdean</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
   <string name="lichessIsRegisteredWith">Lichess hemen erregistratuta dago %s.</string>

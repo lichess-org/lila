@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="dgtConfigure">DGT - Konfigūruoti</string>
   <string name="lichessConnectivity">Lichess jungtys</string>
   <string name="dgtBoardConnectivity">DGT lentos jungtis</string>
   <string name="enableSpeechSynthesis">Įjungti kalbos sintezę</string>

@@ -1,7 +1,7 @@
 import { opposite } from 'chessops/util';
-import type { VNode } from 'snabbdom';
 
 import { fenColor } from 'lib/game/chess';
+import { onInsert } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { TablebaseMoveStats } from './interfaces';
@@ -25,26 +25,23 @@ export interface MoveArrowOpts {
 
 export const moveArrowAttributes = (ctrl: AnalyseCtrl, opts: MoveArrowOpts) => ({
   attrs: { 'data-fen': opts.fen },
-  hook: {
-    insert(vnode: VNode) {
-      const el = vnode.elm as HTMLElement;
-      el.addEventListener('mouseover', e => {
-        ctrl.explorer.setHovering(
-          $(el).attr('data-fen')!,
-          $(e.target as HTMLElement)
-            .parents('tr')
-            .attr('data-uci'),
-        );
-      });
-      el.addEventListener('mouseout', _ => {
-        ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
-      });
-      el.addEventListener('click', e => {
-        const uci = $(e.target as HTMLElement)
+  hook: onInsert(el => {
+    el.addEventListener('mouseover', e => {
+      ctrl.explorer.setHovering(
+        $(el).attr('data-fen')!,
+        $(e.target as HTMLElement)
           .parents('tr')
-          .attr('data-uci');
-        opts.onClick(e, uci);
-      });
-    },
-  },
+          .attr('data-uci'),
+      );
+    });
+    el.addEventListener('mouseout', _ => {
+      ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
+    });
+    el.addEventListener('click', e => {
+      const uci = $(e.target as HTMLElement)
+        .parents('tr')
+        .attr('data-uci');
+      opts.onClick(e, uci);
+    });
+  }),
 });

@@ -1,15 +1,14 @@
 package lila.game
 
-import akka.actor.*
-import akka.stream.Materializer
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.Materializer
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.game.Game
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
@@ -40,6 +39,10 @@ final class Env(
   given idGenerator: IdGenerator = wire[IdGenerator]
 
   val divider = wire[Divider]
+
+  val gameOpening = wire[GameOpening]
+
+  val gameOpeningOf: lila.core.game.GameOpening = gameOpening.of
 
   val cached: Cached = wire[Cached]
 
@@ -72,8 +75,7 @@ final class Env(
   lazy val userGameApi = UserGameApi(lightUserApi, getTourName)
 
   lazy val api: lila.core.game.GameApi = new:
-    export gameRepo.{ incBookmarks, getSourceAndUserIds }
-    override def nbPlaying(userId: UserId): Fu[Int] = cached.nbPlaying(userId)
+    export gameRepo.{ incBookmarks, getSourceAndUserIds, countNowPlaying }
     export GameExt.{ computeMoveTimes, analysable }
     export AnonCookie.json as anonCookieJson
 

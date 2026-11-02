@@ -22,7 +22,8 @@ final class PuzzleAnon(
       .mon(lila.mon.puzzle.selector.anon.time)
       .addEffect:
         _.foreach: puzzle =>
-          lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
+          if puzzle.vote < 0 then logger.warn(s"Anon puzzle with negative vote ${puzzle.id} ${puzzle.vote}")
+          else lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
 
   private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
@@ -31,8 +32,20 @@ final class PuzzleAnon(
       else ThreadLocalRandom.oneOf(puzzles.filter(_.color == color))
     nextTry(1)
 
-  def getBatchFor(angle: PuzzleAngle, diff: PuzzleDifficulty, nb: Int): Fu[Vector[Puzzle]] =
-    pool.get(angle -> diff).map(_.take(nb)).mon(lila.mon.puzzle.selector.anon.batch(nb))
+  def getBatchFor(
+      angle: PuzzleAngle,
+      diff: PuzzleDifficulty,
+      nb: Int,
+      color: Option[Color]
+  ): Fu[Vector[Puzzle]] =
+    pool
+      .get(angle -> diff)
+      .map: puzzles =>
+        color
+          .fold(puzzles): c =>
+            puzzles.filter(_.color == c)
+          .take(nb)
+      .mon(lila.mon.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 150
 
@@ -62,12 +75,12 @@ final class PuzzleAnon(
               import framework.*
               Match(pathApi.select(angle, tier, ratingRange)) -> List(
                 Sample(pathSampleSize),
-                Project($doc("puzzleId" -> "$ids", "_id" -> false)),
+                Project(bdoc("puzzleId" -> "$ids", "_id" -> false)),
                 Unwind("puzzleId"),
                 Sample(poolSize),
                 PipelineOperator:
-                  $doc(
-                    "$lookup" -> $doc(
+                  bdoc(
+                    "$lookup" -> bdoc(
                       "from" -> colls.puzzle.name.value,
                       "localField" -> "puzzleId",
                       "foreignField" -> "_id",
@@ -76,7 +89,7 @@ final class PuzzleAnon(
                   )
                 ,
                 PipelineOperator:
-                  $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
+                  bdoc("$replaceWith" -> bdoc("$arrayElemAt" -> barr("$puzzle", 0)))
               )
             .map:
               _.view.flatMap(puzzleReader.readOpt).toVector

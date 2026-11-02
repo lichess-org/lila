@@ -36,17 +36,11 @@
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
   <string name="requestDeclined">Ваш запыт на далучэнне быў адхілены лідэрам каманды.</string>
-  <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
   <string name="teamBattle">Камандная бітва</string>
   <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
   <string name="teamTournament">Камандны турнір</string>
   <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
   <string name="swissTournamentOverview">Турнір па швейцарскай сістэме, да якога могуць далучыцца толькі чальці вашай каманды</string>
-  <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>
-  <string name="messageAllMembersOverview">Напісаць асобнае паведамленне ўсім удзельнікам каманды</string>
-  <string name="messageAllMembersLongDescription">Даслаць асабістае паведамленне да ЎСІХ чальцоў каманды.
-Гэта можна выкарыстоўваць, каб паклікаць далучыцца да турніру або каманднай гульні.
-Гульцы, якія ня любяць такія паведамленні могуць пакінуць каманду.</string>
   <string name="teamsIlead">Каманды, лідарам якіх я з\'яўляюся</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
   <string name="leadersChat">Чат лідараў</string>

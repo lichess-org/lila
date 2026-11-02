@@ -21,7 +21,7 @@ const makeBoardTip = (el: HTMLElement, e: Event) => {
     .removeClass('blpt')
     .powerTip({
       popupId: 'miniBoard',
-      preRender(el) {
+      async render(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
         tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
         initMiniBoardWith(tipEl.querySelector('.cg-wrap')!, {

@@ -1,17 +1,19 @@
 package lila.jsBot
 
-import java.nio.file.Files as NioFiles
-import play.api.libs.json.*
+import org.apache.pekko.stream.scaladsl.FileIO
 import play.api.libs.Files
+import play.api.libs.json.*
 import play.api.mvc.*
-import akka.stream.scaladsl.FileIO
+
+import java.nio.file.Files as NioFiles
+
 import lila.common.config.GetRelativeFile
 
 // this stuff is for bot devs
 
 final private class JsBotAssetApi(repo: JsBotRepo, getFile: GetRelativeFile)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   type AlmostFileName = String
@@ -62,6 +64,6 @@ final private class JsBotAssetApi(repo: JsBotRepo, getFile: GetRelativeFile)(usi
       "sound" -> listFiles("sound", "mp3"),
       "book" -> listFiles("book", "png").map(_.dropRight(4))
     )
-    val newAssets = (data, JsonStr(Json.stringify(Json.toJson(data))))
+    val newAssets = (data, JsonStr(Json.toJson(data)))
     cachedAssets = newAssets.some
     newAssets

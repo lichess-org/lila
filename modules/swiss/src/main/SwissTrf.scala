@@ -1,6 +1,6 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -15,7 +15,7 @@ private final class SwissTrf(
   private type Bits = List[(Int, String)]
 
   def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source.futureSource:
-    fetchPlayerIds(swiss).map { apply(swiss, _, sorted) }
+    fetchPlayerIds(swiss).map(apply(swiss, _, sorted))
 
   def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, ?] =
     SwissPlayer.fields: f =>
@@ -23,7 +23,7 @@ private final class SwissTrf(
         .concat(forbiddenPairings(swiss, playerIds))
         .concat:
           sheetApi
-            .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
+            .source(swiss, sort = sorted.so(bdoc(f.rating -> -1)))
             .map((playerLine(swiss, playerIds)).tupled)
             .map(formatLine)
 
@@ -82,7 +82,7 @@ private final class SwissTrf(
         95 -> "0000",
         97 -> "",
         99 -> "-"
-      ).map { (l, s) => (l + swiss.round.value * 10, s) }
+      ).map((l, s) => (l + swiss.round.value * 10, s))
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") { case (acc, (pos, txt)) =>
@@ -97,7 +97,7 @@ private final class SwissTrf(
       mongo.player
         .aggregateOne(): framework =>
           import framework.*
-          Match($doc(p.swissId -> swiss.id)) -> List(
+          Match(bdoc(p.swissId -> swiss.id)) -> List(
             Sort(Descending(p.rating)),
             Group(BSONNull)("us" -> PushField(p.userId))
           )

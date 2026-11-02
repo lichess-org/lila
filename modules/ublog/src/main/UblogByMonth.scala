@@ -1,7 +1,6 @@
 package lila.ublog
 
-import java.time.{ Year, YearMonth, ZoneOffset, LocalTime }
-
+import java.time.{ LocalTime, Year, YearMonth, ZoneOffset }
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
@@ -16,7 +15,7 @@ object UblogByMonth:
   def selector(month: YearMonth) =
     val (start, until) = boundsOfMonth(month)
     // to hit topic prod index
-    $doc("lived.at".$gt(start).$lt(until))
+    bdoc("lived.at".gt(start).lt(until))
 
   private def boundsOfMonth(month: YearMonth): (Instant, Instant) =
     val start = month.atDay(1).atStartOfDay()

@@ -1,29 +1,28 @@
 package lila.tutor
 
-import chess.{ ByColor, Color }
-import chess.IntRating
+import chess.{ ByColor, Color, IntRating }
 import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Insight, Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
+import lila.insight.{ Filter, Insight, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):
 
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Accuracy,
-    families.map { f => (f.family, f.accuracy) }
+    families.map(f => (f.family, f.accuracy))
   )
   lazy val performanceCompare = TutorCompare[LilaOpeningFamily, IntRating](
     InsightDimension.OpeningFamily,
     TutorMetric.Performance,
-    families.map { f => (f.family, f.performance.some) }
+    families.map(f => (f.family, f.performance.some))
   )
   lazy val awarenessCompare = TutorCompare[LilaOpeningFamily, GoodPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Awareness,
-    families.map { f => (f.family, f.awareness) }
+    families.map(f => (f.family, f.awareness))
   )
 
   // lazy val allCompares = List(accuracyCompare, performanceCompare, awarenessCompare)

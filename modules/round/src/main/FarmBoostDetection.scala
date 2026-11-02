@@ -1,12 +1,12 @@
 package lila.round
 
-import scalalib.future.FutureAfter
 import chess.{ ByColor, IntRating }
+import scalalib.future.FutureAfter
 
 import lila.core.LightUser.IsBotSync
+import lila.core.game.reasonableMinimumNumberOfMoves
 import lila.core.perf.UserWithPerfs
 import lila.game.{ CrosstableApi, GameRepo }
-import lila.core.game.reasonableMinimumNumberOfMoves
 
 final private class FarmBoostDetection(
     gameRepo: GameRepo,
@@ -28,8 +28,9 @@ final private class FarmBoostDetection(
       .so(g.twoUserIds)
       .so: (u1, u2) =>
         crosstableApi(u1, u2).flatMap: ct =>
+          val prevGameIds = ct.results.map(_.gameId).filter(_ != g.id).reverse.take(PREV_GAMES)
           gameRepo
-            .gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId))
+            .gamesFromSecondary(prevGameIds)
             .map:
               _.exists: prev =>
                 g.winnerUserId === prev.winnerUserId &&

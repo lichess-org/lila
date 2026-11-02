@@ -18,12 +18,12 @@ case class UserWithModlog(user: UserWithPerfs, log: List[Modlog.UserEntry]):
   export user.user.*
   def dateOf(action: Modlog.type => String): Option[Instant] =
     log.find(_.action == action(Modlog)).map(_.date)
-  def closed: Option[(byMod: Boolean, at: Instant)] =
+  def closed: Option[(byMod: Boolean, at: Instant, forever: Boolean)] =
     user.user.enabled.no
       .so:
         log.findLast(e => e.action == Modlog.closeAccount || e.action == Modlog.selfCloseAccount)
       .map: closed =>
-        (closed.action == Modlog.closeAccount, closed.date)
+        (closed.action == Modlog.closeAccount, closed.date, closed.foreverClose)
 
 object UserWithModlog:
   given UserIdOf[UserWithModlog] = _.user.id
@@ -32,7 +32,7 @@ object UserWithModlog:
 def canGrant(permission: Permission)(using Me): Boolean =
   Granter(_.SuperAdmin) || {
     Granter(_.ChangePermission) && Permission.nonModPermissions(permission)
-  } || {
+  } || (
     Granter(_.Admin) && {
       Granter(permission) || Set[Permission](
         Permission.MonitoredCheatMod,
@@ -41,7 +41,7 @@ def canGrant(permission: Permission)(using Me): Boolean =
         Permission.PublicMod
       )(permission)
     }
-  }
+  )
 
 def canCloseAlt(using Me) = Granter(_.CloseAccount) && Granter(_.ViewPrintNoIP)
 

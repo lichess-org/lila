@@ -77,7 +77,7 @@
   }
 
   &:checked:hover + .form-check__label {
-    background-color: $m-good--fade-20;
+    background-color: rgb(from $c-good r g b / calc(alpha * 0.8));
   }
 
   &:checked + .form-check__label::after {

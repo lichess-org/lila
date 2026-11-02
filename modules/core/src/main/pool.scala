@@ -1,17 +1,16 @@
 package lila.core
 package pool
 
-import _root_.chess.{ Clock, ByColor }
-import _root_.chess.IntRating
+import _root_.chess.{ ByColor, Clock, IntRating }
 import alleycats.Zero
-
 import scalalib.bus.NotBuseable
 
+import lila.core.id.GameFullId
 import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
+import lila.core.user.UserMarks
 import lila.core.userId.*
-import lila.core.id.GameFullId
 
 opaque type Blocking = Set[UserId]
 object Blocking extends TotalWrapper[Blocking, Set[UserId]]:
@@ -33,7 +32,7 @@ case class PoolMember(
     rating: IntRating,
     provisional: Boolean,
     ratingRange: Option[RatingRange],
-    lame: Boolean,
+    marks: UserMarks,
     blocking: Blocking,
     rageSitCounter: Int = 0,
     misses: Int = 0 // how many waves they missed

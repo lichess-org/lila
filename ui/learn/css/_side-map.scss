@@ -23,12 +23,12 @@
     opacity: 0.9;
     margin-inline-end: 10px;
     padding: 10px;
-    background: rgba(120, 120, 120, 1);
+    background: rgb(120 120 120 / 1);
     display: block;
   }
 
   .back:hover {
-    background: rgba(120, 120, 120, 0.2);
+    background: rgb(120 120 120 / 0.2);
   }
 
   .categ > h2 {
@@ -36,7 +36,7 @@
   }
 
   .categ > h2:hover {
-    background: $m-primary--fade-80;
+    background: rgb(from $c-primary r g b / calc(alpha * 0.2));
   }
 
   .categ.active {
@@ -80,7 +80,7 @@
     }
 
     &.active {
-      background: $m-primary--fade-80;
+      background: rgb(from $c-primary r g b / calc(alpha * 0.2));
     }
 
     &.active img {
@@ -88,7 +88,7 @@
     }
 
     &.done:hover {
-      background: $m-secondary--fade-80;
+      background: rgb(from $c-secondary r g b / calc(alpha * 0.2));
     }
 
     &.done img {
@@ -96,7 +96,7 @@
     }
 
     &.future:hover {
-      background: $m-primary--fade-80;
+      background: rgb(from $c-primary r g b / calc(alpha * 0.2));
     }
 
     &.future img {

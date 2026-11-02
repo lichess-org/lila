@@ -4,17 +4,16 @@
       @extend %roboto, %page-text-shadow;
 
       font-size: 2em;
-      letter-spacing: 8px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: #999;
-      text-align: center;
+      color: $c-font-dim;
     }
   }
 
   .studies {
     ---min-width: 400px;
 
-    @media (width < $xx-small) {
+    @media (max-width: $xx-small) {
       ---min-width: calc(100vw - 2em);
 
       padding: 0 0.5em;
@@ -33,22 +32,14 @@
 
     position: relative;
     min-height: 90px;
-    color: #fff;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.07);
+    color: $c-font;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 0.07);
     font-size: 1.2em;
     border: 1px solid $c-border;
     background: $c-bg-box;
     padding-right: 3em;
 
-    @include if-light {
-      color: $c-font;
-
-      icon {
-        filter: brightness(0.15);
-      }
-    }
-
-    @media (width < $xx-small) {
+    @media (max-width: $xx-small) {
       min-height: fit-content;
       padding: 6px 3em 6px 0;
 
@@ -58,17 +49,25 @@
     }
 
     icon {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
+      padding: 8px;
       margin: 0 1em;
-      opacity: 0.6;
+      opacity: 0.75;
+      filter: brightness(1.1);
       background-repeat: no-repeat;
       background-position: center;
+      background-origin: content-box, border-box;
+      background-clip: content-box, border-box;
       flex-shrink: 0;
+      border-radius: $small-box-radius-size;
+      border-width: 1px;
+      border-style: solid;
 
-      @media (width < $xx-small) {
-        width: 50px;
-        height: 64px;
+      @media (max-width: $xx-small) {
+        width: 48px;
+        height: 48px;
+        margin: 4px 12px;
       }
     }
 
@@ -77,44 +76,43 @@
       line-height: 1;
     }
 
-    p {
+    em {
       margin: 4px 0 0 0;
+      display: inline-block;
       line-height: 1.2;
       opacity: 0.8;
+      color: $c-font-dim;
     }
 
     &.ongoing {
-      border-color: $m-primary--fade-50;
-      background: linear-gradient(0deg, $m-primary--fade-60, $m-primary--fade-80 100px);
-
-      .attention-effect {
-        @include animated-border($m-primary--lighten-30, $m-primary--fade-80);
+      icon {
+        border-color: hsl(from $c-primary h s calc(l - 10));
+        background-image:
+          var(---icon-bg-image), linear-gradient(130deg, $c-primary, hsl(from $c-primary h s calc(l - 16)));
       }
 
-      @include if-light {
-        background: linear-gradient(180deg, $m-primary--fade-60, $m-primary--fade-80 100px);
-
-        .attention-effect {
-          @include animated-border($m-primary--darken-25, $m-primary--fade-80);
-        }
+      .attention-effect {
+        @include animated-border(
+          hsl(from $c-primary h s calc(l + 25)),
+          rgb(from $c-primary r g b / calc(alpha * 0.3))
+        );
       }
     }
 
     &.done {
-      border-color: $m-secondary--fade-35;
-      background: linear-gradient(0deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
-
-      @include if-light {
-        background: linear-gradient(180deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+      icon {
+        border-color: hsl(from $c-secondary h s calc(l - 10));
+        background-image:
+          var(---icon-bg-image),
+          linear-gradient(130deg, $c-secondary, hsl(from $c-secondary h s calc(l - 16)));
       }
     }
 
     &.future {
-      border-color: $m-future--fade-35;
-      background: linear-gradient(0deg, $m-future--fade-60, $m-future--fade-80 100px);
-
-      @include if-light {
-        background: linear-gradient(180deg, $m-future--fade-60, $m-future--fade-80 100px);
+      icon {
+        border-color: hsl(from $c-future h s calc(l - 10));
+        background-image:
+          var(---icon-bg-image), linear-gradient(130deg, $c-future, hsl(from $c-future h s calc(l - 16)));
       }
     }
 

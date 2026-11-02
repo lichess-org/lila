@@ -1,10 +1,10 @@
 package lila.setup
 
 import chess.variant.Variant
-import chess.{ Clock, Rated }
-import chess.IntRating
+import chess.{ Clock, IntRating, Rated }
 import scalalib.model.Days
 
+import lila.core.id.SessionId
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
 import lila.lobby.{ Hook, Seek, TriColor }
@@ -46,7 +46,7 @@ case class HookConfig(
   def hook(
       sri: lila.core.socket.Sri,
       user: Option[UserWithPerfs],
-      sid: Option[String],
+      sid: Option[SessionId],
       blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =
     timeMode match
@@ -147,7 +147,7 @@ object HookConfig extends BaseConfig:
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =
-      $doc(
+      bdoc(
         "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
         "t" -> o.time,

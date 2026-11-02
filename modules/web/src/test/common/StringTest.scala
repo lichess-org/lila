@@ -77,3 +77,8 @@ class StringTest extends munit.FunSuite:
     ).foreach: testCase =>
       assert(!String.isShouting(testCase))
       assertEquals(String.noShouting(testCase), testCase)
+
+  test("http header escape"):
+    val filename = """lichess_pgn_2022.03.25_HikmIt_Fliyev_vs_grandmastersarah.nXzH5TgH.pgna"""
+    val clean = """lichess_pgn_2022.03.25_HikmIt_Fliyev_vs_grandmastersarah.nXzH5TgH.pgna"""
+    assertEquals(String.fullCleanUp(filename), clean)

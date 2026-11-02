@@ -15,11 +15,11 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using E
       .aggregateWith(readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc("date".$gt(nowInstant.dateTime.withDayOfMonth(1).withTimeAtStartOfDay))),
+          Match(bdoc("date".gt(nowInstant.dateTime.withDayOfMonth(1).withTimeAtStartOfDay))),
           Group(BSONNull)("usd" -> SumField("usd"))
         )
       .headOption
-      .map { _.flatMap(_.getAsOpt[Usd]("usd")) | Usd(0) }
+      .map(_.flatMap(_.getAsOpt[Usd]("usd")) | Usd(0))
 
 case class MonthlyGoal(current: Usd, goal: Usd):
 

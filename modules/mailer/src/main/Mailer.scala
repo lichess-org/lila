@@ -1,19 +1,19 @@
 package lila.mailer
 
-import scala.concurrent.blocking
-
-import akka.actor.ActorSystem
+import org.apache.commons.mail.EmailException
+import org.apache.pekko.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
-import org.apache.commons.mail.EmailException
 
-import lila.mon.extensions.*
+import scala.concurrent.blocking
+
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.i18n.Translate
+import lila.mon.extensions.*
 
 final class Mailer(
     config: Mailer.Config,
@@ -68,7 +68,7 @@ final class Mailer(
           from = client.config.sender,
           to = Seq(msg.to.value),
           bodyText = msg.text.some,
-          bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
+          bodyHtml = msg.htmlBody.map(body => Mailer.html.wrap(msg.subject, body).render)
         )
         blocking:
           client.mailer.send(email)
@@ -146,6 +146,7 @@ $serviceNote"""
 
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
     val pDesc = p(itemprop := "description")
+    val loginCode = div(itemprop := "identifier", itemscope, itemtype := "http://schema.org/ViewAction")
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
@@ -184,7 +185,7 @@ $serviceNote"""
       frag(
         meta(itemprop := "url", content := u.value),
         p(a(itemprop := "target", href := u.value)(u.value)),
-        clickOrPaste.option(p(trans.common_orPaste()))
+        clickOrPaste.option(p(trans.common_linkNotWorking()))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

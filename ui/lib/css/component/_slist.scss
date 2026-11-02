@@ -63,14 +63,25 @@
 .slist-wrapper {
   overflow-x: auto;
   max-width: calc(100vw - $box-padding * 2);
+  min-width: auto;
+  scrollbar-width: thin;
 
   &:has(.slist-pad) {
     max-width: 100vw;
   }
 
+  ol &,
+  ul & {
+    max-width: calc(100vw - $box-padding * 2 - 30px);
+
+    .slist {
+      margin-top: 0;
+    }
+  }
+
   .slist {
     @media (max-width: at-most($x-small)) {
-      min-width: calc(650px - $box-padding * 2);
+      min-width: calc(max(100vw, 650px) - $box-padding * 2);
     }
   }
 }

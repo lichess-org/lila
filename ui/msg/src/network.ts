@@ -25,11 +25,11 @@ export async function loadMoreContacts(before: Date): Promise<Contact[]> {
 }
 
 export async function search(q: string): Promise<SearchResult> {
-  const res = await json(`/inbox/search?q=${q}`);
+  const res: SearchResult = await json(`/inbox/search?q=${q}`);
   return {
     ...res,
     contacts: res.contacts.map(upgradeContact),
-  } as SearchResult;
+  };
 }
 
 export function block(u: string) {

@@ -15,7 +15,7 @@ object id:
     private val idRegex = """[\w-]{8}""".r
     def validate(id: GameId) = idRegex.matches(id.value)
     def take(str: String): GameId = GameId(str.take(size))
-    def from(str: String): Option[GameId] = Some(take(str)).filter(validate)
+    def from(str: String): Option[GameId] = Option(take(str)).filter(validate)
 
   opaque type GameFullId = String
   object GameFullId extends OpaqueString[GameFullId]:
@@ -33,7 +33,7 @@ object id:
     given Conversion[GameFullId, GameAnyId] = _.value
     extension (e: GameAnyId)
       def gameId: GameId = GameId.take(e)
-      def fullId: Option[GameFullId] = if e.length == GameFullId.size then Some(e) else None
+      def fullId: Option[GameFullId] = Option.when(e.length == GameFullId.size)(e)
       def playerId: Option[GamePlayerId] = fullId.map(GameFullId.playerId)
 
   opaque type GamePlayerId = String
@@ -115,9 +115,6 @@ object id:
 
   opaque type StudentId = String
   object StudentId extends OpaqueString[StudentId]
-
-  opaque type AppealId = String
-  object AppealId extends lila.core.userId.OpaqueUserId[AppealId]
 
   opaque type CmsPageId = String
   object CmsPageId extends OpaqueString[CmsPageId]

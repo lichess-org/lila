@@ -1,7 +1,7 @@
 package lila.team
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
@@ -11,7 +11,7 @@ final class TeamMemberStream(
     memberRepo: TeamMemberRepo,
     userApi: lila.core.user.UserApi,
     lightApi: lila.core.user.LightUserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   def apply(team: Team, fullUser: Boolean): Source[(UserWithPerfs | LightUser, Instant), ?] =
     idsBatches(team, MaxPerSecond(if fullUser then 20 else 50))
@@ -24,19 +24,14 @@ final class TeamMemberStream(
         users.map(_.zip(members._2F))
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
-    idsBatches(team, perSecond, $doc("unsub".$ne(true)))
-      .map(_._1F)
-      .mapConcat(identity)
-
   private def idsBatches(
       team: Team,
       perSecond: MaxPerSecond,
-      selector: Bdoc = $empty
+      selector: Bdoc = emptyBdoc
   ): Source[Seq[(UserId, Instant)], ?] =
     memberRepo.coll
-      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
-      .sort($sort.desc("date"))
+      .find(bdoc("team" -> team.id) ++ selector, bdoc("user" -> true, "date" -> true).some)
+      .sort(sort.desc("date"))
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.sec)
       .documentSource()

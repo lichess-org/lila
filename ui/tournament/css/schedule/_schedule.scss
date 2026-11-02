@@ -98,7 +98,7 @@ $c-tour-variant: #7c5133;
 
   &-finished {
     opacity: 0.4;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 0 10px rgb(0 0 0 / 0.3) inset;
   }
 
   &-hourly {
@@ -125,7 +125,7 @@ $c-tour-variant: #7c5133;
   &-monthly,
   &-marathon,
   &-yearly {
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 0 2px rgb(0 0 0 / 0.7);
     letter-spacing: 1px;
     background-image: url('../images/grain.png');
   }

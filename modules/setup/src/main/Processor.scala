@@ -1,8 +1,9 @@
 package lila.setup
 
 import lila.common.Bus
+import lila.core.id.SessionId
 import lila.core.perf.UserWithPerfs
-import lila.lobby.{ SetupBus, Seek }
+import lila.lobby.{ Seek, SetupBus }
 
 final private[setup] class Processor(
     gameApi: lila.core.game.GameApi,
@@ -28,7 +29,7 @@ final private[setup] class Processor(
   def hook(
       config: HookConfig,
       sri: lila.core.socket.Sri,
-      sid: Option[String],
+      sid: Option[SessionId],
       blocking: lila.core.pool.Blocking
   )(using me: Option[UserWithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
@@ -41,7 +42,7 @@ final private[setup] class Processor(
       case _ => fuccess(Refused)
 
   def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
-    gameApi.nbPlaying(owner).map { nbPlaying =>
+    gameApi.countNowPlaying(owner).map { nbPlaying =>
       import Processor.HookResult.*
       if lila.core.game.maxPlaying <= nbPlaying
       then Refused

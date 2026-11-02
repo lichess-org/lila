@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.TurnstilePublicConfig
-import lila.core.misc.AuthCustomUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -27,7 +27,7 @@ final class AuthUi(helpers: Helpers):
   def customLogo(c: AuthCustomUi) =
     div(cls := "oauth__connection")(
       img(
-        src := assetUrl(c.imagePath),
+        src := assetPath(c.imagePath),
         alt := c.name,
         cls := "oauth__connection__service"
       ),
@@ -258,17 +258,14 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signupConfirm(
-      user: User,
-      token: String
-  )(using Context, Option[ValidReferrer]) =
+  def signupConfirm(user: User, token: String)(using Context, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
-          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
+          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichessX(user.username)),
           postForm(action := addReferrer(routes.Auth.signupConfirmEmailPost(token).url)):
             submitButton(cls := "button button-fat button-no-upper")(
-              trans.onboarding.logInAsUsername(user.username)
+              trans.onboarding.verifyYourAccount()
             )
         )
 
@@ -293,7 +290,7 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def passwordResetSent(email: String)(using Context) =
+  def passwordResetSent(email: EmailAddress)(using Context) =
     Page(trans.site.passwordReset.txt()).css("bits.auth"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
@@ -339,17 +336,17 @@ final class AuthUi(helpers: Helpers):
         )
 
   def magicLink(form: Form[?], fail: Boolean)(using Context, TurnstilePublicConfig, Option[ValidReferrer]) =
-    Page("Log in by email")
+    Page(trans.site.logInByEmail.txt())
       .css("bits.auth")
       .csp(_.withTurnstile):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
               fail.option(iconTag(Icon.X)(cls := "is-red")),
-              "Log in by email"
+              trans.site.logInByEmail()
             )
           ),
-          p("We will send you an email containing a link to log you in."),
+          p(trans.site.emailLoginInstructions()),
           postForm(cls := "form3", action := addReferrer(routes.Auth.magicLinkApply.url))(
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")

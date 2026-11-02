@@ -1,4 +1,4 @@
-$span-width: 1.7em;
+$span-width: 1.5em;
 
 .study__chapters {
   @extend %study-list, %study-list-ongoing;
@@ -31,7 +31,8 @@ $span-width: 1.7em;
       color: $c-link;
       font-weight: bold;
       height: auto;
-      margin-inline-end: 0.4em;
+      padding-inline-start: 0.25em;
+      margin-inline-end: 0.25em;
       opacity: 0.8;
     }
 

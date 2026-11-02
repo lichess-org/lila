@@ -11,8 +11,7 @@ import lila.core.team.LightTeam
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
   import helpers.{ *, given }
@@ -144,6 +143,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
         ),
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
+        s.settings.payouts.map(gathering.payouts),
         s.looksLikePrize.option(gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.gathering.Thematic.byFen(p.opening))

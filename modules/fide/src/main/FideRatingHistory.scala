@@ -1,11 +1,12 @@
 package lila.fide
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import java.time.YearMonth
-import play.api.libs.json.*
-import monocle.syntax.all.*
-import chess.{ FideId, FideTC }
 import chess.rating.Elo
+import chess.{ FideId, FideTC }
+import monocle.syntax.all.*
+import play.api.libs.json.*
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import java.time.YearMonth
 
 case class FideRatingHistory(
     @Key("_id") id: FideId,

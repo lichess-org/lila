@@ -6,7 +6,8 @@ import { replayable } from 'lib/game';
 import { pieceCount, fenColor } from 'lib/game/chess';
 import { storedBooleanProp } from 'lib/storage';
 
-import type AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '@/ctrl';
+
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { MAX_ANALYSE_DEPTH, winnerOf } from './explorerUtil';
 import { clearLastShow } from './explorerView';
@@ -134,10 +135,10 @@ export default class ExplorerCtrl {
             .catch(onError)
             .then(_ => true),
         );
-        this.lastStream.promise.then(() => this.root.redraw());
+        if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
       }
     },
-    250,
+    350,
     true,
   );
 
@@ -213,8 +214,13 @@ export default class ExplorerCtrl {
     );
     return await deferred.promise;
   };
-  fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
-    const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
+  fetchTablebaseHit = async (fen: FEN, timeout?: number): Promise<SimpleTablebaseHit> => {
+    const res = await xhr.tablebase(
+      this.opts.tablebaseEndpoint,
+      this.effectiveVariant,
+      fen,
+      timeout ? AbortSignal.timeout(timeout) : undefined,
+    );
     const move = res.moves[0];
     if (move?.dtz === null) throw 'unknown tablebase position';
     return {
