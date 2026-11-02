@@ -86,11 +86,11 @@ Z. B.: En Durschnittsrang vo 3% würd heisse, dass du\'s würsch id top 3% vum T
   <string name="rankAvg">Rang - Durchschnitt</string>
   <string name="tournamentWinners">Turnier - Sieger</string>
   <string name="tournamentShields">Turnier - Schilder</string>
-  <string name="onlyTitled">Nur Schpiler mit Titel</string>
+  <string name="onlyTitled">Nur Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
   <string name="berserkRate">Berserk-Wertig</string>
   <string name="leaguesAndStreamerBattles">Ligas &amp; Streamer Kämpf</string>
   <string name="allowBotAccounts">Erlaub beidi Konti</string>
-  <string name="allowBotAccountsDescription">Lass &lt;a href=\'%s\' target=\'_blank\'&gt;Bots&lt;/a&gt; am Turnier teilneh und mit ihrne Engines schpiele. Das schreckt menschlichi Schpiler oft ab.</string>
+  <string name="allowBotAccountsDescription">Lass &lt;a href=\'%s\' target=\'_blank\'&gt;Bots&lt;/a&gt; am Turnier teilneh und mit ihrne Engines schpiele. Das schreckt menschlichi Schpiller oft ab.</string>
 </resources>

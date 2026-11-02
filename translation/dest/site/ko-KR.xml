@@ -955,6 +955,8 @@
   <string name="onlyMembersOfTeam">팀 멤버들만</string>
   <string name="noRestriction">제한 없음</string>
   <string name="minimumRatedGames">최소 레이팅 대국 참여 횟수</string>
+  <string name="minimumAccountAge">최소 계정 생성 기간</string>
+  <string name="titledPlayersBypassRestriction">타이틀이 있는 플레이어는 이 제한을 무시합니다.</string>
   <string name="minimumRating">최소 레이팅</string>
   <string name="maximumWeeklyRating">최대 주간 레이팅</string>
   <string name="positionInputHelp">모든 대국을 주어진 포지션으로 시작하려면 FEN을 붙여넣으세요.
@@ -1012,6 +1014,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="offline" comment="status of a user">오프라인</string>
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
+  <string name="searchInX">\"%s\"에서 찾기</string>
   <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
   <string name="enPassant">앙파상 권리</string>

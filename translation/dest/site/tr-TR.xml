@@ -118,7 +118,7 @@
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde önlendi</string>
   <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
   <string name="lossOr50MovesByPriorMistake">Mağlubiyet veya geçmiş hata sebebiyle 50 hamle</string>
-  <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son esir alma veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
+  <string name="unknownDueToRounding">Syzygy tablo tabanlarındaki DTZ değerleri yuvarlama nedeniyle tam olmayabileceğinden, galibiyet veya mağlubiyet sonucu yalnızca son taş alışından ya da piyon hamlesinden itibaren önerilen tablo tabanı varyantı takip edilmişse garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
@@ -160,7 +160,7 @@
     <item quantity="one">%s Kusurlu hamle</item>
     <item quantity="other">%s Kusurlu hamle</item>
   </plurals>
-  <string name="moveTimes">Hamle zamanları</string>
+  <string name="moveTimes">Hamle süreleri</string>
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="toggleLocalEngine">Yerel motoru aç/kapat</string>
   <string name="engineSettings">Motor ayarları</string>
@@ -198,7 +198,7 @@
   <string name="rememberMe">Oturumu açık bırak</string>
   <string name="youNeedAnAccountToDoThat">Bunu yapmanız için bir hesaba ihtiyacınız var</string>
   <string name="signUp">Kayıt Ol</string>
-  <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>
+  <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin verilmez. Lütfen oynarken satranç motorlarından, veritabanlarından veya diğer oyunculardan yardım almayın. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok sayıda hesap kullanmanız, platformdan yasaklanmanıza neden olacaktır.</string>
   <string name="games">Oyunlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s, %2$s konusu altına bir mesaj yazdı</string>
@@ -254,7 +254,7 @@
   <string name="neverTypeYourPassword">Lichess parolanızı asla başka bir site içerisinde yazmayın!</string>
   <string name="proceedToX">%s adresine devam et</string>
   <string name="passwordSuggestion">Başkaları tarafından önerilen bir parolayı kullanmayın. Bunu hesabınızı çalmak için kullanacaklardır.</string>
-  <string name="emailSuggestion">Başkaları tarafından önerilen bir e-posta adresi kullanmayın. Bunu hesabınızı çalmak için kullanacaklardır.</string>
+  <string name="emailSuggestion">Başkaları tarafından önerilen bir e-posta adresi kullanmayın. Bunu hesabınızı ele geçirmek için kullanacaklardır.</string>
   <string name="emailConfirmHelp">E-posta onayı için yardım</string>
   <string name="emailConfirmNotReceived">Kayıt olduktan sonra doğrulama e-postası almadınız mı?</string>
   <string name="whatSignupUsername">Kayıt olmak için hangi kullanıcı adını kullandınız?</string>
@@ -409,8 +409,7 @@
     <item quantity="other">%s tane daha dereceli oyun oynamanız gerekiyor</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Puanınız istikrarlı olmadığı için puana göre filtreleme yapmak mümkün değil.
-Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Puanınız henüz yeterince istikrarlı olmadığı için puana göre filtreleme yapılamaz. Dereceli oyunlar oynadıkça puanınız daha istikrarlı hâle gelecektir.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
@@ -419,14 +418,14 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="mustBeInTeam">%s adlı takımda olmalısınız</string>
   <string name="youAreNotInTeam">%s takımının üyesi değilsiniz</string>
   <string name="backToGame">Oyuna dön</string>
-  <string name="siteDescription">Bedava çevrimiçi satranç sunucusu. Sade bir arayüzde satranç oynayın. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınızla veya rastgele bir rakiple satranç oynayın.</string>
+  <string name="siteDescription">Ücretsiz çevrim içi satranç sunucusu. Sade ve kullanımı kolay bir arayüzde satranç oynayın. Kayıt olmanız gerekmez; reklam yoktur ve herhangi bir eklenti yüklemeniz gerekmez. Bilgisayara karşı, arkadaşlarınızla veya rastgele rakiplere karşı satranç oynayın.</string>
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="startedStreaming">bir yayın başlattı</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
   <string name="averageElo">Ortalama derece</string>
   <string name="location">Yer</string>
-  <string name="filterGames">Oyunları kategorilendir</string>
+  <string name="filterGames">Oyunları filtrele</string>
   <string name="reset">Sıfırla</string>
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
@@ -441,7 +440,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
-  <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
+  <string name="importGameExplanation">Hamleler arasında gezinebileceğiniz bir tekrar, bilgisayar analizi, parti sohbeti ve paylaşılabilir bir bağlantı oluşturmak için bir satranç partisinin PGN kaydını yapıştırın.</string>
   <string name="importGameDataPrivacyWarning">Bu PGN herkes tarafından erişilebilir. Bir oyunu özel olarak yüklemek istiyorsanız bir çalışma kullanın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
@@ -647,7 +646,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="timeline">Zaman tüneli</string>
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
-  <string name="biographyDescription">Kendinizden bahsedin, satrançta ne buluyorsunuz, favori açılışlarınız, oyunlarınız, hayranı olduğunuz satranç ustaları…</string>
+  <string name="biographyDescription">Kendinizden, ilgi alanlarınızdan, satrançta neleri sevdiğinizden, en sevdiğiniz açılışlardan ve satranç oyuncularından bahsedin...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">En fazla: %s karakter.</item>
     <item quantity="other">En fazla: %s karakter.</item>
@@ -706,14 +705,14 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="changelog">Değişiklik Notları</string>
   <string name="termsOfService">Hizmet Koşulları</string>
-  <string name="titleVerification">Ünvan doğrulaması</string>
+  <string name="titleVerification">Unvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
   <string name="blockAds">Reklamları engelle</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
   <string name="yourPendingSimuls">Bekleyen simultane oyunlarınız</string>
-  <string name="createdSimuls">Yeni oluşturulan eş zamanlı gösteriler</string>
+  <string name="createdSimuls">Yeni oluşturulan eş zamanlı partiler</string>
   <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
   <string name="signUpToHostOrJoinASimul">Bir simultane oyuna katılmak veya ev sahipliği yapmak için kayıt olun</string>
   <string name="noSimulFound">Eş zamanlı gösteri bulunamadı</string>
@@ -760,7 +759,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
-  <string name="returnToTournamentsHomepage">Turnuva sayfasına geri dön.</string>
+  <string name="returnToTournamentsHomepage">Turnuva sayfasına geri dön</string>
   <string name="weeklyPerfTypeRatingDistribution">Haftalık %s puan dağılımı</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Bu hafta %1$s %2$s oyuncusu.</item>
@@ -805,7 +804,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="kidMode">Çocuk modu</string>
   <string name="kidModeIsEnabled">Çocuk modu etkin.</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda Lichess logosunun yanında %s simgesi görünür. Böylece çocuklarınızın güvende olduğunu kolayca anlayabilirsiniz.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Hesabınız kısıtlandı. Çocuk modunu kaldırmak için satranç öğretmeninize danışın.</string>
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
@@ -1064,6 +1063,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="chessOpenings">Satranç açılışları</string>
   <string name="boards">Tahtalar</string>
   <string name="write">Yaz</string>
-  <string name="preview">Önizleme</string>
+  <string name="preview">Ön izleme</string>
   <string name="done">Bitti</string>
 </resources>

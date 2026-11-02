@@ -37,7 +37,7 @@
   <string name="threeChecks">Drümal Schach</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
-  <string name="newOpponent">Neuer Gägner</string>
+  <string name="newOpponent">Neue Gägner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpiel mit dir schpille</string>
   <string name="joinTheGame">Schpiil biträte</string>
   <string name="whitePlays">Wiss am Zug</string>
@@ -173,8 +173,8 @@
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Schpiler</item>
-    <item quantity="other">%s Schpiler</item>
+    <item quantity="one">%s Schpiller</item>
+    <item quantity="other">%s Schpiller/-inne</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
@@ -1008,7 +1008,7 @@ und beiflussed dini Wertig</string>
   <string name="noRestriction">Kei Ischränkige</string>
   <string name="minimumRatedGames">Minimum g\'werteti Schpiel</string>
   <string name="minimumAccountAge">Mindeschtalter vum Konto</string>
-  <string name="titledPlayersBypassRestriction">Schpiler mit Titel umgöhnd die Ischränkig.</string>
+  <string name="titledPlayersBypassRestriction">Schpiller mit Titel umgöhnd die Ischränkig.</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="positionInputHelp">E gültigi FEN schtartet jedes Schpiel ab ere beschtimmte Schtellig. 
