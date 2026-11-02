@@ -23,6 +23,15 @@ export function initModule(): void {
 
   initInfoStep();
   initAccountsStep();
+  initAutomatedFlow();
+}
+
+function initAutomatedFlow(): void {
+  const appeal = document.querySelector<HTMLElement>('main.appeal--automated');
+  appeal?.querySelector('.appeal__leave-flow')?.addEventListener('click', () => {
+    appeal.classList.add('appeal--left-flow');
+    appeal.querySelector<HTMLTextAreaElement>('#form3-text')?.focus();
+  });
 }
 
 function setStepEnabled(el: HTMLElement, enabled: boolean): void {

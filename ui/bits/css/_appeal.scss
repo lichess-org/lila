@@ -42,6 +42,59 @@
     }
   }
 
+  // TODO: review
+  &__flow {
+    @extend %flex-column;
+
+    position: relative;
+    gap: 2em;
+    margin-bottom: 2em;
+    padding-inline-start: 2.6em;
+
+    > *,
+    .appeal__msg,
+    .appeal__choice,
+    .appeal__choice-event {
+      margin-bottom: 0;
+    }
+
+    &__track {
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0.4em;
+      bottom: 0.4em;
+      width: 12px;
+      box-sizing: content-box;
+      color: $c-font-dim;
+      cursor: help;
+      border-inline: 2px solid currentcolor;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0 7px,
+        currentcolor 7px 10px,
+        transparent 10px 18px
+      );
+    }
+  }
+
+  &__leave-flow {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 2em;
+  }
+
+  &--automated:not(&--left-flow) &__manual {
+    display: none;
+  }
+
+  &:not(&--on-flow) &__next,
+  &--left-flow &__next,
+  &--left-flow &__leave-flow {
+    display: none;
+  }
+
+  // TODO: -------
+
   &__msg {
     @extend %box-neat;
 
