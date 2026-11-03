@@ -132,27 +132,24 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
   );
   if (tags.editable()) {
     const existingTypes = new Set(chapter.tags.map(t => t[0]));
+    const updateSelectedType = (elem: HTMLSelectElement) => {
+      tags.selectedType(elem.value);
+      const pattern = inputAttrs[elem.value]?.pattern;
+      const input = elem.closest('tr')!.querySelector('input')!;
+      if (pattern) input.setAttribute('pattern', String(pattern));
+      else input.removeAttribute('pattern');
+      return input;
+    };
     rows.push([
       h(
         'select.button.button-metal',
         {
           hook: {
             ...onInsert<HTMLSelectElement>(elem => {
-              tags.selectedType(elem.value);
-              elem.addEventListener('change', _ => {
-                tags.selectedType(elem.value);
-                const pattern = inputAttrs[elem.value]?.pattern;
-                $(elem)
-                  .parents('tr')
-                  .find('input')
-                  .each(function (this: HTMLInputElement) {
-                    if (pattern) this.setAttribute('pattern', String(pattern));
-                    else this.removeAttribute('pattern');
-                    this.focus();
-                  });
-              });
+              updateSelectedType(elem);
+              elem.addEventListener('change', () => updateSelectedType(elem).focus());
             }),
-            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLSelectElement).value),
+            postpatch: (_, vnode) => updateSelectedType(vnode.elm as HTMLSelectElement),
           },
         },
         [
