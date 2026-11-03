@@ -51,7 +51,11 @@ final class User(
       env.round.playing
         .lastPlayedPlayingId(username.id)
         .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-    )(gameC.exportGame)
+    ): id =>
+      gameC.exportGame(id): game =>
+        if game.playable then 10.seconds
+        else if env.socket.isOnline.exec(username.id) then 20.seconds
+        else 1.minute
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>

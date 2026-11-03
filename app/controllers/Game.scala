@@ -30,9 +30,12 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def exportOne(id: GameAnyId) = OpenOrScoped():
-    exportGame(id.gameId)
+    exportGame(id.gameId): game =>
+      if game.playable then 30.seconds else 1.day
 
-  private[controllers] def exportGame(gameId: GameId)(using ctx: Context): Fu[Result] =
+  private[controllers] def exportGame(
+      gameId: GameId
+  )(cacheTtl: GameModel => FiniteDuration)(using ctx: Context): Fu[Result] =
     if getBool("divisionOnly") then JsonOptionOk(env.game.divider.fetchAndDivide(gameId))
     else
       Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
@@ -49,7 +52,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           .asAttachment(filename)
           .withHeaders(headersForApiOrApp*)
           .as(gameContentType(config))
-          .publicCache(Option.when(ctx.isAnon)(if game.playable then 1.minute else 1.day))
+          .publicCache(Option.when(ctx.isAnon)(cacheTtl(game)))
           .varyAccept
 
   def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
