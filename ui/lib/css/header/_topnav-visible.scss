@@ -26,7 +26,8 @@
         padding: 0.5rem 0.7rem 0;
         text-transform: uppercase;
         border-inline-start: 2px solid transparent;
-        width: min-content;
+        text-wrap-mode: wrap;
+        white-space-collapse: break-spaces;
 
         @include if-transp {
           text-shadow: 0.5px 1px 1px $c-font-shadow;
