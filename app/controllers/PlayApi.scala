@@ -154,8 +154,8 @@ final class PlayApi(env: Env) extends LilaController(env):
     env.round.proxyRepo
       .game(id)
       .flatMap:
-        case None => NotFound(jsonError("No such game"))
-        case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
+        case None => notFoundJson("No such game")
+        case Some(game) => Pov(game, me).fold(notFoundJson("Not your game").toFuccess)(f)
 
   def botOnline = Open:
     for

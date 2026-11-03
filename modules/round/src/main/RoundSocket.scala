@@ -40,14 +40,14 @@ final class RoundSocket(
       .map: nb =>
         logger.info(s"$nb round asyncActors have stopped")
 
-  def getGame(gameId: GameId): Fu[Option[Game]] =
+  private[round] def getGame(gameId: GameId): Fu[Option[Game]] =
     rounds
       .getOrMake(gameId)
       .getGame
       .addEffect: g =>
         if g.isEmpty then finishRound(gameId)
 
-  def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
+  private[round] def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
     gameIds.parallel: id =>
       rounds.getOrMake(id).getGame.dmap(id -> _)
 
