@@ -305,7 +305,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 _.fold(redirectNoPuzzle)(renderShow(_, angle, color = color))
 
   private val fetchRateLimit =
-    env.security.ipTrust.rateLimit(300, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 5, others = 1))
+    env.security.ipTrust.rateLimit(400, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 5, others = 1))
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     fetchRateLimit(rateLimited, cost = if ctx.isAuth then 1 else 5):
@@ -400,7 +400,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextForMe(angle, settings, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)
 
   private val solveRateLimit =
-    env.security.ipTrust.rateLimit(400, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
+    env.security.ipTrust.rateLimit(500, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     if !PuzzleForm.batch.isValid(ctx.body.body)
