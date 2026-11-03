@@ -20,12 +20,13 @@
 
       > a {
         color: $c-font-page;
-        display: block;
+        display: flex;
+        align-items: center;
         height: 100%;
-        line-height: $site-header-height;
-        padding: 0 0.7rem;
+        padding: 0.5rem 0.7rem 0;
         text-transform: uppercase;
         border-inline-start: 2px solid transparent;
+        width: min-content;
 
         @include if-transp {
           text-shadow: 0.5px 1px 1px $c-font-shadow;
