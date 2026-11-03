@@ -2109,7 +2109,7 @@ interface I18n {
     insteadGenerateToken: I18nFormat;
     /** Last used %s */
     lastUsed: I18nFormat;
-    /** Manage teams you lead: send direct messages, kick members */
+    /** Manage teams you lead: send direct messages, remove members */
     manageTeamsYouLead: string;
     /** Send private messages to other players */
     msgWrite: string;
@@ -5801,6 +5801,8 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Remove */
+    remove: string;
     /** Request a server analysis */
     requestAServerAnalysis: string;
     /** Right under the board */
@@ -6161,6 +6163,8 @@ interface I18n {
     onlyLeaderLeavesTeam: string;
     /** Leave team */
     quitTeam: string;
+    /** Remove someone from the team */
+    removeSomeone: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
     /** Subscribe to team updates */
@@ -6205,6 +6209,8 @@ interface I18n {
     upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
     whoToKick: string;
+    /** Who do you want to remove from the team? */
+    whoToRemove: string;
     /** Your join request will be reviewed by a team leader. */
     willBeReviewed: string;
     /** %s join requests */
