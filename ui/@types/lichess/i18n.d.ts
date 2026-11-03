@@ -6163,7 +6163,7 @@ interface I18n {
     onlyLeaderLeavesTeam: string;
     /** Leave team */
     quitTeam: string;
-    /** Remove someone out of the team */
+    /** Remove someone from the team */
     removeSomeone: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
@@ -6209,7 +6209,7 @@ interface I18n {
     upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
     whoToKick: string;
-    /** Who do you want to remove out of the team? */
+    /** Who do you want to remove from the team? */
     whoToRemove: string;
     /** Your join request will be reviewed by a team leader. */
     willBeReviewed: string;
