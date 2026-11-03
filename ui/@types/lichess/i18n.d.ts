@@ -5565,8 +5565,6 @@ interface I18n {
     blackIsSlightlyBetter: string;
     /** Black is winning */
     blackIsWinning: string;
-    /** Blunder */
-    blunder: string;
     /** Brilliant move */
     brilliantMove: string;
     /** Chapters are saved forever.<br>Have fun organizing your chess content! */
@@ -5717,8 +5715,6 @@ interface I18n {
     manageTopics: string;
     /** Members */
     members: string;
-    /** Mistake */
-    mistake: string;
     /** Most popular */
     mostPopular: string;
     /** My favourite studies */
