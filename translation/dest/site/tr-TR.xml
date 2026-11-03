@@ -409,7 +409,8 @@
     <item quantity="other">%s tane daha dereceli oyun oynamanız gerekiyor</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Puanınız henüz yeterince istikrarlı olmadığı için puana göre filtreleme yapılamaz. Dereceli oyunlar oynadıkça puanınız daha istikrarlı hâle gelecektir.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Puanınız henüz yeterince istikrarlı olmadığı için puana göre filtreleme yapılamaz.
+Dereceli oyunlar oynamak puanınızı daha istikrarlı hâle getirecektir.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
@@ -418,7 +419,7 @@
   <string name="mustBeInTeam">%s adlı takımda olmalısınız</string>
   <string name="youAreNotInTeam">%s takımının üyesi değilsiniz</string>
   <string name="backToGame">Oyuna dön</string>
-  <string name="siteDescription">Ücretsiz çevrim içi satranç sunucusu. Sade ve kullanımı kolay bir arayüzde satranç oynayın. Kayıt olmanız gerekmez; reklam yoktur ve herhangi bir eklenti yüklemeniz gerekmez. Bilgisayara karşı, arkadaşlarınızla veya rastgele rakiplere karşı satranç oynayın.</string>
+  <string name="siteDescription">Ücretsiz çevrimiçi satranç sunucusu. Sade ve bir arayüzle satranç oynayın. Kayıt olmanız ya da eklenti yüklemeniz gerekmez. Reklam yoktur. Bilgisayara karşı, arkadaşlarınızla veya rastgele rakiplere karşı satranç oynayın.</string>
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="startedStreaming">bir yayın başlattı</string>
@@ -759,7 +760,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
-  <string name="returnToTournamentsHomepage">Turnuva sayfasına geri dön</string>
+  <string name="returnToTournamentsHomepage">Turnuva anasayfasına geri dön</string>
   <string name="weeklyPerfTypeRatingDistribution">Haftalık %s puan dağılımı</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Bu hafta %1$s %2$s oyuncusu.</item>
@@ -1063,6 +1064,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="chessOpenings">Satranç açılışları</string>
   <string name="boards">Tahtalar</string>
   <string name="write">Yaz</string>
-  <string name="preview">Ön izleme</string>
+  <string name="preview">Önizleme</string>
   <string name="done">Bitti</string>
 </resources>

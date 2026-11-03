@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Beschtätig din Account uf lichess.org, %s</string>
-  <string name="emailConfirm_intro">Merci fürs regestrire bi Lichess!</string>
+  <string name="emailConfirm_subject">Beschtätig dis Konto uf lichess.org, %s</string>
+  <string name="emailConfirm_intro">Danke für\'s Regischtriere bi Lichess!</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klick uf de Link, um dis Konto z\'aktiviere:</string>
-  <string name="emailConfirm_justIgnore">Wänn du dich nöd bi Lichess regischtriert häsch, chasch die Nachricht ignoriere. Das unbeschtätigte Konto - und au dini E-Mail-Adrässe - wird nach 48 Schtunde us euserem System glöscht.</string>
-  <string name="passwordReset_subject">Setz dis Passwort uf Lichess.org zrug, %s</string>
-  <string name="passwordReset_intro">Mir händ e Afrag zum zrugsetzte vo dim Passwort übercho.</string>
-  <string name="passwordReset_clickOrIgnore">Wänn du die Afrag gmacht häsch, klick unne uf de Link. Falls nöd, ignorier die E-Mail.</string>
+  <string name="emailConfirm_justIgnore">Wänn du dich nöd bi Lichess regischtriert häsch, chasch die Nachricht ignoriere; s\'unbeschtätigte Konto - und dini E-Mail-Adrässe - werded nach 48 Schtunde us euserem Syschtem g\'löscht.</string>
+  <string name="passwordReset_subject">Setz dis lichess.org Passwort z\'rugg, %s</string>
+  <string name="passwordReset_intro">Mir händ e Afrag zum z\'ruggsetzte vu dim Passwort übercho.</string>
+  <string name="passwordReset_clickOrIgnore">Wänn du die Afrag g\'macht häsch, klick unne uf de Link. Falls nöd, ignorier die E-Mail.</string>
   <string name="emailChange_subject">Beschtätig dini neu E-Mail-Adrässe, %s</string>
   <string name="emailChange_intro">Du häsch e Änderig vo dinere E-Mail-Adrässe agforderet.</string>
-  <string name="emailChange_click">Zum Beschtätigung, dass du Zuegriff uf die E-Mail häsch, klick bitte uf de underi Link:</string>
+  <string name="emailChange_click">Zur Beschtätigung, dass du Zuegriff uf die E-Mail häsch, klick bitte uf de underi Link:</string>
   <string name="welcome_subject">Willkomme uf lichess.org, %s</string>
-  <string name="welcome_text">Du häsch erfolgriich dis Benutzerkonto uf https://lichess.org erschtellt. 
+  <string name="welcome_text">Du häsch erfolgrich dis Benutzerkonto uf https://lichess.org erschtellt. 
 
-Da gahts zu dinere Konto-Site: %1$s. Du chasch si uf %2$s personalisiere.
+Da gaht\'s zu dinere Konto-Site: %1$s. Du chasch si uf %2$s personalisiere.
 
 Vill Schpass und möged dini Figure immer de Wäg zum gägnerische König finde!</string>
   <string name="logInToLichess">Mäld dich a uf lichess.org, %s</string>
-  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(De Link gaht nid? Probier ihn i de Browser zkopiere!)</string>
-  <string name="common_note">Das isch e Service-E-Mail im Zämmehang mit dim Gebruch vu %s.</string>
-  <string name="common_contact">Zum eus kontaktiere, benutz bitte %s.</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Gaht de Link nöd? Probier en i din Browser z\'kopiere!)</string>
+  <string name="common_note">Das isch e Service E-Mail, im Zämehang zu dinere Nutzig vu %s.</string>
+  <string name="common_contact">Benutz zur Kontaktufnahm bitte %s.</string>
 </resources>
