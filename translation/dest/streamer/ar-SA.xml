@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">أصحاب بث على ليتشيس</string>
+  <string name="lichessStreamers">Lichess مقدّمو البث المباشر على</string>
   <string name="lichessStreamer">صاحب بث على ليتشيس</string>
   <string name="live">مـبـاشـر!</string>
   <string name="offline">غير متصل</string>
@@ -9,7 +9,7 @@
   <string name="becomeStreamer">كنّ صاحب بث على ليتشيس</string>
   <string name="doYouHaveStream">هل لديك قناة تويتش أو يوتيوب؟</string>
   <string name="hereWeGo">فلنبدأ!</string>
-  <string name="allStreamers">جميع الستريمرز</string>
+  <string name="allStreamers">جميع مقدّمي البث المباشر</string>
   <string name="editPage">تعديل صفحة البث</string>
   <string name="yourPage">صفحة البث الخاصة بك</string>
   <string name="downloadKit">تحميل streamer kit</string>
@@ -22,7 +22,7 @@
   <string name="streamingFairplayFAQ">الاسئلة الشائعة للعب العادل أثناء البث</string>
   <string name="perks">فوائد البث باستعمال الكلمة المفتاحية</string>
   <string name="perk1">احصل على أيقونة بث مشتعلة على ملفك الشخصي \"Lichess\".</string>
-  <string name="perk2">احجز مكانك مباشرة في أعلى القائمة الخاصة بالستريمرز.</string>
+  <string name="perk2">انتقل إلى أعلى قائمة مقدّمي البث المباشر.</string>
   <string name="perk3">أعلِم متابعيك على Lichess.</string>
   <string name="perk4">أظهر البث الخاص بك في المباريات والبطولات التي تلعبها إضافة إلى الدراسات.</string>
   <string name="approved">لقد تمت الموافقة على البث الخاص بك.</string>
@@ -44,7 +44,7 @@
     <item quantity="many">ابقه قصيرًا: %s حرف أقصى</item>
     <item quantity="other">ابقه قصيرًا: %s حرف كحد أقصى</item>
   </plurals>
-  <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
+  <string name="visibility">ظاهر على صفحة مقدّمي البث المباشر</string>
   <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
   <string name="headline">العنوان</string>
   <string name="tellUsAboutTheStream">أخبرنا عن البث الخاص بك في جملة واحدة</string>
