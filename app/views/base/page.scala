@@ -61,6 +61,7 @@ object page:
           charset,
           viewport,
           metaCsp(p.csp.map(_(defaultCsp))),
+          themeVariantScript(ctx.nonce),
           metaThemeColor,
           st.headTitle:
             val prodTitle = p.fullTitle | s"${p.title} • $siteName"
@@ -68,6 +69,8 @@ object page:
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("lib.theme.all"),
+          cssTag("lib.theme.yellow"),
+          cssTag("lib.theme.blue"),
           cssTag("site"),
           pref.is3d.option(cssTag("lib.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
