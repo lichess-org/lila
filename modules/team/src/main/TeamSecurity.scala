@@ -16,7 +16,7 @@ object TeamSecurity:
     case Comm extends Permission(I18nKey.team.permCommName, I18nKey.team.permCommDesc)
     case Request extends Permission(I18nKey.team.permRequestName, I18nKey.team.permRequestDesc)
     case PmAll extends Permission(I18nKey.team.permPmAllName, I18nKey.team.permPmAllDesc)
-    case Kick extends Permission(I18nKey.team.permKickName, I18nKey.team.permKickDesc)
+    case Kick extends Permission(I18nKey.team.permRemoveName, I18nKey.team.permRemoveDesc)
     case Admin extends Permission(I18nKey.team.permAdminName, I18nKey.team.permAdminDesc)
     def key = toString.toLowerCase
   object Permission:

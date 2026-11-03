@@ -6101,7 +6101,7 @@ interface I18n {
     completedTourns: string;
     /** Declined Requests */
     declinedRequests: string;
-    /** Note: To demote a leader, revoke all their permissions. */
+    /** To demote a leader, revoke all their permissions. */
     demoteLeaderNote: string;
     /** Team entry code */
     entryCode: string;
@@ -6167,10 +6167,6 @@ interface I18n {
     permCommDesc: string;
     /** Moderation */
     permCommName: string;
-    /** Remove members from the team */
-    permKickDesc: string;
-    /** Kick */
-    permKickName: string;
     /** Send updates to team members */
     permPmAllDesc: string;
     /** Updates */
@@ -6179,6 +6175,10 @@ interface I18n {
     permPublicDesc: string;
     /** Public */
     permPublicName: string;
+    /** Remove members from the team */
+    permRemoveDesc: string;
+    /** Remove */
+    permRemoveName: string;
     /** Accept or decline join requests */
     permRequestDesc: string;
     /** Requests */

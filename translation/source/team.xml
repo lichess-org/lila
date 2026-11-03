@@ -92,9 +92,9 @@ You can't remove a team if a player has already joined the tournament.</string>
   <string name="permRequestDesc">Accept or decline join requests</string>
   <string name="permPmAllName">Updates</string>
   <string name="permPmAllDesc">Send updates to team members</string>
-  <string name="permKickName">Kick</string>
-  <string name="permKickDesc">Remove members from the team</string>
+  <string name="permRemoveName">Remove</string>
+  <string name="permRemoveDesc">Remove members from the team</string>
   <string name="permAdminName">Admin</string>
   <string name="permAdminDesc">Manage leaders' permissions</string>
-  <string name="demoteLeaderNote">Note: To demote a leader, revoke all their permissions.</string>
+  <string name="demoteLeaderNote">To demote a leader, revoke all their permissions.</string>
 </resources>
