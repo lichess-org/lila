@@ -1,4 +1,12 @@
-package lila.opening
+package lila.web
+
+import lila.memo.CloudflareApi
+
+private final class DosWatch(cfApi: CloudflareApi)(using scheduler: Scheduler)(using Executor):
+
+  private val counter = PeriodicCounter(1.minute)
+
+  def increment(): Unit = counter.increment()
 
 /* Counts hits over a period of time, using only 2 integers. */
 final private class PeriodicCounter(period: FiniteDuration)(using scheduler: Scheduler)(using Executor):
