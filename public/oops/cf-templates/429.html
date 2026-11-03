@@ -25,6 +25,14 @@
         margin: 0.5em 0;
         word-break: break-all;
       }
+      button {
+        background: #ebd488;
+        color: black;
+        border: 0;
+        font: inherit;
+        padding: 0.4em 0.8em;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -38,10 +46,19 @@
       <a href="mailto:contact@lichess.org">contact@lichess.org</a> and ask us to lift the limitation for your
       IP address.
     </p>
-    <p>Please include the following information in the email:</p>
-    <pre>
-      IP address: ::CLIENT_IP::
-      Request ID: ::RAY_ID::
+    <p>Please include the following information by clicking Copy below and pasting into the email:</p>
+    <button type="button" onclick="copyDetails(this)">Copy</button>
+    <pre id="details">
+IP address: ::CLIENT_IP::
+Request ID: ::RAY_ID::
     </pre>
+    <script>
+      function copyDetails(btn) {
+        var text = document.getElementById('details').innerText.replace(/^[ \t]+/gm, '').trim();
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+        });
+      }
+    </script>
   </body>
 </html>
