@@ -164,7 +164,7 @@ final class RelayTeamTable(
 
   def tableJson(roundId: RelayRoundId): Fu[JsObject] = jsonCache.get(roundId.studyId)
 
-  def table(roundId: RelayRoundId): Fu[List[TeamMatch]] =
+  private[relay] def table(roundId: RelayRoundId): Fu[List[TeamMatch]] =
     cache.get(roundId.studyId)
 
   private val cache = cacheApi[StudyId, List[TeamMatch]](64, "relay.teamTable"):
@@ -176,7 +176,7 @@ final class RelayTeamTable(
   private object impl:
 
     def makeJson(studyId: StudyId): Fu[JsObject] =
-      import RelayTeamTable.json.given
+      import RelayTeamTable.given
       for matches <- cache.get(studyId)
       yield Json.obj("table" -> matches)
 
@@ -273,10 +273,10 @@ final class RelayTeamLeaderboard(
   def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] =
     relayGroupApi.scoreGroupOf(tour).flatMap(cache.get)
 
-  private val cache = cacheApi[ScoreGroup, TeamLeaderboard](12, "relay.teamLeaderboard"):
+  private val cache = cacheApi[ScoreGroup, TeamLeaderboard](32, "relay.teamLeaderboard"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
 
-  private val jsonCache = cacheApi[ScoreGroup, JsonStr](8, "relay.teamLeaderboard.json"):
+  private val jsonCache = cacheApi[ScoreGroup, JsonStr](32, "relay.teamLeaderboard.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import json.given
       cache
@@ -350,20 +350,20 @@ final class RelayTeamLeaderboard(
           .to(SeqMap)
 
 object RelayTeamTable:
-  object json:
-    import play.api.libs.json.*
-    import lila.common.Json.given
-    import RelayPlayer.json.given
-    import RelayJsonView.given
-    import RelayTeam.*
-    given Writes[TeamGame] = Json.writes[TeamGame]
-    given Writes[TeamMatch] = Json.writes[TeamMatch]
-    given Writes[TeamWithGames] = t =>
-      Json
-        .obj(
-          "name" -> t.name,
-          "players" -> Json.toJson(t.players.values.toList),
-          "points" -> Json.toJson(t.points.orZero)
-        )
-    given Writes[ByColor[TeamWithGames]] = Writes: p =>
-      Json.arr(p.white, p.black)
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  import RelayPlayer.json.given
+  import RelayJsonView.given
+  import RelayTeam.*
+
+  private given Writes[TeamGame] = Json.writes
+  private given Writes[TeamMatch] = Json.writes
+  private given Writes[TeamWithGames] = t =>
+    Json
+      .obj(
+        "name" -> t.name,
+        "players" -> Json.toJson(t.players.values.toList),
+        "points" -> Json.toJson(t.points.orZero)
+      )
+  private given Writes[ByColor[TeamWithGames]] = Writes: p =>
+    Json.arr(p.white, p.black)
