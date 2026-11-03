@@ -326,7 +326,7 @@ final class Study(
 
   private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
     val cost = if !data.isNewStudy then 0 else if coachOrTitled then 1 else 2
-    limit.studyCreate(me.userId -> ctx.ip, rateLimited, cost):
+    limit.studyCreate(me.userId, rateLimited, cost):
       Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
@@ -334,7 +334,7 @@ final class Study(
     bindForm(StudyForm.form)(
       jsonFormError,
       data =>
-        limit.studyCreate(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 2):
+        limit.studyCreate(me.userId, rateLimited, if coachOrTitled then 1 else 2):
           for sc <- env.study.api.create(data)
           yield JsonOk(Json.obj("id" -> sc.study.id))
     )

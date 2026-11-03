@@ -52,6 +52,9 @@ object net:
   opaque type ASN = Int
   object ASN extends OpaqueInt[ASN]
 
+  opaque type IpTier = Boolean
+  object IpTier extends YesNo[IpTier]
+
   case class LichessMobileUa(
       version: String,
       userId: Option[UserId],

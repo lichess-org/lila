@@ -28,7 +28,7 @@ final class Ip2ProxyServer(
     else cache.get(ip.value)
 
   def ofReq(req: RequestHeader): Fu[IsProxy] =
-    if HTTPRequest.nginxWhitelist(req) then fuccess(IsProxy.empty)
+    if HTTPRequest.ipTier(req).yes then fuccess(IsProxy.empty)
     else
       ofIp(HTTPRequest.ipAddress(req))
         .map: proxy =>
