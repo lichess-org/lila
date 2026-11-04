@@ -21,6 +21,10 @@
 
     &.patron {
       opacity: 1;
+
+      &::before {
+        content: $licon-Wings !important;
+      }
     }
   }
 
@@ -35,7 +39,7 @@
     vertical-align: text-top;
 
     &.patron {
-      opacity: 0.7;
+      opacity: 0.6;
 
       @include if-rtl {
         transform: scaleX(-1);
@@ -47,7 +51,7 @@
     }
 
     &.patron::before {
-      content: $licon-Wings !important;
+      content: $licon-WingsOutline !important;
     }
 
     &.moderator::before {

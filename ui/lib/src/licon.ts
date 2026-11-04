@@ -134,6 +134,7 @@ export const licon = {
   AccountCircle: '' as const, // e079
   Logo: '' as const, // e07a
   Switch: '' as const, // e07b
+  WingsOutline: '' as const, // e07c
   Cpu: '' as const, // e07e
   Prune: '' as const, // e07f
   Friends: '' as const, // e080
