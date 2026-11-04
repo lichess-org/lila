@@ -434,7 +434,7 @@ final class Team(env: Env) extends LilaController(env):
             val admins = t.leaders.filter(_.hasPerm(_.Admin))
             if admins.nonEmpty && admins.forall(_.is(me))
             then
-              val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
+              val msg = lila.core.i18n.I18nKey.teamLead.onlyLeaderLeavesTeam.txt()
               negotiate(
                 html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
                 json = JsonBadRequest(msg)
