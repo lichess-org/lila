@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter
 import lila.api.GameApiV2.*
 import lila.app.{ *, given }
 import lila.core.id.GameAnyId
+import lila.game.PgnDump.requestPgnFlags
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -29,21 +30,16 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation))
   }
 
-  def exportOne(id: GameAnyId) = OpenOrScoped():
-    exportGame(id.gameId): game =>
-      if game.playable then 30.seconds else 1.day
-
-  private[controllers] def exportGame(
-      gameId: GameId
-  )(cacheTtl: GameModel => FiniteDuration)(using ctx: Context): Fu[Result] =
-    if getBool("divisionOnly") then JsonOptionOk(env.game.divider.fetchAndDivide(gameId))
+  def exportOne(id: GameAnyId) = OpenOrScoped(): ctx ?=>
+    if getBool("divisionOnly") then JsonOptionOk(env.game.divider.fetchAndDivide(id.gameId))
     else
-      Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
+      Found(env.round.proxyRepo.gameIfPresentOrFetch(id.gameId)): game =>
         given Option[Me] = ctx.isFullAuth.so(ctx.me)
         val config = OneConfig(
           format = Format.byRequest,
           imported = getBool("imported"),
-          flags = requestPgnFlags(extended = ctx.isAuth || game.isStrongOrRecent)
+          flags =
+            requestPgnFlags(extended = ctx.isAuth || game.isStrongOrRecent, delayMoves = delayMovesFromReq)
         )
         for
           content <- env.api.gameApiV2.exportOne(game, config)
@@ -52,7 +48,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           .asAttachment(filename)
           .withHeaders(headersForApiOrApp*)
           .as(gameContentType(config))
-          .publicCache(Option.when(ctx.isAnon)(cacheTtl(game)))
+          .publicCache(Option.when(ctx.isAnon)(if game.playable then 10.seconds else 1.day))
           .varyAccept
 
   def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
@@ -85,7 +81,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                     perfKey = get("perfType").orZero.split(",").flatMap(PerfKey(_)).toSet,
                     color = getColor(),
                     analysed = getBoolOpt("analysed"),
-                    flags = requestPgnFlags(extended = false),
+                    flags = requestPgnFlags(extended = false, delayMoves = delayMovesFromReq),
                     sort =
                       if get("sort").has("dateAsc") then GameSort.DateAsc
                       else GameSort.DateDesc,
@@ -114,7 +110,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     val config = ImportedConfig(
       user = me.userId,
       annotated = annotated,
-      flags = requestPgnFlags(extended = annotated)
+      flags = requestPgnFlags(extended = annotated, delayMoves = delayMovesFromReq)
         .copy(literate = getBoolOpt("literate") | annotated)
     )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
@@ -132,7 +128,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       since = getTimestamp("since"),
       until = getTimestamp("until"),
       max = getIntAs[Max]("max").map(_.atLeast(1)),
-      flags = requestPgnFlags(extended = false),
+      flags = requestPgnFlags(extended = false, delayMoves = delayMovesFromReq),
       sort = if get("sort").has("dateAsc") then GameSort.DateAsc else GameSort.DateDesc,
       perSecond = MaxPerSecond(30)
     )
@@ -150,7 +146,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     val config = ByIdsConfig(
       ids = GameId.from(ctx.body.body.split(',').view.take(max).toSeq),
       format = Format.byRequest,
-      flags = requestPgnFlags(extended = false),
+      flags = requestPgnFlags(extended = false, delayMoves = delayMovesFromReq),
       perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
     )
@@ -169,25 +165,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       wonBy <- Right(getUserStr("wonBy")).filterOrElse(valid, "Invalid wonBy")
       lostBy <- Right(getUserStr("lostBy")).filterOrElse(valid, "Invalid lostBy")
     yield vs.so(meOrFetch).map(GamePlayersConfig(_, wonBy.map(_.id), lostBy.map(_.id)))
-
-  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader, Option[Me]) =
-    lila.game.PgnDump.WithFlags(
-      moves = getBoolOpt("moves") | true,
-      tags = getBoolOpt("tags") | true,
-      clocks = getBoolOpt("clocks") | extended,
-      evals = getBoolOpt("evals") | extended,
-      opening = (getBoolOpt("opening"), extended) match
-        case (None, extended) => extended.option(true)
-        case (Some(false), _) => none
-        case (Some(true), extended) => extended.some,
-      literate = getBool("literate"),
-      pgnInJson = getBool("pgnInJson"),
-      delayMoves = delayMovesFromReq,
-      lastFen = getBool("lastFen"),
-      accuracy = getBool("accuracy"),
-      division = getBoolOpt("division") | extended,
-      bookmark = getBool("withBookmarked")
-    )
 
   private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
