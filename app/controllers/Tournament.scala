@@ -22,7 +22,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
 
   private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound)
 
-  def home = Open(serveHome)
+  def home = OpenOrScoped(_.Web.Mobile)(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
