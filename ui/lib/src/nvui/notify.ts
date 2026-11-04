@@ -34,7 +34,9 @@ export function liveText(
   const data: VNodeData = {};
   if (isMac() && isWebkit({ atLeast: '27' })) {
     const priority = live === 'assertive' ? 'high' : 'normal';
-    'ariaNotify' in document && ((text: string) => (document as any).ariaNotify(text, { priority }));
+    if ('ariaNotify' in document) {
+      (document as any).ariaNotify(text, { priority });
+    }
   } else if (isMac()) {
     data.key = forceKey?.getTime().toString() || text;
     data.attrs = { role: 'alert' };
