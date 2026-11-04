@@ -13,6 +13,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
 ):
   import helpers.{ *, given }
   import trans.team as trt
+  import trans.teamLead as trl
   import bits.{ TeamPage, menu }
 
   def create(form: Form[?], captcha: Captcha)(using Context, Me) =
@@ -62,8 +63,8 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
               submitButton(
                 dataIcon := Icon.CautionCircle,
                 cls := "submit button text explain button-empty button-red",
-                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-              )(trt.closeTeam())
+                st.title := trl.closeTeamDescription.txt() // can actually be reverted
+              )(trl.closeTeam())
             )
           ),
           Granter
@@ -104,14 +105,14 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
         form3.group(
           form("intro"),
           trans.team.introduction(),
-          help = frag(trans.team.teamIntroductionHelp()).some
+          help = frag(trl.teamIntroductionHelp()).some
         )(
           form3.textarea(_)(rows := 2)
         )(cls := form("intro").value.isEmpty.option("accent")),
         form3.group(
           form("description"),
           trans.site.description(),
-          help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
+          help = frag(trl.teamDescriptionHelp(), br, markdownIsAvailable).some
         )(f => teamDescTextarea(f)(minlength := 30))
       )
     ,
@@ -130,7 +131,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
     frag(
       form3.checkboxGroup(
         form("hideMembers"),
-        trans.team.hideMembersDesc(),
+        trl.hideMembersDesc(),
         half = true,
         disabled = team.exists(_.isClas)
       ),
@@ -148,7 +149,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
         form3.group(
           form("forum"),
           trans.team.forumLabel(),
-          help = trans.team.forumVisibilityHelp.rawHtml().some
+          help = trl.forumVisibilityHelp.rawHtml().some
         ) { f =>
           form3.select(
             f,
@@ -156,7 +157,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
               Access.Everyone.id -> trans.study.everyone.txt(),
               Access.Members.id -> trans.site.onlyTeamMembers.txt(),
               Access.Leaders.id -> trans.site.onlyTeamLeaders.txt(),
-              Access.None.id -> trans.team.forumVisibilityNone.txt()
+              Access.None.id -> trl.forumVisibilityNone.txt()
             )
           )
         }
@@ -170,8 +171,8 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
         form3.split(
           form3.checkboxGroup(
             form("request"),
-            trans.team.manuallyReviewAdmissionRequests(),
-            help = trans.team.manuallyReviewAdmissionRequestsHelp().some,
+            trl.manuallyReviewAdmissionRequests(),
+            help = trl.manuallyReviewAdmissionRequestsHelp().some,
             half = true
           ),
           form3.group(

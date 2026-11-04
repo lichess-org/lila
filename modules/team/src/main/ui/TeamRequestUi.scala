@@ -41,7 +41,7 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
       )
 
   def all(requests: List[RequestWithUser])(using Context) =
-    val title = trans.team.xJoinRequests.pluralSameTxt(requests.size)
+    val title = trans.teamLead.xJoinRequests.pluralSameTxt(requests.size)
     TeamPage(title):
       main(cls := "page-menu")(
         menu("requests".some),
@@ -76,7 +76,7 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
     )
 
   def declined(team: Team, requests: Paginator[RequestWithUser], search: Option[UserStr])(using Context) =
-    val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
+    val title = s"${team.name} • ${trans.teamLead.declinedRequests.txt()}"
     val pager = paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
     TeamPage(title).js(Esm("mod.teamAdmin")):
       main(cls := "page-menu page-small")(
@@ -84,11 +84,9 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
         div(cls := "page-menu__content box box-pad")(
           boxTop(
             h1(
-              a(href := routes.Team.show(team.id))(
-                team.name
-              ),
+              a(href := routes.Team.show(team.id))(team.name),
               " • ",
-              trans.team.declinedRequests()
+              trans.teamLead.declinedRequests()
             ),
             st.form(
               cls := "search team-declined-request",

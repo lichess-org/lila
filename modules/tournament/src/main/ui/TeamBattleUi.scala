@@ -20,20 +20,20 @@ final class TeamBattleUi(helpers: Helpers):
           div(cls := "tour__form box box-pad")(
             h1(cls := "box__top")(a(href := routes.Tournament.show(tour.id))(tour.name())),
             standardFlash,
-            if tour.isFinished then p(trans.team.thisTeamBattleIsOver())
-            else p(trans.team.listTheTeamsThatWillCompete()),
+            if tour.isFinished then p(trans.teamLead.thisTeamBattleIsOver())
+            else p(trans.teamLead.listTheTeamsThatWillCompete()),
             postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(
               form3.group(
                 form("teams"),
-                trans.team.oneTeamPerLine(),
-                help = trans.team.oneTeamPerLineHelp().some
+                trans.teamLead.oneTeamPerLine(),
+                help = trans.teamLead.oneTeamPerLineHelp().some
               )(
                 form3.textarea(_)(rows := 10, tour.isFinished.option(disabled))
               ),
               form3.group(
                 form("nbLeaders"),
-                trans.team.numberOfLeadsPerTeam(),
-                help = trans.team.numberOfLeadsPerTeamHelp().some
+                trans.teamLead.numberOfLeadsPerTeam(),
+                help = trans.teamLead.numberOfLeadsPerTeamHelp().some
               )(
                 form3.input(_)(tpe := "number", tour.isFinished.option(disabled))
               ),

@@ -282,7 +282,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
             href := routes.Team.updateNew(team.id),
             cls := "button button-empty text",
             dataIcon := Icon.InkQuill
-          )(trt.newTeamUpdate())
+          )(trans.teamLead.newTeamUpdate())
         )
       ),
       ((team.enabled && hasPerm(_.Settings)) || canManage).option(
@@ -304,14 +304,14 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           cls := "button button-empty text",
           href := routes.Team.kick(team.id),
           dataIcon := Icon.InternalArrow
-        )(trt.kickSomeone())
+        )(trans.teamLead.kickSomeone())
       ),
       ((team.enabled && hasPerm(_.Request)) || canManage).option(
         a(
           cls := "button button-empty text",
           href := routes.Team.declinedRequests(team.id),
           dataIcon := Icon.Cancel
-        )(trt.declinedRequests())
+        )(trans.teamLead.declinedRequests())
       ),
       ((Granter.opt(_.ManageTeam) || Granter.opt(_.Shusher)) && !asMod).option(
         a(
