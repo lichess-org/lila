@@ -9,6 +9,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.team as trt
+  import trans.teamLead as trl
   import bits.{ TeamPage, menu }
 
   def leaders(
@@ -72,7 +73,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                       )
                 )
               ,
-              p(cls := "form-help box__pad")(trans.team.demoteLeaderNote()),
+              p(cls := "form-help box__pad")(trl.demoteLeaderNote()),
               form3.actions(cls := "box__pad")(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(trans.site.save())
@@ -82,19 +83,19 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
         )
 
   def kick(t: Team, form: Form[List[UserId]], blocklistForm: Form[String])(using Context) =
-    TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
+    TeamPage(s"${t.name} • ${trl.kickSomeone.txt()}")
       .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content")(
             div(cls := "box box-pad")(
-              adminTop(t, trt.kickSomeone()),
+              adminTop(t, trl.kickSomeone()),
               postForm(action := routes.Team.kick(t.id))(
-                form3.group(form("members"), frag(trt.whoToKick()))(teamMembersAutoComplete(t)),
+                form3.group(form("members"), frag(trl.whoToKick()))(teamMembersAutoComplete(t)),
                 form3.actions(
                   a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                  form3.submit(lila.core.i18n.I18nKey.study.kick())
+                  form3.submit(trl.kickSomeone())
                 )
               )
             ),
@@ -124,16 +125,16 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
       links: List[(Tag, Instant, Call)],
       limiter: (remaining: Int, until: Instant)
   )(using Context) =
-    TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}")
+    TeamPage(s"${t.name} • ${trl.newTeamUpdate.txt()}")
       .js(esmInitBit("pmAll"))
       .markdownTextarea:
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content box box-pad")(
-            adminTop(t, trt.newTeamUpdate()),
+            adminTop(t, trl.newTeamUpdate()),
             links.nonEmpty.option:
               div(cls := "tournaments")(
-                p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
+                p(trl.youWayWantToLinkOneOfTheseTournaments()),
                 p:
                   ul:
                     links.map: (link, startsAt, call) =>
@@ -161,7 +162,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                   form3.textarea(field)(rows := 25)
               ,
               p(cls := (limiter.remaining <= 0).option("error"))(
-                trt.teamUpdatesPerWeek.rawHtml(
+                trl.teamUpdatesPerWeek.rawHtml(
                   TeamUpdateApi.credits,
                   limiter.remaining,
                   momentFromNowOnce(limiter.until)

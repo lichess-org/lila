@@ -6093,28 +6093,14 @@ interface I18n {
     battleOfNbTeams: I18nPlural;
     /** Your join request is being reviewed by a team leader. */
     beingReviewed: string;
-    /** Close team */
-    closeTeam: string;
-    /** Closes the team forever. */
-    closeTeamDescription: string;
     /** Completed tournaments */
     completedTourns: string;
-    /** Declined Requests */
-    declinedRequests: string;
-    /** To demote a leader, revoke all their permissions. */
-    demoteLeaderNote: string;
     /** Team entry code */
     entryCode: string;
     /** (Optional) An entry code that new members must know to join this team. */
     entryCodeDescriptionForLeader: string;
     /** Team forum */
     forumLabel: string;
-    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
-    forumVisibilityHelp: string;
-    /** Hide the forum */
-    forumVisibilityNone: string;
-    /** Hide team member list from non-members. */
-    hideMembersDesc: string;
     /** Incorrect entry code. */
     incorrectEntryCode: string;
     /** Inner team */
@@ -6125,18 +6111,10 @@ interface I18n {
     joinLichessVariantTeam: I18nFormat;
     /** Join team */
     joinTeam: string;
-    /** Kick someone out of the team */
-    kickSomeone: string;
     /** Leaders chat */
     leadersChat: string;
     /** Leader teams */
     leaderTeams: string;
-    /** List the teams that will compete in this battle. */
-    listTheTeamsThatWillCompete: string;
-    /** Manually review admission requests */
-    manuallyReviewAdmissionRequests: string;
-    /** If checked, players will need to request to join the team, which you can accept or decline. */
-    manuallyReviewAdmissionRequestsHelp: string;
     /** My teams */
     myTeams: string;
     /** %s leaders per team */
@@ -6145,10 +6123,72 @@ interface I18n {
     nbMembers: I18nPlural;
     /** New team */
     newTeam: string;
-    /** New team update */
-    newTeamUpdate: string;
     /** No team found */
     noTeamFound: string;
+    /** Leave team */
+    quitTeam: string;
+    /** Your join request was declined by a team leader. */
+    requestDeclined: string;
+    /** Subscribe to team updates */
+    subToTeamUpdates: string;
+    /** A Swiss tournament that only members of your team can join */
+    swissTournamentOverview: string;
+    /** Team */
+    team: string;
+    /** This team already exists. */
+    teamAlreadyExists: string;
+    /** Team Battle */
+    teamBattle: string;
+    /** A battle of multiple teams, each player scores points for their team */
+    teamBattleOverview: string;
+    /** Team events */
+    teamEvents: string;
+    /** Team leaders */
+    teamLeaders: I18nPlural;
+    /** Recent members */
+    teamRecentMembers: string;
+    /** Teams */
+    teams: string;
+    /** Teams I lead */
+    teamsIlead: string;
+    /** Team tournament */
+    teamTournament: string;
+    /** An Arena tournament that only members of your team can join */
+    teamTournamentOverview: string;
+    /** Team updates */
+    teamUpdates: string;
+    /** Upcoming team events */
+    upcomingTeamEvents: string;
+    /** Upcoming tournaments */
+    upcomingTournaments: string;
+    /** Your join request will be reviewed by a team leader. */
+    willBeReviewed: string;
+  };
+  teamLead: {
+    /** Close team */
+    closeTeam: string;
+    /** Closes the team forever. */
+    closeTeamDescription: string;
+    /** Declined Requests */
+    declinedRequests: string;
+    /** To demote a leader, revoke all their permissions. */
+    demoteLeaderNote: string;
+    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
+    forumVisibilityHelp: string;
+    /** Hide the forum */
+    forumVisibilityNone: string;
+    /** Hide team member list from non-members. */
+    hideMembersDesc: string;
+    /** Kick someone out of the team */
+    kickSomeone: string;
+    /** List the teams that will compete in this battle. */
+    listTheTeamsThatWillCompete: string;
+    /** Manually review admission requests */
+    manuallyReviewAdmissionRequests: string;
+    /** If checked, players will need to request to join the team, which you can accept or decline. */
+    manuallyReviewAdmissionRequestsHelp: string;
+    /** New team update */
+    newTeamUpdate: string;
     /** Number of leaders per team. The sum of their score is the score of the team. */
     numberOfLeadsPerTeam: string;
     /** You really shouldn't change this value after the tournament has started! */
@@ -6191,58 +6231,20 @@ interface I18n {
     permTourDesc: string;
     /** Tournaments */
     permTourName: string;
-    /** Leave team */
-    quitTeam: string;
     /** Remove someone from the team */
     removeSomeone: string;
-    /** Your join request was declined by a team leader. */
-    requestDeclined: string;
-    /** Subscribe to team updates */
-    subToTeamUpdates: string;
-    /** A Swiss tournament that only members of your team can join */
-    swissTournamentOverview: string;
-    /** Team */
-    team: string;
-    /** This team already exists. */
-    teamAlreadyExists: string;
-    /** Team Battle */
-    teamBattle: string;
-    /** A battle of multiple teams, each player scores points for their team */
-    teamBattleOverview: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
-    /** Team events */
-    teamEvents: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
-    /** Team leaders */
-    teamLeaders: I18nPlural;
-    /** Recent members */
-    teamRecentMembers: string;
-    /** Teams */
-    teams: string;
-    /** Teams I lead */
-    teamsIlead: string;
-    /** Team tournament */
-    teamTournament: string;
-    /** An Arena tournament that only members of your team can join */
-    teamTournamentOverview: string;
-    /** Team updates */
-    teamUpdates: string;
     /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
-    /** Upcoming team events */
-    upcomingTeamEvents: string;
-    /** Upcoming tournaments */
-    upcomingTournaments: string;
     /** Who do you want to kick out of the team? */
     whoToKick: string;
     /** Who do you want to remove from the team? */
     whoToRemove: string;
-    /** Your join request will be reviewed by a team leader. */
-    willBeReviewed: string;
     /** %s join requests */
     xJoinRequests: I18nPlural;
     /** You may want to link one of these upcoming tournaments? */
