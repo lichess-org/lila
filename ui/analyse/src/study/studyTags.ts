@@ -1,4 +1,4 @@
-import { type Attrs, h, thunk, type VNode } from 'snabbdom';
+import { h, thunk, type VNode } from 'snabbdom';
 
 import { prop } from 'lib';
 import { throttle } from 'lib/async';
@@ -76,7 +76,7 @@ const editable = (
 const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
 const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
 
-const inputAttrs: Record<string, Attrs> = (() => {
+const inputAttrs: Record<string, Record<string, string>> = (() => {
   const elo = { pattern: '\\d{3,4}' };
   const fideId = { pattern: '\\d{2,9}' };
   const title = { pattern: acceptableTitlePattern };
@@ -135,9 +135,12 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
     const updateSelectedType = (elem: HTMLSelectElement) => {
       tags.selectedType(elem.value);
       const pattern = inputAttrs[elem.value]?.pattern;
-      const input = elem.closest('tr')!.querySelector('input')!;
-      if (pattern) input.setAttribute('pattern', String(pattern));
-      else input.removeAttribute('pattern');
+      const input = elem.closest('tr')?.querySelector('input');
+      if (input) {
+        if (pattern) input.setAttribute('pattern', String(pattern));
+        else input.removeAttribute('pattern');
+        input.setAttribute('title', inputAttrs[elem.value]?.title ?? '');
+      }
       return input;
     };
     rows.push([
@@ -147,7 +150,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
           hook: {
             ...onInsert<HTMLSelectElement>(elem => {
               updateSelectedType(elem);
-              elem.addEventListener('change', () => updateSelectedType(elem).focus());
+              elem.addEventListener('change', () => updateSelectedType(elem)?.focus());
             }),
             postpatch: (_, vnode) => updateSelectedType(vnode.elm as HTMLSelectElement),
           },
