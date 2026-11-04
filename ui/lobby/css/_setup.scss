@@ -4,6 +4,10 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
+.game-setup-dialog {
+  background: $c-bg-zebra;
+}
+
 .game-setup {
   width: 42rem;
   max-width: 96vw;
@@ -81,15 +85,16 @@ $c-slider: $c-setup;
 
   h2 {
     margin: 1.5rem 0;
+    font-size: 25px;
   }
 
   .setup-content {
     @extend %flex-column;
 
+    background: $c-bg-box;
     border-block: $border;
-    padding: 1.8rem 1.2rem;
-    gap: 1.8rem;
-    background: $c-bg-zebra;
+    padding: 2rem;
+    gap: 2rem;
 
     .tabs-horiz {
       backdrop-filter: none;
@@ -120,6 +125,14 @@ $c-slider: $c-setup;
       margin-bottom: 0.5rem;
       font-weight: 600;
       color: $c-font;
+    }
+  }
+
+  .game-mode {
+    margin: auto;
+
+    .radio label {
+      min-width: 20ch;
     }
   }
 
@@ -174,16 +187,23 @@ $c-slider: $c-setup;
     @extend %flex-center-nowrap;
 
     justify-content: center;
+    gap: 1em;
+    margin-top: 0.2em;
+
+    .rating-range-values {
+      @extend %flex-center-nowrap;
+
+      gap: 0.5em;
+    }
 
     .rating-min,
     .rating-max {
       font-weight: bold;
-      flex: 0 0 5.5ch;
     }
 
     input {
+      flex: 1;
       padding: 0;
-      width: 30%;
     }
   }
 
@@ -220,10 +240,8 @@ $c-slider: $c-setup;
       gap: 1.2rem;
 
       .presets {
-        @extend %flex-wrap;
-
-        justify-content: center;
-        margin-top: -0.5rem;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         gap: 0.3rem;
 
         .preset-btn {
@@ -258,20 +276,30 @@ $c-slider: $c-setup;
       .slider-container {
         @extend %flex-column;
 
-        justify-content: space-between;
-
         .label-row {
-          @extend %flex-between-nowrap;
+          @extend %flex-nowrap;
 
-          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 2ch;
           margin-bottom: 0.5rem;
 
+          label {
+            align-content: center;
+          }
+
           .val-box {
+            font-size: 1.2em;
             background: $c-font-dim;
             padding: 0.1rem 0.5rem;
             border-radius: $small-box-radius-size;
             font-weight: bold;
             color: $c-bg;
+          }
+        }
+
+        &:first-child {
+          .label-row {
+            justify-content: flex-end;
           }
         }
 
