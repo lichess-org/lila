@@ -2,7 +2,7 @@ import { h, type VNode, type VNodeData } from 'snabbdom';
 
 import { pubsub } from '@/pubsub';
 
-import { isMac, isWebkit } from '../device';
+import { isApple, isMac, isWebkit } from '../device';
 import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
@@ -32,7 +32,7 @@ export function liveText(
   forceKey?: Date,
 ): VNode {
   const data: VNodeData = {};
-  if (isMac() && isWebkit({ atLeast: '27' })) {
+  if (isApple() && isWebkit({ atLeast: '27' })) {
     const priority = live === 'assertive' ? 'high' : 'normal';
     if ('ariaNotify' in document) {
       (document as any).ariaNotify(text, { priority });
