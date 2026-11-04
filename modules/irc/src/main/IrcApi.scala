@@ -159,7 +159,7 @@ final class IrcApi(
         markdown.userLink(lightUser(id))
       )
     messages.sequentiallyVoid: content =>
-      zulip.sendAndGetLink(_.adminPrizes, p.tourName)(content)
+      zulip.sendAndGetLink(_.payments, p.tourName)(content)
 
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
