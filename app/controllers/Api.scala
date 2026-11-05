@@ -13,6 +13,7 @@ import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
 import lila.web.ConcurrencyLimit
+import lila.game.PgnDump.requestPgnFlags
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -147,7 +148,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       val config = GameApiV2.ByTournamentConfig(
         tour = tour,
         format = GameApiV2.Format.byRequest,
-        flags = gameC.requestPgnFlags(extended = false),
+        flags = requestPgnFlags(extended = false, delayMoves = true),
         perSecond = gamesPerSecond(ctx.me)
       )
       limit.GlobalConcurrencyLimitPerIP
@@ -187,7 +188,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
         format = GameApiV2.Format.byRequest,
-        flags = gameC.requestPgnFlags(extended = false),
+        flags = requestPgnFlags(extended = false, delayMoves = true),
         perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
       )
