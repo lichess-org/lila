@@ -1,8 +1,8 @@
 #zenzone {
+  @extend %flex-center-nowrap;
+
   position: absolute;
   display: none;
-  flex-flow: row nowrap;
-  align-items: center;
   z-index: $z-zen-toggle-111;
 
   body.zenable.zen & {

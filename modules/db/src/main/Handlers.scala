@@ -243,5 +243,5 @@ trait Handlers:
       handlerB: BSONHandler[B]
   ): BSONHandler[(Option[A], Option[B])] = quickHandler(
     { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[B])) },
-    { (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull)) }
+    (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull))
   )

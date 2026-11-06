@@ -43,8 +43,6 @@ object HTTPRequest:
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
-  def isPrometheus(req: RequestHeader) = req.path.startsWith("/prometheus-metrics/")
-
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
 
   def userAgent(req: RequestHeader): UserAgent =
@@ -81,13 +79,9 @@ object HTTPRequest:
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 
-  def isImagePreviewCrawler(req: RequestHeader) = imagePreviewCrawlerMatcher(req)
-
-  private val imagePreviewCrawlerMatcher = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
-
-  final class UaMatcher(rStr: String):
-    private val pattern = rStr.r.pattern
-    def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
+  def UaMatcher(rStr: String): RequestHeader => Boolean =
+    val pattern = rStr.r.pattern
+    (req: RequestHeader) => pattern.matcher(userAgent(req).value).find
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
 
@@ -111,20 +105,17 @@ object HTTPRequest:
     case Array(bearer, sign) => Bearer(bearer) -> sign.some
     case _ => (Bearer(raw), none)
 
-  private val webXhrAccepts = "application/web.lichess+json"
-  def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
-    a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
+    a == "application/web.lichess+json" ||
+      a.startsWith("application/json") ||
+      a.startsWith("application/vnd.lichess.v")
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
   def acceptsMarkdown(using req: RequestHeader) =
     accepts(req).contains("text/markdown") ||
       queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
-  def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || ClientName(req).isFishnet || isApi(req) || isPrometheus(req) ||
-      accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
@@ -156,8 +147,8 @@ object HTTPRequest:
     ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
 
   // this header is set by our nginx config, based on the nginx whitelist file.
-  def nginxWhitelist(req: RequestHeader) =
-    req.headers.get("X-Ip-Tier").flatMap(_.toIntOption).exists(_ > 1)
+  def ipTier(req: RequestHeader) = IpTier:
+    req.headers.get("X-Ip-Tier").exists(_ != "1")
 
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
@@ -168,7 +159,8 @@ object HTTPRequest:
   def continent(req: RequestHeader): Option[Continent] =
     req.headers.get("X-Continent").flatMap(Continent.byCode.get)
 
-  def usernamePasswordLeaked(using req: RequestHeader): Boolean = req.headers.get("x-upl").exists(trueish)
+  def country(using req: RequestHeader): Option[CountryCode] =
+    CountryCode.from(req.headers.get("X-Country"))
 
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown

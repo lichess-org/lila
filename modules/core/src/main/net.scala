@@ -46,8 +46,14 @@ object net:
   object Continent:
     val byCode = values.mapBy(_.code)
 
+  opaque type CountryCode = String // two-character ISO 3166-1 alpha code, no java type for that
+  object CountryCode extends OpaqueString[CountryCode]
+
   opaque type ASN = Int
   object ASN extends OpaqueInt[ASN]
+
+  opaque type IpTier = Boolean
+  object IpTier extends YesNo[IpTier]
 
   case class LichessMobileUa(
       version: String,

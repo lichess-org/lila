@@ -94,6 +94,7 @@ export default class Report {
     const hideDialogInput = () => document.querySelector('.switch-report-puzzle input') as HTMLInputElement;
 
     domDialog({
+      closeButton: true,
       focus: '.apply',
       modal: true,
       easyClose: 'clickOutside',

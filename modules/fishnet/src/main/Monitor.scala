@@ -48,12 +48,12 @@ final private class Monitor(
         }
       }
       (nb > 0).option(sum / nb)
-    avgOf(_.time).foreach { monBy.movetime(userId).record(_) }
+    avgOf(_.time).foreach(monBy.movetime(userId).record(_))
     if result.stockfish.isNnue then
-      avgOf(_.nodes).foreach { monBy.node(userId).record(_) }
-      avgOf(_.cappedNps).foreach { monBy.nps(userId).record(_) }
-    avgOf(e => Depth.raw(e.depth)).foreach { monBy.depth(userId).record(_) }
-    avgOf(_.pv.size.some).foreach { monBy.pvSize(userId).record(_) }
+      avgOf(_.nodes).foreach(monBy.node(userId).record(_))
+      avgOf(_.cappedNps).foreach(monBy.nps(userId).record(_))
+    avgOf(e => Depth.raw(e.depth)).foreach(monBy.depth(userId).record(_))
+    avgOf(_.pv.size.some).foreach(monBy.pvSize(userId).record(_))
 
     val significantPvSizes =
       result.evaluations.withFilter(e => !(e.mateFound || e.deadDraw)).map(_.pv.size)

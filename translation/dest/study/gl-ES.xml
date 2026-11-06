@@ -202,4 +202,6 @@
   <string name="clearPublished">Eliminar a análise publicada?</string>
   <string name="requestAServerAnalysis">Solicitar unha análise dende o servidor</string>
   <string name="analyzeOnYourDevice">Analizar no teu dispositivo</string>
+  <string name="searchChapters">Buscar capítulos</string>
+  <string name="searchGames">Buscar partidas</string>
 </resources>

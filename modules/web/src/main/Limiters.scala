@@ -167,10 +167,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](20 * 3, 24.hour, "study.clone.ip")
   )
 
-  val studyCreate: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](30 * 2, 24.hour, "study.create.user"),
-    RateLimit[IpAddress](50 * 2, 24.hour, "study.create.ip")
-  )
+  val studyCreate = RateLimit[UserId](30 * 2, 24.hour, "study.create.user")
 
   val anyPageByUser = RateLimit[MyId](40, 2.minutes, "page.user")
 
@@ -224,7 +221,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
         case Some(me) => auth(me.userId)
 
     object apiGet:
-      private val authLimit = 120
+      private val authLimit = 120 // per minute
       private val auth = RateLimit[UserId]((authLimit * 10 * 3), 3.minutes, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](20 * 3, 3.minutes, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10 * 3, 3.minutes, "broadcast.api.get.anon")
@@ -275,7 +272,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       (proxy, req, me) ?=>
         default =>
           f =>
-            if proxy.no || me.isDefined || HTTPRequest.nginxWhitelist(req) then f
+            if proxy.no || me.isDefined || HTTPRequest.ipTier(req).yes then f
             else HTTPRequest.asn(req).fold(f)(asn => limiter(asn, default, cost, msg = s"ASN $asn")(f))
 
     private def defaultCost(using proxy: IsProxy): Int =

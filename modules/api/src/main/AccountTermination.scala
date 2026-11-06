@@ -68,7 +68,7 @@ final class AccountTermination(
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose = !selfClose && Granter(_.CloseAccount)
     tos = u.marks.dirty || modClose || playbanned
-    _ <- userRepo.disable(u, keepEmail = tos, forever = forever)
+    _ <- userRepo.disable(u, forever = forever)
     _ <- roundApi.resignAllGamesOf(u.id)
     followedIds <- relationApi.accountTermination(u)
     _ <- rankingApi.remove(u.id)

@@ -167,7 +167,7 @@ final class PlanApi(
 
     def userCustomerId(user: User): Fu[Option[StripeCustomerId]] =
       userPatron(user).map:
-        _.flatMap { _.stripe.map(_.customerId) }
+        _.flatMap(_.stripe.map(_.customerId))
 
     def userCustomer(user: User): Fu[Option[StripeCustomer]] =
       userCustomerId(user).flatMapz(stripeClient.getCustomer)
@@ -324,7 +324,7 @@ final class PlanApi(
 
     def userSubscriptionId(user: User): Fu[Option[PayPalSubscriptionId]] =
       userPatron(user).map:
-        _.flatMap { _.payPalCheckout.flatMap(_.subscriptionId) }
+        _.flatMap(_.payPalCheckout.flatMap(_.subscriptionId))
 
     def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
       userSubscriptionId(user).flatMapz(payPalClient.getSubscription)
@@ -420,7 +420,7 @@ final class PlanApi(
     yield ()
 
     def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
-      subscriptionIdPatron(id).flatMap { _.map(_.id).so(userApi.byId) }
+      subscriptionIdPatron(id).flatMap(_.map(_.id).so(userApi.byId))
 
     // only used for automatically renewing subscription charges
     def onCaptureCompleted(capture: PayPalCapture) =

@@ -29,6 +29,7 @@
   <string name="numberOfRounds">Số vòng đấu</string>
   <string name="numberOfRoundsHelp">Số vòng đấu lẻ cho phép cân bằng màu quân trắng-đen tốt nhất.</string>
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
+  <string name="customPairings">Ghép cặp tùy chỉnh</string>
   <string name="forbiddenPairings">Ghép cặp bị cấm</string>
   <string name="forbiddenPairingsHelp">Tên người dùng của những kỳ thủ không được đấu với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
   <string name="manualPairings">Ghép cặp thủ công ở vòng tiếp theo</string>

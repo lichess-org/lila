@@ -15,6 +15,7 @@ import lila.core.security.IsProxy
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.game.GameFilter
+import lila.game.PgnDump.requestPgnFlags
 import lila.mod.UserWithModlog
 import lila.mon.extensions.*
 import lila.rating.PerfType
@@ -25,7 +26,6 @@ import lila.user.WithPerfsAndEmails
 final class User(
     override val env: Env,
     roundC: => Round,
-    gameC: => Game,
     modC: => Mod
 ) extends LilaController(env):
 
@@ -42,7 +42,7 @@ final class User(
         .orElse(env.round.lastPlayed(user.id))
         .flatMap:
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
-            ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
+            ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap(Pov(pov.game, _)) match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
               case _ => roundC.watch(pov, userTv = user.some)
 
@@ -51,7 +51,24 @@ final class User(
       env.round.playing
         .lastPlayedPlayingId(username.id)
         .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-    )(gameC.exportGame)
+    ): id =>
+      import lila.api.GameApiV2.*
+      Found(env.round.proxyRepo.gameIfPresentOrFetch(id)): game =>
+        val reqFlags = requestPgnFlags(extended = true, delayMoves = true)
+        val config = OneConfig(
+          format = Format.byRequest,
+          imported = false,
+          flags = reqFlags.copy(opening = getBoolOpt("opening").map(_ => false))
+        )
+        val cacheTtl =
+          if game.playable then 10.seconds
+          else if env.socket.isOnline.exec(username.id) then 20.seconds
+          else 1.minute
+        for content <- env.api.gameApiV2.exportOne(game, config)
+        yield Ok(content)
+          .withHeaders(headersForApiOrApp*)
+          .publicCache(Option.when(ctx.isAnon)(cacheTtl))
+          .varyAccept
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -59,7 +76,7 @@ final class User(
     }
 
   private val userShowHtmlRateLimit =
-    env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
+    env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
     WithProxy: proxy ?=>
@@ -203,8 +220,8 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCache(5.seconds),
-                json =
+                yield snip.privateCache(5.seconds),
+                json = // lichobile only
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
@@ -212,7 +229,7 @@ final class User(
                       "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
+          else Ok(views.user.bits.miniClosed(user.user, relation)).privateCache(10.minutes)
 
   def online = Anon:
     val max = 50
@@ -264,10 +281,10 @@ final class User(
           page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
-        json =
+        json = // lichobile only
           given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
-          JsonOk(leaderboards).headerCache(1.minute)
+          JsonOk(leaderboards).publicCache(1.minute)
       )
     }
 
@@ -275,7 +292,7 @@ final class User(
     env.user.cached.top10.get {}.map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
-      JsonOk(leaderboards).headerCache(1.minute)
+      JsonOk(leaderboards).publicCache(1.minute)
     }
 
   def top(perfKey: PerfKey, page: Int) = Open:
@@ -283,23 +300,20 @@ final class User(
       env.user.cached
         .topPerfPager(perfKey, page)
         .flatMap: pager =>
-          negotiate(
-            Ok.page(views.user.list.top(perfKey, pager)),
-            topNbJson(pager.currentPageResults)
-          )
+          Ok.page(views.user.list.top(perfKey, pager))
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
-        JsonOk(leaderboards).headerCache(1.minute)
+        JsonOk(leaderboards).publicCache(1.minute)
       }
-    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
+    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson(_).publicCache(1.minute))
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-    Ok(Json.obj("users" -> users)).headerCache(1.minute)
+    Ok(Json.obj("users" -> users))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -554,13 +568,13 @@ final class User(
                 .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
                 .map(views.user.perfStatPage(data, _))
             ,
-            JsonOk:
+            JsonOk: // lichobile only
               getBool("graph")
                 .optionFu:
                   env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
                 .map: graph =>
                   env.perfStat.jsonView(data).add("graph", graph)
-            .map(_.headerCache(1.minute))
+            .map(_.privateCache(1.minute))
           )
 
   def autocomplete = OpenOrScoped(): ctx ?=>

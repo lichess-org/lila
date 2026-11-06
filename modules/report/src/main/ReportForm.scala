@@ -21,7 +21,7 @@ final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: N
   def create(using me: MyId) = Form:
     mapping(
       "username" -> lila.common.Form.username.historicalField
-        .verifying("Unknown username", { blockingFetchUser(_).isDefined })
+        .verifying("Unknown username", blockingFetchUser(_).isDefined)
         .verifying(
           "You cannot report yourself",
           u => !me.is(u.id)

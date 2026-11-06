@@ -12,7 +12,6 @@ case class LoginForm(username: UserStrOrEmail, password: ClearPassword)
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 type CredentialCheck = ClearPassword => Boolean
 case class LoginCandidate(
-    useCase: String,
     user: User,
     check: CredentialCheck,
     isBlanked: Boolean,
@@ -65,16 +64,16 @@ final class Authenticator(
     passHasher.check(auth.bpass, newP)
 
   def authenticateById(id: UserId, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
-    loginCandidateById(id).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateById(id).map(_.flatMap(_.option(passwordAndToken)))
 
   def authenticateByEmail(
       email: NormalizedEmailAddress,
       passwordAndToken: PasswordAndToken
   ): Fu[Option[User]] =
-    loginCandidateByEmail(email).map { _.flatMap { _.option(passwordAndToken) } }
+    loginCandidateByEmail(email).map(_.flatMap(_.option(passwordAndToken)))
 
-  def loginCandidate(useCase: String)(using me: Me): Fu[LoginCandidate] =
-    loginCandidateById(me.userId).dmap { _ | LoginCandidate(useCase, me, _ => false, false) }
+  def loginCandidate(using me: Me): Fu[LoginCandidate] =
+    loginCandidateById(me.userId).dmap(_ | LoginCandidate(me, _ => false, false))
 
   def loginCandidateById(id: UserId): Fu[Option[LoginCandidate]] =
     loginCandidate(bid(id))
@@ -104,7 +103,7 @@ final class Authenticator(
       .zip(userRepo.coll.one[User](select))
       .map:
         case (Some(authData), Some(user)) =>
-          LoginCandidate("login", user, authWithBenefits(authData), isBlanked = authData.bpass.isBlank).some
+          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.isBlank).some
         case _ => none
   }.recover:
     case _: reactivemongo.api.bson.exceptions.HandlerException => none

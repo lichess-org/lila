@@ -11,11 +11,11 @@ import lila.core.net.LichessMobileUa
 final class HttpFilter(
     net: NetConfig,
     parseMobileUa: RequestHeader => Option[LichessMobileUa]
-)(using val mat: Materializer)(using Executor)
+)(using val mat: Materializer, scheduler: Scheduler)(using Executor)
     extends Filter
     with ResponseHeaders:
 
-  private def logger = lila.log("http")
+  import HttpFilter.*
 
   def apply(handle: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))
@@ -25,11 +25,12 @@ final class HttpFilter(
         .map(fuccess)
         .getOrElse:
           val lilaReq = toLilaReq(using req)
-          handle(lilaReq).map: result =>
-            monitoring(lilaReq, startTime):
-              addContextualResponseHeaders(lilaReq):
-                addEmbedderPolicyHeaders(lilaReq):
-                  result
+          WarmupFilter(lilaReq).getOrElse:
+            handle(lilaReq).map: result =>
+              monitoring(lilaReq, startTime):
+                addContextualResponseHeaders(lilaReq):
+                  addEmbedderPolicyHeaders(lilaReq):
+                    result
 
   private def toLilaReq(using req: RequestHeader) =
     val clientName =
@@ -42,11 +43,35 @@ final class HttpFilter(
       else browser
     req.addAttr(ClientName.reqAttr, clientName)
 
+  private object WarmupFilter:
+    private var justBooted = true
+    scheduler.scheduleOnce(20.seconds):
+      justBooted = false
+    private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
+    private val actions = Set(
+      "Account.info",
+      "User.redirect",
+      "Api.crosstable",
+      "Main.playerCount",
+      "Tournament.featured",
+      "Game.apiExportByUser",
+      "Push.mobileRegister",
+      "Api.cloudEval",
+      "User.autocomplete"
+    )
+    def apply(req: RequestHeader): Option[Fu[Result]] =
+      val reject = justBooted && {
+        actions(HTTPRequest.actionName(req)) ||
+        req.path.startsWith("/api/bot/") ||
+        !ClientName(req).isHuman
+      }
+      Option.when(reject)(response)
+
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
     """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|YandexRenderResourcesBot|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai\.com|anthropic\.com|anthropic\.ai|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot|SofyaBot|SearchBot|AdsBot|GPTBot|Diffbot|CCBot|ClaudeBot|Claude-Web|Google-Extended|Google-CloudVertexBot|omgili|cohere-ai|MistralAI-Training|Awario|QualifiedBot|Cotoyogi|ICC-Crawler|atlassian-bot|FishBot|BorderxBot|NavuBot|WARDBot|magpie-crawler|KimiBot|CitibotSiteCrawler""" +
       // apps and servers that load previews
-      """|Discordbot|WhatsApp""" +
+      """|Discordbot|WhatsApp|ShareExtension""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
 
@@ -60,10 +85,8 @@ final class HttpFilter(
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach(lila.mon.http.mobileCount(actionName, _))
-    HttpFilter
-      .apiAgent(req, client)
-      .foreach: agent =>
-        lila.mon.http.apiAgentCount(actionName, agent).increment()
+    apiAgent(req, client).foreach: agent =>
+      lila.mon.http.apiAgentCount(actionName, agent).increment()
     result
 
   private def serveAssets(res: Fu[Result]) =
@@ -73,7 +96,7 @@ final class HttpFilter(
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != net.domain.value &&
     HTTPRequest.isRedirectable(using req) &&
-    !HTTPRequest.isProgrammatic(req) &&
+    !isProgrammatic(req) &&
     // asset request, don't redirect
     !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
@@ -96,6 +119,8 @@ private object HttpFilter:
 
   import scalalib.net.UserAgent
 
+  private def logger = lila.log("http")
+
   def apiAgent(req: RequestHeader, client: ClientName): Option[String] =
     val isApiAgent = !client.isMobile && !client.isLichobile && {
       HTTPRequest.isApi(req) || req.path.endsWith(".pgn")
@@ -104,9 +129,15 @@ private object HttpFilter:
 
   def apiAgent(ua: UserAgent): String = ua.value
     .dropWhile(!_.isLetterOrDigit)
-    .takeWhile: c =>
-      c != '/' && c != '(' && c != '@'
+    .takeWhile(c => c.isLetterOrDigit || " -_.".contains(c))
     .filterNot(_.isDigit)
     .trim
     .toLowerCase
     .nonEmptyOption | "-"
+
+  def isProgrammatic(req: RequestHeader) =
+    HTTPRequest.isXhr(req) ||
+      ClientName(req).isFishnet ||
+      HTTPRequest.isApi(req) ||
+      HTTPRequest.accepts(req).exists(_.startsWith("application/vnd.lichess.v")) ||
+      req.path.startsWith("/prometheus-metrics/")

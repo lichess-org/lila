@@ -26,12 +26,12 @@ private object DgtJson:
   ):
     def tags(round: Int, game: Int, date: Option[String]) = Tags:
       List(
-        white.flatMap(_.fullName).map { Tag(_.White, _) },
-        white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
-        white.flatMap(_.fideid).map { Tag(_.WhiteFideId, _) },
-        black.flatMap(_.fullName).map { Tag(_.Black, _) },
-        black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
-        black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
+        white.flatMap(_.fullName).map(Tag(_.White, _)),
+        white.flatMap(_.title).map(Tag(_.WhiteTitle, _)),
+        white.flatMap(_.fideid).map(Tag(_.WhiteFideId, _)),
+        black.flatMap(_.fullName).map(Tag(_.Black, _)),
+        black.flatMap(_.title).map(Tag(_.BlackTitle, _)),
+        black.flatMap(_.fideid).map(Tag(_.BlackFideId, _)),
         result.map(Tag(_.Result, _)),
         Tag(_.Round, s"$round.$game").some,
         date.map(Tag(_.Date, _))

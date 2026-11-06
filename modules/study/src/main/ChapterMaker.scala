@@ -109,7 +109,7 @@ final private class ChapterMaker(
   def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
-      data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
+      data.fen.filterNot(_.isInitial).flatMap(Fen.readWithMoveNumber(variant, _)) match
         case Some(game) =>
           Root(
             ply = game.ply,
@@ -257,7 +257,7 @@ private object ChapterMaker:
         .so(_.linesIterator.take(Study.maxChapters.value).toList)
         .map(_.trim)
         .filter(_.nonEmpty)
-        .map { g => copy(game = g.some) }
+        .map(g => copy(game = g.some))
         .some
         .filter(_.sizeIs > 1)
 

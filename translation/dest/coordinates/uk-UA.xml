@@ -19,4 +19,6 @@
   <string name="findSquare">Знайти поле</string>
   <string name="nameSquare">Назва поля</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Практикувати лише деякі ряди та стовпці</string>
+  <string name="enterTheCoordinate">Уведіть координати</string>
+  <string name="pressEnterToStart">Натисніть %s, щоб почати</string>
 </resources>

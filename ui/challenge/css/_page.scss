@@ -81,22 +81,21 @@
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
+    background: var(---bg);
+    border: 1px solid var(---font);
     font-size: 1.5em;
 
     @media (min-width: at-least($xx-small)) {
       font-size: 2em;
     }
 
-    background: var(---bg);
-    border: 1px solid var(---font);
-
     .content {
       @extend %flex-between;
 
       > div {
-        flex: 0 1 auto;
-
         @extend %flex-center, %roboto;
+
+        flex: 0 1 auto;
 
         &::before {
           color: var(---font);

@@ -17,6 +17,7 @@ type EndgameNode = {
   outcome: () => Outcome | undefined;
   check: () => boolean;
   dests: () => Dests;
+  drops: () => Key[] | undefined;
 };
 
 const endgameResult = (
@@ -25,7 +26,7 @@ const endgameResult = (
   gameStatus: StatusName,
 ): EndgameResult => {
   const outcome = node.outcome();
-  const isTerminal = node.dests().size === 0;
+  const isTerminal = node.dests().size === 0 && (node.drops()?.length ?? 0) === 0;
   const isMate = isTerminal && node.check();
   const isStalemate = isTerminal && !node.check() && outcome && !outcome.winner;
 

@@ -84,7 +84,7 @@ object PlanBuilder:
     // Prune plans using the unstaggered scheduled start time.
     val existingWithScheduledStart = existingTourneys.flatMap: t =>
       // Ignore tournaments with schedule=None - they never conflict.
-      rebuildSchedule(t).map { s => ConcreteSchedule(s, s.atInstant, t.duration) }
+      rebuildSchedule(t).map(s => ConcreteSchedule(s, s.atInstant, t.duration))
 
     val prunedPlans = pruneConflicts(existingWithScheduledStart, plans)
 

@@ -176,7 +176,7 @@ final private class RelayFetch(
         .filterNot(_.contains("Error parsing move"))
         .filterNot(_.contains("Error parsing PGN"))
         .filterNot(_.contains("Found an empty PGN"))
-        .foreach { irc.broadcastError(r.round.id, r.fullNameNoTrans, _) }
+        .foreach(irc.broadcastError(r.round.id, r.fullNameNoTrans, _))
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
@@ -346,7 +346,7 @@ final private class RelayFetch(
                   lccCache(lcc, game, tags, lookForStart): () =>
                     httpGetGameJson(lcc.gameUrl(game)).recover:
                       case _: Exception => GameJson(moves = Nil, result = none)
-                  .map { _.toPgn(tags) }
+                  .map(_.toPgn(tags))
                     .recover: _ =>
                       PgnStr(s"${tags}\n\n${pairing.result}")
                     .map(game -> _)

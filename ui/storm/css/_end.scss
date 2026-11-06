@@ -67,7 +67,7 @@
   }
 
   &__stats {
-    @extend %flex-center;
+    @extend %flex-wrap;
 
     padding: 2vh $box-padding;
     align-items: stretch;

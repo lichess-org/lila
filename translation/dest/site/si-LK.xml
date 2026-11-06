@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">ක්‍රීඩාව සූදානම් කරන්න</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">මිතුරෙකුට ආභියෝග කරන්න</string>
   <string name="playAgainstComputer">පරිගණකයට එරෙහිව ක්‍රීඩා කරන්න</string>
   <string name="gameMode">ක්‍රීඩා විධිය</string>

@@ -73,7 +73,7 @@ final private class ForumTopicApi(
       val key = (uid, topic.name)
       cache
         .getIfPresent(key)
-        .so { topicRepo.coll.byId[ForumTopic](_) }
+        .so(topicRepo.coll.byId[ForumTopic](_))
         .orElse:
           cache.put(key, topic.id)
           fuccess(none)

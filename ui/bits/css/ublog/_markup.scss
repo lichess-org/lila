@@ -8,8 +8,4 @@
   font-size: 1.2em;
   cursor: initial;
   line-height: 1.8;
-
-  &:not(.expand-text) {
-    border: $border;
-  }
 }

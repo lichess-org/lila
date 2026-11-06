@@ -19,4 +19,6 @@
   <string name="findSquare">Εύρεση τετραγώνου</string>
   <string name="nameSquare">Ονομασία τετραγώνου</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Εξασκηθείτε μόνο σε ορισμένες γραμμές &amp; στήλες</string>
+  <string name="enterTheCoordinate">Εισάγετε τη συντεταγμένη</string>
+  <string name="pressEnterToStart">Πατήστε το %s για να ξεκινήσετε</string>
 </resources>

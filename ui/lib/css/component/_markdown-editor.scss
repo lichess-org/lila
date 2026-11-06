@@ -8,11 +8,10 @@
   }
 
   .header {
+    @extend %flex-center-nowrap;
+
     position: relative;
-    display: flex;
-    flex-flow: row nowrap;
     gap: 4px;
-    align-items: center;
     z-index: 1;
 
     &:has(.header-tab:first-of-type:hover) + .content textarea,

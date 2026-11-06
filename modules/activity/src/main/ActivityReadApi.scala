@@ -178,4 +178,4 @@ final class ActivityReadApi(
       gameRepo.light
         .gamesFromSecondary(gameIds)
         .dmap:
-          _.flatMap { LightPov(_, userId) }.nonEmptyOption
+          _.flatMap(LightPov(_, userId)).nonEmptyOption

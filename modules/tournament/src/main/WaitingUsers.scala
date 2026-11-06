@@ -47,7 +47,7 @@ private case class WaitingUsers(
       date = newDate,
       hash = {
         hash.view.filterKeys(all.contains) ++ // remove gone users
-          all.filterNot(hash.contains).map { _ -> newDate } // add new users
+          all.filterNot(hash.contains).map(_ -> newDate) // add new users
       }.toMap
     )
 

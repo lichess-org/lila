@@ -9,5 +9,5 @@ object log:
 
   val system = apply("system")
 
-  def http(status: Int, body: String) =
-    s"$status ${body.linesIterator.take(1).toList.headOption.getOrElse("-")}"
+  def http(res: play.api.libs.ws.StandaloneWSResponse): String =
+    s"${res.status} ${(res.body: String).linesIterator.find(_.exists(_.isLetter)).getOrElse("-")}"

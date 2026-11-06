@@ -13,6 +13,7 @@ import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
 import lila.web.ConcurrencyLimit
+import lila.game.PgnDump.requestPgnFlags
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -20,10 +21,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   import env.api.{ userApi, gameApi }
 
   val status = Anon:
-    Ok(Mobile.Api.lichobileStatusJson).headerCache(1.hour)
+    Ok(Mobile.Api.lichobileStatusJson).publicCache(1.hour)
 
   val version = Anon:
-    Ok(Json.obj("server" -> env.web.lilaVersion)).headerCache(1.minute)
+    Ok(Json.obj("server" -> env.web.lilaVersion)).publicCache(1.minute)
 
   private val userShowApiRateLimit =
     env.security.ipTrust.rateLimit(8_000 * 2, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
@@ -147,7 +148,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       val config = GameApiV2.ByTournamentConfig(
         tour = tour,
         format = GameApiV2.Format.byRequest,
-        flags = gameC.requestPgnFlags(extended = false),
+        flags = requestPgnFlags(extended = false, delayMoves = true),
         perSecond = gamesPerSecond(ctx.me)
       )
       limit.GlobalConcurrencyLimitPerIP
@@ -187,7 +188,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
         format = GameApiV2.Format.byRequest,
-        flags = gameC.requestPgnFlags(extended = false),
+        flags = requestPgnFlags(extended = false, delayMoves = true),
         perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
       )
@@ -281,7 +282,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
                   )
                   .map:
                     _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(Ok(_))
-              .map(_.headerCache(1.day))
+              .map(_.publicCache(1.day))
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
@@ -331,7 +332,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     env.perfStat.api
       .data(username, perfKey, computeIfNeeded = ctx.is(username))
       .map:
-        _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
+        _.fold[ApiResult](ApiResult.NoData)(data => ApiResult.Data(env.perfStat.jsonView(data)))
       .map(toHttp)
 
   def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>

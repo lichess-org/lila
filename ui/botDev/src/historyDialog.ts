@@ -43,6 +43,7 @@ class HistoryDialog {
       </div>`);
     await this.updateHistory();
     this.dlg = await domDialog({
+      closeButton: true,
       insert: [{ nodes: this.view }],
       easyClose: 'clickOutside',
       actions: [

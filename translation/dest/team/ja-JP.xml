@@ -36,6 +36,7 @@
   <string name="teamUpdates">チームからのお知らせ</string>
   <string name="subToTeamUpdates">チームからのお知らせを受信する</string>
   <string name="newTeamUpdate">チームからの新しいお知らせ</string>
+  <string name="teamUpdatesPerWeek">1 週間に最大 %1$s 回のチームアップデートを送信できます。%3$s までの残り回数は &lt;strong&gt;%2$s&lt;/strong&gt; 回です。</string>
   <string name="teamEvents">チームイベント</string>
   <string name="upcomingTeamEvents">今後のチームイベント</string>
   <string name="teamsIlead">リーダーを務めるチーム</string>

@@ -11,8 +11,8 @@
   }
 
   &__track {
-    display: flex;
-    flex-flow: row nowrap;
+    @extend %flex-nowrap;
+
     width: fit-content;
     align-items: stretch;
   }

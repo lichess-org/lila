@@ -140,10 +140,8 @@ final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCach
             ),
             span(cls := "team-update__side__team__content")(
               span(cls := "team-update__side__team__name")(team.name),
-              span(cls := "team-update__side__team__meta")(
-                momentFromNowOnce(last)(nbsp),
-                Option.when(unread > 0 && !isSelected)(span(cls := "unread-count", unread))
-              )
-            )
+              span(cls := "team-update__side__team__meta")(momentFromNowOnce(last)(nbsp))
+            ),
+            Option.when(unread > 0 && !isSelected)(span(cls := "unread-count", unread))
           )
     )

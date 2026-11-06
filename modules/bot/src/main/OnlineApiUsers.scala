@@ -34,7 +34,7 @@ final class OnlineApiUsers(
     _.expireAfterWrite(cacheTtl).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
-  def getUsers = usersCache.get({})
+  def getUsers = usersCache.get {}
 
   private val jsonCache = cacheApi.unit[String]("onlineApiUsers.json"):
     _.expireAfterWrite(cacheTtl).buildAsyncFuture: _ =>
@@ -44,8 +44,7 @@ final class OnlineApiUsers(
       yield jsons.map(play.api.libs.json.Json.stringify).mkString("\n")
 
   def getNdJson(nb: Int): Fu[String] =
-    for all <- jsonCache.get({})
-    yield all.linesIterator.take(nb).mkString("\n")
+    for all <- jsonCache.get {} yield all.linesIterator.take(nb).mkString("\n")
 
 object OnlineApiUsers:
   case object SetOnline

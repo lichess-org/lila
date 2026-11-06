@@ -19,4 +19,6 @@
   <string name="findSquare">Trovu kvadraton</string>
   <string name="nameSquare">Nomu kvadraton</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Ekzerciĝi nur kun iuj kolumnoj kaj vicoj</string>
+  <string name="enterTheCoordinate">Enigu la koordinaton</string>
+  <string name="pressEnterToStart">Premu je %s por komenci</string>
 </resources>

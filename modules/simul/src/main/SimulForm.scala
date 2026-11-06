@@ -135,7 +135,7 @@ object SimulForm:
         hostExtraTimePerPlayer = clockExtraPerPlayer
       )
 
-    def actualVariants = variants.flatMap { Variant(_) }
+    def actualVariants = variants.flatMap(Variant(_))
 
     def realPosition = position.filterNot(_.isInitial)
 

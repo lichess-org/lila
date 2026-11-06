@@ -75,17 +75,17 @@ final class ActivityWriteApi(
     (simul.hostId :: simul.playerIds).sequentiallyVoid(simulParticipant(simul, _))
 
   def corresMove(gameId: GameId, userId: UserId) = update(userId): a =>
-    bdoc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
+    bdoc(ActivityFields.corres -> (~a.corres).add(gameId, moved = true, ended = false))
 
   def plan(userId: UserId, months: Int) = update(userId): _ =>
     bdoc(ActivityFields.patron -> Patron(months))
 
   def follow(from: UserId, to: UserId) =
     update(from) { a =>
-      bdoc(ActivityFields.follows -> { (~a.follows).addOut(to) })
+      bdoc(ActivityFields.follows -> (~a.follows).addOut(to))
     } >>
       update(to): a =>
-        bdoc(ActivityFields.follows -> { (~a.follows).addIn(from) })
+        bdoc(ActivityFields.follows -> (~a.follows).addIn(from))
 
   def unfollowAll(from: User, following: Set[UserId]) =
     withColl: coll =>

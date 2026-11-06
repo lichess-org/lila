@@ -287,7 +287,7 @@ final class ClasApi(
       coll.one[Student](bid(Student.makeId(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
-      get(clas, user.id).map2 { Student.WithUser(_, user) }
+      get(clas, user.id).map2(Student.WithUser(_, user))
 
     def withManagingClas(s: Student.WithUserPerfs, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
       if s.student.managed then fuccess(clas.some)
@@ -308,7 +308,7 @@ final class ClasApi(
             )
           .map:
             _.flatMap(_.getAsOpt[Clas]("clas"))
-    }.map { Student.WithUserAndManagingClas(s, _) }
+    }.map(Student.WithUserAndManagingClas(s, _))
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] =
       val student = data.update(from)
@@ -385,7 +385,7 @@ final class ClasApi(
 
     def view(id: ClasInviteId, user: User): Fu[Option[(ClasInvite, Clas)]] =
       colls.invite.one[ClasInvite](bid(id) ++ bdoc("userId" -> user.id)).flatMapz { invite =>
-        colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
+        colls.clas.byId[Clas](invite.clasId.value).map2(invite -> _)
       }
 
     def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =

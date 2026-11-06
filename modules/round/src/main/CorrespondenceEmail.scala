@@ -24,7 +24,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def run() =
     opponentStream
-      .map { Bus.pub(_) }
+      .map(Bus.pub(_))
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
       .monSuccess(lila.mon.round.correspondenceEmail.time)

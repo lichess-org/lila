@@ -86,4 +86,4 @@ final class ChallengeGranter(
       case None if dest.isBot && perfKey == PerfKey.ultraBullet => BotUltraBullet.some
       case res => res
     .map:
-      _.map { ChallengeDenied(dest, _) }
+      _.map(ChallengeDenied(dest, _))

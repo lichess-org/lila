@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Explica per què el comportament de l\'usuari és ofensiu. No et limitis a dir simplement \"és ofensiu/inapropiat\", explica\'ns com has arribat a aquesta conclusió, especialment si l\'insult està ofuscat, en un idioma diferent de l\'anglès, és un barbarisme o és una referència històrica o cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podrem processar la teva denúncia més ràpidament si ho escrius en anglès.</string>
   <string name="provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc per revisar.</string>
+  <string name="thanksForTheReport">Gràcies per l\'informe</string>
+  <string name="moderatorsWillReviewSoon">Els moderadors ho revisaran aviat i prendran les acciones necessàries.</string>
+  <string name="blockUserInMeantime">Mentrestant, pots bloquejar aquest usuari:</string>
 </resources>

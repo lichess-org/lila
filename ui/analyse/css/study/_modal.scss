@@ -1,4 +1,4 @@
-#main-wrap .dialog-content {
+.study-modal {
   min-width: 80vw;
 
   @media (min-width: at-least($x-small)) {
@@ -9,7 +9,7 @@
     text-align: left;
 
     .editor {
-      margin: -30px 0 30px 0;
+      margin: -30px 0 30px;
 
       .spinner {
         padding-top: 80px;
@@ -77,10 +77,6 @@
 
     .form-group {
       margin-bottom: 1.5rem;
-    }
-
-    .form-split {
-      width: 100%;
     }
 
     .import-from__chapter {

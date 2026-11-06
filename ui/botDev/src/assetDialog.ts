@@ -48,6 +48,7 @@ export class AssetDialog {
             this.dlg.close();
           };
         this.dlg = await domDialog({
+          closeButton: true,
           class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
           easyClose: 'clickOutside',
@@ -167,6 +168,7 @@ export class AssetDialog {
     const name = (
       await domDialog({
         class: 'alert',
+        closeButton: true,
         htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
         easyClose: 'clickOutside',
@@ -286,6 +288,7 @@ export class AssetDialog {
           const suggested = file.name.endsWith('.pgn') ? file.name.slice(0, -4) : file.name;
           domDialog({
             class: 'dev-view import-dialog',
+            closeButton: true,
             htmlText: `<h2>import opening book</h2>
               <div class="options">
                 <span>

@@ -106,7 +106,7 @@ object ParseImport:
       n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
     val whiteRemainder = if parsed.toPosition.color.white then 0 else 1
     val byColor = ByColor
-      .fromPair(clocks.zipWithIndex.partition { (_, i) => i % 2 == whiteRemainder })
+      .fromPair(clocks.zipWithIndex.partition((_, i) => i % 2 == whiteRemainder))
       .map(_.view.map(_._1).toVector)
     Option.when(byColor.exists(_.exists(_.value != 0)))(byColor)
 

@@ -59,6 +59,7 @@ final class LilaComponents(
     )
 
   given ActorSystem = actorSystem
+  given Scheduler = actorSystem.scheduler
 
   given StandaloneWSClient =
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient

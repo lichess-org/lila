@@ -210,4 +210,6 @@
   <string name="clearPublished">Очистить опубликованный анализ?</string>
   <string name="requestAServerAnalysis">Запросить анализ на сервере</string>
   <string name="analyzeOnYourDevice">Анализировать на Вашем устройстве</string>
+  <string name="searchChapters">Поиск глав</string>
+  <string name="searchGames">Поиск игр</string>
 </resources>

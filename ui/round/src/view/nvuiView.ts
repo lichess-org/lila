@@ -307,7 +307,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
 
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     const isZh = ctrl.data.game.variant.key === 'crazyhouse';
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) nextOrPrev(ctrl)(e);
     else if (e.shiftKey && e.key === 'H') {
       e.preventDefault();
       notify.set(buildBoardHelpString(boardCommands(isZh)));

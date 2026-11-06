@@ -18,6 +18,8 @@ final class MemoConfig(
 
 final class CloudflareConfig(
     @ConfigName("zone_id") val zoneId: String,
+    @ConfigName("account_id") val accountId: String,
+    @ConfigName("alert_policy_id") val alertPolicyId: String,
     @ConfigName("api_token") val apiToken: Secret
 )
 
@@ -48,7 +50,7 @@ final class Env(
 
   val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  private val cloudflareApi = wire[CloudflareApi]
+  private val cloudflareApi = wire[CloudflareApi] // requires early loading
 
   private val onPicfitUrl: (ImageId, Url) => Unit = wire[PicfitApi.OnNewUrl].apply
 

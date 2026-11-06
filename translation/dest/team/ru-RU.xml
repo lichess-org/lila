@@ -45,6 +45,7 @@
   <string name="teamUpdates">Новости клуба</string>
   <string name="subToTeamUpdates">Подписаться на новости клуба</string>
   <string name="newTeamUpdate">Свежая новость в клубе</string>
+  <string name="teamUpdatesPerWeek">Вы можете отправить по %1$s обновлений команде каждую неделю. Осталось ещё &lt;strong&gt;%2$s&lt;/strong&gt; до %3$s.</string>
   <string name="teamEvents">Командные события</string>
   <string name="upcomingTeamEvents">Предстоящие командные события</string>
   <string name="teamsIlead">Клубы под моим руководством</string>

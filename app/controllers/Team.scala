@@ -56,7 +56,7 @@ final class Team(env: Env) extends LilaController(env):
     Reasonable(page):
       Ok.async:
         if text.trim.isEmpty
-        then paginator.popularTeams(page).map { views.team.list.all(_) }
+        then paginator.popularTeams(page).map(views.team.list.all(_))
         else
           for
             ids <- env.teamSearch(text, page)
@@ -125,7 +125,7 @@ final class Team(env: Env) extends LilaController(env):
             url = routes.Team.show(team.id).url
             _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
-            discard { env.report.api.automodComms(team.automodText, url) }
+            discard(env.report.api.automodComms(team.automodText, url))
             Redirect(url).flashSuccess
       )
   }
@@ -143,7 +143,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.members
         .bindFromRequest()
         .value
-        .so { api.kickMembers(team, _) }
+        .so(api.kickMembers(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -152,7 +152,7 @@ final class Team(env: Env) extends LilaController(env):
       forms.blocklist
         .bindFromRequest()
         .value
-        .so { api.blocklist.set(team, _) }
+        .so(api.blocklist.set(team, _))
         .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
@@ -180,7 +180,7 @@ final class Team(env: Env) extends LilaController(env):
                       val text = lila.msg.MsgPreset.newPermissions(
                         if asMod then LightUser.fallback(UserName.lichess) else me.light,
                         team.team.light,
-                        change.perms.map(_.name),
+                        change.perms.map(_.name.txt()),
                         routeUrl(routes.Team.show(team.id))
                       )
                       env.msg.api.systemPost(SystemMsg.mustRead(change.user, text))
@@ -272,7 +272,7 @@ final class Team(env: Env) extends LilaController(env):
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
-                discard { env.report.api.automodComms(team.automodText, url) }
+                discard(env.report.api.automodComms(team.automodText, url))
                 Redirect(url)
           )
   }
@@ -427,24 +427,16 @@ final class Team(env: Env) extends LilaController(env):
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
-      team.isClas.not.so:
-        api
-          .withLeaders(team)
-          .flatMap: t =>
-            val admins = t.leaders.filter(_.hasPerm(_.Admin))
-            if admins.nonEmpty && admins.forall(_.is(me))
-            then
-              val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
-              negotiate(
-                html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-                json = JsonBadRequest(msg)
-              )
-            else
-              api.cancelRequestOrQuit(team) >>
-                negotiate(
-                  html = Redirect(routes.Team.mine).flashSuccess,
-                  json = jsonOkResult
-                )
+      api
+        .cancelRequestOrQuit(team)
+        .flatMap:
+          case Some(err) =>
+            negotiate(
+              html = Redirect(routes.Team.edit(team.id)).flashFailure(err.txt()),
+              json = JsonBadRequest(err.txt())
+            )
+          case None =>
+            negotiate(Redirect(routes.Team.mine).flashSuccess, jsonOkResult)
   }
 
   def autocomplete = Anon:
@@ -471,10 +463,9 @@ final class Team(env: Env) extends LilaController(env):
   private def renderUpdateForm(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-    unsubs <- env.team.cached.unsubs.get(team.id)
     limiter <- env.team.update.limiter.status(team.id)
     links = views.team.updateEventLinks(tours, swiss)
-    page <- renderPage(views.team.admin.updateForm(team, form, links, unsubs, limiter))
+    page <- renderPage(views.team.admin.updateForm(team, form, links, limiter))
   yield Ok(page)
 
   def updateSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>

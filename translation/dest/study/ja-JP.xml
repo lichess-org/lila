@@ -182,6 +182,7 @@
   <string name="customPositionTitle">自由配置局面</string>
   <string name="customPositionText">駒を好きなように配置します。&lt;br&gt;終盤の研究に最適です。</string>
   <string name="loadGameFromTheWebTitle">ウェブから棋譜を読み込み</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Lichess の対局の URL&lt;br&gt;（例：lichess.org/game/7fHIU0XI）&lt;br&gt;をペーストすると章内にその手順が読み込めます。</string>
   <string name="fromFenStringTitle">FEN の局面から</string>
   <string name="fromFenStringText">FEN 形式の局面&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;をペーストするとその局面から章が始まります。</string>
   <string name="fromPgnGameTitle">PGN の棋譜から</string>

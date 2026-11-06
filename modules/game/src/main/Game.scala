@@ -160,13 +160,12 @@ object GameExt:
       val events = moveOrDrop.fold(
         Event.Move(_, game.position, state, clockEvent, updated.position.crazyData),
         Event.Drop(_, game.position, state, clockEvent, updated.position.crazyData)
-      ) :: {
+      ) ::
         (updated.position.variant.threeCheck && game.position.check.yes).so(List:
           Event.CheckCount(
             white = updated.history.checkCount.white,
             black = updated.history.checkCount.black
           ))
-      }
 
       Progress(g, updated, events)
     end applyMove
@@ -272,10 +271,10 @@ object Game:
 
   def isBoardCompatible(game: Game): Boolean =
     game.clockConfig.forall: c =>
-      lila.core.game.isBoardCompatible(c) || {
+      lila.core.game.isBoardCompatible(c) || (
         (game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)) &&
-        chess.Speed(c) >= Speed.Blitz
-      }
+          chess.Speed(c) >= Speed.Blitz
+      )
 
   // if source is Arena, we will also need to check if the arena accepts bots!
   def isBotCompatible(game: Game): Option[Boolean] =

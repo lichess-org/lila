@@ -11,6 +11,7 @@ import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -208,12 +209,17 @@ final class TeamApi(
       )
       for _ <- requestRepo.coll.insert.one(request) yield cached.nbRequests.invalidate(team.createdBy)
 
-  def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
-    requestRepo
-      .cancel(team.id, me)
-      .flatMap:
-        if _ then funit
-        else quit(team, me)
+  def cancelRequestOrQuit(team: Team)(using me: Me): Fu[Option[I18nKey]] =
+    withLeaders(team).flatMap: t =>
+      val admins = t.leaders.filter(_.hasPerm(_.Admin))
+      if team.isClas then fuccess(I18nKey("Can't leave a class team").some)
+      else if admins.nonEmpty && admins.forall(_.is(me))
+      then fuccess(I18nKey.teamLead.onlyLeaderLeavesTeam.some)
+      else
+        requestRepo
+          .cancel(team.id, me)
+          .flatMap(if _ then funit else quit(team, me))
+          .inject(none)
 
   def processRequest(team: Team, request: TeamRequest, decision: String): Funit = workQueue(team.id) {
     if decision == "decline"

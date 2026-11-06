@@ -122,14 +122,13 @@ object BsonHandlers:
 
   // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss): Bdoc =
-    bsonWriteObjTry[Swiss](s).get ++ {
+    bsonWriteObjTry[Swiss](s).get ++
       s.isNotFinished.so(
         bdoc(
           "featurable" -> true,
           "garbage" -> s.unrealisticSettings.option(true)
         )
       )
-    }
 
   given BSONDocumentHandler[lila.core.swiss.IdName] = Macros.handler
   given BSONDocumentHandler[SwissBan] = Macros.handler

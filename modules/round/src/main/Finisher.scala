@@ -140,7 +140,7 @@ final private class Finisher(
       users <- userApi.pairWithPerfs(game.userIdPair)
       ratingDiffs <- updateCountAndPerfs(game, users)
     yield
-      message.foreach { messenger(game, _) }
+      message.foreach(messenger(game, _))
       gameRepo.game(game.id).foreach { newGame =>
         newGame.foreach(proxy.setFinishedGame)
         val finish = FinishGame(newGame | game, users)

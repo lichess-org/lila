@@ -128,8 +128,8 @@ export class BoardCtrl extends PaneCtrl {
       site.announce({ msg: 'Failed to save preference' }),
     );
 
-    if (v) await site.asset.loadCssPath('lib.board-3d');
-    else site.asset.removeCssPath('lib.board-3d');
+    if (v) await site.asset.loadCss({ key: 'lib.board-3d' });
+    else site.asset.removeCss({ key: 'lib.board-3d' });
     $('#main-wrap')
       .removeClass(v ? 'is2d' : 'is3d')
       .addClass(v ? 'is3d' : 'is2d');

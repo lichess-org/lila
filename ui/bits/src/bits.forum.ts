@@ -13,6 +13,7 @@ site.load.then(() => {
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',
@@ -35,6 +36,7 @@ site.load.then(() => {
     .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
       const link = this;
       domDialog({
+        closeButton: true,
         cash: $('.forum-relocate-modal'),
         attrs: { view: { action: link.href } },
         easyClose: 'clickOutside',

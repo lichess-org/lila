@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Nombro da raŭndoj</string>
   <string name="numberOfRoundsHelp">Malpara nombro da raŭndoj permesas la plej bona egaleco de koloroj.</string>
   <string name="roundInterval">Tempo inter raŭndoj</string>
+  <string name="customPairings">Propraj paradoj</string>
   <string name="forbiddenPairings">Malpermesataj paroj</string>
   <string name="forbiddenPairingsHelp">Salutnomoj de ludantoj kiuj devas ne kunludi (ekz. gefratoj). Metu po du salutnomojn por linio, kaj apartigu ilin per spaco.</string>
   <string name="manualPairings">Permanaj parigoj in la sekva raŭndo</string>

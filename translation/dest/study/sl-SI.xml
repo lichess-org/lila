@@ -210,4 +210,6 @@
   <string name="clearPublished">Jasna lokalna analiza?</string>
   <string name="requestAServerAnalysis">Zahtevajte analizo strežnika</string>
   <string name="analyzeOnYourDevice">Analizirajte v svoji napravi</string>
+  <string name="searchChapters">Iskanje poglavij</string>
+  <string name="searchGames">Iskanje iger</string>
 </resources>

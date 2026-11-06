@@ -14,7 +14,7 @@
   <string name="keepPlayPageOpen">يجب أن تظل صفحة التشغيل مفتوحة على متصفحك.، ليس من الضروري أن تكون ظاهرة، يمكنك تصغيرها أو وضعها جنبًا إلى جنب مع صفحة المباراة على Lichess، لكن لا تغلقها وإلا ستتوقف رقعتك عن العمل.</string>
   <string name="boardWillAutoConnect">الرقعة ستتصل تِلْقائيًا بأي مباراة تلعب، أو تبدأ، كما يمكنها تحديد المباريات التي ستبدأ قريبا.</string>
   <string name="timeControlsForCasualGames">يمكن ضبط الوقت في المباريات غير المقيمة على: قياسي، والسريع والمراسلة فقط.</string>
-  <string name="timeControlsForRatedGames">يمكن ضبط الوقت في المباريات المقيمة على: القياسي، والمراسلة وبعض فئات الشطرنج السريع مثل: 10+15 و0+20</string>
+  <string name="timeControlsForRatedGames">أنظمة الوقت للمباريات المُصنَّفة: الكلاسيكي، والشطرنج بالمراسلة، وبعض فئات الشطرنج السريع، بما في ذلك 15+10 و 20+0</string>
   <string name="whenReadySetupBoard">عندما تكون رقعتك جاهزة، انقر على%s.</string>
   <string name="ifMoveNotDetected">إذا لم تكتشف الرقعة النقلة</string>
   <string name="checkYouHaveMadeOpponentsMove">تأكد أن خصمك لعب نقلته على رقعة DGT أولاً، ثم أعد لعب نقلتك، إذا لم تحل المشكلة، اعد المباراة من البداية.</string>

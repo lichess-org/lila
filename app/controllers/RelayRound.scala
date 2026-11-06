@@ -103,24 +103,21 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
-      negotiate(
-        html = WithRoundAndTour(ts, rs, id): rt =>
-          val sc = env.study.preview
-            .firstId(rt.round.studyId)
-            .flatMap:
-              // there might be no chapter after a round reset, let a new one be created
-              case None => env.study.api.byIdWithChapter(rt.round.studyId)
-              case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
-          sc.orNotFound: study =>
-            env.relay.videoEmbed.withCookie:
-              doShow(rt, study, _)
-        ,
-        json = doApiShow(id)
-      )
+      WithRoundAndTour(ts, rs, id): rt =>
+        val sc = env.study.preview
+          .firstId(rt.round.studyId)
+          .flatMap:
+            // there might be no chapter after a round reset, let a new one be created
+            case None => env.study.api.byIdWithChapter(rt.round.studyId)
+            case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
+        sc.orNotFound: study =>
+          env.relay.videoEmbed.withCookie:
+            doShow(rt, study, _)
 
   def apiShow(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId) =
     AnonOrScoped(_.Study.Read, _.Web.Mobile):
-      doApiShow(id)
+      limit.relay.apiGet(rateLimited):
+        doApiShow(id)
 
   def embedShow(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId): EssentialAction =
     Anon:
@@ -175,29 +172,28 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
       )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
-    limit.relay.apiGet(rateLimited):
-      Found(api.byIdWithTour(id)): rt =>
-        Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-          studyC.CanView(study)(
-            for
-              group <- api.withTours.get(rt.tour.id)
-              previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-              targetRound <- api.officialTarget(rt.round)
-              isSubscribed <- ctx.userId.traverse(api.isSubscribed(rt.tour.id, _))
-              sVersion <- HTTPRequest.isLichessMobile.optionFu(env.study.version(study.id))
-              photos <- playerApi.photosJson(rt.tour.id)
-              _ = env.relay.stats.viewers.hit(rt)
-              json = jsonView.withUrlAndPreviews(
-                rt.withStudy(study),
-                previews,
-                group,
-                targetRound,
-                isSubscribed,
-                sVersion,
-                photos
-              )
-            yield Ok(json).headerCache(jsonView.responseCache(rt, study)).varyAccept
-          )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+    Found(api.byIdWithTour(id)): rt =>
+      Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
+        studyC.CanView(study)(
+          for
+            group <- api.withTours.get(rt.tour.id)
+            previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+            targetRound <- api.officialTarget(rt.round)
+            isSubscribed <- ctx.userId.traverse(api.isSubscribed(rt.tour.id, _))
+            sVersion <- HTTPRequest.isLichessMobile.optionFu(env.study.version(study.id))
+            photos <- playerApi.photosJson(rt.tour.id)
+            _ = env.relay.stats.viewers.hit(rt)
+            json = jsonView.withUrlAndPreviews(
+              rt.withStudy(study),
+              previews,
+              group,
+              targetRound,
+              isSubscribed,
+              sVersion,
+              photos
+            )
+          yield Ok(json).publicCache(jsonView.responseCache(rt, study)).varyLanguage
+        )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
     pgnWithFlags(ts, rs, id)
@@ -347,7 +343,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
         chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
+          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion)
       yield
         env.relay.stats.viewers.hit(rt)
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation

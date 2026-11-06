@@ -25,6 +25,7 @@
   <string name="cantChangeMore">Ni ne povas ŝanĝi pli ol la kazon. Pro teknikaj kialoj, ĝi estas tute neebla.</string>
   <string name="orCloseAccount">Tamen vi povas fermi vian nunan konton kaj krei novan.</string>
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
+  <string name="cantClearHistoryOrResetRatings">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
   <string name="wantReport">Mi volas raporti ludanton</string>
   <string name="toReportAPlayerUseForm">Por raporti ludanton, uzu la formularon por raportoj</string>
   <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>
@@ -53,6 +54,7 @@
   <string name="ratedGame">Certigu, ke vi ludis taksitan ludon. Kazaj ludoj ne influas la taksojn de ludantoj.</string>
   <string name="botRatingAbuse">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
   <string name="errorPage">Erara paĝo</string>
+  <string name="reportTheBug">Vi povas raporti pri ĉi tio:</string>
   <string name="securityVulnerability">Sekureca atakeblo</string>
   <string name="otherBug">Alia problemo</string>
   <string name="learnHowToMakeBroadcasts">Lerni kiel fari viajn proprajn elsendojn ĉe Lichess</string>
@@ -74,4 +76,11 @@
   <string name="noneOfTheAbove">Neniu el la antaŭaj</string>
   <string name="sendEmailAt">Sendu retpoŝton al %s.</string>
   <string name="explainYourRequest">Bonvolu klarigi vian peton klare kaj ĝisfunde. Indiku vian Lichess uzantnomon kaj ajnajn informojn, kiuj povus faciligi al ni helpi vin.</string>
+  <string name="monetiseNotInterested">Ni ne interesas pri iuj manieroj profitigi per Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ni neniam montros iujn reklamojn, kaŝe observos niajn uzantojn, kaj vendos aŭ aĉetos nek datumojn, nek uzantojn.</string>
+  <string name="monetiseNoMarketingEmail">Bonvolu ne retpoŝti al ni pri merkatiko, spurado aŭ reklamado.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Ni alvokas al ĉiuj %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloki ĉiujn reklamojn kaj spurilojn</string>
+  <string name="broadcastTournamentOnLichess">Elsendi turniron sur Lichess</string>
+  <string name="ourDiscordServer">nia servilo de Discord</string>
 </resources>

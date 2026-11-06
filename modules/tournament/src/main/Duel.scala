@@ -46,7 +46,7 @@ final private class DuelStore:
       scalalib.HeapSort.topNToList(_, nb)(using ratingOrdering)
 
   def find(tour: Tournament, user: UserId): Option[GameId] =
-    get(tour.id).flatMap { _.find(_.has(user)).map(_.gameId) }
+    get(tour.id).flatMap(_.find(_.has(user)).map(_.gameId))
 
   def add(tour: TourId, game: GameId, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
     makeDuel(game, p1, p2, ranking).foreach(add(tour, _))

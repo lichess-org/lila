@@ -131,7 +131,7 @@ trait LilaLibraryExtensions extends CoreExports:
       Future.traverse(list)(f)
 
     def parallelN[B](n: Int)(f: A => Fu[B])(using Executor): Funit =
-      list.iterator.grouped(n).toList.sequentially { g => Future.traverse(g)(f).void }.void
+      list.iterator.grouped(n).toList.sequentially(g => Future.traverse(g)(f).void).void
 
     def parallelVoid[B](f: A => Fu[B])(using Executor): Fu[Unit] =
       list.iterator
@@ -185,19 +185,19 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (fua: Fu[Boolean])
 
     infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fub else fuFalse }(using EC.parasitic)
+      fua.flatMap(if _ then fub else fuFalse)(using EC.parasitic)
 
     infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fuTrue else fub }(using EC.parasitic)
+      fua.flatMap(if _ then fuTrue else fub)(using EC.parasitic)
 
     infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if _ then fub else fuccess(zero.zero) }(using EC.parasitic)
+      fua.flatMap(if _ then fub else fuccess(zero.zero))(using EC.parasitic)
 
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if _ then fb else zero.zero }(using EC.parasitic)
+      fua.map(if _ then fb else zero.zero)(using EC.parasitic)
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
-    inline def not = fua.map { !_ }(using EC.parasitic)
+    inline def not = fua.map(!_)(using EC.parasitic)
 
   extension [A](p: PairOf[A])
     def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))

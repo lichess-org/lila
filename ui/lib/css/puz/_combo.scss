@@ -7,9 +7,8 @@
     flex-flow: column;
 
     &__value {
-      @extend %flex-center-nowrap;
+      @extend %flex-center-center-nowrap;
 
-      justify-content: center;
       font-family: storm;
       font-size: 2.4em;
       line-height: 0.9em;

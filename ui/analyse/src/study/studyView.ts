@@ -17,37 +17,29 @@ import { wikiToggleBox } from '@/wiki';
 
 import crazyView from '../crazy/crazyView';
 import type AnalyseCtrl from '../ctrl';
-import { view as keyboardView } from '../keyboard';
 import type * as studyDeps from '../study/studyDeps';
 import { render as trainingView } from '../view/roundTraining';
-import { view as chapterEditFormView } from './chapterEditForm';
-import { view as chapterNewFormView } from './chapterNewForm';
 import * as commentForm from './commentForm';
 import { view as descView } from './description';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import type { Tab, ToolTab } from './interfaces';
-import { view as inviteFormView } from './inviteForm';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
 import * as practiceView from './practice/studyPracticeView';
 import { view as serverEvalView } from './serverEval';
 import { view as chapterView } from './studyChapters';
 import type StudyCtrl from './studyCtrl';
-import { view as studyFormView } from './studyForm';
 import * as glyphForm from './studyGlyph';
 import { view as memberView } from './studyMembers';
-import { view as searchView } from './studySearch';
 import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
-import { view as topicsView, formView as topicsFormView } from './topics';
+import { view as topicsView } from './topics';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { gamebookPlayView, gaugeOn } = ctx;
   return renderMain(
     ctx,
-    ctrl.keyboardHelp && keyboardView(ctrl),
-    deps.studyView.overboard(study, 'study'),
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
     crazyView(ctrl, ctrl.topColor(), 'top'),
@@ -104,7 +96,7 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
       hl('button.search.narrow', {
         attrs: { ...dataIcon(licon.Search) },
         on: {
-          click: () => ctrl.search.open(true),
+          click: ctrl.search.open,
         },
       }),
     ctrl.members.isOwner() &&
@@ -150,21 +142,6 @@ export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VN
         ),
       ]
     : [];
-
-export const overboard = (ctrl: StudyCtrl, type: 'study' | 'broadcast') =>
-  ctrl.chapters.newForm.isOpen()
-    ? chapterNewFormView(ctrl.chapters.newForm)
-    : ctrl.chapters.editForm.current()
-      ? chapterEditFormView(ctrl.chapters.editForm)
-      : ctrl.members.inviteForm.open()
-        ? inviteFormView(ctrl.members.inviteForm)
-        : ctrl.topics.open()
-          ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
-          : ctrl.form.open()
-            ? studyFormView(ctrl.form)
-            : ctrl.search.open()
-              ? searchView(ctrl.search, type)
-              : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.study?.practice) return practiceView.underboard(ctrl.study);

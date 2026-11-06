@@ -11,6 +11,7 @@ import scala.util.Try
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
+import lila.core.net.CountryCode
 import lila.db.dsl.mapHandler
 import lila.ui.Context
 
@@ -61,21 +62,21 @@ final class CurrencyApi(
   val USD = Currency.getInstance("USD")
   val EUR = Currency.getInstance("EUR")
 
-  def guessCurrency(requested: Option[String], ipCountry: => Option[String])(using ctx: Context): Currency =
+  def guessCurrency(requested: Option[String])(using ctx: Context): Currency =
     requested
       .flatMap(lila.plan.CurrencyApi.currencyOption)
       .getOrElse:
-        ipCountry
-          .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
+        lila.common.HTTPRequest
+          .country(using ctx.req)
+          .flatMap(code => Try(new Locale.Builder().setRegion(code.value).build()).toOption)
           .flatMap(currencyOption)
           .orElse(currencyOption(ctx.lang.locale))
           .getOrElse(USD)
 
   private val yearlyCosts = Money(789_389, USD)
 
-  def yearlyCostsFor(ipCountry: Option[String])(using ctx: Context): Fu[Money] =
-    val currency = guessCurrency(none, ipCountry)
-    convert(yearlyCosts, currency).map(_ | yearlyCosts)
+  def yearlyCostsForCtx(using ctx: Context): Fu[Money] =
+    convert(yearlyCosts, guessCurrency(none)).map(_ | yearlyCosts)
 
 object CurrencyApi:
 

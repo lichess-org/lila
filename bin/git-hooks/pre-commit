@@ -4,4 +4,4 @@ if [ ! -x node_modules/.bin/lint-staged ]; then
   rm -f node_modules/.modules.yaml node_modules/.pnpm-workspace-state-v1.json
   pnpm install --offline --frozen-lockfile
 fi
-exec node node_modules/lint-staged/bin/lint-staged.js --config lint-staged.config.mjs
+exec node node_modules/lint-staged/bin/lint-staged.js --verbose --config lint-staged.config.mjs

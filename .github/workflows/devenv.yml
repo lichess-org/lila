@@ -10,6 +10,7 @@ on:
       - '**/package.json'
       - '**/pnpm-lock.yaml'
       - '**/pnpm-workspace.yaml'
+      - 'bin/check-esbuild-version.mjs'
 
   pull_request:
     paths: *devenv_paths
@@ -26,6 +27,9 @@ jobs:
 
       - name: Install devenv.sh
         run: nix profile add nixpkgs#devenv
+
+      - name: Check esbuild versions match
+        run: node bin/check-esbuild-version.mjs
 
       - name: Make sure `./ui/build` requirements are satisfied
         shell: devenv shell -- bash -e {0}

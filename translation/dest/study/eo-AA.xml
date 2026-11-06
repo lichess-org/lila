@@ -168,9 +168,22 @@
   <string name="studyMembersTitle">Studaj membroj</string>
   <string name="studyChaptersTitle">Studaj ĉapitroj</string>
   <string name="commentPositionTitle">Komenti pozicion</string>
+  <string name="annotatePositionTitle">Prinoti pozicion</string>
   <string name="conclusionTitle">Dankon pro via tempo</string>
+  <string name="createChapterTitle">Ni kreu ĉapitron de studo</string>
+  <string name="createChapterText">Studo povas havi kelkajn ĉapitrojn.&lt;br&gt;Ĉiu ĉapitro havas ties propran arbon de movoj&lt;br&gt;kaj povas esti kreita en variaj manieroj.</string>
   <string name="fromInitialPositionTitle">Ekde komenca pozicio</string>
   <string name="customPositionTitle">Personecigita pozicio</string>
   <string name="fromFenStringTitle">El teksto FEN</string>
   <string name="fromPgnGameTitle">El ludo en PNG</string>
+  <string name="doubleDefeat">Duobla malvenko</string>
+  <string name="blackDefeatWhiteCanNotWin">Malvenko de nigro, sed blanko ne povas venki</string>
+  <string name="whiteDefeatBlackCanNotWin">Malvenko de blanko, sed nigro ne povas venki</string>
+  <string name="analysisEditor">Analiza redaktilo</string>
+  <string name="clearLocal">Ĉu forigi lokan analizon?</string>
+  <string name="clearPublished">Ĉu forigi publikigitan analizon?</string>
+  <string name="requestAServerAnalysis">Peti servilon por analizo</string>
+  <string name="analyzeOnYourDevice">Analizi sur via aparato</string>
+  <string name="searchChapters">Serĉi ĉapitrojn</string>
+  <string name="searchGames">Serĉi ludojn</string>
 </resources>

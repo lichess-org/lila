@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Bu kullanıcı adının neden saldırgan olduğunu açıklayın. Sadece \"saldırgan/uygunsuz\" demekle yetinmeyin; özellikle saldırganlık bariz değilse, İngilizce değilse, argo içeriyorsa ya da tarihi/kültürel bir göndermeyse, bu sonuca nasıl vardığınızı bize anlatın.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Raporunuzu İngilizce yazarsanız daha hızlı işleme alabiliriz.</string>
   <string name="provideOneCheatedGameLink">Lütfen incelenmesi için en az bir oyun bağlantısı verin.</string>
+  <string name="thanksForTheReport">Raporladığınız için teşekkür ederiz</string>
+  <string name="moderatorsWillReviewSoon">Moderatörler bunu kısa zamanda inceleyecek ve gerekli işlemi yapacaklardır.</string>
+  <string name="blockUserInMeantime">Bu arada, bu kullanıcıyı engelleyebilirsiniz:</string>
 </resources>

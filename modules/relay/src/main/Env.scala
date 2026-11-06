@@ -25,6 +25,7 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     guessPlayer: lila.core.fide.GuessPlayer,
     getPlayer: lila.core.fide.GetPlayer,
+    federationsOf: lila.core.fide.Federation.FedsOf,
     getPlayerFollowers: lila.core.fide.GetPlayerFollowers,
     getPhotosJson: lila.core.fide.PhotosJson.Get,
     cacheApi: lila.memo.CacheApi,

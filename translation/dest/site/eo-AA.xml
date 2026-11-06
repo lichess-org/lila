@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Agordoj de ludo</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
   <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
@@ -509,6 +508,7 @@ Amikoj ludantaj: %2$s</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="pause">Paŭzu</string>
   <string name="resume">Daŭrigu</string>
+  <string name="stop">Haltigi</string>
   <string name="youArePlaying">Vi nun ludas!</string>
   <string name="winRate">Venka procento</string>
   <string name="performance">Efikeco</string>
@@ -996,6 +996,8 @@ kaj influas la rangojn de ludantoj</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
   <string name="noRestriction">Neniu limigo</string>
   <string name="minimumRatedGames">Minimumo de rangaj ludoj</string>
+  <string name="minimumAccountAge">Minimuma aĝo de kontoj</string>
+  <string name="titledPlayersBypassRestriction">Titolitaj ludantoj preterpasas ĉi tiun limon.</string>
   <string name="minimumRating">Minimuma rango</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
   <string name="positionInputHelp">Alglui validan FEN por komenci ĉiujn ludojn el donita pozicio.
@@ -1042,6 +1044,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
   <string name="instructions">Instrukcio</string>
   <string name="showMeEverything">Ĉion montru al mi</string>
+  <string name="lichessPatronInfo">Lichess estas almoza projekto kaj tute libera programaro kun malferma fontkodo. Ni dependas je donacoj de uzantoj, kiuj kovras niajn operaciajn elspezojn, programadon kaj kreadon de enhavo. Sen nia donacema komunumo, ni ne povos daŭri funkciigi la retejon. Dankon por via aligo!</string>
   <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
   <string name="stats">Statistikoj</string>
   <string name="accessibility">Alireblo</string>
@@ -1052,6 +1055,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="offline" comment="status of a user">konektita</string>
   <string name="search">Serĉi</string>
   <string name="clearSearch">Viŝi serĉon</string>
+  <string name="searchInX">Serĉi en \"%s\"</string>
   <string name="thereAreNoResultsForX">Neniuj rezultoj por \"%s\"</string>
   <string name="tags">Etikedoj</string>
   <string name="enPassant">Preterpasa kapto</string>

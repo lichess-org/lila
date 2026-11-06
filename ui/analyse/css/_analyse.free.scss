@@ -40,12 +40,12 @@ $label-width: 5ch;
   }
 
   .bottom-item {
+    @include transition;
+
     position: absolute;
     top: 100%;
     visibility: hidden;
     opacity: 0;
-
-    @include transition;
 
     @media (prefers-reduced-motion: reduce) {
       // Keep the button visible until it was focused

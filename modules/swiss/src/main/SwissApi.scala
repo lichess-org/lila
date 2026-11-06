@@ -369,7 +369,7 @@ final class SwissApi(
 
   private[swiss] def leaveTeam(teamId: TeamId, userId: UserId) =
     joinedPlayableSwissIds(userId, List(teamId))
-      .flatMap { kickFromSwissIds(userId, _) }
+      .flatMap(kickFromSwissIds(userId, _))
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
@@ -418,7 +418,7 @@ final class SwissApi(
       val selId = bid(SwissPlayer.makeId(swiss.id, userId))
       if swiss.isStarted then
         mongo.player.updateField(selId, f.absent, true) >>
-          forfeit.so { forfeitPairings(swiss, userId) }
+          forfeit.so(forfeitPairings(swiss, userId))
       else
         mongo.player.delete.one(selId).flatMap { res =>
           (res.n == 1).so:
@@ -720,7 +720,7 @@ final class SwissApi(
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.sequentiallyVoid { withdraw(_, user.id) }
+        _.sequentiallyVoid(withdraw(_, user.id))
 
   def isUnfinished(id: SwissId): Fu[Boolean] =
     mongo.swiss.exists(bid(id) ++ bdoc("finishedAt".exists(false)))

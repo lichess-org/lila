@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">بَرپایشِ بازی</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
@@ -67,7 +66,7 @@
   <string name="analysis">تحلیل بازی</string>
   <string name="depthX">عمق %s</string>
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
-  <string name="loadingEngine">موتور بارمی‌گذارد...</string>
+  <string name="loadingEngine">موتور می‌بارگذارد...</string>
   <string name="calculatingMoves">محاسبهٔ حرکت‌ها...</string>
   <string name="engineFailed">خطا در بارگذاری موتور</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
@@ -101,7 +100,7 @@
   <string name="maxRatingX">بیشینهٔ درجه‌بندیِ %s</string>
   <string name="recentGames">بازی‌های اخیر</string>
   <string name="topGames">بازی‌های برتر</string>
-  <string name="masterDbExplanation">دو میلیون بازی رسمی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
+  <string name="masterDbExplanation">بازی‌های OTB/سین.میم %1$s+ بازیکنان فیده-درجه‌دار از %2$s تا %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">در %s نیم‌حرکت مات می‌شود</item>
     <item quantity="other">در %s نیم‌حرکت مات می‌شود</item>
@@ -139,9 +138,9 @@
   <string name="multipleLinesDescription">تعیینِ تعداد شاخه‌های ارزیابی و پیکان‌های حرکت روی تخته</string>
   <string name="searchTime">مدت جستجو</string>
   <string name="searchTimeDescription">تعیینِ مدت برای ارزیابی وضعیت‌های تازه</string>
-  <string name="threads">رشته‌ها</string>
-  <string name="threadsDescription">این را زیرِ تعداد رشته‌های «واو.په.میم» (CPU) تان تعیین کنید، هفتک‌ها انتخابی خوب و امن را نشان می‌دهند</string>
-  <string name="threadsDescriptionMobile">رشته‌های بیشتر، باتریِ بیشتر برای تحلیلِ بهتر می‌مصرفند</string>
+  <string name="threads">نخ</string>
+  <string name="threadsDescription">این را زیرِ تعداد نخ‌های «واو.پ.مَر»/CPU تان تعیین کنید، هفتک‌ها انتخابی خوب و امن را می‌نمایند</string>
+  <string name="threadsDescriptionMobile">نخ‌های بیشتر، باتریِ بیشتر برای تحلیلِ بهتر می‌مصرفند</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="memoryDescription">مقدارهای بالاتر ممکن است عملکرد را بهبود بخشد</string>
@@ -201,7 +200,7 @@
   <string name="youNeedAnAccountToDoThat">برای انجام آن به یک حساب نیازمندید</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">رایانه ها و بازیکنان رایانه-یاریده، مجاز به بازی نیستند. لطفا هنگام بازی از موتورهای شطرنج، پاداها یا دیگر بازیکنان کمک نگیرید. همچنین توجه کنید که ساخت چندین حساب به شدت ممنوع است و چند حسابی افزاینده، منجر به بستن‌تان می‌شود.</string>
-  <string name="games">بازی ها</string>
+  <string name="games">بازی‌ها</string>
   <string name="forum">انجمن</string>
   <string name="xPostedInForumY">%1$s در موضوع %2$s، پیامی نوشت</string>
   <string name="latestForumPosts">آخرین فرسته‌های انجمن</string>
@@ -266,7 +265,7 @@
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
   <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">اگر رایانامهٔ تایید دریافت نکردید، پوشه هرزنامه یا بُنجُل خود را بررسید. حتماً پیام‌های lichess.org را ایمن و \"نا-هرزنامه\" مشخص کنید تا بتوانید از ارتباطاتِ مهم آگاه شوید.</string>
-  <string name="sendEmailForAccountVerification">اگر نمی‌توانید رایانامهٔ تاییدتان را بیابید، رایانامه‌ای به %s ارسال کنید تا حساب‌تان را تایید کنیم.</string>
+  <string name="sendEmailForAccountVerification">اگر نمی‌توانید رایانامهٔ تاییدتان را بیابید، رایانامه‌ای به %s بفرستید تا حساب‌تان را تایید کنیم.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
   <string name="accountConfirmationEmailNotNeeded">به رایانامهٔ تایید نیاز ندارید.</string>
@@ -511,6 +510,7 @@
   <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="pause">توقف</string>
   <string name="resume">ادامه دادن</string>
+  <string name="stop">ایست</string>
   <string name="youArePlaying">شما بازی می‌کنید!</string>
   <string name="winRate">درصد برد</string>
   <string name="performance">عملکرد</string>
@@ -707,7 +707,7 @@
   <string name="contribute">مشارکت</string>
   <string name="changelog">تغییرشرح</string>
   <string name="termsOfService">شرایطِ استفاده</string>
-  <string name="titleVerification">تائید عنوان</string>
+  <string name="titleVerification">تاییدِ عنوان</string>
   <string name="sourceCode">کد منبع</string>
   <string name="blockAds">انسدادِ آگهی‌ها</string>
   <string name="simultaneousExhibitions">بازیِ هَمگاه</string>
@@ -781,7 +781,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، جاهای دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="ifYouDoNotGetTheEmail">اگر ظرفِ ۵ دقیقه رایانامه را نگرفتید:</string>
   <string name="checkAllEmailFolders">پوشه‌های بُنجُل (junk)، هرزنامه (spam) و دیگر را بررسید</string>
-  <string name="verifyYourAddress">تائید کنید که %s نشانیِ رایانامه‌تان است</string>
+  <string name="verifyYourAddress">تایید کنید که %s نشانیِ رایانامه‌تان است</string>
   <string name="weHaveSentYouAnEmailTo">ما رایانامه‌ای به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
@@ -1000,6 +1000,8 @@
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
+  <string name="minimumAccountAge">کمینهٔ عمرِ حساب</string>
+  <string name="titledPlayersBypassRestriction">بازیکنان عنوان‌دار شامل این محدودیت نمی‌شوند.</string>
   <string name="minimumRating">حداقل درجه‌بندی</string>
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
@@ -1057,11 +1059,12 @@
   <string name="offline" comment="status of a user">بُرون‌خط</string>
   <string name="search">جستجو</string>
   <string name="clearSearch">پاکیدنِ جستجو</string>
+  <string name="searchInX">جستجو در «%s»</string>
   <string name="thereAreNoResultsForX">برای «%s» نتیجه‌ای یافت نشد</string>
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
   <string name="settings">تنظیمات</string>
-  <string name="verifyingYourDevice">تأییدِ اَفزاره‌تان...</string>
+  <string name="verifyingYourDevice">تاییدِ اَفزاره‌تان...</string>
   <string name="chessOpenings">گشایش‌های شطرنج</string>
   <string name="boards">میز‌ها</string>
   <string name="write">نوشتن</string>

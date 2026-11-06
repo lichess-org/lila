@@ -114,7 +114,7 @@ final class ChallengeApi(
       .statusById(id)
       .flatMap:
         case Some(Status.Created) => repo.setSeen(id)
-        case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _.foreach(uncacheAndNotify) }
+        case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map(_.foreach(uncacheAndNotify))
         case _ => fuccess(socketReload(id))
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =

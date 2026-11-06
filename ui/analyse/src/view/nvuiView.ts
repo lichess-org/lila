@@ -52,8 +52,6 @@ import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData } from '../interfaces';
 import { clickHook, currentLineIndex, renderCurrentNode } from '../nvuiUtil';
 import { renderRetro } from '../retrospect/nvuiRetroView';
-import { view as chapterEditFormView } from '../study/chapterEditForm';
-import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import renderClocks from '../view/clocks';
@@ -283,7 +281,7 @@ export function boardEventsHook(
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     const isZh = ctrl.data.game.variant.key === 'crazyhouse';
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) jumpMoveOrLine(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
@@ -785,18 +783,12 @@ function studyDetails({ study, redraw }: AnalyseCtrl) {
               hl(
                 'button.edit-chapter',
                 clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), redraw),
-                [
-                  'Edit current chapter',
-                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
-                ],
+                'Edit current chapter',
               ),
               hl(
                 'button.create-chapter',
-                clickHook(() => study.chapters.newForm.toggle(), redraw),
-                [
-                  'Add new chapter',
-                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-                ],
+                clickHook(() => study.chapters.newForm.open(), redraw),
+                'Add new chapter',
               ),
             ])
           : undefined,

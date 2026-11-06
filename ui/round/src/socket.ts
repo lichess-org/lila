@@ -156,6 +156,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     },
     simulEnd(simul: Simul) {
       domDialog({
+        closeButton: true,
         easyClose: 'clickOutside',
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +

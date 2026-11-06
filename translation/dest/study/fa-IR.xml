@@ -202,4 +202,6 @@
   <string name="clearPublished">پاکیدنِ تحلیلِ منتشرشده؟</string>
   <string name="requestAServerAnalysis">درخواستِ تحلیلِ کارساز</string>
   <string name="analyzeOnYourDevice">تحلیل در اَفزاره‌تان</string>
+  <string name="searchChapters">جستجوی بخش</string>
+  <string name="searchGames">جستجوی بازی</string>
 </resources>

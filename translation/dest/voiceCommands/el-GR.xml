@@ -18,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Παίξτε την προτιμώμενη κίνηση ή επιβεβαιώστε κάτι</string>
   <string name="sleep">Ενεργοποίηση λειτουργίας ύπνου (μόνο στην περίπτωση που η λέξη απενεργοποίησης της λειτουργίας ύπνου έχει οριστεί)</string>
   <string name="showPuzzleSolution">Εμφάνιση λύσης τακτικού</string>
+  <string name="voiceHelp">Φωνητική βοήθεια</string>
+  <string name="voiceSettings">Ρυθμίσεις φωνής</string>
+  <string name="pushShiftKeyToTalk">Πιέστε το πλήκτρο %s για να μιλήσετε</string>
+  <string name="holdShiftKeyWhileSpeaking">Κρατήστε πατημένο το πλήκτρο shift όταν μιλάτε</string>
+  <string name="microphone">Μικρόφωνο</string>
+  <string name="noneSelected">Χωρίς επιλογή</string>
 </resources>

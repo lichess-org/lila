@@ -53,6 +53,7 @@
   <string name="entryCodeDescriptionForLeader">(Optioneel) Een toegangscode die nieuwe leden moeten weten om lid te worden van dit team.</string>
   <string name="incorrectEntryCode">Onjuiste toegangscode.</string>
   <string name="forumLabel">Teamforum</string>
+  <string name="forumVisibilityHelp">Wie kan het teamforum zien op de teampagina?&lt;br&gt;Alleen teamleden kunnen op het teamforum plaatsen.</string>
   <string name="forumVisibilityNone">Forum verbergen</string>
   <string name="teamAlreadyExists">Deze teamnaam bestaat al.</string>
   <string name="upcomingTournaments">Aankomende toernooien</string>

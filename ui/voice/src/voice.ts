@@ -1,4 +1,4 @@
-import { prop, toggle as commonToggle, withEffect } from 'lib';
+import { toggle as commonToggle } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import {
   once,
@@ -71,10 +71,6 @@ export function makeVoice(opts: {
     micId,
     enabled,
     toggle,
-    showHelp: withEffect(prop<boolean | 'list'>(false), value => {
-      if (value) openHelpDialog(ctrl);
-      opts.redraw();
-    }),
     pushTalk,
     flash,
     showPrefs: commonToggle(false, opts.redraw),
@@ -88,7 +84,7 @@ export function makeVoice(opts: {
       enabled(false);
       pushTalk(false);
     } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && once('voice.rtfm')) ctrl.showHelp(true);
+    if (opts.tpe === 'move' && once('voice.rtfm')) openHelpDialog(ctrl);
   }
 
   function micId(deviceId?: string) {

@@ -214,8 +214,13 @@ export default class ExplorerCtrl {
     );
     return await deferred.promise;
   };
-  fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
-    const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
+  fetchTablebaseHit = async (fen: FEN, timeout?: number): Promise<SimpleTablebaseHit> => {
+    const res = await xhr.tablebase(
+      this.opts.tablebaseEndpoint,
+      this.effectiveVariant,
+      fen,
+      timeout ? AbortSignal.timeout(timeout) : undefined,
+    );
     const move = res.moves[0];
     if (move?.dtz === null) throw 'unknown tablebase position';
     return {

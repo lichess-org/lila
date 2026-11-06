@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Erkläre, warum dieser Benutzername beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch oder umgangssprachlich ist, oder einen historischen/kulturellen Bezugspunkt beinhaltet.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Wir können deinen Bericht schneller bearbeiten, wenn du uns auf Englisch schreibst.</string>
   <string name="provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einer Partie an, in der betrogen wurde.</string>
+  <string name="thanksForTheReport">Danke für die Meldung</string>
+  <string name="moderatorsWillReviewSoon">Die Moderatoren werden sie bald prüfen und entsprechende Maßnahmen ergreifen.</string>
+  <string name="blockUserInMeantime">In der Zwischenzeit kannst du diesen Benutzer blockieren:</string>
 </resources>

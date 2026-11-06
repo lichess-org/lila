@@ -136,6 +136,7 @@
   position: relative;
   height: 1em;
   transition: --team-eval-percent 1s ease;
+  opacity: 0.7;
 
   --team-eval-direction: to right;
 
@@ -143,7 +144,6 @@
     --team-eval-direction: to left;
   }
 
-  opacity: 0.7;
   background: linear-gradient(var(--team-eval-direction), $black, $white);
 
   &--set {

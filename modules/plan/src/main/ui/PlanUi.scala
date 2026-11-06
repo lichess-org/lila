@@ -29,7 +29,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       bestScores: Paginator[LightUser],
       pricing: PlanPricing
   )(using ctx: Context) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so(l => s"&locale=$l")
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .i18n(_.patron)
@@ -477,10 +477,9 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                           else "0.01"
                         },
                         name := "amount",
-                        value := {
+                        value :=
                           (info.subscription.item.price.currency == pricing.currency)
                             .so(info.subscription.item.price.money.amount.toString)
-                        }
                       ),
                       submitButton(cls := "button")(trans.site.apply()),
                       a(dataForm := "switch")(trans.site.cancel())

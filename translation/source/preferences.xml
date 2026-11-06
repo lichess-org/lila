@@ -37,12 +37,12 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="inCasualGamesOnly">In casual games only</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
-  <string name="explainPromoteToQueenAutomatically">Hold the &lt;ctrl&gt; key while promoting to temporarily disable auto-promotion</string>
+  <string name="explainPromoteToQueenAutomatically">Hold the ctrl key while promoting to temporarily disable auto-promotion</string>
   <string name="whenPremoving">When premoving</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
-  <string name="multipleChoices">Multiple choices. </string>
+  <string name="multipleChoices">Multiple choices.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Can be disabled during a game with the board menu</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="correspondenceAndUnlimited">Correspondence and unlimited</string>

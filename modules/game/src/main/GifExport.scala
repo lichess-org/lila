@@ -108,10 +108,10 @@ final class GifExport(
             "theme" -> theme,
             "piece" -> piece
           ) ::: List(
-            white.map { "white" -> _ },
-            black.map { "black" -> _ },
-            lastMove.map { lm => "lastMove" -> UciDump.lastMove(lm, position) },
-            position.checkSquare.map { "check" -> _.key }
+            white.map("white" -> _),
+            black.map("black" -> _),
+            lastMove.map(lm => "lastMove" -> UciDump.lastMove(lm, position)),
+            position.checkSquare.map("check" -> _.key)
           ).flatten*
         )
         .stream()

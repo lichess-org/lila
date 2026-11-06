@@ -93,7 +93,6 @@ export default class RoundController implements MoveRootCtrl {
   shouldSendMoveTime = false;
   preDrop?: Role;
   sign: string = Math.random().toString(36);
-  keyboardHelp: boolean = location.hash === '#keyboard';
   blindfoldStorage: LichessBooleanStorage;
   server: Server;
   nvui?: NvuiPlugin;
@@ -362,7 +361,7 @@ export default class RoundController implements MoveRootCtrl {
     this.resign(false);
 
     if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
-      if (site.sound.speech()) {
+      if (site.sound.isSpeech()) {
         const spoken = `${speakable(almostSanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
       }
@@ -642,7 +641,7 @@ export default class RoundController implements MoveRootCtrl {
       setTimeout(async () => {
         const [tour] = await Promise.all([
           site.asset.loadEsm<RoundTour>('round.tour'),
-          site.asset.loadCssPath('bits.shepherd'),
+          site.asset.loadCss({ key: 'bits.shepherd' }),
         ]);
         tour.corresRematchOffline();
       }, 1000);

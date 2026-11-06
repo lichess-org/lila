@@ -26,11 +26,11 @@ final private[round] class Drawer(
         if game.playerHasOfferedDrawRecently(pov.color) then fuccess(pov.some)
         else
           pov.player.userId
-            .so { uid => prefApi.get(uid, _.autoThreefold) }
+            .so(uid => prefApi.get(uid, _.autoThreefold))
             .map { autoThreefold =>
               autoThreefold == Pref.AutoThreefold.ALWAYS || {
                 autoThreefold == Pref.AutoThreefold.TIME &&
-                game.clock.so { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
+                game.clock.so(_.remainingTime(pov.color) < Centis.ofSeconds(30))
               } || pov.player.userId.exists(isBotSync)
             }
             .map(_.option(pov))

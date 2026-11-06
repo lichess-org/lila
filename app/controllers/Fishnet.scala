@@ -56,7 +56,7 @@ final class Fishnet(env: Env) extends LilaController(env):
 
   val status = Anon:
     for s <- api.status
-    yield Ok(s).headerCache(api.statusTtl)
+    yield Ok(s).publicCache(api.statusTtl)
 
   private def ClientAction[A <: JsonApi.Request](
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]

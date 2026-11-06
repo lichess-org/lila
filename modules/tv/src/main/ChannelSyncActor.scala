@@ -39,7 +39,7 @@ final private class ChannelSyncActor(
     case GetGameIds(max, promise) => promise.success(manyIds.take(max))
 
     case GetReplacementGameId(oldId, exclude, promise) =>
-      promise.success { (rematchOf(oldId) ++ manyIds).find { !exclude.contains(_) } }
+      promise.success((rematchOf(oldId) ++ manyIds).find(!exclude.contains(_)))
 
     case SetGame(game) =>
       onSelect(TvSyncActor.Selected(channel, game))
@@ -74,7 +74,7 @@ final private class ChannelSyncActor(
   yield newBest -> candidates.map(_.id)
 
   private def wayBetter(game: Game, candidates: List[Game]) =
-    bestOf(candidates).filter { isWayBetter(game, _) }
+    bestOf(candidates).filter(isWayBetter(game, _))
 
   private def resetTurns(g: Game): Game =
     g.focus(_.chess).modify(c => c.copy(ply = Ply.initial, startedAtPly = Ply.initial))

@@ -30,7 +30,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
       .graph(
         title = s"${team.name} team",
         url = routeUrl(routes.Team.show(team.id)),
-        description = team.intro.so { shorten(_, 152) }
+        description = team.intro.so(shorten(_, 152))
       )
       .js(
         PageModule(
@@ -98,7 +98,9 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               (team.enabled && requests.nonEmpty).option(
                 div(cls := "team-show__requests")(
-                  h2(cls := "team-show__section-title")(trt.xJoinRequests.pluralSame(requests.size)),
+                  h2(cls := "team-show__section-title")(
+                    trans.teamLead.xJoinRequests.pluralSame(requests.size)
+                  ),
                   requestUi.list(requests, team.some)
                 )
               ),

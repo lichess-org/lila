@@ -22,10 +22,7 @@ export default function studyKeyboard(ctrl: StudyCtrl) {
 
   kbd.bind('mod+z', ctrl.undoShapeChange);
 
-  kbd.bind('shift+s', () => {
-    ctrl.search.open(true);
-    ctrl.redraw();
-  });
+  kbd.bind('shift+s', ctrl.search.open);
 
   kbd.bind('shift+h', () => ctrl.toggleStudyFormIfAllowed());
 

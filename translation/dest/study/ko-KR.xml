@@ -198,4 +198,6 @@
   <string name="clearPublished">게시된 분석을 지우시겟습니까?</string>
   <string name="requestAServerAnalysis">서버 분석 요청하기</string>
   <string name="analyzeOnYourDevice">디바이스에서 분석하기</string>
+  <string name="searchChapters">챕터 검색</string>
+  <string name="searchGames">게임 검색</string>
 </resources>

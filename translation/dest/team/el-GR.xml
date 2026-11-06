@@ -39,6 +39,8 @@
   <string name="teamUpdates">Ενημερώσεις ομάδας</string>
   <string name="subToTeamUpdates">Εγγραφείτε στις ενημερώσεις της ομάδας</string>
   <string name="newTeamUpdate">Νέα ενημέρωση ομάδας</string>
+  <string name="teamEvents">Εκδηλώσεις ομάδων</string>
+  <string name="upcomingTeamEvents">Επερχόμενες εκδηλώσεις ομάδων</string>
   <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Θέλετε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="leadersChat">Ομαδική συνομιλία αρχηγών</string>

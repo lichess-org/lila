@@ -24,7 +24,7 @@ final private[video] class VideoApi(
     userOption match
       case None =>
         fuccess:
-          videos.map { VideoView(_, view = false) }
+          videos.map(VideoView(_, view = false))
       case Some(user) =>
         view
           .seenVideoIds(user, videos)
@@ -215,7 +215,7 @@ final private[video] class VideoApi(
                   UnwindField("tags"),
                   GroupField("tags")("nb" -> SumAll)
                 )
-              .dmap { _.flatMap(_.asOpt[TagNb]) }
+              .dmap(_.flatMap(_.asOpt[TagNb]))
 
         allPopular.zip(allPaths).map { (all, paths) =>
           val tags = all

@@ -31,7 +31,7 @@ object navTree:
         frag(
           div(makeId(id), cls := s"node branch $id")(
             h2(backLink(parent, showBack, forceLtr), name),
-            content.map { div(cls := "content")(_) },
+            content.map(div(cls := "content")(_)),
             Option.when(showLinks):
               div(cls := "links")(
                 children.map { child =>
@@ -39,7 +39,7 @@ object navTree:
                 }
               )
           ),
-          children.map { renderNode(_, b.some, forceLtr) }
+          children.map(renderNode(_, b.some, forceLtr))
         )
 
   private def makeId(id: String) = st.id := s"help-$id"

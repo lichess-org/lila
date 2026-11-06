@@ -46,6 +46,8 @@
     <item quantity="other">Посмотреть все %s клубов</item>
   </plurals>
   <string name="newTeamBattle">Новый межклубный турнир</string>
+  <string name="startDate">Дата начала</string>
+  <string name="entryConditions">Условия входа</string>
   <string name="customStartDate">Особая дата начала</string>
   <string name="customStartDateHelp">В вашем часовом поясе. Это переопределяет настройку «Время до начала турнира»</string>
   <string name="allowBerserk">Разрешить Берсерк</string>
@@ -84,4 +86,6 @@
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира закончена</string>
   <string name="berserkRate">Берсерк</string>
   <string name="leaguesAndStreamerBattles">Лиги &amp; Битвы стримеров</string>
+  <string name="allowBotAccounts">Разрешить аккаунты ботов</string>
+  <string name="allowBotAccountsDescription">Позволить &lt;a href=\'%s\' target=\'_blank\'&gt;ботам&lt;/a&gt; присоединиться к турниру и играть с использованием шахматных компьютеров. Это часто отталкивает игроков-людей.</string>
 </resources>

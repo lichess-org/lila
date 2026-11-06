@@ -90,7 +90,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
             )
           .map(JsonStr.apply)
     def apply(currency: Currency): Fu[JsonStr] =
-      cache.get({}).map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
+      cache.get {}.map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
 
   private def convertAndRound(money: Money, to: Currency, nice: Boolean = true): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { m =>

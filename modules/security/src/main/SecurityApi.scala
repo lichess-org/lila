@@ -123,7 +123,7 @@ final class SecurityApi(
         BlankedPassword
       else
         val blockLeaked =
-          HTTPRequest.isLichobile && HTTPRequest.usernamePasswordLeaked && result.match
+          HTTPRequest.isLichobile && usernamePasswordLeaked && result.match
             case Success(user) if user.totpSecret.isEmpty => true
             case _ => false
         if blockLeaked then
@@ -136,14 +136,13 @@ final class SecurityApi(
   }.tap: result =>
     lila.mon.security.login
       .attempt(
-        useCase = candidate.fold("-")(_.useCase),
         byEmail = EmailAddress.isValid(login.value),
         pwned = candidate.flatMap(_.pwned).exists(_.yes),
-        leaked = HTTPRequest.usernamePasswordLeaked,
+        leaked = usernamePasswordLeaked,
         result = result.match
           case LoginCandidate.Result.Success(_) => true
           case _ => false,
-        name = result.getClass.toString
+        name = result.productPrefix
       )
       .increment()
 
@@ -171,19 +170,22 @@ final class SecurityApi(
       _ <- store.save(isSignup = true, userId, req, apiVersion, fp = fp, proxy, pwned)
     yield ()
 
+  private def usernamePasswordLeaked(using req: RequestHeader): Boolean =
+    req.headers.get("x-upl").exists(lila.common.Form.trueish)
+
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
     if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
-          case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
+          case Some(userId) => userRepo.byId(userId).map2(u => Left(AppealUser(Me(u))))
           case None =>
             store.loginWithSessionId(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:
-                  _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+                  _.map(me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)))
             }
         : Fu[Option[AppealOrUser]]
       }

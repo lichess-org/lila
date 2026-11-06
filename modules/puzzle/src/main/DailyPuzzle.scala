@@ -31,16 +31,16 @@ final private[puzzle] class DailyPuzzle(
       }
       .flatMapz(makeDaily)
 
-  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
+  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] =
     lila.common.Bus
       .ask[Html, DailyPuzzle.Render]:
         DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
       .map: html =>
         DailyPuzzle.WithHtml(puzzle, html).some
-  }.recover { case e: Exception =>
-    logger.warn("make daily", e)
-    none
-  }
+      .recover { case e: Exception =>
+        logger.warn("make daily", e)
+        none
+      }
 
   private def findCurrent = colls.puzzle:
     _.find(bdoc(F.day.gt(nowInstant.minusDays(1))))

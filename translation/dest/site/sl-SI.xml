@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Nastavitev igre</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izzovite prijatelja</string>
   <string name="playAgainstComputer">Igraj proti računalniku</string>
   <string name="gameMode">Igralni način</string>
@@ -563,6 +562,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
   <string name="pause">Premor</string>
   <string name="resume">Nadaljuj</string>
+  <string name="stop">Ustavi</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Delež zmag</string>
   <string name="performance">Izkazan rating</string>
@@ -1047,6 +1047,8 @@ in vplivajo na rejtinge igralcev</string>
   <string name="onlyMembersOfTeam">Samo člani ekipe</string>
   <string name="noRestriction">Brez omejitev</string>
   <string name="minimumRatedGames">Najmanjše število rangiranih iger</string>
+  <string name="minimumAccountAge">Najmanjša starost računa</string>
+  <string name="titledPlayersBypassRestriction">Igralci z nazivom so izvzeti iz te omejitve.</string>
   <string name="minimumRating">Najmanjši rejting</string>
   <string name="maximumWeeklyRating">Najvišji tedenski rejting</string>
   <string name="positionInputHelp">Prilepite veljaven FEN, da začnete vsako igro z določenega položaja.
@@ -1101,6 +1103,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="offline" comment="status of a user">brez povezave</string>
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
+  <string name="searchInX">Išči v »%s«</string>
   <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>

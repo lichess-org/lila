@@ -21,7 +21,7 @@ export const tourStandingCtrl = (
   key: 'tourStanding',
   name,
   view(): VNode {
-    return h('div', { hook: onInsert(_ => site.asset.loadCssPath('round.tour-standing')) }, [
+    return h('div', { hook: onInsert(_ => site.asset.loadCss({ key: 'round.tour-standing' })) }, [
       team ? h('h3.text', { attrs: dataIcon(licon.Group) }, team.name) : null,
       h('table.slist', [
         h(

@@ -28,7 +28,7 @@ final class CoachPager(
       country: Option[Flag], // expensive
       page: Int
   ): Fu[Paginator[Coach.WithUser]] =
-    def selector = listableSelector ++ lang.so { l => bdoc("languages" -> l.code) }
+    def selector = listableSelector ++ lang.so(l => bdoc("languages" -> l.code))
 
     val adapter = new AdapterLike[Coach.WithUser]:
       def nbResults: Fu[Int] = coll.secondary.countSel(selector)

@@ -35,6 +35,7 @@
   <string name="teamTournament">Teama turniro</string>
   <string name="teamTournamentOverview">Arena turniro al kiu nur membroj de via teamo povas aliĝi</string>
   <string name="swissTournamentOverview">Svisa turniro al kiu, nur membroj de via teamo povas aliĝi</string>
+  <string name="teamUpdatesPerWeek">Vi povas sendi ĝis po %1$s teamajn sciigojn semajne. &lt;strong&gt;%2$s&lt;/strong&gt; sciigoj restas ĝis %3$s.</string>
   <string name="teamsIlead">Teamoj, kiujn mi gvidas</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Vi eble volas ligi unu el ĉi tiuj venontaj turniroj?</string>
   <string name="leadersChat">Tujmesaĝiloj de teametroj</string>

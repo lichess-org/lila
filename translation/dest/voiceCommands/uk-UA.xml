@@ -18,4 +18,5 @@
   <string name="playPreferredMoveOrConfirmSomething">Зіграти пропонований хід або підтвердити щось</string>
   <string name="sleep">Заснути (якщо є слово для пробудження)</string>
   <string name="showPuzzleSolution">Показати розв\'язок задачі</string>
+  <string name="microphone">Мікрофон</string>
 </resources>

@@ -238,7 +238,7 @@ final class Round(
   }
 
   def readNote(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.round.noteApi.get(gameId, me).dmap { Ok(_) }
+    env.round.noteApi.get(gameId, me).dmap(Ok(_))
   }
 
   def continue(id: GameId, mode: String) = Open:

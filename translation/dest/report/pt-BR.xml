@@ -17,4 +17,5 @@
   <string name="reportUsernameHelp">Explique porque este nome de usuário é ofensivo. Não diga apenas \"é ofensivo/inapropriado\", mas nos diga como chegou a essa conclusão especialmente se o insulto não for óbvio, não estiver em inglês, for uma gíria, ou for uma referência histórica/cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos processar sua denúncia mais rapidamente se você escrever em inglês.</string>
   <string name="provideOneCheatedGameLink">Por favor, inclua pelo menos um link de uma partida para análise.</string>
+  <string name="thanksForTheReport">Obrigado pela denúncia</string>
 </resources>

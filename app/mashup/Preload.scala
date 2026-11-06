@@ -122,7 +122,7 @@ final class Preload(
     gameRepo
       .playingRealtimeNoAi(me)
       .flatMap:
-        _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
+        _.map(roundProxy.pov(_, me)).parallel.dmap(_.flatten)
       .flatMap(currentGameMyTurnOrJustMoved)
 
   private def currentGameMyTurnOrJustMoved(povs: List[Pov])(using me: Me): Fu[Option[CurrentGame]] =

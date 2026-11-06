@@ -26,7 +26,7 @@ final class Timeline(env: Env) extends LilaController(env):
       ,
       json =
         val users = Map("lichess" -> env.user.lightUserSyncFallback(UserId.lichess))
-        Ok(Json.obj("entries" -> List(gtfoLichobile), "users" -> users)).headerCache(1.hour).varyAccept
+        Ok(Json.obj("entries" -> List(gtfoLichobile), "users" -> users)).publicCache(1.hour).varyAccept
     )
   }
 

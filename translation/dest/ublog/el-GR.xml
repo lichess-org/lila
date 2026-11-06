@@ -75,5 +75,6 @@
   <string name="inappropriateContentAccountClosed">Σε περίπτωση που εντοπίσουμε αναρτήσεις με ακατάλληλο περιεχόμενο στο ιστολόγιό σας, ενδέχεται να προβούμε στο κλείσιμο του λογαριασμού σας.</string>
   <string name="blogTips">Απλές συμβουλές για τη δημιουργία μιας επιτυχημένης ανάρτησης</string>
   <string name="discussThisBlogPostInTheForum">Συζητήστε αυτήν την ανάρτηση στο φόρουμ</string>
+  <string name="youMayAlsoLike">Μπορεί επίσης να σας αρέσουν</string>
   <string name="youBlockedByBlogAuthor">Έχετε αποκλειστεί από τον συγγραφέα του ιστολογίου.</string>
 </resources>

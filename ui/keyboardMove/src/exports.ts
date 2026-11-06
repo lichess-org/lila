@@ -6,7 +6,7 @@ import type { SanToUci } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { promote } from 'lib/game/promotion';
 import type { NodeCrazy } from 'lib/tree/types';
-import { onInsert, snabDialog } from 'lib/view';
+import { onInsert, domDialog } from 'lib/view';
 
 import KeyboardChecker from './keyboardChecker';
 
@@ -35,7 +35,7 @@ export interface KeyboardMove {
   next(): void;
   vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
-  helpModalOpen: Prop<boolean>;
+  showHelp(): void;
   checker?: KeyboardChecker;
   opponent?: string;
   speakClock?: () => void;
@@ -74,21 +74,11 @@ export function render(ctrl?: KeyboardMove): VNode {
     ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', ['Press ', h('kbd', 'm'), ' to focus']),
-    ctrl.helpModalOpen()
-      ? snabDialog({
-          class: 'help.keyboard-move-help',
-          htmlUrl: '/help/keyboard-move',
-          onClose: () => ctrl.helpModalOpen(false),
-          modal: true,
-          easyClose: 'clickOutside',
-        })
-      : null,
   ]);
 }
 
 export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   const isFocused = propWithEffect(false, root.redraw);
-  const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
   let lastSelect = performance.now();
   let lastFen: FEN | undefined;
@@ -168,7 +158,15 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
     next: () => root.nextPuzzle?.(),
     vote: (v: boolean) => root.vote?.(v),
-    helpModalOpen,
+    showHelp: () =>
+      domDialog({
+        closeButton: true,
+        class: 'help.keyboard-move-help',
+        htmlUrl: '/help/keyboard-move',
+        modal: true,
+        show: true,
+        easyClose: 'clickOutside',
+      }),
     isFocused,
     checker: root.speakClock ? new KeyboardChecker() : undefined,
     opponent: root.data.opponent?.user?.username,

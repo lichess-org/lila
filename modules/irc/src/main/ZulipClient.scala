@@ -93,7 +93,7 @@ private object ZulipClient:
     val broadcastLogs = "content-broadcast-log"
     val blog = "content-blog"
     val content = "content-site"
-    val adminPrizes = "admin-prizes"
+    val payments = "org-payments"
     val bbb = "org-bbb"
     type Selector = ZulipClient.stream.type => String
 

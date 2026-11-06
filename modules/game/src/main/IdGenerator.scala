@@ -38,7 +38,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
         .monValue: collisions =>
           lila.mon.game.idGenerator(collisions.size)
         .flatMap: collisions =>
-          games(collisions.size).dmap { _ ++ (ids.diff(collisions)) }
+          games(collisions.size).dmap(_ ++ (ids.diff(collisions)))
         .map(_.toList)
 
   def withUniqueId(sloppy: NewGame): Fu[Game] =

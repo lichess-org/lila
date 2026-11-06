@@ -264,6 +264,7 @@ function engineInfo(engines: EngineInfo[]) {
   const engineHtml = (e: EngineInfo) =>
     `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
+    closeButton: true,
     class: 'engine-info-popup',
     easyClose: 'clickOutside',
     htmlText: $html`

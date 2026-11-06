@@ -71,6 +71,19 @@
         vertical-align: top;
       }
     }
+
+    .stop {
+      width: 1em;
+      height: 1em;
+      margin-inline: 1px 5px;
+      vertical-align: -1px;
+      background-image: url('../images/buttons/pause.svg');
+    }
+
+    .stop:active,
+    .deeper:active::before {
+      filter: brightness(0.8);
+    }
   }
 
   .show-threat {

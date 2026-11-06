@@ -202,4 +202,6 @@
   <string name="clearPublished">Fjerne publiserte analysar?</string>
   <string name="requestAServerAnalysis">Be om serveranalyse</string>
   <string name="analyzeOnYourDevice">Analysar på eininga</string>
+  <string name="searchChapters">Søk kapitlar</string>
+  <string name="searchGames">Søk parti</string>
 </resources>

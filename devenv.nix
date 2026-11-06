@@ -48,6 +48,18 @@ in
         JAVA_TOOL_OPTIONS = "-Dredis.uri=${config.env.REDIS_URI}";
       };
     };
+    lila-fishnet = {
+      start.enable = false;
+      env = {
+        REDIS_PORT = toString config.processes.redis.ports.main.value;
+      };
+    };
+    fishnet-play = {
+      start.enable = false;
+    };
+    fishnet-analyze = {
+      start.enable = false;
+    };
     ui = {
       start.enable = false;
       exec = "./ui/build --watch --debug";

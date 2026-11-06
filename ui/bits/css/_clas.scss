@@ -82,12 +82,11 @@ h1 {
 .clas-index {
   .box__top {
     background: var(--bg-clas);
+    flex-flow: row nowrap;
 
     & a {
       color: $c-bg-clas-over;
     }
-
-    flex-flow: row nowrap;
   }
 
   .button.new {
@@ -702,7 +701,7 @@ h1 {
     @extend %flex-center-center;
 
     form {
-      @extend %flex-center;
+      @extend %flex-wrap;
 
       align-items: stretch;
 

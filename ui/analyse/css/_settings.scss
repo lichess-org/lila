@@ -79,9 +79,8 @@
   }
 
   .setting {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    @extend %flex-center-nowrap;
+
     justify-content: space-between;
     font-size: 1.1em;
     cursor: pointer;

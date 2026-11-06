@@ -125,8 +125,7 @@ final class RelayPager(
         adapter = new:
           def nbResults: Fu[Int] = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
-            if offset == 0 then firstPageCache.get({})
-            else otherPagesCache.get(offset)
+            if offset == 0 then firstPageCache.get {} else otherPagesCache.get(offset)
         ,
         currentPage = page,
         maxPerPage = maxPerPage

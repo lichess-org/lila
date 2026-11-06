@@ -10,7 +10,7 @@ object LilaStream:
       outputDelay: FiniteDuration = 1.second
   ): Flow[T, Double, NotUsed] =
     Flow[T]
-      .conflateWithSeed(metric(_)) { (acc, x) => acc + metric(x) }
+      .conflateWithSeed(metric(_))((acc, x) => acc + metric(x))
       .zip(Source.tick(outputDelay, outputDelay, NotUsed))
       .map(_._1.toDouble / outputDelay.toUnit(concurrent.duration.SECONDS))
 

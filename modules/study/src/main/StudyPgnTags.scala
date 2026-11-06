@@ -67,8 +67,8 @@ object StudyPgnTags:
           yield
             val newTags = List(
               Tag(_.names(color), player.name).some,
-              player.title.map { title => Tag(_.titles(color), title.value) },
-              fedName.map { fed => Tag(_.teams(color), fed) }
+              player.title.map(title => Tag(_.titles(color), title.value)),
+              fedName.map(fed => Tag(_.teams(color), fed))
             ).flatten
             Option(tags ++ Tags(newTags))
 

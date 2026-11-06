@@ -177,7 +177,7 @@ final class ActivityUi(helpers: Helpers)(
         subTag(
           povs.map: pov =>
             frag(
-              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))("Game"),
+              gameLink(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))("Game"),
               " vs ",
               lightPlayerLink(pov.opponent),
               br
@@ -209,7 +209,7 @@ final class ActivityUi(helpers: Helpers)(
           subTag(
             povs.map: pov =>
               frag(
-                a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
+                gameLink(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
                   pov.game.win.map(_ == pov.color) match
                     case Some(true) => trans.site.victory()
                     case Some(false) => trans.site.defeat()
@@ -386,7 +386,7 @@ final class ActivityUi(helpers: Helpers)(
       case None =>
         span(cls := "user-link")(
           player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
-          player.rating.ifTrue(ctx.pref.showRatings).map { rating => s" ($rating)" }
+          player.rating.ifTrue(ctx.pref.showRatings).map(rating => s" ($rating)")
         )
       case Some(user) =>
         a(

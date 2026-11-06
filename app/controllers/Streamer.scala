@@ -80,8 +80,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               .flatMap:
                 case Some(change) =>
                   if change.decline then logApi.streamerDecline(s.user.id, change.reason)
-                  change.list.foreach { logApi.streamerList(s.user.id, _) }
-                  change.tier.foreach { logApi.streamerTier(s.user.id, _) }
+                  change.list.foreach(logApi.streamerList(s.user.id, _))
+                  change.tier.foreach(logApi.streamerTier(s.user.id, _))
                   if data.approval.quick.isDefined
                   then
                     env.streamer.pager.nextRequestId.map: nextId =>

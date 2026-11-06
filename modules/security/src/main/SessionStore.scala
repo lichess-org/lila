@@ -29,7 +29,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
           _.flatMap: doc =>
             if doc.getAsOpt[Instant]("date").forall(_.isBefore(nowInstant.minusHours(12))) then
               coll.updateFieldUnchecked(bid(id), "date", nowInstant)
-            doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
+            doc.getAsOpt[UserId]("user").map(AuthInfo(_, doc.contains("fp")))
 
   def loginWithSessionId(sessionId: SessionId)(using req: RequestHeader): Fu[Option[AuthInfo]] =
     if canLogin(sessionId) then authCache.get(sessionId)
@@ -41,7 +41,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     sessionId.value.startsWith(oauthSessionPrefix).not
 
   private def uncache(sessionId: SessionId): Unit =
-    blocking { blockingUncache(sessionId) }
+    blocking(blockingUncache(sessionId))
   private def uncacheAllOf(userId: UserId): Funit =
     coll.distinctEasy[SessionId, Seq]("_id", bdoc("user" -> userId)).map { ids =>
       blocking:
@@ -245,7 +245,7 @@ private object SessionStore:
 
   case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: Instant):
     def datedIp = Dated(ip, date)
-    def datedFp = fp.map { Dated(_, date) }
+    def datedFp = fp.map(Dated(_, date))
     def datedUa = Dated(ua, date)
 
   given BSONDocumentReader[Info] = Macros.reader[Info]

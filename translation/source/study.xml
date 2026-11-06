@@ -37,6 +37,7 @@
   <string name="spectator">Spectator</string>
   <string name="contributor">Contributor</string>
   <string name="kick">Kick</string>
+  <string name="remove">Remove</string>
   <string name="leaveTheStudy">Leave the study</string>
   <string name="youAreNowAContributor">You are now a contributor</string>
   <string name="youAreNowASpectator">You are now a spectator</string>
@@ -100,7 +101,7 @@
   <string name="loadAGameFromPgn">Load games from PGN</string>
   <string name="automatic">Automatic</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Paste your PGN text here, up to %s game</item>
+    <item quantity="one">Paste your PGN text here, up to %s game.</item>
     <item quantity="other">Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters.</item>
   </plurals>
   <string name="urlOfTheGame">URL of the games, one per line</string>
@@ -128,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Delete the entire study? There is no going back! Type the name of the study to confirm: %s</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
   <string name="goodMove">Good move</string>
-  <string name="mistake">Mistake</string>
   <string name="brilliantMove">Brilliant move</string>
-  <string name="blunder">Blunder</string>
   <string name="interestingMove">Interesting move</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubious move</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Only move</string>

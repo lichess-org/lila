@@ -74,7 +74,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
     ws.url(s"${twitchCfg.authEndpoint}/token")
       .post(body)
       .flatMap: rsp =>
-        if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+        if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp)}}")
         else
           val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
           ws.url(s"${twitchCfg.helixEndpoint}/users")
@@ -85,7 +85,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
             .get()
             .flatMap: userRsp =>
               if userRsp.status != 200
-              then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+              then fufail(s"twitch.codeForUser ${lila.log.http(rsp)}}")
               else
                 userRsp
                   .body[JsValue]
@@ -106,7 +106,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
       .post(body)
       .flatMap: rsp =>
         if rsp.status != 200 then
-          fufail(s"Youtube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
+          fufail(s"Youtube token exchange failed: ${rsp.status} ${lila.log.http(rsp)}")
         else
           val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
           ws.url(s"${youtubeCfg.v3Endpoint}/channels")

@@ -22,25 +22,24 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) = Anon:
-    NoCrawlersUnlessPreview:
-      exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
-        val options = lila.game.GifExport.Options.fromReq
-        val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
-        stream(filename, cache = if g.game.finishedOrAborted then 10.days else 10.seconds):
-          for
-            analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
-            source <- env.game.gifExport.fromPov(
-              Pov(g.game, color),
-              g.fen,
-              Theme(theme).name,
-              PieceSet.get(piece).name,
-              analysis,
-              options
-            )
-          yield source
+    exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
+      val options = lila.game.GifExport.Options.fromReq
+      val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
+      stream(filename, cache = if g.game.finishedOrAborted then 10.days else 10.seconds):
+        for
+          analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
+          source <- env.game.gifExport.fromPov(
+            Pov(g.game, color),
+            g.fen,
+            Theme(theme).name,
+            PieceSet.get(piece).name,
+            analysis,
+            options
+          )
+        yield source
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
-    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).headerCache(1.day)
+    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).publicCache(1.day)
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     exportImageOf(env.game.gameRepo.game(id)) { game =>
@@ -50,15 +49,15 @@ final class Export(env: Env) extends LilaController(env):
         .pipe(stream(filename, cache = if game.finishedOrAborted then 10.days else 10.seconds))
     }
 
-  def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) = Anon:
+  def puzzleThumbnail(id: PuzzleId) = Anon: ctx ?=>
     exportImageOf(env.puzzle.api.puzzle.find(id)): puzzle =>
       env.game.gifExport
         .thumbnail(
           position = puzzle.boardAfterInitialMove.err(s"invalid puzzle ${puzzle.id}"),
           lastMove = puzzle.line.head.some,
           orientation = puzzle.color,
-          theme = Theme(theme).name,
-          piece = PieceSet.get(piece).name,
+          theme = ctx.pref.theme,
+          piece = ctx.pref.pieceSet,
           description = s"puzzleThumbnail ${puzzle.id}"
         )
         .pipe(stream(s"lichess-puzzle-${puzzle.id}.gif"))
@@ -83,12 +82,12 @@ final class Export(env: Env) extends LilaController(env):
         )
         .pipe(stream("lichess-fen.gif"))
 
-  private def stream(filename: String, contentType: String = "image/gif", cache: FiniteDuration = 10.days)(
+  private def stream(filename: String, cache: FiniteDuration = 10.days)(
       upstream: Fu[Source[ByteString, ?]]
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
-        .headerCache(cache)
-        .as(contentType)
+        .publicCache(cache)
+        .as("image/gif")
         .asAttachmentStream(filename)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

@@ -146,7 +146,7 @@ trait ScalatagsExtensions:
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
-    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach { av.apply(t, a, _) }
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach(av.apply(t, a, _))
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with

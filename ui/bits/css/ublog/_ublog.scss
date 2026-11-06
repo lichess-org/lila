@@ -82,7 +82,11 @@
   .filter-and-sort {
     flex-wrap: nowrap;
     white-space: nowrap;
-    gap: 0.6em;
+    gap: 1em;
+
+    .sort {
+      gap: 0.6em;
+    }
   }
 
   .calendar-mselect {
@@ -105,15 +109,17 @@
     }
   }
 
-  .descending::after {
+  .descending::after,
+  .ascending::after {
     margin-inline-start: 1ch;
     font-family: lichess;
+  }
+
+  .descending::after {
     content: $licon-DownTriangle;
   }
 
   .ascending::after {
-    margin-inline-start: 1ch;
-    font-family: lichess;
     content: $licon-UpTriangle;
   }
 

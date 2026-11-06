@@ -235,7 +235,7 @@ object mod:
                 .map: l =>
                   tr(dataValue := l.value.location.id)(
                     td(l.value.location.country),
-                    td(l.value.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                    td(l.value.proxy.name.map(proxy => span(cls := "proxy", title := "Proxy")(proxy))),
                     td(l.value.location.region),
                     td(l.value.location.city),
                     td(dataSort := l.date.toMillis)(pastMomentServer(l.date))
@@ -295,7 +295,7 @@ object mod:
                 tr(cls := ip.blocked.option("blocked"), dataValue := renderedIp, dataTags := ip.location.id)(
                   td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                   td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                  td(ip.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(ip.proxy.name.map(proxy => span(cls := "proxy", title := "Proxy")(proxy))),
                   td(ip.clients.toList.map(_.toString).sorted.mkString(", ")),
                   td(dataSort := ip.ip.date.toMillis)(pastMomentServer(ip.ip.date)),
                   canIpBan.option(

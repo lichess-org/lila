@@ -50,6 +50,7 @@
   <string name="numberOfRounds">Количество туров</string>
   <string name="numberOfRoundsHelp">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
   <string name="roundInterval">Перерыв между турами</string>
+  <string name="customPairings">Собственные пары</string>
   <string name="forbiddenPairings">Запрещённые пары</string>
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
   <string name="manualPairings">Ручной подбор пар в следующем раунде</string>

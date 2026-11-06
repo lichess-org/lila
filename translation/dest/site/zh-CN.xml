@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">对局设置</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">双人对弈</string>
   <string name="playAgainstComputer">人机对弈</string>
   <string name="gameMode">对局模式</string>
@@ -478,6 +477,7 @@
   <string name="standByX">请稍候，%s 正在配对棋手，做好准备！</string>
   <string name="pause">暂停</string>
   <string name="resume">继续</string>
+  <string name="stop">停止</string>
   <string name="youArePlaying">正在对局中！</string>
   <string name="winRate">胜率</string>
   <string name="performance">表现分</string>
@@ -955,6 +955,8 @@
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">无限制</string>
   <string name="minimumRatedGames">最少排位对局数</string>
+  <string name="minimumAccountAge">最短账户注册时长</string>
+  <string name="titledPlayersBypassRestriction">头衔棋手可绕过此限制</string>
   <string name="minimumRating">最低等级分</string>
   <string name="maximumWeeklyRating">最高周等级分</string>
   <string name="positionInputHelp">粘贴一个有效的 FEN，使每场对局都从给定局面开始。
@@ -1012,6 +1014,7 @@
   <string name="offline" comment="status of a user">离线</string>
   <string name="search">搜索</string>
   <string name="clearSearch">清除搜索</string>
+  <string name="searchInX">在 \"%s\" 中搜索</string>
   <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>

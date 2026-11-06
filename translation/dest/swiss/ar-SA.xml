@@ -64,6 +64,7 @@
   <string name="numberOfRounds">عدد الجولات</string>
   <string name="numberOfRoundsHelp">يسمح العدد الفردي من الجولات بتحقيق توازن مثالي في الألوان.</string>
   <string name="roundInterval">الفاصل الزمني بين المباريات</string>
+  <string name="customPairings">مواجهات مخصّصة</string>
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
   <string name="manualPairings">مزاوجة يدوية في الجولة القادمة</string>

@@ -48,6 +48,8 @@ Ludu rapide kaj revenu al la atendejo por ludi pli da ludoj kaj venki pli da poe
     <item quantity="other">Rigardi ĉiujn %s teamojn</item>
   </plurals>
   <string name="newTeamBattle">Nova teama batalo</string>
+  <string name="startDate">Komenca dato</string>
+  <string name="entryConditions">Kondiĉoj de eniro</string>
   <string name="customStartDate">Agorda komenca dato</string>
   <string name="customStartDateHelp">En via loka horzono. Ĉi tiu transpasis la \"Tempo ĝis la turniro komeciĝas\" agordon</string>
   <string name="allowBerserk">Permesi uzi la Berserkon</string>
@@ -86,4 +88,6 @@ Ekzemple, ranga meznombro de 3% signifas, ke en turniroj vi kutime finiĝos en l
   <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
   <string name="berserkRate">Berserka procento</string>
   <string name="leaguesAndStreamerBattles">Ligoj &amp; bataloj de tujelsendantoj</string>
+  <string name="allowBotAccounts">Permesi aŭtomatajn kontojn</string>
+  <string name="allowBotAccountsDescription">Permesi al &lt;a href=\'%s\' target=\'_blank\'&gt;robotoj&lt;/a&gt; aligi al la turniro kaj ludi per ties ŝakkomputiloj. Ĉi tio ofte estas malplaĉa al homaj ludantoj.</string>
 </resources>

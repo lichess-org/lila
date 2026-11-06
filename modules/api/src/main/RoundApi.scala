@@ -248,7 +248,7 @@ final private[api] class RoundApi(
   private def withAnalysis(g: Game, o: Option[Analysis], initialFen: Option[Fen.Full])(json: JsObject) =
     json.add(
       "analysis",
-      o.map { analysisJson.bothPlayers(g.startedAtPly, _, division = divider(g, initialFen)) }
+      o.map(analysisJson.bothPlayers(g.startedAtPly, _, division = divider(g, initialFen)))
     )
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =

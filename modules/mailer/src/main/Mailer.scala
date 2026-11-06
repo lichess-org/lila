@@ -68,7 +68,7 @@ final class Mailer(
           from = client.config.sender,
           to = Seq(msg.to.value),
           bodyText = msg.text.some,
-          bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
+          bodyHtml = msg.htmlBody.map(body => Mailer.html.wrap(msg.subject, body).render)
         )
         blocking:
           client.mailer.send(email)

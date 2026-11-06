@@ -45,6 +45,7 @@
   <string name="teamUpdates">Posodobitve ekipe</string>
   <string name="subToTeamUpdates">Naročite se na posodobitve ekipe</string>
   <string name="newTeamUpdate">Nova posodobitev ekipe</string>
+  <string name="teamUpdatesPerWeek">Na teden lahko pošljete do %1$s posodobitev za ekipo. Do %3$s vam preostane še &lt;strong&gt;%2$s&lt;/strong&gt; posodobitev.</string>
   <string name="teamEvents">Ekipni dogodki</string>
   <string name="upcomingTeamEvents">Prihajajoči dogodki za ekipo</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>

@@ -51,6 +51,7 @@
   <string name="teamUpdates">تحديثات الفريق</string>
   <string name="subToTeamUpdates">إشعارات أو تحديثات الفريق</string>
   <string name="newTeamUpdate">تحديث جديد للفريق</string>
+  <string name="teamUpdatesPerWeek">يمكنك إرسال ما يصل إلى %1$s تحديثات للفريق أسبوعيًا. تبقّى لك &lt;strong&gt;%2$s&lt;/strong&gt; تحديثات حتى %3$s.</string>
   <string name="teamEvents">فعاليات الفريق</string>
   <string name="upcomingTeamEvents">فعاليات الفريق القادمة</string>
   <string name="teamsIlead">الفرق التي أقودها</string>

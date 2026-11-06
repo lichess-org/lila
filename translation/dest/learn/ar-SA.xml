@@ -20,7 +20,7 @@
   <string name="itMovesDiagonally">يتحرك بشكل قطري</string>
   <string name="bishopIntro">التالي سنتعلم كيفية المناورة بالفيل!</string>
   <string name="youNeedBothBishops">فيل للمربعات الفاتحة، والآخر للمربعات الداكنة. ستحتاج كليهما!</string>
-  <string name="bishopComplete">تهانينا! لقد تعلمت قيادة الفيل.</string>
+  <string name="bishopComplete">تهانينا! لقد تعلمت الآن تحريك الفيل.</string>
   <string name="theQueen">الوزير</string>
   <string name="queenCombinesRookAndBishop">الوزير = رخ + فيل</string>
   <string name="queenIntro">اسمحوا لي أن أقدم قطعة الشطرنج الأقوى. إنه الوزير!</string>

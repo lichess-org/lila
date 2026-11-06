@@ -167,7 +167,7 @@ GET   /training                        controllers.Puzzle.home
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/help                   controllers.Puzzle.help
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String])
+GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: PuzzleId)
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[UserStr] ?= None, page: Int ?= 1)

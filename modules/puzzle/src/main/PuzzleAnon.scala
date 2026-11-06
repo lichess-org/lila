@@ -29,7 +29,7 @@ final class PuzzleAnon(
     def nextTry(attempts: Int): Option[Puzzle] =
       if attempts < 10 then
         ThreadLocalRandom.oneOf(puzzles).filter(_.color == color).orElse(nextTry(attempts + 1))
-      else ThreadLocalRandom.oneOf(puzzles.filter(_.color == color))
+      else ThreadLocalRandom.oneOf(puzzles.view.filter(_.color == color).take(30).toVector)
     nextTry(1)
 
   def getBatchFor(
@@ -51,7 +51,7 @@ final class PuzzleAnon(
 
   private val pool =
     cacheApi[(PuzzleAngle, PuzzleDifficulty), Vector[Puzzle]](
-      initialCapacity = 64,
+      initialCapacity = 128,
       name = "puzzle.byTheme.anon"
     ):
       _.expireAfterWrite(1.minute).buildAsyncFuture: (angle, difficulty) =>

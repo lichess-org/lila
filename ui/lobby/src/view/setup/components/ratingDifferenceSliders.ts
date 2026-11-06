@@ -49,11 +49,12 @@ export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController
           i18n.site.ratingFilter,
           hl('div.rating-range', [
             ratingInput('min'),
-            !site.blindMode && [
-              hl('span.rating-min', '-' + Math.abs(setupCtrl.ratingMin())),
-              '/',
-              hl('span.rating-max', '+' + setupCtrl.ratingMax()),
-            ],
+            !site.blindMode &&
+              hl('div.rating-range-values', [
+                hl('span.rating-min', '-' + Math.abs(setupCtrl.ratingMin())),
+                '/',
+                hl('span.rating-max', '+' + setupCtrl.ratingMax()),
+              ]),
             ratingInput('max'),
           ]),
         ],

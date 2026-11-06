@@ -8,6 +8,7 @@ import play.api.mvc.Result
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.tv.Tv.Channel
+import lila.game.PgnDump.requestPgnFlags
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 
@@ -30,8 +31,8 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions
       .map:
-        _.channels.map { (chan, champ) => chan.key -> champ }
-      .map { Json.toJson(_) }
+        _.channels.map((chan, champ) => chan.key -> champ)
+      .map(Json.toJson(_))
       .dmap(Api.ApiResult.Data.apply)
 
   private def lichessTv(channel: Channel)(using Context) =
@@ -52,8 +53,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               champs <- env.tv.tv.getChampions
               page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
             yield Ok(page).noCache,
-            api =
-              _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap { Ok(_) }
+            api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap(Ok(_))
           )
 
   def games = gamesChannel(Channel.Best.key)
@@ -83,7 +83,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
           lila.api.GameApiV2.ByIdsConfig(
             ids = gameIds,
             format = lila.api.GameApiV2.Format.byRequest,
-            flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
+            flags = requestPgnFlags(extended = false, delayMoves = false),
             perSecond = MaxPerSecond(30)
           )
         Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(gameC.gameContentType(config)).noProxyBuffer

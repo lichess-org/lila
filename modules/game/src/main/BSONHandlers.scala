@@ -264,7 +264,7 @@ object BSONHandlers:
     private val emptyPlayerBuilder = lila.game.LightPlayer.builderRead(emptyBdoc)
 
     def reads(r: BSON.Reader): LightGame =
-      val winC = r.boolO(F.winnerColor).map { Color.fromWhite(_) }
+      val winC = r.boolO(F.winnerColor).map(Color.fromWhite(_))
       val uids = ~r.getO[List[UserId]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
       def makePlayer(field: String, color: Color, uid: Option[UserId]): LightPlayer =

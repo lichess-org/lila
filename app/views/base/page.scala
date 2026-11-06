@@ -104,7 +104,7 @@ object page:
             .so(systemThemeScript(ctx.nonce, ctx.pref.isTransparentBg))
         ).pipe(p.transformHead),
         st.body(
-          cls := {
+          cls :=
             List(
               s"coords-${pref.coordsClass}" -> true,
               "simple-board" -> pref.simpleBoard,
@@ -118,8 +118,7 @@ object page:
               "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)
-            )
-          },
+            ),
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser := ctx.userId,
@@ -143,7 +142,7 @@ object page:
         )(
           blindModeForm,
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
-          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map(views.mod.ui.impersonate(_)),
           netConfig.stageBanner.option(views.bits.stage),
           anonOnboarding.map: u =>
             frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email)),
@@ -172,7 +171,7 @@ object page:
           bottomHtml,
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
-          p.pageModule.map { mod => frag(jsonScript(mod.data)) }
+          p.pageModule.map(mod => frag(jsonScript(mod.data)))
         )
       )
     )

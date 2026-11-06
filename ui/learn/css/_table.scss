@@ -144,6 +144,7 @@
 
     a {
       @extend %flex-center;
+      @include transition;
 
       align-content: center;
       flex: 1 1 100%;
@@ -153,8 +154,6 @@
       font-size: 0.9em;
       border-inline-start: $border;
       opacity: 0.8;
-
-      @include transition;
     }
 
     a:first-child {

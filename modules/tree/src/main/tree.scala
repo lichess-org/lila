@@ -244,9 +244,9 @@ case class Root(
   def lastMainlinePlyOf(path: UciPath) =
     mainline
       .zip(path.computeIds)
-      .takeWhile { (node, id) => node.id == id }
+      .takeWhile((node, id) => node.id == id)
       .lastOption
-      .fold(Ply.initial) { (node, _) => node.ply }
+      .fold(Ply.initial)((node, _) => node.ply)
 
   def mainlinePath = UciPath.fromIds(mainline.map(_.id))
 
@@ -353,7 +353,7 @@ case class Branch(
 
   def clearVariations: Branch =
     copy(
-      children = children.first.fold(Branches.empty) { child => Branches(List(child.clearVariations)) }
+      children = children.first.fold(Branches.empty)(child => Branches(List(child.clearVariations)))
     )
 
   def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))

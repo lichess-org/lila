@@ -35,6 +35,7 @@ boner
 boo+b
 bozo
 brain(dea?d|les+)
+buffoon
 bug+er
 bu[ck]+ake
 bul+sh[i\|\\]t
@@ -320,6 +321,7 @@ laude ka?rle
   def fr = dict("""
 batard
 blaireau
+bouffon(ne)?
 con+ard?
 cr[eé]tin
 encul[eé]r?
@@ -368,6 +370,7 @@ bok yedin
 ezik
 gerizekal[iı]
 göt
+g[oö]t([uü](n[uü]|ne|nden)?|den|lek|e)
 gey(ler|sin|dir)?
 ibne
 ka[sş]ar

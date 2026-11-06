@@ -39,6 +39,7 @@
   <string name="teamUpdates">Takım güncellemeleri</string>
   <string name="subToTeamUpdates">Takım güncellemelerine abone ol</string>
   <string name="newTeamUpdate">Yeni takım güncellemesi</string>
+  <string name="teamUpdatesPerWeek">Haftada en fazla %1$s takım güncellemesi gönderebilirsiniz. %3$s tarihine kadar &lt;strong&gt;%2$s&lt;/strong&gt; güncelleme hakkınız kaldı.</string>
   <string name="teamEvents">Takım etkinlikleri</string>
   <string name="upcomingTeamEvents">Yaklaşan takım etkinlikleri</string>
   <string name="teamsIlead">Yönettiğim takımlar</string>

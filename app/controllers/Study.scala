@@ -326,7 +326,7 @@ final class Study(
 
   private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
     val cost = if !data.isNewStudy then 0 else if coachOrTitled then 1 else 2
-    limit.studyCreate(me.userId -> ctx.ip, rateLimited, cost):
+    limit.studyCreate(me.userId, rateLimited, cost):
       Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
@@ -334,7 +334,7 @@ final class Study(
     bindForm(StudyForm.form)(
       jsonFormError,
       data =>
-        limit.studyCreate(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 2):
+        limit.studyCreate(me.userId, rateLimited, if coachOrTitled then 1 else 2):
           for sc <- env.study.api.create(data)
           yield JsonOk(Json.obj("id" -> sc.study.id))
     )
@@ -469,7 +469,7 @@ final class Study(
       Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
         .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
         .as(pgnContentType)
-        .headerCache(pgnResultCache(study))
+        .publicCache(pgnResultCache(study))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
@@ -509,7 +509,7 @@ final class Study(
               res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
               resWithAnalysis = analysisJson.fold(res): a =>
                 res.withHeaders("X-Lichess-Analysis" -> Json.stringify(a))
-            yield resWithAnalysis.headerCache(pgnResultCache(study))
+            yield resWithAnalysis.publicCache(pgnResultCache(study))
           }(studyUnauthorized(study), studyForbidden(study))
         }
 
@@ -555,7 +555,7 @@ final class Study(
               Ok.chunked(stream)
                 .asAttachmentStream(s"${pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
-                .headerCache(Option.unless(study.isPrivate)(1.day))
+                .publicCache(Option.unless(study.isPrivate)(1.day))
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
@@ -589,7 +589,7 @@ final class Study(
       case None => BadRequest("No search term provided")
       case Some(term) =>
         import lila.common.Json.given
-        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
+        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map(JsonOk(_))
 
   def topics = OpenOrScoped():
     for
@@ -656,4 +656,4 @@ final class Study(
     Found(play.api.i18n.Lang.get(lang)): lang =>
       JsonOk:
         lila.study.JsonView.glyphs(using env.translator.to(lang))
-      .headerCache(1.hour)
+      .publicCache(1.hour)

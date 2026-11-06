@@ -56,7 +56,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
             div(cls := "tv-history")(
               h2(trans.site.previouslyOnLichessTV()),
               div(cls := "now-playing"):
-                history.map { gameUi.mini(_) }
+                history.map(gameUi.mini(_))
             )
           )
         )

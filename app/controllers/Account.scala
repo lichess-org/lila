@@ -53,9 +53,12 @@ final class Account(
             _ <- env.user.repo.setProfile(me, profile)
             flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
             _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
-          yield
-            env.user.lightUserApi.invalidate(me)
-            Redirect(routes.User.show(me.username)).flashSuccess
+            res <- negotiate(
+              Redirect(routes.User.show(me.username)).flashSuccess,
+              jsonOkResult
+            )
+            _ = env.user.lightUserApi.invalidate(me)
+          yield res
       )
   }
 
@@ -95,7 +98,7 @@ final class Account(
     env.web.playerCounter.lichobile.hit()
     env.user.lightUserApi.preloadUser(me)
     for json <- lichobileInfoCache.get(me.userId)
-    yield JsonStrOk(json).headerCache(20.seconds)
+    yield JsonStrOk(json).privateCache(20.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
@@ -120,7 +123,7 @@ final class Account(
               forWiki = wikiGranted
             )
           )
-          .dmap { Ok(_) }
+          .dmap(Ok(_))
   }
 
   def apiNowPlaying = Scoped()(doNowPlaying)

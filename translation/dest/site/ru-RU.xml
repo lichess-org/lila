@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Параметры игры</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Бросить вызов другу</string>
   <string name="playAgainstComputer">Сыграть с компьютером</string>
   <string name="gameMode">Режим игры</string>
@@ -574,6 +573,7 @@
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="pause">Приостановить</string>
   <string name="resume">Возобновить</string>
+  <string name="stop">Стоп</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Победы</string>
   <string name="performance">Перформанс</string>
@@ -1079,6 +1079,8 @@
   <string name="onlyMembersOfTeam">Только для членов клуба</string>
   <string name="noRestriction">Без ограничений</string>
   <string name="minimumRatedGames">Минимум рейтинговых игр</string>
+  <string name="minimumAccountAge">Минимальный возраст аккаунтов</string>
+  <string name="titledPlayersBypassRestriction">Игроки с титулами обходят это ограничение.</string>
   <string name="minimumRating">Минимальный рейтинг</string>
   <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
   <string name="positionInputHelp">Вставьте правильную строку FEN, чтобы каждая игра начиналась с заданной позиции.
@@ -1125,7 +1127,7 @@
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>
-  <string name="lichessPatronInfo">Lichess — это благотворительный проект и полностью бесплатное программное обеспечение с открытым исходным кодом. Мы зависим от пожертвований пользователей, которые покрывают наши операционные расходы, разработку и создание контента. Без нашего щедрого сообщества мы бы не смогли поддерживать работу сайта. Спасибо, что присоединились к нам!</string>
+  <string name="lichessPatronInfo">Lichess — это благотворительный проект и полностью свободное программное обеспечение с открытым исходным кодом. Мы зависим от пожертвований пользователей, которые покрывают наши операционные расходы, разработку и создание контента. Без нашего щедрого сообщества мы бы не смогли поддерживать работу сайта. Спасибо, что присоединились к нам!</string>
   <string name="nothingToSeeHere">Здесь ничего нет пока.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Специальные возможности</string>
@@ -1136,6 +1138,7 @@
   <string name="offline" comment="status of a user">офлайн</string>
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
+  <string name="searchInX">Поиск в \"%s\"</string>
   <string name="thereAreNoResultsForX">Нет результатов для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взятие на проходе</string>

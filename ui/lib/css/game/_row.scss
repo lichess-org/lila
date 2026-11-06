@@ -30,9 +30,9 @@
   }
 
   &__infos {
+    @extend %flex-column;
+
     flex: 1 1 100%;
-    display: flex;
-    flex-flow: column;
     justify-content: space-between;
     margin: 0.5em 0;
     overflow: hidden;
