@@ -98,6 +98,10 @@ $c-slider: $c-setup;
     font-size: 25px;
     background: $c-bg-mid;
 
+    @include if-transp {
+      background: none;
+    }
+
     @include if-transp-light {
       background: $c-bg-zebra;
     }
@@ -182,6 +186,10 @@ $c-slider: $c-setup;
     background: $c-bg-mid;
     position: relative;
     padding: 1.5rem;
+
+    @include if-transp {
+      background: none;
+    }
 
     @include if-transp-light {
       background: $c-bg-zebra;
