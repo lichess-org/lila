@@ -28,8 +28,7 @@ private case class PuzzleSession(
 
   override def toString = s"$path:$positionInPath($settings)"
 
-case class PuzzleSettings(difficulty: PuzzleDifficulty, color: Option[Color]):
-  def in(angle: PuzzleAngle) = if angle.opening.isDefined then this else copy(color = none)
+case class PuzzleSettings(difficulty: PuzzleDifficulty, color: Option[Color])
 
 object PuzzleSettings:
   val default = PuzzleSettings(PuzzleDifficulty.default, none)
@@ -111,8 +110,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       me: Me,
       perf: Perf
   ): Fu[PuzzleSession] =
-    val validSettings = settings.in(angle)
     pathApi
-      .nextFor(s"session.$reason")(angle, PuzzleTier.top, validSettings.difficulty, Set.empty)
+      .nextFor(s"session.$reason")(angle, PuzzleTier.top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
-      .map(pathId => PuzzleSession(validSettings, pathId, 0, perf.intRating))
+      .map(PuzzleSession(settings, _, 0, perf.intRating))
