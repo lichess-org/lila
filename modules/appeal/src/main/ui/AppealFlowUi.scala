@@ -34,7 +34,6 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       main(
         cls := List(
           "appeal" -> true,
-          "appeal--on-flow" -> onFlow,
           "appeal--automated" -> (onFlow && handling)
         )
       )(
@@ -49,7 +48,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             (onFlow && handling).option(
               button(
                 tpe := "button",
-                cls := "button button-empty button-no-upper appeal__leave-flow"
+                cls := "button button-empty button-no-upper text appeal__leave-flow",
+                dataIcon := Icon.BubbleConvo
               )("Leave automated flow")
             ),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
@@ -99,8 +99,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) =>
         div(cls := "appeal__next"):
-          if cn.answerer == Answerer.User then pendingUserChoice(cn)
-          else choiceForm(appeal, cn, enabled = me.is(modData.inquiryBy))
+          if cn.answerer == Answerer.User then pendingUserChoice(appeal, cn)
+          else choiceForm(appeal, cn, enabled = me.is(modData.inquiryBy), preview = true)
       case _ => emptyFrag
 
   private def userMessageForm(appeal: Appeal)(using Context): Frag =
@@ -150,7 +150,12 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       )
     )
 
-  private def choiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
+  private def choiceForm(
+      appeal: Appeal,
+      cn: ChoiceNode,
+      enabled: Boolean = true,
+      preview: Boolean = false
+  )(using me: Me) =
     val isMod = me.isnt(appeal.user)
     postForm(
       cls := "appeal__choice",
@@ -160,23 +165,86 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       p(cls := "appeal__choice__question")(cn.question),
       form3.hidden("kind", AppealMsg.Kind.choice.toString),
       form3.hidden("nodeId", cn.id),
-      div(cls := "appeal__choice__answers")(
-        cn.branches.toList.map: b =>
+      if preview then
+        linkedAnswers(appeal, cn.branches.toList): b =>
           submitButton(
             cls := "button button-no-upper",
             (!enabled).option(disabled := true),
             name := "answerId",
             value := b.id
           )(b.answer)
-      )
+      else
+        div(cls := "appeal__choice__answers")(
+          cn.branches.toList.map: b =>
+            submitButton(
+              cls := "button button-no-upper",
+              (!enabled).option(disabled := true),
+              name := "answerId",
+              value := b.id
+            )(b.answer)
+        )
     )
 
-  private def pendingUserChoice(cn: ChoiceNode) =
+  private def pendingUserChoice(appeal: Appeal, cn: ChoiceNode) =
     div(cls := "appeal__choice appeal__choice--pending")(
       p(cls := "appeal__choice__waiting")("Awaiting the user's answer"),
       p(cls := "appeal__choice__question")(cn.question),
-      div(cls := "appeal__choice__answers")(
-        cn.branches.toList.map: b =>
-          span(cls := "appeal__choice__option")(b.answer)
-      )
+      linkedAnswers(appeal, cn.branches.toList)(b => span(cls := "appeal__choice__option")(b.answer))
     )
+
+  private def linkedAnswers(appeal: Appeal, branches: List[AnswerBranch])(answer: AnswerBranch => Frag) =
+    def row(cells: List[Frag], between: => Frag) =
+      div(cls := "appeal__choice__linked__row")(interleave(cells, between))
+    def cell(body: Frag) = div(cls := "appeal__choice__cell")(body)
+    def spacer = div(cls := "appeal__choice__or appeal__choice__or--spacer")("or")
+    div(cls := "appeal__choice__linked")(
+      row(branches.map(b => cell(answer(b))), div(cls := "appeal__choice__or")("or")),
+      row(branches.map(_ => cell(div(cls := "appeal__choice__arrow", aria.hidden := "true"))), spacer),
+      row(branches.map(b => cell(nextNodePreview(appeal, b))), spacer)
+    )
+
+  private def interleave(items: List[Frag], between: => Frag): List[Frag] =
+    items match
+      case Nil => Nil
+      case only :: Nil => only :: Nil
+      case head :: tail => head :: between :: interleave(tail, between)
+
+  private def nextNodePreview(appeal: Appeal, branch: AnswerBranch): Frag =
+    AppealFlow.findNodeById(appeal.topic, branch.nextNodeId).fold(emptyFrag)(nodePreview)
+
+  private def nodePreview(node: AppealNode): Frag =
+    node match
+      case cn: ChoiceNode =>
+        val (modifier, who) = cn.answerer match
+          case Answerer.User => ("user", "User will answer")
+          case Answerer.Mod => ("mod", "Moderator will answer")
+        div(cls := s"appeal__choice__preview appeal__choice__preview--$modifier")(
+          p(cls := "appeal__choice__preview__kicker")(who),
+          p(cls := "appeal__choice__preview__body")(cn.question.trim),
+          div(cls := "appeal__choice__preview__answers")(
+            cn.branches.toList.map: b =>
+              div(cls := "appeal__choice__preview__answer")(b.answer)
+          )
+        )
+      case an: ActionNode =>
+        div(cls := "appeal__choice__followup")(
+          previewBox("action", "Message", an.text),
+          an.effects.map(effectBox)
+        )
+
+  private def previewBox(modifier: String, kicker: String, body: String) =
+    div(cls := s"appeal__choice__preview appeal__choice__preview--$modifier")(
+      p(cls := "appeal__choice__preview__kicker")(kicker),
+      p(cls := "appeal__choice__preview__body")(body.trim)
+    )
+
+  private def effectBox(effect: AppealEffect) =
+    div(cls := "appeal__choice__preview appeal__choice__preview--effect")(effectLabel(effect))
+
+  private def effectLabel(effect: AppealEffect): String =
+    effect match
+      case AppealEffect.Sleep(months) =>
+        val monthUnit = if months == 1 then "month" else "months"
+        s"Pauses the appeal for $months $monthUnit"
+      case AppealEffect.Close => "Closes the appeal"
+      case AppealEffect.Unmark => "Removes the mark"

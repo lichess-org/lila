@@ -42,29 +42,16 @@
     }
   }
 
-  // TODO: review
   &__flow {
-    @extend %flex-column;
-
     position: relative;
-    gap: 2em;
-    margin-bottom: 2em;
     padding-inline-start: 2.6em;
-
-    > *,
-    .appeal__msg,
-    .appeal__choice,
-    .appeal__choice-event {
-      margin-bottom: 0;
-    }
 
     &__track {
       position: absolute;
       inset-inline-start: 0;
       top: 0.4em;
       bottom: 0.4em;
-      width: 12px;
-      box-sizing: content-box;
+      width: 16px;
       color: $c-font-dim;
       cursor: help;
       border-inline: 2px solid currentcolor;
@@ -87,13 +74,10 @@
     display: none;
   }
 
-  &:not(&--on-flow) &__next,
   &--left-flow &__next,
   &--left-flow &__leave-flow {
     display: none;
   }
-
-  // TODO: -------
 
   &__msg {
     @extend %box-neat;
@@ -141,29 +125,143 @@
     &__question {
       margin-bottom: 1.2em;
       font-size: 1.4em;
-      font-weight: bold;
     }
 
     &__answers {
-      @extend %flex-center;
+      @extend %flex-wrap;
 
       gap: 1em;
 
-      .button,
-      .appeal__choice__option {
+      > .button {
         flex: 1 1 10em;
         font-size: 1.3em;
       }
     }
 
-    &__option {
+    &__linked {
+      @extend %flex-column;
+
+      gap: 0.2em;
+
+      &__row {
+        display: flex;
+        gap: 0.65em;
+      }
+    }
+
+    &__cell {
+      @extend %flex-column;
+
+      flex: 1 1 0;
+      min-width: 0;
+
+      > .button,
+      > .appeal__choice__option {
+        @extend %flex-center-center;
+
+        flex: 1 1 auto;
+        font-size: 1.3em;
+      }
+    }
+
+    &__or {
+      @extend %flex-center-center;
+
+      color: $c-font-dim;
+      font-style: italic;
+
+      &--spacer {
+        visibility: hidden;
+      }
+    }
+
+    &__arrow {
+      @extend %flex-column;
+
+      align-items: center;
+      height: 1.8em;
+      color: $c-font-dim;
+
+      &::before {
+        content: '';
+        width: 2px;
+        flex: 1 1 auto;
+        background: currentcolor;
+      }
+
+      &::after {
+        content: '';
+        border-inline: 0.4em solid transparent;
+        border-top: 0.5em solid currentcolor;
+      }
+    }
+
+    &__followup {
+      @extend %flex-column;
+
+      gap: 0.45em;
+    }
+
+    &__preview {
+      @extend %box-radius, %break-word;
+
+      padding: 0.7em 0.8em;
+      border: 1px dashed $c-border;
+      background: $c-bg-page;
+      cursor: default;
+      font-size: 0.9rem;
+
+      &__kicker {
+        margin-bottom: 0.45em;
+        color: $c-font-dim;
+        font-style: italic;
+      }
+
+      &__body {
+        margin-bottom: 0;
+        white-space: pre-line;
+      }
+
+      &__answers {
+        @extend %flex-column;
+
+        gap: 0.4em;
+        margin-top: 0.7em;
+      }
+
+      &__answer {
+        @extend %break-word;
+
+        padding: 0.4em 0.65em;
+      }
+
+      &--user {
+        border-inline-start: 3px solid $c-accent;
+      }
+
+      &--mod {
+        border-inline-start: 3px solid $c-primary;
+      }
+
+      &--effect {
+        border-style: solid;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+
+    &__option,
+    &__preview__answer {
       @extend %box-radius;
 
-      padding: 0.6em 1em;
       border: $border;
       background: $c-bg-zebra;
       color: $c-font-dim;
       text-align: center;
+    }
+
+    &__option {
+      padding: 0.6em 1em;
     }
   }
 
@@ -243,8 +341,6 @@
   }
 
   .marked-by-me {
-    @extend %box-radius;
-
     border-radius: 20px;
     padding: 1rem;
     background: color-mix(in oklab, $c-brag 60%, $c-bg);
@@ -283,11 +379,6 @@
       padding-top: 1em;
       justify-content: flex-end;
     }
-
-    .appeal-create {
-      flex: 0 0 auto;
-      margin: 0;
-    }
   }
 
   .appeal-info {
@@ -317,13 +408,9 @@
     }
 
     textarea {
-      @extend %box-radius;
-
       width: 100%;
       padding: 0.6em 0.8em;
-      border: $border;
       background: $c-bg-box;
-      color: $c-font;
 
       &:disabled {
         opacity: 0.5;
@@ -339,7 +426,7 @@
     }
 
     &__row {
-      @extend %flex-center;
+      @extend %flex-wrap;
 
       align-items: flex-start;
       gap: 1em;
