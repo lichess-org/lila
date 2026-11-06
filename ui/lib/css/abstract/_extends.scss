@@ -111,21 +111,25 @@
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsl(0 0% 0% / 0.15) inset !important;
+  box-shadow: 0 3px 5px hsl(0 0% 0% / 0.12) inset !important;
+
+  @include if-light {
+    box-shadow: 0 3px 5px hsl(0 0% 0% / 0.08) inset !important;
+  }
 }
 
 %active {
   @extend %active-inset-shadow;
 
-  background: $c-accent;
+  background: $c-secondary;
   color: #fff;
-  text-shadow: 0 1px 1px black !important;
+  text-shadow: 0 1px 2px #111d !important;
 
   &:not(.disabled):hover {
     @extend %active-inset-shadow;
 
     @media (hover: hover) {
-      background: hsl(from $c-accent h s calc(l + 5));
+      background: hsl(from $c-secondary h s calc(l + 5));
     }
   }
 }
@@ -133,7 +137,7 @@
 %active-hover {
   @extend %active-inset-shadow;
 
-  background: color-mix(in oklab, $c-accent 80%, white);
+  background: color-mix(in oklab, $c-secondary 80%, white);
 }
 
 %active-soft {
@@ -143,6 +147,12 @@
   color: $c-font-clearer;
   text-shadow: 1px 1px 1px $c-font-shadow !important;
   font-weight: bold;
+
+  &:hover {
+    @media (hover: hover) {
+      background: color-mix(in oklab, $c-shade 80%, white) !important;
+    }
+  }
 }
 
 %active-primary {
