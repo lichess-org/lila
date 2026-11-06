@@ -5,9 +5,14 @@ import { pubsub } from '@/pubsub';
 import { isMac } from '../device';
 import { requestIdleCallbackSafe } from '../index';
 
+let announced = '';
+
+const ariaNotifier =
+  'ariaNotify' in document &&
+  ((text: string) => text !== announced && requestAnimationFrame(() => (document as any).ariaNotify(text)));
+
 export class Notify {
   text = '';
-  date?: Date;
 
   constructor(public redraw: Redraw | undefined) {
     pubsub.on('socket.online', online => {
@@ -16,23 +21,22 @@ export class Notify {
   }
 
   set = (msg: string): void => {
+    announced = '';
     this.text = msg + (this.text === msg ? '\u00A0' : '');
-    this.date = new Date();
 
     requestIdleCallbackSafe(() => this.redraw?.(), 500);
   };
 
-  render = (): VNode => liveText(this.text, 'assertive', 'div.notify', this.date);
+  render = (): VNode => liveText(this.text, 'assertive', 'div.notify');
 }
 
-export function liveText(
-  text: string,
-  live: 'assertive' | 'polite' = 'polite',
-  sel = 'p',
-  forceKey?: Date,
-): VNode {
-  const data: VNodeData = isMac()
-    ? { key: forceKey?.getTime().toString() || text, attrs: { role: 'alert' } }
-    : { attrs: { 'aria-live': live, 'aria-atomic': 'true' } };
+export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel = 'p'): VNode {
+  const data: VNodeData = {};
+  if (ariaNotifier) ariaNotifier(text);
+  else if (isMac()) {
+    data.key = announced !== text ? Date.now().toString() : text;
+    data.attrs = { role: 'alert' };
+  } else data.attrs = { 'aria-live': live, 'aria-atomic': 'true' };
+  announced = text;
   return h(sel, data, text);
 }
