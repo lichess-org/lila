@@ -32,6 +32,7 @@ export class Notify {
 
 export function liveText(text: string, live: 'assertive' | 'polite' = 'polite', sel = 'p'): VNode {
   const data: VNodeData = {};
+  if (!text) return h(sel, data, '');
   if (ariaNotifier) ariaNotifier(text);
   else if (isMac()) {
     data.key = announced !== text ? Date.now().toString() : text;
