@@ -83,19 +83,19 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
         )
 
   def kick(t: Team, form: Form[List[UserId]], blocklistForm: Form[String])(using Context) =
-    TeamPage(s"${t.name} • ${trl.kickSomeone.txt()}")
+    TeamPage(s"${t.name} • ${trl.removeSomeone.txt()}")
       .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content")(
             div(cls := "box box-pad")(
-              adminTop(t, trl.kickSomeone()),
+              adminTop(t, trl.removeSomeone()),
               postForm(action := routes.Team.kick(t.id))(
-                form3.group(form("members"), frag(trl.whoToKick()))(teamMembersAutoComplete(t)),
+                form3.group(form("members"), frag(trl.whoToRemove()))(teamMembersAutoComplete(t)),
                 form3.actions(
                   a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                  form3.submit(trl.kickSomeone())
+                  form3.submit(trl.removeSomeone())
                 )
               )
             ),
