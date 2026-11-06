@@ -280,7 +280,6 @@ export default class LobbyController {
       undefined,
       false,
     );
-    this.redraw();
   };
 
   leavePool = () => {
