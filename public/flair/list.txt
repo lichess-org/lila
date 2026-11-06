@@ -3405,6 +3405,7 @@ symbols.neovim-mark
 symbols.new-button
 symbols.next-track-button
 symbols.ng-button
+symbols.no-berserk
 symbols.no-bicycles
 symbols.no-entry
 symbols.no-littering
