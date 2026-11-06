@@ -136,40 +136,43 @@ final class User(
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
-  def games(username: UserStr, filter: String, page: Int) = OpenBody: ctx ?=>
-    Reasonable(page):
-      val isSearch = filter == GameFilter.search.name
-      RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
-        WithProxy: proxy ?=>
-          limit.userProfileLimiter(rateLimited):
-            EnabledUser(username): u =>
-              val full = !isRestricted
-              negotiate(
-                html = for
-                  nbs <- full.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = true, withPlaying = true))
-                  filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                  pag <- full.so(env.gamePaginator(u, nbs.some, filter = filters.current, page = page))
-                  _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                  _ <- env.tournament.cached.nameCache.preloadMany:
-                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
-                  _ <- env.swiss.cache.name.preloadMany:
-                    pag.currentPageResults.flatMap(_.swissId)
-                  res <-
-                    if HTTPRequest.isSynchronousHttp(ctx.req) then
-                      for
-                        searchForm = (filters.current == GameFilter.search).option:
-                          lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
-                        info <- env.userInfo
-                          .fetch(u, nbs, restricted = isRestricted, withBlog = searchForm.isEmpty)
-                        _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
-                        social <- env.socialInfo(u)
-                        res <- Ok.page:
-                          views.user.show.page.games(info, pag, filters, searchForm, social)
-                      yield res
-                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
-                yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                json = gamesForLichobile(u, filter, page)
-              )
+  def games(username: UserStr, filter: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile):
+    ctx ?=>
+      Reasonable(page):
+        val isSearch = filter == GameFilter.search.name
+        RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
+          WithProxy: proxy ?=>
+            limit.userProfileLimiter(rateLimited):
+              EnabledUser(username): u =>
+                val full = !isRestricted
+                negotiate(
+                  html = for
+                    nbs <- full
+                      .so(ctx.me)
+                      .soUse(env.userNbGames(u, withCrosstable = true, withPlaying = true))
+                    filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                    pag <- full.so(env.gamePaginator(u, nbs.some, filter = filters.current, page = page))
+                    _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+                    _ <- env.tournament.cached.nameCache.preloadMany:
+                      pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                    _ <- env.swiss.cache.name.preloadMany:
+                      pag.currentPageResults.flatMap(_.swissId)
+                    res <-
+                      if HTTPRequest.isSynchronousHttp(ctx.req) then
+                        for
+                          searchForm = (filters.current == GameFilter.search).option:
+                            lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
+                          info <- env.userInfo
+                            .fetch(u, nbs, restricted = isRestricted, withBlog = searchForm.isEmpty)
+                          _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                          social <- env.socialInfo(u)
+                          res <- Ok.page:
+                            views.user.show.page.games(info, pag, filters, searchForm, social)
+                        yield res
+                      else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
+                  yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
+                  json = gamesForLichobile(u, filter, page)
+                )
 
   private def EnabledUser(username: UserStr, proxy: Option[IsProxy] = none)(
       f: UserModel => Fu[Result]

@@ -6,7 +6,7 @@ final class Search(env: Env) extends LilaController(env):
 
   private def searchForm(using Translate) = env.gameSearch.forms.search
 
-  def index(p: Int) = AuthBody { _ ?=> me ?=>
+  def index(p: Int) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     env.game.cached.nbTotal.flatMap: nbGames =>
       val page = p.atLeast(1)
       Reasonable(page, Max(100)):
