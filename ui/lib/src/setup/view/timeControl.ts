@@ -164,7 +164,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
       ]),
       hl(
         'div.presets',
-        tc.presets.map(p =>
+        tc.presets.slice(0, 10).map(p =>
           hl(
             'button.preset-btn',
             {

@@ -11,6 +11,8 @@ import lila.core.i18n.{
   playAcceptLanguages as acceptLanguages,
   toLanguage
 }
+import lila.core.net.CountryCode
+import lila.common.HTTPRequest
 
 object LangPicker extends lila.core.i18n.LangPicker:
 
@@ -25,9 +27,13 @@ object LangPicker extends lila.core.i18n.LangPicker:
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
     acceptLanguages(req).collectFirstSome(findCloser)
 
-  def allFromRequestHeaders(req: RequestHeader): List[Lang] = {
-    acceptLanguages(req).flatMap(findCloser) ++
-      acceptLanguages(req).flatMap(lang => ~byCountry.get(lang.country))
+  def allFromRequestHeaders(req: RequestHeader): List[Lang] =
+    allFromRequestHeaders(acceptLanguages(req), HTTPRequest.country(using req))
+
+  def allFromRequestHeaders(langs: Seq[Lang], ipCountry: Option[CountryCode]): List[Lang] = {
+    langs.flatMap(findCloser) ++
+      langs.flatMap(lang => ~byCountry.get(lang.country)) ++
+      ipCountry.so(country => ~byCountry.get(country.value))
   }.distinct.toList
 
   def byStr(str: String): Option[Lang] =

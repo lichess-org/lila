@@ -15,7 +15,13 @@ export default function setupModal(ctrl: LobbyController) {
   const { setupCtrl } = ctrl;
   return snabDialog({
     closeButton: true,
-    attrs: { dialog: { 'aria-labelledby': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
+    attrs: {
+      dialog: {
+        class: 'game-setup-dialog',
+        'aria-labelledby': 'lobby-setup-modal-title',
+        'aria-modal': 'true',
+      },
+    },
     class: 'game-setup',
     show: true,
     css: [{ key: 'lobby.setup' }],

@@ -147,8 +147,8 @@ object HTTPRequest:
     ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
 
   // this header is set by our nginx config, based on the nginx whitelist file.
-  def nginxWhitelist(req: RequestHeader) =
-    req.headers.get("X-Ip-Tier").flatMap(_.toIntOption).exists(_ > 1)
+  def ipTier(req: RequestHeader) = IpTier:
+    req.headers.get("X-Ip-Tier").exists(_ != "1")
 
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)

@@ -6,17 +6,19 @@ import cats.derived.*
 import lila.core.perm.Granter
 import lila.memo.CacheApi.*
 import lila.mon.extensions.*
+import lila.core.i18n.I18nKey
+import lila.core.i18n.I18nKey.teamLead as trans
 
 object TeamSecurity:
-  enum Permission(val name: String, val desc: String) derives Eq:
-    case Public extends Permission("Public", "Visible as leader on the team page")
-    case Settings extends Permission("Settings", "Change settings and descriptions")
-    case Tour extends Permission("Tournaments", "Create, manage and join team tournaments")
-    case Comm extends Permission("Moderation", "Moderate the forum and chats")
-    case Request extends Permission("Requests", "Accept and decline join requests")
-    case PmAll extends Permission("Updates", "Send team updates to members")
-    case Kick extends Permission("Kick", "Kick members of the team")
-    case Admin extends Permission("Admin", "Manage leader permissions")
+  enum Permission(val name: I18nKey, val desc: I18nKey) derives Eq:
+    case Public extends Permission(trans.permPublicName, trans.permPublicDesc)
+    case Settings extends Permission(trans.permSettingsName, trans.permSettingsDesc)
+    case Tour extends Permission(trans.permTourName, trans.permTourDesc)
+    case Comm extends Permission(trans.permCommName, trans.permCommDesc)
+    case Request extends Permission(trans.permRequestName, trans.permRequestDesc)
+    case PmAll extends Permission(trans.permPmAllName, trans.permPmAllDesc)
+    case Kick extends Permission(trans.permRemoveName, trans.permRemoveDesc)
+    case Admin extends Permission(trans.permAdminName, trans.permAdminDesc)
     def key = toString.toLowerCase
   object Permission:
     type Selector = Permission.type => Permission

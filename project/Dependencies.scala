@@ -19,12 +19,12 @@ object Dependencies:
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.3.1" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.55.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.56.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.9.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.19.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.20.Final").classifier(s"$os-$arch")
   val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.1")
   val munit = "org.scalameta" %% "munit" % "1.3.6" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"

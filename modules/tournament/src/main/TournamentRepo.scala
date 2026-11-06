@@ -277,7 +277,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         )
       )
       .sort(bdoc("startsAt" -> 1))
-      .cursor[Tournament]()
+      .cursor[Tournament](ReadPref.sec)
       .listAll()
       .map:
         _.flatMap { tour =>

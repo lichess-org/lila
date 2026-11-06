@@ -48,11 +48,7 @@ final class SelfReport(
         proxyRepo
           .pov(fullId)
           .mapz: pov =>
-            if endGameSetting.get().matches(name) ||
-              (name.startsWith("soc") && (
-                name.contains("stockfish") || name.contains("userscript") ||
-                  name.contains("__puppeteer_evaluation_script__")
-              ))
+            if endGameSetting.get().matches(name)
             then roundApi.tell(pov.gameId, lila.core.round.Cheat(pov.color))
             val banDelay = markUserSetting
               .get()

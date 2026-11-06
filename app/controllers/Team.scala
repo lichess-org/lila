@@ -180,7 +180,7 @@ final class Team(env: Env) extends LilaController(env):
                       val text = lila.msg.MsgPreset.newPermissions(
                         if asMod then LightUser.fallback(UserName.lichess) else me.light,
                         team.team.light,
-                        change.perms.map(_.name),
+                        change.perms.map(_.name.txt()),
                         routeUrl(routes.Team.show(team.id))
                       )
                       env.msg.api.systemPost(SystemMsg.mustRead(change.user, text))
@@ -427,24 +427,16 @@ final class Team(env: Env) extends LilaController(env):
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
-      team.isClas.not.so:
-        api
-          .withLeaders(team)
-          .flatMap: t =>
-            val admins = t.leaders.filter(_.hasPerm(_.Admin))
-            if admins.nonEmpty && admins.forall(_.is(me))
-            then
-              val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
-              negotiate(
-                html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-                json = JsonBadRequest(msg)
-              )
-            else
-              api.cancelRequestOrQuit(team) >>
-                negotiate(
-                  html = Redirect(routes.Team.mine).flashSuccess,
-                  json = jsonOkResult
-                )
+      api
+        .cancelRequestOrQuit(team)
+        .flatMap:
+          case Some(err) =>
+            negotiate(
+              html = Redirect(routes.Team.edit(team.id)).flashFailure(err.txt()),
+              json = JsonBadRequest(err.txt())
+            )
+          case None =>
+            negotiate(Redirect(routes.Team.mine).flashSuccess, jsonOkResult)
   }
 
   def autocomplete = Anon:

@@ -15,6 +15,7 @@ import lila.core.security.IsProxy
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.game.GameFilter
+import lila.game.PgnDump.requestPgnFlags
 import lila.mod.UserWithModlog
 import lila.mon.extensions.*
 import lila.rating.PerfType
@@ -25,7 +26,6 @@ import lila.user.WithPerfsAndEmails
 final class User(
     override val env: Env,
     roundC: => Round,
-    gameC: => Game,
     modC: => Mod
 ) extends LilaController(env):
 
@@ -51,7 +51,24 @@ final class User(
       env.round.playing
         .lastPlayedPlayingId(username.id)
         .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-    )(gameC.exportGame)
+    ): id =>
+      import lila.api.GameApiV2.*
+      Found(env.round.proxyRepo.gameIfPresentOrFetch(id)): game =>
+        val reqFlags = requestPgnFlags(extended = true, delayMoves = true)
+        val config = OneConfig(
+          format = Format.byRequest,
+          imported = false,
+          flags = reqFlags.copy(opening = getBoolOpt("opening").map(_ => false))
+        )
+        val cacheTtl =
+          if game.playable then 10.seconds
+          else if env.socket.isOnline.exec(username.id) then 20.seconds
+          else 1.minute
+        for content <- env.api.gameApiV2.exportOne(game, config)
+        yield Ok(content)
+          .withHeaders(headersForApiOrApp*)
+          .publicCache(Option.when(ctx.isAnon)(cacheTtl))
+          .varyAccept
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -59,7 +76,7 @@ final class User(
     }
 
   private val userShowHtmlRateLimit =
-    env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
+    env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
     WithProxy: proxy ?=>

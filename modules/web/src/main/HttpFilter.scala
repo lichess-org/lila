@@ -71,7 +71,7 @@ final class HttpFilter(
     // spiders/crawlers
     """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|YandexRenderResourcesBot|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai\.com|anthropic\.com|anthropic\.ai|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot|SofyaBot|SearchBot|AdsBot|GPTBot|Diffbot|CCBot|ClaudeBot|Claude-Web|Google-Extended|Google-CloudVertexBot|omgili|cohere-ai|MistralAI-Training|Awario|QualifiedBot|Cotoyogi|ICC-Crawler|atlassian-bot|FishBot|BorderxBot|NavuBot|WARDBot|magpie-crawler|KimiBot|CitibotSiteCrawler""" +
       // apps and servers that load previews
-      """|Discordbot|WhatsApp""" +
+      """|Discordbot|WhatsApp|ShareExtension""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
 
@@ -129,8 +129,7 @@ private object HttpFilter:
 
   def apiAgent(ua: UserAgent): String = ua.value
     .dropWhile(!_.isLetterOrDigit)
-    .takeWhile: c =>
-      c != '/' && c != '(' && c != '@'
+    .takeWhile(c => c.isLetterOrDigit || " -_.".contains(c))
     .filterNot(_.isDigit)
     .trim
     .toLowerCase

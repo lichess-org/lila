@@ -9,7 +9,7 @@ import { pubsub } from 'lib/pubsub';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame, toggleBoxInit } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
-import { text as xhrText } from 'lib/xhr';
+import * as xhr from 'lib/xhr';
 
 import { display as announceDisplay } from './announce';
 import { upgradeNag } from './browserSupport';
@@ -94,7 +94,7 @@ export function boot() {
                   .attr('href', url + '/withdraw')
                   .text(i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
-                    xhrText(this.href, { method: 'post' });
+                    xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;
                   }),
@@ -136,7 +136,7 @@ function mirrorCheck() {
 function playerCounter() {
   pubsub.after('socket.hasConnected').then(() => {
     setTimeout(() => {
-      if (once('playerCounter', { hours: 3 })) xhrText('/player-count', { method: 'post' });
+      if (once('playerCounter', { hours: 3 })) xhr.textRaw('/player-count', { method: 'post' });
     }, 1500);
   });
 }

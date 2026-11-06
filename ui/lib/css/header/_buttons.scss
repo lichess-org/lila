@@ -78,7 +78,7 @@
   }
 
   .signin-or-signup {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
     gap: 0.5em;
   }

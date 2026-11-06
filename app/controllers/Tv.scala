@@ -8,6 +8,7 @@ import play.api.mvc.Result
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.tv.Tv.Channel
+import lila.game.PgnDump.requestPgnFlags
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 
@@ -82,7 +83,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
           lila.api.GameApiV2.ByIdsConfig(
             ids = gameIds,
             format = lila.api.GameApiV2.Format.byRequest,
-            flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
+            flags = requestPgnFlags(extended = false, delayMoves = false),
             perSecond = MaxPerSecond(30)
           )
         Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(gameC.gameContentType(config)).noProxyBuffer
