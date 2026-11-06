@@ -132,7 +132,7 @@ $c-slider: $c-setup;
     margin: auto;
 
     .radio label {
-      min-width: 20ch;
+      min-width: 19ch;
     }
   }
 
@@ -202,8 +202,19 @@ $c-slider: $c-setup;
     }
 
     input {
-      flex: 1;
       padding: 0;
+    }
+
+    @media (max-width: at-most($xx-small)) {
+      gap: 1ch;
+
+      input {
+        max-width: 30vw;
+      }
+
+      .rating-range-values {
+        gap: 0.5ch;
+      }
     }
   }
 
@@ -276,15 +287,23 @@ $c-slider: $c-setup;
       .slider-container {
         @extend %flex-column;
 
+        overflow: hidden;
+
         .label-row {
           @extend %flex-nowrap;
 
           justify-content: flex-start;
-          gap: 2ch;
+          gap: 1ch;
           margin-bottom: 0.5rem;
 
           label {
+            @extend %nowrap-ellipsis;
+
             align-content: center;
+
+            @media (max-width: at-most($xx-small)) {
+              font-size: 0.9em;
+            }
           }
 
           .val-box {
