@@ -10,7 +10,10 @@ import lila.core.socket.{ SocketRequester as _, * }
 @Module
 final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
 
-  private val redisClient = RedisClient.create(RedisURI.create(appConfig.get[String]("socket.redis.uri")))
+  private val redisClient =
+    val client = RedisClient.create(RedisURI.create(appConfig.get[String]("socket.redis.uri")))
+    client.setOptions(ClientOptions.builder().publishOnScheduler(true).build())
+    client
 
   val userLag = new UserLagCache
   export userLag.{ getLagRating, put as putLag }
