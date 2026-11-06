@@ -129,8 +129,7 @@ private object HttpFilter:
 
   def apiAgent(ua: UserAgent): String = ua.value
     .dropWhile(!_.isLetterOrDigit)
-    .takeWhile: c =>
-      c != '/' && c != '(' && c != '@'
+    .takeWhile(c => c.isLetterOrDigit || " -_.".contains(c))
     .filterNot(_.isDigit)
     .trim
     .toLowerCase
