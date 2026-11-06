@@ -100,7 +100,7 @@ object Streamer:
   given UserIdOf[Streamer] = _.id.userId
 
   val maxNameLength = 30
-  val imageDimensions = lila.memo.Dimensions.square(350)
+  val imageDimensions = lila.memo.Dimensions.square(150)
 
   def make(user: User) =
     Streamer(

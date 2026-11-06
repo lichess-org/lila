@@ -180,9 +180,9 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
       )
     )
 
-  def streamerTitle(s: Streamer.WithContext) =
+  def streamerTitle(s: Streamer.WithContext, live: Boolean = false) =
     span(cls := "streamer-title")(
-      h1(dataIcon := Icon.Mic)(titleTag(s.user.title), s.streamer.name),
+      h1(dataIcon := Icon.Mic, cls := List("live" -> live))(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang.map: language =>
         span(cls := "streamer-lang")(langList.nameByLanguage(language))
     )
