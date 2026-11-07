@@ -70,7 +70,7 @@ final class User(
           .publicCache(Option.when(ctx.isAnon)(cacheTtl))
           .varyAccept
 
-  private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
+  private def gamesForMobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
     }
@@ -83,7 +83,7 @@ final class User(
       EnabledUser(username, proxy.some): u =>
         negotiate(
           renderShow(u),
-          gamesForLichobile(u, GameFilter.all.name, 1)
+          gamesForMobile(u, GameFilter.all.name, 1)
         )
 
   def search(term: String) = Open: _ ?=>
@@ -171,7 +171,7 @@ final class User(
                         yield res
                       else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                   yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                  json = gamesForLichobile(u, filter, page)
+                  json = gamesForMobile(u, filter, page)
                 )
 
   private def EnabledUser(username: UserStr, proxy: Option[IsProxy] = none)(
