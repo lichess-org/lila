@@ -56,7 +56,10 @@
   --c-link-clear: var(--c-primary-clear);
   --c-over: white;
   --c-brag: hsl(var(---site-hue) 74% 43%);
+  --c-brag-dim: color-mix(in oklab, var(--c-dimmer) 20%, var(--c-brag));
   --c-brag-hover: hsl(from var(--c-brag) h 100 70);
+  --c-brag-glass: hsl(from var(--c-brag) h s l / 0.2);
+  --c-brag-cloud: hsl(from var(--c-brag) h s l / 0.5);
   --c-contours: color-mix(in oklab, var(--c-brag) 80%, var(--c-shade));
   --c-accent: hsl(22 100% 42%);
   --c-accent-dim: color-mix(in oklab, var(--c-dimmer) 20%, var(--c-accent));
