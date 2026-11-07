@@ -6163,6 +6163,8 @@ interface I18n {
     upcomingTournaments: string;
     /** Your join request will be reviewed by a team leader. */
     willBeReviewed: string;
+    /** You have joined %1$s out of %2$s teams. Leave some teams before you can join others. */
+    youHaveJoinedXOutOfYTeams: I18nFormat;
   };
   teamLead: {
     /** Close team */
@@ -6185,6 +6187,8 @@ interface I18n {
     manuallyReviewAdmissionRequests: string;
     /** If checked, players will need to request to join the team, which you can accept or decline. */
     manuallyReviewAdmissionRequestsHelp: string;
+    /** Mod log */
+    modLog: string;
     /** New team update */
     newTeamUpdate: string;
     /** Number of leaders per team. The sum of their score is the score of the team. */
@@ -6229,6 +6233,10 @@ interface I18n {
     permTourDesc: string;
     /** Tournaments */
     permTourName: string;
+    /** Re-enable */
+    reEnable: string;
+    /** Re-enables the team and restores memberships */
+    reEnableDescription: string;
     /** Remove someone */
     removeSomeone: string;
     /** Full description visible on the team page. */
@@ -6239,6 +6247,8 @@ interface I18n {
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
+    /** View team as Mod */
+    viewTeamAsMod: string;
     /** Who do you want to remove from the team? */
     whoToRemove: string;
     /** %s join requests */

@@ -45,4 +45,8 @@
 You can't remove a team if a player has already joined the tournament.</string>
   <string name="numberOfLeadsPerTeam">Number of leaders per team. The sum of their score is the score of the team.</string>
   <string name="numberOfLeadsPerTeamHelp">You really shouldn't change this value after the tournament has started!</string>
+  <string name="viewTeamAsMod">View team as Mod</string>
+  <string name="modLog">Mod log</string>
+  <string name="reEnable">Re-enable</string>
+  <string name="reEnableDescription">Re-enables the team and restores memberships</string>
 </resources>

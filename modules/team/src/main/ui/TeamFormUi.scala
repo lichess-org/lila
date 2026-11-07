@@ -84,8 +84,8 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
               explainInput,
               submitButton(
                 cls := "button button-empty explain",
-                st.title := "Re-enables the team and restores memberships"
-              )("Re-enable")
+                st.title := trl.reEnableDescription.txt()
+              )(trl.reEnable())
             )
           )
         )

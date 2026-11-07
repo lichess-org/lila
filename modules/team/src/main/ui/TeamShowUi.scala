@@ -14,6 +14,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
 
   import helpers.{ *, given }
   import trans.team as trt
+  import trans.teamLead as trl
 
   def apply(
       s: Team.TeamShow,
@@ -87,7 +88,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               modLog.nonEmpty.option:
                 div(cls := "team-show__log")(
-                  h2(cls := "team-show__section-title")("Mod log"),
+                  h2(cls := "team-show__section-title")(trl.modLog()),
                   ul(modLog)
                 )
               ,

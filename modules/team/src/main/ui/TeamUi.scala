@@ -9,6 +9,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   import helpers.{ *, given }
   import trans.team as trt
+  import trans.teamLead as trl
 
   def TeamPage(title: String) = Page(title).css("team").js(infiniteScrollEsmInit)
 
@@ -131,7 +132,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
             standardFlash.map(div(cls := "box__pad")(_)),
             ctx.me.filter(me => Team.maxJoin(me) < teams.size).map { me =>
               flashMessage("failure"):
-                s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
+                trt.youHaveJoinedXOutOfYTeams(teams.size, Team.maxJoin(me))
             },
             table(cls := "slist slist-pad slist-invert")(
               if teams.nonEmpty then tbody(teams.map(teamTr(_)))
@@ -317,7 +318,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         a(
           href := routes.Team.show(team.id, 1, mod = true),
           cls := "button button-red"
-        )("View team as Mod")
+        )(trl.viewTeamAsMod())
       )
     )
 

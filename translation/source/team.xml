@@ -41,6 +41,7 @@
   <string name="upcomingTournaments">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>
+  <string name="youHaveJoinedXOutOfYTeams">You have joined %1$s out of %2$s teams. Leave some teams before you can join others.</string>
   <string name="innerTeam">Inner team</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Battle of %s teams</item>

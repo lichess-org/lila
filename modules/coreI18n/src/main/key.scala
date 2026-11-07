@@ -3131,6 +3131,7 @@ object I18nKey:
     val `upcomingTournaments`: I18nKey = "team:upcomingTournaments"
     val `completedTourns`: I18nKey = "team:completedTourns"
     val `joinLichessVariantTeam`: I18nKey = "team:joinLichessVariantTeam"
+    val `youHaveJoinedXOutOfYTeams`: I18nKey = "team:youHaveJoinedXOutOfYTeams"
     val `innerTeam`: I18nKey = "team:innerTeam"
     val `nbMembers`: I18nKey = "team:nbMembers"
     val `teamLeaders`: I18nKey = "team:teamLeaders"
@@ -3177,6 +3178,10 @@ object I18nKey:
     val `oneTeamPerLineHelp`: I18nKey = "teamLead:oneTeamPerLineHelp"
     val `numberOfLeadsPerTeam`: I18nKey = "teamLead:numberOfLeadsPerTeam"
     val `numberOfLeadsPerTeamHelp`: I18nKey = "teamLead:numberOfLeadsPerTeamHelp"
+    val `viewTeamAsMod`: I18nKey = "teamLead:viewTeamAsMod"
+    val `modLog`: I18nKey = "teamLead:modLog"
+    val `reEnable`: I18nKey = "teamLead:reEnable"
+    val `reEnableDescription`: I18nKey = "teamLead:reEnableDescription"
     val `xJoinRequests`: I18nKey = "teamLead:xJoinRequests"
 
   object tfa:
