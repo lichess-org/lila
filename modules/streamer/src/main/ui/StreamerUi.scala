@@ -32,31 +32,30 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
       frag(
         if requests then a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
         else bits.redirectLink(s.user.username, false.some)(cls := "overlay"),
-        stream.isDefined.option(span(cls := "live-ribbon")(span(trans.streamer.live()))),
-        bits.thumbnail(s.streamer, s.user),
+        div(cls := "thumbnail-wrapper")(
+          stream.isDefined.option(span(cls := "live")(span(trans.streamer.live()))),
+          bits.thumbnail(s.streamer, s.user, _.thumbnail)
+        ),
         div(cls := "overview")(
-          bits.streamerTitle(s),
+          bits.streamerTitle(s, stream.isDefined),
           s.streamer.headline.map(_.value).map { d =>
             val cssClass = if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
             p(cls := s"headline $cssClass")(d)
           },
-          div(cls := "services")(
-            s.streamer.twitch.map: twitch =>
-              div(cls := "service twitch")(twitch.minUrl),
-            s.streamer.youtube.map: youtube =>
-              div(cls := "service youtube")(youtube.minUrl)
+          div(cls := "ats")(
+            div(cls := "services")(
+              s.streamer.twitch.isDefined.option(div(cls := "service twitch")("Twitch")),
+              s.streamer.youtube.isDefined.option(div(cls := "service youtube")("YouTube"))
+            ),
+            stream.fold(
+              frag(
+                p(cls := "at")(trans.site.lastSeenActive(momentFromNow(s.streamer.seenAt))),
+                s.streamer.liveAt.map: liveAt =>
+                  p(cls := "at")(trs.lastStream(momentFromNow(liveAt)))
+              )
+            ): s =>
+              p(cls := "at")(trs.currentlyStreaming(strong(s.cleanStatus)))
           ),
-          div(cls := "ats"):
-            stream
-              .map: s =>
-                p(cls := "at")(trs.currentlyStreaming(strong(s.cleanStatus)))
-              .getOrElse:
-                frag(
-                  p(cls := "at")(trans.site.lastSeenActive(momentFromNow(s.streamer.seenAt))),
-                  s.streamer.liveAt.map: liveAt =>
-                    p(cls := "at")(trs.lastStream(momentFromNow(liveAt)))
-                )
-          ,
           div(cls := "streamer-footer")(bits.streamerProfile(s))
         )
       )
@@ -106,7 +105,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
           url = routeUrl(routes.Streamer.show(s.user.username)),
           `type` = "video",
-          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer, _.pfp))
         )
       ):
         main(cls := "page-menu streamer-show")(
