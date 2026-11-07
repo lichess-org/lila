@@ -5,7 +5,15 @@ $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
 .game-setup-dialog {
-  background: $c-bg-zebra;
+  border: $border;
+
+  @include if-transp {
+    border-color: $c-bg-zebra2;
+  }
+
+  @include if-transp-light {
+    border-color: color-mix($c-border 66%, transparent);
+  }
 }
 
 .game-setup {
@@ -84,8 +92,19 @@ $c-slider: $c-setup;
   }
 
   h2 {
-    margin: 1.5rem 0;
+    @extend %box-radius-top;
+
+    padding: 1.5rem 0;
     font-size: 25px;
+    background: $c-bg-mid;
+
+    @include if-transp {
+      background: none;
+    }
+
+    @include if-transp-light {
+      background: $c-bg-zebra;
+    }
   }
 
   .setup-content {
@@ -98,6 +117,10 @@ $c-slider: $c-setup;
 
     .tabs-horiz {
       backdrop-filter: none;
+    }
+
+    @include if-transp {
+      border-color: color-mix($c-border 66%, transparent);
     }
   }
 
@@ -158,10 +181,19 @@ $c-slider: $c-setup;
   }
 
   .footer {
-    @extend %flex-center-center;
+    @extend %flex-center-center, %box-radius-bottom;
 
+    background: $c-bg-mid;
     position: relative;
     padding: 1.5rem;
+
+    @include if-transp {
+      background: none;
+    }
+
+    @include if-transp-light {
+      background: $c-bg-zebra;
+    }
   }
 
   .lobby__start__button {
@@ -256,12 +288,15 @@ $c-slider: $c-setup;
         gap: 0.3rem;
 
         .preset-btn {
-          @extend %box-radius;
-
+          border-radius: $small-box-radius-size;
           color: $c-font-dim;
           padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
           background: $c-bg-low;
+
+          @include if-transp {
+            background: $c-bg-opaque;
+          }
 
           &:hover {
             background: $c-bg-zebra2;
@@ -308,11 +343,15 @@ $c-slider: $c-setup;
 
           .val-box {
             font-size: 1.2em;
-            background: $c-font-dim;
+            background: $c-font-clear;
             padding: 0.1rem 0.5rem;
             border-radius: $small-box-radius-size;
             font-weight: bold;
             color: $c-bg;
+
+            @include if-transp {
+              color: $c-bg-page;
+            }
           }
         }
 
