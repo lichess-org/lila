@@ -71,9 +71,8 @@ final class User(
           .varyAccept
 
   private def gamesForMobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
-    userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
-      Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
-    }
+    for res <- userGames(u, filter, page)
+    yield Ok(env.game.userGameApi.jsPaginator(res) ++ Json.obj("filter" -> GameFilter.all.name))
 
   private val userShowHtmlRateLimit =
     env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
