@@ -1,8 +1,10 @@
 package lila.streamer
 package ui
+
 import lila.core.id.CmsPageKey
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.memo.Dimensions
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
@@ -24,7 +26,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   def header(s: Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: Context) =
     val hasStream = (s.streamer.youtube.isDefined || s.streamer.twitch.isDefined)
     div(cls := "streamer-header")(
-      thumbnail(s.streamer, s.user),
+      thumbnail(s.streamer, s.user, _.pfp),
       div(cls := "overview")(
         streamerTitle(s),
         s.streamer.headline.map(_.value).map { d =>
@@ -85,17 +87,18 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
     )
 
   object thumbnail:
-    def apply(s: Streamer, u: User) =
+    def apply(s: Streamer, u: User, dimensions: Streamer.imageDimensions.type => Dimensions) =
+      val dims = dimensions(Streamer.imageDimensions)
       img(
-        widthA := Streamer.imageDimensions.width,
-        heightA := Streamer.imageDimensions.height,
+        widthA := dims.width,
+        heightA := dims.height,
         cls := "picture",
-        src := url(s),
+        src := url(s, dimensions),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
-    def url(s: Streamer): Url =
+    def url(s: Streamer, dimensions: Streamer.imageDimensions.type => Dimensions): Url =
       s.picture match
-        case Some(image) => picfitUrl.thumbnail(image)(Streamer.imageDimensions)
+        case Some(image) => picfitUrl.thumbnail(image)(dimensions(Streamer.imageDimensions))
         case _ => assetFullUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =

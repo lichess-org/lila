@@ -34,7 +34,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         else bits.redirectLink(s.user.username, false.some)(cls := "overlay"),
         div(cls := "thumbnail-wrapper")(
           stream.isDefined.option(span(cls := "live")(span(trans.streamer.live()))),
-          bits.thumbnail(s.streamer, s.user)
+          bits.thumbnail(s.streamer, s.user, _.thumbnail)
         ),
         div(cls := "overview")(
           bits.streamerTitle(s, stream.isDefined),
@@ -105,7 +105,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
           url = routeUrl(routes.Streamer.show(s.user.username)),
           `type` = "video",
-          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer, _.pfp))
         )
       ):
         main(cls := "page-menu streamer-show")(

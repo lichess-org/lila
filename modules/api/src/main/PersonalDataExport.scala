@@ -69,7 +69,7 @@ final class PersonalDataExport(
             List(textTitle("Streamer profile")) :::
               List(
                 "name" -> s.name,
-                "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions).value),
+                "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions.pfp).value),
                 "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
                 "twitch" -> s.twitch.so(_.fullUrl),
