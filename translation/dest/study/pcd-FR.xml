@@ -37,6 +37,7 @@
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
   <string name="kick">Éjecter</string>
+  <string name="remove">Supprimer</string>
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">Charger des parties par PGN</string>
   <string name="automatic">Automatique</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Collez votre texte PGN ici, jusqu\'à %s partie</item>
-    <item quantity="other">Collez votre texte PGN ici, jusqu\'à %s parties</item>
+    <item quantity="one">Collez votre texte en PGN ici, jusqu\'à %s partie.</item>
+    <item quantity="other">Collez des parties en format PGN ici. Un nouveau chapitre est créé pour chaque partie. L\'étude peut compter jusqu\'à %s chapitres.</item>
   </plurals>
   <string name="urlOfTheGame">URL des parties, une par ligne</string>
   <string name="createChapter">Créer un chapitre</string>

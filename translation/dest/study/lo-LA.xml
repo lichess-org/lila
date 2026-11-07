@@ -95,9 +95,6 @@
   <string name="loadAPositionFromFen">ໂຫຼດຕຳແໜ່ງຈາກ FEN</string>
   <string name="loadAGameFromPgn">ໂຫຼດເກມຈາກ PGN</string>
   <string name="automatic">ອັດຕະໂນມັດ</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">ວາງເກມເປັນຂໍ້ຄວາມ PGN ຢູ່ນີ້. ແຕ່ລະເກມຈະຖືກສ້າງເປັນບົດໃໝ່. ບົດສຶກສາສາມາດມີໄດ້ສູງສຸດ %s ບົດ.</item>
-  </plurals>
   <string name="urlOfTheGame">URL ຂອງເກມ, ໜຶ່ງ URL ຕໍ່ແຖວ</string>
   <string name="createChapter">ສ້າງບົດ</string>
   <string name="createStudy">ສ້າງບົດສຶກສາ</string>

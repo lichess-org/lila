@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Jokaldia atzera botatzea  (aurkariaren onespenarekin)</string>
   <string name="inCasualGamesOnly">Puntu-aldaketarik gabeko partidetan bakarrik</string>
   <string name="promoteToQueenAutomatically">Dama automatikoki sustatzea</string>
-  <string name="explainPromoteToQueenAutomatically">Eutsi &lt;ctrl&gt; tekla sakatuta sustapenean sustapen automatikoa aldi baterako desaktibatzeko</string>
   <string name="whenPremoving">Aldez aurreko jokaldia egiten denean</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
-  <string name="multipleChoices">Aukera anitzak. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Partida baten zehar taularen menua erabiliz desaktibatu daiteke</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>

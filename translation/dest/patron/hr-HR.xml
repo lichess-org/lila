@@ -34,8 +34,6 @@
   <string name="weAreSmallTeam">Mi smo maleni tim, stoga vaša podrška čini veliku razliku!</string>
   <string name="celebratedPatrons">Proslavljeni pokrovitelji koji omogućuju postojanje Lichess-a</string>
   <string name="whereMoneyGoes">Kamo novac odlazi?</string>
-  <string name="serversAndDeveloper">Ponajprije, na snažne servere.
-Zatim, plaćamo programera s punim radnim vremenom: %s, osnivača Lichess-a.</string>
   <string name="costBreakdown">Pogledajte detaljni prikaz troškova</string>
   <string name="officialNonProfit">Je li Lichess i službeno neprofitna organizacija?</string>
   <string name="actOfCreation">Da, ovo je statut osnivanja (na francuskom jeziku)</string>

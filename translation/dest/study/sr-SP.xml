@@ -94,11 +94,6 @@
   <string name="loadAPositionFromFen">Учитај позицију из FEN-а</string>
   <string name="loadAGameFromPgn">Учитај партијe из PGN-а</string>
   <string name="automatic">Аутоматска</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Налепи свој PGN текст овде, до %s партије</item>
-    <item quantity="few">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
-    <item quantity="other">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
-  </plurals>
   <string name="urlOfTheGame">Линкови партија, један по реду</string>
   <string name="createChapter">Направи поглавље</string>
   <string name="createStudy">Направи студију</string>

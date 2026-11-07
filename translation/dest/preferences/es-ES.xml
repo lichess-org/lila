@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantén pulsada la tecla &lt;ctrl&gt; al promocionar para desactivar temporalmente la promoción automática</string>
+  <string name="explainPromoteToQueenAutomatically">Mantén pulsada la tecla Ctrl al promocionar para desactivar temporalmente la promoción automática.</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
-  <string name="multipleChoices">Múltiples opciones. </string>
+  <string name="multipleChoices">Múltiples opciones.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Se puede desactivar durante una partida con el menú del tablero</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin límite de tiempo</string>

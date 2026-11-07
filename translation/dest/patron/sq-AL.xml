@@ -34,8 +34,8 @@
   <string name="weAreSmallTeam">Jemi një ekip i vogël, andaj përkrahja juaj bën dallim të madh!</string>
   <string name="celebratedPatrons">Bamirës të nderuar që bëjnë të mundur Lichess-in</string>
   <string name="whereMoneyGoes">Ku shkojnë paratë?</string>
-  <string name="serversAndDeveloper">Së pari, për shërbyes të fuqishëm.
-Më tej, paguajmë një zhvillues me orar të plotë, %s, krijuesin e Lichess-it.</string>
+  <string name="serversAndDeveloper">Së pari, shërbyes të fuqishëm.
+Mandej paguajmë një zhvillues me punësim të plotë: %s, themeluesi i Lichess-it.</string>
   <string name="costBreakdown">Shihni zbërthim të hollësishëm shpenzimesh</string>
   <string name="officialNonProfit">A është Lichess-i një ent jofitimprurës zyrtarisht?</string>
   <string name="actOfCreation">Po, ja akti i themelimit (në frëngjisht)</string>

@@ -33,11 +33,11 @@
   <string name="takebacksWithOpponentApproval">Marrje mbrapsht (me miratimin e kundërshtarit)</string>
   <string name="inCasualGamesOnly">Vetëm në lojëra të rastësishme</string>
   <string name="promoteToQueenAutomatically">Dalja automatike në mbretëreshë</string>
-  <string name="explainPromoteToQueenAutomatically">Mbani të shtypur tastin &lt;Ctrl&gt; gjatë daljes, për të çaktivizuar përkohësisht daljet e automatizuara</string>
   <string name="whenPremoving">Kur bëhet lëvizje e paracaktuar</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kërko automatikisht barazim pas përsëritjeje të trefishtë</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Ripohim lëvizjesh</string>
+  <string name="multipleChoices">Zgjedhje të shumta.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Mund të çaktivizohet gjatë një loje me menu tabele</string>
   <string name="inCorrespondenceGames">Lojëra me korrespondencë</string>
   <string name="correspondenceAndUnlimited">Me korrespondencë dhe e pakufizuar</string>

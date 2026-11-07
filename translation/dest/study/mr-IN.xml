@@ -99,10 +99,6 @@
   <string name="loadAPositionFromFen">स्थिती FEN ने ध्वन्यर्ध करा</string>
   <string name="loadAGameFromPgn">खेळ FEN ने ध्वन्यर्ध करा</string>
   <string name="automatic">स्वयंचलित</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">तुमची PGN संहिता इथे टाका, %s खेळ पर्यंत</item>
-    <item quantity="other">येथे खेळ PGN संहिता म्हणून टाका. प्रत्येक खेळासाठी एक नवीन अध्याय तयार केला जातो. या अभ्यासिकेत %s पर्यंत अध्याय असू शकतात.</item>
-  </plurals>
   <string name="urlOfTheGame">खेळांची URL, एक प्रति ओळ</string>
   <string name="createChapter">अध्याय तयार करा</string>
   <string name="createStudy">अभ्यास तयार करा</string>

@@ -34,7 +34,6 @@
   <string name="takebacksWithOpponentApproval">ಹಿಂಪಡೆಯುವಿಕೆಗಳು (ಎದುರಾಳಿಯ ಅನುಮೋದನೆಯೊಂದಿಗೆ)</string>
   <string name="inCasualGamesOnly">ಕ್ಯಾಶುಯಲ್ ಆಟಗಳಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="promoteToQueenAutomatically">ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಾಣಿಗೆ ಬಡ್ತಿ ನೀಡಿ</string>
-  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; ಸ್ವಯಂ ಪ್ರಚಾರವನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಪ್ರಚಾರ ಮಾಡುವಾಗ ಕೀ</string>
   <string name="whenPremoving">ಮುನ್ನುಗ್ಗುತ್ತಿರುವಾಗ</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ಮೂರು ಪಟ್ಟು ಪುನರಾವರ್ತನೆಯ ಮೇಲೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಡ್ರಾ ಕ್ಲೈಮ್ ಮಾಡಿ</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 30 ಸೆಕೆಂಡುಗಳು</string>

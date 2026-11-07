@@ -37,6 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Contribuïdor</string>
   <string name="kick">Expulsa</string>
+  <string name="remove">Suprimeix</string>
   <string name="leaveTheStudy">Deixar l’estudi</string>
   <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
@@ -99,10 +100,6 @@
   <string name="loadAPositionFromFen">Carregar una posició via codi FEN</string>
   <string name="loadAGameFromPgn">Carregar una partida PGN</string>
   <string name="automatic">Automàtic</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Enganxa el teu PGN aquí, fins a %s partida</item>
-    <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
-  </plurals>
   <string name="urlOfTheGame">URL del joc</string>
   <string name="createChapter">Crear capítol</string>
   <string name="createStudy">Crear estudi</string>

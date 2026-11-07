@@ -6,7 +6,6 @@
   <string name="instructions2">Amosemos fleches para dellos movimientos cuando nun tamos seguros. Di el color o\'l númberu d\'una flecha de movimientu para escoyela.</string>
   <string name="instructions3">Si la flecha amuesa un radar circular, va realizase la xugada cuando se complete\'l círculu. Mientres esti tiempu, namá puedes dicir %1$s para facer la xugada, %2$s para atayar di el color/númberu d\'una flecha distinta. Esti temporizador puede afaese o desactivar nes preferencies.</string>
   <string name="instructions4">Activa %s en redolaes ruidoses. Calten pulsiáu Mayúscules mientres digas comandos cuando tea encendíu.</string>
-  <string name="instructions5">Utilice l\'alfabetu fonéticu para ameyorar la reconocencia de los arquivos de tableru d\'axedrez. </string>
   <string name="instructions6">%s esplica refechamente la configuración de movimientu de voz.</string>
   <string name="thisBlogPost">Esta entrada de blog</string>
   <string name="moveToE4OrSelectE4Piece">Mover a e4 o escoyer la pieza en e4</string>

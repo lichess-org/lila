@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">무르기 신청</string>
   <string name="inCasualGamesOnly">캐주얼 모드에서만</string>
   <string name="promoteToQueenAutomatically">퀸으로 자동 승진</string>
-  <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄려면 승진하는 동안 &lt;ctrl&gt;를 누르세요</string>
+  <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄려면 승진하는 동안 컨트롤 키를 누르세요</string>
   <string name="whenPremoving">미리두기 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복 시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">수 확인</string>
-  <string name="multipleChoices">중복 선택 가능. </string>
+  <string name="multipleChoices">복수 선택.</string>
   <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화할 수 있습니다.</string>
   <string name="inCorrespondenceGames">통신 대국</string>
   <string name="correspondenceAndUnlimited">통신 대국과 무제한</string>

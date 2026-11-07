@@ -34,9 +34,6 @@
   <string name="weAreSmallTeam">Siamo un piccolo team, quindi il tuo sostegno fa la differenza!</string>
   <string name="celebratedPatrons">I famigerati Mecenati che rendono possibile Lichess</string>
   <string name="whereMoneyGoes">Dove vanno a finire i soldi?</string>
-  <string name="serversAndDeveloper">Prima di tutto, server potenti.
-Poi paghiamo uno sviluppatore a tempo pieno: %s, il fondatore di Lichess.
-</string>
   <string name="costBreakdown">Vedi la ripartizione dettagliata dei costi</string>
   <string name="officialNonProfit">Lichess è un no-profit ufficiale?</string>
   <string name="actOfCreation">Sì, ecco l\'atto di creazione (in francese)</string>

@@ -29,7 +29,7 @@
   <string name="puzzleWrite">Resoldre problemes</string>
   <string name="teamRead">Llegir informació privada de l\'equip</string>
   <string name="teamWrite">Uneix-te i surt d\'equips</string>
-  <string name="manageTeamsYouLead">Administra els equips que dirigeixes: envia missatges privats, expulsa membres</string>
+  <string name="manageTeamsYouLead">Administra els equips que dirigeixes: envia missatges privats, elimina membres</string>
   <string name="followRead">Llegir els jugadors seguits</string>
   <string name="followWrite">Segueix i deixa de seguir altres jugadors</string>
   <string name="msgWrite">Envia missatges privats a altres usuaris</string>

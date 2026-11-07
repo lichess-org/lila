@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Siirtojen peruminen (vastustajan hyväksynnällä)</string>
   <string name="inCasualGamesOnly">Vain rennoissa peleissä</string>
   <string name="promoteToQueenAutomatically">Korota automaattisesti kuningattareksi</string>
-  <string name="explainPromoteToQueenAutomatically">Pidä &lt;ctrl&gt;-näppäintä painettuna korottaessasi sotilaan, jos haluat ottaa automaattisen korotuksen väliaikaisesti pois käytöstä</string>
+  <string name="explainPromoteToQueenAutomatically">Pidä Ctrl-näppäintä painettuna korottaessasi sotilaan, jos haluat ottaa automaattisen korotuksen väliaikaisesti pois käytöstä</string>
   <string name="whenPremoving">Esisiirtäessä</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
-  <string name="multipleChoices">Monivalinta. </string>
+  <string name="multipleChoices">Monivalinta.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>

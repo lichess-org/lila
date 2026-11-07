@@ -43,6 +43,7 @@
   <string name="spectator">Зритель</string>
   <string name="contributor">Редактор</string>
   <string name="kick">Выгнать</string>
+  <string name="remove">Удалить</string>
   <string name="leaveTheStudy">Покинуть студию</string>
   <string name="youAreNowAContributor">Теперь вы редактор</string>
   <string name="youAreNowASpectator">Теперь вы зритель</string>
@@ -105,12 +106,6 @@
   <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
   <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
   <string name="automatic">Автоматически</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Вставьте текст в формате PGN, не больше %s игры</item>
-    <item quantity="few">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="many">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="other">Вставьте текст в формате PGN, не больше %s игр</item>
-  </plurals>
   <string name="urlOfTheGame">URL игры</string>
   <string name="createChapter">Создать главу</string>
   <string name="createStudy">Создать студию</string>

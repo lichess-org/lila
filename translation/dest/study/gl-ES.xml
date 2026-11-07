@@ -37,6 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
+  <string name="remove">Retirar</string>
   <string name="leaveTheStudy">Deixar o estudo</string>
   <string name="youAreNowAContributor">Agora es un colaborador</string>
   <string name="youAreNowASpectator">Agora es un espectador</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">Cargar as partidas dende o PGN</string>
   <string name="automatic">Automática</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Pega o teu texto PGN aquí, ata %s partida</item>
-    <item quantity="other">Pega aquí o PGN das partidas: por cada unha créase un novo capítulo. O estudo pode conter ata %s capítulos.</item>
+    <item quantity="one">Pega o teu texto PGN aquí, ata %s partida.</item>
+    <item quantity="other">Pega aquí o texto PGN das partidas: por cada unha créase un novo capítulo. O estudo pode conter ata %s capítulos.</item>
   </plurals>
   <string name="urlOfTheGame">Ligazóns das partidas, unha por liña</string>
   <string name="createChapter">Crear capítulo</string>
@@ -200,7 +201,7 @@
   <string name="analysisEditor">Editor de análise</string>
   <string name="clearLocal">Borrar a análise local?</string>
   <string name="clearPublished">Eliminar a análise publicada?</string>
-  <string name="requestAServerAnalysis">Solicitar unha análise dende o servidor</string>
+  <string name="requestAServerAnalysis">Analizar dende o servidor</string>
   <string name="analyzeOnYourDevice">Analizar no teu dispositivo</string>
   <string name="searchChapters">Buscar capítulos</string>
   <string name="searchGames">Buscar partidas</string>

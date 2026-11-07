@@ -499,6 +499,7 @@ Shokë që po luajnë: %2$s</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
   <string name="resume">Rifillo</string>
+  <string name="stop">Ndal</string>
   <string name="youArePlaying">Po luani!</string>
   <string name="winRate">Përqindje fitoresh</string>
   <string name="performance">Sukseshmëri</string>
@@ -953,6 +954,7 @@ dhe ndikojnë te vlerësimet e lojëtarëve</string>
   <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
   <string name="noRestriction">Pa kufizim</string>
   <string name="minimumRatedGames">Lojëra të vlerësuara në minimum</string>
+  <string name="minimumAccountAge">Moshë minimum për llogari</string>
   <string name="minimumRating">Vlerësim minimum</string>
   <string name="maximumWeeklyRating">Vlerësimi më i madh javor</string>
   <string name="positionInputHelp">Ngjitni një FEN të vlefshëm, që çdo lojë të niset prej një pozicioni të dhënë.
@@ -1007,6 +1009,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="offline" comment="status of a user">jashtë linje</string>
   <string name="search">Kërko</string>
   <string name="clearSearch">Spastro kërkimin</string>
+  <string name="searchInX">Kërkoni në “%s”</string>
   <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="tags">Etiketa</string>
   <string name="settings">Rregullime</string>

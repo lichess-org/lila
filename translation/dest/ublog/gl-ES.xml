@@ -34,6 +34,7 @@
   <string name="publishHelp">Se está marcada, a túa publicación será listada no teu blog. Se non, será privada e ficará xunto ós teus borradores</string>
   <string name="includesPromotedContent">Inclúe contido patrocinado ou ligazóns de referencia</string>
   <string name="mandatoryForSponsoredContent">Obrigatorio para o contido patrocinado, as ligazóns afiliadas ou a publicidade comercial</string>
+  <string name="containsSponsoredContent">Inclúe contido patrocinado, ligazóns afiliadas ou publicidade comercial</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar a publicación</string>
   <string name="stickyPostHelp">Se se selecciona, este artigo será o primeiro no teu blog e no teu perfil.</string>
   <plurals name="publishedNbBlogPosts">

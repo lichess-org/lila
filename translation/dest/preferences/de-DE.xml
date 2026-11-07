@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <string name="inCasualGamesOnly">Nur in ungewerteten Partien</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
-  <string name="explainPromoteToQueenAutomatically">Halte die &lt;ctrl&gt; Taste während der Umwandlung um vorübergehend die automatische Umwandlung zu deaktivieren</string>
+  <string name="explainPromoteToQueenAutomatically">Halte die STRG-Taste während der Umwandlung, um vorübergehend die automatische Umwandlung zu deaktivieren</string>
   <string name="whenPremoving">Bei Vorauszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
-  <string name="multipleChoices">Mehrere Auswahlmöglichkeiten. </string>
+  <string name="multipleChoices">Mehrere Auswahlmöglichkeiten.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>

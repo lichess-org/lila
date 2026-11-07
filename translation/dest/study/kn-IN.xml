@@ -94,10 +94,6 @@
   <string name="loadAPositionFromFen">FEN ನಿಂದ ಸ್ಥಾನವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="loadAGameFromPgn">PGN ನಿಂದ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="automatic">ಸ್ವಯಂಚಾಲಿತ</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">ನಿಮ್ಮ PGN ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, %s ಆಟದವರೆಗೆ</item>
-    <item quantity="other">ನಿಮ್ಮ PGN ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, %s ಆಟಗಳವರೆಗೆ</item>
-  </plurals>
   <string name="urlOfTheGame">ಆಟಗಳ URL, ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು</string>
   <string name="createChapter">ಅಧ್ಯಾಯವನ್ನು ರಚಿಸಿ</string>
   <string name="createStudy">ಅಧ್ಯಯನವನ್ನು ರಚಿಸಿ</string>

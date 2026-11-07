@@ -37,6 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
+  <string name="remove">Quitar</string>
   <string name="leaveTheStudy">Dejar el estudio</string>
   <string name="youAreNowAContributor">Ahora eres un colaborador</string>
   <string name="youAreNowASpectator">Ahora eres un espectador</string>
@@ -99,10 +100,6 @@
   <string name="loadAPositionFromFen">Cargar una posición vía código FEN</string>
   <string name="loadAGameFromPgn">Cargar una partida vía código PGN</string>
   <string name="automatic">Automática</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Pega aquí el código PGN, %s partida como máximo</item>
-    <item quantity="other">Pega aquí el código PGN, %s partidas como máximo</item>
-  </plurals>
   <string name="urlOfTheGame">URL de la partida</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="createStudy">Crear estudio</string>

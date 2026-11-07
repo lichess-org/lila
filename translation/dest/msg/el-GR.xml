@@ -8,4 +8,5 @@
 
 Σας ευχαριστούμε που μας βοηθάτε να κρατήσουμε το Lichess ένα καλό μέρος για όλους.</string>
   <string name="oldAppNoLongerSupportsPuzzles">Η επίλυση γρίφων σε αυτή την εφαρμογή δεν υποστηρίζεται πλέον. Εγκαταστήστε τη νέα εφαρμογή Lichess: %s</string>
+  <string name="xDoesntAcceptNewMessages">O %s δεν δέχεται νέα μηνύματα.</string>
 </resources>

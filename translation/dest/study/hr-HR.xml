@@ -101,11 +101,6 @@
   <string name="loadAPositionFromFen">Učitaj poziciju od FENa</string>
   <string name="loadAGameFromPgn">Učitaj igru od PGNa</string>
   <string name="automatic">Automatski</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s igre</item>
-    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s igri</item>
-    <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s igara</item>
-  </plurals>
   <string name="urlOfTheGame">URL igre</string>
   <string name="createChapter">Stvori poglavlje</string>
   <string name="createStudy">Stvori studiju</string>

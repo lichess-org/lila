@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">การเดินใหม่ (เมื่อคู่แข่งยินยอม)</string>
   <string name="inCasualGamesOnly">เฉพาะเกมธรรมดา</string>
   <string name="promoteToQueenAutomatically">เลื่อนขั้นเบี้ยเป็นควีนอัตโนมัติ</string>
-  <string name="explainPromoteToQueenAutomatically">กด&lt;ctrl&gt; ค้างไว้เพื่องดการเลื่อนขั้นเบี้ยแบบอัตโนมัติชั่วคราว</string>
   <string name="whenPremoving">เมื่อกำลังเดินล่วงหน้า</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">เมื่อเหลือเวลา &lt; 30 วินาที</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
-  <string name="multipleChoices">เป็นหลายตัวเลือก </string>
   <string name="explainCanThenBeTemporarilyDisabled">สามารถปิดการใช้งานระหว่างเกมได้ด้วยเมนูกระดาน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="correspondenceAndUnlimited">แบบยาวนานและแบบไม่จำกัดเวลา</string>

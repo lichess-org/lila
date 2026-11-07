@@ -29,7 +29,6 @@
   <string name="puzzleWrite">Masalalarni yeçiş</string>
   <string name="teamRead">Jamoalarning yopiq maʼlumotlarini köriş</string>
   <string name="teamWrite">Jamoalarga qöşiliş va ulardan çiqiş</string>
-  <string name="manageTeamsYouLead">Özingiz sardor bölgan jamoalarni boşqariş: xabarlar yuboriş, aʼzolarni çetlatiş</string>
   <string name="followRead">Obuna bölingan öyinçilarni köriş</string>
   <string name="followWrite">Boşqa öyinçilarga obuna böliş yoki obunani bekor qiliş</string>
   <string name="msgWrite">Boşqa öyinçilarga şaxsiy xabarlar yuboriş</string>
