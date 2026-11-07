@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Afturkallanir (með samþykki andstæðings)</string>
   <string name="inCasualGamesOnly">Einungis í stigalausum leikjum</string>
   <string name="promoteToQueenAutomatically">Vekja upp drottningu sjálfvirkt</string>
-  <string name="explainPromoteToQueenAutomatically">Haltu niðri &lt;ctrl&gt;-lyklinum á meðan þú ert að vekja upp til þess að ákveða handvirkt</string>
   <string name="whenPremoving">Við að leika forleik</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krefjast sjálfkrafa jafnteflis þegar þrír leikir hafa verið endurteknir</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Þegar tími eftir er undir 30 sekúndum</string>

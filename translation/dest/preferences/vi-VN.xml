@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Hoãn nước đi (với sự chấp thuận của đối thủ)</string>
   <string name="inCasualGamesOnly">Chỉ trong các ván đấu không tính Elo</string>
   <string name="promoteToQueenAutomatically">Tự động phong cấp thành quân Hậu</string>
-  <string name="explainPromoteToQueenAutomatically">Giữ nút &lt;ctrl&gt; trong khi phong cấp để tạm thời hủy bỏ việc phong cấp tự động</string>
   <string name="whenPremoving">Khi đi trước</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
-  <string name="multipleChoices">Nhiều lựa chọn. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
   <string name="correspondenceAndUnlimited">Cờ qua thư và cờ vô hạn</string>

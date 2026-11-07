@@ -94,10 +94,6 @@
   <string name="loadAPositionFromFen">Cargar una posición vía codigo FEN</string>
   <string name="loadAGameFromPgn">Cargar una partida vía codigo PGN</string>
   <string name="automatic">Automatica</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Apega aquí lo codigo PGN, %s partida como maximo</item>
-    <item quantity="other">Apega aquí lo codigo PGN, %s partidas como maximo</item>
-  </plurals>
   <string name="urlOfTheGame">URL d\'a partida</string>
   <string name="createChapter">Crear capitol</string>
   <string name="createStudy">Crear estudio</string>

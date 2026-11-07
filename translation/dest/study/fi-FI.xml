@@ -37,6 +37,7 @@
   <string name="spectator">Katsoja</string>
   <string name="contributor">Osallistuja</string>
   <string name="kick">Poista</string>
+  <string name="remove">Poista</string>
   <string name="leaveTheStudy">Jätä tutkielma</string>
   <string name="youAreNowAContributor">Olet nyt osallistuja</string>
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">Ota peli PGN:stä</string>
   <string name="automatic">Automaattinen</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Liitä PGN tähän, enintään %s peli</item>
-    <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
+    <item quantity="one">Liitä PGN tähän, enintään %s peli.</item>
+    <item quantity="other">Liitä pelit tähän PGN-muotoisena tekstinä. Jokaista peliä kohden luodaan uusi luku. Tutkielmassa voi olla maksimissaan %s lukua.</item>
   </plurals>
   <string name="urlOfTheGame">URL peliin</string>
   <string name="createChapter">Aloita luku</string>
@@ -202,4 +203,6 @@
   <string name="clearPublished">Poistetaanko julkaista analyysi?</string>
   <string name="requestAServerAnalysis">Pyydä palvelinanalyysiä</string>
   <string name="analyzeOnYourDevice">Analysoi omalla laitteellasi</string>
+  <string name="searchChapters">Hae lukuja</string>
+  <string name="searchGames">Hae pelejä</string>
 </resources>

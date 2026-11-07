@@ -99,10 +99,6 @@
   <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
   <string name="loadAGameFromPgn">Φόρτωση μιας παρτίδας από ένα αρχείο PGN</string>
   <string name="automatic">Να οριστεί αυτόματα</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Επικολλήστε το αρχείο PGN εδώ (μέχρι %s παρτίδα επιτρέπεται)</item>
-    <item quantity="other">Επικολλήστε το PGN εδώ. Για κάθε παρτίδα θα δημιουργηθεί νέο κεφάλαιο. Μια μελέτη μπορεί να έχει μέχρι %s κεφάλαια.</item>
-  </plurals>
   <string name="urlOfTheGame">Διεύθύνσεις URL παρτίδων (μία σε κάθε γραμμή)</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="createStudy">Δημιουργία μελέτης</string>

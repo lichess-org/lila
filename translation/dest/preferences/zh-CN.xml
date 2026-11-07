@@ -36,7 +36,7 @@
   <string name="takebacksWithOpponentApproval">悔棋（需对手同意）</string>
   <string name="inCasualGamesOnly">仅限休闲对局</string>
   <string name="promoteToQueenAutomatically">自动升变为后</string>
-  <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
+  <string name="explainPromoteToQueenAutomatically">按住 Ctrl 键以临时禁用自动升变</string>
   <string name="whenPremoving">预走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动提和</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于 30 秒时</string>

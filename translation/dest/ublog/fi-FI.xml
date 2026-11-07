@@ -33,7 +33,8 @@
   <string name="publishOnYourBlog">Julkaise blogissasi</string>
   <string name="publishHelp">Jos valitset tämän, kirjoitus näytetään blogissasi. Jos et, kirjoituksesi on yksityinen ja tallentuu luonnoksiin</string>
   <string name="includesPromotedContent">Sisältää mainostettavaa/sponsoroitua sisältöä tai suosittelulinkkejä</string>
-  <string name="mandatoryForSponsoredContent">Pakollinen jos on sponsoroitua sisältöä, affilinkkejä tai kaupallista mainontaa</string>
+  <string name="mandatoryForSponsoredContent">Pakollinen sponsoroituun sisältöön, kumppanuuslinkkeihin tai kaupalliseen mainontaan</string>
+  <string name="containsSponsoredContent">Sisältää sponsoroitua sisältöä, kumppanuuslinkkejä tai kaupallista mainontaa</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Kiinnitä artikkeli</string>
   <string name="stickyPostHelp">Jos tämä on valittuna, artikkeli näkyy profiilisi viimeisimpien artikkelien listalla sekä blogissasi ensimmäisenä.</string>
   <plurals name="publishedNbBlogPosts">

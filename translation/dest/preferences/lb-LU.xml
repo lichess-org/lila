@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Zuch zeréckhuelen (mat Zoustemmung vum Géigner)</string>
   <string name="inCasualGamesOnly">Just an ongewäerten Partien</string>
   <string name="promoteToQueenAutomatically">Automatesch an eng Damm ëmwandelen</string>
-  <string name="explainPromoteToQueenAutomatically">Hal wärend der Ëmwandlung d\'&lt;ctrl&gt;-Tast gedréckt fir déi automatesch Ëmwandlung temporär ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wa &lt; 30 Sekonnen iwwereg bleiwen</string>

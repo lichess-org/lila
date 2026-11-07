@@ -23,8 +23,6 @@
   <string name="logInToDonate">Kevreañ da brofañ arc\'hant</string>
   <string name="weAreSmallTeam">Dre ma \'z eo bihan hor skipailh eo pouezus-kenañ ho skoazell!</string>
   <string name="whereMoneyGoes">Pelec\'h ez a an argant?</string>
-  <string name="serversAndDeveloper">Da gentañ penn servijerioù galloudus.
-Ha goude-se un diorroer stlenneg leun amzer: %s, krouer Lichess.</string>
   <string name="changeMonthlySupport">Gallout a ran nullañ pe cheñch ar sammad arc\'hant a brofan bep miz?</string>
   <string name="otherMethods">Doareoù all da reiñ?</string>
   <string name="youSupportWith">Skoazellit a rit lichess.org gant %s bep miz.</string>

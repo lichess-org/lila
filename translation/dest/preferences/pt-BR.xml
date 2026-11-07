@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
   <string name="whenPremoving">Quando pré-mover</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
-  <string name="multipleChoices">Múltiplas escolhas. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante a partida no menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>

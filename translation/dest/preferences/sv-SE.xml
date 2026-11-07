@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="inCasualGamesOnly">Endast i icke rankade partier</string>
   <string name="promoteToQueenAutomatically">Promovera till drottning automatiskt</string>
-  <string name="explainPromoteToQueenAutomatically">Håll ner &lt;ctrl&gt; -tangenten medan du uppgraderar för att tillfälligt inaktivera automatisk förvandling</string>
   <string name="whenPremoving">Vid förhandsdrag</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">När återstående tid &lt; 30 sekunder</string>

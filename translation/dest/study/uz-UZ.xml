@@ -99,10 +99,6 @@
   <string name="loadAPositionFromFen">FEN orqali öyinni yuklaş</string>
   <string name="loadAGameFromPgn">PGN orqali öyinni yuklaş</string>
   <string name="automatic">Avtomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN matnini kiriting (maksimum %s ta öyin)</item>
-    <item quantity="other">PGN öyinlarni kiriting. Har biri uçun yangi bob yaratiladi (jami %s tagaça).</item>
-  </plurals>
   <string name="urlOfTheGame">Öyinlar havolasi (har bir qatorda bittadan)</string>
   <string name="createChapter">Bob yaratiş</string>
   <string name="createStudy">Saboq yaratiş</string>

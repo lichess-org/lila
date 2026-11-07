@@ -36,6 +36,7 @@
   <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
   <string name="includesPromotedContent">Содержит рекламный/спонсорский контент или реферальные ссылки</string>
   <string name="mandatoryForSponsoredContent">Обязательно для спонсорского контента, реферальных ссылок или коммерческой рекламы</string>
+  <string name="containsSponsoredContent">Содержит спонсируемый контент, партнерские ссылки или коммерческую рекламу</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Закреплённая запись</string>
   <string name="stickyPostHelp">Если отмечено, то эта запись будет первой в списке последних записей в вашем профиле.</string>
   <plurals name="publishedNbBlogPosts">

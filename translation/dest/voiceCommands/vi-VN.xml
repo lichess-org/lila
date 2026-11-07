@@ -6,7 +6,6 @@
   <string name="instructions2">Chúng tôi hiển thị mũi tên cho nhiều nước đi khi chúng tôi không chắc chắn. Nói màu hoặc số của mũi tên nước đi để chọn nó.</string>
   <string name="instructions3">Nếu một mũi tên hiển thị Radar quét, nước đi đó sẽ được thực hiện khi vòng tròn hoàn tất. Trong thời gian này, bạn chỉ có thể nói %1$s để thực hiện nước đi ngay lập tức, %2$s để hủy hoặc nói màu/số của một mũi tên khác. Bộ hẹn giờ này có thể được điều chỉnh hoặc tắt trong cài đặt.</string>
   <string name="instructions4">Bật %s trong môi trường ồn ào. Giữ phím Shift trong khi nói lệnh khi tính năng này được bật.</string>
-  <string name="instructions5">Sử dụng bảng chữ cái ngữ âm để cải thiện khả năng nhận dạng các tập tin bàn cờ. </string>
   <string name="instructions6">%s giải thích chi tiết cài đặt nước đi bằng giọng nói.</string>
   <string name="thisBlogPost">Bài blog này</string>
   <string name="moveToE4OrSelectE4Piece">Đưa quân tới ô e4/chọn quân ở e4</string>

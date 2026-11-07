@@ -25,7 +25,9 @@
   </plurals>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
+  <string name="removeSomeone">Elimină pe cineva din echipă</string>
   <string name="whoToKick">Pe cine vrei să dai afară din echipă?</string>
+  <string name="whoToRemove">Pe cine vreți să eliminați din echipă?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s cerere de alăturare</item>
     <item quantity="few">%s cereri de alăturare</item>
@@ -42,6 +44,7 @@
   <string name="teamUpdates">Anunțuri în echipă</string>
   <string name="subToTeamUpdates">Abonează-te la anunțurile din echipă</string>
   <string name="newTeamUpdate">Nou anunț în echipă</string>
+  <string name="teamUpdatesPerWeek">Puteţi trimite până la %1$s actualizări pe săptămână. &lt;strong&gt;%2$s&lt;/strong&gt; actualizări rămase până la %3$s.</string>
   <string name="teamEvents">Evenimente în echipă</string>
   <string name="upcomingTeamEvents">Evenimente viitoare în echipă</string>
   <string name="teamsIlead">Echipe pe care le-am condus</string>

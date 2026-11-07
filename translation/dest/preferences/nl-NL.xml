@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Terugnames (met goedkeuring van tegenstander)</string>
   <string name="inCasualGamesOnly">Alleen bij partijen zonder rating</string>
   <string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
-  <string name="explainPromoteToQueenAutomatically">Houd de &lt;Ctrl&gt; toets ingedrukt om auto-promotie tijdelijk uit te zetten</string>
+  <string name="explainPromoteToQueenAutomatically">Houd de Ctrl-toets ingedrukt om auto-promotie tijdelijk uit te zetten</string>
   <string name="whenPremoving">Bij vooraf-zetten</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
-  <string name="multipleChoices">Meerdere keuzes. </string>
+  <string name="multipleChoices">Meerdere keuzes.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan tijdens een partij uitgeschakeld worden via het bordmenu</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>

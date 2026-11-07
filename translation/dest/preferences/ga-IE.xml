@@ -33,7 +33,6 @@
   <string name="takebacksWithOpponentApproval">Aistarraing (le ceadú céile comhraic)</string>
   <string name="inCasualGamesOnly">I gcluichí fánach amháin</string>
   <string name="promoteToQueenAutomatically">Ardú go banríon sa ghnáthchúrsa</string>
-  <string name="explainPromoteToQueenAutomatically">Coinnigh an &lt;ctrl&gt; eochair síos agus ceithearnach á ardú chun uath-ardú a dhíchumasú go sealadach</string>
   <string name="whenPremoving">Réamh-ghluaiseacht</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Nuair atá am fágtha &lt; 30 soicind</string>

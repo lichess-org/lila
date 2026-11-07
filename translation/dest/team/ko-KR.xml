@@ -21,7 +21,9 @@
   </plurals>
   <string name="teamRecentMembers">최근 가입 멤버</string>
   <string name="kickSomeone">팀에서 추방하기</string>
+  <string name="removeSomeone">다른 사람을 팀에서 추방</string>
   <string name="whoToKick">팀에서 누구를 추방하기를 원하나요?</string>
+  <string name="whoToRemove">팀에서 누구를 추방하기를 원하나요?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s개의 가입 요청</item>
   </plurals>

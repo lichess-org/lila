@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="inCasualGamesOnly">Iba pri priateľských partiách</string>
   <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na dámu</string>
-  <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd a menej</string>

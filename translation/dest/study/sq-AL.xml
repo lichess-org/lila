@@ -36,6 +36,7 @@
   <string name="spectator">Shikues</string>
   <string name="contributor">Kontribues</string>
   <string name="kick">Përjashtoje</string>
+  <string name="remove">Hiqe</string>
   <string name="leaveTheStudy">Braktisni mësimin</string>
   <string name="youAreNowAContributor">Tani jeni një kontribues</string>
   <string name="youAreNowASpectator">Tani jeni shikues</string>
@@ -98,8 +99,8 @@
   <string name="loadAGameFromPgn">Ngarko lojëra nga PGN</string>
   <string name="automatic">Automatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Hidhni këtu tekstin e PGN-s tuaj, deri në %s lojë</item>
-    <item quantity="other">Hidhni këtu tekstin e PGN-s tuaj, deri në %s lojëra</item>
+    <item quantity="one">Ngjiteni tekstin tuaj PGN këtu, deri në %s lojë.</item>
+    <item quantity="other">Ngjitini lojërat si tekst PGN këtu. Për çdo lojë, krijohet një kapitull i ri, Ushtrimi mund të ketë deri në %s kapituj.</item>
   </plurals>
   <string name="urlOfTheGame">URL e lojërave, një për rresht</string>
   <string name="createChapter">Krijo kapitull</string>
@@ -193,4 +194,6 @@
   <string name="doubleDefeat">Dopiohumbje</string>
   <string name="blackDefeatWhiteCanNotWin">I ziu humb, por i Bardhi s’fiton dot</string>
   <string name="whiteDefeatBlackCanNotWin">I bardhi humb, por i Ziu s’fiton dot</string>
+  <string name="searchChapters">Kërko te kapitujt</string>
+  <string name="searchGames">Kërko te lojëra</string>
 </resources>

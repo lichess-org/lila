@@ -103,13 +103,6 @@
   <string name="loadAPositionFromFen">Luchtaigh suíomh ó FEN</string>
   <string name="loadAGameFromPgn">Lódáil cluichí ó PGN</string>
   <string name="automatic">Uathoibríoch</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
-    <item quantity="two">Greamaigh do théacs PGN anseo, suas le %s chluiche</item>
-    <item quantity="few">Greamaigh do théacs PGN anseo, suas le %s gcluiche</item>
-    <item quantity="many">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
-    <item quantity="other">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
-  </plurals>
   <string name="urlOfTheGame">URL na gcluichí, ceann amháin an líne</string>
   <string name="createChapter">Cruthaigh caibidil</string>
   <string name="createStudy">Cruthaigh staidéar</string>

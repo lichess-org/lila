@@ -509,6 +509,7 @@ Venner der spiller: %2$s</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
   <string name="pause">Sæt på pause</string>
   <string name="resume">Genoptag</string>
+  <string name="stop">Stop</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Sejrsrate</string>
   <string name="performance">Præstation</string>
@@ -996,6 +997,8 @@ og påvirker spilleres ratings</string>
   <string name="onlyMembersOfTeam">Kun medlemmer af hold</string>
   <string name="noRestriction">Ingen restriktion</string>
   <string name="minimumRatedGames">Minimum ratede partier</string>
+  <string name="minimumAccountAge">Minimumsalder for konto</string>
+  <string name="titledPlayersBypassRestriction">Spillere med titel er undtaget fra denne begrænsning.</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
   <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given stilling.
@@ -1053,6 +1056,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søg</string>
   <string name="clearSearch">Ryd søgning</string>
+  <string name="searchInX">Søg i \"%s\"</string>
   <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>

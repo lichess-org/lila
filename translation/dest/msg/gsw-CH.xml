@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichobileNewAppAvailable">Es git e neui Liches Mobile App!</string>
-  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Bitte die neu, offiziell Lichess App abelade: %s.</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Bitte lad die neu offiziell Lichess App abe uf: %s.</string>
   <string name="modActionFeedback">Hallo,
 
-mir händ dini letscht Mäldig prüeft und entsprächendi Massnahmen ergriffen. Au wänn mir kei Detail zu de ergriffene Massnahmen nenne chönd, wüssed mir dini Mäldig z\'schätze.
+mir händ dini letscht Mäldig prüeft und entsprächendi Massnahmen ergriffen. Au wänn mir kei Detail zu de ergriffene Massnahmen nänne chönd, wüssed mir dini Mäldig z\'schätze.
 
-Viele Dank für dini Hilf, Lichess zume a\'gnehme Ort für all z\'mache.</string>
-  <string name="oldAppNoLongerSupportsPuzzles">Die alt App underschtützt d\'Ufgabe nümme. Bitte installier die neu Lichess App: %s</string>
+Viele Dank für dini Hilf, Lichess zume guete Ort für alli z\'mache.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Die alti App underschtützt d\'Ufgabe nüme. Bitte installier die neu Lichess App: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s akzeptiert kei neui Nachrichte.</string>
 </resources>

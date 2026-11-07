@@ -4,77 +4,81 @@
   <string name="teams">Teams</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Mitglied</item>
-    <item quantity="other">%s Mitglieder</item>
+    <item quantity="other">%s Mitglieder*ine</item>
   </plurals>
   <string name="allTeams">Alli Teams</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vu dir gleiteti Teams</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Füerigs Teams</string>
   <string name="newTeam">Neus Team</string>
-  <string name="myTeams">Eigeni Teams</string>
+  <string name="myTeams">Mini Teams</string>
   <string name="noTeamFound">Keis Team g\'funde</string>
-  <string name="joinTeam">Tritt em Team bi</string>
-  <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Leiter, bevor du gahsch - oder lös das Team uf.</string>
+  <string name="joinTeam">Biträtte</string>
+  <string name="onlyLeaderLeavesTeam">Gib em Team en/e neue/i Füerer*i, bevor du gahsch - oder lös es uf.</string>
   <string name="quitTeam">Team verlah</string>
-  <string name="manuallyReviewAdmissionRequests">Bitrittsafrage manuell überprüefe</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Afrag schribe, um em Team bizträte - wo du chasch ablähne oder akzeptiere.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Team Mitglieder Lischte für Nicht-Mitglieder verstecke.</string>
+  <string name="manuallyReviewAdmissionRequests">Bitritts Afrage manuell prüefe</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wänn das aktiv isch, müend d\'Schpiler*ine afröge, um em Team biz\'träte - du chasch ablähne oder akzeptiere.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Team Mitglieder*ine Lischte für Nichtmitglieder*ine verstecke.</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Teamleiter</item>
-    <item quantity="other">Teamleiter</item>
+    <item quantity="one">Team Füerer*i</item>
+    <item quantity="other">Team Füerer*ine</item>
   </plurals>
-  <string name="teamRecentMembers">Neuschti Mitglieder</string>
-  <string name="kickSomeone">Öpper usem Team usschlüsse</string>
-  <string name="whoToKick">Wellä wettsch usem Team schmeisse?</string>
+  <string name="teamRecentMembers">Neuschti Mitglieder*ine</string>
+  <string name="kickSomeone">Schmeiss Öpper usem Team</string>
+  <string name="removeSomeone">Entfern Öpper usem Team</string>
+  <string name="whoToKick">Wen wetsch usem Team schmeisse?</string>
+  <string name="whoToRemove">Wen wettsch usem Team entferne?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s Bitrittsafrag</item>
-    <item quantity="other">%s Bitrittsafrage</item>
+    <item quantity="one">%s Bitritts Afrag</item>
+    <item quantity="other">%s Bitritts Afrage</item>
   </plurals>
-  <string name="willBeReviewed">Dini Bitrittsafrag wird bald vume Teamleiter prüeft.</string>
-  <string name="beingReviewed">Dini Bitrittsanfrag wird grad vome Teamleiter überprüeft.</string>
-  <string name="requestDeclined">Dini Bitrittsafrag isch vume Teamleiter abglähnt worde.</string>
-  <string name="teamBattle">Teamkampf</string>
-  <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
-  <string name="teamTournament">Team-Turnier</string>
-  <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitglider vu dim Team biträte chönd</string>
-  <string name="swissTournamentOverview">Es Turnier nach Schweizer System, wo nur Mitglider vu dim Team biträte chönd</string>
-  <string name="teamUpdates">Team updates</string>
+  <string name="willBeReviewed">Dini Bitritts Afrag wird vume/ere Team Füerer*i prüeft.</string>
+  <string name="beingReviewed">Dini Bitritts Anfrag wird grad vome/ere Team Füerer*i überprüeft.</string>
+  <string name="requestDeclined">Dini Bitritts Afrag isch vume/ere Team Füerer*i abglähnt worde.</string>
+  <string name="teamBattle">Team Kampf</string>
+  <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiler*ine sammled Pünkt für ihres Team</string>
+  <string name="teamTournament">Team Turnier</string>
+  <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitglider*ine vu dim Team biträte chönd</string>
+  <string name="swissTournamentOverview">Es Turnier nach Schwizer Syschtem, wo nur Mitglider*ine vu dim Team biträte chönd</string>
+  <string name="teamUpdates">Team Updates</string>
   <string name="subToTeamUpdates">Team Updates abonniere</string>
   <string name="newTeamUpdate">Neus Team Update</string>
   <string name="teamUpdatesPerWeek">Du chasch bis zu %1$s Team Updates pro Wuche verschicke. 
 &lt;strong&gt;%2$s&lt;/strong&gt; Updates verblibed bis %3$s.</string>
   <string name="teamEvents">Team Events</string>
   <string name="upcomingTeamEvents">Kommendi Team Events</string>
-  <string name="teamsIlead">Teams wo ich leite</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Wottsch eis vu de kommende Turnier verlinke?</string>
-  <string name="leadersChat">Teamleiter Chat</string>
-  <string name="introduction">Ifüehrig</string>
-  <string name="teamIntroductionHelp">Churzi Beschribig, wo i de Mannschaftsufschtellige sichtbar isch. Bis zu 200 Zeiche.</string>
-  <string name="teamDescriptionHelp">Die vollschtändig Beschribig isch uf de Teamsite z\'finde.</string>
-  <string name="closeTeam">Team uflöösä</string>
-  <string name="closeTeamDescription">Löst da Team für immer uf.</string>
-  <string name="entryCode">Team-Bitrittscode</string>
-  <string name="entryCodeDescriptionForLeader">(Optional) En Zuegangscode, wo neui Mitglider känne müend, wänns dem Team wänd biträte.</string>
-  <string name="incorrectEntryCode">Falsche Bitrittscode.</string>
+  <string name="teamsIlead">Teams wo ich füere</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Wetsch eis vu de kommende Turnier verlinke?</string>
+  <string name="leadersChat">Team Füerer*ine Chat</string>
+  <string name="introduction">Ifüerig</string>
+  <string name="teamIntroductionHelp">Churzi Beschribig, wo i de Team Lischte sichtbar isch. Bis zu 200 Zeiche.</string>
+  <string name="teamDescriptionHelp">Die vollschtändig Beschribig isch uf de Team Site z\'finde.</string>
+  <string name="closeTeam">Team uflöse</string>
+  <string name="closeTeamDescription">Löst das Team für immer uf.</string>
+  <string name="entryCode">Team Bitritts Code</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) En Zuegangs Code, wo neui Mitglider*ine käne müend, wänn\'s dem Team wänd biträte.</string>
+  <string name="incorrectEntryCode">Falsche Bitritts Code.</string>
   <string name="forumLabel">Team Forum</string>
-  <string name="forumVisibilityHelp">Wer chann s\'Team Forum uf de Teamsite gseh?&lt;br&gt;Nur Teammitglieder chönd Biträg im Team Forum mache.</string>
+  <string name="forumVisibilityHelp">Wer cha s\'Team Forum uf de Team Site g\'seh?&lt;br&gt;Nur Team Mitglieder*ine chönd Biträg im Team Forum mache.</string>
   <string name="forumVisibilityNone">Verbirg s\'Forum</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTournaments">Nächschti Turnier</string>
   <string name="completedTourns">Beändeti Turnier</string>
   <string name="declinedRequests">Abglähnti Afrage</string>
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>
-  <string name="thisTeamBattleIsOver">Das Turnier isch verbi und d\'Teams chönd nümme aktualisiert werde.</string>
-  <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wottsch isetze.</string>
+  <string name="thisTeamBattleIsOver">Das Turnier isch verbi und d\'Teams chönd nüme aktualisiert werde.</string>
+  <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wetsch isetze.</string>
   <string name="oneTeamPerLine">Eis Team pro Zile. Benutz s\'Autousfülle.</string>
-  <string name="oneTeamPerLineHelp">Du chasch die Lischte vu eim Turnier zume Andere kopiere-ifüege!</string>
-  <string name="numberOfLeadsPerTeam">Azahl Leader pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>
-  <string name="numberOfLeadsPerTeamHelp">Du söttsch de Wert würklich nümme ändere, nachdem s\'Turnier agfange hät!</string>
+  <string name="oneTeamPerLineHelp">Du chasch die Lischte vu eim Turnier zume Andere kopiere und ifüege! 
+
+Du chasch es Team nöd entferne, wänn en/e Schpiler*i scho im Turnier isch.</string>
+  <string name="numberOfLeadsPerTeam">Azahl Füerer pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du söttsch de Wert würklich nöd ändere, wänn\'s Turnier ag\'fange hät!</string>
   <string name="innerTeam">Innerhalb vum Team</string>
   <plurals name="battleOfNbTeams">
-    <item quantity="one">Schlacht mit %s Team</item>
-    <item quantity="other">Schlacht mit %s Teams</item>
+    <item quantity="one">Schlacht vu %s Team</item>
+    <item quantity="other">Schlacht vu %s Teams</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="one">Ein Leader pro Team</item>
-    <item quantity="other">%s Leader pro Team</item>
+    <item quantity="one">Ei/n Füerer*i pro Team</item>
+    <item quantity="other">%s Füerer*ine pro Team</item>
   </plurals>
 </resources>

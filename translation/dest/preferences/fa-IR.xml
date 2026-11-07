@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">برگردان (با تایید حریف)</string>
   <string name="inCasualGamesOnly">فقط در بازی‌های نارسمی</string>
   <string name="promoteToQueenAutomatically">ارتقا خودکار به وزیر</string>
-  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
+  <string name="explainPromoteToQueenAutomatically">غیرفعالیدنِ موقتِ خود-ارتقا، با نگهداشتنِ کلید مَهار/ctrl هنگام ارتقا</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای خودکار تساوی، در تکرار سه‌گانه</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
-  <string name="multipleChoices">انتخاب‌های چندگانه. </string>
+  <string name="multipleChoices">چندانتخابه.</string>
   <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگانِ تخته» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>

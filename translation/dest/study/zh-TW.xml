@@ -94,9 +94,6 @@
   <string name="loadAPositionFromFen">透過FEN讀取局面</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
   <string name="automatic">自動</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
-  </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>
   <string name="createChapter">建立章節</string>
   <string name="createStudy">建立研究</string>

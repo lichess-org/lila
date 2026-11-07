@@ -21,7 +21,9 @@
   </plurals>
   <string name="teamRecentMembers">近期成员</string>
   <string name="kickSomeone">将某人移出团队</string>
+  <string name="removeSomeone">将某人移出团队</string>
   <string name="whoToKick">您想把谁移出团队？</string>
+  <string name="whoToRemove">您想把谁移出团队？</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s 个加入请求</item>
   </plurals>

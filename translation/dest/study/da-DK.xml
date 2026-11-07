@@ -37,6 +37,7 @@
   <string name="spectator">Tilskuer</string>
   <string name="contributor">Bidragsyder</string>
   <string name="kick">Smid ud</string>
+  <string name="remove">Fjern</string>
   <string name="leaveTheStudy">Forlad dette studie</string>
   <string name="youAreNowAContributor">Du er nu bidragsyder</string>
   <string name="youAreNowASpectator">Du er nu tilskuer</string>
@@ -99,10 +100,6 @@
   <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Indsæt din PGN-tekst her, op til %s parti</item>
-    <item quantity="other">Indsæt din PGN-tekst her, op til %s partier</item>
-  </plurals>
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="createChapter">Opret kapitel</string>
   <string name="createStudy">Opret studie</string>

@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">திரும்பப் பெறுதல் (எதிரணியின் ஒப்புதலுடன்)</string>
   <string name="inCasualGamesOnly">சாதாரண விளையாட்டுகளில் மட்டுமே</string>
   <string name="promoteToQueenAutomatically">தானாக ராணியாக உயர்வு</string>
-  <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; தானியங்கு விளம்பரத்தைத் தற்காலிகமாக முடக்குவதற்கு விளம்பரப்படுத்தும்போது முக்கியமானது</string>
   <string name="whenPremoving">உயர்த்தும்போது</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">தானாக மூம்மடி மீழ்நிகழ்வை இழுபறியாக்கு</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">மீதமுள்ள காலம் &lt; 30 நொடிகள்</string>

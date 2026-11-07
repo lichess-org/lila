@@ -6,7 +6,6 @@
   <string name="instructions2">Ti mostriamo frecce per più mosse quando non siamo sicuri. Di\' il colore o il numero di una freccia per selezionarla.</string>
   <string name="instructions3">Se su una freccia compare un cerchio che si riempie, quella mossa verrà eseguita quando il cerchio è completo. Durante questo intervallo di tempo, puoi solo dire %1$s per giocare la mossa immediatamente, %2$s per annullare, o dire il colore/numero di un\'altra freccia. Questo timer può essere regolato o disattivato nelle impostazioni.</string>
   <string name="instructions4">Attiva %s in ambienti rumorosi. Tieni premuto il tasto Maiusc mentre pronunci i comandi quando la funzionalità è attiva.</string>
-  <string name="instructions5">Usa l\'alfabeto fonetico per facilitare il riconoscimento delle colonne della scacchiera. </string>
   <string name="instructions6">%s spiega nel dettaglio le impostazioni dei comandi vocali.</string>
   <string name="thisBlogPost">Questo post nel blog</string>
   <string name="moveToE4OrSelectE4Piece">Muovi in e4 o seleziona il pezzo in e4</string>

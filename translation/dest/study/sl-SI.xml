@@ -43,6 +43,7 @@
   <string name="spectator">Opazovalec</string>
   <string name="contributor">Sodelovalec</string>
   <string name="kick">Odstrani</string>
+  <string name="remove">Odstrani</string>
   <string name="leaveTheStudy">Zapusti študijo</string>
   <string name="youAreNowAContributor">Ste nov sodelovalec</string>
   <string name="youAreNowASpectator">Sedaj ste opazovalec</string>
@@ -106,10 +107,10 @@
   <string name="loadAGameFromPgn">Naloži partijo iz PGN</string>
   <string name="automatic">Samodejno</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Prilepite PGN besedilo, z največ %s partijo</item>
-    <item quantity="two">Prilepite PGN besedilo, z največ %s partijama</item>
-    <item quantity="few">Prilepite PGN besedilo, z največ %s partijami</item>
-    <item quantity="other">Prilepite PGN besedilo, z največ %s partijami</item>
+    <item quantity="one">Prilepite PGN besedilo, z največ %s partijo.</item>
+    <item quantity="two">Prilepite PGN besedilo, z največ %s partijama.</item>
+    <item quantity="few">Prilepite PGN besedilo, z največ %s partijami.</item>
+    <item quantity="other">Prilepite PGN besedilo, z največ %s partijami.</item>
   </plurals>
   <string name="urlOfTheGame">URL igre</string>
   <string name="createChapter">Ustvari poglavje</string>

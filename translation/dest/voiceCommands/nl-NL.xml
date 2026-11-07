@@ -6,7 +6,6 @@
   <string name="instructions2">We tonen pijlen voor meerdere zetten wanneer we niet zeker zijn. Spreek de kleur of het nummer van een zetpijl uit om hem te selecteren.</string>
   <string name="instructions3">Als een pijl een scannende radar toont, wordt die zet gespeeld wanneer de cirkel is voltooid. Gedurende deze tijd mag je alleen %1$s zeggen om de zet onmiddellijk te spelen, %2$s om te annuleren, of de kleur/het nummer van een andere pijl uitspreken. Deze timer kan worden aangepast of uitgeschakeld in de instellingen.</string>
   <string name="instructions4">Schakel %s in voor lawaaierige omgevingen. Houd Shift ingedrukt om commando\'s uit te spreken wanneer dit ingeschakeld is.</string>
-  <string name="instructions5">Gebruik het fonetische alfabet om herkenning van schaakbordbestanden te verbeteren. </string>
   <string name="instructions6">%s legt de instellingen voor spraakzetten in detail uit.</string>
   <string name="thisBlogPost">Dit blogbericht</string>
   <string name="moveToE4OrSelectE4Piece">Zet naar e4 of selecteer stuk op e4</string>

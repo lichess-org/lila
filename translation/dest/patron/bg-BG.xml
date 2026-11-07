@@ -34,8 +34,6 @@
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
   <string name="celebratedPatrons">Почетни Дарители, които правят Lichess възможен</string>
   <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
-  <string name="serversAndDeveloper">На първо място, за мощни сървъри.
-След това плащаме на нашия разработчик на пълно работно време: %s, основателя на Lichess.</string>
   <string name="costBreakdown">Вижте подробна разбивка на разходите</string>
   <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
   <string name="actOfCreation">Да, ето тук е документът (на френски)</string>

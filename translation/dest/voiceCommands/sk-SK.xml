@@ -6,7 +6,6 @@
   <string name="instructions2">Ak si nie sme istí, zobrazujeme šípky pre viacero ťahov. Pre vybratie šípky ťahu, vyslovte jej farbu alebo číslo.</string>
   <string name="instructions3">Ak šípka ťahu zobrazuje tvoriaci sa kruh, tento ťah sa zahrá po dokončení kruhu. Počas tejto doby môžete povedať iba %1$s, aby ste ťah okamžite zahrali, %2$s, aby ste ho zrušili, alebo vysloviť farbu/číslo inej šípky. Tento časovač je možné upraviť alebo vypnúť v nastaveniach.</string>
   <string name="instructions4">Povoľte %s v hlučnom prostredí. Keď je táto funkcia zapnutá, podržte shift pri vyslovovaní príkazov.</string>
-  <string name="instructions5">Používajte anglickú fonetickú abecedu na zlepšenie rozpoznávania stĺpcov na šachovnici. </string>
   <string name="instructions6">%s podrobne vysvetľuje nastavenia ťahania hlasom.</string>
   <string name="thisBlogPost">Tento blogový príspevok</string>
   <string name="moveToE4OrSelectE4Piece">Potiahne na e4 alebo označí figúrku na e4</string>
