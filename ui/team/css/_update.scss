@@ -109,6 +109,7 @@ body {
     .unread-count {
       @extend %active, %box-radius;
 
+      background: $c-bad !important;
       padding: 1px 6px;
       margin-inline-start: 6px;
       font-weight: bold;
