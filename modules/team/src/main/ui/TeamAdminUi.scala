@@ -95,7 +95,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 form3.group(form("members"), frag(trl.whoToRemove()))(teamMembersAutoComplete(t)),
                 form3.actions(
                   a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                  form3.submit(trl.removeSomeone())
+                  form3.submit(trans.site.apply())
                 )
               )
             ),

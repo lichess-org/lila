@@ -21,7 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to request to join the team, which you can accept or decline.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Hide team member list from non-members.</string>
   <string name="onlyLeaderLeavesTeam">Please add a new team leader before leaving, or close the team.</string>
-  <string name="removeSomeone">Remove someone from the team</string>
+  <string name="removeSomeone">Remove someone</string>
   <string name="whoToRemove">Who do you want to remove from the team?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s join request</item>

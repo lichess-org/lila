@@ -6229,7 +6229,7 @@ interface I18n {
     permTourDesc: string;
     /** Tournaments */
     permTourName: string;
-    /** Remove someone from the team */
+    /** Remove someone */
     removeSomeone: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
