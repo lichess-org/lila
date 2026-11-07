@@ -27,6 +27,20 @@ let
       @websocket header Upgrade websocket
       reverse_proxy @websocket 127.0.0.1:${port "lila-ws"}
       reverse_proxy 127.0.0.1:${port "lila"}
+
+      handle_errors 502 {
+        header Content-Type "text/plain; charset=utf-8"
+        respond @websocket "lila-ws is not running. Start it with: devenv processes start lila-ws" 502
+        respond <<TEXT
+          lila is not running, or is still starting up.
+
+          Start it with:
+
+              devenv processes start lila
+
+          then reload this page once it is listening on port ${port "lila"}.
+          TEXT 502
+      }
     }
   '';
   javaOpts = opts: lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "-D${k}=${toString v}") opts);
@@ -62,7 +76,6 @@ in
 
   processes = {
     caddy = {
-      start.enable = false;
       exec = "exec ${pkgs.caddy}/bin/caddy run --adapter caddyfile --config ${caddyfile}";
       ports.http.allocate = 9660;
       proxy = {
