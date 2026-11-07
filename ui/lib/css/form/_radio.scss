@@ -1,9 +1,11 @@
 $c-border: hsl(37 5% 13%) !default;
 
 group.radio {
-  @extend %box-neat, %flex-wrap;
+  @extend %box-neat, %flex-wrap, %metal-bg;
 
   overflow: hidden;
+  padding: 3px;
+  gap: 3px;
 
   div {
     flex: 1 1 auto;
@@ -16,13 +18,13 @@ group.radio {
 
   label,
   .label {
-    @extend %metal, %flex-center-center;
+    @extend %flex-center-center;
     @include prevent-select;
 
     padding: 10px;
     height: 100%;
     cursor: pointer;
-    border-inline-end: $border;
+    border-radius: max(calc($box-radius-size - 2px), 0px);
 
     &.disabled {
       background: $c-metal-top;
@@ -36,6 +38,14 @@ group.radio {
       &:not(.disabled):hover {
         background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
         text-shadow: 0 1px 0 $c-font-shadow;
+
+        @include if-transp {
+          background: linear-gradient(
+            to bottom,
+            color-mix(in oklab, $c-metal-top-hover 60%, transparent),
+            color-mix(in oklab, $c-metal-bottom-hover 60%, transparent)
+          );
+        }
       }
     }
   }
