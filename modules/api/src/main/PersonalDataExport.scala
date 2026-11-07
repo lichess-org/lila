@@ -70,8 +70,8 @@ final class PersonalDataExport(
               List(
                 "name" -> s.name,
                 "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions.pfp).value),
-                "headline" -> s.headline.so(_.value),
-                "description" -> s.description.so(_.value),
+                "headline" -> s.headline,
+                "description" -> s.description,
                 "twitch" -> s.twitch.so(_.fullUrl),
                 "youtube" -> s.youtube.so(_.fullUrl),
                 "createdAt" -> textDate(s.createdAt),
