@@ -32,6 +32,13 @@ let
         header Content-Type "text/plain; charset=utf-8"
         respond @websocket "lila-ws is not running. Start it with: devenv processes start lila-ws" 502
         respond <<TEXT
+             |\_    _ _      _
+             /o \  | (_) ___| |__   ___  ___ ___   ___  _ __ __ _
+           (_. ||  | | |/ __| '_ \ / _ \/ __/ __| / _ \| '__/ _` |
+             /__\  | | | (__| | | |  __/\__ \__ \| (_) | | | (_| |
+            )___(  |_|_|\___|_| |_|\___||___/___(_)___/|_|  \__, |
+                                                             |___/
+
           lila is not running, or is still starting up.
 
           Start it with:
