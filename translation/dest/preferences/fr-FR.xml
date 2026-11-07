@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Annulations de coups (avec accord de l\'adversaire)</string>
   <string name="inCasualGamesOnly">Durant les parties amicales seulement</string>
   <string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
-  <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
+  <string name="explainPromoteToQueenAutomatically">Maintenez la touche Ctrl enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion.</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
-  <string name="multipleChoices">Choix multiples. </string>
+  <string name="multipleChoices">Choix multiples.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquier</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>

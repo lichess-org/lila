@@ -25,7 +25,7 @@
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
-  <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
+  <string name="capturingDefenderDescription">Elimínase unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
   <string name="collinearMove">Movemento colineal</string>
   <string name="collinearMoveDescription">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
@@ -49,7 +49,7 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movemento que distrae unha peza rival dunha tarefa que desempeña, como a protección dunha casa chave. Ás veces denomínase \"sobrecarga\".</string>
   <string name="discoveredAttack">Ataque descuberto</string>
-  <string name="discoveredAttackDescription">Apartar unha peza (por exemplo un cabalo) que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo unha torre).</string>
+  <string name="discoveredAttackDescription">Apártase unha peza (por exemplo un cabalo) que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo unha torre).</string>
   <string name="doubleCheck">Xaque dobre</string>
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza que se move como a descuberta atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
@@ -67,7 +67,7 @@
   <string name="hookMate">Mate do gancho</string>
   <string name="hookMateOpposingPawnDescription">Dar mate cunha torre, cabalo e peón contando coa axuda dun peón adversario que bloquea o escape do rei.</string>
   <string name="interference">Interferencia</string>
-  <string name="interferenceDescription">Colocar unha peza entre dúas do opoñente de modo que unha delas ou ambas as dúas fican indefensas, como pode ser un cabalo nunha casa protexida entre dúas torres.</string>
+  <string name="interferenceDescription">Colócase unha peza entre dúas do opoñente de modo que unha delas ou ambas as dúas fican indefensas, como pode ser un cabalo nunha casa protexida entre dúas torres.</string>
   <string name="intermezzo">Xogada intermedia</string>
   <string name="intermezzoDescription">En troques de facer o movemento agardado, o xogador interpón un movemento que xera unha ameaza inmediata que forza unha resposta do rival. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
   <string name="killBoxMate">Mate da caixa</string>

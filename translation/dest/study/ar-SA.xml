@@ -49,6 +49,7 @@
   <string name="spectator">مشاهد</string>
   <string name="contributor">مساهم</string>
   <string name="kick">طرد</string>
+  <string name="remove">إزالة</string>
   <string name="leaveTheStudy">مغادرة الدراسة</string>
   <string name="youAreNowAContributor">انت الان اصبحت مساهم</string>
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
@@ -112,12 +113,12 @@
   <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="zero">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="one">الصق نص الPGN هنا، حتى %s لعبة واحدة</item>
-    <item quantity="two">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="few">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="many">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="other">الصق الPGN هنا، حتى %s العاب</item>
+    <item quantity="zero">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="one">ألصق نص PGN هنا، بحد أقصى %s مباراة.</item>
+    <item quantity="two">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="few">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="many">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="other">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
   </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="createChapter">أنشئ الفصل</string>

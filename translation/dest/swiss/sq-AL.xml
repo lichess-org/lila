@@ -32,6 +32,7 @@
   <string name="numberOfRounds">Numër raundesh</string>
   <string name="numberOfRoundsHelp">Një numër tek raundesh lejon balancë optimale ngjyrash.</string>
   <string name="roundInterval">Interval mes raundesh</string>
+  <string name="customPairings">Çiftime të përshtatura</string>
   <string name="forbiddenPairings">Çiftime të ndaluara</string>
   <string name="forbiddenPairingsHelp">Emra përdoruesish lojtarësh që s’duhet të luajnë me njëri-tjetrin (vëllezër e motra, për shembull). Dy emra përdoruesish për rresht, ndarë nga një hapësirë.</string>
   <string name="manualPairings">Çiftim dorazi në raundin pasues</string>

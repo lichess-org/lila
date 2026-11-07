@@ -28,6 +28,7 @@
   <string name="teamRecentMembers">Новые члены клуба</string>
   <string name="kickSomeone">Исключить кого-то из клуба</string>
   <string name="whoToKick">Кого вы хотите исключить из клуба?</string>
+  <string name="whoToRemove">Кого вы хотите убрать из клуба?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запрос на вступление</item>
     <item quantity="few">%s запроса на вступление</item>

@@ -40,6 +40,7 @@
   <string name="spectator">Spectator</string>
   <string name="contributor">Contribuitor</string>
   <string name="kick">Înlătură</string>
+  <string name="remove">Șterge</string>
   <string name="leaveTheStudy">Părăsește studiul</string>
   <string name="youAreNowAContributor">Acum ești un contribuitor</string>
   <string name="youAreNowASpectator">Acum ești un spectator</string>
@@ -103,9 +104,9 @@
   <string name="loadAGameFromPgn">Încărcați jocuri din PGN</string>
   <string name="automatic">Automată</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
+    <item quantity="one">Lipiți textul PGN aici, până la %s meci.</item>
     <item quantity="few">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
-    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
+    <item quantity="other">Lipiți textul PGN aici, până la %s de meciuri. Pentru fiecare joc se creează un nou capitol.</item>
   </plurals>
   <string name="urlOfTheGame">URL-urile jocurilor, câte unul pe linie</string>
   <string name="createChapter">Creați capitolul</string>

@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Hamle geri alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
-  <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında &lt;ctrl&gt; tuşunu basılı tutun</string>
+  <string name="explainPromoteToQueenAutomatically">Otomatik terfiyi geçici olarak devre dışı bırakmak için terfi sırasında ctrl tuşunu basılı tutun</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
-  <string name="multipleChoices">Çoklu seçenek. </string>
+  <string name="multipleChoices">Çoklu seçenek.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Oyun esnasında tahta menüsünden devre dışı bırakılabilir</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>

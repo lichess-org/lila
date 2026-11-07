@@ -47,6 +47,8 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
     <item quantity="other">Se alle %s hold</item>
   </plurals>
   <string name="newTeamBattle">Ny holdkamp</string>
+  <string name="startDate">Startdato</string>
+  <string name="entryConditions">Betingelser for deltagelse</string>
   <string name="customStartDate">Tilpasset startdato</string>
   <string name="customStartDateHelp">I din egen lokale tidszone. Dette tilsidesætter \"Tid før turnering starter\" indstillingen</string>
   <string name="allowBerserk">Tillad Bersærk</string>
@@ -86,4 +88,6 @@ Et ranggennemsnit på 3 % betyder for eksempel, at du typisk ender blandt de øv
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="berserkRate">Bersærk-rate</string>
   <string name="leaguesAndStreamerBattles">Leagues &amp; Streamer Kampe</string>
+  <string name="allowBotAccounts">Tillad bot-konti</string>
+  <string name="allowBotAccountsDescription">Lad &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; deltage i turneringen og spille med deres motorer. Dette afskrækker ofte mennesker.</string>
 </resources>

@@ -33,8 +33,6 @@
   <string name="weAreSmallTeam">ئێمە تیمێکی بچووکین، بۆیە پشتگیریتان جیاوازییەکی گەورە دروست دەکات!</string>
   <string name="celebratedPatrons">ئەو بەخشەرە بەناوبانگانەی کە مومکین دروست دەکەن</string>
   <string name="whereMoneyGoes">پارەکە دەچێتە کوێ?</string>
-  <string name="serversAndDeveloper">پێش هەموو شتێک بۆ سێرڤەر بەهێزکردن.
-پاشان پارە دەدەین بە گەشەپێدەرێک کە هەموو کات لەسەر هێڵ بێت: %s، دامەزرێنەری کۆمپانیای Lichess.</string>
   <string name="costBreakdown">سەیری وردەکارییەکانی تێچوون بکە</string>
   <string name="officialNonProfit">ئایا Lichess ڕێکخراوێکی فەرمی قازانج نەویستە?</string>
   <string name="actOfCreation">بەلی ئەمەش بڕوانامەی دامەزراندنیەتی(بە فەرەنسی)</string>

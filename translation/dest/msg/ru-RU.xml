@@ -8,4 +8,5 @@
 
 Спасибо вам за помощь в том, чтобы Lichess оставался приятным местом для всех и каждого.</string>
   <string name="oldAppNoLongerSupportsPuzzles">Старое приложение больше не поддерживает задачи. Пожалуйста, установите новое приложение Lichess: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s не принимает новые сообщения.</string>
 </resources>

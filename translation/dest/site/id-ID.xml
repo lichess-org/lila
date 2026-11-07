@@ -7,6 +7,7 @@
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
   <string name="orLetYourOpponentScanQrCode">Atau minta lawan Anda memindai kode QR ini</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Tautan permanen bagi siapa saja untuk menantang Anda dengan pengaturan yang tepat ini.</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -90,6 +91,7 @@
   <string name="database">Basis Data</string>
   <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
   <string name="averageRatingX">Rata-rata rating: %s</string>
+  <string name="maxRatingX">Peringkat maksimum %s</string>
   <string name="recentGames">Permainan terkini</string>
   <string name="topGames">Permaninan kelas atas</string>
   <string name="masterDbExplanation">Permainan OTB dua juta %1$s + FIDE dinilai pemain dari tahun %2$s untuk %3$s</string>

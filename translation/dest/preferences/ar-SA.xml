@@ -37,12 +37,12 @@
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="inCasualGamesOnly">في المباريات غير المقيمة فقط</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
-  <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; عند الترقية لتعطيل الترقية التلقائية مؤقتاً</string>
+  <string name="explainPromoteToQueenAutomatically">اضغط باستمرار على مفتاح Ctrl أثناء ترقية البيدق لتعطيل الترقية التلقائية مؤقتًا</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
-  <string name="multipleChoices">خيارات متعددة. </string>
+  <string name="multipleChoices">خيارات متعددة.</string>
   <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة من قائمة اللوحة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>

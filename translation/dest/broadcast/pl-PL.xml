@@ -25,7 +25,7 @@
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
   <string name="roundName">Nazwa rundy</string>
-  <string name="tournamentName">Nazwa turnieju</string>
+  <string name="tournamentName">Nazwa wydarzenia</string>
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. Możesz użyć %1$s dla dodatkowych opcji formatowania. Długość musi być mniejsza niż %2$s znaków.</string>
@@ -78,7 +78,7 @@
   <string name="standingsDisclaimer">Klasyfikacja obliczana jest na podstawie nadawanych partii i może różnić się od oficjalnych wyników.</string>
   <string name="allTeams">Wszystkie kluby</string>
   <string name="tournamentFormat">Format turnieju</string>
-  <string name="tournamentLocation">Lokalizacja turnieju</string>
+  <string name="tournamentLocation">Lokalizacja wydarzenia</string>
   <string name="topPlayers">Najlepsi gracze</string>
   <string name="timezone">Strefa czasowa</string>
   <string name="fideRatingCategory">Kategoria rankingu FIDE</string>

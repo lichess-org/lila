@@ -35,8 +35,7 @@
   <string name="celebratedPatrons">یاورانِ مشهوری که بودنِ Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
   <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
-سپس به یک توسعه‌دهنده تمام‌وقت می‌پردازیم: %s، بنیان‌گذارِ Lichess.
-</string>
+سپس به توسعه‌دهنده‌ای تمام‌وقت پول می‌پردازیم: %s، بنیان‌گذارِ Lichess.</string>
   <string name="costBreakdown">ساختار ریز هزینه را ببینید</string>
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>

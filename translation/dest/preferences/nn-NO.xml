@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motspelaren)</string>
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
-  <string name="explainPromoteToQueenAutomatically">Hald &lt;ctrl&gt;-tasten nede under bondeomvandlinga for å mellombels deaktivera automatisk omvandling</string>
+  <string name="explainPromoteToQueenAutomatically">Hald ctrl-tasten nede under bondeomvandlinga om du mellombels vil deaktivera automatisk omvandling</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Trekkstadfesting</string>
-  <string name="multipleChoices">Fleire val. </string>
+  <string name="multipleChoices">Fleire val.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan under pågåande parti deaktiveras ved hjelp av brettmenyen</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og uavgrensa tid</string>

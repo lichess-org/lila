@@ -797,7 +797,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی تختهٔ بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمای آن‌ها، روی وَرتِش‌های رایانه‌ای بنَوَردید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
-  <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
+  <string name="primaryColorArrowsHowTo">مهار/ctrl یا کیب/shift = قرمز؛ فرمان/command، دگرساز/alt یا مَتا/meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>

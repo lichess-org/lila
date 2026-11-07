@@ -25,8 +25,6 @@
   <string name="weAreSmallTeam">Без кечкенә җәмәга, шуңа күрә сезнең ярдәмегез зур үзгәрешләр кертә!</string>
   <string name="celebratedPatrons">Lichessны мөмкин иткән танылган игәнәчеләр</string>
   <string name="whereMoneyGoes">Акча кая бара?</string>
-  <string name="serversAndDeveloper">Беренчедән, көчле серверлар.
-Аннары без тулы вакытлы эшкәртүчене түлибез: %s, Lichess нигез салучысына.</string>
   <string name="costBreakdown">Аныкланган чыгымнарны бүлүне карагыз</string>
   <string name="officialNonProfit">Lichess рәсми коммерция түгелме?</string>
   <string name="actOfCreation">Әйе, монда иҗат акты (француз телендә)</string>

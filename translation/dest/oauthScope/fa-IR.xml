@@ -29,7 +29,7 @@
   <string name="puzzleWrite">حل معما</string>
   <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
-  <string name="manageTeamsYouLead">مدیریت تیم‌هایی که رهبری می‌کنید: ارسال پیام‌های مستقیم، اخراجِ عضوها</string>
+  <string name="manageTeamsYouLead">مدیریت تیم‌های تحت رهبری‌تان: ارسال پیام‌های مستقیم، برچیدنِ عضوها</string>
   <string name="followRead">خواندن بازیکنان دنبالیده</string>
   <string name="followWrite">دنبالیدن و وادنبالیدن دیگر بازیکنان</string>
   <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>

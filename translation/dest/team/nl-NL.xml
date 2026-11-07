@@ -23,7 +23,9 @@
   </plurals>
   <string name="teamRecentMembers">Recente teamleden</string>
   <string name="kickSomeone">Verwijder iemand uit het team</string>
+  <string name="removeSomeone">Verwijder iemand uit het team</string>
   <string name="whoToKick">Wie wil je uit het team zetten?</string>
+  <string name="whoToRemove">Wie wil je uit het team verwijderen?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s verzoek tot deelname</item>
     <item quantity="other">%s verzoeken tot deelname</item>

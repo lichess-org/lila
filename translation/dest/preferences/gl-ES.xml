@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Rectificar xogadas (co permiso do rival)</string>
   <string name="inCasualGamesOnly">Só en partidas amigables</string>
   <string name="promoteToQueenAutomatically">Coroar a Dama automaticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla &lt;ctrl&gt; ao coroar para desactivar temporalmente a promoción automática</string>
+  <string name="explainPromoteToQueenAutomatically">Mantén pulsada a tecla CTRL ó coroar para desactivar temporalmente a promoción automática</string>
   <string name="whenPremoving">Con premovemento</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
-  <string name="multipleChoices">Pódense escoller varias opcións. </string>
+  <string name="multipleChoices">Pódense escoller varias opcións.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desactivado durante a partida dende o menú do taboleiro</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>

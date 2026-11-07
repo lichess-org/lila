@@ -573,6 +573,7 @@ Znajomi grający: %2$s</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Wznów</string>
+  <string name="stop">Zatrzymaj</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Zwycięstw</string>
   <string name="performance">Wynik</string>

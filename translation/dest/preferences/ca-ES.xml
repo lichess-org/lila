@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Tornar enrere (amb l\'aprovació del rival)</string>
   <string name="inCasualGamesOnly">Només en partides amistoses</string>
   <string name="promoteToQueenAutomatically">Promocionar a Dama automàticament</string>
-  <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
+  <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla ctrl durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació del moviment</string>
-  <string name="multipleChoices">Múltiples opcions. </string>
+  <string name="multipleChoices">Múltiples opcions.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Es pot desactivar durant la partida al menú del taulell</string>
   <string name="inCorrespondenceGames">Partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Correspondència i sense límit de temps</string>

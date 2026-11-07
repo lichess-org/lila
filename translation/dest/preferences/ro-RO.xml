@@ -37,12 +37,12 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="takebacksWithOpponentApproval">Dă înapoi (cu aprobarea adversarului)</string>
   <string name="inCasualGamesOnly">În jocuri amicale</string>
   <string name="promoteToQueenAutomatically">Promovează automat în damă</string>
-  <string name="explainPromoteToQueenAutomatically">Țineți apăsată tasta &lt;ctrl&gt; în timp ce promovați un pion pentru a dezactiva temporar promovarea automată</string>
+  <string name="explainPromoteToQueenAutomatically">Țineți apăsată tasta ctrl în timp ce promovați un pion pentru a dezactiva temporar promovarea automată</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
-  <string name="multipleChoices">Alegere multiplă. </string>
+  <string name="multipleChoices">Alegere multiplă.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Poate fi dezactivat în timpul unui joc cu meniul de tablă</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>

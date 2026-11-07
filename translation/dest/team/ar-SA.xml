@@ -31,7 +31,9 @@
   </plurals>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
+  <string name="removeSomeone">إزالة أحد أعضاء الفريق</string>
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
+  <string name="whoToRemove">مَن تريد إزالته من الفريق؟</string>
   <plurals name="xJoinRequests">
     <item quantity="zero">%s طلب انضمام</item>
     <item quantity="one">%s طلب انضمام</item>

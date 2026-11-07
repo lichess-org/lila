@@ -41,7 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
   <string name="moveConfirmation">Potrditev poteze</string>
-  <string name="multipleChoices">Več možnih odgovorov. </string>
+  <string name="multipleChoices">Več možnosti.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Lahko ga onemogočite med igro z menijem plošče</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>

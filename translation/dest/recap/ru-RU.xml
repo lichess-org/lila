@@ -8,7 +8,7 @@
 	<string name="gamesYouWon" comment="%s is the number of games won">И вы выиграли %s!</string>
 	<string name="gamesNextQuestion">Как у вас это получилось?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s провели времени за игрой!</string>
-	<string name="timeTooMuch">Это тааак шахматно.</string>
+	<string name="timeTooMuch">Слишком много шахмат.</string>
 	<string name="timeALot">Это очень много шахмат.</string>
 	<string name="timeReasonable">Это кажется вразумительным количеством шахмат.</string>
 	<string name="timeHowManyMoves">Сколько ходов вы сделали за всё это время?</string>

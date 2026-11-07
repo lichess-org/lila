@@ -508,6 +508,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
   <string name="resume">Jatka</string>
+  <string name="stop">Pysäytä</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="performance">Suoritus</string>
@@ -995,6 +996,8 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
   <string name="noRestriction">Ei rajoituksia</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
+  <string name="minimumAccountAge">Tunnuksen alaikäraja</string>
+  <string name="titledPlayersBypassRestriction">Tämä rajoitus ei koske pelaajia, joilla on arvonimi.</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
@@ -1052,6 +1055,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="searchInX">Hae kohteesta \"%s\"</string>
   <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>

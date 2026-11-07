@@ -29,7 +29,7 @@
   <string name="puzzleWrite">Ratko tehtäviä</string>
   <string name="teamRead">Lue yksityisen joukkueen tiedot</string>
   <string name="teamWrite">Liity joukkueeseen, poistu joukkueesta ja hallitse joukkuetta</string>
-  <string name="manageTeamsYouLead">Hallitse johtamiasi joukkueita: lähetä suoria viestejä, erota jäseniä</string>
+  <string name="manageTeamsYouLead">Hallitse johtamiasi joukkueita: lähetä suoria viestejä, poista jäseniä</string>
   <string name="followRead">Lue seuratut pelaajat</string>
   <string name="followWrite">Seuraa muita pelaajia ja lopeta pelaajien seuraaminen</string>
   <string name="msgWrite">Lähetä yksityisviesti muille pelaajille</string>

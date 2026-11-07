@@ -37,6 +37,7 @@
   <string name="spectator">تماشاگر</string>
   <string name="contributor">مشارکت‌گر</string>
   <string name="kick">اخراج</string>
+  <string name="remove">برچیدن</string>
   <string name="leaveTheStudy">ترک مطالعه</string>
   <string name="youAreNowAContributor">اکنون شما مشارکت‌گرید</string>
   <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
-    <item quantity="other">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
+    <item quantity="one">متن PGN-تان را اینجا جایگذارید، حداکثر %s بازی.</item>
+    <item quantity="other">متن بازی‌ها را در قالبِ PGN اینجا جایگذارید. برای هر بازی، بخشی جدید ایجاد می‌شود. این مطالعه می‌تواند حدکثر %s بخش داشته باشد.</item>
   </plurals>
   <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
   <string name="createChapter">ساخت بخش</string>

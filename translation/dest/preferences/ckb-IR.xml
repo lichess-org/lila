@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">پەشیمانبونەوە لە جوڵەیەک (بە ڕەزامەندی بەرامبەر)</string>
   <string name="inCasualGamesOnly">تەنها لەو یاریانەی بێ ڕایتینگن</string>
   <string name="promoteToQueenAutomatically">بە شێوەیەکی ئۆتۆماتیکی بەرز دەبێتەوە بۆ شاژن</string>
-  <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التلقائية مؤقتاً</string>
   <string name="whenPremoving">لە کاتی جوڵەی پێشوەختەدا</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">داواکاری لەسەر دووبارەبوونەوەی سێ جار لەسەر یەک بە شێوەیەکی ئۆتۆماتیکی یاریەکە یەکسان دەبێت</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">کاتێک کات دەمێنێتەوە &lt; ٣٠ چرکە</string>

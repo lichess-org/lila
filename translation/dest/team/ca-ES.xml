@@ -23,7 +23,9 @@
   </plurals>
   <string name="teamRecentMembers">Nous membres de l\'equip</string>
   <string name="kickSomeone">Expulsar algú de l\'equip</string>
+  <string name="removeSomeone">Elimina algú de l\'equip</string>
   <string name="whoToKick">Qui voleu expulsar de l\'equip?</string>
+  <string name="whoToRemove">Qui voleu eliminar de l\'equip?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s solicitud d\'adhesió</item>
     <item quantity="other">%s solicituds d\'adhesió</item>

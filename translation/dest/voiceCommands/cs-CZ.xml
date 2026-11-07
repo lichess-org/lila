@@ -6,7 +6,6 @@
   <string name="instructions2">Pokud si nejsme jistí, zobrazí se šipky pro různé tahy. Jednu z možností zvolíte vyslovením barvy šipky nebo čísla tahu.</string>
   <string name="instructions3">Pokud se šipka změní v kruhový ukazatel, bude tah odehrán, jakmile ukazatel dokončí kruh. Během této doby můžete říct pouze %1$s pro okamžité odehrání tahu, %2$s pro přerušení, nebo vyslovit barvu/číslo jiného tahu. Časovač můžete nastavit nebo vypnout v nastavení.</string>
   <string name="instructions4">Povolte %s v hlučném prostředí. Při vyslovování hlasových příkazů držte klávesu Shift.</string>
-  <string name="instructions5">Použijte fonetickou abecedu pro lepší rozpoznávání polí na šachovnici. </string>
   <string name="instructions6">%s podrobně vysvětluje nastavení hlasových příkazů.</string>
   <string name="thisBlogPost">Tento příspěvek v blogu</string>
   <string name="moveToE4OrSelectE4Piece">Tah na e4 nebo zvolení figurky, která leží na poli e4</string>

@@ -8,4 +8,5 @@ Wir haben deinen aktuellen Bericht überprüft und Maßnahmen ergriffen. Obwohl 
 
 Vielen Dank für deine Hilfe, Lichess zu einem guten Ort für alle zu machen.</string>
   <string name="oldAppNoLongerSupportsPuzzles">Die alte App unterstützt keine Aufgaben mehr. Bitte installiere die neue Lichess-App: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s akzeptiert keine neuen Nachrichten.</string>
 </resources>

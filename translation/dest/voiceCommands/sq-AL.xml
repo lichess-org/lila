@@ -6,7 +6,7 @@
   <string name="instructions2">Kur s’jemi të sigurt, shfaqim shigjeta për lëvizje të shumta. Për ta përzgjedhur, thoni ngjyrën ose numrin e një shigjete lëvizjeje.</string>
   <string name="instructions3">Nëse një shigjetë shfaq një radar në funksionim, ajo lëvizje do të luhet kur të plotësohet qarku. Gjatë kësaj kohe, mundeni vetëm të thoni %1$s për ta luajtur menjëherë lëvizjen, %2$s për ta anuluar, ose të thoni ngjyrën/numrin e një shigjete tjetër. Ky kohëmatës mund të ujdiset, ose të çaktivizohet që nga rregullimet.</string>
   <string name="instructions4">Në mjedise me zhurmë, aktivizoni %s. Mbani të shtypur tastin SHIFT, teksa thoni urdhra, kur kjo është aktive.</string>
-  <string name="instructions5">Përdorni alfabetin fonetik për të përmirësuar njohje kartelash fushe shahu. </string>
+  <string name="instructions5">Përdorni alfabetim fonetik, që të përmirësohet njohja e kartelave të shahut.</string>
   <string name="instructions6">%s shpjegon në hollësi rregullimet për lëvizje me zë.</string>
   <string name="thisBlogPost">Ky postim blogu</string>
   <string name="moveToE4OrSelectE4Piece">Kaloje në e4, ose përzgjidh gurin e4</string>

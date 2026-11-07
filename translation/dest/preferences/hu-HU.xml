@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Visszalépés (az ellenfél beleegyezésével)</string>
   <string name="inCasualGamesOnly">Csak rangsorolás nélküli játékok esetén</string>
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
-  <string name="explainPromoteToQueenAutomatically">Gyalogátváltozáskor tartsd lenyomva a &lt;ctrl&gt; billentyűt, hogy a gyalog ne változzon át automatikusan</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlenigénylés</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>

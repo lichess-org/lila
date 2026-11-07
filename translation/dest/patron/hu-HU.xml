@@ -34,9 +34,6 @@
   <string name="weAreSmallTeam">Mi egy kis csapat vagyunk, a támogatásod nagyon sokat jelent!</string>
   <string name="celebratedPatrons">Az ünnepelt Patronok, akik nélkül nincs Lichess</string>
   <string name="whereMoneyGoes">Mire megy el a pénz?</string>
-  <string name="serversAndDeveloper">Először is, komoly szerverekre.
-Ezen kívül fizetünk egy főállású fejlesztőt: ő %s, a Lichess alapítója.
-</string>
   <string name="costBreakdown">Lásd a részletes költséglebontást</string>
   <string name="officialNonProfit">A Lichess hivatalosan non-profit?</string>
   <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>

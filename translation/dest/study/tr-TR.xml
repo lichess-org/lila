@@ -37,6 +37,7 @@
   <string name="spectator">İzleyici</string>
   <string name="contributor">Katılımcı</string>
   <string name="kick">Çıkar</string>
+  <string name="remove">Çıkar</string>
   <string name="leaveTheStudy">Çalışmadan ayrıl</string>
   <string name="youAreNowAContributor">Artık bir katılımcısınız</string>
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
   <string name="automatic">Otomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
-    <item quantity="other">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
+    <item quantity="one">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar.</item>
+    <item quantity="other">Oyunları PGN metni olarak buraya yapıştırın. Her oyun için yeni bir bölüm oluşturulur. Çalışma, en fazla %s bölüm içerebilir.</item>
   </plurals>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
   <string name="createChapter">Bölüm oluştur</string>
