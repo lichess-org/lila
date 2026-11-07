@@ -64,7 +64,7 @@
 
       &.live {
         &::before {
-          color: $c-bad;
+          color: $c-live;
         }
       }
     }
@@ -94,7 +94,7 @@
       position: absolute;
       top: 6px;
       right: 6px;
-      background: $c-error;
+      background: $c-live;
       color: #fff;
       font-weight: 600;
       padding: 2px 6px;
