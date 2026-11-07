@@ -117,6 +117,7 @@ Allow: /game/export/gif/thumbnail/
 
   val organizationScript = lila.ui.bits.structuredData("Organization"):
     Json.obj(
+      "@id" -> s"${net.baseUrl}/#org",
       "url" -> net.baseUrl,
       "sameAs" -> List(
         "https://www.wikidata.org/wiki/Q19831807",
