@@ -6179,8 +6179,6 @@ interface I18n {
     forumVisibilityNone: string;
     /** Hide team member list from non-members. */
     hideMembersDesc: string;
-    /** Kick someone out of the team */
-    kickSomeone: string;
     /** List the teams that will compete in this battle. */
     listTheTeamsThatWillCompete: string;
     /** Manually review admission requests */
@@ -6231,7 +6229,7 @@ interface I18n {
     permTourDesc: string;
     /** Tournaments */
     permTourName: string;
-    /** Remove someone from the team */
+    /** Remove someone */
     removeSomeone: string;
     /** Full description visible on the team page. */
     teamDescriptionHelp: string;
@@ -6241,8 +6239,6 @@ interface I18n {
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
-    /** Who do you want to kick out of the team? */
-    whoToKick: string;
     /** Who do you want to remove from the team? */
     whoToRemove: string;
     /** %s join requests */

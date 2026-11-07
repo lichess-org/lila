@@ -304,7 +304,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           cls := "button button-empty text",
           href := routes.Team.kick(team.id),
           dataIcon := Icon.InternalArrow
-        )(trans.teamLead.kickSomeone())
+        )(trans.teamLead.removeSomeone())
       ),
       ((team.enabled && hasPerm(_.Request)) || canManage).option(
         a(
