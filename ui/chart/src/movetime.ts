@@ -275,8 +275,8 @@ function christmasTree(
         }));
         const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
         movetimeDataset.hoverBackgroundColor = hoverColors[color];
-        movetimeDataset.pointHoverBackgroundColor = hoverColors[color];
-        movetimeDataset.pointHoverBorderColor = hoverColors[color];
+        movetimeDataset.hoverBackgroundColor = hoverColors[color];
+        movetimeDataset.hoverBorderColor = hoverColors[color];
         chart.setActiveElements(points);
         chart.update('none');
       }
@@ -286,9 +286,9 @@ function christmasTree(
       chart.setActiveElements([]);
       COLORS.forEach((_c, i) => {
         const dataset = chart.data.datasets[i];
-        dataset.pointHoverBorderColor = orangeAccent;
+        dataset.hoverBorderColor = orangeAccent;
         dataset.hoverBackgroundColor = undefined;
-        dataset.pointHoverBackgroundColor = undefined;
+        dataset.hoverBackgroundColor = undefined;
       });
       chart.update('none');
     });
