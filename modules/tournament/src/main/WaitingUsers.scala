@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.Clock.Config as TournamentClock
 import scalalib.cache.ExpireSetMemo
+
 import lila.tournament.WaitingUsers.WithNext
 
 private case class WaitingUsers(
@@ -46,7 +47,7 @@ private case class WaitingUsers(
       date = newDate,
       hash = {
         hash.view.filterKeys(all.contains) ++ // remove gone users
-          all.filterNot(hash.contains).map { _ -> newDate } // add new users
+          all.filterNot(hash.contains).map(_ -> newDate) // add new users
       }.toMap
     )
 

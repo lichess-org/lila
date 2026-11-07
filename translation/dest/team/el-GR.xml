@@ -23,7 +23,9 @@
   </plurals>
   <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="kickSomeone">Απομάκρυνση χρήστη από την ομάδα</string>
+  <string name="removeSomeone">Αφαιρέστε κάποιον από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
+  <string name="whoToRemove">Ποιόν θέλετε να αφαιρέσετε από την ομάδα;</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s αίτημα ένταξης</item>
     <item quantity="other">%s αιτήματα ένταξης</item>
@@ -39,6 +41,8 @@
   <string name="teamUpdates">Ενημερώσεις ομάδας</string>
   <string name="subToTeamUpdates">Εγγραφείτε στις ενημερώσεις της ομάδας</string>
   <string name="newTeamUpdate">Νέα ενημέρωση ομάδας</string>
+  <string name="teamEvents">Εκδηλώσεις ομάδων</string>
+  <string name="upcomingTeamEvents">Επερχόμενες εκδηλώσεις ομάδων</string>
   <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Θέλετε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="leadersChat">Ομαδική συνομιλία αρχηγών</string>

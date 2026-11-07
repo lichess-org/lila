@@ -12,20 +12,20 @@ import _root_.chess.{
   Color,
   CorrespondenceClock,
   Game as ChessGame,
-  Rated,
-  Ply,
-  Speed,
-  Status,
+  IntRating,
   Outcome,
-  IntRating
+  Ply,
+  Rated,
+  Speed,
+  Status
 }
 import scalalib.model.Days
 
+import lila.core.game.ClockHistory.bothClockStates
 import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.game.ClockHistory.bothClockStates
 
 case class Game(
     id: GameId,
@@ -198,9 +198,8 @@ case class Game(
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock.exists: c =>
       started && playable && {
-        c.outOfTime(turnColor, withGrace) || {
-          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
-        }
+        c.outOfTime(turnColor, withGrace) ||
+        (!c.isRunning && c.players.exists(_.elapsed.centis > 0))
       }
 
   private def outoftimeCorrespondence: Boolean =

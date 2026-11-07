@@ -43,6 +43,7 @@
   <string name="spectator">Obserwator</string>
   <string name="contributor">Współautor</string>
   <string name="kick">Wyrzuć</string>
+  <string name="remove">Usuń</string>
   <string name="leaveTheStudy">Opuść opracowanie</string>
   <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
   <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
@@ -54,7 +55,6 @@
   <string name="annotateWithGlyphs">Oceń ruch symbolem</string>
   <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
-  <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
   <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
   <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
@@ -106,12 +106,6 @@
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
   <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
-    <item quantity="few">Wklej tutaj swój PGN, max %s partie</item>
-    <item quantity="many">Wklej tutaj swój PGN, max %s partii</item>
-    <item quantity="other">Wklej tutaj swój PGN, max %s partii</item>
-  </plurals>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="createChapter">Stwórz rozdział</string>
   <string name="createStudy">Stwórz opracowanie</string>
@@ -131,7 +125,6 @@
   <string name="noLetPeopleBrowseFreely">Nie: pozwól oglądać wszystkim</string>
   <string name="pinnedStudyComment">Przypięte komentarze</string>
   <string name="start">Rozpocznij</string>
-  <string name="save">Zapisz</string>
   <string name="clearChat">Wyczyść czat</string>
   <string name="deleteTheStudyChatHistory">Usunąć historię czatu opracowania? Nie będzie można tego cofnąć!</string>
   <string name="deleteStudy">Usuń opracowanie</string>
@@ -196,7 +189,7 @@
   <string name="customPositionTitle">Z własnej niestandardowej pozycji</string>
   <string name="customPositionText">Ustaw szachownicę po swojemu.&lt;br&gt;Dobre do eksploracji końcówek.</string>
   <string name="loadGameFromTheWebTitle">Zaimportuj partię z sieci</string>
-  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Wklej adres URL partii&lt;br&gt;(na przykład lichess.org/7fHIU0XI), &lt;br&gt;aby załadować posunięcia partii do rozdziału.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Wklej adres URL partii&lt;br&gt;(jak lichess.org/game/7fHIU0XI)&lt;br&gt;, aby umieścić posunięcia partii w rozdziale.</string>
   <string name="fromFenStringTitle">Z zapisu FEN pozycji</string>
   <string name="fromFenStringText">Wklej pozycję w formacie FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w, &lt;/i&gt;&lt;br&gt;aby rozpocząć rozdział od tej pozycji.</string>
   <string name="fromPgnGameTitle">Z zapisu PGN partii</string>
@@ -207,4 +200,11 @@
   <string name="doubleDefeat">Podwójna przegrana</string>
   <string name="blackDefeatWhiteCanNotWin">Przegrana czarnych, ale białe nie mogą wygrać</string>
   <string name="whiteDefeatBlackCanNotWin">Przegrana białych, ale czarne nie mogą wygrać</string>
+  <string name="analysisEditor">Edytor analiz</string>
+  <string name="clearLocal">Wyczyścić analizę lokalną?</string>
+  <string name="clearPublished">Wyczyścić opublikowaną analizę?</string>
+  <string name="requestAServerAnalysis">Poproś o analizę na serwerze</string>
+  <string name="analyzeOnYourDevice">Analizuj na swoim urządzeniu</string>
+  <string name="searchChapters">Szukaj rozdziałów</string>
+  <string name="searchGames">Szukaj partii</string>
 </resources>

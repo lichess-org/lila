@@ -1,11 +1,11 @@
 package lila.ublog
 
 import play.api.data.*
-import play.api.data.format.Formatter
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
 import scalalib.model.Language
 
-import lila.common.Form.{ formatter, typeIn, cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, cleanTextWithSymbols, formatter, into, typeIn, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.LangList
 import lila.ublog.UblogPost.Quality

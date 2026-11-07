@@ -5,9 +5,9 @@ import play.api.data.{ Form, FormBinding }
 import play.api.http.*
 import play.api.libs.json.Writes
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.{ *, given }
-import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.core.security.TurnstilePublicConfig
@@ -326,13 +326,13 @@ abstract private[controllers] class LilaController(val env: Env)
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
     bindForm(form)(
-      form => err(form).dmap { BadRequest(_) },
+      form => err(form).dmap(BadRequest(_)),
       op
     )
 
-  def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
-    if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
-    else f
+  def LastModified(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
+    val res = if req.method == "HEAD" then NoContent.toFuccess else f
+    res.map(_.withDateHeaders(lastModified(updatedAt)))
 
   def pageHit(using req: RequestHeader): Unit =
     if req.client.isHuman then lila.mon.http.path(req.path).increment()
@@ -386,6 +386,6 @@ abstract private[controllers] class LilaController(val env: Env)
       formBinding(req).foldLeft(form.data) { case (s, (key, values)) =>
         if key.endsWith("[]") then
           val k = key.dropRight(2)
-          s ++ values.zipWithIndex.map { (v, i) => s"$k[$i]" -> v }
+          s ++ values.zipWithIndex.map((v, i) => s"$k[$i]" -> v)
         else s + (key -> ~values.headOption)
       }

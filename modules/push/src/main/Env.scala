@@ -1,9 +1,9 @@
 package lila.push
 
-import org.apache.pekko.actor.*
-import org.apache.pekko.stream.Materializer
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.Materializer
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
@@ -58,32 +58,32 @@ final class Env(
     unifiedSub.unsubscribeBySession(token.id)
 
   Bus.sub[lila.core.game.FinishGame]: f =>
-    logUnit { pushApi.finish(f.game) }
+    logUnit(pushApi.finish(f.game))
 
   Bus.sub[lila.core.round.CorresMoveEvent]:
     case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
-      logUnit { pushApi.move(move) }
+      logUnit(pushApi.move(move))
 
   Bus.sub[lila.core.round.CorresTakebackOfferEvent]: e =>
-    logUnit { pushApi.takebackOffer(e.gameId) }
+    logUnit(pushApi.takebackOffer(e.gameId))
 
   Bus.sub[lila.core.round.CorresDrawOfferEvent]: e =>
-    logUnit { pushApi.drawOffer(e.gameId) }
+    logUnit(pushApi.drawOffer(e.gameId))
 
   Bus.sub[lila.core.challenge.PositiveEvent]:
     case lila.core.challenge.PositiveEvent.Create(c) =>
-      logUnit { pushApi.challengeCreate(c) }
+      logUnit(pushApi.challengeCreate(c))
     case lila.core.challenge.PositiveEvent.Accept(c, game, joinerId) =>
-      logUnit { pushApi.challengeAccept(c, game, joinerId) }
+      logUnit(pushApi.challengeAccept(c, game, joinerId))
 
   Bus.sub[lila.core.game.CorresAlarmEvent]: e =>
-    logUnit { pushApi.corresAlarm(e.pov) }
+    logUnit(pushApi.corresAlarm(e.pov))
 
   Bus.sub[lila.core.notify.PushNotification]: n =>
-    logUnit { pushApi.notifyPush(n.to, n.content) }
+    logUnit(pushApi.notifyPush(n.to, n.content))
 
   Bus.sub[lila.core.misc.push.TourSoon]: t =>
-    logUnit { pushApi.tourSoon(t) }
+    logUnit(pushApi.tourSoon(t))
 
   private def logUnit(f: Fu[?]): Unit =
     f.logFailure(logger)

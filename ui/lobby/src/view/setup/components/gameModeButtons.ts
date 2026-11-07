@@ -23,7 +23,7 @@ export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode 
           gameModes.map(gm => option({ key: gm, name: i18n.site[gm] }, setupCtrl.gameMode())),
         ),
       ])
-    : h('div.config-group', [
+    : h('div.config-group.game-mode', [
         h('div.label', i18n.site.gameMode),
         h(
           'group.radio',

@@ -21,7 +21,7 @@ export class DescriptionCtrl {
     this.redraw();
   }
 
-  set(t: string | undefined) {
+  set(t?: string) {
     this.text = t ? t : undefined;
   }
 }

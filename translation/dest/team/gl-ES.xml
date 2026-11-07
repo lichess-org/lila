@@ -23,7 +23,9 @@
   </plurals>
   <string name="teamRecentMembers">Membros recentes</string>
   <string name="kickSomeone">Botar a alguén fóra do equipo</string>
+  <string name="removeSomeone">Retirar a alguén do equipo</string>
   <string name="whoToKick">A quen queres botar fóra do equipo?</string>
+  <string name="whoToRemove">A quen queres retirar do equipo?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s petición de ingreso</item>
     <item quantity="other">%s peticións de ingreso</item>
@@ -39,6 +41,9 @@
   <string name="teamUpdates">Actualizacións do equipo</string>
   <string name="subToTeamUpdates">Subscribirse ás actualizacións do equipo</string>
   <string name="newTeamUpdate">Nova actualización do equipo</string>
+  <string name="teamUpdatesPerWeek">Podes enviar ata %1$s actualizacións de equipo por semana. Quedan &lt;strong&gt;%2$s&lt;/strong&gt; actualizacións ata o %3$s.</string>
+  <string name="teamEvents">Eventos do equipo</string>
+  <string name="upcomingTeamEvents">Próximos eventos do equipo</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Queres vincular un destes próximos torneos?</string>
   <string name="leadersChat">Sala de conversa dos líderes</string>

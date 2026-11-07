@@ -51,7 +51,7 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     )(using req: RequestHeader, proxy: IsProxy): Fu[A] =
       val ip = HTTPRequest.ipAddress(req)
       val ipCostFactor =
-        if HTTPRequest.nginxWhitelist(req) then 1
+        if HTTPRequest.ipTier(req).yes then 1
         else strategy(IpTrust)(proxy)
       limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
 
@@ -62,7 +62,7 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     proxyApi.ofReq(req).dmap(strategy(IpTrust))
 
   def throttle(base: MaxPerSecond)(using req: RequestHeader)(using Executor): Fu[MaxPerSecond] =
-    if HTTPRequest.nginxWhitelist(req) then fuccess(base)
+    if HTTPRequest.ipTier(req).yes then fuccess(base)
     else
       proxyApi
         .ofReq(req)

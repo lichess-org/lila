@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Partijos nustatymai</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Teikite iššūkį draugui</string>
   <string name="playAgainstComputer">Žaiskite prieš kompiuterį</string>
   <string name="gameMode">Žaidimo režimas</string>
@@ -1057,8 +1056,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
   <string name="instructions">Instrukcijos</string>
   <string name="showMeEverything">Rodyti viską</string>
-  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
-Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="nothingToSeeHere">Nieko naujo.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Prieinamumas</string>

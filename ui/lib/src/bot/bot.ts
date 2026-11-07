@@ -323,7 +323,7 @@ export class Bot implements BotInfo, MoveSource {
     // raised to the power of the move's index as sorted by previous filters. a random number between
     // 0 and the sum of all weights will identify the final move
 
-    let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();
+    let variate = sorted.reduce((sum, mv, i) => sum + (mv.P = decay ** i), 0) * Math.random();
     return sorted.find(mv => (variate -= mv.P!) <= 0);
   }
 

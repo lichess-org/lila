@@ -3,8 +3,8 @@ package lila.api
 import scala.annotation.nowarn
 
 import lila.chat.UserLine
-import lila.core.config.NetDomain
 import lila.core.chat.PublicSource
+import lila.core.config.NetDomain
 import lila.simul.{ Simul, SimulApi }
 import lila.study.{ Study, StudyRepo }
 import lila.swiss.{ Swiss, SwissApi }
@@ -58,11 +58,10 @@ final private class LinkCheck(
 
   private def tourLink(tourId: String, source: FullSource): Fu[Boolean] =
     tournamentRepo.byId(TourId(tourId)).flatMapz { tour =>
-      fuccess(tour.isScheduled) >>| {
+      fuccess(tour.isScheduled) >>|
         source.teamId.so: sourceTeamId =>
           fuccess(tour.singleTeamId.has(sourceTeamId)) >>|
             tournamentRepo.isForTeam(tour.id, sourceTeamId)
-      }
     }
 
   private def simulLink(simulId: String, source: FullSource) =

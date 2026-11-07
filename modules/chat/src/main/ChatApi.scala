@@ -1,9 +1,10 @@
 package lila.chat
 
 import cats.data.OptionT
+
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
+import lila.core.chat.{ OnReinstate, OnTimeout, PublicSource }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
@@ -163,7 +164,7 @@ final class ChatApi(
       userApi
         .byId(username)
         .flatMapz: user =>
-          chatTimeout.history(user, 20).dmap { UserModInfo(user, _).some }
+          chatTimeout.history(user, 20).dmap(UserModInfo(user, _).some)
 
     private def doTimeout(
         c: UserChat,
@@ -322,7 +323,7 @@ final class ChatApi(
     def preprocessUserInput(in: String, username: Option[UserName]): Option[String] =
       val out1 = multiline:
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
-      val out2 = username.fold(out1) { removeSelfMention(out1, _) }
+      val out2 = username.fold(out1)(removeSelfMention(out1, _))
       out2.take(Line.textMaxSize).nonEmptyOption
 
     private def removeSelfMention(in: String, username: UserName) =

@@ -50,7 +50,6 @@
   <string name="annotateWithGlyphs">השתמשו בסימנים מוסכמים כדי להגיב על מהלכים</string>
   <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
   <string name="onlyContributorsCanRequestAnalysis">רק תורמי לוח הלמידה יכולים לבקש ניתוח ממוחשב.</string>
-  <string name="getAFullComputerAnalysis">קבל/י ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>
   <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן ודאו שהפרק הושלם.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">כולם צופים באותה העמדה</string>
   <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>
@@ -100,11 +99,6 @@
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
   <string name="loadAGameFromPgn">טען משחק מPGN</string>
   <string name="automatic">אוטומטי</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>
-    <item quantity="two">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
-    <item quantity="other">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
-  </plurals>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="createChapter">צור פרק</string>
   <string name="createStudy">יצירת לוח למידה</string>
@@ -124,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">לא: תן לאנשים לדפדף בחופשיות</string>
   <string name="pinnedStudyComment">תגובה מוצמדת ללוח הלמידה</string>
   <string name="start">שמירה</string>
-  <string name="save">שמירה</string>
   <string name="clearChat">ניקוי הצ\'אט</string>
   <string name="deleteTheStudyChatHistory">למחוק את היסטוריית הצ\'אט של לוח הלמידה? אין דרך חזרה!</string>
   <string name="deleteStudy">מחיקת לוח למידה</string>

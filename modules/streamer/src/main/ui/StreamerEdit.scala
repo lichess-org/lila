@@ -23,7 +23,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
             if ctx.is(s.user) then
               div(cls := "streamer-header")(
                 div(cls := "picture-edit", attr("draggable") := "true")(
-                  bits.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
+                  bits
+                    .thumbnail(s.streamer, s.user, _.pfp)(attr("draggable") := "true", cls := "drop-target"),
                   span(
                     label("Drag image above or"),
                     form3.file.selectImage()

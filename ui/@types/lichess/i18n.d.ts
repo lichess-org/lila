@@ -127,6 +127,10 @@ interface I18n {
     allowBerserk: string;
     /** Let players halve their clock time to gain an extra point */
     allowBerserkHelp: string;
+    /** Allow bot accounts */
+    allowBotAccounts: string;
+    /** Let <a href='%s' target='_blank'>bots</a> join the tournament and play with their engines. This often repels human players. */
+    allowBotAccountsDescription: I18nFormat;
     /** Let players discuss in a chat room */
     allowChatHelp: string;
     /** Arena */
@@ -167,6 +171,8 @@ interface I18n {
     editTeamBattle: string;
     /** Edit tournament */
     editTournament: string;
+    /** Entry conditions */
+    entryConditions: string;
     /** Arena History */
     history: string;
     /** How are players paired? */
@@ -227,6 +233,8 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
+    /** Start date */
+    startDate: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -979,6 +987,8 @@ interface I18n {
     coordinates: string;
     /** Coordinate training */
     coordinateTraining: string;
+    /** Enter the coordinate */
+    enterTheCoordinate: string;
     /** Find square */
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
@@ -991,6 +1001,8 @@ interface I18n {
     nameSquare: string;
     /** Practice only some files & ranks */
     practiceOnlySomeFilesAndRanks: string;
+    /** Press %s to start */
+    pressEnterToStart: I18nFormat;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -1333,7 +1345,7 @@ interface I18n {
     verificationForm: string;
     /** View site information popup */
     viewSiteInformationPopUp: string;
-    /** Watch International Master Eric Rosen checkmate %s. */
+    /** Watch International Master Eric Rosen checkmate <a href='%s' target='_blank'>en passant</a>. */
     watchIMRosenCheckmate: I18nFormat;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */
     weCannotDoThatEvenIfItIsServerSideButThatsRare: string;
@@ -1863,8 +1875,6 @@ interface I18n {
     analysisUploadFailed: string;
     /** For the best results in the shortest time, use %1$s with %2$s threads. */
     bestResultsUseXWithYThreads: I18nFormat;
-    /** Cannot publish */
-    cannotPublish: string;
     /** Click Analyse to score the main line. */
     chooseYourEngineSettings: string;
     /** Current analysis */
@@ -1917,6 +1927,8 @@ interface I18n {
     modActionFeedback: string;
     /** The old app no longer supports puzzles. Please install the new Lichess app: %s */
     oldAppNoLongerSupportsPuzzles: I18nFormat;
+    /** %s doesn't accept new messages. */
+    xDoesntAcceptNewMessages: I18nFormat;
   };
   nvui: {
     /** Actions */
@@ -2097,7 +2109,7 @@ interface I18n {
     insteadGenerateToken: I18nFormat;
     /** Last used %s */
     lastUsed: I18nFormat;
-    /** Manage teams you lead: send direct messages, kick members */
+    /** Manage teams you lead: send direct messages, remove members */
     manageTeamsYouLead: string;
     /** Send private messages to other players */
     msgWrite: string;
@@ -2185,10 +2197,14 @@ interface I18n {
     playTheArtificialIntelligence: string;
     /** This is your profile page. */
     thisIsYourProfilePage: string;
+    /** Verify your account */
+    verifyYourAccount: string;
     /** Welcome! */
     welcome: string;
     /** Welcome to Lichess! */
     welcomeToLichess: string;
+    /** Welcome to Lichess, %s! */
+    welcomeToLichessX: I18nFormat;
     /** What now? Here are a few suggestions: */
     whatNowSuggestions: string;
   };
@@ -2591,7 +2607,7 @@ interface I18n {
     exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
-    /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
+    /** Hold the ctrl key while promoting to temporarily disable auto-promotion */
     explainPromoteToQueenAutomatically: string;
     /** Hides all ratings from Lichess, to help you focus on the game. */
     explainShowPlayerRatings: string;
@@ -2707,6 +2723,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
+    /** Show trapped pieces */
+    showTrappedPieces: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -3297,8 +3315,12 @@ interface I18n {
     timeTooMuch: string;
   };
   report: {
+    /** In the meantime, you can block this user: */
+    blockUserInMeantime: string;
     /** Cheat */
     cheat: string;
+    /** The moderators will review it very soon, and take appropriate action. */
+    moderatorsWillReviewSoon: string;
     /** We can process your report faster if you write in English. */
     processReportFasterInEnglish: string;
     /** Please provide at least one link to a game for review. */
@@ -3327,6 +3349,8 @@ interface I18n {
     reportVerbalAbuse: string;
     /** Violence / Threats */
     reportViolence: string;
+    /** Thanks for the report */
+    thanksForTheReport: string;
     /** Troll */
     troll: string;
     /** What's the matter? */
@@ -4023,8 +4047,6 @@ interface I18n {
     gameOver: string;
     /** Games */
     games: string;
-    /** Game setup */
-    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
@@ -4273,6 +4295,8 @@ interface I18n {
     message: string;
     /** Middlegame */
     middlegame: string;
+    /** Minimum account age */
+    minimumAccountAge: string;
     /** Minimum rated games */
     minimumRatedGames: string;
     /** Minimum rating */
@@ -4743,6 +4767,8 @@ interface I18n {
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search in "%s" */
+    searchInX: I18nFormat;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */
@@ -4855,6 +4881,8 @@ interface I18n {
     startPosition: string;
     /** Stats */
     stats: string;
+    /** Stop */
+    stop: string;
     /** Streamer manager */
     streamerManager: string;
     /** Streamers */
@@ -4933,6 +4961,8 @@ interface I18n {
     timeline: string;
     /** Time to process a move on Lichess's server */
     timeToProcessAMoveOnLichessServer: string;
+    /** Titled players bypass this restriction. */
+    titledPlayersBypassRestriction: string;
     /** Title verification */
     titleVerification: string;
     /** Today */
@@ -5513,7 +5543,7 @@ interface I18n {
     analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Analyze on your device */
+    /** Analyse on your device */
     analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
@@ -5535,8 +5565,6 @@ interface I18n {
     blackIsSlightlyBetter: string;
     /** Black is winning */
     blackIsWinning: string;
-    /** Blunder */
-    blunder: string;
     /** Brilliant move */
     brilliantMove: string;
     /** Chapters are saved forever.<br>Have fun organizing your chess content! */
@@ -5677,7 +5705,7 @@ interface I18n {
     loadAGameFromPgn: string;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
-    /** Paste a game URL<br>(like lichess.org/7fHIU0XI)<br>to load game moves in the chapter. */
+    /** Paste a game URL<br>(like lichess.org/game/7fHIU0XI)<br>to load game moves in the chapter. */
     loadGameFromTheWebText: string;
     /** Load a game from the web */
     loadGameFromTheWebTitle: string;
@@ -5687,8 +5715,6 @@ interface I18n {
     manageTopics: string;
     /** Members */
     members: string;
-    /** Mistake */
-    mistake: string;
     /** Most popular */
     mostPopular: string;
     /** My favourite studies */
@@ -5771,16 +5797,20 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Remove */
+    remove: string;
     /** Request a server analysis */
     requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */
     searchByUsername: string;
+    /** Search chapters */
+    searchChapters: string;
+    /** Search games */
+    searchGames: string;
     /** Share & export */
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
@@ -5887,6 +5917,8 @@ interface I18n {
     canPlayRoundRobinTournaments: string;
     /** Comparison */
     comparison: string;
+    /** Custom pairings */
+    customPairings: string;
     /** Predefined max rounds, but duration unknown */
     durationUnknown: string;
     /** Dutch system */
@@ -6061,26 +6093,14 @@ interface I18n {
     battleOfNbTeams: I18nPlural;
     /** Your join request is being reviewed by a team leader. */
     beingReviewed: string;
-    /** Close team */
-    closeTeam: string;
-    /** Closes the team forever. */
-    closeTeamDescription: string;
     /** Completed tournaments */
     completedTourns: string;
-    /** Declined Requests */
-    declinedRequests: string;
     /** Team entry code */
     entryCode: string;
     /** (Optional) An entry code that new members must know to join this team. */
     entryCodeDescriptionForLeader: string;
     /** Team forum */
     forumLabel: string;
-    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
-    forumVisibilityHelp: string;
-    /** Hide the forum */
-    forumVisibilityNone: string;
-    /** Hide team member list from non-members. */
-    hideMembersDesc: string;
     /** Incorrect entry code. */
     incorrectEntryCode: string;
     /** Inner team */
@@ -6091,18 +6111,10 @@ interface I18n {
     joinLichessVariantTeam: I18nFormat;
     /** Join team */
     joinTeam: string;
-    /** Kick someone out of the team */
-    kickSomeone: string;
     /** Leaders chat */
     leadersChat: string;
     /** Leader teams */
     leaderTeams: string;
-    /** List the teams that will compete in this battle. */
-    listTheTeamsThatWillCompete: string;
-    /** Manually review admission requests */
-    manuallyReviewAdmissionRequests: string;
-    /** If checked, players will need to request to join the team, which you can accept or decline. */
-    manuallyReviewAdmissionRequestsHelp: string;
     /** My teams */
     myTeams: string;
     /** %s leaders per team */
@@ -6111,20 +6123,8 @@ interface I18n {
     nbMembers: I18nPlural;
     /** New team */
     newTeam: string;
-    /** New team update */
-    newTeamUpdate: string;
     /** No team found */
     noTeamFound: string;
-    /** Number of leaders per team. The sum of their score is the score of the team. */
-    numberOfLeadsPerTeam: string;
-    /** You really shouldn't change this value after the tournament has started! */
-    numberOfLeadsPerTeamHelp: string;
-    /** One team per line. Use the auto-completion. */
-    oneTeamPerLine: string;
-    /** You can copy-paste this list from one tournament to another! */
-    oneTeamPerLineHelp: string;
-    /** Please add a new team leader before leaving, or close the team. */
-    onlyLeaderLeavesTeam: string;
     /** Leave team */
     quitTeam: string;
     /** Your join request was declined by a team leader. */
@@ -6141,10 +6141,8 @@ interface I18n {
     teamBattle: string;
     /** A battle of multiple teams, each player scores points for their team */
     teamBattleOverview: string;
-    /** Full description visible on the team page. */
-    teamDescriptionHelp: string;
-    /** Brief description visible in team listings. Up to 200 chars. */
-    teamIntroductionHelp: string;
+    /** Team events */
+    teamEvents: string;
     /** Team leaders */
     teamLeaders: I18nPlural;
     /** Recent members */
@@ -6159,14 +6157,90 @@ interface I18n {
     teamTournamentOverview: string;
     /** Team updates */
     teamUpdates: string;
-    /** This tournament is over, and the teams can no longer be updated. */
-    thisTeamBattleIsOver: string;
+    /** Upcoming team events */
+    upcomingTeamEvents: string;
     /** Upcoming tournaments */
     upcomingTournaments: string;
-    /** Who do you want to kick out of the team? */
-    whoToKick: string;
     /** Your join request will be reviewed by a team leader. */
     willBeReviewed: string;
+  };
+  teamLead: {
+    /** Close team */
+    closeTeam: string;
+    /** Closes the team forever. */
+    closeTeamDescription: string;
+    /** Declined Requests */
+    declinedRequests: string;
+    /** To demote a leader, revoke all their permissions. */
+    demoteLeaderNote: string;
+    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
+    forumVisibilityHelp: string;
+    /** Hide the forum */
+    forumVisibilityNone: string;
+    /** Hide team member list from non-members. */
+    hideMembersDesc: string;
+    /** List the teams that will compete in this battle. */
+    listTheTeamsThatWillCompete: string;
+    /** Manually review admission requests */
+    manuallyReviewAdmissionRequests: string;
+    /** If checked, players will need to request to join the team, which you can accept or decline. */
+    manuallyReviewAdmissionRequestsHelp: string;
+    /** New team update */
+    newTeamUpdate: string;
+    /** Number of leaders per team. The sum of their score is the score of the team. */
+    numberOfLeadsPerTeam: string;
+    /** You really shouldn't change this value after the tournament has started! */
+    numberOfLeadsPerTeamHelp: string;
+    /** One team per line. Use the auto-completion. */
+    oneTeamPerLine: string;
+    /** You can copy-paste this list from one tournament to another! */
+    oneTeamPerLineHelp: string;
+    /** Please add a new team leader before leaving, or close the team. */
+    onlyLeaderLeavesTeam: string;
+    /** Manage leaders' permissions */
+    permAdminDesc: string;
+    /** Admin */
+    permAdminName: string;
+    /** Moderate the forum and team chat */
+    permCommDesc: string;
+    /** Moderation */
+    permCommName: string;
+    /** Send updates to team members */
+    permPmAllDesc: string;
+    /** Updates */
+    permPmAllName: string;
+    /** Appear as a leader on the team page */
+    permPublicDesc: string;
+    /** Public */
+    permPublicName: string;
+    /** Remove members from the team */
+    permRemoveDesc: string;
+    /** Remove */
+    permRemoveName: string;
+    /** Accept or decline join requests */
+    permRequestDesc: string;
+    /** Requests */
+    permRequestName: string;
+    /** Edit team settings and description */
+    permSettingsDesc: string;
+    /** Settings */
+    permSettingsName: string;
+    /** Create, manage and join team tournaments */
+    permTourDesc: string;
+    /** Tournaments */
+    permTourName: string;
+    /** Remove someone */
+    removeSomeone: string;
+    /** Full description visible on the team page. */
+    teamDescriptionHelp: string;
+    /** Brief description visible in team listings. Up to 200 chars. */
+    teamIntroductionHelp: string;
+    /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
+    teamUpdatesPerWeek: I18nFormat;
+    /** This tournament is over, and the teams can no longer be updated. */
+    thisTeamBattleIsOver: string;
+    /** Who do you want to remove from the team? */
+    whoToRemove: string;
     /** %s join requests */
     xJoinRequests: I18nPlural;
     /** You may want to link one of these upcoming tournaments? */
@@ -6351,6 +6425,8 @@ interface I18n {
     community: string;
     /** Community blogs */
     communityBlogs: string;
+    /** Contains sponsored content, affiliate links or commercial advertisement */
+    containsSponsoredContent: string;
     /** Continue reading this post */
     continueReadingPost: string;
     /** Cover image */
@@ -6403,6 +6479,8 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Opinions expressed by Lichess contributors are their own. */
+    opinionsExpressedByContributorsAreTheirOwn: string;
     /** Post body */
     postBody: string;
     /** Post intro */
@@ -6465,6 +6543,8 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+    /** You may also like */
+    youMayAlsoLike: string;
   };
   variant: {
     /** Antichess */
@@ -6549,6 +6629,8 @@ interface I18n {
     cancelTimerOrDenyARequest: string;
     /** Castle (either side) */
     castle: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
     instructions1: I18nFormat;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
@@ -6561,12 +6643,18 @@ interface I18n {
     instructions5: string;
     /** %s explains the voice move settings in detail. */
     instructions6: I18nFormat;
+    /** Microphone */
+    microphone: string;
     /** Move to e4 or select e4 piece */
     moveToE4OrSelectE4Piece: string;
+    /** None selected */
+    noneSelected: string;
     /** Phonetic alphabet is best */
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */
     playPreferredMoveOrConfirmSomething: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Select or capture a bishop */
     selectOrCaptureABishop: string;
     /** Show puzzle solution */
@@ -6577,10 +6665,12 @@ interface I18n {
     takeRookWithQueen: string;
     /** This blog post */
     thisBlogPost: string;
-    /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Watch the video tutorial */
     watchTheVideoTutorial: string;
   };

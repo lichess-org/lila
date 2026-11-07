@@ -36,12 +36,12 @@
   <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motspelaren)</string>
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
-  <string name="explainPromoteToQueenAutomatically">Hald &lt;ctrl&gt;-tasten nede under bondeomvandlinga for å mellombels deaktivera automatisk omvandling</string>
+  <string name="explainPromoteToQueenAutomatically">Hald ctrl-tasten nede under bondeomvandlinga om du mellombels vil deaktivera automatisk omvandling</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Trekkstadfesting</string>
-  <string name="multipleChoices">Fleire val. </string>
+  <string name="multipleChoices">Fleire val.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan under pågåande parti deaktiveras ved hjelp av brettmenyen</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og uavgrensa tid</string>
@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile einingar</string>
   <string name="inlineNotation">Inline-notasjon</string>
-  <string name="showServerAnalysis">Vis serveranalyse</string>
+  <string name="showMainlineAnalysis">Vis analyse for hovudvariant</string>
   <string name="showBestMoveArrows">Vis piler for beste trekk</string>
   <string name="showManeuverArrows">Vis manøverpiler</string>
   <string name="showGauge">Vis evalueringsindikator</string>
@@ -83,6 +83,7 @@
   <string name="showUndefendedPieces">Vis udekka brikker</string>
   <string name="showPinnedPieces">Vis brikker som står i binding</string>
   <string name="showCheckableKing">Vis moglege sjakkar</string>
+  <string name="showTrappedPieces">Vis innestengde brikker</string>
   <string name="disclosureMode">Aktiver skjuling av variantar</string>
   <string name="generalSettings">Generelt</string>
   <string name="moveListSettings">Trekkliste</string>

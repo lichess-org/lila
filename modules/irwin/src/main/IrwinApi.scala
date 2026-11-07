@@ -57,7 +57,7 @@ final class IrwinApi(
       get(user).flatMapz { report =>
         gameRepo.gamesFromSecondary(report.games.map(_.gameId)).map { games =>
           val povs = games.flatMap { g =>
-            Pov(g, user).map { g.id -> _ }
+            Pov(g, user).map(g.id -> _)
           }.toMap
           IrwinReport.WithPovs(report, povs).some
         }

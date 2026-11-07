@@ -5,8 +5,8 @@ import { url as assetUrl, jsModule } from './asset';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
-  const workerUrl = new URL(assetUrl(jsModule('serviceWorker'), { pathOnly: true }), self.location.href);
-  workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
+  const workerUrl = new URL(assetUrl(jsModule('serviceWorker')));
+
   let newSub: PushSubscription | undefined = undefined;
   try {
     const reg = await navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache: 'all' });

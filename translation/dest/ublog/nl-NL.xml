@@ -34,6 +34,7 @@
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
   <string name="includesPromotedContent">Bevat promotie, gesponsorde inhoud of verwijzingslinks</string>
   <string name="mandatoryForSponsoredContent">Verplicht voor gesponsorde inhoud, affiliate-links of commerciële reclame</string>
+  <string name="containsSponsoredContent">Bevat gesponsorde inhoud, affiliate-links of commerciële reclame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Vastgepind bericht</string>
   <string name="stickyPostHelp">Indien aangevinkt, wordt dit bericht als eerste weergegeven bij de recente berichten op jouw profiel.</string>
   <plurals name="publishedNbBlogPosts">
@@ -78,5 +79,7 @@
   <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
   <string name="blogTips">Onze simpele tips om geweldige blogberichten te schrijven</string>
   <string name="discussThisBlogPostInTheForum">Bespreek dit blogbericht in het forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Meningen die door Lichess-medewerkers worden geuit, zijn hun eigen meningen.</string>
+  <string name="youMayAlsoLike">Je bent misschien ook geïnteresseerd in</string>
   <string name="youBlockedByBlogAuthor">U bent geblokkeerd door de auteur van de blog.</string>
 </resources>

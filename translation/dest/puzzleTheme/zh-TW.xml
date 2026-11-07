@@ -19,7 +19,6 @@
   <string name="bodenMate">波登殺法</string>
   <string name="bodenMateDescription">以在對角線上的兩個主教將死被自身棋子困住的王。</string>
   <string name="castling">易位</string>
-  <string name="enPassant">吃過路兵</string>
   <string name="castlingDescription">讓國王回到安全，並讓車發動攻擊。</string>
   <string name="capturingDefender">吃子 - 防守者</string>
   <string name="capturingDefenderDescription">移除防守其他棋子的防守者以攻擊未被保護的棋子</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">雙重將軍，讓我方能攻擊敵人的他子。</string>
   <string name="endgame">殘局</string>
   <string name="endgameDescription">棋局中最後階段的戰術</string>
+  <string name="enPassant">吃過路兵</string>
   <string name="exposedKing">未被保護的國王</string>
   <string name="exposedKingDescription">攻擊未被保護的國王之戰術，常常導致將死。</string>
   <string name="fork">捉雙</string>

@@ -33,3 +33,4 @@ class HttpFilterTest extends munit.FunSuite:
     agent("", "-")
     agent("38298", "-")
     agent("...", "-")
+    agent("""{"u":"something","t":"abc","d":true}""", "u")

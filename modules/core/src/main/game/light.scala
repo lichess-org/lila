@@ -1,9 +1,9 @@
 package lila.core
 package game
 
-import _root_.chess.{ Color, Status, IntRating }
-import _root_.chess.variant.Variant
 import _root_.chess.rating.{ IntRatingDiff, RatingProvisional }
+import _root_.chess.variant.Variant
+import _root_.chess.{ Color, IntRating, Status }
 
 import lila.core.id.GameId
 import lila.core.userId.UserId
@@ -41,7 +41,7 @@ case class LightPov(game: LightGame, color: Color):
 
 object LightPov:
   def apply(game: LightGame, userId: UserId): Option[LightPov] =
-    game.playerByUserId(userId).map { p => LightPov(game, p.color) }
+    game.playerByUserId(userId).map(p => LightPov(game, p.color))
 
 trait GameLightRepo:
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[LightGame]]

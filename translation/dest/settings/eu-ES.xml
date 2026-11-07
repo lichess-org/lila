@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Utzi eta mantendu nire kontua</string>
   <string name="closeAccountAreYouSure">Ziur zure kontua ezabatu nahi duzula?</string>
   <string name="thisAccountIsClosed">Kontu hau itxita dago.</string>
+  <string name="wereSorryToSeeYouGo">Zu joatea asko sentitzen dugu.</string>
+  <string name="closeAccountForeverLabel">Itxi betiko: berriz irekitzea ezinezko egin</string>
+  <string name="closeAccountForeverWarning">Ez utzi kontua beranduago berriz zabaltzen. Aukera hau aktibatzen baduzu, kudeatzaileek ere ezingo dute zure kontua ireki zuk eskatzen duzunean.</string>
+  <string name="deleteYourAccount">Ezabatu zure kontua</string>
+  <string name="deleteAccountWarning">Behin zure kontua ezabatzen duzunean, Lichessetik ezabatu eginte da eta gure kudeatzaileekin ezingo dute berrezarri.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Nahiago duzu %s egitea?</string>
+  <string name="closeYourAccount">zure kontua ixtea</string>
+  <string name="deleteAccountConfirmText">Ezabatutako kontuak ezin direla berreskuratu ulertzen dut</string>
 </resources>

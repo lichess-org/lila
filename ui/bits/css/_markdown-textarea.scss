@@ -36,7 +36,7 @@
       }
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    @include mq-has-hover {
       &:hover .upload-image {
         background-color: $c-primary;
       }

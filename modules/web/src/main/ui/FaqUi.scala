@@ -171,10 +171,8 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               )
             ),
             p(
-              trf.watchIMRosenCheckmate(
-                a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
-                  "en passant"
-                )
+              trf.watchIMRosenCheckmate.rawHtml(
+                "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/"
               )
             )
           ),
@@ -348,7 +346,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.enableDisableNotificationPopUps.txt(),
             p(
               img(
-                src := assetUrl("images/connection-info.png"),
+                src := assetPath("images/connection-info.png"),
                 alt := trf.viewSiteInformationPopUp.txt()
               )
             ),

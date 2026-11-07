@@ -1,7 +1,7 @@
 package lila.relay
 
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 import lila.relay.RelayRound.WithTour
@@ -40,6 +40,11 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       .sort(sort.asc)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays.value * tourIds.size)
+
+  def roundsOfScoreGroup(tours: List[RelayTour]): Fu[List[RelayRound]] =
+    if RelayGroup.sgIsParallel(tours)
+    then byToursOrdered(tours.map(_.id)).map(_.sortBy(_.startsAtTime))
+    else tours.map(_.id).flatTraverse(byTourOrdered(_))
 
   def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](

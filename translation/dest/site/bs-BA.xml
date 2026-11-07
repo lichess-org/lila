@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Postavke igre</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izazovi prijatelja</string>
   <string name="playAgainstComputer">Igraj protiv računara</string>
   <string name="gameMode">Način igre</string>
@@ -1060,8 +1059,6 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="ourEventTips">Naši savjeti za organiziranje događajâ</string>
   <string name="instructions">Upute</string>
   <string name="showMeEverything">Pokaži mi sve</string>
-  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
-Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donacija korisnikâ.</string>
   <string name="nothingToSeeHere">Trenutno nema ništa za vidjeti ovdje.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Pristupačnost</string>

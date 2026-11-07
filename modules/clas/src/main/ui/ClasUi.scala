@@ -87,11 +87,10 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
               href := routes.Clas.studentShow(clas.clas.id, s.userId)
             )(s.realName)
         )
-      } | {
+      } |
         a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(
           trans.clas.newClass()
         )
-      }
     )
 
   object search:

@@ -269,13 +269,10 @@ object help:
               row(voice("next"), trans.puzzle.nextPuzzle()),
               row(voice("upvote"), trans.puzzle.upVote()),
               row(voice("solve"), showPuzzleSolution()),
-              row(voice("help"), trans.site.showHelpDialog()),
-              tr(
-                td,
-                td(button(cls := "button", cls := "all-phrases-button")(trans.site.showMeEverything()))
-              )
+              row(voice("help"), trans.site.showHelpDialog())
             )
-          )
+          ),
+          button(cls := "button", cls := "all-phrases-button")(trans.site.showMeEverything())
         )
       )
     )

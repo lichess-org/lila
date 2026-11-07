@@ -16,3 +16,7 @@ export interface Checkable {
   king: Square;
   check: NormalMove;
 }
+
+export interface Trapped {
+  square: Square;
+}

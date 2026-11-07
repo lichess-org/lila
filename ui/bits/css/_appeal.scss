@@ -169,7 +169,7 @@
     }
 
     &__row {
-      @extend %flex-center;
+      @extend %flex-wrap;
 
       align-items: flex-start;
       gap: 1em;

@@ -23,12 +23,6 @@ object config:
   opaque type NetDomain = String
   object NetDomain extends OpaqueString[NetDomain]
 
-  opaque type AssetDomain = String
-  object AssetDomain extends OpaqueString[AssetDomain]
-
-  opaque type AssetBaseUrl = String
-  object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
-
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
@@ -38,8 +32,6 @@ object config:
       domain: NetDomain,
       prodDomain: NetDomain,
       baseUrl: BaseUrl,
-      assetDomain: AssetDomain,
-      assetBaseUrl: AssetBaseUrl,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],
@@ -50,6 +42,7 @@ object config:
       logRequests: Boolean
   ):
     def routeUrl(call: play.api.mvc.Call) = data.Url(s"${baseUrl}${call.url}")
+    def isLichessProd = domain == NetDomain("lichess.org")
 
   opaque type ImageGetOrigin = String
   object ImageGetOrigin extends OpaqueString[ImageGetOrigin]

@@ -16,8 +16,8 @@
 
   .toastui-editor-defaultUI {
     @extend %base-font;
+    @include box-radius;
 
-    border-radius: $box-radius-size;
     border-color: $c-border;
     padding-bottom: 1px;
 
@@ -29,8 +29,8 @@
 
   .toastui-editor-defaultUI-toolbar {
     @extend %metal-bg;
+    @include box-radius-top;
 
-    border-radius: $box-radius-size $box-radius-size 0 0;
     padding: 0 6px;
     border-bottom: $border;
     flex-flow: row wrap;

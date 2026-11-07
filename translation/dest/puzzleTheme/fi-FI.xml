@@ -23,7 +23,6 @@
   <string name="bodenMate">Bodenin matti</string>
   <string name="bodenMateDescription">Kaksi ristiäviltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
   <string name="castling">Linnoitus</string>
-  <string name="enPassant">Ohestalyönti</string>
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla niin, että paljastushyökkäyksessäsi sekä liikkuva nappula että sen paljastama nappula uhkaavat vastustajan kuningasta.</string>
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
+  <string name="enPassant">Ohestalyönti</string>
   <string name="enPassantAdjacentCaptureDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas voi lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan siirtynyt tämän viereen.</string>
   <string name="epauletteMate">Epolettimatti</string>
   <string name="epauletteMateDescription">Kahdessa ruudussa shakatun kuninkaan molemmin puolin on kussakin pakoruudun vievä nappula.</string>

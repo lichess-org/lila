@@ -23,7 +23,6 @@
   <string name="bodenMate">การรุกจนแบบ Boden</string>
   <string name="bodenMateDescription">บิชอปที่ใช้โจมตี 2 ตัวควบคุมช่องเป็นกากบาทในแนวเฉียง ส่งผลให้คิงที่ถูกหมากฝ่ายตนเองขวางโดนรุกจน</string>
   <string name="castling">การเข้าป้อม</string>
-  <string name="enPassant">การกินผ่าน</string>
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>
   <string name="endgameDescription">กลยุทธ์ในช่วงท้ายของเกม</string>
+  <string name="enPassant">การกินผ่าน</string>
   <string name="enPassantAdjacentCaptureDescription">กลยุทธ์การกินผ่าน คือการที่เราสามารถกินเบี้ยของฝ่ายตรงข้ามในแนวทแยงที่เพิ่งเดินตาแรกแบบสองช่อง แล้วมาอยู่ข้างเบี้ยขอเรา</string>
   <string name="epauletteMate">การรุกจนแบบอินทรธนู</string>
   <string name="epauletteMateDescription">ช่องทั้งสองที่อยู่ข้างคิงมีหมากของฝ่ายตัวเองขวางอยู่เลยหนีไม่ได้</string>

@@ -2,15 +2,17 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import scalalib.model.{ Language, LangTag }
+import scalalib.model.{ LangTag, Language }
 
 import lila.core.i18n.{
-  toLanguage,
   defaultLang,
   defaultLanguage,
   fixJavaLanguage,
-  playAcceptLanguages as acceptLanguages
+  playAcceptLanguages as acceptLanguages,
+  toLanguage
 }
+import lila.core.net.CountryCode
+import lila.common.HTTPRequest
 
 object LangPicker extends lila.core.i18n.LangPicker:
 
@@ -25,9 +27,13 @@ object LangPicker extends lila.core.i18n.LangPicker:
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
     acceptLanguages(req).collectFirstSome(findCloser)
 
-  def allFromRequestHeaders(req: RequestHeader): List[Lang] = {
-    acceptLanguages(req).flatMap(findCloser) ++
-      acceptLanguages(req).flatMap(lang => ~byCountry.get(lang.country))
+  def allFromRequestHeaders(req: RequestHeader): List[Lang] =
+    allFromRequestHeaders(acceptLanguages(req), HTTPRequest.country(using req))
+
+  def allFromRequestHeaders(langs: Seq[Lang], ipCountry: Option[CountryCode]): List[Lang] = {
+    langs.flatMap(findCloser) ++
+      langs.flatMap(lang => ~byCountry.get(lang.country)) ++
+      ipCountry.so(country => ~byCountry.get(country.value))
   }.distinct.toList
 
   def byStr(str: String): Option[Lang] =
@@ -38,7 +44,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
 
   def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] =
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap
-    langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
+    langs.sortBy(mine.getOrElse(_, Int.MaxValue))
 
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language] = {
     toLanguage(prefLang) +: acceptLanguages(req).map(toLanguage)
@@ -57,6 +63,11 @@ object LangPicker extends lila.core.i18n.LangPicker:
           .collectFirst:
             case l if candidates.contains(l) => l
       .orElse(candidates.contains(defaultLanguage).option(defaultLanguage))
+
+  object pageOverride:
+    val qs = "en"
+    def check(req: RequestHeader): Boolean = lila.common.HTTPRequest.queryStringBool(qs)(using req)
+    def get(req: RequestHeader): Option[Lang] = check(req).option(defaultLang)
 
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys

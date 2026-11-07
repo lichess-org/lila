@@ -114,7 +114,8 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'NNUE',
-          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 10 },
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 3 }, // 3 is a compromise.
+          // Depending on variant, NNUE can add anywhere from +200 to +1000 ELO according to download page.
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: [key],
           supportsCloudEval: true,
@@ -360,8 +361,7 @@ function maxHashMB() {
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 
-const maxThreads =
-  isAndroid() || isIos() || navigator.userAgent.includes('CrOS') ? navigator.hardwareConcurrency : 32;
+const maxThreads = navigator.hardwareConcurrency || 4;
 
 type GivenInDefaults = 'minThreads' | 'maxThreads';
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

@@ -92,14 +92,14 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val fields = tourFields(form, none)
     frag(
       form3.globalError(form),
-      form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.tournament(), toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
         form3.split(
           description(form.prefix("description")),
           payouts(form.prefix("payouts"))
         )
       ),
-      form3.fieldset("Games", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.games(), toggle = true.some, disabled = fields.frozen)(
         fields.clock,
         form3.split(fields.variant, fields.startPosition)
       ),
@@ -113,12 +113,12 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val fields = tourFields(form, tour.some)
     frag(
       form3.globalError(form),
-      form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.tournament(), toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
         form3.split(description(form.prefix("description"))),
         payouts(form.prefix("payouts"))
       ),
-      form3.fieldset("Games", toggle = false.some, disabled = fields.frozen)(
+      form3.fieldset(trans.site.games(), toggle = false.some, disabled = fields.frozen)(
         fields.clock,
         form3.split(fields.variant, fields.startPosition)
       ),
@@ -134,7 +134,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       tour: Option[Tournament]
   )(using ctx: Context)(using FormPrefix) =
     form3.fieldset(
-      "Entry conditions",
+      trans.arena.entryConditions(),
       toggle = tour.exists(_.conditions.list.nonEmpty).some,
       disabled = fields.frozen
     )(
@@ -170,7 +170,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     )
 
   def featuresFields(form: Form[?], fields: TourFields)(using ctx: Context)(using FormPrefix) =
-    form3.fieldset("Features", toggle = false.some, disabled = fields.frozen)(
+    form3.fieldset(trans.clas.features(), toggle = false.some, disabled = fields.frozen)(
       form3.split(
         form3.checkboxGroup(
           form.prefix("berserkable"),
@@ -407,7 +407,7 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
     form3.group(form.prefix("waitMinutes"), trans.site.timeBeforeTournamentStarts(), half = true):
       form3.select(_, TournamentForm.waitMinuteChoices)
   def waitStart =
-    form3.fieldset("Start date", toggle = tour.forall(_.isCreated).some, disabled = frozen)(
+    form3.fieldset(trans.arena.startDate(), toggle = tour.forall(_.isCreated).some, disabled = frozen)(
       form3.split(waitMinutes, startDate)
     )
   def entryCode =

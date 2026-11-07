@@ -1,12 +1,13 @@
 import { charToRole } from 'chessops';
 
+import { myUserId } from 'lib';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
 import { licon, type LiconValue } from 'lib/licon';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect, once } from 'lib/storage';
 import type { QuestionOpts } from 'lib/types';
-import { jsonSimple } from 'lib/xhr';
+import * as xhr from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
 import {
@@ -24,6 +25,7 @@ import {
   type Transform,
   type SparseMap,
 } from '../util';
+import { openHelpDialog, openAllPhrasesDialog } from '../view';
 import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
@@ -64,9 +66,11 @@ export function initModule({
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
   const commands: Record<string, () => ListenResult[]> = {
-    no: as(['ok', 'clear'], () => (voice.showHelp() ? voice.showHelp(false) : clearMoveProgress())),
-    help: as(['ok'], () => voice.showHelp(true)),
-    vocabulary: as(['ok'], () => voice.showHelp('list')),
+    no: as(['ok', 'clear'], () =>
+      voice.helpDialog?.dialog.open ? voice.helpDialog.close() : clearMoveProgress(),
+    ),
+    help: as(['ok'], () => openHelpDialog(voice)),
+    vocabulary: as(['ok'], () => openAllPhrasesDialog(voice)),
     'mic-off': as(['ok'], () => voice.mic.stop()),
     flip: as(['ok'], () => root.flipNow()),
     draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),
@@ -99,10 +103,12 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`)).catch(() => ({
-      entries: [],
-      partials: { numbers: [], commands: [], colors: [] },
-    }));
+    const g = await xhr
+      .jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`))
+      .catch(() => ({
+        entries: [],
+        partials: { numbers: [], commands: [], colors: [] },
+      }));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -371,6 +377,7 @@ export function initModule({
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
     root.pluginMove(src(uci), dest(uci), role, preConfirmed);
+    if (once('voice.move', { days: 1 })) xhr.text(`/jslog/feature?n=voiceMove&u=${myUserId()}`);
     return true;
   }
 
@@ -410,7 +417,7 @@ export function initModule({
       const srole = board.pieces[nsrc].toUpperCase();
 
       if (srole === 'K') {
-        if (isOurs(dp)) {
+        if (dp && isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
@@ -496,12 +503,8 @@ export function initModule({
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
 
-  function isOurs(p: string | undefined) {
-    return p === '' || p === undefined
-      ? undefined
-      : cg.state.turnColor === 'white'
-        ? p.toUpperCase() === p
-        : p.toLowerCase() === p;
+  function isOurs(p: string) {
+    return !p ? false : cg.state.turnColor === 'white' ? p.toUpperCase() === p : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {

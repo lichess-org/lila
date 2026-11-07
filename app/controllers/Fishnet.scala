@@ -1,7 +1,7 @@
 package controllers
 
-import monocle.syntax.all.*
 import cats.mtl.Handle.*
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -55,7 +55,8 @@ final class Fishnet(env: Env) extends LilaController(env):
     api.keyExists(FishnetKey(key)).map(if _ then Ok else NotFound)
 
   val status = Anon:
-    api.status.map { JsonStrOk(_) }
+    for s <- api.status
+    yield Ok(s).publicCache(api.statusTtl)
 
   private def ClientAction[A <: JsonApi.Request](
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]
@@ -74,7 +75,8 @@ final class Fishnet(env: Env) extends LilaController(env):
               data =>
                 allow:
                   f(client)(data).map:
-                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                    _.map(Json.toJson).fold(NoContent): data =>
+                      Accepted(data).as(JSON)
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>

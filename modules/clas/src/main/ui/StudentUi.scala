@@ -2,6 +2,7 @@ package lila.clas
 package ui
 
 import scalalib.model.Days
+
 import lila.core.config.NetDomain
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }

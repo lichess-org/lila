@@ -1,8 +1,8 @@
 package lila.challenge
 
 import lila.common.Bus
-import lila.core.i18n.LangPicker
 import lila.core.challenge.PositiveEvent
+import lila.core.i18n.LangPicker
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
 
@@ -67,6 +67,13 @@ final class ChallengeApi(
 
   export repo.byId
 
+  def redirect(anyPath: String): Fu[Option[play.api.mvc.Call]] =
+    GameId
+      .from(anyPath)
+      .map(_.into(ChallengeId))
+      .so: id =>
+        repo.exists(id).map(_.option(routes.Challenge.show(id)))
+
   def activeByIdFor(id: ChallengeId, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
 
@@ -107,7 +114,7 @@ final class ChallengeApi(
       .statusById(id)
       .flatMap:
         case Some(Status.Created) => repo.setSeen(id)
-        case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _.foreach(uncacheAndNotify) }
+        case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map(_.foreach(uncacheAndNotify))
         case _ => fuccess(socketReload(id))
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =

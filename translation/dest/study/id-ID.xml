@@ -44,7 +44,6 @@
   <string name="annotateWithGlyphs">Anotasikan dengan glif</string>
   <string name="theChapterIsTooShortToBeAnalysed">Bab ini terlalu pendek untuk di analisa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Hanya kontributor yang dapat meminta analisa komputer.</string>
-  <string name="getAFullComputerAnalysis">Dapatkan analisis komputer penuh di pihak server dari jalur utama.</string>
   <string name="makeSureTheChapterIsComplete">Pastikan bab ini selesai. Anda hanya dapat meminta analisis satu kali.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Semua anggota yang ter-sinkron tetap pada posisi yang sama</string>
   <string name="shareChanges">Bagikan perubahan dengan penonton dan simpan di server</string>
@@ -92,9 +91,6 @@
   <string name="loadAPositionFromFen">Muat posisi dari FEN</string>
   <string name="loadAGameFromPgn">Muat permainan dari PGN</string>
   <string name="automatic">Otomatis</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">Tempelkan PGN kamu disini, lebih dari %s permainan</item>
-  </plurals>
   <string name="urlOfTheGame">URL permainan</string>
   <string name="createChapter">Buat bab</string>
   <string name="createStudy">Buat studi</string>
@@ -114,7 +110,6 @@
   <string name="noLetPeopleBrowseFreely">Tidak: Bolehkan untuk menjelajah dengan bebas</string>
   <string name="pinnedStudyComment">Sematkan komentar studi</string>
   <string name="start">Mulai</string>
-  <string name="save">Simpan</string>
   <string name="clearChat">Bersihkan obrolan</string>
   <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan studi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="deleteStudy">Hapus studi</string>

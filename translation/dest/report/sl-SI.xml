@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vaše poročilo lahko obdelamo hitreje, če pišete v angleščini.</string>
   <string name="provideOneCheatedGameLink">Prosim, navedite vsaj eno povezavo do igre za pregled.</string>
+  <string name="thanksForTheReport">Hvala za poročilo</string>
+  <string name="moderatorsWillReviewSoon">Moderatorji bodo zadevo zelo kmalu pregledali in ustrezno ukrepali.</string>
+  <string name="blockUserInMeantime">Medtem lahko tega uporabnika blokirate:</string>
 </resources>

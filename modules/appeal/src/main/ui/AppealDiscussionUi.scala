@@ -3,10 +3,10 @@ package ui
 
 import play.api.data.Form
 
+import lila.core.config.NetDomain
+import lila.core.userId.ModId
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.userId.ModId
-import lila.core.config.NetDomain
 
 case class ModData(
     mod: Me,

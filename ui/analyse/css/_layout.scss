@@ -1,10 +1,7 @@
 $analyse-block-gap: $block-gap;
 $analyse-gauge-gap: 4px;
 
-body {
-  /* prevents scroll bar flicker on page height changes */
-  overflow-y: scroll;
-}
+@include body-fixed-scroll;
 
 #main-wrap {
   ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});

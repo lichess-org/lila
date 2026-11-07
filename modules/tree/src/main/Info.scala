@@ -1,8 +1,8 @@
 package lila.tree
 
 import chess.Ply
-import chess.format.pgn.{ Comment, SanStr }
 import chess.eval.WinPercent
+import chess.format.pgn.{ Comment, SanStr }
 
 // ply AFTER the move was played
 case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
@@ -45,8 +45,6 @@ object Info:
 
   val LineMaxPlies = 12
 
-  def start(ply: Ply) = Info(ply, evals.initial, Nil)
-
   import play.api.libs.json.*
   import scalalib.json.Json.given
   import chess.json.Json.given
@@ -63,14 +61,19 @@ object Info:
           JsError("Too many plies")
         else JsSuccess(())
       ply <- (json \ "ply").validate[Ply]
-      cp <- (json \ "eval" \ "cp").validateOpt[Int]
-      mate <- (json \ "eval" \ "mate").validateOpt[Int]
+      score <- readScore(json \ "eval", ply)
       best <- (json \ "eval" \ "best").validateOpt[Uci]
       variation <- (json \ "variation").validate[List[SanStr]]
-    yield
-      val score = cp
-        .map(Score.cp)
-        .orElse:
-          mate.map: value =>
-            if value == 0 && ply.turn.black then Score.MateGiven else Score.mate(value)
-      Info(ply, Eval(score.map(WhiteScore.fromWhite), best), variation)
+    yield Info(ply, Eval(score, best), variation)
+
+  def readScore(eval: JsLookupResult, ply: Ply): JsResult[Option[WhiteScore]] =
+    for
+      cp <- (eval \ "cp").validateOpt[Int]
+      mate <- (eval \ "mate").validateOpt[Int]
+      mateGiven <- (eval \ "mateGiven").validateOpt[Boolean]
+    yield cp
+      .map(cp => WhiteScore.fromWhite(Score.cp(cp)))
+      .orElse:
+        mate.map:
+          case 0 => WhiteScore(if mateGiven.has(true) then Score.MateGiven else Score.mated, ply.turn)
+          case value => WhiteScore.fromWhite(Score.mate(value))

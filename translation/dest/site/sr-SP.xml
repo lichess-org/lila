@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Подешавања партије</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Изазови пријатеља</string>
   <string name="playAgainstComputer">Играј против рачунара</string>
   <string name="gameMode">Режим партије</string>
@@ -10,13 +9,13 @@
   <string name="orLetYourOpponentScanQrCode">Или допусти свом противнику да копира овај QR код</string>
   <string name="reusableChallengeUrl">Вишекратни линк за изазов</string>
   <string name="permanentLinkForAnyoneToChallengeYou">Трајни линк за било кога да те изазове са тачно овим подешавањима.</string>
-  <string name="waiting">Чека се</string>
+  <string name="waiting">Чекање</string>
   <string name="yourTurn">Твој потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
   <string name="strength">Јачина</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
-  <string name="chat">Ћаскај</string>
+  <string name="chat">Ћаскање</string>
   <string name="resign">Предај</string>
   <string name="checkmate">Шах-мат</string>
   <string name="stalemate">Пат</string>
@@ -28,29 +27,29 @@
   <string name="createAGame">Започни нову партију</string>
   <string name="createTheGame">Започни партију</string>
   <string name="whiteIsVictorious">Бели је победио</string>
-  <string name="blackIsVictorious">Црни је победио</string>
-  <string name="youPlayTheWhitePieces">Играш белим фигурама</string>
-  <string name="youPlayTheBlackPieces">Играш црним фигурама</string>
-  <string name="itsYourTurn">Твој је потез!</string>
+  <string name="blackIsVictorious">Црни је победник</string>
+  <string name="youPlayTheWhitePieces">Играш са белим фигурама</string>
+  <string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
+  <string name="itsYourTurn">Ти си на потезу!</string>
   <string name="cheatDetected">Варање Откривено</string>
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
-  <string name="raceFinished">Трка се завршила</string>
-  <string name="variantEnding">Завршетак варијанте</string>
+  <string name="raceFinished">Трка је завршена</string>
+  <string name="variantEnding">Крај варијацијом</string>
   <string name="newOpponent">Нови противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
-  <string name="whitePlays">Бели на потезу</string>
-  <string name="blackPlays">Црни на потезу</string>
+  <string name="whitePlays">Бели је на потезу</string>
+  <string name="blackPlays">Црни је на потезу</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Твој противник је напустио партију. Можеш прогласити победу за %s секунд.</item>
-    <item quantity="few">Твој противник је напустио партију. Можеш прогласити победу за %s секунде.</item>
-    <item quantity="other">Твој противник је напустио партију. Можеш прогласити победу за %s секунди.</item>
+    <item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
+    <item quantity="few">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
+    <item quantity="other">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
   </plurals>
   <string name="opponentLeftChoices">Твој противник је изашао из партије. Можеш прогласити победу, прогласити партију ремијем или чекати.</string>
-  <string name="forceResignation">Прогласи победу</string>
-  <string name="forceDraw">Приморај реми</string>
-  <string name="talkInChat">Молимо Вас да будете љубазни у ћаскању!</string>
+  <string name="forceResignation">Прогласи се победником</string>
+  <string name="forceDraw">Приморај на реми</string>
+  <string name="talkInChat">Буди љубазан у ћаскању!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која дође на овај линк ће играти са тобом.</string>
   <string name="whiteResigned">Бели је предао</string>
   <string name="blackResigned">Црни је предао</string>
@@ -61,10 +60,10 @@
   <string name="whiteAborted">Бели је прекинуо партију</string>
   <string name="blackAborted">Црни је прекинуо партију</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
-  <string name="computerAnalysis">Рачунарска анализа</string>
+  <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа доступна</string>
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
-  <string name="analysis">Табла за анализу</string>
+  <string name="analysis">Табла за анализирање</string>
   <string name="depthX">Дубина %s</string>
   <string name="usingServerAnalysis">Користи се серверска анализа</string>
   <string name="loadingEngine">Учитавање рачунара...</string>
@@ -101,7 +100,7 @@
   <string name="maxRatingX">Максималан рејтинг од %s</string>
   <string name="recentGames">Недавне партије</string>
   <string name="topGames">Партије највишег рејтинга</string>
-  <string name="masterDbExplanation">Партије преко табле од %1$s+ ФИДЕ рејтованих играча из %2$s. до %3$s.</string>
+  <string name="masterDbExplanation">Два милиона партија на табли %1$s+ ФИДЕ рангираних играча од %2$s. до %3$s.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат у %s полупотез</item>
     <item quantity="few">Мат у %s полупотеза</item>
@@ -121,10 +120,10 @@
   <string name="winOr50MovesByPriorMistake">Победа или 50 потеза на основу претходне грешке</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
   <string name="unknownDueToRounding">Због могућег заокруживања DTZ вредности у Syzygy табелама завршница, победа/пораз су загарантовани само ако се препоручена линија из табеле пратила од последњег узимања или пешачког потеза.</string>
-  <string name="allSet">Све спремно!</string>
+  <string name="allSet">Све је спремно!</string>
   <string name="importPgn">Увези PGN</string>
   <string name="delete">Избриши</string>
-  <string name="deleteThisImportedGame">Избриши ову увезену партију?</string>
+  <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
   <string name="replayMode">Начин репризе</string>
   <string name="realtimeReplay">Стварновремено</string>
   <string name="byCPL">По ЦПГ-у</string>
@@ -163,21 +162,21 @@
     <item quantity="few">%s Непрецизности</item>
     <item quantity="other">%s Непрецизности</item>
   </plurals>
-  <string name="moveTimes">Времена потеза</string>
-  <string name="flipBoard">Окрени таблу</string>
-  <string name="threefoldRepetition">Троструко поновљена позиција</string>
-  <string name="claimADraw">Прогласи реми</string>
+  <string name="moveTimes">Време померања фигура</string>
+  <string name="flipBoard">Обрни таблу</string>
+  <string name="threefoldRepetition">Троструко понављање</string>
+  <string name="claimADraw">Затражи реми</string>
   <string name="drawClaimed">Реми проглашен</string>
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s играч</item>
-    <item quantity="few">%s играча</item>
+    <item quantity="few">%s играча на вези</item>
     <item quantity="other">%s играча</item>
   </plurals>
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
-  <string name="currentGames">Партије у току</string>
+  <string name="currentGames">Партије које се управо играју</string>
   <string name="joinedX">Придружио/ла се %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
@@ -193,25 +192,25 @@
   <string name="logOut">Одјави се</string>
   <string name="signIn">Пријави се</string>
   <string name="rememberMe">Остани пријављен</string>
-  <string name="youNeedAnAccountToDoThat">Треба ти налог да то урадиш</string>
+  <string name="youNeedAnAccountToDoThat">Треба вам налог да бисте то урадили</string>
   <string name="signUp">Региструј се</string>
-  <string name="computersAreNotAllowedToPlay">Рачунарима и играчима који користе рачунарску помоћ није дозвољено играти. Молимо Вас да не користите шаховске програме, базе података или помоћ других играча током играња. Такође имајте на уму да је отварање више налога строго непожељно и да ће претерано коришћење више налога довести до забрањивања приступа.</string>
+  <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
   <string name="games">Партије</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s је објавио/ла у теми %2$s</string>
-  <string name="latestForumPosts">Последње објаве на форуму</string>
-  <string name="players">Играчи</string>
+  <string name="latestForumPosts">Последњe оглашавање на форуму</string>
+  <string name="players">Шахисти</string>
   <string name="friends">Пријатељи</string>
   <string name="otherPlayers">остали играчи</string>
   <string name="discussions">Разговори</string>
   <string name="today">Данас</string>
   <string name="yesterday">Јуче</string>
-  <string name="minutesPerSide">Минута по играчу</string>
+  <string name="minutesPerSide">Минута по страни</string>
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанте</string>
   <string name="variantsDescription">Више начина за играње</string>
-  <string name="timeControl">Временска контрола</string>
-  <string name="realTime">Стварновременa</string>
+  <string name="timeControl">Временско ограничење</string>
+  <string name="realTime">Игра на време</string>
   <string name="correspondence">Дописнa</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
@@ -222,7 +221,7 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s сат</item>
-    <item quantity="few">%s сата</item>
+    <item quantity="few">%s сати</item>
     <item quantity="other">%s сати</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -232,7 +231,7 @@
   </plurals>
   <string name="time">Време</string>
   <string name="rating">Рејтинг</string>
-  <string name="ratingStats">Рејтинг статистике</string>
+  <string name="ratingStats">Статистика рејтинга</string>
   <string name="username">Корисничко име</string>
   <string name="usernameOrEmail">Корисничко име или имејл</string>
   <string name="changeUsername">Промени корисничко име</string>
@@ -241,10 +240,10 @@
   <string name="signupUsernameHint">Постарај се да одабереш пристојно корисничко име. Касније га нећеш моћи променити, а налози са непристојним корисничким именима биће затворени!</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Промени лозинку</string>
-  <string name="changeEmail">Промени имејл</string>
+  <string name="changeEmail">Промени е-пошту</string>
   <string name="email">Имејл</string>
   <string name="passwordReset">Мењање лозинке</string>
-  <string name="forgotPassword">Заборавили лозинку?</string>
+  <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="error.weakPassword">Ова лозинка је изузетно честа и сувише лака да се погоди.</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="blankedPassword">Користио си исту лозинку на другом сајту и тај сајт је био хакован. Да бисмо обезбедили сигурност твог Lichess налога, неопходно је да поставимо нову лозинку. Хвала на разумевању.</string>
@@ -275,11 +274,11 @@
     <item quantity="other">Ранг се ажурира сваких %s минута</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s проблем</item>
+    <item quantity="one">%s тактика</item>
     <item quantity="few">%s проблема</item>
     <item quantity="other">%s проблема</item>
   </plurals>
-  <string name="gamesPlayed">Одиграних партија</string>
+  <string name="gamesPlayed">Број одиграних партија</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партија са тобом</item>
     <item quantity="few">%s партије са тобом</item>
@@ -287,48 +286,48 @@
   </plurals>
   <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
-  <string name="drawOfferSent">Понуда за реми послата</string>
-  <string name="drawOfferAccepted">Понуда за реми прихваћена</string>
+  <string name="drawOfferSent">Захтев за реми је послат</string>
+  <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
   <string name="blackOffersDraw">Црни нуди реми</string>
   <string name="whiteDeclinesDraw">Бели одбија реми</string>
   <string name="blackDeclinesDraw">Црни одбија реми</string>
-  <string name="yourOpponentOffersADraw">Твој противник нуди реми</string>
+  <string name="yourOpponentOffersADraw">Противник нуди реми</string>
   <string name="accept">Прихвати</string>
   <string name="decline">Одбиј</string>
-  <string name="playingRightNow">Тренутно се игра</string>
+  <string name="playingRightNow">Управо игра</string>
   <string name="eventInProgress">Управо се одиграва</string>
-  <string name="finished">Завршено</string>
+  <string name="finished">Завршен</string>
   <string name="abortGame">Прекини партију</string>
   <string name="gameAborted">Партија прекинута</string>
-  <string name="standard">Стандардна</string>
+  <string name="standard">Стандардно</string>
   <string name="customPosition">Произвољна позиција</string>
-  <string name="unlimited">Неограничена</string>
+  <string name="unlimited">Неограничено</string>
   <string name="unlimitedDescription">Узми колико год времена ти је потребно</string>
-  <string name="mode">Тип</string>
-  <string name="casual">Нерангирана</string>
+  <string name="mode">Начин</string>
+  <string name="casual">Неформална</string>
   <string name="rated">Рангирана</string>
   <string name="casualTournament">Нерангирани</string>
   <string name="ratedTournament">Рангирани</string>
   <string name="thisGameIsRated">Ова партија се рангира</string>
   <string name="rematch">Реванш</string>
-  <string name="rematchOfferSent">Понуда за реванш послата</string>
-  <string name="rematchOfferAccepted">Понуда за реванш прихваћена</string>
-  <string name="rematchOfferCanceled">Понуда за реванш повучена</string>
-  <string name="rematchOfferDeclined">Понуда за реванш одбијена</string>
+  <string name="rematchOfferSent">Понуда за реванш је послата</string>
+  <string name="rematchOfferAccepted">Понуда за реванш је прихваћена</string>
+  <string name="rematchOfferCanceled">Понуда за реванш је отказана</string>
+  <string name="rematchOfferDeclined">Понуда за реванш је одбијена</string>
   <string name="cancelRematchOffer">Откажи понуду за реванш</string>
-  <string name="viewRematch">Погледај реванш</string>
+  <string name="viewRematch">Погледајте реванш</string>
   <string name="confirmMove">Потврди потез</string>
   <string name="play">Играј</string>
-  <string name="inbox">Сандуче</string>
+  <string name="inbox">Пријемно сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
   <string name="loginToChat">Пријави се да ћаскаш</string>
   <string name="youHaveBeenTimedOut">Тајм-аутован/а си.</string>
   <string name="spectatorRoom">Соба за гледаоце</string>
-  <string name="composeMessage">Састави поруку</string>
-  <string name="subject">Наслов</string>
+  <string name="composeMessage">Напиши поруку</string>
+  <string name="subject">Тема</string>
   <string name="send">Пошаљи</string>
-  <string name="incrementInSeconds">Додатак у секундама</string>
+  <string name="incrementInSeconds">Додавање у секундама</string>
   <string name="freeOnlineChess">Бесплатан Интернетски Шах</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
@@ -400,9 +399,9 @@
     <item quantity="other">≥ %s рангираних партија</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s рангирана партија</item>
-    <item quantity="few">≥ %1$s %2$s рангиране партије</item>
-    <item quantity="other">≥ %1$s %2$s рангираних партија</item>
+    <item quantity="one">≥ %1$s %2$s рангирана игра</item>
+    <item quantity="few">≥ %1$s %2$s рангиране игре</item>
+    <item quantity="other">≥ %1$s %2$s рангираних игара</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Мораш одиграти још %1$s %2$s рангирану партију</item>
@@ -420,7 +419,7 @@
   <string name="yourPerfRatingIsTooLow">Твој %1$s рејтинг (%2$s) је пренизак</string>
   <string name="ratedMoreThanInPerf">Рејтован ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рејтован ≤ %1$s у %2$s последњих недељу дана</string>
-  <string name="mustBeInTeam">Мораш бити у тиму %s</string>
+  <string name="mustBeInTeam">Морате бити у тиму %s</string>
   <string name="youAreNotInTeam">Ниси у тиму %s</string>
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатан интернетски шах сервер. Играј шах у чистом окружењу. Без регистрације, без реклама, без потребних додатака. Играј шах са рачунаром, пријатељима или насумичним противницима.</string>
@@ -579,7 +578,7 @@
   <string name="posts">Објавe</string>
   <string name="lastPost">Задња објава</string>
   <string name="views">Прегледa</string>
-  <string name="replies">Одговора</string>
+  <string name="replies">Одговори</string>
   <string name="replyToThisTopic">Одговори на ову тему</string>
   <string name="reply">Одговори</string>
   <string name="reopen">Поново отвори</string>
@@ -621,7 +620,7 @@
   <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазову</string>
-  <string name="letOtherPlayersInviteYouToStudy">Допусти другим играчима да те позову у студију</string>
+  <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
   <string name="none">Ниједна</string>
   <string name="fast">Брза</string>
@@ -760,7 +759,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Твој %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Бољи/а си него %1$s од %2$s играча.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи/а од %2$s %3$s играча.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
   <string name="yourRating">Твој рејтинг</string>
@@ -923,7 +922,7 @@
   <string name="wishYouGreatGames">и желимо ти одличне партије на lichess.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
   <string name="lifetimeScore">Животни скор</string>
-  <string name="currentMatchScore">Скор тренутног меча</string>
+  <string name="currentMatchScore">Резултат тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих партија (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити поштен према другим играчима.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Слажем се да нећу направити више налога (осим из разлога наведених у %s).</string>
@@ -934,7 +933,7 @@
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
-  <string name="bulletDesc">Веома брзе партије: мање од 3 минута</string>
+  <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
   <string name="rapidDesc">Брзопотезне партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
@@ -1023,7 +1022,6 @@
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
-  <string name="lichessPatronInfo">Lichess је добротворна организација и потпуно бесплатан/слободан софтвер отвореног изворног кода. Зависимо од корисничких донација како бисмо подржали наше оперативне трошкове, развој и садржај. Без наше великодушне заједнице, не бисмо могли да покрећемо сајт. Хвала вам што сте нам се придружили!  </string>
   <string name="nothingToSeeHere">Тренутно нема ништа за видети овде.</string>
   <string name="stats">Статистике</string>
   <string name="accessibility">Приступачност</string>

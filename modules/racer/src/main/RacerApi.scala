@@ -3,8 +3,8 @@ package lila.racer
 import scalalib.model.Seconds
 
 import lila.common.Bus
-import lila.core.id.SessionId
 import lila.core.LightUser
+import lila.core.id.SessionId
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 

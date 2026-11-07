@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">게임 설정</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">친구에게 도전</string>
   <string name="playAgainstComputer">컴퓨터와 대국하기</string>
   <string name="gameMode">게임 모드</string>
@@ -57,8 +56,8 @@
   <string name="blackLeftTheGame">흑 게임 퇴장</string>
   <string name="whiteDidntMove">백이 수를 두지 않음</string>
   <string name="blackDidntMove">흑이 수를 두지 않음</string>
-  <string name="whiteAborted">백 게임 중단</string>
-  <string name="blackAborted">흑 게임 중단</string>
+  <string name="whiteAborted">백이 게임을 중단함</string>
+  <string name="blackAborted">흑이 게임을 중단함</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석 가능</string>
@@ -100,7 +99,7 @@
   <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
-  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 대면 경기</string>
+  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 %1$s 이상이었던 선수들의 대면 경기</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
@@ -169,7 +168,7 @@
   <string name="offerDraw">무승부 요청</string>
   <string name="draw">무승부</string>
   <plurals name="nbPlayers">
-    <item quantity="other">플레이어 %s명</item>
+    <item quantity="other">%s명의 플레이어</item>
   </plurals>
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
   <string name="fiftyMovesWithoutProgress">진전 없이 50수 소모</string>
@@ -190,13 +189,13 @@
   <string name="rememberMe">로그인 유지</string>
   <string name="youNeedAnAccountToDoThat">회원이어야 가능합니다</string>
   <string name="signUp">회원 가입</string>
-  <string name="computersAreNotAllowedToPlay">컴퓨터나 컴퓨터를 사용하는 플레이어들은 대국이 금지되어 있습니다. 대국 중 체스 엔진이나, 데이터베이스나, 다른 사람들로부터 도움을 받지 마십시오. 이와 더불어 다중 계정 소유는 최대한 사용을 지양하여 주시고 지나치게 많은 계정들을 사용할 시 계정들이 차단될 수 있습니다.</string>
+  <string name="computersAreNotAllowedToPlay">컴퓨터이거나, 컴퓨터의 도움을 받는 플레이어일 경우 대국이 금지되어 있습니다. 대국 중 체스 엔진, 데이터베이스, 다른 사람들로부터 도움을 받지 마십시오. 또한 동시에 여러 개의 계정을 소유하는 것은 매우 권장되지 않으며, 과도할 경우 계정이 차단될 수 있습니다.</string>
   <string name="games">대국</string>
   <string name="forum">포럼</string>
   <string name="xPostedInForumY">%1$s(이)가 %2$s 주제에 글을 씀</string>
   <string name="latestForumPosts">최근 포럼 글</string>
   <string name="players">플레이어</string>
-  <string name="friends">친구들</string>
+  <string name="friends">친구</string>
   <string name="otherPlayers">다른 플레이어들</string>
   <string name="discussions">대화</string>
   <string name="today">오늘</string>
@@ -226,7 +225,7 @@
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="changeUsername">사용자 이름 변경</string>
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"chulsoo\"에서 \"ChulSoo\"로.</string>
-  <string name="changeUsernameDescription">사용자명 변경하기: 대/소문자만의 변경이 허용되며, 단 한번만 가능합니다.</string>
+  <string name="changeUsernameDescription">사용자 이름 변경하기. 대소문자 변경만 허용되며, 단 한번만 가능합니다.</string>
   <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
   <string name="signupEmailPromise">저희는 귀하의 계정에 대한 이메일만을 전송할 것이며 귀하의 이메일을 공유하지 않을 것입니다.</string>
   <string name="password">비밀번호</string>
@@ -240,34 +239,34 @@
   <string name="error.namePassword">사용자 이름을 비밀번호로 사용하지 마세요.</string>
   <string name="blankedPassword">당신이 다른 사이트에서 동일한 비밀번호를 사용했으며, 해당 사이트가 유출되었습니다. Lichess 계정의 안전을 위해 새 비밀번호를 설정해 주세요. 양해해 주셔서 감사합니다.</string>
   <string name="youAreLeavingLichess">Lichess에서 나갑니다</string>
-  <string name="neverTypeYourPassword">다른 사이트에서는 절대로 Lichess 비밀번호를 입력하지 마세요!</string>
+  <string name="neverTypeYourPassword">다른 사이트에서 절대 Lichess 비밀번호를 입력하지 마세요!</string>
   <string name="proceedToX">%s로 진행</string>
   <string name="passwordSuggestion">다른 사람이 제안한 비밀번호를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
-  <string name="emailSuggestion">다른 사람이 추천한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
+  <string name="emailSuggestion">다른 사람이 제안한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
   <string name="emailConfirmHelp">이메일 확인 도움말</string>
   <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
   <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
   <string name="usernameNotFound">사용자 이름을 찾을 수 없습니다: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">이 사용자 이름을 사용하여 새 계정을 만들 수 있습니다</string>
-  <string name="emailSent">%s(으)로 이메일을 전송했습니다.</string>
-  <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
-  <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">만약 확인 이메일을 받지 못하셨다면, 스팸함이나 휴지통을 확인하세요. 중요한 연락을 계속 통보받기 위해서는 lichess.org에서 발송된 메시지를 안전함 및 \"스팸이 아님\"으로 설정하세요.</string>
+  <string name="emailSent">%s 으로 이메일을 전송했습니다.</string>
+  <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 걸릴 수 있습니다.</string>
+  <string name="refreshInboxAfterFiveMinutes">5분 후 이메일 수신함을 새로고침 해주세요.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">만약 확인 이메일을 받지 못하셨다면, 스팸 메일 보관함이나 휴지통을 확인하세요. 중요한 연락을 계속 받기 위해 lichess.org에서 발송된 메일을 \"안전함\" 및 \"스팸이 아님\"으로 설정하세요.</string>
   <string name="sendEmailForAccountVerification">확인 이메일을 찾을 수 없는 경우 %s에 이메일을 보내주시면 계정을 확인해 드리겠습니다.</string>
-  <string name="accountConfirmed">유저 %s(이)가 성공적으로 확인되었습니다.</string>
-  <string name="accountCanLogin">이제 %s(으)로 로그인할 수 있습니다.</string>
+  <string name="accountConfirmed">사용자 %s의 인증이 완료되었습니다.</string>
+  <string name="accountCanLogin">이제 %s 계정으로 로그인할 수 있습니다.</string>
   <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>
-  <string name="accountClosed">계정 %s(은)는 폐쇄되었습니다.</string>
-  <string name="accountRegisteredWithoutEmail">%s 계정은 이메일 주소가 없이 등록되었습니다.</string>
+  <string name="accountClosed">%s 계정은 폐쇄된 계정입니다.</string>
+  <string name="accountRegisteredWithoutEmail">%s 계정은 이메일 주소 없이 가입된 계정입니다.</string>
   <string name="rank">순위</string>
   <string name="rankX">순위: %s등</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">순위는 매 %s분마다 갱신됩니다</item>
+    <item quantity="other">순위는 %s분마다 갱신됩니다</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
   </plurals>
-  <string name="gamesPlayed">대국 횟수</string>
+  <string name="gamesPlayed">진행된 대국 수</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">나와 %s번 대국 함</item>
   </plurals>
@@ -277,33 +276,33 @@
   <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">흑 시간 초과</string>
   <string name="drawOfferSent">무승부 요청함</string>
   <string name="drawOfferAccepted">무승부 요청 수락됨</string>
-  <string name="whiteOffersDraw">백이 무승부를 제안합니다</string>
-  <string name="blackOffersDraw">흑이 무승부를 제안합니다</string>
-  <string name="whiteDeclinesDraw">백이 무승부 제안을 거절하였습니다</string>
-  <string name="blackDeclinesDraw">흑이 무승부 제안을 거절하였습니다</string>
-  <string name="yourOpponentOffersADraw">상대가 무승부를 요청합니다</string>
+  <string name="whiteOffersDraw">백이 무승부를 제안함</string>
+  <string name="blackOffersDraw">흑이 무승부를 제안함</string>
+  <string name="whiteDeclinesDraw">백이 무승부 제안을 거절함</string>
+  <string name="blackDeclinesDraw">흑이 무승부 제안을 거절함</string>
+  <string name="yourOpponentOffersADraw">상대가 무승부를 요청함</string>
   <string name="accept">수락</string>
   <string name="decline">거절</string>
   <string name="playingRightNow">지금 대국 중</string>
-  <string name="eventInProgress">지금 대국 중</string>
+  <string name="eventInProgress">진행 중</string>
   <string name="finished">종료됨</string>
   <string name="abortGame">대국 중단</string>
   <string name="gameAborted">대국 중단됨</string>
   <string name="standard">스탠다드</string>
-  <string name="customPosition">커스텀 포지션</string>
-  <string name="unlimited">무제한</string>
-  <string name="unlimitedDescription">필요한 만큼 시간을 쓰세요</string>
+  <string name="customPosition">사용자 지정 포지션</string>
+  <string name="unlimited">제한 없음</string>
+  <string name="unlimitedDescription">필요한 만큼 시간을 사용하세요</string>
   <string name="mode">모드</string>
-  <string name="casual">캐주얼</string>
-  <string name="rated">레이팅</string>
-  <string name="casualTournament">캐주얼</string>
-  <string name="ratedTournament">레이팅</string>
-  <string name="thisGameIsRated">이 대국은 레이팅 대국입니다</string>
+  <string name="casual">레이팅 미반영</string>
+  <string name="rated">레이팅 반영</string>
+  <string name="casualTournament">레이팅 미반영</string>
+  <string name="ratedTournament">레이팅 반영</string>
+  <string name="thisGameIsRated">이 대국은 레이팅이 반영됩니다</string>
   <string name="rematch">재대결</string>
   <string name="rematchOfferSent">재대결 요청 전송됨</string>
   <string name="rematchOfferAccepted">재대결 요청 수락됨</string>
   <string name="rematchOfferCanceled">재대결 요청 취소됨</string>
-  <string name="rematchOfferDeclined">재대결 요청이 거절되었습니다</string>
+  <string name="rematchOfferDeclined">재대결 요청 거절됨</string>
   <string name="cancelRematchOffer">재대결 요청 취소</string>
   <string name="viewRematch">재대결 보기</string>
   <string name="confirmMove">수 확인</string>
@@ -313,13 +312,13 @@
   <string name="loginToChat">채팅하려면 로그인하세요</string>
   <string name="youHaveBeenTimedOut">채팅에서 타임아웃 되었습니다.</string>
   <string name="spectatorRoom">관전자 채팅</string>
-  <string name="composeMessage">메시지 작성</string>
+  <string name="composeMessage">메시지</string>
   <string name="subject">제목</string>
   <string name="send">전송</string>
   <string name="incrementInSeconds">수 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
   <plurals name="nbRated">
-    <item quantity="other">공식 대국 %s 회</item>
+    <item quantity="other">%s번의 레이팅 반영 대국</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s번 승리</item>
@@ -328,31 +327,31 @@
     <item quantity="other">%s번 패배</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="other">%s번 비김</item>
+    <item quantity="other">%s번 무승부</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">현재 두고 있는 대국 %s개</item>
+    <item quantity="other">진행 중인 대국 %s개</item>
   </plurals>
-  <string name="exportGames">대국 저장하기</string>
+  <string name="exportGames">대국 내보내기</string>
   <string name="ratingFilter">등급 필터</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>
   <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반하였습니다</string>
-  <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
+  <string name="openingExplorerAndTablebase">오프닝 탐색기 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기 요청</string>
   <string name="whiteProposesTakeback">백이 무르기를 요청함</string>
   <string name="blackProposesTakeback">흑이 무르기를 요청함</string>
   <string name="takebackPropositionSent">무르기 요청 전송됨</string>
-  <string name="whiteDeclinesTakeback">백이 무르기를 거절하였습니다</string>
-  <string name="blackDeclinesTakeback">흑이 무르기를 거절하였습니다</string>
-  <string name="whiteAcceptsTakeback">백이 무르기를 승낙하였습니다</string>
-  <string name="blackAcceptsTakeback">흑이 무르기를 승낙하였습니다</string>
-  <string name="whiteCancelsTakeback">백이 무르기를 취소하였습니다</string>
-  <string name="blackCancelsTakeback">흑이 무르기를 취소하였습니다</string>
-  <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
-  <string name="bookmarkThisGame">이 대국을 즐겨찾기에 추가하기</string>
+  <string name="whiteDeclinesTakeback">백이 무르기를 거절함</string>
+  <string name="blackDeclinesTakeback">흑이 무르기를 거절함</string>
+  <string name="whiteAcceptsTakeback">백이 무르기를 승낙함</string>
+  <string name="blackAcceptsTakeback">흑이 무르기를 승낙함</string>
+  <string name="whiteCancelsTakeback">백이 무르기를 취소함</string>
+  <string name="blackCancelsTakeback">흑이 무르기를 취소함</string>
+  <string name="yourOpponentProposesATakeback">상대가 무르기를 요청함</string>
+  <string name="bookmarkThisGame">이 대국을 즐겨찾기에 추가</string>
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
@@ -368,7 +367,7 @@
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
   <string name="noDrawBeforeSwissLimit">스위스 토너먼트에서는 30수 전에 무승부를 할 수 없습니다.</string>
-  <string name="thematic">국면지정</string>
+  <string name="thematic">지정된 시작 포지션</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">레이팅전 %s 국 이상</item>
   </plurals>
@@ -478,6 +477,7 @@
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하세요!</string>
   <string name="pause">일시 중지</string>
   <string name="resume">재개</string>
+  <string name="stop">중지</string>
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="performance">퍼포먼스 레이팅</string>
@@ -955,6 +955,8 @@
   <string name="onlyMembersOfTeam">팀 멤버들만</string>
   <string name="noRestriction">제한 없음</string>
   <string name="minimumRatedGames">최소 레이팅 대국 참여 횟수</string>
+  <string name="minimumAccountAge">최소 계정 생성 기간</string>
+  <string name="titledPlayersBypassRestriction">타이틀이 있는 플레이어는 이 제한을 무시합니다.</string>
   <string name="minimumRating">최소 레이팅</string>
   <string name="maximumWeeklyRating">최대 주간 레이팅</string>
   <string name="positionInputHelp">모든 대국을 주어진 포지션으로 시작하려면 FEN을 붙여넣으세요.
@@ -990,7 +992,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="tournamentEntryCode">토너먼트 입장 코드</string>
   <string name="hangOn">잠깐만요!</string>
   <string name="gameInProgress">%s와(과) 진행중인 대국이 있습니다.</string>
-  <string name="abortTheGame">대국 중단</string>
+  <string name="abortTheGame">대국 중단하기</string>
   <string name="resignTheGame">대국 기권</string>
   <string name="youCantStartNewGame">당신 턴에는 새로운 대국을 시작할 수 없습니다.</string>
   <string name="since">부터</string>
@@ -1001,7 +1003,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
   <string name="showMeEverything">모두 보기</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!  </string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
   <string name="accessibility">접근성</string>
@@ -1012,6 +1014,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="offline" comment="status of a user">오프라인</string>
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
+  <string name="searchInX">\"%s\"에서 찾기</string>
   <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
   <string name="enPassant">앙파상 권리</string>

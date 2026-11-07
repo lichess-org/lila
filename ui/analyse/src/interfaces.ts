@@ -78,7 +78,6 @@ export interface AnalysePref {
 export interface AnalysisUpdate {
   ch: string;
   analysis?: AnalysisMeta;
-  meta?: AnalysisMeta;
   tree: TreeNodeLite;
   division?: Division;
 }

@@ -50,6 +50,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
     <item quantity="other">Προβολή των %s ομάδων</item>
   </plurals>
   <string name="newTeamBattle">Νέα ομαδική μάχη</string>
+  <string name="startDate">Ημερομηνία έναρξης</string>
+  <string name="entryConditions">Όροι εισόδου</string>
   <string name="customStartDate">Ημερομηνία έναρξης</string>
   <string name="customStartDateHelp">Στην τοπική ζώνη ώρας σας. Η ρύθμιση αυτή υπερισχύει της ρύθμισης «Χρόνος πριν την έναρξη του τουρνουά»</string>
   <string name="allowBerserk">Να επιτρέπεται το Berserk</string>
@@ -87,4 +89,5 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="onlyTitledHelp">Μόνο οι παίκτες με έναν επίσημο τίτλο θα έχουν δυνατότητα συμμετοχής στο τουρνουά</string>
   <string name="tournamentPairingsAreNowClosed">Οι κληρώσεις του τουρνουά έχουν κλείσει.</string>
   <string name="berserkRate">Ποσοστό berserk</string>
+  <string name="allowBotAccounts">Να επιτρέπονται οι λογαριασμοί bot</string>
 </resources>

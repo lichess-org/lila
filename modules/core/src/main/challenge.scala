@@ -1,15 +1,14 @@
 package lila.core
 package challenge
 
-import _root_.chess.variant.Variant
-import _root_.chess.{ Color, Rated }
 import _root_.chess.rating.RatingProvisional
-import _root_.chess.IntRating
+import _root_.chess.variant.Variant
+import _root_.chess.{ Color, IntRating, Rated }
 import scalalib.model.Days
 
+import lila.core.game.Game
 import lila.core.id.ChallengeId
 import lila.core.userId.UserId
-import lila.core.game.Game
 
 trait Challenge:
   import Challenge.*

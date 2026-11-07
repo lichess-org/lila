@@ -7,8 +7,8 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
 import lila.common.String.urlencode
-import lila.mon.extensions.*
 import lila.core.config.Secret
+import lila.mon.extensions.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor
@@ -93,7 +93,7 @@ private object ZulipClient:
     val broadcastLogs = "content-broadcast-log"
     val blog = "content-blog"
     val content = "content-site"
-    val adminPrizes = "admin-prizes"
+    val payments = "org-payments"
     val bbb = "org-bbb"
     type Selector = ZulipClient.stream.type => String
 

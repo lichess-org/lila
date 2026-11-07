@@ -12,7 +12,7 @@ export const redirect = async (opts: RedirectTo, beep?: boolean) => {
   let url: string;
   if (typeof opts === 'string') url = opts;
   else {
-    url = opts.url;
+    url = `/game/${opts.id}`;
     if (opts.cookie) {
       document.cookie = [
         encodeURIComponent(opts.cookie.name) + '=' + opts.cookie.value,

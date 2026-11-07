@@ -12,7 +12,7 @@ import stepwiseScroll from 'lib/view/stepwiseScroll';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
 import { render as renderGround } from '../ground';
-import { next, prev, view } from '../keyboard';
+import { next, prev } from '../keyboard';
 import { renderTable } from './table';
 
 export function main(ctrl: RoundController): VNode {
@@ -64,7 +64,6 @@ export function main(ctrl: RoundController): VNode {
         [renderGround(ctrl), ctrl.promotion.view(d.game.variant.key === 'antichess')],
       ),
       ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
-      ctrl.keyboardHelp && view(ctrl),
       crazyView(ctrl, topColor, 'top') || materialDiffs[0],
       renderTable(ctrl),
       crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],

@@ -34,19 +34,18 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         .option:
           a(cls := tab.active("requests"), href := routes.Team.requests)("Join requests")
       ,
-      ctx.isAuth.option(
-        a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams())
-      ),
-      ctx.isAuth.option(
-        a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates())
-      ),
-      ctx.isAuth.option(
-        a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams())
-      ),
-      a(cls := tab.active("all"), href := routes.Team.all())(trt.allTeams()),
-      ctx.isAuth.option(
-        a(cls := tab.active("form"), href := routes.Team.form)(trt.newTeam())
-      )
+      ctx.isAuth.option:
+        frag(
+          a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams()),
+          a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates()),
+          a(cls := tab.active("events"), href := routes.Team.events)(trt.teamEvents()),
+          a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams()),
+          div(cls := "sep")
+        )
+      ,
+      a(cls := tab.active("all"), href := routes.Team.all(), dataIcon := Icon.List)(trt.allTeams()),
+      ctx.isAuth.option:
+        a(cls := tab.active("form"), href := routes.Team.form, dataIcon := Icon.PlusButton)(trt.newTeam())
     )
 
   def teamTr(t: Team.WithMyLeadership)(using Context) =
@@ -188,6 +187,16 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
     private def noTeam()(using Context) =
       tbody(tr(td(colspan := "2")(br, trt.noTeamFound())))
 
+  def events(content: Frag)(using Context) =
+    TeamPage(trt.upcomingTeamEvents.txt()):
+      main(cls := "team-events page-menu")(
+        menu("events".some),
+        div(cls := "page-menu__content box")(
+          h1(cls := "box__top")(trt.upcomingTeamEvents()),
+          content
+        )
+      )
+
   def members(team: Team, members: Paginator[lila.core.LightUser])(using Translate) =
     div(cls := "team-show__members")(
       st.section(cls := "recent-members")(
@@ -273,7 +282,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
             href := routes.Team.updateNew(team.id),
             cls := "button button-empty text",
             dataIcon := Icon.InkQuill
-          )(trt.newTeamUpdate())
+          )(trans.teamLead.newTeamUpdate())
         )
       ),
       ((team.enabled && hasPerm(_.Settings)) || canManage).option(
@@ -295,14 +304,14 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           cls := "button button-empty text",
           href := routes.Team.kick(team.id),
           dataIcon := Icon.InternalArrow
-        )(trt.kickSomeone())
+        )(trans.teamLead.removeSomeone())
       ),
       ((team.enabled && hasPerm(_.Request)) || canManage).option(
         a(
           cls := "button button-empty text",
           href := routes.Team.declinedRequests(team.id),
           dataIcon := Icon.Cancel
-        )(trt.declinedRequests())
+        )(trans.teamLead.declinedRequests())
       ),
       ((Granter.opt(_.ManageTeam) || Granter.opt(_.Shusher)) && !asMod).option(
         a(

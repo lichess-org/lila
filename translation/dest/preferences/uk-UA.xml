@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Можливість переходити (за згоди суперника)</string>
   <string name="inCasualGamesOnly">Тільки у товариських іграх</string>
   <string name="promoteToQueenAutomatically">Перетворення пішака завжди на ферзя</string>
-  <string name="explainPromoteToQueenAutomatically">Утримуйте клавішу &lt;ctrl&gt; під час перетворення, щоб тимчасово вимкнути автоматичне перетворення</string>
   <string name="whenPremoving">Для ходів на випередження</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
-  <string name="multipleChoices">Множинний вибір. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Можна вимкнути під час гри в меню дошки</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">Заочні та необмежені</string>
@@ -73,7 +71,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Наосліп</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Показувати ліворуч на мобільних пристроях</string>
   <string name="inlineNotation">Рядкова нотація</string>
-  <string name="showServerAnalysis">Показувати серверний аналіз</string>
+  <string name="showMainlineAnalysis">Показати основний варіант аналізу</string>
   <string name="showBestMoveArrows">Показувати найкращі ходи стрілками</string>
   <string name="showManeuverArrows">Показувати маневри стрілками</string>
   <string name="showGauge">Показувати шкалу оцінки</string>

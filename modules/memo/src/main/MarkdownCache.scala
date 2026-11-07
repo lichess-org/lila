@@ -3,10 +3,10 @@ package lila.memo
 import scalalib.future.TimeoutException
 
 import lila.common.Bus
+import lila.core.config
+import lila.core.misc.lpv.{ Lpv as LpvBus, LpvEmbed }
 import lila.markdown.{ MarkdownRender, MarkdownToastUi }
 import lila.mon.extensions.*
-import lila.core.config
-import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
 
 case class MarkdownOptions(
     autoLink: Boolean = false,
@@ -26,10 +26,10 @@ case class MarkdownOptions(
     linkRel: String = "noreferrer nofollow"
 )
 
-final class MarkdownCache(
-    cacheApi: CacheApi,
-    assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: play.api.Mode, netDomain: config.NetDomain):
+final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
+    mode: play.api.Mode,
+    netDomain: config.NetDomain
+):
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
@@ -97,7 +97,7 @@ final class MarkdownCache(
         allowedTags = opts.allowedTags,
         linkRel = opts.linkRel,
         pgnExpand = pgnCache.expand.some,
-        assetDomain = assetDomain.some
+        netDomain = netDomain.some
       )
     )
 

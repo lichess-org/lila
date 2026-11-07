@@ -47,6 +47,8 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
     <item quantity="other">Voir toutes les équipes %s</item>
   </plurals>
   <string name="newTeamBattle">Nouveau combat en équipe</string>
+  <string name="startDate">Date de début </string>
+  <string name="entryConditions">Conditions de participation</string>
   <string name="customStartDate">Date de début modifiée</string>
   <string name="customStartDateHelp">Selon votre fuseau horaire. Ce paramètre désactive le paramètre « Temps restant avant le début du tournoi ».</string>
   <string name="allowBerserk">Activer l\'option Berserk</string>
@@ -85,4 +87,6 @@ Par exemple, un rang moyen de 3 % signifie que vous êtes habituellement parmi 
   <string name="tournamentPairingsAreNowClosed">Les appariements sont terminés.</string>
   <string name="berserkRate">Taux de berserk</string>
   <string name="leaguesAndStreamerBattles">Ligues et batailles de streamer</string>
+  <string name="allowBotAccounts">Autoriser les comptes de bot</string>
+  <string name="allowBotAccountsDescription">Permettre aux &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; de participer au tournoi avec leurs moteurs d\'échecs. Note : Cela repousse souvent les joueurs humains.</string>
 </resources>

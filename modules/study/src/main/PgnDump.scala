@@ -1,9 +1,9 @@
 package lila.study
 
-import org.apache.pekko.stream.scaladsl.*
-import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
+import org.apache.pekko.stream.scaladsl.*
+import play.api.mvc.RequestHeader
 import scalalib.StringOps.slug
 
 import lila.tree.Node.{ Shape, Shapes }

@@ -1,14 +1,14 @@
 package lila.analyse
 package ui
 
-import chess.variant.*
 import chess.format.Fen
 import chess.format.pgn.PgnStr
+import chess.variant.*
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
   import helpers.{ *, given }

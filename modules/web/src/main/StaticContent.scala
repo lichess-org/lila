@@ -6,6 +6,8 @@ import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.config.NetConfig
+import lila.core.net.CountryCode
+import scalatags.Text.RawFrag
 
 final class StaticContent(net: NetConfig):
 
@@ -13,8 +15,8 @@ final class StaticContent(net: NetConfig):
 
   val robotsTxt = """User-agent: *
 Allow: /
+Disallow: /game/
 Disallow: /@/*/download
-Disallow: /game/export/
 Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
@@ -36,7 +38,7 @@ Allow: /game/export/gif/thumbnail/
     "description" -> "The (really) free, no-ads, open source chess server.",
     "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map: size =>
       Json.obj(
-        "src" -> s"//${net.assetDomain}/assets/logo/lichess-favicon-$size.png",
+        "src" -> s"//${net.domain}/assets/logo/lichess-favicon-$size.png",
         "sizes" -> s"${size}x$size",
         "type" -> "image/png"
       ),
@@ -60,7 +62,7 @@ Allow: /game/export/gif/thumbnail/
   def appStoreUrl(using req: RequestHeader): Url =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
-  val swagStoreTlds = Map(
+  private val swagStoreTlds = Map(
     "US" -> "com",
     "CA" -> "ca",
     "DE" -> "de",
@@ -80,8 +82,8 @@ Allow: /game/export/gif/thumbnail/
     "SE" -> "se",
     "AT" -> "at"
   )
-  def swagUrl(countryCode: Option[String]) =
-    val tld = swagStoreTlds.getOrElse(~countryCode, "net")
+  def swagUrl(countryCode: Option[CountryCode]) = net.isLichessProd.option:
+    val tld = swagStoreTlds.getOrElse(countryCode.so(_.value), "net")
     s"https://lichess.myspreadshop.$tld/"
 
   val variantsJson = JsArray:
@@ -114,39 +116,41 @@ Allow: /game/export/gif/thumbnail/
       case 122 => s"$faq#marks"
       case _ => faq
 
-  val organizationScript = lila.ui.bits.structuredData("Organization"):
-    Json.obj(
-      "url" -> net.baseUrl,
-      "sameAs" -> List(
-        "https://www.wikidata.org/wiki/Q19831807",
-        "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
-        "https://github.com/lichess-org",
-        "https://crowdin.com/translate/lichess",
-        "https://mastodon.online/@lichess",
-        "https://bsky.app/profile/lichess.org",
-        "https://www.instagram.com/lichessdotorg",
-        "https://www.facebook.com/lichessdotorg/",
-        "https://youtube.com/@LichessDotOrg",
-        "https://www.twitch.tv/lichessdotorg",
-        "https://discord.gg/lichess",
-        "https://www.reddit.com/r/lichessdotorg/",
-        "https://telegram.me/lichessdotorg",
-        "https://whatsapp.com/channel/0029VaDXYlD2f3ENRMZQHF0K",
-        "https://www.tiktok.com/@lichessdotorg",
-        "https://www.linkedin.com/company/lichess",
-        "https://www.threads.net/@lichessdotorg",
-        "https://huggingface.co/Lichess",
-        "https://www.kaggle.com/organizations/lichess"
-      ),
-      "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
-      "name" -> "Lichess",
-      "legalName" -> "LICHESS.ORG",
-      "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
-      "email" -> "contact@lichess.org",
-      "foundingDate" -> "2010-06-20",
-      "taxID" -> "830378717", // SIREN
-      "iso6523Code" -> "0009:830378717" // French ICD:SIREN
-    )
+  val organizationScript: Option[RawFrag] = net.isLichessProd.option:
+    lila.ui.bits.structuredData("Organization"):
+      Json.obj(
+        "@id" -> s"${net.baseUrl}/#org",
+        "url" -> net.baseUrl,
+        "sameAs" -> List(
+          "https://www.wikidata.org/wiki/Q19831807",
+          "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
+          "https://github.com/lichess-org",
+          "https://crowdin.com/translate/lichess",
+          "https://mastodon.online/@lichess",
+          "https://bsky.app/profile/lichess.org",
+          "https://www.instagram.com/lichessdotorg",
+          "https://www.facebook.com/lichessdotorg/",
+          "https://youtube.com/@LichessDotOrg",
+          "https://www.twitch.tv/lichessdotorg",
+          "https://discord.gg/lichess",
+          "https://www.reddit.com/r/lichessdotorg/",
+          "https://telegram.me/lichessdotorg",
+          "https://whatsapp.com/channel/0029VaDXYlD2f3ENRMZQHF0K",
+          "https://www.tiktok.com/@lichessdotorg",
+          "https://www.linkedin.com/company/lichess",
+          "https://www.threads.net/@lichessdotorg",
+          "https://huggingface.co/Lichess",
+          "https://www.kaggle.com/organizations/lichess"
+        ),
+        "logo" -> s"${net.baseUrl}/assets/logo/lichess.svg",
+        "name" -> "Lichess",
+        "legalName" -> "LICHESS.ORG",
+        "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
+        "email" -> "contact@lichess.org",
+        "foundingDate" -> "2010-06-20",
+        "taxID" -> "830378717", // SIREN
+        "iso6523Code" -> "0009:830378717" // French ICD:SIREN
+      )
 
 object StaticContent:
 

@@ -44,4 +44,4 @@ final class MentionNotifier(
       .contains('@')
       .so:
         val m = UserName.atRegex.findAllMatchIn(post.text)
-        (post.userId.foldLeft(m.map(_.group(1)).map(u => UserStr(u).id).toSet)) { _ - _ }
+        (post.userId.foldLeft(m.map(_.group(1)).map(u => UserStr(u).id).toSet))(_ - _)

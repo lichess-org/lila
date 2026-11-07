@@ -1,10 +1,10 @@
 package lila.study
 
+import chess.eval.*
 import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ ByColor, Centis, FideId, Ply, PromotableRole, Role, Square }
-import chess.eval.*
 import reactivemongo.api.bson.*
 
 import scala.util.Success
@@ -13,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Glyph as NodeGlyph, Glyphs as NodeGlyphs, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Root, Clock }
+import lila.tree.{ Branch, Branches, Clock, Root }
 
 object BSONHandlers:
 

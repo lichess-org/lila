@@ -24,8 +24,9 @@
 }
 
 .analysis-chart-actions {
+  @include box-radius;
+
   position: absolute;
-  border-radius: $box-radius-size;
   box-sizing: border-box;
   pointer-events: none;
   inset: 0;
@@ -37,9 +38,10 @@
 
   i,
   button {
+    @include box-radius;
+
     pointer-events: auto;
     padding: 5px;
-    border-radius: $box-radius-size;
     border: 1px solid hsl(from $c-font-dim h s l / 0.5);
     background: $c-dimmer;
     color: $c-font-dim;

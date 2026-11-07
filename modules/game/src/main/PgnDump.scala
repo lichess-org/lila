@@ -3,8 +3,8 @@ package lila.game
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.opening.Opening
-import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
+import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.core.LightUser
 import lila.core.config.RouteUrl
@@ -151,6 +151,27 @@ final class PgnDump(
 object PgnDump:
 
   export lila.core.game.PgnDump.*
+
+  import play.api.mvc.RequestHeader
+  import lila.common.HTTPRequest.{ queryStringBool as getBool, queryStringBoolOpt as getBoolOpt }
+  def requestPgnFlags(extended: Boolean, delayMoves: Boolean)(using RequestHeader) =
+    lila.game.PgnDump.WithFlags(
+      moves = getBoolOpt("moves") | true,
+      tags = getBoolOpt("tags") | true,
+      clocks = getBoolOpt("clocks") | extended,
+      evals = getBoolOpt("evals") | extended,
+      opening = (getBoolOpt("opening"), extended) match
+        case (None, extended) => extended.option(true)
+        case (Some(false), _) => none
+        case (Some(true), extended) => extended.some,
+      literate = getBool("literate"),
+      pgnInJson = getBool("pgnInJson"),
+      delayMoves = delayMoves,
+      lastFen = getBool("lastFen"),
+      accuracy = getBool("accuracy"),
+      division = getBoolOpt("division") | extended,
+      bookmark = getBool("withBookmarked")
+    )
 
   private val delayMovesBy = 3
   private val delayKeepsFirstMoves = 5

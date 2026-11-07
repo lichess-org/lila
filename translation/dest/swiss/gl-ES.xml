@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Número de roldas</string>
   <string name="numberOfRoundsHelp">Un número impar de roldas permite un equilibrio de cores óptimo.</string>
   <string name="roundInterval">Intervalo entre roldas</string>
+  <string name="customPairings">Emparellamentos á medida</string>
   <string name="forbiddenPairings">Emparellamentos prohibidos</string>
   <string name="forbiddenPairingsHelp">Xogadores que non poden enfrontarse (por exemplo irmáns). Dous nomes de usuario por liña, separados por un espazo.</string>
   <string name="manualPairings">Emparellamentos manuais na seguinte rolda</string>

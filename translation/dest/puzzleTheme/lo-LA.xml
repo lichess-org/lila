@@ -23,7 +23,6 @@
   <string name="bodenMate">ການຈົນແບບ Boden</string>
   <string name="bodenMateDescription">ບິຊອບ (Bishop) ສອງຕົວທີ່ບຸກໃນແນວສະຫຼຽງຕັດກັນ ທຳການຈົນຄິງທີ່ຖືກຕົວໝາກຝ່າຍດຽວກັນຂວາງທາງໄວ້.</string>
   <string name="castling">ການເຂົ້າປ້ອມ (Castling)</string>
-  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
   <string name="castlingDescription">ນຳຄິງໄປຫາບ່ອນປອດໄພ ແລະ ກຽມເຮືອອອກບຸກໂຈມຕີ.</string>
   <string name="capturingDefender">ກິນຕົວປ້ອງກັນ</string>
   <string name="capturingDefenderDescription">ການກຳຈັດຕົວໝາກທີ່ສຳຄັນໃນການປ້ອງກັນຕົວອື່ນ, ເພື່ອໃຫ້ສາມາດກິນຕົວໝາກທີ່ບໍ່ມີຕົວປ້ອງກັນນັ້ນໄດ້ໃນຕາຕໍ່ໄປ.</string>
@@ -52,6 +51,7 @@
   <string name="doubleCheckDescription">ການຣຸກດ້ວຍຕົວໝາກສອງຕົວພ້ອມກັນ ເຊິ່ງເປັນຜົນມາຈາກການເປີດຣຸກ ໂດຍທີ່ທັງຕົວທີ່ເດີນ ແລະ ຕົວທີ່ຖືກເປີດທາງນັ້ນຕ່າງກໍ່ບຸກຄິງຂອງຄູ່ຕໍ່ສູ້.</string>
   <string name="endgame">ເກມປາຍກະດານ (Endgame)</string>
   <string name="endgameDescription">ແຜນການໃນຊ່ວງສຸດທ້າຍຂອງເກມ.</string>
+  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
   <string name="exposedKing">ຄິງທີ່ບໍ່ມີຕົວປ້ອງກັນ</string>
   <string name="exposedKingDescription">ແຜນການທີ່ເນັ້ນໃສ່ຄິງທີ່ມີຕົວປ້ອງກັນໜ້ອຍ, ເຊິ່ງມັກຈະນຳໄປສູ່ການຈົນ.</string>
   <string name="fork">ການແທງສອງທາງ (Fork)</string>

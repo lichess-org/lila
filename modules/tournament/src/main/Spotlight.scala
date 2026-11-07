@@ -35,7 +35,7 @@ object Spotlight:
 
   private def selectForMe(tour: Tournament)(using UserWithPerfs): Boolean =
     !tour.isFinished &&
-      tour.spotlight.fold(automatically(tour)) { manually(tour, _) }
+      tour.spotlight.fold(automatically(tour))(manually(tour, _))
 
   private def manually(tour: Tournament, spotlight: Spotlight): Boolean =
     spotlight.homepageHours.exists: hours =>

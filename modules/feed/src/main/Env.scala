@@ -2,7 +2,7 @@ package lila.feed
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.{ CollName, RouteUrl, NetDomain }
+import lila.core.config.{ CollName, NetDomain, RouteUrl }
 import lila.core.lilaism.Lilaism.*
 
 @Module

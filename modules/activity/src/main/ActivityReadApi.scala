@@ -1,8 +1,8 @@
 package lila.activity
 
+import chess.Speed.Correspondence
 import play.api.i18n.Lang
 import scalalib.HeapSort
-import chess.Speed.Correspondence
 
 import lila.core.chess.Rank
 import lila.core.game.LightPov
@@ -178,4 +178,4 @@ final class ActivityReadApi(
       gameRepo.light
         .gamesFromSecondary(gameIds)
         .dmap:
-          _.flatMap { LightPov(_, userId) }.nonEmptyOption
+          _.flatMap(LightPov(_, userId)).nonEmptyOption

@@ -50,6 +50,8 @@ Play quickly to play more games and score more points.</string>
     <item quantity="other">View all %s teams</item>
   </plurals>
   <string name="newTeamBattle">New Team Battle</string>
+  <string name="startDate">Start date</string>
+  <string name="entryConditions">Entry conditions</string>
   <string name="customStartDate">Custom start date</string>
   <string name="customStartDateHelp">In your own local timezone. This overrides the "Time before tournament starts" setting</string>
   <string name="allowBerserk">Allow Berserk</string>
@@ -89,4 +91,6 @@ For example, a rank average of 3% means you typically finish in the top 3% (such
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="berserkRate">Berserk rate</string>
   <string name="leaguesAndStreamerBattles">Leagues &amp; Streamer Battles</string>
+  <string name="allowBotAccounts">Allow bot accounts</string>
+  <string name="allowBotAccountsDescription">Let &lt;a href='%s' target='_blank'&gt;bots&lt;/a&gt; join the tournament and play with their engines. This often repels human players.</string>
 </resources>

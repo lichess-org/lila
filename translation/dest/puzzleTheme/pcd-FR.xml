@@ -23,7 +23,6 @@
   <string name="bodenMate">Mat de Boden</string>
   <string name="bodenMateDescription">Deux Fous contrôlant des diagonales qui s\'entrecroisent matent un Roi bloqué par ses propres pièces.</string>
   <string name="castling">Roque</string>
-  <string name="enPassant">Prise en passant</string>
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Faire échec avec deux pièces à la fois, à la suite d\'une attaque à la découverte où la pièce mobile et la pièce dévoilée attaquent le Roi adverse.</string>
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
+  <string name="enPassant">Prise en passant</string>
   <string name="enPassantAdjacentCaptureDescription">Tactique utilisant la « prise en passant », où un pion peut capturer un pion adverse qui vient de se placer à côté de lui en se déplaçant de deux cases au premier coup.</string>
   <string name="epauletteMate">Mat des épaulettes</string>
   <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>

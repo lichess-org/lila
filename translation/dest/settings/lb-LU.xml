@@ -7,4 +7,6 @@
   <string name="cancelKeepAccount">Ofbriechen a mäi Konto halen</string>
   <string name="closeAccountAreYouSure">Bass de sécher, datt s de däi Konto zoumaache wëlls?</string>
   <string name="thisAccountIsClosed">Dëse Konto ass zou.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Wëlls de amplaz %s?</string>
+  <string name="closeYourAccount">däi Kont zoumaachen</string>
 </resources>

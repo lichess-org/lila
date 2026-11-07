@@ -19,7 +19,6 @@
   <string name="bodenMate">Bodena mats</string>
   <string name="bodenMateDescription">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
   <string name="castling">Rokāde</string>
-  <string name="enPassant">Sitiens garāmejot</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
   <string name="endgame">Beigu spēle</string>
   <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
+  <string name="enPassant">Sitiens garāmejot</string>
   <string name="exposedKing">Atklāts karalis</string>
   <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
   <string name="fork">Dakša</string>

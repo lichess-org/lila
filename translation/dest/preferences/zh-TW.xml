@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">悔棋（經過對手同意）</string>
   <string name="inCasualGamesOnly">僅限非正式遊戲</string>
   <string name="promoteToQueenAutomatically">兵自動升為后</string>
-  <string name="explainPromoteToQueenAutomatically">升變的同時按住&lt;ctrl&gt;以暫時取消自動升變</string>
   <string name="whenPremoving">預先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重覆局面時自動要求和局</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">當剩餘時間小於30秒</string>

@@ -23,7 +23,9 @@
   </plurals>
   <string name="teamRecentMembers">Uusimmat jäsenet</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>
+  <string name="removeSomeone">Poista joukkueesta joku</string>
   <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
+  <string name="whoToRemove">Kenet haluat poistaa joukkueesta?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s liittymispyyntö</item>
     <item quantity="other">%s liittymispyyntöä</item>
@@ -39,6 +41,9 @@
   <string name="teamUpdates">Joukkueilmoitukset</string>
   <string name="subToTeamUpdates">Tilaa joukkueilmoitukset</string>
   <string name="newTeamUpdate">Uusi joukkueilmoitus</string>
+  <string name="teamUpdatesPerWeek">Voit lähettää viikossa korkeintaan %1$s joukkuepäivitystä. &lt;strong&gt;%2$s&lt;/strong&gt; päivitystä jäljellä %3$s asti.</string>
+  <string name="teamEvents">Joukkuekilpailut</string>
+  <string name="upcomingTeamEvents">Tulevat joukkuekilpailut</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
   <string name="leadersChat">Johtajien keskustelu</string>

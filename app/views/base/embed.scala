@@ -1,8 +1,8 @@
 package views.base
 
 import lila.app.UiEnv.{ *, given }
-import lila.ui.ContentSecurityPolicy
 import lila.core.i18n.I18nModule
+import lila.ui.ContentSecurityPolicy
 
 object embed:
   /* a minimalist embed that doesn't load site.ts */
@@ -17,7 +17,7 @@ object embed:
         head(
           page.ui.charset,
           page.ui.viewport,
-          page.ui.metaCsp(embedCsp.withNonce(ctx.nonce).withInlineIconFont),
+          page.ui.metaCsp(lila.web.ContentSecurityPolicy.embed.withNonce(ctx.nonce).withInlineIconFont),
           page.ui.noRobots,
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
@@ -77,7 +77,7 @@ object embed:
         st.body(bodyModifiers)(
           body,
           page.ui.modulesInit(allModules, ctx.nonce.some),
-          pageModule.map { mod => frag(jsonScript(mod.data)) }
+          pageModule.map(mod => frag(jsonScript(mod.data)))
         )
       )
     )

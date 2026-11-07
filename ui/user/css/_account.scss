@@ -285,11 +285,6 @@
     }
   }
 
-  .active-soft,
-  .active-soft:hover {
-    @extend %active-soft;
-  }
-
   @media (max-width: at-most($xx-small)) {
     td.icon {
       display: none;

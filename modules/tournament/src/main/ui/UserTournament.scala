@@ -3,7 +3,6 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.core.i18n.Translate
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -21,10 +20,14 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
   def created(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     page(u, s"${u.username} created tournaments", "created")
       .js(infiniteScrollEsmInit):
-        if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
+        if pager.nbResults == 0 then
+          div(cls := "box-pad")(
+            header(u),
+            trans.site.nothingToSeeHere()
+          )
         else
           div(cls := "tournament-list")(
-            div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+            header(u),
             table(cls := "slist")(
               thead(
                 tr(
@@ -56,9 +59,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
-          div(cls := "box__top")(
-            h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
-          ),
+          header(u, trans.team.upcomingTournaments()),
           table(cls := "slist")(
             thead(
               tr(
@@ -81,7 +82,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
   def chart(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using Context) =
     page(u, title = s"${u.username} • ${trans.arena.tournamentStats.txt()}", path = "chart"):
       div(cls := "tournament-stats")(
-        boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),
+        header(u, trans.arena.tournamentStats()),
         p(cls := "box__pad")(trans.arena.rankAverageHelp()),
         p(cls := "box__pad")(
           trans.arena.allAveragesAreX:
@@ -123,11 +124,15 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
       path: String,
       pager: Paginator[LeaderboardApi.TourEntry],
       count: String
-  )(using Translate) =
-    if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
+  )(using Context) =
+    if pager.currentPageResults.isEmpty then
+      div(cls := "box-pad")(
+        header(u),
+        trans.site.nothingToSeeHere()
+      )
     else
       div(cls := "tournament-list")(
-        div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+        header(u),
         table(cls := "slist")(
           thead(
             tr(
@@ -163,6 +168,9 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
           )
         )
       )
+
+  private def header(using Context)(u: User, title: Frag = trans.site.tournaments()): Tag =
+    div(cls := "box__top")(h1(frag(userLink(u), " • ", title)))
 
   private def page(u: User, title: String, path: String)(using ctx: Context) =
     Page(title)

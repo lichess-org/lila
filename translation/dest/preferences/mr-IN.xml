@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">चाल मागे घ्या (प्रतिस्पर्ध्याच्या मान्यतेने)</string>
   <string name="inCasualGamesOnly">मैत्री सामन्यात फक्त</string>
   <string name="promoteToQueenAutomatically">आपोआप वझीर बनवा</string>
-  <string name="explainPromoteToQueenAutomatically">आपोआप बढती तात्पुरती थांबवण्यासाठी &lt;ctrl&gt; कळ दाबा</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">त्रिवार पुनरावृतींनवर सामना आपोआप बरोबरीत सोडवा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
-  <string name="multipleChoices">अनेक पर्याय</string>
   <string name="explainCanThenBeTemporarilyDisabled">बोर्ड मेनूसह गेम दरम्यान अक्षम केले जाऊ शकते</string>
   <string name="inCorrespondenceGames">दीर्घकालीन खेळ</string>
   <string name="correspondenceAndUnlimited">दीर्घकालीन आणि अमर्याद</string>
@@ -73,7 +71,6 @@
   <string name="blindfold" comment="As in Blindfold chess">अनभिज्ञ</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">मोबाईलवर डावीकडे दाखवा</string>
   <string name="inlineNotation">अंतर्निहित संकेतन</string>
-  <string name="showServerAnalysis">संगणक विश्लेषण दर्शवा</string>
   <string name="showBestMoveArrows">सर्वोत्तम चाली दर्शवणारे बाण दाखवा</string>
   <string name="showManeuverArrows">युक्ती बाण दाखवा</string>
   <string name="showGauge">मुल्यांकन मोजमाप दाखवा</string>

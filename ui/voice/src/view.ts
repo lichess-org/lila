@@ -1,6 +1,6 @@
 import { onClickAway } from 'lib';
 import { licon } from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
+import { onInsert, bind, hl, type VNode, domDialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
@@ -17,11 +17,11 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       hl('button#voice-help-button', {
-        attrs: { ...dataIcon(licon.InfoCircle), title: 'Voice help' },
-        hook: bind('click', () => ctrl.showHelp(true), undefined, false),
+        attrs: { ...dataIcon(licon.InfoCircle), title: i18n.voiceCommands.voiceHelp },
+        hook: bind('click', () => openHelpDialog(ctrl), undefined, false),
       }),
       hl('button#voice-settings-button', {
-        attrs: { ...dataIcon(licon.Gear), title: 'Voice settings' },
+        attrs: { ...dataIcon(licon.Gear), title: i18n.voiceCommands.voiceSettings },
         class: { active: ctrl.showPrefs() },
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
@@ -33,7 +33,6 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         ctrl.module()?.prefNodes(redraw),
         pushTalkSetting(ctrl),
       ]),
-    ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
 }
 
@@ -54,11 +53,9 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
   return hl('div.voice-setting', [
-    hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
+    hl('label.cmn-toggle-wrap', { attrs: { title: i18n.voiceCommands.holdShiftKeyWhileSpeaking } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
-      'Push ',
-      hl('strong', 'shift'),
-      ' key to talk',
+      ...i18n.voiceCommands.pushShiftKeyToTalk.asArray(hl('kbd', 'Shift')),
     ]),
   ]);
 }
@@ -67,7 +64,7 @@ function langSetting(ctrl: VoiceCtrl) {
   return (
     supportedLangs.length > 1 &&
     hl('div.voice-setting', [
-      hl('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      hl('label', { attrs: { for: 'voice-lang' } }, i18n.site.language),
       hl(
         'select#voice-lang',
         {
@@ -97,7 +94,7 @@ const nullMic: MediaDeviceInfo = {
 let devices: MediaDeviceInfo[] = [nullMic];
 function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
   return hl('div.voice-setting', [
-    hl('label', { attrs: { for: 'voice-mic' } }, 'Microphone'),
+    hl('label', { attrs: { for: 'voice-mic' } }, i18n.voiceCommands.microphone),
     hl(
       'select#voice-mic',
       {
@@ -118,68 +115,72 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
               selected: d.deviceId === ctrl.micId(),
             },
           },
-          d.label,
+          d.deviceId === 'null' ? i18n.voiceCommands.noneSelected : d.label,
         ),
       ),
     ),
   ]);
 }
 
-function renderHelpModal(ctrl: VoiceCtrl) {
-  const showMoveList = (dlg: Dialog) => {
-    let html = '<table class="big-table"><tbody>';
-    const all =
-      ctrl
-        .module()
-        ?.allPhrases()
-        ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
-    const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
-    const rows = Math.ceil(all.length / cols);
-    for (let row = 0; row < rows; row++) {
-      html += '<tr>';
-      for (let i = row; i < all.length; i += rows) {
-        html += `<td>${all[i][0]}</td><td>${all[i][1]}</td>`;
-      }
-      html += '</tr>';
-    }
-    html += '</tbody></table>';
-    dlg.view.innerHTML = html;
-    if (!dlg.dialog.open) dlg.show();
-  };
+export async function openHelpDialog(ctrl: VoiceCtrl): Promise<void> {
+  const [dlg, { entries }] = await Promise.all([
+    domDialog({
+      closeButton: true,
+      class: 'help.voice-move-help',
+      htmlUrl: `/help/voice/${ctrl.moduleId}`,
+      css: [{ key: 'voice.move.help' }],
+      modal: true,
+      easyClose: 'clickOutside',
+      actions: [{ selector: '.all-phrases-button', listener: () => openAllPhrasesDialog(ctrl) }],
+    }),
+    ctrl.moduleId === 'coords'
+      ? { entries: [] }
+      : jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`)).catch(() => ({
+          entries: [],
+        })),
+  ]);
+  ctrl.helpDialog?.close();
+  ctrl.helpDialog = dlg;
+  const valToWord = (val: string, phonetic: boolean) =>
+    entries.find(
+      (entry: Entry) => (entry.val ?? entry.tok) === val && (!phonetic || entry.tags?.includes('phonetic')),
+    )?.in;
+  dlg.view.querySelectorAll<HTMLElement>('.val-to-word').forEach(el => {
+    const tryPhonetic = (val: string) =>
+      (el.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
+    el.innerText = el.innerText
+      .split(',')
+      .map(v => tryPhonetic(v))
+      .join(' ');
+  });
+  dlg.show();
+}
 
-  return snabDialog({
+export async function openAllPhrasesDialog(ctrl: VoiceCtrl): Promise<void> {
+  const all =
+    ctrl
+      .module()
+      ?.allPhrases()
+      ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
+  const colCount = Math.min(3, Math.ceil(window.innerWidth / 399));
+  const rowCount = Math.ceil(all.length / colCount);
+  const rows: HTMLTableRowElement[] = [];
+  for (let row = 0; row < rowCount; row++) {
+    rows.push(document.createElement('tr'));
+    for (let index = row; index < all.length; index += rowCount) {
+      rows[row].insertCell().textContent = all[index][0];
+      rows[row].insertCell().textContent = all[index][1];
+    }
+  }
+  ctrl.helpDialog?.close();
+  ctrl.helpDialog = await domDialog({
+    closeButton: true,
     class: 'help.voice-move-help',
-    htmlUrl: `/help/voice/${ctrl.moduleId}`,
-    css: [{ hashed: 'voice.move.help' }],
-    onClose: () => ctrl.showHelp(false),
+    htmlText: '<table class="big-table"><tbody></tbody></table>',
+    insert: [{ nodes: rows, selector: 'tbody' }],
+    css: [{ key: 'voice.move.help' }],
     modal: true,
     easyClose: 'clickOutside',
-    onInsert: async dlg => {
-      if (ctrl.showHelp() === 'list') {
-        showMoveList(dlg);
-        return;
-      }
-      const grammar =
-        ctrl.moduleId === 'coords'
-          ? []
-          : await jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`)).catch(
-              () => ({ entries: [] }),
-            );
-
-      const valToWord = (val: string, phonetic: boolean) =>
-        grammar.entries.find(
-          (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
-        )?.in;
-      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
-        const tryPhonetic = (val: string) =>
-          (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
-        this.innerText = this.innerText
-          .split(',')
-          .map(v => tryPhonetic(v))
-          .join(' ');
-      });
-      $('.all-phrases-button', dlg.view).on('click', () => showMoveList(dlg));
-      dlg.show();
-    },
   });
+  ctrl.helpDialog.show();
 }

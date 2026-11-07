@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 
+import lila.memo.RateLimit
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.memo.RateLimit
 
 final class TutorHomeUi(helpers: Helpers, bits: TutorBits, q: TutorQueueUi, rps: TutorReportsUi):
   import helpers.{ *, given }

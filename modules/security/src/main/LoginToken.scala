@@ -1,19 +1,19 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 
+import lila.common.HTTPRequest
 import lila.core.config.*
+import lila.core.data.UntypedFormRequest
+import lila.core.email.NormalizedEmailAddress
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.net.{ Origin, ValidReferrer }
-import lila.core.email.NormalizedEmailAddress
-import lila.core.data.UntypedFormRequest
 import lila.mailer.Mailer
-import lila.user.{ User, UserRepo }
-import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
-import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
+import lila.oauth.{ AccessToken, AccessTokenApi, OAuthScope, TokenScopes }
+import lila.user.{ User, UserRepo }
 
 final class LoginToken(
     mailer: Mailer,
@@ -155,13 +155,13 @@ final class LoginToken(
     private lazy val rateLimitPerIP = RateLimit[IpAddress](
       credits = 10 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.ip"
+      limiterKey = "login.magicLink.ip"
     )
 
     private lazy val rateLimitPerEmail = RateLimit[String](
       credits = 3 * defaultCost,
       duration = 1.hour,
-      key = "login.magicLink.email"
+      limiterKey = "login.magicLink.email"
     )
 
     def apply[A](email: NormalizedEmailAddress, default: => Fu[A], cost: Int = defaultCost)(run: => Fu[A])(

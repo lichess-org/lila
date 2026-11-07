@@ -1,6 +1,7 @@
 package lila.practice
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.study.ChapterPreview
 
 case class PracticeProgress(

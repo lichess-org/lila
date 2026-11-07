@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Ойын пішімі</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Досты шақыру</string>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
   <string name="createLobbyGame">Ойын құру</string>
@@ -950,8 +949,6 @@
   <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
   <string name="instructions">Нұсқаулық</string>
   <string name="showMeEverything">Бәрін көрсету</string>
-  <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
-Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
   <string name="nothingToSeeHere">Әзірге ештеңе жоқ.</string>
   <string name="stats">Статистика</string>
 </resources>

@@ -1,7 +1,7 @@
 package lila.evalCache
 
-import chess.format.{ BinaryFen, Uci }
 import chess.eval.*
+import chess.format.{ BinaryFen, Uci }
 import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }

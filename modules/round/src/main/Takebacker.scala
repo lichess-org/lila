@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.{ ByColor, Color, Ply }
 import alleycats.Zero
+import chess.{ ByColor, Color, Ply }
 import scalalib.data.Preload
 
 import lila.common.Bus
@@ -13,7 +13,7 @@ import lila.round.RoundGame.playableByAi
 
 private final class TakebackState(nbDeclined: Int, lastDeclined: Option[Instant]):
   def decline = TakebackState(nbDeclined + 1, nowInstant.some)
-  def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
+  def offerable = lastDeclined.forall(_.isBefore(nowInstant.minusSeconds(delaySeconds)))
   private def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
 
 private type TakebackBoard = ByColor[TakebackState]

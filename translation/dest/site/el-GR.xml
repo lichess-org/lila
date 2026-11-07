@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Ρύθμιση παρτίδας</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Προκαλέστε φίλο</string>
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
@@ -993,6 +992,8 @@
   <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
   <string name="noRestriction">Χωρίς περιορισμούς</string>
   <string name="minimumRatedGames">Ελάχιστος αριθμός βαθμολογημένων παρτίδων</string>
+  <string name="minimumAccountAge">Ελάχιστη ηλικία λογαριασμού</string>
+  <string name="titledPlayersBypassRestriction">Οι παίκτες με τίτλο παρακάμπτουν αυτόν τον περιορισμό.</string>
   <string name="minimumRating">Ελάχιστη βαθμολογία</string>
   <string name="maximumWeeklyRating">Μέγιστη εβδομαδιαία βαθμολογία</string>
   <string name="positionInputHelp">Επικολλήστε ένα έγκυρο FEN αν θέλετε κάθε παρτίδα να ξεκινάει από μια συγκεκριμένη θέση.
@@ -1039,8 +1040,6 @@
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
   <string name="instructions">Οδηγίες</string>
   <string name="showMeEverything">Εμφάνιση όλων</string>
-  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
-Όλα τα έξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτονται αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Δεν υπάρχει τίποτα εδώ αυτή τη στιγμή.</string>
   <string name="stats">Στατιστικά</string>
   <string name="accessibility">Προσβασιμότητα</string>
@@ -1051,6 +1050,7 @@
   <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
+  <string name="searchInX">Αναζήτηση στο \"%s\"</string>
   <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>

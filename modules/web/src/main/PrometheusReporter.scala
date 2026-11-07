@@ -1,12 +1,12 @@
 package lila.web
 
-import java.time.Duration
-
 import com.typesafe.config.Config
+import kamon.Kamon
 import kamon.metric.*
 import kamon.module.{ MetricReporter, Module, ModuleFactory }
 import kamon.prometheus.*
-import kamon.Kamon
+
+import java.time.Duration
 
 // copy paste with some minor changes/scalafmtAll from https://github.com/kamon-io/Kamon/blob/master/reporters/kamon-prometheus/src/main/scala/kamon/prometheus/PrometheusReporter.scala
 // unused http server has been removed

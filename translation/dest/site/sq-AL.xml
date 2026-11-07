@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Ujdisje loje</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Sfidoni një shok</string>
   <string name="playAgainstComputer">Luani kundër kompjuterit</string>
   <string name="gameMode">Mënyrë loje</string>
@@ -161,6 +160,8 @@
   </plurals>
   <string name="moveTimes">Koha e lëvizjeve</string>
   <string name="flipBoard">Kthe fushën</string>
+  <string name="engine">Mekanizëm</string>
+  <string name="illegalPosition">Pozicion i paligjshëm</string>
   <string name="threefoldRepetition">Përsëritje trefishe</string>
   <string name="claimADraw">Kërko barazim</string>
   <string name="drawClaimed">U kërkua barazim</string>
@@ -498,6 +499,7 @@ Shokë që po luajnë: %2$s</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
   <string name="resume">Rifillo</string>
+  <string name="stop">Ndal</string>
   <string name="youArePlaying">Po luani!</string>
   <string name="winRate">Përqindje fitoresh</string>
   <string name="performance">Sukseshmëri</string>
@@ -754,7 +756,9 @@ Shokë që po luajnë: %2$s</string>
   <string name="downloadAnnotated">Shkarkoje me shënimet</string>
   <string name="downloadRaw">Shkarkoje shqeto</string>
   <string name="downloadImported">Shkarko të importuarën</string>
+  <string name="downloadMyGames">Shkarko lojërat e mia</string>
   <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
+  <string name="downloadResults">Shkarko përfundimet</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
@@ -950,6 +954,7 @@ dhe ndikojnë te vlerësimet e lojëtarëve</string>
   <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
   <string name="noRestriction">Pa kufizim</string>
   <string name="minimumRatedGames">Lojëra të vlerësuara në minimum</string>
+  <string name="minimumAccountAge">Moshë minimum për llogari</string>
   <string name="minimumRating">Vlerësim minimum</string>
   <string name="maximumWeeklyRating">Vlerësimi më i madh javor</string>
   <string name="positionInputHelp">Ngjitni një FEN të vlefshëm, që çdo lojë të niset prej një pozicioni të dhënë.
@@ -994,8 +999,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
   <string name="instructions">Udhëzime</string>
   <string name="showMeEverything">Shfaqmë gjithçka</string>
-  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
-Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Përdorim nga persona me aftësi të kufizuara</string>
@@ -1006,6 +1009,7 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="offline" comment="status of a user">jashtë linje</string>
   <string name="search">Kërko</string>
   <string name="clearSearch">Spastro kërkimin</string>
+  <string name="searchInX">Kërkoni në “%s”</string>
   <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="tags">Etiketa</string>
   <string name="settings">Rregullime</string>

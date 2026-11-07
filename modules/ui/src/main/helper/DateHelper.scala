@@ -1,13 +1,13 @@
 package lila.ui
 
 import play.api.i18n.Lang
+import scalalib.model.Seconds
 
 import java.time.format.{ DateTimeFormatter, FormatStyle, TextStyle }
 import java.time.{ Duration, LocalDate, Month, YearMonth }
 
-import lila.core.i18n.{ maxLangs, Translate, I18nKey }
+import lila.core.i18n.{ I18nKey, Translate, maxLangs }
 import lila.ui.ScalatagsTemplate.*
-import scalalib.model.Seconds
 
 trait DateHelper:
   self: StringHelper =>

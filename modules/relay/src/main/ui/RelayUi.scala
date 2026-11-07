@@ -5,10 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.id.ImageId
-import lila.ui.*
-import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
-
+import lila.relay.RelayRound.WithTourAndStudy
+import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(

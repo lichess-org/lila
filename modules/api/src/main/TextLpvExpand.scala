@@ -134,6 +134,6 @@ private final class LpvGameRegex(domain: NetDomain):
 
   val params = raw"""(?:#(?:last|\d{1,4}))?"""
 
-  val gamePgnRe = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
+  val gamePgnRe = raw"^(/(?:game/)?(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
   val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
   val studyPgnRe = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Pelin luonti</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Haasta kaveri</string>
   <string name="playAgainstComputer">Pelaa tietokonetta vastaan</string>
   <string name="gameMode">Pelityyppi</string>
@@ -509,6 +508,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
   <string name="resume">Jatka</string>
+  <string name="stop">Pysäytä</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="performance">Suoritus</string>
@@ -529,7 +529,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
-  <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
+  <string name="reportXToModerators">Tee %s:sta ilmoitus moderaattoreille</string>
   <string name="profileCompletion">Profiilia täytetty: %s</string>
   <string name="xRating">%s-vahvuusluku</string>
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
@@ -587,7 +587,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="postEdited">muokattu</string>
   <string name="message">Viesti</string>
   <string name="createTheTopic">Luo aihe</string>
-  <string name="reportAUser">Raportoi käyttäjä</string>
+  <string name="reportAUser">Ilmoita käyttäjä</string>
   <string name="user">Käyttäjä</string>
   <string name="reason">Syy</string>
   <string name="cheat">Huijaus</string>
@@ -698,7 +698,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
-  <string name="aboutX">Tietoa %s</string>
+  <string name="aboutX">Tietoa %sistä</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
   <string name="lichessUpdates">Lichessin päivitykset</string>
@@ -996,6 +996,8 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
   <string name="noRestriction">Ei rajoituksia</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
+  <string name="minimumAccountAge">Tunnuksen alaikäraja</string>
+  <string name="titledPlayersBypassRestriction">Tämä rajoitus ei koske pelaajia, joilla on arvonimi.</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
@@ -1042,8 +1044,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
-  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla. Ilman anteliasta yhteisöämme emme pystyisi pitämään sivustoa yllä. Kiitos liittymisestä tukijoihimme!  </string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö sekä täysin vapaa ja avoimen lähdekoodin ohjelmisto. Riipumme käyttäjien lahjoituksista, joilla katamme käyttökustannukset, kehitystyön ja sivustosisällön. Ilman anteliasta yhteisöä sivusto ei pysyisi käynnissä. Kiitos kun liityt joukkoomme!</string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
   <string name="stats">Tilastot</string>
   <string name="accessibility">Saavutettavuus</string>
@@ -1054,6 +1055,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="searchInX">Hae kohteesta \"%s\"</string>
   <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>

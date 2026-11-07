@@ -3,6 +3,8 @@
   <string name="logInAsUsername">Войти как %s</string>
   <string name="welcome">Добро пожаловать!</string>
   <string name="welcomeToLichess">Добро пожаловать на lichess.org!</string>
+  <string name="welcomeToLichessX">Добро пожаловать в Lichess, %s!</string>
+  <string name="verifyYourAccount">Подтвердите свой аккаунт</string>
   <string name="thisIsYourProfilePage">Это страница вашего профиля.</string>
   <string name="enabledKidModeSuggestion">Будет ли этим аккаунтом пользоваться ребёнок? Возможно, вы захотите включить %s.</string>
   <string name="whatNowSuggestions">Что дальше? Вот несколько предложений:</string>

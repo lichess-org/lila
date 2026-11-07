@@ -7,13 +7,13 @@ import lila.memo.ViewerCount
 
 final class PlayerCounter(using scheduler: Scheduler, mode: Mode)(using Executor):
 
-  val lichobile = AnonAuthCounters(capacity(500_000))
-  val mobile = AnonAuthCounters(capacity(1_000_000))
-  val website = AnonAuthCounters(capacity(2_000_000))
-  val takex3 = AnonAuthCounters(capacity(50_000))
+  val lichobile = AnonAuthCounters(capacity(100_000), capacity(400_000))
+  val mobile = AnonAuthCounters(capacity(200_000), capacity(800_000))
+  val website = AnonAuthCounters(capacity(600_000), capacity(800_000))
+  val takex3 = AnonAuthCounters(capacity(1_000), capacity(20_000))
 
   private def capacity(max: Int) =
-    if mode.isProd then max else math.cbrt(max.toDouble).toInt.atLeast(1)
+    ViewerCount(0, if mode.isProd then max else math.cbrt(max.toDouble).toInt.atLeast(1))
 
   private val allCounters =
     List("lichobile" -> lichobile, "mobile" -> mobile, "website" -> website, "takex3" -> takex3)
@@ -27,9 +27,7 @@ final class PlayerCounter(using scheduler: Scheduler, mode: Mode)(using Executor
   scheduler.scheduleWithFixedDelay(1.day, 1.day): () =>
     allCounters._2F.foreach(_.reset())
 
-private final class AnonAuthCounters(val max: Int):
-  private val anon = ViewerCount(0, max / 2)
-  private val auth = ViewerCount(0, max / 2)
+private final class AnonAuthCounters(val anon: ViewerCount, val auth: ViewerCount):
 
   def hit()(using req: RequestHeader, me: Option[Me]): Unit =
     val viewer = ViewerCount.makeViewer(req, me.map(_.userId))

@@ -23,7 +23,7 @@ import {
 
 import type { CevalCtrl } from '../ctrl';
 
-export const searchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+export const searchTicks: number[] = [1, 2, 4, 6, 8, 10, 12, 15, 20, 30];
 if (!isMobile()) searchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
@@ -264,6 +264,7 @@ function engineInfo(engines: EngineInfo[]) {
   const engineHtml = (e: EngineInfo) =>
     `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
+    closeButton: true,
     class: 'engine-info-popup',
     easyClose: 'clickOutside',
     htmlText: $html`

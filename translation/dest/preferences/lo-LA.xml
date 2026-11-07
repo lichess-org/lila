@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">ຂໍເດີນໃໝ່ (ໂດຍການຍອມຮັບຈາກຄູ່ຕໍ່ສູ້)</string>
   <string name="inCasualGamesOnly">ສະເພາະໃນເກມທົ່ວໄປເທົ່ານັ້ນ</string>
   <string name="promoteToQueenAutomatically">ປ່ຽນເປັນລາຊິນີ (Queen) ໂດຍອັດຕະໂນມັດ</string>
-  <string name="explainPromoteToQueenAutomatically">ກົດປຸ່ມ &lt;ctrl&gt; ຄ້າງໄວ້ຂະນະປ່ຽນຕົວໝາກ ເພື່ອປິດການປ່ຽນອັດຕະໂນມັດຊົ່ວຄາວ</string>
   <string name="whenPremoving">ເມື່ອເດີນລ່ວງໜ້າ</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ຂໍສະເໝີອັດຕະໂນມັດເມື່ອມີການເດີນຊ້ຳກັນສາມຄັ້ງ</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">ເມື່ອເວລາເຫຼືອໜ້ອຍກວ່າ 30 ວິນາທີ</string>

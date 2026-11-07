@@ -24,6 +24,7 @@
 যদি আপনি কমপক্ষে ৭ টি চাল দিন তাহলে ক্ষিপ্তের অতিরিক্ত একটি পয়েন্ট অনুদান হবে.</string>
   <string name="howIsTheWinnerDecided">কিভাবে জয়ী সিদ্ধান্ত নিয়েছে?</string>
   <string name="howIsTheWinnerDecidedAnswer">সবচেয়ে বেশি পয়েন্টের সাথে বিজয়ী (গুলি) নির্ধারিত প্রতিযোগিতার সময়ের সীমার শেষে প্রতিযোগিতা (গুলি) ঘোষণা করা হবে।.</string>
+  <string name="howArePlayersPaired">কীভাবে খেলোয়াড়দের মেলানো হয়?</string>
   <string name="howDoesPairingWorkAnswer">প্রতিযোগিতার শুরুর সময়, খেলোয়াড়দের জোড়া তাদের অনুপাতের ভিত্তিতে আছে.
 যত তাড়া তাড়ি আপনি খেলা শেষ করবেন, প্রতিযোগিতার উপশালায় ফিরে আসুন: আপনি তারপর আপনার অনুপাতের খেলোয়াড়ের সাথে জোড়া করা হবে.
 এটা সর্বনিম্ন অপেক্ষা সময় নিশ্চিত, যাইহক আপনার হয়তো প্রতিযোগিতার সকল খেলোয়াড়দের মুখোমুখি না হতে পারে.
@@ -39,6 +40,10 @@
   </plurals>
   <string name="thisIsPrivate">এটা হয় একটি ব্যক্তিগত প্রতিযোগিতা</string>
   <string name="shareUrl">মানুষদের যোগ দিতে এই URL শেয়ার করুন: %s</string>
+  <string name="drawStreakStandard">ড্রয়ের ধারা: যখন একজন খেলোয়ার অ্যারিনাতে পরপর ড্র করেন তখন কেবল প্রথম ড্র তেই, অথবা %s চালের বেশি খেলে ড্র করলে পয়েন্ট পাওয়া যাবে। ড্রয়ের ধারা কেবলমাত্র জেতার মাধ্যমেই ভাঙা যায়, হারা কিংবা ড্র করার মাধ্যমে নয়।</string>
+  <string name="drawStreakVariants">ড্র করা গেম থেকে পয়েন্ট পাবার সর্বনিম্ন সময় গেমের ধরনের উপর নির্ভর করে। নিচের টেবিলে প্রতিটা ধরনের সীমা দেয়া হয়েছে।</string>
+  <string name="variant">ধরন</string>
+  <string name="minimumGameLength">সর্বনিম্ন গেমের দৈর্ঘ্য</string>
   <string name="history">অ্যারিনার ইতিহাস</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">দলকে দেখুন</item>
@@ -52,9 +57,33 @@
   <string name="allowChatHelp">খেলোয়ারদের চ্যাট-রুমে আলোচনা করতে দিন</string>
   <string name="arenaStreaks">এরিনায় ধারাবাহিক জয়</string>
   <string name="arenaStreaksHelp">২টি জয়ের পর প্রতি ধারাবাহিক জয়ের জন্য ২ পয়েন্টের বদলে ৪ পয়েন্ট দেয়া হবে।</string>
+  <string name="noBerserkAllowed">উন্মত্ত মোড নিষিদ্ধ</string>
+  <string name="noArenaStreaks">এরিনায় ধারাবাহিক জয় নিষিদ্ধ</string>
+  <string name="averagePerformance">গড় ক্রীড়াকৌশল</string>
+  <string name="averageScore">গড় স্কোর</string>
+  <string name="myTournaments">আমার টুর্নামেন্টগুলো</string>
+  <string name="editTournament">টুর্নামেন্ট সম্পাদন করুন</string>
+  <string name="editTeamBattle">দলগত লড়াই সম্পাদন করুন</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">রক্ষক:</string>
   <string name="pickYourTeam">আপনার দল বাছাই করুন</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">আপনি এই লড়াইয়ে কোন দলকে বেছে নেবেন?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">আপনাকে একটি দলে যোগ দিতে হবে!</string>
   <string name="created">তৈরী হয়েছে</string>
+  <string name="recentlyPlayed">সাম্প্রতিক খেলা</string>
+  <string name="bestResults">সেরা ফলাফল</string>
+  <string name="tournamentStats">টুর্নামেন্টের পরিসংখ্যান</string>
+  <string name="rankAverageHelp">আপনার গড় অবস্থান টুর্নামেন্টের খেলোয়াড় সংখ্যার মধ্যে আপনার গড়পড়তা খেলা শেষ করবার অবস্থানের প্রতিনিধিত্ব করে।
+এটা আপনার টুর্নামেন্টের অবস্থান বোঝায়, আপনার সাধারণ রেটিং নয়।
+
+উদাহরণ, ৩% গড় অবস্থান মানে আপনি সাধারণত সর্বোচ্চ ৩% এ শেষ করেন (যেমন ১০০০ জনের মধ্যে ৩০তম)।</string>
+  <string name="medians">মধ্যকসমূহ</string>
+  <string name="allAveragesAreX">এই পেজের সকল গড় মান হলো %s ।</string>
   <string name="total">মোট</string>
+  <string name="pointsAvg">গড় পয়েন্ট</string>
+  <string name="pointsSum">পয়েন্টের যোগফল</string>
+  <string name="rankAvg">গড় অবস্থান</string>
+  <string name="tournamentWinners">টুর্নামেন্ট বিজয়ীরা</string>
+  <string name="tournamentShields">টুর্নামেন্টের ঢালগুলো</string>
   <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
+  <string name="onlyTitledHelp">টুর্নামেন্টে ঢুকতে একটি অফিশিয়াল টাইটেল প্রয়োজন</string>
 </resources>

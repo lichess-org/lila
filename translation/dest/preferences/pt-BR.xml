@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
   <string name="whenPremoving">Quando pré-mover</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
-  <string name="multipleChoices">Múltiplas escolhas. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante a partida no menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
@@ -73,7 +71,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Às cegas</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mostrar à esquerda em dispositivos móveis</string>
   <string name="inlineNotation">Notação em linha</string>
-  <string name="showServerAnalysis">Mostrar análise do servidor</string>
+  <string name="showMainlineAnalysis">Mostrar análise principal</string>
   <string name="showBestMoveArrows">Mostrar setas de melhores movimentos</string>
   <string name="showManeuverArrows">Mostrar setas de manobra</string>
   <string name="showGauge">Mostrar barra de avaliação</string>
@@ -83,6 +81,7 @@
   <string name="showUndefendedPieces">Mostrar peças sem defesa</string>
   <string name="showPinnedPieces">Mostrar peças cravadas</string>
   <string name="showCheckableKing">Mostrar rei possível de xeque</string>
+  <string name="showTrappedPieces">Mostrar peças presas</string>
   <string name="disclosureMode">Permitir esconder variação</string>
   <string name="generalSettings">Geral</string>
   <string name="moveListSettings">Lista de movimentos</string>

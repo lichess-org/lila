@@ -76,7 +76,7 @@ async function boot(
           );
       },
       endData() {
-        xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
+        xhrText(`/${data.tv ? 'tv' : 'game'}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html);
           const $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);
@@ -146,7 +146,7 @@ async function boot(
     });
 
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) {
-    history.replaceState(null, '', '/' + data.game.id);
+    history.replaceState(null, '', '/game/' + data.game.id);
   }
 
   $('#zentog').on('click', () => pubsub.emit('zen'));

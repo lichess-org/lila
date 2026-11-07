@@ -1,7 +1,7 @@
 package lila.mod
 
-import chess.{ Black, ByColor, Color, White }
 import chess.rating.IntRatingDiff
+import chess.{ Black, ByColor, Color, White }
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
 
@@ -75,7 +75,7 @@ final class AssessApi(
             .flatMap { ans =>
               povs
                 .flatMap: pov =>
-                  ans.get(pov.gameId).map { pov -> _ }
+                  ans.get(pov.gameId).map(pov -> _)
                 .parallelVoid: (pov, analysis) =>
                   gameRepo.holdAlert.game(pov.game).flatMap { holdAlerts =>
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
@@ -136,10 +136,9 @@ final class AssessApi(
       shouldAssess.so {
         createPlayerAssessment(PlayerAssessment.make(game.pov(White), analysis, holdAlerts.white)) >>
           createPlayerAssessment(PlayerAssessment.make(game.pov(Black), analysis, holdAlerts.black))
-      } >> {
+      } >>
         (shouldAssess && thenAssessUser).so:
           game.whitePlayer.userId.so(assessUser) >> game.blackPlayer.userId.so(assessUser)
-      }
     }
 
   def assessUser(userId: UserId): Funit =

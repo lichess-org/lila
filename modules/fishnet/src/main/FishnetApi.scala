@@ -7,8 +7,8 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 import lila.tree.FishnetKey
 
 import Client.Skill
@@ -63,11 +63,10 @@ final class FishnetApi(
     workQueue {
       analysisColl
         .find(
-          bdoc("acquired".exists(false)) ++ {
+          bdoc("acquired".exists(false)) ++
             (!client.offline).so(bdoc("lastTryByKey".neq(client.key))) // client alternation
-          } ++ {
+            ++
             slow.so(bdoc("origin".in(Work.Origin.slowOk)))
-          }
         )
         .sort(
           bdoc(
@@ -78,7 +77,7 @@ final class FishnetApi(
         .one[Work.Analysis]
         .flatMapz: work =>
           repo.updateAnalysis(work.assignTo(client)).inject(work.some): Fu[Option[Work.Analysis]]
-    }.map { _.map(JsonApi.analysisFromWork) }
+    }.map(_.map(JsonApi.analysisFromWork))
 
   def postAnalysis(
       workId: Work.Id,
@@ -132,6 +131,7 @@ final class FishnetApi(
     )
 
   def status: Fu[JsonStr] = monitor.statusCache.get {}.map(_.json)
+  export monitor.statusTtl
 
   private[fishnet] def createClient(userId: UserId): Fu[Client] =
     val client = Client(

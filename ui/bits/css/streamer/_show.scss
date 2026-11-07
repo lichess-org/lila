@@ -82,11 +82,9 @@
 
   .ratings {
     @extend %flex-center;
-
-    justify-content: space-between;
-
     @include padding-direction(2em, 50px, 1em, 58px);
 
+    justify-content: space-between;
     font-size: 1.6em;
     line-height: 0.9;
     background: color-mix(in oklab, $c-brag 20%, $c-bg);

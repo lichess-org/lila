@@ -1,16 +1,16 @@
 package lila.mon
 
+import chess.variant.Variant
 import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
+import kamon.Kamon.{ counter, gauge, histogram, timer }
 import kamon.metric.Timer
 import kamon.tag.TagSet
-import kamon.Kamon.{ timer, gauge, counter, histogram }
-import chess.variant.Variant
 import scalalib.net.UserAgent
 
 import lila.core.id.*
-import lila.core.userId.{ UserId, UserName }
-import lila.core.perf.PerfKey
 import lila.core.net.Origin
+import lila.core.perf.PerfKey
+import lila.core.userId.{ UserId, UserName }
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -400,14 +400,23 @@ object security:
     val epoch = gauge("security.geoip.epoch").withoutTags()
     val loadTime = gauge("security.geoip.loadTime").withoutTags()
   object login:
-    def attempt(byEmail: Boolean, pwned: Boolean, result: Boolean) =
+    def attempt(
+        byEmail: Boolean,
+        pwned: Boolean,
+        leaked: Boolean,
+        result: Boolean,
+        name: String
+    ) =
       counter("security.login.attempt").withTags:
         tags(
           "by" -> (if byEmail then "email" else "name"),
           "pwned" -> pwned,
-          "result" -> result
+          "leaked" -> leaked,
+          "result" -> result,
+          "name" -> name
         )
     def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
+    def block(reason: String) = counter("security.login.block").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
@@ -715,7 +724,6 @@ object study:
     val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
-  val activity = counter("api.cost").withTag("endpoint", "activity")
   object challenge:
     object bulk:
       def scheduleNb(by: UserId) = counter("api.challenge.bulk.schedule.nb").withTag("by", by)

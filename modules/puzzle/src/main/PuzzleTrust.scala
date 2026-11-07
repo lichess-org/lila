@@ -1,8 +1,8 @@
 package lila.puzzle
 
 import lila.core.perf.UserWithPerfs
-import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.db.dsl.{ *, given }
 
 final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.UserApi)(using Executor):
 

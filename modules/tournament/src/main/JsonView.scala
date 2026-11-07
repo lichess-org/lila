@@ -1,9 +1,9 @@
 package lila.tournament
 
+import chess.IntRating
 import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import chess.IntRating
 import scalalib.data.Preload
 
 import lila.common.Json.given
@@ -14,9 +14,9 @@ import lila.core.chess.Rank
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
-import lila.core.user.{ LightUserApi, RealName, PublicTitleOf }
-import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
+import lila.core.user.{ LightUserApi, PublicTitleOf, RealName }
 import lila.gathering.GatheringJson.*
+import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
@@ -61,7 +61,7 @@ final class JsonView(
   )(using Lang): Fu[JsObject] =
     for
       data <- cachableData.get(tour.id)
-      myInfo <- myInfo.orLoad(me.so { fetchMyInfo(tour, _) })
+      myInfo <- myInfo.orLoad(me.so(fetchMyInfo(tour, _)))
       pauseDelay = me.flatMap: me =>
         pause.remainingDelay(me.userId, tour)
       full = !partial
@@ -77,12 +77,12 @@ final class JsonView(
             userApi.usingPerfOf(me, tour.perfType):
               verify(tour.conditions, tour.perfType)(using me)
       stats <- statsApi(tour)
-      shieldOwner <- full.so { shieldApi.currentOwner(tour) }
+      shieldOwner <- full.so(shieldApi.currentOwner(tour))
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
       yield getMyTeamIds(u.lightMe).map: teams =>
         battle.teams.intersect(teams.toSet).toList))
       teamStanding <- getTeamStanding(tour)
-      myTeam <- myInfo.flatMap(_.teamId).so { getMyRankedTeam(tour, _) }
+      myTeam <- myInfo.flatMap(_.teamId).so(getMyRankedTeam(tour, _))
       _ <- tour.teamBattle.so(battle => lightTeamApi.preload(battle.teams))
     yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
       .obj("standing" -> stand)

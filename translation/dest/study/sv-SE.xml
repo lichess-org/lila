@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Kommentera med glyfer</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitlet är för kort för att analyseras.</string>
   <string name="onlyContributorsCanRequestAnalysis">Endast studiens bidragsgivare kan begära en datoranalys.</string>
-  <string name="getAFullComputerAnalysis">Hämta en fullständig serveranalys av huvudlinjen.</string>
   <string name="makeSureTheChapterIsComplete">Försäkra dig om att kapitlet är färdigt. Du kan bara begära analysen en gång.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alla SYNC-medlemmar är kvar på samma position</string>
   <string name="shareChanges">Dela ändringar med åskådare och spara dem på servern</string>
@@ -98,10 +97,6 @@
   <string name="loadAPositionFromFen">Importera en position med FEN-kod</string>
   <string name="loadAGameFromPgn">Importera ett spel med PGN-kod</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Klistra in din PGN-kod här, upp till %s parti</item>
-    <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
-  </plurals>
   <string name="urlOfTheGame">URL till partiet</string>
   <string name="createChapter">Skapa kapitel</string>
   <string name="createStudy">Skapa en studie</string>
@@ -121,7 +116,6 @@
   <string name="noLetPeopleBrowseFreely">Nej: låt alla bläddra fritt</string>
   <string name="pinnedStudyComment">Ständigt synlig studiekommentar</string>
   <string name="start">Starta</string>
-  <string name="save">Spara</string>
   <string name="clearChat">Rensa Chatten</string>
   <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
   <string name="deleteStudy">Ta bort studie</string>

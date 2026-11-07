@@ -3,11 +3,11 @@ package ui
 
 import play.api.i18n.Lang
 
+import lila.common.ClientName
 import lila.core.i18n.Translate
 import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
@@ -105,7 +105,11 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   def tournamentIdToName(id: TourId)(using Lang)(using client: ClientName): String =
     client.isHuman.so(getTourName.sync(id)).getOrElse(s"Tournament #$id")
 
-  def teamTournamentRow(t: Tournament)(using Translate) =
+  def teamTournamentRow(myTeams: Option[Set[TeamId]])(t: Tournament)(using Translate) =
+    val when =
+      if t.isEnterable && t.startsAt.isBeforeNow
+      then trans.site.eventInProgress()
+      else momentFromNowOnce(t.startsAt)
     tr(cls := List("enterable" -> t.isEnterable, "soon" -> t.isNowOrSoon))(
       td(cls := "icon")(iconTag(tournamentIcon(t))),
       td(cls := "header")(
@@ -126,11 +130,11 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       td(cls := "infos")(
         t.teamBattle.fold(trans.team.innerTeam()): battle =>
           trans.team.battleOfNbTeams.plural(battle.teams.size, battle.teams.size.localize),
-        br,
-        if t.isEnterable && t.startsAt.isBeforeNow then trans.site.eventInProgress()
-        else momentFromNowOnce(t.startsAt)
+        myTeams.flatMap(t.selectTeam) match
+          case None => frag(br, when)
+          case Some(team) => frag(" ", when, br, teamLink(team))
       ),
-      td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
+      td(cls := "players text", dataIcon := Icon.User)(t.nbPlayers.localize)
     )
 
   object scheduledTournamentNameShortHtml:

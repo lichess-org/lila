@@ -1,10 +1,12 @@
 package lila.feed
 
 import play.api.data.Form
+import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scalalib.paginator.Paginator
+
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply
@@ -66,24 +68,20 @@ final class FeedApi(
             mutableLastUpdates = ups.filter(_.published).take(7)
     def clear() =
       store.underlying.synchronous.invalidateAll()
-      store.get({}) // populate lastUpdate
+      store.get {} // populate lastUpdate
     def lastUpdates: Feed.GetLastUpdates = () => mutableLastUpdates
-    store.get({}) // populate lastUpdate
-
-    val recentJson = cacheApi.unit[JsonStr]("feed.recentJson"):
-      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
-        import jsonView.given
-        import play.api.libs.json.Json
-        for
-          updates <- store.get({})
-          withRendered = updates.take(7).map(up => (up, feedMarkdown(up)))
-        yield JsonStr(Json.stringify(Json.toJson(withRendered)))
+    store.get {} // populate lastUpdate
 
   export cache.lastUpdates
 
-  def recentJson: Fu[JsonStr] = cache.recentJson.get({})
+  def recentJson: Fu[JsValue] =
+    import jsonView.given
+    for
+      updates <- cache.store.get {}
+      withRendered = updates.take(7).map(up => (up, feedMarkdown(up)))
+    yield Json.toJson(withRendered)
 
-  def recentPublished = cache.store.get({}).map(_.filter(_.published))
+  def recentPublished = cache.store.get {}.map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 

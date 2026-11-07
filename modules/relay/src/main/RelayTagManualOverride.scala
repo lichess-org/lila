@@ -2,6 +2,7 @@ package lila.relay
 
 import chess.format.pgn.TagType
 import scalalib.cache.ExpireSetMemo
+
 import lila.common.Bus
 
 final class RelayTagManualOverride(using Executor):

@@ -14,7 +14,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   return contributor || study.data.admin
     ? hl('div.relay-admin__container', [
         contributor &&
-          hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+          hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCss({ key: 'analyse.relay-admin' })) }, [
             hl('h2', [
               hl('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
               hl('a', {

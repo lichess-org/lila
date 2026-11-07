@@ -4,6 +4,7 @@ package ui
 import chess.variant.Variant
 import chess.{ Rated, Speed }
 import play.api.data.{ Field, Form }
+
 import lila.core.rating.RatingRange
 import lila.rating.PerfType
 import lila.ui.*

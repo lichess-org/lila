@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Sazkirina lîstikê</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hevalek ê bixwaze meydan ê</string>
   <string name="playAgainstComputer">Li dijî kompîturê bilîze</string>
   <string name="gameMode">Moda lîstikê</string>
@@ -991,7 +990,6 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="ourEventTips">Rênîşanderên me ji bo rêkxistina çalakiyan</string>
   <string name="instructions">Rênima</string>
   <string name="showMeEverything">Her tiştî nîanî min bide</string>
-  <string name="lichessPatronInfo">Lichess saziyeke xêrxwaziyê ye û bi tevahî nermalaveke çavkanî-vekirî ya azad û bêpere ye. Em pişta xwe bi bexşên bikarhêneran ve girêdidin ji bo dabînkirina xerviyên birêvebirinê, geşepêdanê û naverokê. Bêyî civaka me ya dilvekirî, me nedikarî vê malperê berdewam bikin. Spas ji bo tevlêbûna we!  </string>
   <string name="nothingToSeeHere">Vê gavê tiştek ji bo dîtinê tu ne.</string>
   <string name="stats">Amar</string>
   <string name="accessibility">Hêsaniya gihîştinê</string>

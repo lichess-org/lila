@@ -1,9 +1,10 @@
 import type { AcplChart, ChartGame } from 'chart';
+import { parsePgn } from 'chessops/pgn';
 
-import { withEffect } from 'lib';
+import { withEffect, type Prop } from 'lib';
 import { clamp } from 'lib/algo';
 import { maxBrowserHash } from 'lib/ceval/engines/engines';
-import type { CustomSearch, BaseEngineInfo } from 'lib/ceval/types';
+import type { CustomSearch, BaseEngineInfo, EngineInfo } from 'lib/ceval/types';
 import { engineSelect, hashSetting, searchTicks } from 'lib/ceval/view/settings';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
@@ -16,7 +17,7 @@ import {
   alert,
   confirm,
   jsx,
-  jsxDialog,
+  snabDialog,
   onInsert,
   rangeConfig,
   spinnerVdom,
@@ -27,13 +28,16 @@ import { isFinished } from '@/study/studyChapters';
 
 import type AnalyseCtrl from '../ctrl';
 import type { AnalysisEngineInfo } from '../interfaces';
+import { renderFullTxt } from '../pgnExport';
 import { LocalAnalysisEngine } from './localAnalysisEngine';
 
 export async function localAnalysisDialog(ctrl: AnalyseCtrl): Promise<void> {
   const state = new LocalAnalysisDialog(ctrl, await site.asset.loadEsm<ChartGame>('chart.game'));
-  jsxDialog({
+  snabDialog({
+    closeButton: true,
     class: 'local-analysis-dialog',
-    css: [{ hashed: 'analyse.local-dialog' }],
+    show: true,
+    css: [{ key: 'analyse.local-dialog' }],
     modal: true,
     onClose: state.close,
     render: state.render,
@@ -45,7 +49,7 @@ class LocalAnalysisDialog {
   private chartData: Parameters<ChartGame['acpl']>[1];
   private chart?: AcplChart;
   private status?: LooseVNodes;
-  private readonly quality = storedIntProp('local-analysis.quality', 0);
+  private readonly quality: Prop<number>;
   private readonly engineId: StoredProp<string>;
   private readonly threads: StoredProp<number>;
   private readonly hashSize: StoredProp<number>;
@@ -59,16 +63,24 @@ class LocalAnalysisDialog {
     this.engineId = storedStringProp('local-analysis.engine', info.id);
     this.threads = storedIntProp('local-analysis.threads', info.threads);
     this.hashSize = storedIntProp('local-analysis.hash', info.hashSize);
+    this.engineId(this.customSearch.engine!.id);
+    const quality = storedIntProp('local-analysis.quality', 0);
+    this.quality = (value?: number) => quality(Math.max(this.minQuality, value ?? quality()));
     this.engine = new LocalAnalysisEngine(ctrl);
   }
 
   readonly render = (redraw: Redraw, dialog: Dialog): LooseVNodes => {
     if (!this.updateDownloadStatus) {
       this.updateDownloadStatus = (d: { bytes: number; total: number }) => {
-        const downloadStatus = i18n.localAnalysis.downloadingXofY(
-          Math.round((d.bytes * 100) / d.total) + '%',
-          Math.round(d.total / 1000 / 1000) + 'MB',
-        );
+        const megabytes = (n: number) => Math.round(n / 1000 / 1000) + 'MB';
+        // total is 0 when the size is unknown (e.g. no Content-Length), which would give Infinity%/NaN%
+        const downloadStatus =
+          d.total > 0
+            ? i18n.localAnalysis.downloadingXofY(
+                Math.round((d.bytes * 100) / d.total) + '%',
+                megabytes(d.total),
+              )
+            : megabytes(d.bytes);
         if (downloadStatus === this.status) return;
 
         this.status = downloadStatus;
@@ -90,6 +102,7 @@ class LocalAnalysisDialog {
               this.chart = await this.chartGame.acpl(canvas, this.ctrl.data, this.engine!.nodes);
             })}
           />
+          <span class={['actions', this.engine && 'none']}>{this.pgnButtons()}</span>
         </div>
         <div class={['working', this.isIdle && 'none']}>
           {spinnerVdom()}
@@ -155,7 +168,7 @@ class LocalAnalysisDialog {
         <br />,
         this.canPublish.showButton && i18n.localAnalysis.youCanPublish,
       ];
-      this.ctrl.mergeLocalAnalysisData(result.localUpdate);
+      this.ctrl.mergeMainlineAnalysisData(result.localUpdate);
       this.engine = undefined;
       redraw();
     } catch (e) {
@@ -196,7 +209,7 @@ class LocalAnalysisDialog {
       log(`${rsp.status} ${rsp.statusText} ${(await rsp.text()).slice(0, 255)}`);
       this.status = i18n.localAnalysis.analysisUploadFailed;
     } else {
-      this.ctrl.publishedEvalEngine = structuredClone(this.ctrl.staticAnalysis?.engine);
+      this.ctrl.publishedEvalEngine = structuredClone(this.ctrl.mainlineAnalysis?.engine);
       await this.ctrl.idbTree.clear('analysis');
       this.ctrl.redraw();
       this.status = i18n.site.success;
@@ -219,6 +232,44 @@ class LocalAnalysisDialog {
       site.reload();
     } catch (e) {
       await alert(String(e));
+    }
+  };
+
+  private readonly clickCopyPgn = async (e: Event) => {
+    const button = e.currentTarget as HTMLButtonElement;
+    try {
+      if (typeof ClipboardItem === 'undefined') {
+        await navigator.clipboard.writeText(await this.pgn());
+      } else {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/plain': this.pgn().then(pgn => new Blob([pgn], { type: 'text/plain' })),
+          }),
+        ]);
+      }
+      button.style.color = 'var(--c-secondary)';
+      button.innerText = licon.Checkmark;
+      setTimeout(() => {
+        button.style.color = '';
+        button.innerText = licon.Clipboard;
+      }, 1000);
+    } catch (error) {
+      await alert(String(error));
+    }
+  };
+
+  private readonly clickDownloadPgn = async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([await this.pgn()], { type: 'application/x-chess-pgn' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `lichess_${this.ctrl.idbTree.id}.pgn`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      await alert(String(error));
     }
   };
 
@@ -246,23 +297,29 @@ class LocalAnalysisDialog {
   };
 
   private analysisEditor(redraw: Redraw) {
-    const info = this.ctrl.ceval.info(this.customSearch)!;
     const ceval = this.ctrl.ceval;
+    const info = ceval.info(this.customSearch)!;
     const bestBrowserEngine = this.bestBrowserEngine;
+    const mainlineEngine = this.ctrl.mainlineAnalysis?.engine;
+
     const preludes: LooseVNodes = [];
     const trailers: LooseVNodes = [];
     const [current, published] = [
-      this.ctrl.staticAnalysis?.engine,
+      mainlineEngine,
       this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
     ].filter(Boolean);
+
     if (!current) {
       preludes.push(<p>{i18n.localAnalysis.chooseYourEngineSettings}</p>);
       if (
-        ceval.engines.supporting({
-          rules: ceval.rules,
-          nonStandardMaterial: ceval.nonStandardMaterial,
-          filter: 'external',
-        }).length === 0
+        !ceval.engines
+          .supporting({
+            rules: ceval.rules,
+            nonStandardMaterial: ceval.nonStandardMaterial,
+            filter: 'external',
+          })
+          .includes(info.engine) &&
+        (info.engine.id !== bestBrowserEngine.id || info.threads !== navigator.hardwareConcurrency)
       ) {
         preludes.push(
           <p>
@@ -274,6 +331,7 @@ class LocalAnalysisDialog {
         );
       }
     }
+
     if (this.timeToComplete) {
       const seconds = Math.ceil(this.timeToComplete);
       const minutes = Math.ceil(this.timeToComplete / 60);
@@ -283,6 +341,7 @@ class LocalAnalysisDialog {
         ),
       );
     }
+
     if (
       this.quality() === 0 &&
       info.engine.id !== bestBrowserEngine.id &&
@@ -291,20 +350,21 @@ class LocalAnalysisDialog {
       if (trailers.length) trailers.push('. ');
       trailers.push(i18n.localAnalysis.xWouldBeFaster(bestBrowserEngine.name));
     }
+
     return [
       preludes.length > 0 && <span>{preludes}</span>,
       published && [
         this.separator(i18n.localAnalysis.onTheServer),
-        this.analysisInfo(this.ctrl.publishedEvalEngine),
+        this.ctrl.publishedEvalEngine && this.analysisInfo(this.ctrl.publishedEvalEngine),
         this.separator(i18n.localAnalysis.currentAnalysis),
       ],
-      current && this.analysisInfo(this.ctrl.staticAnalysis?.engine),
+      current && mainlineEngine && this.analysisInfo(mainlineEngine),
       this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">
           <label for="local-analysis-engine">Engine:</label>
           {engineSelect(
-            ceval.engines.supporting({ rules: ceval.rules, nonStandardMaterial: ceval.nonStandardMaterial }),
+            this.browserEngines, // TODO - allow external engines once supported
             info.engine.id,
             withEffect(this.engineId, redraw),
             'local-analysis-engine',
@@ -339,8 +399,7 @@ class LocalAnalysisDialog {
     ];
   }
 
-  private analysisInfo(info: AnalysisEngineInfo | undefined): LooseVNodes {
-    if (!info) return false;
+  private analysisInfo(info: AnalysisEngineInfo): LooseVNodes {
     const isPublished = info === this.ctrl.publishedEvalEngine;
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
     const splitVersion = info.engineVersion.split('/');
@@ -354,9 +413,11 @@ class LocalAnalysisDialog {
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="info-line">
         <strong>{provenance}</strong>
-        <span class="weak">
-          {engineName}
-          {(isLocal || this.ctrl.study?.members.canContribute()) && (
+        <span class="weak">{engineName}</span>
+        <span class="actions">
+          {isLocal && this.pgnButtons()}
+          {(isLocal ||
+            (this.ctrl.study?.members.canContribute() && this.ctrl.study.canMergeAnalysisCleanly())) && (
             <button class="clear" title={clearText} on={{ click: clearClick }}>
               {licon.X}
             </button>
@@ -368,8 +429,31 @@ class LocalAnalysisDialog {
     ];
   }
 
+  private pgnButtons() {
+    return [
+      <button class="button-empty" title="Copy annotated PGN" on={{ click: this.clickCopyPgn }}>
+        {licon.Clipboard}
+      </button>,
+      <button class="button-empty" title="Download annotated PGN" on={{ click: this.clickDownloadPgn }}>
+        {licon.Download}
+      </button>,
+    ];
+  }
+
+  private async pgn(): Promise<string> {
+    const ctrl = this.ctrl;
+    const study = ctrl.study;
+    const url = study
+      ? `/study/${study.data.id}/${study.data.chapter.id}.pgn`
+      : `/game/export/${ctrl.data.game.id}`;
+    const headers = parsePgn(await xhrText(url))[0].headers;
+    return renderFullTxt(ctrl, ctrl.tree.root, true, headers);
+  }
+
   private searchQualitySetting(redraw: Redraw) {
-    const ticks = [0, ...searchTicks.filter(Number.isFinite)];
+    const ticks = [0, ...searchTicks].filter(
+      seconds => Number.isFinite(seconds) && seconds * 1000 >= this.minQuality,
+    );
     const getTick = () =>
       clamp(
         ticks.findIndex(seconds => seconds * 1000 >= this.quality()),
@@ -382,6 +466,7 @@ class LocalAnalysisDialog {
         <label for="local-analysis-quality">{i18n.localAnalysis.quality}</label>
         <input
           id="local-analysis-quality"
+          key={ticks.join(',')}
           type="range"
           max={ticks.length - 1}
           aria-valuetext={seconds === 0 ? value : i18n.site.nbSeconds(seconds)}
@@ -393,6 +478,10 @@ class LocalAnalysisDialog {
         <div class="range_value">{value}</div>
       </div>
     );
+  }
+
+  private get minQuality(): number {
+    return (this.engineNodeEfficiency ?? 0) >= 0.1 ? 0 : 2000;
   }
 
   private separator(label: string) {
@@ -416,7 +505,7 @@ class LocalAnalysisDialog {
   private get canPublish() {
     const ctrl = this.ctrl;
     if (!this.ctrl.idbTree.hasLocalAnalysis) return { showButton: false };
-    if (!this.isIdle || !ctrl.canAnalyse() || !ctrl.allowLines()) return { showButton: false };
+    if (!this.isIdle || !ctrl.canAnalyseMainline() || !ctrl.allowLines()) return { showButton: false };
     if (ctrl.mainline.length < 10 || !ctrl.ceval.analysable) return { showButton: false, whyNot: 'invalid' };
     if (!ctrl.study || !ctrl.study.members.canContribute())
       return { showButton: false, whyNot: 'permission' };
@@ -428,19 +517,16 @@ class LocalAnalysisDialog {
 
   private get engineNodeEfficiency(): number | undefined {
     const flavor = this.ctrl.ceval.rules === 'chess' ? 'chess' : 'variant';
-    return this.ctrl.ceval.engines
-      .supporting({
-        rules: this.ctrl.ceval.rules,
-        nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
-      })
-      .find(engine => engine.id === this.engineId())?.nodeEfficiencyVsFishnet?.[flavor];
+    return this.browserEngines.find(engine => engine.id === this.engineId())?.nodeEfficiencyVsFishnet?.[
+      flavor
+    ];
   }
 
   private standardQualityNodesAt(nodes = 1_000_000): number {
     // Fit observed performance dilution due to parallelism vs node count.
     // Dilution due to parallelism becomes negligible at high node counts
     const threadDilution = 1 + (this.threads() / 32) * Math.sqrt(1_000_000 / nodes);
-    return Math.round((threadDilution * nodes) / (this.engineNodeEfficiency ?? 1));
+    return Math.max(1_000_000, Math.round((threadDilution * nodes) / (this.engineNodeEfficiency ?? 1)));
   }
 
   private get timeToComplete(): number | undefined {
@@ -453,10 +539,8 @@ class LocalAnalysisDialog {
   }
 
   private get customSearch(): CustomSearch {
-    const { engines, rules, nonStandardMaterial } = this.ctrl.ceval;
     const engine =
-      engines.supporting({ rules, nonStandardMaterial }).find(engine => engine.id === this.engineId()) ??
-      engines.active()!;
+      this.browserEngines.find(engine => engine.id === this.engineId()) ?? this.bestBrowserEngine;
     return {
       engine: { id: engine.id, threads: this.threads(), hashSize: this.hashSize() },
       search: () => ({
@@ -471,20 +555,18 @@ class LocalAnalysisDialog {
   }
 
   private get bestEngineDefaults(): { id: string; threads: number; hashSize: number } {
-    const engine = this.ctrl.ceval.engines.supporting({
-      rules: this.ctrl.ceval.rules,
-      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
-    })[0];
-    const threads = engine.tech === 'EXTERNAL' ? engine.maxThreads : navigator.hardwareConcurrency;
-    const hashSize = engine.tech === 'EXTERNAL' ? (engine.maxHash ?? 512) : maxBrowserHash;
+    const engine = this.bestBrowserEngine; // TODO - allow external engines once supported
+    const threads = /*engine.tech === 'EXTERNAL' ? engine.maxThreads :*/ navigator.hardwareConcurrency;
+    const hashSize = /*engine.tech === 'EXTERNAL' ? (engine.maxHash ?? 512) :*/ maxBrowserHash;
     return { id: engine.id, threads, hashSize };
   }
 
+  private get browserEngines(): EngineInfo[] {
+    const { rules, nonStandardMaterial } = this.ctrl.ceval;
+    return this.ctrl.ceval.engines.supporting({ rules, nonStandardMaterial, filter: 'browser' });
+  }
+
   private get bestBrowserEngine(): BaseEngineInfo {
-    return this.ctrl.ceval.engines.supporting({
-      rules: this.ctrl.ceval.rules,
-      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
-      filter: 'browser',
-    })[0];
+    return this.browserEngines[0];
   }
 }

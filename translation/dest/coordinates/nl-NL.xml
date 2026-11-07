@@ -19,4 +19,6 @@
   <string name="findSquare">Velden zoeken</string>
   <string name="nameSquare">Velden benoemen</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Alleen sommige kolommen &amp; rijen oefenen</string>
+  <string name="enterTheCoordinate">Voer de coördinaat in</string>
+  <string name="pressEnterToStart">Druk op %s om te starten</string>
 </resources>

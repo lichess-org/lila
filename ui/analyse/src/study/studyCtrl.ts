@@ -187,11 +187,10 @@ export default class StudyCtrl {
           !data.chapter.setup.fromFen &&
           !this.relay
         ) {
-          this.chapters.newForm.openInitial();
+          this.chapters.newForm.open(true);
         }
       },
       () => data,
-      this.redraw,
       this.relay,
     );
     this.commentForm = new CommentForm(ctrl);
@@ -220,13 +219,12 @@ export default class StudyCtrl {
       this.relay?.fullRoundName() || data.name,
       this.chapters.list,
       this.setChapter,
-      this.redraw,
+      !!this.relay,
     );
 
     this.topics = new TopicsCtrl(
       topics => this.send('setTopics', topics),
       () => data.topics || [],
-      this.redraw,
     );
 
     this.share = new StudyShare(
@@ -267,7 +265,7 @@ export default class StudyCtrl {
   startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
-      site.asset.loadCssPath('bits.shepherd'),
+      site.asset.loadCss({ key: 'bits.shepherd' }),
     ]);
 
     tour.study(this.ctrl);
@@ -623,8 +621,7 @@ export default class StudyCtrl {
   };
   toggleStudyFormIfAllowed = () => {
     if (!this.members.isOwner()) return;
-    this.form.open.toggle();
-    this.redraw();
+    this.form.open();
   };
   goToPrevChapter = () => {
     const chapter = this.prevChapter();

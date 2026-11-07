@@ -57,9 +57,10 @@
   }
 
   fieldset {
+    @include box-radius;
+
     flex: initial;
     border: 1px solid $c-border;
-    border-radius: $box-radius-size;
     background: $c-bg-mid;
     padding: 1em;
 
@@ -78,9 +79,8 @@
   }
 
   .setting {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    @extend %flex-center-nowrap;
+
     justify-content: space-between;
     font-size: 1.1em;
     cursor: pointer;

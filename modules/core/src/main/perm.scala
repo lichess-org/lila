@@ -1,7 +1,7 @@
 package lila.core
 package perm
 
-import lila.core.user.{ Me, User, RoleDbKey }
+import lila.core.user.{ Me, RoleDbKey, User }
 
 object Granter:
 

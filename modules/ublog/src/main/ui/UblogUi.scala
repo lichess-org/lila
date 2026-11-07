@@ -1,15 +1,16 @@
 package lila.ublog
 package ui
 
+import scalalib.model.Language
+import scalalib.paginator.Paginator
+
 import java.time.YearMonth
 import java.time.temporal.ChronoUnit.DAYS
-import scalalib.paginator.Paginator
-import scalalib.model.Language
-import lila.ui.*
-import lila.core.ublog.{ BlogsBy, QualityFilter }
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.ublog.UblogPost.PreviewPost
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
     picfitUrl: lila.memo.PicfitUrl
@@ -27,7 +28,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
-      case _ => assetUrl("images/user-blog-default.png")
+      case _ => assetFullUrl("images/user-blog-default.png")
 
   enum ShowAt:
     case top, bottom, none
@@ -45,9 +46,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )(
       span(
         cls := s"ublog-post-card__top",
-        post.image.isEmpty.option(
-          style := s"---thumb-backdrop-url:url(${assetUrl(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
-        )
+        post.image.isEmpty.option:
+          style := s"---thumb-backdrop-url:url(${assetPath(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live =>
@@ -91,7 +91,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), title).some)
       .flag(_.noRobots, !blog.crawlable):
         main(cls := "page-menu")(
           menu(Left(user.id)),
@@ -132,12 +132,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(trans.ublog.communityBlogs.txt())
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
-      .copy(
-        atomLinkTag = link(
-          href := routes.Ublog.communityAtom(languageOrAll),
-          st.title := "Lichess community blogs"
-        ).some
-      )
+      .copy(atomLink = (routes.Ublog.communityAtom(languageOrAll), "Lichess community blogs").some)
       .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
           menu(Right("community")),
@@ -164,7 +159,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             ),
             if posts.nbResults > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
+                posts.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
                 pagerNext(
                   posts,
                   p =>
@@ -198,7 +193,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             if posts.nbResults > 0 then
               val url = if blog.allows.edit then editUrlOfPost else urlOfPost
               div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, url) },
+                posts.currentPageResults.map(card(_, url)),
                 pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
               )
             else div(cls := "ublog-index__posts--empty")(trans.ublog.noDrafts())
@@ -389,7 +384,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           )(trans.ublog.community()),
           a(
             cls := isActive("by-month"),
-            href := langHref(routes.Ublog.thisMonth())
+            href := routes.Ublog.thisMonth()
           )(trans.ublog.byMonth()),
           a(cls := isActive("topics"), href := routes.Ublog.topics)(
             trans.ublog.byTopic()
@@ -452,7 +447,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             ),
             if posts.nbResults > 0 && posts.currentPageResults.size > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, showAuthor = ShowAt.top) },
+                posts.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
                 pagerNext(posts, np => route(np, filterOpt.getOrElse(QualityFilter.all), by).url)
               )
             else div(cls := "ublog-index__posts--empty")(onEmpty)
@@ -480,17 +475,17 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
       ,
       sortOpt.map: by =>
-        span(
-          "Sort",
+        span(cls := "sort")(
+          trans.search.sortBy(),
           span(cls := "btn-rack")(
-            a(btnCls(by == likes), href := route(filter, likes))("likes"),
+            a(btnCls(by == likes), href := route(filter, likes))(trans.site.like()),
             by match
               case BlogsBy.newest =>
-                a(btnCls(true, "descending"), href := route(filter, oldest))("date")
+                a(btnCls(true, "descending"), href := route(filter, oldest))(trans.search.date())
               case BlogsBy.oldest =>
-                a(btnCls(true, "ascending"), href := route(filter, newest))("date")
+                a(btnCls(true, "ascending"), href := route(filter, newest))(trans.search.date())
               case _ =>
-                a(btnCls(false, "descending"), href := route(filter, newest))("date")
+                a(btnCls(false, "descending"), href := route(filter, newest))(trans.search.date())
           )
         )
     )

@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">O que se passa?</string>
+  <string name="cheat">Batota</string>
+  <string name="troll">Troll</string>
+  <string name="reportStall">Demorar de propósito / Abandonar partidas</string>
+  <string name="reportBoost">Perder de propósito / Subir artificialmente / Combinar o resultados</string>
+  <string name="reportVerbalAbuse">Abuso verbal / Linguagem obscena / Trolling</string>
+  <string name="reportViolence">Violência / Ameaças</string>
+  <string name="reportHarass">Assédio / Bullying / Perseguição</string>
+  <string name="reportSelfHarm">Suicídio / Autolesão</string>
+  <string name="reportHate">Discurso de ódio / Sexismo</string>
+  <string name="reportSpam">Envio de spam</string>
+  <string name="readMoreAboutLichessReports">Saiba mais sobre as denúncias do Lichess</string>
+  <string name="reportMaximumCharacters">Máximo 3000 caracteres.</string>
+  <string name="reportCheatBoostHelp">Insere a ligação do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas \"fez batota\", explica como chegaste a essa conclusão.</string>
+  <string name="reportUsernameHelp">Explica porque é que este nome de utilizador é ofensivo. Não te limites a dizer «é ofensivo/inadequado», explica como chegaste a essa conclusão, sobretudo se a ofensa for obscura, estiver noutra língua, for calão ou fizer referência a algo histórico, ou cultural.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos tratar da tua denúncia mais depressa se a escreveres em inglês.</string>
+  <string name="provideOneCheatedGameLink">Fornece pelo menos uma ligação para um jogo para análise.</string>
+</resources>

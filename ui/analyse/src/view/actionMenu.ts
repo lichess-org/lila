@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
-import { cont as contRoute } from 'lib/game/router';
+import type { ContinueMode, GameData } from 'lib/game';
 import { licon } from 'lib/licon';
 import { structuredCloneLite } from 'lib/tree/ops';
 import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
@@ -8,7 +8,7 @@ import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
-import { pruneStaticAnalysis } from '@/util';
+import { pruneMainlineAnalysis } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -67,7 +67,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           const root = structuredCloneLite(ctrl.tree.root);
-          pruneStaticAnalysis(root);
+          pruneMainlineAnalysis(root);
           pgnInput.value = pgnExport.renderFullTxt(ctrl, root);
         }
       }),
@@ -87,7 +87,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
   const canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice;
-  const canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro;
+  const canRetro = !ctrl.study && !ctrl.isEmbed && !ctrl.retro && ctrl.hasFullComputerAnalysis();
   const linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools = [
@@ -136,6 +136,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           {
             hook: bind('click', () =>
               domDialog({
+                closeButton: true,
                 cash: $('.continue-with.g_' + d.game.id),
                 modal: true,
                 show: true,
@@ -147,7 +148,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.canAnalyse() &&
+      ctrl.canAnalyseMainline() &&
         hl(
           'button',
           {
@@ -218,3 +219,5 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ]);
 }
+
+const contRoute = (data: GameData, mode: ContinueMode): string => `/game/${data.game.id}/continue/${mode}`;

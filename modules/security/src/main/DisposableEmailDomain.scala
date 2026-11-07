@@ -1,9 +1,9 @@
 package lila.security
 
-import play.api.libs.ws.StandaloneWSClient
-import se.thanh.pds.bloomfilter.BloomFilter
 import org.apache.pekko.stream.scaladsl.*
+import play.api.libs.ws.StandaloneWSClient
 import scalalib.net.Domain
+import se.thanh.pds.bloomfilter.BloomFilter
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,

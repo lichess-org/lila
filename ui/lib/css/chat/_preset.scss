@@ -1,11 +1,9 @@
 .mchat {
   &__presets {
     @include prevent-select;
+    @extend %flex-center-nowrap;
 
-    display: flex;
     flex: 0 0 auto;
-    align-items: center;
-    flex-flow: row nowrap;
     line-height: 1.4em;
 
     span {

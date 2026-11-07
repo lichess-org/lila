@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="inCasualGamesOnly">Iba pri priateľských partiách</string>
   <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na dámu</string>
-  <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd a menej</string>
@@ -67,7 +66,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Naslepo</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Zobraziť vľavo na mobilných zariadeniach</string>
   <string name="inlineNotation">Vložená notácia</string>
-  <string name="showServerAnalysis">Zobraziť serverovú analýzu</string>
   <string name="showBestMoveArrows">Zobraziť šípky najlepších ťahov</string>
   <string name="showManeuverArrows">Zobraziť šípky manévrov</string>
   <string name="showGauge">Zobraziť hodnotiaci ukazovateľ</string>

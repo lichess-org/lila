@@ -1,7 +1,7 @@
 package lila.tutor
 
-import scalalib.model.Percent
 import chess.IntRating
+import scalalib.model.Percent
 
 import lila.analyse.AccuracyPercent
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }

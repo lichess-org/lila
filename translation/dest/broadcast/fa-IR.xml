@@ -16,7 +16,7 @@
   <string name="subscribedBroadcasts">پخش‌های دنبالیده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
   <string name="howToUseLichessBroadcasts">نحوه استفاده از پخش همگانی Lichess.</string>
-  <string name="theNewRoundHelp">دور جدید، همان اعضا و مشارکت‌کنندگان دور قبلی را خواهد داشت.</string>
+  <string name="theNewRoundHelp">دور جدید، همان عضوها و مشارکت‌گران دور پیشین را خواهد داشت.</string>
   <string name="addRound">اضافه کردن یک دور</string>
   <string name="ongoing">ادامه‌دار</string>
   <string name="upcoming">آینده</string>

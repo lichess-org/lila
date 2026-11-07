@@ -37,7 +37,7 @@
   <string name="celebratedPatrons">Выдающиеся спонсоры, благодаря которым существует Lichess</string>
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
   <string name="serversAndDeveloper">Прежде всего, мощные серверы.
-Также мы оплачиваем полный рабочий день разработчику: %s, основателю Lichess.</string>
+Затем мы платим разработчику, работающему полный рабочий день: %s, основателю Lichess.</string>
   <string name="costBreakdown">Посмотрите детальную калькуляцию расходов</string>
   <string name="officialNonProfit">Правда, что Lichess официально некоммерческий?</string>
   <string name="actOfCreation">Да, вот документ (на французском языке)</string>

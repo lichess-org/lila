@@ -69,9 +69,9 @@ final class PersonalDataExport(
             List(textTitle("Streamer profile")) :::
               List(
                 "name" -> s.name,
-                "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions).value),
-                "headline" -> s.headline.so(_.value),
-                "description" -> s.description.so(_.value),
+                "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions.pfp).value),
+                "headline" -> s.headline,
+                "description" -> s.description,
                 "twitch" -> s.twitch.so(_.fullUrl),
                 "youtube" -> s.youtube.so(_.fullUrl),
                 "createdAt" -> textDate(s.createdAt),
@@ -131,7 +131,7 @@ final class PersonalDataExport(
             Match("l".regexStart(s"${user.id} ", "i"))
           )
         .documentSource()
-        .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
+        .map(_.string("l").so(_.drop(user.id.value.size + 1)))
         .throttle(heavyPerSecond, 1.second)
 
     val spectatorGameChats =

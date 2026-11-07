@@ -30,6 +30,7 @@
   <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
+  <string name="containsSponsoredContent">Përmban lëndë të sponsorizuar, lidhje afiliacioni ose reklama komenrciale</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postim ngjitës</string>
   <string name="stickyPostHelp">Në iu vëntë shenjë, ky postim do të radhitet i pari te postime së fundi të profilit tuaj.</string>
   <plurals name="publishedNbBlogPosts">
@@ -54,6 +55,15 @@
   <string name="imageCredit">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
   <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
+  <string name="topicChess">Shah</string>
+  <string name="topicTactics">Taktika</string>
+  <string name="topicStrategy">Strategji</string>
+  <string name="topicChessEngine">Mekanizëm shahu</string>
+  <string name="topicChessBot">Robot shahu</string>
+  <string name="topicChessPersonalities">Personalitete shahu</string>
+  <string name="topicSoftwareDevelopment">Zhvillim Software-i</string>
+  <string name="topicOffTopic">Jashtë teme</string>
+  <string name="topicPosts">%s postime</string>
   <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>

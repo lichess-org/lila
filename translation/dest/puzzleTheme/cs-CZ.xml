@@ -23,7 +23,6 @@
   <string name="bodenMate">Bodenův mat</string>
   <string name="bodenMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi, jež je zablokován svými figurami.</string>
   <string name="castling">Rošáda</string>
-  <string name="enPassant">Braní mimochodem</string>
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="capturingDefenderDescription">Sebrání figury, která brání jinou figuru, a poté dalším tahem dobereme tuto nechráněnou figuru.</string>
@@ -54,6 +53,7 @@
   <string name="doubleCheckDescription">Šach dvěma figurami zároveň, často důsledkem odtahu. Obě figury dávají šach soupeřovu králi.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktický obrat během poslední fáze hry.</string>
+  <string name="enPassant">Braní mimochodem</string>
   <string name="enPassantAdjacentCaptureDescription">Taktický prvek obsahující braní mimochodem, kdy může pěšec vzít soupeřova pěšce, který se právě ocitl vedle něj pomocí tahu o dvě pole z počáteční pozice.</string>
   <string name="epauletteMate">Mat typu „Epaulette“</string>
   <string name="exposedKing">Ohrožený král</string>

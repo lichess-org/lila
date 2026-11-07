@@ -1,18 +1,20 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
-import play.api.libs.json.*
-import scalalib.Debouncer
-import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
+import chess.{ ByColor, Color, FideId, FideTC, IntRating, Outcome, PlayerName }
+import play.api.libs.json.*
+import scalalib.Debouncer
 
+import scala.collection.immutable.SeqMap
+
+import lila.common.Json.given
+import lila.core.fide.{ Federation, PhotosJson, Player as FidePlayer }
+import lila.memo.CacheApi
+import lila.relay.RelayGroup.ScoreGroup
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
-import lila.memo.CacheApi
-import lila.core.fide.{ PhotosJson, Federation, Player as FidePlayer }
-import lila.common.Json.given
-import lila.relay.RelayGroup.ScoreGroup
+import chess.format.pgn.Tags
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -102,6 +104,27 @@ object RelayPlayer:
       if isRated
       opRating <- opponent.rating
     yield Elo.Game(pp, opRating.into(Elo))
+  object Game:
+    def make(
+        round: RelayRound,
+        chapterId: StudyChapterId,
+        opponent: StudyPlayer.WithFed,
+        color: Color,
+        tags: Tags,
+        tourTC: Option[FideTC]
+    ): Game =
+      Game(
+        round.id,
+        chapterId,
+        opponent,
+        color,
+        tags.points,
+        round.rated,
+        round.fideTCOverride.orElse(tourTC) | (FideTC.standard),
+        round.customScoring,
+        unplayed = tags.value.has(RelayGame.unplayedTag),
+        ongoing = tags.points.isEmpty && tags.exists(_.Result)
+      )
 
   object json:
     import scalalib.Json.writeAs
@@ -169,6 +192,7 @@ private final class RelayPlayerApi(
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
+    federationsOf: lila.core.fide.Federation.FedsOf,
     photosJson: PhotosJson.Get
 )(using Federation.Guess, Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
@@ -180,7 +204,7 @@ private final class RelayPlayerApi(
     _.expireAfterWrite(1.minute).buildAsyncFuture: sg =>
       import RelayPlayer.json.given
       for players <- cache.get(sg)
-      yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
+      yield JsonStr(Json.toJson(players.values.toList))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(cache.get)
@@ -249,16 +273,11 @@ private final class RelayPlayerApi(
     for
       tours <- tourRepo.byIds(tourIds)
       toursById = tours.mapBy(_.id)
-      rounds <-
-        if RelayGroup.sgIsParallel(tours)
-        then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-        else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
+      rounds <- roundRepo.roundsOfScoreGroup(tours)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
-      allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
-      fedsById <- allFideIds
-        .traverse(id => fidePlayerGet(id).map(id -> _))
-        .map(_.flatMap((id, playerOpt) => playerOpt.flatMap(_.fed).map(id -> _)).toMap)
+      uniqueFideIds = chapters.view.values.flatMap(_.view.values.flatMap(_.fideIds.flatten)).toList.distinct
+      fedsById <- federationsOf(uniqueFideIds)
     yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
         roundsById
@@ -270,25 +289,14 @@ private final class RelayPlayerApi(
                   .fromTags(tags)
                   .flatMap:
                     _.traverse: p =>
-                      p.id.map(_ -> p.copy(fed = p.fed orElse p.fideId.flatMap(fedsById.get)))
+                      p.id.map(_ -> p.copy(fed = p.fed.orElse(p.fideId.flatMap(fedsById.get))))
                   .fold(playersAcc): gamePlayers =>
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>
                         val (_, opponent) = gamePlayers(!color)
-                        val game = RelayPlayer.Game(
-                          round.id,
-                          chapterId,
-                          opponent,
-                          color,
-                          tags.points,
-                          round.rated,
-                          round.fideTCOverride
-                            .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess))
-                            .getOrElse(FideTC.standard),
-                          round.customScoring,
-                          unplayed = tags.value.has(RelayGame.unplayedTag),
-                          ongoing = tags.points.isEmpty && tags.exists(_.Result)
-                        )
+                        val tourTC = toursById.get(round.tourId).map(_.info.fideTCOrGuess)
+                        val game =
+                          RelayPlayer.Game.make(round, chapterId, opponent, color, tags, tourTC)
                         playersAcc.updated(
                           playerId,
                           playersAcc

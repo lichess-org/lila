@@ -1,9 +1,9 @@
 package lila.fishnet
 
+import chess.eval.Eval.Cp
+import chess.eval.Score
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import chess.eval.Score
-import chess.eval.Eval.Cp
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }

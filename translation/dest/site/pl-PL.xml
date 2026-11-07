@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Ustawienia gry</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Rzuć wyzwanie znajomemu</string>
   <string name="playAgainstComputer">Zagraj z komputerem</string>
   <string name="gameMode">Tryby gry</string>
@@ -574,6 +573,7 @@ Znajomi grający: %2$s</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Wznów</string>
+  <string name="stop">Zatrzymaj</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Zwycięstw</string>
   <string name="performance">Wynik</string>
@@ -1079,6 +1079,8 @@ na ranking graczy</string>
   <string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
   <string name="noRestriction">Bez ograniczeń</string>
   <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
+  <string name="minimumAccountAge">Minimalny staż konta</string>
+  <string name="titledPlayersBypassRestriction">Nie dotyczy utytułowanych graczy.</string>
   <string name="minimumRating">Minimalny ranking</string>
   <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
   <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
@@ -1125,8 +1127,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
   <string name="instructions">Instrukcje</string>
   <string name="showMeEverything">Pokaż mi wszystko</string>
-  <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
-Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
+  <string name="lichessPatronInfo">Lichess jest organizacją charytatywną i całkowicie darmowym otwartym oprogramowaniem. Nasze koszty operacyjne, rozwój i treść zależą od darowizn użytkowników. Bez naszej szczodrej społeczności nie bylibyśmy w stanie utrzymać serwisu. Dziękujemy za dołączenie do nas!</string>
   <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
   <string name="stats">Statystyki</string>
   <string name="accessibility">Ułatwienia dostępu</string>
@@ -1137,6 +1138,7 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Szukaj</string>
   <string name="clearSearch">Wyczyść wyszukiwanie</string>
+  <string name="searchInX">Szukaj w \"%s\"</string>
   <string name="thereAreNoResultsForX">Brak wyników dla \"%s\"</string>
   <string name="tags">Tagi</string>
   <string name="enPassant">Bicie w przelocie</string>

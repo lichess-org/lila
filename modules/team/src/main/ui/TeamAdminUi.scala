@@ -9,6 +9,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.team as trt
+  import trans.teamLead as trl
   import bits.{ TeamPage, menu }
 
   def leaders(
@@ -31,8 +32,12 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
             )(
               errMsg(addLeaderForm),
               div(cls := "team-add-leader__input")(
-                st.input(name := "name", attrData("team-id") := t.id, placeholder := "Add a new leader"),
-                form3.submit("Add")
+                st.input(
+                  name := "name",
+                  attrData("team-id") := t.id,
+                  placeholder := trans.site.username.txt()
+                ),
+                form3.submit(trans.site.apply())
               )
             ),
             postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
@@ -53,8 +58,8 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                     TeamSecurity.Permission.values.toList.map: perm =>
                       tr(
                         th(
-                          strong(perm.name),
-                          p(perm.desc)
+                          strong(perm.name()),
+                          p(perm.desc())
                         ),
                         t.leaders.mapWithIndex: (l, li) =>
                           td(dataLabel := l.user):
@@ -68,7 +73,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                       )
                 )
               ,
-              p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
+              p(cls := "form-help box__pad")(trl.demoteLeaderNote()),
               form3.actions(cls := "box__pad")(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(trans.site.save())
@@ -78,19 +83,19 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
         )
 
   def kick(t: Team, form: Form[List[UserId]], blocklistForm: Form[String])(using Context) =
-    TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
+    TeamPage(s"${t.name} • ${trl.removeSomeone.txt()}")
       .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content")(
             div(cls := "box box-pad")(
-              adminTop(t, trt.kickSomeone()),
+              adminTop(t, trl.removeSomeone()),
               postForm(action := routes.Team.kick(t.id))(
-                form3.group(form("members"), frag(trt.whoToKick()))(teamMembersAutoComplete(t)),
+                form3.group(form("members"), frag(trl.whoToRemove()))(teamMembersAutoComplete(t)),
                 form3.actions(
                   a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                  form3.submit(lila.core.i18n.I18nKey.study.kick())
+                  form3.submit(trans.site.apply())
                 )
               )
             ),
@@ -118,19 +123,18 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
       t: Team,
       form: Form[?],
       links: List[(Tag, Instant, Call)],
-      unsubs: Int,
-      limiter: (Int, Instant)
+      limiter: (remaining: Int, until: Instant)
   )(using Context) =
-    TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}")
+    TeamPage(s"${t.name} • ${trl.newTeamUpdate.txt()}")
       .js(esmInitBit("pmAll"))
       .markdownTextarea:
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content box box-pad")(
-            adminTop(t, trt.newTeamUpdate()),
+            adminTop(t, trl.newTeamUpdate()),
             links.nonEmpty.option:
               div(cls := "tournaments")(
-                p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
+                p(trl.youWayWantToLinkOneOfTheseTournaments()),
                 p:
                   ul:
                     links.map: (link, startsAt, call) =>
@@ -157,32 +161,17 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 lila.ui.bits.markdownEditor(MarkdownRealm.teamUpdate):
                   form3.textarea(field)(rows := 25)
               ,
-              p(
-                pluralizeLocalize("member", unsubs),
-                " out of ",
-                t.nbMembers.localize,
-                " (",
-                f"${(unsubs * 100d) / t.nbMembers}%1.1f",
-                "%)",
-                " have unsubscribed from messages."
+              p(cls := (limiter.remaining <= 0).option("error"))(
+                trl.teamUpdatesPerWeek.rawHtml(
+                  TeamUpdateApi.credits,
+                  limiter.remaining,
+                  momentFromNowOnce(limiter.until)
+                )
               ),
-              limiter match
-                case (remaining, until) =>
-                  frag(
-                    p(cls := (remaining <= 0).option("error"))(
-                      "You can send up to ",
-                      TeamUpdateApi.credits,
-                      " team updates per week. ",
-                      strong(remaining),
-                      " updates remaining until ",
-                      momentFromNowOnce(until),
-                      "."
-                    ),
-                    form3.actions(
-                      a(href := routes.Team.show(t.slug))(trans.site.cancel()),
-                      (remaining > 0).option(form3.submit(trans.site.send()))
-                    )
-                  )
+              form3.actions(
+                a(href := routes.Team.show(t.slug))(trans.site.cancel()),
+                (limiter.remaining > 0).option(form3.submit(trans.site.send()))
+              )
             )
           )
         )

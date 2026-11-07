@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Skipulag skákar</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Skora á vin</string>
   <string name="playAgainstComputer">Tefla á móti tölvu</string>
   <string name="gameMode">Gerð</string>
@@ -962,8 +961,6 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="ourEventTips">Ráðleggingar okkar varðandi skipulagningu viðburða</string>
   <string name="instructions">Leiðbeiningar</string>
   <string name="showMeEverything">Sýndu mér allt</string>
-  <string name="lichessPatronInfo">Lichess er góðgerðarverkefni og eingöngu ókeypis og opinn hugbúnaður. 
-Allur rekstrarkostnaður, þróun og efniviður er fjármagnaður eingöngu með fjárframlögum notenda.</string>
   <string name="nothingToSeeHere">Ekkert að sjá hér í bili.</string>
   <string name="stats">Tölfræði</string>
   <string name="accessibility">Aðgengi</string>

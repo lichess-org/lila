@@ -1,8 +1,8 @@
 package lila.round
 
 import chess.{ ByColor, Color }
-
 import scalalib.data.Preload
+
 import lila.game.GameExt.withClock
 import lila.game.{ Event, Progress }
 import lila.pref.{ Pref, PrefApi }
@@ -48,7 +48,7 @@ final class Moretimer(messenger: Messenger, prefApi: PrefApi):
         c.giveTime(color, centis)
       colors.foreach: c =>
         messenger.volatile(game, s"$c + ${duration.toSeconds} seconds", reboot = reboot)
-      (game.withClock(newClock)) ++ colors.map { Event.ClockInc(_, centis, newClock) }
+      (game.withClock(newClock)) ++ colors.map(Event.ClockInc(_, centis, newClock))
 
   private def tellTheBus(game: Game): Unit =
     if lila.game.Game.isBoardCompatible(game) then

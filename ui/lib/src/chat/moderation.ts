@@ -79,7 +79,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
 
 export function flagReport(ctrl: ChatCtrl, flag: HTMLElement): void {
   const line = flag.parentNode as HTMLElement;
-  const text = flag.dataset['text'] as string;
+  const text = flag.dataset['text'];
   const userA = line.querySelector<HTMLLinkElement>('a.user-link');
   if (text && userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
 }

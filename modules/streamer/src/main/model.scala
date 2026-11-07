@@ -1,17 +1,17 @@
 package lila.streamer
 
+import cats.derived.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import cats.derived.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.model.Language
 
-import lila.core.id.ImageId
 import lila.common.Json.given
 import lila.common.String.removeMultibyteSymbols
 import lila.core.config.NetDomain
 import lila.core.i18n.toLanguage
+import lila.core.id.ImageId
 import lila.db.dsl.given
 
 trait Stream:
@@ -55,7 +55,7 @@ object Stream:
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
       .add("youtube" -> stream.streamer.youtube.map(_.fullUrl))
       .add("image" -> stream.streamer.picture.map: pic =>
-        picfit.thumbnail(pic)(Streamer.imageDimensions))
+        picfit.thumbnail(pic)(Streamer.imageDimensions.pfp))
   )
 
 case class Streamer(
@@ -100,7 +100,10 @@ object Streamer:
   given UserIdOf[Streamer] = _.id.userId
 
   val maxNameLength = 30
-  val imageDimensions = lila.memo.Dimensions.square(350)
+
+  object imageDimensions:
+    val thumbnail = lila.memo.Dimensions.square(150)
+    val pfp = lila.memo.Dimensions.square(350)
 
   def make(user: User) =
     Streamer(

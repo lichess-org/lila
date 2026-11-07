@@ -2,7 +2,7 @@ package lila.ui
 
 import java.text.NumberFormat
 
-import lila.core.i18n.{ maxLangs, Translate }
+import lila.core.i18n.{ Translate, maxLangs }
 
 object NumberHelper:
   val formatters = scalalib.ConcurrentMap[String, NumberFormat](maxLangs)

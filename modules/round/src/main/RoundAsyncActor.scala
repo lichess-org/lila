@@ -8,9 +8,9 @@ import lila.core.round.*
 import lila.core.socket.{ GetVersion, SocketSend, SocketVersion, makeMessage, userLag }
 import lila.game.GameExt.*
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
+import lila.mon.extensions.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.round.RoundGame.*
-import lila.mon.extensions.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -185,7 +185,7 @@ final private class RoundAsyncActor(
           _.so: pov =>
             if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
             else player.bot(p.uci, this)(pov)
-        .dmap(publish)
+        .map(publish)
       p.promise.foreach(_.completeWith(res))
       res
 
@@ -431,7 +431,7 @@ final private class RoundAsyncActor(
       handleAndPublish(op(pov))
 
   private def handleAndPublish(events: Fu[Events]): Funit =
-    events.dmap(publish).recover(errorHandler("handle"))
+    events.map(publish).recover(errorHandler("handle"))
 
   private def handleAi(op: Pov => Fu[Events]): Funit =
     proxy.withGame:

@@ -2,7 +2,7 @@ package lila.pool
 
 import org.apache.pekko.actor.*
 
-import lila.core.pool.{ PoolMember, PoolConfigId }
+import lila.core.pool.{ PoolConfigId, PoolMember }
 import lila.core.socket.Sris
 
 final class PoolApi(
@@ -48,4 +48,4 @@ final class PoolApi(
   def setOnlineSris(ids: Sris): Unit = actors.values.foreach(_ ! ids)
 
   private def sendTo(poolId: PoolConfigId, msg: Any) =
-    actors.get(poolId).foreach { _ ! msg }
+    actors.get(poolId).foreach(_ ! msg)

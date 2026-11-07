@@ -1,14 +1,14 @@
 package lila.tournament
 
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.core.chess.Rank
 import lila.core.user.WithPerf
 import lila.core.userId.UserSearch
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):

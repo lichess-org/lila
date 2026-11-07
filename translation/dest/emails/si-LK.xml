@@ -17,6 +17,7 @@
 
 විනෝද වන්න, ඔබේ ඉත්තෝ සෑම විටම ඔබේ ප්‍රතිවාදියාගේ රජු වෙතට යා හැකි වේවා!</string>
   <string name="logInToLichess">Lichess.org වෙත සාදරයෙන් පිළිගනිමු, %s</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(සබැඳිය ක්‍රියා නොකරන්නේ නම්, එය ඔබේ වෙබ් බ්‍රව්සරය තුළ අලවා paste කර බලන්න!)</string>
   <string name="common_note">මෙය ඔබගේ %s භාවිතය හා සම්බන්ධ සේවා විද්‍යුත් තැපෑලකි.</string>
   <string name="common_contact">අප හා සම්බන්ධ වීමට, කරුණාකර %s භාවිතා කරන්න.</string>
 </resources>

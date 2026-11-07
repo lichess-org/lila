@@ -1,8 +1,8 @@
 package lila.socket
 
-import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import com.softwaremill.macwire.*
 import io.lettuce.core.*
+import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import play.api.Configuration
 
 import lila.core.socket.{ SocketRequester as _, * }
@@ -24,4 +24,4 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
 
   val onlineIds = OnlineIds(() => remoteSocket.onlineUserIds.get)
 
-  val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
+  val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get.contains(userId))

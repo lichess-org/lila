@@ -16,7 +16,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   }
 
   def botMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me ?=>
-    WithPovAsBot(id) { impl.move(_, uci, offeringDraw) }
+    WithPovAsBot(id)(impl.move(_, uci, offeringDraw))
   }
 
   def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me ?=>
@@ -154,8 +154,8 @@ final class PlayApi(env: Env) extends LilaController(env):
     env.round.proxyRepo
       .game(id)
       .flatMap:
-        case None => NotFound(jsonError("No such game"))
-        case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
+        case None => notFoundJson("No such game")
+        case Some(game) => Pov(game, me).fold(notFoundJson("Not your game").toFuccess)(f)
 
   def botOnline = Open:
     for
@@ -165,4 +165,4 @@ final class PlayApi(env: Env) extends LilaController(env):
 
   def botOnlineApi = Anon:
     for lines <- env.bot.onlineApiUsers.getNdJson(getInt("nb") | 100)
-    yield Ok(lines).as(NDJSON)
+    yield Ok(lines).as(NDJSON).publicCache(env.bot.onlineApiUsers.cacheTtl)

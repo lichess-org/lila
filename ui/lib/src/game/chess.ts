@@ -8,7 +8,7 @@ import { shuffle } from '@/algo';
 export const fixCrazySan = (san: San): San => (san.startsWith('P') ? san.slice(1) : san);
 
 export const destsToUcis = (destMap: Dests): Uci[] =>
-  Array.from(destMap).reduce<Uci[]>((acc, [orig, dests]) => acc.concat(dests.map(dest => orig + dest)), []);
+  Array.from(destMap).flatMap(([orig, dests]) => dests.map(dest => orig + dest));
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
@@ -46,10 +46,10 @@ export function normalMove(chess: Chess, uci: Uci): { uci: Uci; move: NormalMove
   return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }
 
-export function isUci(maybeUci: string | undefined | null): maybeUci is Uci {
-  return !!parseUci(maybeUci ?? '');
+export function isUci(maybeUci: string): maybeUci is Uci {
+  return !!parseUci(maybeUci);
 }
 
-export function validUci(maybeUci: string | undefined | null): Uci | undefined {
+export function validUci(maybeUci: string): Uci | undefined {
   return isUci(maybeUci) ? maybeUci : undefined;
 }

@@ -1,8 +1,8 @@
 package views.relay
 
 import lila.app.UiEnv.{ *, given }
-import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
+import lila.relay.RelayRound.WithTourAndStudy
 
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,
@@ -19,8 +19,7 @@ def show(
     rt: WithTourAndStudy,
     data: lila.relay.RelayJsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
-    socketVersion: SocketVersion,
-    crossSiteIsolation: Boolean = true
+    socketVersion: SocketVersion
 )(using ctx: Context) =
   val chat = chatOption.map: c =>
     views.chat
@@ -37,7 +36,7 @@ def show(
         hostIds = rt.study.members.ids.toList
       ) -> views.chat.frag
   ui.show(rt, data, chat, socketVersion)
-    .csp(crossSiteIsolation.so(views.analyse.ui.bits.cspExternalEngine).compose(_.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
 
 def embed(
     rt: WithTourAndStudy,

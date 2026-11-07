@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Simvol ilə izah et</string>
   <string name="theChapterIsTooShortToBeAnalysed">Fəsil təhlil edilməsi üçün çox qısadır.</string>
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
-  <string name="getAFullComputerAnalysis">Ana variant üçün serverdən hərtərəfli kompüter təhlilini alın.</string>
   <string name="makeSureTheChapterIsComplete">Fəslin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
@@ -92,10 +91,6 @@
   <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
   <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
-    <item quantity="other">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
-  </plurals>
   <string name="urlOfTheGame">Oyun URL-i</string>
   <string name="createChapter">Fəsil yarat</string>
   <string name="createStudy">Çalışma yarat</string>
@@ -115,7 +110,6 @@
   <string name="noLetPeopleBrowseFreely">Xeyr: sərbəst gəzməyə icazə ver</string>
   <string name="pinnedStudyComment">Sancaqlanmış çalışma rəyləri</string>
   <string name="start">Başlat</string>
-  <string name="save">Saxla</string>
   <string name="clearChat">Söhbəti təmizlə</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın söhbət tarixçəsi silinsin? Bunun geri dönüşü yoxdur!</string>
   <string name="deleteStudy">Çalışmanı sil</string>

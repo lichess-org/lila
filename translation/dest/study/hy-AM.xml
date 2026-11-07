@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Ավելացնել սիմվոլներով անոտացիա</string>
   <string name="theChapterIsTooShortToBeAnalysed">Վերլուծության համար գլուխը չափազանց կարճ է։</string>
   <string name="onlyContributorsCanRequestAnalysis">Միայն ստուդիայի խմբագիրները կարող են խնդրել համակարգչային վերլուծություն։</string>
-  <string name="getAFullComputerAnalysis">Սերվերից ստանալ գլխավոր գծի ամբողջական համակարգչային վերլուծություն։</string>
   <string name="makeSureTheChapterIsComplete">Համոզվեք, որ գլուխն ավարտված է։ Համակարգչային վերլուծություն կարող եք խնդրել միայն մեկ անգամ։</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Բոլոր սինքրոնիզացված մասնակիցները մնում են նույն դիրքում</string>
   <string name="shareChanges">Փոփոխությունները տարածել հանդիսականների շրջանում և դրանք պահպանել սերվերում</string>
@@ -95,10 +94,6 @@
   <string name="loadAPositionFromFen">Բեռնել դիրքը FEN-ով</string>
   <string name="loadAGameFromPgn">Բեռնել դիրքն ըստ PGN-ի</string>
   <string name="automatic">Ինքնաբերաբար</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
-    <item quantity="other">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
-  </plurals>
   <string name="urlOfTheGame">Պարտիայի URL-ը, մեկ տողով</string>
   <string name="createChapter">Ստեղծել գլուխը</string>
   <string name="createStudy">Ստեղծել ստուդիա</string>
@@ -118,7 +113,6 @@
   <string name="noLetPeopleBrowseFreely">Ոչ. թույլատրել մասնակիցներին ազատ ուսումնասիրել բոլոր դիրքերը</string>
   <string name="pinnedStudyComment">Ստուդիայի ամրակցված մեկնաբանություն</string>
   <string name="start">Սկսել</string>
-  <string name="save">Պահպանել</string>
   <string name="clearChat">Մաքրել զրուցարանը</string>
   <string name="deleteTheStudyChatHistory">Հեռացնե՞լ ստուդիայի զրուցարանը։ Վերականգնել հնարավոր չի լինի։</string>
   <string name="deleteStudy">Հեռացնել ստուդիան</string>

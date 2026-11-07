@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.memo.CacheApi
-import lila.core.config.{ CollName, Secret, NetDomain, RateLimit }
 import lila.common.config.given
+import lila.core.config.{ CollName, NetDomain, RateLimit, Secret }
+import lila.memo.CacheApi
 
 @Module
 final class Env(

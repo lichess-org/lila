@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Mängu seadistamine</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Kutse mängule</string>
   <string name="playAgainstComputer">Mängi arvuti vastu</string>
   <string name="gameMode">Mängulaad</string>
@@ -1044,8 +1043,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
   <string name="instructions">Juhised</string>
   <string name="showMeEverything">Näita mulle kõike</string>
-  <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
-Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
   <string name="nothingToSeeHere">Siin pole hetkel midagi näha.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Ligipääsetavus</string>

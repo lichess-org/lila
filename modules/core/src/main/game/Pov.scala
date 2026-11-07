@@ -54,7 +54,7 @@ object Pov:
   def naturalOrientation(game: Game): Pov = Pov(game, game.naturalOrientation)
   def apply(game: Game, player: Player): Pov = Pov(game, player.color)
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
-    game.player(user).map { apply(game, _) }
+    game.player(user).map(apply(game, _))
 
 case class PovRef(gameId: GameId, color: Color):
   def unary_! = PovRef(gameId, !color)

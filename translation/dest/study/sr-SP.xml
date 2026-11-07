@@ -50,7 +50,6 @@
   <string name="annotateWithGlyphs">Прибележи глифовима</string>
   <string name="theChapterIsTooShortToBeAnalysed">Поглавље је прекратко да би се анализирало.</string>
   <string name="onlyContributorsCanRequestAnalysis">Само доприносиоци студије могу захтевати рачунарску анализу.</string>
-  <string name="getAFullComputerAnalysis">Добиј комплетну рачунарску анализу главне варијације од стране сервера.</string>
   <string name="makeSureTheChapterIsComplete">Побрини се да је поглавље завршено. Можеш само једном захтевати анализу.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Сви SYNC чланови остају на истој позицији</string>
   <string name="shareChanges">Дели измене са посматрачима и сачувај их на серверу</string>
@@ -95,11 +94,6 @@
   <string name="loadAPositionFromFen">Учитај позицију из FEN-а</string>
   <string name="loadAGameFromPgn">Учитај партијe из PGN-а</string>
   <string name="automatic">Аутоматска</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Налепи свој PGN текст овде, до %s партије</item>
-    <item quantity="few">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
-    <item quantity="other">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
-  </plurals>
   <string name="urlOfTheGame">Линкови партија, један по реду</string>
   <string name="createChapter">Направи поглавље</string>
   <string name="createStudy">Направи студију</string>
@@ -119,7 +113,6 @@
   <string name="noLetPeopleBrowseFreely">Не: дозволи људима да слободно прегледају</string>
   <string name="pinnedStudyComment">Закачен коментар студије</string>
   <string name="start">Започни</string>
-  <string name="save">Сачувај</string>
   <string name="clearChat">Очисти ћаскање</string>
   <string name="deleteTheStudyChatHistory">Избриши историју ћаскања студије? Нема повратка назад!</string>
   <string name="deleteStudy">Избриши студију</string>

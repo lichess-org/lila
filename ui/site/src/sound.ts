@@ -1,4 +1,4 @@
-import { defined, requestIdleCallbackSafe, memoize } from 'lib';
+import { requestIdleCallbackSafe, memoize } from 'lib';
 import { throttle } from 'lib/async';
 import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
@@ -15,7 +15,6 @@ export default new (class implements SoundI {
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
-  speechStorage = storage.boolean('speech.enabled');
   voiceStorage = storage.make('speech.voice');
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
@@ -66,7 +65,7 @@ export default new (class implements SoundI {
   resolvePath(name: Name): string | undefined {
     if (!this.enabled()) return undefined;
     let dir = this.theme;
-    if (this.theme === 'music' || this.speech()) {
+    if (this.theme === 'music' || this.isSpeech()) {
       if (['move', 'capture', 'check', 'checkmate'].includes(name)) return undefined;
       dir = 'standard';
     }
@@ -175,17 +174,14 @@ export default new (class implements SoundI {
 
   enabled = () => this.theme !== 'silent' && this.getVolume() !== 0;
 
-  speech = (v?: boolean): boolean => {
-    if (defined(v)) this.speechStorage.set(v);
-    return this.speechStorage.get();
-  };
+  isSpeech = (): boolean => this.theme === 'speech';
 
   say = (text: string, cut = false, force = false, translated = false) =>
     this.sayLazy(() => text, cut, force, translated);
 
   sayLazy = (text: () => string, cut = false, force = false, translated = false): boolean => {
     if (typeof window.speechSynthesis === 'undefined') return false;
-    if (!this.speech() && !force) return false;
+    if (!this.isSpeech() && !force) return false;
     this.nvuiReady()
       .then(() => {
         if (cut) speechSynthesis.cancel();

@@ -5,8 +5,8 @@ import alleycats.Zero
 
 import lila.core.id.*
 import lila.core.study.data.StudyName
-import lila.core.userId.*
 import lila.core.team.LightTeam.TeamName
+import lila.core.userId.*
 
 opaque type UnreadCount = Int
 object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:

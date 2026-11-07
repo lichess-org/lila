@@ -1,10 +1,7 @@
 package lila.tree
 
-import scala.util.matching.Regex
-
-import scala.annotation.tailrec
 import alleycats.Zero
-import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, Comment as CommentStr }
+import chess.format.pgn.{ Comment as CommentStr, Glyph as BaseGlyph, Glyphs as BaseGlyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Ply, Square }
@@ -13,8 +10,11 @@ import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
 import scalalib.json.Json.given
 
-import lila.tree.Node.{ Comments, Comment, Gamebook, Shapes }
+import scala.annotation.tailrec
+import scala.util.matching.Regex
+
 import lila.core.LightUser
+import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 /* The mainline is the first node. If the first node has `forceVariation` then all nodes are variations.
  * problem: we need to reorder the nodes when a variation is promoted to mainline.
@@ -244,9 +244,9 @@ case class Root(
   def lastMainlinePlyOf(path: UciPath) =
     mainline
       .zip(path.computeIds)
-      .takeWhile { (node, id) => node.id == id }
+      .takeWhile((node, id) => node.id == id)
       .lastOption
-      .fold(Ply.initial) { (node, _) => node.ply }
+      .fold(Ply.initial)((node, _) => node.ply)
 
   def mainlinePath = UciPath.fromIds(mainline.map(_.id))
 
@@ -353,7 +353,7 @@ case class Branch(
 
   def clearVariations: Branch =
     copy(
-      children = children.first.fold(Branches.empty) { child => Branches(List(child.clearVariations)) }
+      children = children.first.fold(Branches.empty)(child => Branches(List(child.clearVariations)))
     )
 
   def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))

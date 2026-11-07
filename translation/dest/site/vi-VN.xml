@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Thiết lập ván đấu</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Thách đấu một người bạn</string>
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>
@@ -20,7 +19,7 @@
   <string name="chat">Tán gẫu</string>
   <string name="resign">Đầu hàng</string>
   <string name="checkmate">Chiếu hết</string>
-  <string name="stalemate">Hết nước đi hợp lệ</string>
+  <string name="stalemate">Hết nước đi</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
@@ -160,6 +159,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="toggleLocalEngine">Bật/tắt công cụ cục bộ</string>
   <string name="engineSettings">Thiết đặt công cụ</string>
+  <string name="engine">Công cụ</string>
   <string name="enginesFromStrongestToWeakest">Các công cụ từ mạnh nhất đến yếu nhất</string>
   <string name="illegalPosition">Thế cờ không hợp lệ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
@@ -475,7 +475,7 @@ Bạn bè đang chơi: %2$s</string>
   <string name="wins">Thắng</string>
   <string name="losses">Thua</string>
   <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
-  <string name="standByX">%s chờ nhé, đang xếp cặp đấu, chuẩn bị sẵn sàng!</string>
+  <string name="standByX">Hãy sẵn sàng, đang ghép cặp đấu, chuẩn bị chiến nhé %s!</string>
   <string name="pause">Tạm rút</string>
   <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>
@@ -697,7 +697,7 @@ Bạn bè đang chơi: %2$s</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu của bạn khi đấu với mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian cộng thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
-  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
+  <string name="tournamentFAQ">Các câu hỏi hay gặp về giải Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Tỉ lệ mất tốt trung bình (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
@@ -750,7 +750,9 @@ Bạn bè đang chơi: %2$s</string>
   <string name="downloadAnnotated">Tải về kèm chú thích</string>
   <string name="downloadRaw">Tải về bản thô</string>
   <string name="downloadImported">Tải về tệp đã được nhập</string>
+  <string name="downloadMyGames">Tải về các ván đấu của tôi</string>
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
+  <string name="downloadResults">Tải xuống kết quả</string>
   <string name="crosstable">Tổng điểm đối đầu</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>
@@ -952,6 +954,8 @@ Bạn bè đang chơi: %2$s</string>
   <string name="onlyMembersOfTeam">Chỉ dành cho thành viên của đội</string>
   <string name="noRestriction">Không giới hạn</string>
   <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
+  <string name="minimumAccountAge">Tuổi tài khoản tối thiểu</string>
+  <string name="titledPlayersBypassRestriction">Những kỳ thủ có danh hiệu sẽ không bị ràng buộc bởi hạn chế này.</string>
   <string name="minimumRating">Hệ số tối thiểu</string>
   <string name="maximumWeeklyRating">Hệ số cao nhất trong tuần</string>
   <string name="positionInputHelp">Dán một FEN hợp lệ để bắt đầu tất cả ván đấu bằng một thế cờ nhất định đó.
@@ -998,8 +1002,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là phần mềm hoàn toàn miễn phí/mã nguồn mở.
-Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức từ thiện và hoàn toàn là phần mềm mã nguồn mở miễn phí. Chúng tôi phụ thuộc vào sự đóng góp của người dùng để hỗ trợ chi phí hoạt động, phát triển và nội dung. Nếu không có cộng đồng hào phóng của chúng ta, chúng tôi sẽ không thể duy trì hoạt động của trang web. Cảm ơn bạn đã tham gia cùng chúng tôi!</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
   <string name="stats">Thống kê</string>
   <string name="accessibility">Hỗ trợ tiếp cận</string>

@@ -1,9 +1,10 @@
 package lila.mon
 
-import scala.concurrent.Future
-import scala.concurrent.duration.FiniteDuration
 import kamon.metric.Timer
 import play.api.LoggerLike
+
+import scala.concurrent.Future
+import scala.concurrent.duration.FiniteDuration
 
 import lila.core.lilaism.Lilaism.*
 
@@ -121,7 +122,7 @@ object Chronometer:
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanosRel
-    FuLap(f.dmap { Lap(_, nowNanosRel - start) })
+    FuLap(f.dmap(Lap(_, nowNanosRel - start)))
 
   def lapTry[A](f: Fu[A]): FuLapTry[A] =
     val start = nowNanosRel

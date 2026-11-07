@@ -5,10 +5,8 @@ import play.api.data.Form
 
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
-import lila.ui.*
-
 import lila.report.Mod
-
+import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ModUi(helpers: Helpers):
@@ -81,7 +79,7 @@ final class ModUi(helpers: Helpers):
               logs.map: log =>
                 tr(
                   td(momentFromNow(log.date)),
-                  td(log.user.map { u => userIdLink(u.some, params = "?mod") }),
+                  td(log.user.map(u => userIdLink(u.some, params = "?mod"))),
                   td(log.showAction.capitalize),
                   td(
                     shorten(~log.details, 100),

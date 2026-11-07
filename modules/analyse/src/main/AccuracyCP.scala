@@ -6,7 +6,7 @@ import lila.tree.{ Analysis, Info }
 object AccuracyCP:
 
   def diffsList(pov: SideAndStart, analysis: Analysis): List[Option[Int]] = {
-    if pov.color == pov.startColor then Info.start(pov.startedAtPly) :: analysis.infos
+    if pov.color == pov.startColor then analysis.infosWithInitial
     else analysis.infos
   }.map(_.eval)
     .grouped(2)
@@ -18,7 +18,7 @@ object AccuracyCP:
     .toList
 
   def prevColorInfos(pov: SideAndStart, analysis: Analysis): List[Info] = {
-    if pov.color == pov.startColor then Info.start(pov.startedAtPly) :: analysis.infos
+    if pov.color == pov.startColor then analysis.infosWithInitial
     else analysis.infos
   }.zipWithIndex.collect:
     case (e, i) if (i % 2) == 0 => e

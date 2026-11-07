@@ -23,11 +23,10 @@
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
   <string name="bodenMateDescription">Hai quân Tượng tấn công trên các đường chéo chéo nhau chiếu hết quân vua bị kẹt bởi đồng đội của nó.</string>
   <string name="castling">Nhập thành</string>
-  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
-  <string name="collinearMove">Nước cờ trên cùng một đường thẳng</string>
+  <string name="collinearMove">Nước cờ cộng tuyến</string>
   <string name="collinearMoveDescription">Hai quân cờ đối diện nhau, và một quân di chuyển dọc theo đường tấn công mà không bắt được quân cờ đối phương.</string>
   <string name="cornerMate">Góc chiếu hết chết chóc</string>
   <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Dồn vua vào góc bàn cờ bằng quân xe hoặc quân hậu, rồi dùng quân mã để chiếu hết.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Chiếu bằng hai quân một lúc, là kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="enPassantAdjacentCaptureDescription">Một chiến thuật sử dụng luật bắt tốt qua đường, trong đó một quân tốt có thể bắt quân tốt đối phương vừa di chuyển đến bên cạnh nó bằng nước đi hai ô đầu tiên.</string>
   <string name="epauletteMate">Chiếu hết kiểu cầu vai</string>
   <string name="epauletteMateDescription">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
@@ -62,7 +62,7 @@
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Tấn công đôi</string>
   <string name="forkOpposingPiecesDescription">Một nước đi trong đó một quân cờ tấn công đồng thời hai hoặc nhiều quân cờ của đối thủ.</string>
-  <string name="hangingPiece">Quân treo</string>
+  <string name="hangingPiece">Quân bị treo</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
   <string name="hookMate">Chiếu hết kiểu móc</string>
   <string name="hookMateOpposingPawnDescription">Chiếu hết bằng quân xe, mã và tốt, trong đó quân tốt của đối phương cản đường thoát của vua.</string>
@@ -110,8 +110,8 @@
   <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
   <string name="operaMate">Chiếu hết kiểu Opera</string>
   <string name="operaMateDescription">Dùng quân xe chiếu vua và dùng quân tượng để bảo vệ quân xe.</string>
-  <string name="pawnEndgame">Tàn cuộc Tốt</string>
-  <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
+  <string name="pawnEndgame">Tàn cuộc tốt</string>
+  <string name="pawnEndgameDescription">Một thế cờ tàn chỉ có quân tốt.</string>
   <string name="pin">Ghim</string>
   <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không để lộ mục tiêu là quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
@@ -136,7 +136,7 @@
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
   <string name="superGM">Các ván đấu từ Siêu Đại Kiện Tướng</string>
   <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kỳ thủ giỏi nhất trên thế giới.</string>
-  <string name="trappedPiece">Quân bị bẫy</string>
+  <string name="trappedPiece">Quân bị kẹt</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
   <string name="underPromotion">Phong cấp thấp</string>
   <string name="underPromotionDescription">Phong cấp thành mã, tượng hoặc xe.</string>

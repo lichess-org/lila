@@ -36,6 +36,7 @@
   <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
   <string name="includesPromotedContent">Zawiera promowane/sponsorowane treści lub linki polecające</string>
   <string name="mandatoryForSponsoredContent">Obowiązkowe dla treści sponsorowanych, linków polecających lub komercyjnych reklam</string>
+  <string name="containsSponsoredContent">Zawiera treści sponsorowane, linki polecające lub komercyjne reklamy</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Przyklejony post</string>
   <string name="stickyPostHelp">Jeśli zaznaczone, ten post będzie wyświetlany jako pierwszy w twoim profilu.</string>
   <plurals name="publishedNbBlogPosts">
@@ -86,5 +87,7 @@
   <string name="inappropriateContentAccountClosed">Każda niestosowna rzecz może spowodować zamknięcie Twojego konta.</string>
   <string name="blogTips">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
   <string name="discussThisBlogPostInTheForum">Omów ten wpis na forum</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Opinie wypowiadane przez współtworzących Lichessa są ich opiniami.</string>
+  <string name="youMayAlsoLike">Możesz również polubić</string>
   <string name="youBlockedByBlogAuthor">Jesteś zablokowany przez autora bloga.</string>
 </resources>

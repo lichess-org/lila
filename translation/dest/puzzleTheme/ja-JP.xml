@@ -23,7 +23,6 @@
   <string name="bodenMate">ボーデンのメイト</string>
   <string name="bodenMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが交差した効き筋でメイトする形。</string>
   <string name="castling">キャスリング</string>
-  <string name="enPassant">アンパッサン</string>
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">ディスカバード・アタックによって、動いた駒とラインピースが相手のキングに同時にチェックをかける手。</string>
   <string name="endgame">エンドゲーム</string>
   <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
+  <string name="enPassant">アンパッサン</string>
   <string name="enPassantAdjacentCaptureDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
   <string name="epauletteMate">肩章（エポレット）のメイト</string>
   <string name="epauletteMateDescription">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>

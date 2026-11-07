@@ -1,17 +1,16 @@
 package lila.security
 
-import java.nio.file.Files
 import play.api.data.*
 import play.api.data.format.Formatter
 
+import java.nio.file.Files
+
 import lila.common.config.GetRelativeFile
-import lila.core.net.IpAddress
-import lila.memo.CacheApi.buildAsyncTimeout
 
 // reads and writes an nginx ip tier config file like:
 // {ip_address} {tier_number}; # {some comment including contact info}
 // 1.1.1.1 2; # contact info
-final class IpTiers(getFile: GetRelativeFile, cacheApi: lila.memo.CacheApi)(using Executor, Scheduler):
+final class IpTiers(getFile: GetRelativeFile)(using Executor):
 
   private val filePath = "data/ip-tiers.txt"
   private def fullPath = getFile.exec(filePath).toPath
@@ -31,20 +30,6 @@ final class IpTiers(getFile: GetRelativeFile, cacheApi: lila.memo.CacheApi)(usin
 
   def writeToFile(newLines: List[Line]): Funit = Future:
     Files.writeString(fullPath, newLines.mkString("\n"))
-
-  object trustedIp:
-    def is(ip: IpAddress): Boolean = cache.get(()).value match
-      case Some(util.Success(ips)) => ips.contains(ip)
-      case _ => false
-    private val cache = cacheApi.unit[Set[IpAddress]]("security.trustedIp"):
-      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
-        readFromFile.map: res =>
-          for
-            lines <- res.toOption.toSet
-            line <- lines
-            if line.tier > 1
-            ip <- IpAddress.from(line.ip)
-          yield ip
 
   private object parse:
     val regex = """([\w\.:/]+) +(\d+); *#(.+)""".r

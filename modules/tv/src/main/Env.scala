@@ -1,7 +1,7 @@
 package lila.tv
 
-import org.apache.pekko.actor.{ ActorRef, ActorSystem, Props }
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.{ ActorRef, ActorSystem, Props }
 
 import lila.tv.Tv.Channel
 

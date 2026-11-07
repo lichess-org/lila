@@ -33,8 +33,6 @@
   <string name="weAreSmallTeam">हमारी एक छोटी टीम हैं, इसलिए आपका समर्थन हमारे लिए बहुत बड़ी बात है!</string>
   <string name="celebratedPatrons">प्रसिद्ध संरक्षक जो लिचेस को संभव बनाते हैं</string>
   <string name="whereMoneyGoes">पैसा कहां जाता है?</string>
-  <string name="serversAndDeveloper">सबसे पहले, शक्तिशाली सर्वर।
-फिर हम एक पूर्णकालिक डेवलपर का भुगतान करते हैं: लिचेस के संस्थापक,%s।</string>
   <string name="costBreakdown">विस्तृत लागत ब्रेकडाउन देखें</string>
   <string name="officialNonProfit">Lichess एक आधिकारिक गैर-लाभकारी है?</string>
   <string name="actOfCreation">हाँ, यहाँ निगमन प्रमाणपत्र है (फ्रेंच में)</string>

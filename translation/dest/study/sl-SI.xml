@@ -43,6 +43,7 @@
   <string name="spectator">Opazovalec</string>
   <string name="contributor">Sodelovalec</string>
   <string name="kick">Odstrani</string>
+  <string name="remove">Odstrani</string>
   <string name="leaveTheStudy">Zapusti študijo</string>
   <string name="youAreNowAContributor">Ste nov sodelovalec</string>
   <string name="youAreNowASpectator">Sedaj ste opazovalec</string>
@@ -54,7 +55,6 @@
   <string name="annotateWithGlyphs">Označi s simbolom</string>
   <string name="theChapterIsTooShortToBeAnalysed">To poglavje je prekratko, da bi se analiziralo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Samo sodelovalci v študiji lahko zahtevajo računalniško analizo.</string>
-  <string name="getAFullComputerAnalysis">Pridobi na računalniškem strežniku izvedeno računalniško analizo glavne varjante.</string>
   <string name="makeSureTheChapterIsComplete">Poskrbite, da bo poglavje zaključeno. Analizo lahko zahtevate samo enkrat.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Vsi sinhronizirani člani so v isti poziciji</string>
   <string name="shareChanges">Deli spremembe z gledalci in jih shrani na strežnik</string>
@@ -107,10 +107,10 @@
   <string name="loadAGameFromPgn">Naloži partijo iz PGN</string>
   <string name="automatic">Samodejno</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Prilepite PGN besedilo, z največ %s partijo</item>
-    <item quantity="two">Prilepite PGN besedilo, z največ %s partijama</item>
-    <item quantity="few">Prilepite PGN besedilo, z največ %s partijami</item>
-    <item quantity="other">Prilepite PGN besedilo, z največ %s partijami</item>
+    <item quantity="one">Prilepite PGN besedilo, z največ %s partijo.</item>
+    <item quantity="two">Prilepite PGN besedilo, z največ %s partijama.</item>
+    <item quantity="few">Prilepite PGN besedilo, z največ %s partijami.</item>
+    <item quantity="other">Prilepite PGN besedilo, z največ %s partijami.</item>
   </plurals>
   <string name="urlOfTheGame">URL igre</string>
   <string name="createChapter">Ustvari poglavje</string>
@@ -131,7 +131,6 @@
   <string name="noLetPeopleBrowseFreely">Ne: naj uporabniki prosto raziskujejo</string>
   <string name="pinnedStudyComment">Označen komentar študije</string>
   <string name="start">Začni</string>
-  <string name="save">Shrani</string>
   <string name="clearChat">Počisti klepet</string>
   <string name="deleteTheStudyChatHistory">Brisanje zgodovine klepeta? Poti nazaj več ni!</string>
   <string name="deleteStudy">Izbriši študijo</string>
@@ -207,4 +206,11 @@
   <string name="doubleDefeat">Dvojni poraz</string>
   <string name="blackDefeatWhiteCanNotWin">Črni poraz, beli pa ne more zmagati</string>
   <string name="whiteDefeatBlackCanNotWin">Beli poraz, a črni ne more zmagati</string>
+  <string name="analysisEditor">Urednik analiz</string>
+  <string name="clearLocal">Jasna lokalna analiza?</string>
+  <string name="clearPublished">Jasna lokalna analiza?</string>
+  <string name="requestAServerAnalysis">Zahtevajte analizo strežnika</string>
+  <string name="analyzeOnYourDevice">Analizirajte v svoji napravi</string>
+  <string name="searchChapters">Iskanje poglavij</string>
+  <string name="searchGames">Iskanje iger</string>
 </resources>

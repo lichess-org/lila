@@ -1,13 +1,14 @@
 package lila.forum
 
+import cats.data.OptionT
+
 import lila.common.Bus
+import lila.core.chat.PublicSource
 import lila.core.forum.{ ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
 import lila.core.shutup.ShutupApi
-import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.db.dsl.{ *, given }
-import cats.data.OptionT
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -163,14 +164,14 @@ final class ForumPostApi(
       posts <- postRepo.miniByIds(postIds)
       topics <- topicRepo.coll.byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
     yield posts.flatMap: post =>
-      topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
+      topics.find(_.id == post.topicId).map(ForumPostMiniView(post, _))
 
   def toMiniViews(posts: List[ForumPostMini]): Fu[List[ForumPostMiniView]] = posts.nonEmpty.so:
     topicRepo
       .byIds(posts.map(_.topicId))
       .map: topics =>
         posts.flatMap: post =>
-          topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
+          topics.find(_.id == post.topicId).map(ForumPostMiniView(post, _))
 
   def toMiniView(post: ForumPost): Fu[Option[ForumPostMiniView]] =
     toMiniViews(List(post.mini)).dmap(_.headOption)

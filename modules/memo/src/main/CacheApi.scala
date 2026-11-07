@@ -1,8 +1,9 @@
 package lila.memo
 
+import alleycats.Zero
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
-import alleycats.Zero
+
 import scala.collection.mutable.WeakHashMap
 
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):

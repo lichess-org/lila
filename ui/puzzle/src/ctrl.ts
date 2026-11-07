@@ -10,7 +10,7 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
+import { prop, type Prop, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -63,7 +63,6 @@ export default class PuzzleCtrl implements CevalHandler {
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
-  keyboardHelp: Prop<boolean>;
   cgConfig?: CgConfig;
   path: TreePath;
   node: TreeNode;
@@ -146,7 +145,6 @@ export default class PuzzleCtrl implements CevalHandler {
       onUciHover: this.setAutoShapes,
     });
 
-    this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
     this.report = new Report();
 
@@ -420,7 +418,7 @@ export default class PuzzleCtrl implements CevalHandler {
     else setTimeout(this.instantRevertUserMove, 300);
   };
 
-  applyProgress = (progress: undefined | 'fail' | 'win' | MoveTest): void => {
+  applyProgress = (progress: 'fail' | 'win' | MoveTest): void => {
     if (progress === 'fail') {
       this.lastFeedback = 'fail';
       this.revertUserMove();
@@ -443,7 +441,7 @@ export default class PuzzleCtrl implements CevalHandler {
         this.withGround(this.showGround);
         sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCevalIfEnabled()));
       }
-    } else if (progress) {
+    } else {
       this.lastFeedback = 'good';
       setTimeout(
         () => {
@@ -552,7 +550,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   private readonly doStartCeval = throttle(800, () => {
     this.ceval.reset();
-    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
+    this.ceval.start(this.path, this.nodeList, this.threatMode(), this.data.puzzle.id);
   });
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);

@@ -119,5 +119,10 @@ Jen la ligo por aliri la klason.</string>
   <string name="moveToClass">Movi al %s</string>
   <string name="moveToAnotherClass">Movi al alia klaso</string>
   <string name="allowMessagingBetweenStudents">Permesi mesaĝojn inter studentoj</string>
+  <string name="allowMessagingBetweenStudentsDesc">Ĉi tio aplikas nur al kontoj, kiujn vi kreis por viaj studantoj.</string>
+  <string name="quickLoginCode">Kodo por rapida saluto</string>
+  <string name="quickLoginCodes">Kodoj por rapida saluto</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Uzu ĉi tiujn kodojn sur %s, por ke viaj studantoj povan ensaluti sur Lichess.</string>
+  <string name="quickLoginCodesDesc2">Post posttempiĝo de la kodoj, viaj studantoj restos salutitaj, ĝis ili permane elsalutas.</string>
   <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Senvalidiĝo: %s</string>
 </resources>

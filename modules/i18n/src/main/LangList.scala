@@ -1,9 +1,11 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import scalalib.model.{ Language, LangTag }
+import scalalib.model.{ LangTag, Language }
+
 import scala.collection.immutable.SeqMap
-import lila.core.i18n.{ toLanguage, fixJavaLanguage }
+
+import lila.core.i18n.{ fixJavaLanguage, toLanguage }
 
 object LangList extends lila.core.i18n.LangList:
 
@@ -51,7 +53,7 @@ object LangList extends lila.core.i18n.LangList:
     Lang("nl", "NL") -> "Nederlands",
     Lang("nb", "NO") -> "Norsk bokmål",
     Lang("nn", "NO") -> "Norsk nynorsk",
-    Lang("uz", "UZ") -> "Oʻzbekcha",
+    Lang("uz", "UZ") -> "Özbekça",
     Lang("pl", "PL") -> "Polski",
     Lang("pt", "PT") -> "Português",
     Lang("pt", "BR") -> "Português (BR)",

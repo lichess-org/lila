@@ -12,12 +12,13 @@ import lila.core.id.SessionId
 import lila.core.net.Origin
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
+import lila.core.id.SessionId
+import lila.core.misc.AuthCustomUi
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
-import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
+import lila.security.{ EmailConfirm, FingerPrint, IsPwned, Signup }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
@@ -104,7 +105,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val isRemember = api.rememberForm.bindFromRequest().value | true
-        val isLichobile = HTTPRequest.isLichobile(ctx.req)
+        val isLichobile = HTTPRequest.isLichobile
         if isLichobile && !env.security.lichobileLogin.get() then
           BadRequest(Json.obj("global" -> List("Please use our new mobile app! lichess.org/app")))
         else
@@ -125,15 +126,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                       .isPwned(loginData.password)
                       .flatMap: pwned =>
                         if pwned.yes then chargeLimiters()
-                        val isEmail = EmailAddress.isValid(loginData.username.value)
                         api.loadLoginForm(loginData.username, pwned).flatMap {
                           _.bindFromRequest()
                             .fold(
                               err =>
                                 chargeLimiters()
-                                lila.mon.security.login
-                                  .attempt(isEmail, pwned = pwned.yes, result = false)
-                                  .increment()
                                 negotiate(
                                   lila.security.LoginCandidate.totpError(err) match
                                     case None =>
@@ -163,9 +160,6 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                     Unauthorized(jsonError("This account is closed."))
                                   )
                                 case Some(u) =>
-                                  lila.mon.security.login
-                                    .attempt(isEmail, pwned = pwned.yes, result = true)
-                                    .increment()
                                   t3Counter(_.login.success)
                                   env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
                                   val ref = referrerOr(routes.Lobby.home)
@@ -244,7 +238,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     NoTor:
       Firewall:
         WithProxy: _ ?=>
-          if HTTPRequest.isLichobile(ctx.req)
+          if HTTPRequest.isLichobile
           then
             BadRequest:
               jsonError:
@@ -392,7 +386,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       views.auth.passwordReset(form | env.security.forms.passwordReset, fail)
 
   def passwordReset = Open:
-    renderPasswordReset(none, fail = none).map { Ok(_) }
+    renderPasswordReset(none, fail = none).map(Ok(_))
 
   def passwordResetApply =
     OpenBody:
@@ -404,7 +398,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             forms.passwordReset
               .bindFromRequest()
               .fold(
-                err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
+                err => renderPasswordReset(err.some, fail = "".some).map(BadRequest(_)),
                 data =>
                   env.security.passwordReset
                     .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
@@ -506,10 +500,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     else
       Firewall:
         consumingToken(token): user =>
-          Ok.async:
-            env.security.loginToken.magicLink
-              .generate(user)
-              .map(views.auth.tokenLoginConfirmation(user, _))
+          Ok.page(views.auth.tokenLoginConfirmation(user, token))
 
   def loginWithTokenPost(token: String) =
     Open:
@@ -623,8 +614,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
-    if me.isnt(UserId.t3) then notFound
-    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
+    me.is(UserId.t3)
+      .so(bindForm(env.security.forms.signup.emailCheck)(jsonFormError, Ok(_)))
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
@@ -658,7 +649,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def passwordCost(req: RequestHeader): Fu[Float] =
     env.security.ipTrust
-      .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 2))
+      .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.ipTier(req).yes then 1 else 2))
 
   private[controllers] def EmailConfirmRateLimit = EmailConfirm.rateLimit[Result]
 

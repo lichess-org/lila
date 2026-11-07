@@ -1,9 +1,9 @@
 package lila.swiss
 package ui
 
+import lila.common.ClientName
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   import helpers.{ *, given }
@@ -53,7 +53,8 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       )
     )
 
-  def teamSwissRow(s: Swiss)(using Translate) =
+  def teamSwissRow(showTeam: Boolean)(s: Swiss)(using Translate) =
+    val when = if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
     tr(
       cls := List(
         "enterable" -> s.isNotFinished,
@@ -77,8 +78,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       ),
       td(cls := "infos")(
         trans.swiss.xRoundsSwiss.plural(s.settings.nbRounds, s.settings.nbRounds.localize),
-        br,
-        if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
+        if showTeam then frag(" ", when, br, teamLink(s.teamId)) else frag(br, when)
       ),
-      td(cls := "text", dataIcon := Icon.User)(s.nbPlayers.localize)
+      td(cls := "players text", dataIcon := Icon.User)(s.nbPlayers.localize)
     )

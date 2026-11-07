@@ -1,6 +1,7 @@
 package lila.pref
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.ublog.QualityFilter
 
 case class Pref(
@@ -143,7 +144,7 @@ case class Pref(
 
 object Pref:
 
-  val defaultBgImgUrl = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultBgImgUrl = "//lichess.org/assets/images/background/landscape.jpg"
   val defaultBgOpacity = 50
 
   case class BoardPref(

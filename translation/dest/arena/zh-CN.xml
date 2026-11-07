@@ -48,6 +48,8 @@
     <item quantity="other">查看全部 %s 支团队</item>
   </plurals>
   <string name="newTeamBattle">新建团队战</string>
+  <string name="startDate">开始日期</string>
+  <string name="entryConditions">参赛条件</string>
   <string name="customStartDate">自定义开始日期</string>
   <string name="customStartDateHelp">使用您自己的本地时区。这将覆盖“锦标赛开始前等待时间”设置</string>
   <string name="allowBerserk">允许狂暴模式</string>
@@ -87,4 +89,6 @@
   <string name="tournamentPairingsAreNowClosed">锦标赛配对现已关闭。</string>
   <string name="berserkRate">狂暴率</string>
   <string name="leaguesAndStreamerBattles">联赛和主播对战</string>
+  <string name="allowBotAccounts">允许机器人账户</string>
+  <string name="allowBotAccountsDescription">允许&lt;a href=\'%s\' target=\'_blank\'&gt;机器人&lt;/a&gt;加入锦标赛并使用其引擎对弈。这通常会劝退人类棋手。</string>
 </resources>

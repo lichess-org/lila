@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Параметры гульні</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Запрасіць сябра</string>
   <string name="playAgainstComputer">Гуляць з камп\'ютарам</string>
   <string name="gameMode">Рэжым гульні</string>
@@ -1006,8 +1005,6 @@
   <string name="ourEventTips">Нашы парады па арганізацыі падзей</string>
   <string name="instructions">Інструкцыі</string>
   <string name="showMeEverything">Паказаць усё</string>
-  <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
-Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
   <string name="stats">Статыстыка</string>
   <string name="accessibility">Спецыяльныя магчымасці</string>
   <string name="enableBlindMode">Уключыць рэжым для сляпых</string>

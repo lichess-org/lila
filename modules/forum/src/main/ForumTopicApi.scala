@@ -4,13 +4,13 @@ import scalalib.paginator.*
 
 import lila.common.Bus
 import lila.common.String.noShouting
+import lila.core.chat.PublicSource
 import lila.core.config.NetDomain
 import lila.core.forum.BusForum.CreatePost
+import lila.core.id.ForumTopicSlug
 import lila.core.perm.Granter as MasterGranter
 import lila.core.shutup.ShutupApi
-import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
@@ -73,7 +73,7 @@ final private class ForumTopicApi(
       val key = (uid, topic.name)
       cache
         .getIfPresent(key)
-        .so { topicRepo.coll.byId[ForumTopic](_) }
+        .so(topicRepo.coll.byId[ForumTopic](_))
         .orElse:
           cache.put(key, topic.id)
           fuccess(none)

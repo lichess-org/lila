@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Partioppsett</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utfordre ein ven</string>
   <string name="playAgainstComputer">Spel mot datamaskin</string>
   <string name="gameMode">Spelmodus</string>
@@ -165,6 +164,7 @@
   <string name="flipBoard">Snu brettet</string>
   <string name="toggleLocalEngine">Aktiver/deaktiver lokal sjakkmotor</string>
   <string name="engineSettings">Innstillingar for sjakkmotor</string>
+  <string name="engine">Sjakkmotor</string>
   <string name="enginesFromStrongestToWeakest">Sjakkmotorar frå sterkast til svakast</string>
   <string name="illegalPosition">Ulovleg stilling</string>
   <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
@@ -509,6 +509,7 @@ Vener som spelar: %2$s</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
   <string name="resume">Fortsett</string>
+  <string name="stop">Stopp</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="performance">Prestasjon</string>
@@ -996,6 +997,8 @@ og påverkar rangeringa til spelarane</string>
   <string name="onlyMembersOfTeam">Berre medlemar av laget</string>
   <string name="noRestriction">Inga avgrensingar</string>
   <string name="minimumRatedGames">Minste antal rangerte parti</string>
+  <string name="minimumAccountAge">Minstealder konto</string>
+  <string name="titledPlayersBypassRestriction">Tittelinnehavarar omgår begrensninga.</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
   <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
@@ -1042,8 +1045,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="ourEventTips">Tips for å organisere arrangement</string>
   <string name="instructions">Instruksjonar</string>
   <string name="showMeEverything">Vis alt</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
-Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
+  <string name="lichessPatronInfo">Lichess er en velgjerdsorganisasjon som tilbyr heilt fri tilgang til open kjeldekode programvare. Vi er avhengige av brukerdonasjonar for å støtta driftskostnadar, utvikling og innhald. Uten våre generøse bidragsytarar ville vi ikkje vore i stand til å drifta nettstaden. Takk for at du vart med i oss!</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
   <string name="stats">Statistikk</string>
   <string name="accessibility">Tilgjengelegheit</string>
@@ -1054,6 +1056,7 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
+  <string name="searchInX">Søk i \"%s\"</string>
   <string name="thereAreNoResultsForX">Inga resultat for \"%s\"</string>
   <string name="tags">Etikettar</string>
   <string name="enPassant">En passant</string>

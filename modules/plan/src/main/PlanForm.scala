@@ -3,7 +3,7 @@ package lila.plan
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ numberIn, into }
+import lila.common.Form.{ into, numberIn }
 import lila.core.plan.PatronColor
 
 object PlanForm:
@@ -42,7 +42,7 @@ object PlanForm:
       countryCode: Option[String]
   ):
 
-    def name = (firstName, lastName).mapN { _ + " " + _ }
+    def name = (firstName, lastName).mapN(_ + " " + _)
 
     def country = Country.from(countryCode)
 

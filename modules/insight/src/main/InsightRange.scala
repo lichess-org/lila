@@ -1,8 +1,8 @@
 package lila.insight
 
 import chess.IntRating
-import chess.rating.IntRatingDiff
 import chess.eval.WinPercent
+import chess.rating.IntRatingDiff
 
 import lila.analyse.AccuracyPercent
 

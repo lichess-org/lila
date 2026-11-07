@@ -1,9 +1,10 @@
 package lila.event
 import scalalib.model.Language
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
 import scalalib.paginator.Paginator
+
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
+import lila.memo.CacheApi.*
 
 final class EventApi(
     coll: Coll,

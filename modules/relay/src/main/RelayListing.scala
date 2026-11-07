@@ -1,10 +1,11 @@
 package lila.relay
 
 import monocle.syntax.all.*
+
 import java.time.temporal.ChronoUnit
 
-import lila.memo.CacheApi.buildAsyncTimeout
 import lila.db.dsl.*
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.mon.extensions.*
 
 private final class RelayListing(
@@ -17,7 +18,7 @@ private final class RelayListing(
 
   import RelayTour.tierPriority
 
-  def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
+  def active: Fu[List[RelayCard]] = activeCache.get {}.recoverDefault
 
   def activeTours: Fu[List[RelayTour.WithRounds]] = toursWithRounds
 

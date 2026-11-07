@@ -9,8 +9,8 @@ import play.api.libs.ws.StandaloneWSClient
 import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
-import lila.mon.extensions.*
 import lila.memo.SettingStore
+import lila.mon.extensions.*
 
 final private class FishnetOpeningBook(
     ws: StandaloneWSClient,

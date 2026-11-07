@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Impostazioni partita</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Lancia una sfida</string>
   <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
@@ -1010,8 +1009,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
   <string name="instructions">Istruzioni</string>
   <string name="showMeEverything">Mostra tutto</string>
-  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
-Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
   <string name="stats">Statistiche</string>
   <string name="accessibility">Accessibilità</string>

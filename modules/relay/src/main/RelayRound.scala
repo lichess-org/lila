@@ -1,15 +1,16 @@
 package lila.relay
 
-import java.time.temporal.ChronoUnit
+import chess.{ ByColor, Rated }
+import io.mola.galimatias.{ Host, URL }
 import play.api.mvc.Call
-import io.mola.galimatias.{ URL, Host }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
-import chess.{ Rated, ByColor }
 
-import lila.study.Study
+import java.time.temporal.ChronoUnit
+
 import lila.core.i18n.Translate
+import lila.study.Study
 
 case class RelayRound(
     /* Same as the Study id it refers to */

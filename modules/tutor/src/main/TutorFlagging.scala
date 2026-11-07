@@ -3,8 +3,8 @@ package lila.tutor
 import alleycats.Zero
 
 import lila.insight.*
-import lila.rating.PerfType
 import lila.mon.extensions.*
+import lila.rating.PerfType
 
 private case class TutorFlagging(
     win: TutorBothOption[GoodPercent],

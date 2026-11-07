@@ -6,8 +6,8 @@ import scalalib.model.Seconds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.study.MultiPgn
 import lila.relay.RelayRound.Sync.Upstream
+import lila.study.MultiPgn
 
 final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Executor):
 

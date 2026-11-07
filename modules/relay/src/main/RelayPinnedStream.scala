@@ -1,7 +1,9 @@
 package lila.relay
 
 import io.mola.galimatias.URL
+
 import scala.jdk.CollectionConverters.*
+
 import lila.core.config.NetDomain
 
 case class RelayPinnedStream(name: String, url: URL, text: Option[String]):

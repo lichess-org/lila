@@ -16,6 +16,7 @@ patchedDependencies:
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
   - pnpm
+  - '@pobammer-ts/small-rules@3.6.0'
 ignoredOptionalDependencies:
   - '*arm-*'
   - '*ia32-*'

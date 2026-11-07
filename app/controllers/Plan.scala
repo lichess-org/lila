@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
 import lila.plan.{
   CustomerInfo,
   Freq,
@@ -16,7 +17,6 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
-import lila.common.HTTPRequest
 
 final class Plan(env: Env) extends LilaController(env):
 
@@ -56,7 +56,7 @@ final class Plan(env: Env) extends LilaController(env):
   private def indexAnon(using Context) = renderIndex(email = none, patron = none)
 
   private def indexFreeUser(using ctx: Context, me: Me) =
-    env.user.repo.email(me).flatMap { renderIndex(_, patron = none) }
+    env.user.repo.email(me).flatMap(renderIndex(_, patron = none))
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
       Context
@@ -90,7 +90,7 @@ final class Plan(env: Env) extends LilaController(env):
         Ok.page(views.plan.indexStripe(me, info, env.plan.stripePublicKey, pricing, gifts))
           .map(_.withHeaders(crossOriginPolicy.unsafe*))
       case Some(CustomerInfo.OneTime(cus)) =>
-        renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
+        renderIndex(cus.email.map(EmailAddress(_)), patron.some)
       case None =>
         env.user.repo
           .email(me)
@@ -100,7 +100,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   private def indexPayPalPatron(sub: PayPalSubscription)(using ctx: Context, me: Me) =
     Ok.async:
-      env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, sub, _) }
+      env.plan.api.giftsFrom(me).map(views.plan.indexPayPal(me, sub, _))
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)
 
@@ -118,9 +118,8 @@ final class Plan(env: Env) extends LilaController(env):
     yield Redirect(routes.Plan.index())
   }
 
-  private def myCurrency(using ctx: Context) =
-    def ipCountry = env.security.geoIP(ctx.ip).flatMap(_.countryCode)
-    env.plan.currencyApi.guessCurrency(get("currency"), ipCountry)
+  private def myCurrency(using Context) =
+    env.plan.currencyApi.guessCurrency(get("currency"))
 
   def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
@@ -130,9 +129,9 @@ final class Plan(env: Env) extends LilaController(env):
     // wait for the payment data from stripe or paypal
     lila.common.LilaFuture.delay(2.seconds):
       for
-        patron <- ctx.me.so { env.plan.api.userPatron(_) }
+        patron <- ctx.me.so(env.plan.api.userPatron(_))
         customer <- patron.so(env.plan.api.stripe.patronCustomer)
-        gift <- ctx.me.so { env.plan.api.recentGiftFrom(_) }
+        gift <- ctx.me.so(env.plan.api.recentGiftFrom(_))
         page <- renderPage(views.planPages.thanks(patron, customer, gift))
       yield Ok(page)
   }
@@ -166,7 +165,7 @@ final class Plan(env: Env) extends LilaController(env):
   )(using Context, Me) =
     env.plan.api.stripe
       .createSession(checkout, customerId, giftTo)
-      .fold(badStripeApiCall, JsonOk)
+      .fold(badStripeApiCall, Ok(_))
 
   def switchStripePlan(money: Money)(using me: Me) =
     env.plan.api
@@ -228,7 +227,7 @@ final class Plan(env: Env) extends LilaController(env):
                     routeUrl(routes.Plan.updatePaymentCallback).map(_ + "?session={CHECKOUT_SESSION_ID}")
                 )
               )
-              .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
+              .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))))
               .recover(badStripeApiCall)
           }
   }
@@ -259,13 +258,13 @@ final class Plan(env: Env) extends LilaController(env):
               env.plan.api.payPal
                 .createSubscription(checkout, me)
                 .map: sub =>
-                  JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+                  Ok(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
             else
               for
                 gifted <- checkout.giftTo.filterNot(ctx.is(_)).so(env.user.repo.enabledById)
                 // customer <- env.plan.api.userCustomer(me)
                 order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
-              yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+              yield Ok(Json.obj("order" -> Json.obj("id" -> order.id.value)))
         )
       }
   }

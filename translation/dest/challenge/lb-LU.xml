@@ -10,7 +10,7 @@
   <string name="xDoesNotAcceptChallenges">%s akzeptéiert keng Erausfuerderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deng %1$s Wäertung ass ze wäit vum %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Kann net erausfuerderen wéinst provisorescher %s Wäertung.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptéiert just Erausfuerderungen vun Frënn.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">De Spiller %s akzeptéiert just Erausfuerderungen vun Kolleegen.</string>
   <string name="declineGeneric">Ech akzeptéieren am Moment keng Erausfuerderungen.</string>
   <string name="declineLater">Ech hu grad keng Zäit, probéier wgl. méi spéit nach eng Kéier.</string>
   <string name="declineTooFast">Déi Kadenz ass mer ze séier, fuerder mech wgl. zu enger méi lueser Partie eraus.</string>

@@ -4,8 +4,9 @@ import chess.format.pgn.PgnStr
 import play.api.http.*
 import play.api.mvc.Codec
 
-import lila.ui.{ Page, RenderedPage, Snippet }
 import scala.annotation.nowarn
+
+import lila.ui.{ Page, RenderedPage, Snippet }
 
 trait ResponseWriter extends ContentTypes:
 

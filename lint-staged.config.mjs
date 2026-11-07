@@ -8,6 +8,7 @@
 const args = files => files.map(f => `'${f.replaceAll("'", "'\\''")}'`).join(' ');
 
 export default {
+  'translation/source/*.xml': files => `./bin/trans-lint ${args(files)}`,
   '*.{json,ts,mts,js,mjs,scss}': files => {
     const code = files.filter(f => /\.(?:ts|mts|js|mjs)$/.test(f));
     const scss = files.filter(f => f.endsWith('.scss'));

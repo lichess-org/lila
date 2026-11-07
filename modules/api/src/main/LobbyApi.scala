@@ -5,8 +5,8 @@ import play.api.libs.json.{ JsObject, Json, Writes }
 import lila.common.Json.given
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.lobby.LobbySocket
-import lila.rating.UserPerfsExt.perfsList
 import lila.mon.extensions.*
+import lila.rating.UserPerfsExt.perfsList
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,

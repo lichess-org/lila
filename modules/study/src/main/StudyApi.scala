@@ -1,21 +1,21 @@
 package lila.study
 
-import org.apache.pekko.stream.scaladsl.*
+import alleycats.Zero
 import cats.mtl.Handle.*
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
+import chess.format.pgn.{ Comment as CommentStr, Glyph, Tags }
 import monocle.syntax.all.*
-import alleycats.Zero
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.common.Bus
+import lila.core.data.ErrorMsg
 import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.core.data.ErrorMsg
+import lila.study.Node.extensions.*
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.study.Node.extensions.*
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -46,7 +46,7 @@ final class StudyApi(
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
 
-  def publicByIds(ids: Seq[StudyId]) = byIds(ids).map { _.filter(_.isPublic) }
+  def publicByIds(ids: Seq[StudyId]) = byIds(ids).map(_.filter(_.isPublic))
 
   def byIdAndOwner(id: StudyId, owner: User) =
     byId(id).map:
@@ -86,7 +86,7 @@ final class StudyApi(
 
   def byChapterId(chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     chapterRepo.byId(chapterId).flatMapz { chapter =>
-      studyRepo.byId(chapter.studyId).mapz { Study.WithChapter(_, chapter).some }
+      studyRepo.byId(chapter.studyId).mapz(Study.WithChapter(_, chapter).some)
     }
 
   private[study] def byIdWithLastChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
@@ -202,7 +202,7 @@ final class StudyApi(
       .map(_.cloneFor(study1))
       .mapAsync(1): c =>
         chapterRepo.insert(c).inject(c)
-      .runWith(Sink.reduce[Chapter] { (prev, _) => prev })
+      .runWith(Sink.reduce[Chapter]((prev, _) => prev))
       .flatMap: first =>
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
@@ -263,7 +263,7 @@ final class StudyApi(
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           doAddNode(args, study, Position(chapter, positionRef.path))
-    .flatMapz { _() }
+    .flatMapz(_())
 
   private def doAddNode(args: AddNode, study: Study, position: Position): Fu[Option[() => Funit]] =
     import args.{ *, given }

@@ -1,9 +1,9 @@
 package lila.oauth
 
+import org.apache.pekko.stream.scaladsl.Source
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.pekkostream.cursorProducer
-import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
@@ -27,7 +27,7 @@ final class AccessTokenApi(
       .skip(30)
       .cursor[Bdoc](ReadPref.sec)
       .listAll()
-    oldIds = oldDocs.flatMap { _.getAsOpt[AccessTokenId](F.id) }
+    oldIds = oldDocs.flatMap(_.getAsOpt[AccessTokenId](F.id))
     _ <- oldIds.nonEmpty.so:
       coll.delete.one(bdoc(F.id.in(oldIds))).void
     _ <- coll.insert.one(token)

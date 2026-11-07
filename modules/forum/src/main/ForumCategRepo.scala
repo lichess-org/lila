@@ -1,7 +1,7 @@
 package lila.forum
 
-import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.db.dsl.{ *, given }
 
 final private class ForumCategRepo(val coll: Coll)(using Executor):
 

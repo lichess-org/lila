@@ -19,7 +19,6 @@
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Dva lovca napadaju po unakrsnim dijagonalama i matiraju kralja okruženog njegovim figurama.</string>
   <string name="castling">Rokada</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Dovedi svog kralja na sigurno i postavi svog topa za napad.</string>
   <string name="capturingDefender">Eliminiraj obranu</string>
   <string name="capturingDefenderDescription">Eliminacijom figure koja brani ili je neizravno uključena u obranu druge figure omogućujete uzimanje figure koja ostaje bez obrane.</string>
@@ -45,6 +44,7 @@
   <string name="doubleCheckDescription">Šah kojeg daju dvije figure istovremeno kao rezultat otkrivenog šaha.</string>
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktički potezi u završnici.</string>
+  <string name="enPassant">En passant</string>
   <string name="exposedKing">Izloženi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje kralja okruženim nekolicinom obrambenih figura što često rezultira matom.</string>
   <string name="fork">Rašlje</string>

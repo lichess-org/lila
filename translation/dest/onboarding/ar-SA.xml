@@ -3,6 +3,8 @@
   <string name="logInAsUsername">تسجيل الدخول كـ %s</string>
   <string name="welcome">مرحبا!</string>
   <string name="welcomeToLichess">مرحبًا بك في ليتشيس!</string>
+  <string name="welcomeToLichessX">أهلًا بك في Lichess، %s!</string>
+  <string name="verifyYourAccount">تأكيد حسابك</string>
   <string name="thisIsYourProfilePage">هذه هي صفحتك الشخصية.</string>
   <string name="enabledKidModeSuggestion">هل يستخدم هذا الحساب طفل؟ قد ترغب في تمكين %s.</string>
   <string name="whatNowSuggestions">ماذا الآن؟ فيما يلي بعض الاقتراحات:</string>

@@ -4,9 +4,9 @@ package irc
 import play.api.mvc.Call
 import scalalib.DiffStr
 
-import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
-import lila.core.userId.{ UserId, MyId, ModId, UserName }
+import lila.core.id.{ RelayRoundId, RelayTourId, StudyChapterId, UblogPostId }
 import lila.core.study.data.StudyChapterName
+import lila.core.userId.{ ModId, MyId, UserId, UserName }
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other

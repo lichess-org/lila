@@ -68,7 +68,9 @@
   <string name="topicChessEngine">Engine de xadrez</string>
   <string name="topicChessBot">Bot de xadrez</string>
   <string name="topicChessPersonalities">Personalidades de xadrez</string>
+  <string name="topicOverTheBoard">Sobre o Tabuleiro</string>
   <string name="topicSoftwareDevelopment">Desenvolvimento de Software</string>
+  <string name="topicOffTopic">Fora do tópico</string>
   <string name="topicPosts">%s publicações</string>
   <string name="etiquette">Etiqueta</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
@@ -76,5 +78,6 @@
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
   <string name="blogTips">Nossas dicas simples para escrever ótimas postagens no blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta postagem no fórum</string>
+  <string name="youMayAlsoLike">Você também pode gostar</string>
   <string name="youBlockedByBlogAuthor">Você está bloqueado pelo autor do blog.</string>
 </resources>

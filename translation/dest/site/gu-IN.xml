@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">રમતની ગોઠવણી</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્ર સાથે રમો</string>
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
   <string name="gameMode">રમતની રિત</string>
@@ -976,8 +975,6 @@
   <string name="ourEventTips">ઇવેન્ટ્સનું આયોજન કરવા માટેની અમારી ટિપ્સ</string>
   <string name="instructions">સૂચનાઓ</string>
   <string name="showMeEverything">મને બધું બતાવો.</string>
-  <string name="lichessPatronInfo">લાઇચેસ એક ચેરિટી અને સંપૂર્ણપણે મફત/મુક્ત ઓપન સોર્સ સોફ્ટવેર છે.
-બધા સંચાલન ખર્ચ, વિકાસ અને સામગ્રી ફક્ત વપરાશકર્તાના દાન દ્વારા ભંડોળ પૂરું પાડવામાં આવે છે.</string>
   <string name="nothingToSeeHere">અત્યારે અહીં જોવા માટે કંઈ નથી.</string>
   <string name="stats">આંકડા</string>
   <string name="accessibility">ઉપલ્બધતા</string>

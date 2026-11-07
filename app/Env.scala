@@ -5,8 +5,8 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
-import lila.core.config.*
 import lila.common.config.GetRelativeFile
+import lila.core.config.*
 
 final class Env(
     val config: Configuration,

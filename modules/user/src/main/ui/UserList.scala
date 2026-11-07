@@ -1,12 +1,13 @@
 package lila.user
 package ui
 
+import scalalib.paginator.Paginator
+
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import scalalib.paginator.Paginator
 
 final class UserList(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
@@ -130,7 +131,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       .trophyMeta(perf, rank)
       .map: (css, titleText, imgPath) =>
         span(cls := s"$css lb__trophy trophy--small", title := titleText):
-          img(src := assetUrl(imgPath), alt := s"Trophy for $title")
+          img(src := assetPath(imgPath), alt := s"Trophy for $title")
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"
@@ -173,7 +174,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           .ifTrue(ctx.kid.no)
           .ifTrue(!u.marks.troll || ctx.is(u))
           .flatMap(_.nonEmptyBio)
-          .map { bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400)) },
+          .map(bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400))),
         a(
           dataIcon := Icon.Swords,
           cls := List("bots__list__entry__play text" -> true),

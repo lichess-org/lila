@@ -2,11 +2,11 @@ package lila.tournament
 
 import chess.variant.Variant.given
 
+import lila.core.i18n.I18nKey
 import lila.core.tournament.Status
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.ui.Icon
-import lila.core.i18n.I18nKey
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,

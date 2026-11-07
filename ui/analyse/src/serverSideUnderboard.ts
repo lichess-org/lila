@@ -76,7 +76,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;
-    const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
+    const loading = !ctrl.hasFullComputerAnalysis();
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart-container').length) {
       $panel.html(
@@ -181,6 +181,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     domDialog({
+      closeButton: true,
       modal: true,
       show: true,
       easyClose: 'clickOutside',

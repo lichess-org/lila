@@ -47,6 +47,8 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
     <item quantity="other">Veure els %s equips</item>
   </plurals>
   <string name="newTeamBattle">Nova batalla d\'equips</string>
+  <string name="startDate">Data d\'inici</string>
+  <string name="entryConditions">Condicions d\'entrada</string>
   <string name="customStartDate">Data d\'inici personalitzada</string>
   <string name="customStartDateHelp">En la teva zona horaria local. Això sobreescriu la configuració de \"Temps abans de que comenci el torneig\"</string>
   <string name="allowBerserk">Es permet Berserk</string>
@@ -86,4 +88,6 @@ Per exemple, una mitjana de rang del 3% significa que normalment finalitzes al t
   <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="berserkRate">Taxa de Berserk</string>
   <string name="leaguesAndStreamerBattles">Lligues &amp; batalles de streamers</string>
+  <string name="allowBotAccounts">Permetre comptes de bots</string>
+  <string name="allowBotAccountsDescription">Permet que els &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; entrin al torneig i juguin amb les seves màquines. Això normalment fa que els jugadors humans no vulguin jugar.</string>
 </resources>

@@ -3,7 +3,7 @@
 Lichess reads from this repository to get the list of available flairs.
 If you want to add a flair, please submit a pull request.
 
-The available flairs are visible at https://lichess1.org/assets/flair/index.html.
+The available flairs are visible at https://lichess.org/assets/flair/index.html.
 
 Lichess flairs are not animated.
 
@@ -57,7 +57,7 @@ and wait for someone else to compile it before it comes online.
 [Save](https://github.com/lichess-org/lila/pull/18368#issuecomment-3385711626) https://emojipedia.org/google into bin/flair/emojipedia.html.
 
 ```sh
-curl --location https://github.com/user-attachments/files/22797197/emojipedia.html > bin/flair/emojipedia.html 
+curl --location https://github.com/user-attachments/files/22797197/emojipedia.html > bin/flair/emojipedia.html
 ```
 
 Run the generation script:

@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">신고를 영어로 작성하시면 더 빠르게 처리해 드릴 수 있습니다.</string>
   <string name="provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
+  <string name="thanksForTheReport">신고해주셔서 감사합니다</string>
+  <string name="moderatorsWillReviewSoon">관리자가 곧 신고를 검토하여 적절한 조치를 취할 것입니다.</string>
+  <string name="blockUserInMeantime">그동안 해당 유저를 차단할 수 있습니다:</string>
 </resources>

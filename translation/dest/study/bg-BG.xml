@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Анотация със специални символи</string>
   <string name="theChapterIsTooShortToBeAnalysed">Тази глава е твърде къса и не може да бъде анализирана.</string>
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудниците в студията могат да поискат компютърен анализ.</string>
-  <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
@@ -99,10 +98,6 @@
   <string name="loadAPositionFromFen">Зареди позиция от FEN</string>
   <string name="loadAGameFromPgn">Зареди партии от PGN</string>
   <string name="automatic">Автоматичен</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Постави твоя PGN текст тук, до %s партия</item>
-    <item quantity="other">Постави твоя PGN текст тук, до %s партии</item>
-  </plurals>
   <string name="urlOfTheGame">URL на партиите, по една на линия</string>
   <string name="createChapter">Създай</string>
   <string name="createStudy">Създай казус</string>
@@ -122,7 +117,6 @@
   <string name="noLetPeopleBrowseFreely">Не: позволи свободно разглеждане</string>
   <string name="pinnedStudyComment">Коментар на казуса</string>
   <string name="start">Начало</string>
-  <string name="save">Запази</string>
   <string name="clearChat">Изтрий чат съобщенията</string>
   <string name="deleteTheStudyChatHistory">Изтриване на чат историята? Това е необратимо!</string>
   <string name="deleteStudy">Изтрий казуса</string>

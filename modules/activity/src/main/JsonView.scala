@@ -6,11 +6,11 @@ import play.api.libs.json.*
 import lila.activity.activities.*
 import lila.common.Json.{ *, given }
 import lila.core.game.LightPov
+import lila.core.i18n.Translate
 import lila.core.rating.{ RatingProg, Score }
 import lila.core.simul.Simul
 import lila.core.tournament.leaderboard.Ratio
 import lila.rating.PerfType
-import lila.core.i18n.Translate
 
 final class JsonView(
     getTourName: lila.core.tournament.GetTourName,

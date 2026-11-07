@@ -29,7 +29,7 @@
   <string name="puzzleWrite">Résoudre des problèmes</string>
   <string name="teamRead">Lire les informations des équipes privées</string>
   <string name="teamWrite">Rejoindre et quitter des équipes</string>
-  <string name="manageTeamsYouLead">Gérez vos équipes : envoyez des messages, expulsez des membres</string>
+  <string name="manageTeamsYouLead">Gérez vos équipes : envoyez des messages, retirez des membres.</string>
   <string name="followRead">Lire les joueurs suivis</string>
   <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
   <string name="msgWrite">Envoyer des messages privés aux autres joueurs</string>

@@ -9,7 +9,7 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.tree.{ ExportOptions, Analysis }
+import lila.tree.{ Analysis, ExportOptions }
 
 final class Analyse(
     env: Env,
@@ -76,7 +76,7 @@ final class Analyse(
                   clocks = true,
                   division = true,
                   rating = ctx.pref.showRatings,
-                  lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+                  lichobileCompat = HTTPRequest.isLichobile,
                   puzzles = true
                 )
               )
@@ -153,13 +153,13 @@ final class Analyse(
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me).map { list =>
-      JsonOk(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
+      Ok(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
     }
   }
 
   def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     Found(env.analyse.externalEngine.find(me, id)): engine =>
-      JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+      Ok(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
@@ -180,7 +180,7 @@ final class Analyse(
         jsonFormError,
         data =>
           env.analyse.externalEngine.update(engine, data).map { engine =>
-            JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            Ok(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )
   }
@@ -192,4 +192,4 @@ final class Analyse(
   def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
     env.analyse.jsonView
       .augmentLocalAnalysis(ctx.body.body)
-      .fold(errs => JsonBadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))
+      .fold(errs => JsonBadRequest(errs.mkString("\n")).toFuccess, Ok(_))

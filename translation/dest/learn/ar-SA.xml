@@ -20,7 +20,7 @@
   <string name="itMovesDiagonally">يتحرك بشكل قطري</string>
   <string name="bishopIntro">التالي سنتعلم كيفية المناورة بالفيل!</string>
   <string name="youNeedBothBishops">فيل للمربعات الفاتحة، والآخر للمربعات الداكنة. ستحتاج كليهما!</string>
-  <string name="bishopComplete">تهانينا! لقد تعلمت قيادة الفيل.</string>
+  <string name="bishopComplete">تهانينا! لقد تعلمت الآن تحريك الفيل.</string>
   <string name="theQueen">الوزير</string>
   <string name="queenCombinesRookAndBishop">الوزير = رخ + فيل</string>
   <string name="queenIntro">اسمحوا لي أن أقدم قطعة الشطرنج الأقوى. إنه الوزير!</string>
@@ -48,7 +48,7 @@
   <string name="captureThenPromote">التقط، ثم رقي!</string>
   <string name="useAllThePawns">استخدم جميع البيادق!
 لا حاجة للترقية.</string>
-  <string name="aPawnOnTheSecondRank">البيدق على الصف الثاني يمكن أن يتحرك لمربعين في نقلة واحدة!</string>
+  <string name="aPawnOnTheSecondRank">يمكن للبيدق في الصف الثاني أن يتقدّم مربعين 2 دفعةً واحدة!</string>
   <string name="grabAllTheStarsNoNeedToPromote">إجمع كل النجوم!
 لا حاجة للترقية.</string>
   <string name="pawnComplete">تهانينا! لقد أصبحت تعرف كل شيء عن البيادق.</string>

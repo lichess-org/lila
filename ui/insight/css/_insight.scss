@@ -20,6 +20,7 @@
 
   .tab {
     @extend %roboto;
+    @include transition(color, 0.25s);
 
     flex: 1 1 auto;
     text-align: center;
@@ -27,24 +28,18 @@
     cursor: pointer;
     position: relative;
     color: $c-font-page;
-
-    @include transition(color, 0.25s);
-
     min-width: 15%;
 
     &::after {
+      @include inline-start(2%);
+      @include transition(all, 0.25s);
+
       content: '';
       background: rgb(from $c-accent r g b / calc(alpha * 0.6));
       height: 2px;
       position: absolute;
       width: 96%;
-
-      @include inline-start(2%);
-
       bottom: -2px;
-
-      @include transition(all, 0.25s);
-
       transform: scale(0);
     }
 
@@ -159,11 +154,10 @@
   }
 
   .axis-form {
+    @extend %flex-center-nowrap;
+
     height: var(---header-height);
-    display: flex;
-    flex-flow: row nowrap;
     flex: auto;
-    align-items: center;
     justify-content: flex-end;
   }
 
@@ -261,11 +255,9 @@
   }
 
   .center-clear {
-    display: flex;
+    @extend %flex-center-center-nowrap;
+
     height: 20px;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
   }
 
   .ms-parent,
@@ -362,6 +354,9 @@
 
     padding: 0.5em 1em;
     gap: 1em;
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
+    border: 1px solid $c-primary;
+    margin-bottom: 1em;
 
     img {
       height: 3em;
@@ -370,10 +365,6 @@
     > span {
       @extend %flex-column;
     }
-
-    background: color-mix(in oklab, $c-primary 10%, $c-bg);
-    border: 1px solid $c-primary;
-    margin-bottom: 1em;
   }
 
   .help.box {

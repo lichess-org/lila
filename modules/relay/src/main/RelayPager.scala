@@ -1,13 +1,12 @@
 package lila.relay
 
+import reactivemongo.api.bson.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.relay.RelayTour.WithLastRound
-
-import reactivemongo.api.bson.*
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.relay.RelayTour.WithLastRound
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
@@ -126,8 +125,7 @@ final class RelayPager(
         adapter = new:
           def nbResults: Fu[Int] = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
-            if offset == 0 then firstPageCache.get({})
-            else otherPagesCache.get(offset)
+            if offset == 0 then firstPageCache.get {} else otherPagesCache.get(offset)
         ,
         currentPage = page,
         maxPerPage = maxPerPage

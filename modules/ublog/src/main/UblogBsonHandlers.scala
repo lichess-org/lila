@@ -1,8 +1,9 @@
 package lila.ublog
 
-import scala.util.Success
 import play.api.i18n.Lang
 import reactivemongo.api.bson.*
+
+import scala.util.Success
 
 import lila.db.dsl.{ *, given }
 

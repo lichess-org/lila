@@ -20,7 +20,7 @@ final class SimulUi(helpers: Helpers):
 
   def homepageSpotlight(s: Simul)(using Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
-      img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
+      img(cls := "img icon", src := assetPath("images/fire-silhouette.svg")),
       span(cls := "content")(
         span(cls := "name")(s.name, (!s.name.toLowerCase.endsWith(" simul")).so(" simul")),
         span(cls := "more")(

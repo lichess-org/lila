@@ -12,14 +12,7 @@ import { toggleZenMode } from 'lib/view/zen';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import { FILES, RANKS } from './constants';
-import type {
-  TimeControl,
-  CoordinateTrainerConfig,
-  InputMethod,
-  Mode,
-  ModeScores,
-  CoordModifier,
-} from './interfaces';
+import type { TimeControl, CoordinateTrainerConfig, Mode, ModeScores, CoordModifier } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   colorChoice === 'random' ? COLORS[Math.round(Math.random())] : colorChoice;
@@ -180,18 +173,6 @@ export default class CoordinateTrainerCtrl {
   };
 
   boardFEN = () => (this.showPieces() ? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' : '8/8/8/8/8/8/8/8');
-
-  coordinateInputMethod: Prop<InputMethod> = withEffect(
-    storedProp<InputMethod>(
-      'coordinateTrainer.coordinateInputMethod',
-      window.innerWidth >= 980 ? 'text' : 'buttons',
-      str => str as InputMethod,
-    ),
-    this.redraw,
-  );
-
-  toggleInputMethod = () =>
-    this.coordinateInputMethod(this.coordinateInputMethod() === 'text' ? 'buttons' : 'text');
 
   start = () => {
     if (this.playing) return;

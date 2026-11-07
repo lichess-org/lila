@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Si është puna?</string>
+  <string name="cheat">Hile</string>
+  <string name="troll">Troll</string>
+  <string name="reportVerbalAbuse">Abuzim verbal / Sharje / Trollim</string>
+  <string name="reportViolence">Dhunë / Kërcënime</string>
+  <string name="reportSelfHarm">Vetëvrasje / Vetëplagosje</string>
+  <string name="reportHate">E folur Me Urrejtje / Seksizëm</string>
+  <string name="readMoreAboutLichessReports">Lexoni më tepër rreth raportimeve në Lichess</string>
+  <string name="reportMaximumCharacters">E shumta 3000 shenja.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Raportimin tuaj mund ta shqyrtojmë më shpejt, nëse shkruani në anglisht.</string>
+  <string name="provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje për te një lojë për shqyrtim.</string>
+</resources>

@@ -2,8 +2,6 @@ export type TimeControl = 'untimed' | 'thirtySeconds';
 
 export type Mode = 'findSquare' | 'nameSquare';
 
-export type InputMethod = 'text' | 'buttons';
-
 type WhiteBlackScores = ByColor<number[]>;
 
 export interface ModeScores {

@@ -202,8 +202,8 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
                 tr(cls := "report")(
                   td(userIdLink(entry.id.some, params = "?mod")),
                   td(cls := "little")(momentFromNow(entry.queuedAt)),
-                  td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
-                  td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
+                  td(cls := "little")(entry.startedAt.map(momentFromNow(_))),
+                  td(cls := "little completed")(entry.response.map(_.at).map(momentFromNow(_))),
                   td(
                     entry.queuedBy match
                       case KaladinUser.Requester.Mod(id) => userIdLink(id.some)

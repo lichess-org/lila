@@ -2,10 +2,10 @@ package lila.round
 
 import com.github.blemale.scaffeine.LoadingCache
 
-import lila.core.round.CurrentlyPlaying
 import lila.common.Bus
-import lila.memo.CacheApi
+import lila.core.round.CurrentlyPlaying
 import lila.game.GameRepo
+import lila.memo.CacheApi
 
 final class PlayingUsers(gameRepo: GameRepo, proxyRepo: GameProxyRepo)(using Executor):
 

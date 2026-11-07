@@ -1,7 +1,7 @@
 package lila.api
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
 import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }

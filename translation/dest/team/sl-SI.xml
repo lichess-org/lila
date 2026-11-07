@@ -27,7 +27,9 @@
   </plurals>
   <string name="teamRecentMembers">Nedavni člani</string>
   <string name="kickSomeone">Odstranite nekoga iz ekipe</string>
+  <string name="removeSomeone">Odstranite nekoga iz ekipe</string>
   <string name="whoToKick">Koga hočete odstraniti iz ekipe?</string>
+  <string name="whoToRemove">Koga želite odstraniti iz ekipe?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s prošnja za članstvo</item>
     <item quantity="two">%s prošnji za članstvo</item>
@@ -45,6 +47,9 @@
   <string name="teamUpdates">Posodobitve ekipe</string>
   <string name="subToTeamUpdates">Naročite se na posodobitve ekipe</string>
   <string name="newTeamUpdate">Nova posodobitev ekipe</string>
+  <string name="teamUpdatesPerWeek">Na teden lahko pošljete do %1$s posodobitev za ekipo. Do %3$s vam preostane še &lt;strong&gt;%2$s&lt;/strong&gt; posodobitev.</string>
+  <string name="teamEvents">Ekipni dogodki</string>
+  <string name="upcomingTeamEvents">Prihajajoči dogodki za ekipo</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
   <string name="leadersChat">Klepet voditeljev</string>

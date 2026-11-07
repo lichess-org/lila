@@ -5,9 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.i18n.Translate
+import lila.core.pref.Pref
 import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.core.pref.Pref
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -139,46 +139,46 @@ object JsonView:
   )
 
   def glyphs(using Translate): JsObject =
-    import lila.core.i18n.I18nKey.study as trans
+    import lila.core.i18n.I18nKey.{ study, site }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*
     import Glyph.PositionAssessment.*
     import Glyph.Observation.*
     Json.obj(
       "move" -> List(
-        good.copy(name = trans.goodMove.txt()),
-        mistake.copy(name = trans.mistake.txt()),
-        brilliant.copy(name = trans.brilliantMove.txt()),
-        blunder.copy(name = trans.blunder.txt()),
-        interesting.copy(name = trans.interestingMove.txt()),
-        dubious.copy(name = trans.dubiousMove.txt()),
-        only.copy(name = trans.onlyMove.txt()),
-        zugzwang.copy(name = trans.zugzwang.txt())
+        good.copy(name = study.goodMove.txt()),
+        mistake.copy(name = site.mistake.txt()),
+        brilliant.copy(name = study.brilliantMove.txt()),
+        blunder.copy(name = site.blunder.txt()),
+        interesting.copy(name = study.interestingMove.txt()),
+        dubious.copy(name = study.dubiousMove.txt()),
+        only.copy(name = study.onlyMove.txt()),
+        zugzwang.copy(name = study.zugzwang.txt())
       ),
       "position" -> List(
-        equal.copy(name = trans.equalPosition.txt()),
-        unclear.copy(name = trans.unclearPosition.txt()),
-        whiteSlightlyBetter.copy(name = trans.whiteIsSlightlyBetter.txt()),
-        blackSlightlyBetter.copy(name = trans.blackIsSlightlyBetter.txt()),
-        whiteQuiteBetter.copy(name = trans.whiteIsBetter.txt()),
-        blackQuiteBetter.copy(name = trans.blackIsBetter.txt()),
-        whiteMuchBetter.copy(name = trans.whiteIsWinning.txt()),
-        blackMuchBetter.copy(name = trans.blackIsWinning.txt())
+        equal.copy(name = study.equalPosition.txt()),
+        unclear.copy(name = study.unclearPosition.txt()),
+        whiteSlightlyBetter.copy(name = study.whiteIsSlightlyBetter.txt()),
+        blackSlightlyBetter.copy(name = study.blackIsSlightlyBetter.txt()),
+        whiteQuiteBetter.copy(name = study.whiteIsBetter.txt()),
+        blackQuiteBetter.copy(name = study.blackIsBetter.txt()),
+        whiteMuchBetter.copy(name = study.whiteIsWinning.txt()),
+        blackMuchBetter.copy(name = study.blackIsWinning.txt())
       ),
       "observation" -> List(
-        novelty.copy(name = trans.novelty.txt()),
-        development.copy(name = trans.development.txt()),
-        initiative.copy(name = trans.initiative.txt()),
-        attack.copy(name = trans.attack.txt()),
-        counterplay.copy(name = trans.counterplay.txt()),
-        timeTrouble.copy(name = trans.timeTrouble.txt()),
-        compensation.copy(name = trans.withCompensation.txt()),
-        withIdea.copy(name = trans.withTheIdea.txt())
+        novelty.copy(name = study.novelty.txt()),
+        development.copy(name = study.development.txt()),
+        initiative.copy(name = study.initiative.txt()),
+        attack.copy(name = study.attack.txt()),
+        counterplay.copy(name = study.counterplay.txt()),
+        timeTrouble.copy(name = study.timeTrouble.txt()),
+        compensation.copy(name = study.withCompensation.txt()),
+        withIdea.copy(name = study.withTheIdea.txt())
       )
     )
 
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap(Square.fromKey(_))).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri] = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:

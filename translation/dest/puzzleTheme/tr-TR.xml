@@ -23,7 +23,6 @@
   <string name="bodenMate">Boden matı</string>
   <string name="bodenMateDescription">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
   <string name="castling">Rok</string>
-  <string name="enPassant">Geçerken alma</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
+  <string name="enPassant">Geçerken alma</string>
   <string name="enPassantAdjacentCaptureDescription">Piyonun, rakip piyonun başlangıçtaki iki karelik hamlesiyle hemen yanına geldikten sonra onu geçerken alma kuralıyla yapılan bir taktiktir.</string>
   <string name="epauletteMate">Apolet matı</string>
   <string name="epauletteMateDescription">Şahın kaçabileceği iki bitişik kare, diğer taşlar tarafından kullanılmaktadır.</string>

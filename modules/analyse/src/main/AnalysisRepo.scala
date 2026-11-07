@@ -1,8 +1,9 @@
 package lila.analyse
 
+import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.tree.Analysis
-import reactivemongo.api.bson.*
 
 final class AnalysisRepo(val coll: Coll)(using Executor):
 

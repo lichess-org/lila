@@ -1,8 +1,8 @@
 package lila.tournament
 
-import scalalib.ThreadLocalRandom
 import chess.IntRating
 import chess.rating.RatingProvisional
+import scalalib.ThreadLocalRandom
 
 import lila.core.LightUser
 import lila.core.user.WithPerf

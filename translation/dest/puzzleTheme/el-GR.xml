@@ -23,7 +23,6 @@
   <string name="bodenMate">Ματ του Boden</string>
   <string name="bodenMateDescription">Δύο αξιωματικοί κινούνται διαγωνίως και κάνουν ματ σε βασιλιά που εμποδίζεται από δικά του κομμάτια.</string>
   <string name="castling">Pοκέ</string>
-  <string name="enPassant">Εν διελεύσει</string>
   <string name="castlingDescription">Ασφαλίστε τον βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλώτιση αμυνόμενου κομματιού</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
@@ -54,6 +53,7 @@
   <string name="doubleCheckDescription">Ταυτόχρονο σαχ από δύο κομμάτια, ως αποτέλεσμα αποκάλυψης: τόσο το κομμάτι που μετακινήθηκε όσο και το κομμάτι το οποίο αποκάλυψε απειλούν τον αντίπαλο βασιλιά.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Τακτικά στην τελευταία φάση της παρτίδας.</string>
+  <string name="enPassant">Εν διελεύσει</string>
   <string name="enPassantAdjacentCaptureDescription">Τακτική με «αν πασάν», όπου ένα πιόνι αιχμαλωτίζει το αντίπαλο πιόνι το οποίο έκανε την αρχική του κίνηση δύο τετραγώνων.</string>
   <string name="epauletteMate">Ματ των επωμίδων</string>
   <string name="epauletteMateDescription">Ένας βασιλιάς στην άκρη της σκακιέρας δέχεται σαχ και τα δύο γειτονικά τετράγωνα διαφυγής του είναι κατειλημμένα από φιλικά κομμάτια.</string>

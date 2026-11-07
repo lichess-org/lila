@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">البيدق المتقدم</string>
-  <string name="advancedPawnDescription">أحد البيادق الخاصة بك تقدمت إلي ساحة الخَصْم, ممكن من أجل التهديد بالترقية.</string>
+  <string name="advancedPawnDescription">يتقدّم أحد بيادقك إلى عمق موقع الخَصْم، وربما يهدّد بالترقية.</string>
   <string name="advantage">أفضلية</string>
   <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
   <string name="anastasiaMate">كش مات أناستازيا</string>
@@ -11,8 +11,8 @@
   <string name="attackingF2F7">الهجوم على f2 أو f7</string>
   <string name="attackingF2F7Description">هجوم يستهدف بيادق f2 أو f7، على سبيل المثال، كما في افتتاحية \"fried liver\".</string>
   <string name="attraction">استدراج</string>
-  <string name="attractionDescription">التبديل أو التضحية بقطعة لحث أو إرغام قطعة الخَصْم لمربع يتيح تكتيكاً للمتابعة.</string>
-  <string name="backRankMate">كش مات في الصف الأخير</string>
+  <string name="attractionDescription">مبادلة أو تضحية تهدف إلى استدراج قطعة للخصم إلى مربع يتيح تنفيذ تكتيك لاحق، أو إجبارها على ذلك.</string>
+  <string name="backRankMate">كش مات في الصف الخلفي</string>
   <string name="backRankMateDescription">كش مات في الصف الأخير حيث يكون الملك محاصر بقطعه.</string>
   <string name="balestraMate">كش  القوس والنشاب</string>
   <string name="balestraMateDescription">يقوم الفيل بتسليم الكش، بينما تقوم الملكة بحجب ما تبقى من مربعات الهروب</string>
@@ -23,7 +23,6 @@
   <string name="bodenMate">كش مات بودين</string>
   <string name="bodenMateDescription">فيلين يهاجمان الملك على أوتار متقاطعة ويكون الملك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="castling">تبييت</string>
-  <string name="enPassant">أسر بالمرور</string>
   <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
   <string name="capturingDefender">أزل المدافع</string>
   <string name="capturingDefenderDescription">إزالة قطعة ذات أهمية حاسمة للدفاع عن قطعة أخرى، مما يسمح للقطعة التي لا يمكن الدفاع عنها الآن أن يتم الاستيلاء عليها في الحركة التالية.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">تنفيذ كش من قطعتين في وقت واحد، كنتيجة للهجوم المنكشف حيث تهاجم كلا القطعتين المكشوفة والمكشوف بها ملك الخَصْم.</string>
   <string name="endgame">مرحلة نهاية المباراة</string>
   <string name="endgameDescription">تكتيك خلال مرحلة نهاية المباراة.</string>
+  <string name="enPassant">أسر بالمرور</string>
   <string name="enPassantAdjacentCaptureDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، التي تسمح للبيدق بأسر بيدق الخَصْم الذي تحرك للتو مربعين في حركته الأولى وأصبح ملاصقًا له، كما لو أنه تحرك مربعًا واحدًا فقط.</string>
   <string name="epauletteMate">كش الإيبوليت</string>
   <string name="epauletteMateDescription">تشغل قطعتان أخريان مربعان متلاصقين للهروب من الملك الذي تم الكش به.</string>

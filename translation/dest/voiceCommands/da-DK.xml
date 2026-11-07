@@ -6,7 +6,6 @@
   <string name="instructions2">Vi viser pile for flere træk, når vi ikke er sikre. Sig navnet på farven eller nummeret på en trækpil for at vælge den.</string>
   <string name="instructions3">Hvis en pil viser en fejende radar, vil det træk blive spillet, når cirklen er fuldført. I dette tidsrum kan du kun sige %1$s for at spille trækket med det samme, %2$s for at annullere eller sige farven/nummeret på en anden pil. Denne timer kan justeres eller slås fra i indstillingerne.</string>
   <string name="instructions4">Aktivér %s i støjende omgivelser. Hold shift nede, mens du fremsiger kommandoer, når dette er slået til.</string>
-  <string name="instructions5">Brug det fonetiske alfabet til at forbedre genkendelsen af skakbrættets kolonner. </string>
   <string name="instructions6">%s forklarer indstillingerne for stemmeflytning i detaljer.</string>
   <string name="thisBlogPost">Dette blogindlæg</string>
   <string name="moveToE4OrSelectE4Piece">Flyt til e4 eller vælg e4-brik</string>
@@ -17,6 +16,11 @@
   <string name="cancelTimerOrDenyARequest">Annullér timer eller afvis en anmodning</string>
   <string name="playPreferredMoveOrConfirmSomething">Afspil foretrukket træk eller bekræft noget</string>
   <string name="sleep">Sov (hvis vækkeord aktiveret)</string>
-  <string name="turnOffVoiceRecognition">Slå stemmegenkendelse fra</string>
   <string name="showPuzzleSolution">Vis opgaveløsning</string>
+  <string name="voiceHelp">Stemme-hjælp</string>
+  <string name="voiceSettings">Stemmeindstillinger</string>
+  <string name="pushShiftKeyToTalk">Tryk på %s tasten for at tale</string>
+  <string name="holdShiftKeyWhileSpeaking">Hold Shift-tasten nede, mens du taler</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Ingen valgt</string>
 </resources>

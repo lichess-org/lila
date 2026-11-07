@@ -2,6 +2,7 @@ package lila.forum
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
+
 import lila.core.id.ForumTopicSlug
 
 case class ForumTopic(

@@ -53,6 +53,7 @@ javaOptions ++= {
     Seq.empty
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
+ThisBuild / semanticdbEnabled := true
 ThisBuild / usePipelining := false
 // the following settings come from the PlayScala plugin, which I removed
 // shellPrompt := PlayCommands.playPrompt
@@ -142,7 +143,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn localAnalysis nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg report".split(' ').toList,
+      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn localAnalysis nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team teamLead timeago tfa tourname ublog variant video voiceCommands msg report".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue

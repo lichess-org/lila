@@ -1,8 +1,8 @@
 package lila.team
 
 import lila.common.Bus
-import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
+import lila.core.misc.clas.{ ClasTeamConfig, ClasTeamUpdate }
 import lila.core.team.Access
 
 private final class TeamClasSync(
@@ -41,10 +41,10 @@ private final class TeamClasSync(
       teamMemberIds <- memberRepo.userIdsByTeam(team.id)
       allClassIds = cfg.teacherIds.toList ::: studentIds
       intruders = teamMemberIds.toSet -- allClassIds.toSet
-      _ <- intruders.toList.sequentiallyVoid(memberRepo.remove(team.id, _))
+      removed <- intruders.toList.sequentially(memberRepo.remove(team.id, _))
       missing = allClassIds.toSet -- teamMemberIds.toSet
       added <- missing.toList.sequentially(memberRepo.add(team.id, _))
-      _ <- teamRepo.incMembers(team.id, added.count(identity) - intruders.size)
+      _ <- teamRepo.incMembers(team.id, added.count(identity) - removed.count(_.n == 1))
     yield (intruders ++ missing).toList.foreach(cached.invalidateTeamIds)
 
   private def syncPermissions(team: Team, cfg: ClasTeamConfig): Funit =

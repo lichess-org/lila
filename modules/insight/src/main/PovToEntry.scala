@@ -1,13 +1,13 @@
 package lila.insight
 
-import chess.format.pgn.SanStr
-import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
-import lila.tree.forceAsCp
+import chess.format.pgn.SanStr
+import chess.{ Centis, Clock, Ply, Position, Role, Stats }
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice }
 import lila.common.SimpleOpening
 import lila.game.Blurs.booleans
+import lila.tree.forceAsCp
 
 case class RichPov(
     pov: Pov,
@@ -80,7 +80,7 @@ final private class PovToEntry(
 
   private def makeMoves(from: RichPov): List[InsightMove] =
     val sideAndStart = from.pov.sideAndStart
-    def cpDiffs = from.analysis.so { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    def cpDiffs = from.analysis.so(AccuracyCP.diffsList(sideAndStart, _).toVector)
     val accuracyPercents = from.analysis.map:
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
     val prevScores = from.analysis.so { an =>
@@ -162,7 +162,7 @@ final private class PovToEntry(
 
   private def coefVariation(a: Seq[Int]): Option[Float] =
     val s = Stats(a)
-    s.stdDev.map { _ / s.mean }
+    s.stdDev.map(_ / s.mean)
 
   private def queenTrade(from: RichPov) = QueenTrade:
     from.division.end.map(_.value).fold(from.boards.last.some)(from.boards.toList.lift) match

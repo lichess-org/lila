@@ -78,13 +78,13 @@ object Youtube:
 
   private case class Snippet(description: Option[String], publishedAt: Option[String]):
     def date = publishedAt.flatMap { at =>
-      scala.util.Try { java.time.Instant.parse(at) }.toOption
+      scala.util.Try(java.time.Instant.parse(at)).toOption
     }
 
   private case class Statistics(viewCount: String, likeCount: String)
 
   private case class ContentDetails(duration: String):
     def seconds = scala.util
-      .Try { java.time.Duration.parse(duration) }
+      .Try(java.time.Duration.parse(duration))
       .toOption
       .map(_.getSeconds.toInt)

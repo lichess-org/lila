@@ -34,6 +34,7 @@
   <string name="publishHelp">Kryss av om du vil syna innlegget på bloggen din. Om du ikkje gjer det vert dette eit privat utkast som ikkje andre kan lesa</string>
   <string name="includesPromotedContent">Inkluderer promotera/sponsa innhald eller tilvisingslenker</string>
   <string name="mandatoryForSponsoredContent">Obligatorisk for sponsa innhald, affiliertlenker eller kommersiell reklame</string>
+  <string name="containsSponsoredContent">Inneheld obligatorisk sponsa innhald, tilknytta lenker eller reklame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fastgjort innlegg</string>
   <string name="stickyPostHelp">Dersom avmerka vil dette innlegget visast framom dei seinaste postane i profilen din.</string>
   <plurals name="publishedNbBlogPosts">
@@ -78,5 +79,7 @@
   <string name="inappropriateContentAccountClosed">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
   <string name="blogTips">Våre enkle tips for å skriva gode blogginnlegg</string>
   <string name="discussThisBlogPostInTheForum">Diskuter dette blogginnlegget i forumet</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Dei synspunkt som Lichess-bidragsytarar gjer uttrykk for er deira eigne.</string>
+  <string name="youMayAlsoLike">Du vil kanskje også lika</string>
   <string name="youBlockedByBlogAuthor">Bloggforfattaren har blokkert deg.</string>
 </resources>

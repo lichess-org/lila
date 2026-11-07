@@ -86,7 +86,7 @@ final private class YoutubeApi(
 
   private[streamer] def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
     val maxResults = 50
-    val tubers = streamers.flatMap { s => s.youtube.map(Youtube.StreamerWithYoutube(s, _)) }
+    val tubers = streamers.flatMap(s => s.youtube.map(Youtube.StreamerWithYoutube(s, _)))
     val idPages = tubers
       .flatMap(tb => Seq(tb.youtube.pubsubVideoId, tb.youtube.liveVideoId).flatten)
       .distinct
@@ -138,10 +138,9 @@ final private class YoutubeApi(
         logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
         funit
       case res =>
-        logger.info(
+        logger.info:
           s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
-        )
-        fufail(s"YoutubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
+        fufail(s"YoutubeApi.channelSubscribe $channelId failed ${lila.log.http(res)}")
 
   // youtube does not provide a low quota API to check for videos on a known channel id
   // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
@@ -156,7 +155,7 @@ final private class YoutubeApi(
   private[streamer] def subscribeAll: Funit = cfg.apiKey.value.nonEmpty.so:
     for
       channelIds <- repo.approvedYoutubeIds()
-      _ <- channelIds.parallelN(8) { channelSubscribe(_, true) }
+      _ <- channelIds.parallelN(8)(channelSubscribe(_, true))
     yield logger.info(s"subscribeAll: done ${channelIds.size}")
 
   private def onVideo(channelId: String, videoId: String): Funit =

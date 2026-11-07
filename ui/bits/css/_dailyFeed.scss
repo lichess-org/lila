@@ -12,11 +12,16 @@ $marker-margin-top: -14px;
 
   .atom {
     font-size: 2.6em;
+    line-height: 1em;
     color: $c-font-dimmer;
 
     &:hover {
       color: $c-accent;
     }
+  }
+
+  .flash {
+    margin-top: 0;
   }
 
   &__update {
@@ -55,6 +60,8 @@ $marker-margin-top: -14px;
 
     &__day {
       @extend %flex-center;
+
+      gap: 0.5em;
 
       h2 {
         display: inline;

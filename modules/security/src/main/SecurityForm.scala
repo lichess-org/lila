@@ -5,14 +5,13 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.Request
 
-import lila.common.Form.*
 import lila.common.Form as LilaForm
-import lila.user.LameName
+import lila.common.Form.*
 import lila.core.security.ClearPassword
-import lila.user.TotpSecret.{ base32, verify }
-import lila.user.{ TotpSecret, TotpToken }
-import lila.oauth.OAuthSignedClient.SimpleSignup
 import lila.mon.extensions.*
+import lila.oauth.OAuthSignedClient.SimpleSignup
+import lila.user.TotpSecret.{ base32, verify }
+import lila.user.{ LameName, TotpSecret, TotpToken }
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -162,7 +161,8 @@ final class SecurityForm(
     authenticator.loginCandidate.map: candidate =>
       Form:
         mapping(
-          "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+          "oldPasswd" -> nonEmptyText
+            .verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
           "newPasswd1" -> newPasswordFieldForMe,
           "newPasswd2" -> newPasswordFieldForMe
         )(Passwd.apply)(unapply)
@@ -180,7 +180,7 @@ final class SecurityForm(
           "passwd" -> passwordMapping(candidate),
           "email" -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
         )(ChangeEmail.apply)(unapply)
-      ).fillOption(old.map { ChangeEmail("", _) })
+      ).fillOption(old.map(ChangeEmail("", _)))
 
   def setupTwoFactor(using Me) =
     authenticator.loginCandidate.map: candidate =>

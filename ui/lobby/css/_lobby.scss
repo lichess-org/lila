@@ -12,11 +12,7 @@
 @import 'feed';
 @import 'carousel';
 @import 'layout';
-
-body {
-  /* improves preload */
-  overflow-y: scroll;
-}
+@include body-fixed-scroll;
 
 #main-wrap {
   ---main-max-width: 1400px;

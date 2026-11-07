@@ -40,7 +40,7 @@ const advices: Advice[] = [
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const sideData = ctrl.staticAnalysis![color];
+  const sideData = ctrl.mainlineAnalysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}.text`), renderPlayer(ctrl, color)]),
@@ -99,7 +99,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n.site.learnFromYourMistakes,
+            ctrl.bottomIsWhite() ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -128,7 +128,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.study?.practice) return undefined;
 
   if (
-    !ctrl.staticAnalysis ||
+    !ctrl.mainlineAnalysis ||
     !ctrl.settings.showMainlineAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
   ) {
@@ -137,8 +137,8 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   }
 
   // don't cache until the analysis is complete!
-  const buster = ctrl.staticAnalysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro + Boolean(ctrl.idbTree.hasLocalAnalysis);
+  const buster = ctrl.mainlineAnalysis.partial ? Math.random() : '';
+  let cacheKey = String(buster) + !!ctrl.retro + ctrl.bottomColor() + Boolean(ctrl.idbTree.hasLocalAnalysis);
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [

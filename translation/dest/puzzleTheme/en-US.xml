@@ -23,7 +23,6 @@
   <string name="bodenMate">Boden\'s mate</string>
   <string name="bodenMateDescription">Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="castling">Castling</string>
-  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bring the king to safety, and deploy the rook for attack.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
@@ -55,6 +54,7 @@
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
   <string name="endgame">Endgame</string>
   <string name="endgameDescription">A tactic during the last phase of the game.</string>
+  <string name="enPassant">En passant</string>
   <string name="enPassantAdjacentCaptureDescription">A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move.</string>
   <string name="epauletteMate">Epaulette mate</string>
   <string name="epauletteMateDescription">Two adjacent escape squares for a checked king are occupied by other pieces.</string>

@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Глифтермен түсіндірме жазуу</string>
   <string name="theChapterIsTooShortToBeAnalysed">Бөлім талдауға жарамды болу үшін тым қысқа.</string>
   <string name="onlyContributorsCanRequestAnalysis">Зерттеу қолдаушылары ғана компьютерлік талдауды сұрай алады.</string>
-  <string name="getAFullComputerAnalysis">Сервер-жақты компьютер осы негізгі жолға толық талдау жасайтын болады.</string>
   <string name="makeSureTheChapterIsComplete">Талдауды бір рет қана сұрай аласыз, сондықтан бөлімді аяқтауды ұмытпаңыз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Барлық үйлескен мүшелер өз күйінде қалады</string>
   <string name="shareChanges">Көрермендермен өзгертулерді бөлісіңіз әрі серверде сақтап қойыңыз</string>
@@ -95,10 +94,6 @@
   <string name="loadAPositionFromFen">FEN арқылы ойындарды жүктеп салу</string>
   <string name="loadAGameFromPgn">PGN арқылы ойындарды жүктеп салу</string>
   <string name="automatic">Автоматты түрде</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN мәтінін осында қойыңыз, %s ойын ғана</item>
-    <item quantity="other">PGN мәтінін осында қойыңыз, %s ойынға дейін</item>
-  </plurals>
   <string name="urlOfTheGame">Ойындардың сілтемесі, әр жолға бір-бірден</string>
   <string name="createChapter">Бөлім құру</string>
   <string name="createStudy">Зерттеуді құру</string>
@@ -118,7 +113,6 @@
   <string name="noLetPeopleBrowseFreely">Жоқ: бәріне еркін шолуға рұқсат ету</string>
   <string name="pinnedStudyComment">Қадаулы зерттеу пікірі</string>
   <string name="start">Бастау</string>
-  <string name="save">Сақтау</string>
   <string name="clearChat">Чатты өшіру</string>
   <string name="deleteTheStudyChatHistory">Зерттеудің чат тарихын өшіресіз бе? Кері жол жоқ!</string>
   <string name="deleteStudy">Зерттеуді жою</string>

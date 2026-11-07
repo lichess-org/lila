@@ -1,16 +1,16 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
+import chess.Outcome.Points
+import chess.format.pgn.*
+import chess.{ ByColor, FideId, IntRating, PlayerName }
 import scalalib.Debouncer
 
-import chess.format.pgn.*
-import chess.{ FideId, PlayerName, IntRating }
-import chess.Outcome.Points
+import scala.collection.immutable.SeqMap
 
 import lila.core.fide.{ PlayerToken, Tokenize }
-import lila.study.ChapterPreview
-import lila.study.StudyPlayer
+import lila.core.fide.Federation
 import lila.relay.RelayGroup.ScoreGroup
+import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
 
@@ -63,7 +63,7 @@ private class RelayTeamsTextarea(val text: String):
 object RelayTeam:
   import chess.{ Color, ByColor }
   extension (players: Iterable[RelayPlayer])
-    def allGamesFinished: Boolean = players.forall(_.games.forall(_.points.isDefined))
+    def allGamesFinished: Boolean = players.forall(_.games.forall(_.ongoing.not))
   case class TeamWithGames(name: TeamName, players: RelayPlayer.RelayPlayers):
     def add(player: RelayPlayer) =
       player.id.fold(this): id =>
@@ -72,75 +72,63 @@ object RelayTeam:
             id,
             players
               .get(id)
-              .fold(player)(rp =>
+              .fold(player): rp =>
                 rp.copy(games = rp.games ++ player.games, score = rp.score |+| player.score)
-              )
           )
         )
     def points = players.values.toList.foldMap(_.score)
-  case class Pair[A](a: A, b: A):
-    def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
-    def map[B](f: A => B) = Pair(f(a), f(b))
-    def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
-    def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
-    def forall(f: A => Boolean) = f(a) && f(b)
-    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else Some(b).filter(f)
-    def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
-    def reverse = Pair(b, a)
 
   case class TeamGame(id: StudyChapterId, pov: Color):
     def swap = copy(pov = !pov)
 
   case class TeamMatch(
       roundId: RelayRoundId,
-      teams: Pair[TeamWithGames],
+      teams: ByColor[TeamWithGames],
       games: List[TeamGame],
       teamCustomScoring: Option[RelayRound.CustomScoring]
   ):
-    def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
+    def isSameMatchup(teamNames: ByColor[TeamName]): Boolean =
+      val t = teams.map(_.name)
+      List(t, t.swap).exists(teamNames.eqv)
     def add(
-        chap: ChapterPreview,
-        playerAndTeam: Pair[(StudyPlayer, TeamName)],
+        chapterId: StudyChapterId,
+        playerAndTeam: ByColor[(StudyPlayer, TeamName)],
         game: ByColor[RelayPlayer.Game]
     ): TeamMatch =
-      val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
-      val wPOV = game(t0Color)
-      val bPOV = game(!t0Color)
-      val wPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
-      val bPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
+      val pov = Color.fromWhite(playerAndTeam.white._2 == teams.white.name)
+      val players = pov
+        .fold(game, game.swap)
+        .map: g =>
+          RelayPlayer.empty(g.opponent).copy(games = Vector(g), score = g.playerScore)
       copy(
-        games = TeamGame(chap.id, t0Color) :: games,
-        teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
+        games = TeamGame(chapterId, pov) :: games,
+        teams = teams.zip(players).map(_.add(_))
       )
-    def swap = copy(teams = teams.reverse, games = games.map(_.swap))
-    def pointsPair: Option[Pair[Points]] =
+    def swap = copy(teams = teams.swap, games = games.map(_.swap))
+    private def pointsPair: Option[ByColor[Points]] =
       teams
         .forall(_.players.values.allGamesFinished)
         .so:
-          (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
-            if aPoints == bPoints then Pair(Points.Half, Points.Half)
-            else if aPoints > bPoints then Pair(Points.One, Points.Zero)
-            else Pair(Points.Zero, Points.One)
-    def pointsFor(teamName: TeamName): Option[Points] =
-      pointsPair.map(o => if teams.a.name == teamName then o.a else o.b)
-    def scoreFor(teamName: TeamName): Option[Float] =
-      teamCustomScoring
-        .flatMap: cs =>
-          pointsFor(teamName).map: pts =>
-            pts match
+          teams.traverseReduce(_.points): (aPoints, bPoints) =>
+            if aPoints == bPoints then ByColor(Points.Half, Points.Half)
+            else if aPoints > bPoints then ByColor(Points.One, Points.Zero)
+            else ByColor(Points.Zero, Points.One)
+    private def scorePair: Option[ByColor[Float]] =
+      pointsPair.map: p =>
+        teamCustomScoring
+          .fold(p.map(_.value)): cs =>
+            p.map:
               case Points.One => cs.win
               case Points.Half => cs.draw
               case zero => RelayRound.CustomPoints(zero.value)
-        .map(_.value)
-        .orElse(pointsFor(teamName).map(_.value))
-    def povMatches: Pair[POVMatch] =
-      teams.permutations.map: (team, opp) =>
-        val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-        POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
-    def povMatch(teamName: TeamName): Option[POVMatch] =
-      if teams.a.name == teamName then Some(povMatches.a)
-      else if teams.b.name == teamName then Some(povMatches.b)
-      else None
+            .map(_.value)
+    def povMatches: ByColor[POVMatch] =
+      teams
+        .zip(teams.swap)
+        .mapWithColor:
+          case (c, (team, opp)) =>
+            val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+            POVMatch(roundId, opp.name, team.players, pointsPair.map(_(c)), scorePair.map(_(c)), gp)
 
   case class POVMatch(
       roundId: RelayRoundId,
@@ -150,7 +138,7 @@ object RelayTeam:
       mp: Option[Float],
       gp: Option[Float]
   ):
-    def isFinished: Boolean = players.values.allGamesFinished
+    def isFinished: Boolean = points.isDefined
   object POVMatch:
     object json:
       import play.api.libs.json.*
@@ -176,7 +164,7 @@ final class RelayTeamTable(
 
   def tableJson(roundId: RelayRoundId): Fu[JsObject] = jsonCache.get(roundId.studyId)
 
-  def table(roundId: RelayRoundId): Fu[List[TeamMatch]] =
+  private[relay] def table(roundId: RelayRoundId): Fu[List[TeamMatch]] =
     cache.get(roundId.studyId)
 
   private val cache = cacheApi[StudyId, List[TeamMatch]](64, "relay.teamTable"):
@@ -188,7 +176,7 @@ final class RelayTeamTable(
   private object impl:
 
     def makeJson(studyId: StudyId): Fu[JsObject] =
-      import RelayTeamTable.json.given
+      import RelayTeamTable.given
       for matches <- cache.get(studyId)
       yield Json.obj("table" -> matches)
 
@@ -205,32 +193,29 @@ final class RelayTeamTable(
         (for
           points <- chap.points
           players <- chap.players.map(_.map(_.studyPlayer))
-          teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
-          game = players.mapWithColor: (c, p) =>
-            RelayPlayer.Game(
-              round.id,
-              chap.id,
-              p,
-              c,
-              points,
-              round.rated,
-              chess.FideTC.standard,
-              round.customScoring,
-              unplayed = false,
-              ongoing = false
-            )
-          m0 = table.find(_.is(teams)) | TeamMatch(
+          teams <- players.traverse(_.team)
+          game = players.swap
+            .mapWithColor: (c, opp) =>
+              RelayPlayer.Game(
+                round.id,
+                chap.id,
+                opp,
+                c,
+                points,
+                round.rated,
+                chess.FideTC.standard,
+                round.customScoring,
+                unplayed = false,
+                ongoing = false
+              )
+          m0 = table.find(_.isSameMatchup(teams)) | TeamMatch(
             round.id,
             teams.map(TeamWithGames(_, SeqMap.empty)),
             Nil,
             round.teamCustomScoring
           )
-          m1 = m0.add(
-            chap,
-            Pair(players.white.player -> teams.a, players.black.player -> teams.b),
-            game
-          )
-          newTable = m1 :: table.filterNot(_.is(teams))
+          m1 = m0.add(chap.id, players.map(_.player).zip(teams, (_, _)), game)
+          newTable = m1 :: table.filterNot(_.isSameMatchup(teams))
         yield newTable) | table
 
     def ensureFirstPlayerHasWhite(table: List[TeamMatch]): List[TeamMatch] =
@@ -242,9 +227,10 @@ final class RelayTeamLeaderboard(
     relayGroupApi: RelayGroupApi,
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
-    teamTable: RelayTeamTable,
+    chapterRepo: lila.study.ChapterRepo,
+    federationsOf: lila.core.fide.Federation.FedsOf,
     cacheApi: lila.memo.CacheApi
-)(using Executor)(using scheduler: Scheduler):
+)(using Federation.Guess, Executor)(using scheduler: Scheduler):
   import play.api.libs.json.*
 
   type TeamLeaderboard = SeqMap[TeamName, TeamLeaderboardEntry]
@@ -287,16 +273,16 @@ final class RelayTeamLeaderboard(
   def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] =
     relayGroupApi.scoreGroupOf(tour).flatMap(cache.get)
 
-  private val cache = cacheApi[ScoreGroup, TeamLeaderboard](12, "relay.teamLeaderboard"):
+  private val cache = cacheApi[ScoreGroup, TeamLeaderboard](32, "relay.teamLeaderboard"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
 
-  private val jsonCache = cacheApi[ScoreGroup, JsonStr](8, "relay.teamLeaderboard.json"):
+  private val jsonCache = cacheApi[ScoreGroup, JsonStr](32, "relay.teamLeaderboard.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import json.given
       cache
         .get(tourId)
         .map: l =>
-          JsonStr(Json.stringify(Json.toJson(l.values.toList)))
+          JsonStr(Json.toJson(l.values.toList))
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
@@ -315,40 +301,69 @@ final class RelayTeamLeaderboard(
         for
           tourIds = scoreGroup.toList
           tours <- tourRepo.byIds(tourIds)
-          rounds <-
-            if RelayGroup.sgIsParallel(tours)
-            then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-            else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
-          roundIds = rounds.map(_.id)
-          matches <- roundIds.flatTraverse(teamTable.table)
-        yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
-          matchup.teams
-            .foldLeft(acc): (acc, team) =>
-              acc.updatedWith(team.name): entry =>
-                matchup
-                  .povMatch(team.name)
-                  .flatMap: pov =>
-                    entry.fold(TeamLeaderboardEntry(team.name, List(pov)).some): team =>
-                      team.copy(povMatches = team.povMatches :+ pov).some
+          toursById = tours.mapBy(_.id)
+          rounds <- roundRepo.roundsOfScoreGroup(tours)
+          roundsById = rounds.mapBy(_.id)
+          chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
+          uniqueFideIds = chapters.view.values
+            .flatMap(_.view.values.flatMap(_.fideIds.flatten))
             .toList
-            .sortBy(_._2)
-            .to(SeqMap)
+            .distinct
+          fedsById <- federationsOf(uniqueFideIds)
+          matchesByRound = chapters
+            .map: (studyId, chaps) =>
+              val roundId = studyId.into(RelayRoundId)
+              val teamMatches = chaps
+                .foldLeft(List.empty[RelayTeam.TeamMatch]):
+                  case (roundMatches, (chapterId, tags)) =>
+                    val withNewTeamGame = for
+                      players <- StudyPlayer.fromTags(tags)
+                      withFed <- players.traverse: p =>
+                        p.id.map(_ -> p.copy(fed = p.fed.orElse(p.fideId.flatMap(fedsById.get))))
+                      roundId = studyId.into(RelayRoundId)
+                      round <- roundsById.get(roundId)
+                      tourTC = toursById.get(round.tourId).map(_.info.fideTCOrGuess)
+                      game = withFed.mapWithColor: (c, p) =>
+                        RelayPlayer.Game.make(round, chapterId, p._2, c, tags, tourTC)
+                      teams <- players.traverse(_.team)
+                      teamMatch = roundMatches.find(_.isSameMatchup(teams)) | RelayTeam.TeamMatch(
+                        roundId,
+                        teams.map(RelayTeam.TeamWithGames(_, SeqMap.empty)),
+                        Nil,
+                        round.teamCustomScoring
+                      )
+                    yield roundMatches.filterNot(_.isSameMatchup(teams)) :+
+                      teamMatch.add(chapterId, players.map(_.player).zip(teams, (_, _)), game)
+                    withNewTeamGame | roundMatches
+              roundId -> teamMatches
+        yield matchesByRound
+          .flatMap(_._2)
+          .foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
+            matchup.teams
+              .zip(matchup.povMatches)
+              .fold(acc): (acc, combo) =>
+                acc.updatedWith(combo._1.name): entry =>
+                  entry.fold(TeamLeaderboardEntry(combo._1.name, List(combo._2)).some): team =>
+                    team.copy(povMatches = team.povMatches :+ combo._2).some
+          .toList
+          .sortBy(_._2)
+          .to(SeqMap)
 
 object RelayTeamTable:
-  object json:
-    import play.api.libs.json.*
-    import lila.common.Json.given
-    import RelayPlayer.json.given
-    import RelayJsonView.given
-    import RelayTeam.*
-    given [A: Writes]: Writes[Pair[A]] = Writes: p =>
-      Json.arr(p.a, p.b)
-    given Writes[TeamGame] = Json.writes[TeamGame]
-    given Writes[TeamMatch] = Json.writes[TeamMatch]
-    given Writes[TeamWithGames] = t =>
-      Json
-        .obj(
-          "name" -> t.name,
-          "players" -> Json.toJson(t.players.values.toList),
-          "points" -> Json.toJson(t.points.orZero)
-        )
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  import RelayPlayer.json.given
+  import RelayJsonView.given
+  import RelayTeam.*
+
+  private given Writes[TeamGame] = Json.writes
+  private given Writes[TeamMatch] = Json.writes
+  private given Writes[TeamWithGames] = t =>
+    Json
+      .obj(
+        "name" -> t.name,
+        "players" -> Json.toJson(t.players.values.toList),
+        "points" -> Json.toJson(t.points.orZero)
+      )
+  private given Writes[ByColor[TeamWithGames]] = Writes: p =>
+    Json.arr(p.white, p.black)

@@ -41,7 +41,7 @@ import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, onInsert } from 'lib/view';
+import { type VNode, type LooseVNodes, hl, bind, noTrans, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 import { text as xhrText } from 'lib/xhr';
 
@@ -52,8 +52,6 @@ import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData } from '../interfaces';
 import { clickHook, currentLineIndex, renderCurrentNode } from '../nvuiUtil';
 import { renderRetro } from '../retrospect/nvuiRetroView';
-import { view as chapterEditFormView } from '../study/chapterEditForm';
-import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import renderClocks from '../view/clocks';
@@ -219,10 +217,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
-        ].reduce<VNodeChildren[]>(
-          (acc, curr, i) => (i % 2 !== 0 ? addBreaks(acc, curr) : acc.concat(curr)),
-          [],
-        ),
+        ].flatMap((curr, i) => (i % 2 !== 0 ? addBreaks([], curr) : [curr])),
       ),
       hl('h2', 'Chat'),
       ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
@@ -286,7 +281,7 @@ export function boardEventsHook(
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     const isZh = ctrl.data.game.variant.key === 'crazyhouse';
-    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
+    if (e.shiftKey && /^[ad]$/i.test(e.key)) jumpMoveOrLine(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
@@ -555,7 +550,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
 const analysisGlyphs = new Set(['?!', '?', '??']);
 
 function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
-  const analysis = ctrl.staticAnalysis;
+  const analysis = ctrl.mainlineAnalysis;
   if (!analysis || ctrl.retro) return undefined;
   const analysisNodes = ctrl.mainline.filter(n =>
     n.glyphs?.find(g => g.comp && analysisGlyphs.has(g.symbol)),
@@ -599,7 +594,7 @@ const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiCon
     : hl(
         'button.request-analysis',
         clickHook(() =>
-          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+          xhrText(`/game/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
             () => {
               analysisInProgress(true);
               notify.set('Server-side analysis in progress');
@@ -649,12 +644,8 @@ function renderStudyPlayer({ study }: AnalyseCtrl, color: Color): VNode | undefi
     hl(
       'span',
       keys
-        .reduce<string[]>(
-          (strs, [key, i18n]) =>
-            player[key]
-              ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`)
-              : strs,
-          [],
+        .flatMap(([key, i18n]) =>
+          player[key] ? [`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`] : [],
         )
         .join(' '),
     )
@@ -792,18 +783,12 @@ function studyDetails({ study, redraw }: AnalyseCtrl) {
               hl(
                 'button.edit-chapter',
                 clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), redraw),
-                [
-                  'Edit current chapter',
-                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
-                ],
+                'Edit current chapter',
               ),
               hl(
                 'button.create-chapter',
-                clickHook(() => study.chapters.newForm.toggle(), redraw),
-                [
-                  'Add new chapter',
-                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-                ],
+                clickHook(() => study.chapters.newForm.open(), redraw),
+                'Add new chapter',
               ),
             ])
           : undefined,
