@@ -206,7 +206,11 @@ function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
   const { ctrl } = ctx;
   return [
     hl('div.actions', [
-      hl('button', { hook: bind('click', () => (document as any)?.ariaNotify($('.lastMove').text())) }, 'last move'),
+      hl(
+        'button',
+        { hook: bind('click', () => (document as any)?.ariaNotify($('.lastMove').text())) },
+        'last move',
+      ),
       hl(
         'button',
         {
