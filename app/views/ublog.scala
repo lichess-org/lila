@@ -9,9 +9,11 @@ import lila.core.ublog.QualityFilter
 import lila.i18n.LangList
 import lila.ublog.UblogPost
 
-lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi, views.mod.ui.menu("carousel"))(picfitUrl)
+lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi, views.mod.ui.menu("carousel"), picfitUrl)
 
-lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui)(connectLinks = views.bits.connectLinks)
+private lazy val structured = lila.ublog.ui.UblogStructuredData(helpers, netConfig)
+
+lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui, structured)(connectLinks = views.bits.connectLinks)
 
 lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
   renderCaptcha = (form, captcha) =>

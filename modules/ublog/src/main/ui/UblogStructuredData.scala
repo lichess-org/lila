@@ -1,0 +1,49 @@
+package lila.ublog
+package ui
+
+import play.api.libs.json.*
+
+import lila.ui.Helpers
+import lila.ui.OpenGraph
+import lila.common.Json.given
+import lila.core.config.NetConfig
+
+final class UblogStructuredData(helpers: Helpers, net: NetConfig):
+  import helpers.*
+
+  private given Writes[Instant] = Writes: d =>
+    JsString(isoDateTimeFormatter.print(d))
+
+  def apply(user: User, post: UblogPost, image: Option[Url]) =
+    post.lived.map: live =>
+      val authorUrl = routeUrl(routes.User.show(user.username))
+      lila.ui.bits.structuredData("BlogPosting"):
+        Json.obj(
+          "headline" -> post.title,
+          "description" -> post.intro,
+          "inLanguage" -> post.language,
+          "image" -> image.toList,
+          "keywords" -> post.topics,
+          "datePublished" -> live.at,
+          "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
+          "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
+          "author" -> Json
+            .obj(
+              "@type" -> "Person",
+              "@id" -> authorUrl,
+              "url" -> authorUrl,
+              "name" -> user.username
+            )
+            .add("honorificPrefix" -> user.title)
+            .add("alternateName" -> user.profileOrDefault.nonEmptyRealName),
+          "publisher" -> lila.ui.bits.organizationJson(net)
+        )
+
+  def openGraph(user: User, post: UblogPost, image: Option[Url]) =
+    OpenGraph(
+      `type` = "article",
+      image = image,
+      title = post.title,
+      url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
+      description = post.intro
+    )
