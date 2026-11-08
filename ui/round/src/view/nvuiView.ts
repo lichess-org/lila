@@ -203,21 +203,17 @@ function renderActions({ ctrl }: RoundNvuiContext): LooseVNodes {
 }
 
 function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
-  const { ctrl } = ctx;
+  const { notify, ctrl } = ctx;
   return [
     hl('div.actions', [
-      hl(
-        'button',
-        { hook: bind('click', () => (document as any)?.ariaNotify($('.lastMove').text())) },
-        'last move',
-      ),
+      hl('button', { hook: bind('click', () => notify.set($('.lastMove').text())) }, 'last move'),
       hl(
         'button',
         {
           hook: bind('click', () => {
             if ($('.nvui .botc').text().trim() !== '')
-              (document as any)?.ariaNotify($('.nvui .botc').text() + ' - ' + $('.nvui .topc').text());
-            else (document as any)?.ariaNotify('not available');
+              notify.set($('.nvui .botc').text() + ' - ' + $('.nvui .topc').text());
+            else notify.set('not available');
           }),
         },
         'clocks',
@@ -229,7 +225,7 @@ function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
             if (ctrl.isPlaying()) {
               $('input.move').val('');
               $('#move-form').trigger('submit');
-            } else (document as any)?.ariaNotify('not available');
+            } else notify.set('not available');
           }),
         },
         'cancel premove',
