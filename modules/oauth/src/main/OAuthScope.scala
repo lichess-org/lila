@@ -41,6 +41,7 @@ object OAuthScope:
     case object Read extends OAuthScope("email:read", trans.emailRead)
 
   object Challenge:
+
     case object Read extends OAuthScope("challenge:read", trans.challengeRead)
     case object Write extends OAuthScope("challenge:write", trans.challengeWrite)
     case object Bulk extends OAuthScope("challenge:bulk", trans.challengeBulk)

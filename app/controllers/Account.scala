@@ -76,7 +76,7 @@ final class Account(
   }
 
   private val lichobileInfoCache =
-    env.memo.cacheApi[UserId, lila.core.data.JsonStr](2_048, "lichobile.infoCache"):
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](1200, "lichobile.infoCache"):
       _.expireAfterWrite(20.seconds).buildAsyncFuture: uid =>
         for
           povs <- env.round.proxyRepo.urgentGames(uid)
