@@ -112,9 +112,6 @@ object HTTPRequest:
       a.startsWith("application/json") ||
       a.startsWith("application/vnd.lichess.v")
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
-  def acceptsMarkdown(using req: RequestHeader) =
-    accepts(req).contains("text/markdown") ||
-      queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
 
   def actionName(req: RequestHeader): String =
