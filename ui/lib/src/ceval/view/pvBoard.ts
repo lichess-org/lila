@@ -4,12 +4,14 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { uciToMove } from '@lichess-org/chessground/util';
 import type { VNode } from 'snabbdom';
 
+import * as domData from '@/data';
+import { onInsert } from '@/view';
 import { div } from '@/view/snabbdomElements';
 
 import { type CevalHandler } from '../types';
 
-type PvBoardPopup = { el: HTMLElement; cg: ReturnType<typeof makeChessground> };
-const pvBoardPopups = new WeakMap<Element, PvBoardPopup>();
+const popupId = 'ceval-pv-board-popup';
+const popupHtml = `<div id="${popupId}" class="pv-board"><div class="pv-board-square"><div class="cg-wrap is2d"></div></div></div>`;
 
 export function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
   const ceval = ctrl.ceval;
@@ -29,38 +31,35 @@ export function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
   };
   return div('.pv-board-anchor', {
     hook: {
-      insert: (vnode: VNode) => {
-        const anchor = vnode.elm as HTMLElement;
-        const cgWrap = document.createElement('div');
-        cgWrap.className = 'cg-wrap is2d';
-        const square = document.createElement('div');
-        square.className = 'pv-board-square';
-        square.appendChild(cgWrap);
-        const el = document.createElement('div');
-        el.className = 'pv-board';
-        el.appendChild(square);
-        document.body.appendChild(el);
-        positionPvBoard(anchor, el);
-        pvBoardPopups.set(anchor, { el, cg: makeChessground(cgWrap, cgConfig) });
-      },
-      update: (_: VNode, vnode: VNode) => {
-        const anchor = vnode.elm as HTMLElement;
-        const popup = pvBoardPopups.get(anchor);
+      ...onInsert(anchor => {
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+        const popup = getPopup()!;
+        domData.set(popup, 'chessground', makeChessground(popup, cgConfig));
+        positionPvBoard(anchor);
+      }),
+      update: () => {
+        console.log('update');
+        const popup = getPopup()!;
         if (!popup) return;
-        popup.cg.set(cgConfig);
-        positionPvBoard(anchor, popup.el);
+        domData.get(popup, 'chessground')?.set(cgConfig);
+        // positionPvBoard(anchor);
       },
-      destroy: (vnode: VNode) => {
-        const popup = pvBoardPopups.get(vnode.elm as Element);
-        popup?.cg.destroy();
-        popup?.el.remove();
-        pvBoardPopups.delete(vnode.elm as Element);
+      destroy: () => {
+        // const popup = getPopup()!;
+        // if (popup) {
+        //   domData.get(popup, 'chessground')?.destroy();
+        //   popup.remove();
+        // }
       },
     },
   });
 }
 
-function positionPvBoard(anchor: HTMLElement, popup: HTMLElement): void {
+const getPopup = () => document.getElementById(popupId);
+
+function positionPvBoard(anchor: HTMLElement): void {
+  const popup = getPopup();
+  if (!popup) return;
   const box = anchor.closest('.pv_box');
   if (!box) return;
   const rect = box.getBoundingClientRect();
