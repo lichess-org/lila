@@ -43,7 +43,7 @@
   <string name="spectator">Obserwator</string>
   <string name="contributor">Współautor</string>
   <string name="kick">Wyrzuć</string>
-  <string name="remove">Usuń</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Usuń</string>
   <string name="leaveTheStudy">Opuść opracowanie</string>
   <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
   <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
@@ -131,9 +131,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Usunąć opracowanie? Nie będzie można go odzyskać! Wpisz nazwę opracowania, aby potwierdzić operację: %s</string>
   <string name="whereDoYouWantToStudyThat">Gdzie chcesz się tego uczyć?</string>
   <string name="goodMove">Dobry ruch</string>
-  <string name="mistake">Pomyłka</string>
   <string name="brilliantMove">Świetny ruch</string>
-  <string name="blunder">Błąd</string>
   <string name="interestingMove">Interesujący ruch</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Wątpliwy ruch</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jedyny ruch</string>

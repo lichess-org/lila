@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">פומבי</string>
+  <string name="permSettingsName">הגדרות</string>
+  <string name="permTourName">טורנירים</string>
+  <string name="manuallyReviewAdmissionRequests">אשר מצטרפים לקבוצה באופן ידני</string>
+  <string name="onlyLeaderLeavesTeam">אנא מנו מנהיג חדש לקבוצה טרם עזיבתכם, או סגרו את הקבוצה.</string>
+  <string name="kickSomeone">הסירו מישהו מהקבוצה</string>
+  <string name="whoToKick">את מי את/ה רוצה להסיר מהקבוצה?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s בקשת הצטרפות</item>
+    <item quantity="two">%s בקשות הצטרפות</item>
+    <item quantity="other">%s בקשות הצטרפות</item>
+  </plurals>
+  <string name="declinedRequests">בקשות שנדחתו</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">אולי תרצה לקשר אחד מהטורנירים הבאים הקרובים?</string>
+  <string name="closeTeam">סגור את הקבוצה</string>
+  <string name="closeTeamDescription">שדה זה סוגר את הקבוצה לעד.</string>
+  <string name="listTheTeamsThatWillCompete">רשימה של הקבוצות שישתתפו בקרב הזה.</string>
+  <string name="thisTeamBattleIsOver">הטורניר הזה הסתיים ולא ניתן לעדכן יותר את הקבוצות.</string>
+  <string name="oneTeamPerLine">קבוצה אחת בכל שורה. ניתן להשתמש בהשלמה האוטומטית.</string>
+  <string name="numberOfLeadsPerTeam">מספר המובילים בכל קבוצה. סך הנקודות שלהם הוא הניקוד שהקבוצה תשיג.</string>
+  <string name="numberOfLeadsPerTeamHelp">מאוד לא מומלץ לשנות את הערך הזה לאחר תחילת הטורניר!</string>
+</resources>

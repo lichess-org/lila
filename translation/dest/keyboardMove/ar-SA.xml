@@ -18,5 +18,5 @@
   <string name="bothTheLetterOAndTheDigitZero">يمكن استخدام كل من الحرف \"o\" و الرقم صفر \"0\" عند التبييت</string>
   <string name="ifItIsLegalToCastleBothWays">إذا كان التبيت قانونياً في كلا الاتجاهين، استخدم زر enter للتبيبت القصير</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">لا تُؤخذ حالة الأحرف الكبيرة والصغيرة في الاعتبار إلا في الحالات الملتبسة التي تتعلق بالفيل وبيدق العمود b</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">للتحرك المسبق، ببساطة اكتب المسبق المطلوب قبل أن يكون دورك</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">لتنفيذ نقلة مسبقة، ما عليك سوى كتابة النقلة التي تريد تنفيذها قبل أن يحين دورك</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Almen</string>
+  <string name="permSettingsName">Stillingar</string>
+  <string name="permTourName">Kappingar</string>
+  <string name="manuallyReviewAdmissionRequests">Met um umsóknir um upptøku manuelt</string>
+  <string name="kickSomeone">Tveit onkran av liðnum</string>
+  <string name="whoToKick">Hvønn vilt tú tveita av liðnum?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s luttøkuumbøn</item>
+    <item quantity="other">%s luttøkuumbønir</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Tú hevur møguliga hug at leinkja til eina av hesum komandi kappingunum?</string>
+  <string name="closeTeam">Lat lið aftur</string>
+  <string name="closeTeamDescription">Letur lið aftur med alla.</string>
+</resources>

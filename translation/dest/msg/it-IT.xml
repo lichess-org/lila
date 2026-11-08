@@ -2,4 +2,11 @@
 <resources>
   <string name="lichobileNewAppAvailable">È disponibile una nuova app mobile di Lichess!</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Per favore scarica la nuova app ufficiale di Lichess su %s.</string>
+  <string name="modActionFeedback">Ciao,
+
+abbiamo esaminato la tua recente segnalazione e abbiamo preso dei provvedimenti. Pur non potendo condividere i dettagli delle misure adottate, ti ringraziamo per averci avvisato.
+
+Grazie per aiutarci a fare di Lichess un ambiente piacevole per tutti.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">La vecchia app non supporta più i rompicapi. Si prega di installare la nuova app Lichess: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s non accetta nuovi messaggi.</string>
 </resources>

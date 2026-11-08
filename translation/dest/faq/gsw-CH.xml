@@ -22,7 +22,7 @@
   <string name="whenAmIEligibleRatinRefund">Wänn chum ich Wertigspünkt z\'rugg über, wo mir en/e Betrüger*i g\'nah hät?</string>
   <string name="ratingRefundExplanation">1 Minute, nachdem en/e Schpiler*i markiert worde isch, werded sini/ihri 40 letschte Schpil, vu de letschte 3 Tag aglueget. Bisch du i dene Schpil under de Gägner*ine gsi und dini Wertig hät sich verschlächteret, will du verlore- oder Remis g\'schpillt häsch, dänn chunsch du e Wertigs Rückerschtattig über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dem Schpil.
 (Wänn dini Wertig nach so Schpil starch g\'schtige isch, git\'s möglicherwis kei Rückerschtattig oder nur en Teil. Dini Wertig dörf au nöd erscht provisorisch si.) Rückerschtattige sind nie höcher als 150 Pünkt.</string>
-  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiler*ine, wo anstatt ufz\'geh, eifach ab\'haued?</string>
+  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiler*ine, wo anschtatt ufz\'geh, eifach ab\'haued?</string>
   <string name="leavingGameWithoutResigningExplanation">Wänn de/d\'Gägner*i hüfig Schpil abbricht oder verlaht, kassiert er/sie en Schpil Bann und cha e gwüssi Zit kei Schpil schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret. Witeri Verschtöss chönd zur Schlüssig vum Konto füere.</string>
   <string name="howCanIBecomeModerator">Wie chan ich Moderator*in werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator*in z\'bewerbe. Wänn mir öpper g\'sehnd und dänked, dass er/sie g\'eignet und guet chönt si, kontaktiered mir die Person diräkt.</string>
@@ -91,7 +91,7 @@ Usserdem gits no en Ehretitel %2$s.</string>
   <string name="noUpperCaseDot">Leider nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">De Ehretitel isch inoffiziell und exischtiert nur bi Lichess.
 
-I sältene Fäll und nach eusem Ermässe, verleihed mir de Titel a b\'sunders bemerkenswerti Schpiler*ine, wo gueti Mitglieder*ine vu Lichess sind. Du chunsch de LM Titel nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunsch du vu eus e Nachricht über und häsch d\'Wahl az\'neh oder abz\'lehne. 
+I sältene Fäll und nach eusem Ermässe, verleihed mir de Titel a b\'sunders bemerkenswerti Schpiler*ine, wo gueti Mitglieder vu Lichess sind. Du chunsch de LM Titel nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunsch du vu eus e Nachricht über und häsch d\'Wahl az\'neh oder abz\'lehne. 
 
 Also verlang de Titel nöd.</string>
   <string name="whatUsernameCanIchoose">Wie cha min Benutzername lute?</string>

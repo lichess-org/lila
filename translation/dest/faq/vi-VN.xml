@@ -65,7 +65,6 @@ Nó được mô tả trong phần 3.7.3.1 và 3.7.3.2 của %2$s:
 Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
   <string name="lichessTraining">huấn luyện của Lichess</string>
-  <string name="watchIMRosenCheckmate">Xem Kiện tướng Quốc tế (IM) Eric Rosen chiếu hết %s.</string>
   <string name="threefoldRepetition">Luật lặp cờ 3 lần</string>
   <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>

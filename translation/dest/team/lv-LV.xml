@@ -13,23 +13,13 @@
   <string name="myTeams">Manas komandas</string>
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
-  <string name="onlyLeaderLeavesTeam">Lūdzu, pievienojiet jaunu komandas vadītāju pirms pamešanas, vai arī slēdziet komandu.</string>
   <string name="quitTeam">Pamest komandu</string>
-  <string name="manuallyReviewAdmissionRequests">Izskatīt katru pievienošanās pieprasījumu</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Ja iespējosiet, spēlētājiem būs jāiesniedz pieprasījums pievienoties komandai, kuru jūs varat noraidīt vai pieņemt.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">Komandas vadītāji</item>
     <item quantity="one">Komandas vadītājs</item>
     <item quantity="other">Komandas vadītāji</item>
   </plurals>
   <string name="teamRecentMembers">Jaunākie dalībnieki</string>
-  <string name="kickSomeone">Izmest kādu no komandas</string>
-  <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="zero">%s pievienošanās pieprasījumu</item>
-    <item quantity="one">%s pievienošanās pieprasījums</item>
-    <item quantity="other">%s pievienošanās pieprasījumi</item>
-  </plurals>
   <string name="willBeReviewed">Jūsu pieprasījumu pievienoties izskatīs komandas vadītājs.</string>
   <string name="beingReviewed">Jūsu pieprasījumu pievienoties izskata komandas vadītājs.</string>
   <string name="requestDeclined">Kāds no komandas vadītājiem noraidīja jūsu pieprasījumu pievienoties.</string>
@@ -39,15 +29,11 @@
   <string name="teamTournamentOverview">Arēnas turnīrs, kurā var piedalīties vienīgi komandas dalībnieki</string>
   <string name="swissTournamentOverview">Šveices turnīrs, kam var pievienoties tikai jūsu komandas dalībnieki</string>
   <string name="teamsIlead">Komandas, kuras vadu</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Vai vēlaties pievienot saiti uz kādu no šiem turnīriem?</string>
   <string name="leadersChat">Vadītāju sarakste</string>
-  <string name="closeTeam">Slēgt komandu</string>
-  <string name="closeTeamDescription">Uz visiem laikiem slēdz komandu.</string>
   <string name="entryCode">Komandas pievienošanās kods</string>
   <string name="entryCodeDescriptionForLeader">(Neobligāts) Kods, kas jāzina jauniem dalībniekiem, lai pievienotos komandai.</string>
   <string name="incorrectEntryCode">Nepareizs pievienošanās kods.</string>
   <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
   <string name="completedTourns">Notikušie turnīri</string>
-  <string name="declinedRequests">Noraidītie pieprasījumi</string>
   <string name="joinLichessVariantTeam">Pievienojieties oficiālajai \"%s\" komandai, lai saņemtu jaunumus un informāciju par pasākumiem</string>
 </resources>

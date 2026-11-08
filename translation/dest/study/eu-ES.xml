@@ -124,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Azterlan osoa ezabatu? Ez dago atzera egiterik! Idatzi azterlanaren izena baieztapena emateko: %s</string>
   <string name="whereDoYouWantToStudyThat">Non nahi duzu hori aztertu?</string>
   <string name="goodMove">Jokaldi ona</string>
-  <string name="mistake">Akatsa</string>
   <string name="brilliantMove">Jokaldi bikaina</string>
-  <string name="blunder">Akats larria</string>
   <string name="interestingMove">Jokaldi interesgarria</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Zalantzazko jokaldia</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jokaldi bakarra</string>

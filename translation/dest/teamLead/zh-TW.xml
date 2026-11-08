@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">公開的</string>
+  <string name="permSettingsName">設定</string>
+  <string name="permTourName">錦標賽</string>
+  <string name="manuallyReviewAdmissionRequests">手動審查錄取請求</string>
+  <string name="onlyLeaderLeavesTeam">請在離開前決定新團長或是關閉團隊</string>
+  <string name="kickSomeone">踢除團隊裡的指定玩家</string>
+  <string name="whoToKick">您想要踢除在團隊裡的哪一位玩家?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s個加入申請</item>
+  </plurals>
+  <string name="declinedRequests">拒絕的請求</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">您可能想要鏈接一個即將到來的錦標賽？</string>
+  <string name="closeTeam">關閉團隊</string>
+  <string name="closeTeamDescription">永遠關閉此團隊</string>
+  <string name="listTheTeamsThatWillCompete">列出將對奕的團隊。</string>
+  <string name="thisTeamBattleIsOver">此錦標賽已結束且團隊無法再被更新。</string>
+  <string name="oneTeamPerLine">一行一個團隊。可以使用自動完成。</string>
+  <string name="numberOfLeadsPerTeam">每隊的團長人數。他們的分數加總即是整對的分數。</string>
+  <string name="numberOfLeadsPerTeamHelp">您不應該在錦標賽開始後改變此值！</string>
+</resources>

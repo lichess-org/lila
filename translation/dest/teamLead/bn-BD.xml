@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">পাবলিক</string>
+  <string name="permSettingsName">সেটিংস</string>
+  <string name="permTourName">টুর্নামেন্টগুলো</string>
+  <string name="manuallyReviewAdmissionRequests">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
+  <string name="kickSomeone">কাউকে দল থেকে বের করে দিন</string>
+  <string name="whoToKick">কাকে দল থেকে বের করতে চান?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%sসংখ্যক যোগদানের অনুরোধ</item>
+    <item quantity="other">%s সংখ্যক যোগদানের অনুরোধ</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">আপনি এইসব অনুষ্ঠিতব্য টুর্নামেন্টের কোনোটির লিংক তৈরী করতে পারেন?</string>
+  <string name="closeTeam">দল বাতিল করুন</string>
+  <string name="closeTeamDescription">সারাজীবনের জন্য দল বন্ধ করুন.</string>
+</resources>

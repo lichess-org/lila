@@ -34,7 +34,7 @@
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢出</string>
-  <string name="remove">移除</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">移除</string>
   <string name="leaveTheStudy">离开研习</string>
   <string name="youAreNowAContributor">您现在是一名贡献者</string>
   <string name="youAreNowASpectator">你现在是一位旁观者</string>
@@ -122,9 +122,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">您确定要删除整个研习？此操作不可撤销！请输入研习名称以确认：%s</string>
   <string name="whereDoYouWantToStudyThat">您想在何处研习此内容？</string>
   <string name="goodMove">好着</string>
-  <string name="mistake">错着</string>
   <string name="brilliantMove">妙着</string>
-  <string name="blunder">败着</string>
   <string name="interestingMove">趣味着法</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">可疑着法</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一着法</string>

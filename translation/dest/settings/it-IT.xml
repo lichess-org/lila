@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Annulla e mantieni il mio account</string>
   <string name="closeAccountAreYouSure">Vuoi veramente chiudere il tuo account?</string>
   <string name="thisAccountIsClosed">Questo account è stato eliminato.</string>
+  <string name="wereSorryToSeeYouGo">Ci dispiace vederti andar via.</string>
+  <string name="closeAccountForeverLabel">Chiudi per sempre: rendere impossibile riaprire</string>
+  <string name="closeAccountForeverWarning">Impedisci la riapertura futura dell\'account. Se spunti questa casella, nemmeno gli amministratori potranno riaprire il tuo account, neanche su tua richiesta.</string>
+  <string name="deleteYourAccount">Elimina il tuo account</string>
+  <string name="deleteAccountWarning">Una volta eliminato il tuo account, viene rimosso da Lichess e i nostri amministratori non saranno in grado di ripristinarlo per te.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Vorresti invece %s?</string>
+  <string name="closeYourAccount">chiudi il tuo account</string>
+  <string name="deleteAccountConfirmText">Capisco che gli account eliminati non sono recuperabili</string>
 </resources>

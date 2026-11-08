@@ -66,7 +66,7 @@ Përshkruhet në ndarjen 3.7.3.1 dhe 3.7.3.2 të %2$s:
 Rreth kësaj lvizjeje shihni %3$s, për ca ushtrim me të.</string>
   <string name="goodIntroduction">hyrje të mirë</string>
   <string name="lichessTraining">Trajnim Lichess</string>
-  <string name="watchIMRosenCheckmate">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
+  <string name="watchIMRosenCheckmate">Shihni Mjeshtrin Ndërkombëtar Eric Rosen të japë shah mat checkmate &lt;a href=\'%s\' target=\'_blank\'&gt;en passant&lt;/a&gt;.</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
   <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>

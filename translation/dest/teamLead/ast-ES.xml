@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Públicu</string>
+  <string name="permSettingsName">Axustes</string>
+  <string name="permTourName">Torneos</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente les solicitúes d\'almisión</string>
+  <string name="onlyLeaderLeavesTeam">Por favor, añede un nuevu líder d\'equipu antes de salir, o cierra l\'equipu.</string>
+  <string name="kickSomeone">Espulsar a daquién del equipu</string>
+  <string name="whoToKick">¿A quién quies espulsar del equipu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s solicitú d\'ingresu</item>
+    <item quantity="other">%s solicitúes d\'ingresu</item>
+  </plurals>
+  <string name="declinedRequests">Solicitúes refugaes</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">¿Quies incluyir un enllaz a dalgún d\'estos próximos torneos?</string>
+  <string name="teamIntroductionHelp">Pequeña descripción visible nel llistáu d\'equipos. Hasta 200 calteres.</string>
+  <string name="teamDescriptionHelp">Descripción completa visible na páxina del equipu.</string>
+  <string name="closeTeam">Dar de baxa l\'equipu</string>
+  <string name="closeTeamDescription">Da de baxa l\'equipu definitivamente.</string>
+  <string name="listTheTeamsThatWillCompete">Listar los equipos que van competir nesta batalla.</string>
+  <string name="thisTeamBattleIsOver">Esti tornéu terminó y los equipos yá nun pueden ser actualizaos.</string>
+  <string name="oneTeamPerLine">Un equipu per llínea. Utiliza l\'autocompletáu.</string>
+  <string name="numberOfLeadsPerTeam">Cantidá de líderes per equipu. La suma de les sos puntuaciones va ser la puntuación del equipu.</string>
+  <string name="numberOfLeadsPerTeamHelp">¡Nun tendríes de camudar esti valor dempués de que\'l tornéu empezara!</string>
+</resources>

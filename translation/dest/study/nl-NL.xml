@@ -37,7 +37,7 @@
   <string name="spectator">Kijker</string>
   <string name="contributor">Bijdrager</string>
   <string name="kick">Verwijder</string>
-  <string name="remove">Verwijderen</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Verwijderen</string>
   <string name="leaveTheStudy">Verlaat de studie</string>
   <string name="youAreNowAContributor">Je bent nu een bijdrager</string>
   <string name="youAreNowASpectator">Je bent nu een toeschouwer</string>
@@ -125,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">De hele studie verwijderen? Er is geen weg terug! Type de naam van de studie om te bevestigen dat je de studie wilt verwijderen: %s</string>
   <string name="whereDoYouWantToStudyThat">Waar wil je dat bestuderen?</string>
   <string name="goodMove">Goede zet</string>
-  <string name="mistake">Fout</string>
   <string name="brilliantMove">Briljante zet</string>
-  <string name="blunder">Blunder</string>
   <string name="interestingMove">Interessante zet</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubieuze zet</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Enig mogelijke zet</string>

@@ -26,7 +26,7 @@
   <string name="randomColor">Насумична боја</string>
   <string name="createAGame">Започни нову партију</string>
   <string name="createTheGame">Започни партију</string>
-  <string name="whiteIsVictorious">Бели је победио</string>
+  <string name="whiteIsVictorious">Бели је победник</string>
   <string name="blackIsVictorious">Црни је победник</string>
   <string name="youPlayTheWhitePieces">Играш са белим фигурама</string>
   <string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
@@ -48,11 +48,11 @@
   </plurals>
   <string name="opponentLeftChoices">Твој противник је изашао из партије. Можеш прогласити победу, прогласити партију ремијем или чекати.</string>
   <string name="forceResignation">Прогласи се победником</string>
-  <string name="forceDraw">Приморај на реми</string>
+  <string name="forceDraw">Прогласи реми</string>
   <string name="talkInChat">Буди љубазан у ћаскању!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која дође на овај линк ће играти са тобом.</string>
-  <string name="whiteResigned">Бели је предао</string>
-  <string name="blackResigned">Црни је предао</string>
+  <string name="whiteResigned">Бели предао</string>
+  <string name="blackResigned">Црни предао</string>
   <string name="whiteLeftTheGame">Бели је напустио партију</string>
   <string name="blackLeftTheGame">Црни је напустио партију</string>
   <string name="whiteDidntMove">Бели се није померио</string>
@@ -60,7 +60,7 @@
   <string name="whiteAborted">Бели је прекинуо партију</string>
   <string name="blackAborted">Црни је прекинуо партију</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
-  <string name="computerAnalysis">Компјутерска анализа</string>
+  <string name="computerAnalysis">Рачунарска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа доступна</string>
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
   <string name="analysis">Табла за анализирање</string>
@@ -162,9 +162,9 @@
     <item quantity="few">%s Непрецизности</item>
     <item quantity="other">%s Непрецизности</item>
   </plurals>
-  <string name="moveTimes">Време померања фигура</string>
+  <string name="moveTimes">Времена потеза</string>
   <string name="flipBoard">Обрни таблу</string>
-  <string name="threefoldRepetition">Троструко понављање</string>
+  <string name="threefoldRepetition">Троструко понављање позиције</string>
   <string name="claimADraw">Затражи реми</string>
   <string name="drawClaimed">Реми проглашен</string>
   <string name="offerDraw">Понуди реми</string>
@@ -193,7 +193,7 @@
   <string name="signIn">Пријави се</string>
   <string name="rememberMe">Остани пријављен</string>
   <string name="youNeedAnAccountToDoThat">Треба вам налог да бисте то урадили</string>
-  <string name="signUp">Региструј се</string>
+  <string name="signUp">Региструј</string>
   <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
   <string name="games">Партије</string>
   <string name="forum">Форум</string>

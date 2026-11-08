@@ -12,22 +12,12 @@
   <string name="myTeams">Nire taldeak</string>
   <string name="noTeamFound">Ez da talderik aurkitu</string>
   <string name="joinTeam">Taldean sartu</string>
-  <string name="onlyLeaderLeavesTeam">Gehitu taldeko kapitain berri bat zuk utzi aurretik edo bestela itxi taldea.</string>
   <string name="quitTeam">Taldetik atera</string>
-  <string name="manuallyReviewAdmissionRequests">Eskuz egiaztatu sartzeko eskaerak</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Aukeratuta badago, taldera sartzeko eskaera bidali beharko da eta hori eskuz onartu edo baztertu beharko duzu.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ezkutatu taldearen kide-zerrenda kide ez direnentzat.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
   </plurals>
   <string name="teamRecentMembers">Kide berriak</string>
-  <string name="kickSomeone">Norbait taldetik bota</string>
-  <string name="whoToKick">Nor nahi duzu taldetik bota?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">Sartzeko eskaera %s</item>
-    <item quantity="other">Sartzeko %s eskaera</item>
-  </plurals>
   <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
   <string name="beingReviewed">Taldearen arduraduna zure eskaera gainbegiratzen ari da.</string>
   <string name="requestDeclined">Zure eskaera taldearen arduradunak ukatu egin du.</string>
@@ -38,34 +28,17 @@
   <string name="swissTournamentOverview">Zure taldeko kideek bakarrik parte hartu dezaketen txapelketa suitzarra</string>
   <string name="teamUpdates">Taldearen eguneratzeak</string>
   <string name="subToTeamUpdates">Harpidetu taldearen eguneratzeetara</string>
-  <string name="newTeamUpdate">Taldearen eguneratzea</string>
   <string name="teamsIlead">Kapitain naizen taldeak</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Jokatuko diren txapelketa hauetakoren baten lotura bidali nahi duzu?</string>
   <string name="leadersChat">Kapitainen txata</string>
   <string name="introduction">Sarrera</string>
-  <string name="teamIntroductionHelp">Taldeen zerrendetan erakusten den deskribapen laburra. 200 karaktere gehienez.</string>
-  <string name="teamDescriptionHelp">Taldearen orrialdean ikusiko den deskribapen osoa.</string>
-  <string name="closeTeam">Taldea itxi</string>
-  <string name="closeTeamDescription">Taldea betiko itxi.</string>
   <string name="entryCode">Taldean sartzeko kodea</string>
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>
   <string name="incorrectEntryCode">Sarrera-kode okerra.</string>
   <string name="forumLabel">Taldearen foroa</string>
-  <string name="forumVisibilityHelp">Nork ikusi dezakeu taldearen foroa taldearen orrian?&lt;br&gt;Taldearen kideek bakarrik idatzi dezakete taldearen foroan.</string>
-  <string name="forumVisibilityNone">Ezkutatu foroa</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
   <string name="upcomingTournaments">Hurrengo txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>
-  <string name="declinedRequests">Ukatutako eskaerak</string>
   <string name="joinLichessVariantTeam">Sartu %s talde ofizialera, albiste eta txapelketen berri izateko</string>
-  <string name="thisTeamBattleIsOver">Txapelketa hau amaituta dago eta taldeak ezin dira eguneratu.</string>
-  <string name="listTheTeamsThatWillCompete">Zerrendatu txapelketa honetan parte hartuko duten taldeak.</string>
-  <string name="oneTeamPerLine">Talde bat lerro bakoitzean. Erabili izena berez-betetzea.</string>
-  <string name="oneTeamPerLineHelp">Zerrenda hau txapelketa batetik bestera kopiatu dezakezu!
-
-Ezin duzu talde bat ezabatu bertako jokalari bat txapelketara sartu bada.</string>
-  <string name="numberOfLeadsPerTeam">Talde bateko lider kopurua. Euren puntuazioen baturak taldearen puntuazioa emango du.</string>
-  <string name="numberOfLeadsPerTeamHelp">Ez zenuke balio hau aldatu behar txapelketa bat hasi ostean!</string>
   <string name="innerTeam">Barruko taldea</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Talde %sen arteko txapelketa</item>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Public</string>
+  <string name="permSettingsName">Setări</string>
+  <string name="permTourName">Turnee</string>
+  <string name="permRequestName">Cereri</string>
+  <string name="permPmAllName">Actualizări</string>
+  <string name="permRemoveName">Șterge</string>
+  <string name="permRemoveDesc">Elimină membri din echipă</string>
+  <string name="permAdminName">Admin</string>
+  <string name="manuallyReviewAdmissionRequests">Verificați manual cererile de admitere</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ascunde lista de membri ai echipei față de non-membri.</string>
+  <string name="onlyLeaderLeavesTeam">Te rugăm să adaugi un nou lider de echipă înainte de a părăsi echipa, sau să desființezi echipa.</string>
+  <string name="kickSomeone">Dă afară pe cineva din echipă</string>
+  <string name="removeSomeone">Elimină pe cineva din echipă</string>
+  <string name="whoToKick">Pe cine vrei să dai afară din echipă?</string>
+  <string name="whoToRemove">Pe cine vreți să eliminați din echipă?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s cerere de alăturare</item>
+    <item quantity="few">%s cereri de alăturare</item>
+    <item quantity="other">%s cereri de alăturare</item>
+  </plurals>
+  <string name="declinedRequests">Cereri refuzate</string>
+  <string name="newTeamUpdate">Nou anunț în echipă</string>
+  <string name="teamUpdatesPerWeek">Puteţi trimite până la %1$s actualizări pe săptămână. &lt;strong&gt;%2$s&lt;/strong&gt; actualizări rămase până la %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Ai vrea să legi unul dintre aceste turnee viitoare?</string>
+  <string name="teamIntroductionHelp">Scurtă descriere vizibilă în listei de echipe. Până la 200 de caractere.</string>
+  <string name="teamDescriptionHelp">Descrierea completă vizibilă pe pagina echipei.</string>
+  <string name="closeTeam">Închide echipa</string>
+  <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
+  <string name="forumVisibilityHelp">Cine poate vedea forumul de echipă pe pagina echipei?&lt;br&gt;Numai membrii echipei pot posta în forumul echipei.</string>
+  <string name="forumVisibilityNone">Ascunde forumul</string>
+  <string name="listTheTeamsThatWillCompete">Listează echipele care vor concura în această luptă.</string>
+  <string name="thisTeamBattleIsOver">Acest turneu s-a terminat, iar echipele nu mai pot fi actualizate.</string>
+  <string name="oneTeamPerLine">O echipă pe linie. Utilizează completarea automată.</string>
+  <string name="numberOfLeadsPerTeam">Numărul de lideri per echipă. Suma scorului lor este scorul echipei.</string>
+  <string name="numberOfLeadsPerTeamHelp">Nu ar trebui să schimbați această valoare după ce turneul a început!</string>
+</resources>

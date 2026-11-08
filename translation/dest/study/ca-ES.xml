@@ -37,7 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Contribuïdor</string>
   <string name="kick">Expulsa</string>
-  <string name="remove">Suprimeix</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Suprimeix</string>
   <string name="leaveTheStudy">Deixar l’estudi</string>
   <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
@@ -125,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Esteu segurs que voleu eliminar el estudi? Tingues en compte que no es pot desfer. Per a confirmar-ho escriu el nom del estudi: %s</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
   <string name="goodMove">Bona jugada</string>
-  <string name="mistake">Errada</string>
   <string name="brilliantMove">Jugada brillant</string>
-  <string name="blunder">Error greu</string>
   <string name="interestingMove">Jugada interessant</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Jugada dubtosa</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Única jugada</string>

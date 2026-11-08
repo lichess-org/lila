@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Julkinen</string>
+  <string name="permSettingsName">Asetukset</string>
+  <string name="permTourName">Turnaukset</string>
+  <string name="permRemoveName">Poista</string>
+  <string name="manuallyReviewAdmissionRequests">Käy liittymispyynnöt yksitellen läpi</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Piilota joukkueen jäsenluettelo muilta kuin jäseniltä.</string>
+  <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
+  <string name="kickSomeone">Poista joku joukkueesta</string>
+  <string name="removeSomeone">Poista joukkueesta joku</string>
+  <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
+  <string name="whoToRemove">Kenet haluat poistaa joukkueesta?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s liittymispyyntö</item>
+    <item quantity="other">%s liittymispyyntöä</item>
+  </plurals>
+  <string name="declinedRequests">Hylätyt pyynnöt</string>
+  <string name="newTeamUpdate">Uusi joukkueilmoitus</string>
+  <string name="teamUpdatesPerWeek">Voit lähettää viikossa korkeintaan %1$s joukkuepäivitystä. &lt;strong&gt;%2$s&lt;/strong&gt; päivitystä jäljellä %3$s asti.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
+  <string name="teamIntroductionHelp">Lyhyt kuvaus, joka on nähtävillä joukkueluetteloissa. Korkeintaan 200 merkkiä.</string>
+  <string name="teamDescriptionHelp">Täysi kuvaus on nähtävillä joukkueen sivulla.</string>
+  <string name="closeTeam">Sulje joukkue</string>
+  <string name="closeTeamDescription">Sulkee joukkueen pysyvästi.</string>
+  <string name="forumVisibilityHelp">Kuka näkee joukkueen foorumin joukkuesivulla?&lt;br&gt;Vain joukkueen jäsenet voivat kirjoittaa joukkueen foorumille.</string>
+  <string name="forumVisibilityNone">Piilota foorumi</string>
+  <string name="listTheTeamsThatWillCompete">Listaa tässä taistossa kilpailevat joukkueet.</string>
+  <string name="thisTeamBattleIsOver">Tämä turnaus on ohi, eikä joukkueita voi enää päivittää.</string>
+  <string name="oneTeamPerLine">Yksi joukkue riviä kohti. Käytä automaattista täydennystä.</string>
+  <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
+  <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
+</resources>

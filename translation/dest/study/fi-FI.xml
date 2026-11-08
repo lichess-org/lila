@@ -37,7 +37,7 @@
   <string name="spectator">Katsoja</string>
   <string name="contributor">Osallistuja</string>
   <string name="kick">Poista</string>
-  <string name="remove">Poista</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Poista</string>
   <string name="leaveTheStudy">Jätä tutkielma</string>
   <string name="youAreNowAContributor">Olet nyt osallistuja</string>
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Poistetaanko koko tutkielma? Et voi palauttaa sitä enää. Vahvista poisto kirjoittamalla tutkielman nimen: %s</string>
   <string name="whereDoYouWantToStudyThat">Missä haluat tutkia tätä?</string>
   <string name="goodMove">Hyvä siirto</string>
-  <string name="mistake">Virhe</string>
   <string name="brilliantMove">Loistava siirto</string>
-  <string name="blunder">Vakava virhe</string>
   <string name="interestingMove">Mielenkiintoinen siirto</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Kyseenalainen siirto</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Ainoa siirto</string>

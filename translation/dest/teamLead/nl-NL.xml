@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Openbaar</string>
+  <string name="permSettingsName">Instellingen</string>
+  <string name="permTourName">Toernooien</string>
+  <string name="permRemoveName">Verwijderen</string>
+  <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Lijst met teamleden verbergen voor niet-leden.</string>
+  <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>
+  <string name="kickSomeone">Verwijder iemand uit het team</string>
+  <string name="removeSomeone">Verwijder iemand uit het team</string>
+  <string name="whoToKick">Wie wil je uit het team zetten?</string>
+  <string name="whoToRemove">Wie wil je uit het team verwijderen?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s verzoek tot deelname</item>
+    <item quantity="other">%s verzoeken tot deelname</item>
+  </plurals>
+  <string name="declinedRequests">Afgewezen verzoeken</string>
+  <string name="newTeamUpdate">Nieuwe team-update</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Misschien wil je de link van een van deze komende toernooien delen?</string>
+  <string name="teamIntroductionHelp">Korte beschrijving zichtbaar in teamlijsten. Tot 200 tekens.</string>
+  <string name="teamDescriptionHelp">Volledige beschrijving zichtbaar op de teampagina.</string>
+  <string name="closeTeam">Team sluiten</string>
+  <string name="closeTeamDescription">Sluit het team voor altijd.</string>
+  <string name="forumVisibilityHelp">Wie kan het teamforum zien op de teampagina?&lt;br&gt;Alleen teamleden kunnen op het teamforum plaatsen.</string>
+  <string name="forumVisibilityNone">Forum verbergen</string>
+  <string name="listTheTeamsThatWillCompete">Noteer de teams die meespelen in deze competitie.</string>
+  <string name="thisTeamBattleIsOver">Dit toernooi is voorbij en de teams kunnen niet meer worden bijgewerkt.</string>
+  <string name="oneTeamPerLine">Eén team per regel. Gebruik auto-aanvulling.</string>
+  <string name="numberOfLeadsPerTeam">Aantal leiders per team. De som van hun score is de score van het team.</string>
+  <string name="numberOfLeadsPerTeamHelp">Je zou deze waarde niet moeten wijzigen als het toernooi is begonnen!</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">ସର୍ବସାଧାରଣ</string>
+  <string name="permSettingsName">ସେଟିଂ</string>
+  <string name="onlyLeaderLeavesTeam">ଛାଡ଼ିଯିବା ଆଗରୁ ଦୟାକରି ଦଳରେ ଜଣେ ନୂଆ ନେତା ଯୋଡ଼ନ୍ତୁ, କିମ୍ବା ଦଳକୁ ବନ୍ଦ କରିଦିଅନ୍ତୁ।</string>
+  <string name="kickSomeone">କାହାକୁ ଦଳରୁ ବାହାର କରିଦିଅ</string>
+  <string name="whoToKick">ଆପଣ କାହାକୁ ଦଳରୁ ବାହାର କରିବାକୁ ଚାହୁଁଛନ୍ତି?</string>
+</resources>

@@ -56,7 +56,6 @@
 આ ચાલ પર %3$s જુઓ, તેનાથી થોડો અભ્યાસ થઈ જશે.</string>
   <string name="goodIntroduction">સારી પ્રસ્તાવના</string>
   <string name="lichessTraining">Lichess તાલીમ</string>
-  <string name="watchIMRosenCheckmate">ઇન્ટરનેશનલ માસ્ટર એરિક રોઝન ચેકમેટ %s જુઓ.</string>
   <string name="threefoldRepetition">ત્રણગણી પુનરાવૃત્તિ</string>
   <string name="threefoldRepetitionExplanation">જો કોઈ પોઝિશન ત્રણ વખત થાય, તો ખેલાડીઓ %1$s દ્વારા ડ્રોનો દાવો કરી શકે છે. Lichess સત્તાવાર FIDE નિયમોનું અમલ કરે છે, જે %2$s ના આર્ટિકલ 9.2 માં વર્ણવેલ છે.</string>
   <string name="threefoldRepetitionLowerCase">ત્રણગણી પુનરાવૃત્તિ</string>

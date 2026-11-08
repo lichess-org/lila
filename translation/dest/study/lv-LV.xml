@@ -122,9 +122,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Dzēst visu izpēti? Atpakaļceļa nav! Ievadiet izpētes nosaukumu, lai apstiprinātu: %s</string>
   <string name="whereDoYouWantToStudyThat">Kur vēlaties to izpētīt?</string>
   <string name="goodMove">Labs gājiens</string>
-  <string name="mistake">Kļūda</string>
   <string name="brilliantMove">Izcils gājiens</string>
-  <string name="blunder">Rupja kļūda</string>
   <string name="interestingMove">Interesants gājiens</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Apšaubāms gājiens</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Vienīgais gājiens</string>

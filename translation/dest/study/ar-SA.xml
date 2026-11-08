@@ -49,7 +49,7 @@
   <string name="spectator">مشاهد</string>
   <string name="contributor">مساهم</string>
   <string name="kick">طرد</string>
-  <string name="remove">إزالة</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">إزالة</string>
   <string name="leaveTheStudy">مغادرة الدراسة</string>
   <string name="youAreNowAContributor">انت الان اصبحت مساهم</string>
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
@@ -145,9 +145,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
-  <string name="mistake">خطأ</string>
   <string name="brilliantMove">نقلة رائعة</string>
-  <string name="blunder">غلطة</string>
   <string name="interestingMove">نقلة مثيرة للاهتمام</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">نقلة مشبوهة</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">نقلة وحيدة</string>

@@ -26,10 +26,10 @@
     <item quantity="one">%s Schpil</item>
     <item quantity="other">%s Schpil</item>
   </plurals>
-  <string name="addMembers">Mitglider*ine bifüege</string>
+  <string name="addMembers">Mitglider bifüege</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Mitglid</item>
-    <item quantity="other">%s Mitglider*ine</item>
+    <item quantity="other">%s Mitglider</item>
   </plurals>
   <string name="inviteToTheStudy">Zur Schtudie ilade</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lad nur Lüt i wo dich känned und wo wänd aktiv a dere Schtudie teilneh.</string>
@@ -37,7 +37,7 @@
   <string name="spectator">Zueschauer*ine</string>
   <string name="contributor">Mitwürkendi</string>
   <string name="kick">Userüere</string>
-  <string name="remove">Entferne</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Entferne</string>
   <string name="leaveTheStudy">Schtudie verlah</string>
   <string name="youAreNowAContributor">Du bisch jetzt en/e Mitwürkend/e/i</string>
   <string name="youAreNowASpectator">Du bisch jetzt Zueschauer*i</string>
@@ -116,7 +116,7 @@
   <string name="nobody">Niemer</string>
   <string name="onlyMe">Nur ich</string>
   <string name="contributors">Mitwürkendi</string>
-  <string name="members">Mitglider*ine</string>
+  <string name="members">Mitglider</string>
   <string name="everyone">Alli</string>
   <string name="enableSync">Sync aktiviere</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Jawoll: Glichi Schtellig für alli</string>
@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtudie lösche? Es git keis Zrugg! Gib zur Beschtätigung de Name vu de Schtudie i: %s</string>
   <string name="whereDoYouWantToStudyThat">Wo wetsch das Schtudiere?</string>
   <string name="goodMove">Guete Zug</string>
-  <string name="mistake">Fähler</string>
   <string name="brilliantMove">Brilliante Zug</string>
-  <string name="blunder">Grobe Patzer</string>
   <string name="interestingMove">Intressante Zug</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Fragwürdige Zug</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzige Zug</string>
@@ -168,8 +166,8 @@
   <string name="welcomeToLichessStudyTitle">Willkomme bi de Lichess Schtudie!</string>
   <string name="welcomeToLichessStudyText">Das isch es g\'meinsams Analysebrätt.&lt;br&gt;&lt;br&gt;Benutz es zum Schpil analysiere und zum komentiere,&lt;br&gt;zum Schtellige mit Fründe z\'diskutiere,&lt;br&gt;und natürli für Schach Unterricht!&lt;br&gt;&lt;br&gt;Es isch es schtarchs Werchzüg, lass der Zit, zum luege, wie\'s funkzioniert.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Teilt und g\'schpeicheret</string>
-  <string name="sharedAndSavedText">Anderi Mitglieder*ine chönd dini Züg live g\'seh!&lt;br&gt;Und alles isch g\'schpeicheret, für immer.</string>
-  <string name="studyMembersTitle">Schtudie Mitglieder*ine</string>
+  <string name="sharedAndSavedText">Anderi Mitglieder chönd dini Züg live g\'seh!&lt;br&gt;Und alles isch g\'schpeicheret, für immer.</string>
+  <string name="studyMembersTitle">Schtudie Mitglieder</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Zueschauer*ine chönd die Schtudie g\'seh und im Chat schribe.&lt;br&gt;&lt;br&gt;%2$s Mitwürkendi chönd Züg mache und die Schtudie aktualisiere.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Klick uf d\'Schaltflächi %s.&lt;br&gt;Und dänn entscheid, wer cha mitmache oder nöd.</string>
   <string name="studyChaptersTitle">Schtudie Kapitel</string>

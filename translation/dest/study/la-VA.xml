@@ -22,7 +22,5 @@
   <string name="noPinnedComment">Nullus</string>
   <string name="members">Socii</string>
   <string name="goodMove">Bonum spatium</string>
-  <string name="mistake">Erratum</string>
   <string name="brilliantMove">Splendidus motus</string>
-  <string name="blunder">Peccatus</string>
 </resources>

@@ -36,7 +36,7 @@
   <string name="spectator">Shikues</string>
   <string name="contributor">Kontribues</string>
   <string name="kick">Përjashtoje</string>
-  <string name="remove">Hiqe</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Hiqe</string>
   <string name="leaveTheStudy">Braktisni mësimin</string>
   <string name="youAreNowAContributor">Tani jeni një kontribues</string>
   <string name="youAreNowASpectator">Tani jeni shikues</string>
@@ -127,9 +127,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Të fshihet krejt mësimi? S’ka kthim mbrapa! Për ta ripohuar, shtypni emrin e mësimit: %s</string>
   <string name="whereDoYouWantToStudyThat">Ku doni ta studioni atë?</string>
   <string name="goodMove">Lëvizje e mirë</string>
-  <string name="mistake">Gabim</string>
   <string name="brilliantMove">Lëvizje e shkëlqyer</string>
-  <string name="blunder">Gafë</string>
   <string name="interestingMove">Lëvizje me interes</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lëvizje e dyshimtë</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Lëvizja e vetme</string>

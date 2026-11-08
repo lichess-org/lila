@@ -27,7 +27,6 @@
 Энэ нүүдэл дээр дасгал хийхийг хүсвэл энэн дээр дарна уу %3$s.</string>
   <string name="goodIntroduction">сайн танилцуулга</string>
   <string name="lichessTraining">Lichess-ийн бэлтгэл</string>
-  <string name="watchIMRosenCheckmate">%s-аар мад хийж буй Олон Улсын Мастер Эрик Розэн.</string>
   <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
   <string name="threefoldRepetitionExplanation">%2$s-н Article 9.2-т заасны дагуу хэрэв нэг байрлал гурван удаа давтагдвал, тоглогчид %1$s-г ашиглан тэнцэх шийдэлд хүрч болно. Lichess нь олон улсын шатрын холбооны дүрмийг дагадаг.</string>
   <string name="threefoldRepetitionLowerCase">давтсан гурван нүүдэл</string>

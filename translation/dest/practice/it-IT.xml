@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="makesPerfect">rende il tuo scacchi perfetto</string>
+  <string name="signUpToSaveYourProgress">Iscriviti per salvare i tuoi progressi</string>
+  <string name="secHeadCheckmates">Scacchi matti</string>
+  <string name="secHeadFundamentalTactics">Tattiche fondamentali</string>
+  <string name="secHeadAdvancedTactics">Tattiche Avanzate</string>
+  <string name="secHeadPawnEndgames">Finali di pedoni</string>
+  <string name="secHeadRookEndgames">Finali di torre</string>
+  <string name="stNamPieceCheckmatesI">Scacchi matti con pezzi I</string>
+  <string name="stNamCheckmatePatternsI">Schemi di scacchi matti I</string>
+  <string name="stNamCheckmatePatternsII">Schemi di scacchi matti II</string>
+  <string name="stNamCheckmatePatternsIII">Schemi di scacchi matti III</string>
+  <string name="stNamCheckmatePatternsIV">Schemi di scacchi matti IV</string>
+  <string name="stNamPieceCheckmatesII">Scacchi matti con pezzi II</string>
+  <string name="stNamKnightAndBishopMate">Matto di alfiere e cavallo</string>
+  <string name="stNamThePin">Il pedone</string>
+  <string name="stNamTheSkewer">L\'infilata</string>
+  <string name="stNamTheFork">La forchetta</string>
+  <string name="stNamDiscoveredAttacks">Attacchi di scoperta</string>
+  <string name="stNamDoubleCheck">Scacco doppio</string>
+  <string name="stNamOverloadedPieces">Pezzi sovraccarichi</string>
+  <string name="stNamZwischenzug">Mossa intermedia (Zwischenzug)</string>
+  <string name="stNamXRay">Raggi X</string>
+  <string name="stNamZugzwang">Zugzwang</string>
+  <string name="stNamInterference">Interferenza</string>
+  <string name="stNamGreekGift">Sacrificio greco</string>
+  <string name="stNamDeflection">Deviazione</string>
+  <string name="stNamAttraction">Adescamento</string>
+  <string name="stNamUnderpromotion">Sottopromozione</string>
+  <string name="stNamDesperado">Desperado</string>
+  <string name="stNamCounterCheck">Controscacco</string>
+  <string name="stNamUndermining">Minare la difesa</string>
+  <string name="stNamClearance">Sgombero</string>
+  <string name="stNamKeySquares">Caselle chiave</string>
+  <string name="stNamOpposition">Opposizione</string>
+  <string name="stNam7thRankRookPawn">Pedone di torre in settima traversa</string>
+  <string name="stNamBasicRookEndgames">Finali di torre elementari</string>
+  <string name="stNamIntermediateRookEndings">Finali di torre intermedi</string>
+  <string name="stNamPracticalRookEndings">Finali di torre nella pratica</string>
+  <string name="stDesBasicCheckmates">Matti elementari</string>
+  <string name="stDesRecognizeThePatterns">Riconosci gli schemi</string>
+  <string name="stDesChallengingCheckmates">Matti impegnativi</string>
+  <string name="stDesInteractiveLesson">Lezione interattiva</string>
+  <string name="stDesPinItToWinIt">Chi inchioda vince</string>
+  <string name="stDesYumSkewers">Infilate da leccarsi i baffi</string>
+  <string name="stDesUseTheForkLuke">Usa la forchetta, Luke</string>
+  <string name="stDesIncludingDiscoveredChecks">Compresi gli scacchi di scoperta</string>
+  <string name="stDesAVeryPowerfulTactic">Una tattica potentissima</string>
+  <string name="stDesTheyHaveTooMuchWork">Hanno troppo da fare</string>
+  <string name="stDesInBetweenMoves">Mosse intermedie</string>
+  <string name="stDesAttackingThroughAnEnemyPiece">Attaccare attraverso un pezzo nemico</string>
+</resources>
