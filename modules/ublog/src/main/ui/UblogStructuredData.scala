@@ -45,5 +45,10 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
       image = image,
       title = post.title,
       url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
-      description = post.intro
+      description = post.intro,
+      extra = List(
+        post.lived.map(l => ("article:published_time", isoDateTimeFormatter.print(l.at))),
+        post.updated.map(u => ("article:modified_time", isoDateTimeFormatter.print(u.at))),
+        ("article:author", routeUrl(routes.User.show(user.username)).value).some
+      ).flatten ::: post.topics.map(t => ("article:tag", t.value))
     )
