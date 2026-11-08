@@ -16,7 +16,6 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
 
   def apply(user: User, post: UblogPost, image: Option[Url]) =
     post.lived.map: live =>
-      val authorUrl = routeUrl(routes.User.show(user.username))
       lila.ui.bits.structuredData("BlogPosting"):
         Json.obj(
           "headline" -> post.title,
@@ -27,17 +26,24 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
           "datePublished" -> live.at,
           "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
           "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
-          "author" -> Json
-            .obj(
-              "@type" -> "Person",
-              "@id" -> authorUrl,
-              "url" -> authorUrl,
-              "name" -> user.username
-            )
-            .add("honorificPrefix" -> user.title)
-            .add("alternateName" -> user.profileOrDefault.nonEmptyRealName),
+          "author" -> user
+            .is(UserId.lichess)
+            .so(lila.ui.bits.organizationJson(net))
+            .getOrElse(authorJson(user)),
           "publisher" -> lila.ui.bits.organizationJson(net)
         )
+
+  private def authorJson(user: User) =
+    val authorUrl = routeUrl(routes.User.show(user.username))
+    Json
+      .obj(
+        "@type" -> "Person",
+        "@id" -> authorUrl,
+        "url" -> authorUrl,
+        "name" -> user.username
+      )
+      .add("honorificPrefix" -> user.title)
+      .add("alternateName" -> user.profileOrDefault.nonEmptyRealName)
 
   def openGraph(user: User, post: UblogPost, image: Option[Url]) =
     OpenGraph(
