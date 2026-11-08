@@ -37,7 +37,7 @@
   <string name="spectator">Tilskuer</string>
   <string name="contributor">Bidragsyder</string>
   <string name="kick">Smid ud</string>
-  <string name="remove">Fjern</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Fjern</string>
   <string name="leaveTheStudy">Forlad dette studie</string>
   <string name="youAreNowAContributor">Du er nu bidragsyder</string>
   <string name="youAreNowASpectator">Du er nu tilskuer</string>
@@ -125,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slet hele studiet? Det kan ikke fortrydes! Skriv navnet på studiet for at bekræfte: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvor vil du studere det?</string>
   <string name="goodMove">Godt træk</string>
-  <string name="mistake">Fejl</string>
   <string name="brilliantMove">Fremragende træk</string>
-  <string name="blunder">Brøler</string>
   <string name="interestingMove">Interessant træk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>

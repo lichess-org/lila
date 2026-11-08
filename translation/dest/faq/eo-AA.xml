@@ -65,7 +65,6 @@ Notu, ke eblas ŝakmati kun unu ĉevalo aŭ kuriero se la kontraŭulo havas ŝak
 Vidu la %3$s pri ĉi tiu movo por ekzerci je ĝi.</string>
   <string name="goodIntroduction">bona enkonduko</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
-  <string name="watchIMRosenCheckmate">Spektu la internacian mastron Eric Rosen ŝakmati %s.</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 de la %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>

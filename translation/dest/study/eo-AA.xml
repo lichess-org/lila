@@ -124,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ĉu forigi la tuta studo? Ne estas reiro! Tajpi la nomon de la studo por konfirmi: %s</string>
   <string name="whereDoYouWantToStudyThat">Kie vi volas studi tion?</string>
   <string name="goodMove">Bona movo</string>
-  <string name="mistake">Eraro</string>
   <string name="brilliantMove">Brilianta movo</string>
-  <string name="blunder">Erarego</string>
   <string name="interestingMove">Interesa movo</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubinda movo</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nura movo</string>

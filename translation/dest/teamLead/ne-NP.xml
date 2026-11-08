@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">सार्वजनिक</string>
+  <string name="permSettingsName">विकल्पहरु</string>
+  <string name="permTourName">प्रतियोगिताहरु</string>
+</resources>

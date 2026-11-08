@@ -120,9 +120,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ລຶບບົດສຶກສາທັງໝົດບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້! ພິມຊື່ຂອງບົດສຶກສາເພື່ອຢືນຢັນ: %s</string>
   <string name="whereDoYouWantToStudyThat">ທ່ານຕ້ອງການສຶກສາຢູ່ໃສ?</string>
   <string name="goodMove">ການເດີນທີ່ດີ</string>
-  <string name="mistake">ການເດີນທີ່ຜິດພາດ</string>
   <string name="brilliantMove">ການເດີນທີ່ຍອດຢ້ຽມ</string>
-  <string name="blunder">ການເດີນທີ່ຜິດພາດຮ້າຍແຮງ (Blunder)</string>
   <string name="interestingMove">ການເດີນທີ່ໜ້າສົນໃຈ</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ການເດີນທີ່ໜ້າສົງໄສ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ການເດີນດຽວທີ່ເປັນໄປໄດ້</string>

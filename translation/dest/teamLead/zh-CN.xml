@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">公开</string>
+  <string name="permPublicDesc">在团队页面显示为领导</string>
+  <string name="permSettingsName">设置</string>
+  <string name="permSettingsDesc">编辑团队设置和简介</string>
+  <string name="permTourName">锦标赛</string>
+  <string name="permTourDesc">创建、管理和加入团队锦标赛</string>
+  <string name="permCommName">审核</string>
+  <string name="permCommDesc">管理团队论坛和聊天</string>
+  <string name="permRequestName">申请</string>
+  <string name="permRequestDesc">接受或拒绝加入申请</string>
+  <string name="permPmAllName">动态</string>
+  <string name="permPmAllDesc">向团队成员发送动态</string>
+  <string name="permRemoveName">移除</string>
+  <string name="permRemoveDesc">从团队中移除成员</string>
+  <string name="permAdminName">管理</string>
+  <string name="permAdminDesc">管理领导权限</string>
+  <string name="demoteLeaderNote">若要降级领导，请撤销其所有权限。</string>
+  <string name="manuallyReviewAdmissionRequests">手动审查接纳请求</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">如果勾选，棋手将需要申请加入团队，您可以接受或拒绝。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">向非成员隐藏团队成员列表。</string>
+  <string name="onlyLeaderLeavesTeam">请在离开前指定新的团队领导，或关闭团队。</string>
+  <string name="kickSomeone">将某人移出团队</string>
+  <string name="removeSomeone">将某人移出团队</string>
+  <string name="whoToKick">您想把谁移出团队？</string>
+  <string name="whoToRemove">您想把谁移出团队？</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s 件加入请求</item>
+  </plurals>
+  <string name="declinedRequests">被拒的请求</string>
+  <string name="newTeamUpdate">新建团队动态</string>
+  <string name="teamUpdatesPerWeek">您每周最多可发布 %1$s 条团队动态。距离 %3$s 还剩 &lt;strong&gt;%2$s&lt;/strong&gt; 次发布机会。</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">您是否想关联一个即将开始的锦标赛？</string>
+  <string name="teamIntroductionHelp">在团队列表中显示的简短描述。最多 200 字符。</string>
+  <string name="teamDescriptionHelp">在团队页面显示的完整描述。</string>
+  <string name="closeTeam">关闭团队</string>
+  <string name="closeTeamDescription">永远关闭团队。</string>
+  <string name="forumVisibilityHelp">谁可以在团队页面上看到团队论坛？&lt;br&gt;只有团队成员才能在团队论坛中发帖。</string>
+  <string name="forumVisibilityNone">隐藏论坛</string>
+  <string name="listTheTeamsThatWillCompete">列出将参与这场战斗的团队。</string>
+  <string name="thisTeamBattleIsOver">此锦标赛已结束，团队信息无法再更新。</string>
+  <string name="oneTeamPerLine">每行一个团队。使用自动补全功能。</string>
+  <string name="oneTeamPerLineHelp">您可以将此列表从一个锦标赛复制粘贴到另一个！
+
+如果有棋手已代表该团队加入锦标赛，则无法移除该团队。</string>
+  <string name="numberOfLeadsPerTeam">每个团队的领导人数。他们分数的总和即为团队分数。</string>
+  <string name="numberOfLeadsPerTeamHelp">锦标赛开始后，您真的不应该更改此数值！</string>
+</resources>

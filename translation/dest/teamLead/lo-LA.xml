@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">ສາທາລະນະ</string>
+  <string name="permSettingsName">ການຕັ້ງຄ່າ</string>
+  <string name="permTourName">ລາຍການແຂ່ງຂັນ</string>
+  <string name="manuallyReviewAdmissionRequests">ກວດສອບຄຳຮ້ອງຂໍເຂົ້າຮ່ວມດ້ວຍຕົນເອງ</string>
+  <string name="onlyLeaderLeavesTeam">ກະລຸນາເພີ່ມຜູ້ນຳທີມຄົນໃໝ່ກ່ອນອອກຈາກທີມ ຫຼື ປິດທີມ.</string>
+  <string name="kickSomeone">ເຕະບາງຄົນອອກຈາກທີມ</string>
+  <string name="whoToKick">ທ່ານຕ້ອງການເຕະໃຜອອກຈາກທີມ?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">ຄຳຮ້ອງຂໍເຂົ້າຮ່ວມ %s ລາຍການ</item>
+  </plurals>
+  <string name="declinedRequests">ຄຳຮ້ອງຂໍທີ່ຖືກປະຕິເສດ</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">ທ່ານອາດຈະຕ້ອງການເຊື່ອມຕໍ່ກັບການແຂ່ງຂັນທີ່ກຳລັງຈະມາເຖິງເຫຼົ່ານີ້ບໍ?</string>
+  <string name="teamIntroductionHelp">ຄຳອະທິບາຍສັ້ນໆທີ່ສະແດງໃນລາຍຊື່ທີມ. ບໍ່ເກີນ 200 ຕົວອັກສອນ.</string>
+  <string name="teamDescriptionHelp">ຄຳອະທິບາຍແບບເຕັມທີ່ສະແດງຢູ່ໃນໜ້າຂອງທີມ.</string>
+  <string name="closeTeam">ປິດທີມ</string>
+  <string name="closeTeamDescription">ປິດທີມແບບຖາວອນ.</string>
+  <string name="listTheTeamsThatWillCompete">ລາຍຊື່ທີມທີ່ຈະລົງແຂ່ງຂັນໃນການສູ້ຮົບນີ້.</string>
+  <string name="thisTeamBattleIsOver">ການແຂ່ງຂັນນີ້ສິ້ນສຸດແລ້ວ, ແລະ ບໍ່ສາມາດອັບເດດທີມໄດ້ອີກ.</string>
+  <string name="oneTeamPerLine">ທີມລະໜຶ່ງແຖວ. ໃຊ້ລະບົບເຕີມຄຳອັດຕະໂນມັດ.</string>
+  <string name="numberOfLeadsPerTeam">ຈຳນວນຜູ້ນຳຕໍ່ທີມ. ຜົນລວມຂອງຄະແນນພວກເຂົາຄືຄະແນນຂອງທີມ.</string>
+  <string name="numberOfLeadsPerTeamHelp">ທ່ານບໍ່ຄວນປ່ຽນຄ່ານີ້ຫຼັງຈາກການແຂ່ງຂັນໄດ້ເລີ່ມຂຶ້ນແລ້ວ!</string>
+</resources>

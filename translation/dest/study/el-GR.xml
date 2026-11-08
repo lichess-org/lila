@@ -124,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Θέλετε σίγουρα να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
   <string name="whereDoYouWantToStudyThat">Πού θέλετε να μελετήσετε αυτή τη θέση;</string>
   <string name="goodMove">Καλή κίνηση</string>
-  <string name="mistake">Λάθος</string>
   <string name="brilliantMove">Εξαιρετική κίνηση</string>
-  <string name="blunder">Σοβαρό λάθος</string>
   <string name="interestingMove">Ενδιαφέρουσα κίνηση</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Κίνηση αμφίβολης αξίας</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Μοναδική κίνηση</string>

@@ -41,6 +41,8 @@
     <item quantity="other">ดูทีม %s</item>
   </plurals>
   <string name="newTeamBattle">การสู้แบบทีมใหม่</string>
+  <string name="startDate">วันที่เริ่มต้น</string>
+  <string name="entryConditions">เงื่อนไขการเข้า</string>
   <string name="customStartDate">กำหนดเวลาแข่งเอง</string>
   <string name="customStartDateHelp">ในเขตเวลาท้องถิ่นของคุณ สิ่งนี้จะแทนที่การตั้งค่า \"เวลาก่อนเริ่มทัวร์นาเมนต์\"</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>
@@ -79,4 +81,6 @@
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ในทัวร์นาเมนต์ได้ปิดแล้ว</string>
   <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
   <string name="leaguesAndStreamerBattles">ลีก &amp; การแข่งขันระหว่างสตรีมเมอร์</string>
+  <string name="allowBotAccounts">อนุญาตบัญชีบอท</string>
+  <string name="allowBotAccountsDescription">อนุญาตให้ &lt;a href=\'%s\' target=\'_blank\'&gt;บอต&lt;/a&gt; เข้าร่วมการแข่งขันและเล่นโดยใช้เอนจินของตนได้ ซึ่งสิ่งนี้มักจะทำให้ผู้เล่นที่เป็นมนุษย์ไม่อยากเข้าร่วม</string>
 </resources>

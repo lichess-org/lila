@@ -17,12 +17,6 @@
     <item quantity="other">Лидери на тимот</item>
   </plurals>
   <string name="teamRecentMembers">Нови членови на тимот</string>
-  <string name="kickSomeone">Избркај некого од тимот</string>
-  <string name="whoToKick">Кого сакаш да го избркаш од тимот?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">%s барање за здружување</item>
-    <item quantity="other">%s барања за здружување</item>
-  </plurals>
   <string name="willBeReviewed">Вашето барање за здружување ќе биде разгледано од лидерот на тимот.</string>
   <string name="beingReviewed">Вашето барање за здружување се разгледува од лидерот на тимот.</string>
   <string name="teamBattle">Тимска битка</string>
@@ -30,6 +24,5 @@
   <string name="teamTournament">Тимски турнир</string>
   <string name="teamTournamentOverview">Арена турнир во кој може да учествуваат само играчи од твојот тим</string>
   <string name="teamsIlead">Тимови кои ги водам</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Можеби сакате да ги поврзете некои од идниве турнири?</string>
   <string name="leadersChat">Разговор на лидерите</string>
 </resources>

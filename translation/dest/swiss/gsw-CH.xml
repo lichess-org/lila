@@ -50,7 +50,7 @@ Lass das Fäld leer, dass Lichess automatisch Paarige erschtellt.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Muess scho Turnier nach Schwizer Syschtem g\'schpillt ha</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Lass nur Schpiler*ine mitmache, wo scho s\'Schwizer Syschtem g\'schpillt händ. Wer das no nie hät, sött au nöd im Turnier mitschpille. Das macht, dass usg\'wählti Teilnehmer*ine Erfahrig mit em Schwizer Syschtem händ.</string>
   <string name="newSwiss">Neus Turnier nach Schwizer Syschtem</string>
-  <string name="swissVsArenaQ">Wänn nach Schwizer Syschtem anstatt Arena Turnier?</string>
+  <string name="swissVsArenaQ">Wänn nach Schwizer Syschtem anschtatt Arena Turnier?</string>
   <string name="swissVsArenaA">Bim Turnier nach Schwizer Syschtem schpilled alli Teilnehmer*ine die glich Azahl Schpil und treffed, nur eimal uf de/die glich Gägner*i. Es isch e gueti Schpilart, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
   <string name="pointsCalculationA">Für en Sieg gits 1 Punkt, für es Remis en halbe Punkt. 
@@ -58,8 +58,8 @@ Hät en/e Schpiler*i mal kei/n Gägner*i, gits für die Rundi es Freilos ( \"bye
   <string name="tiebreaksCalculationQ">Wie wird d\'Finwertig berächnet?</string>
   <string name="sonnebornBergerScore">Sonneborn Berger Wertig</string>
   <string name="tiebreaksCalculationA">Mit de %s.
-Alli Pünkt vu de gschlagene Gägner, plus die halbe Pünkt vu de remisierte Gägner, ergänd zämme 
-die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktglichheit entscheidet die höcheri SB-Zahl.</string>
+Alli Pünkt vu besiegte Gägner*ine, plus die halbe Pünkt vu de Remis, ergänd zämme die sog. 
+SB Zahl (Sonneborn Berger Zahl). Bi Punktglichheit entscheidet die höcheri SB Zahl.</string>
   <string name="pairingsQ">Wie werded Paarige g\'macht?</string>
   <string name="dutchSystem">Niederländische Syschtem</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
@@ -76,7 +76,7 @@ unabhängige, einzel teilnehmende Schpiler*ine, wänn s\'Turnier öffentlich isc
 dass er/sie i dere Rundi nöd schpille muess, aber trotzdem en Punkt schribt. 
 Zuesätzlich git\'s au en halbe Punkt, wänn er/sie erscht schpöter is Turnier chunt.</string>
   <string name="earlyDrawsQ">Was passiert bi schnälle Remis?</string>
-  <string name="earlyDrawsAnswer">Bi Schpil, in Turnier nach Schwizer Syschtem, cha me kei Remis veribare, bevor nöd mindeschtens 30 Züg g\'schpillt worde sind. Die Regelig cha zwar nöd verhindere, dass es Remis scho vor em Schpil abg\'macht wird, aber sie erschwert\'s es bizli, sich schpontan uf Remis z\'einige.</string>
+  <string name="earlyDrawsAnswer">Bi Turnier nach Schwizer Syschtem, cha me kei Remis veribare, bevor nöd min. 30 Züg g\'schpillt sind. Die Regelig cha zwar nöd verhindere, dass es Remis scho vor em Schpil abg\'macht wird, aber sie erschwert\'s es bizli, sich schpontan uf Remis z\'einige.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en/e Schpiler*i nöd zum Schpil atritt?</string>
   <string name="whatIfOneDoesntPlayA">d\'Bedänkzit lauft und wänn sie um isch, isch das Schpil verlore.
 De/d\'Schpiler*i wird vum Syschtem us em Tunrier g\'nah, dass er/sie nöd no meh verlürt. 
@@ -105,7 +105,7 @@ vu Runde g\'schpillt wird. So werded, bis am Schluss, die meischte, mögliche Pa
   <string name="swissDescription">Ime Turnier nach Schwizer Syschtem %1$s muess nöd jede/i Schpiler*i gäge alli andere Schpiler*ine aträte. 
 Mit Hilf vu Regle wird sicher g\'schtellt, dass immer Gägner*ine mit ähnlichem Punkteschtand ufenand träffed und dass Gägner*ine, im gliche Turnier nur eimal zäme schpilled. Alli Schpiler*ine schpilled bi jedere Rundi, usser es beschtaht e ungradi Azahl vu Teilnehmer*ine. Sieger*i isch am Schluss de/d\'Schpiler*i mit de höchschte Azahl Pünkt, wo us allne Runde erzielt worde sind.</string>
   <string name="teamOnly">Turnier nach Schwizer Syschtem chönd nur vu Teamleiter*ine erschtellt werde.
-Und nur Schpiler*ine wo zume Team g\'höred, chönd im Turnier mitschpille.
+Und nur Teammitglider chönd im Turnier mitschpille.
 %1$s zum a Turnier nach Schwizer Syschtem schpille.</string>
   <string name="joinOrCreateTeam">Es Team gründe oder eim biträte</string>
   <string name="nowPlaying">Aktuell am Laufe</string>

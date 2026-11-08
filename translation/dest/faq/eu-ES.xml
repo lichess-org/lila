@@ -66,7 +66,6 @@ Kontuan hartu xake matea posible izan daitekeela zaldun edo alfil batekin beti e
 Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="goodIntroduction">Hemen duzu azalpenaren</string>
   <string name="lichessTraining">Lichesseko ariketak</string>
-  <string name="watchIMRosenCheckmate">Ikusi Eric Rosen Nazioarteko Maisuaren matea %s.</string>
   <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
   <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDE ren arauak erabiltzen ditu, %2$s 9.2 artikuluan azaldu bezala.</string>
   <string name="threefoldRepetitionLowerCase">hiru errepikapenengatik</string>

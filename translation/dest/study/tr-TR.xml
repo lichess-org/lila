@@ -37,7 +37,7 @@
   <string name="spectator">İzleyici</string>
   <string name="contributor">Katılımcı</string>
   <string name="kick">Çıkar</string>
-  <string name="remove">Çıkar</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Çıkar</string>
   <string name="leaveTheStudy">Çalışmadan ayrıl</string>
   <string name="youAreNowAContributor">Artık bir katılımcısınız</string>
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın: %s</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
   <string name="goodMove">İyi hamle</string>
-  <string name="mistake">Hata</string>
   <string name="brilliantMove">Göz alıcı hamle</string>
-  <string name="blunder">Vahim hata</string>
   <string name="interestingMove">İlginç hamle</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Şüpheli hamle</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Tek hamle</string>

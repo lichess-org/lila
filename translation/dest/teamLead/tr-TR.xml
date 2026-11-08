@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Herkese açık</string>
+  <string name="permPublicDesc">Takım sayfasında lider olarak görün</string>
+  <string name="permSettingsName">Ayarlar</string>
+  <string name="permSettingsDesc">Takım ayarlarını ve açıklamasını düzenle</string>
+  <string name="permTourName">Turnuvalar</string>
+  <string name="permTourDesc">Takım turnuvaları oluştur, güncelle ve katıl</string>
+  <string name="permCommName">Moderasyon</string>
+  <string name="permCommDesc">Forum ve takım sohbetini yönet</string>
+  <string name="permRequestName">İstekler</string>
+  <string name="permRequestDesc">Katılma isteklerini kabul et veya reddet</string>
+  <string name="permPmAllName">Güncellemeler</string>
+  <string name="permPmAllDesc">Takım üyelerine güncellemeler gönder</string>
+  <string name="permRemoveName">Çıkar</string>
+  <string name="permRemoveDesc">Takımdan üyeleri çıkar</string>
+  <string name="permAdminName">Yönetici</string>
+  <string name="permAdminDesc">Liderlerin izinlerini yönet</string>
+  <string name="demoteLeaderNote">Bir liderin görevini düşürmek için tüm yetkilerini iptal edin.</string>
+  <string name="manuallyReviewAdmissionRequests">Katılım başvuruları onayınızdan geçsin</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Seçilirse, oyuncuların takıma katılmak için istekte bulunmaları gerekecektir. Bu talepleri kabul edebilir veya reddedebilirsiniz.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Takım üye listesini, üye olmayanlardan gizle.</string>
+  <string name="onlyLeaderLeavesTeam">Takımdan ayrılmadan önce yeni bir takım lideri belirleyin veya takımı kapatın.</string>
+  <string name="kickSomeone">Birini takımdan at</string>
+  <string name="removeSomeone">Takımdan birini çıkarın</string>
+  <string name="whoToKick">Takımdan kimi atmak istiyorsunuz?</string>
+  <string name="whoToRemove">Takımdan kimi çıkarmak istiyorsun?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s katılma talebi</item>
+    <item quantity="other">%s katılma talebi</item>
+  </plurals>
+  <string name="declinedRequests">Geri çevrilen istekler</string>
+  <string name="newTeamUpdate">Yeni takım güncellemesi</string>
+  <string name="teamUpdatesPerWeek">Haftada en fazla %1$s takım güncellemesi gönderebilirsiniz. %3$s tarihine kadar &lt;strong&gt;%2$s&lt;/strong&gt; güncelleme hakkınız kaldı.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Yaklaşan bu turnuvalardan birine link vermek ister miydiniz?</string>
+  <string name="teamIntroductionHelp">Takım listesinde görünür olan kısa açıklama. 200 karaktere sınırlı.</string>
+  <string name="teamDescriptionHelp">Takım sayfasında görünen tam açıklama.</string>
+  <string name="closeTeam">Takımı kapat</string>
+  <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
+  <string name="forumVisibilityHelp">Takım sayfasındaki takım forumunu kimler görebilir?&lt;br&gt;Takım forumunda yalnızca takım üyeleri paylaşım yapabilir.</string>
+  <string name="forumVisibilityNone">Forumu gizle</string>
+  <string name="listTheTeamsThatWillCompete">Bu savaşta yarışacak takımları listeleyin.</string>
+  <string name="thisTeamBattleIsOver">Bu turnuva sona erdi ve takımlar artık güncellenemez.</string>
+  <string name="oneTeamPerLine">Her satırda bir takım kullanın. Otomatik tamamlayıcıyı kullanabilirsiniz.</string>
+  <string name="oneTeamPerLineHelp">Bu listedeki takımları, bir turnuvadan diğerine kopyala yapıştır yapabilirsiniz!
+
+Eğer bir oyuncu zaten turnuvaya katılmışsa takımı kaldıramazsınız.</string>
+  <string name="numberOfLeadsPerTeam">Her takımdaki liderlerin sayısı. Onların puanlarının toplamı takımın puanıdır.</string>
+  <string name="numberOfLeadsPerTeamHelp">Turnuva başladıktan sonra bu değeri değiştirmemeniz daha iyi olur!</string>
+</resources>

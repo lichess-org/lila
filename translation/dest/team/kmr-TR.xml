@@ -13,12 +13,6 @@
   <string name="joinTeam">Tevlî komê bibe</string>
   <string name="quitTeam">Ji komê derkeve</string>
   <string name="teamRecentMembers">Endamên dawîn</string>
-  <string name="kickSomeone">Yekî ji komê derxîne</string>
-  <string name="whoToKick">Tu dixwazî kê ji komê derxinî?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">%s xwesteka tevlîbûnê</item>
-    <item quantity="other">%s xwestekên tevlîbûnî</item>
-  </plurals>
   <string name="willBeReviewed">Xwesteka te ya tevlîbûnê ji aliyê rêberê komê ve wê bê nirxandin.</string>
   <string name="beingReviewed">Xwesteka te ya tevlîbûnê ji aliyê rêberê komê ve tê nirxandin.</string>
   <string name="teamBattle">Şerê Koman</string>

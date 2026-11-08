@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Публічны</string>
+  <string name="permSettingsName">Налады</string>
+  <string name="permTourName">Турніры</string>
+  <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
+  <string name="onlyLeaderLeavesTeam">Калі ласка, абярыце новага лідара каманды перад сыходам, або зачыніце каманду.</string>
+  <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
+  <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s запыт на далучэнне</item>
+    <item quantity="few">%s запыта на далучэнне</item>
+    <item quantity="many">%s запытаў на далучэнне</item>
+    <item quantity="other">%s запытаў на далучэнне</item>
+  </plurals>
+  <string name="declinedRequests">Адхіленыя запыты</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
+  <string name="closeTeam">Зачыніць каманду</string>
+  <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
+</resources>

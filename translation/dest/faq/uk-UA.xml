@@ -65,7 +65,6 @@
 Перегляньте %3$s і попрактикуйтесь.</string>
   <string name="goodIntroduction">хороше введення</string>
   <string name="lichessTraining">Тренування Lichess</string>
-  <string name="watchIMRosenCheckmate">Перегляньте мат %s міжнародного майстра Еріка Розена.</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="threefoldRepetitionExplanation">Якщо позиція відбулася тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратне повторення</string>

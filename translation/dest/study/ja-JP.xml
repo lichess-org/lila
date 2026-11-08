@@ -121,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">研究全体を削除しますか？　戻せませんよ！　削除なら研究の名称を入力： %s</string>
   <string name="whereDoYouWantToStudyThat">どこで研究しますか？</string>
   <string name="goodMove">好手</string>
-  <string name="mistake">悪手</string>
   <string name="brilliantMove">妙手</string>
-  <string name="blunder">大悪手</string>
   <string name="interestingMove">面白い手</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">疑問手</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">絶対手</string>

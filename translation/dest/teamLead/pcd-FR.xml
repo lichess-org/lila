@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Publique</string>
+  <string name="permPublicDesc">Figurer en tant que chef sur la page de l\'équipe</string>
+  <string name="permSettingsName">Paramètres</string>
+  <string name="permSettingsDesc">Modifier les paramètres et la description de l\'équipe</string>
+  <string name="permTourName">Tournois</string>
+  <string name="permTourDesc">Créer et gérer des tournois par équipe et y participer</string>
+  <string name="permCommName">Modération</string>
+  <string name="permCommDesc">Modérer le forum et la boîte de clavardage de l\'équipe</string>
+  <string name="permRequestName">Demandes</string>
+  <string name="permRequestDesc">Accepter ou refuser les demandes d\'adhésion</string>
+  <string name="permPmAllName">Mises à jour</string>
+  <string name="permPmAllDesc">Envoyer les mises à jour aux membres de l\'équipe</string>
+  <string name="permRemoveName">Supprimer</string>
+  <string name="permRemoveDesc">Retirer des membres de l\'équipe</string>
+  <string name="permAdminName">Administrateur</string>
+  <string name="permAdminDesc">Gérer les autorisations des chefs</string>
+  <string name="demoteLeaderNote">Pour rétrograder un chef, révoquez ses autorisations.</string>
+  <string name="manuallyReviewAdmissionRequests">Examiner manuellement les demandes d\'admission</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si coché, les joueurs devront rédiger une demande pour rejoindre l\'équipe, que vous pourrez refuser ou accepter.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Cacher la liste des membres de l\'équipe aux non-membres</string>
+  <string name="onlyLeaderLeavesTeam">Ajoutez un nouveau chef d\'équipe avant de partir ou fermez l\'équipe.</string>
+  <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
+  <string name="removeSomeone">Retirer une personne de l\'équipe</string>
+  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe ?</string>
+  <string name="whoToRemove">Qui voulez-vous retirer de l\'équipe?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s demande d\'adhésion</item>
+    <item quantity="other">%s demandes d\'adhésion</item>
+  </plurals>
+  <string name="declinedRequests">Demandes refusées</string>
+  <string name="newTeamUpdate">Nouvelle mise à jour – équipe</string>
+  <string name="teamUpdatesPerWeek">Vous pouvez envoyer jusqu\'à %1$s mises à jour d\'équipe par semaine. Il reste &lt;strong&gt;%2$s&lt;/strong&gt; mises à jour jusqu\'au %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
+  <string name="teamIntroductionHelp">Brève description affichée dans la liste des équipes. Maximum de 200 caractères.</string>
+  <string name="teamDescriptionHelp">Description complète affichée sur la page de l\'équipe.</string>
+  <string name="closeTeam">Fermer l\'équipe</string>
+  <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>
+  <string name="forumVisibilityHelp">Qui peut voir le forum de l\'équipe sur la page de l\'équipe?&lt;br&gt;Seuls les membres de l\'équipe peuvent publier un message dans le forum de l\'équipe.</string>
+  <string name="forumVisibilityNone">Cacher le forum</string>
+  <string name="listTheTeamsThatWillCompete">Liste des équipes qui participeront à cette bataille.</string>
+  <string name="thisTeamBattleIsOver">Ce tournoi est terminé et les équipes ne peuvent plus être modifiées.</string>
+  <string name="oneTeamPerLine">Une équipe par ligne. Utilisez l\'auto-complétion.</string>
+  <string name="oneTeamPerLineHelp">Vous pouvez copier-coller cette liste d\'un tournoi à l\'autre !
+
+Vous ne pouvez pas supprimer une équipe si un joueur a déjà rejoint le tournoi pour elle.</string>
+  <string name="numberOfLeadsPerTeam">Nombre de leaders par équipe. La somme de leurs résultats constituera celui de l\'équipe.</string>
+  <string name="numberOfLeadsPerTeamHelp">Vous ne devez pas modifier ce nombre après le début du tournoi!</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Publik</string>
+  <string name="permSettingsName">Pengaturan</string>
+  <string name="permTourName">Turnamen</string>
+  <string name="manuallyReviewAdmissionRequests">Tinjau permintaan masuk secara manual</string>
+  <string name="kickSomeone">Keluarkan seseorang dari tim</string>
+  <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s ajukan permintaan</item>
+  </plurals>
+  <string name="declinedRequests">Permintaan yang Ditolak</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Apakah anda ingin menautkan salah satu turnamen ini yang akan datang?</string>
+  <string name="closeTeam">Bubarkan tim</string>
+  <string name="closeTeamDescription">Bubarkan tim selamanya.</string>
+</resources>

@@ -37,7 +37,7 @@
   <string name="spectator">Spectator</string>
   <string name="contributor">Contributor</string>
   <string name="kick">Kick</string>
-  <string name="remove">Remove</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Remove</string>
   <string name="leaveTheStudy">Leave the study</string>
   <string name="youAreNowAContributor">You are now a contributor</string>
   <string name="youAreNowASpectator">You are now a spectator</string>
@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Delete the entire study? There is no going back! Type the name of the study to confirm: %s</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
   <string name="goodMove">Good move</string>
-  <string name="mistake">Mistake</string>
   <string name="brilliantMove">Brilliant move</string>
-  <string name="blunder">Blunder</string>
   <string name="interestingMove">Interesting move</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubious move</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Only move</string>

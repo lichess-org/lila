@@ -43,7 +43,7 @@
   <string name="spectator">Глядач</string>
   <string name="contributor">Співавтор</string>
   <string name="kick">Вигнати</string>
-  <string name="remove">Видалити</string>
+  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Видалити</string>
   <string name="leaveTheStudy">Покинути дослідження</string>
   <string name="youAreNowAContributor">Тепер ви співавтор</string>
   <string name="youAreNowASpectator">Тепер ви глядач</string>
@@ -131,9 +131,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ви дійсно бажаєте видалити все дослідження? Назад дороги немає! Введіть назву дослідження для підтвердження: %s</string>
   <string name="whereDoYouWantToStudyThat">Де ви хочете це дослідити?</string>
   <string name="goodMove">Хороший хід</string>
-  <string name="mistake">Помилка</string>
   <string name="brilliantMove">Блискучий хід</string>
-  <string name="blunder">Груба помилка</string>
   <string name="interestingMove">Цікавий хід</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сумнівний хід</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Єдиний хід</string>

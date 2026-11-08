@@ -66,7 +66,6 @@ Braní mimochodem je také popsáno v článcích 3.7.3.1 a 3.7.3.2 z %2$s:
 Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
-  <string name="watchIMRosenCheckmate">Sledujte video mezinárodního mistra Erica Rosena: šach mat zbraním mimochodem %s.</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
   <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>

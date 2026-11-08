@@ -121,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ลบกรณีศึกษาทั้งหมดเหรอ คุณไม่สามารถนำกลับมาได้นะ โปรดพิมพ์ชื่อกรณีศึกษาเพื่อยืนยัน: %s</string>
   <string name="whereDoYouWantToStudyThat">คุณต้องการศึกษาที่ไหน?</string>
   <string name="goodMove">เดินได้ดี</string>
-  <string name="mistake">พลาด</string>
   <string name="brilliantMove">ตาเดินที่หลักแหลม</string>
-  <string name="blunder">พลาดมหันต์</string>
   <string name="interestingMove">ตาเดืนที่น่าสนใจ</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ตาเดินที่แคลงใจ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ตาเดินเดียว</string>

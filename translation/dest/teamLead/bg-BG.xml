@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Публични</string>
+  <string name="permSettingsName">Настройки</string>
+  <string name="permTourName">Турнири</string>
+  <string name="manuallyReviewAdmissionRequests">Ръчно преглеждайте заявките за прием</string>
+  <string name="onlyLeaderLeavesTeam">Моля добавете нов лидер преди да напуснете или закрийте отбора.</string>
+  <string name="kickSomeone">Премахни някого от отбора</string>
+  <string name="whoToKick">Кого искате да премахнете от отбора?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s заявка за влизане</item>
+    <item quantity="other">%s заявки за влизане</item>
+  </plurals>
+  <string name="declinedRequests">Отказани заявки за присъединяване</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Може да искате да дадете линк към един от тези предстоящи турнири?</string>
+  <string name="teamIntroductionHelp">Кратко описание, видимо в списъците с отбори. До 200 знака.</string>
+  <string name="teamDescriptionHelp">Пълно описание, видимо на страницата на отбора.</string>
+  <string name="closeTeam">Затвори отбора</string>
+  <string name="closeTeamDescription">Затваря отбора завинаги.</string>
+  <string name="listTheTeamsThatWillCompete">Списък с отборите, които ще участват в тази битка.</string>
+  <string name="thisTeamBattleIsOver">Това състезание приключи - отборите не могат да се променят.</string>
+  <string name="oneTeamPerLine">По един отбор на ред. Използвайте автоматичното довършване.</string>
+  <string name="oneTeamPerLineHelp">Можете да копирате и поставите този списък от един турнир в друг!
+
+Не можете да премахнете отбор, ако играч вече се е присъединил към турнира.</string>
+  <string name="numberOfLeadsPerTeam">Брой лидери на отбор. Сборът от техните резултати формира резултата на отбора.</string>
+  <string name="numberOfLeadsPerTeamHelp">Наистина не бива да променяте тази стойност след началото на турнира!</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Javna</string>
+  <string name="permSettingsName">Postavke</string>
+  <string name="permTourName">Turniri</string>
+  <string name="manuallyReviewAdmissionRequests">Ručno pregledajte zahtjeve za prijem</string>
+  <string name="onlyLeaderLeavesTeam">Molimo da dodate novog vođu tima prije nego što ga napustite ili zatvòrite tim.</string>
+  <string name="kickSomeone">Izbacite nekoga iz tima</string>
+  <string name="whoToKick">Koga želite da izbacite iz tima?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s zahtjev za pridruživanje</item>
+    <item quantity="few">%s zahtjeva za pridruživanje</item>
+    <item quantity="other">%s zahtjeva za pridruživanje</item>
+  </plurals>
+  <string name="declinedRequests">Odbijeni zahtjevi</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Želite li postaviti link na jedan od nadolazećih turnira?</string>
+  <string name="teamIntroductionHelp">Kratak opis vidljiv u popisima timova. Do 200 znakova.</string>
+  <string name="teamDescriptionHelp">Potpuni opis vidljiv je na stranici tima.</string>
+  <string name="closeTeam">Raspustite ekipu</string>
+  <string name="closeTeamDescription">Raspustite ekipu zauvijek.</string>
+  <string name="listTheTeamsThatWillCompete">Navedite timove koji će se takmičiti u ovoj bici.</string>
+  <string name="thisTeamBattleIsOver">Ovaj turnir je završen i timovi se više ne mogu ažurirati.</string>
+  <string name="oneTeamPerLine">Jedan tim po redu. Koristite automatsko dovršavanje.</string>
+  <string name="numberOfLeadsPerTeam">Broj vođa po timu. Zbir njihovih rezultata je rezultat tima.</string>
+  <string name="numberOfLeadsPerTeamHelp">Zaista ne biste trebali mijenjati ovu vrijednost nakon što je turnir počeo!</string>
+</resources>
