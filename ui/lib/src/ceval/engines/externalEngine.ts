@@ -50,7 +50,7 @@ export class ExternalEngine implements CevalEngine {
     this.process(work);
   }
 
-  process: (work: Work) => void = debounce(
+  private readonly process: (work: Work) => void = debounce(
     (work: Work) => {
       this.req = new AbortController();
       this.analyse(work, this.req.signal);
