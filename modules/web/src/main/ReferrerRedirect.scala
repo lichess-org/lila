@@ -44,4 +44,5 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
         .map(ValidReferrer(_))
 
   def fromReq(using RequestHeader): Option[ValidReferrer] =
-    HTTPRequest.queryStringGet("referrer").flatMap(valid)
+    HTTPRequest.queryStringGet("referrer").flatMap(valid) orElse
+      HTTPRequest.referer.flatMap(valid)
