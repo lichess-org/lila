@@ -82,7 +82,7 @@ Allow: /game/export/gif/thumbnail/
     "SE" -> "se",
     "AT" -> "at"
   )
-  def swagUrl(countryCode: Option[CountryCode]) = net.isLichessProd.option:
+  def swagUrl(countryCode: Option[CountryCode]) = net.domain.isLichessProd.option:
     val tld = swagStoreTlds.getOrElse(countryCode.so(_.value), "net")
     s"https://lichess.myspreadshop.$tld/"
 
@@ -116,11 +116,10 @@ Allow: /game/export/gif/thumbnail/
       case 122 => s"$faq#marks"
       case _ => faq
 
-  val organizationScript: Option[RawFrag] = net.isLichessProd.option:
-    lila.ui.bits.structuredData("Organization"):
-      Json.obj(
-        "@id" -> s"${net.baseUrl}/#org",
-        "url" -> net.baseUrl,
+  val organizationScript: Option[RawFrag] =
+    for base <- lila.ui.bits.organizationJson(net)
+    yield lila.ui.bits.structuredData("Organization"):
+      base ++ Json.obj(
         "sameAs" -> List(
           "https://www.wikidata.org/wiki/Q19831807",
           "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
@@ -142,8 +141,6 @@ Allow: /game/export/gif/thumbnail/
           "https://huggingface.co/Lichess",
           "https://www.kaggle.com/organizations/lichess"
         ),
-        "logo" -> s"${net.baseUrl}/assets/logo/lichess.svg",
-        "name" -> "Lichess",
         "legalName" -> "LICHESS.ORG",
         "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
         "email" -> "contact@lichess.org",

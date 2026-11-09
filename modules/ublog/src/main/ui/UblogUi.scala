@@ -12,7 +12,10 @@ import lila.ublog.UblogPost.PreviewPost
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
+final class UblogUi(
+    helpers: Helpers,
+    atomUi: AtomUi,
+    modMenu: Context ?=> Frag,
     picfitUrl: lila.memo.PicfitUrl
 ):
   import helpers.{ *, given }
