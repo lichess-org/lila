@@ -7,7 +7,7 @@
   <string name="yesItWillBeFixedSoon">Jawoll. Aber es wird bald behobe!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt die lang Antwort! De Lag beschtaht us zwei, vu enand unabhängige, Wert (nidriger isch besser):</string>
   <string name="lichessServerLatency">Lichess Server Latänz</string>
-  <string name="serverLatencyAndLoadExplanation">Die Zit wo de Server brucht, um en Zug z\'verarbeite. Sie isch für all glich und hanget usschliesslich vu de Server Uslaschtig ab. Je me Schpiler*ine online sind, umso höcher isch d\'Lascht, aber mir gänd euses Bescht, d\'Uslaschtig nidrig z\'halte. Sie übeschritet sälte 10ms.</string>
+  <string name="serverLatencyAndLoadExplanation">Die Zit wo de Server brucht, um en Zug z\'verarbeite. Sie isch für alli glich und hanget usschliesslich vu de Server Uslaschtig ab. Je me Schpiler*ine online sind, umso höcher isch d\'Lascht, aber mir gänd euses Bescht, die Uslaschtig nidrig z\'halte. Sie übeschritet sälte 10ms.</string>
   <string name="networkBetweenLichessAndYou">Netzwerkverbindig z\'wüsche Lichess und dir</string>
   <string name="networkBetweenLichessAndYouExplanation">Die Zit wo nötigt isch, zum en Zug vu dim Grät zum Server und wieder zrugg z\'sände. Sie isch abhängig vu de Entfernig zu Lichess (Frankrich) und vu de Qualität vu de Verbindig. Eusi Entwickler chönd dis WLAN nöd beiflusse, repariere oder schnäller mache.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du findsch de Wert, indem du uf din Name, obe i de Lischte klicksch.</string>

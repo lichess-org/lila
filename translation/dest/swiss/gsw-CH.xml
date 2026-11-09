@@ -83,7 +83,7 @@ De/d\'Schpiler*i wird vum Syschtem us em Tunrier g\'nah, dass er/sie nöd no meh
 Doch er/sie chan jederzit wieder is Turnier ischtige.</string>
   <string name="protectionAgainstNoShowQ">Was passiert wänn mer nöd am Turnier erschint?</string>
   <string name="protectionAgainstNoShowA">Schpiler*ine, wo sich für es Turnier amälded, aber nöd erschined, chönd Problem bereite.
-Um das Problem z\'entschärfe, laht Lichess so Schpiler*ine für e beschtimmti Zit nöd a neue Turnier 
+Um das Problem z\'entschärfe, laht Lichess so Schpiler*ine für e beschtimmti Zit nüme a neue Turnier 
 nach Schwizer Syschtem mitschpille.
 En Turnier Organisator chan aber entscheide, ob er so Schpiler*ine trotzdem akzeptiert.</string>
   <string name="lateJoinQ">Chönd Schpiler*ine au no nach Turnierschtart ischtige?</string>
@@ -103,7 +103,7 @@ vu Runde g\'schpillt wird. So werded, bis am Schluss, die meischte, mögliche Pa
   <string name="otherSystemsQ">Was isch mit andere Turnier Syschtem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd plant no meh Turnier Variante oder Syschtem z\'integriere.</string>
   <string name="swissDescription">Ime Turnier nach Schwizer Syschtem %1$s muess nöd jede/i Schpiler*i gäge alli andere Schpiler*ine aträte. 
-Mit Hilf vu Regle wird sicher g\'schtellt, dass immer Gägner*ine mit ähnlichem Punkteschtand ufenand träffed und dass Gägner*ine, im gliche Turnier nur eimal zäme schpilled. Alli Schpiler*ine schpilled bi jedere Rundi, usser es beschtaht e ungradi Azahl vu Teilnehmer*ine. Sieger*i isch am Schluss de/d\'Schpiler*i mit de höchschte Azahl Pünkt, wo us allne Runde erzielt worde sind.</string>
+Mit Hilf vu Regle wird g\'länkt, dass jewils Gägner*ine mit ähnlichem Punkteschtand ufenand träffed und dass es - im gliche Turnier - nie identischi Paarige git. Alli Schpiler*ine schpilled a jedere Rundi mit, usser es beschtaht e ungradi Azahl Teilnehmer*ine. Sieger*i isch am Schluss de/d\'Schpiler*i mit de höchschte Azahl Pünkt, wo us allne Runde erzielt worde sind.</string>
   <string name="teamOnly">Turnier nach Schwizer Syschtem chönd nur vu Teamleiter*ine erschtellt werde.
 Und nur Teammitglider chönd im Turnier mitschpille.
 %1$s zum a Turnier nach Schwizer Syschtem schpille.</string>

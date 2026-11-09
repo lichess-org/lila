@@ -34,7 +34,7 @@
     <item quantity="other">%s sekund między rundami</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s minunta między rundami</item>
+    <item quantity="one">%s minuta między rundami</item>
     <item quantity="few">%s minuty między rundami</item>
     <item quantity="many">%s minut między rundami</item>
     <item quantity="other">%s minut między rundami</item>

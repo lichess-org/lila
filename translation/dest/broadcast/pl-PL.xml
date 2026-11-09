@@ -30,7 +30,7 @@
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. Możesz użyć %1$s dla dodatkowych opcji formatowania. Długość musi być mniejsza niż %2$s znaków.</string>
   <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
-  <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
+  <string name="sourceUrlHelp">Adres URL, z którego Lichess będzie pobierać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDateTimeZone">Data rozpoczęcia w lokalnej strefie czasowej turnieju: %s</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
@@ -69,7 +69,7 @@
   <string name="officialWebsite">Oficjalna strona</string>
   <string name="officialStandings">Oficjalna klasyfikacja</string>
   <string name="regulations">Regulacje</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">Więcej opcji na %s</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Więcej opcji na %s.</string>
   <string name="webmastersPage">stronie webmasterów</string>
   <string name="embedThisBroadcast">Umieść tę transmisję na swojej stronie internetowej</string>
   <string name="ratingDiff">Różnica rankingu</string>

@@ -37,7 +37,7 @@
   <string name="spectator">Tilskodar</string>
   <string name="contributor">Bidragsytar</string>
   <string name="kick">Kast ut</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Fjern</string>
+  <string name="remove">Fjern</string>
   <string name="leaveTheStudy">Forlat studien</string>
   <string name="youAreNowAContributor">Du er no bidragsytar</string>
   <string name="youAreNowASpectator">Du er no tilskodar</string>

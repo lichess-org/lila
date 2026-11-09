@@ -18,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Luani lëvizje të parapëlqyer, ose ripohoni diçka</string>
   <string name="sleep">Vëreni në gjumë (nëse është aktivizuar fjala “zgjohu”)</string>
   <string name="showPuzzleSolution">Shfaq zgjidhjen e ushtrimit</string>
+  <string name="voiceHelp">Ndihmë me zë</string>
+  <string name="voiceSettings">Rregullime zëri</string>
+  <string name="pushShiftKeyToTalk">Shtypni tastin %s që të flisni</string>
+  <string name="holdShiftKeyWhileSpeaking">Mbajeni tastin Shift të shtypur teksa flisni</string>
+  <string name="microphone">Mikrofon</string>
+  <string name="noneSelected">Asnjë i përzgjedhur</string>
 </resources>

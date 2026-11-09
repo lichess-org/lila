@@ -14,7 +14,7 @@
   <string name="chessPieceSymbol">Figure Symbol</string>
   <string name="pgnLetter">Buechschtabe (K - Q - R - B - N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
-  <string name="showPlayerRatings">Zeig Schpiler Wertige</string>
+  <string name="showPlayerRatings">Zeig Schpiler*ine Wertige</string>
   <string name="showFlairs">Benutzer Emojis azeige</string>
   <string name="explainShowPlayerRatings">Erlaubt s\'Usblände vu allne Wertige und hilft, sich ufs Schach z\'konzentriere. Es gaht nur um das, was du gsehsch. G\'werteti Schpil beiflussed immer no dini Wertig.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
@@ -38,7 +38,7 @@
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig ine Dame</string>
   <string name="explainPromoteToQueenAutomatically">Ctrl Taschte bim Umwandle truckt lah - das deaktiviert churz die automatisch Umwandlig</string>
   <string name="whenPremoving">Bim Voruszieh</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Schtellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit vu &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugs Beschtätigung</string>
   <string name="multipleChoices">Mehrfachi Uswahle.</string>
