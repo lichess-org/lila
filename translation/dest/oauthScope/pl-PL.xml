@@ -16,7 +16,7 @@
   <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
   <string name="preferenceWrite">Modyfikowanie ustawień</string>
-  <string name="emailRead">Odczyt adresu email</string>
+  <string name="emailRead">Odczyt adresu e-mail</string>
   <string name="challengeRead">Odczyt przychodzących wyzwań</string>
   <string name="challengeWrite">Wysyłanie, akceptowanie i odrzucanie wyzwań</string>
   <string name="challengeBulk">Tworzenie wielu partii na raz dla innych graczy</string>

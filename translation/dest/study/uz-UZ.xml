@@ -195,4 +195,6 @@
   <string name="clearPublished">Naşr qilingan tahlil tozalansinmi?</string>
   <string name="requestAServerAnalysis">Server tahlilini söraş</string>
   <string name="analyzeOnYourDevice">Qurilmangizda tahlil qiliş</string>
+  <string name="searchChapters">Boblarni qidiriş</string>
+  <string name="searchGames">Öyinlarni qidiriş</string>
 </resources>

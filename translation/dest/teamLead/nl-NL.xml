@@ -3,7 +3,13 @@
   <string name="permPublicName">Openbaar</string>
   <string name="permSettingsName">Instellingen</string>
   <string name="permTourName">Toernooien</string>
+  <string name="permCommName">Moderatie</string>
+  <string name="permCommDesc">Beheer het forum en de teamchat</string>
+  <string name="permPmAllName">Updates</string>
+  <string name="permPmAllDesc">Stuur updates naar teamleden</string>
   <string name="permRemoveName">Verwijderen</string>
+  <string name="permRemoveDesc">Verwijder leden uit het team</string>
+  <string name="permAdminName">Admin</string>
   <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Lijst met teamleden verbergen voor niet-leden.</string>
   <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>

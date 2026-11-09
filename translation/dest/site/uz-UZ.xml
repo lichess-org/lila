@@ -995,6 +995,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="onlyMembersOfTeam">Faqat jamoa aʼzloari</string>
   <string name="noRestriction">Heç qanday çeklov yöq</string>
   <string name="minimumRatedGames">Reytingli öyinlar minimal soni</string>
+  <string name="minimumAccountAge">Akkaunlarning minimal yoşi</string>
   <string name="minimumRating">Minimum reyting</string>
   <string name="maximumWeeklyRating">Haftalik maksimal reyting</string>
   <string name="positionInputHelp">Har bir öyinni berilgan pozitsiyadan boşlaş uçun haqiqiy FEN kodini joylaştiring.

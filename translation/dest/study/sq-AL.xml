@@ -36,7 +36,7 @@
   <string name="spectator">Shikues</string>
   <string name="contributor">Kontribues</string>
   <string name="kick">Përjashtoje</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Hiqe</string>
+  <string name="remove">Hiqe</string>
   <string name="leaveTheStudy">Braktisni mësimin</string>
   <string name="youAreNowAContributor">Tani jeni një kontribues</string>
   <string name="youAreNowASpectator">Tani jeni shikues</string>
@@ -182,6 +182,7 @@
   <string name="fromInitialPositionText">Thjesht një udjisje fushe për një lojë të re.&lt;br&gt;E përshtatshme për të eksloruar hapjet.</string>
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Ujdiseni fushën si doni.&lt;br&gt;E përshtatshme të eksploruar funde lojërash.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Që të ngarkohe lëvzje loje te kapitulli, ngjitni një URL&lt;br&gt;(fjala vjen, lichess.org/game/7fHIU0XI)&lt;br&gt;.</string>
   <string name="fromFenStringTitle">Nga një varg FEN</string>
   <string name="fromFenStringText">Ngjitni një pozicion në format FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;që kapitulli të niset prej një pozicioni.</string>
   <string name="fromPgnGameTitle">Nga një lojë PGN</string>
@@ -192,6 +193,7 @@
   <string name="doubleDefeat">Dopiohumbje</string>
   <string name="blackDefeatWhiteCanNotWin">I ziu humb, por i Bardhi s’fiton dot</string>
   <string name="whiteDefeatBlackCanNotWin">I bardhi humb, por i Ziu s’fiton dot</string>
+  <string name="analyzeOnYourDevice">Analizojeni në pajisjen tuaj</string>
   <string name="searchChapters">Kërko te kapitujt</string>
   <string name="searchGames">Kërko te lojëra</string>
 </resources>

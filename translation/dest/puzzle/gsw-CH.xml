@@ -15,7 +15,7 @@
   <string name="didYouLikeThisPuzzle">Hät dir d\'Ufgab g\'falle?</string>
   <string name="upVote">Die Ufgab positiv bewerte</string>
   <string name="downVote">Die Ufgab negativ bewerte</string>
-  <string name="yourPuzzleRatingWillNotChange">Dini Wertig für Ufgabe veränderet sich nöd. Eusi Ufgabe sind kein Wettbewerb. Dini Wertig hilft nur dir Ufgabe z\'geh, wo zu dinere aktuelle Schpilstärchi passed.</string>
+  <string name="yourPuzzleRatingWillNotChange">Eusi Ufgabe sind kein Wettbewerb. Die Wertig für Ufgabe veränderet sich nöd. Sie macht nur, dass dir Ufgabe zueteilt werded, wo zu dinere aktuelle Schpilschtärchi passed.</string>
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Für personalisierti Ufgabe muesch:</string>
@@ -63,7 +63,7 @@
   <string name="jumpToNextPuzzleImmediately">Diräkt zur nächschte Ufgab</string>
   <string name="puzzleDashboard">Ufgabe Übersicht</string>
   <string name="improvementAreas">Verbesserigs Bereich</string>
-  <string name="strengths">Stärche</string>
+  <string name="strengths">Schtärchene</string>
   <string name="history">Ufgabe Verlauf</string>
   <string name="solved">g\'löst</string>
   <string name="failed">ung\'löst</string>
@@ -73,7 +73,7 @@
   <string name="continueTheStreak">Erfolgsserie witerfüehre</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us mine Schpil</string>
-  <string name="lookupOfPlayer">Suech Ufgabe us Schpil vu beschtimmte Schpiler</string>
+  <string name="lookupOfPlayer">Suech Ufgabe us Schpil vu beschtimmte Schpiler*ine</string>
   <string name="searchPuzzles">Suech Ufgabe</string>
   <string name="fromMyGamesNone">Du häsch kei Ufgabe i de Datäbank, aber Lichess schätzt dich immerno sehr.
 

@@ -43,7 +43,7 @@
   <string name="spectator">Глядач</string>
   <string name="contributor">Співавтор</string>
   <string name="kick">Вигнати</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Видалити</string>
+  <string name="remove">Видалити</string>
   <string name="leaveTheStudy">Покинути дослідження</string>
   <string name="youAreNowAContributor">Тепер ви співавтор</string>
   <string name="youAreNowASpectator">Тепер ви глядач</string>

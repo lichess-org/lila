@@ -211,7 +211,7 @@
   <string name="variantsDescription">Више начина за играње</string>
   <string name="timeControl">Временско ограничење</string>
   <string name="realTime">Игра на време</string>
-  <string name="correspondence">Дописнa</string>
+  <string name="correspondence">Дописна</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
   <plurals name="nbDays">
@@ -243,7 +243,7 @@
   <string name="changeEmail">Промени е-пошту</string>
   <string name="email">Имејл</string>
   <string name="passwordReset">Мењање лозинке</string>
-  <string name="forgotPassword">Заборавили сте лозинку?</string>
+  <string name="forgotPassword">Заборавио/ла лозинку?</string>
   <string name="error.weakPassword">Ова лозинка је изузетно честа и сувише лака да се погоди.</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="blankedPassword">Користио си исту лозинку на другом сајту и тај сајт је био хакован. Да бисмо обезбедили сигурност твог Lichess налога, неопходно је да поставимо нову лозинку. Хвала на разумевању.</string>
@@ -286,8 +286,8 @@
   </plurals>
   <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
-  <string name="drawOfferSent">Захтев за реми је послат</string>
-  <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
+  <string name="drawOfferSent">Понуда ремија послата</string>
+  <string name="drawOfferAccepted">Понуда ремија прихваћена</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
   <string name="blackOffersDraw">Црни нуди реми</string>
   <string name="whiteDeclinesDraw">Бели одбија реми</string>
@@ -300,7 +300,7 @@
   <string name="finished">Завршен</string>
   <string name="abortGame">Прекини партију</string>
   <string name="gameAborted">Партија прекинута</string>
-  <string name="standard">Стандардно</string>
+  <string name="standard">Стандардна</string>
   <string name="customPosition">Произвољна позиција</string>
   <string name="unlimited">Неограничено</string>
   <string name="unlimitedDescription">Узми колико год времена ти је потребно</string>
@@ -309,14 +309,14 @@
   <string name="rated">Рангирана</string>
   <string name="casualTournament">Нерангирани</string>
   <string name="ratedTournament">Рангирани</string>
-  <string name="thisGameIsRated">Ова партија се рангира</string>
+  <string name="thisGameIsRated">Ова партија је рангирана</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш је послата</string>
   <string name="rematchOfferAccepted">Понуда за реванш је прихваћена</string>
   <string name="rematchOfferCanceled">Понуда за реванш је отказана</string>
   <string name="rematchOfferDeclined">Понуда за реванш је одбијена</string>
   <string name="cancelRematchOffer">Откажи понуду за реванш</string>
-  <string name="viewRematch">Погледајте реванш</string>
+  <string name="viewRematch">Погледај реванш</string>
   <string name="confirmMove">Потврди потез</string>
   <string name="play">Играј</string>
   <string name="inbox">Пријемно сандуче</string>

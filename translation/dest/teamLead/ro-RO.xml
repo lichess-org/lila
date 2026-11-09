@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="permPublicName">Public</string>
+  <string name="permPublicDesc">Apari ca lider pe pagina echipei</string>
   <string name="permSettingsName">Setări</string>
+  <string name="permSettingsDesc">Editați setările echipei și descrierea</string>
   <string name="permTourName">Turnee</string>
+  <string name="permTourDesc">Creează, gestionează și alătură-te turneelor de echipă</string>
+  <string name="permCommName">Moderare</string>
+  <string name="permCommDesc">Moderează conversația în forum și în echipă</string>
   <string name="permRequestName">Cereri</string>
+  <string name="permRequestDesc">Acceptă sau respinge cererile de înscriere</string>
   <string name="permPmAllName">Actualizări</string>
+  <string name="permPmAllDesc">Trimite actualizări membrilor echipei</string>
   <string name="permRemoveName">Șterge</string>
   <string name="permRemoveDesc">Elimină membri din echipă</string>
   <string name="permAdminName">Admin</string>
+  <string name="permAdminDesc">Gestionează permisiunile liderilor</string>
+  <string name="demoteLeaderNote">Pentru a retrograda un lider, revocă toate permisiunile lor.</string>
   <string name="manuallyReviewAdmissionRequests">Verificați manual cererile de admitere</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să ceară să se alăture echipei, și puteți refuza sau accepta.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ascunde lista de membri ai echipei față de non-membri.</string>
   <string name="onlyLeaderLeavesTeam">Te rugăm să adaugi un nou lider de echipă înainte de a părăsi echipa, sau să desființezi echipa.</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
@@ -33,6 +43,9 @@
   <string name="listTheTeamsThatWillCompete">Listează echipele care vor concura în această luptă.</string>
   <string name="thisTeamBattleIsOver">Acest turneu s-a terminat, iar echipele nu mai pot fi actualizate.</string>
   <string name="oneTeamPerLine">O echipă pe linie. Utilizează completarea automată.</string>
+  <string name="oneTeamPerLineHelp">Puteți face copy-paste la această listă dintr-un turneu în altul!
+
+Nu puteți elimina o echipă dacă un jucător din ea s-a alăturat deja turneului.</string>
   <string name="numberOfLeadsPerTeam">Numărul de lideri per echipă. Suma scorului lor este scorul echipei.</string>
   <string name="numberOfLeadsPerTeamHelp">Nu ar trebui să schimbați această valoare după ce turneul a început!</string>
 </resources>

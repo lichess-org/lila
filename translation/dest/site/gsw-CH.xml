@@ -136,7 +136,7 @@
   <string name="multipleLines">Mehreri Wäg</string>
   <string name="multipleLinesDescription">Beschtimm d\'Anzahl Bewertigslinie und verschieb d\'Pfil uf em Brätt</string>
   <string name="searchTime">Suech Zit</string>
-  <string name="searchTimeDescription">De Zitpunkt für d\'Bewertig vu neue Positione bestimme</string>
+  <string name="searchTimeDescription">De Zitpunkt für d\'Bewertig vu neue Schtellige beschtimme</string>
   <string name="threads">Tüfi vum Rächne</string>
   <string name="threadsDescription">De Wert underhalb vu de Thread Azahl i de CPU ischtelle; die Fette sind e gueti und sicheri Wahl</string>
   <string name="threadsDescriptionMobile">Meh Tüfi verbrucht meh Akku für e besseri Analyse</string>
@@ -432,7 +432,7 @@ Durs Schpille vu g\'wertete Schpil erhöht sich d\'Schtabilität.</string>
   <string name="apply">Übermittle</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Schtellig als Bild</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Schtellig ab Bild</string>
   <string name="gameAsGIF">Schpil als GIF</string>
   <string name="playerNames">Schpiler*ine Näme</string>
   <string name="moveAnnotations">Zugs Notazione</string>
@@ -479,7 +479,7 @@ Fründe am Schpille: %2$s</string>
     <item quantity="other">%s Follower</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s Folgende</item>
+    <item quantity="one">%s Folgende/Folgendi</item>
     <item quantity="other">%s Folgendi</item>
   </plurals>
   <string name="less">Weniger</string>
@@ -682,7 +682,7 @@ Fründe am Schpille: %2$s</string>
   <string name="error.max">Dörf höchschtens %s si</string>
   <string name="ifRatingIsPlusMinusX">Wänn d\'Wertig ± %s isch</string>
   <string name="ifRegistered">Wänn regischtriert</string>
-  <string name="onlyExistingConversations">Nur bestehendi Underhaltige</string>
+  <string name="onlyExistingConversations">Nur beschtehendi Underhaltige</string>
   <string name="onlyFriends">Nur Fründe</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochier Rächt</string>
@@ -857,7 +857,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="brightness">Helligkeit</string>
   <string name="contrast">Kontrascht</string>
   <string name="hue">Farbton</string>
-  <string name="boardReset">Farbe uf Grundistellig</string>
+  <string name="boardReset">Farbe uf Grundischtellig</string>
   <string name="pieceSet">Figureart</string>
   <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>
@@ -999,7 +999,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="streamerManager">Streamer Manager</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
   <string name="tournDescription">Turnier Beschribig</string>
-  <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Wetsch de Teilnehmer*ine öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Schpil sind g\'wertet
 und beiflussed dini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitglider vum Team</string>
@@ -1020,7 +1020,7 @@ Fäld leer lah und all Schpil normal schtarte.</string>
   <string name="simulFeatured">Uf %s zeige</string>
   <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
-  <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
+  <string name="simulDescriptionHelp">Wetsch de Teilnehmer*ine öppis mitteile?</string>
   <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Du chasch Tegscht mit %s formatiere.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Schpil-URL oder e Schtudiekapitel-URL i.</string>
   <string name="inYourLocalTimezone">I dinere lokale Zit Zone</string>

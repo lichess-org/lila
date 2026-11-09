@@ -37,7 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Retirar</string>
+  <string name="remove">Retirar</string>
   <string name="leaveTheStudy">Deixar o estudo</string>
   <string name="youAreNowAContributor">Agora es un colaborador</string>
   <string name="youAreNowASpectator">Agora es un espectador</string>

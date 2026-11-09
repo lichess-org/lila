@@ -49,8 +49,8 @@ Und dänn zahled mir en Vollzit Entwickler: %s, de Gründer vu Lichess.</string>
   <string name="onlyDonationFromAbove">Du erreichsch de Gönner*ine Schtatus aber
 nur mit em Formular - ganz obe.</string>
   <string name="patronFeatures">Gits zuesätzlichi Funktione für en/e Gönner*i?</string>
-  <string name="noPatronFeatures">Nei - Lichess isch komplett gratis, für immer und für jedermann; das isch es Verschpräche.
-Aber en/e Lichess Gönner*i chan sis Profil mit eme coole Flügel Icon schmücke.</string>
+  <string name="noPatronFeatures">Nei - Lichess isch komplett gratis, für immer und für alli; das isch es Verschpräche.
+Aber Lichess Gönner*ine chönd ihres Profil mit eme coole Flügel Icon schmücke.</string>
   <string name="featuresComparison">Check de Detailverglich vu de Funktione</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Gönner*i für 1 Monet</item>
@@ -63,7 +63,7 @@ Aber en/e Lichess Gönner*i chan sis Profil mit eme coole Flügel Icon schmücke
   <string name="youWillBeChargedXOnY">Dir werded am %2$s %1$s berächnet.</string>
   <string name="makeAdditionalDonation">Mach e zuesätzlichi Schpänd</string>
   <string name="giftPatronWingsShort">Gönner*ine Flügel schänke</string>
-  <string name="giftPatronWings">Schänk eme/ere andere Schpiler*in en Gönner*ine Flügel</string>
+  <string name="giftPatronWings">Schänk eme/ere andere Schpiler*in en coole Flügel</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Veränder de monetlich Betrag (%s)</string>
   <string name="cancelSupport">beänd dini Underschtützig</string>
