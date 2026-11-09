@@ -50,7 +50,7 @@ final class PgnDump(
     comments = true,
     variations = true,
     clocks = true,
-    orientation = false
+    orientation = true
   )
 
   private val fileR = """[\s,]""".r
