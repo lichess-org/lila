@@ -15,8 +15,6 @@ trait AssetFullHelper:
 
   export lila.common.String.html.safeJsonValue
 
-  private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
-
   def siteName: String =
     if netConfig.siteName == "localhost:9663" then "lichess.dev"
     else netConfig.siteName
@@ -50,7 +48,7 @@ trait AssetFullHelper:
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val secure = ctx.req.secure
     // include both ws and wss when insecure because requests may come through a secure proxy
-    val sockets = socketDomains.map(x => s"wss://$x${secure.not.so(s" ws://$x")}")
+    val sockets = netConfig.socketCsps.map(x => s"wss://$x${secure.not.so(s" ws://$x")}")
     val localDev = secure.not.so(List("http://127.0.0.1:3000", "http://localhost:8666"))
     lila.web.ContentSecurityPolicy.page:
       sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev

@@ -37,6 +37,7 @@ object config:
       siteName: String,
       socketDomains: List[String],
       socketAlts: List[String],
+      socketCsps: List[String],
       crawlable: Boolean,
       rateLimit: RateLimit,
       email: EmailAddress,

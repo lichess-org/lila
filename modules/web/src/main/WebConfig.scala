@@ -55,6 +55,7 @@ object WebConfig:
     siteName = c.get[String]("net.site.name"),
     socketDomains = c.get[List[String]]("net.socket.domains"),
     socketAlts = c.get[List[String]]("net.socket.alts"),
+    socketCsps = c.get[List[String]]("net.socket.csps"),
     crawlable = c.get[Boolean]("net.crawlable"),
     rateLimit = c.get[RateLimit]("net.ratelimit"),
     email = c.get[EmailAddress]("net.email"),
