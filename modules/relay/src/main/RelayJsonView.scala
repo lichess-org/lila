@@ -9,11 +9,7 @@ import lila.common.Json.{ *, given }
 import lila.core.LightUser.GetterSync
 import lila.core.config.RouteUrl
 import lila.core.fide.PhotosJson
-import lila.core.i18n.{
-  Translate,
-  defaultLanguage,
-  toLanguage
-}
+import lila.core.i18n.{ Translate, defaultLanguage, toLanguage }
 import lila.core.socket.SocketVersion
 import lila.core.study.Study
 import lila.memo.PicfitUrl
