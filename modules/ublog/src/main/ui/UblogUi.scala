@@ -513,17 +513,17 @@ final class UblogUi(
   object atom:
     def user(
         user: User,
-        posts: Seq[UblogPost.PreviewPost]
+        posts: Seq[(UblogPost, Html)]
     )(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.index(user.username),
         atomCall = routes.Ublog.userAtom(user.username),
         title = trans.ublog.xBlog.txt(user.username),
-        updated = posts.headOption.flatMap(_.lived).map(_.at),
-        language = _.language
-      ): post =>
-        renderPost(post, authorOfBlog(post.blog))
+        updated = posts.headOption.flatMap(_._1.lived).map(_.at),
+        language = _._1.language
+      ): (post, markup) =>
+        renderPost(post, authorOfBlog(post.blog), markup.some)
 
     def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
@@ -536,7 +536,9 @@ final class UblogUi(
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    private def renderPost(post: UblogPost.PreviewPost, authorName: String)(using Translate) =
+    private def renderPost(post: UblogPost.BasePost, authorName: String, markup: Option[Html] = None)(using
+        Translate
+    ) =
       frag(
         tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
@@ -554,11 +556,15 @@ final class UblogUi(
             scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },
-        tag("content")(tpe := "html")(
+        tag("content")(
+          tpe := "html",
+          markup.map(_ => attr("xml:base") := routeUrl(urlOfPost(post)))
+        )(
           frag(
             thumbnail(post, _.Size.Large),
             br,
-            post.intro
+            post.intro,
+            markup
           ).render // html as escaped string in xml
         ),
         tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),

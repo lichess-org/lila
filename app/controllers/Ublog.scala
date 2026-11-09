@@ -350,9 +350,14 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(env.user.repo.enabledById(username)): user =>
       for
         blog <- env.ublog.api.getUserBlog(user)
-        posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
+        posts <- isBlogVisible(user, blog).so:
+          env.ublog.api.latestPostsWithContent(blog.id, env.ublog.paginator.maxPerPage.value)
+        rendered <- Future.traverse(posts): post =>
+          env.memo.markdown
+            .toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+            .map(post -> _)
       yield Ok
-        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .snip(views.ublog.ui.atom.user(user, rendered))
         .as(ATOM)
         .publicCache(10.minutes)
         .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))

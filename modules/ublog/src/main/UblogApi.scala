@@ -101,6 +101,13 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
+  def latestPostsWithContent(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost]] =
+    colls.post
+      .find(bdoc("blog" -> blogId, "live" -> true), postProjection.some)
+      .sort(userLiveSort)
+      .cursor[UblogPost](ReadPref.sec)
+      .list(nb)
+
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_.is(user))) >>|
