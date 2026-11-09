@@ -20,7 +20,7 @@
     padding: 0 0.3em;
 
     &:hover {
-      color: $c-accent !important;
+      color: $c-bad !important;
       background: none !important;
     }
   }
@@ -61,6 +61,6 @@
 
   .berserked {
     font-size: 2.2em;
-    color: $c-accent;
+    color: $c-bad;
   }
 }
