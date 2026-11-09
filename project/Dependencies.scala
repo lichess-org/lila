@@ -41,7 +41,7 @@ object Dependencies:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "18.0.1"
+    val version = "18.1.0"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -52,7 +52,7 @@ object Dependencies:
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
 
   object scalalib:
-    val version = "11.12.1"
+    val version = "11.13.0"
     val org = "com.github.lichess-org.scalalib"
     val core = org %% "scalalib-core" % version
     val model = org %% "scalalib-model" % version
