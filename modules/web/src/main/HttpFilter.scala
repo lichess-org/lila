@@ -46,6 +46,7 @@ final class HttpFilter(
   private object WarmupFilter:
     private var justBooted = true
     scheduler.scheduleOnce(20.seconds):
+      logger.info("WarmupFilter: now accepting requests")
       justBooted = false
     private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
     private val actions = Set(
