@@ -31,10 +31,10 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
               coll.updateFieldUnchecked(bid(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user").map(AuthInfo(_, doc.contains("fp")))
 
-  def loginWithSessionId(sessionId: SessionId)(using req: RequestHeader): Fu[Option[AuthInfo]] =
+  def loginWithSessionId(sessionId: SessionId)(using RequestHeader): Fu[Option[AuthInfo]] =
     if canLogin(sessionId) then authCache.get(sessionId)
     else
-      logger.warn(s"oauth session login attempt ($sessionId) by ${HTTPRequest.print(req)}")
+      logger.warn(s"oauth session login attempt ($sessionId) by ${HTTPRequest.print}")
       fuccess(none)
 
   private def canLogin(sessionId: SessionId): Boolean =

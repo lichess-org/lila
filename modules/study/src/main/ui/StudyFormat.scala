@@ -20,8 +20,8 @@ final class StudyFormatStore(baker: LilaCookie):
 
   import StudyFormatStore.*
 
-  def toggle(using req: RequestHeader) =
-    val backUrl = HTTPRequest.referer(req) | routes.Study.allDefault().url
+  def toggle(using RequestHeader) =
+    val backUrl = HTTPRequest.referer | routes.Study.allDefault().url
     val cookie = HTTPRequest.queryStringGet("format").flatMap(StudyFormat.byKey.get).map(write)
     cookie.foldLeft(play.api.mvc.Results.Redirect(backUrl))(_.withCookies(_))
 

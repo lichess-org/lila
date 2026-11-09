@@ -92,7 +92,7 @@ final class User(
       case _ => notFound
 
   private def isRestricted(using ctx: Context, proxy: IsProxy) =
-    ctx.isAnon && (HTTPRequest.noReferer(ctx.req) || proxy.couldBeEnum)
+    ctx.isAnon && (HTTPRequest.referer.isEmpty || proxy.couldBeEnum)
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
       ctx: Context

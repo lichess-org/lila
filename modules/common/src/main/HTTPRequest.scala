@@ -25,9 +25,6 @@ object HTTPRequest:
   def isRedirectable(using req: RequestHeader) =
     isSynchronousHttp(req) && isSafe(req) && !isLichessMobile
 
-  def isXhrFromEmbed(req: RequestHeader) =
-    isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
-
   private val appOrigins: List[Origin] = Origin.from:
     List(
       "capacitor://localhost", // ios
@@ -69,8 +66,7 @@ object HTTPRequest:
       yield version
 
   def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
-  def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
-  def noReferer(req: RequestHeader): Boolean = referer(req).isEmpty
+  def referer(using req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
   def ipAddress(req: RequestHeader): IpAddress =
     IpAddress.unchecked(ipAddressStr(req))
@@ -89,12 +85,12 @@ object HTTPRequest:
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
+  def print(using req: RequestHeader) = s"${printReq(req)} ${printClient}"
 
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
-  def printClient(req: RequestHeader) =
-    s"${ipAddressStr(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
+  def printClient(using req: RequestHeader) =
+    s"${ipAddressStr(req)} origin:${origin(req).so(_.value)} referer:${~referer} ua:${userAgent(req)}"
 
   def bearer(using req: RequestHeader): Option[(Bearer, Option[String])] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)

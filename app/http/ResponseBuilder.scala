@@ -77,7 +77,7 @@ trait ResponseBuilder(using Executor)
     else if ctx.isOAuth then
       if HTTPRequest.accepts(ctx.req).forall(_ == "*/*") then json
       else
-        lila.log.system.info(s"${HTTPRequest.print(ctx.req)} ${ctx.userId} ${HTTPRequest.accepts(ctx.req)}")
+        lila.log.system.info(s"${HTTPRequest.print} ${ctx.userId} ${HTTPRequest.accepts(ctx.req)}")
         NotAcceptable(jsonError(onlyReturnsJson)).toFuccess
     else html
   }.map(_.varyAccept)

@@ -102,7 +102,7 @@ final class TurnstileReal(
 
   protected def verify(response: String)(using req: RequestHeader): Fu[Result] =
     given Conversion[Result, Fu[Result]] = fuccess
-    def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.print(req)}")
+    def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.print}")
     def missingResponse: Result =
       logInfo("missing")
       Result.Missing

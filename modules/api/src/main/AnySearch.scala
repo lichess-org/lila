@@ -23,11 +23,13 @@ final class AnySearch(
 
   private val idRegex = """^[a-zA-Z0-9]{4,12}$""".r
 
-  private def sameReferrer(req: RequestHeader): Boolean =
-    HTTPRequest.referer(req).exists(_.startsWith(baseUrl.value))
+  private def sameReferrer(using RequestHeader): Boolean =
+    HTTPRequest.referer.exists(_.startsWith(baseUrl.value))
 
-  def redirect(str: String, proxy: Option[IsProxy])(using ctx: Context): Fu[Option[String]] =
-    (ctx.isAuth || (!proxy.exists(_.couldBeEnum) && sameReferrer(ctx.req)))
+  def redirect(str: String, proxy: Option[IsProxy])(using
+      ctx: Context
+  )(using RequestHeader): Fu[Option[String]] =
+    (ctx.isAuth || (!proxy.exists(_.couldBeEnum) && sameReferrer))
       .option(str.trim)
       .filter(idRegex.matches)
       .so: id =>

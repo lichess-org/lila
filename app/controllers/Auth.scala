@@ -363,7 +363,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
-      .logFailure(logger, _ => s"FP ${HTTPRequest.print(ctx.req)} $fp")
+      .logFailure(logger, _ => s"FP ${HTTPRequest.print} $fp")
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))

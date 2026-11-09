@@ -114,7 +114,7 @@ final class SecurityApi(
       login: UserStrOrEmail,
       password: ClearPassword,
       token: Option[String]
-  )(using req: RequestHeader): LoginCandidate.Result = {
+  )(using RequestHeader): LoginCandidate.Result = {
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
@@ -127,7 +127,7 @@ final class SecurityApi(
             case Success(user) if user.totpSecret.isEmpty => true
             case _ => false
         if blockLeaked then
-          logger.info(s"Block lichobile login with leaked user+pass ${HTTPRequest.printClient(req)}")
+          logger.info(s"Block lichobile login with leaked user+pass ${HTTPRequest.printClient}")
           BlockLeaked
         else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
           lila.common.Bus.pub(LoginWithWeakPassword(c.user.id))
@@ -154,11 +154,11 @@ final class SecurityApi(
       .flatMap:
         if _ then fufail(SecurityApi.MustConfirmEmail(userId))
         else
-          if pwned.yes then logger.info(s"Pwned login $userId ${HTTPRequest.print(req)}")
+          if pwned.yes then logger.info(s"Pwned login $userId ${HTTPRequest.print}")
           for
             proxy <- ip2proxy.ofReq(req)
             _ = proxy.name.foreach: p =>
-              logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}")
+              logger.info(s"Proxy login $p $userId ${HTTPRequest.print}")
             sessionId <- store.save(isSignup = false, userId, req, apiVersion, fp = none, proxy, pwned)
           yield sessionId
 
@@ -175,7 +175,7 @@ final class SecurityApi(
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
-    if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
+    if isXhrFromEmbed then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
@@ -189,6 +189,9 @@ final class SecurityApi(
             }
         : Fu[Option[AppealOrUser]]
       }
+
+  private def isXhrFromEmbed(using req: RequestHeader) =
+    HTTPRequest.isXhr(req) && HTTPRequest.referer.exists(_.contains(s"${req.host}/embed/"))
 
   def oauthScoped(required: lila.oauth.EndpointScopes)(using RequestHeader, ClientName): OAuthServer.AuthFu =
     oAuthServer
@@ -243,7 +246,7 @@ final class SecurityApi(
       case Some(session) =>
         session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey)).map(SessionId.apply)
       case None =>
-        logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
+        logger.warn(s"No session in request attrs: ${HTTPRequest.print(using req)}")
         none
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)

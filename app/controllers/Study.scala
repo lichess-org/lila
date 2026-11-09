@@ -308,10 +308,8 @@ final class Study(
           res <-
             if owner.isEmpty && contrib.isEmpty then createStudy(data)
             else
-              val back = HTTPRequest
-                .referer(ctx.req)
-                .orElse:
-                  data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
+              val back = HTTPRequest.referer.orElse:
+                data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
               Ok.page(views.study.create(data, owner, contrib, back))
         yield res
     )
@@ -402,7 +400,7 @@ final class Study(
           for
             _ <- env.study.studyRepo.unfeature(id, true)
             _ <- env.mod.logApi.studyUnfeature(study)
-          yield Redirect(HTTPRequest.referer(ctx.req) | routes.Study.allDefault().url)
+          yield Redirect(HTTPRequest.referer | routes.Study.allDefault().url)
         case None if isGranted(_.StudyAdmin) =>
           for
             _ <- env.study.api.becomeAdmin(id)

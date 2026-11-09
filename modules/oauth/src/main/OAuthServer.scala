@@ -44,7 +44,8 @@ final class OAuthServer(
       .ifTrue(blocked || (u.isnt(UserId.explorer) && !client.isPlaybot))
       .foreach: req =>
         val logMsg =
-          s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+          val verb = if blocked then "block" else "auth"
+          s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
         if blocked then logger.info(logMsg) else logger.debug(logMsg)
     _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)

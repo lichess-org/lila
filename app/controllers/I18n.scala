@@ -16,7 +16,7 @@ final class I18n(env: Env) extends LilaController(env):
         } >> negotiate(
           html =
             val redir = Redirect:
-              lila.common.HTTPRequest.referer(ctx.req) | routes.Lobby.home.url
+              lila.common.HTTPRequest.referer | routes.Lobby.home.url
             if ctx.isAnon
             then redir.withCookies(env.security.lilaCookie.session("lang", lang.code))
             else redir
