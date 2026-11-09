@@ -72,7 +72,7 @@ export class StudyChapterNewForm {
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
-  orientation: Color | 'automatic';
+  orientation: Color | 'automatic' = 'automatic';
   chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
   selectedVariant: Prop<VariantKey> = prop('standard');
 
@@ -85,7 +85,6 @@ export class StudyChapterNewForm {
     private readonly currentChapter: () => StudyChapter,
   ) {
     pubsub.on('analysis.closeAll', () => this.dialog?.close());
-    this.orientation = root.bottomColor();
   }
 
   isOpen = () => {
@@ -157,7 +156,6 @@ export class StudyChapterNewForm {
 
   open = async (initial = false) => {
     pubsub.emit('analysis.closeAll');
-    this.orientation = this.root.bottomColor();
     this.loadVariants();
     this.initial(initial);
     this.isDefaultName(true);
