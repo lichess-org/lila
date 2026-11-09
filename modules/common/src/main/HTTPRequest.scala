@@ -139,10 +139,6 @@ object HTTPRequest:
   def fromFormOrQuery(name: String)(using req: UntypedFormRequest): Option[String] =
     req.body.get(name).flatMap(_.headOption).filter(_.nonEmpty).orElse(queryStringGet(name))
 
-  def looksLikeLichessBot(req: RequestHeader) =
-    val ua = userAgent(req).value
-    ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
-
   // this header is set by our nginx config, based on the nginx whitelist file.
   def ipTier(req: RequestHeader) = IpTier:
     req.headers.get("X-Ip-Tier").exists(_ != "1")
@@ -160,7 +156,7 @@ object HTTPRequest:
     CountryCode.from(req.headers.get("X-Country"))
 
 enum ClientName:
-  case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
+  case lichobile, xhr, mobile, crawler, browser, fishnet, playbot, unknown
   def name = toString
   def isCrawler = this == crawler
   def isFishnet = this == fishnet
@@ -168,6 +164,7 @@ enum ClientName:
   def isMobile = this == mobile
   def isLichobile = this == lichobile
   def isXhr = this == xhr
+  def isPlaybot = this == playbot
 
 object ClientName:
 

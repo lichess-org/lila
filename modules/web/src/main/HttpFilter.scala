@@ -38,6 +38,7 @@ final class HttpFilter(
       if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile then lichobile else xhr
       else if HTTPRequest.isLichessMobile then mobile
       else if req.headers.get("X-Crawler").contains("1") then crawler
+      else if looksLikePlayBot(req) then playbot
       else if crawlerMatcher(req) then crawler
       else if req.path.startsWith("/fishnet/") then fishnet
       else browser
@@ -75,6 +76,12 @@ final class HttpFilter(
       """|Discordbot|WhatsApp|ShareExtension""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
+
+  private def looksLikePlayBot(req: RequestHeader) =
+    val ua = HTTPRequest.userAgent(req).value
+    ua.startsWith("lichess-bot/") ||
+    ua.startsWith("maia-bot/") ||
+    ua.startsWith("BotLi/")
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
     val actionName = HTTPRequest.actionName(req)

@@ -9,7 +9,7 @@ import reactivemongo.api.bson.*
 import scalalib.SecureRandom
 
 import lila.common.Form.into
-import lila.common.HTTPRequest
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.email.UserStrOrEmail
 import lila.core.id.SessionId
 import lila.core.misc.oauth.AccessTokenId
@@ -190,7 +190,7 @@ final class SecurityApi(
         : Fu[Option[AppealOrUser]]
       }
 
-  def oauthScoped(required: lila.oauth.EndpointScopes)(using RequestHeader): OAuthServer.AuthFu =
+  def oauthScoped(required: lila.oauth.EndpointScopes)(using RequestHeader, ClientName): OAuthServer.AuthFu =
     oAuthServer
       .authReq(required)
       .map: access =>
