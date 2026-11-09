@@ -441,11 +441,11 @@ h1 {
 
 @keyframes target-fade {
   from {
-    background: color-mix(in oklab, $c-accent 80%, $c-bg-popup);
+    background: color-mix(in oklab, $c-brag 80%, $c-bg-popup);
   }
 
   to {
-    background: color-mix(in oklab, $c-accent 15%, $c-bg-popup);
+    background: color-mix(in oklab, $c-brag 15%, $c-bg-popup);
   }
 }
 
@@ -458,7 +458,7 @@ h1 {
     @extend %box-neat;
 
     padding: 1em 1em 1em 1.5em;
-    border: 1px solid $c-accent;
+    border: 1px solid $c-brag;
     animation: target-fade 1.5s forwards;
   }
 }
