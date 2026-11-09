@@ -3,10 +3,12 @@ package ui
 
 import play.api.libs.json.*
 
-import lila.ui.Helpers
-import lila.ui.OpenGraph
 import lila.common.Json.given
 import lila.core.config.NetConfig
+import lila.ui.{
+  Helpers,
+  OpenGraph
+}
 
 final class UblogStructuredData(helpers: Helpers, net: NetConfig):
   import helpers.*

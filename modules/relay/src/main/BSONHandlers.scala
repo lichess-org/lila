@@ -4,9 +4,9 @@ import chess.FideTC
 import chess.tiebreak.{ CutModifier, LimitModifier, Tiebreak }
 import reactivemongo.api.bson.*
 
+import lila.core.net.Continent
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.net.Continent
 
 object BSONHandlers:
 

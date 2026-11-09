@@ -7,8 +7,11 @@ import scalalib.Debouncer
 
 import scala.collection.immutable.SeqMap
 
-import lila.core.fide.{ PlayerToken, Tokenize }
-import lila.core.fide.Federation
+import lila.core.fide.{
+  Federation,
+  PlayerToken,
+  Tokenize
+}
 import lila.relay.RelayGroup.ScoreGroup
 import lila.study.{ ChapterPreview, StudyPlayer }
 

@@ -2,9 +2,9 @@ package lila.streamer
 package ui
 
 import lila.core.id.CmsPageKey
+import lila.memo.Dimensions
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.memo.Dimensions
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }

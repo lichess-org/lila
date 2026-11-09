@@ -2,12 +2,12 @@ package lila.web
 
 import play.api.libs.json.{ JsArray, Json }
 import play.api.mvc.RequestHeader
+import scalatags.Text.RawFrag
 
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.config.NetConfig
 import lila.core.net.CountryCode
-import scalatags.Text.RawFrag
 
 final class StaticContent(net: NetConfig):
 

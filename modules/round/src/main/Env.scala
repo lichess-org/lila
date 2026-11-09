@@ -6,7 +6,7 @@ import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.{ Bus, Uptime, HTTPRequest }
+import lila.common.{ Bus, HTTPRequest, Uptime }
 import lila.core.config.*
 import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo

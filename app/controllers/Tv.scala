@@ -7,8 +7,8 @@ import play.api.mvc.Result
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.tv.Tv.Channel
 import lila.game.PgnDump.requestPgnFlags
+import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 

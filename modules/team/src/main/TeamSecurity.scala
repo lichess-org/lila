@@ -3,11 +3,11 @@ package team
 
 import cats.derived.*
 
+import lila.core.i18n.I18nKey
+import lila.core.i18n.I18nKey.teamLead as trans
 import lila.core.perm.Granter
 import lila.memo.CacheApi.*
 import lila.mon.extensions.*
-import lila.core.i18n.I18nKey
-import lila.core.i18n.I18nKey.teamLead as trans
 
 object TeamSecurity:
   enum Permission(val name: I18nKey, val desc: I18nKey) derives Eq:

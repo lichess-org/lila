@@ -9,9 +9,9 @@ import play.api.data.format.Formatter
 import java.time.ZoneId
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, into, typeIn, url }
+import lila.core.net.Continent
 import lila.core.perm.Granter
 import lila.core.study.Visibility
-import lila.core.net.Continent
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 

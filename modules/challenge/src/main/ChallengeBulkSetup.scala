@@ -12,12 +12,12 @@ import scalalib.ThreadLocalRandom
 import scalalib.model.Days
 import scalalib.net.Bearer
 
+import lila.common.ClientName
 import lila.common.Form.into
 import lila.core.data.Template
 import lila.core.game.GameRule
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.common.ClientName
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 

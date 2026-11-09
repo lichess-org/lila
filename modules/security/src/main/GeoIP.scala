@@ -9,7 +9,7 @@ import play.api.ConfigLoader
 import scala.util.Try
 
 import lila.common.autoconfig.*
-import lila.core.net.{ IpAddress, CountryCode }
+import lila.core.net.{ CountryCode, IpAddress }
 import lila.core.security.IsProxy
 
 final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):

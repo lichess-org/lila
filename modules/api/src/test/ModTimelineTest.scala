@@ -2,8 +2,8 @@ package lila.api
 
 import monocle.syntax.all.*
 
-import lila.core.shutup.PublicLine
 import lila.core.chat.PublicSource
+import lila.core.shutup.PublicLine
 import lila.playban.TempBan
 
 class ModTimelineTest extends munit.FunSuite:
