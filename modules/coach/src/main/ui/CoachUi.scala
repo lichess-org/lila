@@ -22,7 +22,7 @@ final class CoachUi(helpers: Helpers)(
   import trans.coach as trc
 
   def titleName(c: Coach.WithUser) =
-    frag(c.user.title.map(t => s"$t "), c.user.realNameOrUsername)
+    frag(c.user.title.map(t => frag(userTitleTag(t), " ")), c.user.realNameOrUsername)
 
   def thumbnailUrl(c: Coach): Url =
     c.picture match
