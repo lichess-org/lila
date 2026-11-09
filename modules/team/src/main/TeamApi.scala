@@ -6,12 +6,12 @@ import scalalib.actor.AsyncActorSequencers
 import java.time.Period
 
 import lila.common.Bus
+import lila.core.i18n.I18nKey
 import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
-import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 

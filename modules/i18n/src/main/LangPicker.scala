@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalalib.model.{ LangTag, Language }
 
+import lila.common.HTTPRequest
 import lila.core.i18n.{
   defaultLang,
   defaultLanguage,
@@ -12,7 +13,6 @@ import lila.core.i18n.{
   toLanguage
 }
 import lila.core.net.CountryCode
-import lila.common.HTTPRequest
 
 object LangPicker extends lila.core.i18n.LangPicker:
 

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import PlanBuilder.{ ScheduleWithInterval, SCHEDULE_DAILY_OVERLAP_MINS }
+import PlanBuilder.{ SCHEDULE_DAILY_OVERLAP_MINS, ScheduleWithInterval }
 
 object ScheduleTestHelpers:
   def planSortKey(p: Schedule.Plan) =

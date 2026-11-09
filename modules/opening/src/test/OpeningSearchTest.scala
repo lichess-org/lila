@@ -1,8 +1,9 @@
 package lila.opening
 
-import chess.opening.OpeningName
-import OpeningSearch.*
 import chess.format.pgn.PgnMovesStr
+import chess.opening.OpeningName
+
+import OpeningSearch.*
 
 class OpeningSearchTest extends munit.FunSuite:
 

@@ -1,8 +1,8 @@
 package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
-import play.api.mvc.*
 import org.apache.pekko.stream.scaladsl.Source
+import play.api.mvc.*
 
 import scala.annotation.nowarn
 

@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="permPublicName">Julkinen</string>
+  <string name="permPublicDesc">Näytä johtajana joukkuesivulla</string>
   <string name="permSettingsName">Asetukset</string>
+  <string name="permSettingsDesc">Muokkaa joukkueen asetuksia ja kuvausta</string>
   <string name="permTourName">Turnaukset</string>
+  <string name="permTourDesc">Luo ja hallinnoi turnauksia ja osallistu joukkueen turnauksiin</string>
+  <string name="permCommName">Moderointi</string>
+  <string name="permCommDesc">Moderoi foorumia ja joukkueen chattia</string>
+  <string name="permRequestName">Pyynnöt</string>
+  <string name="permRequestDesc">Hyväksy tai hylkää liittymispyyntöjä</string>
+  <string name="permPmAllName">Päivitykset</string>
+  <string name="permPmAllDesc">Lähetä joukkueen jäsenille päivityksiä</string>
   <string name="permRemoveName">Poista</string>
+  <string name="permRemoveDesc">Poista jäseniä joukkueesta</string>
+  <string name="permAdminName">Ylläpitäjä</string>
+  <string name="permAdminDesc">Hallitse johtajien oikeuksia</string>
+  <string name="demoteLeaderNote">Johtajan voi alentaa tavalliseksi jäseneksi poistamalla tältä kaikki oikeudet.</string>
   <string name="manuallyReviewAdmissionRequests">Käy liittymispyynnöt yksitellen läpi</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Tämän ollessa valittuna pelaajien pitää pyytää lupaa liittyä joukkueeseen. Voit hyväksyä tai hylätä kunkin pyynnön.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Piilota joukkueen jäsenluettelo muilta kuin jäseniltä.</string>
   <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>
@@ -28,6 +42,9 @@
   <string name="listTheTeamsThatWillCompete">Listaa tässä taistossa kilpailevat joukkueet.</string>
   <string name="thisTeamBattleIsOver">Tämä turnaus on ohi, eikä joukkueita voi enää päivittää.</string>
   <string name="oneTeamPerLine">Yksi joukkue riviä kohti. Käytä automaattista täydennystä.</string>
+  <string name="oneTeamPerLineHelp">Voit kopioida tämän listan turnauksesta toiseen!
+
+Et voi poistaa joukkuetta, jos joku sen pelaajista on jo liittynyt turnaukseen.</string>
   <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
   <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
 </resources>

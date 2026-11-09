@@ -43,7 +43,7 @@
   <string name="spectator">Obserwator</string>
   <string name="contributor">Współautor</string>
   <string name="kick">Wyrzuć</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">Usuń</string>
+  <string name="remove">Usuń</string>
   <string name="leaveTheStudy">Opuść opracowanie</string>
   <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
   <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
@@ -106,6 +106,12 @@
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
   <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Wklej tutaj swój PGN, max %s partię.</item>
+    <item quantity="few">Wklej tutaj gry w formacie PGN. Dla każdej gry zostanie stworzony nowy rozdział. Opracowanie może mieć do %s rozdziałów.</item>
+    <item quantity="many">Wklej tutaj gry w formacie PGN. Dla każdej gry zostanie stworzony nowy rozdział. Opracowanie może mieć do %s rozdziałów.</item>
+    <item quantity="other">Wklej tutaj gry w formacie PGN. Dla każdej gry zostanie stworzony nowy rozdział. Opracowanie może mieć do %s rozdziałów.</item>
+  </plurals>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="createChapter">Stwórz rozdział</string>
   <string name="createStudy">Stwórz opracowanie</string>

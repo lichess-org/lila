@@ -11,9 +11,9 @@ import lila.common.Json.given
 import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
+import lila.game.PgnDump.requestPgnFlags
 import lila.security.{ Mobile, UserAgentParser }
 import lila.web.ConcurrencyLimit
-import lila.game.PgnDump.requestPgnFlags
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 

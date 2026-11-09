@@ -1,5 +1,7 @@
 package lila.study
 
+import play.api.libs.json.Json
+
 import lila.core.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
@@ -7,7 +9,6 @@ import lila.db.dsl.*
 import lila.tree.{ Node, Root }
 
 import BSONHandlers.given
-import play.api.libs.json.Json
 
 class JsonTest extends munit.FunSuite:
 

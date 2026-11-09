@@ -72,7 +72,7 @@
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="killBoxMate">Killbox Matt</string>
   <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
-  <string name="pillsburysMate">Pillsburys Matt</string>
+  <string name="pillsburysMate">Pillsbury-Matt</string>
   <string name="pillsburyMateRookAndBishopDescription">Der Turm setzt den König Matt, während der Läufer hilft, ihn zu beschränken.</string>
   <string name="morphysMate">Morphys Matt</string>
   <string name="morphyMateBishopAndRookDescription">Der Läufer setzt den König Matt, während der Turm hilft, ihn zu beschränken.</string>

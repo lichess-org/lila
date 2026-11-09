@@ -34,7 +34,7 @@
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢出</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">移除</string>
+  <string name="remove">移除</string>
   <string name="leaveTheStudy">离开研习</string>
   <string name="youAreNowAContributor">您现在是一名贡献者</string>
   <string name="youAreNowASpectator">你现在是一位旁观者</string>

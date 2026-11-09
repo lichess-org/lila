@@ -1,8 +1,8 @@
 package lila.analyse
 
-import chess.{ ByColor, Color, Division, Ply }
-import chess.eval.{ Score, WhiteScore }
 import chess.eval.Eval.Cp
+import chess.eval.{ Score, WhiteScore }
+import chess.{ ByColor, Color, Division, Ply }
 import scalalib.Maths.isCloseTo
 
 import lila.tree.{ Analysis, Engine, Eval, Info, evals }

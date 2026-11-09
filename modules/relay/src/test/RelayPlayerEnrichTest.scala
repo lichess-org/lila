@@ -1,8 +1,10 @@
 package lila.relay
 
-import chess.PlayerName
-import chess.FideId
-import chess.IntRating
+import chess.{
+  FideId,
+  IntRating,
+  PlayerName
+}
 
 class RelayPlayerEnrichTest extends munit.FunSuite:
 

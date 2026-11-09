@@ -82,7 +82,7 @@ object page:
           favicons,
           preventIndexing.option(noRobots),
           noTranslate,
-          p.openGraph.map(lila.web.ui.openGraph),
+          p.openGraph.map(lila.web.ui.OpenGraph.render),
           atomLinkTag.tupled(p.atomLink | dailyNewsAtom),
           pref.isTransparentBg
             .option(pref.bgImgUrl)

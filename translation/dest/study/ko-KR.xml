@@ -34,7 +34,7 @@
   <string name="spectator">관전자</string>
   <string name="contributor">기여자</string>
   <string name="kick">강제 퇴장</string>
-  <string name="remove" comment="Used to remove a user from a study.&#10;&#10;Shown to the right of a user that has been added to the study e.g. as a contributor to that study.">삭제</string>
+  <string name="remove">삭제</string>
   <string name="leaveTheStudy">연구 나가기</string>
   <string name="youAreNowAContributor">당신은 이제 기여자입니다</string>
   <string name="youAreNowASpectator">당신은 이제 관전자입니다</string>

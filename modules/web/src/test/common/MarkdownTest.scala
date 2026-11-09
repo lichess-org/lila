@@ -2,8 +2,8 @@ package lila.markdown
 
 import chess.format.pgn.PgnStr
 
-import lila.core.lilaism.Lilaism.*
 import lila.core.config.NetDomain
+import lila.core.lilaism.Lilaism.*
 import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:

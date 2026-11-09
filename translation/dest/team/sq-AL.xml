@@ -28,6 +28,8 @@
   <string name="swissTournamentOverview">Një turne Zviceran në të cilin mund të marrin pjesë vetëm lojtarët e ekipit tuaj</string>
   <string name="teamUpdates">Përditësime për ekipin</string>
   <string name="subToTeamUpdates">Pajtohuni për përdtësime për ekipin</string>
+  <string name="teamEvents">Vperimtari ekipi</string>
+  <string name="upcomingTeamEvents">Veprimtari ekipi së afërmi</string>
   <string name="teamsIlead">Ekipet e drejtuara nga unë</string>
   <string name="leadersChat">Bisedë drejtuesish</string>
   <string name="introduction">Hyrje</string>

@@ -39,11 +39,11 @@
     <item quantity="other">%1$s %2$s Fernschach Partie g\'schpillt</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Folgt jetzt %s Schpiler</item>
-    <item quantity="other">Folgt jetzt %s Schpiler</item>
+    <item quantity="one">Folgt jetzt %s Schpiler*i</item>
+    <item quantity="other">Folgt jetzt %s Schpiler*ine</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Hät %s neue Folgende erworbe</item>
+    <item quantity="one">Hät %s neue Folgende/neui Folgendi erworbe</item>
     <item quantity="other">Hät %s neui Folgendi erworbe</item>
   </plurals>
   <plurals name="hostedNbSimuls">

@@ -11,11 +11,11 @@
   <string name="theRook">Wieża</string>
   <string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
   <string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
-  <string name="rookGoal">Kliknij na wieży i przenieś ją na gwiazdkę!</string>
+  <string name="rookGoal">Kliknij wieżę i przenieś ją na gwiazdkę!</string>
   <string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
-  <string name="theFewerMoves">Czym mniej ruchów zrobisz tym więcej punktów zdobędziesz!</string>
+  <string name="theFewerMoves">Im mniej ruchów zrobisz, tym więcej punktów zdobędziesz!</string>
   <string name="useTwoRooks">Użyj dwóch wież aby zrobić to szybciej!</string>
-  <string name="rookComplete">Gratulacje! Właśnie nauczyłeś się jak poruszać się wieżą.</string>
+  <string name="rookComplete">Gratulacje! Udało Ci się opanować wieżę.</string>
   <string name="theBishop">Goniec</string>
   <string name="itMovesDiagonally">Porusza się po skosach</string>
   <string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
@@ -32,7 +32,7 @@ Potrzebujesz ich obu!</string>
   <string name="kingIntro">To Ty jesteś królem. Jeśli polegniesz w bitwie, przegrasz.</string>
   <string name="theKingIsSlow">Król jest powolny.</string>
   <string name="lastOne">Ostatnie zadanie!</string>
-  <string name="kingComplete">Możesz teraz rządzić królem!</string>
+  <string name="kingComplete">Możesz teraz dowodzić dowódcą!</string>
   <string name="theKnight">Skoczek</string>
   <string name="itMovesInAnLShape">Porusza się \"po literze L\"</string>
   <string name="knightIntro">Oto wyzwanie dla Ciebie. Skoczek jest... szczwaną figurą.</string>
@@ -44,7 +44,7 @@ Skacz i zbieraj gwiazdki!</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
-Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
+Ale jeśli dojdą do ostatniej linii, stają się silniejszą figurą!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
 Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsMoveForward">Piony poruszają się do przodu, ale biją po przekątnej!</string>
@@ -66,10 +66,11 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
-  <string name="protectionIntro">Znajdź figury które przeciwnik atakuje i obroń je!</string>
+  <string name="protectionIntro">Znajdź figury, które przeciwnik atakuje i obroń je!</string>
   <string name="protectionComplete">Gratulacje! Figura niestracona to figura wygrana!</string>
   <string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
-  <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
+  <string name="noEscape">Nie ma możliwości ucieczki,
+ale można się obronić!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
   <string name="combat">Walka</string>
   <string name="captureAndDefendPieces">Bicie i obrona figur</string>
@@ -85,14 +86,15 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="outOfCheckIntro">Jesteś w szachu! Musisz uciec lub odeprzeć atak.</string>
   <string name="escapeWithTheKing">Uciekaj królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
-  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
+  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem,
+zbijając bierkę atakującą króla.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
   <string name="outOfCheckComplete">Gratulacje! Twojego króla nie można zbić, upewnij się, czy potrafisz bronić się przed szachem!</string>
   <string name="mateInOne">Mat w 1 ruchu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
-  <string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
-  <string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób aby nie mógł się obronić!</string>
+  <string name="mateInOneIntro">Wygrasz, kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
+  <string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób, aby nie mógł się obronić!</string>
   <string name="mateInOneComplete">Gratulacje! Tak wygrywa się w szachy!</string>
   <string name="intermediate">Średnio zaawansowane</string>
   <string name="boardSetup">Ustawienie początkowe</string>
@@ -110,15 +112,15 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
   <string name="castlingIntro">Zabezpiecz swojego króla i wprowadź do gry wieżę!</string>
-  <string name="castleKingSide">Przesuń króla o dwa pola aby wykonać krótką roszadę!</string>
-  <string name="castleQueenSide">Przesuń króla o dwa pola aby wykonać długą roszadę!</string>
+  <string name="castleKingSide">Przesuń króla o dwa pola, aby wykonać krótką roszadę!</string>
+  <string name="castleQueenSide">Przesuń króla o dwa pola, aby wykonać długą roszadę!</string>
   <string name="theKnightIsInTheWay">Skoczek przeszkadza w roszadzie! Rusz się nim, a następnie zrób roszadę.</string>
   <string name="castleKingSideMovePiecesFirst">Wykonaj krótką roszadę. Musisz najpierw odejść figurami.</string>
   <string name="castleQueenSideMovePiecesFirst">Wykonaj długą roszadę. Musisz najpierw wyjść figurami.</string>
-  <string name="youCannotCastleIfMoved">Nie możesz roszować jeśli król lub wieża ruszyła się wcześniej.</string>
-  <string name="youCannotCastleIfAttacked">Nie możesz roszować jeśli król jest szachowany. Najpierw zasłoń króla i wtedy zrób roszadę!</string>
-  <string name="findAWayToCastleKingSide">Znajdź sposób aby wykonać krótką roszadę!</string>
-  <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
+  <string name="youCannotCastleIfMoved">Nie możesz roszować, jeśli król lub wieża ruszyła się wcześniej.</string>
+  <string name="youCannotCastleIfAttacked">Nie możesz roszować, jeśli król jest szachowany. Najpierw zasłoń króla i wtedy zrób roszadę!</string>
+  <string name="findAWayToCastleKingSide">Znajdź sposób, aby wykonać krótką roszadę!</string>
+  <string name="findAWayToCastleQueenSide">Znajdź sposób, aby wykonać długą roszadę!</string>
   <string name="castlingComplete">Gratulacje! Roszada powinna być wykonana w prawie każdej partii.</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak, jak gdyby poruszył się tylko o jedno pole.</string>
@@ -129,7 +131,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
-  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
+  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu, to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
   <string name="stalemateGoal">Czarne zostały zapatowane, gdy:
 – nie będą mogły się ruszyć,
 – nie będą szachowane.</string>

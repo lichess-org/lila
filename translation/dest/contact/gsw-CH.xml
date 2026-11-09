@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Setz dis Passwort z\'rugg zum de 2. Faktor z\'entferne</string>
   <string name="accountSupport">Ich bruch Konto Underschtützig</string>
   <string name="wantTitle">Ich wett, dass min Titel uf Lichess azeigt wird</string>
-  <string name="visitTitleConfirmation">Das din Titel im azeigt wird und du dörfsch bi Turnier für Schpiler mit Titel aträte, muesch zerscht uf d\'Site für d\'Titelbeschtätigung</string>
+  <string name="visitTitleConfirmation">Das din Titel im azeigt wird und du dörfsch bi Turnier für Schpiler*ine mit Titel aträte, muesch zerscht uf d\'Site für d\'Titelbeschtätigung</string>
   <string name="wantCloseAccount">Ich wett mis Konto schlüsse</string>
   <string name="closeYourAccount">Du chasch dis Konto uf dere Site schlüsse</string>
   <string name="doNotAskByEmail">Verlang kei Kontoschlüssig per E-Mail, mir mached das nöd.</string>
@@ -26,10 +26,10 @@
   <string name="orCloseAccount">Du chasch jedoch dis aktuelle Konto schlüsse und defür es neus eröffne.</string>
   <string name="wantClearHistory">Ich wett min Verlauf oder mini Wertig lösche</string>
   <string name="cantClearHistoryOrResetRatings">Du chasch de Schpilverlauf, de Ufgabeverlauf oder dini Wertig nöd z\'urgg setze.</string>
-  <string name="wantReport">Ich wett en Schpiler mälde</string>
-  <string name="toReportAPlayerUseForm">Um en Schpiler z\'mälde, benutzisch s\'Mäldeformular</string>
+  <string name="wantReport">Ich wett en/e Schpiler*i mälde</string>
+  <string name="toReportAPlayerUseForm">Um en/e Schpiler*i z\'mälde, benutzisch s\'Mäldeformular</string>
   <string name="youCanAlsoReachReportPage">Du erreichsch die Site au mit dem %s Mäldechnopf uf de Profilsite.</string>
-  <string name="doNotReportInForum">Mach kei Mäldige vu Schpiler im Forum.</string>
+  <string name="doNotReportInForum">Mach kei Mäldige vu Schpiler*ine im Forum.</string>
   <string name="doNotSendReportEmails">Schick eus kei Mäldige per E-Mail.</string>
   <string name="doNotMessageModerators">Bitte schick de Moderatore kei diräkti Nachrichte.</string>
   <string name="onlyReports">Effektiv sind Mäldige vu Schpiller nur via Mäldigsformular.</string>
