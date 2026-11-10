@@ -33,12 +33,11 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
         )
 
   private def authorJson(user: User) =
-    val authorUrl = routeUrl(routes.User.show(user.username))
     Json
       .obj(
         "@type" -> "Person",
-        "@id" -> authorUrl,
-        "url" -> authorUrl,
+        "@id" -> routes.User.show(user.username).url,
+        "url" -> routeUrl(routes.User.show(user.username)),
         "name" -> user.username
       )
       .add("honorificPrefix" -> user.title)
