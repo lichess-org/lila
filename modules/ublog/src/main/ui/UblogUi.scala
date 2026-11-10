@@ -511,19 +511,16 @@ final class UblogUi(
     )
 
   object atom:
-    def user(
-        user: User,
-        posts: Seq[(UblogPost, Html)]
-    )(using Translate) =
+    def user(user: User, posts: Seq[(post: UblogPost, html: Html)])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.index(user.username),
         atomCall = routes.Ublog.userAtom(user.username),
         title = trans.ublog.xBlog.txt(user.username),
-        updated = posts.headOption.flatMap(_._1.lived).map(_.at),
-        language = _._1.language
-      ): (post, markup) =>
-        renderPost(post, authorOfBlog(post.blog), markup.some)
+        updated = posts.headOption.flatMap(_.post.lived).map(_.at),
+        language = _.post.language
+      ): (post, html) =>
+        renderPost(post, authorOfBlog(post.blog), html.some)
 
     def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
@@ -558,7 +555,7 @@ final class UblogUi(
         },
         tag("content")(
           tpe := "html",
-          markup.map(_ => attr("xml:base") := routeUrl(urlOfPost(post)))
+          Option.when(markup.isDefined)(attr("xml:base") := routeUrl(urlOfPost(post)))
         )(
           frag(
             thumbnail(post, _.Size.Large),
