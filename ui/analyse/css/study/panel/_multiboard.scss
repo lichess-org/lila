@@ -189,7 +189,7 @@
         width: 100%;
         top: 2.5px;
         opacity: 1;
-        border-bottom: 5px solid $c-accent-cloud;
+        border-bottom: 5px solid hsl(from var(--c-bad) h s l / 0.5);
         height: 50%;
       }
     }
