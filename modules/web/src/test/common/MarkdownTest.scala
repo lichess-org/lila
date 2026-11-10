@@ -182,6 +182,18 @@ Line 2""")
 > > > > > Second line""")
     )
 
+  // https://github.com/vsch/flexmark-java/issues/648
+  test("stack overflow detection".only):
+    val flood = "A" * 6000
+    val text = s"""[b]: <https://example.com/$flood>"""
+    assertEquals(
+      render(Markdown(text)),
+      Html(
+        s"""<p>[b]: <a href="https://example.com/$flood" target="_blank" rel="nofollow noreferrer">https://example.com/$flood</a></p>
+"""
+      )
+    )
+
   test("markdown 5 quotes to 4 escaped quotes with spaces"):
     assertEquals(
       render(Markdown(">>>>> Hi")),
