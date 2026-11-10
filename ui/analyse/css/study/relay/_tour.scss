@@ -199,8 +199,8 @@
     }
 
     &.ongoing {
-      background: color-mix(in oklab, $c-accent 10%, $c-bg);
-      color: $c-accent;
+      background: color-mix(in oklab, $c-unread 10%, $c-bg);
+      color: $c-unread;
     }
   }
 

@@ -83,7 +83,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   &.current {
-    border: 1px solid $c-accent;
+    border: 1px solid $c-brag;
   }
 
   &.nongame {
@@ -97,7 +97,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.context-menu {
     border: 0;
-    background: $c-accent !important;
+    background: $c-brag !important;
     color: $c-over !important;
 
     index {
