@@ -4221,7 +4221,7 @@ interface I18n {
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;
-    /** Lichess Feed */
+    /** Lichess feed */
     lichessUpdates: string;
     /** Lifetime score */
     lifetimeScore: string;

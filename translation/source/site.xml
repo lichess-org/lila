@@ -702,7 +702,7 @@ Friends playing: %2$s</string>
   <string name="aboutX">About %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
-   <string name="lichessUpdates">Lichess Feed</string>
+   <string name="lichessUpdates">Lichess feed</string>
   <string name="contribute">Contribute</string>
   <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>
