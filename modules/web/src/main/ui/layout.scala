@@ -15,7 +15,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
+  import assetHelper.{ defaultCsp, netConfig, webSocketConfig, cashTag, siteName }
 
   val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -204,7 +204,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     link(href := call, st.title := title, tpe := "application/atom+xml", rel := "alternate")
 
   val dataVapid = attr("data-vapid")
-  def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
+  def dataSocketDomains = attr("data-socket-domains") := webSocketConfig.mainDomains.get().value.mkString(",")
   val dataNonce = attr("data-nonce")
   val dataAnnounce = attr("data-announce")
   val dataSoundSet = attr("data-sound-set")
@@ -236,7 +236,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 </style>"""
 
   def bottomHtml = frag(
-    Option.when(netConfig.socketDomains.nonEmpty)(networkAlert),
+    Option.when(webSocketConfig.mainDomains.get().value.nonEmpty)(networkAlert),
     spinnerMask,
     label(id := "mselect-fullscreen-mask", cls := "fullscreen-mask mselect__fullscreen-mask")
   )

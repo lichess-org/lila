@@ -10,6 +10,7 @@ import lila.ui.{ ContentSecurityPolicy, Context, Optionce }
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
   def netConfig: NetConfig
+  def webSocketConfig: WebSocketConfig
   def manifest: AssetManifest
   def analyseEndpoints: lila.ui.AnalyseEndpoints
 
@@ -48,7 +49,7 @@ trait AssetFullHelper:
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val secure = ctx.req.secure
     // ws csp also allows wss
-    val sockets = netConfig.socketCsps.map(x => s"ws://$x")
+    val sockets = webSocketConfig.csps.get().value.map(x => s"ws://$x")
     val localDev = secure.not.so(List("http://127.0.0.1:3000", "http://localhost:8666"))
     lila.web.ContentSecurityPolicy.page:
       sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
