@@ -126,7 +126,7 @@ final class MarkdownRender(
     catch
       case _: StackOverflowError =>
         println(s"markdown StackOverflowError $key")
-        text.value
+        scalalib.StringUtils.escapeHtmlRaw(text.value)
 
 object MarkdownRender:
 
