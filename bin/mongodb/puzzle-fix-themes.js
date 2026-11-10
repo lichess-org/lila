@@ -11,7 +11,7 @@ function roundFix(round) {
   if (moves !== 3) t.delete('+mateIn3');
   if (moves !== 2) t.delete('+mateIn2');
   if (moves !== 1) t.delete('+mateIn1');
-  t.delete('oneMove');
+  t.delete('+oneMove');
   t.delete('+short');
   t.delete('+long');
   t.delete('+veryLong');
@@ -21,9 +21,16 @@ function roundFix(round) {
   else t.add('+veryLong');
   if (!eqSet(new Set(round.t), t)) {
     nb++;
-    const newT = Array.from(t);
-    console.log(nb, round._id, moves, round.t.join(' '), '=>', newT.join(' '));
-    db.puzzle2_round.updateOne({ _id: round._id }, { $set: { t: newT } });
+    const kept = new Set(round.t).intersection(t);
+    console.log(
+      nb,
+      round._id,
+      moves,
+      Array.from(new Set(round.t).difference(kept)).join(' '),
+      '=>',
+      Array.from(t.difference(kept)).join(' '),
+    );
+    db.puzzle2_round.updateOne({ _id: round._id }, { $set: { t: Array.from(t) } });
     db.puzzle2_puzzle.updateOne({ _id: p._id }, { $set: { dirty: true } });
   }
 }
