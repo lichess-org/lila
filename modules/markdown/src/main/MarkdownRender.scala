@@ -99,6 +99,7 @@ final class MarkdownRender(
       .set(Parser.HTML_BLOCK_PARSER, false)
       .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
       .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+      .set(Parser.REFERENCE_PARAGRAPH_PRE_PROCESSOR, false)
 
     // configurable
     if table then o.set(TablesExtension.CLASS_NAME, "slist")
