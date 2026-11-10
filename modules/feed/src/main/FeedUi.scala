@@ -27,10 +27,10 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       .js(edit.option(esmInitBit("dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
-    page("Updates"):
+    page("Lichess Feed"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
-          h1("Lichess updates"),
+          h1("Lichess Feed"),
           div(cls := "box__top__actions")(
             Granter
               .opt(_.Feed)
@@ -69,11 +69,11 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
     )
 
   def create(form: Form[?])(using Context) =
-    page("Lichess updates: New", true):
+    page("Lichess Feed: New", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.Feed.index(1))("Daily Feed"),
+            a(href := routes.Feed.index(1))("Lichess Feed"),
             " • ",
             "New update!"
           )
@@ -87,7 +87,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.Feed.index(1))("Lichess update"),
+            a(href := routes.Feed.index(1))("Lichess Feed"),
             " • ",
             semanticDate(update.at)
           )
@@ -109,7 +109,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       elems = ups,
       htmlCall = routes.Feed.index(1),
       atomCall = routes.Feed.atom,
-      title = "Lichess updates feed",
+      title = "Lichess Feed",
       updated = ups.headOption.map(_.at),
       language = _ => lila.core.i18n.defaultLanguage
     ): up =>
