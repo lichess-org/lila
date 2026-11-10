@@ -4,6 +4,7 @@
   <string name="permPublicDesc">Иметь статус руководителя на странице клуба</string>
   <string name="permSettingsName">Настройки</string>
   <string name="permTourName">Турниры</string>
+  <string name="permCommDesc">Моделировать форум и чат клуба</string>
   <string name="permRequestDesc">Принимать или отклонять запросы на вступление</string>
   <string name="permRemoveName">Удалить</string>
   <string name="demoteLeaderNote">Чтобы убрать руководителя клуба, уберите все его возможности.</string>
@@ -28,7 +29,7 @@
   <string name="teamDescriptionHelp">Полное описание, видимое на странице клуба.</string>
   <string name="closeTeam">Расформировать клуб</string>
   <string name="closeTeamDescription">Закрывает клуб навсегда.</string>
-  <string name="forumVisibilityHelp">Кто может видеть форум команды на странице команды?&lt;br&gt;Только участники команды могут оставлять сообщения на форуме команды.</string>
+  <string name="forumVisibilityHelp">Кто может видеть форум команды на странице клуба?&lt;br&gt;Только участники команды могут оставлять сообщения на форуме команды.</string>
   <string name="forumVisibilityNone">Скрыть форум</string>
   <string name="listTheTeamsThatWillCompete">Список клубов, которые будут участвовать в этом турнире.</string>
   <string name="thisTeamBattleIsOver">Этот турнир закончился, вы не можете изменять клубы.</string>
