@@ -285,6 +285,7 @@ pendejo
 po(l+|y)a
 put(ic|it|)[ao]
 suic[ií]date
+tonto
 trampa
 trampos[ao]
 tu eres put\w*
@@ -341,7 +342,8 @@ drecksa(u|ck)
 feigling
 fick(|er)
 fotze
-hurensohn
+hs
+hur?en[ds]ohn
 mistkerl
 neger
 pisser
