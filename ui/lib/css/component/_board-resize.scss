@@ -36,14 +36,10 @@ cg-resize {
       transform: translate(1px, 6px) rotate(-45deg);
     }
 
-    &:hover {
-      border-radius: 50%;
-      background: $c-accent-cloud;
-    }
-
+    &:hover,
     .resizing & {
       border-radius: 50%;
-      background: rgb(from $c-secondary r g b / calc(alpha * 0.5));
+      background: hsl(from var(--c-secondary) h s l / 0.5);
     }
   }
 }
