@@ -80,7 +80,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         .flatMap:
           case "profile" => modC.userUrl(inquiry.user, mod = true).some
           case url => url.some
-        .orElse(env.web.referrerRedirect.fromReq.map(_.value))
+        .orElse(env.web.referrerRedirect.fromQueryParam.map(_.value))
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
