@@ -378,7 +378,7 @@
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
-  <string name="tournamentPoints">Бодови са турнира</string>
+  <string name="tournamentPoints">Турнирски бодови</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s турнирски бод</item>
     <item quantity="few">%s турнирска бода</item>

@@ -193,6 +193,10 @@
   <string name="doubleDefeat">Dopiohumbje</string>
   <string name="blackDefeatWhiteCanNotWin">I ziu humb, por i Bardhi s’fiton dot</string>
   <string name="whiteDefeatBlackCanNotWin">I bardhi humb, por i Ziu s’fiton dot</string>
+  <string name="analysisEditor">Përpnues analizash</string>
+  <string name="clearLocal">Të spastrohet analizë vendore?</string>
+  <string name="clearPublished">Të spastrohet analiza?</string>
+  <string name="requestAServerAnalysis">Kërkoni një analizë shërbyesi</string>
   <string name="analyzeOnYourDevice">Analizojeni në pajisjen tuaj</string>
   <string name="searchChapters">Kërko te kapitujt</string>
   <string name="searchGames">Kërko te lojëra</string>
