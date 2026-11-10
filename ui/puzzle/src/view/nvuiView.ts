@@ -159,7 +159,7 @@ function touchDeviceButton(cls: string, text: string, onClick: () => void): VNod
 
 function renderTouchDeviceCommands({ notify, ctrl }: PuzzleNvuiContext): LooseVNodes {
   return hl('div.actions', [
-    ctrl.mode !== 'view' && touchDeviceButton('last-move', 'Last move', () => notify.set(readLastMoveText())),
+    ctrl.mode !== 'view' && touchDeviceButton('last-move', 'Last move', () => document.querySelector<HTMLDivElement>('div.notify')!.textContent = readLastMoveText()),
     ctrl.mode !== 'view' &&
       touchDeviceButton('touch-hint', i18n.site.getAHint, () => {
         const hint = nextCorrectMove(ctrl);
