@@ -5,6 +5,13 @@
     font-weight: bold;
   }
 
+  .fide-players-table {
+    th:not(:first-child),
+    td:not(:first-child) {
+      text-align: center;
+    }
+  }
+
   &__search {
     &-form {
       flex: 2 1 auto;
