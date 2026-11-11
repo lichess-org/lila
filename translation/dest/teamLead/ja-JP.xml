@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">チームメンバーのリストを非メンバーには見せない。</string>
   <string name="onlyLeaderLeavesTeam">辞める前に別のチームリーダーを指名するか、チームを閉鎖してください。</string>
-  <string name="kickSomeone">チームから追放</string>
-  <string name="removeSomeone">チームから誰かを削除する</string>
-  <string name="whoToKick">誰をチームから追放しますか？</string>
+  <string name="removeSomeone">メンバーを削除</string>
   <string name="whoToRemove">誰をチームから削除しますか？</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s の加入申請</item>

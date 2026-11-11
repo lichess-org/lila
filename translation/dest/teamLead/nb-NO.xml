@@ -6,8 +6,6 @@
   <string name="manuallyReviewAdmissionRequests">Gå gjennom ønsker om å få bli med manuelt</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul listen over lagmedlemmer for personer som ikke er medlemmer.</string>
   <string name="onlyLeaderLeavesTeam">Legg til en ny lagleder før du forlater laget, eller legg ned laget.</string>
-  <string name="kickSomeone">Kast noen ut av laget</string>
-  <string name="whoToKick">Hvem vil du kaste ut av laget?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s anmodning om å slutte seg til</item>
     <item quantity="other">%s anmodninger om å slutte seg til</item>

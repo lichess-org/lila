@@ -4,8 +4,6 @@
   <string name="permSettingsName">সেটিংস</string>
   <string name="permTourName">টুর্নামেন্টগুলো</string>
   <string name="manuallyReviewAdmissionRequests">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
-  <string name="kickSomeone">কাউকে দল থেকে বের করে দিন</string>
-  <string name="whoToKick">কাকে দল থেকে বের করতে চান?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%sসংখ্যক যোগদানের অনুরোধ</item>
     <item quantity="other">%s সংখ্যক যোগদানের অনুরোধ</item>

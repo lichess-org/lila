@@ -4,8 +4,6 @@
   <string name="permTourName">பந்தயங்கள்</string>
   <string name="manuallyReviewAdmissionRequests">சேர்க்கை கோரிக்கைகளைக் கைமுறையாக மதிப்பாய்வு செய்யவும்</string>
   <string name="onlyLeaderLeavesTeam">வெளியேறும் முன் புதிய குழுத் தலைவரைச் சேர்க்கவும் அல்லது குழுவை மூடவும்.</string>
-  <string name="kickSomeone">ஒருவரை குழுவிலிருந்து வெளியேற்றவும்</string>
-  <string name="whoToKick">குழுவிலிருந்து யாரை வெளியேற்ற விரும்புகிறீர்கள்?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s சேர கோரிக்கை</item>
     <item quantity="other">%s சேர கோரிக்கைகள்</item>

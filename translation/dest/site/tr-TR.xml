@@ -89,8 +89,8 @@
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="capture">Taş yeme</string>
   <string name="close">Kapat</string>
-  <string name="winning">Kazandıran hamle(ler)</string>
-  <string name="losing">Kaybettiren hamle(ler)</string>
+  <string name="winning">Kazandıran devam yolu</string>
+  <string name="losing">Kaybettiren devam yolu</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
@@ -113,7 +113,7 @@
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
-  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kâşifi/oyun sonu analizi hamlesini oyna</string>
+  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış gezgini/oyun sonu analizi hamlesini oyna</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde önlendi</string>
   <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
@@ -131,7 +131,7 @@
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="visualMotifs">Görsel motifler</string>
   <string name="undefendedPieces">Korumasız taşlar</string>
-  <string name="pinnedPieces">Açmazdaki taşlar</string>
+  <string name="pinnedPieces">Açmaza alınmış taşlar</string>
   <string name="checkableKing">Çekilebilir şah</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="multipleLinesDescription">Değerlendirme satırlarının sayısını belirleyin ve tahtadaki okları hareket ettirin</string>
@@ -548,7 +548,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
   <string name="clearLocalData">Yerel verileri temizle</string>
-  <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
+  <string name="previouslyOnLichessTV">Lichess TV\' de daha önce</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
@@ -581,7 +581,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="lastPost">Son gönderi</string>
   <string name="views">Görüntülenme sayısı</string>
   <string name="replies">Cevaplar</string>
-  <string name="replyToThisTopic">Bu konu hakkında cevap yaz</string>
+  <string name="replyToThisTopic">Bu konuya cevap yaz</string>
   <string name="reply">Cevap yaz</string>
   <string name="reopen">Yeniden aç</string>
   <string name="quote">Alıntıla</string>
@@ -595,8 +595,8 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
   <string name="reportCheatBoostHelp">Oyunun (oyunların) bağlantısını yapıştırın ve kullanıcının hangi davranışı yanlış açıklayın. Sadece \"bu hile\" demeyin, bize bu sonuca nasıl vardığınızı söyleyin.</string>
-  <string name="reportUsernameHelp">Bu kullanıcı adı hakkında neyin saldırganca olduğunu açıklayın. Sadece \"bu saldırganca/uygunsuz\" demeyin, bu sonuca nasıl vardığınızı söyleyin bize, özellikle de hakaret gizlenmiş, ingilizce olmayan, argo, veya tarihsel/kültürel referansalar varsa.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">İngilizce yazarsanız bildiriminizi daha hızlı işleme alabiliriz.</string>
+  <string name="reportUsernameHelp">Bu kullanıcı adı hakkında neyin saldırganca olduğunu açıklayın. Sadece \"bu saldırganca/uygunsuz\" demeyin, bu sonuca nasıl vardığınızı söyleyin bize, özellikle de hakaret gizlenmiş, İngilizce olmayan, argo, veya tarihsel/kültürel referanslar varsa.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">İngilizce yazarsanız raporunuzu daha hızlı işleme alabiliriz.</string>
   <string name="by">%s oluşturdu</string>
   <string name="importedByX">%s tarafından yüklendi</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
@@ -656,7 +656,7 @@ Oynayan arkadaşlar: %2$s</string>
     <item quantity="one">%s kişiyi engelledi</item>
     <item quantity="other">%s kişiyi engelledi</item>
   </plurals>
-  <string name="listBlockedPlayers">Engellenen oyuncular</string>
+  <string name="listBlockedPlayers">Engellediğiniz oyuncular</string>
   <string name="human">İnsan</string>
   <string name="computer">Bilgisayar</string>
   <string name="side">Taraf</string>
@@ -712,7 +712,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
-  <string name="yourPendingSimuls">Bekleyen simultane oyunlarınız</string>
+  <string name="yourPendingSimuls">Bekleyen eş zamanlı oyunlarınız</string>
   <string name="createdSimuls">Yeni oluşturulan eş zamanlı partiler</string>
   <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
   <string name="signUpToHostOrJoinASimul">Bir simultane oyuna katılmak veya ev sahipliği yapmak için kayıt olun</string>
@@ -757,7 +757,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
   <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
-  <string name="tournamentNotFound">Turnuva bulunamadı.</string>
+  <string name="tournamentNotFound">Turnuva bulunamadı</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
   <string name="returnToTournamentsHomepage">Turnuva anasayfasına geri dön</string>
@@ -786,7 +786,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess.org arasındaki gecikme (ping)</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess.org üzerindeki hamle süreniz (ms)</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
-  <string name="downloadRaw">Açıklamasız indirin.</string>
+  <string name="downloadRaw">Açıklamasız indirin</string>
   <string name="downloadImported">İçeri aktarılmış oyunu indir</string>
   <string name="downloadMyGames">Oyunlarımı indir</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
@@ -833,7 +833,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
   <string name="allLanguages">Tüm diller</string>
-  <string name="background">Arkaplan</string>
+  <string name="background">Arka plan</string>
   <string name="theme">Tema</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
@@ -875,7 +875,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="anotherWasX">%s ise bir diğer seçenek</string>
   <string name="bestWasX">En iyisi %s idi</string>
   <string name="youBrowsedAway">Çok uzaklara gittiniz</string>
-  <string name="resumePractice">Pratik yapmaya devam edin.</string>
+  <string name="resumePractice">Pratik yapmaya devam edin</string>
   <string name="drawByFiftyMoves">Oyun, elli hamle kuralı gereğince beraberlikle sonuçlandı.</string>
   <string name="theGameIsADraw">Bu maç berabere.</string>
   <string name="computerThinking">Bilgisayar düşünüyor...</string>
@@ -911,8 +911,8 @@ Oynayan arkadaşlar: %2$s</string>
     <item quantity="other">%s saniye</item>
   </plurals>
   <string name="opening">Açılış</string>
-  <string name="middlegame">Oyunortası</string>
-  <string name="endgame">Oyunsonu</string>
+  <string name="middlegame">Oyun ortası</string>
+  <string name="endgame">Oyun sonu</string>
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Mevcut varyantı ekle</string>
   <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
@@ -958,8 +958,8 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="correspondenceDesc">Yazışmalı oyunlar: Hamle başına bir veya birkaç gün</string>
   <string name="puzzleDesc">Satranç taktik egzersizi</string>
   <string name="important">Önemli</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Sorunuzun yanıtı %1$s cevaplanmış olabilir.</string>
-  <string name="inTheFAQ">Sıkça Sorulan Sorularda</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sorunuzun yanıtı %1$s cevaplanmış olabilir</string>
+  <string name="inTheFAQ">sıkça sorulan sorularda</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Bir kullanıcıyı hileden ya da kötü davranışından dolayı raporlamak istiyorsanız %1$s</string>
   <string name="useTheReportForm">rapor formunu kullanın</string>
   <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>

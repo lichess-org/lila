@@ -5,8 +5,6 @@
   <string name="permTourName">Турніры</string>
   <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
   <string name="onlyLeaderLeavesTeam">Калі ласка, абярыце новага лідара каманды перад сыходам, або зачыніце каманду.</string>
-  <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
-  <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запыт на далучэнне</item>
     <item quantity="few">%s запыта на далучэнне</item>

@@ -6,8 +6,7 @@
   <string name="manuallyReviewAdmissionRequests">Rever pedidos de adesão manualmente</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ocultar a lista de membros da equipe para não membros.</string>
   <string name="onlyLeaderLeavesTeam">Escolha um novo líder antes de sair da equipe, ou encerre a equipe.</string>
-  <string name="kickSomeone">Expulsar alguém da equipe</string>
-  <string name="whoToKick">Quem você quer expulsar da equipe?</string>
+  <string name="removeSomeone">Remover alguém</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s pedido de adesão</item>
     <item quantity="other">%s pedidos de adesão</item>

@@ -51,7 +51,8 @@ Lass das Fäld leer, dass Lichess automatisch Paarige erschtellt.</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Lass nur Schpiler*ine mitmache, wo scho s\'Schwizer Syschtem g\'schpillt händ. Wer das no nie hät, sött au nöd im Turnier mitschpille. Das macht, dass usg\'wählti Teilnehmer*ine Erfahrig mit em Schwizer Syschtem händ.</string>
   <string name="newSwiss">Neus Turnier nach Schwizer Syschtem</string>
   <string name="swissVsArenaQ">Wänn nach Schwizer Syschtem anschtatt Arena Turnier?</string>
-  <string name="swissVsArenaA">Bim Turnier nach Schwizer Syschtem schpilled alli Teilnehmer*ine die glich Azahl Schpil und treffed, nur eimal uf de/die glich Gägner*i. Es isch e gueti Schpilart, für Clubs und offizielli Turnier.</string>
+  <string name="swissVsArenaA">Bim Turnier nach Schwizer Syschtem schpilled alli Teilnehmer*ine die glich Azahl Schpil und träffed, 
+nur eimal uf de/die glich Gägner*i. Es isch e gueti Schpilart, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
   <string name="pointsCalculationA">Für en Sieg gits 1 Punkt, für es Remis en halbe Punkt. 
 Hät en/e Schpiler*i mal kei/n Gägner*i, gits für die Rundi es Freilos ( \"bye\" ) d.h. 1 Gratispunkt.</string>
@@ -76,7 +77,9 @@ unabhängige, einzel teilnehmende Schpiler*ine, wänn s\'Turnier öffentlich isc
 dass er/sie i dere Rundi nöd schpille muess, aber trotzdem en Punkt schribt. 
 Zuesätzlich git\'s au en halbe Punkt, wänn er/sie erscht schpöter is Turnier chunt.</string>
   <string name="earlyDrawsQ">Was passiert bi schnälle Remis?</string>
-  <string name="earlyDrawsAnswer">Bi Turnier nach Schwizer Syschtem, cha me kei Remis veribare, bevor nöd min. 30 Züg g\'schpillt sind. Die Regelig cha zwar nöd verhindere, dass es Remis scho vor em Schpil abg\'macht wird, aber sie erschwert\'s es bizli, sich schpontan uf Remis z\'einige.</string>
+  <string name="earlyDrawsAnswer">Bi Turnier nach Schwizer Syschtem, cha me kei Remis veribare, bevor nöd min. 30 Züg g\'schpillt sind. 
+Die Regelig cha zwar nöd verhindere, dass es Remis scho vor em Schpil abg\'macht wird, aber sie 
+erschwert\'s es bizli, sich schpontan uf Remis z\'einige.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en/e Schpiler*i nöd zum Schpil atritt?</string>
   <string name="whatIfOneDoesntPlayA">d\'Bedänkzit lauft und wänn sie um isch, isch das Schpil verlore.
 De/d\'Schpiler*i wird vum Syschtem us em Tunrier g\'nah, dass er/sie nöd no meh verlürt. 

@@ -5,8 +5,6 @@
   <string name="permTourName">Tornei</string>
   <string name="manuallyReviewAdmissionRequests">Rivedi manualmente le richieste di ammissione</string>
   <string name="onlyLeaderLeavesTeam">Prima di andartene scegli un nuovo capitano della squadra oppure elimina la squadra.</string>
-  <string name="kickSomeone">Espelli qualcuno dalla squadra</string>
-  <string name="whoToKick">Chi vuoi espellere dalla squadra?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s richiesta di adesione</item>
     <item quantity="other">%s richieste di adesione</item>

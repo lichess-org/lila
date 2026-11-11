@@ -5,8 +5,6 @@
   <string name="permTourName">Жарыстар</string>
   <string name="manuallyReviewAdmissionRequests">Қабылдау туралы сұраныстарды жеке қарау</string>
   <string name="onlyLeaderLeavesTeam">Кетер алдында жаңа топ жетекшісін қосыңыз, не топты жабуыңыз керек.</string>
-  <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
-  <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s қосылу сұранысы</item>
     <item quantity="other">%s қосылу сұранысы</item>

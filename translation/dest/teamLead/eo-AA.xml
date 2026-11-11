@@ -5,8 +5,6 @@
   <string name="permTourName">Turniroj</string>
   <string name="manuallyReviewAdmissionRequests">Permane revizii aliĝpetojn</string>
   <string name="onlyLeaderLeavesTeam">Bonvolu aldoni novan teamestron antaŭ ol forlasi aŭ fermu la teamo.</string>
-  <string name="kickSomeone">Forpelu iun el la teamo</string>
-  <string name="whoToKick">Kiun vi volas forpeli el la teamo?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s aliĝpeto</item>
     <item quantity="other">%s aliĝpetoj</item>

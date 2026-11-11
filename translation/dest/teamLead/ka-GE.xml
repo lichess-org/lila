@@ -2,8 +2,6 @@
 <resources>
   <string name="permSettingsName">პარამეტრები</string>
   <string name="permTourName">ტურნირები</string>
-  <string name="kickSomeone">გააგდე მოთამაშე ჯგუფიდან</string>
-  <string name="whoToKick">ვინ გინდა გუნდიდან გააგდო?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s გაწევრიანების მოთხოვნა</item>
     <item quantity="other">%s გაწევრიანების მოთხოვნა</item>

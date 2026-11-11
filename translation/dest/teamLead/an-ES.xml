@@ -4,8 +4,6 @@
   <string name="permSettingsName">Achustes</string>
   <string name="permTourName">Torneyos</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualment las demandas d\'admisión</string>
-  <string name="kickSomeone">Espachar a belún de l\'equipo</string>
-  <string name="whoToKick">A quí quiers espachar de l\'equipo?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s solicitut d\'ingreso</item>
     <item quantity="other">%s solicitutz d\'ingreso</item>

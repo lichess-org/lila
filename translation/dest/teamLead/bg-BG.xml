@@ -5,8 +5,6 @@
   <string name="permTourName">Турнири</string>
   <string name="manuallyReviewAdmissionRequests">Ръчно преглеждайте заявките за прием</string>
   <string name="onlyLeaderLeavesTeam">Моля добавете нов лидер преди да напуснете или закрийте отбора.</string>
-  <string name="kickSomeone">Премахни някого от отбора</string>
-  <string name="whoToKick">Кого искате да премахнете от отбора?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s заявка за влизане</item>
     <item quantity="other">%s заявки за влизане</item>

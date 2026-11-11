@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Në iu vëntë shenjë, lojtarëve do t’u duhet të kërkojnë të marrin pjesë te ekipi, të cilën mund ta pranoni, ose hidhni poshtë.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Fshihe listën e anëtarëve të ekipit për kë s’është anëtar.</string>
   <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
-  <string name="kickSomeone">Përzini dikë nga ekipi</string>
-  <string name="removeSomeone">Hiqni dikë nga ekipi</string>
-  <string name="whoToKick">Cilin doni të përzini nga ekipi?</string>
+  <string name="removeSomeone">Hiqni dikë</string>
   <string name="whoToRemove">Kë doni të hiqet nga ekipi?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s kërkesë për të hyrë</item>

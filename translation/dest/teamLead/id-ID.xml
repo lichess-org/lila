@@ -4,8 +4,6 @@
   <string name="permSettingsName">Pengaturan</string>
   <string name="permTourName">Turnamen</string>
   <string name="manuallyReviewAdmissionRequests">Tinjau permintaan masuk secara manual</string>
-  <string name="kickSomeone">Keluarkan seseorang dari tim</string>
-  <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s ajukan permintaan</item>
   </plurals>
