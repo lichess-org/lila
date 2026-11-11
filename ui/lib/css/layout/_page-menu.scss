@@ -21,7 +21,6 @@
   &__content {
     grid-area: content;
     height: 100%;
-    /* a grid item can't shrink below its content by default, so long unbreakable text widened the whole page */
     min-width: 0;
   }
 
