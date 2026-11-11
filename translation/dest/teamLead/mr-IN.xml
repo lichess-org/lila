@@ -5,8 +5,6 @@
   <string name="permTourName">क्रीडासत्रे</string>
   <string name="manuallyReviewAdmissionRequests">प्रवेश विनंत्यांचे स्वतः पुनरावलोकन करा</string>
   <string name="onlyLeaderLeavesTeam">जाण्यापूर्वी कृपया नवीन संघ नेता निवडा किंवा संघ बंद करा.</string>
-  <string name="kickSomeone">कोणालातरी संघातून हाकला</string>
-  <string name="whoToKick">तुम्हाला संघातून कोणाला हाकलायचे आहे?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s सहभाग विनंती</item>
     <item quantity="other">%s सहभाग विनंत्या</item>

@@ -12,7 +12,7 @@
   <string name="tournamentGames">Txapelketetako partidak</string>
   <string name="berserkedGames">Berserk erabilitako partidak</string>
   <string name="timeSpentPlaying">Jokatzen emandako denbora</string>
-  <string name="averageOpponent">Aurkarien batazbestekoa</string>
+  <string name="averageOpponent">Aurkarien batez bestekoa</string>
   <string name="victories">Garaipenak</string>
   <string name="defeats">Porrotak</string>
   <string name="disconnections">Deskonektatutakoak</string>

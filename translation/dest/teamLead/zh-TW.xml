@@ -5,8 +5,6 @@
   <string name="permTourName">錦標賽</string>
   <string name="manuallyReviewAdmissionRequests">手動審查錄取請求</string>
   <string name="onlyLeaderLeavesTeam">請在離開前決定新團長或是關閉團隊</string>
-  <string name="kickSomeone">踢除團隊裡的指定玩家</string>
-  <string name="whoToKick">您想要踢除在團隊裡的哪一位玩家?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s個加入申請</item>
   </plurals>

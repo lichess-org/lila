@@ -5,8 +5,6 @@
   <string name="permTourName">Tournamantoù</string>
   <string name="manuallyReviewAdmissionRequests">Studiañ ar goulennoù emezelañ</string>
   <string name="onlyLeaderLeavesTeam">Ouzhpennit unan bennak e penn ar skipailh a-raok e guitaat pe divodit anezhañ.</string>
-  <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
-  <string name="whoToKick">Piv a vo skarzhet er-maez deus ar skipailh ganeoc\'h?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s goulenn emezelañ</item>
     <item quantity="two">%s c\'houlenn emezelañ</item>

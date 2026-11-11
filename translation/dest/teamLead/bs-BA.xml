@@ -5,8 +5,6 @@
   <string name="permTourName">Turniri</string>
   <string name="manuallyReviewAdmissionRequests">Ručno pregledajte zahtjeve za prijem</string>
   <string name="onlyLeaderLeavesTeam">Molimo da dodate novog vođu tima prije nego što ga napustite ili zatvòrite tim.</string>
-  <string name="kickSomeone">Izbacite nekoga iz tima</string>
-  <string name="whoToKick">Koga želite da izbacite iz tima?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s zahtjev za pridruživanje</item>
     <item quantity="few">%s zahtjeva za pridruživanje</item>

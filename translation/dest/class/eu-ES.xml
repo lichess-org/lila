@@ -18,7 +18,7 @@
   <string name="removedStudents">Ezabatuta</string>
   <string name="inviteTheStudentBack">Ikaslea berriz gonbidatu</string>
   <string name="sendAMessage">Ikasle guztiei mezua bidali.</string>
-  <string name="aLinkToTheClassWillBeAdded">Klaserako lotura automatikoki gehituko da mezuan, beraz ez duzu zertan zuk idatzi.</string>
+  <string name="aLinkToTheClassWillBeAdded">Klaserako esteka automatikoki gehituko da mezuan, beraz ez duzu zertan zuk idatzi.</string>
   <string name="className">Klasearen izena</string>
   <string name="classDescription">Klasearen deskribapena</string>
   <string name="visibleByBothStudentsAndTeachers">Irakasle eta ikasleek ikusi dezakete</string>
@@ -38,7 +38,7 @@ Erabiltzaile-izena: %2$s
 Pasahitza: %3$s</string>
   <string name="inviteALichessAccount">Lichess kontu bat gonbidatu</string>
   <string name="inviteDesc1">Ikasleak Lichess kontu bat badu, klasera gonbidatu dezakezu.</string>
-  <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko loturarekin.</string>
+  <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko estekarekin.</string>
   <string name="inviteDesc3">Garrantzitsua: ezagutzen dituzu ikasleak eta klasera sartu nahi dutenak bakarrik gonbidatu.</string>
   <string name="inviteDesc4">Sekula ez bidali eskatu gabeko gonbidapenak edozein jokalariri.</string>
   <string name="createANewLichessAccount">Lichess kontu berri bat sortu</string>
@@ -50,9 +50,9 @@ Pasahitza: %3$s</string>
   <string name="lichessUsername">Lichess erabiltzaile-izena</string>
   <string name="generateANewUsername">Erabiltzaile-izen berria sortu</string>
   <string name="welcomeToClass">Ongi etorri zure klasera: %s.
-Hemen dago bertara sartzeko lotura.</string>
+Hemen dago bertara sartzeko esteka.</string>
   <string name="invitationToClass">\"%s\" klasera ikasle gisa sartzeko gonbidapena jaso duzu.</string>
-  <string name="clickToViewInvitation">Sartu loturan gonbidapena ikusteko:</string>
+  <string name="clickToViewInvitation">Sartu estekan gonbidapena ikusteko:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Gonbidapen bat zain</item>
     <item quantity="other">%s gonbidapen zain</item>
@@ -66,7 +66,7 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="upgradeFromManaged">Kudeatutakotik autonomora eguneratu</string>
   <string name="release">Askatu</string>
   <string name="releaseTheAccount">Kontua askatu ikasleak era autonomoan kudeatu dezan.</string>
-  <string name="releaseDesc1">Askatutako kontua ezin da kudeatutako kontu bihurtu berriz. Ikasleak haur-modua aktibatu dezake eta pasahitza euren kabuz berrezarri dezakete.</string>
+  <string name="releaseDesc1">Askatutako kontua ezin da &lt;i&gt;kudeatutako&lt;/i&gt; kontu bihurtu berriz. Ikasleak haur-modua desaktibatu eta pasahitza bere kabuz berrezarri ahal izango du.</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
   <string name="realUniqueEmail">Ikaslearen benetako emaila. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
   <string name="closeStudent">Kontua itxi</string>

@@ -5,8 +5,6 @@
   <string name="permTourName">Mót</string>
   <string name="manuallyReviewAdmissionRequests">Fara handvirkt yfir umsóknir um inngöngu</string>
   <string name="onlyLeaderLeavesTeam">Vinsamlegast bættu við nýjum liðsstjóra áður en þú ferð, eða lokaðu liðinu.</string>
-  <string name="kickSomeone">Reka einhvern úr liðinu</string>
-  <string name="whoToKick">Hvern viltu reka út úr liðinu?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s beiðni um að gerast meðlimur</item>
     <item quantity="other">%s beiðnir um að gerast meðlimur</item>

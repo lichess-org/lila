@@ -6,7 +6,8 @@
   <string name="instructions2">Seguru ez gaudenean hainbat jokaldiren geziak erakutsiko ditugu. Esan geziaren kolorea edo zenbakia berau aukeratzeko.</string>
   <string name="instructions3">Gezi batek mugitzen den radar bat erakutsen badu, jokaldia zirkulua osatzean jokatuko da. Hori gertatu arteko %1$s esan dezakezu jokaldia berehala egiteko, %2$s atzera egiteko edo beste gezi baten kolorea/zenbakia esan. Denbora muga hau ezarpenetan aldatu dezakezu.</string>
   <string name="instructions4">Aktibatu %s inguru zaratatsuentzat. Hau aktibatuta badago, mantendu shift sakatuta komandoak esaterakoan.</string>
-  <string name="instructions6">%s mugimenduaren ezarpenak xehetasunez azaltzen ditu.</string>
+  <string name="instructions5">Erabili alfabeto fonetikoa xake-taularen zutabeak hobeto ezagutzeko.</string>
+  <string name="instructions6">%s jokaldiaren ezarpenak xehetasunez azaltzen ditu.</string>
   <string name="thisBlogPost">Blog sarrera honek</string>
   <string name="moveToE4OrSelectE4Piece">Mugitu e4ra edo aukeratu e4ko pieza</string>
   <string name="selectOrCaptureABishop">Alfila aukeratu edo harrapatu</string>
@@ -17,4 +18,10 @@
   <string name="playPreferredMoveOrConfirmSomething">Mugitu hobetsitako jokaldia edo zerbait baieztatu</string>
   <string name="sleep">Lotara joan (esnatzeko hitza aktibo badago)</string>
   <string name="showPuzzleSolution">Erakutsi ariketaren ebazpena</string>
+  <string name="voiceHelp">Ahotsaren laguntza</string>
+  <string name="voiceSettings">Ahotsaren ezarpenak</string>
+  <string name="pushShiftKeyToTalk">Sakatu %s tekla hitz egiteko</string>
+  <string name="holdShiftKeyWhileSpeaking">Mantendu Shift tekla sakatuta hitz egiten duzun bitartean</string>
+  <string name="microphone">Mikrofonoa</string>
+  <string name="noneSelected">Bat ere ez hautatuta</string>
 </resources>

@@ -5,8 +5,6 @@
   <string name="permTourName">Մրցաշարեր</string>
   <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
   <string name="onlyLeaderLeavesTeam">Խնդրում ենք ակումբը լքելուց կամ փակելուց առաջ ավելացնել ակումբի նոր ղեկավար։</string>
-  <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
-  <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s ընդգրկվելու հայտ</item>
     <item quantity="other">%s ընդգրկվելու հայտ</item>

@@ -5,8 +5,6 @@
   <string name="permTourName">Turneringar</string>
   <string name="manuallyReviewAdmissionRequests">Granska antagningsförfrågningar manuellt</string>
   <string name="onlyLeaderLeavesTeam">Var god lägg till en ny lagledare innan du lämnar eller stäng laget.</string>
-  <string name="kickSomeone">Uteslut någon ur laget</string>
-  <string name="whoToKick">Vem vill du utesluta ur laget?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s förfrågan att gå med</item>
     <item quantity="other">%s förfrågan att gå med</item>

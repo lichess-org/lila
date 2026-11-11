@@ -5,8 +5,6 @@
   <string name="permTourName">Турнири</string>
   <string name="manuallyReviewAdmissionRequests">Ручно прегледавај захтеве за пријем</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ако је означено, играчи ће морати затражити да се придруже тиму, што ти можеш прихватити или одбити.</string>
-  <string name="kickSomeone">Избаци некога из тима</string>
-  <string name="whoToKick">Кога желиш избацити из тима?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s захтев за придруживање</item>
     <item quantity="few">%s захтева за придруживање</item>

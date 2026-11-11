@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Zer gertatzen da?</string>
+  <string name="cheat">Tranpa egitea</string>
+  <string name="troll">Trollinga</string>
+  <string name="reportStall">Denbora galtzea / partidak uztea</string>
+  <string name="reportBoost">Puntuazioa jaistea / puztea / partidak adostea</string>
+  <string name="reportVerbalAbuse">Ahozko abusua / irainak / trollinga</string>
+  <string name="reportViolence">Indarkeria / mehatxuak</string>
+  <string name="reportHarass">Jazarpena / bullyinga / pertsekuzioa</string>
+  <string name="reportSelfHarm">Suizidioa / autolesioa</string>
+  <string name="reportHate">Gorroto-diskurtsoa / sexismoa</string>
+  <string name="reportSpam">Spama</string>
+  <string name="readMoreAboutLichessReports">Irakurri gehiago Lichess-en salaketei buruz</string>
+  <string name="reportMaximumCharacters">Gehienez 3000 karaktere.</string>
+  <string name="reportCheatBoostHelp">Itsatsi partidaren edo partiden esteka eta azaldu zer dagoen gaizki erabiltzaile honen jokabidean. Ez esan soilik \"tranpa egiten du\"; azaldu nola iritsi zaren ondorio horretara.</string>
+  <string name="reportUsernameHelp">Azaldu zergatik den erabiltzaile-izen hau iraingarria. Ez esan soilik \"iraingarria/desegokia da\"; azaldu nola iritsi zaren ondorio horretara, batez ere irainak zentzu ezkutua badu, ingelesez ez badago, argotikoa bada edo erreferentzia historiko edo kulturala bada.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Zure salaketa azkarrago prozesatu dezakegu ingelesez idazten baduzu.</string>
+  <string name="provideOneCheatedGameLink">Mesedez, eman gutxienez partida baten esteka bat berrikusteko.</string>
+  <string name="thanksForTheReport">Eskerrik asko salaketagatik</string>
+  <string name="moderatorsWillReviewSoon">Moderatzaileek oso laster berrikusiko dute eta behar den neurria hartuko dute.</string>
+  <string name="blockUserInMeantime">Bitartean, erabiltzaile hau blokea dezakezu:</string>
+</resources>

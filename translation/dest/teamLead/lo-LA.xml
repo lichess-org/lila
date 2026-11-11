@@ -5,8 +5,6 @@
   <string name="permTourName">ລາຍການແຂ່ງຂັນ</string>
   <string name="manuallyReviewAdmissionRequests">ກວດສອບຄຳຮ້ອງຂໍເຂົ້າຮ່ວມດ້ວຍຕົນເອງ</string>
   <string name="onlyLeaderLeavesTeam">ກະລຸນາເພີ່ມຜູ້ນຳທີມຄົນໃໝ່ກ່ອນອອກຈາກທີມ ຫຼື ປິດທີມ.</string>
-  <string name="kickSomeone">ເຕະບາງຄົນອອກຈາກທີມ</string>
-  <string name="whoToKick">ທ່ານຕ້ອງການເຕະໃຜອອກຈາກທີມ?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">ຄຳຮ້ອງຂໍເຂົ້າຮ່ວມ %s ລາຍການ</item>
   </plurals>

@@ -5,8 +5,6 @@
   <string name="permTourName">પ્રતિયોગિતાઓ</string>
   <string name="manuallyReviewAdmissionRequests">દાખલ થવાની વિનંતીઓની જાતે સમીક્ષા કરો</string>
   <string name="onlyLeaderLeavesTeam">કૃપા કરીને જતા પહેલા નવા ટીમ લીડરને ઉમેરો, અથવા ટીમ બંધ કરો.</string>
-  <string name="kickSomeone">ટીમમાંથી કોઈકને બહાર કાઢો</string>
-  <string name="whoToKick">તમે ટીમોમાંથી કોને બહાર કાઢવા માંગો છો?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s જોડાવાની વિનંતી</item>
     <item quantity="other">%s જોડાવાની વિનંતીઓ</item>

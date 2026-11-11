@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Om merka av må spelarane skriva ein førespurnad for å bli tatt opp som medlem i laget. Det er du som avslår eller aksepterer førespurnaden.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul gruppemedlemslista frå ikkje-medlemar.</string>
   <string name="onlyLeaderLeavesTeam">Ver venleg og legg til ein ny lagleiar før du forlet eller stengjer laget.</string>
-  <string name="kickSomeone">Kast einkvan ut av laget</string>
-  <string name="removeSomeone">Fjern einkvan frå laget</string>
-  <string name="whoToKick">Kven vil du kaste ut av laget?</string>
+  <string name="removeSomeone">Fjern einkvan</string>
   <string name="whoToRemove">Kven vil du fjerne frå laget?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s førespurnad om å slutte seg til</item>

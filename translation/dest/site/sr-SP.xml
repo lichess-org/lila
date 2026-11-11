@@ -631,7 +631,7 @@
   <string name="allSquaresOfTheBoard">Сва поља табле</string>
   <string name="onSlowGames">На спорим партијама</string>
   <string name="always">Увек</string>
-  <string name="never">Никада</string>
+  <string name="never">Никад</string>
   <string name="xCompetesInY">%1$s се такмичи у %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>

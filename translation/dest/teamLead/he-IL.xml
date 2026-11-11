@@ -5,8 +5,6 @@
   <string name="permTourName">טורנירים</string>
   <string name="manuallyReviewAdmissionRequests">אשר מצטרפים לקבוצה באופן ידני</string>
   <string name="onlyLeaderLeavesTeam">אנא מנו מנהיג חדש לקבוצה טרם עזיבתכם, או סגרו את הקבוצה.</string>
-  <string name="kickSomeone">הסירו מישהו מהקבוצה</string>
-  <string name="whoToKick">את מי את/ה רוצה להסיר מהקבוצה?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s בקשת הצטרפות</item>
     <item quantity="two">%s בקשות הצטרפות</item>

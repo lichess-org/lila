@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Seçilirse, oyuncuların takıma katılmak için istekte bulunmaları gerekecektir. Bu talepleri kabul edebilir veya reddedebilirsiniz.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Takım üye listesini, üye olmayanlardan gizle.</string>
   <string name="onlyLeaderLeavesTeam">Takımdan ayrılmadan önce yeni bir takım lideri belirleyin veya takımı kapatın.</string>
-  <string name="kickSomeone">Birini takımdan at</string>
-  <string name="removeSomeone">Takımdan birini çıkarın</string>
-  <string name="whoToKick">Takımdan kimi atmak istiyorsunuz?</string>
+  <string name="removeSomeone">Birini çıkar</string>
   <string name="whoToRemove">Takımdan kimi çıkarmak istiyorsun?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s katılma talebi</item>
