@@ -3,7 +3,6 @@ package lila.oauth
 import play.api.data.Form
 import play.api.data.Forms.{ mapping, optional, single, text }
 import play.api.http.HeaderNames
-import play.api.mvc.RequestHeader
 
 import lila.common.Form.into
 import lila.common.String.base64
@@ -72,7 +71,7 @@ object AccessTokenRequest:
 
   case class BasicAuth(clientId: ClientId, clientSecret: LegacyClientApi.ClientSecret)
   object BasicAuth:
-    def from(req: RequestHeader): Option[BasicAuth] =
+    def from(req: Req): Option[BasicAuth] =
       req.headers
         .get(HeaderNames.AUTHORIZATION)
         .flatMap: authorization =>

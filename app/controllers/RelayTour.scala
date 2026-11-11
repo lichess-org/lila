@@ -306,7 +306,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def searchPageCost(page: Int) = (page / 2).atLeast(1)
 
-  private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
+  private given (using Req): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(api.tourById(id))(f)

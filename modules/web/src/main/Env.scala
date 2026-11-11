@@ -1,11 +1,11 @@
 package lila.web
 
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.data.Strings
 import lila.common.config.given
+import lila.core.data.Strings
 import lila.memo.SettingStore.Strings.given
 
 @Module

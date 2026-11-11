@@ -35,7 +35,7 @@ final class Lobby(env: Env) extends LilaController(env):
   def homeLang(lang: Language) =
     staticRedirect(lang.value).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))
 
-  def handleStatus(status: Results.Status)(using RequestHeader): Fu[Result] =
+  def handleStatus(status: Results.Status)(using Req): Fu[Result] =
     makeContext.flatMap: ctx =>
       keyPages.home(status)(using ctx)
 

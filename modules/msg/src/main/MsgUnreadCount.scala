@@ -1,14 +1,13 @@
 package lila.msg
 
 import play.api.libs.json.{ JsNumber, JsValue, Json }
-import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.db.dsl.{ *, given }
 
 final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  def mobile(me: Me)(using RequestHeader): Fu[JsValue] =
+  def mobile(me: Me)(using Req): Fu[JsValue] =
     cache
       .get(me.userId)
       .flatMap: unread =>

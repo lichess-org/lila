@@ -2,9 +2,9 @@ package lila.web
 
 import play.api.data.*
 import play.api.data.Forms.*
-import lila.common.HTTPRequest
-import play.api.mvc.RequestHeader
 import scalalib.StringOps.addQueryParam
+
+import lila.common.HTTPRequest
 
 object CtrlUtils:
 
@@ -14,7 +14,7 @@ object CtrlUtils:
       "redirect" -> nonEmptyText
     )
 
-  def authenticationUrl(using req: RequestHeader): String =
+  def authenticationUrl(using req: Req): String =
     val url =
       if ClosedLogin.acceptsPath(req)
       then routes.Auth.login.url

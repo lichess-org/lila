@@ -46,7 +46,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given TurnstilePublicConfig = env.security.turnstilePublicConfig
 
   inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
-  inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
+  inline def req(using it: Req) = it // `req` is shorter and nicer than `summon[Req]`
 
   val limit = lila.web.Limiters(using env.executor, env.net.rateLimit)
 
@@ -90,7 +90,7 @@ abstract private[controllers] class LilaController(val env: Env)
       then handleScoped(selectors)(_ ?=> _ ?=> f)
       else handleOpen(f)
 
-  private def handleOpen(f: Context ?=> Fu[Result])(using RequestHeader): Fu[Result] =
+  private def handleOpen(f: Context ?=> Fu[Result])(using Req): Fu[Result] =
     CSRF:
       makeContext.flatMap:
         f(using _)
@@ -153,7 +153,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def Auth[A](parser: BodyParser[A])(f: Context ?=> Me ?=> Fu[Result]): EssentialAction =
     action(parser)(handleAuth(f))
 
-  private def handleAuth(f: Context ?=> Me ?=> Fu[Result])(using RequestHeader): Fu[Result] =
+  private def handleAuth(f: Context ?=> Me ?=> Fu[Result])(using Req): Fu[Result] =
     CSRF:
       makeContext.flatMap: ctx =>
         ctx.me.fold(authenticationFailed(using ctx))(f(using ctx)(using _))
@@ -237,7 +237,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   private def handleScoped(
       selectors: Seq[OAuthScope.Selector]
-  )(f: Context ?=> Me ?=> Fu[Result])(using RequestHeader): Fu[Result] =
+  )(f: Context ?=> Me ?=> Fu[Result])(using Req): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
       oauthContext(scoped).flatMap: ctx =>
         f(using ctx)(using scoped.me)
@@ -250,7 +250,7 @@ abstract private[controllers] class LilaController(val env: Env)
         f(using ctx)(using scoped.me)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(f: OAuthScope.Scoped => Fu[Result])(
-      using RequestHeader
+      using Req
   ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     allow:
@@ -330,11 +330,11 @@ abstract private[controllers] class LilaController(val env: Env)
       op
     )
 
-  def LastModified(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
+  def LastModified(updatedAt: Instant)(f: => Fu[Result])(using Req): Fu[Result] =
     val res = if req.method == "HEAD" then NoContent.toFuccess else f
     res.map(_.withDateHeaders(lastModified(updatedAt)))
 
-  def pageHit(using req: RequestHeader): Unit =
+  def pageHit(using req: Req): Unit =
     if req.client.isHuman then lila.mon.http.path(req.path).increment()
 
   def LangPage(call: Call)(f: Context ?=> Fu[Result])(language: Language): EssentialAction =
@@ -377,7 +377,7 @@ abstract private[controllers] class LilaController(val env: Env)
       else form.bindFromRequest()
     bound.fold(error, success)
 
-  protected def hasOAuthBearer(using req: RequestHeader) =
+  protected def hasOAuthBearer(using req: Req) =
     req.headers.get(HeaderNames.AUTHORIZATION).exists(_.startsWith("Bearer "))
 
   private def bindPatchForm[T](form: Form[T])(using req: Request[?], formBinding: FormBinding): Form[T] =

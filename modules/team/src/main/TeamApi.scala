@@ -1,6 +1,5 @@
 package lila.team
 
-import play.api.mvc.RequestHeader
 import scalalib.actor.AsyncActorSequencers
 
 import java.time.Period
@@ -326,7 +325,7 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, users: List[UserId])(using me: Me)(using RequestHeader): Funit =
+  def kickMembers(team: Team, users: List[UserId])(using me: Me)(using Req): Funit =
     val client = lila.common.HTTPRequest.printClient
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"

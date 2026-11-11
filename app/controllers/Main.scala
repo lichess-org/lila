@@ -18,7 +18,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
           lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
     )
 
-  def handlerNotFound(msg: Option[String])(using RequestHeader) =
+  def handlerNotFound(msg: Option[String])(using Req) =
     makeContext.flatMap:
       keyPages.notFound(msg)(using _)
 

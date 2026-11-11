@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.{ Cookie, RequestHeader, Session }
+import play.api.mvc.{ Cookie, Session }
 import scalatags.Text.all.*
 
 import lila.core.config.*
@@ -73,9 +73,9 @@ object PasswordReset:
 
     private val name = "email_pw_reset"
 
-    def get(using req: RequestHeader): Option[EmailAddress] =
+    def get(using req: Req): Option[EmailAddress] =
       EmailAddress.from(req.session.get(name))
 
-    def set(lilaCookie: LilaCookie, email: EmailAddress)(using RequestHeader): Cookie =
+    def set(lilaCookie: LilaCookie, email: EmailAddress)(using Req): Cookie =
       lilaCookie.withSession(remember = false): _ =>
         Session.emptyCookie + (name -> email.value)

@@ -156,7 +156,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def gamePlayersFiltersFromReq(using
       me: Option[Me],
-      req: RequestHeader
+      req: Req
   ): Either[String, Fu[GamePlayersConfig]] =
     for
       vs <- Right(getUserStr("vs"))
@@ -166,7 +166,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       lostBy <- Right(getUserStr("lostBy")).filterOrElse(valid, "Invalid lostBy")
     yield vs.so(meOrFetch).map(GamePlayersConfig(_, wonBy.map(_.id), lostBy.map(_.id)))
 
-  private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
+  private[controllers] def delayMovesFromReq(using Req)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
       me.exists(_.is(UserId.t3))
     !trusted

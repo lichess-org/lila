@@ -1,8 +1,6 @@
 package lila.study
 package ui
 
-import play.api.mvc.RequestHeader
-
 import lila.common.HTTPRequest
 import lila.core.security.LilaCookie
 import lila.ui.Context
@@ -20,7 +18,7 @@ final class StudyFormatStore(baker: LilaCookie):
 
   import StudyFormatStore.*
 
-  def toggle(using RequestHeader) =
+  def toggle(using Req) =
     val backUrl = HTTPRequest.referer | routes.Study.allDefault().url
     val cookie = HTTPRequest.queryStringGet("format").flatMap(StudyFormat.byKey.get).map(write)
     cookie.foldLeft(play.api.mvc.Results.Redirect(backUrl))(_.withCookies(_))
@@ -35,7 +33,7 @@ object StudyFormatStore:
 
   private val name = "studyListFormat"
 
-  private def read(using req: RequestHeader) =
+  private def read(using req: Req) =
     req.cookies.get(name).map(_.value).flatMap(StudyFormat.byKey.get)
 
   given (using ctx: Context): StudyFormat = read(using ctx.req) | {

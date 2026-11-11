@@ -8,7 +8,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.RequestHeader
 import scalalib.Iso
 
 import lila.common.autoconfig.*
@@ -19,7 +18,7 @@ import lila.core.security.TurnstilePublicConfig
 
 trait Turnstile:
 
-  protected def verify(response: String)(using RequestHeader): Fu[Turnstile.Result]
+  protected def verify(response: String)(using Req): Fu[Turnstile.Result]
 
   def verify()(using req: play.api.mvc.Request[?])(using FormBinding, Executor): Fu[Boolean] =
     verify(~Turnstile.form.bindFromRequest().value.flatten).map: result =>
@@ -42,7 +41,7 @@ object Turnstile:
   val field = "cf-turnstile-response" -> optional(nonEmptyText)
   val form = Form(single(field))
 
-  private[security] def monitor(result: Result)(using req: RequestHeader) =
+  private[security] def monitor(result: Result)(using req: Req) =
     lila.mon.security.turnstile
       .hit(
         client = ClientName(req).toString,
@@ -61,7 +60,7 @@ object Turnstile:
 
 final class TurnstileSkip extends Turnstile:
 
-  protected def verify(response: String)(using req: RequestHeader) = fuccess(Turnstile.Result.Disabled)
+  protected def verify(response: String)(using req: Req) = fuccess(Turnstile.Result.Disabled)
 
 // Don't require a second captcha check for 2fa
 final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Executor):
@@ -73,7 +72,7 @@ final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Execut
   def create(login: LoginForm) =
     for token <- tokener.make(serialize(login))
     yield lilaCookie.cookie(name, token, maxAge = ttl.some, httpOnly = true.some)
-  def test(login: LoginForm)(using RequestHeader): Fu[Boolean] =
+  def test(login: LoginForm)(using Req): Fu[Boolean] =
     readFromReq.so: token =>
       val ok = tokener.read(token).map(_.contains(serialize(login)))
       ok.addEffect: ok =>
@@ -81,7 +80,7 @@ final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Execut
   private def serialize(login: LoginForm) =
     val msg = s"turnstile|${login.username.value.length}|${login.username}|${login.password.value}"
     Algo.hmac(secret.value).sha256(msg).hex.take(16)
-  private def readFromReq(using req: RequestHeader): Option[Token] = req.cookies.get(name).map(_.value)
+  private def readFromReq(using req: Req): Option[Token] = req.cookies.get(name).map(_.value)
 
 final class TurnstileReal(
     ws: StandaloneWSClient,
@@ -100,7 +99,7 @@ final class TurnstileReal(
     override def toString = `error-codes`.mkString(",")
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
-  protected def verify(response: String)(using req: RequestHeader): Fu[Result] =
+  protected def verify(response: String)(using req: Req): Fu[Result] =
     given Conversion[Result, Fu[Result]] = fuccess
     def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.print}")
     def missingResponse: Result =

@@ -2,7 +2,6 @@ package lila.security
 
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.RequestHeader
 
 import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
@@ -25,12 +24,12 @@ final class Firewall(
 
   def blocksIp(ip: IpAddress): Boolean = current.contains(ip.value) || proxies.contains(ip)
 
-  def blocks(req: RequestHeader): Boolean =
+  def blocks(req: Req): Boolean =
     val v = blocksIp(lila.common.HTTPRequest.ipAddress(req))
     if v then lila.mon.security.firewall.block.increment()
     v
 
-  def accepts(req: RequestHeader): Boolean = !blocks(req)
+  def accepts(req: Req): Boolean = !blocks(req)
 
   def blockIps(ips: Iterable[IpAddress]): Funit = ips.nonEmpty.so:
     for

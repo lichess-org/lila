@@ -157,7 +157,7 @@ final class Study(
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
-  )(using req: RequestHeader): Fu[Result] =
+  )(using req: Req): Fu[Result] =
     if HTTPRequest.isRedirectable
     then env.relay.defaults.studyRedirect.get(id -> chapterId).flatMap(_.fold(f)(url => Redirect(url.value)))
     else f

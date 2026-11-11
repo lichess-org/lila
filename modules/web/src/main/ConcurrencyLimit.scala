@@ -2,8 +2,8 @@ package lila.web
 
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.Json
+import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
-import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.HTTPRequest
 
@@ -22,7 +22,7 @@ final class ConcurrencyLimit[K](
   private val limitedMon = lila.mon.security.concurrencyLimit(key)
   private def levelMon(k: K) = lila.mon.security.concurrencyLevel(key, toString(k))
 
-  def compose[T](k: K)(using RequestHeader): Option[Source[T, ?] => Source[T, ?]] =
+  def compose[T](k: K)(using Req): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
       lila.memo.RateLimit.logger.info(s"concurrency $key $k $reqMsg")
       limitedMon.increment()
@@ -36,12 +36,12 @@ final class ConcurrencyLimit[K](
             val level = storage.dec(k)
             if level >= 2 then levelMon(k).update(level)
 
-  def apply[T](k: K)(using RequestHeader): Limiter[T] = makeSource =>
+  def apply[T](k: K)(using Req): Limiter[T] = makeSource =>
     makeResult =>
       compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
         makeResult(watch(makeSource))
 
-  private def reqMsg(using req: RequestHeader) = s"${req.path} ${HTTPRequest.userAgent(req)}"
+  private def reqMsg(using req: Req) = s"${req.path} ${HTTPRequest.userAgent(req)}"
 
 object ConcurrencyLimit:
 

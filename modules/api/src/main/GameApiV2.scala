@@ -381,7 +381,7 @@ object GameApiV2:
   enum Format:
     case PGN, JSON
   object Format:
-    def byRequest(using req: play.api.mvc.RequestHeader) =
+    def byRequest(using req: Req) =
       if HTTPRequest.acceptsNdJson(req) || HTTPRequest.acceptsJson(req)
       then JSON
       else PGN

@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.{ DiscardingCookie, RequestHeader }
+import play.api.mvc.DiscardingCookie
 
 /* let lichess users associate their twitch/youtube accounts */
 final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twitchCfg: TwitchConfig)(using
@@ -20,7 +20,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
 
     def name(platform: Platform) = s"${platform}_oauth_state"
 
-    def get(platform: Platform)(using req: RequestHeader) =
+    def get(platform: Platform)(using req: Req) =
       req.cookies.get(name(platform)).map(_.value)
 
     def unset(platform: Platform) = DiscardingCookie(name(platform), path = "/")
@@ -32,7 +32,7 @@ final class StreamerOauth(ws: StandaloneWSClient, youtubeCfg: YoutubeConfig, twi
     def put(state: State, idsMap: Map[String, String])(using me: Me) =
       if idsMap.nonEmpty then cache.put(state, (me.userId, idsMap))
 
-    def find(channelId: String)(using me: Me)(using RequestHeader): Option[(UserId, Map[String, String])] =
+    def find(channelId: String)(using me: Me)(using Req): Option[(UserId, Map[String, String])] =
       cookie
         .get("youtube")
         .flatMap(cache.getIfPresent)

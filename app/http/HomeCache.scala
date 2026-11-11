@@ -29,8 +29,8 @@ final class HomeCache(cacheApi: lila.memo.CacheApi, relayHome: lila.relay.RelayH
   private def continent(using ctx: Context): Option[Continent] =
     relayHome.spotlight.hasContinentRestriction.so(HTTPRequest.continent(ctx.req))
 
-  private def defaultPrefs(using RequestHeader) =
+  private def defaultPrefs(using Req) =
     lila.pref.RequestPref.fromRequest == lila.pref.Pref.default
 
-  private def hasCookies(req: RequestHeader) =
+  private def hasCookies(req: Req) =
     lila.security.EmailConfirm.cookie.has(req)

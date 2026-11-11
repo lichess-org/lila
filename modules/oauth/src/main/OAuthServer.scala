@@ -1,7 +1,7 @@
 package lila.oauth
 
 import com.softwaremill.tagging.*
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.{ ClientName, HTTPRequest }
@@ -18,7 +18,7 @@ final class OAuthServer(
 
   private type Signature = Option[String]
 
-  def authReq(accepted: EndpointScopes)(using req: RequestHeader)(using ClientName): AccessFu =
+  def authReq(accepted: EndpointScopes)(using req: Req)(using ClientName): AccessFu =
     val res = for
       bearer <- HTTPRequest.bearer.raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)
@@ -30,7 +30,7 @@ final class OAuthServer(
   def auth(
       bearer: (Bearer, Signature),
       accepted: EndpointScopes,
-      andLogReq: Option[RequestHeader]
+      andLogReq: Option[Req]
   )(using client: ClientName): AccessFu = for
     at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
@@ -50,7 +50,7 @@ final class OAuthServer(
     _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 
-  def authBoth(scopes: EndpointScopes, req: RequestHeader)(
+  def authBoth(scopes: EndpointScopes, req: Req)(
       token1: Bearer,
       token2: Bearer
   )(using ClientName): FuRaise[AuthError, (User, User)] = for

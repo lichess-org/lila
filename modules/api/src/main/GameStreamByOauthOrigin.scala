@@ -2,7 +2,6 @@ package lila.api
 
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
-import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 import se.thanh.pds.bloomfilter.BloomFilter
 
@@ -71,7 +70,7 @@ final class GameStreamByOauthOrigin(
 
   def apply(since: Option[Instant], extraUsers: Set[UserId])(using
       me: Me,
-      req: RequestHeader
+      req: Req
   ): Either[String, Source[JsValue, ?]] =
     for
       client <- allowedClients.find(_.user.is(me)).toRight("Invalid authenticated user")

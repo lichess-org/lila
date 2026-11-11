@@ -1,7 +1,6 @@
 package lila.api
 
 import alleycats.Zero
-import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.core.id.*
@@ -23,12 +22,12 @@ final class AnySearch(
 
   private val idRegex = """^[a-zA-Z0-9]{4,12}$""".r
 
-  private def sameReferrer(using RequestHeader): Boolean =
+  private def sameReferrer(using Req): Boolean =
     HTTPRequest.referer.exists(_.startsWith(baseUrl.value))
 
   def redirect(str: String, proxy: Option[IsProxy])(using
       ctx: Context
-  )(using RequestHeader): Fu[Option[String]] =
+  )(using Req): Fu[Option[String]] =
     (ctx.isAuth || (!proxy.exists(_.couldBeEnum) && sameReferrer))
       .option(str.trim)
       .filter(idRegex.matches)

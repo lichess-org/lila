@@ -8,7 +8,6 @@ import org.apache.pekko.util.ByteString
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import play.api.mvc.RequestHeader
 import scalalib.Maths
 
 import lila.common.HTTPRequest.queryStringBoolOpt
@@ -25,7 +24,7 @@ object GifExport:
   final class Options(val players: Boolean, val ratings: Boolean, val clocks: Boolean, val glyphs: Boolean)
   object Options:
     val default = Options(true, true, true, true)
-    def fromReq(using RequestHeader): Options =
+    def fromReq(using Req): Options =
       Options(
         players = queryStringBoolOpt("players") | default.players,
         ratings = queryStringBoolOpt("ratings") | default.ratings,

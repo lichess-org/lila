@@ -2,7 +2,7 @@ package lila.api
 
 import alleycats.Zero
 import play.api.i18n.Lang
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.Request
 
 import lila.common.HTTPRequest
 import lila.core.i18n.Translate
@@ -39,7 +39,7 @@ object LoginContext:
 
 /* Data available in every HTTP request */
 class Context(
-    val req: RequestHeader,
+    val req: Req,
     val lang: Lang,
     val loginContext: LoginContext,
     val pref: Pref
@@ -67,7 +67,7 @@ object Context:
 
   import lila.i18n.LangPicker
   import lila.pref.RequestPref
-  def minimal(using req: RequestHeader) =
+  def minimal(using req: Req) =
     Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
   def minimalBody[A](using req: Request[A]) =
     BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
