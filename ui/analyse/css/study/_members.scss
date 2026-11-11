@@ -91,9 +91,9 @@
     padding-block: 2px;
   }
 
-  m-config,
+  .study-member-config,
   .editing {
-    background: color-mix(in oklab, $c-accent 10%, $c-bg) !important;
+    background: $c-bg-zebra !important;
 
     .kick button {
       height: 28px;
@@ -101,7 +101,7 @@
     }
   }
 
-  m-config {
+  .study-member-config {
     @extend %flex-between;
     @include padding-direction(0.4em, 0.6em, 0.8em, 0.6em);
   }
