@@ -31,7 +31,7 @@
     &::after {
       @extend %active, %box-radius;
 
-      background: $c-accent;
+      background: hsl(22 100% 42%);
       content: attr(data-nb);
       bottom: 0;
 
