@@ -71,5 +71,8 @@ export function registerPublicApi(ctrl: AnalyseCtrl): void {
   api.analysis = {
     playUci: ctrl.playUci,
     navigate: { prev, next, first, last, previousBranch, nextBranch },
+    data: () => ({
+      game: ctrl.data.game,
+    }),
   };
 }
