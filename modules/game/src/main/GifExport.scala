@@ -133,8 +133,8 @@ final class GifExport(
       case Some(median) =>
         val scale = targetMedianTime.centis.toFloat / median.centis.atLeast(1).toFloat
         moveTimes.map { t =>
-          if t * 2 < median then t.atMost(targetMedianTime *~ 0.5)
-          else (t *~ scale).atLeast(targetMedianTime *~ 0.5).atMost(targetMaxTime)
+          if t * 2 < median then t.atMost(targetMedianTime *~ 0.5f)
+          else (t *~ scale).atLeast(targetMedianTime *~ 0.5f).atMost(targetMaxTime)
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 

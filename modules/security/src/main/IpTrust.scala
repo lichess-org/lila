@@ -81,24 +81,24 @@ object IpTrust:
     case IsProxy.vpn => 3
     case IsProxy.privacy => 3
     case IsProxy.tor => 4
-    case IsProxy.server => 1.5
-    case IsProxy.enterprise => 1.5
+    case IsProxy.server => 1.5f
+    case IsProxy.enterprise => 1.5f
     case IsProxy.public => 5
     case IsProxy.web => 3
-    case IsProxy.search => 0.5
+    case IsProxy.search => 0.5f
     case IsProxy.residential => 3
     case IsProxy.http1 => 2
     case _ => 1
 
   def proxyMultiplier(times: Float): RateLimitStrategy =
     case IsProxy.empty => 1
-    case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
+    case IsProxy.search => 0.5f // search factor is < 1 so don't multiply it
     case proxy => defaultRateLimitStrategy(proxy) * times
 
   def antiScraping(dch: Float, others: Float): RateLimitStrategy =
     case IsProxy.server => dch
     case IsProxy.http1 => dch
-    case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
+    case IsProxy.search => 0.5f // search factor is < 1 so don't multiply it
     case proxy => defaultRateLimitStrategy(proxy) * others
 
   type ThrottleStrategy = IsProxy => Float
