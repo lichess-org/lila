@@ -3729,6 +3729,14 @@ interface I18n {
     clockIncrement: string;
     /** Clock initial time */
     clockInitialTime: string;
+    /** %s minute */
+    clockExtraMinute: I18nPlural;
+    /** %s second */
+    clockExtraPerPlayerSecond: I18nPlural;
+    /** %s minute */
+    clockMinute: I18nPlural;
+    /** %s second */
+    clockSecond: I18nPlural;
     /** Close */
     close: string;
     /** Closing your account will withdraw your appeal */
@@ -4633,6 +4641,8 @@ interface I18n {
     raceFinished: string;
     /** Random Chess960 position */
     randomChess960Position: string;
+    /** Random */
+    random: string;
     /** Random side */
     randomColor: string;
     /** Rank */
