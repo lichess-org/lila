@@ -151,6 +151,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
                 div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   trp.multipleChoices(),
+                  " ",
                   trp.explainCanThenBeTemporarilyDisabled()
                 )
               ),
