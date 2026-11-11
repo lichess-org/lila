@@ -11,7 +11,7 @@ import lila.ui.MarkdownRealm
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    bindForm(lila.web.WebForms.blind)(
+    bindForm(lila.web.CtrlUtils.blindForm)(
       _ => BadRequest,
       (enable, redirect) =>
         Redirect(redirect).withCookies:

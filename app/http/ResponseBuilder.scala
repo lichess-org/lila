@@ -103,16 +103,7 @@ trait ResponseBuilder(using Executor)
 
   def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(
-      html = Redirect:
-        val url =
-          if lila.web.ClosedLogin.acceptsPath(ctx.req)
-          then routes.Auth.login.url
-          else
-            HTTPRequest.queryStringGet("login") match
-              case Some(login) => s"${routes.Auth.login.url}?as=$login"
-              case _ => routes.Auth.signup.url
-        scalalib.StringOps.addQueryParam(url, "referrer", ctx.req.path)
-      ,
+      html = Redirect(lila.web.CtrlUtils.authenticationUrl),
       json = env.security.lilaCookie.ensure:
         Unauthorized(jsonError("Login required"))
     )
