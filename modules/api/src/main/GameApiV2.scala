@@ -35,6 +35,7 @@ final class GameApiV2(
     analysisRepo: lila.analyse.AnalysisRepo,
     annotator: lila.analyse.Annotator,
     getLightUser: LightUser.Getter,
+    userApi: lila.user.UserApi,
     gameProxy: GameProxyRepo,
     divider: Divider,
     gameOpening: lila.game.GameOpening,
@@ -119,33 +120,37 @@ final class GameApiV2(
           .map(_.id)
           .fold(Query.nowPlaying(config.user.id)):
             Query.nowPlayingVs(config.user.id, _)
+
     val requiresElasticSearch =
-      config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
-    val gameSource: Source[Game, ?] =
-      if requiresElasticSearch then
-        import lila.search.Size
-        gameSearch
-          .idStream(
-            config.toGameQuery,
-            Size(config.max.fold(500_000)(_.value)),
-            config.perSecond.into(MaxPerPage)
-          )
-          .mapAsync(1)(gameRepo.gamesFromSecondary)
-          .mapConcat(identity)
-          .filter(inCreatedAtRange(config))
-      else
-        gameRepo
-          .sortedCursor(
-            playerSelect ++
-              config.wonBy.so(Query.winnerNotUsingIndex) ++
-              config.lostBy.so(Query.loserNotUsingIndex) ++
-              Query.createdBetween(config.since, config.until) ++
-              (!config.ongoing).so(Query.finished),
-            config.sort.bson,
-            batchSize = config.perSecond.value
-          )
-          .documentSource()
-          .take(config.max.fold(Int.MaxValue)(_.value))
+      fuccess(config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty) >>|
+        guessIfConfigRequiresElasticSearch(config)
+
+    val gameSource: Source[Game, ?] = Source.futureSource:
+      requiresElasticSearch.map: useES =>
+        if useES then
+          import lila.search.Size
+          gameSearch
+            .idStream(
+              config.toGameQuery,
+              Size(config.max.fold(500_000)(_.value)),
+              config.perSecond.into(MaxPerPage)
+            )
+            .mapAsync(1)(gameRepo.gamesFromSecondary)
+            .mapConcat(identity)
+            .filter(inCreatedAtRange(config))
+        else
+          gameRepo
+            .sortedCursor(
+              playerSelect ++
+                config.wonBy.so(Query.winnerNotUsingIndex) ++
+                config.lostBy.so(Query.loserNotUsingIndex) ++
+                Query.createdBetween(config.since, config.until) ++
+                (!config.ongoing).so(Query.finished),
+              config.sort.bson,
+              batchSize = config.perSecond.value
+            )
+            .documentSource()
+            .take(config.max.fold(Int.MaxValue)(_.value))
 
     gameSource
       .via(upgradeOngoingGame)
@@ -376,6 +381,15 @@ final class GameApiV2(
   private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))
 
+  private def guessIfConfigRequiresElasticSearch(config: ByUserConfig): Fu[Boolean] =
+    if config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty then fuccess(true)
+    else if config.perfKey.isEmpty then fuccess(false)
+    else
+      userApi
+        .perfsOf(config.user.id)
+        .map: perfs =>
+          config.perfKey.exists(perfs.contains)
+
 object GameApiV2:
 
   enum Format:
@@ -428,10 +442,9 @@ object GameApiV2:
 
     private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
 
-    def toSorting =
-      sort match
-        case GameSort.DateAsc => SearchSort(Fields.date, "asc")
-        case GameSort.DateDesc => SearchSort(Fields.date, "desc")
+    def toSorting = sort match
+      case GameSort.DateAsc => SearchSort(Fields.date, "asc")
+      case GameSort.DateDesc => SearchSort(Fields.date, "desc")
 
     def toGameQuery =
       SearchData(
