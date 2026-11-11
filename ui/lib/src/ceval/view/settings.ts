@@ -212,21 +212,26 @@ function engineSelection(ctrl: CevalHandler) {
     nonStandardMaterial: ceval.nonStandardMaterial,
   });
   const external = ceval.engines.external();
+  const selectEngine = (id: string) => {
+    ceval.selectEngine(id);
+    ctrl.startCevalIfEnabled();
+  };
 
   return div('.setting', [
     label({ for: 'select-engine' }, i18n.site.engine),
-    engineSelect(engines, active?.id, id => {
-      ceval.selectEngine(id);
-      ctrl.startCevalIfEnabled();
-    }),
+    engineSelect(engines, active?.id, selectEngine),
     external &&
       button('.button.button-red.button-empty', {
         ...dataIcon(licon.Trash),
         title: 'Delete external engine',
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
-          if (await confirm('Remove external engine?'))
-            ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
+          const id = ceval.engines.external()?.id;
+          if (!id || !(await confirm('Remove external engine?'))) return;
+          if (await ceval.engines.deleteExternal(id)) {
+            selectEngine(ceval.engines.active()?.id ?? '');
+            ceval.opts.redraw();
+          }
         }),
       }),
     button('.engine-info-button', {
@@ -255,7 +260,9 @@ export function engineSelect(
   return select(
     `#${id}`,
     { hook: bind('change', event => onChange((event.target as HTMLSelectElement).value)) },
-    engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+    engines.map(engine =>
+      option({ key: engine.id, value: engine.id, selected: activeId === engine.id }, engine.name),
+    ),
   );
 }
 
