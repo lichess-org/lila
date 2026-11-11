@@ -604,10 +604,6 @@
           &.pinned {
             filter: none;
             transform: rotate(-45deg) translate(-2px, 2px);
-
-            &:hover {
-              transform: rotate(-25deg);
-            }
           }
         }
       }
