@@ -289,11 +289,19 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer.so: (bearer, _) =>
-        limit.eventStream(me.userId, limited):
+        val fromWebsite = HTTPRequest.referer.exists(_.startsWith(env.net.baseUrl.value)) &&
+          HTTPRequest.cookieStr.isDefined
+        limit.eventStream(fromWebsite)(me.userId, limited):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
-          yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
+            stream = env.api.eventStream(
+              povs.value.map(_.game),
+              challenges,
+              bearer,
+              fromWebsite = fromWebsite
+            )
+          yield jsOptToNdJson(stream)
     }
 
   def gameChat(gameId: GameId) = Anon:

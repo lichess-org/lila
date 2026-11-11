@@ -5,6 +5,15 @@ import play.api.{ ConfigLoader, Configuration }
 import lila.common.config.given
 import lila.core.config.*
 import lila.core.security.LilaCookie
+import lila.core.data.Strings
+import lila.memo.SettingStore
+
+case class WebSocketConfig(
+    mainDomains: SettingStore[Strings],
+    altDomains: SettingStore[Strings],
+    csps: SettingStore[Strings]
+):
+  def list = "WebSocket" -> List(mainDomains, altDomains, csps)
 
 final class WebConfig(
     val apiToken: Secret,
@@ -53,9 +62,6 @@ object WebConfig:
     baseUrl = c.get[BaseUrl]("net.base_url"),
     stageBanner = c.get[Boolean]("net.stage.banner"),
     siteName = c.get[String]("net.site.name"),
-    socketDomains = c.get[List[String]]("net.socket.domains"),
-    socketAlts = c.get[List[String]]("net.socket.alts"),
-    socketCsps = c.get[List[String]]("net.socket.csps"),
     crawlable = c.get[Boolean]("net.crawlable"),
     rateLimit = c.get[RateLimit]("net.ratelimit"),
     email = c.get[EmailAddress]("net.email"),

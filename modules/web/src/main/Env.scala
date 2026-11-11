@@ -2,10 +2,15 @@ package lila.web
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
+import play.api.Configuration
+
+import lila.core.data.Strings
+import lila.common.config.given
+import lila.memo.SettingStore.Strings.given
 
 @Module
 final class Env(
-    appConfig: play.api.Configuration,
+    appConfig: Configuration,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
@@ -49,8 +54,7 @@ final class Env(
   PrometheusReporter.setupPeriodicMonitor()
 
   object settings:
-    import lila.core.data.{ Strings, UserIds }
-    import lila.memo.SettingStore.Strings.given
+    import lila.core.data.UserIds
     import lila.memo.SettingStore.UserIds.given
 
     val noDelaySecret = settingStore[Strings](
@@ -71,9 +75,25 @@ final class Env(
       text = "Opening explorer games per second".some
     )
 
+  val webSocketConfig = WebSocketConfig(
+    mainDomains = settingStore[Strings](
+      "socketMainDomains",
+      default = Strings(appConfig.get("net.socket.domains")),
+      text = "Main websocket domains".some
+    ),
+    altDomains = settingStore[Strings](
+      "socketAltDomains",
+      default = Strings(appConfig.get("net.socket.alts")),
+      text = "Alternative websocket domains".some
+    ),
+    csps = settingStore[Strings](
+      "socketCspDomains",
+      default = Strings(appConfig.get("net.socket.csps")),
+      text = "Websocket domains for Content Security Policy".some
+    )
+  )
+
   object lichobileDisables:
-    import lila.core.data.Strings
-    import lila.memo.SettingStore.Strings.given
     import lila.core.i18n.{ I18nKey, Translate }
 
     val setting = settingStore[Strings](

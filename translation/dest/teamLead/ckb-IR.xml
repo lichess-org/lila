@@ -5,8 +5,6 @@
   <string name="permTourName">پاڵەوانیەتییەکان</string>
   <string name="manuallyReviewAdmissionRequests">بە دەست پێداچوونەوە بە داواکارییەکانی وەرگرتن بکە</string>
   <string name="onlyLeaderLeavesTeam">تکایە پێش ڕۆشتن سەرکردەیەکی نوێ زیاد بکە، یان یانەکە دابخە.</string>
-  <string name="kickSomeone">کەسێک لە یانەکە دەربکەن</string>
-  <string name="whoToKick">دەتەوێت کێ لە یانەکە دەربکەیت?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s داواکاری بەشداریکردن</item>
     <item quantity="other">%s داواکارییەکانی بەشداریکردن</item>

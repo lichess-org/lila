@@ -4,8 +4,6 @@
   <string name="permSettingsName">Stillingar</string>
   <string name="permTourName">Kappingar</string>
   <string name="manuallyReviewAdmissionRequests">Met um umsóknir um upptøku manuelt</string>
-  <string name="kickSomeone">Tveit onkran av liðnum</string>
-  <string name="whoToKick">Hvønn vilt tú tveita av liðnum?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s luttøkuumbøn</item>
     <item quantity="other">%s luttøkuumbønir</item>

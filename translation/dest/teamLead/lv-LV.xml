@@ -5,8 +5,6 @@
   <string name="permTourName">Turnīri</string>
   <string name="manuallyReviewAdmissionRequests">Izskatīt katru pievienošanās pieprasījumu</string>
   <string name="onlyLeaderLeavesTeam">Lūdzu, pievienojiet jaunu komandas vadītāju pirms pamešanas, vai arī slēdziet komandu.</string>
-  <string name="kickSomeone">Izmest kādu no komandas</string>
-  <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
   <plurals name="xJoinRequests">
     <item quantity="zero">%s pievienošanās pieprasījumi</item>
     <item quantity="one">%s pievienošanās pieprasījums</item>

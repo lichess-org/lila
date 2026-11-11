@@ -33,10 +33,11 @@
   </plurals>
   <string name="inviteToTheStudy">Azterlanera gonbidatu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ezagutzen duzun eta benetan azterlanean interesa duen jendea gonbidatu bakarrik.</string>
-  <string name="searchByUsername">Erabiltzaile izenaren arabera bilatu</string>
+  <string name="searchByUsername">Erabiltzaile-izenaren arabera bilatu</string>
   <string name="spectator">Ikuslea</string>
   <string name="contributor">Laguntzailea</string>
   <string name="kick">Kanporatu</string>
+  <string name="remove">Kendu</string>
   <string name="leaveTheStudy">Azterlana utzi</string>
   <string name="youAreNowAContributor">Laguntzailea zara orain</string>
   <string name="youAreNowASpectator">Ikuslea zara orain</string>
@@ -99,6 +100,10 @@
   <string name="loadAPositionFromFen">Posizioa FEN batetik kargatu</string>
   <string name="loadAGameFromPgn">Partida PGN batetik kargatu</string>
   <string name="automatic">Automatikoa</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Itsatsi zure PGN testua hemen, gehienez partida %s.</item>
+    <item quantity="other">Itsatsi partidak PGN testu gisa hemen. Partida bakoitzeko kapitulu berri bat sortzen da. Azterlanak gehienez %s kapitulu izan ditzake.</item>
+  </plurals>
   <string name="urlOfTheGame">Partidaren URLa</string>
   <string name="createChapter">Kapitulua sortu</string>
   <string name="createStudy">Azterlana sortu</string>
@@ -159,7 +164,7 @@
   <string name="perPage">%s orrialde bakoitzean</string>
   <string name="getTheTour">Laguntzarik behar? Etorri gurekin!</string>
   <string name="welcomeToLichessStudyTitle">Ongi etorri Lichess Study-ra!</string>
-  <string name="welcomeToLichessStudyText">Hau partekatutako analisi taula bat da.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Erabili partidak analizatu edo komentatzeko,&lt;br&gt;&lt;br&gt;&lt;br&gt;eztabaidatu posizioak lagunekin,&lt;br&gt;&lt;br&gt;eta erabili xake klaseetan!&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Tresna ahaltsua da, hartu denbora bat nola dabilen ikasteko.</string>
+  <string name="welcomeToLichessStudyText">Hau partekatutako analisi taula bat da.&lt;br&gt;&lt;br&gt;Erabili partidak analizatu edo komentatzeko,&lt;br&gt;eztabaidatu posizioak lagunekin,&lt;br&gt;eta erabili xake klaseetan!&lt;br&gt;&lt;br&gt;Tresna ahaltsua da, hartu denbora bat nola dabilen ikasteko.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Partekatuta eta gordeta</string>
   <string name="sharedAndSavedText">Beste kide batzuk zure jokaldiak denbora errealean ikusi ditzakete!&lt;br&gt;Gainera, dena betiko gordetzen da.</string>
   <string name="studyMembersTitle">Azterlanaren kideak</string>
@@ -172,7 +177,7 @@
   <string name="annotatePositionTitle">Iruzkindu posizioa</string>
   <string name="annotatePositionText">Egin klik !? botoian, edo jokaldi zerrendan.&lt;br&gt;Iruzkinen ikonoak partekatu eta gorde egiten dira.</string>
   <string name="conclusionTitle">Eskerrik asko zure denboragatik</string>
-  <string name="conclusionText">Zure &lt;a href=\'/study/mine/hot\'&gt;aurreko azterlanak&lt;/a&gt; zure profilean ikusi ditzakezu.&lt;br&gt;Gainera &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;azterlanei buruzko blogeko artikulu bat&lt;/a&gt; ere badago.&lt;br&gt;Erabiltzaile ahaltsuek \"?\" sakatu dezakete beste lasterbide batzuk ikusteko.</string>
+  <string name="conclusionText">Zure &lt;a href=\'/study/mine/hot\'&gt;aurreko azterlanak&lt;/a&gt; zure profilean ikusi ditzakezu.&lt;br&gt;Gainera &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;azterlanei buruzko blogeko artikulu bat&lt;/a&gt; ere badago.&lt;br&gt;Erabiltzaile ahaltsuek \"?\" sakatu dezakete beste lasterbide batzuk ikusteko.&lt;br&gt;Ondo pasa!</string>
   <string name="createChapterTitle">Azterlan kapitulu berri bat sortu dezagun</string>
   <string name="createChapterText">Azterlan batek hainbat kapitulu izan ditzake.&lt;br&gt;Kapitulu bakoitzak bere jokaldi zuhaitza du,&lt;br&gt;eta hainbat eratan sortu daiteke.</string>
   <string name="fromInitialPositionTitle">Hasierako posiziotik aurrera</string>
@@ -180,12 +185,13 @@
   <string name="customPositionTitle">Posizio pertsonalizatua</string>
   <string name="customPositionText">Konfiguratu taula zuk nahi duzun moduan.&lt;br&gt;Adibidez finalak aztertzeko.</string>
   <string name="loadGameFromTheWebTitle">Kargatu partida bat webetik</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Itsatsi partida baten URLa&lt;br&gt;(adibidez lichess.org/game/7fHIU0XI)&lt;br&gt;kapituluan partidaren jokaldiak kargatzeko.</string>
   <string name="fromFenStringTitle">FEN kate batetik</string>
-  <string name="fromFenStringText">Itsatsu FEN formatuko posizio bat&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
+  <string name="fromFenStringText">Itsatsi FEN formatuko posizio bat&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
   <string name="fromPgnGameTitle">PGN partida batetik</string>
-  <string name="fromPgnGameText">Itsatsu PGN formatuan dagoen partida bat&lt;br&gt;bertatik jokaldiak, komentarioak eta barianteak kapitulura kargatzeko.</string>
+  <string name="fromPgnGameText">Itsatsi PGN formatuan dagoen partida bat&lt;br&gt;bertatik jokaldiak, komentarioak eta aldaerak kapitulura kargatzeko.</string>
   <string name="variantsAreSupportedTitle">Azterlanetan aldaerak erabili daitezke</string>
-  <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
+  <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess aldaera guztiak aztertu ditzazkezu!</string>
   <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
   <string name="doubleDefeat">Porrot bikoitza</string>
   <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
@@ -194,4 +200,7 @@
   <string name="clearLocal">Garbitu analisi lokala?</string>
   <string name="clearPublished">Garbitu argitaratutako analisiak?</string>
   <string name="requestAServerAnalysis">Eskatu zerbitzariaren analisia</string>
+  <string name="analyzeOnYourDevice">Analizatu zure gailuan</string>
+  <string name="searchChapters">Bilatu kapituluak</string>
+  <string name="searchGames">Bilatu partidak</string>
 </resources>

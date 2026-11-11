@@ -27,7 +27,7 @@
   <string name="announcePiecesOnRankOrFile">Iragarri errenkada edo zutabe bateko piezak. Adibidez: s a, s 1.</string>
   <string name="goToBoard">Taulara joan. Defektuzko laukia e-4 da. Lauki bat zehazteko: board a-1 edo b a-1-ek a-1 laukira eramango zaitu.</string>
   <string name="movePiece">Pieza bat mugitzeko, erabili notazio algebraiko estandarra.</string>
-  <string name="promotion">Dama ez den zerbait sustatzeko erabili berdin. Adibidez: a-8-berdin-z, zalduna sustatuko du.</string>
+  <string name="promotion">Dama ez den zerbait sustatzeko erabili berdin. Adibidez: a-8-berdin-z, zaldia sustatuko du.</string>
   <string name="king">erregea</string>
   <string name="whiteKing">errege zuria</string>
   <string name="blackKing">errege beltza</string>

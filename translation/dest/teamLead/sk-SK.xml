@@ -5,8 +5,6 @@
   <string name="permTourName">Turnaje</string>
   <string name="manuallyReviewAdmissionRequests">Ručne skontrolujte žiadosti o prijatie</string>
   <string name="onlyLeaderLeavesTeam">Pred odchodom prosím pridajte nového lídra tímu, alebo zrušte tím.</string>
-  <string name="kickSomeone">Vyhodiť niekoho z tímu</string>
-  <string name="whoToKick">Koho chcete vyhodiť z družstva?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s žiadosť o vstup</item>
     <item quantity="few">%s žiadosti o vstup</item>

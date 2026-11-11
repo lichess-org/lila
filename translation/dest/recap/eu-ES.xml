@@ -37,7 +37,7 @@
 		<item quantity="other">Gehien jokatu duzun irekiera %s partidarekin</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one">Zuriekin gehien jokatu duzun irekiera partida %sekin</item>
+		<item quantity="one">Beltzekin gehien jokatu duzun irekiera partida %sekin</item>
 		<item quantity="other">Beltzekin gehien jokatu duzun irekiera %s partidarekin</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">

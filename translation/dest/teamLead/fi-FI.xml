@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Tämän ollessa valittuna pelaajien pitää pyytää lupaa liittyä joukkueeseen. Voit hyväksyä tai hylätä kunkin pyynnön.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Piilota joukkueen jäsenluettelo muilta kuin jäseniltä.</string>
   <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
-  <string name="kickSomeone">Poista joku joukkueesta</string>
-  <string name="removeSomeone">Poista joukkueesta joku</string>
-  <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
+  <string name="removeSomeone">Poista jäsen</string>
   <string name="whoToRemove">Kenet haluat poistaa joukkueesta?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s liittymispyyntö</item>

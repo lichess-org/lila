@@ -3,19 +3,19 @@
   <string name="team">Taldea</string>
   <string name="teams">Taldeak</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s kide</item>
+    <item quantity="one">kide %s</item>
     <item quantity="other">%s kide</item>
   </plurals>
   <string name="allTeams">Talde guztiak</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Kapitain zaren taldeak</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lider zaren taldeak</string>
   <string name="newTeam">Talde berria</string>
   <string name="myTeams">Nire taldeak</string>
   <string name="noTeamFound">Ez da talderik aurkitu</string>
   <string name="joinTeam">Taldean sartu</string>
   <string name="quitTeam">Taldetik atera</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Taldearen kapitaina</item>
-    <item quantity="other">Taldearen kapitainak</item>
+    <item quantity="one">Taldearen liderra</item>
+    <item quantity="other">Taldearen liderrak</item>
   </plurals>
   <string name="teamRecentMembers">Kide berriak</string>
   <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
@@ -26,10 +26,12 @@
   <string name="teamTournament">Talde barruko txapelketa</string>
   <string name="teamTournamentOverview">Taldeko kideak diren erabiltzaileek bakarrik parte hartu dezaketen txapelketa</string>
   <string name="swissTournamentOverview">Zure taldeko kideek bakarrik parte hartu dezaketen txapelketa suitzarra</string>
-  <string name="teamUpdates">Taldearen eguneratzeak</string>
+  <string name="teamUpdates">Talde-eguneratze berriak</string>
   <string name="subToTeamUpdates">Harpidetu taldearen eguneratzeetara</string>
-  <string name="teamsIlead">Kapitain naizen taldeak</string>
-  <string name="leadersChat">Kapitainen txata</string>
+  <string name="teamEvents">Talde-ekitaldiak</string>
+  <string name="upcomingTeamEvents">Datozen talde-ekitaldiak</string>
+  <string name="teamsIlead">Lider naizen taldeak</string>
+  <string name="leadersChat">Liderren txata</string>
   <string name="introduction">Sarrera</string>
   <string name="entryCode">Taldean sartzeko kodea</string>
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>

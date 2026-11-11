@@ -124,8 +124,10 @@ object page:
           dataUser := ctx.userId,
           dataUsername := ctx.username,
           dataSoundSet := pref.currentSoundSet.toString,
-          attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
-                                          else netConfig.socketDomains).mkString(","),
+          attr("data-socket-domains") := {
+            if ~pref.usingAltSocket then webSocketConfig.altDomains.get()
+            else webSocketConfig.mainDomains.get()
+          }.value.mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce := ctx.nonce,

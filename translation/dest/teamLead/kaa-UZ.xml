@@ -4,8 +4,6 @@
   <string name="permTourName">Jarıslar</string>
   <string name="manuallyReviewAdmissionRequests">Qabıl qılıw sorawların jeke tekseriw</string>
   <string name="onlyLeaderLeavesTeam">Ótinish, shıǵıp ketiwden aldın jańa komanda jetekshisin qosıń yamasa komandanı jabıń.</string>
-  <string name="kickSomeone">Komandadan birewdi shıǵarıń</string>
-  <string name="whoToKick">Komandadan kimdi shıǵarıwdı qáleysiz?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s qosılıw sorawı</item>
     <item quantity="other">%s qosılıw sorawları</item>

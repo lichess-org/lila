@@ -2,8 +2,6 @@
 <resources>
   <string name="permSettingsName">Поставки</string>
   <string name="permTourName">Турнири</string>
-  <string name="kickSomeone">Избркај некого од тимот</string>
-  <string name="whoToKick">Кого сакаш да го избркаш од тимот?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s барање за здружување</item>
     <item quantity="other">%s барања за здружување</item>

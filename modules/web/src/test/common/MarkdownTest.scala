@@ -183,7 +183,7 @@ Line 2""")
     )
 
   // https://github.com/vsch/flexmark-java/issues/648
-  test("stack overflow detection".only):
+  test("stack overflow detection"):
     val flood = "A" * 6000
     val text = s"""[b]: <https://example.com/$flood>"""
     assertEquals(

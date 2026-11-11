@@ -5,8 +5,6 @@
   <string name="permTourName">Toernooie</string>
   <string name="manuallyReviewAdmissionRequests">Gaan aansluit versoeke met die hand na</string>
   <string name="onlyLeaderLeavesTeam">Nomineer asseblief \'n nuwe spanleier voordat jy gaan, of sluit die span af.</string>
-  <string name="kickSomeone">Skop iemand uit die span uit</string>
-  <string name="whoToKick">Wie wil jy uit die span uit skop?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s Aansluitingsversoek</item>
     <item quantity="other">%s Aansluitingsversoeke</item>

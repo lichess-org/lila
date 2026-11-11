@@ -4,8 +4,6 @@
   <string name="permSettingsName">Көйләүләр</string>
   <string name="permTourName">Бәйгеләр</string>
   <string name="manuallyReviewAdmissionRequests">Кабул итү гаризаларын кул белән карагыз</string>
-  <string name="kickSomeone">Җәмәгадән куып чыгарырга</string>
-  <string name="whoToKick">Кемне куып чыгарырга телисез җәмәгадән?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s кушылу соравы</item>
   </plurals>

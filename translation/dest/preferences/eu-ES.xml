@@ -36,10 +36,12 @@
   <string name="takebacksWithOpponentApproval">Jokaldia atzera botatzea  (aurkariaren onespenarekin)</string>
   <string name="inCasualGamesOnly">Puntu-aldaketarik gabeko partidetan bakarrik</string>
   <string name="promoteToQueenAutomatically">Dama automatikoki sustatzea</string>
+  <string name="explainPromoteToQueenAutomatically">Eduki ctrl tekla sakatuta promozioa egitean, automatikoki promozionatzea aldi baterako desgaitzeko.</string>
   <string name="whenPremoving">Aldez aurreko jokaldia egiten denean</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
+  <string name="multipleChoices">Aukera anitz.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Partida baten zehar taularen menua erabiliz desaktibatu daiteke</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>
@@ -81,6 +83,7 @@
   <string name="showUndefendedPieces">Erakutsi defentsarik ez duten piezak</string>
   <string name="showPinnedPieces">Erakutsi iltzatutako piezak</string>
   <string name="showCheckableKing">Erakutsi xake egin dakiokeen erregea</string>
+  <string name="showTrappedPieces">Erakutsi tranpan dauden piezak</string>
   <string name="disclosureMode">Erakutsi aldaerak ezkutatzea</string>
   <string name="generalSettings">Orokorra</string>
   <string name="moveListSettings">Jokaldi zerrenda</string>

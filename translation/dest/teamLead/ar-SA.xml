@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">إذا تم تفعيل هذا الخِيار، فسيتعين على اللاعبين طلب الانضمام إلى الفريق، ويمكنك قَبُول طلباتهم أو رفضها.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">إخفاء قائمة أعضاء الفريق عن غير الأعضاء.</string>
   <string name="onlyLeaderLeavesTeam">يُرجى تعيين قائد جديد للفريق قبل المغادرة، أو إغلاق الفريق.</string>
-  <string name="kickSomeone">طرد أحداً ما من الفريق</string>
-  <string name="removeSomeone">إزالة أحد أعضاء الفريق</string>
-  <string name="whoToKick">من تريد طرده من الفريق؟</string>
+  <string name="removeSomeone">إزالة شخصٍ ما</string>
   <string name="whoToRemove">مَن تريد إزالته من الفريق؟</string>
   <plurals name="xJoinRequests">
     <item quantity="zero">%s طلب انضمام</item>

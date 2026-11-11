@@ -3,8 +3,6 @@
   <string name="permPublicName">Ëffentlech</string>
   <string name="permSettingsName">Optiounen</string>
   <string name="permTourName">Turnéieren</string>
-  <string name="kickSomeone">Een aus der Ekipp geheien</string>
-  <string name="whoToKick">Ween wëlls du aus der Ekipp geheien?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s Bäitrëttsufro</item>
     <item quantity="other">%s Bäitrëttsufroen</item>

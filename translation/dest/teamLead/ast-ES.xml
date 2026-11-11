@@ -5,8 +5,6 @@
   <string name="permTourName">Torneos</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente les solicitúes d\'almisión</string>
   <string name="onlyLeaderLeavesTeam">Por favor, añede un nuevu líder d\'equipu antes de salir, o cierra l\'equipu.</string>
-  <string name="kickSomeone">Espulsar a daquién del equipu</string>
-  <string name="whoToKick">¿A quién quies espulsar del equipu?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s solicitú d\'ingresu</item>
     <item quantity="other">%s solicitúes d\'ingresu</item>

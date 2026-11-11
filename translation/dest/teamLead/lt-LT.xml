@@ -5,8 +5,6 @@
   <string name="permTourName">Turnyrai</string>
   <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
   <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos vadovą.</string>
-  <string name="kickSomeone">Išmesti ką nors iš komandos</string>
-  <string name="whoToKick">Ką norite išmesti iš komandos?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s stojimo prašymas</item>
     <item quantity="few">%s stojimo prašymai</item>

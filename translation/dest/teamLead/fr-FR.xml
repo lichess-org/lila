@@ -21,9 +21,7 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Si la case est cochée, les joueurs doivent soumettre une demande pour se joindre à l\'équipe, demande que vous pouvez refuser ou accepter.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Cacher la liste des membres de l\'équipe aux non-membres</string>
   <string name="onlyLeaderLeavesTeam">Ajoutez un nouveau chef d\'équipe avant de partir ou fermez l\'équipe.</string>
-  <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
-  <string name="removeSomeone">Retirer une personne de l\'équipe</string>
-  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe ?</string>
+  <string name="removeSomeone">Retirer une personne</string>
   <string name="whoToRemove">Qui voulez-vous retirer de l\'équipe?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s demande d\'adhésion</item>
