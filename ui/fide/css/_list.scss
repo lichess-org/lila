@@ -6,9 +6,10 @@
   }
 
   .fide-players-table {
-    th:not(:first-child),
-    td:not(:first-child) {
-      text-align: center;
+    text-align: center;
+
+    .player-intro-td {
+      text-align: left;
     }
   }
 
