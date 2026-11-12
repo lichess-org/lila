@@ -1,12 +1,14 @@
 import type * as ort from 'onnxruntime-web';
 
+import type { VisionPlacement } from './interfaces';
+
 // an onnx runtime wrapper of the ChessQueriesLite vision model for chessboard recognition
-// https://huggingface.co/joelseytre/chessqueries
+// https://huggingface.co/joelseytre/chessq-lite
 // https://arxiv.org/abs/2608.30762
 
 export type VisionWorkerResponse =
   | { type: 'ready' }
-  | { type: 'placement'; boardFen: string }
+  | ({ type: 'placement' } & VisionPlacement)
   | { type: 'error'; message: string };
 
 type VisionWorkerRequest =
@@ -30,6 +32,8 @@ let session: ort.InferenceSession | undefined;
 const RESOLUTION = 644;
 const CHANNEL_SIZE = RESOLUTION * RESOLUTION;
 const CLASS_SYMBOLS = '.PNBRQKpnbrqk';
+// White at the bottom for viewing angles within ±100°, including endpoints.
+const WHITE_VIEW_COSINE = Math.fround(Math.cos((100 * Math.PI) / 180));
 const MEAN = [0.485, 0.456, 0.406] as const; // these are standard ImageNet rgb normalization constants
 const STD = [0.229, 0.224, 0.225] as const; // these are standard ImageNet rgb normalization constants
 
@@ -70,13 +74,33 @@ async function handleMessage(request: VisionWorkerRequest): Promise<void> {
   } finally {
     request.image.close();
   }
-  const output = await session.run({ image: tensor });
-  const logits = output.logits;
-  if (!logits || logits.dims.join(',') !== '1,64,13') {
-    // 1 input image, 64 squares, 13 classes (including empty)
-    throw new Error('unexpected output');
+  let output: ort.InferenceSession.OnnxValueMapType | undefined;
+  try {
+    output = await session.run({ image: tensor });
+    const { logits, direction } = output;
+    if (
+      !logits ||
+      logits.type !== 'float32' ||
+      logits.dims.join(',') !== '1,64,13' ||
+      !direction ||
+      direction.type !== 'float32' ||
+      direction.dims.join(',') !== '1,2'
+    ) {
+      throw new Error('unexpected output');
+    }
+    const [cos, sin] = direction.data as Float32Array;
+    if (!Number.isFinite(cos) || !Number.isFinite(sin) || Math.abs(Math.hypot(cos, sin) - 1) > 1e-4) {
+      throw new Error('unexpected direction');
+    }
+    worker.postMessage({
+      type: 'placement',
+      boardFen: boardFen(logits.data as Float32Array),
+      orientation: cos < WHITE_VIEW_COSINE ? 'black' : 'white',
+    });
+  } finally {
+    tensor.dispose();
+    for (const value of Object.values(output ?? {})) value.dispose();
   }
-  worker.postMessage({ type: 'placement', boardFen: boardFen(logits.data as Float32Array) });
 }
 
 function makeTensor(runtime: typeof ort, image: ImageBitmap): ort.Tensor {
