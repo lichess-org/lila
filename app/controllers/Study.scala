@@ -286,9 +286,10 @@ final class Study(
           case sc => showQuery(sc)
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
-    Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
-      if getBool("divisionOnly") then JsonOk(env.study.serverEvalMerger.divisionOf(chapter))
-      else Ok(env.study.jsonView.chapterConfig(chapter))
+    Found(env.study.api.byIdWithChapter(id, chapterId)): sc =>
+      CanView(sc.study):
+        if getBool("divisionOnly") then JsonOk(env.study.serverEvalMerger.divisionOf(sc.chapter))
+        else Ok(env.study.jsonView.chapterConfig(sc.chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot // no public chats for kids and bots
