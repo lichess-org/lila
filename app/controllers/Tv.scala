@@ -52,18 +52,18 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               cross <- env.game.crosstableApi.withMatchup(game)
               champs <- env.tv.tv.getChampions
               page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
-            yield Ok(page).noCache,
+            yield Ok(page).noCache.withCanonical(channel.tvCall),
             api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap(Ok(_))
           )
 
   def games = gamesChannel(Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open:
-    Channel.byKey.get(chanKey).so { channel =>
+    Found(Channel.byKey.get(chanKey)): channel =>
       env.tv.tv.getChampions.zip(env.tv.tv.getGames(channel, 15)).flatMap { (champs, games) =>
-        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
+        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs))
+          .map(_.noCache.withCanonical(channel.gamesCall))
       }
-    }
 
   def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[GameId]) = Open:
     val gameFu = Channel.byKey.get(chanKey).so { channel =>
