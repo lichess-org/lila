@@ -41,6 +41,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       val natural = Pov.naturalOrientation(game)
       val pov = if flip then !natural else natural
       val onTv = lila.round.OnTv.Lichess(channel.key, flip)
+      val canonical = if channel == Channel.Best then routes.Tv.index else routes.Tv.onChannel(channel.key)
       env.user.api
         .gamePlayers(game.userIdPair, game.perfKey)
         .flatMap: users =>
@@ -52,7 +53,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               cross <- env.game.crosstableApi.withMatchup(game)
               champs <- env.tv.tv.getChampions
               page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
-            yield Ok(page).noCache,
+            yield Ok(page).noCache.withCanonical(canonical),
             api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap(Ok(_))
           )
 
@@ -60,8 +61,10 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def gamesChannel(chanKey: String) = Open:
     Channel.byKey.get(chanKey).so { channel =>
+      val canonical = if channel == Channel.Best then routes.Tv.games else routes.Tv.gamesChannel(channel.key)
       env.tv.tv.getChampions.zip(env.tv.tv.getGames(channel, 15)).flatMap { (champs, games) =>
-        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
+        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs))
+          .map(_.noCache.withCanonical(canonical))
       }
     }
 

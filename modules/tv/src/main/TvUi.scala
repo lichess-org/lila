@@ -41,7 +41,8 @@ final class TvUi(helpers: lila.ui.Helpers)(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
         description =
           s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lichess players compete on Lichess TV",
-        url = routeUrl(routes.Tv.onChannel(channel.key))
+        url =
+          routeUrl(if channel == Tv.Channel.Best then routes.Tv.index else routes.Tv.onChannel(channel.key))
       )
       .flag(_.zen)
       .hrefLangs(lila.ui.LangPath(routes.Tv.index)):
@@ -109,7 +110,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       lila.ui.bits.subnav:
         Tv.Channel.list.map: c =>
           a(
-            href := s"$baseUrl/${c.key}",
+            href := (if c == Tv.Channel.Best then baseUrl else s"$baseUrl/${c.key}"),
             cls := List(
               "tv-channel" -> true,
               c.key -> true,
