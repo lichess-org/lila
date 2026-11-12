@@ -19,6 +19,8 @@ class TranslationTest extends munit.FunSuite:
       Registry.getAll(lang).get.asScala.toMap.flatMap { (k, v) =>
         try
           val enTrans: String = en.get(k) match
+            case null =>
+              throw MatchError(k) // dest translation still exists, after source translation was removed
             case literal: Simple => literal.message
             case literal: Escaped => literal.message
             case plurals: Plurals => plurals.messages.getOrElse(I18nQuantity.Other, plurals.messages.head._2)
