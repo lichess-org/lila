@@ -51,6 +51,16 @@ describe('test regex patterns', () => {
     );
   });
 
+  test('moves next to other links', () => {
+    const opts: EnhanceOpts = { plies: true };
+    assert.strictEqual(
+      enhance('@bob 23... Nf6', opts),
+      '<a target="_blank" rel="nofollow noreferrer" href="/@/bob">@bob</a> <a class="jump" data-ply="46">23... Nf6</a>',
+    );
+    const url = 'lichess.org/analysis/pgn/1.e4';
+    assert.strictEqual(enhance(url, opts), enhance(url));
+  });
+
   test('boards out of range should not be linked', () => {
     const opts: EnhanceOpts = { boards: true };
     assert.strictEqual(enhance('board 0', opts), 'board 0');
