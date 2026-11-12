@@ -70,14 +70,14 @@ final class Preload(
       events.mon(lila.mon.lobby.segment("events")),
       simuls.mon(lila.mon.lobby.segment("simuls")),
       tv.getBestGame.mon(lila.mon.lobby.segment("tvBestGame")),
-      (ctx.userId.so(timelineApi.userEntries)).mon(lila.mon.lobby.segment("timeline")),
-      (ctx.noBot.so(dailyPuzzle())).mon(lila.mon.lobby.segment("puzzle")),
+      ctx.userId.so(timelineApi.userEntries).mon(lila.mon.lobby.segment("timeline")),
+      ctx.noBot.so(dailyPuzzle()).mon(lila.mon.lobby.segment("puzzle")),
       ctx.kid.no.so:
         liveStreamApi.all
           .map(_.homepage(streamerSpots, ctx.acceptLanguages).withTitles(lightUserApi))
           .mon(lila.mon.lobby.segment("streams"))
       ,
-      (ctx.userId.so(playbanApi.currentBan)).mon(lila.mon.lobby.segment("playban")),
+      ctx.userId.so(playbanApi.currentBan).mon(lila.mon.lobby.segment("playban")),
       ctx.blind.so(ctx.me).so(roundProxy.urgentGames),
       ublogApi.myCarousel,
       ctx.userId
