@@ -24,6 +24,7 @@ import {
   randomPositionId,
 } from './chess960';
 import {
+  type VisionPlacement,
   type EditorState,
   type Selected,
   type Redraw,
@@ -81,8 +82,7 @@ export default class EditorCtrl implements CevalHandler {
       site.mousetrap
         .bind('f', () => {
           if (this.chessground) {
-            this.chessground.toggleOrientation();
-            if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+            this.setOrientation(opposite(this.bottomColor()));
           }
           this.onChange();
         })
@@ -450,10 +450,13 @@ export default class EditorCtrl implements CevalHandler {
 
   async loadFromImage(file: File | string): Promise<void> {
     try {
-      const placement = await site.asset.loadEsm<FEN>('editor.vision', {
+      const placement = await site.asset.loadEsm<VisionPlacement>('editor.vision', {
         init: typeof file === 'string' ? { url: file } : { file },
       });
-      if (!this.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't figure it out");
+      this.setOrientation(placement.orientation);
+      if (!this.setFen(`${placement.boardFen} w - - 0 1`)) {
+        throw new Error("Oops! Couldn't figure it out");
+      }
     } catch (error) {
       alert(String(error));
     }
