@@ -99,23 +99,4 @@
       }
     }
   }
-
-  .blocker {
-    margin: $block-gap $block-gap 0 0;
-    flex-flow: column;
-    align-items: center;
-    text-align: center;
-    font-weight: normal;
-    text-transform: none;
-    display: none;
-
-    @media (min-width: at-least($small)) {
-      display: flex;
-    }
-
-    icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-  }
 }
