@@ -4,14 +4,12 @@ import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
-import lila.game.PgnDump.requestPgnFlags
 import lila.security.{ Mobile, UserAgentParser }
 import lila.web.ConcurrencyLimit
 
@@ -141,35 +139,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     env.tournament.api.fetchVisibleTournaments
       .flatMap(env.tournament.apiJsonView.apply)
       .map(ApiResult.Data.apply)
-
-  def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
-    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
-      val config = GameApiV2.BySwissConfig(
-        swissId = swiss.id,
-        format = GameApiV2.Format.byRequest,
-        flags = requestPgnFlags(extended = false, delayMoves = true),
-        perSecond = GameApiV2.gamesPerSecond,
-        player = getUserStr("player").map(_.id)
-      )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
-          val filename = env.api.gameApiV2.filename(swiss, config.format)
-          Ok.chunked(source)
-            .asAttachmentStream(filename)
-            .as(config.contentType)
-
-  def swissResults(id: SwissId) = Anon:
-    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.swiss.cache.swissCache.byId(id).orNotFound { swiss =>
-      val source = env.swiss.api
-        .resultStream(swiss, MaxPerSecond(50), getInt("nb") | Int.MaxValue)
-        .mapAsync(8): p =>
-          env.user.lightUserApi.asyncFallback(p.player.userId).map(p.withUser)
-      val result =
-        if csv then csvDownload(lila.swiss.SwissCsv(source))
-        else jsonDownload(source.map(env.swiss.json.playerResult))
-      result.asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson"))
-    }
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val max = ctx.me.fold(300): u =>
