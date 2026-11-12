@@ -10,8 +10,9 @@ import lila.core.net.LichessMobileUa
 
 final class HttpFilter(
     net: NetConfig,
+    mode: play.api.Mode,
     parseMobileUa: Req => Option[LichessMobileUa]
-)(using val mat: Materializer, scheduler: Scheduler, mode: play.api.Mode)(using Executor)
+)(using val mat: Materializer, scheduler: Scheduler)(using Executor)
     extends Filter
     with ResponseHeaders:
 
