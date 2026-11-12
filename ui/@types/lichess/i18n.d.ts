@@ -2647,8 +2647,6 @@ interface I18n {
     moveListSettings: string;
     /** Move list while playing */
     moveListWhilePlaying: string;
-    /** Multiple choices. */
-    multipleChoices: string;
     /** Network */
     network: string;
     /** Notifications */
