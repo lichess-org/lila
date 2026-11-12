@@ -264,7 +264,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       ): source =>
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
-          .as(pgnContentType)
+          .as(PGN)
           .publicCache(jsonView.responseCache(tour))
 
   def apiIndex = Anon:

@@ -77,18 +77,16 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
         )
 
   def apiGamesChannel(chanKey: String) = Anon:
-    Channel.byKey.get(chanKey).so { channel =>
+    Found(Channel.byKey.get(chanKey)): channel =>
       env.tv.tv.getGameIds(channel, getInt("nb").fold(10)(_.atMost(30).atLeast(1))).map { gameIds =>
-        val config =
-          lila.api.GameApiV2.ByIdsConfig(
-            ids = gameIds,
-            format = lila.api.GameApiV2.Format.byRequest,
-            flags = requestPgnFlags(extended = false, delayMoves = false),
-            perSecond = MaxPerSecond(30)
-          )
-        Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(gameC.gameContentType(config)).noProxyBuffer
+        val config = lila.api.GameApiV2.ByIdsConfig(
+          ids = gameIds,
+          format = lila.api.GameApiV2.Format.byRequest,
+          flags = requestPgnFlags(extended = false, delayMoves = false),
+          perSecond = MaxPerSecond(30)
+        )
+        Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(config.contentType).noProxyBuffer
       }
-    }
 
   def feedDefault = Anon:
     serveFeedFromChannel(Channel.Best)

@@ -142,22 +142,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .flatMap(env.tournament.apiJsonView.apply)
       .map(ApiResult.Data.apply)
 
-  def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
-    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      val onlyUserId = getUserStr("player").map(_.id)
-      val config = GameApiV2.ByTournamentConfig(
-        tour = tour,
-        format = GameApiV2.Format.byRequest,
-        flags = requestPgnFlags(extended = false, delayMoves = true),
-        perSecond = gamesPerSecond(ctx.me)
-      )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
-          Ok.chunked(source)
-            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
-            .as(gameC.gameContentType(config))
-    }
-
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
@@ -189,7 +173,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         swissId = swiss.id,
         format = GameApiV2.Format.byRequest,
         flags = requestPgnFlags(extended = false, delayMoves = true),
-        perSecond = gamesPerSecond(ctx.me),
+        perSecond = GameApiV2.gamesPerSecond,
         player = getUserStr("player").map(_.id)
       )
       limit.GlobalConcurrencyLimitPerIP
@@ -197,10 +181,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           val filename = env.api.gameApiV2.filename(swiss, config.format)
           Ok.chunked(source)
             .asAttachmentStream(filename)
-            .as(gameC.gameContentType(config))
-
-  private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond:
-    30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
+            .as(config.contentType)
 
   def swissResults(id: SwissId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")

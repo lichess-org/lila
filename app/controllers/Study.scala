@@ -459,7 +459,7 @@ final class Study(
     ): pgnSource =>
       Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
         .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
-        .as(pgnContentType)
+        .as(PGN)
         .publicCache(pgnResultCache(study))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
@@ -497,7 +497,7 @@ final class Study(
                   val division = env.study.serverEvalMerger.divisionOf(chapter)
                   env.analyse.jsonView.analysisHeader(sc.chapter.root, division, analysis)
               filename = s"${pgnDump.filename(study, chapter)}.pgn"
-              res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
+              res = Ok(pgn).asAttachment(filename)
               resWithAnalysis = analysisJson.fold(res): a =>
                 res.withHeaders("X-Lichess-Analysis" -> Json.stringify(a))
             yield resWithAnalysis.publicCache(pgnResultCache(study))
@@ -520,7 +520,7 @@ final class Study(
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")
-        .as(pgnContentType)
+        .as(PGN)
 
   def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val isMe = ctx.is(username)

@@ -9,6 +9,8 @@ import lila.common.HTTPRequest
 import lila.gathering.Condition.GetMyTeamIds
 import lila.mon.extensions.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
+import lila.api.GameApiV2
+import lila.game.PgnDump.requestPgnFlags
 
 final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
@@ -448,6 +450,21 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
         .flatMap: (view, players) =>
           Ok.page(views.tournament.moderation.page(tour, view, players))
   }
+
+  def downloadGames(id: TourId) = AnonOrScoped(): ctx ?=>
+    Found(env.tournament.tournamentRepo.byId(id)): tour =>
+      val onlyUserId = getUserStr("player").map(_.id)
+      val config = GameApiV2.ByTournamentConfig(
+        tour = tour,
+        format = GameApiV2.Format.byRequest,
+        flags = requestPgnFlags(extended = false, delayMoves = true),
+        perSecond = GameApiV2.gamesPerSecond
+      )
+      limit.GlobalConcurrencyLimitPerIP
+        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
+          Ok.chunked(source)
+            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
+            .as(config.contentType)
 
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]

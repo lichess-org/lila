@@ -756,7 +756,7 @@ GET   /api/game/:id/chat               controllers.Api.gameChat(id: GameId)
 GET   /api/room/:id/chat               controllers.Api.roomChat(id: RoomId)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Tournament.apiShow(id: TourId)
-GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
+GET   /api/tournament/$id<\w{8}>/games      controllers.Tournament.downloadGames(id: TourId)
 GET   /api/tournament/$id<\w{8}>/results    controllers.Api.tournamentResults(id: TourId)
 GET   /api/tournament/$id<\w{8}>/teams      controllers.Api.tournamentTeams(id: TourId)
 POST  /api/tournament                       controllers.Tournament.apiCreate
