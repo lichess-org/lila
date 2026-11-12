@@ -452,7 +452,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
   }
 
   def downloadGames(id: TourId) = AnonOrScoped(): ctx ?=>
-    Found(env.tournament.tournamentRepo.byId(id)): tour =>
+    WithVisibleTournament(id): tour =>
       val onlyUserId = getUserStr("player").map(_.id)
       val config = GameApiV2.ByTournamentConfig(
         tour = tour,
@@ -466,6 +466,29 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
             .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
             .as(config.contentType)
 
+  def downloadResults(id: TourId) = AnonOrScoped():
+    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
+    WithVisibleTournament(id): tour =>
+      val withSheet = getBool("sheet")
+      val perSecond = MaxPerSecond:
+        if withSheet
+        then (20 - (tour.estimateNumberOfGamesOneCanPlay / 20).toInt).atLeast(10)
+        else 50
+      val source = env.tournament.api.resultStream(
+        tour,
+        perSecond,
+        getInt("nb") | Int.MaxValue,
+        withSheet = withSheet
+      )
+      val result =
+        if csv then apiC.csvDownload(lila.tournament.TournamentCsv(source))
+        else apiC.jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
+      result.asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson"))
+
+  def apiTeams(id: TourId) = AnonOrScoped():
+    WithVisibleTournament(id): tour =>
+      JsonOk(env.tournament.jsonView.apiTeamStanding(tour))
+
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context, me: Me): Fu[Result] =
@@ -476,11 +499,10 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
 
   private def WithVisibleTournament(id: TourId)(
       f: Tour => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     def nope = negotiate(tournamentNotFound, notFoundJson("No such tournament"))
     cachedTour(id).flatMap:
-      case None => nope
-      case Some(tour) =>
+      _.fold(nope): tour =>
         tour.singleTeamId
           .fold(fuTrue)(env.team.api.clasMemberCheck)
           .flatMap:

@@ -142,31 +142,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .flatMap(env.tournament.apiJsonView.apply)
       .map(ApiResult.Data.apply)
 
-  def tournamentResults(id: TourId) = Anon:
-    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      val withSheet = getBool("sheet")
-      val perSecond = MaxPerSecond:
-        if withSheet
-        then (20 - (tour.estimateNumberOfGamesOneCanPlay / 20).toInt).atLeast(10)
-        else 50
-      val source = env.tournament.api
-        .resultStream(
-          tour,
-          perSecond,
-          getInt("nb") | Int.MaxValue,
-          withSheet = withSheet
-        )
-      val result =
-        if csv then csvDownload(lila.tournament.TournamentCsv(source))
-        else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
-      result.asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson"))
-    }
-
-  def tournamentTeams(id: TourId) = Anon:
-    Found(env.tournament.tournamentRepo.byId(id)): tour =>
-      JsonOk(env.tournament.jsonView.apiTeamStanding(tour))
-
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
       val config = GameApiV2.BySwissConfig(
@@ -381,10 +356,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.Done => jsonOkResult
     case ApiResult.Data(json) => Ok(json)
 
-  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: Context): Result =
+  def jsonDownload(makeSource: => Source[JsValue, ?])(using ctx: Context): Result =
     limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(jsToNdJson)
 
-  def csvDownload(makeSource: => Source[String, ?])(using req: Context): Result =
+  def csvDownload(makeSource: => Source[String, ?])(using ctx: Context): Result =
     limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
