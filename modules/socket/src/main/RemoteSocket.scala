@@ -27,8 +27,6 @@ final class RemoteSocket(
 
   private var stopping = false
 
-  private type UserIds = Set[UserId]
-
   val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
   def kit = SocketKit(subscribe, channel => makeSender(channel, 1).send, baseHandler)
@@ -47,7 +45,7 @@ final class RemoteSocket(
       lags.foreach: (userId, centis) =>
         userLag.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
-      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
+      onlineUserIds.getAndUpdate(_ ++ lags.keys)
     case In.TellUser(userId, typ, msg) =>
       TellUserIn.make(userId, msg, typ).foreach(Bus.pub[TellUserIn](_))
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
@@ -71,9 +69,8 @@ final class RemoteSocket(
         makePayload.value.foreach: payload =>
           send.exec(Out.tellUser(userId, payload))
 
-  Bus.sub[Announce]:
-    case Announce(_, _, json) =>
-      send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
+  Bus.sub[Announce]: a =>
+    send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> a.json)))
 
   Bus.sub[AnnounceUpdate]: s =>
     send.exec(Out.announceUpdate(s))
@@ -169,10 +166,9 @@ final class RemoteSocket(
 
   private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit =
     val conn = redisClient.connectPubSub()
-    conn.addListener(
+    conn.addListener:
       new pubsub.RedisPubSubAdapter[String, String]:
         override def message(_channel: String, message: String): Unit = f(message)
-    )
     val subPromise = Promise[Unit]()
     conn.async
       .subscribe(channel)
