@@ -1,6 +1,6 @@
 package lila.web
 
-import lila.common.HTTPRequest
+import lila.common.{ LichessDay, HTTPRequest }
 
 trait RequestGetter:
 
@@ -24,8 +24,12 @@ trait RequestGetter:
   protected def getLong(name: String)(using Req) =
     get(name).flatMap(_.toLongOption)
 
+  private val timestampMin = LichessDay.genesis.toEpochMilli
+  private val timestampMax = nowInstant.plusYears(20).toEpochMilli
+
   protected def getTimestamp(name: String)(using Req): Option[Instant] =
-    getLong(name).map(millisToInstant)
+    getLong(name).map: ts =>
+      millisToInstant(ts.atLeast(timestampMin).atMost(timestampMax))
 
   protected def getBoolAs[A](name: String)(using req: Req, yn: SameRuntime[Boolean, A]): A =
     yn(getBool(name))
