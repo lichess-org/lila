@@ -6,7 +6,6 @@ import java.time.temporal.ChronoUnit
 
 import lila.db.dsl.*
 import lila.memo.CacheApi.buildAsyncTimeout
-import lila.mon.extensions.*
 
 private final class RelayListing(
     groupRepo: RelayGroupRepo,
@@ -31,9 +30,9 @@ private final class RelayListing(
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
   private val activeCache = cacheApi.unit[List[RelayCard]]("relayListing.active"):
-    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout(): _ =>
+    _.refreshAfterWrite(activeCacheTtl).buildAsyncTimeout(): _ =>
       for
-        spots <- getSpots.mon(lila.mon.relay.listing.time("spots"))
+        spots <- getSpots
         selected = spots.flatMap:
           case Spot.UngroupedTour(t) =>
             t.rounds.find(!_.isFinished).map(Selected(t, _, none)).map(NonEmptyList.one)
@@ -44,7 +43,7 @@ private final class RelayListing(
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (!s.round.hasStarted, tierPriority(s.t.tour)))).take(3).toNel
-        cards <- selected.traverse(toRelayCard).mon(lila.mon.relay.listing.time("cards"))
+        cards <- selected.traverse(toRelayCard)
         sorted = cards.sortBy: t =>
           val startAt = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))
@@ -72,10 +71,8 @@ private final class RelayListing(
   private object dynamicTier:
 
     def apply(t: RelayTour.WithRounds): Option[RelayTour.WithRounds] =
-      nextRoundTier(t)
-        .orElse(lastRoundTier(t))
-        .map: tier =>
-          t.focus(_.tour.tier).replace(tier.some)
+      for tier <- nextRoundTier(t).orElse(lastRoundTier(t))
+      yield t.focus(_.tour.tier).replace(tier.some)
 
     private def nextRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
       round <- t.rounds.find(!_.isFinished)

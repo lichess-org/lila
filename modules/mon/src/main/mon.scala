@@ -340,8 +340,6 @@ object relay:
     histogram("relay.push.errors").withTags(histogramTags).record(errors)
     counter("relay.push.games.nb").withTags(counterTags).increment(games)
     counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
-  object listing:
-    def time(section: String) = timer("relay.listing.time").withTag("section", section)
 
 object bot:
   def moves(username: String) = counter("bot.moves").withTag("name", username)
