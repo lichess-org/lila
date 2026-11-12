@@ -83,8 +83,15 @@ function boardReplacer(match: string, board: number) {
   return '<a data-board="' + board + '">' + match + '</a>';
 }
 
-const addPlies = (html: string) => html.replace(movePattern, moveReplacer);
-const addBoards = (html: string) => html.replace(boardPattern, boardReplacer);
+// apply `f` only to the html outside of <a> elements, so links never get nested
+const outsideLinks = (html: string, f: (html: string) => string) =>
+  html
+    .split(/(<a\b[^>]*>.*?<\/a>)/)
+    .map((part, i) => (i % 2 ? part : f(part)))
+    .join('');
+
+const addPlies = (html: string) => outsideLinks(html, h => h.replace(movePattern, moveReplacer));
+const addBoards = (html: string) => outsideLinks(html, h => h.replace(boardPattern, boardReplacer));
 
 const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
   pawnDropPattern.test(user) ? orig : userLinkReplace(orig, prefix, user);
@@ -96,7 +103,8 @@ export interface EnhanceOpts {
 
 export function enhance(text: string, opts?: EnhanceOpts): string {
   const escaped = escapeHtml(text);
-  const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
-  const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
-  return opts?.boards && linked === escaped ? addBoards(plied) : plied;
+  let html = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
+  if (opts?.plies) html = addPlies(html);
+  if (opts?.boards) html = addBoards(html);
+  return html;
 }
