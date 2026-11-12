@@ -22,11 +22,6 @@
     }
   }
 
-  .metas {
-    display: flex;
-    place-content: center space-between;
-  }
-
   h1 {
     @extend %roboto;
 
@@ -69,14 +64,6 @@
 
 .streamer-profile {
   z-index: $z-link-overlay-2;
-}
-
-.live .streamer-lang {
-  margin-right: 100px;
-
-  @media (max-width: at-most($xx-small)) {
-    margin-right: 50px;
-  }
 }
 
 .streamer-footer {
