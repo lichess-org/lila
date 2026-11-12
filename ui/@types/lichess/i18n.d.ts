@@ -349,6 +349,8 @@ interface I18n {
     matchHistory: string;
     /** Match Points */
     matchPoints: string;
+    /** Mention this position in chat */
+    mentionPositionInChat: string;
     /** Men */
     menTournament: string;
     /** My broadcasts */
