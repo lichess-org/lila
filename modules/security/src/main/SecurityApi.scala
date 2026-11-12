@@ -208,7 +208,7 @@ final class SecurityApi(
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
-    if scoped.scopes.has(_.Web.Mod) then scoped
+    if scoped.scopes.has(_.Web.Mod) && (mode.notProd || scoped.me.totpSecret.isDefined) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
 
   private def stripRolesOfCookieUser(me: Me) =
