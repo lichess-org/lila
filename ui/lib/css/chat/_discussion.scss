@@ -140,4 +140,28 @@
       font-style: italic;
     }
   }
+
+  &__say-wrap {
+    display: flex;
+    flex: 0 0 auto;
+
+    .mchat__say {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+
+  &__position-ref {
+    flex: 0 0 auto;
+    border: 0;
+    border-top: $border;
+    padding: 0 0.6em;
+    background: $c-bg-input;
+    color: $c-font-dim;
+    cursor: pointer;
+
+    &:hover {
+      color: $c-link;
+    }
+  }
 }
