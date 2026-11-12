@@ -44,6 +44,13 @@ describe('test regex patterns', () => {
     assert.strictEqual(enhance('game 100', opts), '<a data-board="100">game 100</a>');
   });
 
+  test('move links without board links', () => {
+    assert.strictEqual(
+      enhance('board 5 23. Nf3', { plies: true }),
+      'board 5 <a class="jump" data-ply="45">23. Nf3</a>',
+    );
+  });
+
   test('boards out of range should not be linked', () => {
     const opts: EnhanceOpts = { boards: true };
     assert.strictEqual(enhance('board 0', opts), 'board 0');
