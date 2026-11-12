@@ -18,6 +18,7 @@ export interface PubsubEvents {
   'ceval.engine.download': (status: { bytes: number; total: number }) => void;
   'challenge-app.open': () => void;
   'chart.panning': () => void;
+  'chat.board': (board: number, ply?: number) => void;
   'chat.permissions': (perms: { local: boolean }) => void;
   'chat.writeable': (writeable: boolean) => void;
   'content-loaded': (el?: HTMLElement) => void;

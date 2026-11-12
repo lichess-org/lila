@@ -55,6 +55,7 @@ export default class RelayCtrl {
       );
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
     }
+    pubsub.on('chat.board', this.onChatBoard);
 
     const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
@@ -136,6 +137,16 @@ export default class RelayCtrl {
     )
       this.study.vm.toolTab('multiBoard');
     this.redraw();
+  };
+
+  private readonly onChatBoard = async (board: number, ply?: number) => {
+    const chapter = this.study.chapters.list.get(board);
+    if (!chapter || !(await this.study.setChapter(chapter.id))) return;
+    // in sticky mode, the new chapter is still on its way from the server
+    if (ply && this.study.data.chapter.id === chapter.id) {
+      this.study.ctrl.jumpToMain(ply);
+      this.redraw();
+    }
   };
 
   lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;

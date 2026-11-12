@@ -34,9 +34,12 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           ...onInsert(el => {
-            const $el = $(el).on('click', 'a.jump', (e: Event) => {
-              const ply = (e.target as HTMLElement).getAttribute('data-ply');
-              if (ply) pubsub.emit('jump', ply);
+            const $el = $(el).on('click', 'a.jump, a[data-board]', (e: Event) => {
+              const { board, ply } = (e.target as HTMLElement).dataset;
+              if (board) {
+                e.stopPropagation(); // don't let an enclosing game links listener change the board too
+                pubsub.emit('chat.board', parseInt(board), ply ? parseInt(ply) : undefined);
+              } else if (ply) pubsub.emit('jump', ply);
             });
             $el.on('click', '.reply', (e: Event) => {
               const el = e.target as HTMLElement;
