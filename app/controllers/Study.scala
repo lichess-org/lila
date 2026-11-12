@@ -164,7 +164,7 @@ final class Study(
 
   private def showQuery(query: Option[WithChapter])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
-      CanView(oldSc.study) {
+      CanView(oldSc.study):
         if !oldSc.study.notable && ctx.req.client.isCrawler
         then notFound
         else
@@ -196,7 +196,6 @@ final class Study(
                 "analysis" -> data.analysis
               )
           )
-      }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
   private[controllers] def getJsonData(sc: WithChapter, withChapters: Boolean)(using
@@ -425,20 +424,16 @@ final class Study(
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
-      CanView(study, study.settings.cloneable.some) {
+      CanView(study, study.settings.cloneable.some):
         Ok.page(views.study.clone(study))
-      }(privateUnauthorizedFu(study), privateForbiddenFu(study))
   }
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
     limit.studyClone(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 3):
       Found(env.study.api.byId(id)) { prev =>
-        CanView(prev, prev.settings.cloneable.some) {
-          env.study.api
-            .cloneWithChat(me, prev)
-            .map: study =>
-              Redirect(routes.Study.show((study | prev).id))
-        }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
+        CanView(prev, prev.settings.cloneable.some):
+          for study <- env.study.api.cloneWithChat(me, prev)
+          yield Redirect(routes.Study.show((study | prev).id))
       }
   }
 
@@ -451,10 +446,7 @@ final class Study(
   def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
     Found(env.study.api.byId(id)): study =>
       LastModified(study.updatedAt):
-        CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
-          privateUnauthorizedFu(study),
-          privateForbiddenFu(study)
-        )
+        CanView(study, study.settings.shareable.some)(doPgn(study, flags))
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using ctx: Context) =
     def makeStudySource = pgnDump.chaptersOf(study, _ => flags(pgnDump.requestPgnFlags()))
@@ -493,7 +485,7 @@ final class Study(
       .byIdWithChapter(id, chapterId)
       .flatMap:
         _.fold(studyNotFound) { case sc @ WithChapter(study, chapter) =>
-          CanView(study) {
+          CanViewOr(study) {
             for
               flags = pgnDump.requestPgnFlags()
               pgn <- study.isRelay
@@ -546,7 +538,7 @@ final class Study(
   ) = Open:
     Found(env.study.api.byIdWithChapter(id, chapterId)):
       case WithChapter(study, chapter) =>
-        CanView(study) {
+        CanView(study):
           env.study.gifExport
             .ofChapter(chapter, theme, piece, showGlyphs)
             .map: stream =>
@@ -557,7 +549,6 @@ final class Study(
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
-        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
     AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> _ ?=>
@@ -632,7 +623,7 @@ final class Study(
     privateForbiddenJson
   )
 
-  def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
+  def CanViewOr(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using ctx: Context): Fu[Result] =
     val authorizedMe = ctx.fullAuthOrScope(_.Study.Read).so(ctx.me)
@@ -644,6 +635,11 @@ final class Study(
       case None => unauthorized
       case Some(me) if study.members.contains(me.value) => withUserSelection
       case _ => forbidden
+
+  def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
+      f: => Fu[Result]
+  )(using ctx: Context): Fu[Result] =
+    CanViewOr(study, userSelection)(f)(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):

@@ -144,7 +144,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
           .firstId(rt.round.studyId)
           .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
     FoundEmbed(studyAndChapter): sc =>
-      studyC.CanView(sc.study)(
+      studyC.CanView(sc.study):
         for
           (sc, studyData) <- studyC.getJsonData(sc, withChapters = true)
           rounds <- api.byTourOrdered(rt.tour)
@@ -166,15 +166,11 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
           embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
           _ = env.relay.stats.viewers.hit(rt)
         yield Ok(embed).enforceCrossSiteIsolation
-      )(
-        studyC.privateUnauthorizedFu(sc.study),
-        studyC.privateForbiddenFu(sc.study)
-      )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
     Found(api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-        studyC.CanView(study)(
+        studyC.CanViewOr(study)(
           for
             group <- api.withTours.get(rt.tour.id)
             previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
@@ -228,7 +224,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(api.byIdWithStudy(id)): rs =>
-      studyC.CanView(rs.study) {
+      studyC.CanViewOr(rs.study) {
         pgnStreamResponse(pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
 
@@ -264,7 +260,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   def teamsView(id: RelayRoundId) = Open:
     Found(api.byIdWithTourAndStudy(id)): rt =>
-      studyC.CanView(rt.study) {
+      studyC.CanViewOr(rt.study) {
         rt.tour.teamTable.so:
           env.relay.teamTable.tableJson(rt.relay.id).map(JsonOk)
       }(Unauthorized, Forbidden)
@@ -303,7 +299,7 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
   private def doShow(rt: RoundModel.WithTour, oldSc: StudyModel.WithChapter, embed: VideoEmbed)(using
       ctx: Context
   ): Fu[Result] =
-    studyC.CanView(oldSc.study)(
+    studyC.CanView(oldSc.study):
       for
         (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
         rounds <- api.byTourOrdered(rt.tour)
@@ -348,7 +344,3 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
         env.relay.stats.viewers.hit(rt)
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)
-    )(
-      studyC.privateUnauthorizedFu(oldSc.study),
-      studyC.privateForbiddenFu(oldSc.study)
-    )
