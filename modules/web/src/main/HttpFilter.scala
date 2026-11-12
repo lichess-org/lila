@@ -11,7 +11,7 @@ import lila.core.net.LichessMobileUa
 final class HttpFilter(
     net: NetConfig,
     parseMobileUa: Req => Option[LichessMobileUa]
-)(using val mat: Materializer, scheduler: Scheduler)(using Executor)
+)(using val mat: Materializer, scheduler: Scheduler, mode: play.api.Mode)(using Executor)
     extends Filter
     with ResponseHeaders:
 
@@ -46,7 +46,7 @@ final class HttpFilter(
 
   private object WarmupFilter:
     private var justBooted = true
-    scheduler.scheduleOnce(20.seconds):
+    scheduler.scheduleOnce(if mode.isProd then 20.seconds else 1.second):
       logger.info("WarmupFilter: now accepting requests")
       justBooted = false
     private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
