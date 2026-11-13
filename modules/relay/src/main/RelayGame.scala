@@ -226,7 +226,7 @@ private object RelayGame:
 private[relay] object RelayReferenceTime:
 
   def parse(value: String): Option[Instant] =
-    val timestamp = if ["W/", "B/"].exists(value.startsWith) then value.drop(2) else value
+    val timestamp = if value.startsWith("W/") || value.startsWith("B/") then value.drop(2) else value
     Try(OffsetDateTime.parse(timestamp).toInstant).toOption
 
   def elapsed(previous: Option[String], current: Option[String]): Option[Duration] =
