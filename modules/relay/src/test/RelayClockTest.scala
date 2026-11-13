@@ -98,6 +98,20 @@ class RelayClockTest extends munit.FunSuite:
     assertEquals(roundTrip.root.clock, clock(40 * 60))
     assertEquals(roundTrip.referenceClockAt(60), Some(t0.plusSeconds(180)))
 
+  test("preserve incoming clock tags when no clock anchor is available"):
+    for reference <- List(Some(t0.toString), Some("invalid"), None) do
+      val game = snapshot(reference = reference, moves = "1. e4")
+      val source = chapter(game, None)
+      val exportedTags = game.tags + Tag(_.Event, "Exported event")
+      assertEquals(RelayGame.snapshotTags(source, exportedTags), exportedTags)
+      assertEquals(RelayGame.snapshotTags(source.copy(relay = None), exportedTags), exportedTags)
+      val roundTrip = RelayGame.iso.to(RelayGame.iso.from(Vector(RelayGame.fromChapter(source)))).head
+      assertEquals(roundTrip.tags.clocks, game.tags.clocks)
+      assertEquals(roundTrip.tags(_.ReferenceTime), game.tags(_.ReferenceTime))
+
+    val beforeStart = snapshot(moves = "")
+    assertEquals(RelayGame.snapshotTags(chapter(beforeStart, Some(t0)), beforeStart.tags), beforeStart.tags)
+
   test("retain raw 30:00 and 29:00 snapshots and do not re-anchor a repetition"):
     val first = snapshot()
     val next = snapshot(white = Some("00:29:00"), reference = Some(t1.toString))
