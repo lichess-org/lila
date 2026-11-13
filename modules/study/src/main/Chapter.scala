@@ -141,7 +141,8 @@ object Chapter:
       path: UciPath,
       lastMoveAt: Option[Instant],
       fideIds: Option[PairOf[Option[chess.FideId]]],
-      clockAt: Option[Instant] = None
+      clockAt: Option[Instant] = None,
+      referenceLagMillis: Option[Long] = None
   ):
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt

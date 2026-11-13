@@ -1,5 +1,8 @@
 package lila.relay
 
+import java.time.{ Duration, Instant }
+import scala.util.Try
+
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, Tags }
 
@@ -111,11 +114,15 @@ final private class RelaySync(
       RelayTour
   ): Fu[Chapter] =
     val ids = chapterFideIds(game)
-    if chapter.relay.exists(_.fideIds == ids) then fuccess(chapter)
-    else
-      val desiredRelay = makeRelayFor(game, game.root.mainlinePath, delaySeconds)
-      for _ <- chapterRepo.setRelay(chapter.id, desiredRelay)
-      yield chapter.copy(relay = desiredRelay.some)
+    val desiredRelay = chapter.relay match
+      case Some(relay) if relay.fideIds == ids =>
+        RelayClock
+          .updatedReferenceLag(chapter, game, delaySeconds, nowInstant)
+          .map(lag => relay.copy(referenceLagMillis = lag.some))
+      case _ => makeRelayFor(game, game.root.mainlinePath, delaySeconds).some
+    desiredRelay.fold(fuccess(chapter)): relay =>
+      for _ <- chapterRepo.setRelay(chapter.id, relay)
+      yield chapter.copy(relay = relay.some)
 
   private type NbMoves = Int
 
@@ -163,7 +170,12 @@ final private class RelaySync(
               positionRef = Position(chapter, gameMainlinePath.parent).ref,
               node = (_, _) => Right(lastMainlineNode),
               opts = moveOpts,
-              relay = makeRelayFor(game, gameMainlinePath, delaySeconds).some
+              relay = makeRelayFor(
+                game,
+                gameMainlinePath,
+                delaySeconds,
+                chapter.relay.flatMap(_.referenceLagMillis)
+              ).some
             )
 
   private def addNode(
@@ -182,7 +194,12 @@ final private class RelaySync(
           positionRef = position,
           node = (_, _) => Right(n),
           opts = moveOpts,
-          relay = makeRelayFor(game, position.path + n.id, delaySeconds).some
+          relay = makeRelayFor(
+            game,
+            position.path + n.id,
+            delaySeconds,
+            chapter.relay.flatMap(_.referenceLagMillis)
+          ).some
         )
         studyApi.addNode(node).inject(position + n)
     yield ()
@@ -314,13 +331,20 @@ final private class RelaySync(
         scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
-  private def makeRelayFor(game: RelayGame, path: UciPath, delaySeconds: Int)(using tour: RelayTour) =
+  private def makeRelayFor(
+      game: RelayGame,
+      path: UciPath,
+      delaySeconds: Int,
+      referenceLagMillis: Option[Long] = None
+  )(using tour: RelayTour) =
     val now = nowInstant
+    val lag = referenceLagMillis.orElse(RelayClock.estimateReferenceLag(game, delaySeconds, now))
     Chapter.Relay(
       path = path,
       lastMoveAt = path.nonEmpty.option(now),
       fideIds = chapterFideIds(game),
-      clockAt = RelayClock.initialClockAt(game, path, delaySeconds, now)
+      clockAt = RelayClock.initialClockAt(game, path, delaySeconds, now, lag),
+      referenceLagMillis = lag
     )
 
   // we only set the FIDE IDs in official tours
@@ -367,10 +391,37 @@ private[relay] object RelayClock:
   private def hasActiveTagClock(game: RelayGame): Boolean =
     game.tags.clocks(game.root.lastMainlineNode.ply.turn).isDefined
 
-  def initialClockAt(game: RelayGame, path: UciPath, delaySeconds: Int, now: Instant): Option[Instant] =
+  def estimateReferenceLag(game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
+    game
+      .referenceClockAt(delaySeconds)
+      .flatMap(at => Try(Duration.between(at, now).toMillis.max(0L)).toOption)
+
+  // Keep the smallest observed lag from new readings, so temporary delays and repeated PGNs cannot reset clocks.
+  def updatedReferenceLag(chapter: Chapter, game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
+    val previous = chapter.relay.flatMap(_.referenceLagMillis)
+    val newerReference = (for
+      old <- chapter.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
+      current <- game.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
+    yield current.isAfter(old)).getOrElse(true)
+    if isOlderSnapshot(chapter, game) || (previous.isDefined && !newerReference) then None
+    else estimateReferenceLag(game, delaySeconds, now).filter(lag => previous.forall(lag < _))
+
+  private def adjustedReference(game: RelayGame, delaySeconds: Int, lag: Option[Long]): Option[Instant] =
+    game
+      .referenceClockAt(delaySeconds)
+      .flatMap: at =>
+        Try(Instant.ofEpochMilli(at.plusMillis(lag.getOrElse(0L)).toEpochMilli)).toOption
+
+  def initialClockAt(
+      game: RelayGame,
+      path: UciPath,
+      delaySeconds: Int,
+      now: Instant,
+      referenceLagMillis: Option[Long] = None
+  ): Option[Instant] =
     if game.points.isDefined || path.isEmpty || path != game.root.mainlinePath || !hasActiveTagClock(game)
     then None
-    else game.referenceClockAt(delaySeconds).orElse(Some(now))
+    else adjustedReference(game, delaySeconds, referenceLagMillis).orElse(Some(now))
 
   def updatedClockAt(
       chapter: Chapter,
@@ -390,7 +441,8 @@ private[relay] object RelayClock:
       val next =
         if finished then None
         else if hasActiveTagClock(game) then
-          game.referenceClockAt(delaySeconds).orElse(if clockChanged then Some(now) else previous)
+          adjustedReference(game, delaySeconds, chapter.relay.flatMap(_.referenceLagMillis))
+            .orElse(if clockChanged then Some(now) else previous)
         else if clockChanged then None
         else previous
       Option.when(next != previous)(next)

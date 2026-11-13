@@ -190,6 +190,46 @@ class RelayClockTest extends munit.FunSuite:
     assertEquals(update(changed, next, path, clockChanged = false, delaySeconds = 120), None)
     assertEquals(update(stored, next, path, clockChanged = false, delaySeconds = 0), Some(Some(t1)))
 
+  test("estimate upstream delay without re-anchoring repeated or late snapshots"):
+    val first = snapshot()
+    val next = snapshot(white = Some("00:29:00"), reference = Some(t1.toString))
+    val path = first.root.mainlinePath.parent
+    for localDelay <- List(0, 120) do
+      val firstArrival = t0.plusSeconds(900 + localDelay)
+      val nextArrival = t0.plusSeconds(1020 + localDelay)
+      val lag = RelayClock.estimateReferenceLag(first, localDelay, firstArrival)
+      assertEquals(lag, Some(900000L))
+      val initial = RelayClock.initialClockAt(first, first.root.mainlinePath, localDelay, firstArrival, lag)
+      assertEquals(initial, Some(firstArrival))
+      val stored = chapter(first, initial).copy(
+        relay = chapter(first, initial).relay.map(_.copy(referenceLagMillis = lag))
+      )
+      assertEquals(RelayClock.updatedReferenceLag(stored, first, localDelay, nextArrival), None)
+      assertEquals(update(stored, first, path, clockChanged = false, delaySeconds = localDelay), None)
+      assertEquals(RelayClock.updatedReferenceLag(stored, next, localDelay, nextArrival), None)
+      val anchorUpdate = update(stored, next, path, clockChanged = true, delaySeconds = localDelay)
+      assertEquals(anchorUpdate, Some(Some(t1.plusSeconds(900 + localDelay))))
+      val changed = applyClock(stored, next, path, anchorUpdate).copy(tags = next.tags)
+      assertEquals(
+        java.time.Duration.between(changed.relay.flatMap(_.clockAt).get, nextArrival).toSeconds,
+        60L
+      )
+      assertEquals(update(changed, next, path, clockChanged = false, delaySeconds = localDelay), None)
+      assertEquals(
+        RelayClock.updatedReferenceLag(changed, next, localDelay, nextArrival.plusSeconds(60)),
+        None
+      )
+      val faster = snapshot(reference = Some(t0.plusSeconds(240).toString))
+      assertEquals(
+        RelayClock.updatedReferenceLag(changed, faster, localDelay, t0.plusSeconds(1080 + localDelay)),
+        Some(840000L)
+      )
+
+    assertEquals(RelayClock.estimateReferenceLag(snapshot(reference = None), 0, receivedAt), None)
+    assertEquals(RelayClock.estimateReferenceLag(snapshot(result = Some("1-0")), 0, receivedAt), None)
+    assertEquals(RelayClock.estimateReferenceLag(snapshot(moves = ""), 0, receivedAt), None)
+    assertEquals(RelayClock.estimateReferenceLag(first, 0, t0.minusSeconds(1)), Some(0L))
+
   test("a turn change moves the active path without re-anchoring historical nodes"):
     val first = snapshot()
     val moves = """
