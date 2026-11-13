@@ -1,5 +1,7 @@
 package lila.relay
 
+import java.time.{ Duration, Instant }
+
 import chess.Centis
 import chess.format.pgn.PgnStr
 
@@ -36,9 +38,35 @@ class RelayGameTest extends munit.FunSuite:
   val whiteCentis = Centis.ofSeconds(33 * 60 + 51)
   val blackCentis = Centis.ofSeconds(1 * 3600 + 23 * 60 + 54)
 
-  test("parse clock tags"):
+  test("parse clock tags and relay reference time"):
     assertEquals(g1.tags.clocks.white, whiteCentis.some)
     assertEquals(g1.tags.clocks.black, blackCentis.some)
+    assertEquals(g1.tags(_.ReferenceTime), Some("B/2024-12-19T17:52:47.862Z"))
+
+  test("parse relay reference time prefixes and timezone offsets"):
+    assertEquals(
+      RelayReferenceTime.parse("B/2024-12-19T17:52:47.862Z"),
+      Some(Instant.parse("2024-12-19T17:52:47.862Z"))
+    )
+    assertEquals(
+      RelayReferenceTime.parse("W/2026-03-30T15:31:10.448+03:00"),
+      Some(Instant.parse("2026-03-30T12:31:10.448Z"))
+    )
+    assertEquals(
+      RelayReferenceTime.elapsed(
+        Some("B/2026-03-30T12:30:10.448Z"),
+        Some("W/2026-03-30T15:31:10.448+03:00")
+      ),
+      Some(Duration.ofMinutes(1))
+    )
+
+  test("subtract elapsed reference time from the active clock"):
+    val adjusted = g1.subtractElapsedFromActiveClock(Duration.ofMinutes(1))
+    assertEquals(
+      adjusted.root.mainline.head.clock,
+      Clock(whiteCentis - Centis.ofSeconds(60), true.some).some
+    )
+    assertEquals(adjusted.root.lastMainlineNode.clock, g1.root.lastMainlineNode.clock)
 
   test("applyTagClocksToLastMoves apply tag clocks when node clocks are missing"):
     val applied = g1.applyTagClocksToLastMoves
