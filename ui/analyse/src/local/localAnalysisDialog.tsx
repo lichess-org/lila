@@ -362,7 +362,7 @@ class LocalAnalysisDialog {
       this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">
-          <label for="local-analysis-engine">Engine:</label>
+          <label for="local-analysis-engine">{i18n.site.engine}:</label>
           {engineSelect(
             this.browserEngines, // TODO - allow external engines once supported
             info.engine.id,
