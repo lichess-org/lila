@@ -8,6 +8,7 @@ import reactivemongo.api.bson.*
 import reactivemongo.pekkostream.cursorProducer
 
 import scala.collection.immutable.SeqMap
+import scala.util.{ Failure, Try }
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -109,11 +110,21 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField(bid(chapterId), "conceal")).void
 
-  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
-    coll(_.updateField(bid(chapterId), "relay", relay)).void
+  private def withValidRelayClockAt(relay: Option[Chapter.Relay])(op: => Funit): Funit =
+    ChapterRepo
+      .validateClockAt(relay.flatMap(_.clockAt))
+      .fold(error => fufail(error), _ => op)
 
-  def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
-    coll(_.updateField(bid(chapterId) ++ bdoc("relay.lastMoveAt".exists(true)), "relay.path", path)).void
+  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
+    withValidRelayClockAt(Some(relay)):
+      coll(_.updateField(bid(chapterId), "relay", relay)).void
+
+  def endRelay(chapter: Chapter): Funit =
+    chapter.relay.so: relay =>
+      val ended = chapter.copy(relay = relay.copy(path = UciPath.root, clockAt = None).some).updateDenorm
+      val set = bdoc("relay.path" -> UciPath.root) ++ ended.denorm.fold(emptyBdoc)(d => bdoc("denorm" -> d))
+      val clear = if ended.denorm.isDefined then unset("relay.clockAt") else unset("relay.clockAt", "denorm")
+      coll(_.update.one(bid(chapter.id), bset(set) ++ clear)).void
 
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField(bid(chapter.id), "tags", chapter.tags)).void
@@ -133,17 +144,22 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
       chapter: Chapter,
       path: UciPath,
       clock: Clock,
-      denorm: Option[Chapter.BothClocks]
-  ) =
-    val updateNode = bdoc(pathToField(path, F.clock) -> clock)
-    val updateDenorm = denorm.map(clocks => bdoc("denorm.clocks" -> clocks))
-    coll:
-      _.update
-        .one(
-          bid(chapter.id) ++ bdoc(path.toDbField.exists(true)),
-          bset(updateDenorm.foldLeft(updateNode)(_ ++ _))
+      denorm: Option[Chapter.BothClocks],
+      relayClockAt: Option[Option[Instant]] = None
+  ): Funit =
+    if chapter.relay.isEmpty && relayClockAt.flatten.isDefined then
+      fufail(s"Cannot set a relay clock anchor on non-relay chapter ${chapter.id}")
+    else
+      ChapterRepo
+        .clockUpdate(path, clock, denorm, relayClockAt)
+        .fold(
+          error => fufail(error),
+          update =>
+            coll:
+              _.update
+                .one(bid(chapter.id) ++ bdoc(path.toDbField.exists(true)), update)
+                .void
         )
-        .void
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
@@ -157,10 +173,16 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
       parentPath: UciPath,
       relay: Option[Chapter.Relay]
   ): Funit =
-    val set = bdoc(subTreeToBsonElements(parentPath, subTree)) ++
-      bdoc("denorm" -> chapter.denorm) ++
-      relay.flatMap(toBdoc).so(r => bdoc("relay" -> r))
-    coll(_.update.one(bid(chapter.id), bset(set))).void
+    val set = ChapterRepo
+      .validateClockAt(relay.flatMap(_.clockAt))
+      .map: _ =>
+        bdoc(subTreeToBsonElements(parentPath, subTree)) ++
+          bdoc("denorm" -> chapter.denorm) ++
+          relay.map(r => bdoc("relay" -> tryBdoc(r).get)).getOrElse(emptyBdoc)
+    set.fold(
+      error => fufail(error),
+      update => coll(_.update.one(bid(chapter.id), bset(update))).void
+    )
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES).so:
@@ -294,9 +316,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def countByStudyId(id: StudyId): Fu[Int] =
     coll(_.countSel(studyId(id)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
+  def insert(s: Chapter): Funit = withValidRelayClockAt(s.relay):
+    coll(_.insert.one(s.updateDenorm)).void
 
-  def update(c: Chapter): Funit = coll(_.update.one(bid(c.id), c.updateDenorm)).void
+  def update(c: Chapter): Funit = withValidRelayClockAt(c.relay):
+    coll(_.update.one(bid(c.id), c.updateDenorm)).void
 
   private[study] def updateAnalysis(previous: Chapter, next: Chapter): Funit =
     val (sets, unsets) = BSONHandlers.treeDiff(previous.root, next.root)
@@ -312,3 +336,25 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def delete(c: Chapter): Funit = delete(c.id)
 
   def studyId(id: StudyId) = bdoc("studyId" -> id)
+
+object ChapterRepo:
+
+  import BSONHandlers.given
+
+  private[study] def validateClockAt(clockAt: Option[Instant]): Try[Unit] =
+    Try(clockAt.foreach(_.toEpochMilli)).recoverWith:
+      case _: ArithmeticException =>
+        Failure(IllegalArgumentException(s"relay clockAt is outside the BSON date range: $clockAt"))
+
+  private[study] def clockUpdate(
+      path: UciPath,
+      clock: Clock,
+      denorm: Option[Chapter.BothClocks],
+      relayClockAt: Option[Option[Instant]]
+  ): Try[Bdoc] =
+    validateClockAt(relayClockAt.flatten).map: _ =>
+      val node = bdoc(s"${path.toDbField}.${F.clock}" -> clock)
+      val clocks = denorm.fold(emptyBdoc)(value => bdoc("denorm.clocks" -> value))
+      val clockAt = relayClockAt.flatten.fold(emptyBdoc)(at => bdoc("relay.clockAt" -> at))
+      val sets = bset(node ++ clocks ++ clockAt)
+      if relayClockAt.contains(None) then sets ++ unset("relay.clockAt") else sets

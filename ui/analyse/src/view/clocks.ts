@@ -30,14 +30,15 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
 
   const study = ctrl.study;
 
-  const lastMoveAt = study
+  const clockAt = study
     ? study.isClockTicking(path)
-      ? study.relay?.lastMoveAt(study.vm.chapterId)
+      ? study.relay?.clockAt(study.vm.chapterId)
       : undefined
-    : ctrl.autoplay.lastMoveAt;
+    : ctrl.autoplay.lastMoveAt || undefined;
 
-  if (lastMoveAt) {
-    const spent = (Date.now() - lastMoveAt) / 10;
+  if (defined(clockAt)) {
+    const elapsed = Date.now() - clockAt;
+    const spent = (study?.relay ? Math.max(0, elapsed) : elapsed) / 10;
     const i = isWhiteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i] - spent);
   }

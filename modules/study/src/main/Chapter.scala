@@ -35,12 +35,13 @@ case class Chapter(
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
     val newDenorm = looksLikeGame.option:
-      val node = relay.map(_.path).filterNot(_.isEmpty).flatMap(root.nodeAt) | root.lastMainlineNode
-      val clocks = relay.so: r =>
-        val path = r.path
-        val parentPath = path.parent.some.filter(_ != path)
-        val parentNode = parentPath.flatMap(root.nodeAt)
-        val clockSwap = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+      val relayPath = relay.map: r =>
+        if r.path.isEmpty then UciPath.fromIds(root.mainline.takeWhile(!_.forceVariation).map(_.id))
+        else r.path
+      val node = relayPath.flatMap(root.nodeAt) | root.lastMainlineNode
+      val clocks = relayPath.so: path =>
+        val parentClock = if path.isEmpty then node.clock else root.nodeAt(path.parent).flatMap(_.clock)
+        val clockSwap = ByColor(node.clock, parentClock)
         if node.color.black then clockSwap else clockSwap.swap
       val uci = node.moveOption.map(_.uci)
       val check = node.moveOption
@@ -139,10 +140,17 @@ object Chapter:
   case class Relay(
       path: UciPath,
       lastMoveAt: Option[Instant],
-      fideIds: Option[PairOf[Option[chess.FideId]]]
+      fideIds: Option[PairOf[Option[chess.FideId]]],
+      clockAt: Option[Instant] = None
   ):
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt
+    def clockAge: Option[BigInt] = clockAt.map(Chapter.clockAge(_))
+
+  // Epoch milliseconds and their difference can overflow Long for extreme Instants.
+  private[study] def clockAge(at: Instant, now: Instant = nowInstant): BigInt =
+    (BigInt(now.getEpochSecond) - at.getEpochSecond) * 1000 +
+      now.getNano / 1_000_000 - at.getNano / 1_000_000
 
   def relayInit = Relay(UciPath.root, none, none)
 

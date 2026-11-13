@@ -15,7 +15,7 @@ export type PointsStr = '1' | '0' | '1/2';
 export type GamePointsStr = '1-0' | '0-1' | '½-½' | '0-0' | '½-0' | '0-½';
 export type StatusStr = GamePointsStr | '*';
 export type ClockCentis = number;
-export type BothClocks = [ClockCentis?, ClockCentis?];
+export type BothClocks = [ClockCentis | null, ClockCentis | null];
 export type FideId = number;
 
 export interface StudyTour {
@@ -119,6 +119,7 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   relayPath?: TreePath;
+  clockAge?: number; // milliseconds since the active clock value; may be negative
   serverEval?: StudyChapterServerEval;
 }
 
@@ -172,6 +173,7 @@ export interface ChapterPreviewFromServer extends ChapterPreviewBase {
   fen?: string; // defaults to initial
   players?: PairOf<StudyPlayerFromServer>;
   thinkTime?: number; // seconds since last move
+  clockAge?: number; // milliseconds since the active clock value; may be negative
   orientation?: Color; // defaults to white
 }
 
@@ -179,6 +181,7 @@ export interface ChapterPreview extends ChapterPreviewBase {
   fen: string;
   players?: StudyPlayers;
   lastMoveAt?: number;
+  clockAt?: number;
   orientation: Color;
   playing: boolean;
 }
@@ -245,15 +248,19 @@ export interface AnaDrop {
   path: string;
   ch?: string;
 }
-export interface ServerNodeMsg extends WithWhoAndPos {
+export interface ServerNodeMsg extends WithPosition {
+  w?: WithWho['w'];
   n: TreeNodeBase;
   o: Opening;
   s: boolean;
   relayPath?: TreePath;
+  clockAge?: number; // absent on the relay path falls back to lastMoveAt
 }
-export interface ServerClockMsg extends WithWhoAndPos {
-  c?: number;
-  relayClocks?: PairOf<ClockCentis>;
+export interface ServerClockMsg extends WithPosition {
+  w?: WithWho['w'];
+  c?: ClockCentis | null;
+  relayClocks?: BothClocks;
+  clockAge?: number | null; // absent preserves the origin, null falls back to lastMoveAt
 }
 
 export interface WithWho {
