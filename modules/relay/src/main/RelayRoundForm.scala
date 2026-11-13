@@ -220,7 +220,7 @@ object RelayRoundForm:
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
   private def resolveIp(url: URL): Option[java.net.InetAddress] =
-    Try(java.net.InetAddress.getByName(url.host.toHostString)).pp(url.toString).toOption
+    Try(java.net.InetAddress.getByName(url.host.toHostString)).toOption
   private def validateIp(ip: java.net.InetAddress)(using mode: Mode): Boolean =
     mode.notProd || (
       !ip.isLoopbackAddress && !ip.isAnyLocalAddress && !ip.isLinkLocalAddress && !ip.isSiteLocalAddress
