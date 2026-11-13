@@ -94,7 +94,7 @@ private object RelayGame:
     val path = chapter.relay.map(_.path).filterNot(_.isEmpty) | UciPath.fromIds(
       chapter.root.mainline.takeWhile(!_.forceVariation).map(_.id)
     )
-    if path.isEmpty || (clockAt.isEmpty && chapter.tags.points.isEmpty) then clean
+    if path.isEmpty || (clockAt.isEmpty && chapter.tags.points.isEmpty) then tags
     else
       val node = chapter.root.nodeAt(path)
       val parentClock = chapter.root.nodeAt(path.parent).flatMap(_.clock)
