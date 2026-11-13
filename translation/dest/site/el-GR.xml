@@ -698,7 +698,6 @@
   <string name="aboutX">Σχετικά με το %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) μια δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα ιστοσελίδα για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
-  <string name="lichessUpdates">Ενημερώσεις Lichess</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="changelog">Αρχείο αλλαγών</string>
   <string name="termsOfService">Όροι χρήσης</string>

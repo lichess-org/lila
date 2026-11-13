@@ -701,7 +701,6 @@ Venner som spiller: %2$s</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
   <string name="really">virkelig</string>
-  <string name="lichessUpdates">Lichess-oppdateringer</string>
   <string name="contribute">Bidra</string>
   <string name="changelog">Endringslogg</string>
   <string name="termsOfService">Tjenestevilkår</string>
