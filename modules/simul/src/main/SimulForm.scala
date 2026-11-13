@@ -9,53 +9,49 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
 import lila.common.Form.{ *, given }
-import lila.core.i18n.Translate
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam
 
 object SimulForm:
 
-  private given Translate = Translate
+  type EitherForm = Either[Form[SimulForm.LockedSetup], Form[SimulForm.Setup]]
 
-  private def colorChoice(color: String): (String, String) =
+  private def colorChoice(color: String)(using Translate): (String, String) =
     color -> (color match
       case "white" => trans.site.white.txt()
       case "black" => trans.site.black.txt()
       case _ => trans.site.random.txt())
 
-  private def clockMinute(d: Int): String = trans.site.clockMinute.pluralTxt(d)
-  private def clockSecond(d: Int): String = trans.site.clockSecond.pluralTxt(d)
-  private def clockExtraMinute(d: Int): String = trans.site.clockExtraMinute.pluralTxt(d)
-  private def clockExtraPerPlayerSecond(d: Int): String =
+  private def clockMinute(d: Int)(using Translate): String = trans.site.clockMinute.pluralTxt(d)
+  private def clockSecond(d: Int)(using Translate): String = trans.site.clockSecond.pluralTxt(d)
+  private def clockExtraMinute(d: Int)(using Translate): String =
+    trans.site.clockExtraMinute.pluralTxt(d)
+  private def clockExtraPerPlayerSecond(d: Int)(using Translate): String =
     trans.site.clockExtraPerPlayerSecond.pluralTxt(d)
 
   val colors = List("white", "random", "black")
-  val colorChoices = colors.map(colorChoice)
+  def colorChoices(using Translate) = colors.map(colorChoice)
   val colorDefault = "white"
 
-  val clockTimeChoices =
-    (5 to 15 by 5).map(d => d -> clockMinute(d)) ++
-      (20 to 90 by 10).map(d => d -> clockMinute(d)) ++
-      (120 to 180 by 20).map(d => d -> clockMinute(d))
+  private def clockTimeValues = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
+  def clockTimeChoices(using Translate) = clockTimeValues.map(d => d -> clockMinute(d))
   val clockTimeDefault = LimitMinutes(20)
 
-  val clockIncrementChoices =
-    (0 to 2 by 1).map(d => d -> clockSecond(d)) ++
-      (3 to 7).map(d => d -> clockSecond(d)) ++
-      (10 to 30 by 5).map(d => d -> clockSecond(d)) ++
-      (40 to 60 by 10).map(d => d -> clockSecond(d)) ++
-      (90 to 180 by 30).map(d => d -> clockSecond(d))
+  private def clockIncrementValues =
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  def clockIncrementChoices(using Translate) = clockIncrementValues.map(d => d -> clockSecond(d))
   val clockIncrementDefault = IncrementSeconds(60)
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras = clockExtrasPositive.tail.map(-_).reverse ++ clockExtrasPositive
-  val clockExtraChoices = clockExtras.map:
+  def clockExtraChoices(using Translate) = clockExtras.map:
     case d if d > 0 => d -> s"+${clockExtraMinute(d)}"
     case d => d -> clockExtraMinute(d)
   val clockExtraDefault = LimitMinutes(0)
 
-  val clockExtraPerPlayerChoices =
-    (0 to 60 by 10).map(d => d -> clockExtraPerPlayerSecond(d)) ++
-      Seq(90, 120, 180, 240, 300).map(d => d -> clockExtraPerPlayerSecond(d))
+  private def clockExtraPerPlayerValues = (0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300)
+  def clockExtraPerPlayerChoices(using Translate) =
+    clockExtraPerPlayerValues.map(d => d -> clockExtraPerPlayerSecond(d))
   val clockExtraPerPlayerDefault = LimitSeconds(0)
 
   private def nameType(using host: Me) =
@@ -113,15 +109,15 @@ object SimulForm:
     Form(
       mapping(
         "name" -> nameType,
-        "clockTime" -> numberIn(clockTimeChoices).into[LimitMinutes],
-        "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
-        "clockExtra" -> numberIn(clockExtraChoices).into[LimitMinutes],
-        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitSeconds],
+        "clockTime" -> numberIn(clockTimeValues).into[LimitMinutes],
+        "clockIncrement" -> numberIn(clockIncrementValues).into[IncrementSeconds],
+        "clockExtra" -> numberIn(clockExtras).into[LimitMinutes],
+        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerValues).into[LimitSeconds],
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
         "position" -> optional(lila.common.Form.fen.playableStrict),
-        "color" -> stringIn(colorChoices),
+        "color" -> stringIn(colors.toSet),
         "text" -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
         "featured" -> optional(boolean),
