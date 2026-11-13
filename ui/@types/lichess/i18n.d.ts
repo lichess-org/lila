@@ -4777,6 +4777,8 @@ interface I18n {
     security: string;
     /** See best move */
     seeBestMove: string;
+    /** Select image */
+    selectImage: string;
     /** Send */
     send: string;
     /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */
