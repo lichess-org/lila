@@ -63,11 +63,14 @@ case class RelayGame(
     if elapsed.isNegative || elapsed.isZero || mainlinePath.isEmpty then this
     else
       val path = mainlinePath.parent
-      root.nodeAt(path).flatMap(_.clock).fold(this): clock =>
-        val elapsedCentis = Centis((elapsed.toMillis / 10).min(Int.MaxValue.toLong).toInt)
-        val remaining = clock.centis - elapsedCentis
-        val adjusted = if remaining < Centis(0) then Centis(0) else remaining
-        copy(root = root.setClockAt(Clock(adjusted, clock.trust).some, path) | root)
+      root
+        .nodeAt(path)
+        .flatMap(_.clock)
+        .fold(this): clock =>
+          val elapsedCentis = Centis((elapsed.toMillis / 10).min(Int.MaxValue.toLong).toInt)
+          val remaining = clock.centis - elapsedCentis
+          val adjusted = if remaining < Centis(0) then Centis(0) else remaining
+          copy(root = root.setClockAt(Clock(adjusted, clock.trust).some, path) | root)
 
   def showResult = Outcome.showPoints(points)
 
