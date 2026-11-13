@@ -113,8 +113,7 @@ final private class RelaySync(
     val ids = chapterFideIds(game)
     if chapter.relay.exists(_.fideIds == ids) then fuccess(chapter)
     else
-      val desiredRelay = chapter.relay.fold(makeRelayFor(game, game.root.mainlinePath, delaySeconds)):
-        _.copy(fideIds = ids)
+      val desiredRelay = makeRelayFor(game, game.root.mainlinePath, delaySeconds)
       for _ <- chapterRepo.setRelay(chapter.id, desiredRelay)
       yield chapter.copy(relay = desiredRelay.some)
 
