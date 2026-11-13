@@ -77,11 +77,13 @@ class RelayClockTest extends munit.FunSuite:
     val legacy = Chapter.relayInit.copy(lastMoveAt = Some(at))
     val legacyDoc = handler.writeTry(legacy).get
     assert(!legacyDoc.contains("clockAt"))
+    assert(!legacyDoc.contains("referenceLagMillis"))
     assertEquals(handler.readTry(legacyDoc).get, legacy)
-    val relay = legacy.copy(clockAt = Some(at.plusMillis(4321)))
+    val relay = legacy.copy(clockAt = Some(at.plusMillis(4321)), referenceLagMillis = Some(900000L))
     val written = handler.writeTry(relay).get
     assertEquals(written.getAsOpt[Instant]("lastMoveAt"), Some(at))
     assertEquals(written.getAsOpt[Instant]("clockAt"), relay.clockAt)
+    assertEquals(written.getAsOpt[Long]("referenceLagMillis"), relay.referenceLagMillis)
     assertEquals(handler.readTry(written).get, relay)
     assertEquals(handler.readTry(legacyDoc ++ bdoc("clockAt" -> BSONNull)).get.clockAt, None)
     val earliest = legacy.copy(clockAt = Some(Instant.ofEpochMilli(Long.MinValue)))
