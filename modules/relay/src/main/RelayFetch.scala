@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.TournamentClock
-import chess.format.pgn.{ PgnStr, Tag, Tags }
+import chess.format.pgn.{ Parser, PgnStr, Tag, Tags }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import scalalib.model.Seconds
@@ -413,7 +413,12 @@ private object RelayFetch:
         .initialCapacity(1024)
         .maximumSize(4096)
         .build: pgn =>
+          val referenceTime = Parser.tags(pgn).toOption.flatMap(_.apply(_.ReferenceTime))
           StudyPgnImport
             .result(pgn, Nil)
             .leftMap(err => LilaInvalid(err.value))
             .map(RelayGame.fromStudyImport)
+            .map: game =>
+              referenceTime
+                .filter(value => RelayReferenceTime.parse(value).isDefined)
+                .fold(game)(value => game.copy(tags = game.tags + Tag(_.ReferenceTime, value)))

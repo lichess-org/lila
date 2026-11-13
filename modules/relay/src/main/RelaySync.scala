@@ -54,13 +54,17 @@ final private class RelaySync(
       study: Study,
       chapter: Chapter,
       game: RelayGame
-  ): Fu[SyncResult.ChapterResult] = for
-    chapter <- updateInitialPosition(study.id, chapter, game)
-    chapter <- ensureChapterRelayField(chapter, game)(using rt.tour)
-    (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
-    nbMoves <- updateChapterTree(study, chapter, game)(using rt.tour)
-    _ = if nbMoves > 0 then notifier.onUpdate(rt, newTags.foldLeft(chapter)(_.withTags(_)))
-  yield SyncResult.ChapterResult(chapter.id, newTags.isDefined, nbMoves, newEnd)
+  ): Fu[SyncResult.ChapterResult] =
+    val gameWithAdjustedClock = RelayReferenceTime
+      .elapsed(chapter.tags(_.ReferenceTime), game.tags(_.ReferenceTime))
+      .fold(game)(game.subtractElapsedFromActiveClock)
+    for
+      chapter <- updateInitialPosition(study.id, chapter, gameWithAdjustedClock)
+      chapter <- ensureChapterRelayField(chapter, gameWithAdjustedClock)(using rt.tour)
+      (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, gameWithAdjustedClock)
+      nbMoves <- updateChapterTree(study, chapter, gameWithAdjustedClock)(using rt.tour)
+      _ = if nbMoves > 0 then notifier.onUpdate(rt, newTags.foldLeft(chapter)(_.withTags(_)))
+    yield SyncResult.ChapterResult(chapter.id, newTags.isDefined, nbMoves, newEnd)
 
   private def createChapter(
       rt: RelayRound.WithTour,
@@ -222,6 +226,10 @@ final private class RelaySync(
       .pipe: tags =>
         def fewMoves = Seq(chapter.root, game.root).forall(_.mainline.sizeIs < 2)
         RelayGame.toggleUnplayedTermination(tags, tags.points.isDefined && fewMoves)
+      .pipe: tags =>
+        RelayReferenceTime
+          .latest(chapter.tags(_.ReferenceTime), game.tags(_.ReferenceTime))
+          .fold(tags)(value => tags + Tag(_.ReferenceTime, value))
     if chapterNewTags == chapter.tags then fuccess(none -> false)
     else
       if vs(chapterNewTags) != vs(chapter.tags) then

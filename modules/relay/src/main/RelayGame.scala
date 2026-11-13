@@ -1,6 +1,9 @@
 package lila.relay
 
-import chess.Outcome
+import java.time.{ Duration, Instant, OffsetDateTime }
+import scala.util.Try
+
+import chess.{ Centis, Outcome }
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
@@ -54,6 +57,17 @@ case class RelayGame(
           case (root, (path, centis)) =>
             root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
+
+  def subtractElapsedFromActiveClock(elapsed: Duration): RelayGame =
+    val mainlinePath = root.mainlinePath
+    if elapsed.isNegative || elapsed.isZero || mainlinePath.isEmpty then this
+    else
+      val path = mainlinePath.parent
+      root.nodeAt(path).flatMap(_.clock).fold(this): clock =>
+        val elapsedCentis = Centis((elapsed.toMillis / 10).min(Int.MaxValue.toLong).toInt)
+        val remaining = clock.centis - elapsedCentis
+        val adjusted = if remaining < Centis(0) then Centis(0) else remaining
+        copy(root = root.setClockAt(Clock(adjusted, clock.trust).some, path) | root)
 
   def showResult = Outcome.showPoints(points)
 
@@ -208,3 +222,26 @@ private object RelayGame:
         .view
         .mapValues(_.map(_._2).distinct)
         .toMap
+
+private[relay] object RelayReferenceTime:
+
+  def parse(value: String): Option[Instant] =
+    val timestamp = if ["W/", "B/"].exists(value.startsWith) then value.drop(2) else value
+    Try(OffsetDateTime.parse(timestamp).toInstant).toOption
+
+  def elapsed(previous: Option[String], current: Option[String]): Option[Duration] =
+    for
+      previousInstant <- previous.flatMap(parse)
+      currentInstant <- current.flatMap(parse)
+      if currentInstant.isAfter(previousInstant)
+    yield Duration.between(previousInstant, currentInstant)
+
+  def latest(previous: Option[String], current: Option[String]): Option[String] =
+    val previousParsed = previous.flatMap(value => parse(value).map(value -> _))
+    val currentParsed = current.flatMap(value => parse(value).map(value -> _))
+    (previousParsed, currentParsed) match
+      case (None, None) => None
+      case (Some((value, _)), None) => Some(value)
+      case (None, Some((value, _))) => Some(value)
+      case (Some((previousValue, previousInstant)), Some((currentValue, currentInstant))) =>
+        if currentInstant.isAfter(previousInstant) then Some(currentValue) else Some(previousValue)
