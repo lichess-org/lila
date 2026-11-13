@@ -102,7 +102,7 @@ object StudyPgnImport:
           tags = StudyPgnTags
             .withRelevantTags(
               parsed.tags,
-              Set(Tag.Orientation, Tag.WhiteClock, Tag.BlackClock),
+              Set(Tag.Orientation, Tag.WhiteClock, Tag.BlackClock, Tag.ReferenceTime),
               replay.setup.position.variant
             ),
           ending = ending,
