@@ -37,7 +37,7 @@ final class GameStreamByOauthOrigin(
       def close = inc(-1)
 
   private val allowedClients = List(
-    Client(UserId.t3, Origin("https://auth.taketaketake.com"), 70_000, 365.days, true),
+    Client(UserId.t3, Origin("https://auth.taketaketake.com"), 100_000, 365.days, true),
     Client(UserId("marcusbuffett"), Origin("https://chessbook.com"), 15_000, 90.days, false)
   )
   private val falsePositiveRate = 0.0005 // 0.05% false positives
