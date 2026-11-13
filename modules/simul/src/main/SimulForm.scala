@@ -1,7 +1,7 @@
 package lila.simul
 
 import chess.Clock
-import chess.Clock.{IncrementSeconds, LimitMinutes, LimitSeconds}
+import chess.Clock.{ IncrementSeconds, LimitMinutes, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
@@ -20,8 +20,7 @@ object SimulForm:
     color -> (color match
       case "white" => trans.site.white.txt()
       case "black" => trans.site.black.txt()
-      case _       => trans.site.random.txt()
-    )
+      case _ => trans.site.random.txt())
 
   private def clockMinute(d: Int): String = trans.site.clockMinute.pluralTxt(d)
   private def clockSecond(d: Int): String = trans.site.clockSecond.pluralTxt(d)
@@ -35,28 +34,28 @@ object SimulForm:
 
   val clockTimeChoices =
     (5 to 15 by 5).map(d => d -> clockMinute(d)) ++
-    (20 to 90 by 10).map(d => d -> clockMinute(d)) ++
-    (120 to 180 by 20).map(d => d -> clockMinute(d))
+      (20 to 90 by 10).map(d => d -> clockMinute(d)) ++
+      (120 to 180 by 20).map(d => d -> clockMinute(d))
   val clockTimeDefault = LimitMinutes(20)
 
   val clockIncrementChoices =
     (0 to 2 by 1).map(d => d -> clockSecond(d)) ++
-    (3 to 7).map(d => d -> clockSecond(d)) ++
-    (10 to 30 by 5).map(d => d -> clockSecond(d)) ++
-    (40 to 60 by 10).map(d => d -> clockSecond(d)) ++
-    (90 to 180 by 30).map(d => d -> clockSecond(d))
+      (3 to 7).map(d => d -> clockSecond(d)) ++
+      (10 to 30 by 5).map(d => d -> clockSecond(d)) ++
+      (40 to 60 by 10).map(d => d -> clockSecond(d)) ++
+      (90 to 180 by 30).map(d => d -> clockSecond(d))
   val clockIncrementDefault = IncrementSeconds(60)
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras = clockExtrasPositive.tail.map(-_).reverse ++ clockExtrasPositive
   val clockExtraChoices = clockExtras.map:
     case d if d > 0 => d -> s"+${clockExtraMinute(d)}"
-    case d          => d -> clockExtraMinute(d)
+    case d => d -> clockExtraMinute(d)
   val clockExtraDefault = LimitMinutes(0)
 
   val clockExtraPerPlayerChoices =
     (0 to 60 by 10).map(d => d -> clockExtraPerPlayerSecond(d)) ++
-    Seq(90, 120, 180, 240, 300).map(d => d -> clockExtraPerPlayerSecond(d))
+      Seq(90, 120, 180, 240, 300).map(d => d -> clockExtraPerPlayerSecond(d))
   val clockExtraPerPlayerDefault = LimitSeconds(0)
 
   private def nameType(using host: Me) =
