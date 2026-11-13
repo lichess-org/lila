@@ -700,7 +700,6 @@ Amigos jogando: %2$s</string>
   <string name="aboutX">Sobre o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
-  <string name="lichessUpdates">Atualizações do Lichess</string>
   <string name="contribute">Contribuir</string>
   <string name="changelog">Registro de alterações</string>
   <string name="termsOfService">Termos de serviço</string>

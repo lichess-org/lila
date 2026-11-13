@@ -7,10 +7,12 @@
   <string name="permCommDesc">Моделировать форум и чат клуба</string>
   <string name="permRequestDesc">Принимать или отклонять запросы на вступление</string>
   <string name="permRemoveName">Удалить</string>
+  <string name="permAdminDesc">Менять возможности руководителей</string>
   <string name="demoteLeaderNote">Чтобы убрать руководителя клуба, уберите все его возможности.</string>
   <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Скрывать список участников команды от посторонних.</string>
   <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
+  <string name="removeSomeone">Убрать кого-то</string>
   <string name="whoToRemove">Кого вы хотите убрать из клуба?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запрос на вступление</item>

@@ -702,7 +702,6 @@ Jokatzen ari diren lagunak: %2$s</string>
   <string name="aboutX">%s-i buruz</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
-  <string name="lichessUpdates">Lichessen eguneraketak</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="changelog">Aldaketen erregistroa</string>
   <string name="termsOfService">ToS</string>
