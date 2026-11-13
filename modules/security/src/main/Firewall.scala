@@ -11,7 +11,7 @@ final class Firewall(
     config: SecurityConfig,
     scheduler: Scheduler,
     ws: StandaloneWSClient
-)(using Executor):
+)(using mode: play.api.Mode)(using Executor):
 
   private var current: Set[String] = Set.empty
   private var proxies: Set[IpAddress] = Set.empty
@@ -19,8 +19,9 @@ final class Firewall(
   scheduler.scheduleOnce(49.seconds):
     loadFromDb()
 
-  scheduler.scheduleWithFixedDelay(47.seconds, 10.minutes): () =>
-    blockProxyScrapeIps()
+  if mode.isProd then
+    scheduler.scheduleWithFixedDelay(47.seconds, 15.minutes): () =>
+      blockProxyScrapeIps()
 
   def blocksIp(ip: IpAddress): Boolean = current.contains(ip.value) || proxies.contains(ip)
 
