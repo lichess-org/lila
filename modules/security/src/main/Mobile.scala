@@ -1,6 +1,5 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import play.api.libs.json.Json
 import scalalib.net.UserAgent
 
@@ -24,10 +23,10 @@ object Mobile:
 
     val acceptedVersions: Set[ApiVersion] = ApiVersion.from(Set(1, 2, 3, 4, 5, 6))
 
-    def requestVersion(req: RequestHeader): Option[ApiVersion] =
+    def requestVersion(req: Req): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
 
-    def requested(using req: RequestHeader) = requestVersion(req).isDefined
+    def requested(using req: Req) = requestVersion(req).isDefined
 
   // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala
@@ -37,14 +36,14 @@ object Mobile:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
     private val Regex =
       """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
-    def parse(req: RequestHeader): Option[LichessMobileUa] = parse(HTTPRequest.userAgent(req))
+    def parse(req: Req): Option[LichessMobileUa] = parse(HTTPRequest.userAgent(req))
     def parse(ua: UserAgent): Option[LichessMobileUa] = is(ua).so:
       ua.value match
         case Regex(version, user, sri, osName, osVersion, device) =>
           val userId = (user != "anon").option(UserStr(user).id)
           lila.core.net.LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
         case _ => none
-    def sriFromUA(using req: RequestHeader): Option[Sri] = parse(req).map(_.sri)
+    def sriFromUA(using req: Req): Option[Sri] = parse(req).map(_.sri)
 
   // LM/{version} {Android|iOS}/{os-version} {device info}
   // stored in security documents

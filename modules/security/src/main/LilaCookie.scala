@@ -12,18 +12,18 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
 
   private val cookieDomain = config.domain.value.split(":").head
 
-  def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId().value)
+  def makeSessionId(using Req): Cookie = session(LilaCookie.sessionId, generateSessionId().value)
 
   def generateSessionId(): SessionId = SessionId(SecureRandom.nextString(22))
 
-  def session(name: String, value: String, remember: Boolean = true)(using RequestHeader): Cookie =
+  def session(name: String, value: String, remember: Boolean = true)(using Req): Cookie =
     withSession(remember):
       _ + (name -> value)
 
-  def newSession(using RequestHeader): Cookie =
+  def newSession(using Req): Cookie =
     withSession(remember = false)(_ => Session.emptyCookie)
 
-  def withSession(remember: Boolean)(op: Session => Session)(using req: RequestHeader): Cookie =
+  def withSession(remember: Boolean)(op: Session => Session)(using req: Req): Cookie =
     cookie(
       baker.COOKIE_NAME,
       baker.encode:
@@ -54,13 +54,13 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
       sameSite = Cookie.SameSite.Lax.some
     )
 
-  def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
+  def isRememberMe(req: Req) = !req.session.get(LilaCookie.noRemember).has("1")
 
-  def ensure(res: Result)(using req: RequestHeader): Result =
+  def ensure(res: Result)(using req: Req): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res
     else res.withCookies(makeSessionId(using req))
 
-  def ensureAndGet(res: SessionId => Fu[Result])(using req: RequestHeader)(using Executor): Fu[Result] =
+  def ensureAndGet(res: SessionId => Fu[Result])(using req: Req)(using Executor): Fu[Result] =
     LilaCookie.sid(req) match
       case Some(sessionId) => res(sessionId)
       case None =>

@@ -1,7 +1,6 @@
 package lila.web
 
 import io.mola.galimatias.URL
-import play.api.mvc.RequestHeader
 
 import scala.util.Try
 
@@ -11,37 +10,39 @@ import lila.core.net.ValidReferrer
 
 final class ReferrerRedirect(baseUrl: BaseUrl):
 
-  private val sillyLoginReferrersSet = Set("/login", "/signup", "/mobile")
-  private val loginPattern = """/\w\w/(login|signup|mobile)""".r.pattern
-  private def sillyLoginReferrers(ref: String) =
-    sillyLoginReferrersSet(ref) || loginPattern.matcher(ref).matches
-
   private lazy val parsedBaseUrl = URL.parse(baseUrl.value)
 
   private val validCharsRegex = """^[\w-\.:/\?&=@#%\[\]\+~]+$""".r
 
-  private val forbiddenRegexes = List(
-    "^/api/".r,
-    "\\.(pgn|trf|csv|gif)$".r,
-    "/export/".r,
-    "/personal-data$".r
-  )
+  private val forbiddenPaths = List(
+    "^/api/",
+    "\\.(pgn|trf|csv|gif)$",
+    "/export/",
+    "/personal-data$",
+    """/(\w\w/)?(login|signup|mobile)"""
+  ).map(_.r)
 
   private def isForbiddenPath(path: String): Boolean =
-    forbiddenRegexes.exists(_.findFirstIn(path).isDefined)
+    forbiddenPaths.exists(_.findFirstIn(path).isDefined)
 
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
   private[web] def valid(referrer: String): Option[ValidReferrer] =
-    (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so:
-      Try {
-        URL.parse(parsedBaseUrl, referrer)
-      }.toOption
-        .filter(_.scheme == parsedBaseUrl.scheme)
-        .filter(_.host == parsedBaseUrl.host)
-        .filterNot(url => isForbiddenPath(url.path))
-        .map(_.toString)
-        .map(ValidReferrer(_))
+    validCharsRegex
+      .matches(referrer)
+      .so:
+        Try {
+          URL.parse(parsedBaseUrl, referrer)
+        }.toOption
+          .filter(_.scheme == parsedBaseUrl.scheme)
+          .filter(_.host == parsedBaseUrl.host)
+          .filterNot(url => isForbiddenPath(url.path))
+          .map(_.toString)
+          .map(ValidReferrer(_))
 
-  def fromReq(using RequestHeader): Option[ValidReferrer] =
+  def fromReq(using Req): Option[ValidReferrer] =
+    fromQueryParam.orElse:
+      HTTPRequest.referer.flatMap(valid)
+
+  def fromQueryParam(using Req): Option[ValidReferrer] =
     HTTPRequest.queryStringGet("referrer").flatMap(valid)

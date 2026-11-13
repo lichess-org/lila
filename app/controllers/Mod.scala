@@ -325,8 +325,8 @@ final class Mod(
         Ok.chunked(source).asAttachmentStream(s"full-comms-export-of-${user.id}.txt")
     }
 
-  protected[controllers] def redirect(username: UserStr, mod: Boolean = true)(using RequestHeader) =
-    env.web.referrerRedirect.fromReq match
+  protected[controllers] def redirect(username: UserStr, mod: Boolean = true)(using Req) =
+    env.web.referrerRedirect.fromQueryParam match
       case Some(ref) => Redirect(ref.value).flashSuccess
       case None => Redirect(userUrl(username, mod))
 

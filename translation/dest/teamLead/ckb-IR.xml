@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">گشتی</string>
+  <string name="permSettingsName">رێکخستنەکان</string>
+  <string name="permTourName">پاڵەوانیەتییەکان</string>
+  <string name="manuallyReviewAdmissionRequests">بە دەست پێداچوونەوە بە داواکارییەکانی وەرگرتن بکە</string>
+  <string name="onlyLeaderLeavesTeam">تکایە پێش ڕۆشتن سەرکردەیەکی نوێ زیاد بکە، یان یانەکە دابخە.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s داواکاری بەشداریکردن</item>
+    <item quantity="other">%s داواکارییەکانی بەشداریکردن</item>
+  </plurals>
+  <string name="declinedRequests">رەتکردنەوەی داواکردن</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">لەوانەیە بتەوێت یەکێک لەم پاڵەوانێتییەکانی داهاتوو بەیەکەوە ببەستیتەوە?</string>
+  <string name="closeTeam">داخستنی تیم</string>
+  <string name="closeTeamDescription">داخستنی تیم بۆ ھەمیشە.</string>
+</resources>

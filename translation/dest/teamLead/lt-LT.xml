@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Viešas</string>
+  <string name="permSettingsName">Nuostatos</string>
+  <string name="permTourName">Turnyrai</string>
+  <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
+  <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos vadovą.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s stojimo prašymas</item>
+    <item quantity="few">%s stojimo prašymai</item>
+    <item quantity="many">%s stojimo prašymų</item>
+    <item quantity="other">%s stojimo prašymų</item>
+  </plurals>
+  <string name="declinedRequests">Atsisakytos užklausos</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Galbūt norite prisegti nuorodą į šiuos ateinančius turnyrus?</string>
+  <string name="closeTeam">Uždaryti komandą</string>
+  <string name="closeTeamDescription">Visam laikui uždaryti komandą.</string>
+  <string name="listTheTeamsThatWillCompete">Komandų, kurios varžysis šiame mūšyje, sąrašas.</string>
+  <string name="thisTeamBattleIsOver">Šis turnyras baigėsi, ir komandos nebegali būti atnaujinamos.</string>
+  <string name="oneTeamPerLine">Viena komanda eilutėje. Naudokite automatinį užbaigimą.</string>
+  <string name="numberOfLeadsPerTeam">Lyderių skaičius komandoje. Jų taškų suma yra komandos rezultatas.</string>
+  <string name="numberOfLeadsPerTeamHelp">Prasidėjus turnyrui, šios vertės keisti tikrai neturėtumėte!</string>
+</resources>

@@ -73,13 +73,14 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       fieldName: String,
       checked: Boolean,
       action: Option[String] = None,
-      cssClass: String = "cmn-toggle"
+      cssClass: String = "cmn-toggle",
+      value: String = "true"
   ) =
     span(cls := cssClass)(
       st.input(
         st.id := fieldId,
         name := fieldName,
-        st.value := "true",
+        st.value := value,
         tpe := "checkbox",
         checked.option(st.checked),
         action.map(st.data("action") := _)

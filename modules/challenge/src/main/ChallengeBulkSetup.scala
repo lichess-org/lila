@@ -12,6 +12,7 @@ import scalalib.ThreadLocalRandom
 import scalalib.model.Days
 import scalalib.net.Bearer
 
+import lila.common.ClientName
 import lila.common.Form.into
 import lila.core.data.Template
 import lila.core.game.GameRule
@@ -100,7 +101,7 @@ final class ChallengeBulkSetupApi(
 
   private val endpointScopes = OAuthScope.select(_.Challenge.Write, _.Web.Takex3).into(EndpointScopes)
 
-  def apply(data: BulkFormData)(using me: Me): FuRaise[ScheduleError, ScheduledBulk] =
+  def apply(data: BulkFormData)(using me: Me)(using ClientName): FuRaise[ScheduleError, ScheduledBulk] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!

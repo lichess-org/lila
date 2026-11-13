@@ -1,7 +1,6 @@
 package lila.web
 
 import chess.format.pgn.PgnStr
-import play.api.mvc.RequestHeader
 
 import lila.common.{ ClientName, HTTPRequest }
 import lila.core.net.{ ASN, IpAddress }
@@ -15,7 +14,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   import RateLimit.*
 
-  private given (using ctx: Context): RequestHeader = ctx.req
+  private given (using ctx: Context): Req = ctx.req
 
   object GlobalConcurrencyLimitPerIP:
 
@@ -74,7 +73,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val crosstable = RateLimit[IpAddress](30, 10.minutes, "crosstable.api.ip")
 
-  val eventStream = RateLimit[UserId](30, 10.minutes, "api.stream.event.bearer", log = false)
+  val eventStreamApi = RateLimit[UserId](30, 10.minutes, "api.stream.event.api", log = false)
+  val eventStreamWebsite = RateLimit[UserId](30, 2.minutes, "api.stream.event.website", log = false)
+
+  def eventStream(fromWebsite: Boolean) = if fromWebsite then eventStreamWebsite else eventStreamApi
 
   val userActivity = RateLimit[IpAddress](15, 2.minutes, "user_activity.api.ip")
 
@@ -263,7 +265,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     private val signupLimiter = RateLimit[ASN](20 * maxCost, 1.minute, "user.signup.proxy")
     def signup[A]: AsnLimit[A] = asnLimit(signupLimiter, flatCost(maxCost))
 
-    private type AsnLimit[A] = (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type AsnLimit[A] = (IsProxy, Req, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
     private def asnLimit[A](
         limiter: RateLimiter[ASN],

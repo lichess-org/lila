@@ -82,7 +82,7 @@ object page:
           favicons,
           preventIndexing.option(noRobots),
           noTranslate,
-          p.openGraph.map(lila.web.ui.openGraph),
+          p.openGraph.map(lila.web.ui.OpenGraph.render),
           atomLinkTag.tupled(p.atomLink | dailyNewsAtom),
           pref.isTransparentBg
             .option(pref.bgImgUrl)
@@ -124,8 +124,10 @@ object page:
           dataUser := ctx.userId,
           dataUsername := ctx.username,
           dataSoundSet := pref.currentSoundSet.toString,
-          attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
-                                          else netConfig.socketDomains).mkString(","),
+          attr("data-socket-domains") := {
+            if ~pref.usingAltSocket then webSocketConfig.altDomains.get()
+            else webSocketConfig.mainDomains.get()
+          }.value.mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce := ctx.nonce,

@@ -123,9 +123,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eyða allri stúderingu? Það er ekki aftur snúið! Sláðu inn nafn stúderingar í öryggisskyni: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvar viltu stúdera það?</string>
   <string name="goodMove">Góður leikur</string>
-  <string name="mistake">Mistök</string>
   <string name="brilliantMove">Stórkostlegur leikur</string>
-  <string name="blunder">Afleikur</string>
   <string name="interestingMove">Áhugaverður leikur</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Vafasamur leikur</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eini leikurinn</string>

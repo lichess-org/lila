@@ -2647,8 +2647,6 @@ interface I18n {
     moveListSettings: string;
     /** Move list while playing */
     moveListWhilePlaying: string;
-    /** Multiple choices. */
-    multipleChoices: string;
     /** Network */
     network: string;
     /** Notifications */
@@ -4229,7 +4227,7 @@ interface I18n {
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;
-    /** Lichess updates */
+    /** Lichess feed */
     lichessUpdates: string;
     /** Lifetime score */
     lifetimeScore: string;

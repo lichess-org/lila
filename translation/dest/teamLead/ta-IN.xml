@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permSettingsName">அமைப்புகள்</string>
+  <string name="permTourName">பந்தயங்கள்</string>
+  <string name="manuallyReviewAdmissionRequests">சேர்க்கை கோரிக்கைகளைக் கைமுறையாக மதிப்பாய்வு செய்யவும்</string>
+  <string name="onlyLeaderLeavesTeam">வெளியேறும் முன் புதிய குழுத் தலைவரைச் சேர்க்கவும் அல்லது குழுவை மூடவும்.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s சேர கோரிக்கை</item>
+    <item quantity="other">%s சேர கோரிக்கைகள்</item>
+  </plurals>
+  <string name="declinedRequests">நிராகரிக்கப்பட்ட கோரிக்கைகள்</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">வரவிருக்கும் போட்டிகளில் ஒன்றை இணைக்க வேண்டுமா?</string>
+  <string name="teamIntroductionHelp">குழு பட்டியல்களில் சுருக்கமான விளக்கம் தெரியும். 200 எழுத்துகள் வரை.</string>
+  <string name="teamDescriptionHelp">முழு விளக்கமும் குழு பக்கத்தில் தெரியும்.</string>
+  <string name="closeTeam">குழுவை மூடு</string>
+  <string name="closeTeamDescription">குழுவை நிரந்தரமாக மூடுகிறது.</string>
+  <string name="listTheTeamsThatWillCompete">இந்த போரில் போட்டியிடும் அணிகளை பட்டியலிடுங்கள்.</string>
+  <string name="thisTeamBattleIsOver">இந்த போட்டி முடிந்துவிட்டது, மேலும் அணிகளை இனி புதுப்பிக்க முடியாது.</string>
+  <string name="oneTeamPerLine">ஒரு வரிக்கு ஒரு குழு. தானாக முடிப்பதைப் பயன்படுத்தவும்.</string>
+  <string name="numberOfLeadsPerTeam">ஒரு அணிக்கு தலைவர்களின் எண்ணிக்கை. அவர்களின் ஸ்கோரின் கூட்டுத்தொகை அணியின் ஸ்கோர் ஆகும்.</string>
+  <string name="numberOfLeadsPerTeamHelp">போட்டி தொடங்கிய பிறகு நீங்கள் உண்மையில் இந்த மதிப்பை மாற்றக்கூடாது!</string>
+</resources>

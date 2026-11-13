@@ -9,6 +9,8 @@ import lila.common.HTTPRequest
 import lila.gathering.Condition.GetMyTeamIds
 import lila.mon.extensions.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
+import lila.api.GameApiV2
+import lila.game.PgnDump.requestPgnFlags
 
 final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
@@ -449,6 +451,44 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
           Ok.page(views.tournament.moderation.page(tour, view, players))
   }
 
+  def downloadGames(id: TourId) = AnonOrScoped(): ctx ?=>
+    WithVisibleTournament(id): tour =>
+      val onlyUserId = getUserStr("player").map(_.id)
+      val config = GameApiV2.ByTournamentConfig(
+        tour = tour,
+        format = GameApiV2.Format.byRequest,
+        flags = requestPgnFlags(extended = false, delayMoves = true),
+        perSecond = GameApiV2.gamesPerSecond
+      )
+      limit.GlobalConcurrencyLimitPerIP
+        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
+          Ok.chunked(source)
+            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
+            .as(config.contentType)
+
+  def downloadResults(id: TourId) = AnonOrScoped():
+    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
+    WithVisibleTournament(id): tour =>
+      val withSheet = getBool("sheet")
+      val perSecond = MaxPerSecond:
+        if withSheet
+        then (20 - (tour.estimateNumberOfGamesOneCanPlay / 20).toInt).atLeast(10)
+        else 50
+      val source = env.tournament.api.resultStream(
+        tour,
+        perSecond,
+        getInt("nb") | Int.MaxValue,
+        withSheet = withSheet
+      )
+      val result =
+        if csv then apiC.csvDownload(lila.tournament.TournamentCsv(source))
+        else apiC.jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
+      result.asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson"))
+
+  def apiTeams(id: TourId) = AnonOrScoped():
+    WithVisibleTournament(id): tour =>
+      JsonOk(env.tournament.jsonView.apiTeamStanding(tour))
+
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context, me: Me): Fu[Result] =
@@ -459,11 +499,10 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
 
   private def WithVisibleTournament(id: TourId)(
       f: Tour => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     def nope = negotiate(tournamentNotFound, notFoundJson("No such tournament"))
     cachedTour(id).flatMap:
-      case None => nope
-      case Some(tour) =>
+      _.fold(nope): tour =>
         tour.singleTeamId
           .fold(fuTrue)(env.team.api.clasMemberCheck)
           .flatMap:

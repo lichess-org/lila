@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Hammaga oçiq</string>
+  <string name="permSettingsName">Sozlamalar</string>
+  <string name="permTourName">Turnirlar</string>
+  <string name="permTourDesc">Jamoa turnirlarini yarating, boşqaring va qöşiling</string>
+  <string name="permCommName">Moderatsiya</string>
+  <string name="permRequestName">Sörovlar</string>
+  <string name="manuallyReviewAdmissionRequests">Qabul qiliş sörovlarini körib çiqiş</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan bölsa, öyinçilar jamoaga qöşiliş uçun sörov yozişlari kerak. Siz ularni inkor yoki qabul qilişingiz mumkin.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Jamoa aʼzolari röyxatini begonalar uçun yaşiriş.</string>
+  <string name="onlyLeaderLeavesTeam">Çiqişdan oldin yangi jamoa sardorini tayinlang yoki jamoani yoping.</string>
+  <string name="whoToRemove">Kimni jamoadan çiqarmoqçisiz?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s ta qöşiliş sörovi</item>
+    <item quantity="other">%s ta qöşiliş sörovi</item>
+  </plurals>
+  <string name="declinedRequests">Rad etilgan sörovlar</string>
+  <string name="newTeamUpdate">Jamoada yangilik</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qöşasizmi?</string>
+  <string name="teamIntroductionHelp">Jamoalar röyxatida körinadigan qisqa tavsif. 200 ta belgigaça.</string>
+  <string name="teamDescriptionHelp">Jamoa sahifasida körinadigan töliq tavsif.</string>
+  <string name="closeTeam">Jamoani yopiş</string>
+  <string name="closeTeamDescription">Jamoani butunlay yopiş.</string>
+  <string name="forumVisibilityHelp">Jamoa sahifasida jamoa forumini kimlar köra oladi?&lt;br&gt;Faqat jamoa aʼzolari jamoa forumiga xabar yozişi mumkin.</string>
+  <string name="forumVisibilityNone">Forumni yaşiriş</string>
+  <string name="listTheTeamsThatWillCompete">Uşbu jangda iştirok etadigan jamoalar röyxatini tuzing.</string>
+  <string name="thisTeamBattleIsOver">Bu turnir yakunlangan, endi jamoalarni özgartirib bölmaydi.</string>
+  <string name="oneTeamPerLine">Har bir qatorga bittadan jamoa kiriting. Avtomatik töldiriş işlatişingiz mumkin.</string>
+  <string name="oneTeamPerLineHelp">Uşbu röyxatni bir turnirdan boşqasiga köçirişingiz mumkin!
+
+Agar biror öyinçi uşbu bilan turnirga qöşilgan bölsa, öşa jamoani röyxatdan öçira olmaysiz.</string>
+  <string name="numberOfLeadsPerTeam">Har bir jamoadagi peşqadamlar soni. Peşqadamlar oçkolar yiğindisi jamoaning umumiy oçkosini belgilaydi.</string>
+  <string name="numberOfLeadsPerTeamHelp">Turnir boşlanganidan keyin bu qiymatni özgartirmaslikni qatʼiy tavsiya qilamiz!</string>
+</resources>

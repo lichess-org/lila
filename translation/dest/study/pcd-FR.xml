@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Supprimer toute l’étude? Aucun retour en arrière possible! Taper le nom de l’étude pour confirmer : %s</string>
   <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
   <string name="goodMove">Bon coup</string>
-  <string name="mistake">Erreur</string>
   <string name="brilliantMove">Excellent coup</string>
-  <string name="blunder">Gaffe</string>
   <string name="interestingMove">Coup intéressant</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Coup douteux</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Seul coup</string>

@@ -145,9 +145,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
-  <string name="mistake">خطأ</string>
   <string name="brilliantMove">نقلة رائعة</string>
-  <string name="blunder">غلطة</string>
   <string name="interestingMove">نقلة مثيرة للاهتمام</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">نقلة مشبوهة</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">نقلة وحيدة</string>

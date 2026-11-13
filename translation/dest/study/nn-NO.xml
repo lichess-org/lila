@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slette heile studien? Avgjerda er endeleg og kan ikke gjeras om! Skriv namnet på studien som skal stadfestast: %s</string>
   <string name="whereDoYouWantToStudyThat">Kva for ein studie vil du bruke?</string>
   <string name="goodMove">Godt trekk</string>
-  <string name="mistake">Mistak</string>
   <string name="brilliantMove">Strålande trekk</string>
-  <string name="blunder">Bukk</string>
   <string name="interestingMove">Interessant trekk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvilsamt trekk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einaste moglege trekk</string>

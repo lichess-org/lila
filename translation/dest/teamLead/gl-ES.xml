@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Público</string>
+  <string name="permPublicDesc">Aparecer como líder na páxina do equipo</string>
+  <string name="permSettingsName">Axustes</string>
+  <string name="permSettingsDesc">Editar os axustes e a descrición do equipo</string>
+  <string name="permTourName">Torneos</string>
+  <string name="permTourDesc">Crear, xestionar e participar en torneos de equipo</string>
+  <string name="permCommName">Moderación</string>
+  <string name="permCommDesc">Moderar o foro e a sala de conversa do equipo</string>
+  <string name="permRequestName">Peticións</string>
+  <string name="permRequestDesc">Aceptar ou rexeitar peticións de admisión</string>
+  <string name="permPmAllName">Actualizacións</string>
+  <string name="permPmAllDesc">Enviar actualizacións aos membros do equipo</string>
+  <string name="permRemoveName">Retirar</string>
+  <string name="permRemoveDesc">Retirar a membros do equipo</string>
+  <string name="permAdminName">Administrar</string>
+  <string name="permAdminDesc">Xestionar os permisos dos líderes</string>
+  <string name="demoteLeaderNote">Para retirares a un líder precisas revogar todos os seus permisos.</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que solicitar unirse ao equipo e ti poderás aceptalos ou rexeitalos.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ocultar a lista dos membros do equipo ós que non son membros.</string>
+  <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
+  <string name="removeSomeone">Retirar a alguén</string>
+  <string name="whoToRemove">A quen queres retirar do equipo?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s petición de ingreso</item>
+    <item quantity="other">%s peticións de ingreso</item>
+  </plurals>
+  <string name="declinedRequests">Solicitudes rexeitadas</string>
+  <string name="newTeamUpdate">Nova actualización do equipo</string>
+  <string name="teamUpdatesPerWeek">Podes enviar ata %1$s actualizacións de equipo por semana. Quedan &lt;strong&gt;%2$s&lt;/strong&gt; actualizacións ata o %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Ó mellor queres vincular un destes próximos torneos?</string>
+  <string name="teamIntroductionHelp">Breve descrición visible na relación de equipos. Ata 200 caracteres.</string>
+  <string name="teamDescriptionHelp">Descrición completa visible na páxina do equipo.</string>
+  <string name="closeTeam">Pechar o equipo</string>
+  <string name="closeTeamDescription">Pecha o equipo para sempre.</string>
+  <string name="forumVisibilityHelp">Quen pode ver o foro do equipo na páxina do equipo?&lt;br&gt;Só os membros do equipo poden comentar no foro do equipo.</string>
+  <string name="forumVisibilityNone">Agochar o foro</string>
+  <string name="listTheTeamsThatWillCompete">Enumera os equipos que competirán nesta batalla.</string>
+  <string name="thisTeamBattleIsOver">Este torneo rematou e os equipos xa non poden ser actualizados.</string>
+  <string name="oneTeamPerLine">Un equipo por liña. Usar o autocompletado.</string>
+  <string name="oneTeamPerLineHelp">Podes copiar esta lista dun torneo e pegala noutro!
+
+Non se pode eliminar un equipo se un dos seus xogadores se incorporou ó torneo.</string>
+  <string name="numberOfLeadsPerTeam">Número de líderes por equipo. A suma dos seus puntos é igual á puntuación do equipo.</string>
+  <string name="numberOfLeadsPerTeamHelp">Por favor, non cambies este valor unha vez que o torneo comezou!</string>
+</resources>

@@ -85,9 +85,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tanggalin ang buong pag-aaral? Hindi na ito mababawi muli! I-type ang pangalan ng pag-aaral para kumpirmahin: %s</string>
   <string name="whereDoYouWantToStudyThat">Saan mo gustong mag-aral niyan?</string>
   <string name="goodMove">Magandang galaw</string>
-  <string name="mistake">Pagkakamali</string>
   <string name="brilliantMove">Mahusay na galaw</string>
-  <string name="blunder">Malaking Pagkakamali</string>
   <string name="interestingMove">Nakaka-interesadiong galaw</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Kaduda-dudang galaw</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nag-iisang galaw</string>

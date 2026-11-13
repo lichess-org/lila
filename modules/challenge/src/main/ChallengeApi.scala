@@ -124,10 +124,11 @@ final class ChallengeApi(
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
-  private val acceptQueue = scalalib.actor.AsyncActorSequencer(
-    maxSize = Max(64),
+  private val acceptQueue = scalalib.actor.AsyncActorSequencers[ChallengeId](
+    maxSize = Max(8),
+    expiration = 1.minute,
     timeout = 5.seconds,
-    "challengeAccept",
+    name = "challengeAccept",
     lila.mon.asyncActorMonitor.full
   )
 
@@ -136,7 +137,7 @@ final class ChallengeApi(
       anonSecret: Option[String],
       requestedColor: Option[Color] = None
   )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
-    acceptQueue:
+    acceptQueue(c.id):
       def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
       if c.canceled
       then "The challenge has been canceled.".raise

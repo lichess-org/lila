@@ -24,6 +24,7 @@ object UiEnv
   def env: Env = envVar.get
 
   def netConfig = env.net
+  def webSocketConfig = env.web.webSocketConfig
   def picfitUrl = env.memo.picfitUrl
   def imageGetOrigin = env.memo.imageGetOrigin
 

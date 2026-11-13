@@ -100,6 +100,10 @@
   <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Indsæt din PGN-tekst her, op til %s parti.</item>
+    <item quantity="other">Indsæt partier som PGN-tekst her. Der oprettes et nyt kapitel for hvert parti. Undersøgelsen kan indeholde op til %s kapitler.</item>
+  </plurals>
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="createChapter">Opret kapitel</string>
   <string name="createStudy">Opret studie</string>
@@ -125,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slet hele studiet? Det kan ikke fortrydes! Skriv navnet på studiet for at bekræfte: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvor vil du studere det?</string>
   <string name="goodMove">Godt træk</string>
-  <string name="mistake">Fejl</string>
   <string name="brilliantMove">Fremragende træk</string>
-  <string name="blunder">Brøler</string>
   <string name="interestingMove">Interessant træk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>
@@ -199,4 +201,6 @@
   <string name="clearPublished">Ryd offentliggjort analyse?</string>
   <string name="requestAServerAnalysis">Anmod om en serveranalyse</string>
   <string name="analyzeOnYourDevice">Analyser på din enhed</string>
+  <string name="searchChapters">Søg kapitler</string>
+  <string name="searchGames">Søg partier</string>
 </resources>

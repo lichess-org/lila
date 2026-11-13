@@ -6,7 +6,7 @@ import org.apache.pekko.actor.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.{ Bus, Uptime, HTTPRequest }
+import lila.common.{ Bus, HTTPRequest, Uptime }
 import lila.core.config.*
 import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo
@@ -199,8 +199,8 @@ final class Env(
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
 
-  import play.api.mvc.{ RequestHeader, Call }
-  def pathRedirect(path: String)(using RequestHeader): Fu[Option[Call | Pov]] =
+  import play.api.mvc.Call
+  def pathRedirect(path: String)(using Req): Fu[Option[Call | Pov]] =
     GameAnyId(path).fullId
       .so(proxyRepo.pov)
       .map2: p =>

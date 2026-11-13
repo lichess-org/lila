@@ -64,7 +64,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData, hasUserContent, mergeReviewData } from './util';
+import { treeReconstruct, addCrazyData, hasUserContent, mergeReviewData, registerPublicApi } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -234,11 +234,7 @@ export default class AnalyseCtrl implements CevalHandler {
         redraw();
       }
     });
-    (window as any).lichess.analysis = {
-      playUci: this.playUci,
-      navigate: this.navigate,
-    };
-    (window as any).lichess.chessground = () => this.chessground;
+    registerPublicApi(this);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {

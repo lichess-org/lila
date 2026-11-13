@@ -100,7 +100,7 @@ site.load.then(() => {
 
 function computeBitChoices($form: Cash, name: string) {
   let sum = 0;
-  $form.find(`input[type="checkbox"][data-name="${name}"]:checked`).each(function (this: HTMLInputElement) {
+  $form.find(`input[type="checkbox"][name="${name}"]:checked`).each(function (this: HTMLInputElement) {
     sum |= parseInt(this.value);
   });
   $form.find(`input[type="hidden"][name="${name}"]`).val(sum.toString());

@@ -65,7 +65,6 @@ Fjallað er um þetta í gr. 3.7.3.1 og 3.7.3.2 af %2$s:
 Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</string>
   <string name="goodIntroduction">góða kynningu</string>
   <string name="lichessTraining">Æfingu Lichess</string>
-  <string name="watchIMRosenCheckmate">Horfðu á alþjóðalega meistarann Eric Rosen máta %s.</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
   <string name="threefoldRepetitionExplanation">Ef staða kemur upp þrisvar sinnum geta skákmenn krafist jafnteflis sökum %1$s. Lichess framfylgir þeim reglum sem koma fram í leikreglubók Alþjóðaskáksambandsins, eins og lýst er í gr. 9.2 í %2$s.</string>
   <string name="threefoldRepetitionLowerCase">þrefaldrar endurtekningar</string>

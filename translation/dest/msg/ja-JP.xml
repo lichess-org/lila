@@ -8,4 +8,5 @@
 
 Lichess を誰もが気持ちよく遊べる場所にするため力を貸してくださってありがとう。</string>
   <string name="oldAppNoLongerSupportsPuzzles">古いアプリはタクティクス問題に対応していません。新しい Lichess アプリをインストールしてください： %s</string>
+  <string name="xDoesntAcceptNewMessages">%s は新しいメッセージを受け付けていません。</string>
 </resources>

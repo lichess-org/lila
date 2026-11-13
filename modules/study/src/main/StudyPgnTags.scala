@@ -91,8 +91,6 @@ object StudyPgnTags:
         t.name == Tag.Termination && t.value.toLowerCase == "unterminated")
     else tags
 
-  val clockTags: Set[TagType] = Set(Tag.WhiteClock, Tag.BlackClock)
-
   private val unknownValues = Set("", "?", "unknown")
 
   private val sortedTypes: List[TagType] =

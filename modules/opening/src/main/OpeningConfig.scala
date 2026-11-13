@@ -3,7 +3,6 @@ package lila.opening
 import chess.Speed
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ numberIn, typeIn, given }
 import lila.core.i18n.{ I18nKey, Translate }
@@ -46,7 +45,7 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
 
-  def read(using req: RequestHeader): OpeningConfig =
+  def read(using req: Req): OpeningConfig =
     req.cookies.get(cookie.name).map(_.value).flatMap(cookie.read) | OpeningConfig.default
 
   def write(config: OpeningConfig) = baker.cookie(

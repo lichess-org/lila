@@ -568,7 +568,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
-  <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
+  <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäsenten kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
   <string name="website">Verkkosivusto</string>
@@ -701,7 +701,6 @@ Kavereita pelaamassa: %2$s</string>
   <string name="aboutX">Tietoa %sistä</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
-  <string name="lichessUpdates">Lichessin päivitykset</string>
   <string name="contribute">Osallistu</string>
   <string name="changelog">Muutosloki</string>
   <string name="termsOfService">Käyttöehdot</string>

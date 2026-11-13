@@ -127,9 +127,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Të fshihet krejt mësimi? S’ka kthim mbrapa! Për ta ripohuar, shtypni emrin e mësimit: %s</string>
   <string name="whereDoYouWantToStudyThat">Ku doni ta studioni atë?</string>
   <string name="goodMove">Lëvizje e mirë</string>
-  <string name="mistake">Gabim</string>
   <string name="brilliantMove">Lëvizje e shkëlqyer</string>
-  <string name="blunder">Gafë</string>
   <string name="interestingMove">Lëvizje me interes</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lëvizje e dyshimtë</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Lëvizja e vetme</string>
@@ -184,6 +182,7 @@
   <string name="fromInitialPositionText">Thjesht një udjisje fushe për një lojë të re.&lt;br&gt;E përshtatshme për të eksloruar hapjet.</string>
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Ujdiseni fushën si doni.&lt;br&gt;E përshtatshme të eksploruar funde lojërash.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Që të ngarkohe lëvzje loje te kapitulli, ngjitni një URL&lt;br&gt;(fjala vjen, lichess.org/game/7fHIU0XI)&lt;br&gt;.</string>
   <string name="fromFenStringTitle">Nga një varg FEN</string>
   <string name="fromFenStringText">Ngjitni një pozicion në format FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;që kapitulli të niset prej një pozicioni.</string>
   <string name="fromPgnGameTitle">Nga një lojë PGN</string>
@@ -194,6 +193,11 @@
   <string name="doubleDefeat">Dopiohumbje</string>
   <string name="blackDefeatWhiteCanNotWin">I ziu humb, por i Bardhi s’fiton dot</string>
   <string name="whiteDefeatBlackCanNotWin">I bardhi humb, por i Ziu s’fiton dot</string>
+  <string name="analysisEditor">Përpnues analizash</string>
+  <string name="clearLocal">Të spastrohet analizë vendore?</string>
+  <string name="clearPublished">Të spastrohet analiza?</string>
+  <string name="requestAServerAnalysis">Kërkoni një analizë shërbyesi</string>
+  <string name="analyzeOnYourDevice">Analizojeni në pajisjen tuaj</string>
   <string name="searchChapters">Kërko te kapitujt</string>
   <string name="searchGames">Kërko te lojëra</string>
 </resources>

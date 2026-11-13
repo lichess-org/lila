@@ -23,6 +23,7 @@ object Lilaism extends LilaLibraryExtensions:
   export lila.core.email.EmailAddress
   export lila.core.user.{ User, Me }
   export lila.core.game.{ Game, Pov }
+  export play.api.mvc.RequestHeader as Req
 
   def some[A](a: A): Option[A] = Some(a)
 

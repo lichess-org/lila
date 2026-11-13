@@ -378,10 +378,13 @@ final class GameApiV2(
 
 object GameApiV2:
 
+  def gamesPerSecond(using me: Option[Me]) = MaxPerSecond:
+    30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
+
   enum Format:
     case PGN, JSON
   object Format:
-    def byRequest(using req: play.api.mvc.RequestHeader) =
+    def byRequest(using req: Req) =
       if HTTPRequest.acceptsNdJson(req) || HTTPRequest.acceptsJson(req)
       then JSON
       else PGN
@@ -391,6 +394,16 @@ object GameApiV2:
     val flags: WithFlags
     val by: Option[Me]
     val perSecond: MaxPerSecond
+
+    def contentType(using play.api.mvc.Codec): String =
+      import lila.web.LilaContentTypes.{ PGN, NDJSON }
+      import play.api.http.ContentTypes.JSON
+      format match
+        case Format.PGN => PGN
+        case Format.JSON =>
+          this match
+            case _: OneConfig => JSON
+            case _ => NDJSON
 
   enum GameSort(val bson: Bdoc):
     case DateAsc extends GameSort(Query.sortChronological)

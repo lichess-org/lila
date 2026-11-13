@@ -66,7 +66,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def authenticateCookie(sessionId: SessionId, remember: Boolean)(
       result: Result
-  )(using RequestHeader) =
+  )(using Req) =
     result.withCookies(
       env.security.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId.value) - EmailConfirm.cookie.name
@@ -363,7 +363,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
-      .logFailure(logger, _ => s"FP ${HTTPRequest.print(ctx.req)} $fp")
+      .logFailure(logger, _ => s"FP ${HTTPRequest.print} $fp")
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))
@@ -553,7 +553,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case Some(user) => f(user)
 
   private[controllers] object LoginRateLimit:
-    def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result])(using
+    def apply(id: UserIdOrEmail, req: Req)(run: RateLimit.Charge => Fu[Result])(using
         Context
     ): Fu[Result] =
       passwordCost(req).flatMap: cost =>
@@ -571,7 +571,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         ipCost = cost.toInt
       )(me.userId.into(UserIdOrEmail), req)(_ => run)
 
-  private def passwordCost(req: RequestHeader): Fu[Float] =
+  private def passwordCost(req: Req): Fu[Float] =
     env.security.ipTrust
       .rateLimitCostFactor(req, _.proxyMultiplier(if HTTPRequest.ipTier(req).yes then 1 else 2))
 

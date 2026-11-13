@@ -67,7 +67,6 @@ Uşbu qoida %2$sning 3.7.3.1 va 3.7.3.2‑bandlarida quyidagiça tavsiflanadi:
 Uşbu yurişni maşq qiliş uçun %3$s sahifasiga öting.</string>
   <string name="goodIntroduction">yaxşi maʼlumot</string>
   <string name="lichessTraining">Lichess maşq</string>
-  <string name="watchIMRosenCheckmate">Xalqaro usta Erik Rozen %s orqali qanday mot qöyganini tomoşa qiling.</string>
   <string name="threefoldRepetition">Uç marta takrorlaniş</string>
   <string name="threefoldRepetitionExplanation">Agar bir xil pozitsiya uç marta takrorlansa, öyinçilar %1$s qoidasiga köra durang talab qilişlari mumkin. Lichess platformasida %2$sning 9.2‑moddasida körsatilgan rasmiy FIDE qoidalari amal qiladi.</string>
   <string name="threefoldRepetitionLowerCase">uç marta takrorlaniş</string>

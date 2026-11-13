@@ -123,6 +123,7 @@ object UblogPost:
     val title: String
     val intro: String
     val image: Option[UblogImage]
+    val topics: List[UblogTopic]
     val created: Recorded
     val updated: Option[Recorded]
     val lived: Option[Recorded]

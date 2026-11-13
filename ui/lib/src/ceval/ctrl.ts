@@ -320,6 +320,7 @@ export class CevalCtrl {
   }
 
   private letCloudWin(ev: LocalEval, movetime: number | false, started: StartedState) {
+    if (started.threatMode) return false;
     const evNode = started.steps[started.steps.length - 1];
     const { engine, threads } = started.info;
     if (movetime && evNode.ceval?.cloud) {

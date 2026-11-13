@@ -63,7 +63,7 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
-            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+            html <- htmlBody(post)
             viewedPost = env.ublog.viewCounter(post)
             page <- renderPage:
               views.ublog.post.page(
@@ -350,9 +350,12 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(env.user.repo.enabledById(username)): user =>
       for
         blog <- env.ublog.api.getUserBlog(user)
-        posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
+        posts <- isBlogVisible(user, blog).so:
+          env.ublog.api.latestPostsWithContent(blog.id, 10)
+        rendered <- posts.sequentially: post =>
+          htmlBody(post).map(post -> _)
       yield Ok
-        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .snip(views.ublog.ui.atom.user(user, rendered))
         .as(ATOM)
         .publicCache(10.minutes)
         .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
@@ -369,6 +372,9 @@ final class Ublog(env: Env) extends LilaController(env):
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
+
+  private def htmlBody(post: UblogPost) =
+    env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

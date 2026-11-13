@@ -1,21 +1,20 @@
 package lila.relay
 
-import play.api.libs.json.*
 import play.api.i18n.Lang
+import play.api.libs.json.*
 import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
 import lila.core.LightUser.GetterSync
 import lila.core.config.RouteUrl
-import lila.core.study.Study
 import lila.core.fide.PhotosJson
-import lila.core.i18n.Translate
+import lila.core.i18n.{ Translate, defaultLanguage, toLanguage }
 import lila.core.socket.SocketVersion
+import lila.core.study.Study
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
 import lila.study.{ ChapterPreview, Settings }
-import lila.core.i18n.{ toLanguage, defaultLanguage }
 
 final class RelayJsonView(
     routeUrl: RouteUrl,

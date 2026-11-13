@@ -120,9 +120,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">മൊത്തം പഠനം കളയണോ? ഇതിൽ നിന്ന് തിരിച്ച് പേവ്വാൻ ഒക്കത്തില്ല! ഉറപ്പിക്കാൻ ഈ പഠനത്തിന്റെ പേര് എഴുത്തുക: %s</string>
   <string name="whereDoYouWantToStudyThat">താങ്ങൾക്കു് ഇതു് എവിടേ പഠിക്കണം?</string>
   <string name="goodMove">നല്ല നീക്കം</string>
-  <string name="mistake">തെറ്റു്</string>
   <string name="brilliantMove">വളരെ നല്ല നീക്കം</string>
-  <string name="blunder">അബദ്ധം</string>
   <string name="interestingMove">താൽപര്യമുണർത്തുന്ന നീക്കം</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ചഞ്ചലമായ നീക്കം</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ഒറ്റ നീക്കം</string>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Offentleg</string>
+  <string name="permPublicDesc">Bli vist som leiar på lagsida</string>
+  <string name="permSettingsName">Innstillingar</string>
+  <string name="permSettingsDesc">Rediger teaminnstillingar og forklaring</string>
+  <string name="permTourName">Turneringar</string>
+  <string name="permTourDesc">Opprett, administrer og bli med i lagturneringar</string>
+  <string name="permCommName">Moderering</string>
+  <string name="permCommDesc">Moderer forum- og teamchat</string>
+  <string name="permRequestName">Førespurnadar</string>
+  <string name="permRequestDesc">Godta eller avslå førespurnad om deltaking</string>
+  <string name="permPmAllName">Oppdateringar</string>
+  <string name="permPmAllDesc">Send oppdateringar til medlemar av laget</string>
+  <string name="permRemoveName">Fjern</string>
+  <string name="permRemoveDesc">Fjern medlemar frå laget</string>
+  <string name="permAdminName">Administrator</string>
+  <string name="permAdminDesc">Administrer løyvene til leiaren</string>
+  <string name="demoteLeaderNote">For å degradere ein leiar må alle løyvene opphevas.</string>
+  <string name="manuallyReviewAdmissionRequests">Gå manuelt gjennom førespurnader om opptak</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Om merka av må spelarane skriva ein førespurnad for å bli tatt opp som medlem i laget. Det er du som avslår eller aksepterer førespurnaden.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul gruppemedlemslista frå ikkje-medlemar.</string>
+  <string name="onlyLeaderLeavesTeam">Ver venleg og legg til ein ny lagleiar før du forlet eller stengjer laget.</string>
+  <string name="removeSomeone">Fjern einkvan</string>
+  <string name="whoToRemove">Kven vil du fjerne frå laget?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s førespurnad om å slutte seg til</item>
+    <item quantity="other">%s førespurnadar om å slutte seg til</item>
+  </plurals>
+  <string name="declinedRequests">Avviste førespurnader</string>
+  <string name="newTeamUpdate">Ny lagoppdatering</string>
+  <string name="teamUpdatesPerWeek">Du kan senda opptil %1$s teamoppdateringar per uke. &lt;strong&gt;%2$s&lt;/strong&gt; oppdateringar står att til %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
+  <string name="teamIntroductionHelp">Kort beskriving som er synleg i laglistene. Opptil 200 tegn.</string>
+  <string name="teamDescriptionHelp">Full beskriving som er synleg på laget si side.</string>
+  <string name="closeTeam">Steng ned laget</string>
+  <string name="closeTeamDescription">Steng laget for all framtid.</string>
+  <string name="forumVisibilityHelp">Kven kan sjå laget sitt forum på lagsida?&lt;br&gt;Berre lagmedlemar kan publisere i laget sitt forum.</string>
+  <string name="forumVisibilityNone">Skjul forumet</string>
+  <string name="listTheTeamsThatWillCompete">List opp dei laga som skal delta i denne kampen.</string>
+  <string name="thisTeamBattleIsOver">Turneringa er ferdigspela og laga kan ikkje lengre oppdateras.</string>
+  <string name="oneTeamPerLine">Eit lag per linje. Bruk automatisk komplettering.</string>
+  <string name="oneTeamPerLineHelp">Du kan kopiera denne lista frå ei turnering til ei anna!
+
+Du kan ikkje fjerna eit lag dersom ein spelar frå laget allereie er med i turneringa.</string>
+  <string name="numberOfLeadsPerTeam">Antal leiarar per lag. Summen av poenga deira er laget sin poengsum.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du bør verkeleg ikkje endre denne verdien etter at turneringa har starta!</string>
+</resources>

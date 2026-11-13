@@ -4,9 +4,9 @@ package http
 import play.api.mvc.*
 import scalalib.model.Language
 
+import lila.common.HTTPRequest
 import lila.core.i18n.toLanguage
 import lila.core.net.Continent
-import lila.common.HTTPRequest
 
 final class HomeCache(cacheApi: lila.memo.CacheApi, relayHome: lila.relay.RelayHomeApi):
 
@@ -29,8 +29,8 @@ final class HomeCache(cacheApi: lila.memo.CacheApi, relayHome: lila.relay.RelayH
   private def continent(using ctx: Context): Option[Continent] =
     relayHome.spotlight.hasContinentRestriction.so(HTTPRequest.continent(ctx.req))
 
-  private def defaultPrefs(using RequestHeader) =
+  private def defaultPrefs(using Req) =
     lila.pref.RequestPref.fromRequest == lila.pref.Pref.default
 
-  private def hasCookies(req: RequestHeader) =
+  private def hasCookies(req: Req) =
     lila.security.EmailConfirm.cookie.has(req)

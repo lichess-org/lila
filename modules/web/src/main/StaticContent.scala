@@ -1,7 +1,7 @@
 package lila.web
 
 import play.api.libs.json.{ JsArray, Json }
-import play.api.mvc.RequestHeader
+import scalatags.Text.RawFrag
 
 import lila.common.HTTPRequest
 import lila.common.Json.given
@@ -58,10 +58,10 @@ Allow: /game/export/gif/thumbnail/
     )
   )
 
-  def appStoreUrl(using req: RequestHeader): Url =
+  def appStoreUrl(using req: Req): Url =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
-  val swagStoreTlds = Map(
+  private val swagStoreTlds = Map(
     "US" -> "com",
     "CA" -> "ca",
     "DE" -> "de",
@@ -81,7 +81,7 @@ Allow: /game/export/gif/thumbnail/
     "SE" -> "se",
     "AT" -> "at"
   )
-  def swagUrl(countryCode: Option[CountryCode]) =
+  def swagUrl(countryCode: Option[CountryCode]) = net.domain.isLichessProd.option:
     val tld = swagStoreTlds.getOrElse(countryCode.so(_.value), "net")
     s"https://lichess.myspreadshop.$tld/"
 
@@ -115,40 +115,38 @@ Allow: /game/export/gif/thumbnail/
       case 122 => s"$faq#marks"
       case _ => faq
 
-  val organizationScript = lila.ui.bits.structuredData("Organization"):
-    Json.obj(
-      "@id" -> s"${net.baseUrl}/#org",
-      "url" -> net.baseUrl,
-      "sameAs" -> List(
-        "https://www.wikidata.org/wiki/Q19831807",
-        "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
-        "https://github.com/lichess-org",
-        "https://crowdin.com/translate/lichess",
-        "https://mastodon.online/@lichess",
-        "https://bsky.app/profile/lichess.org",
-        "https://www.instagram.com/lichessdotorg",
-        "https://www.facebook.com/lichessdotorg/",
-        "https://youtube.com/@LichessDotOrg",
-        "https://www.twitch.tv/lichessdotorg",
-        "https://discord.gg/lichess",
-        "https://www.reddit.com/r/lichessdotorg/",
-        "https://telegram.me/lichessdotorg",
-        "https://whatsapp.com/channel/0029VaDXYlD2f3ENRMZQHF0K",
-        "https://www.tiktok.com/@lichessdotorg",
-        "https://www.linkedin.com/company/lichess",
-        "https://www.threads.net/@lichessdotorg",
-        "https://huggingface.co/Lichess",
-        "https://www.kaggle.com/organizations/lichess"
-      ),
-      "logo" -> s"${net.baseUrl}/assets/logo/lichess.svg",
-      "name" -> "Lichess",
-      "legalName" -> "LICHESS.ORG",
-      "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
-      "email" -> "contact@lichess.org",
-      "foundingDate" -> "2010-06-20",
-      "taxID" -> "830378717", // SIREN
-      "iso6523Code" -> "0009:830378717" // French ICD:SIREN
-    )
+  val organizationScript: Option[RawFrag] =
+    for base <- lila.ui.bits.organizationJson(net)
+    yield lila.ui.bits.structuredData("Organization"):
+      base ++ Json.obj(
+        "sameAs" -> List(
+          "https://www.wikidata.org/wiki/Q19831807",
+          "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
+          "https://github.com/lichess-org",
+          "https://crowdin.com/translate/lichess",
+          "https://mastodon.online/@lichess",
+          "https://bsky.app/profile/lichess.org",
+          "https://www.instagram.com/lichessdotorg",
+          "https://www.facebook.com/lichessdotorg/",
+          "https://youtube.com/@LichessDotOrg",
+          "https://www.twitch.tv/lichessdotorg",
+          "https://discord.gg/lichess",
+          "https://www.reddit.com/r/lichessdotorg/",
+          "https://telegram.me/lichessdotorg",
+          "https://whatsapp.com/channel/0029VaDXYlD2f3ENRMZQHF0K",
+          "https://www.tiktok.com/@lichessdotorg",
+          "https://www.linkedin.com/company/lichess",
+          "https://www.threads.net/@lichessdotorg",
+          "https://huggingface.co/Lichess",
+          "https://www.kaggle.com/organizations/lichess"
+        ),
+        "legalName" -> "LICHESS.ORG",
+        "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
+        "email" -> "contact@lichess.org",
+        "foundingDate" -> "2010-06-20",
+        "taxID" -> "830378717", // SIREN
+        "iso6523Code" -> "0009:830378717" // French ICD:SIREN
+      )
 
 object StaticContent:
 

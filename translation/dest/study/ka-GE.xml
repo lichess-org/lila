@@ -16,7 +16,5 @@
   <string name="noPinnedComment">არცერთი</string>
   <string name="members">წევრები</string>
   <string name="goodMove">კარგი სვლა</string>
-  <string name="mistake">შეცდომა</string>
-  <string name="blunder">უხეში შეცდომა</string>
   <string name="back">უკან</string>
 </resources>

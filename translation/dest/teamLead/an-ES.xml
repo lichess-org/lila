@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Publico</string>
+  <string name="permSettingsName">Achustes</string>
+  <string name="permTourName">Torneyos</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualment las demandas d\'admisión</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s solicitut d\'ingreso</item>
+    <item quantity="other">%s solicitutz d\'ingreso</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Talment quieras vincular un d\'estes proximos torneyos?</string>
+  <string name="closeTeam">Zarrar equipo</string>
+  <string name="closeTeamDescription">Zarrar l\'equipo pa cutio.</string>
+</resources>

@@ -159,16 +159,16 @@
     <item quantity="other">%s Błędów</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">%s pomyłka</item>
-    <item quantity="few">%s pomyłki</item>
-    <item quantity="many">%s pomyłek</item>
-    <item quantity="other">%s pomyłek</item>
+    <item quantity="one">%s Pomyłka</item>
+    <item quantity="few">%s Pomyłki</item>
+    <item quantity="many">%s Pomyłek</item>
+    <item quantity="other">%s Pomyłek</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">%s niedokładność</item>
-    <item quantity="few">%s niedokładności</item>
-    <item quantity="many">%s niedokładności</item>
-    <item quantity="other">%s niedokładności</item>
+    <item quantity="one">%s Niedokładność</item>
+    <item quantity="few">%s Niedokładności</item>
+    <item quantity="many">%s Niedokładności</item>
+    <item quantity="other">%s Niedokładności</item>
   </plurals>
   <string name="moveTimes">Tempo gry</string>
   <string name="flipBoard">Obróć szachownicę</string>
@@ -285,7 +285,7 @@
   <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
-  <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
+  <string name="emailCanTakeSomeTime">Dostarczenie e-maila może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Jeśli nie otrzymasz wiadomości e-mail z potwierdzeniem, sprawdź folder Spam lub Śmieci. Upewnij się, że oznaczyłeś wiadomości z lichess.org jako bezpieczne i \"to nie spam\", dzięki czemu będziesz mógł otrzymywać ważne komunikaty.</string>
   <string name="sendEmailForAccountVerification">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
@@ -774,7 +774,7 @@ Znajomi grający: %2$s</string>
   <string name="aboutX">Informacje o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest %2$s darmowym, wolnym, pozbawionym reklam, otwartym serwisem szachowym.</string>
   <string name="really">naprawdę</string>
-  <string name="lichessUpdates">Aktualizacje Lichess</string>
+  <string name="lichessUpdates">Aktualności Lichess</string>
   <string name="contribute">Wsparcie</string>
   <string name="changelog">Dziennik zmian</string>
   <string name="termsOfService">Regulamin</string>
@@ -790,7 +790,7 @@ Znajomi grający: %2$s</string>
   <string name="signUpToHostOrJoinASimul">Dołącz do simultany</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
-  <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>
+  <string name="returnToSimulHomepage">Wróć do strony głównej symultan</string>
   <string name="aboutSimul">Symultana to równoczesna gra z wieloma przeciwnikami.</string>
   <string name="aboutSimulImage">Grając na 50 szachownicach Fischer wygrał 47 partii, zremisował dwie i przegrał jedną.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami wykonując na nich posunięcia.</string>
@@ -849,7 +849,7 @@ Znajomi grający: %2$s</string>
   <string name="cumulative">Łącznie</string>
   <string name="glicko2Rating">Ranking Glicko-2</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu, aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
   <string name="ifYouDoNotGetTheEmail">Jeśli nie otrzymasz e-maila w ciągu 5 minut:</string>
   <string name="checkAllEmailFolders">Sprawdź folder ze spamem, kosz oraz inne foldery</string>
@@ -868,7 +868,7 @@ Znajomi grający: %2$s</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
-  <string name="analysisShapesHowTo">Kliknij podczas trzymania Shift lub przytrzymaj prawy przycisk myszy aby rysować okręgi i strzałki na szachownicy.</string>
+  <string name="analysisShapesHowTo">Kliknij prawy przycisk myszy (lub Shift + lewy przycisk myszy), aby rysować okręgi i strzałki na szachownicy. Aby uzyskać inne kolory, użyj tych opcji z prawym przyciskiem myszy:</string>
   <string name="primaryColorArrowsHowTo">Ctrl lub shift = kolor czerwony; command, alt lub meta = kolor niebieski; Ctrl lub shift + command, alt lub meta = kolor żółty.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="receiveForumNotifications">Otrzymuj powiadomienia, kiedy ktoś wspomni o Tobie na forum</string>
@@ -1054,7 +1054,7 @@ Znajomi grający: %2$s</string>
   <string name="teamNamedX">Klub %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
-  <string name="unsubscribe">Zakończ subskrybcję</string>
+  <string name="unsubscribe">Zrezygnuj z subskrypcji</string>
   <string name="mentionedYouInX">wspomniał o tobie w \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s wspomniał o tobie w \"%2$s\".</string>
   <string name="invitedYouToX">zaprosił Cię do \"%1$s\".</string>

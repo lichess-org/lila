@@ -2,7 +2,7 @@ package controllers
 package report
 
 import play.api.data.*
-import play.api.mvc.{ AnyContentAsFormUrlEncoded, RequestHeader, Result }
+import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -54,7 +54,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     )(onInquiryStart)
   }
 
-  private def onInquiryStart(inquiry: ReportModel)(using RequestHeader): Result =
+  private def onInquiryStart(inquiry: ReportModel)(using Req): Result =
     if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
     else if inquiry.is(_.Comm) then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
@@ -80,7 +80,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         .flatMap:
           case "profile" => modC.userUrl(inquiry.user, mod = true).some
           case url => url.some
-        .orElse(env.web.referrerRedirect.fromReq.map(_.value))
+        .orElse(env.web.referrerRedirect.fromQueryParam.map(_.value))
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))

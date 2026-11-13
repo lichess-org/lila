@@ -98,24 +98,3 @@
     opacity: 0.8;
   }
 }
-
-.streamer-picture {
-  form {
-    padding: 30px;
-    border-top: $border;
-    text-align: center;
-  }
-
-  .cancel {
-    padding: 40px;
-    border-top: $border;
-  }
-
-  .forms > *:first-child {
-    margin-top: 40px;
-  }
-
-  .picture_wrap {
-    text-align: center;
-  }
-}

@@ -42,7 +42,7 @@ Hüpf los und berüher jede Stern!</string>
   <string name="thePawn">De Pur</string>
   <string name="itMovesForwardOnly">Er chann sich nur vorwärts bewege</string>
   <string name="pawnIntro">Pure sind schwach, aber sie händ vill Möglichkeite.</string>
-  <string name="pawnsMoveOneSquareOnly">En Pur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Site vom Brätt erreicht, dänn chann er sich in e stärcheri Figur umwandle!</string>
+  <string name="pawnsMoveOneSquareOnly">En Pur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Site vom Brätt erreicht, dänn chann er sich in e schtärcheri Figur umwandle!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. 
 Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Pure ziehnd vorwärts, aber schlah tüends diagonal!</string>
@@ -54,7 +54,7 @@ Umwandle muesch nöd.</string>
   <string name="pawnComplete">Gratuliere, au Pure sind keis G\'heimnis meh für dich.</string>
   <string name="pawnPromotion">Pure Umwandlig</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din Pur hät s\'Ändi vom Brätt erreicht!</string>
-  <string name="itNowPromotesToAStrongerPiece">Er verwandlet sich jetzt in e stärcheri Figur.</string>
+  <string name="itNowPromotesToAStrongerPiece">Er verwandlet sich jetzt in e schtärcheri Figur.</string>
   <string name="selectThePieceYouWant">Wähl die Figur wo du wettsch!</string>
   <string name="fundamentals">Grundlage</string>
   <string name="capture">Figure schlah</string>
@@ -172,7 +172,7 @@ Pur = 1</string>
   <string name="checkInTwoGoal">Bedroh de König mit 2 Züg!</string>
   <string name="checkInTwoComplete">Gratuliere, du häsch de Gägner Schach g\'setzt und ihn zur Verteidigung vum König z\'wunge!</string>
   <string name="whatNext">Wie gahts witer?</string>
-  <string name="youKnowHowToPlayChess">Gratuliere, du weisch jetzt wie mer Schach schpillt! Wettsch en stärchere Schpiler werde?</string>
+  <string name="youKnowHowToPlayChess">Gratuliere, du weisch jetzt wie mer Schach schpillt! Möchtsch gern schtärcher werde?</string>
   <string name="register">Regischtriere</string>
   <string name="getAFreeLichessAccount">Mach es choschteloses Konto bi Lichess</string>
   <string name="practice">Üebig</string>
@@ -198,7 +198,7 @@ Pur = 1</string>
   <string name="nailedIt">Ganz genau so.</string>
   <string name="rightOn">Uf de Punkt!</string>
   <string name="stageXComplete">Schtufe %s beändet</string>
-  <string name="next">Witer mit</string>
+  <string name="next">Mach witer</string>
   <string name="nextX">s\'Nächscht: %s</string>
   <string name="backToMenu">Z\'rugg zum Menü</string>
   <string name="puzzleFailed">Ufgab nöd g\'löst!</string>

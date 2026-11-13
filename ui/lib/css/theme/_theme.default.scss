@@ -71,6 +71,7 @@
   --c-bad: hsl(0 60% 50%);
   --c-error: var(--c-bad);
   --c-live: var(--c-bad);
+  --c-unread: var(--c-bad);
   --c-dasher-light: color-mix(in oklab, var(--c-secondary) 40%, var(--c-bg-low));
   --c-racer-boost: hsl(from var(--c-brag) h s 50% / 0.7);
   --c-marathon: hsl(from var(--c-primary) calc(h - 190) calc(s - 70%) l);

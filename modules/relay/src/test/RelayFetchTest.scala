@@ -1,9 +1,10 @@
 package lila.relay
 
-import chess.format.pgn.PgnStr
-import chess.TournamentClock
 import chess.Clock.*
+import chess.TournamentClock
+import chess.format.pgn.PgnStr
 import play.api.Mode
+
 import lila.relay.RelayRoundForm.cleanUrl
 
 class RelayFetchTest extends munit.FunSuite:

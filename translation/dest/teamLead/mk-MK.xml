@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permSettingsName">Поставки</string>
+  <string name="permTourName">Турнири</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s барање за здружување</item>
+    <item quantity="other">%s барања за здружување</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можеби сакате да ги поврзете некои од идниве турнири?</string>
+</resources>

@@ -1,7 +1,7 @@
 package lila.fide
 
-import chess.{ FideId, FideTC, PlayerTitle }
 import chess.rating.Elo
+import chess.{ FideId, FideTC, PlayerTitle }
 
 class FidePlayerSyncTest extends munit.FunSuite:
 

@@ -185,8 +185,9 @@ final class IrcApi(
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
 
   def reportPuzzle(user: LightUser, puzzleId: PuzzleId, reportText: String): Funit =
+    val escaped = escapeUserText(reportText)
     zulip(_.content, "puzzle reports"):
-      s"${markdown.userLink(user)} reported ${markdown.lichessLink(s"/training/$puzzleId", puzzleId)} because $reportText"
+      s"${markdown.userLink(user)} reported ${markdown.lichessLink(s"/training/$puzzleId", puzzleId)} because $escaped"
 
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
@@ -258,6 +259,9 @@ final class IrcApi(
 
   private def impersonatedByText(impersonator: Option[LightUser]): String =
     impersonator.so(mod => s" (impersonated by ${markdown.modLink(mod.name)})")
+
+  private def escapeUserText(text: String): String =
+    text.replaceAll("""[\[\]*`_~@]""", "")
 
   object charge:
     import lila.core.plan.ChargeEvent

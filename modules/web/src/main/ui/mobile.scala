@@ -2,14 +2,13 @@ package lila.web
 package ui
 
 import play.api.libs.json.Json
-import play.api.mvc.RequestHeader
 
 import lila.common.Json.given
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-def mobileRedirect(using req: RequestHeader)(using Translate) =
+def mobileRedirect(using req: Req)(using Translate) =
   val callbackUrl = "org.lichess.mobile://login-callback" + req.rawQueryString.nonEmptyOption.so("?" + _)
   Page(trans.app.returningToApp.txt()).i18n(_.app):
     main(cls := "page-small box box-pad")(

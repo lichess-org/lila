@@ -41,10 +41,10 @@
     <item quantity="other">کوتاه بنویسید: کمتر از %s حرف</item>
   </plurals>
   <string name="visibility">نمایان در صفحهٔ جَریانگران</string>
-  <string name="whenApproved">هنگام تأیید مدیران سایت</string>
+  <string name="whenApproved">در صورت تایید ناظران</string>
   <string name="headline">عنوان .</string>
   <string name="tellUsAboutTheStream">در یک جمله به ما دربارهٔ جریان‌تان بگویید</string>
-  <string name="longDescription">توضیحات  طولانی.</string>
+  <string name="longDescription">شرحِ بلند</string>
   <string name="xStreamerPicture">تصویر جَریانگر %s</string>
   <string name="changePicture">تغییر/حذف تصویرتان</string>
   <string name="uploadPicture">بارگذاری تصویر</string>

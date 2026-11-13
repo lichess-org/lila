@@ -110,6 +110,7 @@ class WsSocket {
   private _sign?: string;
   private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
   private readonly baseUrls = document.body.dataset.socketDomains!.split(',');
+  private readonly testUrlStorage = storage.make('socket-test-url');
 
   private lastUrl?: string;
 
@@ -380,6 +381,7 @@ class WsSocket {
   };
 
   private readonly nextBaseUrl = (): string => {
+    if (this.testUrlStorage.get()) return this.testUrlStorage.get()!;
     let url = this.storage.get();
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];

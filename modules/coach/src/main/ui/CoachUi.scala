@@ -5,12 +5,11 @@ import play.api.i18n.Lang
 import scalalib.paginator.Paginator
 
 import lila.core.config.NetDomain
-import lila.core.data.RichText
+import lila.core.data.{ RichText, Url }
 import lila.core.user.{ Flag, Profile }
 import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.data.Url
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,
@@ -23,7 +22,7 @@ final class CoachUi(helpers: Helpers)(
   import trans.coach as trc
 
   def titleName(c: Coach.WithUser) =
-    frag(c.user.title.map(t => s"$t "), c.user.realNameOrUsername)
+    frag(c.user.title.map(t => frag(userTitleTag(t), " ")), c.user.realNameOrUsername)
 
   def thumbnailUrl(c: Coach): Url =
     c.picture match

@@ -1,7 +1,8 @@
 package lila.relay
 
-import chess.format.pgn.PgnStr
 import chess.Centis
+import chess.format.pgn.PgnStr
+
 import lila.study.MultiPgn
 import lila.tree.Clock
 

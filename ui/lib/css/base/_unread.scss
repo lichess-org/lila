@@ -6,6 +6,7 @@
 .unread {
   @extend %active, %box-radius;
 
+  background: $c-unread !important;
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   font-size: 12px;

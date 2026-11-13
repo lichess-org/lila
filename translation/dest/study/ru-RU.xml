@@ -131,9 +131,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения: %s</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
   <string name="goodMove">Хороший ход</string>
-  <string name="mistake">Ошибка</string>
   <string name="brilliantMove">Отличный ход</string>
-  <string name="blunder">Зевок</string>
   <string name="interestingMove">Интересный ход</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сомнительный ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единственный ход</string>

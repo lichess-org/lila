@@ -19,7 +19,7 @@
   <string name="emailRead">d\'E-Mail-Adrässe läse</string>
   <string name="challengeRead">iträffendi Useforderige läse</string>
   <string name="challengeWrite">Useforderige sände, aneh und ablehne</string>
-  <string name="challengeBulk">Für anderi Schpiler viel Schpil uf eimal erschtelle</string>
+  <string name="challengeBulk">Für anderi Schpiler*ine viel Schpil uf eimal erschtelle</string>
   <string name="studyRead">Privati Schtudie und Überträgige läse</string>
   <string name="studyWrite">Erschtell, aktualisier, lösch Schtudie und Überträgige</string>
   <string name="tournamentRead">Privati Turnier läse</string>
@@ -30,9 +30,9 @@
   <string name="teamRead">Privati Team Infos läse</string>
   <string name="teamWrite">Teams biträtte und verlah</string>
   <string name="manageTeamsYouLead">Team leite, verwalte: schick diräkti Nachrichte, entfern Mitglider</string>
-  <string name="followRead">Schpiler wo mer folgt läse</string>
-  <string name="followWrite">Folge und nümme folge vu andere Schpiler</string>
-  <string name="msgWrite">Andere Schpiler privati Nachrichte schicke</string>
+  <string name="followRead">Schpiler*ine wo mer folgt läse</string>
+  <string name="followWrite">Folge und nümme folge vu andere Schpiler*ine</string>
+  <string name="msgWrite">Andere Schpiler*ine privati Nachrichte schicke</string>
   <string name="readWriteNotesOnPlayers">Notize zu andere Schpiller läse und verfasse</string>
   <string name="boardPlay">Schpill Schpil mit em API Brätt</string>
   <string name="botPlay">Schpill Schpil mit em API Bot</string>
@@ -42,7 +42,7 @@
   <string name="personalAccessTokens">Persönlichs API Zuegangs Token</string>
   <string name="canMakeOauthRequests">Du chasch au OAuth Afrage mache, ohni %s.</string>
   <string name="authorizationCodeFlow">Berächtigungs Code Fluss</string>
-  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Anstatt %s, wo du diräkt in API Afrage verwände chasch.</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Anschtatt %s, wo du diräkt in API Afrage verwände chasch.</string>
   <string name="generatePersonalToken">generier es persönlichs Zuegangs Token</string>
   <string name="guardTokensCarefully">Bewahr die Tokens guet uf - sie sind wie Passwörter! De Vorteil vu Tokens, gägenüber Passwörter für es Skript isch, dass mer Tokens chan widerrüefe und dass mer viel vu dene erzüge chan.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Da isch es %1$s und de %2$s.</string>

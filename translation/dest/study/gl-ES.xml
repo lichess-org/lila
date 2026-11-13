@@ -129,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Borrar todo o estudo? Non se poderá recuperar! Teclea o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde queres estudar isto?</string>
   <string name="goodMove">Bo movemento</string>
-  <string name="mistake">Erro</string>
   <string name="brilliantMove">Movemento brillante</string>
-  <string name="blunder">Metida de zoca</string>
   <string name="interestingMove">Movemento interesante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Movemento dubidoso</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Movemento único</string>

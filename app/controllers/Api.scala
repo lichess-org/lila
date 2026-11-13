@@ -4,7 +4,6 @@ import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
@@ -13,7 +12,6 @@ import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
 import lila.web.ConcurrencyLimit
-import lila.game.PgnDump.requestPgnFlags
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -142,79 +140,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .flatMap(env.tournament.apiJsonView.apply)
       .map(ApiResult.Data.apply)
 
-  def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
-    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      val onlyUserId = getUserStr("player").map(_.id)
-      val config = GameApiV2.ByTournamentConfig(
-        tour = tour,
-        format = GameApiV2.Format.byRequest,
-        flags = requestPgnFlags(extended = false, delayMoves = true),
-        perSecond = gamesPerSecond(ctx.me)
-      )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
-          Ok.chunked(source)
-            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
-            .as(gameC.gameContentType(config))
-    }
-
-  def tournamentResults(id: TourId) = Anon:
-    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      val withSheet = getBool("sheet")
-      val perSecond = MaxPerSecond:
-        if withSheet
-        then (20 - (tour.estimateNumberOfGamesOneCanPlay / 20).toInt).atLeast(10)
-        else 50
-      val source = env.tournament.api
-        .resultStream(
-          tour,
-          perSecond,
-          getInt("nb") | Int.MaxValue,
-          withSheet = withSheet
-        )
-      val result =
-        if csv then csvDownload(lila.tournament.TournamentCsv(source))
-        else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
-      result.asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson"))
-    }
-
-  def tournamentTeams(id: TourId) = Anon:
-    Found(env.tournament.tournamentRepo.byId(id)): tour =>
-      JsonOk(env.tournament.jsonView.apiTeamStanding(tour))
-
-  def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
-    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
-      val config = GameApiV2.BySwissConfig(
-        swissId = swiss.id,
-        format = GameApiV2.Format.byRequest,
-        flags = requestPgnFlags(extended = false, delayMoves = true),
-        perSecond = gamesPerSecond(ctx.me),
-        player = getUserStr("player").map(_.id)
-      )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
-          val filename = env.api.gameApiV2.filename(swiss, config.format)
-          Ok.chunked(source)
-            .asAttachmentStream(filename)
-            .as(gameC.gameContentType(config))
-
-  private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond:
-    30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
-
-  def swissResults(id: SwissId) = Anon:
-    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.swiss.cache.swissCache.byId(id).orNotFound { swiss =>
-      val source = env.swiss.api
-        .resultStream(swiss, MaxPerSecond(50), getInt("nb") | Int.MaxValue)
-        .mapAsync(8): p =>
-          env.user.lightUserApi.asyncFallback(p.player.userId).map(p.withUser)
-      val result =
-        if csv then csvDownload(lila.swiss.SwissCsv(source))
-        else jsonDownload(source.map(env.swiss.json.playerResult))
-      result.asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson"))
-    }
-
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val max = ctx.me.fold(300): u =>
       if u.is(UserId.lichess4545) then 900 else 500
@@ -289,11 +214,19 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer.so: (bearer, _) =>
-        limit.eventStream(me.userId, limited):
+        val fromWebsite = HTTPRequest.referer.exists(_.startsWith(env.net.baseUrl.value)) &&
+          HTTPRequest.cookieStr.isDefined
+        limit.eventStream(fromWebsite)(me.userId, limited):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
-          yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
+            stream = env.api.eventStream(
+              povs.value.map(_.game),
+              challenges,
+              bearer,
+              fromWebsite = fromWebsite
+            )
+          yield jsOptToNdJson(stream)
     }
 
   def gameChat(gameId: GameId) = Anon:
@@ -392,10 +325,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.Done => jsonOkResult
     case ApiResult.Data(json) => Ok(json)
 
-  def jsonDownload(makeSource: => Source[JsValue, ?])(using req: Context): Result =
+  def jsonDownload(makeSource: => Source[JsValue, ?])(using ctx: Context): Result =
     limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(jsToNdJson)
 
-  def csvDownload(makeSource: => Source[String, ?])(using req: Context): Result =
+  def csvDownload(makeSource: => Source[String, ?])(using ctx: Context): Result =
     limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =

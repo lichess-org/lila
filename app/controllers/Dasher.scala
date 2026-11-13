@@ -14,7 +14,7 @@ final class Dasher(env: Env) extends LilaController(env):
     val pathname = env.getFile.exec(s"public/lifat/background/gallery.json").toPath
     try Json.parse(Files.newInputStream(pathname)).some
     catch
-      case e: Throwable =>
+      case e: Exception =>
         lila.log.system.warn(s"dasher error reading gallery json $pathname", e)
         none
 

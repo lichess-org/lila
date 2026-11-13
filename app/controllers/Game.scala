@@ -47,7 +47,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         yield Ok(content)
           .asAttachment(filename)
           .withHeaders(headersForApiOrApp*)
-          .as(gameContentType(config))
+          .as(config.contentType)
           .publicCache(Option.when(ctx.isAnon)(if game.playable then 10.seconds else 1.day))
           .varyAccept
 
@@ -92,7 +92,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                   if ctx.is(UserId.explorer) then
                     Ok.chunked(env.api.gameApiV2.exportByUser(config))
                       .noProxyBuffer
-                      .as(gameContentType(config))
+                      .as(config.contentType)
                   else
                     apiC
                       .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
@@ -101,7 +101,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                         Ok.chunked(source)
                           .asAttachmentStream:
                             s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                          .as(gameContentType(config))
+                          .as(config.contentType)
 
   private def fileDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").print(nowInstant)
 
@@ -116,9 +116,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
       env.api.gameApiV2.exportUserImportedGames(config)
     ): source =>
-      Ok.chunked(source)
-        .asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn")
-        .as(pgnContentType)
+      Ok.chunked(source).as(PGN).asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn")
   }
 
   def apiExportByUserBookmarks() = Scoped() { ctx ?=> me ?=>
@@ -138,7 +136,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       Ok.chunked(source)
         .asAttachmentStream:
           s"lichess_${me.username}_$fileDate.bookmarks.${config.format.toString.toLowerCase}"
-        .as(gameContentType(config))
+        .as(config.contentType)
   }
 
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
@@ -152,11 +150,11 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     )
     limit.GlobalConcurrencyLimitPerIP
       .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
-        Ok.chunked(source).as(gameContentType(config)).noProxyBuffer
+        Ok.chunked(source).as(config.contentType).noProxyBuffer
 
   def gamePlayersFiltersFromReq(using
       me: Option[Me],
-      req: RequestHeader
+      req: Req
   ): Either[String, Fu[GamePlayersConfig]] =
     for
       vs <- Right(getUserStr("vs"))
@@ -166,18 +164,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       lostBy <- Right(getUserStr("lostBy")).filterOrElse(valid, "Invalid lostBy")
     yield vs.so(meOrFetch).map(GamePlayersConfig(_, wonBy.map(_.id), lostBy.map(_.id)))
 
-  private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
+  private[controllers] def delayMovesFromReq(using Req)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
       me.exists(_.is(UserId.t3))
     !trusted
-
-  private[controllers] def gameContentType(config: Config) =
-    config.format match
-      case Format.PGN => pgnContentType
-      case Format.JSON =>
-        config match
-          case _: OneConfig => JSON
-          case _ => NDJSON
 
   private[controllers] def preloadUsers(game: lila.core.game.Game): Funit =
     env.user.lightUserApi.preloadMany(game.userIds)

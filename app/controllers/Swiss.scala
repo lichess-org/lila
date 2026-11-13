@@ -5,6 +5,9 @@ import lila.app.{ *, given }
 import lila.core.team.LightTeam
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
+import lila.api.GameApiV2
+import lila.game.PgnDump.requestPgnFlags
+import lila.common.HTTPRequest
 
 final class Swiss(
     env: Env,
@@ -79,7 +82,7 @@ final class Swiss(
       )
 
   def apiShow(id: SwissId) = Anon:
-    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+    WithSwiss(id): swiss =>
       for json <- apiJson(swiss)
       yield Ok(json).publicCache(1.minute)
 
@@ -95,9 +98,8 @@ final class Swiss(
   private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
     env.swiss.cache.swissCache
       .byId(id)
-      .flatMap:
-        _.so: swiss =>
-          env.team.lightTeam(swiss.teamId).map2(swiss -> _)
+      .flatMapz: swiss =>
+        env.team.lightTeam(swiss.teamId).map2(swiss -> _)
 
   def round(id: SwissId, round: Int) = Open:
     Found(cachedSwissAndTeam(id)): (swiss, team) =>
@@ -151,12 +153,8 @@ final class Swiss(
   }
 
   def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    Found(env.swiss.cache.swissCache.byId(id)):
-      case swiss if swiss.createdBy.is(me) || isGranted(_.ManageTournament) =>
-        env.swiss.api
-          .kill(swiss)
-          .map(_ => jsonOkResult)
-      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
+    WithEditableSwiss(id): swiss =>
+      for _ <- env.swiss.api.kill(swiss) yield jsonOkResult
   }
 
   def join(id: SwissId) = AuthOrScopedBody(_.Tournament.Write) { _ ?=> _ ?=>
@@ -235,10 +233,36 @@ final class Swiss(
         Ok(lila.swiss.SwissJson.playerJsonExt(swiss, player)).publicCache(swissResponseTtl(swiss))
 
   def exportTrf(id: SwissId) = Anon:
-    Found(env.swiss.cache.swissCache.byId(id)): swiss =>
+    WithSwiss(id): swiss =>
       Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
         .asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf"))
         .publicCache(swissResponseTtl(swiss))
+
+  def downloadGames(id: SwissId) = AnonOrScoped(): ctx ?=>
+    WithSwiss(id): swiss =>
+      val config = GameApiV2.BySwissConfig(
+        swissId = swiss.id,
+        format = GameApiV2.Format.byRequest,
+        flags = requestPgnFlags(extended = false, delayMoves = true),
+        perSecond = GameApiV2.gamesPerSecond,
+        player = getUserStr("player").map(_.id)
+      )
+      limit.GlobalConcurrencyLimitPerIP
+        .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
+          val filename = env.api.gameApiV2.filename(swiss, config.format)
+          Ok.chunked(source).asAttachmentStream(filename).as(config.contentType)
+
+  def downloadResults(id: SwissId) = Anon:
+    val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
+    WithSwiss(id): swiss =>
+      val source = env.swiss.api
+        .resultStream(swiss, MaxPerSecond(50), getInt("nb") | Int.MaxValue)
+        .mapAsync(8): p =>
+          env.user.lightUserApi.asyncFallback(p.player.userId).map(p.withUser)
+      val result =
+        if csv then apiC.csvDownload(lila.swiss.SwissCsv(source))
+        else apiC.jsonDownload(source.map(env.swiss.json.playerResult))
+      result.asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson"))
 
   private def swissResponseTtl(swiss: SwissModel) = if swiss.isFinished then 1.day else 5.seconds
 

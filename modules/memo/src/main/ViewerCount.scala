@@ -1,6 +1,5 @@
 package lila.memo
 
-import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 import se.thanh.pds.bloomfilter.BloomFilter
 
@@ -44,7 +43,7 @@ object ViewerCount:
     case (ip, ua, id) =>
       s"${ip}${id.so(_.value)}${ua.value}"
 
-  def makeViewer(req: RequestHeader, user: Option[UserId]): Viewer =
+  def makeViewer(req: Req, user: Option[UserId]): Viewer =
     (req.remoteAddress, HTTPRequest.userAgent(req), user)
 
 final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: Scheduler)(using Executor):
@@ -70,7 +69,7 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
   def hit(key: CountKey, maxCount: Int)(viewer: Viewer): Unit =
     cache.getFuture(key, build(_, maxCount)).foreach(_.hit(viewer))
 
-  def hit(key: CountKey, maxCount: Int)(req: RequestHeader, user: Option[UserId]): Unit =
+  def hit(key: CountKey, maxCount: Int)(req: Req, user: Option[UserId]): Unit =
     hit(key, maxCount)(makeViewer(req, user))
 
   scheduler.scheduleWithFixedDelay(ttl / 2, ttl / 2): () =>

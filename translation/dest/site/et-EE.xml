@@ -702,7 +702,6 @@ Sõbrad mängimas: %2$s</string>
   <string name="aboutX">Info %s kohta</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
   <string name="really">päriselt</string>
-  <string name="lichessUpdates">Lichessi uuendused</string>
   <string name="contribute">Panusta</string>
   <string name="changelog">Muudatuste logi</string>
   <string name="termsOfService">Kasutajatingimused</string>

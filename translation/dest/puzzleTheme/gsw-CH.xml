@@ -69,7 +69,7 @@
   <string name="interference">Störig</string>
   <string name="interferenceDescription">E Figur zwüsche zwei gägnerischi Figure schtelle, um einere oder beide de Schutz z\'raube - z. B. en Schpringer uf es verteidigts Fäld, zwüsche zwei Türm, schtelle.</string>
   <string name="intermezzo">Zwüschezug</string>
-  <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de/d\'Gägner*i muess reagiere. Au bekannt als \"Zwüschezug\".</string>
+  <string name="intermezzoDescription">Anschtatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de/d\'Gägner*i muess reagiere. Au bekannt als \"Zwüschezug\".</string>
   <string name="killBoxMate">Kill Box Matt</string>
   <string name="killBoxMateDescription">En Turm staht näbem gägnerische König und wird vu de Dame underschtützt, wo au d\'Fluchtfälder vum König blockiert. De Turm und d\'Dame fanged so de König inere 3x3 Fälder grosse, sogenannte „Kill Box“.</string>
   <string name="pillsburysMate">Pillsbury Matt</string>
@@ -87,9 +87,9 @@
   <string name="long">Mehrzügigi Ufgab</string>
   <string name="longDescription">Mit 3 Züg zum Sieg.</string>
   <string name="master">Meischter Schpil</string>
-  <string name="masterDescription">Ufgabe us Schpil vu Schpiler mit Titel.</string>
+  <string name="masterDescription">Ufgabe us Schpil vu Schpiler*ine mit Titel.</string>
   <string name="masterVsMaster">Meischter gäge Meischter Schpil</string>
-  <string name="masterVsMasterDescription">Ufgabe us Schpil vu 2 Schpiler mit Titel.</string>
+  <string name="masterVsMasterDescription">Ufgabe us Schpil vu 2 Schpiler*ine mit Titel.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateDescription">Günn das Schpil mit Schtil.</string>
   <string name="mateIn1">Matt in 1</string>
@@ -113,7 +113,7 @@
   <string name="pawnEndgame">Pure Ändschpi</string>
   <string name="pawnEndgameDescription">Es Ändschpil nur mit Pure.</string>
   <string name="pin">Fesslig</string>
-  <string name="pinDescription">Taktik mit Fesslig, wo sich e Figur nöd bewege cha, ohni de Angriff uf e stärcheri Figur z\'verrate.</string>
+  <string name="pinDescription">Taktik mit Fesslig, wo sich e Figur nöd bewege cha, ohni de Angriff uf e schtärcheri Figur z\'verrate.</string>
   <string name="promotion">Umwandlig</string>
   <string name="promotePawnToQueenRookOrMinor">Mach usem Pur e Dame, en Turm oder e anderi Figur.</string>
   <string name="queenEndgame">Dame Ändschpil</string>
@@ -135,7 +135,7 @@
   <string name="smotheredMate">Erschtickigs Matt</string>
   <string name="smotheredMateDescription">Es Matt mit em Springer, wo sich de König nöd bewege cha, will er vu sine eigene Figuren umstellt-, also vollkomme ig\'schlosse, wird.</string>
   <string name="superGM">Super Grossmeischter Schpil</string>
-  <string name="superGMDescription">Ufgabe us Schpil, vu de beschte Schpiler*ine uf de Wält.</string>
+  <string name="superGMDescription">Ufgabe us Schpil, vu de beschte Schpiler*ine vu de Wält.</string>
   <string name="trappedPiece">G\'fangeni Figur</string>
   <string name="trappedPieceDescription">E Figur cha em Schlah nöd entgah, will sie nur begränzt Züg mache cha.</string>
   <string name="underPromotion">Under Umwandlig</string>
@@ -148,7 +148,7 @@
   <string name="zugzwangDescription">De/d\'Gägner*i hät nur e limitierti Azahl Züg, jede Zug verschlächteret sini Schtellig.</string>
   <string name="mix">En gsunde Mix</string>
   <string name="mixDescription">Es bitzli vu allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpil.</string>
-  <string name="playerGames">Schpiler Schpil</string>
+  <string name="playerGames">Schpiler*ine Schpil</string>
   <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpil oder Ufgabe us Schpil vu Andere</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer chans abelade under %s.</string>
 </resources>

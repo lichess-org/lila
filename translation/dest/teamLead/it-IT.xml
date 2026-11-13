@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Pubblico</string>
+  <string name="permSettingsName">Preferenze</string>
+  <string name="permTourName">Tornei</string>
+  <string name="manuallyReviewAdmissionRequests">Rivedi manualmente le richieste di ammissione</string>
+  <string name="onlyLeaderLeavesTeam">Prima di andartene scegli un nuovo capitano della squadra oppure elimina la squadra.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s richiesta di adesione</item>
+    <item quantity="other">%s richieste di adesione</item>
+  </plurals>
+  <string name="declinedRequests">Richieste Rifiutate</string>
+  <string name="newTeamUpdate">Nuovo aggiornamento del team</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
+  <string name="teamIntroductionHelp">Breve descrizione visibile negli elenchi delle squadre. Fino a 200 caratteri.</string>
+  <string name="teamDescriptionHelp">Descrizione completa visibile nella pagina della squadra.</string>
+  <string name="closeTeam">Chiudi la squadra</string>
+  <string name="closeTeamDescription">Chiude la squadra per sempre.</string>
+  <string name="listTheTeamsThatWillCompete">Elenca le squadre che competeranno in questa battaglia.</string>
+  <string name="thisTeamBattleIsOver">Questo torneo è terminato e le squadre non possono più essere aggiornate.</string>
+  <string name="oneTeamPerLine">Un team per riga. Usa il completamento automatico.</string>
+  <string name="numberOfLeadsPerTeam">Numero di leader per squadra. La somma del loro punteggio è il punteggio della squadra.</string>
+  <string name="numberOfLeadsPerTeamHelp">Una volta che il torneo è iniziato non dovresti proprio cambiare questo valore!</string>
+</resources>

@@ -1,8 +1,9 @@
 package lila.relay
 
+import chess.format.pgn.{ PgnStr, Tag, Tags }
+
 import lila.relay.RelayUpdatePlan.*
 import lila.study.MultiPgn
-import chess.format.pgn.{ Tag, Tags, PgnStr }
 
 class RelayUpdatePlanTest extends munit.FunSuite:
 

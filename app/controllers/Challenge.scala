@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 import scalalib.net.Bearer
 
 import lila.app.{ *, given }
@@ -389,5 +389,5 @@ final class Challenge(env: Env) extends LilaController(env):
         }
   }
 
-  private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
+  private def anonSecretFromCookieOrMobileSri(using Req) =
     req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

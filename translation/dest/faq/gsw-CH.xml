@@ -22,8 +22,8 @@
   <string name="whenAmIEligibleRatinRefund">Wänn chum ich Wertigspünkt z\'rugg über, wo mir en/e Betrüger*i g\'nah hät?</string>
   <string name="ratingRefundExplanation">1 Minute, nachdem en/e Schpiler*i markiert worde isch, werded sini/ihri 40 letschte Schpil, vu de letschte 3 Tag aglueget. Bisch du i dene Schpil under de Gägner*ine gsi und dini Wertig hät sich verschlächteret, will du verlore- oder Remis g\'schpillt häsch, dänn chunsch du e Wertigs Rückerschtattig über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dem Schpil.
 (Wänn dini Wertig nach so Schpil starch g\'schtige isch, git\'s möglicherwis kei Rückerschtattig oder nur en Teil. Dini Wertig dörf au nöd erscht provisorisch si.) Rückerschtattige sind nie höcher als 150 Pünkt.</string>
-  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiler*ine, wo anstatt ufz\'geh, eifach ab\'haued?</string>
-  <string name="leavingGameWithoutResigningExplanation">Wänn de/d\'Gägner*i hüfig Schpil abbricht oder verlaht, kassiert er/sie en Schpil Bann und cha e gwüssi Zit kei Schpil schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret. Witeri Verschtöss chönd zur Schlüssig vum Konto füere.</string>
+  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiler*ine, wo anschtatt ufz\'geh, eifach ab\'haued?</string>
+  <string name="leavingGameWithoutResigningExplanation">Wänn de/d\'Gägner*i hüfig Schpil abbricht oder verlaht, kassiert er/sie en Schpil Bann und chan e g\'wüssi Zit kei Schpil meh schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret. Witeri Verschtöss chönd au zur Schlüssig vum Konto füere.</string>
   <string name="howCanIBecomeModerator">Wie chan ich Moderator*in werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator*in z\'bewerbe. Wänn mir öpper g\'sehnd und dänked, dass er/sie g\'eignet und guet chönt si, kontaktiered mir die Person diräkt.</string>
   <string name="isCorrespondenceDifferent">Isch Fernschach andersch als normals Schach?</string>
@@ -45,15 +45,15 @@ z.B. berächnet sich die erwarteti Schpildur vume 5+3 Schpil: 5 × 60 + 40 × 3 
 
 De bescht, möglich Computer Zug verlürt kein Hundertschtelpur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipure g\'mässe wird.
 
-De Wert chan als Indikator für d\'Schpilqualität g\'nutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpilstärchi.
+De Wert chan als Indikator für d\'Schpilqualität g\'nutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpilschtärchi.
 
-Computer Analyse werded bi Lichess vu Stockfish gmacht.</string>
+Computer Analyse werded bi Lichess vu Stockfish g\'macht.</string>
   <string name="insufficientMaterial">Mit de Zit verlüre, Remis und ungnüegends Material</string>
-  <string name="lichessFollowFIDErules">Isch eim Schpiller d\'Zit abg\'loffe, verlürt er - i de Regel - s\'Schpil. 
-Es Schpil chann jedoch au als Remis erchlärt werde, wänn de vermeindlich Sieger, kei legali Zugsfolg hät zum es Matt mache (%1$s).
+  <string name="lichessFollowFIDErules">Isch em/er Schpiller*i d\'Zit abg\'loffe, verlürt er/sie - i de Regel - s\'Schpil. 
+Es Schpil chan jedoch au als Remis erchlärt werde, wänn de/di vermeindlich/i Sieger*i, kei legali Zugsfolg hät zum es Matt mache (%1$s).
 
-I sältene Fäll chans schwierig si das z\'entscheide (erzwungeni Zugsfolge, g\'feschtigti Schtellige). Schtandardmässig wir immer für de/d\'Schpiler*i entschide, wo no Bedänkzit hät.
-Gib also acht druf, dass es möglich isch, nur mit Schpringer oder Läufer, es Matt z\'mache, falls de/d\'Gägner*i e Figur hät, wo sin/ihre König chönnt blockiere.</string>
+I sältene Fäll chans schwierig si das z\'entscheide (erzwungeni Zugsfolge, g\'feschtigti Schtellige). Schtandardmässig wir immer für de/d\'Schpiler*i entschide, wo no Bedänkzit uf de Uhr hät.
+Gib also druf acht, dass es möglich isch, nur mit Schpringer oder Läufer, es Matt z\'mache, falls de/d\'Gägner*i e Figur hät, wo sin/ihre König chönt blockiere.</string>
   <string name="fideHandbook">FIDE Handbuech</string>
   <string name="fideHandbookX">FIDE Handbuech %s</string>
   <string name="discoveringEnPassant">Wieso chan en Pur en Andere schlah, obwohl de scho verbizoge isch? (en passant)</string>
@@ -85,13 +85,13 @@ Im %3$s wird en passant mit Üebige erchlärt und g\'lehrt.</string>
 So e Titelbeschtätigung ermöglicht dir, bi Lichess a Titel Arena Events mitzschpille.
 
 Usserdem gits no en Ehretitel %2$s.</string>
-  <string name="asWellAsManyNMtitles">vili nationali Meischtertitel</string>
+  <string name="asWellAsManyNMtitles">vill nationali Meischtertitel</string>
   <string name="verificationForm">Verifikations Formular</string>
   <string name="canIbecomeLM">Chan ich de Lichess Meischter (LM) Titel übercho?</string>
   <string name="noUpperCaseDot">Leider nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">De Ehretitel isch inoffiziell und exischtiert nur bi Lichess.
 
-I sältene Fäll und nach eusem Ermässe, verleihed mir de Titel a b\'sunders bemerkenswerti Schpiler*ine, wo gueti Mitglieder*ine vu Lichess sind. Du chunsch de LM Titel nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunsch du vu eus e Nachricht über und häsch d\'Wahl az\'neh oder abz\'lehne. 
+I sältene Fäll und nach eusem Ermässe, verleihed mir de Titel a b\'sunders bemerkenswerti Schpiler*ine, wo gueti Mitglieder vu Lichess sind. Du chunsch de LM Titel nöd über, sondern de Titel gaht a dich. Wänn du dich defür qualifiziersch, chunsch du vu eus e Nachricht über und häsch d\'Wahl az\'neh oder abz\'lehne. 
 
 Also verlang de Titel nöd.</string>
   <string name="whatUsernameCanIchoose">Wie cha min Benutzername lute?</string>
@@ -129,7 +129,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="whyAreRatingHigher">Wieso sind d\'Wertige höcher, im Verglich zu andere Schachserver oder Organisazione wie FIDE, USCF und em ICC?</string>
   <string name="whyAreRatingHigherExplanation">Es isch am beschte, Wertige nöd als absoluti Zahle z\'betrachte oder si mit anderne Organisazione z\'vergliche. Verschideni Organisazione händ underschidlichi Schpil Klasse, verschideni Wertigs-Syschtem (ELO, Glicko, Glicko-2, oder e modifizierti Version devo). Die Faktore chönd di absolute Zahle (Wertige) drastisch beiflusse.
  
-Es isch am beschte, Wertige als relativi Wert z\'betrachte (im Gägesatz zu absolute Wert): Innerhalb vu me Pool a Schpiler*ine hälfed dir relativi Underschid ide Wertige debi abzschätze, wer ehner günnt/verlürt und wie oft öppe. Z\'säge \"Ich ha # Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiler*ine, mit dene du dini Wertig verglichsch.</string>
+Es isch am beschte, Wertige - im Gägesatz zu absolute Wert - als relativi Wert z\'betrachte: Innerhalb vu me Schpiler*ine Pool hälfed dir relativi Underschid ide Wertige debi abz\'schätze, wer ehner günnt oder verlürt und wie oft öppe. Z\'säge \"Ich ha # Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiler*ine, mit dene du dini Wertig verglichsch.</string>
   <string name="howToHideRatingWhilePlaying">Wie chan mer Wertige während em Schpil usblände?</string>
   <string name="enableZenMode">Aktivier de Zen Modus i de %1$s oder truck %2$s während em Schpil.</string>
   <string name="displayPreferences">Azeige Ischtellige</string>

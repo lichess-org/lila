@@ -2,8 +2,8 @@ package lila.markdown
 
 import chess.format.pgn.PgnStr
 
-import lila.core.lilaism.Lilaism.*
 import lila.core.config.NetDomain
+import lila.core.lilaism.Lilaism.*
 import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:
@@ -180,6 +180,18 @@ Line 2""")
         >> >  >>> Second line""")),
       Markdown("""> > > > > Hello
 > > > > > Second line""")
+    )
+
+  // https://github.com/vsch/flexmark-java/issues/648
+  test("stack overflow detection"):
+    val flood = "A" * 6000
+    val text = s"""[b]: <https://example.com/$flood>"""
+    assertEquals(
+      render(Markdown(text)),
+      Html(
+        s"""<p>[b]: <a href="https://example.com/$flood" target="_blank" rel="nofollow noreferrer">https://example.com/$flood</a></p>
+"""
+      )
     )
 
   test("markdown 5 quotes to 4 escaped quotes with spaces"):

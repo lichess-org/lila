@@ -110,7 +110,10 @@ export default class EditorCtrl implements CevalHandler {
           : randomPositionId();
     }
 
-    if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
+    if (!this.cfg.embed) {
+      this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
+      (window as any).lichess.chessground = () => this.chessground;
+    }
 
     parseFen(this.initialFen).unwrap(this.setSetup, _ => {
       this.initialFen = INITIAL_FEN;

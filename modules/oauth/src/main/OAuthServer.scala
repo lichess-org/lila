@@ -1,10 +1,10 @@
 package lila.oauth
 
 import com.softwaremill.tagging.*
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 import scalalib.net.{ Bearer, UserAgent }
 
-import lila.common.HTTPRequest
+import lila.common.{ ClientName, HTTPRequest }
 import lila.memo.SettingStore
 
 final class OAuthServer(
@@ -12,13 +12,13 @@ final class OAuthServer(
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
     signedClients: OAuthSignedClients
-)(using mode: play.api.Mode)(using Executor):
+)(using play.api.Mode, Executor):
 
   import OAuthServer.*
 
   private type Signature = Option[String]
 
-  def authReq(accepted: EndpointScopes)(using req: RequestHeader): AccessFu =
+  def authReq(accepted: EndpointScopes)(using req: Req)(using ClientName): AccessFu =
     val res = for
       bearer <- HTTPRequest.bearer.raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)
@@ -30,8 +30,8 @@ final class OAuthServer(
   def auth(
       bearer: (Bearer, Signature),
       accepted: EndpointScopes,
-      andLogReq: Option[RequestHeader]
-  ): AccessFu = for
+      andLogReq: Option[Req]
+  )(using client: ClientName): AccessFu = for
     at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
@@ -41,19 +41,19 @@ final class OAuthServer(
     u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
-      .filter: req =>
-        blocked || (u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req))
+      .ifTrue(blocked || (u.isnt(UserId.explorer) && !client.isPlaybot))
       .foreach: req =>
-        def logMsg =
-          s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+        val logMsg =
+          val verb = if blocked then "block" else "auth"
+          s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
         if blocked then logger.info(logMsg) else logger.debug(logMsg)
     _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 
-  def authBoth(scopes: EndpointScopes, req: RequestHeader)(
+  def authBoth(scopes: EndpointScopes, req: Req)(
       token1: Bearer,
       token2: Bearer
-  ): FuRaise[AuthError, (User, User)] = for
+  )(using ClientName): FuRaise[AuthError, (User, User)] = for
     auth1 <- auth(token1 -> none, scopes, req.some)
     auth2 <- auth(token2 -> none, scopes, req.some)
     _ <- raiseIf(auth1.user.is(auth2.user))(OneUserWithTwoTokens)

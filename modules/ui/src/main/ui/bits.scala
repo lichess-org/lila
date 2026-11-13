@@ -3,11 +3,10 @@ package lila.ui
 import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, Json }
-import scalalib.StringOps.addQueryParams
 
 import java.time.YearMonth
 
-import lila.core.config.ImageGetOrigin
+import lila.core.config.{ ImageGetOrigin, NetConfig }
 import lila.core.i18n.Translate
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -146,14 +145,16 @@ object bits:
       )
     )
 
-  def markdownAlternate(url: String, params: Map[String, String] = Map.empty) =
-    link(
-      rel := "alternate",
-      tpe := "text/markdown",
-      href := addQueryParams(url, params + ("output_format" -> "md"))
-    )
-
   def structuredData(tpe: String)(json: JsObject) = raw:
     val js = Json.stringify:
       Json.obj("@context" -> "https://schema.org", "@type" -> tpe) ++ json
     s"""<script type="application/ld+json">$js</script>"""
+
+  def organizationJson(net: NetConfig) = net.domain.isLichessProd.option:
+    Json.obj(
+      "@type" -> "Organization",
+      "@id" -> s"${net.baseUrl}/#org",
+      "name" -> "Lichess",
+      "url" -> net.baseUrl.value,
+      "logo" -> s"${net.baseUrl}/assets/logo/lichess.svg"
+    )

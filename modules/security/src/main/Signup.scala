@@ -3,7 +3,7 @@ package lila.security
 import com.softwaremill.tagging.*
 import play.api.data.*
 import play.api.i18n.Lang
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.Request
 import scalalib.cache.ExpireSetMemo
 
 import lila.common.HTTPRequest
@@ -49,7 +49,7 @@ final class Signup(
         data: SignupData,
         suspIp: Boolean,
         simpleSignup: Option[lila.oauth.OAuthSignedClient.SimpleSignup]
-    )(using req: RequestHeader): Fu[MustConfirmEmail] =
+    )(using req: Req): Fu[MustConfirmEmail] =
       if !canSendEmails.get() then fuccess(NoCantSend)
       else if simpleSignup.exists(_.email == data.email) then fuccess(NoSimpleSignup)
       else
@@ -162,7 +162,7 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       pwned: IsPwned
-  )(user: User)(using RequestHeader, Lang, Option[ValidReferrer]): Fu[Signup.Result] =
+  )(user: User)(using Req, Lang, Option[ValidReferrer]): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if mustConfirm.value then
         emailConfirm.send(user, email) >> {
@@ -204,7 +204,7 @@ final class Signup(
 
   private def signupRateLimit(id: UserId, suspIp: Boolean)(
       f: => Fu[Signup.Result]
-  )(using req: RequestHeader): Fu[Signup.Result] =
+  )(using req: Req): Fu[Signup.Result] =
     val ipCost = if suspIp then 2 else 1
     passwordHasher
       .rateLimit[Signup.Result](
@@ -215,7 +215,7 @@ final class Signup(
         signupRateLimitPerIP(HTTPRequest.ipAddress(req), rateLimitDefault, cost = ipCost)(f)
 
   private def logSignup(
-      req: RequestHeader,
+      req: Req,
       user: User,
       email: EmailAddress,
       fingerPrint: Option[FingerPrint],

@@ -702,7 +702,7 @@ Amizades xogando: %2$s</string>
   <string name="aboutX">Acerca de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuíto (%2$s), libre, e sen publicidade.</string>
   <string name="really">de verdade</string>
-  <string name="lichessUpdates">Actualizacións de Lichess</string>
+  <string name="lichessUpdates">Canle de Lichess</string>
   <string name="contribute">Contribuír</string>
   <string name="changelog">Rexistro de cambios</string>
   <string name="termsOfService">Termos do Servizo</string>
@@ -986,7 +986,7 @@ Amizades xogando: %2$s</string>
   <string name="refundXpointsTimeControlY">Recuperaches %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
-  <string name="download">Descarga</string>
+  <string name="download">Descargar</string>
   <string name="coachManager">Adestrador</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>

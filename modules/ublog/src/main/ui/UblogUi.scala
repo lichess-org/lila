@@ -12,7 +12,10 @@ import lila.ublog.UblogPost.PreviewPost
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
+final class UblogUi(
+    helpers: Helpers,
+    atomUi: AtomUi,
+    modMenu: Context ?=> Frag,
     picfitUrl: lila.memo.PicfitUrl
 ):
   import helpers.{ *, given }
@@ -508,19 +511,16 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )
 
   object atom:
-    def user(
-        user: User,
-        posts: Seq[UblogPost.PreviewPost]
-    )(using Translate) =
+    def user(user: User, posts: Seq[(post: UblogPost, html: Html)])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.index(user.username),
         atomCall = routes.Ublog.userAtom(user.username),
         title = trans.ublog.xBlog.txt(user.username),
-        updated = posts.headOption.flatMap(_.lived).map(_.at),
-        language = _.language
-      ): post =>
-        renderPost(post, authorOfBlog(post.blog))
+        updated = posts.headOption.flatMap(_.post.lived).map(_.at),
+        language = _.post.language
+      ): (post, html) =>
+        renderPost(post, authorOfBlog(post.blog), html.some)
 
     def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
@@ -533,7 +533,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    private def renderPost(post: UblogPost.PreviewPost, authorName: String)(using Translate) =
+    private def renderPost(post: UblogPost.BasePost, authorName: String, markup: Option[Html] = None)(using
+        Translate
+    ) =
       frag(
         tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
@@ -551,11 +553,15 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },
-        tag("content")(tpe := "html")(
+        tag("content")(
+          tpe := "html",
+          Option.when(markup.isDefined)(attr("xml:base") := routeUrl(urlOfPost(post)))
+        )(
           frag(
             thumbnail(post, _.Size.Large),
             br,
-            post.intro
+            post.intro,
+            markup
           ).render // html as escaped string in xml
         ),
         tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),

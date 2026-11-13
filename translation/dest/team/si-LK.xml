@@ -12,8 +12,4 @@
   <string name="joinTeam">කණ්ඩායමට එක්වන්න</string>
   <string name="quitTeam">කණ්ඩායම හැරයන්න</string>
   <string name="teamRecentMembers">මෑත සමාජිකයින්</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">එක්වීමේ ඉල්ලීම් %s යි</item>
-    <item quantity="other">එක්වීමේ ඉල්ලීම් %s යි</item>
-  </plurals>
 </resources>

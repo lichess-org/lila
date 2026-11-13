@@ -125,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">모든 연구를 삭제할까요? 복구할 수 없습니다! 확인을 위해서 연구의 이름을 입력하세요: %s</string>
   <string name="whereDoYouWantToStudyThat">어디에서 연구를 시작하시겠습니까?</string>
   <string name="goodMove">좋은 수</string>
-  <string name="mistake">실수</string>
   <string name="brilliantMove">매우 좋은 수</string>
-  <string name="blunder">블런더</string>
   <string name="interestingMove">흥미로운 수</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">애매한 수</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">유일한 수</string>

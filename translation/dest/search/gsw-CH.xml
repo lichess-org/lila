@@ -15,7 +15,7 @@
   <string name="from">vu/vum</string>
   <string name="to">bis</string>
   <string name="humanOrComputer">Ob de/d\'Gägner*i en Mänsch oder en Computer gsi isch</string>
-  <string name="aiLevel">K.I. Stärchi</string>
+  <string name="aiLevel">K.I. Schtärchi</string>
   <string name="source">Quälle</string>
   <string name="nbTurns">Azahl Züg</string>
   <string name="result">Ergäbnis</string>
@@ -35,5 +35,5 @@
     <item quantity="one">%s Schpil g\'funde</item>
     <item quantity="other">%s Schpil g\'funde</item>
   </plurals>
-  <string name="ratingExplanation">Die durchschnittlich Wertig vu beide Schpiler</string>
+  <string name="ratingExplanation">Die durchschnittlich Wertig vu beide Schpiler*ine</string>
 </resources>

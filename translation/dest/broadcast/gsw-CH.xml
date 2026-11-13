@@ -39,12 +39,12 @@
   <string name="editRoundStudy">Runde Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Das Turnier, mit allne Runde und Schpil, für immer lösche?</string>
-  <string name="showScores">Zeigt d\'Erfolg vu de Schpiler, anhand vu Schpil Resultate</string>
-  <string name="replacePlayerTags">Optional: Schpilernäme, Wertige und Titel weg lah</string>
+  <string name="showScores">Zeigt d\'Erfolg vu de Schpiler*ine, anhand vu Schpil Resultate</string>
+  <string name="replacePlayerTags">Optional: Schpiler*ine näme, Wertige und Titel weg lah</string>
   <string name="fideFederations">FIDE Wältschachverband</string>
   <string name="top10Rating">Top 10 Ratings</string>
-  <string name="fidePlayers">FIDE Schpiler</string>
-  <string name="fidePlayerNotFound">FIDE Schpiler nöd g\'funde</string>
+  <string name="fidePlayers">FIDE Schpiler*ine</string>
+  <string name="fidePlayerNotFound">FIDE Schpiler*i nöd g\'funde</string>
   <string name="fideProfile">FIDE Profil</string>
   <string name="federation">Verband</string>
   <string name="age">Alter</string>
@@ -57,7 +57,7 @@
   <string name="subscribeTitle">Mäld dich a, zum über jede Rundeschtart informiert z\'werde. Du chasch de Alarm- oder d\'Push-Benachrichtigung, für Überträgige, i dine Kontoischtellige umschalte.</string>
   <string name="uploadImage">Turnier Bild ufelade</string>
   <string name="noBoardsYet">No kei Brätter. Die erschined sobald Schpil ufeglade sind.</string>
-  <string name="noPlayersYet">No kei Schpiler. Sie erschined sobald Schpil ufeglade sind.</string>
+  <string name="noPlayersYet">No kei Schpiler*ine. Sie erschined sobald Schpil ufeglade sind.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brätter chönd mit Quälle oder via %s ufeglade werde</string>
   <string name="startsAfter">Schtartet nach %s</string>
   <string name="startVerySoon">d\'Überträgig schtartet sehr bald.</string>
@@ -75,7 +75,7 @@
   <string name="allTeams">Alli Teams</string>
   <string name="tournamentFormat">Turnier Format</string>
   <string name="tournamentLocation">Turnier Lokal</string>
-  <string name="topPlayers">Top Schpiler*inne</string>
+  <string name="topPlayers">Top Schpiler*ine</string>
   <string name="timezone">Zit Zone</string>
   <string name="fideRatingCategory">FIDE Wertigskategorie</string>
   <string name="optionalDetails">Optionali Details</string>
@@ -108,7 +108,7 @@
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Schpil %s</string>
   <string name="knockouts">Usscheidigskämpf</string>
-  <string name="pinPlayer">Pin Schpiler</string>
+  <string name="pinPlayer">Pin Schpiler*ine</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

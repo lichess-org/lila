@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Offentlig</string>
+  <string name="permSettingsName">Valg</string>
+  <string name="permTourName">Turneringer</string>
+  <string name="manuallyReviewAdmissionRequests">Gå gjennom ønsker om å få bli med manuelt</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul listen over lagmedlemmer for personer som ikke er medlemmer.</string>
+  <string name="onlyLeaderLeavesTeam">Legg til en ny lagleder før du forlater laget, eller legg ned laget.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s anmodning om å slutte seg til</item>
+    <item quantity="other">%s anmodninger om å slutte seg til</item>
+  </plurals>
+  <string name="declinedRequests">Avslåtte ønsker</string>
+  <string name="newTeamUpdate">Ny lagoppdatering</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
+  <string name="teamIntroductionHelp">Kort beskrivelse som vises i lagoversikten. Opptil 200 tegn.</string>
+  <string name="teamDescriptionHelp">Full beskrivelse som vises på lagsiden.</string>
+  <string name="closeTeam">Legg ned laget</string>
+  <string name="closeTeamDescription">Legger ned laget for alltid.</string>
+  <string name="forumVisibilityHelp">Hvem kan se lagforumet på lagsiden?&lt;br&gt;Bare lagmedlemmer kan skrive innlegg i lagforumet.</string>
+  <string name="forumVisibilityNone">Skjul forumet</string>
+  <string name="listTheTeamsThatWillCompete">List opp lagene som deltar i denne kampen.</string>
+  <string name="thisTeamBattleIsOver">Turneringen er avsluttet, og lagene kan ikke oppdateres lenger.</string>
+  <string name="oneTeamPerLine">Ett lag per linje. Bruk autofullføring.</string>
+  <string name="numberOfLeadsPerTeam">Antall ledere per lag. Summen av poengene deres er lagets poengsum.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du bør virkelig ikke endre denne verdien etter at turneringen har startet!</string>
+</resources>

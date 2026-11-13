@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Komunitatea</string>
+  <string name="communityBlogs">Komunitateko blogak</string>
+  <string name="best">Onena</string>
+  <string name="all">Guztiak</string>
   <string name="byMonth">Hilabeteka</string>
   <string name="byTopic">Gaika</string>
   <string name="byLichess">Lichessenak</string>
@@ -8,6 +11,7 @@
   <string name="myLikes">Nire gustukoak</string>
   <string name="myBlog">Nire bloga</string>
   <string name="likedBlogs">Atsegin dituzun sarrerak</string>
+  <string name="blogPostsByFriends">Lagunen blog-mezuak</string>
   <plurals name="blogPosts">
     <item quantity="one">Blog sarrera %s</item>
     <item quantity="other">%s blog sarrera</item>
@@ -28,6 +32,9 @@
   <string name="createBlogDiscussionHelp">Foroko hari berri bat irekiko da zure sarreraren inguruan komentarioak egiteko</string>
   <string name="publishOnYourBlog">Argitaratu zure blogean</string>
   <string name="publishHelp">Aukeratuta badago, sarrera zure blogean agertuko da. Bestela pribatua izango da eta zirriborroen zerrendan egongo da</string>
+  <string name="includesPromotedContent">Babestutako edo sustatutako edukia edo erreferentzia-estekak barne hartzen ditu</string>
+  <string name="mandatoryForSponsoredContent">Derrigorrezkoa babestutako edukiarentzako, filiazio-estekentzako edo publizitate komertzialarentzako</string>
+  <string name="containsSponsoredContent">Babestutako edukia, filiazio estekak edo publizitate komertziala dauka</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Itsatsitako sarrera</string>
   <string name="stickyPostHelp">Aukeratuta badago, sarrera hau zure profileko azken sarreren zerrendan agertuko da.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,19 +51,35 @@
   <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
   <string name="noDrafts">Ez dago zirriborrorik.</string>
   <string name="latestBlogPosts">Blogeko azken sarrerak</string>
+  <string name="recentPosts">Azken mezuak</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Sarrera bat ikusi</item>
     <item quantity="other">%s sarrera guztiak ikusi</item>
   </plurals>
   <string name="imageAlt">Irudiaren ordezko testua</string>
   <string name="imageCredit">Irudiaren oina</string>
+  <string name="coverImage">Azal-irudia</string>
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Webgune hauek doako irudiak eskaintzen dituzte. Ziurtatu darabilzun irudiaren lizentzia-baldintzak betetzen dituzula.</string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
+  <string name="topicChess">Xakea</string>
+  <string name="topicPuzzle">Ariketa</string>
+  <string name="topicTactics">Taktika</string>
+  <string name="topicStrategy">Estrategia</string>
+  <string name="topicChessEngine">Xake-motorea</string>
+  <string name="topicChessBot">Xake-bota</string>
+  <string name="topicChessPersonalities">Xake-pertsonalitateak</string>
+  <string name="topicOverTheBoard">Taula gaineko xakea</string>
+  <string name="topicSoftwareDevelopment">Software-garapena</string>
+  <string name="topicOffTopic">Gai librea</string>
+  <string name="topicPosts">%s mezu</string>
+  <string name="etiquette">Etiketa</string>
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
   <string name="noCopyrightedImages">Beste norbaiteen copyrighta ez duten irudiak erabili bakarrik.</string>
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
   <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">Lichess-en kolaboratzaileek adierazitako iritziak beraienak soilik dira.</string>
+  <string name="youMayAlsoLike">Hauek ere gustatuko zaizkizu</string>
   <string name="youBlockedByBlogAuthor">Blogaren egileak blokeatu egin zaitu.</string>
 </resources>

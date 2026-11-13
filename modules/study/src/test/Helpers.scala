@@ -1,8 +1,8 @@
 package lila.study
 
+import alleycats.Zero
 import chess.format.pgn.{ PgnStr, Tags }
 import monocle.syntax.all.*
-import alleycats.Zero
 
 import lila.tree.Root
 

@@ -23,4 +23,5 @@
   <string name="moveXOfY" comment="%$1s is the current move being processed, where %2$s is the total number of moves.">Coup %1$s de %2$s</string>
   <string name="downloadingXofY" comment="A phrase shown when downloading a large engine prior to running analysis. %1$s will be a percentage string like &quot;32%&quot; whereas %2$s will be the total download size in megabytes like &quot;94MB&quot;">Téléchargement de %1$s sur %2$s</string>
   <string name="timeToComplete" comment="An estimate of time required given to users prior to starting an analysis. %s is the placeholder for a duration string like &quot;5 minutes&quot;">Cela prendra environ %s</string>
+  <string name="xWouldBeFaster" comment="A hint (prior to starting analysis) that they should use &quot;engine X&quot; (currently Stockfish 19 94MB) to achieve the quickest results.">%s serait plus rapide</string>
 </resources>

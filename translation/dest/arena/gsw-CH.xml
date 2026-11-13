@@ -11,23 +11,23 @@
   <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Nach 2 Sieg in Serie, gits für jede witeri Sieg doppleti Pünkt, was dur e Flamme, bi de Punktzahl, azeigt wird. Doppleti Pünkt gits so lang, bis es Schpil verlore gaht oder Remis ändet.  
 Bischpil: 4 Sieg und dänn Remis ergit 14 Pkt. ( 2 + 2 + 2x2 + 2x2 + 2x1 = 14 ) ab dänn, wider normal.</string>
   <string name="berserk">Berserk</string>
-  <string name="berserkAnswer">Klickt en Schpiler vor Schpilbeginn uf Berserk, dänn halbiert er sini Bedänkzit. 
-Wänn er s\'Schpil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
+  <string name="berserkAnswer">Klickt en/e Schpiler*i vor Schpilbeginn uf Berserk, dänn halbiert er/sie sini/ihri Bedänkzit. 
+Wänn er/sie s\'Schpil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
-Im Zitmodus mit Inkrement entfernt Berserk s\'Inkrement. 
+Im Zitmodus mit Inkrement entfernt Berserk das Inkrement. 
 (1+2 isch e Usnahm, es wird zu 1+0.)
 
 Bi Schpil ohni Grundbedänkzit (0+1, 0+2) isch Berserk nöd möglich.
 
-De zuesätzlich Berserk Punkt gits nur, wänn im Schpil 
+De zuesätzlich Berserk Punkt git\'s nur, wänn im Schpil 
 meh als 6 Züg g\'schpillt worde sind.</string>
   <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
-  <string name="howIsTheWinnerDecidedAnswer">De/die Schpiler wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
-Wänn 2 oder meh Schpiler glich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
-  <string name="howArePlayersPaired">Wie werded d\'Schpiler paaret?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De/die Schpiler*ine wo bi Turnierändi die meischte Pünkt händ werded als Sieger*ine bekanntgeh. 
+Wänn 2 oder meh Schpiler*ine glich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
+  <string name="howArePlayersPaired">Wie werded d\'Schpiler*ine paaret?</string>
   <string name="howDoesPairingWorkAnswer">Am Afang werded d\'Paarige gemäss de Wertigszahl g\'macht. 
-Sobald es Schpil fertig isch, gahts zrugg id Turnierübersicht und es werded Schpiler 
-mit ähnlichem Rang paaret. Mer schpillt, im Turnier, nie gäge alli Schpiler. 
+Sobald es Schpil fertig isch, gahts z\'rugg id Turnierübersicht und es werded Schpiler*ine 
+mit ähnlichem Rang paaret. Mer schpillt, im Turnier, nie gäge alli Schpiler*ine. 
 Wänn me sofort z\'rugg id Übersicht gaht, chan me meh schpille d.h. meh Pünkt mache!</string>
   <string name="howDoesItEnd">Wie ändet s\'Turnier?</string>
   <string name="howDoesItEndAnswer">Turnier händ e Countdown Uhr. Isch d\'Turnierzit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpil wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
@@ -54,10 +54,10 @@ Wänn me sofort z\'rugg id Übersicht gaht, chan me meh schpille d.h. meh Pünkt
   <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
   <string name="customStartDateHelp">I dinere eigene, lokale Zitzone. Das überschribt d\'Ischtellig \"Zit bis s Turnierbeginn\"</string>
   <string name="allowBerserk">Berserk erlaube</string>
-  <string name="allowBerserkHelp">Erlaubt de Schpiler d\'Bedänkzit z\'halbiere, zum Zuesatzpünkt z\'günne</string>
-  <string name="allowChatHelp">Lass d\'Schpiler ime Chatrum diskutiere</string>
+  <string name="allowBerserkHelp">Erlaubt de Schpiler*ine d\'Bedänkzit z\'halbiere, zum Zuesatzpünkt z\'günne</string>
+  <string name="allowChatHelp">Lass d\'Schpiler*ine ime Chatrum diskutiere</string>
   <string name="arenaStreaks">Arena Sieges Serie</string>
-  <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anstatt 2.</string>
+  <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anschtatt 2.</string>
   <string name="noBerserkAllowed">Berserk nöd erlaubt</string>
   <string name="noArenaStreaks">Kei Arena Serie</string>
   <string name="averagePerformance">Durchschnittlichi Leischtig</string>
@@ -83,7 +83,7 @@ Z. B.: En Durschnittsrang vo 3% würd heisse, dass du\'s würsch id top 3% vum T
   <string name="pointsAvg">Punktedurchschnitt</string>
   <string name="pointsSum">Azahl Pünkt</string>
   <string name="rankAvg">Rang - Durchschnitt</string>
-  <string name="tournamentWinners">Turnier - Sieger</string>
+  <string name="tournamentWinners">Turnier - Sieger*ine</string>
   <string name="tournamentShields">Turnier - Schilder</string>
   <string name="onlyTitled">Nur Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>

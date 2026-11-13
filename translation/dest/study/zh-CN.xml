@@ -97,6 +97,9 @@
   <string name="loadAPositionFromFen">从 FEN 加载局面</string>
   <string name="loadAGameFromPgn">从 PGN 加载对局</string>
   <string name="automatic">自动</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="other">在此处以 PGN 文本格式粘贴对局。每个对局将创建一个新章节。研习最多可包含 %s 个章节。</item>
+  </plurals>
   <string name="urlOfTheGame">对局的链接，每行一个</string>
   <string name="createChapter">创建章节</string>
   <string name="createStudy">创建研习</string>
@@ -122,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">您确定要删除整个研习？此操作不可撤销！请输入研习名称以确认：%s</string>
   <string name="whereDoYouWantToStudyThat">您想在何处研习此内容？</string>
   <string name="goodMove">好着</string>
-  <string name="mistake">错着</string>
   <string name="brilliantMove">妙着</string>
-  <string name="blunder">败着</string>
   <string name="interestingMove">趣味着法</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">可疑着法</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">唯一着法</string>

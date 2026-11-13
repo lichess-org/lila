@@ -99,6 +99,7 @@ final class MarkdownRender(
       .set(Parser.HTML_BLOCK_PARSER, false)
       .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
       .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+      .set(Parser.REFERENCE_PARAGRAPH_PRE_PROCESSOR, false)
 
     // configurable
     if table then o.set(TablesExtension.CLASS_NAME, "slist")
@@ -125,8 +126,8 @@ final class MarkdownRender(
         .pipe(renderer.render)
     catch
       case _: StackOverflowError =>
-        println(s"markdown StackOverflowError $key")
-        text.value
+        println(s"/!\\ markdown StackOverflowError $key ############################################")
+        scalalib.StringUtils.escapeHtmlRaw(text.value)
 
 object MarkdownRender:
 
