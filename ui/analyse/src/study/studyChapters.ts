@@ -1,8 +1,9 @@
+import { COLORS } from 'chessops';
 import { INITIAL_FEN } from 'chessops/fen';
 import { opposite } from 'chessops/util';
 import type Sortable from 'sortablejs';
 
-import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
+import { blurIfPrimaryClick, defined, notNull, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { licon } from 'lib/licon';
 import { type VNode, bind, hl, alert, icon, button } from 'lib/view';
@@ -19,6 +20,7 @@ import type {
   ChapterPreview,
   TagArray,
   ServerNodeMsg,
+  ServerClockMsg,
   ChapterPreviewFromServer,
   ChapterId,
   StudyPlayerFromServer,
@@ -27,6 +29,9 @@ import type {
   StatusStr,
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
+
+const clockAtFromAge = (age: number | null | undefined, now: number): number | undefined =>
+  notNull(age) ? now - age : undefined;
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -74,7 +79,8 @@ export default class StudyChaptersCtrl {
     else if (this.list.size() < 64) this.newForm.open();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
-  loadFromServer = (chapters: ChapterPreviewFromServer[]) =>
+  loadFromServer = (chapters: ChapterPreviewFromServer[]) => {
+    const now = Date.now();
     this.store(
       chapters.map(c => ({
         ...c,
@@ -82,9 +88,11 @@ export default class StudyChaptersCtrl {
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         playing: defined(c.lastMove) && c.status === '*',
-        lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
+        lastMoveAt: defined(c.thinkTime) ? now - 1000 * c.thinkTime : undefined,
+        clockAt: this.isBroadcast ? clockAtFromAge(c.clockAge, now) : undefined,
       })),
     );
+  };
   private readonly convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const conv: StudyPlayer[] = players.map(convertPlayerFromServer);
     return { white: conv[0], black: conv[1] };
@@ -102,17 +110,32 @@ export default class StudyChaptersCtrl {
         cp.check = node.san?.includes('#') ? '#' : node.san?.includes('+') ? '+' : undefined;
       }
       if (onRelayPath) {
-        cp.lastMoveAt = Date.now();
+        const now = Date.now();
+        cp.lastMoveAt = now;
+        if (this.isBroadcast) cp.clockAt = clockAtFromAge(d.clockAge, now);
         const playerWhoMoved = cp.players?.[opposite(fenColor(cp.fen))];
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
     }
   };
 
+  setClock = (d: ServerClockMsg) => {
+    const cp = this.list.get(d.p.chapterId);
+    if (!cp) return;
+    if (d.clockAge !== undefined) cp.clockAt = clockAtFromAge(d.clockAge, Date.now());
+    const players = cp.players;
+    const clocks = d.relayClocks;
+    if (players && clocks)
+      COLORS.forEach((color, i) => {
+        players[color].clock = clocks[i] ?? undefined;
+      });
+  };
+
   setTags = (id: ChapterId, tags: TagArray[]) => {
     const chap = this.list.get(id);
     const result = findTag(tags, 'result');
-    if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
+    if (chap && (result || this.isBroadcast))
+      chap.status = result ? (result.replace(/1\/2/g, '½') as StatusStr) : undefined;
   };
 
   hasPlayingChapter = () => this.list.all().some(c => c.playing);

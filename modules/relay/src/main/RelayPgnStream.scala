@@ -75,7 +75,10 @@ final class RelayPgnStream(
             case None => original
             case Some(url) if url.path.sizeIs > 6 => url.toString
             case _ => gameUrl.value
-        tags +
+        val clockTags =
+          if flags.clocks then RelayGame.snapshotTags(chapter, tags)
+          else tags - Tag.ReferenceTime - Tag.WhiteClock - Tag.BlackClock
+        clockTags +
           Tag("BroadcastName", rt.tour.name.value) +
           Tag("BroadcastURL", routeUrl(rt.call)) +
           Tag("GameURL", gameUrl) +
@@ -183,7 +186,7 @@ final class RelayPgnStream(
       .queue[SyncEvent](8, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         val sub = Bus.subscribeFunDyn(busChannel) { case SyncResult.Ok(chapters, _, in) =>
-          val chapterIds = chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet
+          val chapterIds = chapters.view.filter(_.changed).map(_.id).toSet
           queue.offer(SyncEvent(chapterIds, in))
         }
         queue

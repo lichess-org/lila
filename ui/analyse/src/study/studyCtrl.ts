@@ -1,7 +1,7 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite } from 'chessops/util';
 
-import { prop, defined } from 'lib';
+import { prop, defined, notNull } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import { displayColumns } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
@@ -99,6 +99,7 @@ export default class StudyCtrl {
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   relay?: RelayCtrl;
+  relayClockAt?: number;
   multiCloudEval?: MultiCloudEval;
   multiBoard: MultiBoardCtrl;
   form: StudyForm;
@@ -172,6 +173,7 @@ export default class StudyCtrl {
       this.ctrl,
       () => this.data.chapter,
     );
+    if (relayData && defined(data.chapter.clockAge)) this.relayClockAt = Date.now() - data.chapter.clockAge;
     this.multiCloudEval = this.isCevalAllowed()
       ? new MultiCloudEval(this.redraw, () => this.ctrl.variantKey, this.chapters.list, this.send)
       : undefined;
@@ -374,6 +376,10 @@ export default class StudyCtrl {
     document.title = this.relay?.fullRoundName() ?? this.data.name;
     this.members.dict(s.members);
     if (s.chapters) this.chapters.loadFromServer(s.chapters);
+    if (this.relay) {
+      this.relayClockAt = defined(s.chapter.clockAge) ? Date.now() - s.chapter.clockAge : undefined;
+      if (!s.chapters && isFinished(s.chapter)) this.chapters.setTags(s.chapter.id, s.chapter.tags);
+    }
     if (changeInChapterOrientation) this.chapterFlipMapProp(this.data.chapter.id, false);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
@@ -706,13 +712,15 @@ export default class StudyCtrl {
       this.relay?.onAddNode();
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
-        if (sticky && !this.vm.mode.sticky) this.redraw();
+        if (this.relay || (sticky && !this.vm.mode.sticky)) this.redraw();
         return;
       }
       if (sticky && who?.s === site.sri) {
         this.data.position.path = position.path + node.id;
         return;
       }
+      if (this.relay && d.relayPath === position.path + node.id)
+        this.relayClockAt = defined(d.clockAge) ? Date.now() - d.clockAge : undefined;
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
@@ -845,7 +853,10 @@ export default class StudyCtrl {
     setTags: d => {
       this.setMemberActive(d.w);
       this.chapters.setTags(d.chapterId, d.tags);
-      if (d.chapterId !== this.vm.chapterId) return;
+      if (d.chapterId !== this.vm.chapterId) {
+        if (this.relay) this.redraw();
+        return;
+      }
       this.data.chapter.tags = d.tags;
       this.relay?.onNewTags(d.chapterId, d.tags);
       this.redraw();
@@ -871,9 +882,16 @@ export default class StudyCtrl {
       const position = d.p;
       const who = d.w;
       this.setMemberActive(who);
-      if (d.relayClocks) this.relay?.setClockToChapterPreview(d, d.relayClocks);
-      if (this.wrongChapter(d)) return;
-      this.ctrl.tree.setClockAt(d.c, position.path);
+      if (this.relay) this.chapters.setClock(d);
+      if (this.wrongChapter(d)) {
+        if (this.relay) this.redraw();
+        return;
+      }
+      if (this.relay && d.clockAge !== undefined)
+        this.relayClockAt = notNull(d.clockAge) ? Date.now() - d.clockAge : undefined;
+      // A reference-only relay event may not carry a node clock.
+      if (!this.relay || notNull(d.c) || d.clockAge === undefined)
+        this.ctrl.tree.setClockAt(d.c ?? undefined, position.path);
       this.redraw();
     },
     forceVariation: d => {

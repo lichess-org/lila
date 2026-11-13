@@ -97,4 +97,4 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl, pinned: boolean, cloudEva
 };
 
 const renderClocks = (chapter: ChapterPreview) =>
-  ['black', 'white'].map((color: Color) => renderClock(chapter, color));
+  ['black', 'white'].map((color: Color) => renderClock(chapter, color, true));

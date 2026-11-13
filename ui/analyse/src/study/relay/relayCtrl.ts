@@ -1,9 +1,7 @@
-import { COLORS } from 'chessops';
-
-import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
+import { type Prop, type Toggle, myUserId, prop, toggle } from 'lib';
 import { pubsub } from 'lib/pubsub';
 
-import type { BothClocks, ChapterId, ServerClockMsg, TagArray } from '@/study/interfaces';
+import type { ChapterId, TagArray } from '@/study/interfaces';
 import type StudyCtrl from '@/study/studyCtrl';
 
 import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
@@ -138,7 +136,12 @@ export default class RelayCtrl {
     this.redraw();
   };
 
-  lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;
+  clockAt = (id: ChapterId): number | undefined => {
+    const chapter = this.study.chapters.list.get(id);
+    return (
+      (id === this.study.data.chapter.id ? this.study.relayClockAt : chapter?.clockAt) ?? chapter?.lastMoveAt
+    );
+  };
 
   setSync = (v: boolean) => {
     this.study.ctrl.socket.send('relaySync', v);
@@ -146,15 +149,6 @@ export default class RelayCtrl {
   };
 
   loading = () => !this.cooldown && this.data.sync?.ongoing;
-
-  setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
-    const cp = this.study.chapters.list.get(msg.p.chapterId);
-    if (cp?.players)
-      COLORS.forEach((color, i) => {
-        const clock = clocks[i];
-        if (notNull(clock)) cp.players![color].clock = clock;
-      });
-  };
 
   fullRoundName = () => `${this.data.tour.name} - ${this.round.name}`;
 
