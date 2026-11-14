@@ -281,7 +281,6 @@ function buttons(root: AnalyseCtrl): VNode {
           onClick() {
             if (!root.settings.showMainlineAnalysis) root.settings.set('showMainlineAnalysis', true);
           },
-          count: root.mainlineAnalysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
       toolButton({

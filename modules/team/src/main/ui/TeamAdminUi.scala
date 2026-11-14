@@ -35,7 +35,9 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 st.input(
                   name := "name",
                   attrData("team-id") := t.id,
-                  placeholder := trans.site.username.txt()
+                  placeholder := trans.site.username.txt(),
+                  autocomplete := "off",
+                  spellcheck := "false"
                 ),
                 form3.submit(trans.site.apply())
               )

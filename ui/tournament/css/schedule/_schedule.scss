@@ -59,7 +59,7 @@ $c-tour-variant: #7c5133;
       top: 24px;
       height: calc(100% - 2em);
       margin-inline-start: 1px;
-      border-inline-start: 3px dashed $c-accent;
+      border-inline-start: 3px solid $c-bad;
 
       &::after {
         content: '';
@@ -72,7 +72,7 @@ $c-tour-variant: #7c5133;
         height: 0;
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
-        border-top: 8px solid $c-accent;
+        border-top: 8px solid $c-bad;
       }
     }
   }

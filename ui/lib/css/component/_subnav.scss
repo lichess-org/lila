@@ -46,20 +46,11 @@
       }
 
       &.active {
+        border-radius: $small-box-radius-size;
+        background: $c-body-gradient;
         color: $c-font-clear;
-        position: relative;
-
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          height: 4px;
-          right: 50%;
-          transform: translate(50%, -50%);
-          width: 100%;
-          background: $c-accent;
-          border-radius: 1em;
-        }
+        padding: 0.2rem 0.6rem;
+        margin: 0.2rem 0;
       }
     }
 

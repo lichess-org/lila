@@ -4,7 +4,7 @@
 
     justify-content: space-between;
     flex: 0 0 auto;
-    background: $c-accent;
+    background: $c-bad;
     color: #fff;
     padding: 0.4em 10px;
     line-height: 1.4em;
@@ -55,7 +55,7 @@
       @extend %nowrap-ellipsis;
       @include transition;
 
-      color: $c-accent;
+      color: $c-bad;
       display: block;
       line-height: 1.5em;
       margin-inline-start: -10px;

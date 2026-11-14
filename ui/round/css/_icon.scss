@@ -29,14 +29,14 @@
     .fbt.yes {
       @include inline-end(0);
 
-      $act-confirm-shade: color-mix(in oklab, $c-accent 70%, black);
+      $act-confirm-shade: color-mix(in oklab, $c-bad 70%, black);
 
       position: absolute;
       top: -3px;
       border-radius: 8px;
       color: #fff;
       text-decoration: none;
-      background: $c-accent;
+      background: $c-bad;
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
 

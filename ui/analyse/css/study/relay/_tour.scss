@@ -199,8 +199,8 @@
     }
 
     &.ongoing {
-      background: color-mix(in oklab, $c-accent 10%, $c-bg);
-      color: $c-accent;
+      background: color-mix(in oklab, $c-unread 10%, $c-bg);
+      color: $c-unread;
     }
   }
 
@@ -604,10 +604,6 @@
           &.pinned {
             filter: none;
             transform: rotate(-45deg) translate(-2px, 2px);
-
-            &:hover {
-              transform: rotate(-25deg);
-            }
           }
         }
       }

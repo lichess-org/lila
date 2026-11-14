@@ -1,3 +1,4 @@
+import { toggle, type Toggle } from 'lib';
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { type VNode, bind, onInsert, hl, confirm } from 'lib/view';
@@ -7,13 +8,15 @@ import type StudyCtrl from './studyCtrl';
 export type Save = (t: string) => void;
 
 export class DescriptionCtrl {
-  edit = false;
+  edit: Toggle;
 
   constructor(
     public text: string | undefined,
     readonly doSave: Save,
     readonly redraw: () => void,
-  ) {}
+  ) {
+    this.edit = toggle(false, redraw);
+  }
 
   save(t: string) {
     this.text = t;
@@ -31,7 +34,7 @@ export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : '
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc;
   const contrib = study.members.canContribute() && !study.gamebookPlay;
-  if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
+  if (desc.edit()) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return undefined;
   return hl(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
@@ -40,11 +43,11 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
       hl('div.contrib', [
         hl('span', descTitle(chapter)),
         !isEmpty &&
-          hl('a', {
+          hl('button', {
             attrs: { 'data-icon': licon.Pencil, title: 'Edit' },
-            hook: bind('click', () => (desc.edit = true), desc.redraw),
+            hook: bind('click', () => desc.edit(true), desc.redraw),
           }),
-        hl('a', {
+        hl('button', {
           attrs: { 'data-icon': licon.Trash, title: 'Delete' },
           hook: bind('click', async () => {
             if (await confirm('Delete permanent description?')) desc.save('');
@@ -52,11 +55,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
         }),
       ]),
     isEmpty
-      ? hl(
-          'a.text.button',
-          { hook: bind('click', () => (desc.edit = true), desc.redraw) },
-          descTitle(chapter),
-        )
+      ? hl('button.text.button', { hook: bind('click', () => desc.edit(true)) }, descTitle(chapter))
       : hl('div.text', { hook: richHTML(desc.text) }),
   ]);
 }
@@ -67,7 +66,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
       descTitle(chapter),
       hl('button.button.button-empty.button-green', {
         attrs: { 'data-icon': licon.Checkmark, title: 'Save and close' },
-        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
+        hook: bind('click', () => ctrl.edit(false)),
       }),
     ]),
     hl('form.form3', [

@@ -25,11 +25,11 @@
     }
 
     &.selected .ms-choice {
-      @include gradient-border(rgb(from $c-accent r g b / calc(alpha * 0.7)), to right, to left);
+      @include gradient-border(rgb(from $c-insight r g b / calc(alpha * 0.7)), to right, to left);
     }
 
     &:hover .ms-choice {
-      background: color-mix(in oklab, $c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-insight 20%, $c-bg);
     }
   }
 
