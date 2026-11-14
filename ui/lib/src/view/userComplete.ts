@@ -27,11 +27,12 @@ export function userComplete(opts: UserCompleteOpts): void {
 
   complete<LightUserOnline>({
     input: opts.input,
+    minLength: 3,
     fetch: t => debouncedXhr(t).then(checkDebouncedResultAgainstTerm(t)),
     render: (o: LightUserOnline) => renderUserEntry(o, opts.tag),
     populate: opts.populate || (r => r.name),
     onSelect: opts.onSelect,
-    regex: /^[a-z][\w-]{3,28}$/i,
+    regex: /^[a-z][\w-]{2,28}$/i,
   });
   if (opts.focus) setTimeout(() => opts.input.focus());
 }
