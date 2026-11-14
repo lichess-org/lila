@@ -321,4 +321,5 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     def image(name: String): Frag =
       st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
     def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    def selectImage = button(cls := "button select-image", tpe := "button")("Select image")
+    def selectImage(using Translate): Tag =
+      button(cls := "button select-image", tpe := "button")(trans.site.selectImage.txt())

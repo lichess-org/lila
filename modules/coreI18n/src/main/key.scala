@@ -2096,6 +2096,7 @@ object I18nKey:
     val `pasteTheFenStringHere`: I18nKey = "pasteTheFenStringHere"
     val `pasteThePgnStringHere`: I18nKey = "pasteThePgnStringHere"
     val `orUploadPgnFile`: I18nKey = "orUploadPgnFile"
+    val `selectImage`: I18nKey = "selectImage"
     val `continueFromHere`: I18nKey = "continueFromHere"
     val `toStudy`: I18nKey = "toStudy"
     val `importGame`: I18nKey = "importGame"

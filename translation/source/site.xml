@@ -438,6 +438,7 @@ Playing rated games will increase stability.</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="orUploadPgnFile">Or upload a PGN file</string>
+  <string name="selectImage">Select image</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
