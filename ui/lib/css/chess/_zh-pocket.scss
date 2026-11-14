@@ -29,19 +29,19 @@
     @include transition;
 
     &::after {
-      @extend %active, %box-radius;
+      @extend %box-radius, %active-inset-shadow;
+      @include inline-end(2);
+      @include box-shadow;
 
       background: $c-unread;
+      color: #fff;
+      text-shadow: 0 1px 2px #111d !important;
       content: attr(data-nb);
-      bottom: 0;
-
-      @include inline-end(0);
-
+      bottom: 2px;
       position: absolute;
       line-height: 0.9em;
-      padding: 3px 0.3em;
+      padding: 3px 0.4em;
       font-weight: bold;
-      font-size: 1.1em;
     }
 
     &[data-nb='0'] {
@@ -58,18 +58,14 @@
     }
   }
 
-  &.usable {
-    piece {
-      cursor: pointer;
-      pointer-events: auto;
+  &.usable piece:not([data-nb='0']) {
+    @extend %box-radius;
 
-      &:hover {
-        background-color: #aaa;
-      }
+    cursor: pointer;
+    pointer-events: auto;
 
-      &:first-child:hover {
-        @extend %box-radius-left;
-      }
+    &:hover {
+      background-color: #aaa;
     }
   }
 
