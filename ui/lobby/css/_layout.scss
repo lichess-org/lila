@@ -111,6 +111,10 @@
       margin-top: 2em;
     }
 
+    &__spotlights {
+      margin-top: calc(0.3em + 9px);
+    }
+
     &__counters {
       flex-flow: column;
       align-items: flex-start;
