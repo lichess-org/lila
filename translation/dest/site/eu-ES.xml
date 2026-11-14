@@ -702,6 +702,7 @@ Jokatzen ari diren lagunak: %2$s</string>
   <string name="aboutX">%s-i buruz</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
+  <string name="lichessUpdates" comment="A heading for the feed of updates that Lichess publishes about the chess world in general.&#10;&#10;If &quot;feed&quot; does not exist in your language, then &quot;updates&quot; is an acceptable word to substitute it with.&#10;&#10;URL: https://lichess.org/feed">Lichess jarioa</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="changelog">Aldaketen erregistroa</string>
   <string name="termsOfService">ToS</string>

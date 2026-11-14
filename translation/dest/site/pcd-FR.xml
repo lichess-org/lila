@@ -701,6 +701,7 @@ Amis jouant : %2$s</string>
   <string name="aboutX">À propos de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est un serveur d\'échecs gratuit (%2$s), libre, sans pubs et open source.</string>
   <string name="really">pour de vrai</string>
+  <string name="lichessUpdates" comment="A heading for the feed of updates that Lichess publishes about the chess world in general.&#10;&#10;If &quot;feed&quot; does not exist in your language, then &quot;updates&quot; is an acceptable word to substitute it with.&#10;&#10;URL: https://lichess.org/feed">Nouvelles Lichess</string>
   <string name="contribute">Contribuer</string>
   <string name="changelog">Changements</string>
   <string name="termsOfService">Conditions d\'utilisation</string>

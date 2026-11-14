@@ -575,7 +575,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="website">Web sitesi</string>
   <string name="mobile">Mobil</string>
   <string name="help">Yardım:</string>
-  <string name="createANewTopic">Yeni bir bildiri oluştur.</string>
+  <string name="createANewTopic">Yeni bir konu oluştur</string>
   <string name="topics">Konular</string>
   <string name="posts">Gönderiler</string>
   <string name="lastPost">Son gönderi</string>
@@ -587,7 +587,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="quote">Alıntıla</string>
   <string name="postEdited">düzenlendi</string>
   <string name="message">Mesaj</string>
-  <string name="createTheTopic">Bildiri oluştur</string>
+  <string name="createTheTopic">Konu oluştur</string>
   <string name="reportAUser">Kullanıcı ihbar et</string>
   <string name="user">Kullanıcı</string>
   <string name="reason">Sebep</string>
@@ -702,7 +702,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="aboutX">%s Hakkında</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
-  <string name="lichessUpdates">Lichess akışı</string>
+  <string name="lichessUpdates" comment="A heading for the feed of updates that Lichess publishes about the chess world in general.&#10;&#10;If &quot;feed&quot; does not exist in your language, then &quot;updates&quot; is an acceptable word to substitute it with.&#10;&#10;URL: https://lichess.org/feed">Lichess akışı</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="changelog">Değişiklik Notları</string>
   <string name="termsOfService">Hizmet Koşulları</string>

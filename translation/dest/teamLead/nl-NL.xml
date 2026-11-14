@@ -2,6 +2,7 @@
 <resources>
   <string name="permPublicName">Openbaar</string>
   <string name="permSettingsName">Instellingen</string>
+  <string name="permSettingsDesc">Bewerk teaminstellingen en beschrijving</string>
   <string name="permTourName">Toernooien</string>
   <string name="permCommName">Moderatie</string>
   <string name="permCommDesc">Beheer het forum en de teamchat</string>

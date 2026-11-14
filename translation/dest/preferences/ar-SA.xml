@@ -7,7 +7,7 @@
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة و كش)</string>
-  <string name="pieceDestinations">إظهار النقلات القانونية (النقلات المتاحة والنقلات الاستباقية)</string>
+  <string name="pieceDestinations">وجهات القطع (التحركات المتاحة والتحركات المُسبقة)</string>
   <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
