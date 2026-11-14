@@ -15,7 +15,10 @@ object home:
         iconTag(patronIconChar),
         span(cls := "lobby__support-link__text")(
           strong(trans.patron.donate()),
-          span(trans.patron.becomePatron())
+          span(
+            if ctx.me.exists(_.isPatron) then trans.patron.makeAdditionalDonation()
+            else trans.patron.becomePatron()
+          )
         )
       )
     val swagLink =
