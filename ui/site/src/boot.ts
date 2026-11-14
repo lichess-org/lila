@@ -7,6 +7,7 @@ import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
+import { applyThemeVariant } from 'lib/themeVariant';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame, toggleBoxInit } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 import * as xhr from 'lib/xhr';
@@ -21,6 +22,7 @@ import serviceWorker from './serviceWorker';
 import { addExceptionListeners } from './unhandledError';
 
 export function boot() {
+  applyThemeVariant();
   addExceptionListeners();
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
@@ -126,6 +128,7 @@ function applySystemThemeClasses(prefersLight: boolean) {
   } else if (dataTheme === 'transp system') {
     document.documentElement.className = prefersLight ? 'transp light' : 'transp dark';
   }
+  applyThemeVariant();
 }
 
 function mirrorCheck() {
