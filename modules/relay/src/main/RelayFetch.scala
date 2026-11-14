@@ -138,7 +138,7 @@ final private class RelayFetch(
   ): Updating[RelayRound] =
     val round = updating.current
     result match
-      case result: SyncResult.Ok if result.hasMovesOrTags =>
+      case result: SyncResult.Ok if result.hasUpdates =>
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)

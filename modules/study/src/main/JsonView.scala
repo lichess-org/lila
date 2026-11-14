@@ -62,6 +62,7 @@ final class JsonView(
           .add("description", chapter.description)
           .add("serverEval", chapter.serverEval)
           .add("relayPath", relayPath)
+          .add("clockAge", chapter.relay.filter(_ => chapter.tags.points.isEmpty).flatMap(_.clockAge))
           .pipe(addChapterMode(chapter))
       )
       .add("chapters", previews)

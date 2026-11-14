@@ -22,10 +22,13 @@ case class ChapterPreview(
      * Some(None) = Result PGN tag is "*", the game is new or ongoing
      * Some(Some(GamePoints)) = Game is over with a result
      */
-    points: Option[Option[Outcome.GamePoints]]
+    points: Option[Option[Outcome.GamePoints]],
+    clockAt: Option[Instant] = None
 ):
   def finished = points.exists(_.isDefined)
   def thinkTime = finished.not.so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
+  def runningClockAt = clockAt.filter(_ => !finished)
+  def clockAge = runningClockAt.map(Chapter.clockAge(_))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
 final class ChapterPreviewApi(
@@ -35,19 +38,18 @@ final class ChapterPreviewApi(
 )(using Federation.Guess, Executor):
 
   import ChapterPreview.AsJsons
-  import ChapterPreview.json.given
   import ChapterPreview.bson.{ projection, given }
 
   object jsonList:
-    // Can't be higher without skewing the clocks
-    // because of Preview.secondsSinceLastMove
+    // Can't be higher without skewing thinkTime, which is also cached in the JSON.
     private val cacheDuration = 1.second
     private[ChapterPreviewApi] val cache =
-      cacheApi[StudyId, AsJsons](32, "study.chapterPreview.json"):
+      cacheApi[StudyId, List[ChapterPreview.json.Cached]](32, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
-          listAll(studyId).map(Json.toJson)
+          listAll(studyId).map(_.map(ChapterPreview.json.cached))
 
-    def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
+    def apply(studyId: StudyId): Fu[AsJsons] =
+      cache.get(studyId).map(ChapterPreview.json.withCurrentClockAges(_, nowInstant))
 
     def withoutInitialEmpty(studyId: StudyId): Fu[AsJsons] =
       apply(studyId).map: json =>
@@ -97,11 +99,15 @@ final class ChapterPreviewApi(
       lastMove = denorm.flatMap(_.uci),
       lastMoveAt = relay.flatMap(_.lastMoveAt),
       check = denorm.flatMap(_.check),
-      points = tags.points.isDefined.option(tags.points)
+      points = tags.points.isDefined.option(tags.points),
+      clockAt = relay.flatMap(_.clockAt)
     )
 
-  def invalidate(studyId: StudyId): Unit =
+  private[study] def invalidateJson(studyId: StudyId): Unit =
     jsonList.cache.synchronous().invalidate(studyId)
+
+  def invalidate(studyId: StudyId): Unit =
+    invalidateJson(studyId)
     dataList.cache.synchronous().invalidate(studyId)
 
 object ChapterPreview:
@@ -134,7 +140,16 @@ object ChapterPreview:
         .add("lastMove", c.lastMove)
         .add("check", c.check)
         .add("thinkTime", c.thinkTime)
+        .add("clockAge", c.clockAge)
         .add("status", c.points.map(o => Outcome.showPoints(o).replace("1/2", "½")))
+
+    private[study] type Cached = (JsObject, Option[Instant])
+
+    private[study] def cached(c: ChapterPreview): Cached = Json.toJsObject(c) -> c.runningClockAt
+
+    private[study] def withCurrentClockAges(previews: List[Cached], now: Instant): AsJsons =
+      JsArray(previews.map: (json, clockAt) =>
+        json.add("clockAge", clockAt.map(Chapter.clockAge(_, now))))
 
   object bson:
     import BSONHandlers.given
@@ -144,6 +159,7 @@ object ChapterPreview:
       "denorm" -> true,
       "tags" -> true,
       "lastMoveAt" -> "$relay.lastMoveAt",
+      "clockAt" -> "$relay.clockAt",
       "orientation" -> "$setup.orientation",
       "rootFen" -> "$root._.f"
     )
@@ -154,6 +170,7 @@ object ChapterPreview:
           id <- doc.getAsOpt[StudyChapterId]("_id")
           name <- doc.getAsOpt[StudyChapterName]("name")
           lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
+          clockAt = doc.getAsOpt[Instant]("clockAt")
           lastPos = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
           tags = doc.getAsOpt[Tags]("tags")
           orientation = doc.getAsOpt[Color]("orientation") | Color.White
@@ -166,5 +183,6 @@ object ChapterPreview:
           lastMove = lastPos.flatMap(_.uci),
           lastMoveAt = lastMoveAt,
           check = lastPos.flatMap(_.check),
-          points = tags.filter(_.exists(_.Result)).map(_.points)
+          points = tags.filter(_.exists(_.Result)).map(_.points),
+          clockAt = clockAt
         )
