@@ -6131,6 +6131,8 @@ interface I18n {
     quitTeam: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
+    /** Tell others about your team! */
+    shareTeamPrompt: string;
     /** Subscribe to team updates */
     subToTeamUpdates: string;
     /** A Swiss tournament that only members of your team can join */
@@ -6167,6 +6169,10 @@ interface I18n {
     willBeReviewed: string;
   };
   teamLead: {
+    /** Blocked Users */
+    blockedUsers: string;
+    /** Enter usernames to block them from joining the team. One per line. */
+    blockedUsersDesc: string;
     /** Close team */
     closeTeam: string;
     /** Closes the team forever. */

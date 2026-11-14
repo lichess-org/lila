@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Please add a new team leader before leaving, or close the team.</string>
   <string name="removeSomeone">Remove someone</string>
   <string name="whoToRemove">Who do you want to remove from the team?</string>
+  <string name="blockedUsers">Blocked Users</string>
+  <string name="blockedUsersDesc">Enter usernames to block them from joining the team. One per line.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s join request</item>
     <item quantity="other">%s join requests</item>
