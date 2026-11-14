@@ -20,8 +20,8 @@ export const movePattern: RegExp =
   /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQK\u2654\u2655\u2656\u2657\u2658]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
 /* oxlint-enable no-inferrable-types */
 
-// looks like it has a @mention or #gameid or a url.tld
-export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
+// looks like it has a @mention or #gameid or a url.tld or a move number
+export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d|\d\.)/i.test(str);
 
 const linkHtml = (href: string, content: string, expandable = true): string =>
   `<a${expandable ? '' : ' class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
@@ -72,19 +72,37 @@ export function richHTML(text: string, newLines = true): Hooks {
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;*$]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
 const boardPattern = /\b(?:board|game)\s(\d+)/gi;
+// "board 5 23... Nf6": a move on a given board
+const boardMovePattern = new RegExp(`${boardPattern.source}[,:]?\\s+${movePattern.source}`, 'gi');
+
+const toPly = (turn: number, dots: string) =>
+  turn >= 1 && turn <= 200 ? turn * 2 - (dots.length > 1 ? 0 : 1) : undefined;
+const isBoard = (board: number) => board >= 1 && board <= 100;
 
 function moveReplacer(match: string, turn: number, dots: string) {
-  if (turn < 1 || turn > 200) return match;
-  const ply = turn * 2 - (dots.length > 1 ? 0 : 1);
-  return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
+  const ply = toPly(turn, dots);
+  return ply ? '<a class="jump" data-ply="' + ply + '">' + match + '</a>' : match;
 }
 function boardReplacer(match: string, board: number) {
-  if (board < 1 || board > 100) return match;
-  return '<a data-board="' + board + '">' + match + '</a>';
+  return isBoard(board) ? '<a data-board="' + board + '">' + match + '</a>' : match;
+}
+function boardMoveReplacer(match: string, board: number, turn: number, dots: string) {
+  const ply = toPly(turn, dots);
+  return ply && isBoard(board)
+    ? '<a data-board="' + board + '" data-ply="' + ply + '">' + match + '</a>'
+    : match;
 }
 
-const addPlies = (html: string) => html.replace(movePattern, moveReplacer);
-const addBoards = (html: string) => html.replace(boardPattern, boardReplacer);
+// apply `f` only to the html outside of <a> elements, so links never get nested
+const outsideLinks = (html: string, f: (html: string) => string) =>
+  html
+    .split(/(<a\b[^>]*>.*?<\/a>)/)
+    .map((part, i) => (i % 2 ? part : f(part)))
+    .join('');
+
+const addBoardMoves = (html: string) => html.replace(boardMovePattern, boardMoveReplacer);
+const addPlies = (html: string) => outsideLinks(html, h => h.replace(movePattern, moveReplacer));
+const addBoards = (html: string) => outsideLinks(html, h => h.replace(boardPattern, boardReplacer));
 
 const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
   pawnDropPattern.test(user) ? orig : userLinkReplace(orig, prefix, user);
@@ -96,7 +114,9 @@ export interface EnhanceOpts {
 
 export function enhance(text: string, opts?: EnhanceOpts): string {
   const escaped = escapeHtml(text);
-  const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
-  const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
-  return opts?.boards && linked === escaped ? addBoards(plied) : linked;
+  let html = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
+  if (opts?.boards && opts.plies) html = outsideLinks(html, addBoardMoves);
+  if (opts?.plies) html = addPlies(html);
+  if (opts?.boards) html = addBoards(html);
+  return html;
 }

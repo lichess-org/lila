@@ -1,13 +1,27 @@
 import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
-import { type VNode, type VNodeData, snabH, thunk, enter, alert, onInsert, input, li, span } from '@/view';
+import {
+  type VNode,
+  type VNodeData,
+  snabH,
+  thunk,
+  enter,
+  alert,
+  bind,
+  onInsert,
+  input,
+  button,
+  div,
+  li,
+  span,
+} from '@/view';
 import { userLink } from '@/view/userLink';
 
 import { licon } from '../licon';
 import * as enhance from '../richText';
 import type { ChatCtrl } from './chatCtrl';
-import type { Line } from './interfaces';
+import type { Line, PositionRef } from './interfaces';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
 import * as spam from './spam';
@@ -34,9 +48,12 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           ...onInsert(el => {
-            const $el = $(el).on('click', 'a.jump', (e: Event) => {
-              const ply = (e.target as HTMLElement).getAttribute('data-ply');
-              if (ply) pubsub.emit('jump', ply);
+            const $el = $(el).on('click', 'a.jump, a[data-board]', (e: Event) => {
+              const { board, ply } = (e.target as HTMLElement).dataset;
+              if (board) {
+                e.stopPropagation(); // don't let an enclosing game links listener change the board too
+                pubsub.emit('chat.board', parseInt(board), ply ? parseInt(ply) : undefined);
+              } else if (ply) pubsub.emit('jump', ply);
             });
             $el.on('click', '.reply', (e: Event) => {
               const el = e.target as HTMLElement;
@@ -95,7 +112,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = i18n.site.talkInChat;
-  return input('text')('.mchat__say', {
+  const say = input('text')('.mchat__say', {
     placeholder,
     autocomplete: 'off',
     enterkeyhint: 'send',
@@ -104,7 +121,25 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
     'aria-label': 'Chat input',
     hook: onInsert<HTMLInputElement>(el => setupHooks(ctrl, el)),
   });
+  const ref = ctrl.opts.positionRef;
+  if (!ref) return say;
+  return div('.mchat__say-wrap', [say, !ctrl.vm.timeout && ref.text() ? positionRefButton(ref) : null]);
 }
+
+const positionRefButton = (ref: PositionRef) =>
+  button('.mchat__position-ref', {
+    type: 'button',
+    title: ref.title,
+    'aria-label': ref.title,
+    'data-icon': licon.Target,
+    hook: bind('click', e => {
+      const text = ref.text();
+      const say = (e.target as HTMLElement).parentElement?.querySelector<HTMLInputElement>(
+        'input.mchat__say',
+      );
+      if (text && say) prependChatInput(say, `${text} `);
+    }),
+  });
 
 function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
   if (!chatInput.value.includes(prefix)) chatInput.value = prefix + chatInput.value;

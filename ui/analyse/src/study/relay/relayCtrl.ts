@@ -1,6 +1,8 @@
 import { COLORS } from 'chessops';
 
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
+import { fixCrazySan } from 'lib/game/chess';
+import { plyPrefix } from 'lib/game/nodePGN';
 import { pubsub } from 'lib/pubsub';
 
 import type { BothClocks, ChapterId, ServerClockMsg, TagArray } from '@/study/interfaces';
@@ -54,7 +56,12 @@ export default class RelayCtrl {
         study.chapterSelect.get(),
       );
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
+      study.ctrl.opts.chat.positionRef = {
+        title: i18n.broadcast.mentionPositionInChat,
+        text: this.chatPositionRef,
+      };
     }
+    pubsub.on('chat.board', this.onChatBoard);
 
     const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
@@ -136,6 +143,26 @@ export default class RelayCtrl {
     )
       this.study.vm.toolTab('multiBoard');
     this.redraw();
+  };
+
+  // e.g. "board 5 23... Nf6", which the chat turns into a link back to this move
+  private readonly chatPositionRef = (): string | undefined => {
+    if (this.tourShow()) return undefined;
+    const board = this.study.chapters.list.all().findIndex(c => c.id === this.study.data.chapter.id) + 1;
+    if (!board) return undefined;
+    const node = this.study.ctrl.node;
+    const move = node.san && this.study.ctrl.onMainline ? ` ${plyPrefix(node)}${fixCrazySan(node.san)}` : '';
+    return `board ${board}${move}`;
+  };
+
+  private readonly onChatBoard = async (board: number, ply?: number) => {
+    const chapter = this.study.chapters.list.get(board);
+    if (!chapter || !(await this.study.setChapter(chapter.id))) return;
+    // in sticky mode, the new chapter is still on its way from the server
+    if (ply && this.study.data.chapter.id === chapter.id) {
+      this.study.ctrl.jumpToMain(ply);
+      this.redraw();
+    }
   };
 
   lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;
