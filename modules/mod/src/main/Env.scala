@@ -132,3 +132,6 @@ final class Env(
 
   Bus.sub[BoardApiMark]: m =>
     api.autoEngine(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)
+
+  Bus.sub[lila.core.mod.UndoMark]: m =>
+    api.undoMark(m.userId, m.topic)(using UserId.lichessAsMe)
