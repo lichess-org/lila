@@ -25,6 +25,7 @@
   <string name="asWhite">as white</string>
   <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
+  <string name="random">Random</string>
   <string name="createAGame">Create a game</string>
   <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">White is victorious</string>
@@ -724,6 +725,22 @@ Friends playing: %2$s</string>
   <string name="aboutSimulRealLife">The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move.</string>
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
+  <plurals name="clockMinute">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
+  <plurals name="clockSecond">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+  <plurals name="clockExtraMinute">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
+  <plurals name="clockExtraPerPlayerSecond">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
   <string name="create">Create</string>
   <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Creating a simul lets you play against multiple opponents at the same time.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>

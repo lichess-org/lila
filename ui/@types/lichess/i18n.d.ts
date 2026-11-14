@@ -3723,10 +3723,18 @@ interface I18n {
     clickToRevealEmailAddress: string;
     /** Clock */
     clock: string;
+    /** %s minutes */
+    clockExtraMinute: I18nPlural;
+    /** %s seconds */
+    clockExtraPerPlayerSecond: I18nPlural;
     /** Clock increment */
     clockIncrement: string;
     /** Clock initial time */
     clockInitialTime: string;
+    /** %s minutes */
+    clockMinute: I18nPlural;
+    /** %s seconds */
+    clockSecond: I18nPlural;
     /** Close */
     close: string;
     /** Closing your account will withdraw your appeal */
@@ -4629,6 +4637,8 @@ interface I18n {
     quote: string;
     /** Race finished */
     raceFinished: string;
+    /** Random */
+    random: string;
     /** Random Chess960 position */
     randomChess960Position: string;
     /** Random side */
