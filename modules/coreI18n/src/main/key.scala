@@ -2329,6 +2329,7 @@ object I18nKey:
     val `xIsAFreeYLibreOpenSourceChessServer`: I18nKey = "xIsAFreeYLibreOpenSourceChessServer"
     val `really`: I18nKey = "really"
     val `lichessUpdates`: I18nKey = "lichessUpdates"
+    val `allUpdates`: I18nKey = "allUpdates"
     val `contribute`: I18nKey = "contribute"
     val `changelog`: I18nKey = "changelog"
     val `termsOfService`: I18nKey = "termsOfService"
