@@ -101,12 +101,12 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
             ),
             br,
             div(cls := "box box-pad")(
-              adminTop(t, "User blocklist"),
+              adminTop(t, trl.blockedUsers()),
               postForm(action := routes.Team.blocklist(t.id))(
                 form3
                   .group(
                     blocklistForm("names"),
-                    frag("List of usernames who cannot join the team. One per line.")
+                    frag(trl.blockedUsersDesc())
                   )(
                     form3.textarea(_)(rows := 4)
                   ),
