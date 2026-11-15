@@ -34,12 +34,13 @@ export async function initModule(): Promise<void> {
   pubsub.after('socket.hasConnected').then(() => wsSend('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#fdb115', '#ea4a4a'];
+    const computedStyle = getComputedStyle(this);
     const datasets: ChartDataset<'doughnut'>[] = [
       {
         data: index ? [400, 200, 200] : [100, 100, 100],
         backgroundColor: colors,
         hoverBackgroundColor: colors,
-        borderColor: getComputedStyle(this).getPropertyValue('--c-bg'),
+        borderColor: computedStyle.getPropertyValue('--c-bg'),
         borderWidth: 1,
         circumference: 180,
         rotation: 270,
@@ -54,6 +55,7 @@ export async function initModule(): Promise<void> {
         datasets,
       },
       options: {
+        animation: false,
         events: [],
         plugins: {
           title: {
@@ -80,7 +82,9 @@ export async function initModule(): Promise<void> {
           id: 'needle',
           afterDatasetDraw(chart, _args, _opts) {
             const ctx = chart.ctx;
+            const loading = (index ? v.network : v.server) <= 0;
             ctx.save();
+            ctx.globalAlpha = loading ? 0.5 : 1;
             const data = chart.getDatasetMeta(0).data[0] as ArcElement;
             const first = chart.data.datasets[0].data[0];
             let dest = data.circumference / Math.PI / first;
@@ -89,14 +93,16 @@ export async function initModule(): Promise<void> {
             const hubRadius = 9;
             ctx.translate(data.x, data.y);
             ctx.rotate(Math.PI * (dest + 1.5));
-            ctx.beginPath();
-            ctx.fillStyle = '#838382';
-            ctx.moveTo(-hubRadius, 0);
-            ctx.lineWidth = 1;
-            ctx.lineTo(0, -outer);
-            ctx.lineTo(hubRadius, 0);
-            ctx.lineTo(-hubRadius, 0);
-            ctx.fill();
+            ctx.fillStyle = computedStyle.getPropertyValue('--c-font-dimmer');
+            if (!loading) {
+              ctx.beginPath();
+              ctx.moveTo(-hubRadius, 0);
+              ctx.lineWidth = 1;
+              ctx.lineTo(0, -outer);
+              ctx.lineTo(hubRadius, 0);
+              ctx.lineTo(-hubRadius, 0);
+              ctx.fill();
+            }
 
             ctx.beginPath();
             ctx.arc(0, 0, hubRadius, 0, (Math.PI / 180) * 360, false);
