@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -51,8 +52,12 @@ final class Coach(env: Env) extends LilaController(env):
               page <- renderPage(views.coach.show(c, studies, posts))
             yield Ok(page),
           json =
-            import env.coach.jsonView.given
-            JsonOk(c)
+            for
+              posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+            yield
+              import env.coach.jsonView.given
+              import env.ublog.jsonView.given
+              JsonOk(Json.toJsObject(c) ++ Json.obj("posts" -> posts))
         )
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
