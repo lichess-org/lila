@@ -378,7 +378,7 @@ export default class StudyCtrl {
     if (s.chapters) this.chapters.loadFromServer(s.chapters);
     if (this.relay) {
       this.relayClockAt = defined(s.chapter.clockAge) ? Date.now() - s.chapter.clockAge : undefined;
-      if (!s.chapters && isFinished(s.chapter)) this.chapters.setTags(s.chapter.id, s.chapter.tags);
+      if (!s.chapters) this.chapters.setTags(s.chapter.id, s.chapter.tags);
     }
     if (changeInChapterOrientation) this.chapterFlipMapProp(this.data.chapter.id, false);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
