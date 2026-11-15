@@ -115,11 +115,11 @@ final private class RelaySync(
   ): Fu[Chapter] =
     val ids = chapterFideIds(game)
     val desiredRelay = chapter.relay match
-      case Some(relay) =>
-        val lag = RelayClock.updatedReferenceLag(chapter, game, delaySeconds, nowInstant)
-        Option.when(relay.fideIds != ids || lag.isDefined):
-          relay.copy(fideIds = ids, referenceLagMillis = lag.orElse(relay.referenceLagMillis))
-      case None => makeRelayFor(game, game.root.mainlinePath, delaySeconds).some
+      case Some(relay) if relay.fideIds == ids =>
+        RelayClock
+          .updatedReferenceLag(chapter, game, delaySeconds, nowInstant)
+          .map(lag => relay.copy(referenceLagMillis = lag.some))
+      case _ => makeRelayFor(game, game.root.mainlinePath, delaySeconds).some
     desiredRelay.fold(fuccess(chapter)): relay =>
       for _ <- chapterRepo.setRelay(chapter.id, relay)
       yield chapter.copy(relay = relay.some)
@@ -394,7 +394,8 @@ private[relay] object RelayClock:
   def estimateReferenceLag(game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
     game
       .referenceClockAt(delaySeconds)
-      .flatMap(at => Try(Duration.between(at, now).toMillis).toOption)
+      .flatMap(at => Try(Duration.between(at, now).toMillis.max(0L)).toOption)
+
   // Keep the smallest observed lag from new readings, so temporary delays and repeated PGNs cannot reset clocks.
   def updatedReferenceLag(chapter: Chapter, game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
     val previous = chapter.relay.flatMap(_.referenceLagMillis)
