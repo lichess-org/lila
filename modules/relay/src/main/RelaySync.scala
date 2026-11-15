@@ -59,16 +59,13 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[SyncResult.ChapterResult] =
     val delaySeconds = rt.round.sync.delayMinusLag.fold(0)(_.value)
+    val exactReference = hasExactReference(rt.round)
     for
       chapter <- updateInitialPosition(study.id, chapter, game)
-      chapter <- ensureChapterRelayField(chapter, game, delaySeconds)(using rt.tour)
+      chapter <- ensureChapterRelayField(chapter, game, delaySeconds, exactReference)(using rt.tour)
       staleSnapshot = RelayClock.isOlderSnapshot(chapter, game)
       (newTags, newEnd) <- updateChapterTags(study, chapter, game)
-      updatedChapter = newTags.fold(chapter): tags =>
-        val tagged = chapter.withTags(tags)
-        if tagged.root.children.isEmpty then
-          StudyPgnTags.setRootClockFromTags(tagged).filter(_.root.clock.isDefined) | tagged
-        else tagged
+      updatedChapter = newTags.foldLeft(chapter)(_.withTags(_))
       (nbMoves, clockUpdate) <- updateChapterTree(
         study,
         updatedChapter,
@@ -92,7 +89,12 @@ final private class RelaySync(
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
           for
-            chapter <- createChapter(study, game, rt.round.sync.delayMinusLag.fold(0)(_.value))(using rt.tour)
+            chapter <- createChapter(
+              study,
+              game,
+              rt.round.sync.delayMinusLag.fold(0)(_.value),
+              hasExactReference(rt.round)
+            )(using rt.tour)
             _ <- chapter.tags.points.isDefined.so:
               onChapterEnd(rt.tour, study, chapter)
           yield
@@ -110,16 +112,20 @@ final private class RelaySync(
   // because a study always has at least one chapter,
   // the first chapter is updated when the board data arrives, instead of created.
   // make sure it has the chapter.relay field set.
-  private def ensureChapterRelayField(chapter: Chapter, game: RelayGame, delaySeconds: Int)(using
-      RelayTour
-  ): Fu[Chapter] =
+  private def ensureChapterRelayField(
+      chapter: Chapter,
+      game: RelayGame,
+      delaySeconds: Int,
+      exactReference: Boolean
+  )(using RelayTour): Fu[Chapter] =
     val ids = chapterFideIds(game)
     val desiredRelay = chapter.relay match
       case Some(relay) =>
-        val lag = RelayClock.updatedReferenceLag(chapter, game, delaySeconds, nowInstant)
+        val lag = RelayClock.updatedReferenceLag(chapter, game, delaySeconds, nowInstant, exactReference)
         Option.when(relay.fideIds != ids || lag.isDefined):
           relay.copy(fideIds = ids, referenceLagMillis = lag.orElse(relay.referenceLagMillis))
-      case None => makeRelayFor(game, game.root.mainlinePath, delaySeconds).some
+      case None =>
+        makeRelayFor(game, game.root.mainlinePath, delaySeconds, exactReference = exactReference).some
     desiredRelay.fold(fuccess(chapter)): relay =>
       for _ <- chapterRepo.setRelay(chapter.id, relay)
       yield chapter.copy(relay = relay.some)
@@ -331,14 +337,19 @@ final private class RelaySync(
         scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
+  // A Lichess broadcast publishes the effective anchor of its clocks, so there is no lag to estimate.
+  private def hasExactReference(round: RelayRound) = round.sync.upstream.exists(_.hasOnlyRounds)
+
   private def makeRelayFor(
       game: RelayGame,
       path: UciPath,
       delaySeconds: Int,
-      referenceLagMillis: Option[Long] = None
+      referenceLagMillis: Option[Long] = None,
+      exactReference: Boolean = false
   )(using tour: RelayTour) =
     val now = nowInstant
-    val lag = referenceLagMillis.orElse(RelayClock.estimateReferenceLag(game, delaySeconds, now))
+    val lag = referenceLagMillis.orElse:
+      RelayClock.estimateReferenceLag(game, delaySeconds, now, exactReference)
     Chapter.Relay(
       path = path,
       lastMoveAt = path.nonEmpty.option(now),
@@ -354,7 +365,9 @@ final private class RelaySync(
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
     Chapter.nameFromPlayerTags(game.tags) | StudyChapterName(s"Board $order")
 
-  private def createChapter(study: Study, game: RelayGame, delaySeconds: Int)(using RelayTour): Fu[Chapter] =
+  private def createChapter(study: Study, game: RelayGame, delaySeconds: Int, exactReference: Boolean)(using
+      RelayTour
+  ): Fu[Chapter] =
     for
       order <- chapterRepo.nextOrderByStudy(study.id)
       chapter = Chapter.make(
@@ -368,7 +381,7 @@ final private class RelaySync(
         practice = false,
         gamebook = false,
         conceal = none,
-        relay = makeRelayFor(game, game.root.mainlinePath, delaySeconds).some
+        relay = makeRelayFor(game, game.root.mainlinePath, delaySeconds, exactReference = exactReference).some
       )
       _ <- studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId))
     yield chapter
@@ -391,19 +404,35 @@ private[relay] object RelayClock:
   private def hasActiveTagClock(game: RelayGame): Boolean =
     game.tags.clocks(game.root.lastMainlineNode.ply.turn).isDefined
 
-  def estimateReferenceLag(game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
+  // An exact reference is already the instant from which the clock runs, so its lag is zero.
+  def estimateReferenceLag(
+      game: RelayGame,
+      delaySeconds: Int,
+      now: Instant,
+      exact: Boolean = false
+  ): Option[Long] =
     game
       .referenceClockAt(delaySeconds)
-      .flatMap(at => Try(Duration.between(at, now).toMillis).toOption)
+      .flatMap: at =>
+        if exact then Some(0L) else Try(Duration.between(at, now).toMillis).toOption
+
   // Keep the smallest observed lag from new readings, so temporary delays and repeated PGNs cannot reset clocks.
-  def updatedReferenceLag(chapter: Chapter, game: RelayGame, delaySeconds: Int, now: Instant): Option[Long] =
+  def updatedReferenceLag(
+      chapter: Chapter,
+      game: RelayGame,
+      delaySeconds: Int,
+      now: Instant,
+      exact: Boolean = false
+  ): Option[Long] =
     val previous = chapter.relay.flatMap(_.referenceLagMillis)
-    val newerReference = (for
-      old <- chapter.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
-      current <- game.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
-    yield current.isAfter(old)).getOrElse(true)
-    if isOlderSnapshot(chapter, game) || (previous.isDefined && !newerReference) then None
-    else estimateReferenceLag(game, delaySeconds, now).filter(lag => previous.forall(lag < _))
+    if exact then estimateReferenceLag(game, delaySeconds, now, exact).filterNot(previous.contains)
+    else
+      val newerReference = (for
+        old <- chapter.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
+        current <- game.tags(_.ReferenceTime).flatMap(RelayReferenceTime.parse)
+      yield current.isAfter(old)).getOrElse(true)
+      if isOlderSnapshot(chapter, game) || (previous.isDefined && !newerReference) then None
+      else estimateReferenceLag(game, delaySeconds, now).filter(lag => previous.forall(lag < _))
 
   private def adjustedReference(game: RelayGame, delaySeconds: Int, lag: Option[Long]): Option[Instant] =
     game

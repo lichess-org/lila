@@ -228,7 +228,29 @@ class RelayClockTest extends munit.FunSuite:
     assertEquals(RelayClock.estimateReferenceLag(snapshot(reference = None), 0, receivedAt), None)
     assertEquals(RelayClock.estimateReferenceLag(snapshot(result = Some("1-0")), 0, receivedAt), None)
     assertEquals(RelayClock.estimateReferenceLag(snapshot(moves = ""), 0, receivedAt), None)
-    assertEquals(RelayClock.estimateReferenceLag(first, 0, t0.minusSeconds(1)), Some(0L))
+    assertEquals(RelayClock.estimateReferenceLag(first, 0, t0.minusSeconds(1)), Some(-1000L))
+
+  test("an exact reference keeps its anchor instead of estimating a lag"):
+    val first = snapshot()
+    val path = first.root.mainlinePath
+    val arrival = t0.plusSeconds(300)
+    for localDelay <- List(0, 120) do
+      val lag = RelayClock.estimateReferenceLag(first, localDelay, arrival, exact = true)
+      assertEquals(lag, Some(0L))
+      assertEquals(
+        RelayClock.initialClockAt(first, path, localDelay, arrival, lag),
+        Some(t0.plusSeconds(localDelay))
+      )
+    val stored = chapter(first, Some(arrival))
+    def withLag(lag: Option[Long]) = stored.copy(relay = stored.relay.map(_.copy(referenceLagMillis = lag)))
+    assertEquals(RelayClock.updatedReferenceLag(withLag(None), first, 0, arrival, exact = true), Some(0L))
+    assertEquals(
+      RelayClock.updatedReferenceLag(withLag(Some(300000L)), first, 0, arrival, exact = true),
+      Some(0L)
+    )
+    assertEquals(RelayClock.updatedReferenceLag(withLag(Some(0L)), first, 0, arrival, exact = true), None)
+    assertEquals(update(withLag(Some(0L)), first, path.parent, clockChanged = false), Some(Some(t0)))
+    assertEquals(RelayClock.estimateReferenceLag(snapshot(reference = None), 0, arrival, exact = true), None)
 
   test("a turn change moves the active path without re-anchoring historical nodes"):
     val first = snapshot()
