@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -40,20 +41,24 @@ final class Coach(env: Env) extends LilaController(env):
   def show(username: UserStr) = OpenOrScoped():
     Found(api.find(username)): c =>
       WithVisibleCoach(c):
-        negotiate(
-          html =
-            for
-              stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
-              studies <-
-                given StudyFormat = StudyFormat.card
-                env.study.pager.withChaptersAndLiking(4)(stu)
-              posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-              page <- renderPage(views.coach.show(c, studies, posts))
-            yield Ok(page),
-          json =
-            import env.coach.jsonView.given
-            JsonOk(c)
-        )
+        for
+          stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
+          studies <-
+            given StudyFormat = StudyFormat.card
+            env.study.pager.withChaptersAndLiking(4)(stu)
+          res <- negotiate(
+            html =
+              for
+                posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+                page <- renderPage(views.coach.show(c, studies, posts))
+              yield Ok(page),
+            json =
+              import env.coach.jsonView.given
+              given Writes[lila.study.Study.WithChaptersAndLiked] =
+                Writes(env.study.jsonView.pagerData)
+              JsonOk(Json.toJsObject(c) ++ Json.obj("studies" -> studies))
+          )
+        yield res
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
     if c.isListed || ctx.me.exists(_.is(c.coach)) || isGrantedOpt(_.Admin) then f
