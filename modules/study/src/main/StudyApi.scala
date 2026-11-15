@@ -3,7 +3,7 @@ package lila.study
 import alleycats.Zero
 import cats.mtl.Handle.*
 import chess.format.UciPath
-import chess.format.pgn.{ Comment as CommentStr, Glyph, Tag, Tags }
+import chess.format.pgn.{ Comment as CommentStr, Glyph, Tags }
 import monocle.syntax.all.*
 import org.apache.pekko.stream.scaladsl.*
 
@@ -498,12 +498,8 @@ final class StudyApi(
           Contribute(who.u, study):
             for
               filledTags <- StudyPgnTags.fillPlayer(chapter.tags, tag)
-              newTags = StudyPgnTags((filledTags | chapter.tags) + tag)
-              // not editable, but a relay chapter needs it to discard the snapshots older than its clocks
-              withReference = chapter.relay
-                .flatMap(_ => chapter.tags(_.ReferenceTime))
-                .fold(newTags)(reference => newTags + Tag(_.ReferenceTime, reference))
-              _ <- doSetTags(study, chapter, withReference, who)
+              newTags = (filledTags | chapter.tags) + tag
+              _ <- doSetTags(study, chapter, StudyPgnTags(newTags), who)
             yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, tag))
 
   def setTagsAndRename(
@@ -526,8 +522,7 @@ final class StudyApi(
       for
         _ <- chapterRepo.setTagsFor(chapter)
         _ = if chapter.relay.isDefined then preview.invalidateJson(study.id)
-        // the root clock of a relay chapter comes from its source
-        _ <- chapter.relay.isEmpty.so:
+        _ <- (chapter.relay.isEmpty || chapter.root.children.isEmpty).so:
           StudyPgnTags
             .setRootClockFromTags(chapter)
             .so: c =>

@@ -218,9 +218,6 @@ object RelayRound:
         case url: Url => url.roundId.toList
         case Urls(urls) => urls.map(Url.apply).flatMap(_.roundId)
         case _ => Nil
-      def hasOnlyRounds = this match
-        case Urls(urls) => urls.nonEmpty && roundIds.sizeIs == urls.size
-        case _ => isRound
       def isInternal = this match
         case Ids(_) => true
         case Users(_) => true
