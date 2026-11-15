@@ -47,7 +47,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   private def serveApp(using Context) =
     pageHit
-    FoundPage(env.cms.renderKey("mobile"))(views.mobile)
+    Ok.page(views.mobile)
 
   def playerCount = Open:
     NoCrawlers(env.web.playerCounter.website.hit())

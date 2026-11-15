@@ -19,7 +19,7 @@ def mobileRedirect(using req: Req)(using Translate) =
       a(href := callbackUrl, cls := "button")(trans.app.openTheApp())
     )
 
-def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
+def mobile(helpers: Helpers)(using Translate) =
   import helpers.*
 
   val appleStoreButton = raw:
@@ -94,7 +94,30 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
                 fdroidButton,
                 appleStoreButton
               ),
-              renderedCmsPage,
+              h2(id := "as-free-as-lichess")(trans.app.asFreeAsLichess()),
+              ul(
+                li(trans.app.builtForTheLoveOfChessNotMoney()),
+                li(trans.site.everybodyGetsAllFeaturesForFree()),
+                li(trans.app.noAdsNoTracking()),
+                li(
+                  a(href := "https://github.com/lichess-org/mobile", target := "_blank")(
+                    trans.app.entirelyOpenSource()
+                  )
+                )
+              ),
+              h2(id := "fully-featured")(trans.app.fullyFeatured()),
+              ul(
+                li(trans.app.phoneAndTablet()),
+                li(trans.app.bulletBlitzClassicalVariants()),
+                li(trans.app.correspondenceChess()),
+                li(trans.app.onlinePlay()),
+                li(trans.site.tournaments()),
+                li(trans.broadcast.broadcasts()),
+                li(trans.site.puzzles()),
+                li(trans.app.gameAnalysis()),
+                li(trans.app.followAndChallengeFriends()),
+                li(trans.site.availableInNbLanguages.plural(100, "100+"))
+              ),
               qrcode(routeUrl(routes.Main.redirectToAppStore), 300),
               div(
                 trans.app.viewAllReleases(

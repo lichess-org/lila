@@ -89,7 +89,6 @@ val dev = lila.web.ui.DevUi(helpers)(views.mod.ui.menu)
 
 val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 
-def mobile(p: lila.cms.CmsPage.Render)(using Context) =
-  lila.web.ui.mobile(helpers)(cms.render(p))
+def mobile(using Context) = lila.web.ui.mobile(helpers)
 
 val recap = lila.recap.ui.RecapUi(helpers)

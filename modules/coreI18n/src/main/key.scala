@@ -57,6 +57,17 @@ object I18nKey:
     val `downloadOnGooglePlay`: I18nKey = "app:downloadOnGooglePlay"
     val `downloadOnFdroid`: I18nKey = "app:downloadOnFdroid"
     val `lichessMobileScreen`: I18nKey = "app:lichessMobileScreen"
+    val `asFreeAsLichess`: I18nKey = "app:asFreeAsLichess"
+    val `builtForTheLoveOfChessNotMoney`: I18nKey = "app:builtForTheLoveOfChessNotMoney"
+    val `noAdsNoTracking`: I18nKey = "app:noAdsNoTracking"
+    val `entirelyOpenSource`: I18nKey = "app:entirelyOpenSource"
+    val `fullyFeatured`: I18nKey = "app:fullyFeatured"
+    val `phoneAndTablet`: I18nKey = "app:phoneAndTablet"
+    val `bulletBlitzClassicalVariants`: I18nKey = "app:bulletBlitzClassicalVariants"
+    val `correspondenceChess`: I18nKey = "app:correspondenceChess"
+    val `onlinePlay`: I18nKey = "app:onlinePlay"
+    val `gameAnalysis`: I18nKey = "app:gameAnalysis"
+    val `followAndChallengeFriends`: I18nKey = "app:followAndChallengeFriends"
 
   object appeal:
     val `cleanAllGood`: I18nKey = "appeal:cleanAllGood"
