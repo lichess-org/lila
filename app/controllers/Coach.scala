@@ -52,8 +52,7 @@ final class Coach(env: Env) extends LilaController(env):
               page <- renderPage(views.coach.show(c, studies, posts))
             yield Ok(page),
           json =
-            for
-              posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+            for posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
             yield
               import env.coach.jsonView.given
               import env.ublog.jsonView.given
