@@ -3,7 +3,7 @@ package lila.chat
 import cats.data.OptionT
 
 import lila.common.Bus
-import lila.common.String.{ fullCleanUp, noShouting }
+import lila.common.String.{ fullCleanUp, noShouting, softCleanUp }
 import lila.core.chat.{ OnReinstate, OnTimeout, PublicSource }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
@@ -73,8 +73,27 @@ final class ChatApi(
         publicSource: Option[PublicSource],
         busChan: BusChan.Select,
         persist: Boolean = true
+    ): Funit = writeWith(chatId, userId, text, publicSource, busChan, persist, keepSymbols = false)
+
+    // like private messages, keeps symbols and emojis. Only for chats between friends.
+    def writeKeepingSymbols(
+        chatId: ChatId,
+        userId: UserId,
+        text: String,
+        publicSource: Option[PublicSource],
+        busChan: BusChan.Select
+    ): Funit = writeWith(chatId, userId, text, publicSource, busChan, persist = true, keepSymbols = true)
+
+    private def writeWith(
+        chatId: ChatId,
+        userId: UserId,
+        text: String,
+        publicSource: Option[PublicSource],
+        busChan: BusChan.Select,
+        persist: Boolean,
+        keepSymbols: Boolean
     ): Funit =
-      makeLine(chatId, userId, text).flatMapz: line =>
+      makeLine(chatId, userId, text, keepSymbols).flatMapz: line =>
         isChatFresh(publicSource).flatMap:
           if _ then
             linkCheck(line, publicSource).flatMap:
@@ -218,13 +237,18 @@ final class ChatApi(
       list.foreach: r =>
         Bus.publishDyn(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
-    private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
+    private[ChatApi] def makeLine(
+        chatId: ChatId,
+        userId: UserId,
+        t1: String,
+        keepSymbols: Boolean
+    ): Fu[Option[UserLine]] =
       Speaker
         .get(userId)
         .zip(chatTimeout.isActive(chatId, userId))
         .dmap:
           case (Some(user), false) if user.enabled =>
-            Writer.preprocessUserInput(t1, user.username.some).flatMap { t2 =>
+            Writer.preprocessUserInput(t1, user.username.some, keepSymbols).flatMap { t2 =>
               val allow =
                 if user.isBot then !lila.common.String.hasLinks(t2)
                 else flood.allowMessage(userId.into(FloodSource), t2)
@@ -320,11 +344,20 @@ final class ChatApi(
 
     import java.util.regex.{ Matcher, Pattern }
 
-    def preprocessUserInput(in: String, username: Option[UserName]): Option[String] =
+    def preprocessUserInput(
+        in: String,
+        username: Option[UserName],
+        keepSymbols: Boolean = false
+    ): Option[String] =
+      val cleaned = if keepSymbols then softCleanUp(in) else fullCleanUp(in)
       val out1 = multiline:
-        spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
+        spam.replace(noShouting(noPrivateUrl(cleaned)))
       val out2 = username.fold(out1)(removeSelfMention(out1, _))
-      out2.take(Line.textMaxSize).nonEmptyOption
+      noSplitSurrogate(out2.take(Line.textMaxSize)).nonEmptyOption
+
+    // emojis are 2 chars long, don't leave half of one when truncating
+    private def noSplitSurrogate(str: String): String =
+      if str.nonEmpty && Character.isHighSurrogate(str.last) then str.init else str
 
     private def removeSelfMention(in: String, username: UserName) =
       if in.contains('@') then

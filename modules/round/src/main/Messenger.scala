@@ -26,7 +26,8 @@ final class Messenger(api: ChatApi):
 
   private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
-  def owner(gameId: GameId, userId: UserId, text: String): Funit =
+  // keepSymbols: emojis are allowed in games between friends (created from a challenge)
+  def owner(gameId: GameId, userId: UserId, text: String, keepSymbols: Boolean): Funit =
     whisperCommands
       .collectFirst:
         case command if text.startsWith(command) =>
@@ -34,7 +35,9 @@ final class Messenger(api: ChatApi):
           api.userChat.write(gameWatcherId(gameId), userId, text.drop(command.length), source.some, _.round)
       .getOrElse:
         (!text.startsWith("/")).so: // mistyped command?
-          api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.round)
+          if keepSymbols then
+            api.userChat.writeKeepingSymbols(gameId.into(ChatId), userId, text, publicSource = none, _.round)
+          else api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.round)
 
   def owner(game: Game, anonColor: Color, text: String): Funit =
     (game.sourceIs(_.Friend) || presets.contains(text))

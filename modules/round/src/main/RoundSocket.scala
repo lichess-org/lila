@@ -128,7 +128,8 @@ final class RoundSocket(
         _.foreach:
           messenger.owner(_, color, msg)
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
-      messenger.owner(id, userId, msg)
+      gameIfPresent(id).foreach: game =>
+        messenger.owner(id, userId, msg, keepSymbols = game.exists(_.sourceIs(_.Friend)))
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
       messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
