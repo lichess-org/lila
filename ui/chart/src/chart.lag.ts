@@ -33,14 +33,14 @@ const v = {
 export async function initModule(): Promise<void> {
   pubsub.after('socket.hasConnected').then(() => wsSend('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
-    const colors = ['#55bf3b', '#dddf0d', '#df5353'];
-    const dataset: ChartDataset<'doughnut'>[] = [
+    const colors = ['#55bf3b', '#fdb115', '#ea4a4a'];
+    const datasets: ChartDataset<'doughnut'>[] = [
       {
         data: index ? [400, 200, 200] : [100, 100, 100],
         backgroundColor: colors,
         hoverBackgroundColor: colors,
-        borderColor: '#d9d9d9',
-        borderWidth: 3,
+        borderColor: getComputedStyle(this).getPropertyValue('--c-bg'),
+        borderWidth: 1,
         circumference: 180,
         rotation: 270,
       },
@@ -48,17 +48,23 @@ export async function initModule(): Promise<void> {
     const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
       data: {
-        labels: index ? ['0-400', '400-600', '600-800'] : ['0-100', '100-200', '200-300'],
-        datasets: dataset,
+        labels: index
+          ? ['0 - 400 ms', '400 - 600 ms', '> 600 ms']
+          : ['0 - 100 ms', '100 - 200 ms', '> 200 ms'],
+        datasets,
       },
       options: {
         events: [],
         plugins: {
           title: {
             display: true,
-            text: '',
-            padding: { top: 100 },
+            text: 'Calculating...',
+            padding: { top: 25 },
             color: fontColor,
+            font: {
+              size: 16,
+              weight: 500,
+            },
           },
           needle: {
             value: index ? v.network : v.server,
@@ -78,21 +84,22 @@ export async function initModule(): Promise<void> {
             const data = chart.getDatasetMeta(0).data[0] as ArcElement;
             const first = chart.data.datasets[0].data[0];
             let dest = data.circumference / Math.PI / first;
-            dest = dest * (chart.options.plugins?.needle?.value ?? 1);
+            dest *= chart.options.plugins?.needle?.value ?? 1;
             const outer = data.outerRadius;
+            const hubRadius = 9;
             ctx.translate(data.x, data.y);
             ctx.rotate(Math.PI * (dest + 1.5));
             ctx.beginPath();
             ctx.fillStyle = '#838382';
-            ctx.moveTo(-10, 0);
+            ctx.moveTo(-hubRadius, 0);
             ctx.lineWidth = 1;
             ctx.lineTo(0, -outer);
-            ctx.lineTo(10, 0);
-            ctx.lineTo(-10, 0);
+            ctx.lineTo(hubRadius, 0);
+            ctx.lineTo(-hubRadius, 0);
             ctx.fill();
 
             ctx.beginPath();
-            ctx.arc(0, 0, 9, 0, (Math.PI / 180) * 360, false);
+            ctx.arc(0, 0, hubRadius, 0, (Math.PI / 180) * 360, false);
             ctx.fill();
 
             ctx.restore();
@@ -106,7 +113,7 @@ export async function initModule(): Promise<void> {
         v.server = d;
         if (v.server <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.server);
-        chart.options.plugins!.title!.text = makeTitle(index, v.server);
+        chart.options.plugins!.title!.text = makeTitle(v.server);
         updateAnswer();
       });
     else {
@@ -114,7 +121,7 @@ export async function initModule(): Promise<void> {
         v.network = Math.round(wsAverageLag());
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);
-        chart.options.plugins!.title!.text = makeTitle(index, v.network);
+        chart.options.plugins!.title!.text = makeTitle(v.network);
         updateAnswer();
       }, 1000);
     }
@@ -131,7 +138,4 @@ export async function initModule(): Promise<void> {
   });
 }
 
-const makeTitle = (index: number, lat: number) => [
-  (index ? 'Ping' : 'Server latency') + ' in milliseconds',
-  `${lat}`,
-];
+const makeTitle = (lat: number) => [`${lat} millisecond${lat === 1 ? '' : 's'}`];
