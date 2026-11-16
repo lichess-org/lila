@@ -40,13 +40,13 @@ final class OAuthServer(
     u <- u.raiseIfNone(NoSuchUser)
     u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
-    _ = andLogReq
-      .ifTrue(blocked || (u.isnt(UserId.explorer) && !client.isPlaybot))
-      .foreach: req =>
-        val logMsg =
-          val verb = if blocked then "block" else "auth"
-          s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
-        if blocked then logger.info(logMsg) else logger.debug(logMsg)
+    _ =
+      for
+        req <- andLogReq
+        if blocked || (u.isnt(UserId.explorer) && !client.isPlaybot)
+        verb = if blocked then "block" else "auth"
+        msg = s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
+      do logger.info(msg)
     _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 

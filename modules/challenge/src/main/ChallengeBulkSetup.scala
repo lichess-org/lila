@@ -146,7 +146,7 @@ final class ChallengeBulkSetupApi(
                 .map:
                   _.map:
                     case (id, (w, b)) => ScheduledGame(id, w, b)
-                .dmap:
+                .map:
                   ScheduledBulk(
                     id = ThreadLocalRandom.nextString(8),
                     by = me.userId,
