@@ -50,6 +50,34 @@ jobs:
         uses: sbt/setup-sbt@67d461eba2c4753196c230e02da850757ba4775e # v1.5.14
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"' | tee conf/version.conf
       - run: ./lila.sh -Depoll=true "test;stage"
+      - name: Debug target symlinks
+        if: always()
+        run: |
+          inspect_symlinks() {
+            local root=$1
+            [ -e "$root" ] || { echo "$root: missing"; return 0; }
+            echo "::group::$root"
+            echo "resolved: $(readlink -f "$root")"
+            du -sh "$root"
+            echo "files: $(find "$root" -type f | wc -l)  dirs: $(find "$root" -type d | wc -l)  symlinks: $(find "$root" -type l | wc -l)  broken: $(find -L "$root" -type l | wc -l)"
+            echo "--- symlinks by containing dir"
+            find "$root" -type l -printf '%h\n' | sort | uniq -c | sort -rn | head -40
+            echo "--- final destinations by root (readlink -f, first 6 path components)"
+            find "$root" -type l -exec readlink -f {} + | cut -d/ -f1-6 | sort | uniq -c | sort -rn | head -40
+            echo "--- symlinks whose first hop is itself a symlink: $(find "$root" -type l -exec sh -c 'for l; do t=$(readlink "$l"); case $t in /*) ;; *) t=$(dirname "$l")/$t;; esac; [ -L "$t" ] && echo "$l"; done' sh {} + | wc -l)"
+            echo "--- sample"
+            find "$root" -type l -printf '%p -> %l\n' | head -30
+            echo "::endgroup::"
+          }
+          echo "workspace: $PWD  home: $HOME"
+          echo "::group::target directories in workspace"
+          find . -name node_modules -prune -o -name .git -prune -o -type d -name target -prune -print
+          echo "::endgroup::"
+          echo "::group::candidate sbt cache dirs"
+          du -sh ~/.cache/sbt ~/.cache/sbt/* ~/.sbt ~/.ivy2 ~/.cache/coursier 2>&1 || true
+          echo "::endgroup::"
+          inspect_symlinks target
+          inspect_symlinks project/target
       - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
       - run: cd target/universal/stage && tar --zstd -cvpf ../../../lila-3.0.tar.zst . && cd -
         env:
