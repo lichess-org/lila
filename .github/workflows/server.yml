@@ -62,7 +62,8 @@ jobs:
           key: sbt-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('project/build.properties') }}-${{ github.sha }}
           restore-keys: sbt-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('project/build.properties') }}-
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"' | tee conf/version.conf
-      - run: ./lila.sh -Depoll=true "test;stage"
+      - run: ./lila.sh -Depoll=true test
+      - run: ./lila.sh -Depoll=true stage
       - name: Save sbt build cache
         if: github.ref_name == github.event.repository.default_branch
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
