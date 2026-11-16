@@ -48,8 +48,32 @@ jobs:
           cache: sbt
       - name: Setup sbt
         uses: sbt/setup-sbt@67d461eba2c4753196c230e02da850757ba4775e # v1.5.14
+        with:
+          disk-cache: false
+      - name: Restore sbt build cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cache/sbt
+            target
+            project/target
+            project/project/target
+            !target/universal
+          key: sbt-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('project/build.properties') }}-${{ github.sha }}
+          restore-keys: sbt-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('project/build.properties') }}-
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"' | tee conf/version.conf
       - run: ./lila.sh -Depoll=true "test;stage"
+      - name: Save sbt build cache
+        if: github.ref_name == github.event.repository.default_branch
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cache/sbt
+            target
+            project/target
+            project/project/target
+            !target/universal
+          key: sbt-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('project/build.properties') }}-${{ github.sha }}
       - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
       - run: cd target/universal/stage && tar --zstd -cvpf ../../../lila-3.0.tar.zst . && cd -
         env:
