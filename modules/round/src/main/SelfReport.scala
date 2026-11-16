@@ -2,7 +2,6 @@ package lila.round
 
 import chess.IntRating
 import scalalib.ThreadLocalRandom
-import scalalib.net.IpAddressStr
 
 import scala.util.matching.Regex
 
@@ -34,14 +33,14 @@ final class SelfReport(
     perm = _.Admin
   )
 
-  private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1.minute)
+  private val logOnceEvery = scalalib.cache.OnceEvery[IpAddress](1.minute)
 
   private lazy val logger = lila.log("cheat.jslog")
 
   def apply(userId: Option[UserId], fullId: GameFullId, name: String)(using ip: IpAddress): Funit =
     (name != "err").so:
       val gameUrl = s"https://lichess.org/$fullId"
-      if name != "ceval" && logOnceEvery(ip.str) then
+      if name != "ceval" && logOnceEvery(ip) then
         logger.info(s"$ip $gameUrl ${userId | "-"} $name")
         lila.mon.cheat.selfReport(name, userId.isDefined).increment()
       userId.so(userApi.withPerfs).flatMapz { u =>

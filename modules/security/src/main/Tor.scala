@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 
 final private class Tor(
     ws: StandaloneWSClient,
@@ -18,7 +18,7 @@ final private class Tor(
   private def refresh: Funit =
     ws.url("https://check.torproject.org/torbulkexitlist").get().map { res =>
       ips =
-        res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(IpAddress.from).map(_.value).toSet
+        res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(ipAddress.from).map(_.value).toSet
       mongoCache.put("security.torNodes", ips.mkString(" ")) // for lila-ws to fetch
       lila.mon.security.torNodes.update(ips.size)
     }

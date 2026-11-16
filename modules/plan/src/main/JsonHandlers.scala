@@ -7,7 +7,7 @@ import java.util.Currency
 import scala.util.Try
 
 import lila.common.Json.given
-import lila.core.net.IpAddress
+import lila.core.net.ipAddress
 
 object StripeJson:
   def toClient(session: StripeSession) =
@@ -33,7 +33,7 @@ private object JsonHandlers:
         .and((__ \ "cancel_at_period_end").read[Boolean])
         .and((__ \ "status").read[String])
         .and((__ \ "default_payment_method").readNullable[String])
-        .and((__ \ "ipAddress").readNullable[String].map(_.flatMap(IpAddress.from)))
+        .and((__ \ "ipAddress").readNullable[String].map(_.flatMap(ipAddress.from)))
     )(StripeSubscription.apply)
     given Reads[StripeSubscriptions] = Json.reads
     given Reads[StripeCustomer] = Json.reads
