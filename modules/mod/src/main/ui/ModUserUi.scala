@@ -278,7 +278,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
                 List(
                   emails.current.so(_.value),
                   emails.previous.map(_.value).mkString("+OR+"),
-                  u.username.value
                 ).filter(_.nonEmpty).mkString("+OR+"),
               target := "_blank",
               title := "View email history",
