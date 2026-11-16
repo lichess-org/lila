@@ -256,7 +256,7 @@ final class Mod(
       FoundPage(env.user.repo.byId(username)): user =>
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo
-          .recentPovsByUserFromSecondary(user, 80)
+          .recentPovsByUserFromSecondary(user, 300)
           .mon(lila.mon.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
             (
