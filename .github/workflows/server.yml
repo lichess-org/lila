@@ -38,7 +38,7 @@ on:
 
 jobs:
   build:
-    runs-on: depot-ubuntu-24.04-4
+    runs-on: depot-ubuntu-24.04-8
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
@@ -62,7 +62,7 @@ jobs:
 
   format:
     if: inputs.skip_format != true
-    runs-on: depot-ubuntu-24.04
+    runs-on: depot-ubuntu-24.04-4
     env:
       SBT_OPTS: -Dsbt.banner=false
     steps:
