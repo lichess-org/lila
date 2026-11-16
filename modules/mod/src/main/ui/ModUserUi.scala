@@ -277,7 +277,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
               href := mailerEventsUrl.value +
                 List(
                   emails.current.so(_.value),
-                  emails.previous.map(_.value).mkString("+OR+"),
+                  emails.previous.map(_.value).mkString("+OR+")
                 ).filter(_.nonEmpty).mkString("+OR+"),
               target := "_blank",
               title := "View email history",
