@@ -21,6 +21,17 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # 31.11.3
+      - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7
+        with:
+          primary-key: devenv-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('devenv.lock', 'devenv.nix', 'devenv.yaml') }}
+          restore-prefixes-first-match: devenv-${{ runner.os }}-${{ runner.arch }}-
+          paths: |
+            ~/.cache/nix
+            .devenv/nix-eval-cache.db
+          save: ${{ github.ref_name == github.event.repository.default_branch }}
+          gc-max-store-size-linux: 8G
+      - name: Reclaim restored .devenv
+        run: if [ -d .devenv ]; then sudo chown -R "$(id -u):$(id -g)" .devenv; fi
       - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
         with:
           name: devenv
