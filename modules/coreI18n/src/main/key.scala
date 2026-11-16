@@ -421,7 +421,7 @@ object I18nKey:
     val `teachingMethod`: I18nKey = "coach:teachingMethod"
     val `publicStudies`: I18nKey = "coach:publicStudies"
     val `youtubeVideos`: I18nKey = "coach:youtubeVideos"
-    val `allCountries`: I18nKey = "coach:allCountries"
+    val `allRegions`: I18nKey = "coach:allRegions"
     val `lastLogin`: I18nKey = "coach:lastLogin"
     val `lichessRating`: I18nKey = "coach:lichessRating"
 
@@ -2183,7 +2183,7 @@ object I18nKey:
     val `flair`: I18nKey = "flair"
     val `youCanHideFlair`: I18nKey = "youCanHideFlair"
     val `biography`: I18nKey = "biography"
-    val `countryRegion`: I18nKey = "countryRegion"
+    val `region`: I18nKey = "region"
     val `thankYou`: I18nKey = "thankYou"
     val `socialMediaLinks`: I18nKey = "socialMediaLinks"
     val `oneUrlPerLine`: I18nKey = "oneUrlPerLine"
