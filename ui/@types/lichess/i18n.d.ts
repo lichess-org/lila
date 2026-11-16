@@ -301,6 +301,8 @@ interface I18n {
     deleteTournament: string;
     /** Download all rounds */
     downloadAllRounds: string;
+    /** Download PGN */
+    downloadPgn: string;
     /** Edit round study */
     editRoundStudy: string;
     /** Embed this broadcast in your website */
@@ -409,6 +411,8 @@ interface I18n {
     score: string;
     /** Semifinals */
     semifinals: string;
+    /** Share this broadcast by URL */
+    shareThisBroadcastByUrl: string;
     /** Show player scores based on game results */
     showScores: string;
     /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */

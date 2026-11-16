@@ -175,6 +175,8 @@ object I18nKey:
     val `startDateHelp`: I18nKey = "broadcast:startDateHelp"
     val `currentGameUrl`: I18nKey = "broadcast:currentGameUrl"
     val `downloadAllRounds`: I18nKey = "broadcast:downloadAllRounds"
+    val `shareThisBroadcastByUrl`: I18nKey = "broadcast:shareThisBroadcastByUrl"
+    val `downloadPgn`: I18nKey = "broadcast:downloadPgn"
     val `resetRound`: I18nKey = "broadcast:resetRound"
     val `deleteRound`: I18nKey = "broadcast:deleteRound"
     val `permanentlyDeleteRound`: I18nKey = "broadcast:permanentlyDeleteRound"
