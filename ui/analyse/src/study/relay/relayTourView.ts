@@ -505,40 +505,44 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
       ]
     : [];
 
-const makeTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study;
+const makeTabs = ({ study, isEmbed }: AnalyseCtrl) => {
   const relay = study?.relay;
   if (!relay) return undefined;
+  const canViewStats = study.members.myMember() && !!relay.data.tour.tier;
 
   const makeTab = (key: RelayTab, name: string) =>
-    hl(
-      `button.relay-tour__tabs--${key}`,
-      {
-        class: { active: relay.tab() === key },
-        attrs: { role: 'tab' },
-        on: {
-          click: () => relay.openTab(key),
+    hl('div', [
+      hl(`input#relay-tour-tab-${key}`, {
+        attrs: {
+          name: 'relay-tour-tab',
+          type: 'radio',
+          value: key,
+          checked: relay.tab() === key,
         },
-      },
-      name,
-    );
-  return hl('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', i18n.broadcast.overview),
-    makeTab('boards', i18n.broadcast.boards),
-    makeTab('players', i18n.site.players),
-    relay.teams && makeTab('teams', i18n.broadcast.teams),
-    relay.data.tour.showTeamScores && makeTab('team-results', i18n.broadcast.teamResults),
-    study.members.myMember() && !!relay.data.tour.tier
-      ? makeTab('stats', i18n.site.stats)
-      : ctrl.isEmbed &&
-        hl(
-          'a.relay-tour__tabs--open.text',
-          {
-            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
-          },
-          i18n.broadcast.openLichess,
-        ),
-  ]);
+        on: { change: () => relay.openTab(key) },
+      }),
+      hl('label', { attrs: { for: `relay-tour-tab-${key}` } }, name),
+    ]);
+
+  return [
+    hl('group.radio', [
+      makeTab('overview', i18n.broadcast.overview),
+      makeTab('boards', i18n.broadcast.boards),
+      makeTab('players', i18n.site.players),
+      relay.teams && makeTab('teams', i18n.broadcast.teams),
+      relay.data.tour.showTeamScores && makeTab('team-results', i18n.broadcast.teamResults),
+      canViewStats && makeTab('stats', i18n.site.stats),
+    ]),
+    isEmbed &&
+      !canViewStats &&
+      hl(
+        'a.text',
+        {
+          attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+        },
+        i18n.broadcast.openLichess,
+      ),
+  ];
 };
 
 const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
