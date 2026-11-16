@@ -4,8 +4,7 @@ import alleycats.Zero
 
 import lila.core.config.RateLimit as Enforce
 
-/** Throttler that allows X operations per Y unit of time Not thread safe
-  */
+/** Throttler that allows X operations per Y unit of time Not thread safe */
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
@@ -82,6 +81,8 @@ object RateLimit:
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
+    def use[A](default: => A, cost: Cost = 1, msg: => String = "")(op: => A)(using k: K): A =
+      apply(k, default, cost, msg)(op)
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
     def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
     def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =

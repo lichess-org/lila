@@ -125,7 +125,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
-    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited)):
+    limit.crosstable.use(fuccess(ApiResult.Limited)):
       val (u1, u2) = (name1.id, name2.id)
       import lila.game.JsonView.given
       for
@@ -144,14 +144,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     val max = ctx.me.fold(300): u =>
       if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
-      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events.use(
         ndJson.addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
       )(jsOptToNdJson)
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      limit.GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+      limit.GlobalConcurrencyLimitPerIP.events.use(
         ndJson.addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
@@ -238,7 +238,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       JsonOk(env.chat.json.modApi(chat))
 
   def activity(name: UserStr) = ApiRequest:
-    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited)):
+    limit.userActivity.use(fuccess(ApiResult.Limited)):
       meOrFetch(name)
         .flatMapz { user =>
           env.activity.read
@@ -259,7 +259,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Found(env.round.proxyRepo.game(gameId)): game =>
       def source = ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       if ctx.is(UserId.t3) then jsOptToNdJson(source)
-      else ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(source)(jsOptToNdJson)
+      else ApiMoveStreamGlobalConcurrencyLimitPerIP.use(source)(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: PerfKey) = AnonOrScoped(): ctx ?=>
     env.perfStat.api
@@ -326,10 +326,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     case ApiResult.Data(json) => Ok(json)
 
   def jsonDownload(makeSource: => Source[JsValue, ?])(using ctx: Context): Result =
-    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download.use(makeSource)(jsToNdJson)
 
   def csvDownload(makeSource: => Source[String, ?])(using ctx: Context): Result =
-    limit.GlobalConcurrencyLimitPerIP.download(ctx.req.ipAddress)(makeSource)(sourceToCsv)
+    limit.GlobalConcurrencyLimitPerIP.download.use(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
     Ok.chunked(source.map(_ + "\n")).as(CSV).noProxyBuffer

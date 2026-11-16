@@ -38,7 +38,7 @@ final class SelfReport(
 
   private lazy val logger = lila.log("cheat.jslog")
 
-  def apply(userId: Option[UserId], ip: IpAddress, fullId: GameFullId, name: String): Funit =
+  def apply(userId: Option[UserId], fullId: GameFullId, name: String)(using ip: IpAddress): Funit =
     (name != "err").so:
       val gameUrl = s"https://lichess.org/$fullId"
       if name != "ceval" && logOnceEvery(ip.str) then

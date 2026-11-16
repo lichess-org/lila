@@ -54,12 +54,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     NoContent
 
   def jslog(id: GameFullId) = Open:
-    env.round.selfReport(
-      userId = ctx.userId,
-      ip = ctx.ip,
-      fullId = id,
-      name = get("n") | "?"
-    )
+    env.round.selfReport(userId = ctx.userId, fullId = id, name = get("n") | "?")
     NoContent
 
   val robots = Anon:
