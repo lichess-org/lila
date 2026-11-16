@@ -3783,6 +3783,8 @@ interface I18n {
     correspondence: string;
     /** Correspondence games: one or several days per move */
     correspondenceDesc: string;
+    /** Country or region */
+    countryRegion: string;
     /** CPUs */
     cpus: string;
     /** Create */
@@ -4685,8 +4687,6 @@ interface I18n {
     refreshInboxAfterFiveMinutes: string;
     /** Refund: %1$s %2$s rating points. */
     refundXpointsTimeControlY: I18nFormat;
-    /** Region */
-    region: string;
     /** Rematch */
     rematch: string;
     /** Rematch offer accepted */

@@ -2183,7 +2183,7 @@ object I18nKey:
     val `flair`: I18nKey = "flair"
     val `youCanHideFlair`: I18nKey = "youCanHideFlair"
     val `biography`: I18nKey = "biography"
-    val `region`: I18nKey = "region"
+    val `countryRegion`: I18nKey = "countryRegion"
     val `thankYou`: I18nKey = "thankYou"
     val `socialMediaLinks`: I18nKey = "socialMediaLinks"
     val `oneUrlPerLine`: I18nKey = "oneUrlPerLine"
