@@ -679,7 +679,7 @@ interface I18n {
     quicklyGenerateSafeUsernames: string;
     /** Real name */
     realName: string;
-    /** Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. */
+    /** Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. The link expires after 10 minutes. */
     realUniqueEmail: string;
     /** Graduate */
     release: string;
