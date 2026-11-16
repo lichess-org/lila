@@ -24,7 +24,7 @@
   <string name="removeSomeone">Remove someone</string>
   <string name="whoToRemove">Who do you want to remove from the team?</string>
   <string name="blockedUsers">Blocked Users</string>
-  <string name="blockedUsersDesc">Enter usernames to block them from joining the team. One per line.</string>
+  <string name="blockedUsersDesc">Enter one username per line. These players will be blocked from joining the team.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s join request</item>
     <item quantity="other">%s join requests</item>

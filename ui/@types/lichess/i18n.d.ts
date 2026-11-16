@@ -6171,7 +6171,7 @@ interface I18n {
   teamLead: {
     /** Blocked Users */
     blockedUsers: string;
-    /** Enter usernames to block them from joining the team. One per line. */
+    /** Enter one username per line. These players will be blocked from joining the team. */
     blockedUsersDesc: string;
     /** Close team */
     closeTeam: string;
