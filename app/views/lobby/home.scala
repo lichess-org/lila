@@ -14,9 +14,12 @@ object home:
       a(cls := "lobby__support-link", href := routes.Plan.index())(
         iconTag(patronIconChar),
         span(cls := "lobby__support-link__text")(
-          strong(trans.patron.donate()),
+          strong:
+            if ctx.me.exists(_.isPatron) then trans.patron.lichessPatron()
+            else trans.patron.donate()
+          ,
           span(
-            if ctx.me.exists(_.isPatron) then trans.patron.makeAdditionalDonation()
+            if ctx.me.exists(_.isPatron) then trans.patron.thankYou()
             else trans.patron.becomePatron()
           )
         )
