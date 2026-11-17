@@ -1039,6 +1039,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   explorerMove(uci: Uci): void {
     this.explorer.loading(true);
+    this.explorer.onDirectInteraction();
     this.playUci(uci);
   }
 

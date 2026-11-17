@@ -85,6 +85,7 @@ final class JsonView(
         "name" -> s.study.name,
         "liked" -> s.liked,
         "likes" -> s.study.likes,
+        "createdAt" -> s.study.createdAt,
         "updatedAt" -> s.study.updatedAt,
         "owner" -> lightUserApi.sync(s.study.ownerId),
         "chapters" -> s.chapters.take(Study.previewNbChapters),
