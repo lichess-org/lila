@@ -152,7 +152,7 @@ final class Study(
     )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
-    given Writes[StudyModel.WithChaptersAndLiked] = Writes(env.study.jsonView.pagerData)
+    import env.study.jsonView.given
     Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
