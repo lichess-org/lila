@@ -48,7 +48,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
         main(cls := "round tv-single")(
           st.aside(cls := "round__side")(
             side.meta(pov),
-            side.channels(channel, champions, channel.tvCall)
+            side.channels(channel, champions, _.tvCall)
           ),
           roundApp,
           div(cls := "round__underboard")(
@@ -70,7 +70,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
           dataRel := routeUrl(routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil))
         )(
           st.aside(cls := "page-menu__menu"):
-            side.channels(channel, champions, channel.gamesCall)
+            side.channels(channel, champions, _.gamesCall)
           ,
           div(cls := "page-menu__content now-playing"):
             povs.map(gameUi.mini(_))
@@ -105,11 +105,13 @@ final class TvUi(helpers: lila.ui.Helpers)(
             tournamentLink(tourId)
       )
 
-    def channels(channel: Tv.Channel, champions: Tv.Champions, call: Call)(using Context): Frag =
+    def channels(channel: Tv.Channel, champions: Tv.Champions, call: Tv.Channel => Call)(using
+        Context
+    ): Frag =
       lila.ui.bits.subnav:
         Tv.Channel.list.map: c =>
           a(
-            href := call,
+            href := call(c),
             cls := List("tv-channel" -> true, c.key -> true, "active" -> (c == channel))
           ):
             span(dataIcon := c.icon):
