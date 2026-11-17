@@ -8,9 +8,9 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: UserStr) = Open: ctx ?=>
+  def refresh(username: UserStr) = OpenOrScoped(): ctx ?=>
     AccessibleApi(username): user =>
-      val byMod = isGrantedOpt(_.MarkBooster) || isGrantedOpt(_.MarkEngine)
+      val byMod = isGrantedOpt(_.SeeInsight)
       env.insight.api.indexAll(user, force = byMod).inject(Ok)
 
   def index(username: UserStr) = Open: ctx ?=>
