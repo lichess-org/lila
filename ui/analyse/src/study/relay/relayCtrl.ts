@@ -161,12 +161,8 @@ export default class RelayCtrl {
 
   private readonly chatPositionRefJump = async (board: number, ply?: Ply) => {
     const chapter = this.study.chapters.list.get(board);
-    if (!chapter || !(await this.study.setChapter(chapter.id))) return;
-    // in sticky mode, the new chapter is still on its way from the server
-    if (ply && this.study.data.chapter.id === chapter.id) {
-      this.study.ctrl.jumpToMain(ply);
-      this.redraw();
-    }
+    const onLoad = () => ply && this.study.ctrl.jumpToMain(ply);
+    if (chapter) await this.study.setChapter(chapter.id, false, onLoad);
   };
 
   lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;
