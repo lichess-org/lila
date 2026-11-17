@@ -299,8 +299,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="yourOpponentOffersADraw">Din/i Gägner*i offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
   <string name="decline">Ablehne</string>
-  <string name="playingRightNow">Schpillt genau jetzt</string>
-  <string name="eventInProgress">Schpillt jetzt</string>
+  <string name="playingRightNow">Schpilled grad jetzt</string>
+  <string name="eventInProgress">Schpilled jetzt</string>
   <string name="finished">Beändet</string>
   <string name="abortGame">Schpil abbräche</string>
   <string name="gameAborted">Schpil abbroche</string>
@@ -704,7 +704,7 @@ Fründe am Schpille: %2$s</string>
   <string name="aboutX">Über %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s isch en freie, quälle-offene Schachserver. Gratis (%2$s) und ohni Werbig.</string>
   <string name="really">würkli</string>
-  <string name="lichessUpdates">Lichess updates</string>
+  <string name="lichessUpdates">Lichess Feed</string>
   <string name="contribute">Mitmache</string>
   <string name="changelog">Log wächsle</string>
   <string name="termsOfService">Nutzigs Bedingige</string>

@@ -63,6 +63,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("mpchess", Featured.Yes),
     PieceSet("kiwen-suwi"),
     PieceSet("totoy"),
+    PieceSet("chessboart"),
     PieceSet("horsey", Featured.Yes),
     PieceSet("anarcandy", Featured.Yes),
     PieceSet("xkcd"),

@@ -756,9 +756,9 @@ GET   /api/game/:id/chat               controllers.Api.gameChat(id: GameId)
 GET   /api/room/:id/chat               controllers.Api.roomChat(id: RoomId)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Tournament.apiShow(id: TourId)
-GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
-GET   /api/tournament/$id<\w{8}>/results    controllers.Api.tournamentResults(id: TourId)
-GET   /api/tournament/$id<\w{8}>/teams      controllers.Api.tournamentTeams(id: TourId)
+GET   /api/tournament/$id<\w{8}>/games      controllers.Tournament.downloadGames(id: TourId)
+GET   /api/tournament/$id<\w{8}>/results    controllers.Tournament.downloadResults(id: TourId)
+GET   /api/tournament/$id<\w{8}>/teams      controllers.Tournament.apiTeams(id: TourId)
 POST  /api/tournament                       controllers.Tournament.apiCreate
 POST  /api/tournament/$id<\w{8}>            controllers.Tournament.apiUpdate(id: TourId)
 POST  /api/tournament/$id<\w{8}>/join       controllers.Tournament.apiJoin(id: TourId)
@@ -771,8 +771,8 @@ POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id: SwissId)
 GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id: SwissId)
-GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id: SwissId)
-GET   /api/swiss/$id<\w{8}>/results    controllers.Api.swissResults(id: SwissId)
+GET   /api/swiss/$id<\w{8}>/games      controllers.Swiss.downloadGames(id: SwissId)
+GET   /api/swiss/$id<\w{8}>/results    controllers.Swiss.downloadResults(id: SwissId)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus

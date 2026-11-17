@@ -1053,6 +1053,7 @@ FEN pozitsiyani yaratiş uçun %s bölimidan foydalanişingiz mumkin.
   <string name="offline" comment="status of a user">oflayn</string>
   <string name="search">Qidiriş</string>
   <string name="clearSearch">Qidiruvni tozalaş</string>
+  <string name="searchInX">“%s”da qidiriş</string>
   <string name="thereAreNoResultsForX">\"%s\" böyiça natija yöq</string>
   <string name="tags">Teglar</string>
   <string name="enPassant">En passant</string>

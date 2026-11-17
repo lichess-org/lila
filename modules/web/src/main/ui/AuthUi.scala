@@ -427,7 +427,9 @@ final class AuthUi(helpers: Helpers):
   private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
       div(cls := "form-group is-invalid auth-global-error")(
-        span(cls := "text", dataIcon := Icon.CautionCircle)(transKey(trans(err.message), err.args))
+        span(cls := "text", dataIcon := Icon.CautionCircle)(
+          transKey(trans.unchecked(err.message), err.args)
+        )
       )
 
   private def clearFieldButton(using Context) =

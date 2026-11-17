@@ -510,6 +510,7 @@ Sõbrad mängimas: %2$s</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="pause">Peata</string>
   <string name="resume">Jätka</string>
+  <string name="stop">Peata</string>
   <string name="youArePlaying">Te mängite!</string>
   <string name="winRate">Võidumäär</string>
   <string name="performance">Sooritus</string>
@@ -702,7 +703,7 @@ Sõbrad mängimas: %2$s</string>
   <string name="aboutX">Info %s kohta</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
   <string name="really">päriselt</string>
-  <string name="lichessUpdates">Lichessi uuendused</string>
+  <string name="lichessUpdates">Lichessi infovoog</string>
   <string name="contribute">Panusta</string>
   <string name="changelog">Muudatuste logi</string>
   <string name="termsOfService">Kasutajatingimused</string>
@@ -997,6 +998,8 @@ ja mõjutavad mängijate reitinguid</string>
   <string name="onlyMembersOfTeam">Ainult võistkonnaliikmed</string>
   <string name="noRestriction">Piiranguta</string>
   <string name="minimumRatedGames">Minimaalne reitinguga mängude arv</string>
+  <string name="minimumAccountAge">Konto minimaalne vanus</string>
+  <string name="titledPlayersBypassRestriction">Tiitliga mängijad on sellest piirangust vabastatud.</string>
   <string name="minimumRating">Minimaalne reiting</string>
   <string name="maximumWeeklyRating">Minimaalne nädalane reiting</string>
   <string name="positionInputHelp">Sisesta kehtiv FEN, et alustada iga mängu antud positsioonilt.
@@ -1053,6 +1056,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="offline" comment="status of a user">ühenduseta</string>
   <string name="search">Otsing</string>
   <string name="clearSearch">Tühjenda otsing</string>
+  <string name="searchInX">Otsi \"%s\" seest</string>
   <string name="thereAreNoResultsForX">Otsingule \"%s\" ei leitud vastet</string>
   <string name="tags">Sildid</string>
   <string name="enPassant">En passant õigused</string>

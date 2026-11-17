@@ -1,7 +1,6 @@
 package lila.web
 
 import chess.format.pgn.PgnStr
-import play.api.mvc.RequestHeader
 
 import lila.common.{ ClientName, HTTPRequest }
 import lila.core.net.{ ASN, IpAddress }
@@ -15,7 +14,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   import RateLimit.*
 
-  private given (using ctx: Context): RequestHeader = ctx.req
+  private given (using ctx: Context): Req = ctx.req
 
   object GlobalConcurrencyLimitPerIP:
 
@@ -63,12 +62,21 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
   val apiMobileHome = RateLimit[UserId | IpAddress](30, 3.minutes, "api.mobile.home")
 
-  val apiUsers = RateLimit.composite[IpAddress](
-    key = "users.api.ip"
-  )(
-    ("fast", 2000, 10.minutes),
-    ("slow", 30000, 1.day)
-  )
+  object apiUsers:
+    val byIp = RateLimit.composite[IpAddress](key = "users.api.ip")(
+      ("fast", 1500, 10.minutes),
+      ("slow", 20000, 1.day)
+    )
+    val byUser = RateLimit.composite[UserId](key = "users.api.user")(
+      ("fast", 1500, 10.minutes),
+      ("slow", 20000, 1.day)
+    )
+    def limiter[A](rateLimited: => Fu[A], cost: Int)(using
+        me: Option[Me],
+        ip: IpAddress
+    )(op: => Fu[A]): Fu[A] =
+      byIp(ip, rateLimited, cost):
+        byUser.option(me.map(_.userId), rateLimited, cost)(op)
 
   val userGames = RateLimit[IpAddress](500, 10.minutes, "user_games.web.ip")
 
@@ -266,7 +274,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     private val signupLimiter = RateLimit[ASN](20 * maxCost, 1.minute, "user.signup.proxy")
     def signup[A]: AsnLimit[A] = asnLimit(signupLimiter, flatCost(maxCost))
 
-    private type AsnLimit[A] = (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type AsnLimit[A] = (IsProxy, Req, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
     private def asnLimit[A](
         limiter: RateLimiter[ASN],

@@ -101,7 +101,8 @@ object PuzzleTheme:
   val veryLong = PuzzleTheme(i.veryLong, i.veryLongDescription)
   val xRayAttack = PuzzleTheme(i.xRayAttack, i.xRayAttackDescription)
   val zugzwang = PuzzleTheme(i.zugzwang, i.zugzwangDescription)
-  val checkFirst = PuzzleTheme(Key("checkFirst"), I18nKey("Check first"), I18nKey("Check first"))
+  val checkFirst = // don't translate these, they will never be shown
+    PuzzleTheme(Key("checkFirst"), I18nKey.unchecked("Check first"), I18nKey.unchecked("Check first"))
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     I18nKey.puzzle.recommended -> List(

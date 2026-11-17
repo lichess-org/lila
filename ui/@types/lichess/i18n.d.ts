@@ -349,6 +349,8 @@ interface I18n {
     matchHistory: string;
     /** Match Points */
     matchPoints: string;
+    /** Mention this position in chat */
+    mentionPositionInChat: string;
     /** Men */
     menTournament: string;
     /** My broadcasts */
@@ -679,7 +681,7 @@ interface I18n {
     quicklyGenerateSafeUsernames: string;
     /** Real name */
     realName: string;
-    /** Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. */
+    /** Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. The link expires after 10 minutes. */
     realUniqueEmail: string;
     /** Graduate */
     release: string;
@@ -2647,8 +2649,6 @@ interface I18n {
     moveListSettings: string;
     /** Move list while playing */
     moveListWhilePlaying: string;
-    /** Multiple choices. */
-    multipleChoices: string;
     /** Network */
     network: string;
     /** Notifications */
@@ -3507,6 +3507,8 @@ interface I18n {
     allSet: string;
     /** All squares */
     allSquaresOfTheBoard: string;
+    /** All updates */
+    allUpdates: string;
     /** Always */
     always: string;
     /** Analysis board */
@@ -4779,6 +4781,8 @@ interface I18n {
     security: string;
     /** See best move */
     seeBestMove: string;
+    /** Select image */
+    selectImage: string;
     /** Send */
     send: string;
     /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */

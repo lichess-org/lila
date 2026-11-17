@@ -83,7 +83,7 @@ final class Fishnet(env: Env) extends LilaController(env):
         if env.mode.notProd && !hasOAuthBearer then handle(Client.offline)
         else
           HTTPRequest.bearer.so: (bearer, _) =>
-            api.authenticateClient(bearer.into(FishnetKey), version, req.ipAddress).flatMap {
+            api.authenticateClient(bearer.into(FishnetKey), version).flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) => handle(client)
             }

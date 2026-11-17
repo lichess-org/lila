@@ -1,7 +1,5 @@
 package lila.opening
 
-import play.api.mvc.RequestHeader
-
 import lila.common.ClientName
 import lila.core.game.{ GameRepo, PgnDump }
 import lila.core.security.IsProxy
@@ -23,15 +21,12 @@ final class OpeningApi(
 
   private val userRateLimit = RateLimit[UserId](30, 2.minutes, "opening.stats.user")
 
-  def index(using RequestHeader, ClientName, Option[Me]): Fu[Option[OpeningPage]] =
+  def index(using Req, ClientName, Option[Me]): Fu[Option[OpeningPage]] =
     lookup(Query("", none), proxy = IsProxy.empty)
 
   def lookup(q: Query, proxy: IsProxy)(using
       client: ClientName
-  )(using
-      RequestHeader,
-      Option[Me]
-  ): Fu[Option[OpeningPage]] =
+  )(using Req, Option[Me]): Fu[Option[OpeningPage]] =
     val config = if client.isCrawler then OpeningConfig.default else readConfig
     def doLookup = lookup(q, config, proxy)
     if !client.isCrawler && config.isDefault
@@ -75,7 +70,7 @@ final class OpeningApi(
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
     yield makeOpeningPage(query, stats, withPgn, relHistory, wiki).some
 
-  def readConfig(using RequestHeader) = configStore.read
+  def readConfig(using Req) = configStore.read
 
   private def historyPercent(
       query: PopularityHistoryAbsolute,

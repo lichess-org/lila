@@ -1,7 +1,5 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
-
 import lila.common.ClientName
 import lila.common.HTTPRequest.*
 import lila.core.config.NetConfig
@@ -17,7 +15,7 @@ final class CSRFRequestHandler(net: NetConfig):
   /* Returns true if the request can be accepted
    * Returns false to reject the request with 403 Forbidden
    */
-  def check(req: RequestHeader): Boolean =
+  def check(req: Req): Boolean =
     /* Cross origin XHR is not allowed by browsers,
      * therefore all XHR requests can be accepted
      */
@@ -57,7 +55,7 @@ final class CSRFRequestHandler(net: NetConfig):
           monitor("forbidden", req)
           false
 
-  private def monitor(tpe: String, req: RequestHeader) =
+  private def monitor(tpe: String, req: Req) =
     lila.mon.http.csrfError(tpe, actionName(req), ClientName(req).toString).increment()
 
   private val topDomain = s"://${net.domain}"

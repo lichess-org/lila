@@ -774,7 +774,6 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
-  <string name="lichessUpdates">Оновлення Lichess</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="changelog">Список змін</string>
   <string name="termsOfService">Умови користування</string>

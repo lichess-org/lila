@@ -4,8 +4,7 @@ import alleycats.Zero
 
 import lila.core.config.RateLimit as Enforce
 
-/** Throttler that allows X operations per Y unit of time Not thread safe
-  */
+/** Throttler that allows X operations per Y unit of time Not thread safe */
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
@@ -49,9 +48,6 @@ final class RateLimit[K](
         case _ =>
           op
 
-  def option[A](k: Option[K], default: => A, cost: Cost = 1)(op: => A): A =
-    k.fold(op)(apply(_, default, cost, msg = "")(op))
-
   def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
 
   def isLimited(k: K): Option[Instant] =
@@ -85,10 +81,14 @@ object RateLimit:
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
+    def use[A](default: => A, cost: Cost = 1, msg: => String = "")(op: => A)(using k: K): A =
+      apply(k, default, cost, msg)(op)
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
     def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
     def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
       apply[A](k, default.zero, cost, msg)(op)
+    def option[A](k: Option[K], default: => A, cost: Cost = 1)(op: => A): A =
+      k.fold(op)(apply(_, default, cost, msg = "")(op))
     def myCost[A](cost: Me ?=> Cost): [A] => (K, Default[A]) => Compute[A] => Me ?=> A =
       [A] => (k, default) => op => _ ?=> apply(k, default(), cost)(op())
     def myCostAdjusted[A](cost: Me ?=> Cost): [A] => (K, Default[A], Update[Cost]) => Compute[A] => Me ?=> A =

@@ -1,18 +1,16 @@
 package lila.pref
 
-import play.api.mvc.RequestHeader
-
 object RequestPref:
 
   import Pref.default
 
-  def queryParamOverride(pref: Pref)(using req: RequestHeader): Pref =
+  def queryParamOverride(pref: Pref)(using req: Req): Pref =
     queryParam("bg")
       .flatMap(Pref.Bg.fromString.get)
       .fold(pref): bg =>
         pref.copy(bg = bg)
 
-  def fromRequest(using req: RequestHeader): Pref =
+  def fromRequest(using req: Req): Pref =
     if req.queryString.isEmpty && req.session.isEmpty then default
     else
       inline def session(inline name: String): Option[String] = req.session.get(name)
@@ -34,5 +32,5 @@ object RequestPref:
         )
       )
 
-  private def queryParam(name: String)(using RequestHeader): Option[String] =
+  private def queryParam(name: String)(using Req): Option[String] =
     lila.common.HTTPRequest.queryStringGet(name).filter(_ != "auto")

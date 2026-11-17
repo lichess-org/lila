@@ -14,5 +14,5 @@
   <string name="twoFactorToDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için şifrenize ve bir doğrulama koduna ihtiyacınız var.</string>
   <string name="openTwoFactorApp">Doğrulama kodunu görüntüleyerek kimliğinizi doğrulamak için cihazınızdan iki faktörlü kimlik doğrulama uygulamasını açın.</string>
   <string name="setupReminder">Lütfen hesabınızın güvenliği için https://lichess.org/account/twofactor üzerinden iki faktörlü kimlik doğrulamayı etkinleştirin.
-Bu mesajı aldınız çünkü hesabınız takım liderliği, koç, öğretmen ya da yayıncı gibi özel bir sorumluluğa sahip</string>
+Bu mesajı aldınız çünkü hesabınız unvanlı oyuncu, takım lideri, eğitmen, öğretmen ya da yayıncı gibi özel bir sorumluluğa sahip.</string>
 </resources>

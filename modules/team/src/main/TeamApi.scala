@@ -1,6 +1,5 @@
 package lila.team
 
-import play.api.mvc.RequestHeader
 import scalalib.actor.AsyncActorSequencers
 
 import java.time.Period
@@ -212,7 +211,7 @@ final class TeamApi(
   def cancelRequestOrQuit(team: Team)(using me: Me): Fu[Option[I18nKey]] =
     withLeaders(team).flatMap: t =>
       val admins = t.leaders.filter(_.hasPerm(_.Admin))
-      if team.isClas then fuccess(I18nKey("Can't leave a class team").some)
+      if team.isClas then fuccess(I18nKey.unchecked("Can't leave a class team").some)
       else if admins.nonEmpty && admins.forall(_.is(me))
       then fuccess(I18nKey.teamLead.onlyLeaderLeavesTeam.some)
       else
@@ -326,7 +325,7 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, users: List[UserId])(using me: Me)(using RequestHeader): Funit =
+  def kickMembers(team: Team, users: List[UserId])(using me: Me)(using Req): Funit =
     val client = lila.common.HTTPRequest.printClient
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"

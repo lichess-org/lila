@@ -9,6 +9,7 @@ import { pubsub } from 'lib/pubsub';
 import { innerHTML, richHTML } from 'lib/richText';
 import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { radioGroup } from 'lib/view/radio';
 import { userLink } from 'lib/view/userLink';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
@@ -22,7 +23,7 @@ import { view as multiBoardView } from '../multiBoard';
 import { gameLinksListener } from '../studyChapters';
 import type StudyCtrl from '../studyCtrl';
 import type { RelayGroup, RelayRound, RelayTourDates, RelayTourInfo, RelayTourPreview } from './interfaces';
-import RelayCtrl, { type RelayTab } from './relayCtrl';
+import RelayCtrl from './relayCtrl';
 import { gamesLists } from './relayGames';
 import { playersView } from './relayPlayers';
 import { statsView } from './relayStats';
@@ -505,40 +506,35 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
       ]
     : [];
 
-const makeTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study;
+const makeTabs = ({ study, isEmbed }: AnalyseCtrl) => {
   const relay = study?.relay;
   if (!relay) return undefined;
+  const canViewStats = study.members.myMember() && !!relay.data.tour.tier;
 
-  const makeTab = (key: RelayTab, name: string) =>
-    hl(
-      `button.relay-tour__tabs--${key}`,
-      {
-        class: { active: relay.tab() === key },
-        attrs: { role: 'tab' },
-        on: {
-          click: () => relay.openTab(key),
+  return [
+    radioGroup({
+      name: 'relay-tour-tab',
+      active: relay.tab(),
+      onChange: relay.openTab,
+      buttons: [
+        { key: 'overview', content: i18n.broadcast.overview },
+        { key: 'boards', content: i18n.broadcast.boards },
+        { key: 'players', content: i18n.site.players },
+        relay.teams && { key: 'teams', content: i18n.broadcast.teams },
+        relay.data.tour.showTeamScores && { key: 'team-results', content: i18n.broadcast.teamResults },
+        canViewStats && { key: 'stats', content: i18n.site.stats },
+      ],
+    }),
+    isEmbed &&
+      !canViewStats &&
+      hl(
+        'a.text',
+        {
+          attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
         },
-      },
-      name,
-    );
-  return hl('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', i18n.broadcast.overview),
-    makeTab('boards', i18n.broadcast.boards),
-    makeTab('players', i18n.site.players),
-    relay.teams && makeTab('teams', i18n.broadcast.teams),
-    relay.data.tour.showTeamScores && makeTab('team-results', i18n.broadcast.teamResults),
-    study.members.myMember() && !!relay.data.tour.tier
-      ? makeTab('stats', i18n.site.stats)
-      : ctrl.isEmbed &&
-        hl(
-          'a.relay-tour__tabs--open.text',
-          {
-            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
-          },
-          i18n.broadcast.openLichess,
-        ),
-  ]);
+        i18n.broadcast.openLichess,
+      ),
+  ];
 };
 
 const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>

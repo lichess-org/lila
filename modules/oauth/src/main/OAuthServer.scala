@@ -1,7 +1,7 @@
 package lila.oauth
 
 import com.softwaremill.tagging.*
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.{ ClientName, HTTPRequest }
@@ -18,7 +18,7 @@ final class OAuthServer(
 
   private type Signature = Option[String]
 
-  def authReq(accepted: EndpointScopes)(using req: RequestHeader)(using ClientName): AccessFu =
+  def authReq(accepted: EndpointScopes)(using req: Req)(using ClientName): AccessFu =
     val res = for
       bearer <- HTTPRequest.bearer.raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)
@@ -30,7 +30,7 @@ final class OAuthServer(
   def auth(
       bearer: (Bearer, Signature),
       accepted: EndpointScopes,
-      andLogReq: Option[RequestHeader]
+      andLogReq: Option[Req]
   )(using client: ClientName): AccessFu = for
     at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
@@ -40,17 +40,17 @@ final class OAuthServer(
     u <- u.raiseIfNone(NoSuchUser)
     u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
-    _ = andLogReq
-      .ifTrue(blocked || (u.isnt(UserId.explorer) && !client.isPlaybot))
-      .foreach: req =>
-        val logMsg =
-          val verb = if blocked then "block" else "auth"
-          s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
-        if blocked then logger.info(logMsg) else logger.debug(logMsg)
+    _ =
+      for
+        req <- andLogReq
+        if blocked || (u.isnt(UserId.explorer) && !client.isPlaybot)
+        verb = if blocked then "block" else "auth"
+        msg = s"$verb ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(using req).take(200)}"
+      do logger.info(msg)
     _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 
-  def authBoth(scopes: EndpointScopes, req: RequestHeader)(
+  def authBoth(scopes: EndpointScopes, req: Req)(
       token1: Bearer,
       token2: Bearer
   )(using ClientName): FuRaise[AuthError, (User, User)] = for

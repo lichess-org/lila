@@ -11,7 +11,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
 
   def baseUrl: BaseUrl
 
-  extension (req: RequestHeader)
+  extension (req: Req)
     def ipAddress = HTTPRequest.ipAddress(req)
     def client = ClientName(req)
     def sid = lila.core.security.LilaCookie.sid(req)
@@ -25,7 +25,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
     def withCanonical(url: String): Result =
       result.withHeaders(LINK -> s"<${baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
-    def enforceCrossSiteIsolation(using req: RequestHeader): Result =
+    def enforceCrossSiteIsolation(using req: Req): Result =
       result.withHeaders(crossOriginPolicy.forReq(req)*)
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
@@ -46,7 +46,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
     def varyLanguage = vary("Accept-Language")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
-    def withServiceWorker(using RequestHeader) =
+    def withServiceWorker(using Req) =
       result.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
     def asAttachment(name: String) =
       val cleanName = lila.common.String.fullCleanUp(name)

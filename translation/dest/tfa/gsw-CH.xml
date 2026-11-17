@@ -11,8 +11,7 @@
   <string name="enableTwoFactor">Aktivier d\'Zwei Faktor Authentifizierig</string>
   <string name="disableTwoFactor">Zwei Faktor Authentifizierig deaktiviere</string>
   <string name="twoFactorEnabled">Zwei Faktor Authentifizierig aktiviert</string>
-  <string name="twoFactorToDisable">
-Zur Deaktivierig bruchsch dis Passwort und en Code vu de Authenticator App.</string>
+  <string name="twoFactorToDisable">Zur Deaktivierig bruchsch dis Passwort und en Code vu de Authenticator App.</string>
   <string name="openTwoFactorApp">Gang uf dini App für Zwei Faktor Autentifizierig, det wird dir en Code, zur Beschtätigung vu dinere Identität, generiert.</string>
   <string name="setupReminder">Bitte Zwei Faktor Authentifizierig aktiviere und dis Konto uf - 
 https://lichess.org/account/twofactor - sichere!

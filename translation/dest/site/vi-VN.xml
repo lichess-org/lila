@@ -666,7 +666,6 @@ Bạn bè đang chơi: %2$s</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
-  <string name="lichessUpdates">Cập nhật từ Lichess</string>
   <string name="contribute">Đóng góp</string>
   <string name="changelog">Nhật kí thay đổi</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>

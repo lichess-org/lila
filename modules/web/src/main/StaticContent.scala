@@ -1,7 +1,6 @@
 package lila.web
 
 import play.api.libs.json.{ JsArray, Json }
-import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
 
 import lila.common.HTTPRequest
@@ -24,6 +23,7 @@ Disallow: /study/search
 Disallow: /study/embed/
 Disallow: /embed/
 Disallow: /video?*
+Disallow: /*/video?*
 Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
 """
@@ -59,7 +59,7 @@ Allow: /game/export/gif/thumbnail/
     )
   )
 
-  def appStoreUrl(using req: RequestHeader): Url =
+  def appStoreUrl(using req: Req): Url =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
   private val swagStoreTlds = Map(

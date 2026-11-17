@@ -13,6 +13,7 @@
   <string name="welcome_subject">Selamat datang di lichess.org, %s</string>
   <string name="welcome_text">Anda telah berhasil membuat akun pada https://lichess.org. Berikut adalah halaman profil Anda: %1$s. Anda dapat mempersonalisasikan itu pada %2$s. Selamat bermain, semoga bidak Anda selalu menemukan jalan mereka ke raja lawan Anda!</string>
   <string name="logInToLichess">Masuk ke lichess.org, %s</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Tautan tidak berfungsi? Coba tempelkan ke peramban/browser Anda!)</string>
   <string name="common_note">Ini adalah layanan email yang terkait dengan penggunaan %s.</string>
   <string name="common_contact">Untuk menghubungi kami, harap gunakan %s.</string>
 </resources>

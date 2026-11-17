@@ -10,14 +10,15 @@ import lila.core.net.LichessMobileUa
 
 final class HttpFilter(
     net: NetConfig,
-    parseMobileUa: RequestHeader => Option[LichessMobileUa]
+    mode: play.api.Mode,
+    parseMobileUa: Req => Option[LichessMobileUa]
 )(using val mat: Materializer, scheduler: Scheduler)(using Executor)
     extends Filter
     with ResponseHeaders:
 
   import HttpFilter.*
 
-  def apply(handle: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
+  def apply(handle: Req => Fu[Result])(req: Req): Fu[Result] =
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))
     else
       val startTime = nowMillis
@@ -32,7 +33,7 @@ final class HttpFilter(
                   addEmbedderPolicyHeaders(lilaReq):
                     result
 
-  private def toLilaReq(using req: RequestHeader) =
+  private def toLilaReq(using req: Req) =
     val clientName =
       import ClientName.*
       if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile then lichobile else xhr
@@ -45,9 +46,9 @@ final class HttpFilter(
     req.addAttr(ClientName.reqAttr, clientName)
 
   private object WarmupFilter:
-    private var justBooted = true
+    private var justBooted = mode.isProd
     scheduler.scheduleOnce(20.seconds):
-      logger.info("WarmupFilter: now accepting requests")
+      logger.info("WarmupFilter: now accepting all requests")
       justBooted = false
     private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
     private val actions = Set(
@@ -61,7 +62,7 @@ final class HttpFilter(
       "Api.cloudEval",
       "User.autocomplete"
     )
-    def apply(req: RequestHeader): Option[Fu[Result]] =
+    def apply(req: Req): Option[Fu[Result]] =
       val reject = justBooted && {
         actions(HTTPRequest.actionName(req)) ||
         req.path.startsWith("/api/bot/") ||
@@ -78,13 +79,13 @@ final class HttpFilter(
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
 
-  private def looksLikePlayBot(req: RequestHeader) =
+  private def looksLikePlayBot(req: Req) =
     val ua = HTTPRequest.userAgent(req).value
     ua.startsWith("lichess-bot/") ||
     ua.startsWith("maia-bot/") ||
     ua.startsWith("BotLi/")
 
-  private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
+  private def monitoring(req: Req, startTime: Long)(result: Result) =
     val actionName = HTTPRequest.actionName(req)
     val reqTime = nowMillis - startTime
     val statusCode = result.header.status
@@ -102,7 +103,7 @@ final class HttpFilter(
     res.dmap:
       _.withHeaders(assetsHeaders*)
 
-  private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
+  private def redirectWrongDomain(req: Req): Option[Result] = {
     req.host != net.domain.value &&
     HTTPRequest.isRedirectable(using req) &&
     !isProgrammatic(req) &&
@@ -110,14 +111,14 @@ final class HttpFilter(
     !HTTPRequest.hasFileExtension(req)
   }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${net.domain}${req.uri}"))
 
-  private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =
+  private def addContextualResponseHeaders(req: Req)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
     then result.withHeaders(headersForApiOrApp(using req)*)
     else if result.header.status == OK
     then result.withHeaders(permissionsPolicyHeader)
     else result
 
-  private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
+  private def addEmbedderPolicyHeaders(req: Req)(result: Result) =
     if result.header.status != NO_CONTENT
       && !crossOriginPolicy.isSet(result)
       && crossOriginPolicy.supportsCredentiallessIFrames(req)
@@ -130,7 +131,7 @@ private object HttpFilter:
 
   private def logger = lila.log("http")
 
-  def apiAgent(req: RequestHeader, client: ClientName): Option[String] =
+  def apiAgent(req: Req, client: ClientName): Option[String] =
     val isApiAgent = !client.isMobile && !client.isLichobile && {
       HTTPRequest.isApi(req) || req.path.endsWith(".pgn")
     }
@@ -144,7 +145,7 @@ private object HttpFilter:
     .toLowerCase
     .nonEmptyOption | "-"
 
-  def isProgrammatic(req: RequestHeader) =
+  def isProgrammatic(req: Req) =
     HTTPRequest.isXhr(req) ||
       ClientName(req).isFishnet ||
       HTTPRequest.isApi(req) ||

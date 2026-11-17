@@ -22,7 +22,7 @@ final class Setup(
 
   def ai = OpenBody:
     limit.setupBotAi(ctx.userId | UserId(""), () => rateLimited): () =>
-      limit.setupPost(ctx.ip, rateLimited()):
+      limit.setupPost.use(rateLimited()):
         bindForm(forms.ai)(
           doubleJsonFormError,
           config =>
@@ -36,7 +36,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody: ctx ?=>
-      limit.setupPost(ctx.ip, rateLimited()):
+      limit.setupPost.use(rateLimited()):
         bindForm(forms.friend)(
           doubleJsonFormError,
           config =>
@@ -103,7 +103,7 @@ final class Setup(
         bindForm(forms.hook)(
           doubleJsonFormError,
           userConfig =>
-            limit.setupPost(req.ipAddress, rateLimited):
+            limit.setupPost.use(rateLimited):
               limit.setupAnonHook(req.ipAddress, () => rateLimited): () =>
                 for
                   me <- ctx.user.traverse(env.user.api.withPerfs)
@@ -120,7 +120,7 @@ final class Setup(
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      limit.setupPost(ctx.ip, rateLimited()):
+      limit.setupPost.use(rateLimited()):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
@@ -167,7 +167,7 @@ final class Setup(
                     .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
                     .match
                       case Left(hook) =>
-                        limit.setupPost(req.ipAddress, rateLimited()):
+                        limit.setupPost.use(rateLimited()):
                           limit
                             .boardApiConcurrency(author.map(_.id))(
                               env.lobby.boardApiHookStream(hook.copy(boardApi = true))
@@ -218,7 +218,7 @@ final class Setup(
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) {
     ctx ?=> me ?=>
       limit.setupBotAi(me, () => rateLimited): () =>
-        limit.setupPost(req.ipAddress, rateLimited):
+        limit.setupPost.use(rateLimited):
           bindForm(forms.api.ai)(
             doubleJsonFormError,
             config =>

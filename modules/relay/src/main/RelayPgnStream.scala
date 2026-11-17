@@ -3,7 +3,6 @@ package lila.relay
 import chess.format.pgn.{ PgnStr, Tag }
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.*
-import play.api.mvc.RequestHeader
 import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.Bus
@@ -33,7 +32,7 @@ final class RelayPgnStream(
       .flatMapz: rt =>
         ofGame(rt.withStudy(sc.study), sc.chapter, flags).map(_.some)
 
-  def ofStudy(s: Study)(using RequestHeader): Fu[Option[Source[PgnStr, ?]]] =
+  def ofStudy(s: Study)(using Req): Fu[Option[Source[PgnStr, ?]]] =
     roundRepo
       .byIdWithTour(s.id.into(RelayRoundId))
       .map2: rt =>
@@ -45,7 +44,7 @@ final class RelayPgnStream(
       .flatMapz: chapter =>
         ofChapter(Study.WithChapter(s, chapter))
 
-  def exportFullTourAs(tour: RelayTour, me: Option[User])(using RequestHeader): Source[PgnStr, ?] =
+  def exportFullTourAs(tour: RelayTour, me: Option[User])(using Req): Source[PgnStr, ?] =
     Source.futureSource:
       for
         rounds <- roundRepo.byTourOrdered(tour.id)
@@ -64,7 +63,7 @@ final class RelayPgnStream(
     clocks = true,
     orientation = false
   )
-  private def requestPgnFlags(using RequestHeader): PgnDump.WithFlags =
+  private def requestPgnFlags(using Req): PgnDump.WithFlags =
     studyPgnDump.requestPgnFlags(defaultFlags)
 
   private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter, flags: PgnDump.WithFlags) =
@@ -137,7 +136,7 @@ final class RelayPgnStream(
       .flatMapConcat(ofGames(_, defaultFlags))
       .throttle(100, 1.second)
 
-  def streamRoundGames(rs: RelayRound.WithStudy)(using RequestHeader): Source[PgnStr, ?] =
+  def streamRoundGames(rs: RelayRound.WithStudy)(using Req): Source[PgnStr, ?] =
     val flags = requestPgnFlags
     Source.futureSource:
       tourRepo
@@ -147,7 +146,7 @@ final class RelayPgnStream(
         .map: rt =>
           initialSource(rt, flags).concat(pgnSource(flags, SyncResult.roundBusChannel(rt.relay.id)))
 
-  def streamTourGames(tour: RelayTour)(using RequestHeader): Source[PgnStr, ?] =
+  def streamTourGames(tour: RelayTour)(using Req): Source[PgnStr, ?] =
     val flags = requestPgnFlags
     Source.futureSource:
       for
@@ -157,7 +156,7 @@ final class RelayPgnStream(
         .flatMapConcat(initialSource(_, flags))
         .concat(pgnSource(flags, SyncResult.tourBusChannel(tour.id)))
 
-  def streamGroupGames(group: RelayGroup)(using RequestHeader): Source[PgnStr, ?] =
+  def streamGroupGames(group: RelayGroup)(using Req): Source[PgnStr, ?] =
     val flags = requestPgnFlags
     Source.futureSource:
       for

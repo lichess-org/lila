@@ -1,7 +1,5 @@
 package lila.relay
 
-import play.api.mvc.RequestHeader
-
 import java.time.{ LocalDate, YearMonth }
 
 import lila.common.HTTPRequest
@@ -55,7 +53,7 @@ final class RelayCalendar(
 
   def atMonth(at: YearMonth): Fu[List[WithFirstRound]] = cache.get(at)
 
-  def atMonthWithReqTiersFilter(at: YearMonth)(using req: RequestHeader): Fu[List[WithFirstRound]] =
+  def atMonthWithReqTiersFilter(at: YearMonth)(using req: Req): Fu[List[WithFirstRound]] =
     val inTiers =
       HTTPRequest.queryStringGet("tiers").orZero.split(",").flatMap(RelayTour.Tier.byKey.get).toSet
     atMonth(at).map: tours =>

@@ -1,12 +1,14 @@
 package lila.security
 
+import java.net.InetAddress
+import scala.util.Try
+
 import com.github.blemale.scaffeine.LoadingCache
 import com.maxmind.db.Reader.FileMode
 import com.maxmind.geoip2.DatabaseReader
 import com.maxmind.geoip2.model.CityResponse
+import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.ConfigLoader
-
-import scala.util.Try
 
 import lila.common.autoconfig.*
 import lila.core.net.{ CountryCode, IpAddress }
@@ -42,9 +44,14 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
 
   private def compute(ip: IpAddress): Option[Location] = for
     r <- reader
-    inet <- ip.inet
+    inet <- inet(ip)
     res <- Try(r.city(inet)).toOption
   yield Location(res)
+
+  private def inet(ip: IpAddress): Option[InetAddress] =
+    if ip.value.contains(":")
+    then Try(parseIPv6Address(ip.value).toInetAddress).toOption
+    else Try(InetAddress.getByAddress(ip.value.split('.').map(_.toInt.toByte))).toOption
 
   def apply(ip: IpAddress): Option[Location] = reader.isDefined.so(cache.get(ip))
 

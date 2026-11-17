@@ -3,7 +3,6 @@ package lila.study
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 import org.apache.pekko.stream.scaladsl.*
-import play.api.mvc.RequestHeader
 import scalalib.StringOps.slug
 
 import lila.tree.Node.{ Shape, Shapes }
@@ -37,7 +36,7 @@ final class PgnDump(
       .so(eval => analyser.byId(eval.fromGameId.fold(Analysis.Id(study.id, chapter.id))(Analysis.Id(_))))
       .map(ofChapter(study, flags)(chapter, _))
 
-  def requestPgnFlags(default: WithFlags = defaultFlags)(using RequestHeader): WithFlags =
+  def requestPgnFlags(default: WithFlags = defaultFlags)(using Req): WithFlags =
     import lila.common.HTTPRequest.{ queryStringBool, queryStringBoolOpt }
     WithFlags(
       comments = queryStringBoolOpt("comments") | default.comments,

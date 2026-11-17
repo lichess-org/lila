@@ -94,6 +94,8 @@ final class JsonView(
       )
       .add("flair", s.study.flair)
 
+  given Writes[Study.WithChaptersAndLiked] = Writes(pagerData)
+
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)
       .add("gamebook", c.isGamebook)

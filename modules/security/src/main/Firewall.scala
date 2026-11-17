@@ -2,9 +2,8 @@ package lila.security
 
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.RequestHeader
 
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 import lila.db.dsl.{ *, given }
 
 final class Firewall(
@@ -12,7 +11,7 @@ final class Firewall(
     config: SecurityConfig,
     scheduler: Scheduler,
     ws: StandaloneWSClient
-)(using Executor):
+)(using mode: play.api.Mode)(using Executor):
 
   private var current: Set[String] = Set.empty
   private var proxies: Set[IpAddress] = Set.empty
@@ -20,17 +19,18 @@ final class Firewall(
   scheduler.scheduleOnce(49.seconds):
     loadFromDb()
 
-  scheduler.scheduleWithFixedDelay(47.seconds, 2.hours): () =>
-    blockProxyScrapeIps()
+  if mode.isProd then
+    scheduler.scheduleWithFixedDelay(47.seconds, 15.minutes): () =>
+      blockProxyScrapeIps()
 
   def blocksIp(ip: IpAddress): Boolean = current.contains(ip.value) || proxies.contains(ip)
 
-  def blocks(req: RequestHeader): Boolean =
+  def blocks(req: Req): Boolean =
     val v = blocksIp(lila.common.HTTPRequest.ipAddress(req))
     if v then lila.mon.security.firewall.block.increment()
     v
 
-  def accepts(req: RequestHeader): Boolean = !blocks(req)
+  def accepts(req: Req): Boolean = !blocks(req)
 
   def blockIps(ips: Iterable[IpAddress]): Funit = ips.nonEmpty.so:
     for
@@ -73,7 +73,7 @@ final class Firewall(
                 .body[String]
                 .linesIterator
                 .map(_.takeWhile(':' != _))
-                .flatMap(IpAddress.from)
+                .flatMap(ipAddress.from)
                 .toSet
                 .take(5000)
           else Left(res.status)

@@ -702,7 +702,7 @@ Amics jugant: %2$s</string>
   <string name="aboutX">En quant a %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
   <string name="really">realment</string>
-  <string name="lichessUpdates">Actualitzacions de Lichess</string>
+  <string name="lichessUpdates">Flux de Lichess</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="changelog">Registre de canvis</string>
   <string name="termsOfService">Condicions del servei</string>

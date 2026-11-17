@@ -10,6 +10,8 @@ import lila.ui.{ Page, RenderedPage, Snippet }
 
 trait ResponseWriter extends ContentTypes:
 
+  export LilaContentTypes.*
+
   private val textContentType = ContentTypeOf(Option(ContentTypes.TEXT))
 
   given ContentTypeOf[Unit] = textContentType
@@ -21,9 +23,7 @@ trait ResponseWriter extends ContentTypes:
   given ContentTypeOf[Int] = textContentType
   given (using codec: Codec): Writeable[Int] = Writeable(i => codec.encode(i.toString))
 
-  val pgnContentType = "application/x-chess-pgn"
-  given pgnWriteable(using codec: Codec): Writeable[PgnStr] =
-    Writeable(p => codec.encode(p.toString), pgnContentType.some)
+  given (using codec: Codec): Writeable[PgnStr] = Writeable(p => codec.encode(p.toString), PGN.some)
 
   @nowarn("msg=unused implicit parameter")
   given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A] = textContentType
@@ -40,10 +40,6 @@ trait ResponseWriter extends ContentTypes:
   given (using codec: Codec): Writeable[Snippet] = Writeable(snip => codec.encode(snip.frag.render))
   given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Option(ContentTypes.HTML))
   given (using codec: Codec): Writeable[RenderedPage] = Writeable(page => codec.encode(page.html))
-
-  def CSV(using Codec) = withCharset("text/csv")
-  def ATOM(using Codec) = withCharset("application/atom+xml")
-  def NDJSON(using Codec) = withCharset("application/x-ndjson")
 
   object ndJson:
     import org.apache.pekko.stream.scaladsl.Source
@@ -64,3 +60,12 @@ trait ResponseWriter extends ContentTypes:
     def jsOptToString(source: Source[Option[JsValue], ?]) =
       source.map:
         _.so(Json.stringify) + "\n"
+
+object LilaContentTypes:
+
+  import ContentTypes.withCharset
+
+  def CSV(using Codec) = withCharset("text/csv")
+  def ATOM(using Codec) = withCharset("application/atom+xml")
+  def NDJSON(using Codec) = withCharset("application/x-ndjson")
+  def PGN(using Codec) = withCharset("application/x-chess-pgn")

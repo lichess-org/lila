@@ -6,7 +6,7 @@ import scalalib.cuteName.CuteNameGenerator
 
 import scala.jdk.CollectionConverters.*
 
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 import lila.core.perm.Granter
 import lila.memo.CacheApi
 
@@ -26,7 +26,7 @@ final class IpRender(using Executor):
 
   private val encrypted = (ip: IpAddress) => cache.get(ip)
 
-  def decrypt(str: String): Option[IpAddress] = IpAddress
+  def decrypt(str: String): Option[IpAddress] = ipAddress
     .from(str)
     .orElse(cache.underlying.asMap.asScala.collectFirst:
       case (ip, encrypted) if encrypted == str => ip)

@@ -3,7 +3,7 @@ package lila.core.i18n
 
 opaque type I18nKey = String
 object I18nKey:
-  def apply(key: String): I18nKey = key
+  def unchecked(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
     def value: String = key
@@ -254,6 +254,7 @@ object I18nKey:
     val `pinPlayer`: I18nKey = "broadcast:pinPlayer"
     val `underXAgeTournament`: I18nKey = "broadcast:underXAgeTournament"
     val `underXEloTournament`: I18nKey = "broadcast:underXEloTournament"
+    val `mentionPositionInChat`: I18nKey = "broadcast:mentionPositionInChat"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
@@ -1364,7 +1365,6 @@ object I18nKey:
     val `claimDrawOnThreefoldRepetitionAutomatically`: I18nKey = "preferences:claimDrawOnThreefoldRepetitionAutomatically"
     val `whenTimeRemainingLessThanThirtySeconds`: I18nKey = "preferences:whenTimeRemainingLessThanThirtySeconds"
     val `moveConfirmation`: I18nKey = "preferences:moveConfirmation"
-    val `multipleChoices`: I18nKey = "preferences:multipleChoices"
     val `explainCanThenBeTemporarilyDisabled`: I18nKey = "preferences:explainCanThenBeTemporarilyDisabled"
     val `inCorrespondenceGames`: I18nKey = "preferences:inCorrespondenceGames"
     val `correspondenceAndUnlimited`: I18nKey = "preferences:correspondenceAndUnlimited"
@@ -2097,6 +2097,7 @@ object I18nKey:
     val `pasteTheFenStringHere`: I18nKey = "pasteTheFenStringHere"
     val `pasteThePgnStringHere`: I18nKey = "pasteThePgnStringHere"
     val `orUploadPgnFile`: I18nKey = "orUploadPgnFile"
+    val `selectImage`: I18nKey = "selectImage"
     val `continueFromHere`: I18nKey = "continueFromHere"
     val `toStudy`: I18nKey = "toStudy"
     val `importGame`: I18nKey = "importGame"
@@ -2329,6 +2330,7 @@ object I18nKey:
     val `xIsAFreeYLibreOpenSourceChessServer`: I18nKey = "xIsAFreeYLibreOpenSourceChessServer"
     val `really`: I18nKey = "really"
     val `lichessUpdates`: I18nKey = "lichessUpdates"
+    val `allUpdates`: I18nKey = "allUpdates"
     val `contribute`: I18nKey = "contribute"
     val `changelog`: I18nKey = "changelog"
     val `termsOfService`: I18nKey = "termsOfService"

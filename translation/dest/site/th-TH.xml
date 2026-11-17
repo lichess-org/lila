@@ -666,7 +666,6 @@
   <string name="aboutX">เกี่ยวกับ %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s เป็นเซิร์ฟเวอร์หมากรุกระบบเปิด ซึ่งอิสระ ไม่มีโฆษณา และฟรี (%2$s)</string>
   <string name="really">จริง ๆ</string>
-  <string name="lichessUpdates">อัปเดตของ Lichess</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="changelog">เซฟการเปลี่ยนแปลง</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
