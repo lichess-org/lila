@@ -25,7 +25,8 @@ export interface ChatOpts {
 // to the chat input, e.g. "board 5 23... Nf6", which `enhance` turns into a link
 export interface PositionRef {
   title: string;
-  text(): string | undefined; // undefined when not looking at a position
+  available(): boolean; // false when not looking at a position
+  text(): string | undefined; // undefined when not available
 }
 
 export type Tab = { key: string; isDisabled?: () => boolean };

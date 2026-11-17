@@ -123,7 +123,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   });
   const ref = ctrl.opts.positionRef;
   if (!ref) return say;
-  return div('.mchat__say-wrap', [say, !ctrl.vm.timeout && ref.text() ? positionRefButton(ref) : null]);
+  return div('.mchat__say-wrap', [say, !ctrl.vm.timeout && ref.available() ? positionRefButton(ref) : null]);
 }
 
 const positionRefButton = (ref: PositionRef) =>

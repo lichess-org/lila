@@ -58,7 +58,8 @@ export default class RelayCtrl {
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
       study.ctrl.opts.chat.positionRef = {
         title: i18n.broadcast.mentionPositionInChat,
-        text: this.chatPositionRef,
+        available: this.chatPositionRefAvailable,
+        text: this.chatPositionRefText,
       };
     }
     pubsub.on('chat.board', this.onChatBoard);
@@ -145,9 +146,11 @@ export default class RelayCtrl {
     this.redraw();
   };
 
+  private readonly chatPositionRefAvailable = (): boolean => !this.tourShow();
+
   // e.g. "board 5 23... Nf6", which the chat turns into a link back to this move
-  private readonly chatPositionRef = (): string | undefined => {
-    if (this.tourShow()) return undefined;
+  private readonly chatPositionRefText = (): string | undefined => {
+    if (!this.chatPositionRefAvailable()) return undefined;
     const board = this.study.chapters.list.all().findIndex(c => c.id === this.study.data.chapter.id) + 1;
     if (!board) return undefined;
     const node = this.study.ctrl.node;
