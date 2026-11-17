@@ -3,7 +3,7 @@ package lila.core.i18n
 
 opaque type I18nKey = String
 object I18nKey:
-  def apply(key: String): I18nKey = key
+  def unchecked(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
     def value: String = key

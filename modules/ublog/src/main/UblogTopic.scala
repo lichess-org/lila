@@ -12,7 +12,7 @@ opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
   extension (a: UblogTopic)
     def url = a.replace(" ", "_")
-    def i18nKey: I18nKey = i18nKeys.getOrElse(a, I18nKey(a))
+    def i18nKey: I18nKey = i18nKeys.getOrElse(a, I18nKey.unchecked(a))
 
   val chess: List[UblogTopic] = List(
     "Chess",
@@ -48,9 +48,9 @@ object UblogTopic extends OpaqueString[UblogTopic]:
         case "Opening" => I18nKey.site.opening
         case "Endgame" => I18nKey.site.endgame
         case "Tournament" => I18nKey.site.tournament
-        case "Lichess" => I18nKey("Lichess")
+        case "Lichess" => I18nKey.unchecked("Lichess")
         case "Chess variant" => I18nKey.site.variants
-        case t => I18nKey(s"ublog:topic${t.split(" ").map(_.capitalize).mkString}")
+        case t => I18nKey.unchecked(s"ublog:topic${t.split(" ").map(_.capitalize).mkString}")
     .toMap
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
