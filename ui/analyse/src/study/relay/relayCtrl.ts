@@ -60,9 +60,9 @@ export default class RelayCtrl {
         title: i18n.broadcast.mentionPositionInChat,
         available: this.chatPositionRefAvailable,
         text: this.chatPositionRefText,
+        jump: this.chatPositionRefJump,
       };
     }
-    pubsub.on('chat.board', this.onChatBoard);
 
     const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
@@ -158,7 +158,7 @@ export default class RelayCtrl {
     return `board ${board}${move}`;
   };
 
-  private readonly onChatBoard = async (board: number, ply?: number) => {
+  private readonly chatPositionRefJump = async (board: number, ply?: Ply) => {
     const chapter = this.study.chapters.list.get(board);
     if (!chapter || !(await this.study.setChapter(chapter.id))) return;
     // in sticky mode, the new chapter is still on its way from the server

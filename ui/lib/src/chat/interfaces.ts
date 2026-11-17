@@ -27,6 +27,7 @@ export interface PositionRef {
   title: string;
   available(): boolean; // false when not looking at a position
   text(): string | undefined; // undefined when not available
+  jump(board: number, ply?: number): void; // jump to a position when the user clicks the link in chat
 }
 
 export type Tab = { key: string; isDisabled?: () => boolean };

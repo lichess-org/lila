@@ -50,9 +50,9 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           ...onInsert(el => {
             const $el = $(el).on('click', 'a.jump, a[data-board]', (e: Event) => {
               const { board, ply } = (e.target as HTMLElement).dataset;
-              if (board) {
+              if (board && ctrl.opts.positionRef) {
                 e.stopPropagation(); // don't let an enclosing game links listener change the board too
-                pubsub.emit('chat.board', parseInt(board), ply ? parseInt(ply) : undefined);
+                ctrl.opts.positionRef.jump(parseInt(board), ply ? parseInt(ply) : undefined);
               } else if (ply) pubsub.emit('jump', ply);
             });
             $el.on('click', '.reply', (e: Event) => {
