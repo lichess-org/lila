@@ -49,7 +49,7 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
   yield Location(res)
 
   private def inet(ip: IpAddress): Option[InetAddress] =
-    if ip.value.contains(".")
+    if ip.value.contains(":")
     then Try(parseIPv6Address(ip.value).toInetAddress).toOption
     else Try(InetAddress.getByAddress(ip.value.split('.').map(_.toInt.toByte))).toOption
 
