@@ -96,10 +96,16 @@ const renderTimeModePicker = (tc: TimeControl) =>
     ),
   ]);
 
-const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: Record<string, boolean>) =>
+const inputRange = (
+  min: number,
+  max: number,
+  prop: Prop<InputValue>,
+  id: string,
+  classes?: Record<string, boolean>,
+) =>
   hl('input.range', {
     class: classes,
-    attrs: { type: 'range', min, max, value: prop() },
+    attrs: { type: 'range', min, max, value: prop(), id },
     hook: {
       update: (_: VNode, vnode: VNode) => {
         const el = vnode.elm as HTMLInputElement;
@@ -148,37 +154,48 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
     panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.sliders-grid', [
         hl('div.slider-container', [
-          hl('div.label-row', [hl('label', i18n.site.minutesPerSide), hl('span.val-box', showTime(tcTime))]),
-          inputRange(0, 38, tc.timeV, {
+          hl(
+            'div.label-row',
+            hl('label', { for: 'gameTime' }, [
+              i18n.site.minutesPerSide,
+              hl('span.val-box', showTime(tcTime)),
+            ]),
+          ),
+          inputRange(0, 38, tc.timeV, 'gameTime', {
             failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
           }),
         ]),
         hl('div.slider-separator', '+'),
         hl('div.slider-container', [
-          hl('div.label-row', [
-            hl('span.val-box', tcIncrement.toString()),
-            hl('label', i18n.site.incrementInSeconds),
-          ]),
-          inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
+          hl(
+            'div.label-row',
+            hl('label', { for: 'increment' }, [
+              hl('span.val-box', tcIncrement.toString()),
+              i18n.site.incrementInSeconds,
+            ]),
+          ),
+          inputRange(0, 30, tc.incrementV, 'increment', {
+            failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
+          }),
         ]),
       ]),
       hl(
         'div.presets',
-        tc.presets.slice(0, 10).map(p =>
+        tc.presets.slice(0, 10).map(({ lim, inc }) =>
           hl(
             'button.preset-btn',
             {
               class: {
-                active: tcTime === p.lim && tcIncrement === p.inc,
+                active: tcTime === lim && tcIncrement === inc,
               },
               on: {
                 click: () => {
-                  tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));
-                  tc.incrementV(sliderInitVal(p.inc, incrementVToIncrement, 100, 0));
+                  tc.timeV(sliderInitVal(lim, timeVToTime, 100, 9));
+                  tc.incrementV(sliderInitVal(inc, incrementVToIncrement, 100, 0));
                 },
               },
             },
-            `${showTime(p.lim)}+${p.inc}`,
+            `${showTime(lim)}+${inc}`,
           ),
         ),
       ),
@@ -186,8 +203,14 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
   } else if (activeMode === 'correspondence') {
     panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.slider-container.full-width', [
-        hl('div.label-row', [hl('label', i18n.site.daysPerTurn), hl('span.val-box', tc.days().toString())]),
-        inputRange(1, 7, tc.daysV),
+        hl(
+          'div.label-row',
+          hl('label', { for: 'correspondenceDays' }, [
+            i18n.site.daysPerTurn,
+            hl('span.val-box', tc.days().toString()),
+          ]),
+        ),
+        inputRange(1, 7, tc.daysV, 'correspondenceDays'),
       ]),
     ]);
   } else if (activeMode === 'unlimited') {
