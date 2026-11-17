@@ -254,6 +254,7 @@ object I18nKey:
     val `pinPlayer`: I18nKey = "broadcast:pinPlayer"
     val `underXAgeTournament`: I18nKey = "broadcast:underXAgeTournament"
     val `underXEloTournament`: I18nKey = "broadcast:underXEloTournament"
+    val `mentionPositionInChat`: I18nKey = "broadcast:mentionPositionInChat"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
