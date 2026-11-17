@@ -48,7 +48,8 @@ object Theme extends ThemeObject:
     Theme("newspaper", "svg/newspaper.svg", Featured.Yes), // 19/13
     Theme("purple", "purple.png", Featured.Yes), // 19/11
     Theme("purple-diag", "purple-diag.png", Featured.Yes), // 20/11
-    Theme("pink", "pink-pyramid.png") // 12/18
+    Theme("pink", "pink-pyramid.png"), // 12/18
+    Theme("chessboart", "svg/chessboart.svg")
   )
 
 object Theme3d extends ThemeObject:

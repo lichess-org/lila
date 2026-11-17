@@ -68,6 +68,8 @@ public/piece/monarchy | [slither77](https://github.com/slither77) | [CC BY-NC-SA
 public/piece/xkcd | [Randall Munroe](https://xkcd.com/about) | [CC BY-NC-SA 2.5](https://xkcd.com/license.html)
 public/piece/Firi | [James Faure](https://github.com/jfaure/Firi-pieceset) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 public/piece/minimal-warmth | [blunder_reign](https://lichess.org/@/blunder_reign) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/chessboart | [Michał Fudalej / ChessboArt](https://chessboart.com) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/images/board/svg/chessboart.svg | [Michał Fudalej / ChessboArt](https://chessboart.com) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
