@@ -63,13 +63,13 @@ object PieceSet extends PieceSetObject:
     PieceSet("mpchess", Featured.Yes),
     PieceSet("kiwen-suwi"),
     PieceSet("totoy"),
+    PieceSet("chessboart"),
     PieceSet("horsey", Featured.Yes),
     PieceSet("anarcandy", Featured.Yes),
     PieceSet("xkcd"),
     PieceSet("shapes"),
     PieceSet("letter"),
-    PieceSet("disguised"),
-    PieceSet("chessboart")
+    PieceSet("disguised")
   )
 
 object PieceSet3d extends PieceSetObject:
