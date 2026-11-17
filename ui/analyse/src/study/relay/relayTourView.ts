@@ -9,6 +9,7 @@ import { pubsub } from 'lib/pubsub';
 import { innerHTML, richHTML } from 'lib/richText';
 import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { radioGroup } from 'lib/view/radio';
 import { userLink } from 'lib/view/userLink';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
@@ -22,7 +23,7 @@ import { view as multiBoardView } from '../multiBoard';
 import { gameLinksListener } from '../studyChapters';
 import type StudyCtrl from '../studyCtrl';
 import type { RelayGroup, RelayRound, RelayTourDates, RelayTourInfo, RelayTourPreview } from './interfaces';
-import RelayCtrl, { type RelayTab } from './relayCtrl';
+import RelayCtrl from './relayCtrl';
 import { gamesLists } from './relayGames';
 import { playersView } from './relayPlayers';
 import { statsView } from './relayStats';
@@ -510,29 +511,20 @@ const makeTabs = ({ study, isEmbed }: AnalyseCtrl) => {
   if (!relay) return undefined;
   const canViewStats = study.members.myMember() && !!relay.data.tour.tier;
 
-  const makeTab = (key: RelayTab, name: string) =>
-    hl('div', [
-      hl(`input#relay-tour-tab-${key}`, {
-        attrs: {
-          name: 'relay-tour-tab',
-          type: 'radio',
-          value: key,
-          checked: relay.tab() === key,
-        },
-        on: { change: () => relay.openTab(key) },
-      }),
-      hl('label', { attrs: { for: `relay-tour-tab-${key}` } }, name),
-    ]);
-
   return [
-    hl('group.radio', [
-      makeTab('overview', i18n.broadcast.overview),
-      makeTab('boards', i18n.broadcast.boards),
-      makeTab('players', i18n.site.players),
-      relay.teams && makeTab('teams', i18n.broadcast.teams),
-      relay.data.tour.showTeamScores && makeTab('team-results', i18n.broadcast.teamResults),
-      canViewStats && makeTab('stats', i18n.site.stats),
-    ]),
+    radioGroup({
+      name: 'relay-tour-tab',
+      active: relay.tab(),
+      onChange: relay.openTab,
+      buttons: [
+        { key: 'overview', content: i18n.broadcast.overview },
+        { key: 'boards', content: i18n.broadcast.boards },
+        { key: 'players', content: i18n.site.players },
+        relay.teams && { key: 'teams', content: i18n.broadcast.teams },
+        relay.data.tour.showTeamScores && { key: 'team-results', content: i18n.broadcast.teamResults },
+        canViewStats && { key: 'stats', content: i18n.site.stats },
+      ],
+    }),
     isEmbed &&
       !canViewStats &&
       hl(
