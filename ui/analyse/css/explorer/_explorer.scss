@@ -247,7 +247,7 @@
     td {
       @include padding-direction(5px, 0, 5px, 7px);
 
-      span {
+      div {
         @extend %ellipsis;
 
         display: block;
