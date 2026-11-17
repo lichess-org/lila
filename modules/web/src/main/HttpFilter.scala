@@ -46,9 +46,9 @@ final class HttpFilter(
     req.addAttr(ClientName.reqAttr, clientName)
 
   private object WarmupFilter:
-    private var justBooted = true
-    scheduler.scheduleOnce(if mode.isProd then 20.seconds else 1.second):
-      logger.info("WarmupFilter: now accepting requests")
+    private var justBooted = mode.isProd
+    scheduler.scheduleOnce(20.seconds):
+      logger.info("WarmupFilter: now accepting all requests")
       justBooted = false
     private val response = fuccess(Results.ServiceUnavailable("Please retry in a few seconds"))
     private val actions = Set(
