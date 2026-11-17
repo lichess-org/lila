@@ -23,6 +23,7 @@ Disallow: /study/search
 Disallow: /study/embed/
 Disallow: /embed/
 Disallow: /video?*
+Disallow: /*/video?*
 Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
 """
