@@ -1,7 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { type Prop, prop, defined, myUserId } from 'lib';
-import { debounce, defer, sync, type Sync } from 'lib/async';
+import { defer, sync, type Sync } from 'lib/async';
 import { replayable } from 'lib/game';
 import { pieceCount, fenColor } from 'lib/game/chess';
 import { storedBooleanProp } from 'lib/storage';
@@ -83,6 +83,7 @@ export default class ExplorerCtrl {
   isAuth = () => defined(myUserId());
 
   reload = () => {
+    this.directInteraction = true;
     this.cache = {};
     this.setNode();
     this.root.redraw();
@@ -93,54 +94,67 @@ export default class ExplorerCtrl {
     config: this.config.data,
   });
 
-  private readonly fetch = debounce(
-    () => {
-      const fen = this.root.node.fen;
-      const processData = (res: ExplorerData) => {
-        this.cache[fen] = res;
-        this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
+  private fetchTimeout: Timeout | undefined;
+  private lastFetchRequest = 0;
+  private directInteraction = false;
+
+  onDirectInteraction = () => {
+    this.directInteraction = true;
+  };
+
+  private readonly requestFetch = (wait: number) => {
+    clearTimeout(this.fetchTimeout);
+    const now = performance.now();
+    const elapsed = now - this.lastFetchRequest;
+    this.lastFetchRequest = now;
+    if (elapsed > wait) this.fetch();
+    else this.fetchTimeout = setTimeout(this.fetch, wait);
+  };
+
+  private readonly fetch = () => {
+    const fen = this.root.node.fen;
+    const processData = (res: ExplorerData) => {
+      this.cache[fen] = res;
+      this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
+      this.loading(false);
+      this.failing(null);
+      this.root.redraw();
+    };
+    const onError = (err: Error) => {
+      if (err.name !== 'AbortError') {
         this.loading(false);
-        this.failing(null);
+        this.failing(err);
         this.root.redraw();
-      };
-      const onError = (err: Error) => {
-        if (err.name !== 'AbortError') {
-          this.loading(false);
-          this.failing(err);
-          this.root.redraw();
-        }
-      };
-      this.abortController?.abort();
-      this.abortController = new AbortController();
-      if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
-        xhr
-          .tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen, this.abortController.signal)
-          .then(processData, onError);
-      else {
-        this.lastStream = sync(
-          xhr
-            .opening(
-              {
-                ...this.baseXhrOpening(),
-                db: this.db(),
-                variant: this.effectiveVariant,
-                rootFen: this.root.nodeList[0].fen,
-                play: this.root.nodeList.slice(1).map(s => s.uci!),
-                fen,
-                withGames: this.withGames,
-              },
-              processData,
-              this.abortController.signal,
-            )
-            .catch(onError)
-            .then(_ => true),
-        );
-        if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
       }
-    },
-    350,
-    true,
-  );
+    };
+    this.abortController?.abort();
+    this.abortController = new AbortController();
+    if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
+      xhr
+        .tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen, this.abortController.signal)
+        .then(processData, onError);
+    else {
+      this.lastStream = sync(
+        xhr
+          .opening(
+            {
+              ...this.baseXhrOpening(),
+              db: this.db(),
+              variant: this.effectiveVariant,
+              rootFen: this.root.nodeList[0].fen,
+              play: this.root.nodeList.slice(1).map(s => s.uci!),
+              fen,
+              withGames: this.withGames,
+            },
+            processData,
+            this.abortController.signal,
+          )
+          .catch(onError)
+          .then(_ => true),
+      );
+      if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
+    }
+  };
 
   private readonly empty: OpeningData = {
     white: 0,
@@ -156,6 +170,8 @@ export default class ExplorerCtrl {
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.isCevalAllowed();
 
   setNode = () => {
+    const wait = this.directInteraction ? 50 : 350;
+    this.directInteraction = false;
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
@@ -171,7 +187,7 @@ export default class ExplorerCtrl {
       this.failing(null);
     } else {
       this.loading(true);
-      this.fetch();
+      this.requestFetch(wait);
     }
   };
 
