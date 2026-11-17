@@ -23,6 +23,7 @@ import lila.gameSearch.GameSearchApi
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
+import lila.rating.PerfType
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -121,12 +122,8 @@ final class GameApiV2(
           .fold(Query.nowPlaying(config.user.id)):
             Query.nowPlayingVs(config.user.id, _)
 
-    val requiresElasticSearch =
-      fuccess(config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty) >>|
-        guessIfConfigRequiresElasticSearch(config)
-
     val gameSource: Source[Game, ?] = Source.futureSource:
-      requiresElasticSearch.map: useES =>
+      guessIfConfigRequiresElasticSearch(config).map: useES =>
         if useES then
           import lila.search.Size
           gameSearch
@@ -385,10 +382,11 @@ final class GameApiV2(
     if config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty then fuccess(true)
     else if config.perfKey.isEmpty then fuccess(false)
     else
-      userApi
-        .perfsOf(config.user.id)
-        .map: perfs =>
-          config.perfKey.exists(perfs.contains)
+      val excluded = PerfType.gameKeys.diff(config.perfKey)
+      val since = config.since | lila.common.LichessDay.genesis
+      for perfs <- userApi.perfsOf(config.user.id)
+      yield excluded.exists: ex =>
+        perfs(ex).latest.exists(_.isAfter(since))
 
 object GameApiV2:
 
