@@ -6131,8 +6131,6 @@ interface I18n {
     quitTeam: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
-    /** Tell others about your team! */
-    shareTeamPrompt: string;
     /** Subscribe to team updates */
     subToTeamUpdates: string;
     /** A Swiss tournament that only members of your team can join */
@@ -6243,6 +6241,8 @@ interface I18n {
     teamDescriptionHelp: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
+    /** Tell others about your team! */
+    teamIntroPrompt: string;
     /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */

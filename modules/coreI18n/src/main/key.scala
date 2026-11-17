@@ -3109,7 +3109,6 @@ object I18nKey:
     val `joinTeam`: I18nKey = "team:joinTeam"
     val `quitTeam`: I18nKey = "team:quitTeam"
     val `teamRecentMembers`: I18nKey = "team:teamRecentMembers"
-    val `shareTeamPrompt`: I18nKey = "team:shareTeamPrompt"
     val `willBeReviewed`: I18nKey = "team:willBeReviewed"
     val `beingReviewed`: I18nKey = "team:beingReviewed"
     val `requestDeclined`: I18nKey = "team:requestDeclined"
@@ -3181,6 +3180,7 @@ object I18nKey:
     val `oneTeamPerLineHelp`: I18nKey = "teamLead:oneTeamPerLineHelp"
     val `numberOfLeadsPerTeam`: I18nKey = "teamLead:numberOfLeadsPerTeam"
     val `numberOfLeadsPerTeamHelp`: I18nKey = "teamLead:numberOfLeadsPerTeamHelp"
+    val `teamIntroPrompt`: I18nKey = "teamLead:teamIntroPrompt"
     val `xJoinRequests`: I18nKey = "teamLead:xJoinRequests"
 
   object tfa:
