@@ -36,6 +36,7 @@
   <string name="entryCode">Kod hyrjeje i ekipit</string>
   <string name="entryCodeDescriptionForLeader">(Opsionale) Një kod hyrjeje që anëtarët e rinj duhet ta dinë për të marrë pjesë në këtë ekip.</string>
   <string name="incorrectEntryCode">Kod hyrjeje i pasaktë.</string>
+  <string name="forumLabel">Forum ekipi</string>
   <string name="teamAlreadyExists">Ky ekip ekziston tashmë.</string>
   <string name="upcomingTournaments">Turne s’afërmi</string>
   <string name="completedTourns">Turne të plotësuar</string>

@@ -1105,7 +1105,7 @@
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
-  <string name="playComputerMove">Play best computer move</string>
+  <string name="playComputerMove">Сыграть лучший ход по компьютеру</string>
   <string name="analysisOptions">Параметры анализа</string>
   <string name="focusChat">Переключиться в окно чата</string>
   <string name="showHelpDialog">Показать справку</string>

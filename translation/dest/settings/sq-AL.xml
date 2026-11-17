@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Anuloje dhe mbaje llogarinë time</string>
   <string name="closeAccountAreYouSure">Jeni i sigurt se doni të mbyllet llogarina juaj?</string>
   <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
+  <string name="wereSorryToSeeYouGo">Na vjen keq t’ju shohim të ikni.</string>
+  <string name="closeAccountForeverLabel">Mbylle përgjithnjë: bëje të pamundur të rihapet</string>
+  <string name="closeAccountForeverWarning">Pengo rihapjen e llogarisë më vonë. Nëse i vini shenjë kësaj kutize, as edhe përgjegjësit s’do të jenë në gjendje të rihapin llogarinë tuaj, po e kërkuat.</string>
+  <string name="deleteYourAccount">Fshihni llogarinë tuaj</string>
+  <string name="deleteAccountWarning">Pasi të fshihni llogarinë tuaj, hiqet nga Lichess-i dhe përgjegjësit tanë s’do të jenë në gjendje ta rikthejnë për ju.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Në vend të kësaj, do të donit të %s?</string>
+  <string name="closeYourAccount">mbyllni llogarinë tuaj</string>
+  <string name="deleteAccountConfirmText">E kuptoj se llogaritë e fshira janë të parikthyeshme</string>
 </resources>

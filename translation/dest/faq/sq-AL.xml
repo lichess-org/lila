@@ -157,6 +157,8 @@ Mandej përzgjidhni nëse doni të lejohen apo të bllokohen njoftimet nga Liche
 3. Klikoni Leje Cookie-sh dhe Sajti
 4. Shkoni më poshtë dhe klikoni “Vetëluajtje mediash”
 5. Shtoni lichess.org te Lejoje</string>
+  <string name="makeBotTitle">Të krijohet një robot në Lichess?</string>
+  <string name="makeBotDescription">Që të mësoni se si të ndërtoni një &lt;a href=\'%1$s\'&gt;robot vetjak shahu&lt;/a&gt; që të luhet në Lichess, ju lutemi, lexoni &lt;a href=\'%2$s\'&gt;këtë postim blogu rreth krijimi robotësh&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Të ndal veten nga loja?</string>
   <string name="mentalHealthCondition">konditë më vete shëndeti mendor</string>
   <string name="lichessUserstyles">Stile përdoruesi Lichess</string>

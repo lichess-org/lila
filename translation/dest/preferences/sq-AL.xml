@@ -75,4 +75,10 @@
   <string name="boardSettings">Fushë</string>
   <string name="analysisSettings">Rregullime analize</string>
   <string name="hoverOverSettingLabelsForHelp">Për ndihmë, kalojeni kursorin sipër etiketave të rregullimeve</string>
+  <string name="network">Rrjet</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Aktualisht po përdorni rrugëzim të drejtpërdrejtë.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Aktualisht po përdorni rrugëzim nga Rrjet Dhënieje Lënde (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Nëse keni shkëputje të shpeshta, provoni të ndryshoni rrugëzimin.</string>
+  <string name="useDirectRouting">Përdor rrugëzim të drejtpërdrejtë</string>
+  <string name="useCdnRouting">Përdor rrugëzim përmes CDN-je</string>
 </resources>

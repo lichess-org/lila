@@ -169,7 +169,7 @@ kun sotilaasi on viidennellä rivillä.</string>
   <string name="enPassantComplete">Onnittelut! Osaat nyt ohestalyönnin.</string>
   <string name="stalemate">Patti</string>
   <string name="theGameIsADraw">Peli päättyy tasan</string>
-  <string name="stalemateIntro">Kun pelaaja ei ole shakissa mutta hänellä ei ole laillista siirtoa, tilanne on patti. Peli päätty tasan, kumpikaan ei voita, kumpikaan ei häviä.</string>
+  <string name="stalemateIntro">Kun pelaaja ei ole shakissa mutta hänellä ei ole laillista siirtoa, tilanne on patti. Peli päättyy tasan; kumpikaan ei voita, kumpikaan ei häviä.</string>
   <string name="stalemateGoal">Mustan patittaminen:
 - Musta ei voi liikkua minnekään
 - Musta ei ole shakissa.</string>
