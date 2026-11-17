@@ -12,7 +12,7 @@ interface Button {
 interface RadioButtons {
   name: string;
   active?: Key;
-  onChange: (key: string) => void;
+  onChange: (key: Key) => void;
   buttons: (Button | undefined | false)[];
 }
 
