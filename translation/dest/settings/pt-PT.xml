@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Cancelar e manter a minha conta</string>
   <string name="closeAccountAreYouSure">Tens certeza que desejas encerrar a tua conta?</string>
   <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
+  <string name="wereSorryToSeeYouGo">Lamentamos vê-lo partir.</string>
+  <string name="closeAccountForeverLabel">Fechar para sempre: impossível de reabrir</string>
+  <string name="closeAccountForeverWarning">Evitar reabrir a conta mais tarde. Se você marcar esta caixa, mesmo os administradores não poderão reabrir a sua conta por sua solicitação.</string>
+  <string name="deleteYourAccount">Eliminar a sua conta</string>
+  <string name="deleteAccountWarning">Após excluir a sua conta, ela será removida do Lichess e os nossos administradores não poderão recuperá-la para você.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Gostaria de %s em vez disso?</string>
+  <string name="closeYourAccount">fechar a sua conta</string>
+  <string name="deleteAccountConfirmText">Eu entendo que contas excluídas não são recuperáveis</string>
 </resources>

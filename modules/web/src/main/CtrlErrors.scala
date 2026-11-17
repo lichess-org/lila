@@ -41,7 +41,7 @@ trait CtrlErrors extends ControllerHelpers:
         .mapValues: errors =>
           JsArray:
             errors.map: e =>
-              JsString(I18nKey(e.message).txt(e.args*))
+              JsString(I18nKey.unchecked(e.message).txt(e.args*))
         .toMap
     json.validate(using jsonGlobalErrorRenamer).getOrElse(json)
 

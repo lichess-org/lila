@@ -247,10 +247,9 @@ final class Swiss(
         perSecond = GameApiV2.gamesPerSecond,
         player = getUserStr("player").map(_.id)
       )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)): source =>
-          val filename = env.api.gameApiV2.filename(swiss, config.format)
-          Ok.chunked(source).asAttachmentStream(filename).as(config.contentType)
+      limit.GlobalConcurrencyLimitPerIP.download.use(env.api.gameApiV2.exportBySwiss(config)): source =>
+        val filename = env.api.gameApiV2.filename(swiss, config.format)
+        Ok.chunked(source).asAttachmentStream(filename).as(config.contentType)
 
   def downloadResults(id: SwissId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")

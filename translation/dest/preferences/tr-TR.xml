@@ -88,7 +88,7 @@
   <string name="generalSettings">Genel</string>
   <string name="moveListSettings">Hamle listesi</string>
   <string name="boardSettings">Tahta</string>
-  <string name="analysisSettings">İnceleme Ayarları</string>
+  <string name="analysisSettings">Analiz ayarları</string>
   <string name="maneuverArrowsHelp">Bir taşın motor hamleleri dizisi</string>
   <string name="hoverOverSettingLabelsForHelp">Yardım için ayar etiketlerinin üzerine gelin</string>
   <string name="network">Ağ</string>

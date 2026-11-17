@@ -1,2 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="signUpToSaveYourProgress">Që të ruhet ecuria juaj, bëni regjistrimin</string>
+  <string name="secHeadCheckmates">Shah mate</string>
+  <string name="secHeadFundamentalTactics">Taktika themelore</string>
+  <string name="secHeadAdvancedTactics">Taktika të thelluara</string>
+  <string name="secHeadPawnEndgames">Përfundime loje me ushtar</string>
+  <string name="secHeadRookEndgames">Përfundime loje me torre</string>
+  <string name="stNamCheckmatePatternsI">Rregullsi shahu mat I</string>
+  <string name="stNamCheckmatePatternsII">Rregullsi Shahu Mat II</string>
+  <string name="stNamCheckmatePatternsIII">Rregullsi Shahu Mat III</string>
+  <string name="stNamCheckmatePatternsIV">Rregullsi Shahu Mat IV</string>
+  <string name="stNamKnightAndBishopMate">Mat Mbret &amp; Oficer</string>
+  <string name="stNamDiscoveredAttacks">Sulme të Pikasur</string>
+  <string name="stNamDoubleCheck">Shah i Dyfishtë</string>
+  <string name="stNamOverloadedPieces">Gurë të Mbingarkuar</string>
+  <string name="stNamXRay">Rreze Rëntgen</string>
+  <string name="stNamBasicRookEndgames">Përfundime Elementare Loje Me Torre</string>
+  <string name="stNamIntermediateRookEndings">Përfundime të Shkallës së Mesme Loje Me Torre</string>
+  <string name="stNamPracticalRookEndings">Përfundime Praktike Me Torre</string>
+  <string name="stDesBasicCheckmates">Shah mate elementare</string>
+  <string name="stDesInteractiveLesson">Mësim me ndërveprim</string>
+  <string name="stDesIncludingDiscoveredChecks">Përfshi shahe të pikasur</string>
+  <string name="stDesAVeryPowerfulTactic">Një taktikë shumë e fuqishme</string>
+  <string name="stDesTheyHaveTooMuchWork">Janë mbytur në punë</string>
+  <string name="stDesAttackingThroughAnEnemyPiece">Sulm përmes një guri të kundërshtarit</string>
+  <string name="stDesBeingForcedToMove">Të detyruar të lëvizni</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">Studioni sakrificën e dhuratës greke</string>
+  <string name="stDesDistractingADefender">Tërheqje vëmendjeje e një mbrojtësi</string>
+  <string name="stDesLureAPieceToABadSquare">Tërhiqni një gur te një kuadrat i dëmshëm</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">Një gur humbi, por mundet ende të ndihmojë</string>
+  <string name="stDesRespondToACheckWithACheck">Përgjigjiuni një shahu me një shah</string>
+  <string name="stDesRemoveTheDefendingPiece">Hiqni gurin mbrojtës</string>
+  <string name="stDesBroadenYourKnowledge">Zgjeroni dijet tuaja</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Përfundime me torre me disa ushtarë</string>
+</resources>

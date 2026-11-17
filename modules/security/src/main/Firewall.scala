@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 import lila.db.dsl.{ *, given }
 
 final class Firewall(
@@ -73,7 +73,7 @@ final class Firewall(
                 .body[String]
                 .linesIterator
                 .map(_.takeWhile(':' != _))
-                .flatMap(IpAddress.from)
+                .flatMap(ipAddress.from)
                 .toSet
                 .take(5000)
           else Left(res.status)

@@ -20,11 +20,10 @@ final class TvUi(helpers: lila.ui.Helpers)(
       (channel.speed.map(_.key) orElse channel.variant.map(_.key))
         .flatMap(k => PerfKey(k.toString))
         .map(_.perfTrans)
-        .getOrElse {
+        .getOrElse:
           channel match
-            case Tv.Channel.Computer => trans.site.computer
+            case Tv.Channel.Computer => trans.site.computer.txt()
             case _ => channel.name
-        }
 
   def index(
       channel: Tv.Channel,

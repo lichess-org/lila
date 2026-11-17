@@ -105,11 +105,13 @@ object TournamentShield:
       else of.toOption.has(tour.variant)
 
     case Bullet extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet, I18nKey.site.bullet)
-    case SuperBlitz extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz, I18nKey("SuperBlitz"))
+    case SuperBlitz
+        extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz, I18nKey.unchecked("SuperBlitz"))
     case Blitz extends Category(Left(Schedule.Speed.Blitz), Icon.FlameBlitz, I18nKey.site.blitz)
     case Rapid extends Category(Left(Schedule.Speed.Rapid), Icon.Rabbit, I18nKey.site.rapid)
     case Classical extends Category(Left(Schedule.Speed.Classical), Icon.Turtle, I18nKey.site.classical)
-    case HyperBullet extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet, I18nKey("HyperBullet"))
+    case HyperBullet
+        extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet, I18nKey.unchecked("HyperBullet"))
     case UltraBullet
         extends Category(Left(Schedule.Speed.UltraBullet), Icon.UltraBullet, I18nKey.site.ultraBullet)
     case Chess960 extends Category(Right(chess.variant.Chess960), Icon.DieSix, I18nKey.variant.chess960)

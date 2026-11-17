@@ -42,21 +42,20 @@ final class Coach(env: Env) extends LilaController(env):
     Found(api.find(username)): c =>
       WithVisibleCoach(c):
         for
-          stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
-          studies <-
-            given StudyFormat = StudyFormat.card
-            env.study.pager.withChaptersAndLiking(4)(stu)
-          res <- negotiate(
-            html =
-              for
-                posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-                page <- renderPage(views.coach.show(c, studies, posts))
-              yield Ok(page),
-            json =
-              import env.coach.jsonView.given
-              given Writes[lila.study.Study.WithChaptersAndLiked] =
-                Writes(env.study.jsonView.pagerData)
-              JsonOk(Json.toJsObject(c) ++ Json.obj("studies" -> studies))
+        negotiate(
+          html =
+            for
+              stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
+              studies <-
+                given StudyFormat = StudyFormat.card
+                env.study.pager.withChaptersAndLiking(4)(stu)
+              posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+              page <- renderPage(views.coach.show(c, studies, posts))
+            yield Ok(page),
+          json =
+            import env.coach.jsonView.given
+            JsonOk(c)
+        )
           )
         yield res
 

@@ -71,7 +71,7 @@ object AppealTopicApi:
           case AppealTopic.prize => trans.prizeBanned.some
           case AppealTopic.report => trans.reportBanned.some
           case AppealTopic.blog => trans.blogRestriction.some
-          case AppealTopic.chat => I18nKey("15 minutes chat timeout").some
+          case AppealTopic.chat => I18nKey.unchecked("15 minutes chat timeout").some
           case _ => none
 
   object topicFilter:

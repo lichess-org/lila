@@ -37,9 +37,8 @@ final class BulkPairing(env: Env) extends LilaController(env):
             flags = requestPgnFlags(extended = false, delayMoves = false),
             perSecond = MaxPerSecond(50)
           )
-          limit.GlobalConcurrencyLimitPerIP
-            .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
-              Ok.chunked(source).as(config.contentType).noProxyBuffer
+          limit.GlobalConcurrencyLimitPerIP.download.use(env.api.gameApiV2.exportByIds(config)): source =>
+            Ok.chunked(source).as(config.contentType).noProxyBuffer
   }
 
   def delete(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>

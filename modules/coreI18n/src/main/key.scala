@@ -3,7 +3,7 @@ package lila.core.i18n
 
 opaque type I18nKey = String
 object I18nKey:
-  def apply(key: String): I18nKey = key
+  def unchecked(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
     def value: String = key
@@ -254,6 +254,7 @@ object I18nKey:
     val `pinPlayer`: I18nKey = "broadcast:pinPlayer"
     val `underXAgeTournament`: I18nKey = "broadcast:underXAgeTournament"
     val `underXEloTournament`: I18nKey = "broadcast:underXEloTournament"
+    val `mentionPositionInChat`: I18nKey = "broadcast:mentionPositionInChat"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 

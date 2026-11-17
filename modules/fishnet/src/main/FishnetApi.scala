@@ -37,7 +37,7 @@ final class FishnetApi(
 
   def keyExists(key: FishnetKey) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def authenticateClient(key: FishnetKey, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
+  def authenticateClient(key: FishnetKey, version: Client.Version)(using ip: IpAddress): Fu[Try[Client]] = {
     if config.offlineMode then repo.getOfflineClient.map(some)
     else repo.getEnabledClient(key)
   }.map {

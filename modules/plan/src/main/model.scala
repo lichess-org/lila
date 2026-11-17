@@ -6,7 +6,7 @@ import play.api.libs.json.{ JsArray, JsObject }
 import java.text.NumberFormat
 import java.util.{ Currency, Locale }
 
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 
 case class Source(value: String) extends AnyVal
 
@@ -127,7 +127,7 @@ case class StripeCharge(
 ):
   def country = billing_details.flatMap(_.address).flatMap(_.country)
   def giftTo: Option[UserId] = UserId.from(metadata.get("giftTo"))
-  def ip: Option[IpAddress] = metadata.get("ipAddress").flatMap(IpAddress.from)
+  def ip: Option[IpAddress] = metadata.get("ipAddress").flatMap(ipAddress.from)
 
 object StripeCharge:
   case class Address(country: Option[Country])

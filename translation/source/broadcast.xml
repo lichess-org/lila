@@ -119,4 +119,5 @@ Please use your language's conventions in sporting activities for how the 'U' sh
 e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.
 
 Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="mentionPositionInChat" comment="Title of a button next to the broadcast chat input. It adds the board number and current move, e.g. &quot;board 5 23... Nf6&quot;, to the chat message, so others can click it to see that move.">Mention this position in chat</string>
 </resources>

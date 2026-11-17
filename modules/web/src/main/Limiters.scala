@@ -62,12 +62,21 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
   val apiMobileHome = RateLimit[UserId | IpAddress](30, 3.minutes, "api.mobile.home")
 
-  val apiUsers = RateLimit.composite[IpAddress](
-    key = "users.api.ip"
-  )(
-    ("fast", 2000, 10.minutes),
-    ("slow", 30000, 1.day)
-  )
+  object apiUsers:
+    val byIp = RateLimit.composite[IpAddress](key = "users.api.ip")(
+      ("fast", 1500, 10.minutes),
+      ("slow", 20000, 1.day)
+    )
+    val byUser = RateLimit.composite[UserId](key = "users.api.user")(
+      ("fast", 1500, 10.minutes),
+      ("slow", 20000, 1.day)
+    )
+    def limiter[A](rateLimited: => Fu[A], cost: Int)(using
+        me: Option[Me],
+        ip: IpAddress
+    )(op: => Fu[A]): Fu[A] =
+      byIp(ip, rateLimited, cost):
+        byUser.option(me.map(_.userId), rateLimited, cost)(op)
 
   val userGames = RateLimit[IpAddress](500, 10.minutes, "user_games.web.ip")
 

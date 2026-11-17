@@ -28,12 +28,15 @@
   <string name="swissTournamentOverview">Um torneio suiço em que só podem entrar membros da tua equipa</string>
   <string name="teamUpdates">Atualizações da equipa</string>
   <string name="subToTeamUpdates">Subscrever atualizações da equipa</string>
+  <string name="teamEvents">Eventos de equipa</string>
+  <string name="upcomingTeamEvents">Próximos eventos de equipa</string>
   <string name="teamsIlead">Equipas que eu lidero</string>
   <string name="leadersChat">Chat dos líderes</string>
   <string name="introduction">Introdução</string>
   <string name="entryCode">Código da equipa</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
   <string name="incorrectEntryCode">Código incorreto.</string>
+  <string name="forumLabel">Fórum da equipa</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
   <string name="upcomingTournaments">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>

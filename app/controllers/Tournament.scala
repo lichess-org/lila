@@ -460,11 +460,12 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
         flags = requestPgnFlags(extended = false, delayMoves = true),
         perSecond = GameApiV2.gamesPerSecond
       )
-      limit.GlobalConcurrencyLimitPerIP
-        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
-          Ok.chunked(source)
-            .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
-            .as(config.contentType)
+      limit.GlobalConcurrencyLimitPerIP.download.use(
+        env.api.gameApiV2.exportByTournament(config, onlyUserId)
+      ): source =>
+        Ok.chunked(source)
+          .asAttachmentStream(env.api.gameApiV2.filename(tour, config.format))
+          .as(config.contentType)
 
   def downloadResults(id: TourId) = AnonOrScoped():
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
