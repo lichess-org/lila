@@ -47,7 +47,8 @@ export default class RelayCtrl {
     );
     this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
     this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
-    if (study.ctrl.opts.chat) {
+    const chat = study.ctrl.opts.chat;
+    if (chat) {
       const liveboardDisabled = () => site.blindMode || this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(
         study,
@@ -55,8 +56,8 @@ export default class RelayCtrl {
         liveboardDisabled,
         study.chapterSelect.get(),
       );
-      study.ctrl.opts.chat.plugin = this.liveboardPlugin;
-      study.ctrl.opts.chat.positionRef = {
+      chat.plugin = this.liveboardPlugin;
+      chat.positionRef = {
         title: i18n.broadcast.mentionPositionInChat,
         available: this.chatPositionRefAvailable,
         text: this.chatPositionRefText,
