@@ -134,8 +134,7 @@ final class AuthUi(helpers: Helpers):
           postForm(
             id := "signup-form",
             cls := "form3",
-            action := addReferrer(routes.Auth.signupPost.url),
-            autocomplete := "off"
+            action := addReferrer(routes.Auth.signupPost.url)
           )(
             authGlobalError(form),
             form3.group(
@@ -169,7 +168,7 @@ final class AuthUi(helpers: Helpers):
               help = simple.not.option(trans.site.signupEmailPromise())
             ): f =>
               div(cls := "text-wrapper")(
-                form3.input(f, typ = "email")(required),
+                form3.input(f, typ = "email")(required, autocomplete := "email"),
                 clearFieldButton
               ),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
