@@ -12,6 +12,7 @@ import {
   h as snabH,
   jsx as snabbdomJsx,
   thunk,
+  type On,
 } from 'snabbdom';
 
 import type { LiconValue } from '@/licon';
@@ -44,6 +45,13 @@ export function bind<K extends keyof GlobalEventHandlersEventMap>(
       { passive },
     ),
   );
+}
+
+// { on: onChange(v => store(v)) }
+export function onChange<V extends string>(f: (value: V) => void): On {
+  return {
+    change: (e: Event) => f(getEventTargetInputValue<V>(e)),
+  };
 }
 
 export function bindClickAndFocus(f: (ev: MouseEvent) => void): Hooks {

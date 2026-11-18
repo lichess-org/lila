@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 
 import { option } from 'lib/setup/option';
+import { onChange } from 'lib/view';
 import { radioGroup } from 'lib/view/radio';
 
 import type SetupController from '@/setupCtrl';
@@ -13,9 +14,7 @@ export const levelButtons = ({ aiLevel }: SetupController) => {
         h('label', { attrs: { for: 'sf_level' } }, i18n.site.strength),
         h(
           'select#sf_level',
-          {
-            on: { change: (e: Event) => aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
-          },
+          { on: onChange(l => aiLevel(parseInt(l))) },
           levels.map(l => l).map(key => option({ key, name: key }, aiLevel().toString())),
         ),
       ]
