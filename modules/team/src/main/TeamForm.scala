@@ -51,7 +51,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      "flair" -> flairApi.formField()
+      "flair" -> flairApi.formField(),
+      "prizeClaimant" -> optional(lila.common.Form.username.historicalField)
     )(TeamEdit.apply)(unapply)
   ).fill:
     TeamEdit(
@@ -63,7 +64,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       chat = team.chat,
       forum = team.forum,
       hideMembers = team.hideMembers.has(true),
-      flair = team.flair
+      flair = team.flair,
+      prizeClaimant = team.prizeClaimant.map(id => UserStr(id.value))
     )
 
   def request(team: Team) = Form(
@@ -145,7 +147,8 @@ private case class TeamEdit(
     chat: Access,
     forum: Access,
     hideMembers: Boolean,
-    flair: Option[Flair]
+    flair: Option[Flair],
+    prizeClaimant: Option[UserStr]
 ):
   def isOpen = !request
 

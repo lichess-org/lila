@@ -12,6 +12,7 @@ trait TeamApi:
   def forumAccessOf(teamId: TeamId): Fu[Access]
   def leaderIds(teamId: TeamId): Fu[Set[UserId]]
   def creatorOf(teamId: TeamId): Fu[Option[UserId]]
+  def prizeRecipient(teamId: TeamId): Fu[Option[UserId]]
   def isMember(teamId: TeamId)(using MyId): Fu[Boolean]
   def isLeader(team: TeamId)(using MyId): Fu[Boolean]
   def filterUserIdsInTeam(teamId: TeamId, users: Iterable[UserId]): Fu[List[UserId]]
