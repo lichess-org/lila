@@ -38,12 +38,13 @@ final class CoachPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selector) -> List(
-              Sort:
-                order match
-                  case Alphabetical => Ascending("_id")
-                  case LichessRating => Descending("user.rating")
-                  case Login => Descending("user.seenAt")
-              ,
+              Sort(
+                (order match
+                  case Alphabetical => List(Ascending("_id"))
+                  case LichessRating => List(Descending("user.rating"), Ascending("_id"))
+                  case Login => List(Descending("user.seenAt"), Ascending("_id"))
+                )*
+              ),
               PipelineOperator:
                 bdoc:
                   "$lookup" -> bdoc(
