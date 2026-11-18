@@ -301,11 +301,13 @@ final class Ublog(env: Env) extends LilaController(env):
               views.ublog.community(language, filter, _)
 
   def communityAtom(language: Language) = Anon:
-    val found: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
-    env.ublog.paginator
-      .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
+    val lang: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
+    env.ublog.api
+      .communityPostsWithContent(lang.map(toLanguage), nb = 10)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+        val rendered = posts.map: post =>
+          post -> env.ublog.markdown.atomBody(post)
+        Ok.snip(views.ublog.ui.atom.community(language, rendered))
           .as(ATOM)
           .publicCache(10.minutes)
 

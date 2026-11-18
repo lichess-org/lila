@@ -511,7 +511,8 @@ final class UblogUi(
     )
 
   object atom:
-    def user(user: User, posts: Seq[(post: UblogPost, html: Html)])(using Translate) =
+    type PostAndHtml = (post: UblogPost, html: Html)
+    def user(user: User, posts: Seq[PostAndHtml])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.index(user.username),
@@ -520,20 +521,20 @@ final class UblogUi(
         updated = posts.headOption.flatMap(_.post.lived).map(_.at),
         language = _.post.language
       ): (post, html) =>
-        renderPost(post, authorOfBlog(post.blog), html.some)
+        renderPost(post, authorOfBlog(post.blog), html)
 
-    def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
+    def community(language: Language, posts: Seq[PostAndHtml])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.communityLang(language),
         atomCall = routes.Ublog.communityAtom(language),
         title = "Lichess community blogs",
-        updated = posts.headOption.flatMap(_.lived).map(_.at),
-        language = _.language
-      ): post =>
-        renderPost(post, authorOfBlog(post.blog))
+        updated = posts.headOption.flatMap(_.post.lived).map(_.at),
+        language = _.post.language
+      ): (post, html) =>
+        renderPost(post, authorOfBlog(post.blog), html)
 
-    private def renderPost(post: UblogPost.BasePost, authorName: String, markup: Option[Html] = None)(using
+    private def renderPost(post: UblogPost, authorName: String, markup: Html)(using
         Translate
     ) =
       frag(
@@ -555,7 +556,7 @@ final class UblogUi(
         },
         tag("content")(
           tpe := "html",
-          Option.when(markup.isDefined)(attr("xml:base") := routeUrl(urlOfPost(post)))
+          attr("xml:base") := routeUrl(urlOfPost(post))
         )(
           frag(
             thumbnail(post, _.Size.Large),
