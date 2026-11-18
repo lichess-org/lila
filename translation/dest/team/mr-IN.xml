@@ -28,12 +28,15 @@
   <string name="swissTournamentOverview">स्वीस स्पर्धा ज्यात फक्त तुमच्या संघातील सदस्य सामील होऊ शकतात</string>
   <string name="teamUpdates">संघाची अद्यतने</string>
   <string name="subToTeamUpdates">संघाच्या अद्यतनांची सदस्यता घ्या</string>
+  <string name="teamEvents">संघविषयक कार्यक्रम</string>
+  <string name="upcomingTeamEvents">संघविषयक आगामी कार्यक्रम</string>
   <string name="teamsIlead">मी नेतृत्व करत असलेले संघ</string>
   <string name="leadersChat">संघनेत्यांचा गप्पाकक्ष</string>
   <string name="introduction">परिचय</string>
   <string name="entryCode">संघ प्रवेश संकेत</string>
   <string name="entryCodeDescriptionForLeader">(पर्यायी) एक प्रवेश संकेत जो नवीन सदस्यांना या संघात सामील होण्यासाठी माहित असणे आवश्यक आहे.</string>
   <string name="incorrectEntryCode">चुकीचा प्रवेश कोड.</string>
+  <string name="forumLabel">संघ मंच</string>
   <string name="teamAlreadyExists">हा संघ आधीच अस्तित्वात आहे.</string>
   <string name="upcomingTournaments">येणारी स्पर्धा</string>
   <string name="completedTourns">पूर्ण स्पर्धा</string>

@@ -41,7 +41,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació del moviment</string>
-  <string name="multipleChoices">Múltiples opcions.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Es pot desactivar durant la partida al menú del taulell</string>
   <string name="inCorrespondenceGames">Partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Correspondència i sense límit de temps</string>

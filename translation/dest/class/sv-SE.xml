@@ -68,7 +68,6 @@ Här är länken för att komma till klassen.</string>
   <string name="releaseTheAccount">Släpp kontot så att studenten kan hantera det självständigt.</string>
   <string name="releaseDesc1">Ett utexaminerat konto kan inte bli &lt;i&gt;hanterat&lt;/i&gt; igen. Eleven kommer själv kunna aktivera och inaktivera barnläge och nollställa lösenord.</string>
   <string name="releaseDesc2">Eleven kommer att stanna kvar i klassen efter att deras konto utexaminerats.</string>
-  <string name="realUniqueEmail">Verklig, unik e-postadress som tillhör eleven. Vi kommer att skicka ett bekräftelsemejl till det, med en länk för att utexaminera kontot.</string>
   <string name="closeStudent">Avsluta konto</string>
   <string name="closeTheAccount">Avsluta studentkontot permanent.</string>
   <string name="closeDesc1">Eleven kommer aldrig kunna använda detta konto igen. Avslutningen är slutgiltig. Se till att eleven förstår och samtycker.</string>

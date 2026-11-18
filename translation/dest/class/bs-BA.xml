@@ -69,7 +69,6 @@ Evo linka za pristup času.</string>
   <string name="releaseTheAccount">Oslobodite račun tako da učenik/ca mogu samostalno upravljati njim.</string>
   <string name="releaseDesc1">Oslobođenim računom se više ne može upravljati. Učenik/ca će moći sam/a uključiti ili isključiti dječji režim i resetovati lozinku.</string>
   <string name="releaseDesc2">Učenici će ostati u času i nakon oslobođanja njihovog računa.</string>
-  <string name="realUniqueEmail">Stvarna, jedinstvena e-mail adresa učenika. Ova adresa će dobiti potvrdnu e-mail poruku sa linkom čijim aktiviranjem će doći do oslobođenja računa.</string>
   <string name="closeStudent">Zatvori račun</string>
   <string name="closeTheAccount">Zatvori učenički račun zastalno.</string>
   <string name="closeDesc1">Učenik više nikad neće moći koristiti ovaj račun. Zatvaranje je konačno. Vidite jel učenik ovo razumije i da se slaže sa time.</string>

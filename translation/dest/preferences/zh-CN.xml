@@ -41,7 +41,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动提和</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于 30 秒时</string>
   <string name="moveConfirmation">着法确认</string>
-  <string name="multipleChoices">多项选择。</string>
   <string name="explainCanThenBeTemporarilyDisabled">可在对局中通过棋盘菜单禁用</string>
   <string name="inCorrespondenceGames">通讯棋</string>
   <string name="correspondenceAndUnlimited">通讯棋和无时限对局</string>

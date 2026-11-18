@@ -70,7 +70,7 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="releaseTheAccount">Objavi račun, da ga študent lahko anonimno upravlja.</string>
   <string name="releaseDesc1">Objavljen račun ne more biti spet upravljan. Študent bo lahko sam preklopil način za otroke in ponastavil geslo.</string>
   <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
-  <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
+  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Veljaven, edinstven e-poštni naslov študenta. Na ta naslov bomo poslali potrditveno e-poštno sporočilo s povezavo za aktivacijo računa. Povezava poteče po 10 minutah.</string>
   <string name="closeStudent">Zapri račun</string>
   <string name="closeTheAccount">Trajno zaprite študentski račun.</string>
   <string name="closeDesc1">Študent tega računa ne bo mogel več uporabljati. Zaprtje je dokončno. Prepričajte se, da študent razume in se strinja.</string>

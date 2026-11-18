@@ -36,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">चाल मागे घ्या (प्रतिस्पर्ध्याच्या मान्यतेने)</string>
   <string name="inCasualGamesOnly">मैत्री सामन्यात फक्त</string>
   <string name="promoteToQueenAutomatically">आपोआप वझीर बनवा</string>
+  <string name="explainPromoteToQueenAutomatically">प्याद्याची उन्नती करताना \'Ctrl\' कळ दाबून ठेवा, ज्यामुळे \'स्वउन्नती\' तात्पुरते बंद होईल</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">त्रिवार पुनरावृतींनवर सामना आपोआप बरोबरीत सोडवा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
@@ -71,6 +72,7 @@
   <string name="blindfold" comment="As in Blindfold chess">अनभिज्ञ</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">मोबाईलवर डावीकडे दाखवा</string>
   <string name="inlineNotation">अंतर्निहित संकेतन</string>
+  <string name="showMainlineAnalysis">मुख्य ओळाची विश्लेषण दाखवा</string>
   <string name="showBestMoveArrows">सर्वोत्तम चाली दर्शवणारे बाण दाखवा</string>
   <string name="showManeuverArrows">युक्ती बाण दाखवा</string>
   <string name="showGauge">मुल्यांकन मोजमाप दाखवा</string>
@@ -80,6 +82,7 @@
   <string name="showUndefendedPieces">संरक्षित नसलेल्या सोंगट्या दाखवा</string>
   <string name="showPinnedPieces">टाचणीत असलेल्या सोंगट्यां दाखवा</string>
   <string name="showCheckableKing">शह देण्यायोग्य राजा दाखवा</string>
+  <string name="showTrappedPieces">अडकलेल्या सोंगट्या दाखवा</string>
   <string name="disclosureMode">भिन्नतांना लपवण्याची रीत चालू करा</string>
   <string name="generalSettings">सर्वसामान्य</string>
   <string name="moveListSettings">डावांची सूची</string>

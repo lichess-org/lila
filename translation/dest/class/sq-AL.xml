@@ -68,7 +68,7 @@ Ja një lidhje për t’u futur te kursi.</string>
   <string name="releaseTheAccount">Përparojeni llogarinë, që nxënësi të mund ta administrojë në mënyrë të pavarur.</string>
   <string name="releaseDesc1">Një llogari e shpënë përpara s’mund të ribëhet e administruar. Nxënësi do të jetë në gjendje të aktivizojë/çaktivizojë mënyrën për fëmijë dhe të ricaktojë fjalëkalimin për vete.</string>
   <string name="releaseDesc2">Nxënësi do të mbete pjesë e kursit, pasi llogaria e tij të përparohet.</string>
-  <string name="realUniqueEmail">Adresa email e vërtetë, unike e nxënësit. Do të dërgojmë një lidhje ripohimi në të, me një lidhje për të përparuar llogarinë.</string>
+  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Adresa email e njëmendtë, unike e nxënësit. Do të dërgojmë një email ripohimi në të, me një lidhje për ngritje më lart të llogarisë. Lidhja skadon pas 10 minutash.</string>
   <string name="closeStudent">Mbylle llogarinë</string>
   <string name="closeTheAccount">Mbylle përgjithnjë llogarinë e nxënësit.</string>
   <string name="closeDesc1">Nxënësi s’do të jetë kurrë më në gjendje të përdorë prapë këtë llogari.Mbyllja është përfundimtare. Sigurohuni se nxënësi e kupton dhe pajtohet.</string>

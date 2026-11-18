@@ -37,7 +37,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kërko automatikisht barazim pas përsëritjeje të trefishtë</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Ripohim lëvizjesh</string>
-  <string name="multipleChoices">Zgjedhje të shumta.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Mund të çaktivizohet gjatë një loje me menu tabele</string>
   <string name="inCorrespondenceGames">Lojëra me korrespondencë</string>
   <string name="correspondenceAndUnlimited">Me korrespondencë dhe e pakufizuar</string>
