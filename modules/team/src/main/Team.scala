@@ -24,7 +24,8 @@ case class Team(
     forum: Access,
     hideMembers: Option[Boolean],
     flair: Option[Flair],
-    ofClas: Option[Boolean] = None
+    ofClas: Option[Boolean] = None,
+    prizeClaimant: Option[UserId] = None
 ):
 
   inline def slug = id
@@ -54,6 +55,8 @@ case class Team(
   def isClas = ~ofClas
   def acceptsMembers = !isClas
   def doesTeamMessages = !isClas
+
+  def prizeRecipient: UserId = prizeClaimant | createdBy
 
 object Team:
 

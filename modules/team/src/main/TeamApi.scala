@@ -29,7 +29,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, creatorOf }
+  export teamRepo.{ filterHideForum, onUserDelete, creatorOf, prizeRecipient }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -96,18 +96,20 @@ final class TeamApi(
     cached.invalidateTeamIds(me.userId)
     team
 
-  def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] = update:
-    old.copy(
-      password = edit.password,
-      intro = edit.intro,
-      description = edit.description.map(spam.replace),
-      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
-      open = edit.isOpen,
-      chat = edit.chat,
-      forum = edit.forum,
-      hideMembers = Some(edit.hideMembers),
-      flair = edit.flair
-    )
+  def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] =
+    update:
+      old.copy(
+        password = edit.password,
+        intro = edit.intro,
+        description = edit.description.map(spam.replace),
+        descPrivate = edit.descPrivate.map(_.map(spam.replace)),
+        open = edit.isOpen,
+        chat = edit.chat,
+        forum = edit.forum,
+        hideMembers = Some(edit.hideMembers),
+        flair = edit.flair,
+        prizeClaimant = if Granter(_.ManageTeam) then edit.prizeClaimant.map(_.id) else old.prizeClaimant
+      )
 
   def update(team: Team)(using me: Me): Fu[String] =
     import reactivemongo.api.bson.*
