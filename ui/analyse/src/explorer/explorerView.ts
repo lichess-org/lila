@@ -14,6 +14,7 @@ import {
   type OpeningData,
   type OpeningMoveStats,
   type OpeningGame,
+  type OpeningPlayer,
   type ExplorerDb,
 } from './interfaces';
 import { showTablebase } from './tablebaseView';
@@ -79,14 +80,15 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
 const bigNumberFormatter =
   window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale, { notation: 'compact' }) : null;
 
+const playerText = (player: OpeningPlayer, showRatings: boolean) =>
+  (player.title ? player.title + ' ' : '') + player.name + (showRatings ? ` (${player.rating})` : '');
+
 function moveStatsTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
   if (move.game) {
     const g = move.game;
     const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
-    return ctrl.explorer.opts.showRatings
-      ? `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`
-      : `${g.white.name} ${result} ${g.black.name}`;
+    return `${playerText(g.white, ctrl.explorer.opts.showRatings)} ${result} ${playerText(g.black, ctrl.explorer.opts.showRatings)}`;
   }
   if (ctrl.explorer.opts.showRatings) {
     if (move.averageRating) return i18n.site.averageRatingX(move.averageRating);
@@ -130,11 +132,13 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               ctrl.explorer.opts.showRatings &&
                 hl(
                   'td.game-rating',
-                  [game.white, game.black].map(p => hl('span', p.rating)),
+                  [game.white, game.black].map(p => hl('div', p.rating)),
                 ),
               hl(
                 'td',
-                [game.white, game.black].map(p => hl('span', p.name)),
+                [game.white, game.black].map(p =>
+                  hl('div', [p.title ? hl('span.utitle', p.title + ' ') : null, hl('span', p.name)]),
+                ),
               ),
               hl('td', showResult(game.winner)),
               hl('td.game-date', game.month || game.year),
@@ -164,7 +168,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     hl('td.game_menu', { attrs: { colspan: ctrl.explorer.db() === 'masters' ? 4 : 5 } }, [
       hl(
         'div.game_title',
-        `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
+        `${playerText(game.white, false)} - ${playerText(game.black, false)}, ${showResult(game.winner).text}, ${game.year}`,
       ),
       hl('div.menu', [
         hl(
