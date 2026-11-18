@@ -2853,7 +2853,6 @@ object I18nKey:
     val `searchByUsername`: I18nKey = "study:searchByUsername"
     val `spectator`: I18nKey = "study:spectator"
     val `contributor`: I18nKey = "study:contributor"
-    val `kick`: I18nKey = "study:kick"
     val `remove`: I18nKey = "study:remove"
     val `leaveTheStudy`: I18nKey = "study:leaveTheStudy"
     val `youAreNowAContributor`: I18nKey = "study:youAreNowAContributor"
