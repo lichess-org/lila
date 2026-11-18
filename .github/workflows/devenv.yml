@@ -31,7 +31,7 @@ jobs:
       - name: Check esbuild versions match
         run: node bin/check-esbuild-version.mjs
 
-      - name: Make sure `./ui/build` requirements are satisfied
-        shell: devenv shell -- bash -e {0}
+      - name: Build UI assets in a clean devenv shell
+        shell: devenv shell --clean -- bash -e {0}
         run: |
-          ./ui/build --help
+          ./ui/build
