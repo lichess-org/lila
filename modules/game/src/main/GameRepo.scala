@@ -472,11 +472,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll.withReadPreference(readPref).primitiveOne[Fen.Full](bid(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Full]] =
-    if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
+    needsInitialFen(game).so:
       initialFen(game.id, if game.finished then _.sec else _.pri).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
         case fen => fen
-    else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]] =
     game(gameId).flatMapz: game =>
@@ -486,9 +485,34 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def withInitialFen(game: Game): Fu[WithInitialFen] =
     initialFen(game).dmap(WithInitialFen(game, _))
 
+  private def needsInitialFen(g: Game) = g.sourceIs(_.Import) || !g.variant.standardInitialPosition
+
+  private def initialFenMap(games: Seq[Game], readPref: ReadPref): Fu[Map[GameId, Fen.Full]] =
+    games.nonEmpty.so:
+      coll
+        .withReadPreference(readPref)
+        .primitiveMap[GameId, Fen.Full](
+          games.map(_.id),
+          F.initialFen,
+          _.getAsOpt[Fen.Full](F.initialFen)
+        )
+
+  def initialFens(games: Seq[Game]): Fu[Map[GameId, Fen.Full]] =
+    val needFen = games.filter(needsInitialFen)
+    val (finished, playing) = needFen.partition(_.finished)
+    (initialFenMap(finished, _.sec), initialFenMap(playing, _.pri)).mapN: (sec, pri) =>
+      needFen
+        .flatMap: g =>
+          sec
+            .get(g.id)
+            .orElse(pri.get(g.id))
+            .orElse((g.variant == chess.variant.Chess960).option(Fen.initial))
+            .map(g.id -> _)
+        .toMap
+
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
-    games.parallel: game =>
-      initialFen(game).dmap(game -> _)
+    initialFens(games).map: fens =>
+      games.map(g => g -> fens.get(g.id))
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll.countSel(query(Query))
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))
