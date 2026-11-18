@@ -20,7 +20,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   def errors(field: Field)(using Translate): Frag = errors(field.errors)
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
   private def error(err: FormError)(using Translate): Frag =
-    p(cls := "error")(transKey(trans(err.message), err.args))
+    p(cls := "error")(transKey(trans.unchecked(err.message), err.args))
 
   private def validationModifiers(field: Field): Seq[Modifier] =
     field.constraints.collect:

@@ -211,7 +211,7 @@ final class TeamApi(
   def cancelRequestOrQuit(team: Team)(using me: Me): Fu[Option[I18nKey]] =
     withLeaders(team).flatMap: t =>
       val admins = t.leaders.filter(_.hasPerm(_.Admin))
-      if team.isClas then fuccess(I18nKey("Can't leave a class team").some)
+      if team.isClas then fuccess(I18nKey.unchecked("Can't leave a class team").some)
       else if admins.nonEmpty && admins.forall(_.is(me))
       then fuccess(I18nKey.teamLead.onlyLeaderLeavesTeam.some)
       else

@@ -54,6 +54,9 @@
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
   <string name="botRatingAbuse">Em certas circunstâncias, ao jogar contra uma conta bot, uma partida a valer pontos pode não premiar pontos se for determinado que o jogador está abusando do bot para ganhar pontos.</string>
   <string name="errorPage">Página de erro</string>
+  <string name="reportTheBug">Pode denunciá-lo:</string>
+  <string name="securityVulnerability">Vulnerabilidade de segurança</string>
+  <string name="otherBug">Outro bug</string>
   <string name="learnHowToMakeBroadcasts">Aprende a fazer as tuas próprias transmissões no Lichess</string>
   <string name="banAppeal">Apelar de um banimento ou restrição de IP</string>
   <string name="engineAppeal">Por fazer batota ou usar assistência do computador</string>

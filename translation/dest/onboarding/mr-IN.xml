@@ -3,6 +3,8 @@
   <string name="logInAsUsername">%s असे प्रवेश करा</string>
   <string name="welcome">सुस्वागतम!</string>
   <string name="welcomeToLichess">Lichess वर स्वागत!</string>
+  <string name="welcomeToLichessX">Lichess वर तुमचे स्वागत आहे, %s!</string>
+  <string name="verifyYourAccount">तुमचे खाते सत्यापित करा</string>
   <string name="thisIsYourProfilePage">हे तुमचे चरित्र पृष्ठ आहे.</string>
   <string name="enabledKidModeSuggestion">लहान मूल हे खाते वापरेल का? तुम्हाला कदाचित %s सक्षम करायचे असेल.</string>
   <string name="whatNowSuggestions">आता काय? येथे आहेत काही प्रस्ताव:</string>

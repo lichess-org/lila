@@ -426,6 +426,7 @@
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
+  <string name="selectImage">Përzgjidhni figurë</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
   <string name="toStudy">Mësim</string>
   <string name="importGame">Importo lojën</string>
@@ -550,6 +551,11 @@ Shokë që po luajnë: %2$s</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
   <string name="onlineBots">Robotë internetorë</string>
+  <string name="aboutBotsOnLichess">Mbi robotë në Lichess</string>
+  <string name="featuredBots">Robotë të zgjedhur</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Provoni të luani me këta mekanizma risorë shahu! Janë të parapëlqyerit tanë.</string>
+  <string name="communityBots">Robotë bashkësie</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Më tepër mekanizma shahu të krijuar nga bashkësia Lichess. Strehohen nga krijuesit e tyre dhe mund të mos jenë përherë në linjë.</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
   <string name="descPrivate">Përshkrim privat</string>
@@ -594,6 +600,7 @@ Shokë që po luajnë: %2$s</string>
   <string name="clearField">Spatroje fushën</string>
   <string name="orSeparator">Ose</string>
   <string name="logInByEmail">Hyni me email</string>
+  <string name="emailLoginInstructions">Do t’ju dërgojmë një email që përmban një lidhje nga ku mund të bëni hyrjen.</string>
   <string name="emailMeALink">Dërgomëni lidhjen me email</string>
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
@@ -618,6 +625,8 @@ Shokë që po luajnë: %2$s</string>
   <string name="onSlowGames">Në lojëra të ngadalta</string>
   <string name="always">Përherë</string>
   <string name="never">Kurrë</string>
+  <string name="defeatOnly">Vetëm në humbje</string>
+  <string name="drawAndDefeat">Barazim dhe humbje</string>
   <string name="xCompetesInY">%1$s konkurron në %2$s</string>
   <string name="victory">Fitore</string>
   <string name="defeat">Humbje</string>
@@ -682,10 +691,14 @@ Shokë që po luajnë: %2$s</string>
   <string name="aboutX">Mbi %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s është një shërbyes shahu i lirë (%2$s), “libre”, pa reklama, me burim të hapët.</string>
   <string name="really">për vërtetë</string>
+  <string name="lichessUpdates">Prurje Lichess</string>
+  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Krejt përditësimet</string>
   <string name="contribute">Jepni ndihmesë</string>
+  <string name="changelog">Regjistër ndryshimesh</string>
   <string name="termsOfService">Kushte Shërbimi</string>
   <string name="titleVerification">Verifikim titulli</string>
   <string name="sourceCode">Kod Burim</string>
+  <string name="blockAds">Bllokoni reklama</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Organizatori</string>
   <string name="hostColorX">Ngjyra e organizatorit: %s</string>
@@ -778,12 +791,14 @@ Shokë që po luajnë: %2$s</string>
   <string name="enableKidMode">Aktivizo mënyrën për Fëmijë</string>
   <string name="disableKidMode">Çaktivizo mënyrën për Fëmijë</string>
   <string name="security">Siguri</string>
+  <string name="activeSessionsDescription">Kjo është një listë pajisjesh dhe aplikacionesh prej nga ku është bërë hyrje në llogarinë tuaj. Nëse vini re çfarëdo veprimtarie të dyshmitë, sigurohuni se &lt;a href=\'%1$s\'&gt;kontrolloni adresën tuaj email të rikthimeve&lt;/a&gt; dhe &lt;a href=\'%2$s\'&gt;të ndryshoni fjalëkalimin tuaj&lt;/a&gt;.</string>
   <string name="sessions">Sesione</string>
   <string name="revokeAllSessions">shfuqizoji krejt sesionet</string>
   <string name="playChessEverywhere">Luani shah kudo</string>
   <string name="everybodyGetsAllFeaturesForFree">Gjithkush merr falas krejt veçoritë</string>
   <string name="viewTheSolution">Shihni zgjidhjen</string>
   <string name="noChallenges">Pa sfida.</string>
+  <string name="browserNotificationsDenied">Flluska njoftimesh janë çaktivizuar nga rregullim shfletuesi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">I përdorshëm në %s gjuhë!</item>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>
@@ -1013,4 +1028,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="tags">Etiketa</string>
   <string name="settings">Rregullime</string>
+  <string name="write">Shkruani</string>
+  <string name="preview">Paraparje</string>
+  <string name="done">U bë</string>
 </resources>

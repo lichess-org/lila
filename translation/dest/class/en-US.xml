@@ -68,7 +68,7 @@ Here is the link to access the class.</string>
   <string name="releaseTheAccount">Graduate the account so the student can manage it autonomously.</string>
   <string name="releaseDesc1">A graduated account cannot be made managed again. The student will be able to toggle kid mode and reset password themselves.</string>
   <string name="releaseDesc2">The student will remain in the class after their account is graduated.</string>
-  <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account.</string>
+  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. The link expires after 10 minutes.</string>
   <string name="closeStudent">Close account</string>
   <string name="closeTheAccount">Close the student account permanently.</string>
   <string name="closeDesc1">The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees.</string>

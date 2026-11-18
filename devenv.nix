@@ -135,6 +135,7 @@ in
   packages = [
     pkgs-unstable.nodejs-slim
     pkgs-master.pnpm_12
+    pkgs.git
     pkgs.svgo
     pkgs-master.oxlint
     pkgs-master.oxfmt

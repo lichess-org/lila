@@ -41,6 +41,11 @@ final class ConcurrencyLimit[K](
       compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
         makeResult(watch(makeSource))
 
+  def use[T](using k: K)(using Req): Limiter[T] = makeSource =>
+    makeResult =>
+      compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
+        makeResult(watch(makeSource))
+
   private def reqMsg(using req: Req) = s"${req.path} ${HTTPRequest.userAgent(req)}"
 
 object ConcurrencyLimit:

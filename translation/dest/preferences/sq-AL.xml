@@ -37,7 +37,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kërko automatikisht barazim pas përsëritjeje të trefishtë</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Ripohim lëvizjesh</string>
-  <string name="multipleChoices">Zgjedhje të shumta.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Mund të çaktivizohet gjatë një loje me menu tabele</string>
   <string name="inCorrespondenceGames">Lojëra me korrespondencë</string>
   <string name="correspondenceAndUnlimited">Me korrespondencë dhe e pakufizuar</string>
@@ -75,4 +74,10 @@
   <string name="boardSettings">Fushë</string>
   <string name="analysisSettings">Rregullime analize</string>
   <string name="hoverOverSettingLabelsForHelp">Për ndihmë, kalojeni kursorin sipër etiketave të rregullimeve</string>
+  <string name="network">Rrjet</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Aktualisht po përdorni rrugëzim të drejtpërdrejtë.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Aktualisht po përdorni rrugëzim nga Rrjet Dhënieje Lënde (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Nëse keni shkëputje të shpeshta, provoni të ndryshoni rrugëzimin.</string>
+  <string name="useDirectRouting">Përdor rrugëzim të drejtpërdrejtë</string>
+  <string name="useCdnRouting">Përdor rrugëzim përmes CDN-je</string>
 </resources>

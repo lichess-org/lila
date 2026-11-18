@@ -94,7 +94,7 @@ final class Env(
     onStart.exec(game.id)
 
   Bus.sub[RoundSocket.Protocol.In.SelfReport]: r =>
-    selfReport(r.userId, r.ip, r.fullId, r.name)
+    selfReport(r.userId, r.fullId, r.name)(using r.ip)
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) =>

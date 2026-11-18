@@ -69,9 +69,9 @@ object HTTPRequest:
   def cookieStr(using req: Req): Option[String] = req.headers.get(HeaderNames.COOKIE)
 
   def ipAddress(req: Req): IpAddress =
-    IpAddress.unchecked(ipAddressStr(req))
+    lila.core.net.ipAddress.unchecked(ipAddressStr(req))
 
-  def ipAddressStr(req: Req): String =
+  private def ipAddressStr(req: Req): String =
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 

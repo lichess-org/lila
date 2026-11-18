@@ -495,7 +495,11 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = async (idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
+  setChapter = async (
+    idOrNumber: ChapterId | number,
+    force?: boolean,
+    callback?: () => void,
+  ): Promise<boolean> => {
     const id = this.chapters.list.get(idOrNumber)?.id;
     if (!id) {
       console.warn(`Chapter ${idOrNumber} not found`);
@@ -503,6 +507,7 @@ export default class StudyCtrl {
     }
     const componentCallbacks = (id: ChapterId) => {
       this.relay?.onChapterChange(id);
+      callback?.();
     };
     const alreadySet = id === this.vm.chapterId && !force;
     if (alreadySet) {

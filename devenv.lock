@@ -3,11 +3,11 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1793133657,
-        "narHash": "sha256-SS0FeL1aqrTVJgoul1pB4nwek8LAwTEunW4j0GZev/A=",
+        "lastModified": 1794562632,
+        "narHash": "sha256-MOb8lrEUUki0Kxe+LNLuhj3DbPsjcurZWq3eG3R0Z9U=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "b31d7faa3e38604a7e11a4477ac994da87c030f1",
+        "rev": "6c954cc1c04f1d0b2f6ad689c9dffd835fa4d928",
         "type": "github"
       },
       "original": {
@@ -20,11 +20,11 @@
     "fishnet": {
       "flake": false,
       "locked": {
-        "lastModified": 1793391351,
-        "narHash": "sha256-m18M+2QJ8SVbXA85/9pX3U9CFDwzEAC0/8n9yMHyJkg=",
+        "lastModified": 1793913373,
+        "narHash": "sha256-PiRa/xJ4VDLPE/1scRdQsJj7Y2umF+akL/UUI+1PSBg=",
         "owner": "lichess-org",
         "repo": "fishnet",
-        "rev": "f822c99e018b7228fe7179137b77c1307264230f",
+        "rev": "3d80022471ed403bd0521d3bbcfbc3391d3bc68d",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
     "lila-db-seed": {
       "flake": false,
       "locked": {
-        "lastModified": 1792076781,
-        "narHash": "sha256-fBe3ag6R/6BxvcFWnWmvJzZh53K9BiLYIIXp44xdZvM=",
+        "lastModified": 1794085076,
+        "narHash": "sha256-qh/0MO7V6Zo6dXmODPHl/WkZ3gsRFN1x19sGoZzp4HA=",
         "owner": "lichess-org",
         "repo": "lila-db-seed",
-        "rev": "b5d06f115c51d6f12167b9629fb21f087bf2e833",
+        "rev": "3f95379a997e9f35d64053f3133d632b5ec42371",
         "type": "github"
       },
       "original": {
@@ -52,11 +52,11 @@
     "lila-fishnet": {
       "flake": false,
       "locked": {
-        "lastModified": 1793393377,
-        "narHash": "sha256-Qz+Ziv3D4INO9rycDOdo5FivZlefmJQO3LptoSh9sQg=",
+        "lastModified": 1794572358,
+        "narHash": "sha256-gx49vWZoBMnopcjIG39652dxchM8mD4GNJ6iDEJOmIg=",
         "owner": "lichess-org",
         "repo": "lila-fishnet",
-        "rev": "0e7ec64e91e5e11ec3ee6e86a9bb1b2b05404e4b",
+        "rev": "433b7004a43f1da23d968b25739c5593ee1d0728",
         "type": "github"
       },
       "original": {
@@ -68,11 +68,11 @@
     "lila-ws": {
       "flake": false,
       "locked": {
-        "lastModified": 1792703386,
-        "narHash": "sha256-Mqqmvb7ByY8xNLYBgaOd4dyTkYo7JMZ7aMFqeBhFJDY=",
+        "lastModified": 1794432495,
+        "narHash": "sha256-+ObAzhQt4AH0aJSumoZspMWWSrr3TmNKINQNF5l9+Og=",
         "owner": "lichess-org",
         "repo": "lila-ws",
-        "rev": "5089b84b5fe2da3f3e9e69d29363115cfddfc758",
+        "rev": "91257a032defd96463fd8fdceaf96152c832cc81",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1793176385,
-        "narHash": "sha256-7tBSRtqtQUDj5ClNJY1f5oJ3StLyfZ+o90KZCdE8iyc=",
+        "lastModified": 1794741087,
+        "narHash": "sha256-E0sSE5d1CQVRdgPyfRwaha3bm9iEbXEUI1k6dBkSEPg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4f7a7176d12ac7a722586341b31387512e21b004",
+        "rev": "93f87c0248f798bf57bf37f329a8d29da001bb2a",
         "type": "github"
       },
       "original": {
@@ -135,11 +135,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1793136825,
-        "narHash": "sha256-2pkE69JpFRInaARSczZytcfPw83IL82E2KdhbWGwdMs=",
+        "lastModified": 1794554816,
+        "narHash": "sha256-PqJ89Z/qwQa2fB2C0j/GjiviARAtBzVPDUxnbIY6EPA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f05535a0efcb2134c478d1e88434fadf486d42b5",
+        "rev": "e126e9e73c335158ff8279ac14d5f4afec153716",
         "type": "github"
       },
       "original": {

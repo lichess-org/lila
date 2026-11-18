@@ -1,4 +1,8 @@
-import { type Prop, type Toggle, myUserId, prop, toggle } from 'lib';
+import { COLORS } from 'chessops';
+
+import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
+import { fixCrazySan } from 'lib/game/chess';
+import { plyPrefix } from 'lib/game/nodePGN';
 import { pubsub } from 'lib/pubsub';
 
 import type { ChapterId, TagArray } from '@/study/interfaces';
@@ -43,7 +47,8 @@ export default class RelayCtrl {
     );
     this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
     this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
-    if (study.ctrl.opts.chat) {
+    const chat = study.ctrl.opts.chat;
+    if (chat) {
       const liveboardDisabled = () => site.blindMode || this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(
         study,
@@ -51,7 +56,13 @@ export default class RelayCtrl {
         liveboardDisabled,
         study.chapterSelect.get(),
       );
-      study.ctrl.opts.chat.plugin = this.liveboardPlugin;
+      chat.plugin = this.liveboardPlugin;
+      chat.positionRef = {
+        title: i18n.broadcast.mentionPositionInChat,
+        available: this.chatPositionRefAvailable,
+        text: this.chatPositionRefText,
+        jump: this.chatPositionRefJump,
+      };
     }
 
     const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
@@ -142,6 +153,25 @@ export default class RelayCtrl {
       (id === this.study.data.chapter.id ? this.study.relayClockAt : chapter?.clockAt) ?? chapter?.lastMoveAt
     );
   };
+  private readonly chatPositionRefAvailable = (): boolean => !this.tourShow();
+
+  // e.g. "board 5 23... Nf6", which the chat turns into a link back to this move
+  private readonly chatPositionRefText = (): string | undefined => {
+    if (!this.chatPositionRefAvailable()) return undefined;
+    const board = this.study.chapters.list.all().findIndex(c => c.id === this.study.data.chapter.id) + 1;
+    if (!board) return undefined;
+    const node = this.study.ctrl.node;
+    const move = node.san && this.study.ctrl.onMainline ? ` ${plyPrefix(node)}${fixCrazySan(node.san)}` : '';
+    return `board ${board}${move}`;
+  };
+
+  private readonly chatPositionRefJump = async (board: number, ply?: Ply) => {
+    const chapter = this.study.chapters.list.get(board);
+    const onLoad = () => ply && this.study.ctrl.jumpToMain(ply);
+    if (chapter) await this.study.setChapter(chapter.id, false, onLoad);
+  };
+
+  lastMoveAt = (id: ChapterId): number | undefined => this.study.chapters.list.get(id)?.lastMoveAt;
 
   setSync = (v: boolean) => {
     this.study.ctrl.socket.send('relaySync', v);

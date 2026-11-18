@@ -81,5 +81,6 @@ final class Cached(
     _.expireAfterWrite(5.minutes).buildAsyncTimeout()(userIdsLikeFetch)
 
   def userIdsLike(text: UserSearch): Fu[List[UserId]] =
-    if text.value.lengthIs < 5 then userIdsLikeCache.get(text)
+    if text.value.lengthIs == 3 then fuccess(UserStr.read(text.value).map(_.id).toList)
+    else if text.value.lengthIs < 6 then userIdsLikeCache.get(text)
     else userIdsLikeFetch(text)

@@ -75,6 +75,8 @@ final class Env(
       text = "Opening explorer games per second".some
     )
 
+    def permissions = List(noDelaySecret, prizeTournamentMakers)
+
   val webSocketConfig = WebSocketConfig(
     mainDomains = settingStore[Strings](
       "socketMainDomains",
@@ -104,3 +106,8 @@ final class Env(
     def anonPuzzle(using Translate): Option[String] =
       Option.when(setting.get().value.contains("anonPuzzle")):
         I18nKey.msg.oldAppNoLongerSupportsPuzzles.txt("lichess.org/app")
+
+  def mobileSettings = List(
+    lichobileAnnounceApi.lichobileUpgrade,
+    lichobileDisables.setting
+  )

@@ -42,7 +42,7 @@ final class Env(
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  lazy val alwaysFeaturedSetting =
+  private lazy val alwaysFeaturedSetting =
     import lila.memo.SettingStore.UserIds.given
     import lila.core.data.UserIds
     settingStore[UserIds](
@@ -58,6 +58,8 @@ final class Env(
       default = 5,
       text = "Max streamers on homepage".some
     )
+
+  def settings = List(homepageMaxSetting, alwaysFeaturedSetting)
 
   lazy val repo = wire[StreamerRepo]
   lazy val ytApi: YoutubeApi = wire[YoutubeApi]

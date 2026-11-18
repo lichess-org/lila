@@ -69,7 +69,6 @@
   <string name="releaseTheAccount">שחרר/י את החשבון כדי שהתלמיד או התלמידה יוכלו לנהל אותו בעצמם.</string>
   <string name="releaseDesc1">חשבון ששוחרר לא יוכל להיות מנוהל שוב. התלמיד או התלמידה יוכלו לצאת ממצב הילדים ולאפס את סיסמתם.</string>
   <string name="releaseDesc2">התלמיד או התלמידה ישארו בכיתה לאחר שחשבונם ישוחרר.</string>
-  <string name="realUniqueEmail">כתובת דוא\"ל אמיתית וייחודית של התלמיד/ה. אנו נשלח אליו או אליה דוא\"ל לאישור, עם קישור לשחרור החשבון.</string>
   <string name="closeStudent">סגירת החשבון</string>
   <string name="closeTheAccount">סגרו את חשבון התלמיד לצמיתות.</string>
   <string name="closeDesc1">התלמיד או התלמידה לעולם לא יוכלו עוד להשתמש בחשבון זה. סגירת החשבון היא סופית. אנא וודאו שהתלמיד/ה מבין/ה ומסכים/ה.</string>

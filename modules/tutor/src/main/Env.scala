@@ -39,6 +39,8 @@ final class Env(
     text = "Number of tutor reports to build in parallel".some
   ).taggedWith[Parallelism]
 
+  def settings = List(nbAnalysisSetting, parallelismSetting)
+
   private val fishnet = wire[TutorFishnet]
   private val builder = wire[TutorBuilder]
   val queue = wire[TutorQueue]

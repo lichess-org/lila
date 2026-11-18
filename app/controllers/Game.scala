@@ -148,9 +148,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
     )
-    limit.GlobalConcurrencyLimitPerIP
-      .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
-        Ok.chunked(source).as(config.contentType).noProxyBuffer
+    limit.GlobalConcurrencyLimitPerIP.download.use(env.api.gameApiV2.exportByIds(config)): source =>
+      Ok.chunked(source).as(config.contentType).noProxyBuffer
 
   def gamePlayersFiltersFromReq(using
       me: Option[Me],

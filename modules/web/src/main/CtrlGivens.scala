@@ -6,6 +6,7 @@ import scalalib.net.UserAgent
 import lila.common.{ ClientName, HTTPRequest }
 import lila.core.i18n.Translate
 import lila.core.pref.Pref
+import lila.core.net.IpAddress
 import lila.ui.Context
 
 trait CtrlGivens:
@@ -16,3 +17,4 @@ trait CtrlGivens:
   given (using ctx: Context): Pref = ctx.pref
   given (using req: Req): UserAgent = HTTPRequest.userAgent(req)
   given (using req: Req): ClientName = ClientName(req)
+  given (using req: Req): IpAddress = HTTPRequest.ipAddress(req)

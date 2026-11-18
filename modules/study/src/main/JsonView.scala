@@ -86,6 +86,7 @@ final class JsonView(
         "name" -> s.study.name,
         "liked" -> s.liked,
         "likes" -> s.study.likes,
+        "createdAt" -> s.study.createdAt,
         "updatedAt" -> s.study.updatedAt,
         "owner" -> lightUserApi.sync(s.study.ownerId),
         "chapters" -> s.chapters.take(Study.previewNbChapters),
@@ -94,6 +95,8 @@ final class JsonView(
         "visibility" -> s.study.visibility
       )
       .add("flair", s.study.flair)
+
+  given Writes[Study.WithChaptersAndLiked] = Writes(pagerData)
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)

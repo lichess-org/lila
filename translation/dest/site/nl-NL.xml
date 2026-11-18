@@ -327,7 +327,7 @@
   <string name="loginToChat">Meld je aan om te chatten</string>
   <string name="youHaveBeenTimedOut">Je mag even niet chatten.</string>
   <string name="spectatorRoom">Toeschouwersruimte</string>
-  <string name="composeMessage">Een nieuw bericht schrijven</string>
+  <string name="composeMessage">Bericht</string>
   <string name="subject">Onderwerp</string>
   <string name="send">Verstuur</string>
   <string name="incrementInSeconds">Seconden extra per zet</string>
@@ -438,6 +438,7 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
+  <string name="selectImage">Afbeelding selecteren</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
@@ -702,6 +703,8 @@ Vrienden die spelen: %2$s</string>
   <string name="aboutX">Over %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is een gratis (%2$s), vrije, advertentie-loze open source schaakserver.</string>
   <string name="really">echt waar</string>
+  <string name="lichessUpdates">Lichess tijdlijn</string>
+  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Alle updates</string>
   <string name="contribute">Draag bij</string>
   <string name="changelog">Wijzigingen</string>
   <string name="termsOfService">Algemene voorwaarden</string>

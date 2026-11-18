@@ -257,8 +257,7 @@ final class User(
       filterName: String,
       page: Int
   )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
-    limit.userGames(
-      ctx.ip,
+    limit.userGames.use(
       fuccess(Paginator.empty[GameModel]),
       cost = page,
       msg = s"on ${u.username}"

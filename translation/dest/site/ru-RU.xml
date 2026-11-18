@@ -775,6 +775,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
   <string name="really">именно так</string>
   <string name="lichessUpdates">Обновления Lichess</string>
+  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Все обновления</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="changelog">Список изменений</string>
   <string name="termsOfService">Пользовательское соглашение</string>
@@ -1105,7 +1106,7 @@
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
-  <string name="playComputerMove">Play best computer move</string>
+  <string name="playComputerMove">Сыграть лучший ход по компьютеру</string>
   <string name="analysisOptions">Параметры анализа</string>
   <string name="focusChat">Переключиться в окно чата</string>
   <string name="showHelpDialog">Показать справку</string>

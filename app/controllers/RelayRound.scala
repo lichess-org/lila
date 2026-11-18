@@ -212,14 +212,14 @@ final class RelayRound(env: Env, studyC: => Study) extends LilaController(env):
 
   def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
     val source = api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(jsonView.myRound)
-    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download.use(source)(jsToNdJson)
   }
 
   def apiSpotlightRounds = SecuredScoped(_.StudyAdmin) { ctx ?=> _ ?=>
     val source = api
       .spotlightRounds(MaxPerSecond(120), getIntAs[Max]("nb"), getTimestamp("since"), getTimestamp("until"))
       .map(jsonView.withSpotlight)
-    limit.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+    limit.GlobalConcurrencyLimitPerIP.download.use(source)(jsToNdJson)
   }
 
   def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
