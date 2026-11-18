@@ -3163,6 +3163,8 @@ object I18nKey:
     val `onlyLeaderLeavesTeam`: I18nKey = "teamLead:onlyLeaderLeavesTeam"
     val `removeSomeone`: I18nKey = "teamLead:removeSomeone"
     val `whoToRemove`: I18nKey = "teamLead:whoToRemove"
+    val `blockedUsers`: I18nKey = "teamLead:blockedUsers"
+    val `blockedUsersDesc`: I18nKey = "teamLead:blockedUsersDesc"
     val `declinedRequests`: I18nKey = "teamLead:declinedRequests"
     val `newTeamUpdate`: I18nKey = "teamLead:newTeamUpdate"
     val `teamUpdatesPerWeek`: I18nKey = "teamLead:teamUpdatesPerWeek"
@@ -3179,6 +3181,7 @@ object I18nKey:
     val `oneTeamPerLineHelp`: I18nKey = "teamLead:oneTeamPerLineHelp"
     val `numberOfLeadsPerTeam`: I18nKey = "teamLead:numberOfLeadsPerTeam"
     val `numberOfLeadsPerTeamHelp`: I18nKey = "teamLead:numberOfLeadsPerTeamHelp"
+    val `teamIntroPrompt`: I18nKey = "teamLead:teamIntroPrompt"
     val `xJoinRequests`: I18nKey = "teamLead:xJoinRequests"
 
   object tfa:

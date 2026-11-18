@@ -6169,6 +6169,10 @@ interface I18n {
     willBeReviewed: string;
   };
   teamLead: {
+    /** Blocked Users */
+    blockedUsers: string;
+    /** Enter one username per line. These players will be blocked from joining the team. */
+    blockedUsersDesc: string;
     /** Close team */
     closeTeam: string;
     /** Closes the team forever. */
@@ -6239,6 +6243,8 @@ interface I18n {
     teamDescriptionHelp: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
+    /** Tell others about your team! */
+    teamIntroPrompt: string;
     /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */
