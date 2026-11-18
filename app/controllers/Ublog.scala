@@ -63,7 +63,7 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
-            html <- htmlBody(post)
+            html <- env.ublog.markdown.htmlBody(post)
             viewedPost = env.ublog.viewCounter(post)
             page <- renderPage:
               views.ublog.post.page(
@@ -352,8 +352,8 @@ final class Ublog(env: Env) extends LilaController(env):
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so:
           env.ublog.api.latestPostsWithContent(blog.id, 10)
-        rendered <- posts.sequentially: post =>
-          htmlBody(post).map(post -> _)
+        rendered = posts.map: post =>
+          post -> env.ublog.markdown.atomBody(post)
       yield Ok
         .snip(views.ublog.ui.atom.user(user, rendered))
         .as(ATOM)
@@ -372,9 +372,6 @@ final class Ublog(env: Env) extends LilaController(env):
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
-
-  private def htmlBody(post: UblogPost) =
-    env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
