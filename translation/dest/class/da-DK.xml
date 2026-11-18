@@ -68,7 +68,7 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="releaseTheAccount">Frigiv kontoen så eleven selv kan kontrollere den.</string>
   <string name="releaseDesc1">En frigivet konto kan ikke sættes under administration igen. Eleven vil kunne ændre i børnetilstand og selv nulstille adgangskode.</string>
   <string name="releaseDesc2">Eleven vil blive i klassen efter deres konto er frigivet.</string>
-  <string name="realUniqueEmail">Rigtig, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til frigivelse af kontoen.</string>
+  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Rigtig, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til frigivelse af kontoen. Linket udløber efter 10 minutter.</string>
   <string name="closeStudent">Luk konto</string>
   <string name="closeTheAccount">Luk elevkontoen permanent.</string>
   <string name="closeDesc1">Eleven vil aldrig kunne bruge denne konto igen. Lukning er endelig. Sørg for at eleven forstår og er enig.</string>

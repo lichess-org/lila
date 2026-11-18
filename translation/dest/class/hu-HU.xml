@@ -68,7 +68,6 @@ A csoportot az alábbi linken éred el.</string>
   <string name="releaseTheAccount">Az átadás után a tanuló fogja kezelni a saját fiókját.</string>
   <string name="releaseDesc1">Az átadott fiókot nem kezelheti többé a tanár. A tanuló ki-bekapcsolhatja a gyerek üzemmódot és új jelszót állíthat be magának.</string>
   <string name="releaseDesc2">A tanuló a fiókja átadása után is a tanulócsóport tagja marad.</string>
-  <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyre kattintva átveheti a fiókját.</string>
   <string name="closeStudent">Fiók zárolása</string>
   <string name="closeTheAccount">A tanulói fiók végleges lezárása.</string>
   <string name="closeDesc1">A tanuló soha többé nem használhatja ezt a fiókot. A zárolás végleges. Bizonyosodj meg róla, hogy a tanuló érti és elfogadja ezt.</string>

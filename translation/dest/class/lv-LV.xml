@@ -67,7 +67,6 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="releaseTheAccount">Atbrīvot kontu, lai skolēns varētu to patstāvīgi pārvaldīt.</string>
   <string name="releaseDesc1">Atbrīvotu kontu nevar padarīt pārvaldāmu. Skolēns varēs pats pārslēgt bērnu režīmu un atiestatīt paroli.</string>
   <string name="releaseDesc2">Skolēns paliks grupā pēc konta atbrīvošanas.</string>
-  <string name="realUniqueEmail">Īsta, unikāla skolēna e-pasta adrese. Mēs uz to nosūtīsim apstiprinājuma e-pastu, ar saiti lai atbrīvotu kontu.</string>
   <string name="closeStudent">Slēgt kontu</string>
   <string name="closeTheAccount">Mūžīgi slēgt skolēna kontu.</string>
   <string name="closeDesc1">Skolēns vairs nevarēs izmantot šo kontu. Slēgšana ir neatgriezeniska. Pārliecinieties, ka skolēns to ir sapratis un piekrīt slēgt kontu.</string>

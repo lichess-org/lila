@@ -70,7 +70,7 @@ Oto link do klasy.</string>
   <string name="releaseTheAccount">Przestań zarządzać kontem, aby uczeń mógł zarządzać nim samodzielnie.</string>
   <string name="releaseDesc1">Nie będzie można ponownie zarządzać kontem. Uczeń będzie mógł samodzielnie przełączyć tryb konta i resetować hasło.</string>
   <string name="releaseDesc2">Uczeń pozostanie w klasie po przekazaniu mu zarządzania kontem.</string>
-  <string name="realUniqueEmail">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem.</string>
+  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem. Link wygasa po 10 minutach.</string>
   <string name="closeStudent">Zamknij konto</string>
   <string name="closeTheAccount">Zamknij nieodwracalnie konto studenckie.</string>
   <string name="closeDesc1">Uczeń nigdy więcej nie będzie mógł używać tego konta. Zamykanie jest ostateczne. Upewnij się, że rozumie i zgadza się na to.</string>

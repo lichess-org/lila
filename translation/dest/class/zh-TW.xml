@@ -67,7 +67,6 @@
   <string name="releaseTheAccount">解放帳戶，以便學生能夠自主管理。</string>
   <string name="releaseDesc1">已釋放的帳戶不能再次被限製。學生將能切換兒童模式開關和重置密碼。</string>
   <string name="releaseDesc2">該學生在帳戶激活後將留在課堂。</string>
-  <string name="realUniqueEmail">真實且唯一的學生郵箱。我們將向該郵箱發送一個帶有激活帳號鏈接的確認郵件。</string>
   <string name="closeStudent">關閉帳戶</string>
   <string name="closeTheAccount">永久關閉學生帳戶</string>
   <string name="closeDesc1">學生將永遠無法再次使用此帳戶，關閉是永久性的。請確保學生理解並同意。</string>

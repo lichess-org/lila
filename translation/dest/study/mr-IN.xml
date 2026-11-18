@@ -37,6 +37,7 @@
   <string name="spectator">प्रेक्षक</string>
   <string name="contributor">योगदानकर्ता</string>
   <string name="kick">हकला</string>
+  <string name="remove">काढून टाका</string>
   <string name="leaveTheStudy">अभ्यासातून बाहेर पडा</string>
   <string name="youAreNowAContributor">तुम्ही आता योगदानकर्ते आहात</string>
   <string name="youAreNowASpectator">तुम्ही आता प्रेक्षक आहात</string>
@@ -99,6 +100,10 @@
   <string name="loadAPositionFromFen">स्थिती FEN ने ध्वन्यर्ध करा</string>
   <string name="loadAGameFromPgn">खेळ FEN ने ध्वन्यर्ध करा</string>
   <string name="automatic">स्वयंचलित</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">तुमचे PGN इथे टाका, %s खेळ पर्यंत.</item>
+    <item quantity="other">इथे खेळ PGN म्हणून टाका. प्रत्येक खेळासाठी एक नवीन अध्याय बनवला जाईल. एका अभ्यासिकेत जास्तीत जास्त %s अध्याय बसू शकतात</item>
+  </plurals>
   <string name="urlOfTheGame">खेळांची URL, एक प्रति ओळ</string>
   <string name="createChapter">अध्याय तयार करा</string>
   <string name="createStudy">अभ्यास तयार करा</string>
@@ -181,6 +186,7 @@
   <string name="customPositionTitle">सानुकूल स्थिती</string>
   <string name="customPositionText">तुमच्या प्रमाणे पट मांडा.&amp;lt;br&amp;gt;अंत्यखेळांना शोधण्यासाठी अनुकूल.</string>
   <string name="loadGameFromTheWebTitle">आंतरजालमधून एक खेळ आयात करा</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">एका खेळाची URL टाका&lt;br&gt;(जसे like lichess.org/game/7fHIU0X)&lt;br&gt;अध्यायमध्ये खेळाचे डाव टाकण्यासाठी</string>
   <string name="fromFenStringTitle">एका FEN माळ मधून</string>
   <string name="fromFenStringText">एका स्थितीला FEN स्वरूपात&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;अध्याय एका स्थितीपासून चालू करण्यासाठी.</string>
   <string name="fromPgnGameTitle">एका PGN खेळातून</string>
@@ -196,4 +202,6 @@
   <string name="clearPublished">प्रकाशित विश्लेषण काढा?</string>
   <string name="requestAServerAnalysis">सर्व्हर विश्लेषणाची विनंती करा</string>
   <string name="analyzeOnYourDevice">तुमच्या उपकरणावर विशलेषण करा</string>
+  <string name="searchChapters">अध्याय शोधा</string>
+  <string name="searchGames">खेळ शोधा</string>
 </resources>

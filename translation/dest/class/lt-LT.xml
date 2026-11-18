@@ -70,7 +70,6 @@ Slaptažodis: %3$s</string>
   <string name="releaseTheAccount">Išleidus paskyrą mokinys ją gali valdyti savarankiškai.</string>
   <string name="releaseDesc1">Išleista paskyra nebegali tapti valdoma. Mokinys galės perjungi vaikų režimą ar pakeisti savo slaptažodį.</string>
   <string name="releaseDesc2">Po paskyros paleidimo mokinys liks klasėje.</string>
-  <string name="realUniqueEmail">Tikras, unikalus mokinio el. pašto adresas. Juo išsiųsime patvirtinimo laišką su nuoroda išleisti paskyrą.</string>
   <string name="closeStudent">Uždaryti paskyrą</string>
   <string name="closeTheAccount">Visam laikui uždaro mokinio paskyrą.</string>
   <string name="closeDesc1">Mokinys nebegalės prieiti prie šios paskyros. Uždarymas yra neatstatomas. Įsitikinkite, kad mokinys supranta ir sutinka.</string>

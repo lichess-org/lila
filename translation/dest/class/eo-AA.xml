@@ -68,7 +68,6 @@ Jen la ligo por aliri la klason.</string>
   <string name="releaseTheAccount">Liberigi la konton por ke la lernanto povu memstare administri ĝin.</string>
   <string name="releaseDesc1">Liberigita konto ne povas esti administrata denove. La studento povos mem alternigi infanan reĝimon kaj restarigi pasvorton mem.</string>
   <string name="releaseDesc2">La studento restos en la klaso post kiam ilia konto estos liberigita.</string>
-  <string name="realUniqueEmail">Reala, unika retpoŝtadreso de la studento. Ni sendos konfirman retpoŝton al ĝi, kun ligilo por liberigi la konton.</string>
   <string name="closeStudent">Fermu konton</string>
   <string name="closeTheAccount">Fermi la lernantan konton konstante.</string>
   <string name="closeDesc1">La lernanto neniam eble uzos konton denove. Fermato estas definitiva. Estu certe, ke la lernanto komprenas kaj konsentas.</string>

@@ -41,7 +41,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
-  <string name="multipleChoices">Monivalinta.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
