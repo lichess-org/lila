@@ -1,19 +1,7 @@
-import { hl, onChange, type VNode } from '@/view';
+import { hl, type VNode } from '@/view';
 import { radioGroup } from '@/view/radio';
 
 import { colorChoiceName, colors, type ColorProp } from '../color';
-import { option } from '../option';
-
-export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
-  hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
-  hl(
-    'select#sf_color',
-    {
-      on: onChange(colorProp),
-    },
-    colors.map(color => option({ key: color, name: colorChoiceName(color) }, colorProp())),
-  ),
-];
 
 export const colorButtons = (colorProp: ColorProp): VNode =>
   hl('div.config-group', [
