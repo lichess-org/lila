@@ -113,7 +113,7 @@ $c-slider: $c-setup;
     background: $c-bg-box;
     border-block: $border;
     padding: 2rem;
-    gap: 2rem;
+    gap: 1.5rem;
 
     .tabs-horiz {
       backdrop-filter: none;
@@ -328,13 +328,13 @@ $c-slider: $c-setup;
           @extend %flex-nowrap;
 
           justify-content: flex-start;
-          gap: 1ch;
           margin-bottom: 0.5rem;
 
           label {
             @extend %nowrap-ellipsis;
+            @extend %flex-center-nowrap;
 
-            align-content: center;
+            gap: 1ch;
 
             @media (max-width: at-most($xx-small)) {
               font-size: 0.9em;
@@ -343,15 +343,13 @@ $c-slider: $c-setup;
 
           .val-box {
             font-size: 1.2em;
-            background: $c-font-clear;
+            background: $c-secondary-dim;
             padding: 0.1rem 0.5rem;
             border-radius: $small-box-radius-size;
             font-weight: bold;
-            color: $c-bg;
-
-            @include if-transp {
-              color: $c-bg-page;
-            }
+            color: #fff;
+            min-width: 34px;
+            letter-spacing: -0.015em;
           }
         }
 
@@ -368,7 +366,9 @@ $c-slider: $c-setup;
       }
 
       .slider-separator {
-        line-height: 1.7;
+        line-height: 1.5;
+        font-size: 1.2rem;
+        font-weight: 500;
       }
     }
   }
