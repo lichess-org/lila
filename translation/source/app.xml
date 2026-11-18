@@ -18,7 +18,6 @@
   <string name="phoneAndTablet">Phone and tablet</string>
   <string name="bulletBlitzClassicalVariants">Bullet, blitz, classical, variants</string>
   <string name="correspondenceChess">Correspondence chess</string>
-  <string name="onlinePlay">Online play</string>
+  <string name="unlimitedPuzzles">Unlimited puzzles</string>
   <string name="gameAnalysis">Game analysis</string>
-  <string name="followAndChallengeFriends">Follow and challenge friends</string>
 </resources>

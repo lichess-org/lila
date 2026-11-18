@@ -110,12 +110,10 @@ def mobile(helpers: Helpers)(using Translate) =
                 li(trans.app.phoneAndTablet()),
                 li(trans.app.bulletBlitzClassicalVariants()),
                 li(trans.app.correspondenceChess()),
-                li(trans.app.onlinePlay()),
+                li(trans.app.unlimitedPuzzles()),
                 li(trans.site.tournaments()),
                 li(trans.broadcast.broadcasts()),
-                li(trans.site.puzzles()),
                 li(trans.app.gameAnalysis()),
-                li(trans.app.followAndChallengeFriends()),
                 li(trans.site.availableInNbLanguages.plural(100, "100+"))
               ),
               qrcode(routeUrl(routes.Main.redirectToAppStore), 300),

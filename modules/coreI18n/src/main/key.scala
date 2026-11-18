@@ -65,9 +65,8 @@ object I18nKey:
     val `phoneAndTablet`: I18nKey = "app:phoneAndTablet"
     val `bulletBlitzClassicalVariants`: I18nKey = "app:bulletBlitzClassicalVariants"
     val `correspondenceChess`: I18nKey = "app:correspondenceChess"
-    val `onlinePlay`: I18nKey = "app:onlinePlay"
+    val `unlimitedPuzzles`: I18nKey = "app:unlimitedPuzzles"
     val `gameAnalysis`: I18nKey = "app:gameAnalysis"
-    val `followAndChallengeFriends`: I18nKey = "app:followAndChallengeFriends"
 
   object appeal:
     val `cleanAllGood`: I18nKey = "appeal:cleanAllGood"

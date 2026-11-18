@@ -77,8 +77,6 @@ interface I18n {
     downloadOnGooglePlay: string;
     /** Entirely Open Source */
     entirelyOpenSource: string;
-    /** Follow and challenge friends */
-    followAndChallengeFriends: string;
     /** Fully featured */
     fullyFeatured: string;
     /** Game analysis */
@@ -91,14 +89,14 @@ interface I18n {
     lichessMobileScreen: string;
     /** No ads, no tracking */
     noAdsNoTracking: string;
-    /** Online play */
-    onlinePlay: string;
     /** Open the Lichess app */
     openTheApp: string;
     /** Phone and tablet */
     phoneAndTablet: string;
     /** Returning to the Lichess app */
     returningToApp: string;
+    /** Unlimited puzzles */
+    unlimitedPuzzles: string;
     /** View %s on GitHub */
     viewAllReleases: I18nFormat;
   };
