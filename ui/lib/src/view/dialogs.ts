@@ -1,6 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
-import { escapeHtml } from '../index';
+import { escapeHtml, isComposing } from '../index';
 import { type Dialog, domDialog } from './dialog';
 
 // non-blocking window.alert-alike
@@ -74,6 +74,7 @@ export async function prompt(
         selector: 'input',
         event: 'keydown',
         listener: (e: KeyboardEvent, dlg) => {
+          if (isComposing(e)) return;
           if (e.key !== 'Enter' && e.key !== 'Escape') return;
           e.preventDefault();
           if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))

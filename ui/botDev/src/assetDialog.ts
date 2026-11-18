@@ -1,6 +1,6 @@
 import { wireCropDialog } from 'bits/crop';
 
-import { frag } from 'lib';
+import { frag, isComposing } from 'lib';
 import { licon } from 'lib/licon';
 import { domDialog, type Dialog, alert, confirm } from 'lib/view';
 
@@ -139,6 +139,7 @@ export class AssetDialog {
   };
 
   private readonly nameKeyDown = (e: KeyboardEvent): void => {
+    if (isComposing(e)) return;
     const el = e.target as HTMLElement;
     if (e.key === 'Enter') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;

@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { isComposing } from '../common';
 import { licon } from '../licon';
 import { bind, onInsert, type MaybeVNodes } from './snabbdom';
 import { userComplete, type UserCompleteOpts } from './userComplete';
@@ -133,7 +134,7 @@ export function searchInput(ctrl: PaginatedCtrl<unknown>, completeOpts: Partial<
           ...completeOpts,
         });
         $(el).on('keydown', e => {
-          if (e.code === 'Enter') {
+          if (e.code === 'Enter' && !isComposing(e)) {
             const rank = parseInt(e.target.value.replace('#', '').trim());
             if (rank > 0) ctrl.jumpToRank(rank);
           }

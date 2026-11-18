@@ -2,6 +2,7 @@
 
 import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
+import { isComposing } from '@/common';
 import { toggle as baseToggle, type Toggle } from '@/index';
 import { licon } from '@/licon';
 import { onInsert } from '@/view/snabbdom';
@@ -9,7 +10,7 @@ import * as xhr from '@/xhr';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {
   return (e: Event): void => {
-    if (e instanceof KeyboardEvent && e.key === 'Enter') effect(e.target as E);
+    if (e instanceof KeyboardEvent && e.key === 'Enter' && !isComposing(e)) effect(e.target as E);
   };
 }
 
