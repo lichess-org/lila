@@ -73,13 +73,13 @@ final class AssessApi(
           analysisRepo.coll
             .idsMap[Analysis, GameId](missing)(x => GameId(x.id.value))
             .flatMap { ans =>
-              povs
-                .flatMap: pov =>
-                  ans.get(pov.gameId).map(pov -> _)
-                .parallelVoid: (pov, analysis) =>
-                  gameRepo.holdAlert.game(pov.game).flatMap { holdAlerts =>
-                    createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
-                  }
+              val analysed = povs.flatMap: pov =>
+                ans.get(pov.gameId).map(pov -> _)
+              analysed.nonEmpty.so:
+                gameRepo.holdAlert.povs(analysed.map(_._1)).flatMap { holds =>
+                  analysed.parallelVoid: (pov, analysis) =>
+                    createPlayerAssessment(PlayerAssessment.make(pov, analysis, holds.get(pov.gameId)))
+                }
             }
         )
       }
