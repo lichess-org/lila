@@ -1,11 +1,18 @@
-import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
+import {
+  init as initSnabbdom,
+  type VNode,
+  classModule,
+  attributesModule,
+  eventListenersModule,
+  h,
+} from 'snabbdom';
 
 import { spinnerVdom, spinnerHtml } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
 import { DasherCtrl } from './ctrl';
 
-const patch = initSnabbdom([classModule, attributesModule]);
+const patch = initSnabbdom([classModule, attributesModule, eventListenersModule]);
 
 export function load(): Promise<DasherCtrl> {
   return site.asset.loadEsm<DasherCtrl>('dasher');
