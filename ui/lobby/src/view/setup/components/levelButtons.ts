@@ -25,7 +25,7 @@ export const levelButtons = ({ aiLevel }: SetupController) => {
           radioGroup({
             name: 'sf-level',
             active: aiLevel().toString(),
-            onChange: (key: string) => aiLevel(parseInt(key)),
+            onChange: key => aiLevel(parseInt(key)),
             buttons: levels.map(level => ({ key: level, content: level })),
           }),
         ]),
