@@ -1,12 +1,8 @@
-import { init, type VNode, classModule, attributesModule } from 'snabbdom';
-
 import { wsConnect } from 'lib/socket';
+import { mountApp } from 'lib/view';
 
 import SimulCtrl from './ctrl';
 import type { SimulOpts } from './interfaces';
-
-const patch = init([classModule, attributesModule]);
-
 import type { SimulTpe } from './socket';
 import view from './view/main';
 
@@ -19,17 +15,12 @@ export function initModule(opts: SimulOpts) {
   opts.element = element;
   opts.$side = $('.simul__side').clone();
 
-  let vnode: VNode;
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
-
-  const ctrl = new SimulCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
   element.innerHTML = '';
-  vnode = patch(element, blueprint);
+  const ctrl = mountApp({
+    el: element,
+    makeCtrl: redraw => new SimulCtrl(opts, redraw),
+    view,
+  });
 
-  redraw();
+  ctrl.redraw();
 }

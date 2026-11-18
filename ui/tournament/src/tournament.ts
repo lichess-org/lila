@@ -1,12 +1,8 @@
-import { init, classModule, attributesModule } from 'snabbdom';
-
 import { wsConnect } from 'lib/socket';
-
-import type { TournamentOpts } from './interfaces';
-
-const patch = init([classModule, attributesModule]);
+import { mountApp } from 'lib/view';
 
 import makeCtrl from './ctrl';
+import type { TournamentOpts } from './interfaces';
 import view from './view/main';
 
 export function initModule(opts: TournamentOpts) {
@@ -19,13 +15,10 @@ export function initModule(opts: TournamentOpts) {
   opts.$side = $('.tour__side').clone();
   opts.$faq = $('.tour__faq').clone();
 
-  const ctrl = new makeCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
   opts.element.innerHTML = '';
-  let vnode = patch(opts.element, blueprint);
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
+  const ctrl = mountApp({
+    el: opts.element,
+    makeCtrl: redraw => new makeCtrl(opts, redraw),
+    view,
+  });
 }

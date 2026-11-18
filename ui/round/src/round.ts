@@ -1,5 +1,3 @@
-import { attributesModule, classModule, init } from 'snabbdom';
-
 import { myUserId } from 'lib';
 import standaloneChat from 'lib/chat/standalone';
 import { finished, type TourPlayer } from 'lib/game';
@@ -8,7 +6,7 @@ import menuHover from 'lib/menuHover';
 import { pubsub } from 'lib/pubsub';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';
-import { alert } from 'lib/view';
+import { alert, mountApp } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import RoundController from './ctrl';
@@ -16,26 +14,20 @@ import type { RoundData, RoundOpts, SocketInEvents } from './interfaces';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { main as view } from './view/main';
 
-const patch = init([classModule, attributesModule]);
-
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
   await site.asset.loadPieces;
   return opts.data.local ? app(opts) : boot(opts, app);
 }
 
 async function app(opts: RoundOpts): Promise<RoundController> {
-  const ctrl = new RoundController(opts, redraw);
-  const blueprint = view(ctrl);
-  const el = (opts.element ?? document.querySelector('.round__app')) as HTMLElement;
-
-  let vnode = patch(el, blueprint);
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
+  const ctrl = mountApp({
+    el: (opts.element ?? document.querySelector('.round__app')) as HTMLElement,
+    makeCtrl: redraw => new RoundController(opts, redraw),
+    view,
+  });
 
   window.addEventListener('resize', () => {
-    redraw(); // col1 / col2+ transition
+    ctrl.redraw(); // col1 / col2+ transition
     ctrl.autoScroll();
   });
 

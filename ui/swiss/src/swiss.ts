@@ -1,12 +1,8 @@
-import { init, type VNode, classModule, attributesModule } from 'snabbdom';
-
 import { wsConnect } from 'lib/socket';
+import { mountApp } from 'lib/view';
 
 import SwissCtrl from './ctrl';
 import type { SwissOpts } from './interfaces';
-
-const patch = init([classModule, attributesModule]);
-
 import view from './view/main';
 
 export function initModule(opts: SwissOpts) {
@@ -19,17 +15,12 @@ export function initModule(opts: SwissOpts) {
   opts.element = element;
   opts.$side = $('.swiss__side').clone();
 
-  let vnode: VNode;
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
-
-  const ctrl = new SwissCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
   element.innerHTML = '';
-  vnode = patch(element, blueprint);
+  const ctrl = mountApp({
+    el: element,
+    makeCtrl: redraw => new SwissCtrl(opts, redraw),
+    view,
+  });
 
-  redraw();
+  ctrl.redraw();
 }
