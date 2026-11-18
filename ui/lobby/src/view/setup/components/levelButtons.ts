@@ -20,14 +20,12 @@ export const levelButtons = ({ aiLevel }: SetupController) => {
         ),
       ]
     : h('div.config-group', [
-        h('div.radio-pane', [
-          h('div.label', i18n.site.strength),
-          radioGroup({
-            name: 'sf-level',
-            active: aiLevel().toString(),
-            onChange: key => aiLevel(parseInt(key)),
-            buttons: levels.map(level => ({ key: level, content: level })),
-          }),
-        ]),
+        h('div.label', i18n.site.strength),
+        radioGroup({
+          name: 'sf-level',
+          active: aiLevel().toString(),
+          onChange: key => aiLevel(parseInt(key)),
+          buttons: levels.map(level => ({ key: level, content: level })),
+        }),
       ]);
 };
