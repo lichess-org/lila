@@ -1,6 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
 import { option } from 'lib/setup/option';
-import { dataIcon, enter, hl } from 'lib/view';
+import { dataIcon, enter, hl, onChange } from 'lib/view';
 
 import { variantsForGameType } from '@/options';
 import type SetupController from '@/setupCtrl';
@@ -11,11 +11,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
       hl('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
       hl(
         'select#sf_variant',
-        {
-          on: {
-            change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey),
-          },
-        },
+        { on: onChange(setupCtrl.variant) },
         variantsForGameType(setupCtrl.gameType!).map(variant =>
           option({ key: variant, name: i18n.variant[variant] }, setupCtrl.variant()),
         ),

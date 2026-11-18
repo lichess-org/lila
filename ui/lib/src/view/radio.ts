@@ -1,6 +1,6 @@
 import { h, type Attrs, type VNode } from 'snabbdom';
 
-import { bind, hl, type MaybeVNode, type MaybeVNodes } from './snabbdom';
+import { hl, onChange, type MaybeVNode, type MaybeVNodes } from './snabbdom';
 
 type Key = string;
 
@@ -21,10 +21,7 @@ export const radioGroup = (opts: RadioButtons): VNode =>
   h(
     'group.radio',
     {
-      hook: bind('change', (e: Event) => {
-        const input = e.target as HTMLInputElement | undefined;
-        if (input?.value) opts.onChange(input.value);
-      }),
+      on: onChange(opts.onChange),
       attrs: opts.attrs,
     },
     opts.buttons

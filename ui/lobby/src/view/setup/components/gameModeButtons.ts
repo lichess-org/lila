@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { option } from 'lib/setup/option';
-import type { MaybeVNode } from 'lib/view';
+import { onChange, type MaybeVNode } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import type { GameMode } from '@/interfaces';
@@ -12,14 +12,10 @@ export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode 
 
   return site.blindMode
     ? h('div', [
-        h('label', { attrs: { for: 'sf_mode' } }, i18n.site.mode),
+        h('label', { attrs: { for: 'game-mode' } }, i18n.site.mode),
         h(
-          'select#sf_mode',
-          {
-            on: {
-              change: (e: Event) => setupCtrl.gameMode((e.target as HTMLSelectElement).value as GameMode),
-            },
-          },
+          'select#game-mode',
+          { on: onChange<GameMode>(setupCtrl.gameMode) },
           gameModes.map(gm => option({ key: gm, name: i18n.site[gm] }, setupCtrl.gameMode())),
         ),
       ])
@@ -39,9 +35,7 @@ export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode 
                   disabled,
                   tabindex: disabled ? -1 : 0,
                 },
-                on: {
-                  change: (e: Event) => setupCtrl.gameMode((e.target as HTMLInputElement).value as GameMode),
-                },
+                on: onChange<GameMode>(setupCtrl.gameMode),
               }),
               h('label', { class: { disabled }, attrs: { for: `sf_mode_${gm}` } }, i18n.site[gm]),
             ]);

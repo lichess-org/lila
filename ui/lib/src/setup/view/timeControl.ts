@@ -1,5 +1,5 @@
 import type { Prop } from '@/index';
-import { hl, type MaybeVNode, type VNode } from '@/view';
+import { hl, onChange, type MaybeVNode, type VNode } from '@/view';
 
 import type { InputValue } from '../interfaces';
 import { option } from '../option';
@@ -10,7 +10,6 @@ import {
   incrementVToIncrement,
   daysVToDays,
   type TimeControl,
-  type TimeMode,
   timeModes,
 } from '../timeControl';
 
@@ -29,9 +28,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide),
         hl(
           'select#sf_time',
-          {
-            on: { change: (e: Event) => tc.timeV(parseFloat((e.target as HTMLSelectElement).value)) },
-          },
+          { on: onChange(v => tc.timeV(parseFloat(v))) },
           sliderTimes.map((sliderTime, timeV) =>
             option({ key: timeV.toString(), name: showTime(sliderTime) }, tc.timeV().toString()),
           ),
@@ -42,11 +39,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds),
         hl(
           'select#sf_increment',
-          {
-            on: {
-              change: (e: Event) => tc.incrementV(parseInt((e.target as HTMLSelectElement).value)),
-            },
-          },
+          { on: onChange(v => tc.incrementV(parseInt(v))) },
           // 31 because the range below goes from 0 to 30
           Array.from(Array(31).keys()).map(incrementV =>
             option(
@@ -61,9 +54,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn),
         hl(
           'select#sf_days',
-          {
-            on: { change: (e: Event) => tc.daysV(parseInt((e.target as HTMLSelectElement).value)) },
-          },
+          { on: onChange(v => tc.daysV(parseInt(v))) },
           // 7 because the range below goes from 1 to 7
           Array.from(Array(7).keys()).map(daysV =>
             option(
@@ -84,11 +75,7 @@ const renderTimeModePicker = (tc: TimeControl) =>
       'select#sf_timeMode',
       {
         attrs: { 'aria-label': i18n.site.timeControl },
-        on: {
-          change: (e: Event) => {
-            tc.mode((e.target as HTMLSelectElement).value as TimeMode);
-          },
-        },
+        on: onChange(tc.mode),
       },
       timeModes
         .filter(m => tc.modes.includes(m))

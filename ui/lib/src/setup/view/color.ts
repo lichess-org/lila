@@ -1,7 +1,7 @@
-import { hl, type VNode } from '@/view';
+import { hl, onChange, type VNode } from '@/view';
 import { radioGroup } from '@/view/radio';
 
-import { colorChoiceName, colors, type ColorChoice, type ColorProp } from '../color';
+import { colorChoiceName, colors, type ColorProp } from '../color';
 import { option } from '../option';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
@@ -9,9 +9,7 @@ export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl(
     'select#sf_color',
     {
-      on: {
-        change: (e: Event) => colorProp((e.target as HTMLSelectElement).value as ColorChoice),
-      },
+      on: onChange(colorProp),
     },
     colors.map(color => option({ key: color, name: colorChoiceName(color) }, colorProp())),
   ),
