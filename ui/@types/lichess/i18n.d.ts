@@ -61,20 +61,42 @@ interface I18n {
   app: {
     /** all releases */
     allReleases: string;
+    /** As free as Lichess */
+    asFreeAsLichess: string;
+    /** Built for the love of chess, not money */
+    builtForTheLoveOfChessNotMoney: string;
+    /** Bullet, blitz, classical, variants */
+    bulletBlitzClassicalVariants: string;
+    /** Correspondence chess */
+    correspondenceChess: string;
     /** Download on the Apple App Store */
     downloadOnAppleAppStore: string;
     /** Download on F-Droid */
     downloadOnFdroid: string;
     /** Download on Google Play */
     downloadOnGooglePlay: string;
+    /** Entirely Open Source */
+    entirelyOpenSource: string;
+    /** Follow and challenge friends */
+    followAndChallengeFriends: string;
+    /** Fully featured */
+    fullyFeatured: string;
+    /** Game analysis */
+    gameAnalysis: string;
     /** If the app does not open automatically, tap the "%s" button. */
     ifAppDoesNotOpenAutomatically: I18nFormat;
     /** Lichess Mobile App */
     lichessMobileApp: string;
     /** Lichess mobile screen */
     lichessMobileScreen: string;
+    /** No ads, no tracking */
+    noAdsNoTracking: string;
+    /** Online play */
+    onlinePlay: string;
     /** Open the Lichess app */
     openTheApp: string;
+    /** Phone and tablet */
+    phoneAndTablet: string;
     /** Returning to the Lichess app */
     returningToApp: string;
     /** View %s on GitHub */
