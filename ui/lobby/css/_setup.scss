@@ -376,7 +376,7 @@ $c-slider: $c-setup;
   .color-cards {
     @extend %button-shadow;
 
-    .card-radio {
+    label {
       @extend %flex-column;
 
       padding: 0.75rem;
