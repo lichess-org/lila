@@ -66,7 +66,7 @@ dialog {
     background: $c-bg-high;
     color: $c-font;
     border: $border;
-    font-size: 20px;
+    font-size: 1.25rem;
     text-align: center;
     cursor: pointer;
 
@@ -88,7 +88,7 @@ dialog {
 
       width: 32px;
       height: 32px;
-      font-size: 16px;
+      font-size: 1rem;
       border-radius: 50%;
       border: none;
 
@@ -122,7 +122,7 @@ dialog {
   &.alert {
     width: 480px;
     max-width: 100%;
-    font-size: 16px;
+    font-size: 1rem;
 
     span {
       display: flex;

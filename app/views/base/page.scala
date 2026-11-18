@@ -58,6 +58,7 @@ object page:
         head(
           charset,
           viewport,
+          meta(name := "text-scale", content := "scale"),
           metaCsp(p.csp.map(_(defaultCsp))),
           metaThemeColor,
           st.headTitle:

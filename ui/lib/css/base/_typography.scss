@@ -1,9 +1,13 @@
 html {
   @extend %base-font-fallback;
-  @include fluid-size('font-size', 12px, 14px);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  // keeps the former fluid 12px to 14px base in rem so text scales
+  font-size: clamp(0.75rem, calc(0.7083rem + 0.2222vw), 0.875rem);
 }
 
 h1,

@@ -19,6 +19,12 @@ $vp-max-width: 1200px !default;
   $u4: math.unit($max-size);
 
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    @if $prop == 'font-size' {
+      // font sizes use rem so the browser can scale them
+      $min-size: math.div($min-size, 16px) * 1rem;
+      $max-size: math.div($max-size, 16px) * 1rem;
+    }
+
     #{$prop}: $min-size;
 
     @media (min-width: $min-vw) {
