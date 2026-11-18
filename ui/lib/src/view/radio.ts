@@ -7,6 +7,7 @@ type Key = string;
 interface Button {
   key: Key;
   content: MaybeVNode | MaybeVNodes;
+  disabled?: boolean;
 }
 
 interface RadioButtons {
@@ -34,9 +35,18 @@ export const radioGroup = (opts: RadioButtons): VNode =>
               type: 'radio',
               value: btn.key,
               checked: opts.active === btn.key,
+              disabled: !!btn.disabled,
+              tabindex: btn.disabled ? -1 : 0,
             },
           }),
-          hl('label', { attrs: { for: `${opts.name}-${btn.key}` } }, btn.content),
+          hl(
+            'label',
+            {
+              attrs: { for: `${opts.name}-${btn.key}` },
+              class: { disabled: !!btn.disabled },
+            },
+            btn.content,
+          ),
         ]),
       ),
   );
