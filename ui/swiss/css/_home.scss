@@ -63,6 +63,11 @@
 
     .header {
       padding: 0;
+      width: 40%;
+    }
+
+    .infos {
+      width: 30%;
     }
 
     .team {
@@ -91,6 +96,7 @@
 
     td:last-child {
       text-align: right;
+      width: 20%;
     }
 
     .players {
