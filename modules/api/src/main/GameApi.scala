@@ -126,7 +126,7 @@ final private[api] class GameApi(
     allAnalysis.flatMap { analysisOptions =>
       gameRepo.initialFens(games).map { initialFens =>
         games.zip(analysisOptions).map { case (g, analysisOption) =>
-          gameToJson(g, analysisOption, initialFens.get(g.id).flatten, checkToken(withFlags))
+          gameToJson(g, analysisOption, initialFens.get(g.id), checkToken(withFlags))
         }
       }
     }
