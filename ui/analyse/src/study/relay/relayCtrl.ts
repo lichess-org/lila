@@ -1,6 +1,4 @@
-import { COLORS } from 'chessops';
-
-import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
+import { type Prop, type Toggle, myUserId, prop, toggle } from 'lib';
 import { fixCrazySan } from 'lib/game/chess';
 import { plyPrefix } from 'lib/game/nodePGN';
 import { pubsub } from 'lib/pubsub';
