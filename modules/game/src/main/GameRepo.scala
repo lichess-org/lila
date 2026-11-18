@@ -486,9 +486,30 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def withInitialFen(game: Game): Fu[WithInitialFen] =
     initialFen(game).dmap(WithInitialFen(game, _))
 
+  def initialFens(games: Seq[Game]): Fu[Map[GameId, Option[Fen.Full]]] =
+    def needsFen(g: Game) = g.sourceIs(_.Import) || !g.variant.standardInitialPosition
+    val needFen = games.filter(needsFen)
+    if needFen.isEmpty then fuccess(Map.empty)
+    else
+      coll.secondary
+        .primitiveMap[GameId, Fen.Full](
+          needFen.map(_.id),
+          F.initialFen,
+          _.getAsOpt[Fen.Full](F.initialFen)
+        )
+        .map: fetched =>
+          games
+            .map: g =>
+              g.id -> (
+                if needsFen(g) then
+                  fetched.get(g.id).orElse((g.variant == chess.variant.Chess960).option(Fen.initial))
+                else none
+              )
+            .toMap
+
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
-    games.parallel: game =>
-      initialFen(game).dmap(game -> _)
+    initialFens(games).map: fens =>
+      games.map(g => g -> fens.get(g.id).flatten)
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll.countSel(query(Query))
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))

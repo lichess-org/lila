@@ -124,9 +124,9 @@ final private[api] class GameApi(
       if withFlags.analysis then analysisRepo.byIds(games.map(g => Analysis.Id(g.id)))
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis.flatMap { analysisOptions =>
-      (games.map(gameRepo.initialFen)).parallel.map { initialFens =>
-        games.zip(analysisOptions).zip(initialFens).map { case ((g, analysisOption), initialFen) =>
-          gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
+      gameRepo.initialFens(games).map { initialFens =>
+        games.zip(analysisOptions).map { case (g, analysisOption) =>
+          gameToJson(g, analysisOption, initialFens.get(g.id).flatten, checkToken(withFlags))
         }
       }
     }
