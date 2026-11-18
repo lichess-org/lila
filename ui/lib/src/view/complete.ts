@@ -1,4 +1,4 @@
-import { memoize } from '@/common';
+import { isComposing, memoize } from '@/common';
 
 type Fetch<Result> = (term: string) => Promise<Result[]>;
 
@@ -82,7 +82,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
         moveSelection(-1);
         return false;
       }
-      if (e.code === 'Enter') {
+      if (e.code === 'Enter' && !isComposing(e)) {
         $container().addClass('none');
         const result =
           selectedResult() ||

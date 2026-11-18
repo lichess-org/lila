@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { blurIfEscape } from 'lib';
+import { blurIfEscape, isComposing } from 'lib';
 import { throttle } from 'lib/async';
 import { licon } from 'lib/licon';
 import { bindSubmit, alert, testId, onInsert } from 'lib/view';
@@ -85,7 +85,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // send the content on Enter
   area.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isComposing(e)) {
       e.preventDefault();
       setTimeout(send);
     } else blurIfEscape(e);

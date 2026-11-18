@@ -1,7 +1,7 @@
 import { parseFen } from 'chessops/fen';
 import { h } from 'snabbdom';
 
-import { defined } from 'lib';
+import { defined, isComposing } from 'lib';
 import { renderEval as normalizeEval } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isMobile } from 'lib/device';
@@ -208,7 +208,15 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               el.addEventListener('input', () => (ctrl.pgnInput = el.value));
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
-                if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
+                if (
+                  e.key !== 'Enter' ||
+                  isComposing(e) ||
+                  e.shiftKey ||
+                  e.ctrlKey ||
+                  e.altKey ||
+                  e.metaKey ||
+                  isMobile()
+                )
                   return undefined;
                 else if (changePgnIfDifferent()) e.preventDefault();
                 return undefined;
