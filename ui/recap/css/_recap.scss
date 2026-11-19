@@ -444,20 +444,6 @@ body {
     }
   }
 
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--glass-edge);
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    font-weight: 700;
-    font-size: 15px;
-    width: auto;
-  }
-
   .cta {
     display: inline-block;
     width: auto;
@@ -1038,31 +1024,6 @@ body {
     z-index: 2;
   }
 
-  .movelist {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    min-height: 34px;
-  }
-
-  .movelist span {
-    padding: 4px 10px;
-    border-radius: 8px;
-    background: var(--glass);
-    border: 1px solid var(--glass-edge);
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    animation: recap-pop 0.4s var(--ease-spring) both;
-  }
-
-  .movelist span.n {
-    background: none;
-    border: 0;
-    color: var(--muted);
-    padding: 4px 2px;
-  }
-
   .typed::after {
     content: '▍';
     animation: recap-blink 0.9s steps(1) infinite;
@@ -1075,11 +1036,40 @@ body {
     }
   }
 
-  .first-moves {
-    display: flex;
+  // equal columns, so a long opening name wraps instead of widening its board's column
+  .openings {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, min(300px, 34vh));
     justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: clamp(14px, 4vw, 40px);
+  }
+
+  .opening {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    width: auto;
+  }
+
+  .opening .board-wrap {
+    width: 100%;
+  }
+
+  .opening__name {
+    margin-top: 6px;
+    font-size: clamp(16px, 2.6vw, 22px);
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+    min-height: 1.2em;
+  }
+
+  .opening small {
+    color: var(--muted);
+    font-size: 14px;
   }
 
   /* ---------- puzzles mosaic ---------- */

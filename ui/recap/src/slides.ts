@@ -281,74 +281,51 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     },
   };
 
-  const first = G.firstMoves[0];
-  const firstMove: SlideDef | false = !!first &&
-    G.nbWhite > 0 && {
-      key: 'first',
-      theme: ['#4f46e5', '#818cf8', '#22d3ee'],
-      render(el, sc) {
-        const board = makeBoard('white');
-        el.innerHTML = `
-            <p class="kicker reveal">${esc(i18n.recap.firstMoveTitle)}</p>
-            <p class="mega mega--sm reveal">1. ${esc(first.value)}</p>`;
-        el.appendChild(board.el);
-        const stats = raw(
-          `${countSpan(first.count, 1.5).html} (${esc(percentFormat(first.count / G.nbWhite, 0))})`,
-        );
-        el.insertAdjacentHTML(
+  // first move and favourite openings, on one slide with a board per colour
+  const first = G.nbWhite > 0 ? G.firstMoves[0] : undefined;
+  const favouriteOpenings = (['white', 'black'] as const).filter(c => G.openings[c]?.count);
+  const openings: SlideDef | false = (!!first || favouriteOpenings.length > 0) && {
+    key: 'openings',
+    theme: ['#4f46e5', '#818cf8', '#22d3ee'],
+    dur: 9500,
+    render(el, sc) {
+      const stats =
+        first &&
+        raw(`${countSpan(first.count, 0.6).html} (${esc(percentFormat(first.count / G.nbWhite, 0))})`);
+      el.innerHTML = `
+        ${
+          first && stats
+            ? `<p class="kicker reveal">${esc(i18n.recap.firstMoveTitle)}</p>
+              <p class="mega mega--sm reveal">1. ${esc(first.value)}</p>
+              <p class="lead reveal" style="--d:.6s">${trHtml(i18n.recap.firstMoveStats.asArray(stats))}</p>`
+            : ''
+        }
+        <div class="openings"></div>`;
+      const grid = el.querySelector('.openings')!;
+      favouriteOpenings.forEach((color, i) => {
+        const o = G.openings[color];
+        const delay = 1 + i * 0.25;
+        const board = makeBoard(color);
+        const card = document.createElement('div');
+        card.className = 'opening reveal';
+        card.style.setProperty('--d', `${delay}s`);
+        card.appendChild(board.el);
+        card.insertAdjacentHTML(
           'beforeend',
-          `<p class="lead reveal" style="--d:1.5s">${trHtml(i18n.recap.firstMoveStats.asArray(stats))}</p>
-            ${
-              G.firstMoves.length > 1
-                ? `<div class="first-moves">${G.firstMoves
-                    .slice(1, 5)
-                    .map(
-                      (f, i) =>
-                        `<span class="chip reveal" style="--d:${2.2 + i * 0.12}s">1. ${esc(f.value)} <span class="small num">${fmt(f.count)}</span></span>`,
-                    )
-                    .join('')}</div>`
-                : ''
-            }`,
+          `<a class="opening__name typed" href="/opening/${esc(o.value.key)}" target="_blank"></a>
+          <small>${esc(color === 'white' ? i18n.site.asWhite : i18n.site.asBlack)} · ${trHtml(
+            i18n.site.nbGames.asArray(o.count, countSpan(o.count, delay + 0.4, 'b')),
+          )}</small>`,
         );
-        countAll(sc, el, { dur: 1600 });
-        sc.after(1300, () => board.play(first.value));
-      },
-    };
-
-  const openings: (SlideDef | false)[] = (['white', 'black'] as const).map(color => {
-    const o = G.openings[color];
-    return (
-      !!o?.count && {
-        key: 'opening-' + color,
-        theme: color === 'white' ? ['#e2e8f0', '#38bdf8', '#a78bfa'] : ['#4338ca', '#818cf8', '#ec4899'],
-        dur: 8500,
-        render(el, sc) {
-          const board = makeBoard(color);
-          const moves = parsePgnMoves(o.value.pgn);
-          const mostPlayed =
-            color === 'white' ? i18n.recap.openingsMostPlayedAsWhite : i18n.recap.openingsMostPlayedAsBlack;
-          el.innerHTML = `<p class="headline"><a class="typed" href="/opening/${esc(o.value.key)}" target="_blank"></a></p>`;
-          el.appendChild(board.el);
-          el.insertAdjacentHTML(
-            'beforeend',
-            `<div class="movelist"></div>
-            <p class="lead reveal" style="--d:1s">${trHtml(mostPlayed.asArray(o.count, countSpan(o.count, 1)))}</p>`,
-          );
-          countAll(sc, el, { dur: 1600 });
-          typeText(sc, el.querySelector('.typed')!, o.value.name, 300);
-          const list = el.querySelector('.movelist')!;
-          const step = Math.min(700, 5200 / Math.max(1, moves.length));
-          moves.forEach((san, i) =>
-            sc.after(1100 + i * step, () => {
-              if (i % 2 === 0) list.insertAdjacentHTML('beforeend', `<span class="n">${i / 2 + 1}.</span>`);
-              list.insertAdjacentHTML('beforeend', `<span>${esc(san)}</span>`);
-              board.play(san);
-            }),
-          );
-        },
-      }
-    );
-  });
+        grid.appendChild(card);
+        typeText(sc, card.querySelector<HTMLElement>('.opening__name')!, o.value.name, delay * 1000 + 300);
+        const moves = parsePgnMoves(o.value.pgn);
+        const step = Math.min(700, 5600 / Math.max(1, moves.length));
+        moves.forEach((san, m) => sc.after(delay * 1000 + 900 + m * step, () => board.play(san)));
+      });
+      countAll(sc, el, { dur: 1600 });
+    },
+  };
 
   const P = R.puzzles;
   const puzzles: SlideDef = {
@@ -539,8 +516,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     perfs,
     sourcesSlide,
     opponents,
-    firstMove,
-    ...openings,
+    openings,
     puzzles,
     lichessGames,
     malware,

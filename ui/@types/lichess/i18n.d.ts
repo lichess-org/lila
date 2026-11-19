@@ -3355,10 +3355,6 @@ interface I18n {
     noGamesCta: string;
     /** You did not play any games this year. */
     noGamesText: string;
-    /** Your most played opening as black with %s games */
-    openingsMostPlayedAsBlack: I18nPlural;
-    /** Your most played opening as white with %s games */
-    openingsMostPlayedAsWhite: I18nPlural;
     /** What time controls and variants did you play? */
     perfsTitle: string;
     /** Needed another go */

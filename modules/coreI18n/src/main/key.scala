@@ -1742,8 +1742,6 @@ object I18nKey:
     val `nbMoves`: I18nKey = "recap:nbMoves"
     val `nbGrams`: I18nKey = "recap:nbGrams"
     val `nbKilograms`: I18nKey = "recap:nbKilograms"
-    val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
-    val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
     val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
     val `donateYouPlayedMinutes`: I18nKey = "recap:donateYouPlayedMinutes"
