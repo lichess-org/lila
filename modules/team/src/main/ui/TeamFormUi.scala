@@ -165,19 +165,17 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
       )
     )
 
-  private def prizeClaimantField(form: Form[?])(using Context) =
-    Granter
-      .opt(_.ManageTeam)
-      .option:
-        form3.group(
-          form("prizeClaimant"),
-          "Prize claimant",
-          help = frag(
-            "Lichess staff only. When this team wins a prize tournament, the payout message will be sent to this user instead of the team owner. Leave empty to message the owner."
-          ).some
-        ): field =>
-          div(cls := "complete-parent"):
-            form3.input(field, klass = "user-autocomplete")(dataTag := "span")
+  private def prizeClaimantField(form: Form[?])(using Context, Me) =
+    Granter(_.ManageTeam).option:
+      form3.group(
+        form("prizeClaimant"),
+        "Prize claimant",
+        help = frag(
+          "Lichess staff only. When this team wins a prize tournament, the payout message will be sent to this user instead of the team owner. Leave empty to message the owner."
+        ).some
+      ): field =>
+        div(cls := "complete-parent"):
+          form3.input(field, klass = "user-autocomplete")(dataTag := "span")
 
   private def entryFields(form: Form[?], team: Option[Team])(using ctx: Context) =
     team
