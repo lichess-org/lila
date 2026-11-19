@@ -32,10 +32,7 @@ final class Recap(env: Env) extends LilaController(env):
     val currencyApi = env.plan.currencyApi
     for
       pricing <- env.plan.priceApi.pricingOrDefault(currencyApi.guessCurrency(get("currency")))
-      rate <-
-        // /patron's euro prices are the same numbers as its dollar prices, so do the same here
-        if pricing.currency == currencyApi.EUR then fuccess(BigDecimal(1).some)
-        else currencyApi.convert(lila.plan.Money(1, currencyApi.USD), pricing.currency).map(_.map(_.amount))
+      rate <- currencyApi.convert(lila.plan.Money(1, currencyApi.USD), pricing.currency).map(_.map(_.amount))
     yield
       // without an exchange rate, fall back to USD
       val (currency, usdRate, stripe, payPal) = rate match

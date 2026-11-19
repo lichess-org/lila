@@ -24,7 +24,7 @@ export const usdCheckout: CheckoutOpts = {
 
 // a USD amount in the visitor's currency, rounded to 2 significant figures so it reads naturally
 export const localAmount = (usd: number, { currency, usdRate }: CheckoutOpts): number => {
-  if (usdRate === 1) return usd; // USD, and EUR which /patron prices 1:1 with USD
+  if (currency === 'USD') return usd;
   const n = usd * usdRate;
   const step = Math.pow(10, Math.floor(Math.log10(n)) - 1);
   return roundToCurrency(Math.round(n / step) * step, currency);
