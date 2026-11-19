@@ -690,30 +690,6 @@
       },
     });
 
-    // ---- patron
-    S.push({
-      key: 'patron',
-      title: 'Support',
-      theme: ['#be185d', '#f59e0b', '#f43f5e'],
-      render(el, sc) {
-        const c = opts.costs;
-        const money = c
-          ? new Intl.NumberFormat('en', { style: 'currency', currency: c.currency, maximumFractionDigits: 0 })
-          : null;
-        el.innerHTML = `
-          <i class="icon wings reveal"></i>
-          ${c ? `<p class="headline reveal" style="--d:.3s">Lichess's <a href="/costs" target="_blank">costs</a> this year were <span class="hl num" data-count="${c.amount}" data-delay=".5">0</span></p>` : ''}
-          <p class="lead reveal" style="--d:1s">We're a charity, running purely on donations.</p>
-          ${
-            U.patron
-              ? `<p class="lead reveal" style="--d:1.6s">Thank you for being a Patron! 💖</p>`
-              : `<p class="small reveal" style="--d:1.6s">If we helped entertain you this year, or you believe in our work, please consider</p>
-                 <a class="cta reveal" style="--d:2s" href="/patron" target="_blank">supporting us with a donation</a>`
-          }`;
-        if (money) countAll(sc, el, { dur: 2200, format: v => money.format(v) });
-      },
-    });
-
     // ---- thanks
     S.push({
       key: 'thanks',
@@ -734,7 +710,7 @@
       key: 'share',
       title: 'Share',
       theme: ['#7c3aed', '#06b6d4', '#f43f5e'],
-      dur: Infinity,
+      dur: 9000,
       render(el, sc) {
         const topPerf = G.perfs[0];
         const stat = (v, l, wide) =>
@@ -804,7 +780,198 @@
       },
     });
 
+    // ---- donate: hook, pre-selected tier, regional price anchor, impact
+    S.push({
+      key: 'donate',
+      title: 'Support Lichess',
+      theme: ['#be185d', '#f59e0b', '#f43f5e'],
+      dur: Infinity,
+      top: true,
+      render: (el, sc) => renderDonate(el, sc, opts, start),
+    });
+
     return S;
+  };
+
+  /* ================= donate slide ================= */
+
+  // Lichess costs roughly $1.50 per minute of global uptime
+  const UPTIME_USD_PER_MINUTE = 1.5;
+  const TIERS = {
+    monthly: [2.5, 5, 10], // minutes of uptime per month
+    once: [30, 60, 120], // minutes of uptime, one-off
+  };
+  // What 5 minutes of Lichess looks like. PLACEHOLDER estimates, replace with real figures.
+  const FIVE_MINUTES = {
+    moves: Math.round((TOTAL_LICHESS_GAMES / (365 * 24 * 12)) * 70),
+    games: Math.round(TOTAL_LICHESS_GAMES / (365 * 24 * 12)),
+    players: 110_000,
+    schools: 320,
+  };
+  // $7.50 around the world. In production the region would come from Cloudflare's country header.
+  const PRICE_ANCHORS = [
+    { region: 'na', flag: '🇺🇸', text: 'a Starbucks coffee in New York' },
+    { region: 'eu', flag: '🇬🇧', text: 'two bus journeys in London' },
+    { region: 'eu', flag: '🇫🇷', text: 'a glass of house wine in Paris' },
+    { region: 'as', flag: '🇯🇵', text: 'a bowl of ramen in Tokyo' },
+    { region: 'sa', flag: '🇧🇷', text: 'a plate of feijoada in São Paulo' },
+    { region: 'af', flag: '🇿🇦', text: 'a cinema ticket in Cape Town' },
+    { region: 'oc', flag: '🇦🇺', text: 'a flat white and a pastry in Melbourne' },
+  ];
+  const ANTARCTICA = { region: 'an', flag: '🐧', text: 'one premium fish at the McMurdo Station canteen' };
+
+  const SOUTH_AMERICA =
+    /^America\/(Sao_Paulo|Argentina|Buenos_Aires|Bogota|Lima|Santiago|Caracas|Montevideo|La_Paz|Asuncion|Guayaquil|Cayenne|Paramaribo|Guyana|Recife|Fortaleza|Belem|Manaus|Bahia)/;
+  const detectRegion = () => {
+    const forced = new URLSearchParams(location.search).get('region');
+    if (forced) return forced;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.startsWith('Antarctica/')) return 'an';
+    if (SOUTH_AMERICA.test(tz)) return 'sa';
+    if (tz.startsWith('America/') || tz.startsWith('US/') || tz.startsWith('Canada/')) return 'na';
+    if (tz.startsWith('Europe/') || tz === 'Atlantic/Reykjavik') return 'eu';
+    if (tz.startsWith('Asia/')) return 'as';
+    if (tz.startsWith('Africa/')) return 'af';
+    if (tz.startsWith('Australia/') || tz.startsWith('Pacific/')) return 'oc';
+    return 'na';
+  };
+
+  const usd = n =>
+    new Intl.NumberFormat('en', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: n % 1 ? 2 : 0,
+      maximumFractionDigits: 2,
+    }).format(n);
+  const minsLabel = m => (m >= 60 && m % 60 === 0 ? `${m / 60} hour${m > 60 ? 's' : ''}` : `${m} min${m === 1 ? '' : 's'}`);
+
+  const renderDonate = (el, sc, opts, start) => {
+    const minutes = Math.round(opts.recap.games.timePlaying / 60);
+    const region = detectRegion();
+    const anchors =
+      region === 'an'
+        ? [ANTARCTICA]
+        : [...PRICE_ANCHORS.filter(a => a.region === region), ...PRICE_ANCHORS.filter(a => a.region !== region)];
+    const state = { freq: 'monthly', tier: 1 };
+
+    el.innerHTML = `
+      <p class="kicker reveal">${opts.user.patron ? 'You are already a Patron 💖 One more thing…' : 'One more thing…'}</p>
+      <p class="headline donate__hook reveal" style="--d:.15s">This year, you played around <span class="hl num" data-count="${minutes}" data-delay=".3">0</span> minutes on Lichess!</p>
+      <p class="lead reveal" style="--d:.9s">If you've enjoyed them, consider donating <strong data-slot="pitch"></strong> of global uptime<span data-slot="every"></span>:</p>
+      <div class="donate__panel reveal" style="--d:1.3s">
+        <div class="freq" role="radiogroup" aria-label="Donation frequency">
+          <i class="freq__pill"></i>
+          <button role="radio" data-freq="monthly">Monthly</button>
+          <button role="radio" data-freq="once">One-off</button>
+        </div>
+        <div class="tiers" role="radiogroup" aria-label="Amount"></div>
+        <div class="donate__actions">
+          <a class="cta donate__go" target="_blank" rel="noopener"></a>
+          <button class="donate__skip">Not today</button>
+        </div>
+      </div>
+      <div class="donate__after" hidden></div>
+      <p class="anchor reveal" style="--d:1.8s">
+        Keeping Lichess running for <b>5 minutes</b>, worldwide, costs us <b>${usd(5 * UPTIME_USD_PER_MINUTE)}</b>.
+        That's about the same as <span class="ticker"></span>
+      </p>
+      <div class="impact reveal" style="--d:2.2s">
+        <p class="small">In those 5 minutes, Lichess will see</p>
+        <div class="impact__grid">
+          <div><b class="num" data-count="${FIVE_MINUTES.moves}" data-delay="2.3">0</b><small>moves</small></div>
+          <div><b class="num" data-count="${FIVE_MINUTES.games}" data-delay="2.3">0</b><small>games</small></div>
+          <div><b class="num" data-count="${FIVE_MINUTES.players}" data-delay="2.3">0</b><small>players</small></div>
+          <div><b class="num" data-count="${FIVE_MINUTES.schools}" data-delay="2.3">0</b><small>schools</small></div>
+        </div>
+      </div>`;
+    countAll(sc, el, { dur: 2000 });
+
+    const $in = s => el.querySelector(s);
+    const tiersEl = $in('.tiers');
+    const go = $in('.donate__go');
+
+    const update = () => {
+      const tierMins = TIERS[state.freq];
+      const monthly = state.freq === 'monthly';
+      $in('.freq').dataset.freq = state.freq;
+      el.querySelectorAll('[data-freq]').forEach(b => b.setAttribute('aria-checked', b.dataset.freq === state.freq));
+      tiersEl.innerHTML = tierMins
+        .map(
+          (m, i) => `<button role="radio" aria-checked="${i === state.tier}" class="tier${i === state.tier ? ' tier--on' : ''}" data-tier="${i}">
+            ${i === 1 ? '<em>suggested</em>' : ''}
+            <b>${usd(m * UPTIME_USD_PER_MINUTE)}</b>
+            <small>${minsLabel(m)} of uptime ${monthly ? 'per month' : 'per year'}</small>
+          </button>`,
+        )
+        .join('');
+      const m = tierMins[state.tier];
+      const amount = m * UPTIME_USD_PER_MINUTE;
+      $in('[data-slot=pitch]').textContent = minsLabel(m).replace(/\bmins?\b/, w => (w === 'min' ? 'minute' : 'minutes'));
+      $in('[data-slot=every]').textContent = monthly ? ', every month' : '';
+      go.textContent = `Donate ${usd(amount)}${monthly ? ' / month' : ''}`;
+      // the patron page does not read these yet: it would need to pre-select the plan
+      go.href = `/patron?freq=${monthly ? 'monthly' : 'onetime'}&amount=${amount}`;
+    };
+    update();
+
+    el.querySelectorAll('[data-freq]').forEach(
+      b =>
+        (b.onclick = () => {
+          state.freq = b.dataset.freq;
+          update();
+        }),
+    );
+    tiersEl.addEventListener('click', e => {
+      const b = e.target.closest('[data-tier]');
+      if (!b) return;
+      state.tier = +b.dataset.tier;
+      update();
+    });
+
+    const after = (html, celebrate) => {
+      $in('.donate__panel').hidden = true;
+      const box = $in('.donate__after');
+      box.hidden = false;
+      box.innerHTML = html;
+      box.querySelector('[data-act=replay]').onclick = () => start(0);
+      const back = box.querySelector('[data-act=back]');
+      if (back)
+        back.onclick = () => {
+          box.hidden = true;
+          $in('.donate__panel').hidden = false;
+        };
+      if (celebrate) {
+        const r = box.getBoundingClientRect();
+        Bg.burst(r.left + r.width / 2, r.top + r.height / 2, 160, ['#f59e0b', '#f43f5e', '#fde047']);
+        sc.onDispose(Bg.fireworks(6, 2000));
+      }
+    };
+    go.addEventListener('click', () =>
+      after(
+        `<p class="headline">💖</p>
+         <p class="lead">Thank you for supporting chess for everyone. All forms of support from the community are vital for us!</p>
+         <button class="cta cta--ghost" data-act="replay">Replay my recap ↺</button>`,
+        true,
+      ),
+    );
+    $in('.donate__skip').onclick = () =>
+      after(
+        `<p class="lead">No worries! Thank you for playing on Lichess. All forms of support from the community are vital for us, and that includes just being here 💜</p>
+         <div class="donate__actions">
+           <button class="cta cta--ghost" data-act="replay">Replay my recap ↺</button>
+           <button class="donate__skip" data-act="back">Changed my mind</button>
+         </div>`,
+        false,
+      );
+
+    const ticker = $in('.ticker');
+    let n = 0;
+    const show = () => {
+      const a = anchors[n++ % anchors.length];
+      ticker.innerHTML = `<span class="ticker__item">${a.flag} <b>${esc(a.text)}</b></span>`;
+      if (anchors.length > 1) sc.after(n === 1 ? 4500 : 2800, show);
+    };
+    show();
   };
 
   /* ================= slide-specific visuals ================= */
