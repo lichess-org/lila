@@ -1683,7 +1683,7 @@ object I18nKey:
     val `firstMoveTitle`: I18nKey = "recap:firstMoveTitle"
     val `firstMoveStats`: I18nKey = "recap:firstMoveStats"
     val `puzzlesHelpedTagging`: I18nKey = "recap:puzzlesHelpedTagging"
-    val `puzzlesYouWonOnFirstTry`: I18nKey = "recap:puzzlesYouWonOnFirstTry"
+    val `puzzlesYouSolvedOnFirstTry`: I18nKey = "recap:puzzlesYouSolvedOnFirstTry"
     val `puzzlesFirstTry`: I18nKey = "recap:puzzlesFirstTry"
     val `puzzlesAnotherGo`: I18nKey = "recap:puzzlesAnotherGo"
     val `sourcesTitle`: I18nKey = "recap:sourcesTitle"

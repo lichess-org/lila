@@ -349,7 +349,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           <span><i class="w"></i>${esc(i18n.recap.puzzlesFirstTry)}</span>
           <span><i class="l"></i>${esc(i18n.recap.puzzlesAnotherGo)}</span>
         </div>
-        ${P.nbs.win ? `<p class="lead reveal" style="--d:2.4s">${trHtml(i18n.recap.puzzlesYouWonOnFirstTry.asArray(countSpan(P.nbs.win, 2.4)))}</p>` : ''}
+        ${P.nbs.win ? `<p class="lead reveal" style="--d:2.4s">${trHtml(i18n.recap.puzzlesYouSolvedOnFirstTry.asArray(countSpan(P.nbs.win, 2.4)))}</p>` : ''}
         ${
           P.votes.nb
             ? `<p class="small reveal" style="--d:3s">${esc(i18n.recap.puzzlesThanksVoting(P.votes.nb, fmt(P.votes.nb)))}

@@ -3373,8 +3373,8 @@ interface I18n {
     puzzlesHelpedTagging: I18nFormat;
     /** Thank you for voting on %s puzzles. */
     puzzlesThanksVoting: I18nPlural;
-    /** You won %s of them on the first try! */
-    puzzlesYouWonOnFirstTry: I18nFormat;
+    /** You solved %s of them on the first try! */
+    puzzlesYouSolvedOnFirstTry: I18nFormat;
     /** Your %s recap is ready! */
     recapReady: I18nFormat;
     /** favourite first move */

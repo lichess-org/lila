@@ -55,7 +55,7 @@
         <item quantity="other">Thank you for voting on %s puzzles.</item>
     </plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">You also helped tag %s of them.</string>
-	<string name="puzzlesYouWonOnFirstTry">You won %s of them on the first try!</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">You solved %s of them on the first try!</string>
 	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">First try</string>
 	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Needed another go</string>
 	<string name="sourcesTitle">Where did you find games?</string>
