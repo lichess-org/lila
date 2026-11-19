@@ -4,6 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{
+  SingleChange,
   cleanNonEmptyText,
   cleanText,
   cleanTextWithSymbols,
@@ -11,6 +12,7 @@ import lila.common.Form.{
   mustNotContainLichess,
   numberIn,
   tagifyValues,
+  username,
   given
 }
 import lila.core.captcha.CaptchaApi
@@ -18,6 +20,7 @@ import lila.core.team.Access
 import lila.core.user.FlairApi
 import lila.db.dsl.{ *, given }
 import lila.mon.extensions.*
+import lila.core.perm.Granter
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor
@@ -51,7 +54,11 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      "flair" -> flairApi.formField()
+      "flair" -> flairApi.formField(),
+      "prizeClaimant" -> {
+        if Granter(_.ManageTeam) then optional(username.idField)
+        else ignored(team.prizeClaimant)
+      }
     )(TeamEdit.apply)(unapply)
   ).fill:
     TeamEdit(
@@ -63,7 +70,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       chat = team.chat,
       forum = team.forum,
       hideMembers = team.hideMembers.has(true),
-      flair = team.flair
+      flair = team.flair,
+      prizeClaimant = team.prizeClaimant
     )
 
   def request(team: Team) = Form(
@@ -92,7 +100,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
 
   val selectMember = Form:
     single:
-      "userId" -> lila.common.Form.username.historicalField
+      "userId" -> username.historicalField
 
   def createWithCaptcha(using Me) = create -> captcha.any
 
@@ -113,7 +121,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   val searchDeclinedForm: Form[Option[UserStr]] = Form(
-    single("search" -> optional(lila.common.Form.username.historicalField))
+    single("search" -> optional(username.historicalField))
   )
 
   val subscribe = Form(single("subscribe" -> optional(boolean)))
@@ -145,7 +153,8 @@ private case class TeamEdit(
     chat: Access,
     forum: Access,
     hideMembers: Boolean,
-    flair: Option[Flair]
+    flair: Option[Flair],
+    prizeClaimant: Option[UserId]
 ):
   def isOpen = !request
 
@@ -188,8 +197,8 @@ object TeamForm:
 
 object TeamSingleChange:
 
-  type Change[A] = lila.common.Form.SingleChange.Change[Team, A]
-  private def changing[A] = lila.common.Form.SingleChange.changing[Team, TeamForm.Fields.type, A]
+  type Change[A] = SingleChange.Change[Team, A]
+  private def changing[A] = SingleChange.changing[Team, TeamForm.Fields.type, A]
 
   val changes: Map[String, Change[?]] = List[Change[?]](
     changing(_.password): v =>
