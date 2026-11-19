@@ -1,34 +1,16 @@
-import { currencyFormat, roundToCurrency } from 'lib/i18n';
+import { currencyFormat } from 'lib/i18n';
 import * as xhr from 'lib/xhr';
 
-import type { CheckoutOpts } from './interfaces';
+import type { Freq } from './interfaces';
 
 // Donations from the recap use the same endpoints as /patron, in the visitor's currency.
 // The page loads Stripe.js and both PayPal SDKs, see modules/recap/src/main/ui/RecapUi.scala
-
-export type Freq = 'monthly' | 'onetime';
 
 export interface Donation {
   amount: number; // in `currency`
   currency: string;
   freq: Freq;
 }
-
-export const usdCheckout: CheckoutOpts = {
-  stripePublicKey: '',
-  currency: 'USD',
-  usdRate: 1,
-  stripe: true,
-  payPal: true,
-};
-
-// a USD amount in the visitor's currency, rounded to 2 significant figures so it reads naturally
-export const localAmount = (usd: number, { currency, usdRate }: CheckoutOpts): number => {
-  if (currency === 'USD') return usd;
-  const n = usd * usdRate;
-  const step = Math.pow(10, Math.floor(Math.log10(n)) - 1);
-  return roundToCurrency(Math.round(n / step) * step, currency);
-};
 
 // whole amounts without decimals: €7, but €6.90
 export const formatMoney = (n: number, currency: string): string =>

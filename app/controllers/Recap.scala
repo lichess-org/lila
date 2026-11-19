@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.*
 import lila.recap.Recap.Availability
+import lila.recap.ui.RecapUi
 
 final class Recap(env: Env) extends LilaController(env):
 
@@ -27,30 +28,26 @@ final class Recap(env: Env) extends LilaController(env):
   }
 
   // picks the visitor's currency like /patron does: ?currency=, then their country, then their language
-  private def donationCheckout(using ctx: Context): Fu[lila.recap.ui.RecapUi.Checkout] =
-    val currencyApi = env.plan.currencyApi
+  private def donationCheckout(using ctx: Context): Fu[RecapUi.Checkout] =
+    import RecapUi.Checkout.{ allMinutes, uptimeUsdPerMinute }
+    val priceApi = env.plan.priceApi
     for
-      pricing <- env.plan.priceApi.pricingOrDefault(currencyApi.guessCurrency(get("currency")))
-      rate <- currencyApi.convert(lila.plan.Money(1, currencyApi.USD), pricing.currency).map(_.map(_.amount))
+      pricing <- priceApi.pricingOrDefault(env.plan.currencyApi.guessCurrency(get("currency")))
+      local <- allMinutes.parallel(m => priceApi.localize(m * uptimeUsdPerMinute, pricing.currency))
     yield
       // without an exchange rate, fall back to USD
-      val (currency, usdRate, stripe, payPal) = rate match
-        case Some(r) =>
-          (
-            pricing.currencyCode,
-            r.toDouble,
-            pricing.stripeSupportsCurrency,
-            pricing.payPalSupportsCurrency
-          )
-        case None => ("USD", 1d, true, true)
-      lila.recap.ui.RecapUi.Checkout(
+      val (p, prices) = local.sequence.fold(
+        priceApi.usdPricing -> allMinutes.map(_ * uptimeUsdPerMinute)
+      )(pricing -> _.map(_.amount))
+      val byMinutes = allMinutes.zip(prices).toMap
+      RecapUi.Checkout(
         stripePublicKey = env.plan.stripePublicKey,
         payPalClientId = env.plan.payPalPublicKey,
         payPalLocale = lila.plan.PayPalClient.locale(ctx.lang),
-        currency = currency,
-        usdRate = usdRate,
-        stripe = stripe,
-        payPal = payPal
+        currency = p.currencyCode,
+        stripe = p.stripeSupportsCurrency,
+        payPal = p.payPalSupportsCurrency,
+        price = byMinutes
       )
 
   private def RecapPage(

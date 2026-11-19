@@ -1,17 +1,9 @@
 import { numberFormat } from 'lib/i18n';
 
-import {
-  type Freq,
-  formatMoney,
-  hasStripe,
-  localAmount,
-  renderPayPal,
-  stripeCheckout,
-  usdCheckout,
-} from './checkout';
-import { donationTiers, fiveMinutes, uptimeUsdPerMinute } from './constants';
+import { formatMoney, hasStripe, renderPayPal, stripeCheckout } from './checkout';
+import { fiveMinutes } from './constants';
 import { countSpan, esc, pluralLabel, raw, trHtml } from './html';
-import type { SlideCtx } from './interfaces';
+import type { Freq, SlideCtx } from './interfaces';
 import { countAll, type Scope } from './scope';
 
 type Region = 'na' | 'eu' | 'as' | 'sa' | 'af' | 'oc' | 'an';
@@ -56,9 +48,7 @@ const cardIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5
 
 export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
-  const checkout = opts.checkout ?? usdCheckout;
-  // what some minutes of uptime cost, in the visitor's currency
-  const price = (mins: number) => localAmount(mins * uptimeUsdPerMinute, checkout);
+  const checkout = opts.checkout;
   const money = (n: number) => formatMoney(n, checkout.currency);
   const region = detectRegion();
   const anchors =
@@ -68,7 +58,8 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   // a monthly checkout would replace an existing subscription, so patrons only get one-time donations
   const isPatron = !!(opts.user.patron || opts.user.patronColor);
   const state: { freq: Freq; tier: number } = { freq: isPatron ? 'onetime' : 'monthly', tier: 1 };
-  const fiveMins = i18n.site.nbMinutes(5);
+  const example = checkout.example;
+  const exampleMins = i18n.site.nbMinutes(example.minutes, numberFormat(example.minutes));
   const impact = (n: number, plural: I18nPlural) =>
     `<div><b class="num" data-count="${n}" data-delay="2.3">0</b><small>${esc(pluralLabel(plural, n))}</small></div>`;
 
@@ -103,11 +94,11 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     <div class="donate__after" hidden></div>
     <p class="anchor reveal" style="--d:1.8s">
       ${esc(i18n.recap.donateCharity)}
-      ${trHtml(i18n.recap.donateUptimeCosts.asArray(raw(`<b>${esc(fiveMins)}</b>`), raw(`<b>${esc(money(price(5)))}</b>`)))}
+      ${trHtml(i18n.recap.donateUptimeCosts.asArray(raw(`<b>${esc(exampleMins)}</b>`), raw(`<b>${esc(money(example.amount))}</b>`)))}
       ${trHtml(i18n.recap.donateSameAs.asArray(raw('<span class="ticker"></span>')))}
     </p>
     <div class="impact reveal" style="--d:2.2s">
-      <p class="small">${esc(i18n.recap.donateInThoseMinutes(fiveMins))}</p>
+      <p class="small">${esc(i18n.recap.donateInThoseMinutes(exampleMins))}</p>
       <div class="impact__grid">
         ${impact(fiveMinutes.moves, i18n.recap.nbMoves)}
         ${impact(fiveMinutes.games, i18n.site.nbGames)}
@@ -125,7 +116,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     onetime: $in('.donate__paypal[data-freq=onetime]'),
   };
   const donation = () => ({
-    amount: price(donationTiers[state.freq][state.tier]),
+    amount: checkout.tiers[state.freq][state.tier].amount,
     currency: checkout.currency,
     freq: state.freq,
   });
@@ -134,24 +125,24 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
 
   const update = () => {
     const monthly = state.freq === 'monthly';
-    const tierMins = donationTiers[state.freq];
+    const tiers = checkout.tiers[state.freq];
     $in('.freq').dataset.freq = state.freq;
     el.querySelectorAll<HTMLElement>('.freq button').forEach(b =>
       b.setAttribute('aria-checked', String(b.dataset.freq === state.freq)),
     );
-    tiersEl.innerHTML = tierMins
-      .map((m, i) => {
+    tiersEl.innerHTML = tiers
+      .map(({ minutes: m, amount }, i) => {
         const on = i === state.tier;
         const uptime = monthly ? i18n.recap.donateMinutesOfUptimePerMonth : i18n.recap.donateMinutesOfUptime;
         return `<button role="radio" aria-checked="${on}" class="tier${on ? ' tier--on' : ''}" data-tier="${i}">
           ${i === 1 ? `<em>${esc(i18n.recap.donateSuggested)}</em>` : ''}
-          <b>${esc(money(price(m)))}</b>
+          <b>${esc(money(amount))}</b>
           <small>${esc(uptime(m, numberFormat(m)))}</small>
         </button>`;
       })
       .join('');
-    const m = tierMins[state.tier];
-    const amount = money(price(m));
+    const { minutes: m, amount: tierAmount } = tiers[state.tier];
+    const amount = money(tierAmount);
     const pitch = raw(`<strong>${esc(i18n.site.nbMinutes(m, numberFormat(m)))}</strong>`);
     $in('.donate__pitch').innerHTML = trHtml(
       (minutes

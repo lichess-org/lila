@@ -92,6 +92,11 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
     def apply(currency: Currency): Fu[JsonStr] =
       cache.get {}.map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
 
+  // a US dollar amount in another currency, rounded like the suggested amounts of /patron
+  def localize(usd: BigDecimal, to: Currency): Fu[Option[Money]] =
+    if to == USD then fuccess(Money(usd, USD).some)
+    else convertAndRound(Money(usd, USD), to)
+
   private def convertAndRound(money: Money, to: Currency, nice: Boolean = true): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { m =>
       val amount =

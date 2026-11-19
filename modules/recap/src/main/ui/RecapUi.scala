@@ -57,14 +57,29 @@ object RecapUi:
       payPalClientId: String,
       payPalLocale: Option[String],
       currency: String, // ISO code, e.g. EUR
-      usdRate: Double, // units of currency per US dollar
       stripe: Boolean, // whether Stripe and PayPal accept this currency
-      payPal: Boolean
+      payPal: Boolean,
+      price: BigDecimal => BigDecimal // minutes of uptime -> what they cost, in currency
   ):
+    import Checkout.*
+    private def tier(minutes: BigDecimal) = Json.obj("minutes" -> minutes, "amount" -> price(minutes))
     def json = Json.obj(
       "stripePublicKey" -> stripePublicKey,
       "currency" -> currency,
-      "usdRate" -> usdRate,
       "stripe" -> stripe,
-      "payPal" -> payPal
+      "payPal" -> payPal,
+      "example" -> tier(exampleMinutes),
+      "tiers" -> JsObject(tiers.view.mapValues(ms => JsArray(ms.map(tier))).toSeq)
     )
+
+  object Checkout:
+    // Lichess costs roughly $1.50 per minute of global uptime
+    val uptimeUsdPerMinute = BigDecimal(1.5)
+    // what these minutes of uptime cost is shown as an example, see `fiveMinutes` in ui/recap/src/constants.ts
+    val exampleMinutes = BigDecimal(5)
+    // minutes of uptime per donation tier, the middle one is suggested
+    val tiers: Map[String, List[BigDecimal]] = Map(
+      "monthly" -> List(2.5, 5, 10),
+      "onetime" -> List(30, 60, 120)
+    )
+    val allMinutes: List[BigDecimal] = (exampleMinutes :: tiers.values.flatten.toList).distinct
