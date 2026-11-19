@@ -415,8 +415,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         <ul class="checks">
           <li style="--d:2s">${esc(i18n.recap.malwareNoSell)}</li>
           <li style="--d:2.3s">${esc(i18n.recap.malwareNoAbuse)}</li>
-        </ul>
-        <p class="small reveal" style="--d:2.8s">${trHtml(i18n.recap.malwareWarningPrefix.asArray(raw(`<a href="/ads" target="_blank">${esc(i18n.recap.malwareWarningCta)}</a>`)))}</p>`;
+        </ul>`;
     },
   };
 

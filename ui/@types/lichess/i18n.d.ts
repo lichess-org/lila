@@ -3331,10 +3331,6 @@ interface I18n {
     malwarePopups: string;
     /** Trackers */
     malwareTrackers: string;
-    /** be careful */
-    malwareWarningCta: string;
-    /** But other websites do, so please %s. */
-    malwareWarningPrefix: I18nFormat;
     /** About the weight of %s grand pianos */
     movesGrandPianos: I18nPlural;
     /** That's %s of wood pushed! */

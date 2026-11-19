@@ -1696,8 +1696,6 @@ object I18nKey:
     val `malwarePaywalls`: I18nKey = "recap:malwarePaywalls"
     val `malwareNoSell`: I18nKey = "recap:malwareNoSell"
     val `malwareNoAbuse`: I18nKey = "recap:malwareNoAbuse"
-    val `malwareWarningPrefix`: I18nKey = "recap:malwareWarningPrefix"
-    val `malwareWarningCta`: I18nKey = "recap:malwareWarningCta"
     val `lichessGamesPlayedIn`: I18nKey = "recap:lichessGamesPlayedIn"
     val `lichessGamesOfThemYours`: I18nKey = "recap:lichessGamesOfThemYours"
     val `lichessGamesYou`: I18nKey = "recap:lichessGamesYou"

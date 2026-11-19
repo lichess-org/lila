@@ -68,8 +68,6 @@
 	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Paywalls</string>
 	<string name="malwareNoSell">We didn't sell your personal data</string>
 	<string name="malwareNoAbuse">We didn't use your device against you</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">But other websites do, so please %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">be careful</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s games played on Lichess in %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s of them were yours.</string>
 	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">you</string>
