@@ -15,7 +15,6 @@ export function initModule(opts: SwissOpts) {
   opts.element = element;
   opts.$side = $('.swiss__side').clone();
 
-  element.innerHTML = '';
   const ctrl = mountApp({
     el: element,
     makeCtrl: redraw => new SwissCtrl(opts, redraw),

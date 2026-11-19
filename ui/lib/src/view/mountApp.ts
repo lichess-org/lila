@@ -1,7 +1,5 @@
 import { attributesModule, classModule, init, type VNode } from 'snabbdom';
 
-const defaultPatch = init([classModule, attributesModule]);
-
 export interface MountApp<C> {
   el: Element;
   makeCtrl: (redraw: Redraw) => C;
@@ -9,13 +7,18 @@ export interface MountApp<C> {
   patch?: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode;
 }
 
-export function mountApp<C>({ el, makeCtrl, view, patch = defaultPatch }: MountApp<C>): C {
+let defaultPatch: ReturnType<typeof init> | undefined;
+
+export function mountApp<C>({ el, makeCtrl, view, patch }: MountApp<C>): C {
+  const applyPatch = patch ?? (defaultPatch ??= init([classModule, attributesModule]));
   let vnode: VNode | Element = el;
   const ctrl = makeCtrl(redraw);
-  vnode = patch(vnode, view(ctrl));
+  const blueprint = view(ctrl);
+  el.innerHTML = '';
+  vnode = applyPatch(vnode, blueprint);
   return ctrl;
 
   function redraw(): void {
-    vnode = patch(vnode, view(ctrl));
+    vnode = applyPatch(vnode, view(ctrl));
   }
 }

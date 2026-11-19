@@ -15,7 +15,6 @@ export function initModule(opts: SimulOpts) {
   opts.element = element;
   opts.$side = $('.simul__side').clone();
 
-  element.innerHTML = '';
   const ctrl = mountApp({
     el: element,
     makeCtrl: redraw => new SimulCtrl(opts, redraw),

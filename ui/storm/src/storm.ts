@@ -9,7 +9,6 @@ export async function initModule(opts: StormOpts): Promise<void> {
   await site.asset.loadPieces;
   const element = document.querySelector('.storm-app') as HTMLElement;
 
-  element.innerHTML = '';
   mountApp({
     el: element,
     makeCtrl: redraw => new StormCtrl(opts, redraw),

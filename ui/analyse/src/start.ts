@@ -16,7 +16,6 @@ export default function (
     opts.element = document.querySelector('main.analyse') as HTMLElement;
 
     const view = makeView(deps);
-    opts.element.innerHTML = '';
     const ctrl = (site.analysis = mountApp({
       el: opts.element,
       patch,

@@ -15,7 +15,6 @@ export function initModule(opts: TournamentOpts) {
   opts.$side = $('.tour__side').clone();
   opts.$faq = $('.tour__faq').clone();
 
-  opts.element.innerHTML = '';
   const ctrl = mountApp({
     el: opts.element,
     makeCtrl: redraw => new makeCtrl(opts, redraw),

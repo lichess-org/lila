@@ -14,7 +14,6 @@ export async function initModule(opts: RacerOpts) {
   await site.asset.loadPieces;
   const element = document.querySelector('.racer-app') as HTMLElement;
 
-  element.innerHTML = '';
   mountApp({
     el: element,
     patch,

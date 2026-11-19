@@ -29,6 +29,33 @@ describe('mountApp', () => {
     assert.equal(document.body.textContent, '1');
   });
 
+  test('clears the preload after the first blueprint is ready', () => {
+    document.body.innerHTML = '';
+    const el = document.createElement('div');
+    el.innerHTML = '<span class="preload">preview</span>';
+    document.body.appendChild(el);
+    const snabbdomPatch = init([classModule, attributesModule]);
+    const seen: string[] = [];
+    const patch: Patch = (oldVnode, vnode) => {
+      seen.push(el.innerHTML);
+      return snabbdomPatch(oldVnode, vnode);
+    };
+
+    mountApp({
+      el,
+      patch,
+      makeCtrl: () => ({}),
+      view: () => {
+        seen.push(el.innerHTML);
+        return h('div', 'fresh');
+      },
+    });
+
+    assert.deepEqual(seen, ['<span class="preload">preview</span>', '']);
+    assert.equal(document.body.textContent, 'fresh');
+    assert.equal(document.querySelector('.preload'), null);
+  });
+
   test('uses the supplied patch function', () => {
     document.body.innerHTML = '';
     const el = document.createElement('div');
