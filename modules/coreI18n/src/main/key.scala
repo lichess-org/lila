@@ -1682,8 +1682,6 @@ object I18nKey:
     val `firstMoveTitle`: I18nKey = "recap:firstMoveTitle"
     val `firstMoveStats`: I18nKey = "recap:firstMoveStats"
     val `puzzlesHelpedTagging`: I18nKey = "recap:puzzlesHelpedTagging"
-    val `puzzlesNone`: I18nKey = "recap:puzzlesNone"
-    val `puzzlesTryNow`: I18nKey = "recap:puzzlesTryNow"
     val `puzzlesYouWonOnFirstTry`: I18nKey = "recap:puzzlesYouWonOnFirstTry"
     val `puzzlesFirstTry`: I18nKey = "recap:puzzlesFirstTry"
     val `puzzlesAnotherGo`: I18nKey = "recap:puzzlesAnotherGo"

@@ -327,16 +327,12 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   };
 
   const P = R.puzzles;
-  const puzzles: SlideDef = {
+  // skipped for players who solved no puzzles
+  const puzzles: SlideDef | false = P.nbs.total > 0 && {
     key: 'puzzles',
     theme: ['#16a34a', '#4ade80', '#facc15'],
     dur: 6500,
     render(el, sc) {
-      if (!P.nbs.total) {
-        el.innerHTML = `<p class="headline">${words(i18n.recap.puzzlesNone)}</p>
-          <a class="cta reveal" style="--d:.8s" href="/training" target="_blank">${esc(i18n.recap.puzzlesTryNow)}</a>`;
-        return;
-      }
       const cells = Math.min(P.nbs.total, 400);
       const cols = cells > 200 ? 25 : cells > 60 ? 15 : 10;
       const wins = Math.round((P.nbs.win / P.nbs.total) * cells);
@@ -438,7 +434,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
             ${stat(esc(formatDuration(G.timePlaying, ', ')), i18n.recap.shareableSpentPlaying, true)}
             ${topPerf?.games ? stat(`${perfIcon(topPerf.key)} ${esc(perfName(topPerf.key))}`, perfLabel(topPerf)) : ''}
             ${G.opponents[0] ? stat(userLabel(G.opponents[0].value), i18n.recap.shareableMostPlayedOpponent) : ''}
-            ${countStat(R.puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved)}
+            ${P.nbs.total ? countStat(P.nbs.total, i18n.recap.shareableNbPuzzlesSolved) : ''}
             ${G.firstMoves[0] ? stat('1. ' + esc(G.firstMoves[0].value), i18n.recap.shareableFavouriteFirstMove) : ''}
             ${(['white', 'black'] as const)
               .filter(c => G.openings[c]?.count)

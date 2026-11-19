@@ -46,8 +46,6 @@
         <item quantity="other">Thank you for voting on %s puzzles.</item>
     </plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">You also helped tag %s of them.</string>
-	<string name="puzzlesNone">You did not solve any puzzles this year.</string>
-	<string name="puzzlesTryNow">Wanna try some now?</string>
 	<string name="puzzlesYouWonOnFirstTry">You won %s of them on the first try!</string>
 	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">First try</string>
 	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Needed another go</string>

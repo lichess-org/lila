@@ -3365,12 +3365,8 @@ interface I18n {
     puzzlesFirstTry: string;
     /** You also helped tag %s of them. */
     puzzlesHelpedTagging: I18nFormat;
-    /** You did not solve any puzzles this year. */
-    puzzlesNone: string;
     /** Thank you for voting on %s puzzles. */
     puzzlesThanksVoting: I18nPlural;
-    /** Wanna try some now? */
-    puzzlesTryNow: string;
     /** You won %s of them on the first try! */
     puzzlesYouWonOnFirstTry: I18nFormat;
     /** Your %s recap is ready! */
