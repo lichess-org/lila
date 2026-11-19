@@ -26,7 +26,6 @@ final class RecapUi(helpers: Helpers):
       .csp(_.withPayments):
         main(cls := "recap") // filled by ui/recap
 
-  // the donate slide uses the same Stripe and PayPal flows as /patron, in the visitor's currency
   private def checkoutScripts(checkout: RecapUi.Checkout) = frag(
     checkout.stripe.option(stripeScript),
     checkout.payPal.option(payPalScripts(checkout.payPalClientId, checkout.currency, checkout.payPalLocale))
@@ -63,11 +62,8 @@ object RecapUi:
     )
 
   object Checkout:
-    // Lichess costs roughly $1.50 per minute of global uptime
     val uptimeUsdPerMinute = BigDecimal(1.5)
-    // what these minutes of uptime cost is shown as an example, see `fiveMinutes` in ui/recap/src/constants.ts
     val exampleMinutes = BigDecimal(5)
-    // minutes of uptime per donation tier, the middle one is suggested
     val tiers: Map[String, List[BigDecimal]] = Map(
       "monthly" -> List(2.5, 5, 10),
       "onetime" -> List(30, 60, 120)

@@ -21,7 +21,6 @@ trait AssetHelper:
 
   private val load = "site.asset.loadEsm"
 
-  // Stripe and PayPal checkout scripts, for pages with `ContentSecurityPolicy.withPayments`
   lazy val stripeScript = script(src := "https://js.stripe.com/v3/")
 
   // gotta load the paypal SDK twice, for onetime and subscription :facepalm:

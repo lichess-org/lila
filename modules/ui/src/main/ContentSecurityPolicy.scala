@@ -29,7 +29,6 @@ case class ContentSecurityPolicy(
     frameSrc = "https://challenges.cloudflare.com" :: frameSrc
   )
 
-  // Stripe and PayPal checkout, for donations
   def withPayments = copy(
     connectSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: connectSrc,
     scriptSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: scriptSrc,

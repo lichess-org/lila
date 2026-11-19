@@ -27,7 +27,6 @@ final class Recap(env: Env) extends LilaController(env):
     )
   }
 
-  // picks the visitor's currency like /patron does: ?currency=, then their country, then their language
   private def donationCheckout(using ctx: Context): Fu[RecapUi.Checkout] =
     import RecapUi.Checkout.{ allMinutes, uptimeUsdPerMinute }
     val priceApi = env.plan.priceApi
@@ -35,7 +34,6 @@ final class Recap(env: Env) extends LilaController(env):
       pricing <- priceApi.pricingOrDefault(env.plan.currencyApi.guessCurrency(get("currency")))
       local <- allMinutes.parallel(m => priceApi.localize(m * uptimeUsdPerMinute, pricing.currency))
     yield
-      // without an exchange rate, fall back to USD
       val (p, prices) = local.sequence.fold(
         priceApi.usdPricing -> allMinutes.map(_ * uptimeUsdPerMinute)
       )(pricing -> _.map(_.amount))
