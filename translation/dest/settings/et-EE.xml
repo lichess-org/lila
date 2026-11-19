@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Tühista ja säilita minu konto</string>
   <string name="closeAccountAreYouSure">Kas oled kindel, et soovid oma konto sulgeda?</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
+  <string name="wereSorryToSeeYouGo">Meil on kahju, et sa lahkud.</string>
+  <string name="closeAccountForeverLabel">Sulge igaveseks: tee taasavamine võimatuks</string>
+  <string name="closeAccountForeverWarning">Väldi konto hilisemat taasavamist. Kui märgid selle kasti, ei saa isegi administraatorid sinu kontot sinu soovil uuesti avada.</string>
+  <string name="deleteYourAccount">Kustuta oma konto</string>
+  <string name="deleteAccountWarning">Kui oled oma konto kustutanud, eemaldatakse see Lichessist ja meie administraatorid ei saa seda sinu jaoks taastada.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Kas soovid selle asemel %s?</string>
+  <string name="closeYourAccount">sulge oma konto</string>
+  <string name="deleteAccountConfirmText">Mõistan, et kustutatud kontod pole taastatavad</string>
 </resources>

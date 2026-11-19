@@ -69,7 +69,7 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="releaseTheAccount">Eliberează contul pentru ca studentul să poata manageria singur contul.</string>
   <string name="releaseDesc1">Un cont eliberat nu poate fi facut din nou manageriat. Studentul poate să activeze modul copil și să reseteze parola singur.</string>
   <string name="releaseDesc2">Studentul va rămâne în clasă dupa e contul lui este eliberat.</string>
-  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Adresă de e-mail unică, reală, a elevului. Vom trimite un e-mail de confirmare către acesta, cu un link pentru absolvirea contului. Link-ul expiră după 10 minute.</string>
+  <string name="realUniqueEmail">Adresă de e-mail unică, reală, a elevului. Vom trimite un e-mail de confirmare către acesta, cu un link pentru absolvirea contului. Link-ul expiră după 10 minute.</string>
   <string name="closeStudent">Închide contul</string>
   <string name="closeTheAccount">Închideți permanent contul de student.</string>
   <string name="closeDesc1">Studentul nu va mai putea niciodată să folosească acest cont. Închiderea este finală. Asigurați-vă că elevul înțelege și este de acord.</string>

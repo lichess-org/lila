@@ -68,7 +68,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
-  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">Echte, eindeutige E-Mail-Adresse des Schülers. Wir werden eine Bestätigungs-E-Mail mit einem Link zur Freigabe des Kontos versenden. Dieser Link läuft nach 10 Minuten ab.</string>
+  <string name="realUniqueEmail">Echte, eindeutige E-Mail-Adresse des Schülers. Wir werden eine Bestätigungs-E-Mail mit einem Link zur Freigabe des Kontos versenden. Dieser Link läuft nach 10 Minuten ab.</string>
   <string name="closeStudent">Schülerkonto schließen</string>
   <string name="closeTheAccount">Das Schülerkonto dauerhaft schließen.</string>
   <string name="closeDesc1">Der Schüler wird das Konto nie wieder nutzen können. Die Schließung ist endgültig. Stelle sicher, dass der Schüler dies versteht und einverstanden ist.</string>

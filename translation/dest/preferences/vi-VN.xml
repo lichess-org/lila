@@ -36,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">Hoãn nước đi (với sự chấp thuận của đối thủ)</string>
   <string name="inCasualGamesOnly">Chỉ trong các ván đấu không tính Elo</string>
   <string name="promoteToQueenAutomatically">Tự động phong cấp thành quân Hậu</string>
+  <string name="explainPromoteToQueenAutomatically">Giữ phím Ctrl trong khi phong cấp để tạm thời vô hiệu hóa tính năng tự động phong hậu</string>
   <string name="whenPremoving">Khi đi trước</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>

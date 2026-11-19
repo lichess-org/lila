@@ -438,6 +438,7 @@ Reitinguga mängude mängimine suurendab stabiilsust.</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
   <string name="orUploadPgnFile">Või lae üles PGN-fail</string>
+  <string name="selectImage">Vali pilt</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="toStudy">Uuri</string>
   <string name="importGame">Impordi mäng</string>
@@ -704,6 +705,7 @@ Sõbrad mängimas: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
   <string name="really">päriselt</string>
   <string name="lichessUpdates">Lichessi infovoog</string>
+  <string name="allUpdates">Kõik uuendused</string>
   <string name="contribute">Panusta</string>
   <string name="changelog">Muudatuste logi</string>
   <string name="termsOfService">Kasutajatingimused</string>
@@ -1046,6 +1048,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
   <string name="instructions">Juhised</string>
   <string name="showMeEverything">Näita mulle kõike</string>
+  <string name="lichessPatronInfo">Lichess on heategevusorganisatsioon ja täiesti tasuta ning vaba avatud lähtekoodiga tarkvara. Meie tegevuskulude, arendustöö ja sisu toetamiseks sõltume kasutajate annetustest. Ilma meie suuremeelse kogukonna abita ei suudaks me veebisaiti töös hoida. Täname, et liitusid meiega!</string>
   <string name="nothingToSeeHere">Siin pole hetkel midagi näha.</string>
   <string name="stats">Statistika</string>
   <string name="accessibility">Ligipääsetavus</string>
