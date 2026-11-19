@@ -1,7 +1,9 @@
+import type { Background } from './background';
+import type { Scope } from './scope';
+
 export interface Opts {
   recap?: Recap;
   user: LightUser;
-  navigation: boolean;
   costs?: {
     amount: number;
     currency: string;
@@ -57,4 +59,18 @@ export interface Recap {
     sources: Sources;
     firstMoves: Counted<string>[];
   };
+}
+
+export interface SlideDef {
+  key: string;
+  theme: [string, string, string];
+  dur?: number; // ms, Infinity to wait for the user
+  top?: boolean; // align content to the top, for slides that may scroll
+  render(el: HTMLElement, sc: Scope): void;
+}
+
+export interface SlideCtx {
+  opts: Opts;
+  bg: Background;
+  restart(): void;
 }
