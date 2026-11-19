@@ -61,29 +61,31 @@ final class TokenUi(helpers: Helpers)(
             )
           )
         },
-        table(cls := "slist slist-pad")(
-          tokens.map: t =>
-            tr(
-              td(
-                strong(t.description | "Unnamed"),
-                br,
-                em(t.scopes.value.map(_.name.txt()).mkString(", ")),
-                mode.isDev.option(frag(br, em("Visible in DEV mode: "), code(t.plain.value)))
-              ),
-              td(cls := "date")(
-                t.created.map: created =>
-                  frag(ot.created(momentFromNow(created)), br),
-                t.usedAt.map: used =>
-                  frag(ot.lastUsed(momentFromNow(used)))
-              ),
-              td(cls := "action")(
-                postForm(action := routes.OAuthToken.delete(t.id.value))(
-                  submitButton(
-                    cls := "button button-red button-empty yes-no-confirm"
-                  )(trans.site.delete())
+        div(cls := "slist-wrapper")(
+          table(cls := "slist slist-pad")(
+            tokens.map: t =>
+              tr(
+                td(
+                  strong(t.description | "Unnamed"),
+                  br,
+                  em(t.scopes.value.map(_.name.txt()).mkString(", ")),
+                  mode.isDev.option(frag(br, em("Visible in DEV mode: "), code(t.plain.value)))
+                ),
+                td(cls := "date")(
+                  t.created.map: created =>
+                    frag(ot.created(momentFromNow(created)), br),
+                  t.usedAt.map: used =>
+                    frag(ot.lastUsed(momentFromNow(used)))
+                ),
+                td(cls := "action")(
+                  postForm(action := routes.OAuthToken.delete(t.id.value))(
+                    submitButton(
+                      cls := "button button-red button-empty yes-no-confirm"
+                    )(trans.site.delete())
+                  )
                 )
               )
-            )
+          )
         )
       )
 

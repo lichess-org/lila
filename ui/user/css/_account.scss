@@ -60,14 +60,27 @@
 }
 
 .oauth {
-  table em,
-  table .date {
-    font-size: 90%;
+  min-width: 0;
+  max-width: 100%;
+
+  p,
+  a,
+  code {
+    overflow-wrap: anywhere;
   }
 
-  table .action {
-    display: flex;
-    justify-content: flex-end;
+  table {
+    @extend %break-word;
+
+    em,
+    .date {
+      font-size: 90%;
+    }
+
+    .action {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   .codes {
@@ -89,10 +102,22 @@
     padding: 1.5em;
     margin: 20px;
     display: flex;
+    min-width: 0;
+
+    @include mq-subnav-top {
+      margin: 1.5rem 0;
+      padding: 1rem;
+    }
 
     icon {
       font-size: 45px;
       margin-inline-end: 15px;
+      flex-shrink: 0;
+    }
+
+    > div {
+      min-width: 0;
+      flex: 1 1 auto;
     }
 
     code {
@@ -100,6 +125,12 @@
       font-size: 1.5em;
       margin-top: 10px;
       display: block;
+      overflow-wrap: anywhere;
+      word-break: break-all;
+
+      @include mq-subnav-top {
+        font-size: 1.1em;
+      }
     }
   }
 
@@ -120,6 +151,11 @@
       border: $c-border;
       background: color-mix(in oklab, $c-accent 10%, $c-bg);
       flex: 1 1 49%;
+      min-width: 0;
+
+      @include mq-subnav-top {
+        flex: 1 1 100%;
+      }
     }
 
     legend {
@@ -134,10 +170,22 @@
 
     .form-check__container {
       margin-inline-start: 1em;
+      min-width: 0;
+
+      @include mq-subnav-top {
+        margin-inline: 0.5em;
+        align-items: flex-start;
+
+        .form-check__input {
+          margin-top: 0.2em;
+        }
+      }
     }
 
     .form-label {
       font-weight: normal;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     div {
@@ -155,8 +203,20 @@
         margin-inline-start: 1rem;
         color: $c-font-dimmer;
         unicode-bidi: plaintext;
+
+        @include mq-subnav-top {
+          display: block;
+          margin-inline-start: 0;
+          margin-top: 0.15em;
+          font-size: 0.9em;
+        }
       }
     }
+  }
+
+  .form-actions {
+    gap: 1em;
+    flex-wrap: wrap;
   }
 
   &-used {
