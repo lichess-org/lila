@@ -22,19 +22,21 @@ and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [140 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 3](https://www.scala-lang.org/),
-and relies on a modified [Play 2.8](https://www.playframework.com/) framework.
+and relies on [Liplay](https://github.com/lichess-org/liplay) (a modified [Play 2.8](https://www.playframework.com/) framework).
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/lichess-org/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Pekko streams](https://pekko.apache.org).
-WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
+WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [Redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
 It uses [MongoDB](https://www.mongodb.com) to store more than 12 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
-The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
+The web client is written in [TypeScript](https://www.typescriptlang.org/), [snabbdom](https://github.com/snabbdom/snabbdom) and [SCSS](https://sass-lang.com/), using [sasso](https://github.com/momiji-rs/sasso) and [Lightning CSS](https://lightningcss.dev/) to generate CSS.
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
 Software builds and CI/CD done with [Depot](https://depot.dev/).
+Traffic management done with [Cloudflare](https://www.cloudflare.com/).
+
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
 See [lichess.org/source](https://lichess.org/source) for a list of repositories.

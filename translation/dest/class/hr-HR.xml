@@ -68,7 +68,6 @@ Lozinka: %3$s</string>
   <string name="releaseTheAccount">Objavi račun tako da student može s njime samostalno upravljati.</string>
   <string name="releaseDesc1">Objavljeni račun se ne može ponovno vratiti na upravljanje. Student će imati slobodu uključivanja dječjeg načina rada i resetiranja lozinke.</string>
   <string name="releaseDesc2">Nakon što je račun objavljen, student će ostati u razredu.</string>
-  <string name="realUniqueEmail">Stvarna email adresa studenta. Poslat će se potvrdna e-pošta s linkom za objavljivanje računa.</string>
   <string name="closeStudent">Zatvori račun</string>
   <string name="closeTheAccount">Zatvori učenikov račun zauvijek.</string>
   <string name="closeDesc1">Učenik više nikada neće moći koristiti ovaj račun. Zatvaranje je konačno. Pobrinite se da učenik to razumije i da se slaže s time.</string>

@@ -61,22 +61,42 @@ interface I18n {
   app: {
     /** all releases */
     allReleases: string;
+    /** As free as Lichess */
+    asFreeAsLichess: string;
+    /** Built for the love of chess, not money */
+    builtForTheLoveOfChessNotMoney: string;
+    /** Bullet, blitz, classical, variants */
+    bulletBlitzClassicalVariants: string;
+    /** Correspondence chess */
+    correspondenceChess: string;
     /** Download on the Apple App Store */
     downloadOnAppleAppStore: string;
     /** Download on F-Droid */
     downloadOnFdroid: string;
     /** Download on Google Play */
     downloadOnGooglePlay: string;
+    /** Entirely Open Source */
+    entirelyOpenSource: string;
+    /** Fully featured */
+    fullyFeatured: string;
+    /** Game analysis */
+    gameAnalysis: string;
     /** If the app does not open automatically, tap the "%s" button. */
     ifAppDoesNotOpenAutomatically: I18nFormat;
     /** Lichess Mobile App */
     lichessMobileApp: string;
     /** Lichess mobile screen */
     lichessMobileScreen: string;
+    /** No ads, no tracking */
+    noAdsNoTracking: string;
     /** Open the Lichess app */
     openTheApp: string;
+    /** Phone and tablet */
+    phoneAndTablet: string;
     /** Returning to the Lichess app */
     returningToApp: string;
+    /** Unlimited puzzles */
+    unlimitedPuzzles: string;
     /** View %s on GitHub */
     viewAllReleases: I18nFormat;
   };
@@ -301,6 +321,8 @@ interface I18n {
     deleteTournament: string;
     /** Download all rounds */
     downloadAllRounds: string;
+    /** Download PGN */
+    downloadPgn: string;
     /** Edit round study */
     editRoundStudy: string;
     /** Embed this broadcast in your website */
@@ -411,6 +433,8 @@ interface I18n {
     score: string;
     /** Semifinals */
     semifinals: string;
+    /** Share this broadcast by URL */
+    shareThisBroadcastByUrl: string;
     /** Show player scores based on game results */
     showScores: string;
     /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */
@@ -5697,8 +5721,6 @@ interface I18n {
     inviteOnly: string;
     /** Invite to the study */
     inviteToTheStudy: string;
-    /** Kick */
-    kick: string;
     /** Leave the study */
     leaveTheStudy: string;
     /** Like */
@@ -6169,6 +6191,10 @@ interface I18n {
     willBeReviewed: string;
   };
   teamLead: {
+    /** Blocked Users */
+    blockedUsers: string;
+    /** Enter one username per line. These players will be blocked from joining the team. */
+    blockedUsersDesc: string;
     /** Close team */
     closeTeam: string;
     /** Closes the team forever. */
@@ -6239,6 +6265,8 @@ interface I18n {
     teamDescriptionHelp: string;
     /** Brief description visible in team listings. Up to 200 chars. */
     teamIntroductionHelp: string;
+    /** Tell others about your team! */
+    teamIntroPrompt: string;
     /** You can send up to %1$s team updates per week. <strong>%2$s</strong> updates remaining until %3$s. */
     teamUpdatesPerWeek: I18nFormat;
     /** This tournament is over, and the teams can no longer be updated. */

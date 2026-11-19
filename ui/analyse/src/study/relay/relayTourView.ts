@@ -216,13 +216,13 @@ const share = (ctx: RelayViewContext) => {
     },
     [
       hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle', [
-        hl('legend', { attrs: { tabindex: 0 } }, 'Share this broadcast by URL'),
+        hl('legend', { attrs: { tabindex: 0 } }, i18n.broadcast.shareThisBroadcastByUrl),
         group && link(group.name, `/broadcast/${group.slug}/${group.id}`),
         link(tour.name, ctx.relay.tourPath()),
         link(tour.name + ' | ' + roundName, ctx.relay.roundPath()),
       ]),
       hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
-        hl('legend', { attrs: { tabindex: 0 } }, 'Download PGN'),
+        hl('legend', { attrs: { tabindex: 0 } }, i18n.broadcast.downloadPgn),
         hl('p.form-group', [
           'We offer full PGN downloads for all our broadcasts.',
           hl('br'),

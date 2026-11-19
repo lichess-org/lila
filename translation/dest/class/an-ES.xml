@@ -66,7 +66,6 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="releaseTheAccount">Liberar la cuenta pa que lo estudiant pueda chestionar-la en forma autonoma.</string>
   <string name="releaseDesc1">Una cuenta liberada no se puede tornar a chestionar de nuevo. Lo estudiant podrá cambiar lo modo infantil y restablir la clau per ell mesmo.</string>
   <string name="releaseDesc2">Lo estudiant remanirá en a clase dimpués que la suya cuenta sía liberada.</string>
-  <string name="realUniqueEmail">Adreza de correu electronico real y sola d\'o estudiant. Ninviaremos un correu electronico de confirmación, con un vinclo pa liberar la cuenta.</string>
   <string name="closeStudent">Zarrar cuenta</string>
   <string name="closeTheAccount">Zarrar pa cutio esta cuenta d\'estudiant.</string>
   <string name="teachers">Profesors</string>

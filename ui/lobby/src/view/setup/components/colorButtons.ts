@@ -1,5 +1,4 @@
-import { blindModeColorPicker, colorButtons as renderButtons } from 'lib/setup/view/color';
-import { hl } from 'lib/view';
+import { colorButtons as renderButtons } from 'lib/setup/view/color';
 
 import { variantsWhereWhiteIsBetter } from '@/options';
 import type SetupController from '@/setupCtrl';
@@ -9,9 +8,5 @@ export const colorButtons = ({ gameMode, gameType, variant, color }: SetupContro
     gameType === 'hook' ||
     (gameType !== 'ai' && gameMode() === 'rated' && variantsWhereWhiteIsBetter.includes(variant()));
 
-  return randomColorOnly
-    ? undefined
-    : site.blindMode
-      ? hl('div', blindModeColorPicker(color))
-      : renderButtons(color);
+  return randomColorOnly ? undefined : renderButtons(color);
 };

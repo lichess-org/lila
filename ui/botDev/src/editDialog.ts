@@ -1,6 +1,6 @@
 import stringify from 'json-stringify-pretty-compact';
 
-import { frag } from 'lib';
+import { frag, isComposing } from 'lib';
 import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
@@ -253,7 +253,7 @@ export class EditDialog {
           selector: 'input',
           event: ['keydown'],
           listener: e => {
-            if ('key' in e && e.key === 'Enter') {
+            if ('key' in e && e.key === 'Enter' && !isComposing(e)) {
               ok.click();
               e.stopPropagation();
               e.preventDefault();

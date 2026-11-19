@@ -438,6 +438,7 @@ Dereceli oyunlar oynamak puanınızı daha istikrarlı hâle getirecektir.</stri
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
+  <string name="selectImage">Görsel seç</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
@@ -703,6 +704,7 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
   <string name="lichessUpdates">Lichess akışı</string>
+  <string name="allUpdates">Tüm güncellemeler</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="changelog">Değişiklik Notları</string>
   <string name="termsOfService">Hizmet Koşulları</string>

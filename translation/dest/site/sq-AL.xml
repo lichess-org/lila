@@ -426,6 +426,7 @@
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
+  <string name="selectImage">Përzgjidhni figurë</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
   <string name="toStudy">Mësim</string>
   <string name="importGame">Importo lojën</string>
@@ -691,6 +692,7 @@ Shokë që po luajnë: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s është një shërbyes shahu i lirë (%2$s), “libre”, pa reklama, me burim të hapët.</string>
   <string name="really">për vërtetë</string>
   <string name="lichessUpdates">Prurje Lichess</string>
+  <string name="allUpdates">Krejt përditësimet</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="changelog">Regjistër ndryshimesh</string>
   <string name="termsOfService">Kushte Shërbimi</string>

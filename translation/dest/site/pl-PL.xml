@@ -494,6 +494,7 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>
+  <string name="selectImage">Wybierz obraz</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
@@ -775,6 +776,7 @@ Znajomi grający: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest %2$s darmowym, wolnym, pozbawionym reklam, otwartym serwisem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="lichessUpdates">Aktualności Lichess</string>
+  <string name="allUpdates">Wszystkie aktualności</string>
   <string name="contribute">Wsparcie</string>
   <string name="changelog">Dziennik zmian</string>
   <string name="termsOfService">Regulamin</string>

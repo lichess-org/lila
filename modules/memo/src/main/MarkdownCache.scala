@@ -45,7 +45,8 @@ final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
   def toHtml(key: RenderKey, markdown: Markdown, opts: MarkdownOptions) =
     cache.get((key, markdown, opts))
 
-  def toHtmlSyncWithoutPgnEmbeds(key: RenderKey, markdown: Markdown, opts: MarkdownOptions): Html =
+  def toHtmlSyncWithoutPgnEmbeds(key: RenderKey, markdown: Markdown, reqOpts: MarkdownOptions): Html =
+    val opts = reqOpts.copy(maxPgns = Max(0))
     cache
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })
@@ -96,7 +97,7 @@ final class MarkdownCache(cacheApi: CacheApi)(using Executor, Scheduler)(using
         removeHtmlEntities = opts.removeHtmlEntities,
         allowedTags = opts.allowedTags,
         linkRel = opts.linkRel,
-        pgnExpand = pgnCache.expand.some,
+        pgnExpand = (opts.maxPgns > 0).option(pgnCache.expand),
         netDomain = netDomain.some
       )
     )

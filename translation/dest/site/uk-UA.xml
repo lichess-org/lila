@@ -495,6 +495,7 @@
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="orUploadPgnFile">Або завантажте файл PGN</string>
+  <string name="selectImage">Вибрати зображення</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
@@ -774,6 +775,7 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
+  <string name="allUpdates">Усі оновлення</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="changelog">Список змін</string>
   <string name="termsOfService">Умови користування</string>

@@ -135,7 +135,7 @@ export function initModule(): void {
     }
     const ch = await choose(i18n.streamer.chooseYoutubeChannel, Object.values(channels), undefined, true);
     const chid = Object.entries(channels).find(([, name]) => name === ch)![0];
-    const rsp = await fetch(`/streamer/oauth/youtube/choose/${chid}`, { method: 'POST' });
+    const rsp = await fetch(`/streamer/youtube/oauth/choose/${chid}`, { method: 'POST' });
     if (!rsp.ok) throw new Error(`Server error: ${rsp.statusText}`);
     return await rsp.text();
   }

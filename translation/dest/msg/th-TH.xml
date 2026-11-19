@@ -8,4 +8,5 @@
 
 ขอบคุณที่ช่วยทำให้ Lichess เป็นพื้นที่ที่ดีสำหรับทุกคนครับ/ค่ะ</string>
   <string name="oldAppNoLongerSupportsPuzzles">แอปเก่านี้ไม่สามารถเล่นปริศนาหมากรุกได้แล้ว กรุณาติดตั้งแอปใหม่ถ้าอยากเล่น: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s ไม่รับข้อความใหม่</string>
 </resources>

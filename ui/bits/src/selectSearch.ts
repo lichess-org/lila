@@ -1,4 +1,4 @@
-import { frag } from 'lib';
+import { frag, isComposing } from 'lib';
 
 export function createSelectSearch(select: HTMLSelectElement): void {
   const container = frag<HTMLDivElement>(
@@ -80,6 +80,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   });
 
   search.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (isComposing(e)) return;
     const items = visibleItems();
     const focused = list.querySelector<HTMLElement>('.focus');
     if (e.key === 'Escape') {

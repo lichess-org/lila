@@ -34,6 +34,7 @@
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
   <string name="kick">Đuổi</string>
+  <string name="remove">Loại bỏ</string>
   <string name="leaveTheStudy">Rời khỏi nghiên cứu</string>
   <string name="youAreNowAContributor">Bây giờ bạn là một người đóng góp</string>
   <string name="youAreNowASpectator">Bây giờ bạn là một khán giả</string>
@@ -96,6 +97,9 @@
   <string name="loadAPositionFromFen">Tải thế cờ từ chuỗi FEN</string>
   <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="other">Dán các ván đấu dưới dạng văn bản PGN vào đây. Mỗi ván cờ sẽ tạo thành một chương mới. Bài học có thể có tối đa %s chương.</item>
+  </plurals>
   <string name="urlOfTheGame">URL của các ván, một URL mỗi dòng</string>
   <string name="createChapter">Tạo chương</string>
   <string name="createStudy">Tạo nghiên cứu</string>

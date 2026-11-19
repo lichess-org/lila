@@ -775,6 +775,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
   <string name="really">именно так</string>
   <string name="lichessUpdates">Обновления Lichess</string>
+  <string name="allUpdates">Все обновления</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="changelog">Список изменений</string>
   <string name="termsOfService">Пользовательское соглашение</string>

@@ -85,7 +85,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               (team.intro.isEmpty && havePerm(_.Settings)).option(
                 div(cls := "flash flash-warning")(
                   div(cls := "flash__content"):
-                    a(href := routes.Team.edit(team.id))("Give your team a short introduction text!")
+                    a(href := routes.Team.edit(team.id))(trans.teamLead.teamIntroPrompt())
                 )
               ),
               modLog.nonEmpty.option:

@@ -438,6 +438,7 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
+  <string name="selectImage">Aukeratu irudia</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
   <string name="importGame">Partida inportatu</string>
@@ -703,6 +704,7 @@ Jokatzen ari diren lagunak: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
   <string name="lichessUpdates">Lichess jarioa</string>
+  <string name="allUpdates">Eguneraketa guztiak</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="changelog">Aldaketen erregistroa</string>
   <string name="termsOfService">ToS</string>

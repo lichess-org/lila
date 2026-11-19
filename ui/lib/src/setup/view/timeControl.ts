@@ -1,5 +1,5 @@
 import type { Prop } from '@/index';
-import { hl, type MaybeVNode, type VNode } from '@/view';
+import { hl, onChange, type MaybeVNode, type VNode } from '@/view';
 
 import type { InputValue } from '../interfaces';
 import { option } from '../option';
@@ -10,7 +10,6 @@ import {
   incrementVToIncrement,
   daysVToDays,
   type TimeControl,
-  type TimeMode,
   timeModes,
 } from '../timeControl';
 
@@ -29,9 +28,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide),
         hl(
           'select#sf_time',
-          {
-            on: { change: (e: Event) => tc.timeV(parseFloat((e.target as HTMLSelectElement).value)) },
-          },
+          { on: onChange(v => tc.timeV(parseFloat(v))) },
           sliderTimes.map((sliderTime, timeV) =>
             option({ key: timeV.toString(), name: showTime(sliderTime) }, tc.timeV().toString()),
           ),
@@ -42,11 +39,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds),
         hl(
           'select#sf_increment',
-          {
-            on: {
-              change: (e: Event) => tc.incrementV(parseInt((e.target as HTMLSelectElement).value)),
-            },
-          },
+          { on: onChange(v => tc.incrementV(parseInt(v))) },
           // 31 because the range below goes from 0 to 30
           Array.from(Array(31).keys()).map(incrementV =>
             option(
@@ -61,9 +54,7 @@ const blindModeTimePickers = (tc: TimeControl) => {
         hl('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn),
         hl(
           'select#sf_days',
-          {
-            on: { change: (e: Event) => tc.daysV(parseInt((e.target as HTMLSelectElement).value)) },
-          },
+          { on: onChange(v => tc.daysV(parseInt(v))) },
           // 7 because the range below goes from 1 to 7
           Array.from(Array(7).keys()).map(daysV =>
             option(
@@ -84,11 +75,7 @@ const renderTimeModePicker = (tc: TimeControl) =>
       'select#sf_timeMode',
       {
         attrs: { 'aria-label': i18n.site.timeControl },
-        on: {
-          change: (e: Event) => {
-            tc.mode((e.target as HTMLSelectElement).value as TimeMode);
-          },
-        },
+        on: onChange(tc.mode),
       },
       timeModes
         .filter(m => tc.modes.includes(m))
@@ -96,10 +83,16 @@ const renderTimeModePicker = (tc: TimeControl) =>
     ),
   ]);
 
-const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: Record<string, boolean>) =>
+const inputRange = (
+  min: number,
+  max: number,
+  prop: Prop<InputValue>,
+  id: string,
+  classes?: Record<string, boolean>,
+) =>
   hl('input.range', {
     class: classes,
-    attrs: { type: 'range', min, max, value: prop() },
+    attrs: { type: 'range', min, max, value: prop(), id },
     hook: {
       update: (_: VNode, vnode: VNode) => {
         const el = vnode.elm as HTMLInputElement;
@@ -148,37 +141,48 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
     panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.sliders-grid', [
         hl('div.slider-container', [
-          hl('div.label-row', [hl('label', i18n.site.minutesPerSide), hl('span.val-box', showTime(tcTime))]),
-          inputRange(0, 38, tc.timeV, {
+          hl(
+            'div.label-row',
+            hl('label', { for: 'gameTime' }, [
+              i18n.site.minutesPerSide,
+              hl('span.val-box', showTime(tcTime)),
+            ]),
+          ),
+          inputRange(0, 38, tc.timeV, 'gameTime', {
             failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
           }),
         ]),
         hl('div.slider-separator', '+'),
         hl('div.slider-container', [
-          hl('div.label-row', [
-            hl('span.val-box', tcIncrement.toString()),
-            hl('label', i18n.site.incrementInSeconds),
-          ]),
-          inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
+          hl(
+            'div.label-row',
+            hl('label', { for: 'increment' }, [
+              hl('span.val-box', tcIncrement.toString()),
+              i18n.site.incrementInSeconds,
+            ]),
+          ),
+          inputRange(0, 30, tc.incrementV, 'increment', {
+            failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
+          }),
         ]),
       ]),
       hl(
         'div.presets',
-        tc.presets.slice(0, 10).map(p =>
+        tc.presets.slice(0, 10).map(({ lim, inc }) =>
           hl(
             'button.preset-btn',
             {
               class: {
-                active: tcTime === p.lim && tcIncrement === p.inc,
+                active: tcTime === lim && tcIncrement === inc,
               },
               on: {
                 click: () => {
-                  tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));
-                  tc.incrementV(sliderInitVal(p.inc, incrementVToIncrement, 100, 0));
+                  tc.timeV(sliderInitVal(lim, timeVToTime, 100, 9));
+                  tc.incrementV(sliderInitVal(inc, incrementVToIncrement, 100, 0));
                 },
               },
             },
-            `${showTime(p.lim)}+${p.inc}`,
+            `${showTime(lim)}+${inc}`,
           ),
         ),
       ),
@@ -186,8 +190,14 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
   } else if (activeMode === 'correspondence') {
     panelContent = hl('div.time-panel', { attrs: { role: 'tabpanel' } }, [
       hl('div.slider-container.full-width', [
-        hl('div.label-row', [hl('label', i18n.site.daysPerTurn), hl('span.val-box', tc.days().toString())]),
-        inputRange(1, 7, tc.daysV),
+        hl(
+          'div.label-row',
+          hl('label', { for: 'correspondenceDays' }, [
+            i18n.site.daysPerTurn,
+            hl('span.val-box', tc.days().toString()),
+          ]),
+        ),
+        inputRange(1, 7, tc.daysV, 'correspondenceDays'),
       ]),
     ]);
   } else if (activeMode === 'unlimited') {

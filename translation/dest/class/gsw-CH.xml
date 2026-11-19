@@ -68,7 +68,7 @@ Das isch de Link für de Zuegriff uf d\'Klass.</string>
   <string name="releaseTheAccount">Gib das Konto frei, dass es de/d\'Schüeler*i sälbschtschtändig verwalte chan.</string>
   <string name="releaseDesc1">Es frei gehs Konto cha nüme verwaltet werde. De/d\'Schüeler*i wird i de Lag si de Chindermodus abz\'schalte und s\'Passwort sälber z\'rugg z\'setze.</string>
   <string name="releaseDesc2">De/d\'Schüeler*i blibt i de Klass, nachdem s\'Konto frei geh worde isch.</string>
-  <string name="realUniqueEmail">Ächti, eimaligi E-Mail-Adrässe vu Schüeler*ine. Mir schicked e Beschtätigungs Mail, mit Link, für d\'Freigab vum Konto.</string>
+  <string name="realUniqueEmail">Ächti, eidütigi E-Mail-Adrässe vum Schüeler. Mir schicked es Beschtätigungs-E-Mail, mit eme Link, zur Freischaltig vum Konto. De Link isch nur 10 Minute gültig.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
   <string name="closeTheAccount">Schüeler*ine Konto durhaft schlüsse.</string>
   <string name="closeDesc1">De/d\'Schüeler*i chan das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de/d\'Schüeler*i das verstaht und akzeptiert.</string>

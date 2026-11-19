@@ -438,6 +438,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
+  <string name="selectImage">Selecciona unha imaxe</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
@@ -703,6 +704,7 @@ Amizades xogando: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuíto (%2$s), libre, e sen publicidade.</string>
   <string name="really">de verdade</string>
   <string name="lichessUpdates">Canle de Lichess</string>
+  <string name="allUpdates">Todas as actualizacións</string>
   <string name="contribute">Contribuír</string>
   <string name="changelog">Rexistro de cambios</string>
   <string name="termsOfService">Termos do Servizo</string>
