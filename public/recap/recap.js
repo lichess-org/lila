@@ -784,7 +784,7 @@
     S.push({
       key: 'donate',
       title: 'Support Lichess',
-      theme: ['#be185d', '#f59e0b', '#f43f5e'],
+      theme: ['#14b8a6', '#fbbf24', '#6366f1'],
       dur: Infinity,
       top: true,
       render: (el, sc) => renderDonate(el, sc, opts, start),
