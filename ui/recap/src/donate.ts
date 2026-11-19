@@ -228,7 +228,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   const show = () => {
     const a = anchors[n++ % anchors.length];
     ticker.innerHTML = `<span class="ticker__item">${a.flag} <b>${esc(a.text())}</b></span>`;
-    if (anchors.length > 1) sc.after(n === 1 ? 4500 : 2800, show);
+    if (anchors.length > 1) sc.after(n === 1 ? 6000 : 4200, show);
   };
   show();
 }
