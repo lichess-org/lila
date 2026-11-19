@@ -262,9 +262,9 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
             <div class="versus">
               <div class="fighter fighter--l"><div class="avatar avatar--you"><span>${esc(U.name[0].toUpperCase())}</span></div>${userLabel(U)}</div>
               <div class="vs">VS</div>
-              <a class="fighter fighter--r" href="/@/${esc(top.value.name)}" target="_blank">
+              <div class="fighter fighter--r">
                 <div class="avatar"><img src="${site.asset.flairSrc(flairOf(top.value))}" alt=""></div>${userLabel(top.value)}
-              </a>
+              </div>
             </div>
             <p class="lead reveal" style="--d:1.3s">${trHtml(i18n.site.nbGames.asArray(top.count, countSpan(top.count, 1.3)))}</p>
             ${
@@ -272,7 +272,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
                 ? `<ol class="rivals">${rest
                     .map(
                       (o, i) => `<li style="--d:${1.9 + i * 0.15}s">
-                      <a href="/@/${esc(o.value.name)}" target="_blank"><span class="rank">${i + 2}</span><img src="${site.asset.flairSrc(flairOf(o.value))}" alt="">${userLabel(o.value)}</a>
+                      <span class="rivals__name"><span class="rank">${i + 2}</span><img src="${site.asset.flairSrc(flairOf(o.value))}" alt="">${userLabel(o.value)}</span>
                       <span class="num">${esc(i18n.site.nbGames(o.count, fmt(o.count)))}</span></li>`,
                     )
                     .join('')}</ol>`
@@ -318,7 +318,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         card.appendChild(board.el);
         card.insertAdjacentHTML(
           'beforeend',
-          `<a class="opening__name typed" href="/opening/${esc(o.value.key)}" target="_blank"></a>
+          `<p class="opening__name typed"></p>
           <small>${esc(color === 'white' ? i18n.site.asWhite : i18n.site.asBlack)} · ${trHtml(
             i18n.site.nbGames.asArray(o.count, countSpan(o.count, delay + 0.4, 'b')),
           )}</small>`,

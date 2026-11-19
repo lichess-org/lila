@@ -873,7 +873,6 @@ body {
     gap: 10px;
     font-weight: 800;
     font-size: clamp(15px, 3vw, 20px);
-    text-decoration: none;
     overflow-wrap: anywhere;
   }
 
@@ -977,11 +976,10 @@ body {
     animation-delay: var(--d);
   }
 
-  .rivals li a {
+  .rivals__name {
     display: flex;
     align-items: center;
     gap: 8px;
-    text-decoration: none;
   }
 
   .rivals img {
@@ -1096,11 +1094,10 @@ body {
   }
 
   .opening__name {
-    margin-top: 6px;
+    margin: 6px 0 0;
     font-size: clamp(16px, 2.6vw, 22px);
     font-weight: 800;
     line-height: 1.2;
-    text-decoration: none;
     min-height: 1.2em;
   }
 
