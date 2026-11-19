@@ -4,7 +4,6 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">What have you been up to this year?</string>
 	<string name="initTitle">What a chess year you've had!</string>
 	<string name="noGamesText">You did not play any games this year.</string>
-	<string name="noGamesCta">Wanna play now?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">And you won %s!</string>
 	<string name="gamesNextQuestion">What did it take to get there?</string>
 	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Time spent playing</string>

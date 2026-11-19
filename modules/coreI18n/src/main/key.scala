@@ -1668,7 +1668,6 @@ object I18nKey:
     val `awaitQuestion`: I18nKey = "recap:awaitQuestion"
     val `initTitle`: I18nKey = "recap:initTitle"
     val `noGamesText`: I18nKey = "recap:noGamesText"
-    val `noGamesCta`: I18nKey = "recap:noGamesCta"
     val `gamesYouWon`: I18nKey = "recap:gamesYouWon"
     val `gamesNextQuestion`: I18nKey = "recap:gamesNextQuestion"
     val `timeSpentPlaying`: I18nKey = "recap:timeSpentPlaying"

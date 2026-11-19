@@ -98,8 +98,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     key: 'no-games',
     theme: ['#475569', '#06b6d4', '#7c3aed'],
     render(el) {
-      el.innerHTML = `<p class="headline">${words(i18n.recap.noGamesText)}</p>
-          <a class="cta reveal" style="--d:.8s" href="/" target="_blank">${esc(i18n.recap.noGamesCta)}</a>`;
+      el.innerHTML = `<p class="headline">${words(i18n.recap.noGamesText)}</p>`;
     },
   };
   const games: SlideDef | false = G.nbs.total > 0 && {

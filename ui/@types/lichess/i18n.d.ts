@@ -3349,8 +3349,6 @@ interface I18n {
     nbPounds: I18nPlural;
     /** %s schools */
     nbSchools: I18nPlural;
-    /** Wanna play now? */
-    noGamesCta: string;
     /** You did not play any games this year. */
     noGamesText: string;
     /** What time controls and variants did you play? */
