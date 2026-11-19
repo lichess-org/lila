@@ -3383,7 +3383,7 @@ interface I18n {
     shareableNbPuzzlesSolved: I18nPlural;
     /** spent playing */
     shareableSpentPlaying: string;
-    /** My %s Recap */
+    /** My %s Lichess Recap */
     shareableTitle: I18nFormat;
     /** Where did you find games? */
     sourcesTitle: string;

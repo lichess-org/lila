@@ -66,7 +66,7 @@
 	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">you</string>
 	<string name="thanksTitle">Thank you for playing on Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">We're glad you're here. Have a great %s!</string>
-	<string name="shareableTitle" comment="%s is the current year">My %s Recap</string>
+	<string name="shareableTitle" comment="%s is the current year">My %s Lichess Recap</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">spent playing</string>
 	<string name="shareableMostPlayedOpponent">most played opponent</string>
 	<string name="shareableFavouriteVariant">favourite variant</string>
