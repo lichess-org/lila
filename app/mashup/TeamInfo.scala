@@ -56,9 +56,7 @@ final class TeamInfoApi(
     forumPosts <- withForum(t.member).optionFu(forumRecent(t.team.id))
     tours <- t.team.enabled.so(tournamentsOf(t.team, 5, 5))
     _ <- lightUserApi.preloadMany:
-      t.publicLeaders.map(_.user) :::
-        forumPosts.so(_.flatMap(_.post.userId)) :::
-        t.team.prizeClaimant.toList
+      t.publicLeaders.map(_.user) ::: forumPosts.so(_.flatMap(_.post.userId))
   yield TeamInfo(t, forumPosts, tours)
 
   def tournamentsOf(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
