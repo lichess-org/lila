@@ -74,7 +74,7 @@ export interface CheckoutOpts {
   stripe: boolean; // whether Stripe and PayPal accept this currency
   payPal: boolean;
   example: Tier; // a few minutes of uptime, to show what Lichess costs
-  tiers: Record<Freq, Tier[]>; // the middle one is suggested
+  tiers: Record<Freq, Tier[]>; // the middle one is preselected
 }
 
 export interface SlideDef {

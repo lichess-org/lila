@@ -135,7 +135,6 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
         const on = i === state.tier;
         const uptime = monthly ? i18n.recap.donateMinutesOfUptimePerMonth : i18n.recap.donateMinutesOfUptime;
         return `<button role="radio" aria-checked="${on}" class="tier${on ? ' tier--on' : ''}" data-tier="${i}">
-          ${i === 1 ? `<em>${esc(i18n.recap.donateSuggested)}</em>` : ''}
           <b>${esc(money(amount))}</b>
           <small>${esc(uptime(m, numberFormat(m)))}</small>
         </button>`;

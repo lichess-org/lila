@@ -3293,8 +3293,6 @@ interface I18n {
     donateReplay: string;
     /** That's about the same as %s */
     donateSameAs: I18nFormat;
-    /** Suggested */
-    donateSuggested: string;
     /** Keeping Lichess running for %1$s, worldwide, costs us %2$s. */
     donateUptimeCosts: I18nFormat;
     /** This year, you played around %s minutes on Lichess! */
