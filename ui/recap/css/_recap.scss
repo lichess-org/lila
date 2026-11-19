@@ -726,39 +726,6 @@ body {
     }
   }
 
-  .time-units {
-    display: flex;
-    justify-content: center;
-    gap: clamp(10px, 3vw, 28px);
-  }
-
-  .time-units > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 14px clamp(12px, 3vw, 22px);
-    border-radius: 20px;
-    background: var(--glass);
-    border: 1px solid var(--glass-edge);
-    min-width: 90px;
-  }
-
-  .time-units b {
-    font-size: clamp(36px, 9vw, 64px);
-    font-weight: 900;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .time-units small {
-    color: var(--muted);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 11px;
-    margin-top: 6px;
-  }
-
   /* ---------- bars (perfs) ---------- */
 
   .bars {

@@ -149,9 +149,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     render(el, sc) {
       const s = G.timePlaying;
       const days = s / 86400;
-      const d = Math.floor(days);
-      const h = Math.floor((s % 86400) / 3600);
-      const m = Math.floor((s % 3600) / 60);
       const lotr = Math.round(s / lotrSeconds);
       const verdict =
         days > 10
@@ -159,23 +156,15 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           : days > 5
             ? i18n.recap.timeEveryMinuteCounted
             : i18n.recap.timeWellSpent;
-      const unit = (n: number, plural: I18nPlural, delay: number) =>
-        `<div class="reveal" style="--d:${delay}s"><b data-count="${n}">0</b><small>${esc(pluralLabel(plural, n))}</small></div>`;
       el.innerHTML = `
           <p class="kicker reveal">${esc(i18n.recap.timeSpentPlaying)}</p>
           <div class="clock reveal" style="--d:.1s">
             <div class="clock__time"><span>0</span><sep>:</sep><span>00</span><sep>:</sep><span>00</span></div>
             <div class="clock__bar"></div>
           </div>
-          <div class="time-units">
-            ${d ? unit(d, i18n.site.nbDays, 0.3) : ''}
-            ${unit(h, i18n.site.nbHours, 0.45)}
-            ${unit(m, i18n.site.nbMinutes, 0.6)}
-          </div>
           <p class="lead reveal" style="--d:1.6s">${esc(verdict)}</p>
           ${lotr >= 1 ? `<p class="small reveal" style="--d:2.2s">${trHtml(i18n.recap.timeLordOfTheRings.asArray(lotr, raw(`<span class="hl">${fmt(lotr)}</span>`)))} 🍿</p>` : ''}
           <p class="small reveal" style="--d:2.8s">${esc(i18n.recap.timeHowManyMoves)}</p>`;
-      countAll(sc, el, { dur: 2600 });
       // a game clock running up to the time played, in hours, minutes and seconds
       const [hh, mm, ss] = el.querySelectorAll<HTMLElement>('.clock__time span');
       const pad = (n: number) => String(n).padStart(2, '0');
