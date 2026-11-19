@@ -29,9 +29,9 @@ final class Recap(env: Env) extends LilaController(env):
 
   private def donationCheckout(using ctx: Context): Fu[RecapUi.Checkout] =
     import RecapUi.Checkout.{ allMinutes, uptimeUsdPerMinute }
-    val priceApi = env.plan.priceApi
+    import env.plan.priceApi
     for
-      pricing <- priceApi.pricingOrDefault(env.plan.currencyApi.guessCurrency(get("currency")))
+      pricing <- priceApi.pricingOrDefault(env.plan.currencyApi.guessCurrency)
       local <- allMinutes.parallel(m => priceApi.localize(m * uptimeUsdPerMinute, pricing.currency))
     yield
       val (p, prices) = local.sequence.fold(

@@ -14,6 +14,7 @@ import lila.core.config.Secret
 import lila.core.net.CountryCode
 import lila.db.dsl.mapHandler
 import lila.ui.Context
+import lila.common.HTTPRequest
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -62,12 +63,12 @@ final class CurrencyApi(
   val USD = Currency.getInstance("USD")
   val EUR = Currency.getInstance("EUR")
 
-  def guessCurrency(requested: Option[String])(using ctx: Context): Currency =
-    requested
+  def guessCurrency(using ctx: Context)(using Req): Currency =
+    HTTPRequest
+      .queryStringGet("currency")
       .flatMap(lila.plan.CurrencyApi.currencyOption)
       .getOrElse:
-        lila.common.HTTPRequest
-          .country(using ctx.req)
+        HTTPRequest.country
           .flatMap(code => Try(new Locale.Builder().setRegion(code.value).build()).toOption)
           .flatMap(currencyOption)
           .orElse(currencyOption(ctx.lang.locale))
