@@ -173,7 +173,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
           form("prizeClaimant"),
           "Prize claimant",
           help = frag(
-            "Staff only. When this team wins a prize tournament, the payout message is sent to this user instead of the team owner. Leave empty to message the owner."
+            "Lichess staff only. When this team wins a prize tournament, the payout message will be sent to this user instead of the team owner. Leave empty to message the owner."
           ).some
         ): field =>
           div(cls := "complete-parent"):
