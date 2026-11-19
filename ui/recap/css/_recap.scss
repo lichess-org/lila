@@ -904,6 +904,7 @@ body {
     font-size: clamp(42px, 10vw, 80px);
     font-weight: 900;
     font-style: italic;
+
     // room for the italic overhang, which background-clip: text would cut off
     padding-inline: 0.12em;
     background: linear-gradient(180deg, #fff, var(--c3));
