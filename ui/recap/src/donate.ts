@@ -99,9 +99,9 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
       <p class="small">${esc(i18n.recap.donateInThoseMinutes(exampleMins))}</p>
       <div class="impact__grid">
         ${impact(fiveMinutes.moves, i18n.recap.nbMoves)}
-        ${impact(fiveMinutes.games, i18n.site.nbGames)}
+        ${impact(fiveMinutes.games, i18n.recap.nbNewGames)}
         ${impact(fiveMinutes.players, i18n.site.nbPlayers)}
-        ${impact(fiveMinutes.students, i18n.class.nbStudents)}
+        ${impact(fiveMinutes.analysed, i18n.recap.nbGamesAnalysedByStockfish)}
       </div>
     </div>`;
   countAll(sc, el, { dur: 2000 });

@@ -30,6 +30,14 @@
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s game analysed by Stockfish</item>
+		<item quantity="other">%s games analysed by Stockfish</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s new game</item>
+		<item quantity="other">%s new games</item>
+	</plurals>
 	<string name="chessFoes">Your best chess foes</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
@@ -113,7 +121,7 @@
 	<string name="donateAnchorCapeTown">a cinema ticket in Cape Town</string>
 	<string name="donateAnchorMelbourne">a flat white and a pastry in Melbourne</string>
 	<string name="donateAnchorAntarctica" comment="A joke for players in Antarctica">one premium fish at the McMurdo Station canteen</string>
-	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and students">In those %s, Lichess will see</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">In those %s, Lichess will see</string>
 	<string name="donateNoWorries">No worries! All forms of support from the community are vital for us, and that includes just being here.</string>
 	<string name="donateReplay">Replay my recap</string>
 	<string name="donateChangedMyMind">Changed my mind</string>

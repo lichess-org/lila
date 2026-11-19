@@ -3335,6 +3335,8 @@ interface I18n {
     movesStandardPiecesWeight: string;
     /** Standard pieces weigh about 1.4oz each */
     movesStandardPiecesWeightImperial: string;
+    /** %s games analysed by Stockfish */
+    nbGamesAnalysedByStockfish: I18nPlural;
     /** %s grams */
     nbGrams: I18nPlural;
     /** %s kilograms */
@@ -3343,6 +3345,8 @@ interface I18n {
     nbMoves: I18nPlural;
     /** %s moves played */
     nbMovesPlayed: I18nPlural;
+    /** %s new games */
+    nbNewGames: I18nPlural;
     /** %s ounces */
     nbOunces: I18nPlural;
     /** %s pounds */

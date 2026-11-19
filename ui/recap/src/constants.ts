@@ -11,14 +11,15 @@ export const grandPianoGrams = 450_000;
 // running time of the extended Lord of the Rings trilogy
 export const lotrSeconds = 41_160;
 
-// what 5 minutes of Lichess looks like.
-// PLACEHOLDER estimates: games are derived from the yearly total, the rest needs real figures.
-const gamesIn5Minutes: number = Math.round(totalGames / (365 * 24 * 12));
-export const fiveMinutes: Record<'moves' | 'games' | 'players' | 'students', number> = {
-  moves: gamesIn5Minutes * 70,
-  games: gamesIn5Minutes,
-  players: 110_000,
-  students: 320,
+// what 5 minutes of Lichess looks like: the average of 48 random 5-minute windows of 2026,
+// rounded. Moves count both players' moves; players are registered accounts only;
+// analysed are the games among them with a server (fishnet) Stockfish analysis.
+// Measured with bin/mongodb/recap-five-minutes.js
+export const fiveMinutes: Record<'moves' | 'games' | 'players' | 'analysed', number> = {
+  moves: 995_000,
+  games: 16_000,
+  players: 18_600,
+  analysed: 1_370,
 };
 
 export const slideDurationMultiplier = 1.2;

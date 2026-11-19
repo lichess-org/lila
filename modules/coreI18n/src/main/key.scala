@@ -1734,6 +1734,8 @@ object I18nKey:
     val `nbMovesPlayed`: I18nKey = "recap:nbMovesPlayed"
     val `movesGrandPianos`: I18nKey = "recap:movesGrandPianos"
     val `nbMoves`: I18nKey = "recap:nbMoves"
+    val `nbGamesAnalysedByStockfish`: I18nKey = "recap:nbGamesAnalysedByStockfish"
+    val `nbNewGames`: I18nKey = "recap:nbNewGames"
     val `nbGrams`: I18nKey = "recap:nbGrams"
     val `nbKilograms`: I18nKey = "recap:nbKilograms"
     val `nbOunces`: I18nKey = "recap:nbOunces"
