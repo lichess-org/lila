@@ -35,7 +35,7 @@ body {
   --c3: #f43f5e;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', roboto, sans-serif;
+  --font: 'Noto Sans', sans-serif; // the site font, see %base-font
 
   position: fixed;
   inset: 0;
