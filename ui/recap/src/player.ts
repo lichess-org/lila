@@ -94,7 +94,8 @@ export function play(root: HTMLElement, opts: Opts): void {
   let holdTimer: Timeout | undefined;
   let pressed = false;
   stage.addEventListener('pointerdown', e => {
-    if ((e.target as HTMLElement).closest('a,button')) return;
+    // taps on controls, or anywhere in the donate panel, must not change slide
+    if ((e.target as HTMLElement).closest('a,button,.donate__panel,.donate__after')) return;
     pressed = true;
     holdTimer = setTimeout(() => (holding = true), 220);
   });
@@ -113,7 +114,8 @@ export function play(root: HTMLElement, opts: Opts): void {
   $in('.nav--next').onclick = () => go(idx + 1);
   $in('.hud__pause').onclick = () => setPaused(!paused);
   addEventListener('keydown', e => {
-    if ((e.target as HTMLElement).closest?.('input,textarea')) return;
+    // let focused controls handle their own keys, e.g. Space on a button
+    if ((e.target as HTMLElement).closest?.('input,textarea,select,button,a')) return;
     if (e.key === 'ArrowRight') go(idx + 1);
     else if (e.key === 'ArrowLeft') go(idx - 1);
     else if (e.key === ' ') {

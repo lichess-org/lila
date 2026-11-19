@@ -38,12 +38,17 @@ const checkoutUrl = (service: 'stripe' | 'paypal', currency: string) =>
   `/patron/${service}/checkout?${new URLSearchParams({ currency })}`;
 const thanksUrl = '/patron/thanks';
 
+// network failures and non-JSON error pages come back as { error }, so the visitor always gets a message
 const post = async (service: 'stripe' | 'paypal', d: Donation) => {
-  const res = await xhr.jsonAnyResponse(checkoutUrl(service, d.currency), {
-    method: 'post',
-    body: xhr.form({ amount: d.amount, freq: d.freq }),
-  });
-  return res.json();
+  try {
+    const res = await xhr.jsonAnyResponse(checkoutUrl(service, d.currency), {
+      method: 'post',
+      body: xhr.form({ amount: d.amount, freq: d.freq }),
+    });
+    return await res.json();
+  } catch {
+    return { error: 'Could not start the checkout, please try again later.' };
+  }
 };
 
 const fail = (error: string) => {

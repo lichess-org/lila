@@ -60,7 +60,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
         url = routeUrl(routes.Plan.index()),
         description = trans.patron.freeChess.txt()
       )
-      .csp(paymentCsp):
+      .csp(_.withPayments):
         main(cls := "page-menu plan")(
           st.aside(cls := "page-menu__menu recent-patrons")(
             h2(trp.newPatrons()),
@@ -420,7 +420,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       .css("bits.plan")
       .append(stripeScript)
       .js(esmInitObj("bits.plan", Json.obj("stripePublicKey" -> stripePublicKey)))
-      .csp(paymentCsp):
+      .csp(_.withPayments):
         main(cls := "box box-pad plan")(
           boxTop(
             h1(
@@ -542,10 +542,3 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
             )
           )
         )
-
-  private def paymentCsp: Update[ContentSecurityPolicy] = csp =>
-    csp.copy(
-      connectSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.connectSrc,
-      scriptSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.scriptSrc,
-      frameSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.frameSrc
-    )

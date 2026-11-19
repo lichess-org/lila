@@ -1,3 +1,4 @@
+import { shuffle } from 'lib/algo';
 import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { percentFormat } from 'lib/i18n';
@@ -380,8 +381,8 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         }`;
       countAll(sc, el, { dur: 2400 });
       const nodes = [...el.querySelectorAll('.mosaic i')];
-      const order = nodes.map((_, i) => i).sort(() => Math.random() - 0.5);
-      const kinds = order.map((_, i) => (i < wins ? 'w' : 'l')).sort(() => Math.random() - 0.5);
+      const order = shuffle(nodes.map((_, i) => i));
+      const kinds = shuffle(order.map((_, i) => (i < wins ? 'w' : 'l')));
       let done = 0;
       sc.after(400, () =>
         sc.loop(t => {

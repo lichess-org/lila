@@ -23,7 +23,7 @@ final class RecapUi(helpers: Helpers):
       .js(esmInit("recap", data ++ Json.obj("checkout" -> checkout.json)))
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
       .append(checkoutScripts(checkout))
-      .csp(paymentCsp):
+      .csp(_.withPayments):
         main(cls := "recap") // filled by ui/recap
 
   // the donate slide uses the same Stripe and PayPal flows as /patron, in the visitor's currency
@@ -40,13 +40,6 @@ final class RecapUi(helpers: Helpers):
           script(src := payPalSdk, namespace := "paypalOrder"),
           script(src := s"$payPalSdk&vault=true&intent=subscription", namespace := "paypalSubscription")
         )
-    )
-
-  private def paymentCsp: Update[ContentSecurityPolicy] = csp =>
-    csp.copy(
-      connectSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.connectSrc,
-      scriptSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.scriptSrc,
-      frameSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: csp.frameSrc
     )
 
   def notAvailable(year: Int) =

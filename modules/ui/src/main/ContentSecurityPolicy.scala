@@ -29,6 +29,13 @@ case class ContentSecurityPolicy(
     frameSrc = "https://challenges.cloudflare.com" :: frameSrc
   )
 
+  // Stripe and PayPal checkout, for donations
+  def withPayments = copy(
+    connectSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: connectSrc,
+    scriptSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: scriptSrc,
+    frameSrc = "https://*.stripe.com" :: "https://*.paypal.com" :: frameSrc
+  )
+
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
