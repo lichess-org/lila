@@ -73,10 +73,10 @@ body {
     z-index: 1;
   }
 
+  // the gradients fade out on their own: a blur filter here would be redone on every frame, which phones can't keep up with
   .blobs {
     position: absolute;
     inset: -20%;
-    filter: blur(80px) saturate(140%);
     opacity: 0.55;
     z-index: 0;
   }
@@ -87,24 +87,25 @@ body {
     height: 55vmax;
     border-radius: 50%;
     mix-blend-mode: screen;
+    will-change: transform;
   }
 
   .blob--a {
-    background: radial-gradient(circle, var(--c1) 0%, transparent 65%);
+    background: radial-gradient(circle, var(--c1) 0%, transparent 70%);
     left: 5%;
     top: 0%;
     animation: recap-drift-a 22s ease-in-out infinite alternate;
   }
 
   .blob--b {
-    background: radial-gradient(circle, var(--c2) 0%, transparent 65%);
+    background: radial-gradient(circle, var(--c2) 0%, transparent 70%);
     right: 0%;
     top: 25%;
     animation: recap-drift-b 26s ease-in-out infinite alternate;
   }
 
   .blob--c {
-    background: radial-gradient(circle, var(--c3) 0%, transparent 65%);
+    background: radial-gradient(circle, var(--c3) 0%, transparent 70%);
     left: 25%;
     bottom: -5%;
     animation: recap-drift-c 30s ease-in-out infinite alternate;
@@ -312,7 +313,6 @@ body {
     from {
       opacity: 0;
       transform: translateY(40px) scale(0.96);
-      filter: blur(12px);
     }
   }
 
@@ -320,7 +320,6 @@ body {
     from {
       opacity: 0;
       transform: translateY(-40px) scale(1.04);
-      filter: blur(12px);
     }
   }
 
@@ -328,7 +327,6 @@ body {
     to {
       opacity: 0;
       transform: scale(1.08);
-      filter: blur(16px);
     }
   }
 

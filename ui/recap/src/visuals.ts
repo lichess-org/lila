@@ -22,14 +22,31 @@ interface Falling {
   col: number;
 }
 
-const drawPiece = (ctx: CanvasRenderingContext2D, p: Falling, size: number) => {
-  if (!p.img.complete) return;
+// pieces with their shadow drawn once, since canvas shadows are slow to draw on every frame
+const shadowPad = 12;
+const sprites = new Map<HTMLImageElement, HTMLCanvasElement>();
+const sprite = (img: HTMLImageElement, size: number, dpr: number) => {
+  let cv = sprites.get(img);
+  if (!cv) {
+    cv = document.createElement('canvas');
+    cv.width = cv.height = (size + shadowPad * 2) * dpr;
+    const ctx = cv.getContext('2d')!;
+    ctx.scale(dpr, dpr);
+    ctx.shadowColor = 'rgba(0,0,0,.5)';
+    ctx.shadowBlur = 8;
+    ctx.drawImage(img, shadowPad, shadowPad, size, size);
+    sprites.set(img, cv);
+  }
+  return cv;
+};
+
+const drawPiece = (ctx: CanvasRenderingContext2D, p: Falling, size: number, dpr: number) => {
+  if (!p.img.complete || !p.img.naturalWidth) return;
+  const half = size / 2 + shadowPad;
   ctx.save();
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot);
-  ctx.shadowColor = 'rgba(0,0,0,.5)';
-  ctx.shadowBlur = 8;
-  ctx.drawImage(p.img, -size / 2, -size / 2, size, size);
+  ctx.drawImage(sprite(p.img, size, dpr), -half, -half, half * 2, half * 2);
   ctx.restore();
 };
 
@@ -43,6 +60,7 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
   const sctx = settled.getContext('2d')!;
   sctx.scale(dpr, dpr);
 
+  sprites.clear();
   const roles = 'PPPPNBRQK';
   const imgs: Record<string, HTMLImageElement> = {};
   for (const c of ['w', 'b'] as const)
@@ -84,7 +102,7 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
       const floor = H - cols[p.col] - size * 0.35;
       if (p.y >= floor) {
         p.y = floor;
-        drawPiece(sctx, p, size);
+        drawPiece(sctx, p, size, dpr);
         const c = p.col;
         cols[c] = Math.min(maxH, cols[c] + size * 0.42);
         // let the pile slope down to its neighbours
@@ -94,7 +112,7 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
           if (c + k < cols.length) cols[c + k] = Math.min(maxH, Math.max(cols[c + k], lim));
         }
         falling.splice(i, 1);
-      } else drawPiece(ctx, p, size);
+      } else drawPiece(ctx, p, size, dpr);
     }
     ctx.drawImage(settled, 0, 0, W, H);
     return spawned < count || falling.length > 0;
@@ -105,16 +123,21 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
 export function galaxy(sc: Scope, cv: HTMLCanvasElement, youLabel: string): void {
   const { ctx, W, H } = setupCanvas(cv);
   const R = Math.max(W, H) * 0.55;
-  const pts = Array.from({ length: 4000 }, () => {
+  // points share a few colours, so each frame sets the colour ~50 times rather than 4000
+  const groups = new Map<string, { d: number; a: number; s: number }[]>();
+  for (let i = 0; i < 4000; i++) {
     const arm = Math.floor(Math.random() * 3);
     const d = Math.pow(Math.random(), 1.6);
-    return {
+    const hue = Math.round(rand(200, 320) / 20) * 20;
+    const shade = Math.round(d * 6) / 6;
+    const style = `hsla(${hue},95%,${75 - shade * 20}%,${0.95 - shade * 0.4})`;
+    if (!groups.has(style)) groups.set(style, []);
+    groups.get(style)!.push({
       d,
       a: arm * ((Math.PI * 2) / 3) + d * 5.2 + gauss() * 0.45 * (1 - d * 0.5),
       s: rand(0.8, 2.6),
-      hue: rand(200, 320),
-    };
-  });
+    });
+  }
   const you = { d: 0.38, a: 2.1 };
   sc.loop(t => {
     ctx.clearRect(0, 0, W, H);
@@ -123,10 +146,12 @@ export function galaxy(sc: Scope, cv: HTMLCanvasElement, youLabel: string): void
     const cx = W / 2;
     const cy = H * 0.52;
     ctx.globalCompositeOperation = 'lighter';
-    for (const p of pts) {
-      const a = p.a + rot * (1.4 - p.d);
-      ctx.fillStyle = `hsla(${p.hue},95%,${75 - p.d * 20}%,${0.95 - p.d * 0.4})`;
-      ctx.fillRect(cx + Math.cos(a) * p.d * R * zoom, cy + Math.sin(a) * p.d * R * zoom * 0.55, p.s, p.s);
+    for (const [style, pts] of groups) {
+      ctx.fillStyle = style;
+      for (const p of pts) {
+        const a = p.a + rot * (1.4 - p.d);
+        ctx.fillRect(cx + Math.cos(a) * p.d * R * zoom, cy + Math.sin(a) * p.d * R * zoom * 0.55, p.s, p.s);
+      }
     }
     const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * zoom * 0.25);
     core.addColorStop(0, 'rgba(255,240,255,.8)');

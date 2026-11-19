@@ -49,6 +49,7 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
   resize();
   addEventListener('resize', resize);
 
+  const depthBands = 8;
   const newStar = (z?: number): Star => ({ x: rand(-1, 1), y: rand(-1, 1), z: z ?? rand(0.05, 1), pz: 0 });
   for (let i = 0; i < 260; i++) stars.push(newStar());
 
@@ -63,15 +64,18 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
       s.pz = s.z;
       s.z -= speed;
       if (s.z <= 0.02) Object.assign(s, newStar(1), { pz: 1 });
-      const x = cx + (s.x / s.z) * fov;
-      const y = cy + (s.y / s.z) * fov;
-      const px = cx + (s.x / s.pz) * fov;
-      const py = cy + (s.y / s.pz) * fov;
-      ctx.strokeStyle = `rgba(255,255,255,${Math.min(1, (1 - s.z) * 1.4)})`;
-      ctx.lineWidth = (1 - s.z) * 2.2;
+    }
+    // one stroke per depth band instead of one per star, which phones struggle with
+    for (let b = 0; b < depthBands; b++) {
+      const near = (b + 0.5) / depthBands; // 1 - z
+      ctx.strokeStyle = `rgba(255,255,255,${Math.min(1, near * 1.4)})`;
+      ctx.lineWidth = near * 2.2;
       ctx.beginPath();
-      ctx.moveTo(px, py);
-      ctx.lineTo(x + 0.1, y + 0.1);
+      for (const s of stars) {
+        if (Math.min(depthBands - 1, Math.floor((1 - s.z) * depthBands)) !== b) continue;
+        ctx.moveTo(cx + (s.x / s.pz) * fov, cy + (s.y / s.pz) * fov);
+        ctx.lineTo(cx + (s.x / s.z) * fov + 0.1, cy + (s.y / s.z) * fov + 0.1);
+      }
       ctx.stroke();
     }
     ctx.globalCompositeOperation = 'lighter';
