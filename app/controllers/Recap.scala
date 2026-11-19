@@ -52,7 +52,7 @@ final class Recap(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
-      val availableAt = instantOf(lila.recap.yearToRecap, 12, 15, 0, 0)
+      val availableAt = instantOf(lila.recap.yearToRecap, 12, 7, 0, 0)
       if env.mode.isProd && nowInstant.isBefore(availableAt) then
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
