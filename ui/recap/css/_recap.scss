@@ -286,7 +286,8 @@ body {
   }
 
   .slide--leaving {
-    animation: recap-slide-out 0.5s ease-in both;
+    // gone quickly: the slide coming in shouldn't share the screen with this one for long
+    animation: recap-slide-out 0.35s var(--ease-out) both;
     pointer-events: none;
   }
 
