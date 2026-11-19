@@ -509,6 +509,20 @@ body {
     font-variant-numeric: tabular-nums;
   }
 
+  // see countSpan in html.ts
+  .count {
+    display: inline-grid;
+    justify-items: end;
+  }
+
+  .count > * {
+    grid-area: 1 / 1;
+  }
+
+  .count__final {
+    visibility: hidden;
+  }
+
   .reveal {
     animation: recap-rise 0.9s var(--ease-out) both;
     animation-delay: var(--d, 0s);

@@ -44,8 +44,12 @@ export const words = (text: string, delay = 0, step = 0.06): string =>
     .map((w, i) => `<span class="word" style="--d:${(delay + i * step).toFixed(2)}s">${esc(w)}</span>`)
     .join(' ');
 
+// a number counting up from 0 inside a sentence. The final number, invisible underneath,
+// holds its width from the start, so the sentence doesn't rewrap as digits are added.
 export const countSpan = (n: number, delay = 0, tag = 'strong', cls = 'num'): Raw =>
-  raw(`<${tag} class="${cls}" data-count="${n}" data-delay="${delay}">0</${tag}>`);
+  raw(
+    `<${tag} class="${cls} count"><span class="count__final" aria-hidden="true">${fmt(n)}</span><span data-count="${n}" data-delay="${delay}">0</span></${tag}>`,
+  );
 
 export const easeOutExpo = (t: number): number => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
 export const easeInOut = (t: number): number => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
