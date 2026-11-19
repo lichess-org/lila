@@ -101,7 +101,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
         ${impact(fiveMinutes.moves, i18n.recap.nbMoves)}
         ${impact(fiveMinutes.games, i18n.site.nbGames)}
         ${impact(fiveMinutes.players, i18n.site.nbPlayers)}
-        ${impact(fiveMinutes.schools, i18n.recap.nbSchools)}
+        ${impact(fiveMinutes.students, i18n.class.nbStudents)}
       </div>
     </div>`;
   countAll(sc, el, { dur: 2000 });

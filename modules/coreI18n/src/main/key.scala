@@ -1743,7 +1743,6 @@ object I18nKey:
     val `donateYouPlayedMinutes`: I18nKey = "recap:donateYouPlayedMinutes"
     val `donateMinutesOfUptimePerMonth`: I18nKey = "recap:donateMinutesOfUptimePerMonth"
     val `donateMinutesOfUptime`: I18nKey = "recap:donateMinutesOfUptime"
-    val `nbSchools`: I18nKey = "recap:nbSchools"
 
   object report:
     val `whatIsTheMatter`: I18nKey = "report:whatIsTheMatter"

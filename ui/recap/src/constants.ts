@@ -14,11 +14,11 @@ export const lotrSeconds = 41_160;
 // what 5 minutes of Lichess looks like.
 // PLACEHOLDER estimates: games are derived from the yearly total, the rest needs real figures.
 const gamesIn5Minutes: number = Math.round(totalGames / (365 * 24 * 12));
-export const fiveMinutes: Record<'moves' | 'games' | 'players' | 'schools', number> = {
+export const fiveMinutes: Record<'moves' | 'games' | 'players' | 'students', number> = {
   moves: gamesIn5Minutes * 70,
   games: gamesIn5Minutes,
   players: 110_000,
-  schools: 320,
+  students: 320,
 };
 
 export const slideDurationMultiplier = 1.2;

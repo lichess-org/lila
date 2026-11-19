@@ -29,7 +29,7 @@ final class RecapUi(helpers: Helpers):
           )
         )
       )
-      .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
+      .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences, _.`class`)
       .append(checkoutScripts(checkout))
       .csp(_.withPayments):
         main(cls := "recap") // filled by ui/recap

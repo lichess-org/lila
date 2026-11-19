@@ -3347,8 +3347,6 @@ interface I18n {
     nbOunces: I18nPlural;
     /** %s pounds */
     nbPounds: I18nPlural;
-    /** %s schools */
-    nbSchools: I18nPlural;
     /** You did not play any games this year. */
     noGamesText: string;
     /** What time controls and variants did you play? */

@@ -113,11 +113,7 @@
 	<string name="donateAnchorCapeTown">a cinema ticket in Cape Town</string>
 	<string name="donateAnchorMelbourne">a flat white and a pastry in Melbourne</string>
 	<string name="donateAnchorAntarctica" comment="A joke for players in Antarctica">one premium fish at the McMurdo Station canteen</string>
-	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and schools">In those %s, Lichess will see</string>
-	<plurals name="nbSchools">
-		<item quantity="one">%s school</item>
-		<item quantity="other">%s schools</item>
-	</plurals>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and students">In those %s, Lichess will see</string>
 	<string name="donateNoWorries">No worries! All forms of support from the community are vital for us, and that includes just being here.</string>
 	<string name="donateReplay">Replay my recap</string>
 	<string name="donateChangedMyMind">Changed my mind</string>
