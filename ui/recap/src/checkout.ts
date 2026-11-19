@@ -1,20 +1,45 @@
+import { currencyFormat, roundToCurrency } from 'lib/i18n';
 import * as xhr from 'lib/xhr';
 
-// Donations from the recap use the same endpoints as /patron, always charged in USD.
+import type { CheckoutOpts } from './interfaces';
+
+// Donations from the recap use the same endpoints as /patron, in the visitor's currency.
 // The page loads Stripe.js and both PayPal SDKs, see modules/recap/src/main/ui/RecapUi.scala
 
 export type Freq = 'monthly' | 'onetime';
 
 export interface Donation {
-  amount: number; // USD
+  amount: number; // in `currency`
+  currency: string;
   freq: Freq;
 }
 
-const checkoutUrl = (service: 'stripe' | 'paypal') => `/patron/${service}/checkout?currency=USD`;
+export const usdCheckout: CheckoutOpts = {
+  stripePublicKey: '',
+  currency: 'USD',
+  usdRate: 1,
+  stripe: true,
+  payPal: true,
+};
+
+// a USD amount in the visitor's currency, rounded to 2 significant figures so it reads naturally
+export const localAmount = (usd: number, { currency, usdRate }: CheckoutOpts): number => {
+  if (usdRate === 1) return usd; // USD, and EUR which /patron prices 1:1 with USD
+  const n = usd * usdRate;
+  const step = Math.pow(10, Math.floor(Math.log10(n)) - 1);
+  return roundToCurrency(Math.round(n / step) * step, currency);
+};
+
+// whole amounts without decimals: €7, but €6.90
+export const formatMoney = (n: number, currency: string): string =>
+  currencyFormat(n, currency, n % 1 ? {} : { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+const checkoutUrl = (service: 'stripe' | 'paypal', currency: string) =>
+  `/patron/${service}/checkout?${new URLSearchParams({ currency })}`;
 const thanksUrl = '/patron/thanks';
 
 const post = async (service: 'stripe' | 'paypal', d: Donation) => {
-  const res = await xhr.jsonAnyResponse(checkoutUrl(service), {
+  const res = await xhr.jsonAnyResponse(checkoutUrl(service, d.currency), {
     method: 'post',
     body: xhr.form({ amount: d.amount, freq: d.freq }),
   });

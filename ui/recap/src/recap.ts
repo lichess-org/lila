@@ -12,6 +12,6 @@ export async function initModule(opts: Opts): Promise<void> {
     // the recap is still being computed: wait for it
     root.querySelector('.stage')!.innerHTML = loading(opts.user);
     const loaded: Opts = await json(location.pathname);
-    initModule({ ...loaded, stripePublicKey: opts.stripePublicKey });
+    initModule({ ...loaded, checkout: opts.checkout });
   }
 }

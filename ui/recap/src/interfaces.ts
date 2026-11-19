@@ -4,7 +4,7 @@ import type { Scope } from './scope';
 export interface Opts {
   recap?: Recap;
   user: LightUser;
-  stripePublicKey?: string;
+  checkout?: CheckoutOpts;
   costs?: {
     amount: number;
     currency: string;
@@ -60,6 +60,15 @@ export interface Recap {
     sources: Sources;
     firstMoves: Counted<string>[];
   };
+}
+
+// set by the server, see modules/recap/src/main/ui/RecapUi.scala
+export interface CheckoutOpts {
+  stripePublicKey: string;
+  currency: string; // the visitor's currency, picked like on /patron
+  usdRate: number; // units of currency per US dollar
+  stripe: boolean; // whether Stripe and PayPal accept this currency
+  payPal: boolean;
 }
 
 export interface SlideDef {

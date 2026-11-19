@@ -14,15 +14,11 @@ final class Recap(env: Env) extends LilaController(env):
 
   def user(username: UserStr) = RecapPage(username) { ctx ?=> user => data =>
     negotiate(
-      html =
-        val checkout = lila.recap.ui.RecapUi.Checkout(
-          stripePublicKey = env.plan.stripePublicKey,
-          payPalClientId = env.plan.payPalPublicKey,
-          payPalLocale = lila.plan.PayPalClient.locale(ctx.lang)
-        )
+      html = for
+        checkout <- donationCheckout
         // PayPal's popup needs to talk back to this page, like on /patron
-        Ok.page(views.recap.home(data, user, checkout)).map(_.withHeaders(crossOriginPolicy.unsafe*))
-      ,
+        page <- Ok.page(views.recap.home(data, user, checkout))
+      yield page.withHeaders(crossOriginPolicy.unsafe*),
       json = data match
         case Availability.Available(data) => Ok(data).toFuccess
         case Availability.Queued(_) =>
@@ -30,6 +26,36 @@ final class Recap(env: Env) extends LilaController(env):
             env.recap.api.awaiter(user)(env.plan.currencyApi.yearlyCostsForCtx).map(Ok(_))
     )
   }
+
+  // picks the visitor's currency like /patron does: ?currency=, then their country, then their language
+  private def donationCheckout(using ctx: Context): Fu[lila.recap.ui.RecapUi.Checkout] =
+    val currencyApi = env.plan.currencyApi
+    for
+      pricing <- env.plan.priceApi.pricingOrDefault(currencyApi.guessCurrency(get("currency")))
+      rate <-
+        // /patron's euro prices are the same numbers as its dollar prices, so do the same here
+        if pricing.currency == currencyApi.EUR then fuccess(BigDecimal(1).some)
+        else currencyApi.convert(lila.plan.Money(1, currencyApi.USD), pricing.currency).map(_.map(_.amount))
+    yield
+      // without an exchange rate, fall back to USD
+      val (currency, usdRate, stripe, payPal) = rate match
+        case Some(r) =>
+          (
+            pricing.currencyCode,
+            r.toDouble,
+            pricing.stripeSupportsCurrency,
+            pricing.payPalSupportsCurrency
+          )
+        case None => ("USD", 1d, true, true)
+      lila.recap.ui.RecapUi.Checkout(
+        stripePublicKey = env.plan.stripePublicKey,
+        payPalClientId = env.plan.payPalPublicKey,
+        payPalLocale = lila.plan.PayPalClient.locale(ctx.lang),
+        currency = currency,
+        usdRate = usdRate,
+        stripe = stripe,
+        payPal = payPal
+      )
 
   private def RecapPage(
       username: UserStr

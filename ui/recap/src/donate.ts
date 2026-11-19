@@ -1,6 +1,14 @@
-import { currencyFormat, numberFormat } from 'lib/i18n';
+import { numberFormat } from 'lib/i18n';
 
-import { type Freq, hasStripe, renderPayPal, stripeCheckout } from './checkout';
+import {
+  type Freq,
+  formatMoney,
+  hasStripe,
+  localAmount,
+  renderPayPal,
+  stripeCheckout,
+  usdCheckout,
+} from './checkout';
 import { donationTiers, fiveMinutes, uptimeUsdPerMinute } from './constants';
 import { countSpan, esc, pluralLabel, raw, trHtml } from './html';
 import type { SlideCtx } from './interfaces';
@@ -46,11 +54,12 @@ const detectRegion = (): Region => {
 
 const cardIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19M6 15h4" /></svg>`;
 
-const usd = (n: number) =>
-  currencyFormat(n, 'USD', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
-
 export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
+  const checkout = opts.checkout ?? usdCheckout;
+  // what some minutes of uptime cost, in the visitor's currency
+  const price = (mins: number) => localAmount(mins * uptimeUsdPerMinute, checkout);
+  const money = (n: number) => formatMoney(n, checkout.currency);
   const region = detectRegion();
   const anchors =
     region === 'an'
@@ -93,7 +102,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: Slid
     </div>
     <div class="donate__after" hidden></div>
     <p class="anchor reveal" style="--d:1.8s">
-      ${trHtml(i18n.recap.donateUptimeCosts.asArray(raw(`<b>${esc(fiveMins)}</b>`), raw(`<b>${esc(usd(5 * uptimeUsdPerMinute))}</b>`)))}
+      ${trHtml(i18n.recap.donateUptimeCosts.asArray(raw(`<b>${esc(fiveMins)}</b>`), raw(`<b>${esc(money(price(5)))}</b>`)))}
       ${trHtml(i18n.recap.donateSameAs.asArray(raw('<span class="ticker"></span>')))}
     </p>
     <div class="impact reveal" style="--d:2.2s">
@@ -115,7 +124,8 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: Slid
     onetime: $in('.donate__paypal[data-freq=onetime]'),
   };
   const donation = () => ({
-    amount: donationTiers[state.freq][state.tier] * uptimeUsdPerMinute,
+    amount: price(donationTiers[state.freq][state.tier]),
+    currency: checkout.currency,
     freq: state.freq,
   });
   const panel = $in('.donate__panel');
@@ -134,13 +144,13 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: Slid
         const uptime = monthly ? i18n.recap.donateMinutesOfUptimePerMonth : i18n.recap.donateMinutesOfUptime;
         return `<button role="radio" aria-checked="${on}" class="tier${on ? ' tier--on' : ''}" data-tier="${i}">
           ${i === 1 ? `<em>${esc(i18n.recap.donateSuggested)}</em>` : ''}
-          <b>${esc(usd(m * uptimeUsdPerMinute))}</b>
+          <b>${esc(money(price(m)))}</b>
           <small>${esc(uptime(m, numberFormat(m)))}</small>
         </button>`;
       })
       .join('');
     const m = tierMins[state.tier];
-    const amount = usd(m * uptimeUsdPerMinute);
+    const amount = money(price(m));
     const pitch = raw(`<strong>${esc(i18n.site.nbMinutes(m, numberFormat(m)))}</strong>`);
     $in('.donate__pitch').innerHTML = trHtml(
       (minutes
@@ -166,7 +176,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: Slid
     if (!hasStripe()) return location.assign(`/patron?freq=${state.freq}`);
     card.disabled = true;
     try {
-      await stripeCheckout(opts.stripePublicKey!, donation());
+      await stripeCheckout(checkout.stripePublicKey, donation());
     } finally {
       card.disabled = false;
     }

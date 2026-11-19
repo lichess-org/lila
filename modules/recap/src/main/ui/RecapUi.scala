@@ -20,22 +20,26 @@ final class RecapUi(helpers: Helpers):
       case Availability.Queued(data) => data
     Page(title(user))
       .css("recap")
-      .js(esmInit("recap", data ++ Json.obj("stripePublicKey" -> checkout.stripePublicKey)))
+      .js(esmInit("recap", data ++ Json.obj("checkout" -> checkout.json)))
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
       .append(checkoutScripts(checkout))
       .csp(paymentCsp):
         main(cls := "recap") // filled by ui/recap
 
-  // the donate slide charges in USD, with the same Stripe and PayPal flows as /patron
+  // the donate slide uses the same Stripe and PayPal flows as /patron, in the visitor's currency
   private def checkoutScripts(checkout: RecapUi.Checkout) =
     val namespace = attr("data-namespace")
-    val payPalSdk = s"https://www.paypal.com/sdk/js?client-id=${checkout.payPalClientId}&currency=USD" +
-      checkout.payPalLocale.so(l => s"&locale=$l")
+    val payPalSdk =
+      s"https://www.paypal.com/sdk/js?client-id=${checkout.payPalClientId}&currency=${checkout.currency}" +
+        checkout.payPalLocale.so(l => s"&locale=$l")
     frag(
-      script(src := "https://js.stripe.com/v3/"),
+      checkout.stripe.option(script(src := "https://js.stripe.com/v3/")),
       // one PayPal SDK for one-time orders, another for subscriptions, as PayPal can't do both at once
-      script(src := payPalSdk, namespace := "paypalOrder"),
-      script(src := s"$payPalSdk&vault=true&intent=subscription", namespace := "paypalSubscription")
+      checkout.payPal.option:
+        frag(
+          script(src := payPalSdk, namespace := "paypalOrder"),
+          script(src := s"$payPalSdk&vault=true&intent=subscription", namespace := "paypalSubscription")
+        )
     )
 
   private def paymentCsp: Update[ContentSecurityPolicy] = csp =>
@@ -55,4 +59,19 @@ final class RecapUi(helpers: Helpers):
       )
 
 object RecapUi:
-  case class Checkout(stripePublicKey: String, payPalClientId: String, payPalLocale: Option[String])
+  case class Checkout(
+      stripePublicKey: String,
+      payPalClientId: String,
+      payPalLocale: Option[String],
+      currency: String, // ISO code, e.g. EUR
+      usdRate: Double, // units of currency per US dollar
+      stripe: Boolean, // whether Stripe and PayPal accept this currency
+      payPal: Boolean
+  ):
+    def json = Json.obj(
+      "stripePublicKey" -> stripePublicKey,
+      "currency" -> currency,
+      "usdRate" -> usdRate,
+      "stripe" -> stripe,
+      "payPal" -> payPal
+    )
