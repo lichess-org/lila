@@ -799,7 +799,7 @@
   const UPTIME_USD_PER_MINUTE = 1.5;
   const TIERS = {
     monthly: [2.5, 5, 10], // minutes of uptime per month
-    once: [30, 60, 120], // minutes of uptime, one-off
+    once: [30, 60, 120], // minutes of uptime, one-time
   };
   // What 5 minutes of Lichess looks like. PLACEHOLDER estimates, replace with real figures.
   const FIVE_MINUTES = {
@@ -862,7 +862,7 @@
         <div class="freq" role="radiogroup" aria-label="Donation frequency">
           <i class="freq__pill"></i>
           <button role="radio" data-freq="monthly">Monthly</button>
-          <button role="radio" data-freq="once">One-off</button>
+          <button role="radio" data-freq="once">One-time</button>
         </div>
         <div class="tiers" role="radiogroup" aria-label="Amount"></div>
         <div class="donate__actions">
