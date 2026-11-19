@@ -108,7 +108,7 @@ final class TeamApi(
         forum = edit.forum,
         hideMembers = Some(edit.hideMembers),
         flair = edit.flair,
-        prizeClaimant = if Granter(_.ManageTeam) then edit.prizeClaimant.map(_.id) else old.prizeClaimant
+        prizeClaimant = edit.prizeClaimant.map(_.id)
       )
 
   def update(team: Team)(using me: Me): Fu[String] =

@@ -20,6 +20,7 @@ import lila.core.team.Access
 import lila.core.user.FlairApi
 import lila.db.dsl.{ *, given }
 import lila.mon.extensions.*
+import lila.core.perm.Granter
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor
@@ -54,7 +55,10 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.forum,
       Fields.hideMembers,
       "flair" -> flairApi.formField(),
-      "prizeClaimant" -> optional(lila.common.Form.username.historicalField)
+      "prizeClaimant" -> {
+        if Granter(_.ManageTeam) then optional(username.historicalField)
+        else ignored(team.prizeClaimant.map(identity))
+      }
     )(TeamEdit.apply)(unapply)
   ).fill:
     TeamEdit(
