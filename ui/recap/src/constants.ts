@@ -18,3 +18,5 @@ export const fiveMinutes: Record<'moves' | 'games' | 'players' | 'schools', numb
   players: 110_000,
   schools: 320,
 };
+
+export const slideDurationMultiplier = 1.2;

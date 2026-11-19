@@ -56,7 +56,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   const intro: SlideDef = {
     key: 'intro',
     theme: ['#7c3aed', '#06b6d4', '#f43f5e'],
-    dur: 6500,
+    dur: 6000,
     render(el, sc) {
       const kinds = ['wK', 'bQ', 'wN', 'bR', 'wB', 'bP', 'wQ', 'bN', 'wR', 'bB', 'wP', 'bK'] as const;
       el.innerHTML = `
@@ -100,6 +100,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   const games: SlideDef | false = G.nbs.total > 0 && {
     key: 'games',
     theme: ['#2563eb', '#22d3ee', '#a855f7'],
+    dur: 5000,
     render(el, sc) {
       const C = 2 * Math.PI * 88;
       const winRate = G.nbs.win / G.nbs.total;
@@ -135,6 +136,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   const time: SlideDef | false = G.nbs.total > 0 && {
     key: 'time',
     theme: ['#0ea5e9', '#a3e635', '#14b8a6'],
+    dur: 7000,
     render(el, sc) {
       const s = G.timePlaying;
       const days = s / 86400;
@@ -180,7 +182,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   const moves: SlideDef | false = G.nbs.total > 0 && {
     key: 'moves',
     theme: ['#d97706', '#f59e0b', '#ef4444'],
-    dur: 7000,
+    dur: 7500,
     top: true,
     render(el, sc) {
       const grams = G.moves * pieceGrams;
@@ -369,7 +371,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
   const lichessGames: SlideDef | false = G.nbs.total > 0 && {
     key: 'lichess-games',
     theme: ['#312e81', '#c084fc', '#38bdf8'],
-    dur: 6500,
+    dur: 7500,
     render(el, sc) {
       const mark = raw('');
       const playedIn = i18n.recap.lichessGamesPlayedIn

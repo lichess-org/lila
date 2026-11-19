@@ -1,4 +1,5 @@
 import { makeBackground, type Palette } from './background';
+import { slideDurationMultiplier } from './constants';
 import { esc } from './html';
 import type { Opts, SlideDef } from './interfaces';
 import { makeScope, type Scope } from './scope';
@@ -77,7 +78,7 @@ export function play(root: HTMLElement, opts: Opts): void {
     const def = slides[idx];
     if (def && !paused && !holding) {
       elapsed += dt;
-      const dur = def.dur ?? 6000;
+      const dur = (def.dur ?? 6000) * slideDurationMultiplier;
       bars[idx].style.transform = `scaleX(${dur === Infinity ? 1 : Math.min(1, elapsed / dur)})`;
       if (elapsed >= dur && idx < slides.length - 1) go(idx + 1);
     }
