@@ -40,6 +40,17 @@ const fail = (error: string) => {
   location.assign('/patron');
 };
 
+// the visitor approved the payment in PayPal: capture it, then thank them.
+// if the capture fails, send them to /patron rather than leave them on a page that does nothing
+const capture = async (url: string) => {
+  try {
+    await xhr.json(url, { method: 'POST' });
+    location.assign(thanksUrl);
+  } catch {
+    location.assign('/patron');
+  }
+};
+
 export const hasStripe = (): boolean => !!window.Stripe;
 
 export async function stripeCheckout(publicKey: string, d: Donation): Promise<void> {
@@ -95,10 +106,7 @@ export function renderPayPal(
         else if (!data.order?.id) location.assign('/patron');
         return data.order?.id;
       },
-      onApprove: async data => {
-        await xhr.json(`/patron/paypal/capture/${data.orderID}`, { method: 'POST' });
-        location.assign(thanksUrl);
-      },
+      onApprove: data => capture(`/patron/paypal/capture/${data.orderID}`),
     })
     .render(containers.onetime);
   subscription
@@ -111,12 +119,7 @@ export function renderPayPal(
         else if (!data.subscription?.id) location.assign('/patron');
         return data.subscription?.id;
       },
-      onApprove: async data => {
-        await xhr.json(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID ?? ''}`, {
-          method: 'POST',
-        });
-        location.assign(thanksUrl);
-      },
+      onApprove: data => capture(`/patron/paypal/capture/${data.orderID}?sub=${data.subscriptionID ?? ''}`),
     })
     .render(containers.monthly);
   return { onetime: !!order, monthly: !!subscription };
