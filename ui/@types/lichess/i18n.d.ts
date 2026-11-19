@@ -3263,7 +3263,7 @@ interface I18n {
     donateAnchorSaoPaulo: string;
     /** a bowl of ramen in Tokyo */
     donateAnchorTokyo: string;
-    /** Donate another amount */
+    /** Donate other amount */
     donateAnotherAmount: string;
     /** Changed my mind */
     donateChangedMyMind: string;
