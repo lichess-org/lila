@@ -44,8 +44,29 @@ export const rand = (a: number, b: number): number => a + Math.random() * (b - a
 export const gauss = (): number => (Math.random() + Math.random() + Math.random() + Math.random() - 2) / 2;
 export const pick = <A>(arr: ArrayLike<A>): A => arr[Math.floor(Math.random() * arr.length)];
 
-export const pieceSrc = (color: 'w' | 'b', role: string): string =>
-  site.asset.url(`piece/cburnett/${color}${role}.svg`);
+const roleNames: Record<string, string> = {
+  K: 'king',
+  Q: 'queen',
+  R: 'rook',
+  B: 'bishop',
+  N: 'knight',
+  P: 'pawn',
+};
+
+// the viewer's piece set, from the ---white-king etc. variables the page sets
+const pieceSrcs = new Map<string, string>();
+export const pieceSrc = (color: 'w' | 'b', role: string): string => {
+  const key = color + role;
+  let src = pieceSrcs.get(key);
+  if (!src) {
+    const css = getComputedStyle(document.body).getPropertyValue(
+      `---${color === 'w' ? 'white' : 'black'}-${roleNames[role]}`,
+    );
+    src = css.match(/url\(["']?(.+?)["']?\)/)?.[1] ?? site.asset.url(`piece/cburnett/${key}.svg`);
+    pieceSrcs.set(key, src);
+  }
+  return src;
+};
 
 export const reduceMotion = (): boolean => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
