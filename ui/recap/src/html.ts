@@ -2,6 +2,15 @@ import { numberFormat } from 'lib/i18n';
 
 export const fmt = (n: number): string => numberFormat(Math.round(n));
 
+// for text that changes every frame: editing the text node, rather than replacing it,
+// spares the browser from restyling the page around it
+export const setText = (el: Element, text: string): void => {
+  const node = el.firstChild;
+  if (node instanceof Text && !node.nextSibling) {
+    if (node.data !== text) node.data = text;
+  } else el.textContent = text;
+};
+
 export const esc = (s: string | number): string =>
   String(s).replace(
     /[&<>"']/g,

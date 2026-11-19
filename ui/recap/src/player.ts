@@ -63,7 +63,8 @@ export function play(root: HTMLElement, opts: Opts): void {
   };
 
   const setTheme = (theme: Palette) => {
-    ['--c1', '--c2', '--c3'].forEach((v, i) => root.style.setProperty(v, theme[i]));
+    // one style write rather than three
+    root.style.cssText = theme.map((c, i) => `--c${i + 1}:${c}`).join(';');
     bg.setColors(theme);
   };
 
@@ -72,9 +73,22 @@ export function play(root: HTMLElement, opts: Opts): void {
   const bars = [...progress.querySelectorAll<HTMLElement>('i')];
   $in('.hud__title').textContent = i18n.recap.shareableTitle(opts.recap!.year);
 
+  // phones that can't keep up get a calmer recap rather than a choppy one
+  let slowFrames = 0;
+  let frames = 0;
+  const goLite = () => {
+    root.classList.add('recap--lite');
+    bg.lite();
+  };
+  if (new URLSearchParams(location.search).has('lite')) goLite();
+
   const tick = (now: number) => {
     const dt = now - last;
     last = now;
+    if (!document.hidden && frames++ > 30 && !root.classList.contains('recap--lite')) {
+      slowFrames = dt > 34 ? slowFrames + 1 : Math.max(0, slowFrames - 1);
+      if (slowFrames > 45) goLite();
+    }
     const def = slides[idx];
     if (def && !paused && !holding) {
       elapsed += dt;

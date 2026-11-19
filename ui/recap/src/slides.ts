@@ -17,6 +17,7 @@ import {
   pluralLabel,
   raw,
   type Raw,
+  setText,
   trHtml,
   userLabel,
   words,
@@ -71,7 +72,8 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           .join('')}</h1>
         <p class="headline">${words(i18n.recap.initTitle, 1.3)}</p>`;
       const imgs = [...el.querySelectorAll<HTMLElement>('.intro__ring img')];
-      // only transform, opacity and z-index change per frame: a changing filter would repaint every piece, every frame
+      const front = imgs.map(() => false);
+      // transform and opacity only, so the browser can move the pieces without repainting them
       sc.loop(t => {
         const { W, H } = bg.size();
         const rx = Math.min(W * 0.44, 520);
@@ -80,10 +82,12 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           const a = t / 4200 + (i / imgs.length) * Math.PI * 2;
           const z = Math.sin(a); // -1 back, 1 front
           const s = 0.55 + (z + 1) * 0.4;
-          img.style.transform = `translate(${Math.cos(a) * rx}px, ${z * ry}px) scale(${s}) rotate(${Math.cos(a) * 18}deg)`;
-          const zIndex = z > 0 ? '2' : '-1';
-          if (img.style.zIndex !== zIndex) img.style.zIndex = zIndex;
+          img.style.transform = `translate3d(${Math.cos(a) * rx}px, ${z * ry}px, 0) scale(${s}) rotate(${Math.cos(a) * 18}deg)`;
           img.style.opacity = String(0.35 + (z + 1) * 0.3);
+          if (front[i] !== z > 0) {
+            front[i] = z > 0;
+            img.style.zIndex = front[i] ? '2' : '-1';
+          }
         });
       });
       sc.after(1600, () => sc.onDispose(bg.fireworks(6, 2200)));
@@ -120,12 +124,16 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           </div>
           ${G.nbs.win ? `<p class="lead reveal" style="--d:1.2s">${trHtml(i18n.recap.gamesYouWon.asArray(countSpan(G.nbs.win, 1.2)))}</p>` : ''}`;
       countAll(sc, el);
+      // percentFormat builds a new Intl formatter on each call, too slow for every frame
+      const percents = new Map<number, string>();
+      const percent = (v: number) => {
+        const p = Math.round(v * 100);
+        if (!percents.has(p)) percents.set(p, percentFormat(p / 100, 0));
+        return percents.get(p)!;
+      };
       sc.after(700, () => {
         el.querySelector<SVGElement>('.bar')!.style.strokeDashoffset = String(C * (1 - winRate));
-        countUp(sc, el.querySelector('.ring__rate'), winRate, {
-          dur: 2400,
-          format: v => percentFormat(v, 0),
-        });
+        countUp(sc, el.querySelector('.ring__rate'), winRate, { dur: 2400, format: percent });
       });
       sc.after(3000, () => {
         const r = el.querySelector('.ring')!.getBoundingClientRect();
@@ -155,10 +163,10 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         `<div class="reveal" style="--d:${delay}s"><b data-count="${n}">0</b><small>${esc(pluralLabel(plural, n))}</small></div>`;
       el.innerHTML = `
           <p class="kicker reveal">${esc(i18n.recap.timeSpentPlaying)}</p>
-          <div class="clock reveal" style="--d:.1s"><div class="clock__face">
-            ${Array.from({ length: 12 }, (_, i) => `<i class="clock__tick" style="transform:rotate(${i * 30}deg)"></i>`).join('')}
-            <i class="clock__hand clock__hand--h"></i><i class="clock__hand clock__hand--m"></i><i class="clock__pin"></i>
-          </div></div>
+          <div class="clock reveal" style="--d:.1s">
+            <div class="clock__time"><span>0</span><sep>:</sep><span>00</span><sep>:</sep><span>00</span></div>
+            <div class="clock__bar"></div>
+          </div>
           <div class="time-units">
             ${d ? unit(d, i18n.site.nbDays, 0.3) : ''}
             ${unit(h, i18n.site.nbHours, 0.45)}
@@ -168,15 +176,19 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           ${lotr >= 1 ? `<p class="small reveal" style="--d:2.2s">${trHtml(i18n.recap.timeLordOfTheRings.asArray(lotr, raw(`<span class="hl">${fmt(lotr)}</span>`)))} 🍿</p>` : ''}
           <p class="small reveal" style="--d:2.8s">${esc(i18n.recap.timeHowManyMoves)}</p>`;
       countAll(sc, el, { dur: 2600 });
-      const hh = el.querySelector<HTMLElement>('.clock__hand--h')!;
-      const mm = el.querySelector<HTMLElement>('.clock__hand--m')!;
-      const turns = Math.min(60, Math.max(6, days * 3));
-      sc.loop(t => {
-        const k = easeOutExpo(Math.min(1, t / 3200));
-        mm.style.transform = `rotate(${k * turns * 360}deg)`;
-        hh.style.transform = `rotate(${(k * turns * 360) / 12}deg)`;
-        return k < 1;
-      });
+      // a game clock running up to the time played, in hours, minutes and seconds
+      const [hh, mm, ss] = el.querySelectorAll<HTMLElement>('.clock__time span');
+      const pad = (n: number) => String(n).padStart(2, '0');
+      sc.after(300, () =>
+        sc.loop(t => {
+          const k = easeOutExpo(Math.min(1, t / 3200));
+          const v = Math.floor(s * k);
+          setText(hh, String(Math.floor(v / 3600)));
+          setText(mm, pad(Math.floor((v % 3600) / 60)));
+          setText(ss, pad(v % 60));
+          return k < 1;
+        }),
+      );
     },
   };
 
@@ -384,13 +396,13 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         .join('')
         .trim();
       el.innerHTML = `
-          <canvas class="fill"></canvas>
+          <div class="galaxy"></div>
           <p class="mega mega--sm num" data-count="${totalGames}">0</p>
           <p class="headline">${words(playedIn, 0.3)}</p>
           <p class="lead reveal" style="--d:2.4s">${trHtml(i18n.recap.lichessGamesOfThemYours.asArray(raw(`<strong>${esc(percentFormat(G.nbs.total / totalGames, 6))}</strong>`)))} ✨</p>
           <p class="small reveal" style="--d:3.2s">${esc(i18n.recap.gamesNextQuestion)}</p>`;
       countAll(sc, el, { dur: 2600 });
-      galaxy(sc, el.querySelector('canvas')!, i18n.recap.lichessGamesYou);
+      galaxy(el.querySelector('.galaxy')!, i18n.recap.lichessGamesYou);
     },
   };
 

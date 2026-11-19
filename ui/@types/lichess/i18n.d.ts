@@ -3243,10 +3243,6 @@ interface I18n {
     chessFoes: string;
     /** You are already a Patron, thank you! One more thing… */
     donateAlreadyPatron: string;
-    /** Donate %s */
-    donateAmount: I18nFormat;
-    /** Donate %s / month */
-    donateAmountPerMonth: I18nFormat;
     /** one premium fish at the McMurdo Station canteen */
     donateAnchorAntarctica: string;
     /** a cinema ticket in Cape Town */

@@ -26,6 +26,8 @@ export interface Background {
   fireworks(count?: number, spread?: number): () => void;
   setColors(c: Palette): void;
   size(): { W: number; H: number };
+  // fewer effects, for devices that can't keep up
+  lite(): void;
 }
 
 // starfield that warps between slides, plus spark bursts and fireworks
@@ -37,9 +39,12 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
   let colors: string[] = ['#7c3aed', '#06b6d4', '#f43f5e'];
   const stars: Star[] = [];
   const sparks: Spark[] = [];
+  let lite = false;
+  // phones have 3x screens, but moving pictures don't need every pixel of them
+  const coarse = matchMedia('(pointer: coarse)').matches;
 
   const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = coarse ? 1 : Math.min(devicePixelRatio || 1, 1.5);
     W = innerWidth;
     H = innerHeight;
     cv.width = W * dpr;
@@ -54,6 +59,10 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
   for (let i = 0; i < 260; i++) stars.push(newStar());
 
   const frame = () => {
+    if (document.hidden) {
+      requestAnimationFrame(frame);
+      return;
+    }
     ctx.clearRect(0, 0, W, H);
     const cx = W / 2;
     const cy = H / 2;
@@ -98,13 +107,15 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
     }
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
-    requestAnimationFrame(frame);
+    // in lite mode, this last frame leaves the stars still and the sparks gone
+    if (!lite) requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
 
   const burst = (x: number, y: number, n = 90, palette = colors) => {
-    if (reduceMotion()) return;
-    for (let i = 0; i < n; i++) {
+    if (lite || reduceMotion()) return;
+    const count = coarse ? Math.round(n / 2) : n;
+    for (let i = 0; i < count; i++) {
       const a = rand(0, Math.PI * 2);
       const v = rand(1.5, 7.5);
       sparks.push({
@@ -133,5 +144,10 @@ export function makeBackground(cv: HTMLCanvasElement): Background {
     fireworks,
     setColors: c => (colors = c),
     size: () => ({ W, H }),
+    // the stars stay where they are, and nothing bursts any more
+    lite: () => {
+      lite = true;
+      sparks.length = 0;
+    },
   };
 }

@@ -1,22 +1,5 @@
 // fullscreen, story-style yearly recap. It deliberately does not follow the site theme.
-
-@property --c1 {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #7c3aed;
-}
-
-@property --c2 {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #06b6d4;
-}
-
-@property --c3 {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #f43f5e;
-}
+// Phones must keep up: animations stick to transform and opacity, and nothing is blurred behind or blended.
 
 // the recap takes over the whole screen, above the site header
 body {
@@ -24,11 +7,16 @@ body {
   background: #07060f;
 }
 
+// hidden anyway, and restyling it on every frame was costing phones dearly
+#top {
+  display: none;
+}
+
 .recap {
   --bg: #07060f;
   --fg: #f6f4ff;
   --muted: rgb(246 244 255 / 0.62);
-  --glass: rgb(255 255 255 / 0.07);
+  --glass: rgb(255 255 255 / 0.1);
   --glass-edge: rgb(255 255 255 / 0.14);
   --c1: #7c3aed;
   --c2: #06b6d4;
@@ -48,10 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition:
-    --c1 1.2s ease,
-    --c2 1.2s ease,
-    --c3 1.2s ease;
 
   *,
   *::before,
@@ -86,7 +70,6 @@ body {
     width: 55vmax;
     height: 55vmax;
     border-radius: 50%;
-    mix-blend-mode: screen;
     will-change: transform;
   }
 
@@ -200,7 +183,6 @@ body {
     border-radius: 50%;
     border: 1px solid var(--glass-edge);
     background: var(--glass);
-    backdrop-filter: blur(10px);
     color: #fff;
     cursor: pointer;
     display: grid;
@@ -232,7 +214,6 @@ body {
     border-radius: 50%;
     border: 1px solid var(--glass-edge);
     background: var(--glass);
-    backdrop-filter: blur(10px);
     color: #fff;
     padding: 0;
     cursor: pointer;
@@ -340,6 +321,103 @@ body {
     z-index: -1;
   }
 
+  /* ---------- galaxy: drawn once, moved by css ---------- */
+
+  .galaxy {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    max-width: none;
+    overflow: hidden;
+    pointer-events: none;
+    perspective: 1000px;
+    animation: recap-galaxy-zoom 3s var(--ease-out) both;
+  }
+
+  @keyframes recap-galaxy-zoom {
+    from {
+      transform: scale(0.25);
+    }
+  }
+
+  // bigger than the screen, so centred by hand; the tilt flattens it to the old 0.55 ellipse
+  .galaxy__tilt {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%) rotateX(57deg);
+  }
+
+  .galaxy__spin {
+    position: relative;
+    animation: recap-spin 60s linear infinite;
+  }
+
+  .galaxy__spin canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @keyframes recap-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // the player's dot, kept upright while the galaxy turns
+  .galaxy__you {
+    position: absolute;
+    width: 0;
+    height: 0;
+    animation: recap-spin 60s linear infinite reverse;
+  }
+
+  .galaxy__you::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin: -7px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 10px 4px rgb(56 189 248 / 0.8),
+      0 0 30px 10px rgb(56 189 248 / 0.4);
+    opacity: 0;
+    animation:
+      recap-fade-in 0.4s ease both 2.6s,
+      recap-you 0.7s ease-in-out infinite alternate 3s;
+  }
+
+  @keyframes recap-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes recap-you {
+    to {
+      transform: scale(1.5);
+    }
+  }
+
+  .galaxy__you span {
+    position: absolute;
+    left: 14px;
+    bottom: 10px;
+    transform: rotateX(-57deg);
+    transform-origin: bottom left;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    animation: recap-fade-in 0.4s ease both 2.6s;
+  }
+
   /* ---------- typography ---------- */
 
   .kicker {
@@ -435,7 +513,6 @@ body {
     from {
       opacity: 0;
       transform: translateY(26px);
-      filter: blur(6px);
     }
   }
 
@@ -583,6 +660,11 @@ body {
     stroke: url('#ring-grad');
     filter: drop-shadow(0 0 12px var(--c2));
     transition: stroke-dashoffset 2.4s var(--ease-out);
+
+    // the glow would be redrawn on every frame of the bar filling up
+    @media (pointer: coarse) {
+      filter: none;
+    }
   }
 
   .ring__inner {
@@ -601,70 +683,47 @@ body {
 
   /* ---------- time ---------- */
 
+  // a running Lichess game clock: the site's green, with its bar running down
   .clock {
-    width: min(50vw, 26vh, 240px);
-    aspect-ratio: 1;
-    position: relative;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle, rgb(255 255 255 / 0.07) 0 60%, transparent 61%),
-      conic-gradient(from 0deg, var(--c1), var(--c2), var(--c3), var(--c1));
-    padding: 6px;
-    box-shadow: 0 0 80px color-mix(in srgb, var(--c2) 40%, transparent);
+    --clock-run: hsl(88 62% 37%);
+
+    width: auto;
+    border-radius: 6px;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--clock-run) 30%, #1e2128);
+    box-shadow: 0 10px 40px rgb(0 0 0 / 0.5);
   }
 
-  .clock__face {
-    position: absolute;
-    inset: 6px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #1d1838, #0b0a18 70%);
+  .clock__time {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    padding: 0.05em 0.35em;
+    font-family: Roboto, sans-serif;
+    font-size: clamp(56px, 16vw, 120px);
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    color: hsl(0 0% 96%);
+    direction: ltr;
   }
 
-  .clock__tick {
-    position: absolute;
-    left: 50%;
-    top: 8%;
-    width: 3px;
-    height: 7%;
-    margin-left: -1.5px;
-    background: rgb(255 255 255 / 0.45);
-    border-radius: 2px;
-    transform-origin: 50% 600%;
+  .clock sep {
+    opacity: 0.5;
+    font-size: 0.8em;
   }
 
-  .clock__hand {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-    border-radius: 4px;
-    transform-origin: 50% 100%;
+  .clock__bar {
+    height: 6px;
+    background: var(--clock-run);
+    transform-origin: left;
+    animation: recap-clock-bar 3.5s linear both 0.3s;
   }
 
-  .clock__hand--h {
-    width: 8px;
-    margin-left: -4px;
-    height: 26%;
-    background: #fff;
-  }
-
-  .clock__hand--m {
-    width: 5px;
-    margin-left: -2.5px;
-    height: 38%;
-    background: var(--c2);
-    box-shadow: 0 0 12px var(--c2);
-  }
-
-  .clock__pin {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 16px;
-    height: 16px;
-    margin: -8px;
-    border-radius: 50%;
-    background: var(--c3);
-    box-shadow: 0 0 14px var(--c3);
+  @keyframes recap-clock-bar {
+    from {
+      transform: scaleX(0);
+    }
   }
 
   .time-units {
@@ -681,7 +740,6 @@ body {
     border-radius: 20px;
     background: var(--glass);
     border: 1px solid var(--glass-edge);
-    backdrop-filter: blur(14px);
     min-width: 90px;
   }
 
@@ -947,7 +1005,6 @@ body {
     border-radius: 14px;
     background: var(--glass);
     border: 1px solid var(--glass-edge);
-    backdrop-filter: blur(10px);
     font-weight: 700;
     animation: recap-rise 0.7s var(--ease-out) both;
     animation-delay: var(--d);
@@ -1367,18 +1424,23 @@ body {
     font-size: clamp(26px, 5.4vw, 48px);
   }
 
+  // the donate box looks like the rest of the site: a plain box, /patron's switch, site buttons
   .donate__panel,
   .donate__after {
+    --box: hsl(245 18% 13%);
+    --box-low: hsl(245 15% 18%);
+    --edge: hsl(245 12% 27%);
+    --primary: #3692e7;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 14px;
-    padding: 18px 16px;
-    border-radius: 24px;
-    background: var(--glass);
-    border: 1px solid var(--glass-edge);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 30px 80px rgb(0 0 0 / 0.35);
+    padding: 20px 16px;
+    border-radius: 6px;
+    background: var(--box);
+
+    @include box-shadow;
   }
 
   .donate__after {
@@ -1387,20 +1449,22 @@ body {
 
   .donate__thanks {
     margin: 0;
-    font-size: clamp(24px, 4.4vw, 36px);
-    font-weight: 900;
-    line-height: 1.1;
+    font-family: Roboto, sans-serif;
+    font-size: clamp(24px, 4.4vw, 34px);
+    font-weight: 300;
+    line-height: 1.15;
   }
 
+  // like the monthly / one-time switch of /patron
   .freq {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: min(280px, 100%);
-    padding: 4px;
-    border-radius: 999px;
-    background: rgb(0 0 0 / 0.3);
-    border: 1px solid var(--glass-edge);
+    border-radius: 6px;
+    background: var(--box-low);
+    border: 1px solid var(--edge);
+    overflow: hidden;
   }
 
   .freq button {
@@ -1409,10 +1473,10 @@ body {
     border: 0;
     background: none;
     color: var(--muted);
-    font: 800 15px var(--font);
+    font: 600 15px var(--font);
     padding: 9px 0;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.2s;
   }
 
   .freq button[aria-checked='true'] {
@@ -1421,14 +1485,12 @@ body {
 
   .freq__pill {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
-    left: 4px;
-    width: calc(50% - 4px);
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--c1), var(--c3));
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--c3) 50%, transparent);
-    transition: transform 0.45s var(--ease-spring);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    background: var(--primary);
+    transition: transform 0.3s var(--ease-out);
   }
 
   .freq[data-freq='onetime'] .freq__pill {
@@ -1438,68 +1500,53 @@ body {
   .tiers {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 8px;
     width: 100%;
   }
 
   .tier {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     min-width: 0;
-    padding: 16px 6px;
-    border-radius: 18px;
-    border: 1px solid var(--glass-edge);
-    background: rgb(255 255 255 / 0.04);
-    color: #fff;
+    padding: 14px 6px;
+    border-radius: 6px;
+    border: 1px solid var(--edge);
+    background: var(--box-low);
+    color: var(--fg);
     font-family: var(--font);
     cursor: pointer;
     transition:
-      transform 0.35s var(--ease-spring),
-      background 0.3s,
-      border-color 0.3s,
-      box-shadow 0.3s;
-    animation: recap-pop 0.5s var(--ease-spring) both;
+      background 0.15s,
+      border-color 0.15s;
+    animation: recap-pop 0.4s var(--ease-spring) both;
   }
 
   .tier:hover {
-    transform: translateY(-3px);
+    border-color: var(--primary);
   }
 
   .tier b {
-    font-size: clamp(22px, 5vw, 32px);
-    font-weight: 900;
+    font-family: Roboto, sans-serif;
+    font-size: clamp(22px, 5vw, 30px);
+    font-weight: 400;
     font-variant-numeric: tabular-nums;
   }
 
   .tier small {
     color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
     line-height: 1.25;
   }
 
   .tier--on {
-    transform: scale(1.06);
-    border-color: color-mix(in srgb, var(--c2) 80%, #fff);
-    background: linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--c1) 45%, transparent),
-      color-mix(in srgb, var(--c3) 30%, transparent)
-    );
-    box-shadow:
-      0 0 0 2px color-mix(in srgb, var(--c2) 60%, transparent),
-      0 16px 40px color-mix(in srgb, var(--c1) 50%, transparent);
-  }
-
-  .tier--on:hover {
-    transform: scale(1.06) translateY(-3px);
+    background: color-mix(in oklab, var(--primary) 30%, var(--box));
+    border-color: var(--primary);
   }
 
   .tier--on small {
-    color: #fff;
+    color: var(--fg);
   }
 
   .donate__actions {
@@ -1508,12 +1555,6 @@ body {
     justify-content: center;
     gap: 18px;
     flex-wrap: wrap;
-  }
-
-  .donate__amount {
-    margin: 0 0 -4px;
-    font-size: clamp(17px, 3vw, 20px);
-    font-weight: 800;
   }
 
   .donate__pay {
@@ -1530,23 +1571,16 @@ body {
     }
   }
 
+  // a site button, with the patron wings
   .donate__card {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0.4em;
+    width: auto;
     height: 48px;
-    padding: 0 20px;
+    margin: 0;
     font-size: 17px;
-  }
-
-  .donate__card svg {
-    width: 26px;
-    height: 26px;
-    fill: none;
-    stroke: currentcolor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
   }
 
   .donate__card:disabled {
@@ -1557,7 +1591,7 @@ body {
   // PayPal renders its own button in an iframe
   .donate__paypal {
     min-height: 48px;
-    border-radius: 999px;
+    border-radius: 4px;
     overflow: hidden;
   }
 
@@ -1571,15 +1605,14 @@ body {
   .donate__skip {
     border: 0;
     background: none;
-    color: var(--muted);
-    font: 700 15px var(--font);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    color: var(--primary, #3692e7);
+    font: 500 15px var(--font);
+    text-decoration: none;
     cursor: pointer;
   }
 
   .donate__skip:hover {
-    color: #fff;
+    text-decoration: underline;
   }
 
   .anchor {
@@ -1662,6 +1695,37 @@ body {
 
     .board-wrap {
       width: min(78vw, 40vh, 400px);
+    }
+  }
+
+  // devices that dropped frames: keep the content, stop the endless motion
+  &.recap--lite {
+    .blob,
+    .mega,
+    .intro__logo,
+    .bars__fill::after,
+    .shield__scan,
+    .wings,
+    .galaxy__spin,
+    .galaxy__you {
+      animation: none;
+    }
+
+    .mega {
+      filter: none;
+    }
+
+    .bubble {
+      animation: recap-pop 1s var(--ease-spring) both var(--d);
+    }
+
+    .galaxy__you::before {
+      animation: none;
+      opacity: 1;
+    }
+
+    .intro__orbit {
+      display: none;
     }
   }
 

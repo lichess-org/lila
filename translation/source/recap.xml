@@ -101,8 +101,6 @@
 		<item quantity="one">%s minute of uptime</item>
 		<item quantity="other">%s minutes of uptime</item>
 	</plurals>
-	<string name="donateAmount" comment="%s is an amount of money e.g. '$90'">Donate %s</string>
-	<string name="donateAmountPerMonth" comment="%s is an amount of money e.g. '$7.50'">Donate %s / month</string>
 	<string name="donateNotToday">Not today</string>
 	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Donate other amount</string>
 	<string name="donateCharity">Lichess is a charity.</string>

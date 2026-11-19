@@ -1,11 +1,17 @@
-import { easeOutExpo, esc, fmt, gauss, pick, pieceSrc, rand } from './html';
+import { esc, fmt, gauss, pick, pieceSrc, rand } from './html';
 import type { Scope } from './scope';
 
-const setupCanvas = (cv: HTMLCanvasElement, maxDpr = 2) => {
+// phones have 3x screens, but moving pictures don't need every pixel of them
+const coarse = matchMedia('(pointer: coarse)').matches;
+
+const setupCanvas = (
+  cv: HTMLCanvasElement,
+  W = cv.clientWidth,
+  H = cv.clientHeight,
+  maxDpr = coarse ? 1 : 1.5,
+) => {
   const ctx = cv.getContext('2d')!;
   const dpr = Math.min(devicePixelRatio || 1, maxDpr);
-  const W = cv.clientWidth;
-  const H = cv.clientHeight;
   cv.width = W * dpr;
   cv.height = H * dpr;
   ctx.scale(dpr, dpr);
@@ -23,7 +29,7 @@ interface Falling {
 }
 
 // pieces with their shadow drawn once, since canvas shadows are slow to draw on every frame
-const shadowPad = 12;
+const shadowPad = 6;
 const sprites = new Map<HTMLImageElement, HTMLCanvasElement>();
 const sprite = (img: HTMLImageElement, size: number, dpr: number) => {
   let cv = sprites.get(img);
@@ -33,7 +39,7 @@ const sprite = (img: HTMLImageElement, size: number, dpr: number) => {
     const ctx = cv.getContext('2d')!;
     ctx.scale(dpr, dpr);
     ctx.shadowColor = 'rgba(0,0,0,.5)';
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 4;
     ctx.drawImage(img, shadowPad, shadowPad, size, size);
     sprites.set(img, cv);
   }
@@ -43,22 +49,20 @@ const sprite = (img: HTMLImageElement, size: number, dpr: number) => {
 const drawPiece = (ctx: CanvasRenderingContext2D, p: Falling, size: number, dpr: number) => {
   if (!p.img.complete || !p.img.naturalWidth) return;
   const half = size / 2 + shadowPad;
-  ctx.save();
-  ctx.translate(p.x, p.y);
-  ctx.rotate(p.rot);
+  const cos = Math.cos(p.rot) * dpr;
+  const sin = Math.sin(p.rot) * dpr;
+  ctx.setTransform(cos, sin, -sin, cos, p.x * dpr, p.y * dpr);
   ctx.drawImage(sprite(p.img, size, dpr), -half, -half, half * 2, half * 2);
-  ctx.restore();
 };
 
 // pieces raining down and piling into a mound at the bottom of the screen
-export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): void {
+export function pilePieces(sc: Scope, cv: HTMLCanvasElement, wanted: number): void {
+  const count = coarse ? Math.min(200, wanted) : wanted;
   const { ctx, W, H, dpr } = setupCanvas(cv);
-  // pieces that landed are drawn once onto this canvas instead of every frame
-  const settled = document.createElement('canvas');
-  settled.width = cv.width;
-  settled.height = cv.height;
-  const sctx = settled.getContext('2d')!;
-  sctx.scale(dpr, dpr);
+  // pieces that landed are drawn once onto a canvas underneath, so each frame only draws the falling ones
+  const settled = cv.cloneNode() as HTMLCanvasElement;
+  cv.before(settled);
+  const sctx = setupCanvas(settled, W, H).ctx;
 
   sprites.clear();
   const roles = 'PPPPNBRQK';
@@ -93,7 +97,8 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
         col,
       });
     }
-    ctx.clearRect(0, 0, W, H);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     for (let i = falling.length - 1; i >= 0; i--) {
       const p = falling[i];
       p.vy += 0.55;
@@ -114,71 +119,45 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
         falling.splice(i, 1);
       } else drawPiece(ctx, p, size, dpr);
     }
-    ctx.drawImage(settled, 0, 0, W, H);
     return spawned < count || falling.length > 0;
   });
 }
 
-// spiral galaxy of games with one glowing dot for the player
-export function galaxy(sc: Scope, cv: HTMLCanvasElement, youLabel: string): void {
-  // the dots are tiny and blurry anyway: skip high-dpi, and draw fewer on phone-sized screens
-  const { ctx, W, H } = setupCanvas(cv, 1);
-  const R = Math.max(W, H) * 0.55;
-  const nbDots = Math.round(4000 * Math.min(1, Math.max(0.5, (W * H) / (1280 * 800))));
-  // points share a few colours, so each frame sets the colour ~50 times rather than once per dot
-  const groups = new Map<string, { d: number; a: number; s: number }[]>();
-  for (let i = 0; i < nbDots; i++) {
+// spiral galaxy of games with one glowing dot for the player.
+// It is drawn once; css tilts, zooms and spins it, so no frame redraws its thousands of stars.
+export function galaxy(box: HTMLElement, youLabel: string): void {
+  const size = Math.round(Math.max(innerWidth, innerHeight) * 1.1);
+  box.innerHTML = `<div class="galaxy__tilt"><div class="galaxy__spin" style="width:${size}px;height:${size}px">
+      <canvas></canvas><i class="galaxy__you"><span>${esc(youLabel)}</span></i>
+    </div></div>`;
+  const cv = box.querySelector('canvas')!;
+  // the dots are tiny and blurry anyway: skip high-dpi
+  const { ctx } = setupCanvas(cv, size, size, 1);
+  const c = size / 2;
+  const R = size / 2;
+  ctx.globalCompositeOperation = 'lighter';
+  // fewer on phone-sized screens
+  const stars = Math.round(4000 * Math.min(1, Math.max(0.5, (innerWidth * innerHeight) / (1280 * 800))));
+  for (let i = 0; i < stars; i++) {
     const arm = Math.floor(Math.random() * 3);
     const d = Math.pow(Math.random(), 1.6);
+    const a = arm * ((Math.PI * 2) / 3) + d * 5.2 + gauss() * 0.45 * (1 - d * 0.5);
     const hue = Math.round(rand(200, 320) / 20) * 20;
     const shade = Math.round(d * 6) / 6;
-    const style = `hsla(${hue},95%,${75 - shade * 20}%,${0.95 - shade * 0.4})`;
-    if (!groups.has(style)) groups.set(style, []);
-    groups.get(style)!.push({
-      d,
-      a: arm * ((Math.PI * 2) / 3) + d * 5.2 + gauss() * 0.45 * (1 - d * 0.5),
-      s: rand(0.8, 2.6),
-    });
+    ctx.fillStyle = `hsla(${hue},95%,${75 - shade * 20}%,${0.95 - shade * 0.4})`;
+    const s = rand(0.8, 2.6);
+    ctx.fillRect(c + Math.cos(a) * d * R, c + Math.sin(a) * d * R, s, s);
   }
-  const you = { d: 0.38, a: 2.1 };
-  sc.loop(t => {
-    ctx.clearRect(0, 0, W, H);
-    const zoom = 0.25 + easeOutExpo(Math.min(1, t / 3000)) * 0.75;
-    const rot = t / 9000;
-    const cx = W / 2;
-    const cy = H * 0.52;
-    ctx.globalCompositeOperation = 'lighter';
-    for (const [style, pts] of groups) {
-      ctx.fillStyle = style;
-      for (const p of pts) {
-        const a = p.a + rot * (1.4 - p.d);
-        ctx.fillRect(cx + Math.cos(a) * p.d * R * zoom, cy + Math.sin(a) * p.d * R * zoom * 0.55, p.s, p.s);
-      }
-    }
-    const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * zoom * 0.25);
-    core.addColorStop(0, 'rgba(255,240,255,.8)');
-    core.addColorStop(1, 'rgba(255,240,255,0)');
-    ctx.fillStyle = core;
-    ctx.fillRect(0, 0, W, H);
-    ctx.globalCompositeOperation = 'source-over';
-    if (t > 2600) {
-      const a = you.a + rot * (1.4 - you.d);
-      const x = cx + Math.cos(a) * you.d * R * zoom;
-      const y = cy + Math.sin(a) * you.d * R * zoom * 0.55;
-      const pulse = 6 + Math.sin(t / 220) * 3;
-      const g = ctx.createRadialGradient(x, y, 0, x, y, pulse * 4);
-      g.addColorStop(0, 'rgba(255,255,255,1)');
-      g.addColorStop(0.25, 'rgba(56,189,248,.8)');
-      g.addColorStop(1, 'rgba(56,189,248,0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, pulse * 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.font = '800 14px system-ui, sans-serif';
-      ctx.fillStyle = '#fff';
-      ctx.fillText(youLabel, x + 14, y - 12);
-    }
-  });
+  const core = ctx.createRadialGradient(c, c, 0, c, c, R * 0.25);
+  core.addColorStop(0, 'rgba(255,240,255,.8)');
+  core.addColorStop(1, 'rgba(255,240,255,0)');
+  ctx.fillStyle = core;
+  ctx.fillRect(0, 0, size, size);
+  const you = box.querySelector<HTMLElement>('.galaxy__you')!;
+  const yd = 0.38 * R;
+  const ya = 2.1;
+  you.style.left = `${c + Math.cos(ya) * yd}px`;
+  you.style.top = `${c + Math.sin(ya) * yd}px`;
 }
 
 // rough circle packing: biggest in the middle, others spiral outwards

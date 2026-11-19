@@ -1,4 +1,5 @@
 import { numberFormat } from 'lib/i18n';
+import { licon } from 'lib/licon';
 
 import { formatMoney, hasStripe, renderPayPal, stripeCheckout } from './checkout';
 import { fiveMinutes } from './constants';
@@ -44,8 +45,6 @@ const detectRegion = (): Region => {
   return 'na';
 };
 
-const cardIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19M6 15h4" /></svg>`;
-
 export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
   const checkout = opts.checkout;
@@ -80,9 +79,8 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
         <button role="radio" data-freq="onetime">${esc(i18n.patron.onetime)}</button>
       </div>
       <div class="tiers" role="radiogroup"></div>
-      <p class="donate__amount"></p>
       <div class="donate__pay">
-        <button class="cta donate__card">${cardIcon}<span>${esc(i18n.patron.donate)}</span></button>
+        <button class="button button-fat donate__card" data-icon="${licon.Wings}">${esc(i18n.patron.donate)}</button>
         <div class="donate__paypal" data-freq="monthly"></div>
         <div class="donate__paypal" data-freq="onetime"></div>
       </div>
@@ -140,8 +138,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
         </button>`;
       })
       .join('');
-    const { minutes: m, amount: tierAmount } = tiers[state.tier];
-    const amount = money(tierAmount);
+    const { minutes: m } = tiers[state.tier];
     const pitch = raw(`<strong>${esc(i18n.site.nbMinutes(m, numberFormat(m)))}</strong>`);
     $in('.donate__pitch').innerHTML = trHtml(
       (minutes
@@ -153,9 +150,6 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
           : i18n.recap.donateConsiderOnceNoGames
       ).asArray(pitch),
     );
-    $in('.donate__amount').textContent = monthly
-      ? i18n.recap.donateAmountPerMonth(amount)
-      : i18n.recap.donateAmount(amount);
     payPal.monthly.hidden = !monthly;
     payPal.onetime.hidden = monthly;
   };
