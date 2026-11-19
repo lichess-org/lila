@@ -398,7 +398,7 @@
             m = Math.floor((s % 3600) / 60);
           const lotr = s / 41160; // extended Lord of the Rings trilogy
           const verdict =
-            days > 10 ? 'That is way too much chess.' : days > 5 ? 'That is a lot of chess.' : 'That seems like a reasonable amount of chess.';
+            days > 10 ? 'Now that is some serious dedication!' : days > 5 ? 'Every one of those minutes counted.' : 'Time well spent, one move at a time.';
           el.innerHTML = `
             <p class="kicker reveal">Time spent playing</p>
             <div class="clock reveal" style="--d:.1s"><div class="clock__face">

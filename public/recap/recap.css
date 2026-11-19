@@ -475,6 +475,11 @@ a {
 }
 .intro__year span {
   display: inline-block;
+  /* background-clip:text only paints inside the box; the tight letter-spacing
+     makes glyphs overhang it, so pad the box and pull neighbours back in */
+  letter-spacing: 0;
+  padding: 0.04em 0.1em;
+  margin: -0.04em -0.13em;
   background: linear-gradient(180deg, #fff 0%, var(--c2) 55%, var(--c1) 100%);
   -webkit-background-clip: text;
   background-clip: text;
