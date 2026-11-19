@@ -86,9 +86,6 @@
 		<item quantity="one">%s puzzle solved</item>
 		<item quantity="other">%s puzzles solved</item>
 	</plurals>
-	<string name="share" comment="Button to share the recap">Share</string>
-	<string name="linkCopied">Link copied!</string>
-	<string name="replay" comment="Button to watch the recap again from the start">Replay</string>
 	<string name="donateOneMoreThing">One more thing…</string>
 	<string name="donateAlreadyPatron">You are already a Patron, thank you! One more thing…</string>
 	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">

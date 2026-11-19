@@ -23,8 +23,8 @@ export const skeleton = (): string => `
     </div>
   </header>
   <main class="stage" aria-live="polite"></main>
-  <button class="nav nav--prev" aria-label="Previous">‹</button>
-  <button class="nav nav--next" aria-label="${esc(i18n.site.next)}">›</button>`;
+  <button class="nav nav--prev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5l-7 7 7 7" /></svg></button>
+  <button class="nav nav--next" aria-label="${esc(i18n.site.next)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5l7 7-7 7" /></svg></button>`;
 
 export function play(root: HTMLElement, opts: Opts): void {
   const $in = <E extends Element = HTMLElement>(s: string) => root.querySelector<E>(s)!;

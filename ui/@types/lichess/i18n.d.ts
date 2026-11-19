@@ -3315,8 +3315,6 @@ interface I18n {
     lichessGamesPlayedIn: I18nFormat;
     /** you */
     lichessGamesYou: string;
-    /** Link copied! */
-    linkCopied: string;
     /** Ads */
     malwareAds: string;
     /** Data brokers */
@@ -3379,10 +3377,6 @@ interface I18n {
     puzzlesYouWonOnFirstTry: I18nFormat;
     /** Your %s recap is ready! */
     recapReady: I18nFormat;
-    /** Replay */
-    replay: string;
-    /** Share */
-    share: string;
     /** favourite first move */
     shareableFavouriteFirstMove: string;
     /** favourite time control */

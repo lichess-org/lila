@@ -486,10 +486,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
               )
               .join('')}
           </div>
-        </div>
-        <div class="actions reveal" style="--d:1s">
-          <button class="cta" data-act="share">${esc(i18n.recap.share)}</button>
-          <button class="cta cta--ghost" data-act="replay">${esc(i18n.recap.replay)} ↺</button>
         </div>`;
       const card = el.querySelector<HTMLElement>('.card')!;
       const tilt = (clientX: number, clientY: number) => {
@@ -518,19 +514,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
       };
       addEventListener('pointermove', move);
       sc.onDispose(() => removeEventListener('pointermove', move));
-      el.querySelector<HTMLElement>('[data-act=replay]')!.onclick = ctx.restart;
-      el.querySelector<HTMLElement>('[data-act=share]')!.onclick = async () => {
-        const url = location.origin + location.pathname;
-        try {
-          if (navigator.share) await navigator.share({ title: i18n.recap.shareableTitle(R.year), url });
-          else {
-            await navigator.clipboard.writeText(url);
-            toast(i18n.recap.linkCopied);
-          }
-        } catch {
-          // the user cancelled the share sheet
-        }
-      };
       sc.after(600, () => {
         const r = card.getBoundingClientRect();
         bg.burst(r.left + r.width / 2, r.top + r.height / 3, 140);
@@ -565,11 +548,3 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     donate,
   ].filter((s): s is SlideDef => !!s);
 }
-
-const toast = (msg: string) => {
-  const t = document.createElement('div');
-  t.className = 'recap-toast';
-  t.textContent = msg;
-  document.querySelector('.recap')!.appendChild(t);
-  setTimeout(() => t.remove(), 1800);
-};

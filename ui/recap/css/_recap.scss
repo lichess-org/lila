@@ -233,13 +233,23 @@ body {
     background: var(--glass);
     backdrop-filter: blur(10px);
     color: #fff;
-    font-size: 32px;
-    line-height: 1;
+    padding: 0;
     cursor: pointer;
     display: none;
+    place-items: center;
     transition:
       background 0.2s,
       transform 0.2s;
+  }
+
+  .nav svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .nav:hover {
@@ -257,7 +267,7 @@ body {
 
   @media (hover: hover) and (min-width: 900px) {
     .nav {
-      display: block;
+      display: grid;
     }
   }
 
@@ -369,6 +379,11 @@ body {
 
   .mega--sm {
     font-size: clamp(48px, min(14vw, 13vh), 120px);
+  }
+
+  // 1,825,000,000 is about 7 em wide: keep it inside the 720px column, or the gradient clips it
+  .slide--lichess-games .mega {
+    font-size: min(13vh, 100px, calc((100vw - 32px) / 7.2));
   }
 
   @keyframes recap-sheen {
@@ -1350,27 +1365,6 @@ body {
 
   .card__stat--wide {
     grid-column: span 2;
-  }
-
-  .actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .recap-toast {
-    position: fixed;
-    left: 50%;
-    bottom: 32px;
-    transform: translateX(-50%);
-    z-index: 50;
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: #fff;
-    color: #000;
-    font-weight: 800;
-    animation: recap-rise 0.4s var(--ease-out);
   }
 
   /* ---------- donate ---------- */
