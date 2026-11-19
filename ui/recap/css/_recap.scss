@@ -276,6 +276,10 @@ body {
     animation: recap-slide-in 0.8s var(--ease-out) both;
   }
 
+  .slide--arriving {
+    pointer-events: none;
+  }
+
   .slide > * {
     max-width: 720px;
     width: 100%;
@@ -509,8 +513,10 @@ body {
     animation-delay: var(--d, 0s);
   }
 
+  // hidden, not only transparent, until it rises: a button that can't be seen can't be tapped
   @keyframes recap-rise {
     from {
+      visibility: hidden;
       opacity: 0;
       transform: translateY(26px);
     }

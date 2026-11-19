@@ -55,10 +55,12 @@ export function play(root: HTMLElement, opts: Opts): void {
     bg.warp(back ? 0.4 : 1);
     bars.forEach((b, k) => (b.style.transform = `scaleX(${k < i ? 1 : 0})`));
     const el = document.createElement('section');
-    el.className = `slide slide--${def.key}${back ? ' slide--back' : ''}${def.top ? ' slide--top' : ''}`;
+    // arriving: the tap that brought this slide must not also press what is now under the finger
+    el.className = `slide slide--arriving slide--${def.key}${back ? ' slide--back' : ''}${def.top ? ' slide--top' : ''}`;
     stage.appendChild(el);
     const scope = makeScope();
     def.render(el, scope);
+    scope.after(450, () => el.classList.remove('slide--arriving'));
     current = { el, scope };
   };
 
