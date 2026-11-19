@@ -82,6 +82,8 @@ export default class ExplorerCtrl {
 
   isAuth = () => defined(myUserId());
 
+  requiresAuth = () => this.config.data.db() !== 'masters' && !this.isAuth();
+
   reload = () => {
     this.directInteraction = true;
     this.cache = {};

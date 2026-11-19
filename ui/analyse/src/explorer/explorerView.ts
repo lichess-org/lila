@@ -247,7 +247,6 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
-    if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
     const moveTable = showMoveTable(ctrl, data);
     const recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []);
     const topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -366,7 +365,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
                 config.selectPlayer(playerName || 'me');
                 if (explorer.db() !== 'player') {
                   config.data.db('player');
-                  config.data.open(true);
+                  config.data.open(!explorer.requiresAuth());
                 }
               },
               explorer.reload,
@@ -404,7 +403,7 @@ const showFailing = (ctrl: AnalyseCtrl) =>
 
 const showAnon = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
-    hl('div.title', i18n.site.openingExplorer),
+    explorerTitle(ctrl),
     hl('div.message', [
       hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
       hl(
@@ -426,7 +425,13 @@ export default function (ctrl: AnalyseCtrl): MaybeVNode {
   const data = explorer.current();
   const configOpened = explorer.config.data.open();
   const loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-  const content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
+  const content = explorer.requiresAuth()
+    ? showAnon(ctrl)
+    : configOpened
+      ? showConfig(ctrl)
+      : explorer.failing()
+        ? showFailing(ctrl)
+        : show(ctrl);
 
   return hl(
     `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,
