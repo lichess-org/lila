@@ -431,7 +431,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           <div class="card__grid">
             ${countStat(G.nbs.total, i18n.site.nbGames)}
             ${countStat(G.moves, i18n.recap.nbMovesPlayed)}
-            ${stat(esc(formatDuration(G.timePlaying, ', ')), i18n.recap.shareableSpentPlaying, true)}
+            ${stat(esc(formatDuration(G.timePlaying)), i18n.recap.shareableSpentPlaying, true)}
             ${topPerf?.games ? stat(`${perfIcon(topPerf.key)} ${esc(perfName(topPerf.key))}`, perfLabel(topPerf)) : ''}
             ${G.opponents[0] ? stat(userLabel(G.opponents[0].value), i18n.recap.shareableMostPlayedOpponent) : ''}
             ${P.nbs.total ? countStat(P.nbs.total, i18n.recap.shareableNbPuzzlesSolved) : ''}
