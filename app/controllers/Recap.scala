@@ -32,7 +32,7 @@ final class Recap(env: Env) extends LilaController(env):
     import env.plan.priceApi
     for
       pricing <- priceApi.pricingOrDefault(env.plan.currencyApi.guessCurrency)
-      local <- allMinutes.parallel(m => priceApi.localize(m * uptimeUsdPerMinute, pricing.currency))
+      local <- allMinutes.traverse(m => priceApi.localize(m * uptimeUsdPerMinute, pricing.currency))
     yield
       val (p, prices) = local.sequence.fold(
         priceApi.usdPricing -> allMinutes.map(_ * uptimeUsdPerMinute)
@@ -52,8 +52,7 @@ final class Recap(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
-      val availableAt = instantOf(lila.recap.yearToRecap, 12, 7, 0, 0)
-      if env.mode.isProd && nowInstant.isBefore(availableAt) && !isGranted(_.LichessTeam) then
+      if !lila.recap.Recap.availableForMe(env.mode) then
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
         def proceed(user: lila.core.user.User) = for
@@ -61,6 +60,6 @@ final class Recap(env: Env) extends LilaController(env):
           res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
         yield res
         if me.is(username) then proceed(me)
-        else if isGranted(_.SeeInsight) || !env.mode.isProd then Found(env.user.api.byId(username))(proceed)
+        else if isGranted(_.SeeInsight) || env.mode.notProd then Found(env.user.api.byId(username))(proceed)
         else Redirect(routes.Recap.home).toFuccess
     }
