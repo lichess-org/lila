@@ -213,11 +213,11 @@ body {
   }
 
   .hud__btn .i-play,
-  .paused .hud__btn .i-pause {
+  &.paused .hud__btn .i-pause {
     display: none;
   }
 
-  .paused .hud__btn .i-play {
+  &.paused .hud__btn .i-play {
     display: inline;
   }
 

@@ -86,9 +86,11 @@ export function play(root: HTMLElement, opts: Opts): void {
   };
   requestAnimationFrame(tick);
 
+  const pauseBtn = $in('.hud__pause');
   const setPaused = (p: boolean) => {
     paused = p;
     root.classList.toggle('paused', p);
+    pauseBtn.setAttribute('aria-label', p ? i18n.site.resume : i18n.site.pause);
   };
 
   // tap left/right to navigate, press and hold to pause
@@ -113,13 +115,14 @@ export function play(root: HTMLElement, opts: Opts): void {
   stage.addEventListener('pointercancel', release);
   $in('.nav--prev').onclick = () => go(idx - 1);
   $in('.nav--next').onclick = () => go(idx + 1);
-  $in('.hud__pause').onclick = () => setPaused(!paused);
+  pauseBtn.onclick = () => setPaused(!paused);
   addEventListener('keydown', e => {
-    // let focused controls handle their own keys, e.g. Space on a button
-    if ((e.target as HTMLElement).closest?.('input,textarea,select,button,a')) return;
+    // let focused controls handle their own keys: typing in fields, Space on a button or link
+    const target = e.target as HTMLElement;
+    if (target.closest?.('input,textarea,select')) return;
     if (e.key === 'ArrowRight') go(idx + 1);
     else if (e.key === 'ArrowLeft') go(idx - 1);
-    else if (e.key === ' ') {
+    else if (e.key === ' ' && !target.closest?.('button,a')) {
       e.preventDefault();
       setPaused(!paused);
     } else if (e.key === 'Home') go(0);
