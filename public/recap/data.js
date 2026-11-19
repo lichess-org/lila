@@ -5,8 +5,8 @@ window.RECAP_SAMPLE = {
   user: { id: 'bobby', name: 'Bobby', patron: false },
   costs: { amount: 580000, currency: 'USD' },
   recap: {
-    year: 2025,
-    createdAt: 1765800000000,
+    year: 2026,
+    createdAt: 1797336000000,
     puzzles: {
       nbs: { total: 1834, win: 1201 },
       votes: { nb: 312, themes: 57 },
