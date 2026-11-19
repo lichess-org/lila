@@ -14,20 +14,17 @@ final class RecapApi(
 
   export repo.get
 
-  def availability[C: Writes](user: User)(getCosts: => Fu[C]): Fu[Availability] =
+  def availability(user: User): Fu[Availability] =
     import Availability.*
     get(user.id).flatMap:
       _.fold(for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))): recap =>
-        for
-          data <- recapJson(recap, user)
-          costs <- getCosts
-        yield Available(data.add("costs" -> costs.some))
+        recapJson(recap, user).map(Available(_))
 
   // waits until the recap is computed
-  def awaiter[C: Writes](user: User, counter: Int = 0)(getCosts: => Fu[C]): Fu[JsObject] =
-    availability(user)(getCosts).flatMap:
+  def awaiter(user: User, counter: Int = 0): Fu[JsObject] =
+    availability(user).flatMap:
       case Recap.Availability.Available(data) => fuccess(data)
       case Recap.Availability.Queued(_) =>
         if counter < 60
-        then delay(2.seconds)(awaiter(user, counter + 1)(getCosts))
+        then delay(2.seconds)(awaiter(user, counter + 1))
         else fufail(LilaException(s"Recap awaiter timeout for ${user.id}"))

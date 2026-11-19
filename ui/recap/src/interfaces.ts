@@ -5,10 +5,6 @@ export interface Opts {
   recap?: Recap;
   user: LightUser;
   checkout?: CheckoutOpts;
-  costs?: {
-    amount: number;
-    currency: string;
-  };
 }
 
 interface NbWin {

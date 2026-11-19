@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.*
-import lila.plan.LichessJson.given
 import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):
@@ -23,7 +22,7 @@ final class Recap(env: Env) extends LilaController(env):
         case Availability.Available(data) => Ok(data).toFuccess
         case Availability.Queued(_) =>
           limit.recapAwaitConcurrency(user.id, rateLimited):
-            env.recap.api.awaiter(user)(env.plan.currencyApi.yearlyCostsForCtx).map(Ok(_))
+            env.recap.api.awaiter(user).map(Ok(_))
     )
   }
 
@@ -63,7 +62,7 @@ final class Recap(env: Env) extends LilaController(env):
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
         def proceed(user: lila.core.user.User) = for
-          av <- env.recap.api.availability(user)(env.plan.currencyApi.yearlyCostsForCtx)
+          av <- env.recap.api.availability(user)
           res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
         yield res
         if me.is(username) then proceed(me)

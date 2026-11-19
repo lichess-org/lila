@@ -73,11 +73,6 @@ final class CurrencyApi(
           .orElse(currencyOption(ctx.lang.locale))
           .getOrElse(USD)
 
-  private val yearlyCosts = Money(789_389, USD)
-
-  def yearlyCostsForCtx(using ctx: Context): Fu[Money] =
-    convert(yearlyCosts, guessCurrency(none)).map(_ | yearlyCosts)
-
 object CurrencyApi:
 
   case class Config(appId: Secret)
