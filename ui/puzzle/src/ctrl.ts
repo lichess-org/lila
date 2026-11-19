@@ -11,7 +11,7 @@ import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl 
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { prop, type Prop, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
-import { type Deferred, defer, throttle } from 'lib/async';
+import { type Deferred, defer, scheduleRedraw, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
 import { plyColor } from 'lib/game/chess';
@@ -212,7 +212,7 @@ export default class PuzzleCtrl implements CevalHandler {
       if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(makeRoot());
       this.keyboardMove.update(up);
     }
-    requestAnimationFrame(() => this.redraw());
+    scheduleRedraw(this.redraw);
 
     this.googlyEyesAuto();
   };

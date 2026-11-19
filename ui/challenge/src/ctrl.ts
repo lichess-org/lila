@@ -1,3 +1,4 @@
+import { scheduleRedraw } from 'lib/async';
 import { once } from 'lib/storage';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
@@ -58,6 +59,6 @@ export default class ChallengeCtrl {
     });
   onRedirect = () => {
     this.redirecting = true;
-    requestAnimationFrame(this.redraw);
+    scheduleRedraw(this.redraw);
   };
 }

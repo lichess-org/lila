@@ -7,7 +7,15 @@ import { roleToChar } from 'chessops/util';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
+import {
+  defined,
+  type Toggle,
+  type Prop,
+  toggle,
+  scheduleRedraw,
+  requestIdleCallbackSafe,
+  memoize,
+} from 'lib';
 import * as game from 'lib/game';
 import { plyOpponentColor } from 'lib/game';
 import { plyToTurn, plyColor } from 'lib/game/chess';
@@ -901,7 +909,7 @@ export default class RoundController implements MoveRootCtrl {
       if (this.voiceMove) this.voiceMove.update(up);
       else this.voiceMove = makeVoiceMove(this, up);
     }
-    if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
+    if (this.keyboardMove || this.voiceMove) scheduleRedraw(this.redraw);
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);

@@ -209,3 +209,7 @@ export function throttleWithFlush<T extends (...args: any[]) => void>(
 
   return throttled;
 }
+
+export const scheduleRedraw = (redraw: Redraw): void => {
+  requestAnimationFrame(redraw);
+};

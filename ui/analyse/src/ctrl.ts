@@ -16,6 +16,7 @@ import {
   toggle,
   debounce,
   throttle,
+  scheduleRedraw,
   requestIdleCallbackSafe,
   propWithEffect,
   type Prop,
@@ -397,7 +398,7 @@ export default class AnalyseCtrl implements CevalHandler {
         flipNow: this.flip,
       });
       this.keyboardMove.update({ fen: this.node.fen, canMove: true, cg });
-      requestAnimationFrame(() => this.redraw());
+      scheduleRedraw(this.redraw);
     }
 
     this.setAutoShapes();
@@ -513,7 +514,7 @@ export default class AnalyseCtrl implements CevalHandler {
       return data;
     } catch (err) {
       this.pgnError = (err as PgnError).message;
-      requestAnimationFrame(this.redraw);
+      scheduleRedraw(this.redraw);
     }
     return undefined;
   }
