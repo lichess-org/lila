@@ -116,8 +116,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
             </svg>
             <div class="ring__inner"><b class="num ring__rate">0%</b><small class="small">${esc(i18n.site.winRate)}</small></div>
           </div>
-          ${G.nbs.win ? `<p class="lead reveal" style="--d:1.2s">${trHtml(i18n.recap.gamesYouWon.asArray(countSpan(G.nbs.win, 1.2)))}</p>` : ''}
-          <p class="small reveal" style="--d:2.2s">${esc(i18n.recap.gamesNextQuestion)}</p>`;
+          ${G.nbs.win ? `<p class="lead reveal" style="--d:1.2s">${trHtml(i18n.recap.gamesYouWon.asArray(countSpan(G.nbs.win, 1.2)))}</p>` : ''}`;
       countAll(sc, el);
       sc.after(700, () => {
         el.querySelector<SVGElement>('.bar')!.style.strokeDashoffset = String(C * (1 - winRate));
@@ -386,7 +385,8 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           <canvas class="fill"></canvas>
           <p class="mega mega--sm num" data-count="${totalGames}">0</p>
           <p class="headline">${words(playedIn, 0.3)}</p>
-          <p class="lead reveal" style="--d:2.4s">${trHtml(i18n.recap.lichessGamesOfThemYours.asArray(raw(`<strong>${esc(percentFormat(G.nbs.total / totalGames, 6))}</strong>`)))} ✨</p>`;
+          <p class="lead reveal" style="--d:2.4s">${trHtml(i18n.recap.lichessGamesOfThemYours.asArray(raw(`<strong>${esc(percentFormat(G.nbs.total / totalGames, 6))}</strong>`)))} ✨</p>
+          <p class="small reveal" style="--d:3.2s">${esc(i18n.recap.gamesNextQuestion)}</p>`;
       countAll(sc, el, { dur: 2600 });
       galaxy(sc, el.querySelector('canvas')!, i18n.recap.lichessGamesYou);
     },
@@ -498,6 +498,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     intro,
     noGames,
     games,
+    lichessGames,
     time,
     moves,
     perfs,
@@ -505,7 +506,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     opponents,
     openings,
     puzzles,
-    lichessGames,
     malware,
     share,
     donate,
