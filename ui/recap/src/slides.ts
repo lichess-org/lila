@@ -451,32 +451,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           </div>
         </div>`;
       const card = el.querySelector<HTMLElement>('.card')!;
-      const tilt = (clientX: number, clientY: number) => {
-        const r = card.getBoundingClientRect();
-        const x = (clientX - r.left) / r.width - 0.5;
-        const y = (clientY - r.top) / r.height - 0.5;
-        card.style.setProperty('--ry', `${x * 16}deg`);
-        card.style.setProperty('--rx', `${-y * 16}deg`);
-        card.style.setProperty('--hx', `${50 + x * 100}%`);
-        card.style.setProperty('--hy', `${50 + y * 100}%`);
-      };
-      // idle shimmer until the pointer takes over
-      let touched = false;
-      sc.loop(t => {
-        if (touched) return false;
-        const r = card.getBoundingClientRect();
-        tilt(
-          r.left + r.width * (0.5 + Math.sin(t / 1400) * 0.35),
-          r.top + r.height * (0.5 + Math.cos(t / 1700) * 0.3),
-        );
-        return true;
-      });
-      const move = (e: PointerEvent) => {
-        touched = true;
-        tilt(e.clientX, e.clientY);
-      };
-      addEventListener('pointermove', move);
-      sc.onDispose(() => removeEventListener('pointermove', move));
       sc.after(600, () => {
         const r = card.getBoundingClientRect();
         bg.burst(r.left + r.width / 2, r.top + r.height / 3, 140);

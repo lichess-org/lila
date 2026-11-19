@@ -1274,9 +1274,6 @@ body {
     box-shadow:
       0 40px 100px rgb(0 0 0 / 0.6),
       0 0 100px color-mix(in srgb, var(--c1) 35%, transparent);
-    transform-style: preserve-3d;
-    transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-    transition: transform 0.15s ease-out;
     overflow: hidden;
     text-align: left;
     animation: recap-card-in 1.2s var(--ease-spring) both;
@@ -1287,24 +1284,6 @@ body {
       transform: perspective(1000px) rotateY(-90deg) scale(0.6);
       opacity: 0;
     }
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      115deg,
-      transparent 20%,
-      rgb(255 0 170 / 0.18) 35%,
-      rgb(0 255 230 / 0.18) 45%,
-      rgb(255 230 0 / 0.14) 55%,
-      transparent 70%
-    );
-    background-size: 250% 250%;
-    background-position: var(--hx, 50%) var(--hy, 50%);
-    mix-blend-mode: color-dodge;
-    pointer-events: none;
   }
 
   .card__head {
