@@ -67,7 +67,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
         <p class="kicker reveal" style="--d:.25s">${trHtml(i18n.recap.hiUser.asArray(raw(userLabel(U))))}</p>
         <h1 class="intro__year">${String(R.year)
           .split('')
-          .map((d, i) => `<span style="--d:${0.5 + i * 0.12}s">${d}</span>`)
+          .map((d, i) => `<span style="--d:${0.5 + i * 0.12}s">${esc(d)}</span>`)
           .join('')}</h1>
         <p class="headline">${words(i18n.recap.initTitle, 1.3)}</p>`;
       const imgs = [...el.querySelectorAll<HTMLElement>('.intro__ring img')];
