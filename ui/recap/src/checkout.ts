@@ -34,8 +34,10 @@ const post = async (service: 'stripe' | 'paypal', d: Donation) => {
   }
 };
 
+// like /patron: show the error, then send the visitor there
 const fail = (error: string) => {
   alert(error);
+  location.assign('/patron');
 };
 
 export const hasStripe = (): boolean => !!window.Stripe;
@@ -90,6 +92,7 @@ export function renderPayPal(
       createOrder: async () => {
         const data = await post('paypal', getDonation());
         if (data.error) fail(data.error);
+        else if (!data.order?.id) location.assign('/patron');
         return data.order?.id;
       },
       onApprove: async data => {
@@ -105,6 +108,7 @@ export function renderPayPal(
       createSubscription: async () => {
         const data = await post('paypal', getDonation());
         if (data.error) fail(data.error);
+        else if (!data.subscription?.id) location.assign('/patron');
         return data.subscription?.id;
       },
       onApprove: async data => {
