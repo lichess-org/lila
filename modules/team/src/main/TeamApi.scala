@@ -108,7 +108,7 @@ final class TeamApi(
         forum = edit.forum,
         hideMembers = Some(edit.hideMembers),
         flair = edit.flair,
-        prizeClaimant = edit.prizeClaimant.map(_.id)
+        prizeClaimant = edit.prizeClaimant
       )
 
   def update(team: Team)(using me: Me): Fu[String] =

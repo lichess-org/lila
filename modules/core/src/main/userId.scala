@@ -12,6 +12,7 @@ object userId:
     extension (id: UserId)
       def isGhost: Boolean = id == ghost || id.startsWith("!")
       def noGhost: Boolean = !isGhost
+      def userStr: UserStr = id
     given UserIdOf[UserId] = _.value
     val lichess: UserId = "lichess"
     val lichessAsMe: MyId = lichess.into(MyId)
@@ -76,7 +77,7 @@ object userId:
       def couldBeUsername: Boolean = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
       def validate: Option[UserStr] = e.couldBeUsername.option(e)
       def validateId: Option[UserId] = validate.map(_.id)
-    given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
+    given UserIdOf[UserStr] = u => UserId(u.value.toLowerCase)
     // these conversions are using when generating routes containing UserStr
     // so we can give them usernames and userIds
     given Conversion[UserName, UserStr] = _.value
