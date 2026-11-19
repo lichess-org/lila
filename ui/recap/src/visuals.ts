@@ -1,9 +1,9 @@
 import { easeOutExpo, esc, fmt, gauss, pick, pieceSrc, rand } from './html';
 import type { Scope } from './scope';
 
-const setupCanvas = (cv: HTMLCanvasElement) => {
+const setupCanvas = (cv: HTMLCanvasElement, maxDpr = 2) => {
   const ctx = cv.getContext('2d')!;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const dpr = Math.min(devicePixelRatio || 1, maxDpr);
   const W = cv.clientWidth;
   const H = cv.clientHeight;
   cv.width = W * dpr;
@@ -121,11 +121,13 @@ export function pilePieces(sc: Scope, cv: HTMLCanvasElement, count: number): voi
 
 // spiral galaxy of games with one glowing dot for the player
 export function galaxy(sc: Scope, cv: HTMLCanvasElement, youLabel: string): void {
-  const { ctx, W, H } = setupCanvas(cv);
+  // the dots are tiny and blurry anyway: skip high-dpi, and draw fewer on phone-sized screens
+  const { ctx, W, H } = setupCanvas(cv, 1);
   const R = Math.max(W, H) * 0.55;
-  // points share a few colours, so each frame sets the colour ~50 times rather than 4000
+  const nbDots = Math.round(4000 * Math.min(1, Math.max(0.5, (W * H) / (1280 * 800))));
+  // points share a few colours, so each frame sets the colour ~50 times rather than once per dot
   const groups = new Map<string, { d: number; a: number; s: number }[]>();
-  for (let i = 0; i < 4000; i++) {
+  for (let i = 0; i < nbDots; i++) {
     const arm = Math.floor(Math.random() * 3);
     const d = Math.pow(Math.random(), 1.6);
     const hue = Math.round(rand(200, 320) / 20) * 20;

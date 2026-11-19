@@ -71,6 +71,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           .join('')}</h1>
         <p class="headline">${words(i18n.recap.initTitle, 1.3)}</p>`;
       const imgs = [...el.querySelectorAll<HTMLElement>('.intro__ring img')];
+      // only transform, opacity and z-index change per frame: a changing filter would repaint every piece, every frame
       sc.loop(t => {
         const { W, H } = bg.size();
         const rx = Math.min(W * 0.44, 520);
@@ -80,9 +81,9 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
           const z = Math.sin(a); // -1 back, 1 front
           const s = 0.55 + (z + 1) * 0.4;
           img.style.transform = `translate(${Math.cos(a) * rx}px, ${z * ry}px) scale(${s}) rotate(${Math.cos(a) * 18}deg)`;
-          img.style.zIndex = z > 0 ? '2' : '-1';
+          const zIndex = z > 0 ? '2' : '-1';
+          if (img.style.zIndex !== zIndex) img.style.zIndex = zIndex;
           img.style.opacity = String(0.35 + (z + 1) * 0.3);
-          img.style.filter = `blur(${Math.max(0, -z * 2.5)}px) drop-shadow(0 10px 25px rgba(0,0,0,.6))`;
         });
       });
       sc.after(1600, () => sc.onDispose(bg.fireworks(6, 2200)));

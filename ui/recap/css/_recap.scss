@@ -373,6 +373,11 @@ body {
     color: transparent;
     animation: recap-sheen 6s linear infinite;
     filter: drop-shadow(0 6px 40px color-mix(in srgb, var(--c1) 55%, transparent));
+
+    // the glow is redrawn whenever the sheen moves or a digit counts up, which is too slow on phones
+    @media (pointer: coarse) {
+      filter: none;
+    }
   }
 
   // the moves slide outlasts one sweep; don't start a second
@@ -499,6 +504,7 @@ body {
     margin: calc(clamp(48px, 9vmin, 90px) / -2);
     filter: drop-shadow(0 10px 25px rgb(0 0 0 / 0.6));
     opacity: 0.9;
+    will-change: transform, opacity;
   }
 
   .intro__year {
@@ -534,15 +540,16 @@ body {
     }
   }
 
+  // the glow stays put and only the scale pulses, so the glow isn't redrawn every frame
   .intro__logo {
     width: 64px;
     height: 64px;
+    filter: drop-shadow(0 0 16px rgb(255 255 255 / 0.4));
     animation: recap-pulse-glow 2.4s ease-in-out infinite;
   }
 
   @keyframes recap-pulse-glow {
     50% {
-      filter: drop-shadow(0 0 22px rgb(255 255 255 / 0.7));
       transform: scale(1.06);
     }
   }
