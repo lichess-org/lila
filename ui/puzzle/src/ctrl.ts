@@ -11,6 +11,7 @@ import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl 
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { prop, type Prop, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
+import { makeAnalysisSession, type AnalysisSession } from 'lib/analysis/session';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -53,7 +54,7 @@ export default class PuzzleCtrl implements CevalHandler {
   autoNext: StoredProp<boolean>;
   rated: StoredProp<boolean>;
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
-  threatMode: Toggle = toggle(false);
+  threatMode: Toggle;
   streak?: PuzzleStreak;
   streakFailStorage = storage.make('puzzle.streak.fail');
   session: PuzzleSession;
@@ -62,6 +63,7 @@ export default class PuzzleCtrl implements CevalHandler {
   googlyEyes?: () => DrawShape[];
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
+  private readonly nav: AnalysisSession;
   promotion: PromotionCtrl;
   cgConfig?: CgConfig;
   path: TreePath;
@@ -105,12 +107,15 @@ export default class PuzzleCtrl implements CevalHandler {
     this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
+    this.nav = makeAnalysisSession({
+      redraw: this.redraw,
+      withGround: this.withGround,
+      cgConfig: () => this.cgConfig!,
+    });
+    this.threatMode = this.nav.threatMode;
+    this.promotion = this.nav.promotion;
+
     this.initiate(opts.data);
-    this.promotion = new PromotionCtrl(
-      this.withGround,
-      () => this.withGround(g => g.set(this.cgConfig!)),
-      redraw,
-    );
 
     this.ceval = new CevalCtrl({
       redraw: this.redraw,
@@ -180,10 +185,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   setPath = (path: TreePath): void => {
-    this.path = path;
-    this.nodeList = this.tree.getNodeList(path);
-    this.node = treeOps.last(this.nodeList)!;
-    this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.nav.setPath(this, this.tree, path);
     this.showHint(false);
   };
 
