@@ -2,6 +2,8 @@
 // $c-<color-name>: var(--c-<color-name>);
 
 :root {
+  color-scheme: light dark;
+
   ---site-hue: 37deg;
   --c-bg: hsl(var(---site-hue) 7% 14%);
   --c-bg-box: var(--c-bg);

@@ -108,3 +108,18 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+@media (forced-colors: active) {
+  :root,
+  html.light,
+  html.transp,
+  html.transp.light {
+    --c-font: CanvasText;
+    --c-font-dim: GrayText;
+    --c-bg: Canvas;
+    --c-bg-page: Canvas;
+    --c-border: CanvasText;
+    --c-link: LinkText;
+    --c-primary: Highlight;
+  }
+}
