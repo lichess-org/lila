@@ -3263,6 +3263,8 @@ interface I18n {
     donateAnchorSaoPaulo: string;
     /** a bowl of ramen in Tokyo */
     donateAnchorTokyo: string;
+    /** Donate another amount */
+    donateAnotherAmount: string;
     /** Changed my mind */
     donateChangedMyMind: string;
     /** If you've enjoyed them, consider donating %s of global uptime, every month: */
@@ -3291,8 +3293,6 @@ interface I18n {
     donateSameAs: I18nFormat;
     /** Suggested */
     donateSuggested: string;
-    /** Thank you for supporting chess for everyone. All forms of support from the community are vital for us! */
-    donateThanks: string;
     /** Keeping Lichess running for %1$s, worldwide, costs us %2$s. */
     donateUptimeCosts: I18nFormat;
     /** This year, you played around %s minutes on Lichess! */

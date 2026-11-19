@@ -108,6 +108,7 @@
 	<string name="donateAmount" comment="%s is an amount of money e.g. '$90'">Donate %s</string>
 	<string name="donateAmountPerMonth" comment="%s is an amount of money e.g. '$7.50'">Donate %s / month</string>
 	<string name="donateNotToday">Not today</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Donate another amount</string>
 	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Keeping Lichess running for %1$s, worldwide, costs us %2$s.</string>
 	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">That's about the same as %s</string>
 	<string name="donateAnchorNewYork">a Starbucks coffee in New York</string>
@@ -123,7 +124,6 @@
 		<item quantity="one">%s school</item>
 		<item quantity="other">%s schools</item>
 	</plurals>
-	<string name="donateThanks">Thank you for supporting chess for everyone. All forms of support from the community are vital for us!</string>
 	<string name="donateNoWorries">No worries! Thank you for playing on Lichess. All forms of support from the community are vital for us, and that includes just being here.</string>
 	<string name="donateReplay">Replay my recap</string>
 	<string name="donateChangedMyMind">Changed my mind</string>

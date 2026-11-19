@@ -12,9 +12,17 @@ final class Recap(env: Env) extends LilaController(env):
     Redirect(routes.Recap.user(me.username))
   }
 
-  def user(username: UserStr) = RecapPage(username) { _ ?=> user => data =>
+  def user(username: UserStr) = RecapPage(username) { ctx ?=> user => data =>
     negotiate(
-      html = Ok.page(views.recap.home(data, user)),
+      html =
+        val checkout = lila.recap.ui.RecapUi.Checkout(
+          stripePublicKey = env.plan.stripePublicKey,
+          payPalClientId = env.plan.payPalPublicKey,
+          payPalLocale = lila.plan.PayPalClient.locale(ctx.lang)
+        )
+        // PayPal's popup needs to talk back to this page, like on /patron
+        Ok.page(views.recap.home(data, user, checkout)).map(_.withHeaders(crossOriginPolicy.unsafe*))
+      ,
       json = data match
         case Availability.Available(data) => Ok(data).toFuccess
         case Availability.Queued(_) =>

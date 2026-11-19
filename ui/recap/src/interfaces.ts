@@ -4,6 +4,7 @@ import type { Scope } from './scope';
 export interface Opts {
   recap?: Recap;
   user: LightUser;
+  stripePublicKey?: string;
   costs?: {
     amount: number;
     currency: string;

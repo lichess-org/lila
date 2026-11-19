@@ -1551,26 +1551,62 @@ body {
     flex-wrap: wrap;
   }
 
-  .donate__go {
-    font-size: 18px;
-    padding: 16px 30px;
-    animation: recap-nudge 2.8s ease-in-out infinite 3s;
+  .donate__amount {
+    margin: 0 0 -4px;
+    font-size: clamp(17px, 3vw, 20px);
+    font-weight: 800;
   }
 
-  @keyframes recap-nudge {
-    0%,
-    88%,
-    100% {
-      transform: none;
-    }
+  .donate__pay {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 520px;
+  }
 
-    92% {
-      transform: scale(1.06) rotate(-1.5deg);
+  @media (max-width: 520px) {
+    .donate__pay {
+      grid-template-columns: 1fr;
     }
+  }
 
-    96% {
-      transform: scale(1.06) rotate(1.5deg);
-    }
+  .donate__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 17px;
+  }
+
+  .donate__card svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+
+  .donate__card:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  // PayPal renders its own button in an iframe
+  .donate__paypal {
+    min-height: 48px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .donate__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 24px;
   }
 
   .donate__skip {

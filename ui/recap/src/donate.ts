@@ -1,11 +1,11 @@
 import { currencyFormat, numberFormat } from 'lib/i18n';
 
+import { type Freq, hasStripe, renderPayPal, stripeCheckout } from './checkout';
 import { donationTiers, fiveMinutes, uptimeUsdPerMinute } from './constants';
 import { countSpan, esc, pluralLabel, raw, trHtml } from './html';
 import type { SlideCtx } from './interfaces';
 import { countAll, type Scope } from './scope';
 
-type Freq = keyof typeof donationTiers;
 type Region = 'na' | 'eu' | 'as' | 'sa' | 'af' | 'oc' | 'an';
 
 interface PriceAnchor {
@@ -44,17 +44,21 @@ const detectRegion = (): Region => {
   return 'na';
 };
 
+const cardIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19M6 15h4" /></svg>`;
+
 const usd = (n: number) =>
   currencyFormat(n, 'USD', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 
-export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: SlideCtx): void {
+export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
   const region = detectRegion();
   const anchors =
     region === 'an'
       ? [antarctica]
       : [...priceAnchors.filter(a => a.region === region), ...priceAnchors.filter(a => a.region !== region)];
-  const state: { freq: Freq; tier: number } = { freq: 'monthly', tier: 1 };
+  // a monthly checkout would replace an existing subscription, so patrons only get one-time donations
+  const isPatron = !!(opts.user.patron || opts.user.patronColor);
+  const state: { freq: Freq; tier: number } = { freq: isPatron ? 'onetime' : 'monthly', tier: 1 };
   const fiveMins = i18n.site.nbMinutes(5);
   const impact = (n: number, plural: I18nPlural) =>
     `<div><b class="num" data-count="${n}" data-delay="2.3">0</b><small>${esc(pluralLabel(plural, n))}</small></div>`;
@@ -70,15 +74,21 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     }</p>
     <p class="lead donate__pitch reveal" style="--d:.9s"></p>
     <div class="donate__panel reveal" style="--d:1.3s">
-      <div class="freq" role="radiogroup">
+      <div class="freq" role="radiogroup"${isPatron ? ' hidden' : ''}>
         <i class="freq__pill"></i>
         <button role="radio" data-freq="monthly">${esc(i18n.patron.monthly)}</button>
         <button role="radio" data-freq="onetime">${esc(i18n.patron.onetime)}</button>
       </div>
       <div class="tiers" role="radiogroup"></div>
-      <div class="donate__actions">
-        <a class="cta donate__go" target="_blank" rel="noopener"></a>
-        <button class="donate__skip">${esc(i18n.recap.donateNotToday)}</button>
+      <p class="donate__amount"></p>
+      <div class="donate__pay">
+        <button class="cta donate__card">${cardIcon}<span>${esc(i18n.patron.donate)}</span></button>
+        <div class="donate__paypal" data-freq="monthly"></div>
+        <div class="donate__paypal" data-freq="onetime"></div>
+      </div>
+      <div class="donate__links">
+        <a class="donate__skip" href="/patron">${esc(i18n.recap.donateAnotherAmount)}</a>
+        <button class="donate__skip donate__not-today">${esc(i18n.recap.donateNotToday)}</button>
       </div>
     </div>
     <div class="donate__after" hidden></div>
@@ -99,7 +109,15 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
 
   const $in = <E extends Element = HTMLElement>(s: string) => el.querySelector<E>(s)!;
   const tiersEl = $in('.tiers');
-  const go = $in<HTMLAnchorElement>('.donate__go');
+  const card = $in<HTMLButtonElement>('.donate__card');
+  const payPal = {
+    monthly: $in('.donate__paypal[data-freq=monthly]'),
+    onetime: $in('.donate__paypal[data-freq=onetime]'),
+  };
+  const donation = () => ({
+    amount: donationTiers[state.freq][state.tier] * uptimeUsdPerMinute,
+    freq: state.freq,
+  });
   const panel = $in('.donate__panel');
   const afterBox = $in('.donate__after');
 
@@ -134,11 +152,25 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
           : i18n.recap.donateConsiderOnceNoGames
       ).asArray(pitch),
     );
-    go.textContent = monthly ? i18n.recap.donateAmountPerMonth(amount) : i18n.recap.donateAmount(amount);
-    // the patron page picks its own currency and amounts, only the frequency carries over
-    go.href = `/patron?freq=${state.freq}`;
+    $in('.donate__amount').textContent = monthly
+      ? i18n.recap.donateAmountPerMonth(amount)
+      : i18n.recap.donateAmount(amount);
+    payPal.monthly.hidden = !monthly;
+    payPal.onetime.hidden = monthly;
   };
   update();
+
+  const payPalReady = renderPayPal(payPal, donation);
+  if (!payPalReady.monthly && !payPalReady.onetime) Object.values(payPal).forEach(c => c.remove());
+  card.onclick = async () => {
+    if (!hasStripe()) return location.assign(`/patron?freq=${state.freq}`);
+    card.disabled = true;
+    try {
+      await stripeCheckout(opts.stripePublicKey!, donation());
+    } finally {
+      card.disabled = false;
+    }
+  };
 
   el.querySelectorAll<HTMLElement>('.freq button').forEach(
     b =>
@@ -154,7 +186,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     update();
   });
 
-  const after = (html: string, celebrate: boolean) => {
+  const after = (html: string) => {
     panel.hidden = true;
     afterBox.hidden = false;
     afterBox.innerHTML = html;
@@ -165,29 +197,15 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
         afterBox.hidden = true;
         panel.hidden = false;
       };
-    if (celebrate) {
-      const r = afterBox.getBoundingClientRect();
-      bg.burst(r.left + r.width / 2, r.top + r.height / 2, 160, ['#f59e0b', '#f43f5e', '#fde047']);
-      sc.onDispose(bg.fireworks(6, 2000));
-    }
   };
   const replayButton = `<button class="cta cta--ghost" data-act="replay">${esc(i18n.recap.donateReplay)} ↺</button>`;
-  go.addEventListener('click', () =>
-    after(
-      `<p class="headline">💖</p>
-       <p class="lead">${esc(i18n.recap.donateThanks)}</p>
-       ${replayButton}`,
-      true,
-    ),
-  );
-  $in('.donate__skip').onclick = () =>
+  $in('.donate__not-today').onclick = () =>
     after(
       `<p class="lead">${esc(i18n.recap.donateNoWorries)} 💜</p>
        <div class="donate__actions">
          ${replayButton}
          <button class="donate__skip" data-act="back">${esc(i18n.recap.donateChangedMyMind)}</button>
        </div>`,
-      false,
     );
 
   const ticker = $in('.ticker');
