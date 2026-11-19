@@ -14,13 +14,21 @@ final class RecapUi(helpers: Helpers):
     if ctx.is(user) then "Your yearly recap"
     else s"${user.username} yearly recap"
 
-  def home(av: Availability, user: User, checkout: RecapUi.Checkout)(using Context) =
+  def home(av: Availability, user: User, checkout: RecapUi.Checkout)(using ctx: Context) =
     val data = av match
       case Availability.Available(data) => data
       case Availability.Queued(data) => data
     Page(title(user))
       .css("recap")
-      .js(esmInit("recap", data ++ Json.obj("checkout" -> checkout.json)))
+      .js(
+        esmInit(
+          "recap",
+          data ++ Json.obj(
+            "checkout" -> checkout.json,
+            "imperial" -> lila.common.HTTPRequest.country(using ctx.req).has(lila.core.net.CountryCode("US"))
+          )
+        )
+      )
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
       .append(checkoutScripts(checkout))
       .csp(_.withPayments):

@@ -5,6 +5,7 @@ export interface Opts {
   recap?: Recap;
   user: LightUser;
   checkout: CheckoutOpts;
+  imperial: boolean; // weigh things in pounds, for visitors from the US
 }
 
 interface NbWin {

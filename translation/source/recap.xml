@@ -20,8 +20,9 @@
         <item quantity="one">%s move played</item>
         <item quantity="other">%s moves played</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">That's %s of wood pushed!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">That's %s of wood pushed!</string>
 	<string name="movesStandardPiecesWeight">Standard pieces weigh about 40g each</string>
+	<string name="movesStandardPiecesWeightImperial">Standard pieces weigh about 1.4oz each</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">About the weight of %s grand piano</item>
 		<item quantity="other">About the weight of %s grand pianos</item>
@@ -38,6 +39,14 @@
 	<plurals name="nbKilograms">
 		<item quantity="one">%s kilogram</item>
 		<item quantity="other">%s kilograms</item>
+	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s ounce</item>
+		<item quantity="other">%s ounces</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s pound</item>
+		<item quantity="other">%s pounds</item>
 	</plurals>
 	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Your signature first move</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">is how you started %s of your games as white</string>

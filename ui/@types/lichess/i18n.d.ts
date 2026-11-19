@@ -3343,6 +3343,8 @@ interface I18n {
     movesOfWoodPushed: I18nFormat;
     /** Standard pieces weigh about 40g each */
     movesStandardPiecesWeight: string;
+    /** Standard pieces weigh about 1.4oz each */
+    movesStandardPiecesWeightImperial: string;
     /** %s grams */
     nbGrams: I18nPlural;
     /** %s kilograms */
@@ -3351,6 +3353,10 @@ interface I18n {
     nbMoves: I18nPlural;
     /** %s moves played */
     nbMovesPlayed: I18nPlural;
+    /** %s ounces */
+    nbOunces: I18nPlural;
+    /** %s pounds */
+    nbPounds: I18nPlural;
     /** %s schools */
     nbSchools: I18nPlural;
     /** Wanna play now? */

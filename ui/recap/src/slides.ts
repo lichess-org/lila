@@ -4,7 +4,7 @@ import perfIcons from 'lib/game/perfIcons';
 import { percentFormat } from 'lib/i18n';
 
 import { makeBoard, parsePgnMoves } from './board';
-import { grandPianoGrams, lotrSeconds, pieceGrams, totalGames } from './constants';
+import { grandPianoGrams, lotrSeconds, ounceGrams, pieceGrams, poundGrams, totalGames } from './constants';
 import { renderDonate } from './donate';
 import {
   countSpan,
@@ -186,19 +186,22 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     top: true,
     render(el, sc) {
       const grams = G.moves * pieceGrams;
-      const kg = Math.round(grams / 1000);
       const pianos = Math.round(grams / grandPianoGrams);
-      const weight =
-        grams > 20_000
-          ? i18n.recap.nbKilograms.asArray(kg, countSpan(kg, 1.4))
-          : i18n.recap.nbGrams.asArray(grams, countSpan(grams, 1.4));
+      const weigh = (plural: I18nPlural, n: number) => plural.asArray(n, countSpan(n, 1.4));
+      const weight = opts.imperial
+        ? grams >= poundGrams
+          ? weigh(i18n.recap.nbPounds, Math.round(grams / poundGrams))
+          : weigh(i18n.recap.nbOunces, Math.round(grams / ounceGrams))
+        : grams > 20_000
+          ? weigh(i18n.recap.nbKilograms, Math.round(grams / 1000))
+          : weigh(i18n.recap.nbGrams, grams);
       el.innerHTML = `
           <canvas class="fill"></canvas>
           <p class="mega num" data-count="${G.moves}">0</p>
           <p class="headline reveal" style="--d:.3s">${esc(pluralLabel(i18n.recap.nbMoves, G.moves))}</p>
           <p class="lead reveal" style="--d:1.4s">${trHtml(i18n.recap.movesOfWoodPushed.asArray(raw(`<strong>${trHtml(weight)}</strong>`)))}</p>
           ${pianos >= 1 ? `<p class="small reveal" style="--d:2.2s">${trHtml(i18n.recap.movesGrandPianos.asArray(pianos, raw(`<span class="hl">${fmt(pianos)}</span>`)))} 🎹</p>` : ''}
-          <p class="small reveal" style="--d:2.6s">${esc(i18n.recap.movesStandardPiecesWeight)}</p>`;
+          <p class="small reveal" style="--d:2.6s">${esc(opts.imperial ? i18n.recap.movesStandardPiecesWeightImperial : i18n.recap.movesStandardPiecesWeight)}</p>`;
       countAll(sc, el, { dur: 2600 });
       pilePieces(sc, el.querySelector('canvas')!, Math.min(360, 80 + Math.sqrt(G.moves) * 0.9));
     },
