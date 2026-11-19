@@ -706,7 +706,7 @@ Fründe am Schpille: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s isch en freie, quälle-offene Schachserver. Gratis (%2$s) und ohni Werbig.</string>
   <string name="really">würkli</string>
   <string name="lichessUpdates">Lichess Feed</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Alli Aktualisierige</string>
+  <string name="allUpdates">Alli Aktualisierige</string>
   <string name="contribute">Mitmache</string>
   <string name="changelog">Log wächsle</string>
   <string name="termsOfService">Nutzigs Bedingige</string>

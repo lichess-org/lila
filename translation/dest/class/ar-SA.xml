@@ -72,7 +72,7 @@
   <string name="releaseTheAccount">اطلق الحساب حتى يستطيع الطالب ادارة الحساب بشكل مستقل.</string>
   <string name="releaseDesc1">لا يمكن إدارة حساب نم إطلاقه مرة اخرى. سيستطيع الطالب تبديل وضع الأطفال وتغيير كلمة المرور بنفسه.</string>
   <string name="releaseDesc2">سيبقى الطالب في الفصل بعد إطلاق حسابه.</string>
-  <string name="realUniqueEmail" comment="To &quot;graduate&quot; the account means to make it a full account instead of a student account controlled by the class's teacher.">عنوان بريد إلكتروني حقيقي وفريد خاص بالطالب. سنرسل إليه رسالة تأكيد عبر البريد الإلكتروني تتضمن رابطًا لترقية الحساب إلى حساب مكتمل. تنتهي صَلاحِيَة الرابط بعد 10 دقائق.</string>
+  <string name="realUniqueEmail">عنوان بريد إلكتروني حقيقي وفريد خاص بالطالب. سنرسل إليه رسالة تأكيد عبر البريد الإلكتروني تتضمن رابطًا لترقية الحساب إلى حساب مكتمل. تنتهي صَلاحِيَة الرابط بعد 10 دقائق.</string>
   <string name="closeStudent">اغلاق الحساب</string>
   <string name="closeTheAccount">أغلق حساب التلميذ بشكل دائم.</string>
   <string name="closeDesc1">لن يتمكن الطالب من استخدام هذا الحساب مرة أخرى. إغلاق الحساب نهائي. تأكد من أن الطالب يفهم ويوافق.</string>

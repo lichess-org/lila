@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">โปรดอธิบายเหตุผลที่ชื่อผู้ใช้นี้ไม่เหมาะสมหรือส่อไปในทางลบ ไม่ใช่ระบุแค่ว่า \"มันไม่เหมาะสม\" แต่ขอให้ช่วยอธิบายที่มาหรือเหตุผลประกอบด้วย โดยเฉพาะอย่างยิ่งหากประเด็นความไม่เหมาะสมนั้นไม่ชัดเจน เป็นภาษาอื่นที่ไม่ใช่ภาษาอังกฤษ เป็นคำแสลง หรือมีการอ้างอิงถึงบริบททางประวัติศาสตร์หรือวัฒนธรรม</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">เราสามารถดำเนินการเกี่ยวกับรายงานของคุณได้รวดเร็วยิ่งขึ้นหากคุณเขียนเป็นภาษาอังกฤษ</string>
   <string name="provideOneCheatedGameLink">โปรดแนบอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีปัญหา</string>
+  <string name="thanksForTheReport">ขอบคุณสำหรับการรายงานของคุณ</string>
+  <string name="moderatorsWillReviewSoon">ผู้ดูแลจะตรวจสอบเรื่องนี้ในเร็วๆ นี้ และดำเนินการตามความเหมาะสม</string>
+  <string name="blockUserInMeantime">ในระหว่างนี้ คุณสามารถบล็อกผู้ใช้รายนี้ได้:</string>
 </resources>

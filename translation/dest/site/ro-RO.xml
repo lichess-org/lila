@@ -740,7 +740,7 @@ Prieteni jucând: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s este un server de șah gratuit (%2$s), fără reclame și open-source.</string>
   <string name="really">pe bune</string>
   <string name="lichessUpdates">Noutăți Lichess</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Toate actualizările</string>
+  <string name="allUpdates">Toate actualizările</string>
   <string name="contribute">Contribuie</string>
   <string name="changelog">Jurnal de schimbări</string>
   <string name="termsOfService">Termeni și condiții</string>

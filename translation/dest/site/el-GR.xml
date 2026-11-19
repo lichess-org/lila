@@ -435,6 +435,7 @@
   <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
+  <string name="selectImage">Επιλέξτε εικόνα</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
@@ -698,6 +699,7 @@
   <string name="aboutX">Σχετικά με το %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) μια δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα ιστοσελίδα για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
+  <string name="allUpdates">Όλες οι ενημερώσεις</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="changelog">Αρχείο αλλαγών</string>
   <string name="termsOfService">Όροι χρήσης</string>

@@ -703,7 +703,7 @@ Venner der spiller: %2$s</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), uafhængig, reklamefri, open source skak-server.</string>
   <string name="really">det er sandt</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Alle opdateringer</string>
+  <string name="allUpdates">Alle opdateringer</string>
   <string name="contribute">Bidrag</string>
   <string name="changelog">Ændringslog</string>
   <string name="termsOfService">Servicevilkår</string>
