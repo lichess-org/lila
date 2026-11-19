@@ -377,6 +377,11 @@ body {
     filter: drop-shadow(0 6px 40px color-mix(in srgb, var(--c1) 55%, transparent));
   }
 
+  // the moves slide outlasts one sweep; don't start a second
+  .slide--moves .mega {
+    animation-iteration-count: 1;
+  }
+
   .mega--sm {
     font-size: clamp(48px, min(14vw, 13vh), 120px);
   }
