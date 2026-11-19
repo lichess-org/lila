@@ -1721,6 +1721,7 @@ object I18nKey:
     val `donateAmountPerMonth`: I18nKey = "recap:donateAmountPerMonth"
     val `donateNotToday`: I18nKey = "recap:donateNotToday"
     val `donateAnotherAmount`: I18nKey = "recap:donateAnotherAmount"
+    val `donateCharity`: I18nKey = "recap:donateCharity"
     val `donateUptimeCosts`: I18nKey = "recap:donateUptimeCosts"
     val `donateSameAs`: I18nKey = "recap:donateSameAs"
     val `donateAnchorNewYork`: I18nKey = "recap:donateAnchorNewYork"

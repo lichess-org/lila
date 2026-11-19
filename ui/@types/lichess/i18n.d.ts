@@ -3267,6 +3267,8 @@ interface I18n {
     donateAnotherAmount: string;
     /** Changed my mind */
     donateChangedMyMind: string;
+    /** Lichess is a charity. */
+    donateCharity: string;
     /** If you've enjoyed them, consider donating %s of global uptime, every month: */
     donateConsiderMonthly: I18nFormat;
     /** Please consider donating %s of global uptime, every month: */

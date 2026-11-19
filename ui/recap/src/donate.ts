@@ -102,6 +102,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     </div>
     <div class="donate__after" hidden></div>
     <p class="anchor reveal" style="--d:1.8s">
+      ${esc(i18n.recap.donateCharity)}
       ${trHtml(i18n.recap.donateUptimeCosts.asArray(raw(`<b>${esc(fiveMins)}</b>`), raw(`<b>${esc(money(price(5)))}</b>`)))}
       ${trHtml(i18n.recap.donateSameAs.asArray(raw('<span class="ticker"></span>')))}
     </p>
