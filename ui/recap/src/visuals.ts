@@ -58,11 +58,12 @@ const drawPiece = (ctx: CanvasRenderingContext2D, p: Falling, size: number, dpr:
 // pieces raining down and piling into a mound at the bottom of the screen
 export function pilePieces(sc: Scope, cv: HTMLCanvasElement, wanted: number): void {
   const count = coarse ? Math.min(200, wanted) : wanted;
-  const { ctx, W, H, dpr } = setupCanvas(cv);
+  // the pieces are what this slide is about: at 1x they look blurry on phones, so allow up to 2x
+  const { ctx, W, H, dpr } = setupCanvas(cv, undefined, undefined, 2);
   // pieces that landed are drawn once onto a canvas underneath, so each frame only draws the falling ones
   const settled = cv.cloneNode() as HTMLCanvasElement;
   cv.before(settled);
-  const sctx = setupCanvas(settled, W, H).ctx;
+  const sctx = setupCanvas(settled, W, H, 2).ctx;
 
   sprites.clear();
   const roles = 'PPPPNBRQK';
