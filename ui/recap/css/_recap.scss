@@ -837,11 +837,12 @@ body {
     line-height: 1;
   }
 
+  // sized to fit by fitInBubble in visuals.ts
   .bubble span {
     font-size: max(10px, calc(var(--fs) * 0.36));
     font-weight: 700;
     opacity: 0.9;
-    max-width: 90%;
+    max-width: 70%;
     line-height: 1.1;
   }
 

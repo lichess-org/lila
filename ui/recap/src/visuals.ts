@@ -166,7 +166,8 @@ export function layoutBubbles(box: HTMLElement, entries: [string, number][]): vo
   const palette = ['#10b981', '#0ea5e9', '#8b5cf6', '#f59e0b', '#ec4899', '#14b8a6', '#6366f1'];
   const circles: { label: string; count: number; r: number; x: number; y: number }[] = [];
   for (const [label, count] of entries) {
-    const r = Math.max(0.34, Math.sqrt(count / max));
+    // big enough for a short label even when the count is tiny
+    const r = Math.max(0.46, Math.sqrt(count / max));
     let x = 0;
     let y = 0;
     if (circles.length)
@@ -196,4 +197,23 @@ export function layoutBubbles(box: HTMLElement, entries: [string, number][]): vo
           <b class="num">${fmt(c.count)}</b><span>${esc(c.label)}</span></div>`;
     })
     .join('');
+  box.querySelectorAll<HTMLElement>('.bubble').forEach(fitInBubble);
+}
+
+// shrink the number and the label until they fit in the square inside the circle,
+// since labels like "Simultaneous exhibitions" can be longer than a small bubble is wide
+function fitInBubble(bubble: HTMLElement) {
+  const num = bubble.querySelector<HTMLElement>('b')!;
+  const label = bubble.querySelector<HTMLElement>('span')!;
+  const side = bubble.clientWidth * 0.7;
+  const shrink = (el: HTMLElement, fits: () => boolean, min: number) => {
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (!fits() && size > min) el.style.fontSize = `${(size = Math.max(min, size * 0.92))}px`;
+  };
+  shrink(num, () => num.scrollWidth <= side, 12);
+  shrink(
+    label,
+    () => label.scrollWidth <= label.clientWidth && num.offsetHeight + label.offsetHeight <= side,
+    8,
+  );
 }
