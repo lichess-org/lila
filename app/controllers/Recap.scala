@@ -53,7 +53,7 @@ final class Recap(env: Env) extends LilaController(env):
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
       val availableAt = instantOf(lila.recap.yearToRecap, 12, 7, 0, 0)
-      if env.mode.isProd && nowInstant.isBefore(availableAt) then
+      if env.mode.isProd && nowInstant.isBefore(availableAt) && !isGranted(_.LichessTeam) then
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
         def proceed(user: lila.core.user.User) = for
