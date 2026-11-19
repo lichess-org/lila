@@ -27,20 +27,10 @@ final class RecapUi(helpers: Helpers):
         main(cls := "recap") // filled by ui/recap
 
   // the donate slide uses the same Stripe and PayPal flows as /patron, in the visitor's currency
-  private def checkoutScripts(checkout: RecapUi.Checkout) =
-    val namespace = attr("data-namespace")
-    val payPalSdk =
-      s"https://www.paypal.com/sdk/js?client-id=${checkout.payPalClientId}&currency=${checkout.currency}" +
-        checkout.payPalLocale.so(l => s"&locale=$l")
-    frag(
-      checkout.stripe.option(script(src := "https://js.stripe.com/v3/")),
-      // one PayPal SDK for one-time orders, another for subscriptions, as PayPal can't do both at once
-      checkout.payPal.option:
-        frag(
-          script(src := payPalSdk, namespace := "paypalOrder"),
-          script(src := s"$payPalSdk&vault=true&intent=subscription", namespace := "paypalSubscription")
-        )
-    )
+  private def checkoutScripts(checkout: RecapUi.Checkout) = frag(
+    checkout.stripe.option(stripeScript),
+    checkout.payPal.option(payPalScripts(checkout.payPalClientId, checkout.currency, checkout.payPalLocale))
+  )
 
   def notAvailable(year: Int) =
     Page("Recap not available yet"):

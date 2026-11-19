@@ -15,8 +15,6 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
   import helpers.{ *, given }
   import trans.patron as trp
 
-  private val stripeScript = script(src := "https://js.stripe.com/v3/")
-  private val namespaceAttr = attr("data-namespace")
   private val dataForm = attr("data-form")
   private val stripeBillingPortal = "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"
 
@@ -29,7 +27,6 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       bestScores: Paginator[LightUser],
       pricing: PlanPricing
   )(using ctx: Context) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so(l => s"&locale=$l")
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .i18n(_.patron)
@@ -38,18 +35,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
           frag(
             stripeScript,
             pricing.payPalSupportsCurrency.option:
-              frag(
-                // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
-                // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
-                script(
-                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
-                  namespaceAttr := "paypalOrder"
-                ),
-                script(
-                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
-                  namespaceAttr := "paypalSubscription"
-                )
-              )
+              payPalScripts(payPalPublicKey, pricing.currencyCode, lila.plan.PayPalClient.locale(ctx.lang))
           )
       .js:
         ctx.isAuth.option:

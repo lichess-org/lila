@@ -21,6 +21,20 @@ trait AssetHelper:
 
   private val load = "site.asset.loadEsm"
 
+  // Stripe and PayPal checkout scripts, for pages with `ContentSecurityPolicy.withPayments`
+  lazy val stripeScript = script(src := "https://js.stripe.com/v3/")
+
+  // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+  // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+  def payPalScripts(clientId: String, currency: String, locale: Option[String]): Frag =
+    val sdk = s"https://www.paypal.com/sdk/js?client-id=$clientId&currency=$currency" +
+      locale.so(l => s"&locale=$l")
+    val namespace = attr("data-namespace")
+    frag(
+      script(src := sdk, namespace := "paypalOrder"),
+      script(src := s"$sdk&vault=true&intent=subscription", namespace := "paypalSubscription")
+    )
+
   given Conversion[Esm, EsmList] with
     def apply(Esm: Esm): EsmList = List(Some(Esm))
   given Conversion[Option[Esm], EsmList] with
