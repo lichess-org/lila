@@ -62,6 +62,12 @@ const roleNames: Record<string, string> = {
   P: 'pawn',
 };
 
+// WebKit returns custom properties with escapes, e.g. url(\/piece\/cburnett\/wK\.svg)
+const cssUnescape = (s: string): string =>
+  s.replace(/\\(?:([0-9a-fA-F]{1,6})\s?|(.))/g, (_, hex: string | undefined, char: string | undefined) =>
+    hex ? String.fromCodePoint(parseInt(hex, 16)) : char!,
+  );
+
 // the viewer's piece set, from the ---white-king etc. variables the page sets
 const pieceSrcs = new Map<string, string>();
 export const pieceSrc = (color: 'w' | 'b', role: string): string => {
@@ -71,7 +77,8 @@ export const pieceSrc = (color: 'w' | 'b', role: string): string => {
     const css = getComputedStyle(document.body).getPropertyValue(
       `---${color === 'w' ? 'white' : 'black'}-${roleNames[role]}`,
     );
-    src = css.match(/url\(["']?(.+?)["']?\)/)?.[1] ?? site.asset.url(`piece/cburnett/${key}.svg`);
+    const url = css.match(/url\(\s*["']?(.+?)["']?\s*\)/)?.[1];
+    src = url ? cssUnescape(url) : site.asset.url(`piece/cburnett/${key}.svg`);
     pieceSrcs.set(key, src);
   }
   return src;
