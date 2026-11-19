@@ -93,7 +93,8 @@ export function play(root: HTMLElement, opts: Opts): void {
     pauseBtn.setAttribute('aria-label', p ? i18n.site.resume : i18n.site.pause);
   };
 
-  // tap left/right to navigate, press and hold to pause
+  // press and hold to pause; tap left/right to navigate, unless the arrows are shown (see .nav css)
+  const hasArrows = matchMedia('(hover: hover) and (min-width: 900px)');
   let holdTimer: Timeout | undefined;
   let pressed = false;
   stage.addEventListener('pointerdown', e => {
@@ -108,7 +109,7 @@ export function play(root: HTMLElement, opts: Opts): void {
     const wasHold = holding;
     holding = false;
     pressed = false;
-    if (wasHold || e.type === 'pointercancel') return;
+    if (wasHold || e.type === 'pointercancel' || hasArrows.matches) return;
     go(e.clientX < innerWidth * 0.3 ? idx - 1 : idx + 1);
   };
   stage.addEventListener('pointerup', release);
