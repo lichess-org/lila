@@ -16,12 +16,12 @@ final private[gameSearch] class GameSearchForm:
   def search(using Translate) = Form(
     mapping(
       "players" -> mapping(
-        "a" -> optional(username.historicalField),
-        "b" -> optional(username.historicalField),
-        "winner" -> optional(username.historicalField),
-        "loser" -> optional(username.historicalField),
-        "white" -> optional(username.historicalField),
-        "black" -> optional(username.historicalField)
+        "a" -> optional(username.idField),
+        "b" -> optional(username.idField),
+        "winner" -> optional(username.idField),
+        "loser" -> optional(username.idField),
+        "white" -> optional(username.idField),
+        "black" -> optional(username.idField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(FormHelpers.winnerColors)),
       "perf" -> optional(numberIn(perfKeys.map(_.id.value))),
@@ -81,8 +81,8 @@ case class SearchData(
   def sortOrDefault = sort | SearchSort()
 
   def query: Query.Game = Query.game(
-    user1 = players.cleanA.map(_.value),
-    user2 = players.cleanB.map(_.value),
+    user1 = players.a.map(_.value),
+    user2 = players.b.map(_.value),
     winner = players.cleanWinner.map(_.value),
     loser = players.cleanLoser.map(_.value),
     winnerColor = winnerColor,
@@ -111,22 +111,19 @@ case class SearchData(
   def nonEmptyQuery: Option[Query.Game] = query.some.filter(_.nonEmpty)
 
 case class SearchPlayer(
-    a: Option[UserStr] = None,
-    b: Option[UserStr] = None,
-    winner: Option[UserStr] = None,
-    loser: Option[UserStr] = None,
-    white: Option[UserStr] = None,
-    black: Option[UserStr] = None
+    a: Option[UserId] = None,
+    b: Option[UserId] = None,
+    winner: Option[UserId] = None,
+    loser: Option[UserId] = None,
+    white: Option[UserId] = None,
+    black: Option[UserId] = None
 ):
-
-  lazy val cleanA = a.map(_.id)
-  lazy val cleanB = b.map(_.id)
   def cleanWinner = oneOf(winner)
   def cleanLoser = oneOf(loser)
   def cleanWhite = oneOf(white)
   def cleanBlack = oneOf(black)
 
-  private def oneOf(s: Option[UserStr]) = s.map(_.id).filter(List(cleanA, cleanB).flatten.contains)
+  private def oneOf(s: Option[UserId]) = s.filter(List(a, b).flatten.contains)
 
 case class SearchSort(
     field: String = Sorting.default.f,
