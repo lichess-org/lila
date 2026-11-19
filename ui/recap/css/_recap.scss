@@ -1458,7 +1458,7 @@ body {
     transition: transform 0.45s var(--ease-spring);
   }
 
-  .freq[data-freq='once'] .freq__pill {
+  .freq[data-freq='onetime'] .freq__pill {
     transform: translateX(100%);
   }
 

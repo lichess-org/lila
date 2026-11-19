@@ -107,7 +107,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
     const monthly = state.freq === 'monthly';
     const tierMins = donationTiers[state.freq];
     $in('.freq').dataset.freq = state.freq;
-    el.querySelectorAll<HTMLElement>('[data-freq]').forEach(b =>
+    el.querySelectorAll<HTMLElement>('.freq button').forEach(b =>
       b.setAttribute('aria-checked', String(b.dataset.freq === state.freq)),
     );
     tiersEl.innerHTML = tierMins
@@ -140,7 +140,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   };
   update();
 
-  el.querySelectorAll<HTMLElement>('[data-freq]').forEach(
+  el.querySelectorAll<HTMLElement>('.freq button').forEach(
     b =>
       (b.onclick = () => {
         state.freq = b.dataset.freq as Freq;
