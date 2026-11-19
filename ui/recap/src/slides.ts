@@ -419,19 +419,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     },
   };
 
-  const thanks: SlideDef = {
-    key: 'thanks',
-    theme: ['#7c3aed', '#f43f5e', '#facc15'],
-    render(el, sc) {
-      el.innerHTML = `
-        <img class="intro__logo intro__logo--big reveal" src="${logo()}" alt="Lichess">
-        <p class="headline">${words(i18n.recap.thanksTitle, 0.3)}</p>
-        <p class="lead reveal" style="--d:1.2s">${trHtml(i18n.recap.thanksHaveAGreat.asArray(raw(`<strong>${R.year + 1}</strong>`)))}</p>`;
-      sc.onDispose(bg.fireworks(4, 800));
-      sc.after(1500, () => sc.onDispose(bg.fireworks(8, 3500)));
-    },
-  };
-
   const share: SlideDef = {
     key: 'share',
     theme: ['#7c3aed', '#06b6d4', '#f43f5e'],
@@ -520,7 +507,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     puzzles,
     lichessGames,
     malware,
-    thanks,
     share,
     donate,
   ].filter((s): s is SlideDef => !!s);

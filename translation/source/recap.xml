@@ -116,7 +116,7 @@
 		<item quantity="one">%s school</item>
 		<item quantity="other">%s schools</item>
 	</plurals>
-	<string name="donateNoWorries">No worries! Thank you for playing on Lichess. All forms of support from the community are vital for us, and that includes just being here.</string>
+	<string name="donateNoWorries">No worries! All forms of support from the community are vital for us, and that includes just being here.</string>
 	<string name="donateReplay">Replay my recap</string>
 	<string name="donateChangedMyMind">Changed my mind</string>
 	<string name="recapReady" comment="%s is the year of the recap">Your %s recap is ready!</string>

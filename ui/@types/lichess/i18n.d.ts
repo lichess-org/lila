@@ -3283,7 +3283,7 @@ interface I18n {
     donateMinutesOfUptimePerMonth: I18nPlural;
     /** Not today */
     donateNotToday: string;
-    /** No worries! Thank you for playing on Lichess. All forms of support from the community are vital for us, and that includes just being here. */
+    /** No worries! All forms of support from the community are vital for us, and that includes just being here. */
     donateNoWorries: string;
     /** One more thing… */
     donateOneMoreThing: string;

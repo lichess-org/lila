@@ -1393,20 +1393,11 @@ body {
     animation: recap-rise 0.7s var(--ease-out) both;
   }
 
-  .donate__after .headline {
-    font-size: 56px;
-    animation: recap-heartbeat 1.2s ease-in-out infinite;
-  }
-
-  @keyframes recap-heartbeat {
-    15%,
-    45% {
-      transform: scale(1.18);
-    }
-
-    30% {
-      transform: scale(1.04);
-    }
+  .donate__thanks {
+    margin: 0;
+    font-size: clamp(24px, 4.4vw, 36px);
+    font-weight: 900;
+    line-height: 1.1;
   }
 
   .freq {
@@ -1708,11 +1699,6 @@ body {
 
   .slide--top {
     justify-content: flex-start;
-  }
-
-  .intro__logo--big {
-    width: 110px;
-    height: 110px;
   }
 
   .legend i.w {

@@ -54,7 +54,7 @@ const detectRegion = (): Region => {
 
 const cardIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19M6 15h4" /></svg>`;
 
-export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: SlideCtx): void {
+export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
   const checkout = opts.checkout ?? usdCheckout;
   // what some minutes of uptime cost, in the visitor's currency
@@ -209,14 +209,18 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, restart }: Slid
       };
   };
   const replayButton = `<button class="cta cta--ghost" data-act="replay">${esc(i18n.recap.donateReplay)} ↺</button>`;
-  $in('.donate__not-today').onclick = () =>
+  $in('.donate__not-today').onclick = () => {
     after(
-      `<p class="lead">${esc(i18n.recap.donateNoWorries)} 💜</p>
+      `<p class="donate__thanks">${esc(i18n.recap.thanksTitle)}</p>
+       <p class="lead">${trHtml(i18n.recap.thanksHaveAGreat.asArray(raw(`<strong>${opts.recap!.year + 1}</strong>`)))}</p>
+       <p class="small">${esc(i18n.recap.donateNoWorries)} 💜</p>
        <div class="donate__actions">
          ${replayButton}
          <button class="donate__skip" data-act="back">${esc(i18n.recap.donateChangedMyMind)}</button>
        </div>`,
     );
+    sc.onDispose(bg.fireworks(6, 2000));
+  };
 
   const ticker = $in('.ticker');
   let n = 0;
