@@ -117,9 +117,9 @@ object LangList extends lila.core.i18n.LangList:
     defaultRegions.get(lang.language) | lang
 
   lazy val popular: List[Lang] =
-    // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
+    // 20/11/2026 based on db.user4.aggregate([{$match:{seenAt:{$gt:new Date(Date.now() - 1000 * 3600 * 24 * 30 * 3)}}},{$sortByCount:'$lang'},{$group:{_id:null, langs:{$push:'$_id'}}}])
     val langs: Map[Lang, Int] =
-      "en-US en-GB ru-RU es-ES tr-TR fr-FR de-DE pt-BR it-IT pl-PL ar-SA fa-IR nl-NL id-ID nb-NO el-GR sv-SE uk-UA cs-CZ vi-VN sr-SP hr-HR hu-HU pt-PT he-IL fi-FI ca-ES da-DK ro-RO zh-CN bg-BG sk-SK ko-KR az-AZ ja-JP sl-SI lt-LT ka-GE mn-MN bs-BA hy-AM zh-TW lv-LV et-EE th-TH gl-ES sq-AL eu-ES hi-IN mk-MK uz-UZ be-BY ms-MY bn-BD is-IS af-ZA nn-NO ta-IN as-IN la-LA kk-KZ tl-PH mr-IN eo-UY gu-IN ky-KG kn-IN ml-IN cy-GB no-NO fo-FO zu-ZA jv-ID ga-IE ur-PK ur-IN te-IN sw-KE am-ET ia-IA sa-IN si-LK ps-AF mg-MG kmr-TR ne-NP tk-TM fy-NL pa-PK br-FR tt-RU cv-CU tg-TJ tp-TP yo-NG frp-IT pi-IN my-MM pa-IN kab-DZ io-EN gd-GB jbo-EN io-IO ckb-IR ceb-PH an-ES"
+      "en-US ru-RU en-GB es-ES tr-TR de-DE fr-FR pt-BR ar-SA pl-PL it-IT zh-CN vi-VN id-ID fa-IR uk-UA nl-NL ko-KR sv-SE nb-NO cs-CZ pt-PT hu-HU el-GR ja-JP hr-HR ro-RO da-DK fi-FI ca-ES he-IL sr-SP zh-TW az-AZ sk-SK uz-UZ bg-BG sl-SI th-TH lt-LT hy-AM mn-MN ka-GE lv-LV kk-KZ bs-BA et-EE hi-IN gl-ES sq-AL eu-ES be-BY is-IS gsw-CH af-ZA mk-MK bn-BD ta-IN nn-NO mr-IN an-ES tl-PH cy-GB eo-AA ml-IN ga-IE gu-IN ckb-IR pi-IN so-SO fo-FO gd-GB kmr-TR kn-IN tk-TM ast-ES la-VA lb-LU br-FR ry-UA sw-KE co-FR ne-NP av-RU zu-ZA tok-AA fy-NL ur-PK ps-AF mg-MG cv-CU ia-AA kab-DZ jbo-AA"
         .split(' ')
         .flatMap(Lang.get)
         .zipWithIndex
