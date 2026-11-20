@@ -4,11 +4,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.core.socket.SocketVersion
 import lila.relay.RelayRound.WithTourAndStudy
 
-val ui = lila.relay.ui.RelayUi(helpers)(
-  picfitUrl,
-  views.study.socketUrl,
-  views.analyse.ui.explorerAndCevalConfig
-)
+val ui = lila.relay.ui.RelayUi(helpers)(picfitUrl, views.study.ui.socketUrl, analyseEndpoints)
 private val card = lila.relay.ui.RelayCardUi(helpers, ui)
 val menu = lila.relay.ui.RelayMenuUi(helpers)
 val tour = lila.relay.ui.RelayTourUi(helpers, ui, card, menu)

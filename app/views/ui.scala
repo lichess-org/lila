@@ -53,10 +53,7 @@ object account:
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
   val security = lila.security.ui.AccountSecurity(helpers)(ui.AccountPage)
 
-val practice = lila.practice.ui.PracticeUi(helpers)(
-  csp = analyse.ui.bits.cspExternalEngine,
-  views.analyse.ui.explorerAndCevalConfig
-)
+val practice = lila.practice.ui.PracticeUi(helpers)(analyse.ui.bits.cspExternalEngine, analyseEndpoints)
 
 object forum:
   import lila.forum.ui.*
