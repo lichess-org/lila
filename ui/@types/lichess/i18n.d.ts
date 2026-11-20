@@ -3239,8 +3239,6 @@ interface I18n {
   recap: {
     /** What have you been up to this year? */
     awaitQuestion: string;
-    /** Your best chess foes */
-    chessFoes: string;
     /** You are already a Patron, thank you! One more thing… */
     donateAlreadyPatron: string;
     /** one premium fish at the McMurdo Station canteen */
@@ -3301,6 +3299,8 @@ interface I18n {
     gamesNextQuestion: string;
     /** And you won %s! */
     gamesYouWon: I18nFormat;
+    /** Your greatest chess foes */
+    greatestChessFoes: string;
     /** Hi, %s */
     hiUser: I18nFormat;
     /** What a chess year you've had! */

@@ -1678,7 +1678,7 @@ object I18nKey:
     val `movesOfWoodPushed`: I18nKey = "recap:movesOfWoodPushed"
     val `movesStandardPiecesWeight`: I18nKey = "recap:movesStandardPiecesWeight"
     val `movesStandardPiecesWeightImperial`: I18nKey = "recap:movesStandardPiecesWeightImperial"
-    val `chessFoes`: I18nKey = "recap:chessFoes"
+    val `greatestChessFoes`: I18nKey = "recap:greatestChessFoes"
     val `firstMoveTitle`: I18nKey = "recap:firstMoveTitle"
     val `firstMoveStats`: I18nKey = "recap:firstMoveStats"
     val `puzzlesHelpedTagging`: I18nKey = "recap:puzzlesHelpedTagging"

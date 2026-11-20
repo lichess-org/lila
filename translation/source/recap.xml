@@ -38,7 +38,7 @@
 		<item quantity="one">%s new game</item>
 		<item quantity="other">%s new games</item>
 	</plurals>
-	<string name="chessFoes">Your best chess foes</string>
+	<string name="greatestChessFoes">Your greatest chess foes</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
 		<item quantity="other">%s grams</item>
