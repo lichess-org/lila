@@ -1,6 +1,7 @@
 import type { VNode } from 'snabbdom';
 
 import menuHover from 'lib/menuHover';
+import { mountApp } from 'lib/view';
 
 import makeCtrl from './ctrl';
 import type { AnalyseApi, AnalyseOpts } from './interfaces';
@@ -14,16 +15,13 @@ export default function (
   return function (opts: AnalyseOpts): AnalyseApi {
     opts.element = document.querySelector('main.analyse') as HTMLElement;
 
-    const ctrl = (site.analysis = new makeCtrl(opts, redraw, deps?.StudyCtrl));
     const view = makeView(deps);
-
-    const blueprint = view(ctrl);
-    opts.element.innerHTML = '';
-    let vnode = patch(opts.element, blueprint);
-
-    function redraw() {
-      vnode = patch(vnode, view(ctrl));
-    }
+    const ctrl = (site.analysis = mountApp({
+      el: opts.element,
+      patch,
+      makeCtrl: redraw => new makeCtrl(opts, redraw, deps?.StudyCtrl),
+      view,
+    }));
 
     menuHover();
 
