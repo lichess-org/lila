@@ -20,7 +20,7 @@ import { icon, spinnerHtml } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
-import { formatNumber } from './table';
+import { formatNumber, scalePercent } from './table';
 
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();
@@ -108,7 +108,7 @@ function barBuilder(
   const percent = serie.dataType === 'percent';
   return {
     label: serie.name,
-    data: serie.data.map(nb => nb / (serie.dataType === 'percent' ? 100 : 1)),
+    data: serie.data.map(nb => scalePercent(serie.dataType, nb)),
     borderWidth: 1.5,
     yAxisID: id,
     backgroundColor: color,
@@ -126,8 +126,7 @@ function barBuilder(
             textShadowColor: tooltipBgColor,
             textStrokeWidth: 1.2,
             font: fontFamily(12, 'bold'),
-            formatter: val =>
-              val === 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+            formatter: val => (val === 0 && percent ? '' : formatNumber(serie.dataType, val)),
           },
   };
 }
