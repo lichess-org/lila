@@ -131,3 +131,34 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       div(cls := "round__app__board main-board")(povChessground(pov)),
       div(cls := "col1-rmoves-preload")
     )
+
+  object blindLobby:
+
+    def apply(games: UrgentGames)(using Context) =
+      div(
+        h2(trans.swiss.ongoingGames(games.value.size)),
+        games.value.nonEmpty.option(ongoingGames(games)),
+        div(cls := "lobby__app")
+      )
+
+    private def ongoingGames(games: UrgentGames)(using Context) =
+      val (myTurn, opTurn) = games.value.partition(_.isMyTurn)
+      frag(
+        h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
+        ul(myTurn.map(renderGame)),
+        h3(
+          trans.site.waitingForOpponent(),
+          " : ",
+          trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
+        ),
+        ul(opTurn.map(renderGame))
+      )
+
+    private def renderGame(pov: Pov)(using Context) =
+      li(
+        a(href := gameUrl(pov.game, pov.color))(
+          playerText(pov.opponent),
+          " ",
+          pov.isMyTurn.so(pov.remainingSeconds).map(secondsFromNow(_, alwaysRelative = true))
+        )
+      )
