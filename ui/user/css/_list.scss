@@ -57,7 +57,7 @@ $user-list-width: 34ch;
     .leaderboards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
-      gap: 12px;
+      gap: 1em;
 
       .user-top {
         @extend %box-radius;
@@ -66,19 +66,28 @@ $user-list-width: 34ch;
         border: $border;
 
         > a {
-          & h2::after {
-            @extend %data-icon;
+          h2 {
+            &::before {
+              font-size: 1.6em;
+            }
 
-            content: $licon-GreaterThan;
-            margin-left: auto;
-            margin-right: 12px;
-            color: $c-font-dimmer;
-            font-size: 16px;
+            &::after {
+              @extend %data-icon;
+
+              content: $licon-GreaterThan;
+              margin-left: auto;
+              margin-right: 12px;
+              color: $c-font-dimmer;
+              font-size: 16px;
+              opacity: 0;
+            }
           }
 
           &:hover {
             h2 {
-              opacity: 0.85;
+              &::after {
+                opacity: 1;
+              }
             }
           }
         }
