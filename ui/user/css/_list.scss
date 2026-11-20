@@ -1,5 +1,3 @@
-$user-list-width: 34ch;
-
 .community {
   display: grid;
   gap: 2rem;
@@ -16,33 +14,15 @@ $user-list-width: 34ch;
     margin-bottom: 2rem;
   }
 
-  .user-top {
-    li {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      white-space: nowrap;
-    }
-
-    .user-link {
-      @extend %ellipsis;
-    }
-
-    a:not(.user-link) {
-      // tournament link
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5ch;
-    }
-  }
-
   &__online {
     grid-area: online;
     min-width: 244px;
     max-width: 272px;
 
     li {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 0.6rem 0;
     }
 
@@ -55,75 +35,7 @@ $user-list-width: 34ch;
     grid-area: leaders;
 
     .leaderboards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
-      gap: 1em;
-
-      .user-top {
-        @extend %box-radius;
-
-        overflow: hidden;
-        border: $border;
-
-        > a {
-          h2 {
-            &::before {
-              font-size: 1.6em;
-            }
-
-            &::after {
-              @extend %data-icon;
-
-              content: $licon-GreaterThan;
-              margin-left: auto;
-              margin-right: 12px;
-              color: $c-font-dimmer;
-              font-size: 16px;
-              opacity: 0;
-            }
-          }
-
-          &:hover {
-            h2 {
-              &::after {
-                opacity: 1;
-              }
-            }
-          }
-        }
-      }
-
-      h2 {
-        @extend %flex-center-nowrap, %nowrap-hidden, %metal-bg;
-
-        width: 100%;
-        font-size: 1.45em;
-        line-height: 2.5em;
-        padding-inline-start: 1rem;
-        font-weight: 600;
-        margin: 0;
-        color: $c-font;
-
-        &::before {
-          color: $c-brag;
-        }
-      }
-
-      ol {
-        border-top: $border;
-
-        &:empty {
-          display: none;
-        }
-      }
-
-      li {
-        @include padding-direction(0.7rem, 1.2rem, 0.7rem, 0.5rem);
-      }
-
-      li:nth-child(even) {
-        background: $c-bg-zebra;
-      }
+      @include leaderboard;
     }
   }
 }

@@ -300,8 +300,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               div(cls := "tournament-shields")(
                 history.sorted.map { (categ, awards) =>
                   section(
-                    h2(
-                      a(href := routes.Tournament.categShields(categ.key))(
+                    a(href := routes.Tournament.categShields(categ.key))(
+                      h2(
                         span(cls := "shield-trophy")(categ.icon),
                         categ.i18n()
                       )
