@@ -1509,6 +1509,11 @@ body {
     animation: recap-pop 0.4s var(--ease-spring) both;
   }
 
+  // only pop in the first time, not when the selection changes
+  .tiers--settled .tier {
+    animation: none;
+  }
+
   .tier:hover {
     border-color: var(--primary);
   }

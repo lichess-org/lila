@@ -121,9 +121,12 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   const panel = $in('.donate__panel');
   const afterBox = $in('.donate__after');
 
+  let tiersShown = false;
   const update = () => {
     const monthly = state.freq === 'monthly';
     const tiers = checkout.tiers[state.freq];
+    tiersEl.classList.toggle('tiers--settled', tiersShown);
+    tiersShown = true;
     $in('.freq').dataset.freq = state.freq;
     el.querySelectorAll<HTMLElement>('.freq button').forEach(b =>
       b.setAttribute('aria-checked', String(b.dataset.freq === state.freq)),
