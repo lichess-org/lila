@@ -11,21 +11,27 @@ type Region = 'na' | 'eu' | 'as' | 'sa' | 'af' | 'oc' | 'an';
 
 interface PriceAnchor {
   region: Region;
-  flag: string;
+  flag: string; // image url: flag emojis don't render on Windows
   text: () => string;
 }
 
+const flag = (country: string) => site.asset.url(`flags/${country}.webp`);
+
 // things that cost about $7.50 around the world, the visitor's region first
 const priceAnchors: PriceAnchor[] = [
-  { region: 'na', flag: '🇺🇸', text: () => i18n.recap.donateAnchorNewYork },
-  { region: 'eu', flag: '🇬🇧', text: () => i18n.recap.donateAnchorLondon },
-  { region: 'eu', flag: '🇫🇷', text: () => i18n.recap.donateAnchorParis },
-  { region: 'as', flag: '🇯🇵', text: () => i18n.recap.donateAnchorTokyo },
-  { region: 'sa', flag: '🇧🇷', text: () => i18n.recap.donateAnchorSaoPaulo },
-  { region: 'af', flag: '🇿🇦', text: () => i18n.recap.donateAnchorCapeTown },
-  { region: 'oc', flag: '🇦🇺', text: () => i18n.recap.donateAnchorMelbourne },
+  { region: 'na', flag: flag('US'), text: () => i18n.recap.donateAnchorNewYork },
+  { region: 'eu', flag: flag('GB'), text: () => i18n.recap.donateAnchorLondon },
+  { region: 'eu', flag: flag('FR'), text: () => i18n.recap.donateAnchorParis },
+  { region: 'as', flag: flag('JP'), text: () => i18n.recap.donateAnchorTokyo },
+  { region: 'sa', flag: flag('BR'), text: () => i18n.recap.donateAnchorSaoPaulo },
+  { region: 'af', flag: flag('ZA'), text: () => i18n.recap.donateAnchorCapeTown },
+  { region: 'oc', flag: flag('AU'), text: () => i18n.recap.donateAnchorMelbourne },
 ];
-const antarctica: PriceAnchor = { region: 'an', flag: '🐧', text: () => i18n.recap.donateAnchorAntarctica };
+const antarctica: PriceAnchor = {
+  region: 'an',
+  flag: site.asset.flairSrc('nature.penguin'),
+  text: () => i18n.recap.donateAnchorAntarctica,
+};
 
 const southAmerica =
   /^America\/(Sao_Paulo|Argentina|Buenos_Aires|Bogota|Lima|Santiago|Caracas|Montevideo|La_Paz|Asuncion|Guayaquil|Cayenne|Paramaribo|Guyana|Recife|Fortaleza|Belem|Manaus|Bahia)/;
@@ -214,7 +220,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   let n = 0;
   const show = () => {
     const a = anchors[n++ % anchors.length];
-    ticker.innerHTML = `<span class="ticker__item">${a.flag} <b>${esc(a.text())}</b></span>`;
+    ticker.innerHTML = `<span class="ticker__item"><img class="ticker__flag" src="${a.flag}" alt=""> <b>${esc(a.text())}</b></span>`;
     if (anchors.length > 1) sc.after(n === 1 ? 6000 : 4200, show);
   };
   show();

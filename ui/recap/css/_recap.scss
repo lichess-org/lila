@@ -1631,6 +1631,11 @@ body {
     color: var(--c2);
   }
 
+  .ticker__flag {
+    height: 1em;
+    vertical-align: -0.1em;
+  }
+
   @keyframes recap-flip-in {
     from {
       opacity: 0;
