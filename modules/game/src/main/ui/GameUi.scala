@@ -208,10 +208,8 @@ final class GameUi(helpers: Helpers):
   object importer:
 
     private def analyseHelp(using ctx: Context) =
-      (!ctx.isAuth).option:
-        a(cls := "blue", href := s"${routes.Auth.login}?referrer=${routes.Importer.importGame}")(
-          trans.site.youNeedAnAccountToDoThat()
-        )
+      ctx.isAuth.not.option:
+        a(cls := "blue", href := routes.Auth.login)(trans.site.youNeedAnAccountToDoThat())
 
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
