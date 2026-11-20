@@ -92,3 +92,5 @@ val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 def mobile(using Context) = lila.web.ui.mobile(helpers)
 
 val recap = lila.recap.ui.RecapUi(helpers)
+
+val insight = lila.insight.ui.InsightUi(helpers)

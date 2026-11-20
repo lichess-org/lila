@@ -25,3 +25,5 @@ final class AnalyseEndpoints(
     val tablebase: String,
     val externalEngine: String
 )
+
+type SiteMessage = (title: String, back: Option[String], icon: Option[Icon]) => Page
