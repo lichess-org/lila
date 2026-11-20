@@ -113,8 +113,8 @@
 	<string name="donateCharity">Lichess is a charity.</string>
 	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Keeping Lichess running for %1$s, worldwide, costs us %2$s.</string>
 	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">That's about the same as %s</string>
-	<string name="donateAnchorNewYork">a Starbucks coffee in New York</string>
-	<string name="donateAnchorLondon">two bus journeys in London</string>
+	<string name="donateAnchorNewYork">a latte at a coffee shop in New York</string>
+	<string name="donateAnchorLondon">a pint of beer in central London</string>
 	<string name="donateAnchorParis">a glass of house wine in Paris</string>
 	<string name="donateAnchorTokyo">a bowl of ramen in Tokyo</string>
 	<string name="donateAnchorSaoPaulo">a plate of feijoada in São Paulo</string>

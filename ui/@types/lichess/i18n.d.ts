@@ -3247,11 +3247,11 @@ interface I18n {
     donateAnchorAntarctica: string;
     /** a cinema ticket in Cape Town */
     donateAnchorCapeTown: string;
-    /** two bus journeys in London */
+    /** a pint of beer in central London */
     donateAnchorLondon: string;
     /** a flat white and a pastry in Melbourne */
     donateAnchorMelbourne: string;
-    /** a Starbucks coffee in New York */
+    /** a latte at a coffee shop in New York */
     donateAnchorNewYork: string;
     /** a glass of house wine in Paris */
     donateAnchorParis: string;
