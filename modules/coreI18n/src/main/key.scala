@@ -1700,7 +1700,7 @@ object I18nKey:
     val `lichessGamesYou`: I18nKey = "recap:lichessGamesYou"
     val `thanksTitle`: I18nKey = "recap:thanksTitle"
     val `thanksHaveAGreat`: I18nKey = "recap:thanksHaveAGreat"
-    val `shareableTitle`: I18nKey = "recap:shareableTitle"
+    val `shareableTitleLichess`: I18nKey = "recap:shareableTitleLichess"
     val `shareableSpentPlaying`: I18nKey = "recap:shareableSpentPlaying"
     val `shareableMostPlayedOpponent`: I18nKey = "recap:shareableMostPlayedOpponent"
     val `shareableFavouriteVariant`: I18nKey = "recap:shareableFavouriteVariant"

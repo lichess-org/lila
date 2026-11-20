@@ -3380,7 +3380,7 @@ interface I18n {
     /** spent playing */
     shareableSpentPlaying: string;
     /** My %s Lichess Recap */
-    shareableTitle: I18nFormat;
+    shareableTitleLichess: I18nFormat;
     /** Where did you find games? */
     sourcesTitle: string;
     /** We're glad you're here. Have a great %s! */

@@ -73,7 +73,7 @@ export function play(root: HTMLElement, opts: Opts): void {
   const slides: SlideDef[] = buildSlides({ opts, bg, restart: () => go(0, true) });
   progress.innerHTML = slides.map(() => '<div class="progress__seg"><i></i></div>').join('');
   const bars = [...progress.querySelectorAll<HTMLElement>('i')];
-  $in('.hud__title').textContent = i18n.recap.shareableTitle(opts.recap!.year);
+  $in('.hud__title').textContent = i18n.recap.shareableTitleLichess(opts.recap!.year);
 
   // phones that can't keep up get a calmer recap rather than a choppy one
   let slowFrames = 0;

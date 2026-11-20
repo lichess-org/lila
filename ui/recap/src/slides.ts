@@ -432,7 +432,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
       el.innerHTML = `
         <div class="card">
           <div class="card__head"><img src="${logo()}" alt="">
-            <div><h3>${esc(i18n.recap.shareableTitle(R.year))}</h3><small>${userLabel(U)} · lichess.org</small></div></div>
+            <div><h3>${esc(i18n.recap.shareableTitleLichess(R.year))}</h3><small>${userLabel(U)} · lichess.org</small></div></div>
           <div class="card__grid">
             ${countStat(G.nbs.total, i18n.site.nbGames)}
             ${countStat(G.moves, i18n.recap.nbMovesPlayed)}
