@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { pad2 } from 'lib';
 import { alert, confirm, makeLinkPopups, bind } from 'lib/view';
 import { json as xhrJson, form as xhrForm } from 'lib/xhr';
 
@@ -55,7 +56,6 @@ function renderMsg(ctrl: MsgCtrl, msg: Msg) {
   const tag = msg.user === ctrl.data.me.id ? 'mine' : 'their';
   return h(tag, [renderText(msg), h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)]);
 }
-const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 
 function groupMsgs(msgs: Msg[]): Daily[] {
   let prev: Msg = msgs[0];
