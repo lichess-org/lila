@@ -1,3 +1,4 @@
+import { shuffle } from 'lib/algo';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
 
@@ -7,59 +8,41 @@ import { countSpan, esc, pluralLabel, raw, trHtml } from './html';
 import type { Freq, SlideCtx } from './interfaces';
 import { countAll, type Scope } from './scope';
 
-type Region = 'na' | 'eu' | 'as' | 'sa' | 'af' | 'oc' | 'an';
-
 interface PriceAnchor {
-  region: Region;
-  flag: string; // image url: flag emojis don't render on Windows
+  country: string; // ISO 3166-1 alpha-2 code
   text: () => string;
 }
 
-const flag = (country: string) => site.asset.url(`flags/${country}.webp`);
-
-// things that cost about $7.50 around the world, the visitor's region first
+// things that cost about $7.50 around the world
 const priceAnchors: PriceAnchor[] = [
-  { region: 'na', flag: flag('US'), text: () => i18n.recap.donateAnchorNewYork },
-  { region: 'eu', flag: flag('GB'), text: () => i18n.recap.donateAnchorLondon },
-  { region: 'eu', flag: flag('FR'), text: () => i18n.recap.donateAnchorParis },
-  { region: 'as', flag: flag('JP'), text: () => i18n.recap.donateAnchorTokyo },
-  { region: 'sa', flag: flag('BR'), text: () => i18n.recap.donateAnchorSaoPaulo },
-  { region: 'af', flag: flag('ZA'), text: () => i18n.recap.donateAnchorCapeTown },
-  { region: 'oc', flag: flag('AU'), text: () => i18n.recap.donateAnchorMelbourne },
+  { country: 'US', text: () => i18n.recap.donateAnchorNewYork },
+  { country: 'GB', text: () => i18n.recap.donateAnchorLondon },
+  { country: 'FR', text: () => i18n.recap.donateAnchorParis },
+  { country: 'DE', text: () => i18n.recap.donateAnchorBerlin },
+  { country: 'JP', text: () => i18n.recap.donateAnchorTokyo },
+  { country: 'BR', text: () => i18n.recap.donateAnchorSaoPaulo },
+  { country: 'ZA', text: () => i18n.recap.donateAnchorCapeTown },
+  { country: 'AU', text: () => i18n.recap.donateAnchorMelbourne },
 ];
-const antarctica: PriceAnchor = {
-  region: 'an',
-  flag: site.asset.flairSrc('nature.penguin'),
-  text: () => i18n.recap.donateAnchorAntarctica,
-};
 
-const southAmerica =
-  /^America\/(Sao_Paulo|Argentina|Buenos_Aires|Bogota|Lima|Santiago|Caracas|Montevideo|La_Paz|Asuncion|Guayaquil|Cayenne|Paramaribo|Guyana|Recife|Fortaleza|Belem|Manaus|Bahia)/;
+// an image, as flag emojis don't render on Windows
+const flagSrc = (country: string) => site.asset.url(`flags/${country}.webp`);
 
-// guessed from the time zone; ?region=xx overrides it for testing
-const detectRegion = (): Region => {
-  const forced = new URLSearchParams(location.search).get('region');
-  if (forced) return forced as Region;
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-  if (tz.startsWith('Antarctica/')) return 'an';
-  if (southAmerica.test(tz)) return 'sa';
-  if (tz.startsWith('America/') || tz.startsWith('US/') || tz.startsWith('Canada/')) return 'na';
-  if (tz.startsWith('Europe/') || tz === 'Atlantic/Reykjavik') return 'eu';
-  if (tz.startsWith('Asia/')) return 'as';
-  if (tz.startsWith('Africa/')) return 'af';
-  if (tz.startsWith('Australia/') || tz.startsWith('Pacific/')) return 'oc';
-  return 'na';
+// the visitor's own country first when there is one, then the others in random order.
+// ?country=XX overrides the visitor's country, for testing
+const orderAnchors = (visitorCountry?: string): PriceAnchor[] => {
+  const country = new URLSearchParams(location.search).get('country')?.toUpperCase() || visitorCountry;
+  return [
+    ...priceAnchors.filter(a => a.country === country),
+    ...shuffle(priceAnchors.filter(a => a.country !== country)),
+  ];
 };
 
 export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: SlideCtx): void {
   const minutes = Math.round(opts.recap!.games.timePlaying / 60);
   const checkout = opts.checkout;
   const money = (n: number) => formatMoney(n, checkout.currency);
-  const region = detectRegion();
-  const anchors =
-    region === 'an'
-      ? [antarctica]
-      : [...priceAnchors.filter(a => a.region === region), ...priceAnchors.filter(a => a.region !== region)];
+  const anchors = orderAnchors(opts.country);
   // a monthly checkout would replace an existing subscription, so patrons only get one-time donations
   const isPatron = !!(opts.user.patron || opts.user.patronColor);
   const state: { freq: Freq; tier: number } = { freq: isPatron ? 'onetime' : 'monthly', tier: 1 };
@@ -220,7 +203,7 @@ export function renderDonate(el: HTMLElement, sc: Scope, { opts, bg, restart }: 
   let n = 0;
   const show = () => {
     const a = anchors[n++ % anchors.length];
-    ticker.innerHTML = `<span class="ticker__item"><img class="ticker__flag" src="${a.flag}" alt=""> <b>${esc(a.text())}</b></span>`;
+    ticker.innerHTML = `<span class="ticker__item"><img class="ticker__flag" src="${flagSrc(a.country)}" alt=""> <b>${esc(a.text())}</b></span>`;
     if (anchors.length > 1) sc.after(n === 1 ? 6000 : 4200, show);
   };
   show();

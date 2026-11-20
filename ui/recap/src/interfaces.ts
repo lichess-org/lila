@@ -6,6 +6,7 @@ export interface Opts {
   user: LightUser;
   checkout: CheckoutOpts;
   imperial: boolean; // weigh things in pounds, for visitors from the US
+  country?: string; // the visitor's ISO 3166-1 alpha-2 code, from their IP address
 }
 
 interface NbWin {

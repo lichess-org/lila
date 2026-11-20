@@ -18,15 +18,18 @@ final class RecapUi(helpers: Helpers):
     val data = av match
       case Availability.Available(data) => data
       case Availability.Queued(data) => data
+    val country = lila.common.HTTPRequest.country(using ctx.req)
     Page(title(user))
       .css("recap")
       .js(
         esmInit(
           "recap",
-          data ++ Json.obj(
-            "checkout" -> checkout.json,
-            "imperial" -> lila.common.HTTPRequest.country(using ctx.req).has(lila.core.net.CountryCode("US"))
-          )
+          data ++ Json
+            .obj(
+              "checkout" -> checkout.json,
+              "imperial" -> country.has(lila.core.net.CountryCode("US"))
+            )
+            .add("country" -> country.map(_.value))
         )
       )
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)

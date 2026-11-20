@@ -3241,8 +3241,8 @@ interface I18n {
     awaitQuestion: string;
     /** You are already a Patron, thank you! One more thing… */
     donateAlreadyPatron: string;
-    /** one premium fish at the McMurdo Station canteen */
-    donateAnchorAntarctica: string;
+    /** a döner kebab in Berlin */
+    donateAnchorBerlin: string;
     /** a cinema ticket in Cape Town */
     donateAnchorCapeTown: string;
     /** a pint of beer in central London */

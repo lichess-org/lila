@@ -116,11 +116,11 @@
 	<string name="donateAnchorNewYork">a latte in New York City</string>
 	<string name="donateAnchorLondon">a pint of beer in central London</string>
 	<string name="donateAnchorParis">a glass of house wine in Paris</string>
+	<string name="donateAnchorBerlin">a döner kebab in Berlin</string>
 	<string name="donateAnchorTokyo">a bowl of ramen in Tokyo</string>
 	<string name="donateAnchorSaoPaulo">a plate of feijoada in São Paulo</string>
 	<string name="donateAnchorCapeTown">a cinema ticket in Cape Town</string>
 	<string name="donateAnchorMelbourne">a flat white and a pastry in Melbourne</string>
-	<string name="donateAnchorAntarctica" comment="A joke for players in Antarctica">one premium fish at the McMurdo Station canteen</string>
 	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">In those %s, Lichess will see</string>
 	<string name="donateNoWorries">No worries! All forms of support from the community are vital for us, and that includes just being here.</string>
 	<string name="donateReplay">Replay my recap</string>
