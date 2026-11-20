@@ -3251,7 +3251,7 @@ interface I18n {
     donateAnchorLondon: string;
     /** a flat white and a pastry in Melbourne */
     donateAnchorMelbourne: string;
-    /** a latte at a coffee shop in New York */
+    /** a latte in New York City */
     donateAnchorNewYork: string;
     /** a glass of house wine in Paris */
     donateAnchorParis: string;
