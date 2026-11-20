@@ -60,6 +60,8 @@
 }
 
 .oauth {
+  max-width: 100dvw;
+
   table em,
   table .date {
     font-size: 90%;
@@ -161,6 +163,10 @@
 
   &-used {
     margin-bottom: 4em;
+  }
+
+  &__prefill-help a {
+    @extend %break-word-hard;
   }
 }
 
