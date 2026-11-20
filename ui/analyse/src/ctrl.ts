@@ -410,7 +410,8 @@ export default class AnalyseCtrl implements CevalHandler {
   });
 
   private readonly updateHref: () => void = debounce(() => {
-    if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
+    if (!this.opts.study && !this.synthetic && !this.ongoing)
+      window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
   jump(path: TreePath): void {
