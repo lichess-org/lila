@@ -1,4 +1,4 @@
-import { numberFormat } from 'lib/i18n';
+import { numberSpread } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { colors } from 'lib/setup/color';
@@ -170,23 +170,8 @@ export default class LobbyController {
 
   spreadPlayersNumber?: (nb: number) => void;
   spreadGamesNumber?: (nb: number) => void;
-  initNumberSpreader = (elm: HTMLAnchorElement, nbSteps: number, initialCount: number) => {
-    let previous = initialCount;
-    let timeouts: number[] = [];
-    const display = (prev: number, cur: number, it: number) => {
-      elm.textContent = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
-    };
-    return (nb: number) => {
-      if (!nb && nb !== 0) return;
-      timeouts.forEach(clearTimeout);
-      timeouts = [];
-      const interv = Math.abs(wsPingInterval() / nbSteps);
-      const prev = previous || nb;
-      previous = nb;
-      for (let i = 0; i < nbSteps; i++)
-        timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
-    };
-  };
+  initNumberSpreader = (elm: HTMLAnchorElement, nbSteps: number, initialCount: number) =>
+    numberSpread(elm, nbSteps, wsPingInterval(), initialCount);
 
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);
