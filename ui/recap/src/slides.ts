@@ -483,6 +483,6 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     puzzles,
     malware,
     share,
-    donate,
+    !opts.kid && donate,
   ].filter((s): s is SlideDef => !!s);
 }

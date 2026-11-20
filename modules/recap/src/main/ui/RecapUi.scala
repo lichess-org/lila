@@ -27,13 +27,14 @@ final class RecapUi(helpers: Helpers):
           data ++ Json
             .obj(
               "checkout" -> checkout.json,
-              "imperial" -> country.has(lila.core.net.CountryCode("US"))
+              "imperial" -> country.has(lila.core.net.CountryCode("US")),
+              "kid" -> ctx.kid.yes
             )
             .add("country" -> country.map(_.value))
         )
       )
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
-      .append(checkoutScripts(checkout))
+      .append(ctx.kid.no.option(checkoutScripts(checkout))) // kids don't see the donation slide
       .csp(_.withPayments):
         main(cls := "recap") // filled by ui/recap
 

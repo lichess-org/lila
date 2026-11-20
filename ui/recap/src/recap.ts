@@ -12,7 +12,7 @@ export async function initModule(opts: Opts): Promise<void> {
     // the recap is still being computed: wait for it
     root.querySelector('.stage')!.innerHTML = loading(opts.user);
     const loaded: Opts = await json(location.pathname);
-    // keep what only the page has, like checkout, imperial and country
+    // keep what only the page has, like checkout, imperial, kid and country
     initModule({ ...opts, ...loaded });
   }
 }
