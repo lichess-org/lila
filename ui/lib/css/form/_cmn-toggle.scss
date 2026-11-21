@@ -15,13 +15,16 @@
   @include transition(background box-shadow);
   @extend %box-radius;
 
+  --w: 40px;
+  --h: 24px;
+
   display: block;
   position: relative;
   cursor: pointer;
   outline: none;
   padding: 1px;
-  width: 40px;
-  height: 24px;
+  width: var(--w);
+  height: var(--h);
   border: $border;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
@@ -31,8 +34,9 @@
     display: block;
     position: absolute;
     content: '';
-    width: 23px;
-    height: 23px;
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1;
     bottom: 0;
 
     @include inline-start(0);
@@ -45,7 +49,7 @@
     font-size: 1em;
     z-index: 1;
     text-align: center;
-    line-height: 23px;
+    align-content: center;
     content: $licon-X;
     color: $c-font-dimmer;
   }
@@ -95,7 +99,7 @@
 
   &::before,
   &::after {
-    margin-inline-start: 16px;
+    margin-inline-start: calc(var(--w) - var(--h));
   }
 
   &::before {
