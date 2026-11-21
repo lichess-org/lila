@@ -4,6 +4,7 @@ import chess.PlayerTitle
 
 import lila.common.Bus
 import lila.core.perm.Permission
+import lila.core.misc.AppealTopic
 import lila.core.report.SuspectId
 import lila.core.user.{ KidMode, UserMark, UserMarks }
 import lila.report.{ Room, Suspect }
@@ -57,6 +58,20 @@ final class ModApi(
           notifier.actionTaken(me.modId, sus, Room.Cheat)
           refunder.schedule(sus)
 
+  def undoMark(userId: UserId, topic: AppealTopic)(using MyId): Funit =
+    reportApi
+      .getSuspect(userId)
+      .flatMapz: suspect =>
+        topic match
+          case AppealTopic.cheat => setEngine(suspect, false)
+          case AppealTopic.boost => setBoost(suspect, false).void
+          case AppealTopic.comm => setTroll(suspect, false).void
+          case AppealTopic.rank => setRankban(suspect, false)
+          case AppealTopic.arena => setArenaBan(suspect, false)
+          case AppealTopic.prize => setPrizeban(suspect, false)
+          case AppealTopic.report => setReportban(suspect, false)
+          case _ => funit
+
   def autoEngine(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
       sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
@@ -72,7 +87,7 @@ final class ModApi(
         yield ()
     yield ()
 
-  def setBoost(prev: Suspect, v: Boolean)(using me: Me): Fu[Suspect] =
+  def setBoost(prev: Suspect, v: Boolean)(using me: MyId): Fu[Suspect] =
     if prev.user.marks.boost == v then fuccess(prev)
     else
       for
