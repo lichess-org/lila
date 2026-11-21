@@ -11,6 +11,7 @@ function mockGithub(commitMessages, comments = []) {
       issues: {
         listComments: 'listComments',
         createComment: async args => calls.push(['comment', args]),
+        deleteComment: async args => calls.push(['deleteComment', args]),
         addLabels: async args => calls.push(['label', args]),
       },
     },
@@ -67,7 +68,7 @@ test('labels disclosed AI commits, requests Copilot review, and asks for missing
   const { github, calls } = mockGithub(['Used Cursor to generate the test.']);
   const context = {
     repo: { owner: 'lichess-org', repo: 'lila' },
-    payload: { pull_request: { number: 42, body: '' } },
+    payload: { action: 'opened', pull_request: { number: 42, body: '', labels: [] } },
   };
 
   await run(github, context, { info: () => {} });
@@ -86,6 +87,7 @@ test('does not ask for proof when the PR description contains an image', async (
       pull_request: {
         number: 42,
         body: '![Screenshot](https://github.com/user-attachments/assets/abc123)',
+        labels: [],
       },
     },
   };
@@ -93,4 +95,33 @@ test('does not ask for proof when the PR description contains an image', async (
   await run(github, context, { info: () => {} });
 
   assert.deepEqual(calls, []);
+});
+
+test('deletes the bot proof request after the PR description gains an image', async () => {
+  const marker = '<!-- lila-ai-policy-visual-proof -->';
+  const { github, calls } = mockGithub(
+    [],
+    [
+      {
+        id: 123,
+        user: { login: 'github-actions[bot]' },
+        body: `${marker}\nPlease add visual proof.`,
+      },
+    ],
+  );
+  const context = {
+    repo: { owner: 'lichess-org', repo: 'lila' },
+    payload: {
+      action: 'edited',
+      pull_request: {
+        number: 42,
+        body: '![Screenshot](https://github.com/user-attachments/assets/abc123)',
+        labels: [],
+      },
+    },
+  };
+
+  await run(github, context, { info: () => {} });
+
+  assert.deepEqual(calls, [['deleteComment', { owner: 'lichess-org', repo: 'lila', comment_id: 123 }]]);
 });

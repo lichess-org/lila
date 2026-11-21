@@ -29,26 +29,36 @@ async function run(github, context, core) {
   });
   const content = [pullRequestBody, ...commits.map(({ commit }) => commit.message)].join('\n');
 
-  if (!hasVisualProof(pullRequestBody)) {
-    const marker = '<!-- lila-ai-policy-visual-proof -->';
-    const comments = await github.paginate(github.rest.issues.listComments, {
+  const marker = '<!-- lila-ai-policy-visual-proof -->';
+  const comments = await github.paginate(github.rest.issues.listComments, {
+    owner,
+    repo,
+    issue_number: pullNumber,
+    per_page: 100,
+  });
+  const proofRequest = comments.find(
+    comment => comment.user?.login === 'github-actions[bot]' && comment.body?.includes(marker),
+  );
+
+  if (hasVisualProof(pullRequestBody)) {
+    if (proofRequest) {
+      await github.rest.issues.deleteComment({
+        owner,
+        repo,
+        comment_id: proofRequest.id,
+      });
+    }
+  } else if (!proofRequest) {
+    await github.rest.issues.createComment({
       owner,
       repo,
       issue_number: pullNumber,
-      per_page: 100,
+      body: `${marker}\nPlease add visual proof of your manual testing to the pull request description (a screenshot or, ideally, a video), as requested by [AI_POLICY.md](https://github.com/lichess-org/lila/blob/master/AI_POLICY.md).`,
     });
-
-    if (!comments.some(({ body }) => body?.includes(marker))) {
-      await github.rest.issues.createComment({
-        owner,
-        repo,
-        issue_number: pullNumber,
-        body: `${marker}\nPlease add visual proof of your manual testing to the pull request description (a screenshot or, ideally, a video), as requested by [AI_POLICY.md](https://github.com/lichess-org/lila/blob/master/AI_POLICY.md).`,
-      });
-    }
   }
 
   if (hasAiDisclosure(content)) {
+    const alreadyAiLabeled = context.payload.pull_request.labels?.some(label => label.name === 'AI');
     await github.rest.issues.addLabels({
       owner,
       repo,
@@ -56,18 +66,20 @@ async function run(github, context, core) {
       labels: ['AI'],
     });
 
-    try {
-      await github.request('POST /repos/{owner}/{repo}/pulls/{pull_number}/copilot-code-review', {
-        owner,
-        repo,
-        pull_number: pullNumber,
-        headers: { 'X-GitHub-Api-Version': '2026-03-10' },
-      });
-    } catch (error) {
-      if (error.status === 409) {
-        core.info('A Copilot code review is already pending.');
-      } else {
-        throw error;
+    if (!alreadyAiLabeled || context.payload.action === 'opened') {
+      try {
+        await github.request('POST /repos/{owner}/{repo}/pulls/{pull_number}/copilot-code-review', {
+          owner,
+          repo,
+          pull_number: pullNumber,
+          headers: { 'X-GitHub-Api-Version': '2026-03-10' },
+        });
+      } catch (error) {
+        if (error.status === 409) {
+          core.info('A Copilot code review is already pending.');
+        } else {
+          throw error;
+        }
       }
     }
   }

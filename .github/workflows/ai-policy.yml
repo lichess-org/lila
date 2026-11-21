@@ -2,7 +2,7 @@ name: AI policy
 
 on:
   pull_request_target:
-    types: [opened]
+    types: [opened, edited]
 
 permissions:
   contents: read
