@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { defined, notNull } from 'lib';
+import { defined, notNull, pad2 } from 'lib';
 import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 import { licon } from 'lib/licon';
@@ -90,5 +90,3 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
 
 const clockContentNvui = (opts: ClockOpts): MaybeVNode =>
   !opts.centis && opts.centis !== 0 ? 'None' : formatClockTimeVerbal(opts.centis * 10);
-
-const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
