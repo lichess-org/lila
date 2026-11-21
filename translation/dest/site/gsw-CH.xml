@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">En Fründ usefordere</string>
-  <string name="playAgainstComputer">Schpill gäge de Computer</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Fründ usefordere</string>
+  <string name="playAgainstComputer">Gäge de Computer</string>
   <string name="gameMode">Schpilart</string>
-  <string name="createLobbyGame">Es Lobby Schpil erschtelle</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Zum Öpper zum Schpille ilade - die URL schicke</string>
+  <string name="createLobbyGame">Lobby Schpil erschtelle</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">URL als Schpililadig schicke</string>
   <string name="gameOver">Schpil verbi</string>
   <string name="waitingForOpponent">Uf de/d\'Gägner*i warte</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass din/i Gägner*i de QR Code skänne</string>
