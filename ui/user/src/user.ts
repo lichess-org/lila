@@ -56,7 +56,7 @@ export async function initModule(): Promise<void> {
     const browseTo = (path: string) =>
       xhr.text(path).then(html => {
         $content.html(html);
-        pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
+        pubsub.emit('content-loaded', $content[0]);
         history.replaceState({}, '', path);
         site.asset.loadEsm('bits.infiniteScroll');
       });
