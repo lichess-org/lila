@@ -12,6 +12,10 @@
     display: none;
   }
 
+  .tabs-horiz {
+    margin-bottom: 9px;
+  }
+
   &__content {
     @extend %box-neat;
 
