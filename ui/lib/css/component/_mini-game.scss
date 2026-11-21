@@ -12,10 +12,11 @@
     @extend %flex-between-nowrap;
     @extend %page-text-shadow !optional;
 
-    padding: 3px 2px 0 2px;
+    gap: 1ch;
+    padding: 4px 0 0 2px;
 
     &:first-child {
-      padding: 0 2px 2px 2px;
+      padding: 0 0 4px 2px;
     }
   }
 
@@ -74,6 +75,28 @@
 
   &__result {
     font-weight: bold;
-    margin: 0 1ch;
+    padding: 0 5px;
+    border-radius: $small-box-radius-size;
+    color: #fff;
+    line-height: 17px;
+    font-size: 80%;
   }
+
+  cg-container {
+    @extend %box-shadow;
+
+    border-radius: $small-box-radius-size;
+  }
+}
+
+bad.mini-game__result {
+  background: $c-bad;
+}
+
+good.mini-game__result {
+  background: $c-good;
+}
+
+status.mini-game__result {
+  background: $c-font-dimmer;
 }
