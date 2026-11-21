@@ -54,7 +54,9 @@ object PuzzleAngle:
 
   val mix: PuzzleAngle = apply(PuzzleTheme.mix)
 
-  def findOrMix(key: Key): PuzzleAngle = find(key) | mix
+  def findOrMix(str: Option[String]): Option[PuzzleAngle] = str.fold(mix.some)(find)
+
+  private def findOrMix(key: Key): PuzzleAngle = find(key) | mix
 
   case class All(
       themes: List[(I18nKey, List[PuzzleTheme.WithCount])],
