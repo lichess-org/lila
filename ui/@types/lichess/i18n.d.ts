@@ -777,8 +777,8 @@ interface I18n {
     aboutMe: string;
     /** Accepting students */
     accepting: string;
-    /** All countries */
-    allCountries: string;
+    /** All regions */
+    allRegions: string;
     /** Are you a great chess coach with a %s? */
     areYouCoach: I18nFormat;
     /** Availability */
