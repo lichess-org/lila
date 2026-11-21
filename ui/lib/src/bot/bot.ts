@@ -356,7 +356,7 @@ function getNormal(): number {
   return r * Math.cos(theta);
 }
 
-function stringify(obj: any) {
+export function stringify(obj: unknown): string {
   if (!obj) return '';
   return JSON.stringify(obj, (_, v) => (typeof v === 'number' ? v.toFixed(2) : v));
 }
