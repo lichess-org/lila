@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 import scalalib.net.Bearer
 
 import lila.app.{ *, given }
@@ -274,7 +274,7 @@ final class Challenge(env: Env) extends LilaController(env):
         bindForm(env.setup.forms.toFriend)(
           _ => NoContent,
           username =>
-            limit.challenge(ctx.ip, rateLimited):
+            limit.challenge.use(rateLimited):
               def redir = Redirect(routes.Challenge.show(c.id))
               env.user.repo.byId(username).flatMap {
                 case None => redir
@@ -295,7 +295,7 @@ final class Challenge(env: Env) extends LilaController(env):
       bindForm(env.setup.forms.api.user)(
         doubleJsonFormError,
         config =>
-          limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
+          limit.challenge.use(rateLimited, cost = if me.isApiHog then 0 else 1):
             allow:
               for
                 destUser <- env.user.repo.enabledById(username)
@@ -359,17 +359,16 @@ final class Challenge(env: Env) extends LilaController(env):
     )(
       jsonFormError,
       config =>
-        limit
-          .challenge(req.ipAddress, rateLimited):
-            env.challenge.api
-              .createOpen(config)
-              .map: challenge =>
-                Ok:
-                  val url = s"${env.net.baseUrl}/game/${challenge.id}"
-                  env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
-                    "urlWhite" -> s"$url?color=white",
-                    "urlBlack" -> s"$url?color=black"
-                  )
+        limit.challenge.use(rateLimited):
+          env.challenge.api
+            .createOpen(config)
+            .map: challenge =>
+              Ok:
+                val url = s"${env.net.baseUrl}/game/${challenge.id}"
+                env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
+                  "urlWhite" -> s"$url?color=white",
+                  "urlBlack" -> s"$url?color=black"
+                )
     )
 
   def offerRematchForGame(gameId: GameId) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
@@ -389,5 +388,5 @@ final class Challenge(env: Env) extends LilaController(env):
         }
   }
 
-  private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
+  private def anonSecretFromCookieOrMobileSri(using Req) =
     req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

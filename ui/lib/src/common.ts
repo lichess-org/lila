@@ -8,6 +8,9 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+// Safari can reset isComposing before the confirming Enter keydown (WebKit bug 165004)
+export const isComposing = (e: KeyboardEvent): boolean => e.isComposing || e.keyCode === 229;
+
 export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
 
 export type Prop<T> = {

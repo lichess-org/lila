@@ -152,9 +152,8 @@ object PgnDump:
 
   export lila.core.game.PgnDump.*
 
-  import play.api.mvc.RequestHeader
   import lila.common.HTTPRequest.{ queryStringBool as getBool, queryStringBoolOpt as getBoolOpt }
-  def requestPgnFlags(extended: Boolean, delayMoves: Boolean)(using RequestHeader) =
+  def requestPgnFlags(extended: Boolean, delayMoves: Boolean)(using Req) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves") | true,
       tags = getBoolOpt("tags") | true,

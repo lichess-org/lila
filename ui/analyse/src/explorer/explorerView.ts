@@ -14,6 +14,7 @@ import {
   type OpeningData,
   type OpeningMoveStats,
   type OpeningGame,
+  type OpeningPlayer,
   type ExplorerDb,
 } from './interfaces';
 import { showTablebase } from './tablebaseView';
@@ -79,14 +80,15 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
 const bigNumberFormatter =
   window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale, { notation: 'compact' }) : null;
 
+const playerText = (player: OpeningPlayer, showRatings: boolean) =>
+  (player.title ? player.title + ' ' : '') + player.name + (showRatings ? ` (${player.rating})` : '');
+
 function moveStatsTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
   if (move.game) {
     const g = move.game;
     const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
-    return ctrl.explorer.opts.showRatings
-      ? `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`
-      : `${g.white.name} ${result} ${g.black.name}`;
+    return `${playerText(g.white, ctrl.explorer.opts.showRatings)} ${result} ${playerText(g.black, ctrl.explorer.opts.showRatings)}`;
   }
   if (ctrl.explorer.opts.showRatings) {
     if (move.averageRating) return i18n.site.averageRatingX(move.averageRating);
@@ -130,11 +132,18 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               ctrl.explorer.opts.showRatings &&
                 hl(
                   'td.game-rating',
-                  [game.white, game.black].map(p => hl('span', p.rating)),
+                  [game.white, game.black].map(p => hl('div', p.rating)),
                 ),
               hl(
                 'td',
-                [game.white, game.black].map(p => hl('span', p.name)),
+                [game.white, game.black].map(p =>
+                  hl('div', [
+                    p.title
+                      ? hl('span.utitle', { attrs: { 'data-bot': p.title === 'BOT' } }, p.title + '\xa0')
+                      : null,
+                    p.name,
+                  ]),
+                ),
               ),
               hl('td', showResult(game.winner)),
               hl('td.game-date', game.month || game.year),
@@ -164,7 +173,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     hl('td.game_menu', { attrs: { colspan: ctrl.explorer.db() === 'masters' ? 4 : 5 } }, [
       hl(
         'div.game_title',
-        `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
+        `${playerText(game.white, false)} - ${playerText(game.black, false)}, ${showResult(game.winner).text}, ${game.year}`,
       ),
       hl('div.menu', [
         hl(
@@ -243,7 +252,6 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
-    if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
     const moveTable = showMoveTable(ctrl, data);
     const recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []);
     const topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -362,7 +370,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
                 config.selectPlayer(playerName || 'me');
                 if (explorer.db() !== 'player') {
                   config.data.db('player');
-                  config.data.open(true);
+                  config.data.open(!explorer.requiresAuth());
                 }
               },
               explorer.reload,
@@ -400,7 +408,7 @@ const showFailing = (ctrl: AnalyseCtrl) =>
 
 const showAnon = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
-    hl('div.title', i18n.site.openingExplorer),
+    explorerTitle(ctrl),
     hl('div.message', [
       hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
       hl(
@@ -422,7 +430,13 @@ export default function (ctrl: AnalyseCtrl): MaybeVNode {
   const data = explorer.current();
   const configOpened = explorer.config.data.open();
   const loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-  const content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
+  const content = explorer.requiresAuth()
+    ? showAnon(ctrl)
+    : configOpened
+      ? showConfig(ctrl)
+      : explorer.failing()
+        ? showFailing(ctrl)
+        : show(ctrl);
 
   return hl(
     `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,

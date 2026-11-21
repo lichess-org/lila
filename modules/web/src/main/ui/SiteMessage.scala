@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class SiteMessage(helpers: Helpers):
   import helpers.{ *, given }
 
-  def apply(title: String, back: Option[String] = None, icon: Option[Icon] = None) =
+  def apply(title: String, back: Option[String] = None, icon: Option[Icon] = None): Page =
     Page(title).wrap: body =>
       main(cls := "box box-pad")(
         boxTop(
@@ -52,17 +52,6 @@ final class SiteMessage(helpers: Helpers):
       title = trans.challenge.challengeToPlay.txt(),
       back = routes.Lobby.home.url.some
     )(p(msg))
-
-  def insightNoGames(u: User)(using Context) =
-    apply(
-      title = s"${u.username} has not played a rated game yet!",
-      back = routes.User.show(u.id).url.some
-    ):
-      p(
-        "Before using chess insights,",
-        userLink(u),
-        " has to play at least one rated game."
-      )
 
   def teamCreateLimit = apply("Cannot create a team"):
     p("You have already created a team this week.")

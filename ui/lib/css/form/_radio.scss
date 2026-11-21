@@ -25,6 +25,7 @@ group.radio {
     height: 100%;
     cursor: pointer;
     border-radius: max(calc($box-radius-size - 2px), 0px);
+    transition: background-color $transition-duration;
 
     &.disabled {
       background: $c-metal-top;

@@ -3,6 +3,8 @@
   <string name="logInAsUsername">Entrar como %s</string>
   <string name="welcome">Bem-vindo!</string>
   <string name="welcomeToLichess">Bem-vindo ao Lichess!</string>
+  <string name="welcomeToLichessX">Bem-vindo ao Lichess, %s!</string>
+  <string name="verifyYourAccount">Verifique a sua Conta</string>
   <string name="thisIsYourProfilePage">Esta é a tua página de perfil.</string>
   <string name="enabledKidModeSuggestion">Uma criança usará esta conta? Podes querer ativar %s.</string>
   <string name="whatNowSuggestions">E agora? Aqui estão algumas sugestões:</string>

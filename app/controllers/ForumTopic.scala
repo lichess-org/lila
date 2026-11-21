@@ -27,7 +27,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             bindForm(forms.topic(inOwnTeam))(
               err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
               data =>
-                limit.forumTopic(ctx.ip, rateLimited):
+                limit.forumTopic.use(rateLimited):
                   for
                     topic <- topicApi.makeTopic(categ, data)
                     url = routes.ForumTopic.show(categ.id, topic.slug, 1).url

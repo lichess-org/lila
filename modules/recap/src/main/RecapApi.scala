@@ -16,17 +16,12 @@ final class RecapApi(
 
   def availability[C: Writes](user: User)(getCosts: => Fu[C]): Fu[Availability] =
     import Availability.*
-    get(user.id)
-      .flatMap:
-        case Some(recap) => recapJson(recap, user).map(Available(_))
-        case None => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
-      .flatMap(addCosts(getCosts))
-
-  def addCosts[C: Writes](getCosts: => Fu[C])(av: Availability): Fu[Availability] = av match
-    case Availability.Available(data) =>
-      getCosts.map: costs =>
-        Availability.Available(data.add("costs" -> costs.some))
-    case av => fuccess(av)
+    get(user.id).flatMap:
+      _.fold(for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))): recap =>
+        for
+          data <- recapJson(recap, user)
+          costs <- getCosts
+        yield Available(data.add("costs" -> costs.some))
 
   // waits until the recap is computed
   def awaiter[C: Writes](user: User, counter: Int = 0)(getCosts: => Fu[C]): Fu[JsObject] =

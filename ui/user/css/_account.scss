@@ -60,6 +60,8 @@
 }
 
 .oauth {
+  max-width: 100dvw;
+
   table em,
   table .date {
     font-size: 90%;
@@ -161,6 +163,10 @@
 
   &-used {
     margin-bottom: 4em;
+  }
+
+  &__prefill-help a {
+    @extend %break-word-hard;
   }
 }
 
@@ -282,6 +288,26 @@
   group.radio {
     input:checked + label {
       @extend %active-soft;
+    }
+  }
+
+  group.toggles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22ch, 1fr));
+    gap: 1ch;
+
+    > label {
+      @extend %flex-center-nowrap, %box-neat, %metal-bg;
+
+      overflow: hidden;
+      flex: 1 1 auto;
+      position: relative;
+      padding: 10px;
+      height: 100%;
+
+      &:hover {
+        background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+      }
     }
   }
 

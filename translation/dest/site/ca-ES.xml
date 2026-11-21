@@ -438,6 +438,7 @@ Juga partides puntuades per augmentar l\'estabilitat.</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
   <string name="orUploadPgnFile">O penja un arxiu PGN</string>
+  <string name="selectImage">Selecciona una imatge</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importa una partida</string>
@@ -702,7 +703,8 @@ Amics jugant: %2$s</string>
   <string name="aboutX">En quant a %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
   <string name="really">realment</string>
-  <string name="lichessUpdates">Actualitzacions de Lichess</string>
+  <string name="lichessUpdates">Flux de Lichess</string>
+  <string name="allUpdates">Totes les actualitzacions</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="changelog">Registre de canvis</string>
   <string name="termsOfService">Condicions del servei</string>

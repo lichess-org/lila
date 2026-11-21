@@ -2,6 +2,7 @@ import { type Toggle, toggle } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { bind, hl, onInsert, type VNode } from 'lib/view';
+import { radioGroup } from 'lib/view/radio';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -32,26 +33,15 @@ export class BoardCtrl extends PaneCtrl {
   render = (): VNode =>
     hl(`div.sub.board.${this.dimension}`, [
       header(i18n.site.board, this.close),
-      hl('div.selector.large', [
-        hl(
-          'button.text',
-          {
-            class: { active: !this.is3d },
-            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.set3d(false)),
-          },
-          '2D',
-        ),
-        hl(
-          'button.text',
-          {
-            class: { active: this.is3d },
-            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.set3d(true)),
-          },
-          '3D',
-        ),
-      ]),
+      radioGroup({
+        name: 'board-dimension',
+        active: this.is3d ? '3d' : '2d',
+        onChange: key => this.set3d(key === '3d'),
+        buttons: [
+          { key: '2d', content: '2D' },
+          { key: '3d', content: '3D' },
+        ],
+      }),
       this.propSliders(),
       this.showReset() &&
         hl(

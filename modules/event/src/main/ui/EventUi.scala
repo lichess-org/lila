@@ -46,7 +46,24 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
         postForm(cls := "form3", action := routes.Event.update(event.id))(inForm(form))
       )
 
-  def iconOf(e: Event) =
+  def spotlight(e: Event)(using Context) =
+    a(
+      href := (if e.isNow || !e.countdown then e.url else routes.Event.show(e.id).url),
+      cls := List(
+        s"tour-spotlight event-spotlight id_${e.id}" -> true,
+        "invert" -> e.isNowOrSoon
+      )
+    )(
+      iconOf(e),
+      span(cls := "content")(
+        span(cls := "name")(e.title),
+        span(cls := "headline")(e.headline),
+        span(cls := "more"):
+          if e.isNow then trans.site.eventInProgress() else momentFromNow(e.startsAt)
+      )
+    )
+
+  private def iconOf(e: Event) =
     e.icon match
       case None => iconTag(Icon.Mic)(cls := "img")
       case Some(c) if c == EventForm.icon.broadcast => iconTag(Icon.RadioTower)(cls := "img")

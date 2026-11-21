@@ -199,7 +199,7 @@ export function view(ctrl: StudyCtrl): VNode {
           button(
             '.button.button-red.button-empty.text',
             { ...dataIcon(licon.X), hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
-            i18n.study.kick,
+            i18n.study.remove,
           ),
         ),
       ],

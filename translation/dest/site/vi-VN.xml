@@ -410,6 +410,7 @@ Chơi các trận đấu có xếp hạng sẽ giúp tăng tính ổn định c�
   <string name="pasteTheFenStringHere">Dán chuỗi FEN vào đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN vào đây</string>
   <string name="orUploadPgnFile">Hoặc tải lên tệp PGN</string>
+  <string name="selectImage">Chọn ảnh</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
@@ -666,7 +667,8 @@ Bạn bè đang chơi: %2$s</string>
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
-  <string name="lichessUpdates">Cập nhật từ Lichess</string>
+  <string name="lichessUpdates">Bản tin Lichess</string>
+  <string name="allUpdates">Tất cả tin cập nhật</string>
   <string name="contribute">Đóng góp</string>
   <string name="changelog">Nhật kí thay đổi</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>

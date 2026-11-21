@@ -17,7 +17,7 @@
   <string name="racingKings">Гонка королей</string>
   <string name="racingKingsTitle">Проведите своего короля на другою сторону доски, чтобы победить.</string>
   <string name="crazyhouse">Крейзихаус</string>
-  <string name="crazyhouseTitle">Срубленные фигуры могут быть возвращены на доску вместо хода фигурой.</string>
+  <string name="crazyhouseTitle">Съеденные фигуры могут быть возвращены на доску вместо хода фигурой.</string>
   <string name="fromPosition">С позиции</string>
   <string name="fromPositionTitle">Стандартные шахматы с заданной позиции</string>
 </resources>

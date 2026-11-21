@@ -58,7 +58,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     ,
                     data =>
                       CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
-                        limit.forumPost(ctx.ip, rateLimited):
+                        limit.forumPost.use(rateLimited):
                           for
                             post <- postApi.makePost(categ, topic, data)
                             url = routes.ForumPost.redirect(post.id).url
@@ -79,7 +79,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         res <- bindForm(forms.postEdit(inOwnTeam, post.text))(
           _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
           data =>
-            limit.forumPost(ctx.ip, rateLimited):
+            limit.forumPost.use(rateLimited):
               for
                 post <- postApi.editPost(postId, data.changes)
                 url = routes.ForumPost.redirect(post.id).url

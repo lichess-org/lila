@@ -7,4 +7,6 @@
 Revimos a tua denúncia recente e tomámos medidas. Embora não possamos partilhar detalhes sobre as medidas tomadas, agradecemos a tua denúncia.
 
 Obrigado pela tua ajuda em manter o Lichess um bom lugar para todos.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">A aplicação antiga já não suporta problemas. Instala a nova aplicação do Lichess: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s não aceita novas mensagens.</string>
 </resources>

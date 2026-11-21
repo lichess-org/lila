@@ -267,13 +267,15 @@ export class CevalCtrl {
   }
 
   isFinished(search: Search, step: Step, isThreat: boolean): boolean {
+    const ev = isThreat ? step.threat : step.ceval;
     return (
       !this.isDeeper() &&
       'movetime' in search.by &&
-      !step.ceval?.cloud &&
-      (isThreat ? (step.threat?.millis ?? 0) : (step.ceval?.millis ?? 0)) >= search.by.movetime &&
-      step.ceval?.pvs.length === search.multiPv &&
-      step.ceval?.engineId === this.engines.active()?.id
+      !!ev &&
+      !ev.cloud &&
+      (ev.millis ?? 0) >= search.by.movetime &&
+      ev.pvs.length === search.multiPv &&
+      ev.engineId === this.engines.active()?.id
     );
   }
 

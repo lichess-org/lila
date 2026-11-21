@@ -68,7 +68,6 @@ Hemen dago bertara sartzeko esteka.</string>
   <string name="releaseTheAccount">Kontua askatu ikasleak era autonomoan kudeatu dezan.</string>
   <string name="releaseDesc1">Askatutako kontua ezin da &lt;i&gt;kudeatutako&lt;/i&gt; kontu bihurtu berriz. Ikasleak haur-modua desaktibatu eta pasahitza bere kabuz berrezarri ahal izango du.</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
-  <string name="realUniqueEmail">Ikaslearen benetako emaila. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
   <string name="closeStudent">Kontua itxi</string>
   <string name="closeTheAccount">Ikasle-kontua betiko itxi.</string>
   <string name="closeDesc1">Ikasleak ezingo du kontu hau berriz erabili. Ixtea betiko izango da. Ziurtatu ikasleak ulertu duela eta ados dagoela.</string>

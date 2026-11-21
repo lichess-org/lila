@@ -20,7 +20,7 @@ final class ErrorHandler(
     extends DefaultHttpErrorHandler(environment, config, router.some)
     with lila.web.ResponseWriter:
 
-  override def onProdServerError(req: RequestHeader, exception: UsefulException) =
+  override def onProdServerError(req: Req, exception: UsefulException) =
     Future {
       val actionName = HTTPRequest.actionName(req)
       lila.mon.http.errorCount(actionName, ClientName(req).name, req.method, 500).increment()
@@ -37,15 +37,15 @@ final class ErrorHandler(
       InternalServerError("Sorry, something went very wrong.")
     }
 
-  override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =
+  override def onClientError(req: Req, statusCode: Int, msg: String): Fu[Result] =
     statusCode match
       case 400 | 404 if canShowErrorPage(req) => mainC.handlerNotFound(msg.nonEmptyOption)(using req)
       case 400 | 404 => fuccess(NotFound(s"$statusCode - ${msg.nonEmptyOption | "Resource not found"}"))
-      case 403 => lobbyC.handleStatus(Results.Forbidden)(using req)
-      case _ if canShowErrorPage(req) => lobbyC.handleStatus(Results.BadRequest)(using req)
-      case _ => fuccess(Results.BadRequest("Sorry, the request could not be processed"))
+      case 403 => lobbyC.handleStatus(Forbidden)(using req)
+      case _ if canShowErrorPage(req) => lobbyC.handleStatus(BadRequest)(using req)
+      case _ => fuccess(BadRequest("Sorry, the request could not be processed"))
 
-  private def canShowErrorPage(req: RequestHeader): Boolean =
+  private def canShowErrorPage(req: Req): Boolean =
     HTTPRequest.isSynchronousHttp(req) &&
       !HTTPRequest.hasFileExtension(req) &&
       req.attrs.contains(request.RequestAttrKey.Session)

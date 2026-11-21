@@ -104,7 +104,7 @@ object SetupForm:
         ) || hook.makeDaysPerTurn.isDefined
     )
 
-  def toFriend = Form(single("username" -> lila.common.Form.username.historicalField))
+  def toFriend = Form(single("username" -> lila.common.Form.username.idField))
 
   object api extends lila.core.setup.SetupForm:
 

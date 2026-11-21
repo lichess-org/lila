@@ -73,13 +73,13 @@ final class AssessApi(
           analysisRepo.coll
             .idsMap[Analysis, GameId](missing)(x => GameId(x.id.value))
             .flatMap { ans =>
-              povs
-                .flatMap: pov =>
-                  ans.get(pov.gameId).map(pov -> _)
-                .parallelVoid: (pov, analysis) =>
-                  gameRepo.holdAlert.game(pov.game).flatMap { holdAlerts =>
-                    createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
-                  }
+              val analysed = povs.flatMap: pov =>
+                ans.get(pov.gameId).map(pov -> _)
+              analysed.nonEmpty.so:
+                gameRepo.holdAlert.povs(analysed.map(_._1)).flatMap { holds =>
+                  analysed.parallelVoid: (pov, analysis) =>
+                    createPlayerAssessment(PlayerAssessment.make(pov, analysis, holds.get(pov.gameId)))
+                }
             }
         )
       }
@@ -113,11 +113,11 @@ final class AssessApi(
   def refreshAssessOf(user: User): Funit =
     (!user.isBot).so:
       gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
-        gs.parallelVoid: g =>
-          analysisRepo
-            .byGame(g)
-            .flatMapz:
-              onAnalysisReady(g, _, thenAssessUser = false)
+        analysisRepo
+          .associateToGames(gs)
+          .flatMap: pairs =>
+            pairs.parallelVoid: (game, analysis) =>
+              onAnalysisReady(game, analysis, thenAssessUser = false)
       } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =

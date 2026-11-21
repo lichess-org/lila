@@ -64,7 +64,7 @@ final class PasswordHasher(
 
   import lila.core.net.IpAddress
   import lila.memo.RateLimit
-  import play.api.mvc.RequestHeader
+
   import lila.core.config
   import lila.common.HTTPRequest
 
@@ -90,7 +90,7 @@ final class PasswordHasher(
       default: => Fu[A],
       enforce: config.RateLimit,
       ipCost: Int
-  )(id: UserIdOrEmail, req: RequestHeader)(run: lila.memo.RateLimit.Charge => Fu[A]): Fu[A] =
+  )(id: UserIdOrEmail, req: Req)(run: lila.memo.RateLimit.Charge => Fu[A]): Fu[A] =
     if enforce.yes then
       val ip = HTTPRequest.ipAddress(req)
       rateLimitPerUser.chargeable(id, default, cost = 1, msg = s"IP: $ip"): chargeUser =>

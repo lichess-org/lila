@@ -288,8 +288,10 @@ final class TournamentApi(
           if tour.isTeamBattle then
             for
               rankedTeams <- cached.battle.teamStanding.get(tour.id)
-              owners <- rankedTeams.take(payouts.nbWinners).traverse(rt => teamApi.creatorOf(rt.teamId))
-            yield owners.flatten
+              recipients <- rankedTeams
+                .take(payouts.nbWinners)
+                .traverse(rt => teamApi.prizeRecipient(rt.teamId))
+            yield recipients.flatten.distinct
           else
             for players <- playerRepo.bestByTour(tour.id, payouts.nbWinners)
             yield players.map(_.userId)

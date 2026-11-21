@@ -17,7 +17,17 @@ export interface ChatOpts {
   noteId?: string;
   noteText?: string;
   plugin?: ChatPlugin;
+  positionRef?: PositionRef;
   kidMode: boolean;
+}
+
+// offers a button that prepends a reference to what the user is looking at
+// to the chat input, e.g. "board 5 23... Nf6", which `enhance` turns into a link
+export interface PositionRef {
+  title: string;
+  available(): boolean; // false when not looking at a position
+  text(): string | undefined; // undefined when not available
+  jump(board: number, ply?: number): void; // jump to a position when the user clicks the link in chat
 }
 
 export type Tab = { key: string; isDisabled?: () => boolean };

@@ -68,7 +68,7 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="releaseTheAccount">Libera la cuenta para que el estudiante pueda gestionarla de forma autónoma.</string>
   <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar de nuevo. El estudiante podrá cambiar el modo infantil y la contraseña por sí mismo.</string>
   <string name="releaseDesc2">El estudiante permanecerá en la clase tras la liberación de su cuenta.</string>
-  <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
+  <string name="realUniqueEmail">Correo electrónico real y único del estudiante. Enviaremos un correo de confirmación con un enlace para activar la cuenta. El enlace será válido durante 10 minutos.</string>
   <string name="closeStudent">Cerrar cuenta</string>
   <string name="closeTheAccount">Cerrar la cuenta del estudiante permanentemente.</string>
   <string name="closeDesc1">El estudiante nunca podrá usar esta cuenta otra vez. El cierre es definitivo. Asegúrate que el estudiante entienda y esté de acuerdo con esto.</string>

@@ -447,30 +447,23 @@
 
   &__nav {
     @extend %flex-between, %tour-margin-horiz;
-
-    gap: 1em;
-
     @include prevent-select;
-  }
-
-  &__tabs {
-    @extend %flex-center;
 
     gap: 1em;
 
-    button {
-      @extend %box-radius;
-
-      cursor: pointer;
-      padding: 0.6em 1.5em;
+    .radio {
+      box-shadow: none;
       border: $border;
 
-      &:hover {
-        @extend %box-shadow;
+      label {
+        padding: 8px 12px;
       }
 
-      &.active {
-        border: 1px solid $c-brag;
+      input:checked + label {
+        &,
+        &:hover {
+          background: $c-brag !important;
+        }
       }
     }
   }

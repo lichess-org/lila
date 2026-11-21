@@ -3,7 +3,7 @@ package lila.core.i18n
 
 opaque type I18nKey = String
 object I18nKey:
-  def apply(key: String): I18nKey = key
+  def unchecked(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
     def value: String = key
@@ -57,6 +57,16 @@ object I18nKey:
     val `downloadOnGooglePlay`: I18nKey = "app:downloadOnGooglePlay"
     val `downloadOnFdroid`: I18nKey = "app:downloadOnFdroid"
     val `lichessMobileScreen`: I18nKey = "app:lichessMobileScreen"
+    val `asFreeAsLichess`: I18nKey = "app:asFreeAsLichess"
+    val `builtForTheLoveOfChessNotMoney`: I18nKey = "app:builtForTheLoveOfChessNotMoney"
+    val `noAdsNoTracking`: I18nKey = "app:noAdsNoTracking"
+    val `entirelyOpenSource`: I18nKey = "app:entirelyOpenSource"
+    val `fullyFeatured`: I18nKey = "app:fullyFeatured"
+    val `phoneAndTablet`: I18nKey = "app:phoneAndTablet"
+    val `bulletBlitzClassicalVariants`: I18nKey = "app:bulletBlitzClassicalVariants"
+    val `correspondenceChess`: I18nKey = "app:correspondenceChess"
+    val `unlimitedPuzzles`: I18nKey = "app:unlimitedPuzzles"
+    val `gameAnalysis`: I18nKey = "app:gameAnalysis"
 
   object appeal:
     val `cleanAllGood`: I18nKey = "appeal:cleanAllGood"
@@ -175,6 +185,8 @@ object I18nKey:
     val `startDateHelp`: I18nKey = "broadcast:startDateHelp"
     val `currentGameUrl`: I18nKey = "broadcast:currentGameUrl"
     val `downloadAllRounds`: I18nKey = "broadcast:downloadAllRounds"
+    val `shareThisBroadcastByUrl`: I18nKey = "broadcast:shareThisBroadcastByUrl"
+    val `downloadPgn`: I18nKey = "broadcast:downloadPgn"
     val `resetRound`: I18nKey = "broadcast:resetRound"
     val `deleteRound`: I18nKey = "broadcast:deleteRound"
     val `permanentlyDeleteRound`: I18nKey = "broadcast:permanentlyDeleteRound"
@@ -254,6 +266,7 @@ object I18nKey:
     val `pinPlayer`: I18nKey = "broadcast:pinPlayer"
     val `underXAgeTournament`: I18nKey = "broadcast:underXAgeTournament"
     val `underXEloTournament`: I18nKey = "broadcast:underXEloTournament"
+    val `mentionPositionInChat`: I18nKey = "broadcast:mentionPositionInChat"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
@@ -1364,7 +1377,6 @@ object I18nKey:
     val `claimDrawOnThreefoldRepetitionAutomatically`: I18nKey = "preferences:claimDrawOnThreefoldRepetitionAutomatically"
     val `whenTimeRemainingLessThanThirtySeconds`: I18nKey = "preferences:whenTimeRemainingLessThanThirtySeconds"
     val `moveConfirmation`: I18nKey = "preferences:moveConfirmation"
-    val `multipleChoices`: I18nKey = "preferences:multipleChoices"
     val `explainCanThenBeTemporarilyDisabled`: I18nKey = "preferences:explainCanThenBeTemporarilyDisabled"
     val `inCorrespondenceGames`: I18nKey = "preferences:inCorrespondenceGames"
     val `correspondenceAndUnlimited`: I18nKey = "preferences:correspondenceAndUnlimited"
@@ -2097,6 +2109,7 @@ object I18nKey:
     val `pasteTheFenStringHere`: I18nKey = "pasteTheFenStringHere"
     val `pasteThePgnStringHere`: I18nKey = "pasteThePgnStringHere"
     val `orUploadPgnFile`: I18nKey = "orUploadPgnFile"
+    val `selectImage`: I18nKey = "selectImage"
     val `continueFromHere`: I18nKey = "continueFromHere"
     val `toStudy`: I18nKey = "toStudy"
     val `importGame`: I18nKey = "importGame"
@@ -2329,6 +2342,7 @@ object I18nKey:
     val `xIsAFreeYLibreOpenSourceChessServer`: I18nKey = "xIsAFreeYLibreOpenSourceChessServer"
     val `really`: I18nKey = "really"
     val `lichessUpdates`: I18nKey = "lichessUpdates"
+    val `allUpdates`: I18nKey = "allUpdates"
     val `contribute`: I18nKey = "contribute"
     val `changelog`: I18nKey = "changelog"
     val `termsOfService`: I18nKey = "termsOfService"
@@ -2839,7 +2853,6 @@ object I18nKey:
     val `searchByUsername`: I18nKey = "study:searchByUsername"
     val `spectator`: I18nKey = "study:spectator"
     val `contributor`: I18nKey = "study:contributor"
-    val `kick`: I18nKey = "study:kick"
     val `remove`: I18nKey = "study:remove"
     val `leaveTheStudy`: I18nKey = "study:leaveTheStudy"
     val `youAreNowAContributor`: I18nKey = "study:youAreNowAContributor"
@@ -3161,6 +3174,8 @@ object I18nKey:
     val `onlyLeaderLeavesTeam`: I18nKey = "teamLead:onlyLeaderLeavesTeam"
     val `removeSomeone`: I18nKey = "teamLead:removeSomeone"
     val `whoToRemove`: I18nKey = "teamLead:whoToRemove"
+    val `blockedUsers`: I18nKey = "teamLead:blockedUsers"
+    val `blockedUsersDesc`: I18nKey = "teamLead:blockedUsersDesc"
     val `declinedRequests`: I18nKey = "teamLead:declinedRequests"
     val `newTeamUpdate`: I18nKey = "teamLead:newTeamUpdate"
     val `teamUpdatesPerWeek`: I18nKey = "teamLead:teamUpdatesPerWeek"
@@ -3177,6 +3192,7 @@ object I18nKey:
     val `oneTeamPerLineHelp`: I18nKey = "teamLead:oneTeamPerLineHelp"
     val `numberOfLeadsPerTeam`: I18nKey = "teamLead:numberOfLeadsPerTeam"
     val `numberOfLeadsPerTeamHelp`: I18nKey = "teamLead:numberOfLeadsPerTeamHelp"
+    val `teamIntroPrompt`: I18nKey = "teamLead:teamIntroPrompt"
     val `xJoinRequests`: I18nKey = "teamLead:xJoinRequests"
 
   object tfa:

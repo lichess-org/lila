@@ -1,11 +1,11 @@
 package lila.web
 
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.data.Strings
 import lila.common.config.given
+import lila.core.data.Strings
 import lila.memo.SettingStore.Strings.given
 
 @Module
@@ -75,6 +75,8 @@ final class Env(
       text = "Opening explorer games per second".some
     )
 
+    def permissions = List(noDelaySecret, prizeTournamentMakers)
+
   val webSocketConfig = WebSocketConfig(
     mainDomains = settingStore[Strings](
       "socketMainDomains",
@@ -104,3 +106,8 @@ final class Env(
     def anonPuzzle(using Translate): Option[String] =
       Option.when(setting.get().value.contains("anonPuzzle")):
         I18nKey.msg.oldAppNoLongerSupportsPuzzles.txt("lichess.org/app")
+
+  def mobileSettings = List(
+    lichobileAnnounceApi.lichobileUpgrade,
+    lichobileDisables.setting
+  )

@@ -11,14 +11,14 @@ import lila.ui.MarkdownRealm
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    bindForm(lila.web.WebForms.blind)(
+    bindForm(lila.web.CtrlUtils.blindForm)(
       _ => BadRequest,
       (enable, redirect) =>
         Redirect(redirect).withCookies:
           lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
     )
 
-  def handlerNotFound(msg: Option[String])(using RequestHeader) =
+  def handlerNotFound(msg: Option[String])(using Req) =
     makeContext.flatMap:
       keyPages.notFound(msg)(using _)
 
@@ -47,19 +47,14 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   private def serveApp(using Context) =
     pageHit
-    FoundPage(env.cms.renderKey("mobile"))(views.mobile)
+    Ok.page(views.mobile)
 
   def playerCount = Open:
     NoCrawlers(env.web.playerCounter.website.hit())
     NoContent
 
   def jslog(id: GameFullId) = Open:
-    env.round.selfReport(
-      userId = ctx.userId,
-      ip = ctx.ip,
-      fullId = id,
-      name = get("n") | "?"
-    )
+    env.round.selfReport(userId = ctx.userId, fullId = id, name = get("n") | "?")
     NoContent
 
   val robots = Anon:

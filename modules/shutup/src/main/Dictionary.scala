@@ -284,7 +284,6 @@ payas[ao]
 pendejo
 po(l+|y)a
 put(ic|it|)[ao]
-suic[ií]date
 tonto
 trampa
 trampos[ao]
@@ -410,6 +409,7 @@ n[i\|\\]g+e?r
 rap(ed?|e?ing)
 rope\b
 su?bhu?ma?n
+suic[ií]date
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

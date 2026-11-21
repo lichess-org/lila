@@ -4,7 +4,7 @@ object AuthorizationRequest:
 
   import Protocol.*
 
-  def fromReq(using play.api.mvc.RequestHeader): Either[Error, Prompt] =
+  def fromReq(using Req): Either[Error, Prompt] =
     import lila.common.HTTPRequest.{ queryStringGetAs as getAs, queryStringGet as get }
     for
       redirectUri <- get("redirect_uri").toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)

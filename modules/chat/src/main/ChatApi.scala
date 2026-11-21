@@ -149,7 +149,7 @@ final class ChatApi(
         .so: reason =>
           timeout(
             chatId = data.roomId.into(ChatId),
-            userId = data.userId.id,
+            userId = data.userId,
             reason = reason,
             scope = ChatTimeout.Scope.Global,
             text = data.text,

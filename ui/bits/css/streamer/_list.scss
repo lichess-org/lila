@@ -130,9 +130,10 @@
   .services {
     display: none;
     font-size: 0.9rem;
+    gap: 8px;
 
     @media (min-width: at-least($large)) {
-      display: block;
+      display: flex;
     }
   }
 

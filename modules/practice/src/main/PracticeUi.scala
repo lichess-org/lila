@@ -8,7 +8,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
-    explorerAndCevalConfig: Context ?=> JsObject
+    endpoints: AnalyseEndpoints
 ):
   import helpers.{ *, given }
   import trans.practice as trp
@@ -29,7 +29,7 @@ final class PracticeUi(helpers: Helpers)(
             "practice" -> data.practice,
             "study" -> data.study,
             "data" -> data.analysis
-          ) ++ explorerAndCevalConfig
+          ) ++ endpoints.json
         )
       )
       .csp(csp)

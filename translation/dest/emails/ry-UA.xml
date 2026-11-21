@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Подтвердіт свуй lichess.org акаунт, %s</string>
+  <string name="emailConfirm_intro">Дякуєме за реґістрованя у Lichess!</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Клопкніт на одкликованя, обы заробив вам акаунт Lichess:</string>
   <string name="passwordReset_subject">Звержіт свою паролу на lichess.org, %s</string>
   <string name="passwordReset_intro">Мы достали запрос на зверженя вашої паролы на вашому акаунтови.</string>

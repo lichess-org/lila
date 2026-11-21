@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="permPublicName">Openbaar</string>
+  <string name="permPublicDesc">Verschijn als leider op de teampagina</string>
   <string name="permSettingsName">Instellingen</string>
+  <string name="permSettingsDesc">Bewerk teaminstellingen en beschrijving</string>
   <string name="permTourName">Toernooien</string>
+  <string name="permTourDesc">Maak, beheer en neem deel aan teamtoernooien</string>
   <string name="permCommName">Moderatie</string>
   <string name="permCommDesc">Beheer het forum en de teamchat</string>
+  <string name="permRequestName">Verzoeken</string>
+  <string name="permRequestDesc">Accepteer of weiger verzoeken tot deelname</string>
   <string name="permPmAllName">Updates</string>
   <string name="permPmAllDesc">Stuur updates naar teamleden</string>
   <string name="permRemoveName">Verwijderen</string>
   <string name="permRemoveDesc">Verwijder leden uit het team</string>
   <string name="permAdminName">Admin</string>
+  <string name="permAdminDesc">Beheer machtigingen van leiders</string>
+  <string name="demoteLeaderNote">Ontneem alle rechten om een leider te degraderen.</string>
   <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Lijst met teamleden verbergen voor niet-leden.</string>
   <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>
+  <string name="removeSomeone">Verwijder iemand</string>
   <string name="whoToRemove">Wie wil je uit het team verwijderen?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s verzoek tot deelname</item>

@@ -100,6 +100,10 @@
   <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Indsæt din PGN-tekst her, op til %s parti.</item>
+    <item quantity="other">Indsæt partier som PGN-tekst her. Der oprettes et nyt kapitel for hvert parti. Undersøgelsen kan indeholde op til %s kapitler.</item>
+  </plurals>
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="createChapter">Opret kapitel</string>
   <string name="createStudy">Opret studie</string>
@@ -197,4 +201,6 @@
   <string name="clearPublished">Ryd offentliggjort analyse?</string>
   <string name="requestAServerAnalysis">Anmod om en serveranalyse</string>
   <string name="analyzeOnYourDevice">Analyser på din enhed</string>
+  <string name="searchChapters">Søg kapitler</string>
+  <string name="searchGames">Søg partier</string>
 </resources>

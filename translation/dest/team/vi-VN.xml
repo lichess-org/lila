@@ -24,8 +24,8 @@
   <string name="teamTournament">Giải đấu trong đội</string>
   <string name="teamTournamentOverview">Một giải Đấu trường mà chỉ thành viên trong đội của bạn có thể tham gia</string>
   <string name="swissTournamentOverview">Một giải đấu hệ Thụy Sĩ mà chỉ thành viên trong đội của bạn có thể tham gia</string>
-  <string name="teamUpdates">Cập nhật của đội</string>
-  <string name="subToTeamUpdates">Đăng ký nhận các cập nhật của đội</string>
+  <string name="teamUpdates">Tin cập nhật của đội</string>
+  <string name="subToTeamUpdates">Đăng ký nhận tin cập nhật của đội</string>
   <string name="teamEvents">Các giải đấu đội</string>
   <string name="upcomingTeamEvents">Các giải đấu đội sắp tới</string>
   <string name="teamsIlead">Những đội tôi đang chỉ huy</string>

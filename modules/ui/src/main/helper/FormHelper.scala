@@ -21,7 +21,7 @@ trait FormHelper:
   def errMsg(form: Form[?])(using Translate): Seq[Tag] = errMsg(form.errors)
 
   def errMsg(error: FormError)(using Translate): Tag =
-    p(cls := "error")(transKey(trans(error.message), error.args))
+    p(cls := "error")(transKey(trans.unchecked(error.message), error.args))
 
   def errMsg(errors: Seq[FormError])(using Translate): Seq[Tag] =
     errors.map(errMsg)

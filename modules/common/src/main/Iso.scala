@@ -3,7 +3,7 @@ package lila.common
 import scalalib.Iso as LibIso
 
 import lila.core.data.{ Ints, Strings }
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, ipAddress }
 
 object Iso:
 
@@ -21,7 +21,7 @@ object Iso:
       strs => strs.value.mkString(sep)
     )
 
-  given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
+  given StringIso[IpAddress] = string[IpAddress](ipAddress.unchecked, _.value)
 
   import play.api.i18n.Lang
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)

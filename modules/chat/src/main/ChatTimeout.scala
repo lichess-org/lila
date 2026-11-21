@@ -77,10 +77,10 @@ object ChatTimeout:
     mapping(
       "roomId" -> of[RoomId],
       "chan" -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
-      "userId" -> lila.common.Form.username.historicalField,
+      "userId" -> lila.common.Form.username.idField,
       "reason" -> nonEmptyText,
       "text" -> nonEmptyText
     )(TimeoutFormData.apply)(unapply)
   )
 
-  case class TimeoutFormData(roomId: RoomId, chan: String, userId: UserStr, reason: String, text: String)
+  case class TimeoutFormData(roomId: RoomId, chan: String, userId: UserId, reason: String, text: String)

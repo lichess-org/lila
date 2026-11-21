@@ -1,7 +1,6 @@
 package lila.web
 
 import io.mola.galimatias.URL
-import play.api.mvc.RequestHeader
 
 import scala.util.Try
 
@@ -41,9 +40,9 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
           .map(_.toString)
           .map(ValidReferrer(_))
 
-  def fromReq(using RequestHeader): Option[ValidReferrer] =
+  def fromReq(using Req): Option[ValidReferrer] =
     fromQueryParam.orElse:
       HTTPRequest.referer.flatMap(valid)
 
-  def fromQueryParam(using RequestHeader): Option[ValidReferrer] =
+  def fromQueryParam(using Req): Option[ValidReferrer] =
     HTTPRequest.queryStringGet("referrer").flatMap(valid)

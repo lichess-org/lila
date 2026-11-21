@@ -4,8 +4,8 @@ import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.config.given
 import lila.core.config.*
-import lila.core.security.LilaCookie
 import lila.core.data.Strings
+import lila.core.security.LilaCookie
 import lila.memo.SettingStore
 
 case class WebSocketConfig(

@@ -67,7 +67,7 @@
   <string name="releaseTheAccount">使该账户毕业，以便学生可以自主管理。</string>
   <string name="releaseDesc1">已毕业的账户无法再次被托管。学生将能够自行切换儿童模式和重置密码。</string>
   <string name="releaseDesc2">学生账户毕业后，仍将保留在班级中。</string>
-  <string name="realUniqueEmail">学生真实且唯一的邮箱地址。我们将向该地址发送一封确认邮件，其中包含账户毕业的链接。</string>
+  <string name="realUniqueEmail">学生真实且唯一的邮箱地址。我们会向其发送一封确认邮件，其中包含用于将账户转为正式账户的链接。该链接将在 10 分钟后失效。</string>
   <string name="closeStudent">关闭账户</string>
   <string name="closeTheAccount">永久关闭学生账户。</string>
   <string name="closeDesc1">该学生将再也无法使用此账户。关闭操作是永久性的。请确保学生理解并同意此操作。</string>

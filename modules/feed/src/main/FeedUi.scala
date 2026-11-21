@@ -49,24 +49,25 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       )
 
   val lobbyUpdates = renderCache[List[Feed.Update]](1.minute): ups =>
-    div(cls := "daily-feed__updates")(
-      ups.map: update =>
+    div(cls := "lobby__feed"):
+      div(cls := "daily-feed__updates")(
+        ups.map: update =>
+          div(cls := "daily-feed__update")(
+            marker(update.flair),
+            div(
+              a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
+                momentFromNow(update.at)(nbsp)
+              ,
+              feedMarkdown(update)
+            )
+          ),
         div(cls := "daily-feed__update")(
-          marker(update.flair),
-          div(
-            a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
-              momentFromNow(update.at)(nbsp)
-            ,
-            feedMarkdown(update)
-          )
-        ),
-      div(cls := "daily-feed__update")(
-        marker(),
-        div:
-          a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
-            "All updates »"
+          marker(),
+          div:
+            a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
+              s"${I18nKey.site.allUpdates.txt()(using transDefault)} »"
+        )
       )
-    )
 
   def create(form: Form[?])(using Context) =
     page(s"${I18nKey.site.lichessUpdates.txt()}: New", true):

@@ -41,7 +41,6 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
-  <string name="multipleChoices">Pódense escoller varias opcións.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desactivado durante a partida dende o menú do taboleiro</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>

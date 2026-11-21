@@ -134,8 +134,7 @@ final class AuthUi(helpers: Helpers):
           postForm(
             id := "signup-form",
             cls := "form3",
-            action := addReferrer(routes.Auth.signupPost.url),
-            autocomplete := "off"
+            action := addReferrer(routes.Auth.signupPost.url)
           )(
             authGlobalError(form),
             form3.group(
@@ -169,7 +168,7 @@ final class AuthUi(helpers: Helpers):
               help = simple.not.option(trans.site.signupEmailPromise())
             ): f =>
               div(cls := "text-wrapper")(
-                form3.input(f, typ = "email")(required),
+                form3.input(f, typ = "email")(required, autocomplete := "email"),
                 clearFieldButton
               ),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
@@ -427,7 +426,9 @@ final class AuthUi(helpers: Helpers):
   private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
       div(cls := "form-group is-invalid auth-global-error")(
-        span(cls := "text", dataIcon := Icon.CautionCircle)(transKey(trans(err.message), err.args))
+        span(cls := "text", dataIcon := Icon.CautionCircle)(
+          transKey(trans.unchecked(err.message), err.args)
+        )
       )
 
   private def clearFieldButton(using Context) =

@@ -11,16 +11,14 @@ final class Storm(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Storm.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
-    dataAndHighScore(ctx.pref.some).flatMap: (data, high) =>
-      Ok.page(views.storm.home(data, high)).map(_.noCache)
-
-  private def dataAndHighScore(pref: Option[lila.pref.Pref])(using me: Option[Me]) = for
-    puzzles <- env.storm.selector.apply
-    high <- me.traverse(m => env.storm.highApi.get(m.userId))
-  yield env.storm.json(puzzles, me, pref) -> high
+    env.storm
+      .dataAndHighScore(ctx.pref.some)
+      .flatMap: (data, high) =>
+        Ok.page(views.storm.home(data, high)).map(_.noCache)
 
   def apiGet = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    dataAndHighScore(none).map: (data, high) =>
+    for (data, high) <- env.storm.dataAndHighScore(none)
+    yield
       import lila.storm.StormJson.given
       JsonOk(data.add("high" -> high))
 

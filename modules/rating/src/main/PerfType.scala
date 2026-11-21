@@ -221,6 +221,8 @@ object PerfType:
       PerfKey.racingKings
     )
 
+  val gameKeys: Set[PerfKey] = (standardWithUltra ::: variants).toSet
+
   def variantOf(pk: PerfKey): variant.Variant = pk match
     case PerfKey.crazyhouse => variant.Crazyhouse
     case PerfKey.chess960 => variant.Chess960

@@ -1,13 +1,12 @@
 package lila.core
 
+import scala.util.Try
+
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import io.mola.galimatias.URL
 import scalalib.SecureRandom
 import scalalib.net.IpAddressStr
-
-import java.net.InetAddress
-import scala.util.Try
 
 import lila.core.data.Url
 import lila.core.socket.Sri
@@ -15,21 +14,12 @@ import lila.core.userId.UserId
 
 object net:
 
-  sealed trait IpAddress:
-    def value: String
-    def inet: Option[InetAddress]
-    def str: IpAddressStr = IpAddressStr(value)
-    override def toString = value
+  export scalalib.net.IpAddressStr as IpAddress
 
-  case class IpV4Address(value: String) extends IpAddress:
-    def inet = Try(InetAddress.getByAddress(value.split('.').map(_.toInt.toByte))).toOption
-  case class IpV6Address(value: String) extends IpAddress:
-    def inet = Try(parseIPv6Address(value).toInetAddress).toOption
-
-  object IpAddress:
+  object ipAddress:
     private def parse(str: String): Try[IpAddress] = Try:
-      if str.contains(".") then IpV4Address(parseIPv4Address(str).toString)
-      else IpV6Address(parseIPv6Address(str).toString)
+      if str.contains(".") then IpAddress(parseIPv4Address(str).toString)
+      else IpAddress(parseIPv6Address(str).toString)
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
 

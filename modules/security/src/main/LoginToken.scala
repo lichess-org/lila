@@ -1,7 +1,6 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent
 
 import lila.common.HTTPRequest
@@ -80,7 +79,7 @@ final class LoginToken(
 
     private def limitAndFindCreds[A](creds: Creds, cost: Int)(
         f: (User, EmailAddress) => Fu[A]
-    )(using RequestHeader): Fu[LimitResult | A] =
+    )(using Req): Fu[LimitResult | A] =
       limitAndFind(creds._1, cost): (user, email) =>
         if user.id == creds._2 then f(user, email)
         else notRateLimited
@@ -93,7 +92,7 @@ final class LoginToken(
 
     def send(
         reqEmail: EmailAddress
-    )(using req: RequestHeader, referrer: Option[ValidReferrer]): Fu[LimitResult] =
+    )(using req: Req, referrer: Option[ValidReferrer]): Fu[LimitResult] =
       limitAndFind(reqEmail.normalize, cost = 2): (user, email) =>
         generate(user).flatMap { token =>
           lila.mon.email.send.magicLink.increment()
@@ -121,7 +120,7 @@ final class LoginToken(
       tokener.read(token).flatMapz(userRepo.notForeverClosedById)
 
   private def limitAndFind[A](email: NormalizedEmailAddress, cost: Int)(f: (User, EmailAddress) => Fu[A])(
-      using req: RequestHeader
+      using req: Req
   ): Fu[LimitResult | A] =
     rateLimit(email, fuccess(LimitResult.Limited), cost):
       userRepo
@@ -145,7 +144,6 @@ final class LoginToken(
 
   object rateLimit:
 
-    import play.api.mvc.RequestHeader
     import lila.memo.RateLimit
     import lila.common.HTTPRequest
     import lila.core.net.IpAddress
@@ -165,7 +163,7 @@ final class LoginToken(
     )
 
     def apply[A](email: NormalizedEmailAddress, default: => Fu[A], cost: Int = defaultCost)(run: => Fu[A])(
-        using req: RequestHeader
+        using req: Req
     ): Fu[A] =
       rateLimitPerEmail(email.value, default, cost):
         rateLimitPerIP(HTTPRequest.ipAddress(req), default, cost):

@@ -1,7 +1,6 @@
 package lila.pref
 
 import chess.{ ByColor, Color }
-import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -30,10 +29,10 @@ final class PrefApi(
   def get[A](userId: UserId, pref: Pref => A): Fu[A] =
     cache.get(userId).dmap(p => pref(p | Pref.default))
 
-  def getWithReq(user: User)(using RequestHeader): Fu[Pref] =
+  def getWithReq(user: User)(using Req): Fu[Pref] =
     get(user).dmap(RequestPref.queryParamOverride)
 
-  def getWithReq(user: Option[User])(using RequestHeader): Fu[Pref] = user match
+  def getWithReq(user: Option[User])(using Req): Fu[Pref] = user match
     case Some(u) => get(u).dmap(RequestPref.queryParamOverride)
     case None => fuccess(RequestPref.fromRequest)
 
@@ -103,6 +102,6 @@ final class PrefApi(
     )
   )
 
-  def saveNewUserPrefs(user: User)(using RequestHeader): Funit =
+  def saveNewUserPrefs(user: User)(using Req): Funit =
     val reqPref = RequestPref.fromRequest
     (reqPref != Pref.default).so(setPref(user, reqPref.copy(id = user.id)))

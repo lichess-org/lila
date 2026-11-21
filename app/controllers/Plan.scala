@@ -182,7 +182,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def doStripeCheckout(using ctx: BodyContext[?], me: Me) =
-    limit.planCheckout(ctx.ip, rateLimited):
+    limit.planCheckout.use(rateLimited):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
         .flatMap: pricing =>
@@ -213,7 +213,7 @@ final class Plan(env: Env) extends LilaController(env):
     env.plan.priceApi.stripePricesAsJson(myCurrency).map(JsonStrOk)
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
-    limit.planCapture(ctx.ip, rateLimited):
+    limit.planCapture.use(rateLimited):
       env.plan.api.stripe
         .userCustomer(me)
         .flatMap:
@@ -244,7 +244,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCheckout = AuthBody { ctx ?=> me ?=>
-    limit.planCheckout(ctx.ip, rateLimited):
+    limit.planCheckout.use(rateLimited):
       env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
         bindForm(env.plan.checkoutForm.form(pricing))(
           err =>
@@ -270,13 +270,13 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCapture(orderId: String) = Auth { ctx ?=> me ?=>
-    limit.planCapture(ctx.ip, rateLimited):
+    limit.planCapture.use(rateLimited):
       get("sub")
         .map(PayPalSubscriptionId.apply)
         .match
-          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
+          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId))
           case Some(subId) =>
-            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me)
         .inject(jsonOkResult)
   }
 
@@ -291,12 +291,5 @@ final class Plan(env: Env) extends LilaController(env):
           logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
           BadRequest
       ,
-      ipn =>
-        env.plan.api.payPal
-          .onLegacyCharge(
-            ipn,
-            ip = req.ipAddress,
-            key = get("key") | "N/A"
-          )
-          .inject(Ok)
+      ipn => env.plan.api.payPal.onLegacyCharge(ipn, key = get("key") | "N/A").inject(Ok)
     )

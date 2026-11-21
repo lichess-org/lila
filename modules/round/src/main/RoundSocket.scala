@@ -11,7 +11,7 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.core.game.TvSelect
-import lila.core.net.IpAddress
+import lila.core.net.{ ipAddress, IpAddress }
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
 import lila.mon.extensions.*
@@ -382,12 +382,12 @@ object RoundSocket:
             for
               mean <- meanS.toIntOption
               sd <- sdS.toIntOption
-              ip <- IpAddress.from(ip)
+              ip <- ipAddress.from(ip)
             yield HoldAlert(GameFullId(fullId), ip, mean, sd)
           }
         case P.RawMsg("r/report", raw) =>
           raw.get(4) { case Array(fullId, ip, user, name) =>
-            IpAddress.from(ip).map { ip =>
+            ipAddress.from(ip).map { ip =>
               SelfReport(GameFullId(fullId), ip, UserId.from(P.In.optional(user)), name)
             }
           }

@@ -33,7 +33,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
-    automod: lila.report.Automod
+    automod: lila.report.Automod,
+    markdownCache: lila.memo.MarkdownCache
 )(using Executor, Scheduler, play.api.Mode, RateLimit):
 
   export net.{ baseUrl, domain }
@@ -56,6 +57,18 @@ final class Env(
   val viewCounter = wire[UblogViewCounter]
 
   val jsonView = wire[UblogJsonView]
+
+  object markdown:
+
+    def htmlBody(post: UblogPost) =
+      markdownCache.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+
+    def atomBody(post: UblogPost) =
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(
+        s"blog:${post.id}:nopgn",
+        post.markdown,
+        lila.ublog.markdownOptions
+      )
 
   Bus.sub[lila.core.mod.Shadowban]: s =>
     api.setShadowban(s.userId, s.value)

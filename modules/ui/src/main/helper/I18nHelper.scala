@@ -40,8 +40,9 @@ trait I18nHelper:
       case chess.variant.RacingKings => I18nKey.variant.racingKingsTitle
       case _ => I18nKey.variant.standardTitle
 
+  val trans = lila.core.i18n.I18nKey
+
   export lila.core.i18n.Translate
-  export lila.core.i18n.I18nKey as trans
   export I18nKey.{ txt, pluralTxt, pluralSameTxt, apply, plural, pluralSame, rawHtml, pluralRawHtml }
 
   given (using ctx: Context): Translate = Translate(translator, ctx.lang)

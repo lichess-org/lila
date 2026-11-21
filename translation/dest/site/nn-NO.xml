@@ -437,6 +437,7 @@
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
+  <string name="selectImage">Velg bilete</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
@@ -702,7 +703,8 @@ Vener som spelar: %2$s</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein fritt tilgjengeleg (%2$s), libre, annonsefri, open kjeldekode sjakk-server.</string>
   <string name="really">verkeleg</string>
-  <string name="lichessUpdates">Lichess-oppdateringar</string>
+  <string name="lichessUpdates">Lichess feed</string>
+  <string name="allUpdates">Alle oppdateringar</string>
   <string name="contribute">Bidra</string>
   <string name="changelog">Endringslogg</string>
   <string name="termsOfService">Brukarvilkår</string>

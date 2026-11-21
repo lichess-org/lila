@@ -352,7 +352,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using
       Me,
-      RequestHeader
+      Req
   ) =
     api
       .join(team, request = request, password = password)

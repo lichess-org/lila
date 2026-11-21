@@ -68,7 +68,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="releaseTheAccount">Geef het account vrij zodat de student het zelfstandig kan beheren.</string>
   <string name="releaseDesc1">Een vrijgegeven account kan niet opnieuw worden beheerd. De student kan dan zelf de kind-modus veranderen of het wachtwoord resetten.</string>
   <string name="releaseDesc2">De leerling blijft in de groep nadat zijn account is vrijgegeven.</string>
-  <string name="realUniqueEmail">Echt, unieke e-mailadres van de student. We sturen een bevestigingsmail met een link om het account vrij te geven.</string>
+  <string name="realUniqueEmail">Echt en uniek e-mailadres van de student. We sturen een bevestigingsmail met een link om het account af te ronden. De link verloopt na 10 minuten.</string>
   <string name="closeStudent">Account sluiten</string>
   <string name="closeTheAccount">Sluit het leerlingaccount zonder dat ongedaan maken mogelijk is.</string>
   <string name="closeDesc1">De leerling zal dit dit account nooit meer kunnen gebruiken. Sluiten is definitief. Zorg ervoor dat de leerling dit begrijpt en ermee instemt.</string>

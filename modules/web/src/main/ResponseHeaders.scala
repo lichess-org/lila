@@ -7,7 +7,7 @@ import lila.common.HTTPRequest
 
 trait ResponseHeaders extends HeaderNames:
 
-  def headersForApiOrApp(using req: RequestHeader): List[PairOf[String]] =
+  def headersForApiOrApp(using req: Req): List[PairOf[String]] =
     val appOrigin = HTTPRequest.appOrigin(req)
     List(
       "Access-Control-Allow-Origin" -> appOrigin.fold("*")(_.value),
@@ -55,14 +55,14 @@ trait ResponseHeaders extends HeaderNames:
 
     def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader)
 
-    def forReq(req: RequestHeader) =
+    def forReq(req: Req) =
       if supportsCoepCredentialless(req) then credentialless else requireCorp
 
-    def supportsCoepCredentialless(req: RequestHeader) =
+    def supportsCoepCredentialless(req: Req) =
       import HTTPRequest.*
       isChrome96Plus(req) || (isFirefox119Plus(req) && !isMobileBrowser(req))
 
-    def supportsCredentiallessIFrames(req: RequestHeader) =
+    def supportsCredentiallessIFrames(req: Req) =
       import HTTPRequest.*
       isChrome113Plus(req)
 

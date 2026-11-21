@@ -162,6 +162,10 @@
   </plurals>
   <string name="moveTimes">Tempo das jogadas</string>
   <string name="flipBoard">Inverter o tabuleiro</string>
+  <string name="toggleLocalEngine">Ligar/Desligar Motor local</string>
+  <string name="engineSettings">Definições do motor</string>
+  <string name="engine">Engine</string>
+  <string name="enginesFromStrongestToWeakest">Engines do mais forte ou mais fraco</string>
   <string name="illegalPosition">Posição ilegal</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Declarar empate</string>
@@ -457,6 +461,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
     <item quantity="one">%s amigo online</item>
     <item quantity="other">%s amigos online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amigos online: %1$s
+Amigos jogando: %2$s</string>
   <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">A seguir</string>
@@ -504,6 +510,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
+  <string name="stop">Parar</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="performance">Desempenho</string>
@@ -555,6 +562,11 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Problemas</string>
   <string name="onlineBots">Bots online</string>
+  <string name="aboutBotsOnLichess">Sobre os bots no Lichess</string>
+  <string name="featuredBots">Bots em destaque</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Tente jogar estes motores de xadrez inovadores! Estes são os nossos favoritos.</string>
+  <string name="communityBots">Bots da comunidade</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Mais motores de xadrez criados pela comunidade Lichess. São alojados pelos seus próprios criadores e podem não estar sempre disponíveis online.</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -600,6 +612,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="clearField">Limpar o campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Iniciar sessão com o email</string>
+  <string name="emailLoginInstructions">Enviaremos um e-mail com um link para você iniciar sessão.</string>
   <string name="emailMeALink">Envie-me um link por e-mail</string>
   <string name="currentPassword">Palavra-passe atual</string>
   <string name="newPassword">Nova palavra-chave</string>
@@ -624,6 +637,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="onSlowGames">Em jogos lentos</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
+  <string name="defeatOnly">Só na derrota</string>
+  <string name="drawAndDefeat">Empate e derrota</string>
   <string name="xCompetesInY">%1$s compete em %2$s</string>
   <string name="victory">Vitória</string>
   <string name="defeat">Derrota</string>
@@ -688,10 +703,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="aboutX">Sobre o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">O %1$s é um servidor de xadrez grátis (%2$s), sem publicidades e open-source.</string>
   <string name="really">a sério</string>
+  <string name="lichessUpdates">Feed do lichess</string>
   <string name="contribute">Contribuir</string>
+  <string name="changelog">Lista de alterações</string>
   <string name="termsOfService">Termos de serviço</string>
   <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código fonte</string>
+  <string name="blockAds">Bloquear anúncios</string>
   <string name="simultaneousExhibitions">Exibições simultâneas</string>
   <string name="host">Anfitrião</string>
   <string name="hostColorX">Cor do anfitrião: %s</string>
@@ -771,7 +789,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="downloadAnnotated">Transferir anotação</string>
   <string name="downloadRaw">Transferir texto</string>
   <string name="downloadImported">Transferir a partida importada</string>
+  <string name="downloadMyGames">Descarregar os meus jogos</string>
   <string name="downloadAllGames">Descarregar todos os jogos</string>
+  <string name="downloadResults">Descarregar os resultados</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
@@ -797,6 +817,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos gratuitamente</string>
   <string name="viewTheSolution">Ver a solução</string>
   <string name="noChallenges">Sem desafios.</string>
+  <string name="browserNotificationsDenied">Notificações pop-up desativadas nas definições do navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s língua!</item>
     <item quantity="other">Disponível em %s línguas!</item>
@@ -975,6 +996,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="onlyMembersOfTeam">Apenas membros da equipa</string>
   <string name="noRestriction">Sem restrições</string>
   <string name="minimumRatedGames">Jogos com classificação mínima</string>
+  <string name="minimumAccountAge">Idade mínima da conta</string>
+  <string name="titledPlayersBypassRestriction">Jogadores titulados ignoram esta restrição.</string>
   <string name="minimumRating">Classificação mínima</string>
   <string name="maximumWeeklyRating">Avaliação semanal máxima</string>
   <string name="positionInputHelp">Cola um FEN válido para iniciar todos os jogos a partir de uma determinada posição.
@@ -1021,6 +1044,7 @@ Deixa em branco para iniciar jogos da posição inicial normal.</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostra-me tudo</string>
+  <string name="lichessPatronInfo">O Lichess é uma instituição de caridade e um software totalmente gratuito e de código aberto. Dependemos das doações dos utilizadores para cobrir os nossos custos operacionais, desenvolvimento e criação de conteúdos. Sem a generosidade da nossa comunidade, não conseguiríamos manter o site em funcionamento. Obrigado por te juntares a nós!</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Acessibilidade</string>
@@ -1031,6 +1055,7 @@ Deixa em branco para iniciar jogos da posição inicial normal.</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Pesquisar</string>
   <string name="clearSearch">Limpar pesquisa</string>
+  <string name="searchInX">Pesquisar em \"%s\"</string>
   <string name="thereAreNoResultsForX">Não existem resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
@@ -1038,4 +1063,7 @@ Deixa em branco para iniciar jogos da posição inicial normal.</string>
   <string name="verifyingYourDevice">A verificar o teu dispositivo...</string>
   <string name="chessOpenings">Abertura de xadrez</string>
   <string name="boards">Tabuleiros</string>
+  <string name="write">Escrever</string>
+  <string name="preview">Pré-visualizar</string>
+  <string name="done">Concluído</string>
 </resources>
