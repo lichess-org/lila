@@ -96,7 +96,7 @@ export function initModule(): void {
       box.url = frag<HTMLAnchorElement>('<a target="_blank" rel="noopener">');
       box.div.append(box.url);
       box.url.href = href;
-      box.url.textContent = ev.data.result.replace(/^https?:\/\//, '');
+      box.url.textContent = href.replace(/^https?:\/\//, '');
       box.div.classList.add('linked');
     } catch (e: unknown) {
       if (e instanceof Error) {
