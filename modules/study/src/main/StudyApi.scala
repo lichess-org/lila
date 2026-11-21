@@ -292,6 +292,7 @@ final class StudyApi(
                         val newPosition = position.ref + node
                         for
                           _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
+                          _ = if chapter.relay.isDefined then preview.invalidateJson(study.id)
                           _ <-
                             if opts.sticky
                             then studyRepo.setPosition(study.id, newPosition)
@@ -464,18 +465,28 @@ final class StudyApi(
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid setShapes $position $shapes")
 
-  def setClock(studyId: StudyId, position: Position.Ref, clock: Clock)(who: Who): Funit =
+  def setClock(
+      studyId: StudyId,
+      position: Position.Ref,
+      clock: Clock,
+      relayClockAt: Option[Option[Instant]] = None
+  )(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
-      doSetClock(_, position, clock)(who)
+      doSetClock(_, position, clock, relayClockAt)(who)
 
-  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Clock)(
-      who: Who
-  ): Funit =
+  private def doSetClock(
+      sc: Study.WithChapter,
+      position: Position.Ref,
+      clock: Clock,
+      relayClockAt: Option[Option[Instant]] = None
+  )(who: Who): Funit =
     sc.chapter.setClock(clock.some, position.path) match
       case Some(chapter, newCurrentClocks) =>
         setStudyUpdated(sc.study)
-        for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
-        yield sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks))
+        for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks, relayClockAt)
+        yield
+          if chapter.relay.isDefined then preview.invalidateJson(sc.study.id)
+          sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks, relayClockAt))
       case None =>
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
@@ -510,11 +521,13 @@ final class StudyApi(
       val chapter = oldChapter.copy(tags = tags)
       for
         _ <- chapterRepo.setTagsFor(chapter)
-        _ <- StudyPgnTags
-          .setRootClockFromTags(chapter)
-          .so: c =>
-            c.root.clock.so: clock =>
-              doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
+        _ = if chapter.relay.isDefined then preview.invalidateJson(study.id)
+        _ <- (chapter.relay.isEmpty || chapter.root.children.isEmpty).so:
+          StudyPgnTags
+            .setRootClockFromTags(chapter)
+            .so: c =>
+              c.root.clock.so: clock =>
+                doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield
         sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
         setStudyUpdated(study)
