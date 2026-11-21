@@ -262,13 +262,22 @@ export default function (token: string): void {
                 console.error('connectToEventStream - Failed to connect to game stream. ' + error);
               }
             } else if (data.type === 'challenge') {
-              //Challenge received
-              //TODO
+              const challenge = data.challenge;
+              console.log(
+                `Challenge [${challenge.status}] from ${challenge.challenger.name} (${challenge.challenger.rating}) - ` +
+                  `${challenge.variant.name} ${challenge.speed} ${challenge.timeControl.show ?? challenge.timeControl.type} ` +
+                  `${challenge.rated ? 'rated' : 'casual'} as ${challenge.color} - id: ${challenge.id}`,
+              );
             } else if (data.type === 'gameFinish') {
-              //Game Finished
-              //TODO Handle this event
+              const finishedGameId: string = data.game.id;
+              const finalStatus = gameStateMap.has(finishedGameId)
+                ? gameStateMap.get(finishedGameId).status
+                : 'unknown';
+              console.log(`Game finished. gameId: ${finishedGameId} - status: ${finalStatus}`);
             } else if (response.status >= 400) {
               console.warn('connectToEventStream - ' + data.error);
+            } else {
+              console.warn(`connectToEventStream - Unknown event type received: ${data.type}`);
             }
           } catch (error) {
             console.error('connectToEventStream - Unable to parse JSON or Unexpected error. ' + error);
@@ -377,10 +386,13 @@ export default function (token: string): void {
                 if (verbose) console.log('connectToGameStream - State received was not for current game.');
               }
             } else if (data.type === 'chatLine') {
-              //Received chat line
-              //TODO
+              console.log(`Chat in ${gameId} [${data.room}] ${data.username}: ${data.text}`);
             } else if (response.status >= 400) {
               console.log('connectToGameStream - ' + data.error);
+            } else {
+              console.warn(
+                `connectToGameStream - Unknown event type received for gameId ${gameId}: ${data.type}`,
+              );
             }
           } catch (error) {
             console.error('connectToGameStream - No valid game data or Unexpected error. ' + error);
