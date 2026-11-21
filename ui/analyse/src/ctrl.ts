@@ -12,7 +12,6 @@ import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyb
 
 import {
   defined,
-  prop,
   toggle,
   debounce,
   throttle,
@@ -21,6 +20,7 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
+import { makeAnalysisSession, type AnalysisSession } from 'lib/analysis/session';
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
@@ -96,6 +96,7 @@ export default class AnalyseCtrl implements CevalHandler {
   fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
+  private readonly nav: AnalysisSession;
   promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
@@ -120,7 +121,7 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     this.cevalEnabledProp(),
   );
-  threatMode: Prop<boolean> = prop(false);
+  threatMode: Prop<boolean>;
 
   treeView: TreeView;
   cgVersion = {
@@ -159,12 +160,14 @@ export default class AnalyseCtrl implements CevalHandler {
     this.settings = new SettingsCtrl(this.onUpdateSettings);
     this.treeView = new TreeView(this);
     this.navigate = new Navigate(this);
-    this.promotion = new PromotionCtrl(
-      this.withCg,
-      () => this.withCg(g => g.set(this.cgConfig)),
-      this.redraw,
-      () => this.variantKey,
-    );
+    this.nav = makeAnalysisSession({
+      redraw: this.redraw,
+      withGround: g => this.withCg(g),
+      cgConfig: () => this.cgConfig,
+      variant: () => this.variantKey,
+    });
+    this.threatMode = this.nav.threatMode;
+    this.promotion = this.nav.promotion;
     this.motif = new MotifCtrl(this.settings);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
@@ -292,10 +295,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private readonly setPath = (path: TreePath): void => {
-    this.path = path;
-    this.nodeList = this.tree.getNodeList(path);
-    this.node = treeOps.last(this.nodeList) as TreeNode;
-    this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.nav.setPath(this, this.tree, path);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
