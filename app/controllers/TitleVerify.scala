@@ -93,9 +93,8 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
             api.image
               .upload(req, image, tag)
               .inject(Ok)
-              .recover { case e: Exception =>
-                BadRequest(e.getMessage)
-              }
+              .recover:
+                case e: Exception => BadRequest(e.getMessage)
         case None => api.image.delete(req, tag).inject(Ok)
   }
 

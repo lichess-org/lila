@@ -550,9 +550,8 @@ final class Study(
                 .asAttachmentStream(s"${pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
                 .publicCache(Option.unless(study.isPrivate)(1.day))
-            .recover { case lila.core.lilaism.LilaInvalid(msg) =>
-              BadRequest(msg)
-            }
+            .recover:
+              case lila.core.lilaism.LilaInvalid(msg) => BadRequest(msg)
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
     AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> _ ?=>

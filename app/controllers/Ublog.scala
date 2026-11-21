@@ -263,9 +263,8 @@ final class Ublog(env: Env) extends LilaController(env):
               .flatMap: newPost =>
                 logModAction(newPost, "delete image")
         .inject(Ok)
-        .recover { case e: Exception =>
-          BadRequest(e.getMessage)
-        }
+        .recover:
+          case e: Exception => BadRequest(e.getMessage)
   }
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
