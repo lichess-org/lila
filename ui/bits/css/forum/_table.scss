@@ -33,6 +33,15 @@
           color: $c-link;
           font-size: 1em;
         }
+
+        .user-link .line {
+          width: unset;
+          margin-inline-end: 0.2em;
+
+          &.patron {
+            margin-inline: 0.1em 0.3em;
+          }
+        }
       }
     }
   }
