@@ -314,7 +314,10 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     if (this.retro && this.data.game.variant.key !== 'racingKings')
       this.retro = makeRetro(this, this.bottomColor());
-    if (this.practice) this.startCevalIfEnabled();
+    if (this.practice) {
+      this.practice.onFlip();
+      this.startCevalIfEnabled();
+    }
     this.explorer.onFlip();
     this.onChange();
     this.redraw();
@@ -368,7 +371,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const movableColor = gamebookPlay
       ? gamebookPlay.movableColor()
       : this.practice
-        ? this.bottomColor()
+        ? this.practice.playerColor()
         : dests.size || drops?.length
           ? turnColor
           : undefined;

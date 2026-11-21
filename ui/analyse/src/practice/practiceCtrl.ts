@@ -1,5 +1,5 @@
 import { makeSan } from 'chessops/san';
-import { parseUci } from 'chessops/util';
+import { opposite, parseUci } from 'chessops/util';
 
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
 import { api } from 'lib/api';
@@ -49,7 +49,8 @@ export interface PracticeCtrl {
   commentShape(enable: boolean): void;
   hint(): void;
   currentNode(): TreeNode;
-  bottomColor(): Color;
+  playerColor(): Color;
+  onFlip(): void;
   customCeval: CustomCeval;
   redraw: Redraw;
 }
@@ -57,6 +58,16 @@ export interface PracticeCtrl {
 export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
   const variant = root.data.game.variant.key;
+  // The side the user practices with. Usually the bottom side, but Racing Kings boards always
+  // show white at the bottom, so use the game's orientation (the side the user played) instead.
+  // Flipping the board still switches sides, see onFlip.
+  const playerColor = prop<Color>(
+    variant === 'racingKings'
+      ? root.flipped
+        ? opposite(root.data.orientation)
+        : root.data.orientation
+      : root.bottomColor(),
+  );
   const running = prop(true);
   const comment = prop<Comment | null>(null);
   const hovering = prop<{ uci: string } | null>(null);
@@ -113,7 +124,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
+      const shift = -winningChances.povDiff(playerColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
@@ -146,7 +157,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     };
   }
 
-  const isMyTurn = (): boolean => root.turnColor() === root.bottomColor();
+  const isMyTurn = (): boolean => root.turnColor() === playerColor();
 
   function checkCeval() {
     const node = root.node;
@@ -265,7 +276,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       root.setAutoShapes();
     },
     currentNode: () => root.node,
-    bottomColor: root.bottomColor,
+    playerColor,
+    onFlip: () => playerColor(opposite(playerColor())),
     redraw: root.redraw,
     customCeval: {
       search: () =>
