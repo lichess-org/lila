@@ -16,23 +16,18 @@
   }
 
   .contrib {
-    @extend %popup-shadow;
     @include inline-end(0);
 
+    gap: 1ch;
     position: absolute;
     top: 0;
-    background: color-mix(in oklab, $c-accent 10%, $c-bg);
     padding: 0.5em 0.8em;
     display: none;
     z-index: 1;
   }
 
   &:hover .contrib {
-    display: block;
-  }
-
-  .contrib a {
-    margin-inline-start: 8px;
+    @extend %flex-center-nowrap;
   }
 
   .embed {

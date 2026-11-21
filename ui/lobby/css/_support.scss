@@ -10,7 +10,7 @@
   @include transition(background);
 
   &:hover {
-    background: $c-accent-glass;
+    background: $c-brag-glass;
 
     .lobby__support-link__text,
     icon::before {

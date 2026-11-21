@@ -56,7 +56,7 @@ body {
     color: $c-font;
 
     &--unread {
-      background: color-mix(in oklab, $c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-unread 20%, $c-bg);
     }
 
     &:hover {
@@ -225,7 +225,7 @@ body {
     @extend %box-bordered;
 
     &.team-update__convo__update--unread {
-      border-color: $c-accent;
+      border-color: $c-unread;
     }
 
     &__body {

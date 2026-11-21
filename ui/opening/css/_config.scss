@@ -1,4 +1,4 @@
-$c-opcfg: $c-accent;
+$c-opcfg: $c-secondary;
 
 @mixin mq-details-large {
   @media (min-width: at-least($small)) {
@@ -26,8 +26,8 @@ $c-opcfg: $c-accent;
   background: $c-bg-zebra;
 
   &:hover {
-    border: 1px solid color-mix(in oklab, $c-accent 35%, $c-bg);
-    background: color-mix(in oklab, $c-accent 5%, $c-bg-zebra);
+    border: 1px solid color-mix(in oklab, $c-opcfg 35%, $c-bg);
+    background: color-mix(in oklab, $c-opcfg 5%, $c-bg-zebra);
   }
 
   &__summary {
@@ -38,7 +38,7 @@ $c-opcfg: $c-accent;
 
     &__speed,
     &__rating {
-      color: $c-accent;
+      color: $c-opcfg;
     }
 
     &__large {
@@ -87,7 +87,7 @@ $c-opcfg: $c-accent;
       justify-content: stretch;
 
       button {
-        color: $c-accent !important;
+        color: $c-opcfg !important;
         flex: 0 0 100%;
       }
     }

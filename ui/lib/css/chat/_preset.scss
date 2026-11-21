@@ -20,13 +20,13 @@
       @include transition;
 
       &.disabled {
-        background: color-mix(in oklab, $c-accent 15%, $c-bg);
+        background: color-mix(in oklab, $c-bad 15%, $c-bg);
         color: transparent;
         cursor: default;
       }
 
       &:not(.disabled):hover {
-        background: $c-accent;
+        background: $c-brag;
         color: $c-over;
         opacity: 1;
       }

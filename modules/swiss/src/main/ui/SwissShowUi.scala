@@ -26,8 +26,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
       chatOption: Option[(JsObject, Frag)],
       streamers: Frag
   )(using ctx: Context): Page =
-    val isDirector = ctx.is(s.createdBy)
-    val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
+    val hasScheduleInput = ctx.is(s.createdBy) && s.settings.manualRounds && s.isNotFinished
     basePage(s, team)
       .css(hasScheduleInput.option("bits.flatpickr"))
       .js(hasScheduleInput.option(Esm("bits.flatpickr")))

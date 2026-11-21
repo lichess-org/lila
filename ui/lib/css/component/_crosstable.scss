@@ -61,7 +61,7 @@
     }
 
     &:hover {
-      @extend %metal;
+      background: color-mix(in oklab, $c-primary 30%, $c-bg);
 
       a {
         opacity: 1 !important;
@@ -72,10 +72,12 @@
       opacity: 0.2;
     }
 
-    &.current a {
-      background: color-mix(in oklab, $c-accent 70%, $c-bg);
-      color: #fff;
-      opacity: 1 !important;
+    &.current {
+      background: color-mix(in oklab, $c-brag 30%, $c-bg);
+
+      a {
+        opacity: 1 !important;
+      }
     }
 
     &.new {

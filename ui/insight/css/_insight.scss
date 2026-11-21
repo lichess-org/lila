@@ -1,3 +1,5 @@
+$c-insight: $c-brag;
+
 @import './filters';
 
 // formatting is also done in view.ts. if your changes aren't behaving as expected - check there!
@@ -35,7 +37,7 @@
       @include transition(all, 0.25s);
 
       content: '';
-      background: rgb(from $c-accent r g b / calc(alpha * 0.6));
+      background: rgb(from $c-insight r g b / calc(alpha * 0.6));
       height: 2px;
       position: absolute;
       width: 96%;
@@ -51,7 +53,7 @@
     }
 
     &.active {
-      color: $c-accent;
+      color: $c-insight;
     }
   }
 
@@ -200,7 +202,7 @@
     }
 
     ul > li.selected label {
-      background: $c-accent;
+      background: $c-insight;
       color: $c-over;
     }
   }
@@ -236,7 +238,7 @@
     }
 
     a:hover {
-      background: color-mix(in oklab, $c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-insight 20%, $c-bg);
     }
 
     a:hover::before {
@@ -244,7 +246,7 @@
     }
 
     a.active {
-      color: $c-accent;
+      color: $c-insight;
     }
   }
 
@@ -290,7 +292,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: color-mix(in oklab, $c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-insight 20%, $c-bg);
     }
 
     ul > li label.optgroup {
@@ -412,7 +414,7 @@
       }
 
       &:hover {
-        background: color-mix(in oklab, $c-accent 20%, $c-bg);
+        background: color-mix(in oklab, $c-insight 20%, $c-bg);
       }
     }
 
