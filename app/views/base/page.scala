@@ -58,6 +58,7 @@ object page:
         head(
           charset,
           viewport,
+          colorScheme,
           metaCsp(p.csp.map(_(defaultCsp))),
           metaThemeColor,
           st.headTitle:

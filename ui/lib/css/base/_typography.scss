@@ -2,6 +2,7 @@ html {
   @extend %base-font-fallback;
   @include fluid-size('font-size', 12px, 14px);
 
+  font-size-adjust: from-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
