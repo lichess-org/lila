@@ -34,6 +34,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         "}" +
         isTransparent.so("document.documentElement.classList.add('transp');")
     )(nonce)
+  def themeVariantScript(nonce: Option[Nonce]) =
+    embedJsUnsafe(
+      "(() => {" +
+        "const variant = localStorage.getItem('theme.variant');" +
+        "if (variant === 'yellow' || variant === 'blue') {" +
+        "document.documentElement.classList.add('theme-' + variant);" +
+        "}" +
+        "})();"
+    )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   private def fontPreload(path: String) = preload(assetPath(s"font/$path"), "font", true, "font/woff2".some)

@@ -1,4 +1,52 @@
 #dasher_app .theme {
+  .theme-variants {
+    display: flex;
+    gap: 8px;
+    padding: 8px 14px;
+  }
+
+  .theme-variant {
+    display: grid;
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+    place-items: center;
+    border: 1px solid $c-border;
+    border-radius: 3px;
+    background: transparent !important;
+    color: inherit !important;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $c-primary;
+    }
+
+    &.active {
+      outline: 2px solid $c-primary;
+      outline-offset: 1px;
+    }
+
+    .swatch {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &.default .swatch {
+      background: hsl(37 7% 58%);
+    }
+
+    &.yellow .swatch {
+      background: hsl(48 70% 58%);
+    }
+
+    &.blue .swatch {
+      background: hsl(215 70% 58%);
+    }
+  }
+
   label {
     padding-inline: 14px;
     padding-top: 6px;
