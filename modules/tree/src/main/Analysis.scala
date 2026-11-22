@@ -1,10 +1,9 @@
 package lila.tree
 
-import play.api.libs.json.{ OWrites, Json, JsObject, Reads }
+import play.api.libs.json.JsObject
 import chess.eval.WhiteScore
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
-import scalalib.json.Json.given
 
 import lila.tree.Analysis.EngineId
 
@@ -25,8 +24,6 @@ object Engine:
   val unknownVersion = "/unknown/"
   val unknown = Engine(0, EngineId.unknown, UserId.lichess, unknownVersion)
   val default = Engine(1_000_000, EngineId.fishnet, UserId.lichess, unknownVersion)
-  given OWrites[Engine] = e => Json.obj("nodesPerMove" -> e.nodesPerMove, "version" -> e.engineVersion)
-  given Reads[Engine] = Json.reads
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]

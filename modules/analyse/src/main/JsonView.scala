@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.game.SideAndStart
-import lila.tree.Analysis
+import lila.tree.{ Analysis, Engine }
 
 object JsonView extends lila.tree.AnalysisJson:
 
@@ -104,6 +104,8 @@ object JsonView extends lila.tree.AnalysisJson:
         "moves" -> moves(analysis)
       )
 
+  private given Reads[Engine] = Json.reads
+
   given Reads[Analysis] = Reads: js =>
     for
       _ <-
@@ -116,7 +118,7 @@ object JsonView extends lila.tree.AnalysisJson:
       initialScore <- Info.readScore(js \ "initialEval", startPly)
       infos <- (js \ "infos").validate[List[Info]]
       date <- (js \ "date").validate[Instant]
-      engine <- (js \ "engine").validate[lila.tree.Engine]
+      engine <- (js \ "engine").validate[Engine]
     yield Analysis(
       id = rawStudyIdOpt match
         case Some(sid) => Analysis.Id.Study(StudyId(sid), StudyChapterId(rawId))
@@ -127,3 +129,6 @@ object JsonView extends lila.tree.AnalysisJson:
       date = date,
       engine = engine
     )
+
+  private given OWrites[Engine] = e =>
+    Json.obj("nodesPerMove" -> e.nodesPerMove, "version" -> e.engineVersion)
