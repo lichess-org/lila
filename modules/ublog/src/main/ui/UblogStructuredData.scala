@@ -2,6 +2,7 @@ package lila.ublog
 package ui
 
 import play.api.libs.json.*
+import scalalib.StringUtils.escapeHtmlRaw
 
 import lila.common.Json.given
 import lila.core.config.NetConfig
@@ -17,8 +18,8 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
     post.lived.map: live =>
       lila.ui.bits.structuredData("BlogPosting"):
         Json.obj(
-          "headline" -> post.title,
-          "description" -> post.intro,
+          "headline" -> escapeHtmlRaw(post.title),
+          "description" -> escapeHtmlRaw(post.intro),
           "inLanguage" -> post.language,
           "image" -> image.toList,
           "keywords" -> post.topics,
