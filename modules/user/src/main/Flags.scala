@@ -143,6 +143,7 @@ object Flags extends FlagApi:
     F("KI", "Kiribati"),
     F("KM", "Comoros"),
     F("KN", "Saint Kitts and Nevis"),
+    F("KO", "Cornwall"),
     F("KP", "North Korea"),
     F("KR", "South Korea"),
     F("KW", "Kuwait"),
