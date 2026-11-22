@@ -2,7 +2,6 @@ import * as co from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { setupPosition } from 'chessops/variant';
 
-import { myUserId } from 'lib';
 import { randomId } from 'lib/algo';
 import type { CustomCeval } from 'lib/ceval/types';
 import { mainlineNodeList, structuredCloneLite } from 'lib/tree/ops';
@@ -145,10 +144,8 @@ export class LocalAnalysisEngine {
             this.nodes.reduce((sum, node) => sum + (node.eval?.knodes ?? 1000), 0) / this.nodes.length,
           ) * 1000;
     const engine = {
-      id: String(this.ctrl.ceval.engines.active()!.id),
       nodesPerMove,
-      userId: myUserId() ?? 'lichess',
-      engineVersion: this.ctrl.ceval.engineVersion!,
+      version: this.ctrl.ceval.engineVersion!,
     };
     const serverDocument: ServerAnalysisDocument = {
       id: this.ctrl.idbTree.id,

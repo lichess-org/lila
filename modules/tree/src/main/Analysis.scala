@@ -1,11 +1,12 @@
 package lila.tree
 
+import play.api.libs.json.{ OWrites, Json, JsObject, Reads }
 import chess.eval.WhiteScore
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
-import play.api.libs.json.JsObject
+import scalalib.json.Json.given
 
-import Analysis.EngineId
+import lila.tree.Analysis.EngineId
 
 opaque type FishnetKey = String
 object FishnetKey extends OpaqueString[FishnetKey]
@@ -24,6 +25,8 @@ object Engine:
   val unknownVersion = "/unknown/"
   val unknown = Engine(0, EngineId.unknown, UserId.lichess, unknownVersion)
   val default = Engine(1_000_000, EngineId.fishnet, UserId.lichess, unknownVersion)
+  given OWrites[Engine] = e => Json.obj("nodesPerMove" -> e.nodesPerMove, "version" -> e.engineVersion)
+  given Reads[Engine] = Json.reads
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
@@ -79,9 +82,6 @@ object Analysis:
 
   val MAX_PLIES = 600
 
-  import play.api.libs.json.*
-  import scalalib.json.Json.given
-
   enum Id:
     case Game(id: GameId)
     case Study(study: StudyId, id: StudyChapterId)
@@ -124,6 +124,3 @@ object Analysis:
     val fishnet: EngineId = "fishnet"
     val unknown: EngineId = "unknown"
     def fishnet(version: String): EngineId = s"fishnet-${version.replace('.', '_')}"
-
-  given Reads[Engine] = Json.reads[Engine]
-  given Writes[Engine] = Json.writes

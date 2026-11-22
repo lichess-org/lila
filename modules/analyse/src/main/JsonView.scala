@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.SideAndStart
 import lila.tree.Analysis
-import lila.tree.Analysis.given
 
 object JsonView extends lila.tree.AnalysisJson:
 
