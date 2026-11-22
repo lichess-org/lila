@@ -145,7 +145,7 @@ final private class LobbySyncActor(
       hookId: String,
       sri: Sri,
       user: Option[LobbyUser],
-      clock: Option[Clock.Config] = None
+      clock: Option[Clock.Config]
   ) =
     hookRepo.byId(hookId).foreach { hook =>
       remove(hook)

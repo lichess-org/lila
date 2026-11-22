@@ -1,13 +1,14 @@
 package lila.lobby
 
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.{ Clock, Rated }
 
 class HookClocksTest extends munit.FunSuite:
 
-  val c3_0 = Clock.Config(180, 0)
-  val c5_0 = Clock.Config(300, 0)
-  val c5_3 = Clock.Config(300, 3)
-  val c10_0 = Clock.Config(600, 0)
+  val c3_0 = Clock.Config(LimitSeconds(180), IncrementSeconds(0))
+  val c5_0 = Clock.Config(LimitSeconds(300), IncrementSeconds(0))
+  val c5_3 = Clock.Config(LimitSeconds(300), IncrementSeconds(3))
+  val c10_0 = Clock.Config(LimitSeconds(600), IncrementSeconds(0))
 
   def hook(clocks: NonEmptyList[Clock.Config]): Hook =
     Hook(
