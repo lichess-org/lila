@@ -140,7 +140,7 @@ object Hook:
       sid: Option[SessionId],
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,
-      boardApi: Boolean = false
+      boardApi: Boolean
   ): Hook =
     new Hook(
       id = ThreadLocalRandom.nextString(idSize),

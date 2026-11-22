@@ -4,9 +4,9 @@ import chess.{ Clock, Rated }
 
 class HookClocksTest extends munit.FunSuite:
 
-  val c3_0  = Clock.Config(180, 0)
-  val c5_0  = Clock.Config(300, 0)
-  val c5_3  = Clock.Config(300, 3)
+  val c3_0 = Clock.Config(180, 0)
+  val c5_0 = Clock.Config(300, 0)
+  val c5_3 = Clock.Config(300, 3)
   val c10_0 = Clock.Config(600, 0)
 
   def hook(clocks: NonEmptyList[Clock.Config]): Hook =
@@ -24,8 +24,8 @@ class HookClocksTest extends munit.FunSuite:
       boardApi = false
     )
 
-  def one(c: Clock.Config)        = hook(NonEmptyList.one(c))
-  def multi(cs: Clock.Config*)    = hook(NonEmptyList.fromListUnsafe(cs.toList))
+  def one(c: Clock.Config) = hook(NonEmptyList.one(c))
+  def multi(cs: Clock.Config*) = hook(NonEmptyList.fromListUnsafe(cs.toList))
 
   // --- single/single ---
 

@@ -21,7 +21,12 @@ final private class Biter(
     then join(seek, user)
     else fufail(s"$user cannot join seek $seek")
 
-  private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser], matchedClock: Clock.Config): Fu[JoinHook] =
+  private def join(
+      hook: Hook,
+      sri: Sri,
+      lobbyUserOption: Option[LobbyUser],
+      matchedClock: Clock.Config
+  ): Fu[JoinHook] =
     for
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair

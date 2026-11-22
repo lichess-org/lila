@@ -64,9 +64,9 @@ final private class LobbySyncActor(
       seekApi.removeBy(seekId, user.id)
       socket ! RemoveSeek(seekId)
 
-    case BiteHook(hookId, sri, user) =>
+    case BiteHook(hookId, sri, user, clock) =>
       NoPlayban(user):
-        biteHook(hookId, sri, user)
+        biteHook(hookId, sri, user, clock)
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
@@ -141,7 +141,12 @@ final private class LobbySyncActor(
       .foreach:
         if _ then () else f
 
-  private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser], clock: Option[Clock.Config] = None) =
+  private def biteHook(
+      hookId: String,
+      sri: Sri,
+      user: Option[LobbyUser],
+      clock: Option[Clock.Config] = None
+  ) =
     hookRepo.byId(hookId).foreach { hook =>
       remove(hook)
       hookRepo.bySri(sri).foreach(remove)
