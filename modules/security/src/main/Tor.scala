@@ -17,9 +17,8 @@ final private class Tor(
 
   private def refresh: Funit =
     ws.url("https://check.torproject.org/torbulkexitlist").get().map { res =>
-      ips =
-        res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(ipAddress.from).map(_.value).toSet
-      mongoCache.put("security.torNodes", ips.mkString(" ")) // for lila-ws to fetch
+      ips = res.body[String].linesIterator.flatMap(ipAddress.from).map(_.value).toSet
+      mongoCache.put("security.torNodes", ips.mkString(" "), none) // for lila-ws to fetch
       lila.mon.security.torNodes.update(ips.size)
     }
 
