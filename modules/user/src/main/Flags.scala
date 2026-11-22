@@ -213,6 +213,7 @@ object Flags extends FlagApi:
     F("PW", "Palau"),
     F("PY", "Paraguay"),
     F("QA", "Qatar"),
+    F("RB", "Brittany"),
     F("RE", "Reunion"),
     F("RO", "Romania"),
     F("RS", "Serbia"),
