@@ -275,7 +275,8 @@ object Form:
       Constraints.maxLength(30),
       Constraints.pattern(regex = UserName.historicalRegex, error = "usernameCharsInvalid")
     )
-    val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+    val historicalField: Mapping[UserStr] = trim(text).verifying(historicalConstraints*).into[UserStr]
+    val idField: Mapping[UserId] = historicalField.transform[UserId](_.id, _.userStr)
 
   object playerTitle:
     import chess.PlayerTitle

@@ -704,7 +704,7 @@ Freunde am Spielen: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, quelloffener Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
   <string name="really">wirklich</string>
   <string name="lichessUpdates">Lichess-Feed</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Alle Updates</string>
+  <string name="allUpdates">Alle Updates</string>
   <string name="contribute">Mitmachen</string>
   <string name="changelog">Änderungsverlauf</string>
   <string name="termsOfService">AGB</string>

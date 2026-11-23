@@ -437,6 +437,7 @@
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
+  <string name="selectImage">Valitse kuva</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
@@ -702,6 +703,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
   <string name="lichessUpdates">Lichess-syöte</string>
+  <string name="allUpdates">Kaikki päivitykset</string>
   <string name="contribute">Osallistu</string>
   <string name="changelog">Muutosloki</string>
   <string name="termsOfService">Käyttöehdot</string>

@@ -208,8 +208,8 @@ final class GameUi(helpers: Helpers):
   object importer:
 
     private def analyseHelp(using ctx: Context) =
-      (!ctx.isAuth).option:
-        a(cls := "blue", href := routes.Auth.signup)(trans.site.youNeedAnAccountToDoThat())
+      ctx.isAuth.not.option:
+        a(cls := "blue", href := routes.Auth.login)(trans.site.youNeedAnAccountToDoThat())
 
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
@@ -244,7 +244,8 @@ final class GameUi(helpers: Helpers):
               form3.checkboxGroup(
                 form("analyse"),
                 trans.site.requestAComputerAnalysis(),
-                help = analyseHelp
+                help = analyseHelp,
+                disabled = !ctx.isAuth
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )

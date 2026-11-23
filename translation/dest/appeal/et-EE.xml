@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Teie konto pole märgistatud ega piiratud. Kõik on korras!</string>
+  <string name="engineMarked">Teie konto on piiratud arvuti või malemootori abi kasutamise eest mängudes.</string>
+  <string name="accountMuted">Teie konto on vaigistatud.</string>
+  <string name="blogRestriction">Teile on seatud blogipiirang.</string>
+</resources>

@@ -85,6 +85,7 @@ final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCach
       list = true,
       table = true,
       blockQuote = false,
+      timestamp = true,
       maxPgns = Max(0)
     )
     def apply(up: TeamUpdate[?, ?]): Frag =

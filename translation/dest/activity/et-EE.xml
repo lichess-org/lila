@@ -34,6 +34,10 @@
     <item quantity="one">Lõpetas %s kirjavahetusmängu</item>
     <item quantity="other">Lõpetas %s kirjavahetusmängu</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Lõpetatud %1$s %2$s kaugmale mäng</item>
+    <item quantity="other">Lõpetatud %1$s %2$s kaugmale mängu</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Hakkas jälgima %s mängijat</item>
     <item quantity="other">Hakkas jälgima %s mängijat</item>

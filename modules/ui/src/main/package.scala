@@ -1,6 +1,6 @@
 package lila.ui
 
-import play.api.libs.json.JsValue
+import play.api.libs.json.{ Json, JsValue }
 import scalatags.Text.all.Frag
 
 import lila.core.data.SafeJsonStr
@@ -24,4 +24,15 @@ final class AnalyseEndpoints(
     val explorer: String,
     val tablebase: String,
     val externalEngine: String
-)
+):
+  def json(using ctx: Context) =
+    Json.obj(
+      "explorer" -> Json.obj(
+        "endpoint" -> explorer,
+        "tablebaseEndpoint" -> tablebase,
+        "showRatings" -> ctx.pref.showRatings
+      ),
+      "externalEngineEndpoint" -> externalEngine
+    )
+
+type SiteMessage = (title: String, back: Option[String], icon: Option[Icon]) => Page

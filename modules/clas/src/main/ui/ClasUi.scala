@@ -93,6 +93,12 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
         )
     )
 
+  def lobby(classes: List[Clas]) =
+    classes.nonEmpty.option:
+      div(cls := "lobby__classes"):
+        classes.map: clas =>
+          a(href := routes.Clas.show(clas.id), dataIcon := Icon.Group)(clas.name)
+
   object search:
 
     def clas(c: Clas, userTable: Frag)(using Context) =

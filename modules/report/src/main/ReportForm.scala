@@ -20,12 +20,9 @@ final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: N
 
   def create(using me: MyId) = Form:
     mapping(
-      "username" -> lila.common.Form.username.historicalField
+      "username" -> lila.common.Form.username.idField
         .verifying("Unknown username", blockingFetchUser(_).isDefined)
-        .verifying(
-          "You cannot report yourself",
-          u => !me.is(u.id)
-        )
+        .verifying("You cannot report yourself", me.isnt(_))
         .verifying(
           "Don't report Lichess. Use lichess.org/contact instead.",
           u => !UserId.isOfficial(u)
@@ -46,13 +43,12 @@ final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: N
 
   val flag = Form:
     mapping(
-      "username" -> lila.common.Form.username.historicalField,
+      "username" -> lila.common.Form.username.idField,
       "resource" -> nonEmptyText,
       "text" -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
-  private def blockingFetchUser(username: UserStr) =
-    lightUserAsync(username.id).await(1.second, "reportUser")
+  private def blockingFetchUser(u: UserId) = lightUserAsync(u).await(1.second, "reportUser")
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(?:game/)?(\w{8}|\w{12})""").r
@@ -61,7 +57,7 @@ object ReportForm:
   def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 
 private[report] case class ReportFlag(
-    username: UserStr,
+    username: UserId,
     resource: String,
     text: String
 )
@@ -73,4 +69,4 @@ case class ReportSetup(
     msgs: List[lila.core.msg.ID] = Nil
 ):
   def suspect = SuspectId(user.id)
-  def values = (user.name.into(UserStr), reason, text, msgs)
+  def values = (user.id, reason, text, msgs)

@@ -59,7 +59,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
       )
 
-  def enterable(tours: List[Tournament])(using Context) =
+  def enterable(tours: List[Tournament])(using Translate) =
     table(cls := "tournaments")(
       tours.map: tour =>
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)

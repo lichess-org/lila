@@ -36,7 +36,7 @@ final class KeyPages(val env: Env)(using Executor)
         ctx.me.filter(_.hasTitle).foreach(env.msg.systemMsg.twoFactorReminder(_))
         renderPage:
           lila.mon.chronoSync(lila.mon.lobby.segment("renderSync")):
-            views.lobby.home(h)
+            views.home(h)
 
   def notFound(msg: Option[String])(using Context): Fu[Result] =
     NotFound.page(views.base.notFound(msg))

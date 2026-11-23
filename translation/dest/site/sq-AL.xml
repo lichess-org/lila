@@ -692,7 +692,7 @@ Shokë që po luajnë: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s është një shërbyes shahu i lirë (%2$s), “libre”, pa reklama, me burim të hapët.</string>
   <string name="really">për vërtetë</string>
   <string name="lichessUpdates">Prurje Lichess</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Krejt përditësimet</string>
+  <string name="allUpdates">Krejt përditësimet</string>
   <string name="contribute">Jepni ndihmesë</string>
   <string name="changelog">Regjistër ndryshimesh</string>
   <string name="termsOfService">Kushte Shërbimi</string>

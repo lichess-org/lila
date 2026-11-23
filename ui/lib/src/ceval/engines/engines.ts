@@ -71,6 +71,25 @@ export class Engines {
     const browserEngines: WithMake[] = [
       ...relaxedSimdPair({
         info: {
+          id: '__sf_dev',
+          name: 'Stockfish 20 dev · 132MB',
+          short: 'SF 20 dev 132MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20261121-1c6f497a',
+          tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 1.0 },
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          minMem: 2560,
+          supportsCloudEval: true,
+          supportsPuzzleReport: true,
+          assets: {
+            root: 'npm/stockfish-web',
+            js: 'sf_dev.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      }),
+      ...relaxedSimdPair({
+        info: {
           id: '__sf_19',
           name: 'Stockfish 19 · 94MB',
           short: 'SF 19 94MB',

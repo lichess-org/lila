@@ -39,8 +39,8 @@ object PuzzleHistory:
           for
             doc <- r
             round <- doc.asOpt[PuzzleRound]
-            angleKey = doc.getAsOpt[PuzzleAngle.Key](PuzzleRound.BSONFields.angle) | PuzzleAngle.mix.key
-            angle = PuzzleAngle.findOrMix(angleKey)
+            angleKey = doc.getAsOpt[PuzzleAngle.Key](PuzzleRound.BSONFields.angle)
+            angle = PuzzleAngle.findOrMix(angleKey) | PuzzleAngle.mix
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")
           yield SessionRound(round, puzzle, angle)
         .map(groupBySessions)

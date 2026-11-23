@@ -3,6 +3,8 @@
   <string name="logInAsUsername">Logi sisse kui %s</string>
   <string name="welcome">Tere tulemast!</string>
   <string name="welcomeToLichess">Tere tulemast Lichessi!</string>
+  <string name="welcomeToLichessX">Tere tulemast Lichessi, %s!</string>
+  <string name="verifyYourAccount">Kinnita oma konto</string>
   <string name="thisIsYourProfilePage">See on sinu profiilileht.</string>
   <string name="enabledKidModeSuggestion">Kas seda kontot hakkab kasutama laps? Vahest soovid aktiveerida %s.</string>
   <string name="whatNowSuggestions">Mis nüüd? Siin on mõned soovitused:</string>

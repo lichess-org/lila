@@ -460,12 +460,12 @@ object GameApiV2:
     def toGameQuery =
       SearchData(
         players = SearchPlayer(
-          a = user.id.into(UserStr).some,
-          b = vs.map(_.id.into(UserStr)),
-          winner = wonBy.map(_.into(UserStr)),
-          loser = lostBy.map(_.into(UserStr)),
-          white = color.exists(_.white).option(user.id.into(UserStr)),
-          black = color.exists(_.black).option(user.id.into(UserStr))
+          a = user.id.some,
+          b = vs.map(_.id),
+          winner = wonBy,
+          loser = lostBy,
+          white = color.exists(_.white).option(user.id),
+          black = color.exists(_.black).option(user.id)
         ),
         analysed = analysed,
         sort = toSorting.some

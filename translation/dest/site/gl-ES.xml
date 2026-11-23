@@ -704,7 +704,7 @@ Amizades xogando: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuíto (%2$s), libre, e sen publicidade.</string>
   <string name="really">de verdade</string>
   <string name="lichessUpdates">Canle de Lichess</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Todas as actualizacións</string>
+  <string name="allUpdates">Todas as actualizacións</string>
   <string name="contribute">Contribuír</string>
   <string name="changelog">Rexistro de cambios</string>
   <string name="termsOfService">Termos do Servizo</string>

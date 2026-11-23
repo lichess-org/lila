@@ -68,6 +68,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="releaseTheAccount">Vapauta käyttäjätunnus, jotta oppilas voi hallita sitä itsenäisesti.</string>
   <string name="releaseDesc1">Vapautettua käyttäjätunnusta ei voi myöhemmin enää ottaa hallintaan. Oppilas voi itsenäisesti kytkeä lapsitilan pois päältä ja nollata salasanan.</string>
   <string name="releaseDesc2">Oppilas pysyy luokassa senkin jälkeen, kun käyttäjätunnus on vapautettu.</string>
+  <string name="realUniqueEmail">Oppilaan aito ja uniikki sähköpostiosoite. Lähetämme siihen vahvistussähköpostin, jossa on linkki, jolla voi vapauttaa käyttäjätilin. Linkki vanhenee 10 minuutissa.</string>
   <string name="closeStudent">Sulje tunnus</string>
   <string name="closeTheAccount">Sulje oppilaan tunnus pysyvästi.</string>
   <string name="closeDesc1">Oppilaasi ei voi enää koskaan käyttää tätä tunnusta. Sulkeminen on lopullinen. Varmistathan, että oppilaasi ymmärtää ja hyväksyy tämän.</string>

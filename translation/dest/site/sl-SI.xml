@@ -756,7 +756,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je brezplačen (%2$s), svoboden, brez oglasov, odprtokoden šahovski strežnik.</string>
   <string name="really">resnično</string>
   <string name="lichessUpdates">Vir Lichess</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Vse posodobitve</string>
+  <string name="allUpdates">Vse posodobitve</string>
   <string name="contribute">Prispevaj</string>
   <string name="termsOfService">Pogoji uporabe</string>
   <string name="titleVerification">Preverjanje naslova</string>

@@ -668,7 +668,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
   <string name="really">完全</string>
   <string name="lichessUpdates">Lichess 动态</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">全部动态</string>
+  <string name="allUpdates">全部动态</string>
   <string name="contribute">协助我们</string>
   <string name="changelog">更新日志</string>
   <string name="termsOfService">服务条款</string>

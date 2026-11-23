@@ -667,7 +667,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="lichessUpdates">Lichess フィード</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">すべてのアップデート</string>
+  <string name="allUpdates">すべてのアップデート</string>
   <string name="contribute">力を貸す</string>
   <string name="changelog">変更ログ</string>
   <string name="termsOfService">利用規約（英文）</string>

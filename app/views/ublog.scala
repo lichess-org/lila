@@ -11,7 +11,7 @@ import lila.ublog.UblogPost
 
 lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi, views.mod.ui.menu("carousel"), picfitUrl)
 
-private lazy val structured = lila.ublog.ui.UblogStructuredData(helpers, netConfig)
+private lazy val structured = lila.ublog.ui.UblogStructuredData(helpers, netConfig, structuredData)
 
 lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui, structured)(connectLinks = views.bits.connectLinks)
 

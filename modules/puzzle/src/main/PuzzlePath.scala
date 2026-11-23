@@ -15,7 +15,7 @@ object PuzzlePath:
 
     private[puzzle] def tier = PuzzleTier.from(~parts.lift(1))
 
-    def angle = PuzzleAngle.findOrMix(~parts.headOption)
+    def angle = PuzzleAngle.findOrMix(parts.headOption) | PuzzleAngle.mix
 
   given Iso.StringIso[Id] = Iso.string(Id.apply, _.value)
 

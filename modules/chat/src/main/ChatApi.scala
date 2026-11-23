@@ -149,7 +149,7 @@ final class ChatApi(
         .so: reason =>
           timeout(
             chatId = data.roomId.into(ChatId),
-            userId = data.userId.id,
+            userId = data.userId,
             reason = reason,
             scope = ChatTimeout.Scope.Global,
             text = data.text,
@@ -192,13 +192,8 @@ final class ChatApi(
               publishLine(chat.id, l, busChan)
             if isMod || isRelayMod then
               Bus.pub:
-                lila.core.mod.ChatTimeout(
-                  mod = mod.userId,
-                  user = user.id,
-                  reason = reason,
-                  text = text
-                )
-            if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
+                lila.core.mod.ChatTimeout(mod = mod.userId, user = user.id, reason = reason, text = text)
+              if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat = c.markDeleted(user)

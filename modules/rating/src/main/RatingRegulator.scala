@@ -6,13 +6,13 @@ import chess.rating.glicko.Glicko
 object RatingRegulator:
 
   private val factors = Map(
-    PerfKey.rapid -> 1.015,
-    PerfKey.classical -> 1.010,
-    PerfKey.blitz -> 1.005,
+    PerfKey.rapid -> 1.025,
+    PerfKey.classical -> 1.020,
+    PerfKey.blitz -> 1.010,
     PerfKey.bullet -> 1.010,
-    PerfKey.ultraBullet -> 1.013,
-    PerfKey.atomic -> 1.02,
-    PerfKey.antichess -> 1.02
+    PerfKey.ultraBullet -> 1.010,
+    PerfKey.atomic -> 1.020,
+    PerfKey.antichess -> 1.020
   )
 
   def apply(

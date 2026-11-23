@@ -236,8 +236,8 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-country",
-                  country.fold(trans.coach.allCountries.txt())(flagApi.name),
-                  ((allFlags, trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
+                  country.fold(trans.coach.allRegions.txt())(flagApi.name),
+                  ((allFlags, trans.coach.allRegions.txt()) :: countries.value).map: (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
                       cls := (code == country.fold("all")(_.code)).option("current")

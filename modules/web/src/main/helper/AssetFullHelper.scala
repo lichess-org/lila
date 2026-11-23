@@ -1,6 +1,7 @@
 package lila.web
 package ui
-import play.api.libs.json.JsValue
+
+import play.api.libs.json.{ JsValue, JsObject }
 
 import lila.core.config.NetConfig
 import lila.core.data.SafeJsonStr
@@ -56,3 +57,7 @@ trait AssetFullHelper:
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
+
+  def structuredData(json: JsObject): Frag =
+    st.script(tpe := "application/ld+json"):
+      raw(lila.common.String.html.safeJsonValue(json).value)

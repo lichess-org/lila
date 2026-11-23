@@ -402,13 +402,13 @@ class LocalAnalysisDialog {
   private analysisInfo(info: AnalysisEngineInfo): LooseVNodes {
     const isPublished = info === this.ctrl.publishedEvalEngine;
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
-    const splitVersion = info.engineVersion.split('/');
+    const splitVersion = info.version.split('/');
     const isFishnet = splitVersion.length === 3;
-    const engineName = isFishnet ? splitVersion[1] : info.engineVersion;
+    const engineName = isFishnet ? splitVersion[1] : info.version;
     const [clearText, clearClick] = isLocal
       ? [i18n.study.clearLocal, this.clickClearLocal]
       : [i18n.study.clearPublished, this.clickClearPublished];
-    const provenance = isFishnet ? 'Fishnet' : isLocal ? i18n.localAnalysis.local : i18n.site.by(info.userId);
+    const provenance = isLocal ? i18n.localAnalysis.local : 'Fishnet';
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="info-line">

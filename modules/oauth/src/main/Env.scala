@@ -3,6 +3,7 @@ package lila.oauth
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
+import scalalib.net.UserAgent
 
 import lila.core.config.{ BaseUrl, CollName }
 import lila.core.data.Strings
@@ -33,5 +34,19 @@ final class Env(
   lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userApi)
 
   lazy val server = wire[OAuthServer]
+
+  def makeToken(raw: AccessTokenRequest.Raw, legacy: Boolean)(using req: Req)(using UserAgent) =
+    import cats.mtl.Handle.*
+    allow:
+      for
+        prepared <-
+          if legacy
+          then raw.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)).raiseIfLeft
+          else raw.prepare.raiseIfLeft
+        granted <- authorizationApi.consume(prepared)
+        token <- tokenApi.create(granted)
+      yield Right(AccessToken.json.token(token, legacy = true))
+    .rescue: err =>
+      fuccess(Left(err.toJson))
 
 trait OriginBlocklist

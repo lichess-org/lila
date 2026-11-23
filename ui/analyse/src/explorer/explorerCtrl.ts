@@ -82,6 +82,8 @@ export default class ExplorerCtrl {
 
   isAuth = () => defined(myUserId());
 
+  requiresAuth = () => this.config.data.db() !== 'masters' && !this.isAuth();
+
   reload = () => {
     this.directInteraction = true;
     this.cache = {};
@@ -176,7 +178,7 @@ export default class ExplorerCtrl {
     this.gameMenu(null);
     const node = this.root.node;
     if (
-      (!this.isAuth() || node.ply >= MAX_ANALYSE_DEPTH) &&
+      (this.requiresAuth() || node.ply >= MAX_ANALYSE_DEPTH) &&
       !this.tablebaseRelevant(this.effectiveVariant, node.fen)
     )
       this.cache[node.fen] = this.empty;

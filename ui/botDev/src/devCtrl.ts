@@ -1,5 +1,6 @@
 import { defined, type Prop } from 'lib';
 import { shuffle } from 'lib/algo';
+import { stringify } from 'lib/bot/bot';
 import type { BotInfo, LocalSpeed } from 'lib/bot/types';
 import { statusOf } from 'lib/game';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
@@ -91,8 +92,8 @@ export class DevCtrl implements GameObserver {
       this.trace.push(
         `\n${white} vs ${black} ${env.game.speed} ${env.game.initial ?? ''}` +
           `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.live.initialFen}`,
-        `\nWhite: '${white}' ${env.bot.white ? this.stringify(env.bot.white) : ''}`,
-        `Black: '${black}' ${env.bot.black ? this.stringify(env.bot.black) : ''}`,
+        `\nWhite: '${white}' ${env.bot.white ? stringify(env.bot.white) : ''}`,
+        `Black: '${black}' ${env.bot.black ? stringify(env.bot.black) : ''}`,
       );
     }
     if (ply % 2 === 0) this.trace.push(`\n ${'-'.repeat(64)} Move ${ply / 2 + 1} ${'-'.repeat(64)}`);
@@ -228,9 +229,5 @@ export class DevCtrl implements GameObserver {
 
   private get testInProgress(): boolean {
     return this.script.games.length !== 0;
-  }
-
-  private stringify(obj: BotInfo) {
-    return JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
   }
 }

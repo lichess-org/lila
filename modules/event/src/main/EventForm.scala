@@ -22,7 +22,7 @@ final class EventForm(langList: LangList):
       "enabled" -> boolean,
       "startsAt" -> PrettyDateTime.mapping,
       "finishesAt" -> PrettyDateTime.mapping,
-      "hostedBy" -> optional(lila.common.Form.username.historicalField),
+      "hostedBy" -> optional(lila.common.Form.username.idField),
       "icon" -> stringIn(icon.choices),
       "countdown" -> boolean
     )(Data.apply)(unapply)
@@ -64,7 +64,7 @@ object EventForm:
       enabled: Boolean,
       startsAt: LocalDateTime,
       finishesAt: LocalDateTime,
-      hostedBy: Option[UserStr] = None,
+      hostedBy: Option[UserId] = None,
       icon: String = "",
       countdown: Boolean
   ):
@@ -80,7 +80,7 @@ object EventForm:
         enabled = enabled,
         startsAt = startsAt.instant,
         finishesAt = finishesAt.instant,
-        hostedBy = hostedBy.map(_.id),
+        hostedBy = hostedBy,
         icon = icon.nonEmptyOption,
         countdown = countdown,
         updatedAt = nowInstant.some,
@@ -103,7 +103,7 @@ object EventForm:
         createdAt = nowInstant,
         updatedAt = none,
         updatedBy = none,
-        hostedBy = hostedBy.map(_.id),
+        hostedBy = hostedBy,
         icon = icon.nonEmptyOption,
         countdown = countdown
       )
@@ -121,7 +121,7 @@ object EventForm:
         enabled = event.enabled,
         startsAt = event.startsAt.dateTime,
         finishesAt = event.finishesAt.dateTime,
-        hostedBy = event.hostedBy.map(_.into(UserStr)),
+        hostedBy = event.hostedBy,
         icon = ~event.icon,
         countdown = event.countdown
       )

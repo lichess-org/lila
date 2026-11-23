@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Otseülekanded</string>
+  <string name="myBroadcasts">Minu ülekanded</string>
+  <plurals name="nbViewers">
+    <item quantity="one">%s vaataja</item>
+    <item quantity="other">%s vaatajat</item>
+  </plurals>
   <string name="liveBroadcasts">Otseülekanded turniirilt</string>
+  <string name="broadcastCalendar">Ülekannete kalender</string>
   <string name="newBroadcast">Uus otseülekanne</string>
+  <string name="subscribedBroadcasts">Tellitud ülekanded</string>
+  <string name="aboutBroadcasts">Ülekannetest</string>
+  <string name="howToUseLichessBroadcasts">Kuidas kasutada Lichessi otseülekandeid.</string>
+  <string name="theNewRoundHelp">Uues voorus osalevad samad liikmed ja toetajad kui eelmiseski.</string>
   <string name="addRound">Lisa voor</string>
   <string name="ongoing">Käimas</string>
   <string name="upcoming">Tulemas</string>
@@ -11,11 +21,57 @@
   <string name="tournamentDescription">Lühike turniiri kirjeldus</string>
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
   <string name="fullDescriptionHelp">Valikuline otseülekande kirjeldus. %1$s on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
+  <string name="sourceSingleUrl">PGN-allika URL</string>
   <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
+  <string name="sourceGameIds">Kuni 64 Lichessi mängu ID-d, eraldatud tühikutega.</string>
+  <string name="startDateTimeZone">Turniiri alguskuupäev kohaliku ajavööndi järgi: %s</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="currentGameUrl">Praeguse mängu URL</string>
   <string name="downloadAllRounds">Lae alla kõik voorud</string>
   <string name="resetRound">Lähtesta see voor</string>
   <string name="deleteRound">Kustuta see voor</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Kas kustutada see voor ja kõik selle mängud jäädavalt?</string>
   <string name="deleteAllGamesOfThisRound">Kustuta kõik mängud sellest voorust. Allikas peab olema aktiveeritud nende taastamiseks.</string>
+  <string name="editRoundStudy">Vooru uuringu muutmine</string>
+  <string name="deleteTournament">Kustuta see turniir</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Kas kustutada see turniir jäädavalt, sealhulgas kõik voorud ja mängud?</string>
+  <string name="showScores">Näita mängijate punkte mängutulemuste põhjal</string>
+  <string name="replacePlayerTags">Valikuline: asenda mängijate nimed, reitingud ja tiitlid</string>
+  <string name="fideFederations">FIDE föderatsioonid</string>
+  <string name="top10Rating">Top 10 edetabel</string>
+  <string name="fidePlayers">FIDE mängijad</string>
+  <string name="fidePlayerNotFound">FIDE mängijat ei leitud</string>
+  <string name="fideProfile">FIDE profiil</string>
+  <string name="federation">Föderatsioon</string>
+  <string name="age">Vanus</string>
+  <string name="unrated">Reitinguta</string>
+  <string name="recentTournaments">Hiljutised turniirid</string>
+  <string name="openLichess">Ava Lichessis</string>
+  <string name="teams">Võistkonnad</string>
+  <string name="boards">Lauad</string>
+  <string name="overview">Ülevaade</string>
+  <string name="subscribeTitle">Telli teavitused, et saada teada, millal iga voor algab. Oma konto seadetes saad hallata ülekannetega seotud heli- või tõuketeavitusi.</string>
+  <string name="uploadImage">Laadi üles turniiri pilt</string>
+  <string name="noBoardsYet">Mängulauad veel puuduvad. Need ilmuvad, kui mängud on üles laaditud.</string>
+  <string name="noPlayersYet">Mängijaid pole veel. Need ilmuvad, kui mängud on üles laaditud.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudu saab laadida allikast või %s kaudu</string>
+  <string name="startsAfter">Algab pärast %s</string>
+  <string name="startVerySoon">Ülekanne algab juba varsti.</string>
+  <string name="notYetStarted">Ülekanne pole veel alanud.</string>
+  <string name="officialWebsite">Ametlik veebileht</string>
+  <string name="officialStandings">Ametlikud tulemused</string>
+  <string name="regulations">Regulatsioonid</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Rohkem valikuid lehel %s.</string>
+  <string name="webmastersPage">Veebihalduri leht</string>
+  <string name="embedThisBroadcast">Manusta see ülekanne oma veebilehele</string>
+  <string name="ratingDiff">Reitingu erinevus</string>
+  <string name="gamesThisTournament">Mängud sellel turniiril</string>
+  <string name="score">Skoor</string>
+  <string name="standingsDisclaimer">Edetabel arvutatakse ülekantud mängude põhjal ja võib erineda ametlikest tulemustest.</string>
+  <string name="allTeams">Kõik võistkonnad</string>
+  <string name="tournamentFormat">Turniiri formaat</string>
+  <string name="tournamentLocation">Sündmuse asukoht</string>
+  <string name="topPlayers">Parimad mängijad</string>
+  <string name="timezone">Ajavöönd</string>
+  <string name="fideRatingCategory">FIDE reitingukategooria</string>
 </resources>

@@ -1,5 +1,4 @@
 package lila.puzzle
-import chess.format.{ BoardFen, Uci }
 import scalalib.ThreadLocalRandom.odds
 
 import lila.core.misc.puzzle.DailyChange
@@ -29,18 +28,11 @@ final private[puzzle] class DailyPuzzle(
         logger.error("find daily", e)
         none
       }
-      .flatMapz(makeDaily)
-
-  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] =
-    lila.common.Bus
-      .ask[Html, DailyPuzzle.Render]:
-        DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
-      .map: html =>
-        DailyPuzzle.WithHtml(puzzle, html).some
-      .recover { case e: Exception =>
-        logger.warn("make daily", e)
-        none
-      }
+      .map2: puzzle =>
+        import lila.ui.ChessHelper.*
+        import scalatags.Text.all.span
+        val ui = chessgroundMini(puzzle.fenAfterInitialMove.board, puzzle.color, puzzle.line.head.some)(span)
+        DailyPuzzle.WithHtml(puzzle, Html(ui))
 
   private def findCurrent = colls.puzzle:
     _.find(bdoc(F.day.gt(nowInstant.minusDays(1))))
@@ -106,5 +98,3 @@ object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
   case class WithHtml(puzzle: Puzzle, html: Html)
-
-  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[Html])

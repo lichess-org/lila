@@ -53,10 +53,7 @@ object account:
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
   val security = lila.security.ui.AccountSecurity(helpers)(ui.AccountPage)
 
-val practice = lila.practice.ui.PracticeUi(helpers)(
-  csp = analyse.ui.bits.cspExternalEngine,
-  views.analyse.ui.explorerAndCevalConfig
-)
+val practice = lila.practice.ui.PracticeUi(helpers)(analyse.ui.bits.cspExternalEngine, analyseEndpoints)
 
 object forum:
   import lila.forum.ui.*
@@ -92,3 +89,5 @@ val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 def mobile(using Context) = lila.web.ui.mobile(helpers)
 
 val recap = lila.recap.ui.RecapUi(helpers)
+
+val insight = lila.insight.ui.InsightUi(helpers)
