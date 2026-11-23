@@ -137,7 +137,12 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl(
                 'td',
                 [game.white, game.black].map(p =>
-                  hl('div', [p.title ? hl('span.utitle', p.title + ' ') : null, hl('span', p.name)]),
+                  hl('div', [
+                    p.title
+                      ? hl('span.utitle', { attrs: { 'data-bot': p.title === 'BOT' } }, p.title + '\xa0')
+                      : null,
+                    p.name,
+                  ]),
                 ),
               ),
               hl('td', showResult(game.winner)),

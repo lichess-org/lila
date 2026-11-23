@@ -12,12 +12,13 @@ final class RacerApi(
     selector: StormSelector,
     userApi: lila.core.user.UserApi,
     cacheApi: CacheApi,
+    mongoCache: lila.memo.MongoCache.Api,
     lightUser: LightUser.GetterSyncFallback
 )(using Executor)(using scheduler: Scheduler):
 
   import RacerRace.Id
 
-  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race"):
+  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](1024, "racer.race"):
     _.expireAfterAccess(30.minutes).build()
 
   def get(id: Id): Option[RacerRace] = store.getIfPresent(id)
@@ -45,6 +46,7 @@ final class RacerApi(
           countdown = countdown
         )
       store.put(race.id, race)
+      mongoCache.put(s"racer.race.${race.id}", true, nowInstant.plusHours(1).some) // for lila-ws
       lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
 

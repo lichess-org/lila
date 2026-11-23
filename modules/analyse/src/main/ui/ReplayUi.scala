@@ -97,7 +97,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
               "chat" -> chatOption._1F
             )
             .add("hunter" -> Granter.opt(_.ViewBlurs)) ++
-            analyseUi.explorerAndCevalConfig
+            analyseUi.endpoints.json
         )
       .graph(graph):
         frag(

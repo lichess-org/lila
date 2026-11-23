@@ -1,0 +1,73 @@
+@mixin leaderboard($list-width: 34ch) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($list-width, 1fr));
+  gap: 1em;
+
+  section[class$='__item'] {
+    @extend %box-radius;
+
+    overflow: hidden;
+    border: $border;
+
+    .user-link {
+      @extend %ellipsis;
+    }
+
+    > a {
+      h2::after {
+        @extend %data-icon;
+
+        content: $licon-GreaterThan;
+        margin-left: auto;
+        margin-right: 12px;
+        color: $c-font-dimmer;
+        font-size: 16px;
+        opacity: 0;
+      }
+
+      &:hover {
+        h2::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  h2 {
+    @extend %flex-center-nowrap, %nowrap-hidden, %metal-bg;
+
+    width: 100%;
+    font-size: 1.45em;
+    line-height: 2.5em;
+    padding-inline-start: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: $c-font;
+
+    &::before {
+      color: $c-brag;
+      font-size: 1.6em;
+    }
+  }
+
+  ol {
+    border-top: $border;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  li {
+    @include padding-direction(0.7rem, 1.2rem, 0.7rem, 0.5rem);
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+
+  li:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+}

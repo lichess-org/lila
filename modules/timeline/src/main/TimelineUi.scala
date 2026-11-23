@@ -27,6 +27,12 @@ final class TimelineUi(helpers: Helpers):
                 tr(td(renderEntry(e)))
         )
 
+  def lobby(tl: Vector[Entry])(using ctx: Context) =
+    div(cls := "lobby__timeline")(
+      ctx.blind.option(h2(trans.site.timeline())),
+      entries(tl)
+    )
+
   private def filterEntries(entries: Vector[Entry])(using ctx: Context) =
     if ctx.kid.no then entries
     else entries.filter(_.okForKid)

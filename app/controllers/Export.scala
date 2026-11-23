@@ -90,4 +90,5 @@ final class Export(env: Env) extends LilaController(env):
         .publicCache(cache)
         .as("image/gif")
         .asAttachmentStream(filename)
-    .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }
+    .recover:
+      case lila.game.GifExport.UpstreamStatus(code) => Status(code)

@@ -8,21 +8,11 @@ import play.api.libs.json.*
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
+final class AnalyseUi(helpers: Helpers)(val endpoints: AnalyseEndpoints):
   import helpers.{ *, given }
 
   def miniSpan(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None) =
     chessgroundMini(fen, color, lastMove)(span)
-
-  def explorerAndCevalConfig(using ctx: Context) =
-    Json.obj(
-      "explorer" -> Json.obj(
-        "endpoint" -> endpoints.explorer,
-        "tablebaseEndpoint" -> endpoints.tablebase,
-        "showRatings" -> ctx.pref.showRatings
-      ),
-      "externalEngineEndpoint" -> endpoints.externalEngine
-    )
 
   def userAnalysis(
       data: JsObject,
@@ -49,7 +39,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
               "wiki" -> hasWiki
             )
             .add("inlinePgn", inlinePgn) ++
-            explorerAndCevalConfig
+            endpoints.json
         )
       .i18n(_.study)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
