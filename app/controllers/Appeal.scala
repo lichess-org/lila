@@ -12,7 +12,14 @@ import lila.report.Suspect
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
-  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, userMessageForm, modMessageForm }
+  import lila.appeal.AppealEventForm.{
+    kindForm,
+    choiceForm,
+    userFreeResponseForm,
+    modFreeResponseForm,
+    userMessageForm,
+    modMessageForm
+  }
   import lila.appeal.AppealMsg.Kind
 
   def home = Auth { _ ?=> me ?=>
@@ -89,8 +96,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         _ => BadRequest,
         {
           case Kind.choice => handleChoice(appeal, asMod)
+          case Kind.freeResponse => handleFreeResponse(appeal, asMod)
           case Kind.message => handleMessage(appeal, asMod)
-          case _ => BadRequest
+          case Kind.action => BadRequest
         }
       )
 
@@ -100,7 +108,18 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       data =>
         for
           r <- env.appeal.api.postChoiceEvent(appeal, data)
-          _ <- (asMod && r.exists(a => a.isClosed || a.awaitingUserChoice))
+          _ <- (asMod && r.exists(a => a.isClosed || a.awaitingUser))
+            .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+        yield r.fold(BadRequest)(_ => eventRedirect(appeal, asMod))
+    )
+
+  private def handleFreeResponse(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    bindForm(if asMod then modFreeResponseForm else userFreeResponseForm)(
+      _ => BadRequest,
+      data =>
+        for
+          r <- env.appeal.api.postFreeResponseEvent(appeal, data)
+          _ <- (asMod && r.exists(a => a.isClosed || a.awaitingUser))
             .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
         yield r.fold(BadRequest)(_ => eventRedirect(appeal, asMod))
     )

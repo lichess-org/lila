@@ -17,6 +17,7 @@ private object BsonHandlers:
 
   given legacyHandler: BSONDocumentHandler[LegacyMessage] = Macros.handler
   given choiceHandler: BSONDocumentHandler[ChoiceEvent] = Macros.handler
+  given freeResponseHandler: BSONDocumentHandler[FreeResponseEvent] = Macros.handler
   given messageHandler: BSONDocumentHandler[MessageEvent] = Macros.handler
   given actionHandler: BSONDocumentHandler[ActionEvent] = Macros.handler
 
@@ -25,6 +26,7 @@ private object BsonHandlers:
       r.strO("kind").flatMap(Kind.apply) match
         case None => legacyHandler.readTry(r.doc).get
         case Some(Kind.choice) => choiceHandler.readTry(r.doc).get
+        case Some(Kind.freeResponse) => freeResponseHandler.readTry(r.doc).get
         case Some(Kind.message) => messageHandler.readTry(r.doc).get
         case Some(Kind.action) => actionHandler.readTry(r.doc).get
     def writes(w: BSON.Writer, msg: AppealMsg) =
@@ -32,6 +34,7 @@ private object BsonHandlers:
         case m: LegacyMessage => legacyHandler.writeTry(m).get
         case m: MessageEvent => messageHandler.writeTry(m).get
         case m: ChoiceEvent => choiceHandler.writeTry(m).get
+        case m: FreeResponseEvent => freeResponseHandler.writeTry(m).get
         case m: ActionEvent => actionHandler.writeTry(m).get
       msg.kind.fold(doc)(k => doc ++ bdoc("kind" -> k.key))
 

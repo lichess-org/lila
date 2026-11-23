@@ -16,14 +16,26 @@ enum AppealEffect:
 sealed trait AppealNode:
   def id: NodeId
 
+sealed trait QuestionNode extends AppealNode:
+  def answerer: Answerer
+  def question: String
+
 case class ChoiceNode(
     id: NodeId,
     answerer: Answerer,
     question: String,
     branches: NonEmptyList[AnswerBranch]
-) extends AppealNode:
+) extends QuestionNode:
   def hasAnswer(answerId: AnswerId) = branches.exists(_.id == answerId)
   def getAnswerBranch(answerId: AnswerId) = branches.find(_.id == answerId)
+
+case class FreeResponseNode(
+    id: NodeId,
+    answerer: Answerer,
+    question: String,
+    nextNodeId: NodeId
+) extends QuestionNode
+
 case class ActionNode(
     id: NodeId,
     text: String,
@@ -38,30 +50,31 @@ case class AppealFlow(rootId: NodeId, nodes: Map[NodeId, AppealNode]):
 object AppealFlow:
 
   def rootNodeAnswerer(topic: AppealTopic) =
-    appealFlows.get(topic).map(_.root).collect { case cn: ChoiceNode => cn.answerer }
+    appealFlows.get(topic).map(_.root).collect { case q: QuestionNode => q.answerer }
 
   def findNodeById(topic: AppealTopic, id: NodeId): Option[AppealNode] = appealFlows
     .get(topic)
     .flatMap(_.nodes.get(id))
 
   def nextNode(appeal: Appeal): Option[AppealNode] =
-    if appeal.msgs.isEmpty then appealFlows.get(appeal.topic).map(_.root)
-    else
-      appeal.msgs.lastOption.so:
-        case event: ChoiceEvent =>
-          appealFlows
-            .get(appeal.topic)
-            .flatMap: flow =>
-              flow.nodes
-                .get(event.nodeId)
-                .so:
-                  case cn: ChoiceNode =>
-                    cn.branches
-                      .find(_.id == event.answerId)
-                      .flatMap: branch =>
-                        flow.nodes.get(branch.nextNodeId)
-                  case _ => none
+    appealFlows
+      .get(appeal.topic)
+      .flatMap: flow =>
+        if appeal.msgs.isEmpty then flow.root.some
+        else appeal.msgs.lastOption.flatMap(nextNodeId(flow, _)).flatMap(flow.nodes.get)
+
+  private def nextNodeId(flow: AppealFlow, msg: AppealMsg): Option[NodeId] = msg match
+    case event: ChoiceEvent =>
+      flow.nodes.get(event.nodeId) match
+        case Some(cn: ChoiceNode) => cn.getAnswerBranch(event.answerId).map(_.nextNodeId)
         case _ => none
+    case event: FreeResponseEvent =>
+      flow.nodes.get(event.nodeId) match
+        case Some(rn: FreeResponseNode) => rn.nextNodeId.some
+        case _ => none
+    case _: ActionEvent => none
+    case _: MessageEvent => none
+    case _: LegacyMessage => none
 
   private def make(appealNodes: NonEmptyList[AppealNode]) =
     AppealFlow(appealNodes.head.id, appealNodes.toList.mapBy(_.id))
@@ -84,7 +97,7 @@ Did you ever get help from a chess engine during a game?""",
             AnswerBranch(
               AnswerId("no"),
               "No, I deny having used external assistance in my games.",
-              NodeId("is-mark-valid")
+              NodeId("additional-context")
             )
           )
         ),
@@ -96,6 +109,12 @@ Did you ever get help from a chess engine during a game?""",
             AnswerBranch(AnswerId("yes"), "Yes", NodeId("wait-6-months")),
             AnswerBranch(AnswerId("no"), "No", NodeId("second-chance"))
           )
+        ),
+        FreeResponseNode(
+          NodeId("additional-context"),
+          Answerer.User,
+          "Please provide additional context.",
+          NodeId("is-mark-valid")
         ),
         ChoiceNode(
           NodeId("is-mark-valid"),

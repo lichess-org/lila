@@ -82,25 +82,30 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
 
   private def isFlowMsg(msg: AppealMsg) = msg match
     case _: ChoiceEvent => true
+    case _: FreeResponseEvent => true
     case _: ActionEvent => true
     case _: MessageEvent => false
     case _: LegacyMessage => false
 
   private def userNextNode(appeal: Appeal)(using Context, Me) =
     AppealFlow.nextNode(appeal) match
-      case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
-        choiceForm(appeal, cn)
-      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod =>
+      case Some(q: QuestionNode) if q.answerer == Answerer.Mod =>
         p(cls := "line-center-text"):
           "Your appeal is under review. You will receive a message when there is an update."
+      case Some(cn: ChoiceNode) => choiceForm(appeal, cn)
+      case Some(rn: FreeResponseNode) => freeResponseForm(appeal, rn)
       case _ => appeal.canAddMsg.so(userMessageForm(appeal))
 
-  private def modNextNode(appeal: Appeal, modData: ModData)(using me: Me) =
+  private def modNextNode(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) =>
         div(cls := "appeal__next"):
           if cn.answerer == Answerer.User then pendingUserChoice(appeal, cn)
           else choiceForm(appeal, cn, enabled = me.is(modData.inquiryBy), preview = true)
+      case Some(rn: FreeResponseNode) =>
+        div(cls := "appeal__next"):
+          if rn.answerer == Answerer.User then pendingUserFreeResponse(rn)
+          else freeResponseForm(appeal, rn, enabled = me.is(modData.inquiryBy))
       case _ => emptyFrag
 
   private def userMessageForm(appeal: Appeal)(using Context): Frag =
@@ -185,6 +190,41 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         )
     )
 
+  private def freeResponseForm(appeal: Appeal, node: FreeResponseNode, enabled: Boolean = true)(using
+      ctx: Context,
+      me: Me
+  ) =
+    val isMod = me.isnt(appeal.user)
+    val form = if isMod then AppealEventForm.modFreeResponseForm else AppealEventForm.userFreeResponseForm
+    postForm(
+      cls := "appeal__free-response",
+      action := (if isMod then routes.Appeal.modEvent(appeal.user, appeal.topic)
+                 else routes.Appeal.userEvent(appeal.topic))
+    )(
+      p(cls := "appeal__free-response__question")(node.question),
+      form3.hidden("kind", AppealMsg.Kind.freeResponse.toString),
+      form3.hidden("nodeId", node.id),
+      form3.group(
+        form("freeResponse"),
+        "",
+        help = (!isMod).option(frag("Please be concise. Maximum 1000 chars."))
+      )(field =>
+        form3.textarea(field)(
+          rows := 6,
+          (!isMod).option(maxlength := Appeal.maxLength),
+          (!enabled).option(disabled := true)
+        )
+      ),
+      form3.action:
+        form3.submit("Send")((!enabled).option(disabled := true))
+    )
+
+  private def pendingUserFreeResponse(node: FreeResponseNode) =
+    div(cls := "appeal__free-response appeal__free-response--pending")(
+      p(cls := "appeal__free-response__waiting")("Awaiting the user's response"),
+      p(cls := "appeal__free-response__question")(node.question)
+    )
+
   private def pendingUserChoice(appeal: Appeal, cn: ChoiceNode) =
     div(cls := "appeal__choice appeal__choice--pending")(
       p(cls := "appeal__choice__waiting")("Awaiting the user's answer"),
@@ -210,9 +250,9 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       case head :: tail => head :: between :: interleave(tail, between)
 
   private def nextNodePreview(appeal: Appeal, branch: AnswerBranch): Frag =
-    AppealFlow.findNodeById(appeal.topic, branch.nextNodeId).fold(emptyFrag)(nodePreview)
+    AppealFlow.findNodeById(appeal.topic, branch.nextNodeId).fold(emptyFrag)(nodePreview(appeal))
 
-  private def nodePreview(node: AppealNode): Frag =
+  private def nodePreview(appeal: Appeal)(node: AppealNode): Frag =
     node match
       case cn: ChoiceNode =>
         val (modifier, who) = cn.answerer match
@@ -225,6 +265,14 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             cn.branches.toList.map: b =>
               div(cls := "appeal__choice__preview__answer")(b.answer)
           )
+        )
+      case rn: FreeResponseNode =>
+        val (modifier, who) = rn.answerer match
+          case Answerer.User => ("user", "User will write a response")
+          case Answerer.Mod => ("mod", "Moderator will write a response")
+        div(cls := "appeal__choice__followup")(
+          previewBox(modifier, who, rn.question),
+          AppealFlow.findNodeById(appeal.topic, rn.nextNodeId).fold(emptyFrag)(nodePreview(appeal))
         )
       case an: ActionNode =>
         div(cls := "appeal__choice__followup")(

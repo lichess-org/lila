@@ -79,7 +79,10 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
   def event(appeal: Appeal)(event: AppealMsg)(using Context, Me) =
     event match
       case e: ChoiceEvent => choiceEvent(appeal, e)
-      case _ => messageEvent(appeal)(event)
+      case e: FreeResponseEvent => freeResponseEvent(appeal, e)
+      case e: ActionEvent => messageEvent(appeal)(e)
+      case e: MessageEvent => messageEvent(appeal)(e)
+      case e: LegacyMessage => messageEvent(appeal)(e)
 
   private def messageEvent(appeal: Appeal)(msg: AppealMsg)(using Context) =
     div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
@@ -89,6 +92,30 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
       ),
       div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
     )
+
+  private def freeResponseEvent(appeal: Appeal, event: FreeResponseEvent)(using ctx: Context, me: Me) =
+    val isMod = appeal.user.isnt(me)
+    if !isMod && event.by.isnt(me) then emptyFrag
+    else
+      val byMod = appeal.isByMod(event)
+      val side = if byMod then "mod" else "suspect"
+      div(cls := s"appeal__free-response-event appeal__free-response-event--$side")(
+        p(cls := "appeal__free-response-event__question")(
+          event.question,
+          byMod.option:
+            i(
+              cls := "appeal__free-response-event__moderator",
+              dataIcon := Icon.Agent,
+              titleOrText("This text is not visible to the user")
+            )
+        ),
+        div(cls := "appeal__free-response-event__text")(richText(event.response, expandImg = false)),
+        div(cls := "appeal__free-response-event__meta")(
+          userLink(appeal, event.by, asMod = isMod, wrapLichess = false),
+          span(" · "),
+          momentFromNowOnce(event.at)
+        )
+      )
 
   private def choiceEvent(appeal: Appeal, event: ChoiceEvent)(using ctx: Context, me: Me) =
     val isMod = appeal.user.isnt(me)
@@ -103,7 +130,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
             i(
               cls := "appeal__choice-event__moderator",
               dataIcon := Icon.Agent,
-              titleOrText("This is not visible to the user")
+              titleOrText("This text is not visible to the user")
             )
         ),
         div(cls := "appeal__choice-event__selection")(

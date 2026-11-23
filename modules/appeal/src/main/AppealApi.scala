@@ -4,7 +4,7 @@ import lila.appeal.Appeal.Id as AppealId
 import lila.common.Bus
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
-import lila.appeal.AppealEventForm.{ ChoiceData, MessageData }
+import lila.appeal.AppealEventForm.{ ChoiceData, MessageData, FreeResponseData }
 import lila.core.misc.appeal.AppealReply
 
 final class AppealApi(
@@ -45,25 +45,44 @@ final class AppealApi(
       postEvent(appeal, event).map(_.some)
 
   private def validateChoiceEvent(appeal: Appeal, data: ChoiceData)(using me: MyId): Option[ChoiceEvent] =
-    val expectedAnswerer = if appeal.user.isnt(me) then Answerer.Mod else Answerer.User
-    appeal.nextNode
-      .so:
-        case cn: ChoiceNode if cn.id == data.nodeId && cn.answerer == expectedAnswerer =>
-          cn.getAnswerBranch(data.answerId)
-            .map: b =>
-              ChoiceEvent(me, cn.id, cn.question, data.answerId, b.answer, nowInstant)
-        case _ => none
+    appeal.nextNode.so:
+      case cn: ChoiceNode if cn.id == data.nodeId && cn.answerer == answererOf(appeal) =>
+        cn.getAnswerBranch(data.answerId)
+          .map: b =>
+            ChoiceEvent(me, cn.id, cn.question, data.answerId, b.answer, nowInstant)
+      case _ => none
+
+  def postFreeResponseEvent(appeal: Appeal, data: FreeResponseData)(using me: MyId): Fu[Option[Appeal]] =
+    validateFreeResponseEvent(appeal, data).so: event =>
+      postEvent(appeal, event).map(_.some)
+
+  private def validateFreeResponseEvent(appeal: Appeal, data: FreeResponseData)(using
+      me: MyId
+  ): Option[FreeResponseEvent] =
+    appeal.nextNode.so:
+      case node: FreeResponseNode if node.id == data.nodeId && node.answerer == answererOf(appeal) =>
+        FreeResponseEvent(me, node.id, node.question, data.text, nowInstant).some
+      case _ => none
+
+  private def answererOf(appeal: Appeal)(using me: MyId) =
+    if appeal.user.is(me) then Answerer.User else Answerer.Mod
 
   def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
     postEvent(appeal, MessageEvent(me, data.text, nowInstant))
 
   private def postEvent(appeal: Appeal, event: AppealMsg): Fu[Appeal] =
-    val (advancedAppeal, effects) = autoAdvance(appeal.postEvent(event))
+    val (advancedAppeal, effects) = autoAdvance(withQueueStatus(appeal.postEvent(event)))
     for savedAppeal <- update(advancedAppeal)
     yield
       effects.foreach(publishEffect(savedAppeal, _))
       if savedAppeal.msgs.lastOption.exists(_.by != appeal.user) then Bus.pub(AppealReply(appeal.user))
       savedAppeal
+
+  private def withQueueStatus(appeal: Appeal): Appeal =
+    appeal.msgs.lastOption match
+      case Some(msg) if !appeal.isByMod(msg) && !appeal.muted =>
+        if appeal.awaitingUser then appeal.toggleRead(true) else appeal.unread
+      case _ => appeal
 
   private def autoAdvance(appeal: Appeal): (Appeal, List[AppealEffect]) =
     appeal.nextNode match

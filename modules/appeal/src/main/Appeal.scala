@@ -91,8 +91,8 @@ case class Appeal(
 
   def nextNode: Option[AppealNode] = AppealFlow.nextNode(this)
 
-  def awaitingUserChoice = nextNode match
-    case Some(cn: ChoiceNode) if cn.answerer == Answerer.User => true
+  def awaitingUser = nextNode match
+    case Some(q: QuestionNode) if q.answerer == Answerer.User => true
     case _ => false
 
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
@@ -156,6 +156,15 @@ case class ChoiceEvent(
 ) extends AppealMsg:
   def kind = AppealMsg.Kind.choice.some
   def text = s"${question}\n${answer}"
+case class FreeResponseEvent(
+    by: UserId,
+    nodeId: NodeId,
+    question: String,
+    response: String,
+    at: Instant
+) extends AppealMsg:
+  def kind = AppealMsg.Kind.freeResponse.some
+  def text = s"${question}\n${response}"
 case class MessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = AppealMsg.Kind.message.some
 case class ActionEvent(by: UserId, nodeId: NodeId, text: String, at: Instant) extends AppealMsg:
@@ -164,7 +173,7 @@ case class ActionEvent(by: UserId, nodeId: NodeId, text: String, at: Instant) ex
 object AppealMsg:
 
   enum Kind:
-    case choice, message, action
+    case choice, freeResponse, message, action
     def key = toString
   object Kind:
     def apply(key: String): Option[Kind] = values.find(_.key == key)

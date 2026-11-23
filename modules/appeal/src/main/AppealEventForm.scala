@@ -18,6 +18,15 @@ object AppealEventForm:
       "answerId" -> nonEmptyText.into[AnswerId]
     )(ChoiceData.apply)(unapply)
 
+  case class FreeResponseData(nodeId: NodeId, text: String)
+  private def makeFreeResponseForm(maxLength: Int) = Form:
+    mapping(
+      "nodeId" -> nonEmptyText.into[NodeId],
+      "freeResponse" -> cleanNonEmptyText(minLength = 2, maxLength = maxLength)
+    )(FreeResponseData.apply)(unapply)
+  val userFreeResponseForm = makeFreeResponseForm(Appeal.maxLength)
+  val modFreeResponseForm = makeFreeResponseForm(Int.MaxValue)
+
   case class MessageData(text: String, close: Option[Boolean] = None, dismiss: Option[Boolean] = None)
   private def makeMessageForm(maxLength: Int) = Form:
     mapping(
