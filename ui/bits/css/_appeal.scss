@@ -172,6 +172,8 @@
 
       &--spacer {
         visibility: hidden;
+        height: 0;
+        min-height: 0;
       }
     }
 
@@ -179,7 +181,7 @@
       @extend %flex-column;
 
       align-items: center;
-      height: 1.8em;
+      height: 1rem;
       color: $c-font-dim;
 
       &::before {
@@ -200,6 +202,10 @@
       @extend %flex-column;
 
       gap: 0.45em;
+
+      &--steps {
+        gap: 0;
+      }
     }
 
     &__preview {
@@ -244,9 +250,9 @@
       }
 
       &--effect {
-        border-style: solid;
+        padding: 0.45em 0.7em;
+        color: $c-font-dim;
         font-style: italic;
-        font-weight: 600;
         text-align: center;
       }
     }

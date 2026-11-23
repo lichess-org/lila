@@ -275,9 +275,11 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           AppealFlow.findNodeById(appeal.topic, rn.nextNodeId).fold(emptyFrag)(nodePreview(appeal))
         )
       case an: ActionNode =>
-        div(cls := "appeal__choice__followup")(
-          previewBox("action", "Message", an.text),
-          an.effects.map(effectBox)
+        div(cls := "appeal__choice__followup appeal__choice__followup--steps")(
+          interleave(
+            List[Frag](previewBox("action", "Message", an.text)) ++ an.effects.map(effectBox),
+            div(cls := "appeal__choice__arrow", aria.hidden := "true")
+          )
         )
 
   private def previewBox(modifier: String, kicker: String, body: String) =
