@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Areena</string>
   <string name="arenaTournaments">Areena turniirid</string>
   <string name="isItRated">Kas see mõjutab reitingut?</string>
   <string name="willBeNotified">Teid teavitatakse, kui turniir algab, seega võite seni, kuni ootate, julgelt teisel vahelehel mängida.</string>

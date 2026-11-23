@@ -3,13 +3,22 @@
   <string name="permPublicName">Публичная</string>
   <string name="permPublicDesc">Иметь статус руководителя на странице клуба</string>
   <string name="permSettingsName">Настройки</string>
+  <string name="permSettingsDesc">Менять настройки и описание клуба</string>
   <string name="permTourName">Турниры</string>
+  <string name="permTourDesc">Создавать, управлять и вступать в турниры клуба</string>
+  <string name="permCommName">Моделирование</string>
   <string name="permCommDesc">Моделировать форум и чат клуба</string>
+  <string name="permRequestName">Запросы</string>
   <string name="permRequestDesc">Принимать или отклонять запросы на вступление</string>
+  <string name="permPmAllName">Обновления</string>
+  <string name="permPmAllDesc">Присылать обновления для участников клуба</string>
   <string name="permRemoveName">Удалить</string>
+  <string name="permRemoveDesc">Убирать участников из клуба</string>
+  <string name="permAdminName">Руководитель</string>
   <string name="permAdminDesc">Менять возможности руководителей</string>
   <string name="demoteLeaderNote">Чтобы убрать руководителя клуба, уберите все его возможности.</string>
   <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Если выбрано, игрокам нужно будет подать запрос на вступление, и вы можете принять или отклонить запрос</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Скрывать список участников команды от посторонних.</string>
   <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
   <string name="removeSomeone">Убрать кого-то</string>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">የእርስዎን lichess.org መለያ፣ %s ያረጋግጡ</string>
+  <string name="emailConfirm_intro">በLichess ላይ ስለተመዘገቡ እናመሰግናለን!</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">የ Lichess መለያዎን ለማንቃት አገናኙን ጠቅ ያድርጉ፡-:</string>
+  <string name="emailConfirm_justIgnore">በLichess ላይ ካልተመዘገቡ፣ ይህንን መልእክት ችላ ማለት ይችላሉ። ያልተረጋገጠው አካውንት እና የኢሜይል አድራሻዎ የሚገኙበት ማንኛውም መረጃ ከ 48 ሰዓታት በኋላ ከስርዓታችን ይሰረዛሉ።</string>
   <string name="passwordReset_subject">የእርስዎን lichess.org ይለፍ ቃል፣%s ዳግም ያስጀምሩ</string>
   <string name="passwordReset_intro">የመለያዎን የይለፍ ቃል ዳግም እንድናስጀምር ጥያቄ ደርሶናል።.</string>
   <string name="passwordReset_clickOrIgnore">ይህን ጥያቄ ካቀረብክ ከታች ያለውን ሊንክ ይጫኑ። ካልሆነ፣ ይህን ኢሜይል ችላ ማለት ይችላሉ።.</string>
@@ -15,6 +17,7 @@
 
 ይዝናኑ፣ እና ቁርጥራጮችዎ ሁል ጊዜ ወደ ተቃዋሚዎ ንጉስ መንገዳቸውን ይፈልጉ!</string>
   <string name="logInToLichess">ወደ lichess.org፣ %s ይግቡ</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(አገናኙ እየሰራ አይደለም? ወደ ማሰሻዎ browser ለመለጠፍ ይሞክሩ!)</string>
   <string name="common_note">ይህ ከእርስዎ የ%s አጠቃቀም ጋር የተያያዘ የአገልግሎት ኢሜይል ነው።.</string>
   <string name="common_contact">እኛን ለማግኘት፣ እባክዎ %s ይጠቀሙ።.</string>
 </resources>
