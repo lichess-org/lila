@@ -20,7 +20,7 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import { makeAnalysisSession, type AnalysisSession } from 'lib/analysis/session';
+import AnalysisSession from 'lib/analysis/session';
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
@@ -158,12 +158,12 @@ export default class AnalyseCtrl implements CevalHandler {
     this.settings = new SettingsCtrl(this.onUpdateSettings);
     this.treeView = new TreeView(this);
     this.navigate = new Navigate(this);
-    this.nav = makeAnalysisSession({
-      redraw: this.redraw,
-      withGround: g => this.withCg(g),
-      lastCgConfig: () => this.lastCgConfig,
-      variant: () => this.variantKey,
-    });
+    this.nav = new AnalysisSession(
+      this.redraw,
+      g => this.withCg(g),
+      () => this.lastCgConfig,
+      () => this.variantKey,
+    );
     this.motif = new MotifCtrl(this.settings);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);

@@ -11,7 +11,7 @@ import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl 
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { prop, type Prop, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
-import { makeAnalysisSession, type AnalysisSession } from 'lib/analysis/session';
+import AnalysisSession from 'lib/analysis/session';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -105,11 +105,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
-    this.nav = makeAnalysisSession({
-      redraw: this.redraw,
-      withGround: this.withGround,
-      lastCgConfig: () => this.lastCgConfig,
-    });
+    this.nav = new AnalysisSession(this.redraw, this.withGround, () => this.lastCgConfig);
 
     this.initiate(opts.data);
 

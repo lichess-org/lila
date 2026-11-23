@@ -11,32 +11,27 @@ export interface TreeCursor {
   mainline: TreeNode[];
 }
 
-export interface AnalysisSessionDeps {
-  redraw: Redraw;
-  withGround: WithGround;
-  lastCgConfig: () => CgConfig | undefined;
-  variant?: () => VariantKey;
-}
+export default class AnalysisSession {
+  readonly threatMode: Toggle = toggle(false);
+  readonly promotion: PromotionCtrl;
 
-export interface AnalysisSession {
-  threatMode: Toggle;
-  promotion: PromotionCtrl;
-  setPath(target: TreeCursor, tree: TreeWrapper, path: TreePath): void;
-}
+  constructor(
+    redraw: Redraw,
+    withGround: WithGround,
+    lastCgConfig: () => CgConfig | undefined,
+    variant?: () => VariantKey,
+  ) {
+    const onCancel = () => {
+      const prevConfig = lastCgConfig();
+      if (prevConfig) withGround(g => g.set(prevConfig));
+    };
+    this.promotion = new PromotionCtrl(withGround, onCancel, redraw, variant);
+  }
 
-export function makeAnalysisSession(deps: AnalysisSessionDeps): AnalysisSession {
-  const onCancel = () => {
-    const prevConfig = deps.lastCgConfig();
-    if (prevConfig) deps.withGround(g => g.set(prevConfig));
-  };
-  return {
-    threatMode: toggle(false),
-    promotion: new PromotionCtrl(deps.withGround, onCancel, deps.redraw, deps.variant),
-    setPath(target, tree, path) {
-      target.path = path;
-      target.nodeList = tree.getNodeList(path);
-      target.node = treeOps.last(target.nodeList)!;
-      target.mainline = treeOps.mainlineNodeList(tree.root);
-    },
-  };
+  setPath(target: TreeCursor, tree: TreeWrapper, path: TreePath): void {
+    target.path = path;
+    target.nodeList = tree.getNodeList(path);
+    target.node = treeOps.last(target.nodeList)!;
+    target.mainline = treeOps.mainlineNodeList(tree.root);
+  }
 }
