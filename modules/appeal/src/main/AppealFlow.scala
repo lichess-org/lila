@@ -145,7 +145,6 @@ Did you ever get help from a chess engine during a game?""",
 Please appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.
 
 We do not remove restrictions from accounts marked correctly for external assistance. Hence, following a review after the waiting period, we may allow you a separate account to resume playing without restrictions.""",
-          List(AppealEffect.Sleep(6))
         ),
         ActionNode(
           NodeId("second-chance"),
