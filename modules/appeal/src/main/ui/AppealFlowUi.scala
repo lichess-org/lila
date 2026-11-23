@@ -29,12 +29,13 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   def modShow(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     val onFlow = appeal.msgs.forall(isFlowMsg)
+    val hasNextFlowStep = onFlow && appeal.nextNode.isDefined
     val handling = me.is(inquiryBy)
     ui.page(s"Appeal by ${user.username}"):
       main(
         cls := List(
           "appeal" -> true,
-          "appeal--automated" -> (onFlow && handling)
+          "appeal--automated" -> (hasNextFlowStep && handling)
         )
       )(
         div(cls := "box box-pad")(
@@ -45,7 +46,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           div(cls := "body")(
             if onFlow then flowTrack(frag(appealEvents(appeal), modNextNode(appeal, modData)))
             else appealEvents(appeal, track = true),
-            (onFlow && handling).option(
+            (hasNextFlowStep && handling).option(
               button(
                 tpe := "button",
                 cls := "button button-empty button-no-upper text appeal__leave-flow",
