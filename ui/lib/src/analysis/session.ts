@@ -5,6 +5,7 @@ import { treeOps, type TreeWrapper } from 'lib/tree';
 import type { TreePath, TreeNode } from 'lib/tree/types';
 
 export interface TreeCursor {
+  tree: TreeWrapper;
   path: TreePath;
   node: TreeNode;
   nodeList: TreeNode[];
@@ -24,10 +25,10 @@ export default class AnalysisSession {
     this.promotion = new PromotionCtrl(withGround, onCancel, redraw, variant);
   }
 
-  setPath(target: TreeCursor, tree: TreeWrapper, path: TreePath): void {
+  setPath(target: TreeCursor, path: TreePath): void {
     target.path = path;
-    target.nodeList = tree.getNodeList(path);
+    target.nodeList = target.tree.getNodeList(path);
     target.node = treeOps.last(target.nodeList)!;
-    target.mainline = treeOps.mainlineNodeList(tree.root);
+    target.mainline = treeOps.mainlineNodeList(target.tree.root);
   }
 }

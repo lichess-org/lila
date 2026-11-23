@@ -176,7 +176,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   setPath = (path: TreePath): void => {
-    this.nav.setPath(this, this.tree, path);
+    this.nav.setPath(this, path);
     this.showHint(false);
   };
 

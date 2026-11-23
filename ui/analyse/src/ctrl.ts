@@ -297,7 +297,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private readonly setPath = (path: TreePath): void => {
-    this.nav.setPath(this, this.tree, path);
+    this.nav.setPath(this, path);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
