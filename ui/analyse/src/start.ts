@@ -19,7 +19,22 @@ export default function (
     const ctrl = (site.analysis = mountApp({
       el: opts.element,
       patch,
-      makeCtrl: redraw => new makeCtrl(opts, redraw, deps?.StudyCtrl),
+      makeCtrl: redraw => {
+        const state: { controller?: InstanceType<typeof makeCtrl> } = {};
+        const ctrlRedraw = () => {
+          const controller = state.controller;
+          if (!controller) return;
+
+          const study = controller.study;
+          if (study && !study.chapters.list.get(study.vm.chapterId)) return;
+
+          redraw();
+        };
+        const controller = new makeCtrl(opts, ctrlRedraw, deps?.StudyCtrl);
+        state.controller = controller;
+
+        return controller;
+      },
       view,
     }));
 
