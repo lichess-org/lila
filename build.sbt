@@ -40,9 +40,7 @@ lazy val root = Project("lila", file("."))
     // Universal/target = <project target> / "universal". Overriding only Universal/target leaves the
     // project target at sbt 2.0's default, so crossTarget stays target/out/jvm/scala-3.8.4/lila and
     // zinc's inc_compile_3.zip stays inside the cache root — no "Cannot cache" warning.
-    Universal / target := baseDirectory.value / "target" / "universal",
-    // temp fix to disable test caching in sbt 2.1.0 so devenv symlinks aren't followed
-    Test / definedTestDigests := Map.empty
+    Universal / target := baseDirectory.value / "target" / "universal"
   )
 
 organization := "org.lichess"
