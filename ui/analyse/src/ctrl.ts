@@ -143,7 +143,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
-  cgConfig: any; // latest chessground config (useful for revert)
+  lastCgConfig?: ChessgroundConfig; // latest chessground config (useful for revert)
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
   keyboardMove?: KeyboardMove;
@@ -163,7 +163,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.nav = makeAnalysisSession({
       redraw: this.redraw,
       withGround: g => this.withCg(g),
-      cgConfig: () => this.cgConfig,
+      lastCgConfig: () => this.lastCgConfig,
       variant: () => this.variantKey,
     });
     this.threatMode = this.nav.threatMode;
@@ -383,7 +383,7 @@ export default class AnalyseCtrl implements CevalHandler {
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
-    this.cgConfig = config;
+    this.lastCgConfig = config;
     return config;
   }
 

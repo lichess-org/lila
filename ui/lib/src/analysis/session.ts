@@ -14,7 +14,7 @@ export interface TreeCursor {
 export interface AnalysisSessionDeps {
   redraw: Redraw;
   withGround: WithGround;
-  cgConfig: () => CgConfig | undefined;
+  lastCgConfig: () => CgConfig | undefined;
   variant?: () => VariantKey;
 }
 
@@ -25,14 +25,13 @@ export interface AnalysisSession {
 }
 
 export function makeAnalysisSession(deps: AnalysisSessionDeps): AnalysisSession {
+  const onCancel = () => {
+    const prevConfig = deps.lastCgConfig();
+    if (prevConfig) deps.withGround(g => g.set(prevConfig));
+  };
   return {
     threatMode: toggle(false),
-    promotion: new PromotionCtrl(
-      deps.withGround,
-      () => deps.withGround(g => g.set(deps.cgConfig()!)),
-      deps.redraw,
-      deps.variant,
-    ),
+    promotion: new PromotionCtrl(deps.withGround, onCancel, deps.redraw, deps.variant),
     setPath(target, tree, path) {
       target.path = path;
       target.nodeList = tree.getNodeList(path);
