@@ -564,7 +564,7 @@ Friends playing: %2$s</string>
   <string name="onlineBots">Online bots</string>
   <string name="aboutBotsOnLichess">About bots on Lichess</string>
   <string name="featuredBots">Featured bots</string>
-  <string name="tryPlayingTheseInnovativeChessEngines">Try playing these innovative chess engines! They are our favourites.</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Try playing these innovative chess engines! They are our favorites.</string>
   <string name="communityBots">Community bots</string>
   <string name="moreChessEnginesCreatedByTheLichessCommunity">More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online.</string>
   <string name="name">Name</string>
@@ -704,7 +704,7 @@ Friends playing: %2$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
   <string name="lichessUpdates">Lichess feed</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">All updates</string>
+  <string name="allUpdates">All updates</string>
   <string name="contribute">Contribute</string>
   <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>

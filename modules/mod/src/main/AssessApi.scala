@@ -113,11 +113,11 @@ final class AssessApi(
   def refreshAssessOf(user: User): Funit =
     (!user.isBot).so:
       gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
-        gs.parallelVoid: g =>
-          analysisRepo
-            .byGame(g)
-            .flatMapz:
-              onAnalysisReady(g, _, thenAssessUser = false)
+        analysisRepo
+          .associateToGames(gs)
+          .flatMap: pairs =>
+            pairs.parallelVoid: (game, analysis) =>
+              onAnalysisReady(game, analysis, thenAssessUser = false)
       } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =

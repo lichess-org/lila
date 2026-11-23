@@ -32,7 +32,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           div(cls := "community page-menu__content box box-pad")(
             st.section(cls := "community__online")(
               h2(trans.site.onlinePlayers()),
-              ol(cls := "user-top"):
+              ol(cls := "online-users"):
                 online.map: u =>
                   li(
                     userLink(u),
@@ -48,9 +48,9 @@ final class UserList(helpers: Helpers, bits: UserBits):
                 userTopPerf(leaderboards.classical, PerfKey.classical),
                 userTopPerf(leaderboards.ultraBullet, PerfKey.ultraBullet),
                 userTopActive(nbAllTime, trans.site.activePlayers(), icon = Icon.Swords.some),
-                st.section(cls := "user-top")(
-                  h2(cls := "text", dataIcon := Icon.Trophy)(
-                    a(href := routes.Tournament.leaderboard)(trans.site.tournament())
+                st.section(cls := "user-top__item")(
+                  a(href := routes.Tournament.leaderboard)(
+                    h2(cls := "text", dataIcon := Icon.Trophy)(trans.site.tournament())
                   ),
                   tournamentWinners
                 ),
@@ -68,9 +68,9 @@ final class UserList(helpers: Helpers, bits: UserBits):
         )
 
   private def userTopPerf(users: List[LightPerf], pk: PerfKey)(using ctx: Context) =
-    st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := pk.perfIcon)(
-        a(href := routes.User.top(pk))(pk.perfTrans)
+    st.section(cls := "user-top__item")(
+      a(href := routes.User.top(pk))(
+        h2(cls := "text", dataIcon := pk.perfIcon)(pk.perfTrans)
       ),
       ol(users.map: l =>
         li(
@@ -80,7 +80,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
     )
 
   private def userTopActive(users: List[LightCount], hTitle: Frag, icon: Option[Icon])(using Context) =
-    st.section(cls := "user-top")(
+    st.section(cls := "user-top__item")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users.map: u =>
         li(

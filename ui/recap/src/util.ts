@@ -2,7 +2,7 @@ import { perfIsVariant } from 'lib/game/perf';
 
 import type { RecapPerf } from './interfaces';
 
-export function formatDuration(seconds: number, glue = '<br>'): string {
+export function formatDuration(seconds: number): string {
   const d = Math.floor(seconds / (24 * 3600));
   const h = Math.floor((seconds % (24 * 3600)) / 3600);
   const m = Math.floor((seconds % 3600) / 60);
@@ -13,7 +13,7 @@ export function formatDuration(seconds: number, glue = '<br>'): string {
   }
   result.push(i18n.site.nbHours(h), i18n.site.nbMinutes(m));
 
-  return result.slice(0, 2).join(glue);
+  return result.slice(0, 2).join(', ');
 }
 
 export const perfLabel = (p: RecapPerf): string =>

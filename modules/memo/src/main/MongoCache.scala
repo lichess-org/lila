@@ -120,5 +120,6 @@ object MongoCache:
       unit[V](name, dbTtl): loader =>
         _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))
 
-    def put[A: BSONWriter](key: String, value: A): Funit =
-      coll.update.one(bid(key), bdoc("v" -> value), upsert = true).void
+    def put[A: BSONWriter](key: String, value: A, expireAt: Option[Instant]): Funit =
+      val doc = bdoc("v" -> value, "e" -> expireAt)
+      coll.update.one(bid(key), doc, upsert = true).void

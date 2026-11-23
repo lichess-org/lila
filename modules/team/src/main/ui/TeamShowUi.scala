@@ -64,6 +64,9 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                       publicLeaders.map(l => userIdLink(l.some))
                     )
                   ),
+                  canManage.so(team.prizeClaimant).map { claimant =>
+                    p(cls := "staff")("Prize claimant: ", userIdLink(claimant.some))
+                  },
                   ledByMe.option(
                     a(
                       dataIcon := Icon.InfoCircle,

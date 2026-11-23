@@ -64,9 +64,9 @@ final class ClasForm(
 
     def invite(c: Clas) = Form:
       mapping(
-        "username" -> lila.common.Form.username.historicalField
+        "username" -> lila.common.Form.username.idField
           .verifying("Unknown username", blockingFetchUser(_).exists(!_.isBot))
-          .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
+          .verifying("This is a teacher", u => !c.teachers.contains(u)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 
@@ -116,7 +116,7 @@ object ClasForm:
   private def readTeacherIds(str: String): List[UserId] =
     str.linesIterator.flatMap(UserStr.read).map(_.id).distinct.toList
 
-  case class InviteStudent(username: UserStr, realName: RealName)
+  case class InviteStudent(username: UserId, realName: RealName)
   case class CreateStudent(username: UserName, realName: RealName)
 
   case class StudentData(

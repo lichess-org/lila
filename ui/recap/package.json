@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "lib": "workspace:*",
-    "swiper": "^12.2.0"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/recap.ts"

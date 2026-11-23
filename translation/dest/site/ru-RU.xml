@@ -494,6 +494,7 @@
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
+  <string name="selectImage">Выбрать картинку</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
@@ -775,7 +776,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
   <string name="really">именно так</string>
   <string name="lichessUpdates">Обновления Lichess</string>
-  <string name="allUpdates" comment="Appears on the homepage under the news feed, in a link titled &quot;All updates »&quot;&#10;&#10;URL: https://lichess.org/?en=1">Все обновления</string>
+  <string name="allUpdates">Все обновления</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="changelog">Список изменений</string>
   <string name="termsOfService">Пользовательское соглашение</string>

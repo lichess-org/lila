@@ -49,9 +49,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
     toLanguage(prefLang) +: acceptLanguages(req).map(toLanguage)
   }.distinct.view.filter(LangList.popularLanguages.contains).toList
 
-  def pickBestOf(
-      candidates: Set[Language]
-  )(req: Req, userLang: Option[String] = None): Option[Language] =
+  def pickBestOf(candidates: Set[Language])(req: Req, userLang: Option[String] = None): Option[Language] =
     userLang
       .flatMap(Lang.get)
       .map(toLanguage)
@@ -62,11 +60,6 @@ object LangPicker extends lila.core.i18n.LangPicker:
           .collectFirst:
             case l if candidates.contains(l) => l
       .orElse(candidates.contains(defaultLanguage).option(defaultLanguage))
-
-  object pageOverride:
-    val qs = "en"
-    def check(req: Req): Boolean = lila.common.HTTPRequest.queryStringBool(qs)(using req)
-    def get(req: Req): Option[Lang] = check(req).option(defaultLang)
 
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys

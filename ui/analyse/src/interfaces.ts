@@ -142,9 +142,7 @@ export interface AnalysisMeta {
 
 export interface AnalysisEngineInfo {
   nodesPerMove: number;
-  id: string;
-  userId: string;
-  engineVersion: string;
+  version: string;
 }
 
 export type GamePhase = 'opening' | 'middlegame' | 'endgame';

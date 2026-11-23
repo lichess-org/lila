@@ -245,3 +245,11 @@ trait Handlers:
     { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[B])) },
     (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull))
   )
+
+  def debug[A](handler: BSONDocumentHandler[A]): BSONDocumentHandler[A] = new:
+    def readDocument(doc: BSONDocument) = handler
+      .readTry(doc)
+      .tap:
+        case _: Failure[?] => lila.db.BSON.print(doc)
+        case Success(_) => ()
+    def writeTry(a: A) = handler.writeTry(a)

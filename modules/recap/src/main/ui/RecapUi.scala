@@ -1,6 +1,8 @@
 package lila.recap
 package ui
 
+import play.api.libs.json.*
+
 import lila.recap.Recap.Availability
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.*
@@ -12,17 +14,34 @@ final class RecapUi(helpers: Helpers):
     if ctx.is(user) then "Your yearly recap"
     else s"${user.username} yearly recap"
 
-  def home(av: Availability, user: User)(using Context) =
+  def home(av: Availability, user: User, checkout: RecapUi.Checkout)(using ctx: Context) =
     val data = av match
       case Availability.Available(data) => data
       case Availability.Queued(data) => data
+    val country = lila.common.HTTPRequest.country(using ctx.req)
     Page(title(user))
       .css("recap")
-      .js(esmInit("recap", data))
+      .js(
+        esmInit(
+          "recap",
+          data ++ Json
+            .obj(
+              "checkout" -> checkout.json,
+              "imperial" -> country.has(lila.core.net.CountryCode("US")),
+              "kid" -> ctx.kid.yes
+            )
+            .add("country" -> country.map(_.value))
+        )
+      )
       .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences)
-      .csp(_.withInlineIconFont): // swiper's `data: font`
-        main(cls := "recap"):
-          div(id := "recap-swiper", cls := "swiper")
+      .append(ctx.kid.no.option(checkoutScripts(checkout))) // kids don't see the donation slide
+      .csp(_.withPayments):
+        main(cls := "recap") // filled by ui/recap
+
+  private def checkoutScripts(checkout: RecapUi.Checkout) = frag(
+    checkout.stripe.option(stripeScript),
+    checkout.payPal.option(payPalScripts(checkout.payPalClientId, checkout.currency, checkout.payPalLocale))
+  )
 
   def notAvailable(year: Int) =
     Page("Recap not available yet"):
@@ -32,3 +51,33 @@ final class RecapUi(helpers: Helpers):
           p("Your recap will be available at the end of the year. Check back then!")
         )
       )
+
+object RecapUi:
+  case class Checkout(
+      stripePublicKey: String,
+      payPalClientId: String,
+      payPalLocale: Option[String],
+      currency: String, // ISO code, e.g. EUR
+      stripe: Boolean, // whether Stripe and PayPal accept this currency
+      payPal: Boolean,
+      price: BigDecimal => BigDecimal // minutes of uptime -> what they cost, in currency
+  ):
+    import Checkout.*
+    private def tier(minutes: BigDecimal) = Json.obj("minutes" -> minutes, "amount" -> price(minutes))
+    def json = Json.obj(
+      "stripePublicKey" -> stripePublicKey,
+      "currency" -> currency,
+      "stripe" -> stripe,
+      "payPal" -> payPal,
+      "example" -> tier(exampleMinutes),
+      "tiers" -> JsObject(tiers.view.mapValues(ms => JsArray(ms.map(tier))).toSeq)
+    )
+
+  object Checkout:
+    val uptimeUsdPerMinute = BigDecimal(1.5)
+    val exampleMinutes = BigDecimal(5)
+    val tiers: Map[String, List[BigDecimal]] = Map(
+      "monthly" -> List(2.5, 5, 10),
+      "onetime" -> List(30, 60, 120)
+    )
+    val allMinutes: List[BigDecimal] = (exampleMinutes :: tiers.values.flatten.toList).distinct

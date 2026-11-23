@@ -174,9 +174,12 @@ final class Study(
               for
                 (sc, data) <- getJsonData(oldSc, withChapters = true)
                 chat <- human.so(chatOf(sc.study))
+                chatJson = chat.map(views.study.chatJson(sc.study, _))
                 sVersion <- human.so(env.study.version(sc.study.id))
                 streamers <- human.so(streamerCache.get(sc.study.id))
-                page <- renderPage(views.study.show(sc.study, sc.chapter, data, chat, sVersion, streamers))
+                streamersFrag = views.streamer.bits.contextual(streamers)
+                page <- renderPage:
+                  views.study.ui.show(sc.study, sc.chapter, data, chatJson, sVersion, streamersFrag)
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enforceCrossSiteIsolation
@@ -310,7 +313,7 @@ final class Study(
             else
               val back = HTTPRequest.referer.orElse:
                 data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-              Ok.page(views.study.create(data, owner, contrib, back))
+              Ok.page(views.study.ui.create(data, owner, contrib, back, views.site.message.apply))
         yield res
     )
   }
@@ -411,7 +414,7 @@ final class Study(
 
   def embed(studyId: StudyId, chapterId: StudyChapterId) = Anon:
     InEmbedContext:
-      def notFound = NotFound.snip(views.study.embed.notFound)
+      def notFound = NotFound.snip(views.study.embedNotFound)
       env.study.api
         .byId(studyId)
         .flatMap:
@@ -426,7 +429,7 @@ final class Study(
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
       CanView(study, study.settings.cloneable.some):
-        Ok.page(views.study.clone(study))
+        Ok.page(views.study.ui.clone(study, views.site.message.apply))
   }
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
@@ -547,9 +550,8 @@ final class Study(
                 .asAttachmentStream(s"${pgnDump.filename(study, chapter)}.gif")
                 .as("image/gif")
                 .publicCache(Option.unless(study.isPrivate)(1.day))
-            .recover { case lila.core.lilaism.LilaInvalid(msg) =>
-              BadRequest(msg)
-            }
+            .recover:
+              case lila.core.lilaism.LilaInvalid(msg) => BadRequest(msg)
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
     AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> _ ?=>
@@ -603,7 +605,7 @@ final class Study(
     pageHit
     FoundPage(env.cms.renderKey("studies-staff-picks")): page =>
       val featured = isGrantedOpt(_.StudyAdmin).option(env.study.pager.featured.setting.form)
-      views.study.staffPicks(page, featured)
+      views.study.list.staffPicks(page.title, views.cms.pageContent(page), featured)
 
   def staffPicksPost = SecureBody(_.StudyAdmin) { _ ?=> _ ?=>
     bindForm(env.study.pager.featured.setting.form)(
@@ -614,13 +616,13 @@ final class Study(
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(
-    Unauthorized.page(views.study.privateStudy(study)),
+    Unauthorized.page(views.study.ui.privateStudy(study, views.site.message.apply)),
     privateUnauthorizedJson
   )
 
   def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
-    Forbidden.page(views.study.privateStudy(study)),
+    Forbidden.page(views.study.ui.privateStudy(study, views.site.message.apply)),
     privateForbiddenJson
   )
 

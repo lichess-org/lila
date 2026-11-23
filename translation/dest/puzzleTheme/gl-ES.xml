@@ -149,6 +149,6 @@
   <string name="mix">Mestura equilibrada</string>
   <string name="mixDescription">Un pouco de todo. Non sabes que vai vir, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
   <string name="playerGames">Partidas de xogadores</string>
-  <string name="playerGamesDescription">Exercicios xerados a partir das túas partidas ou dende partidas doutros xogadores.</string>
+  <string name="playerGamesDescription">Crebacabezas xerados a partir das túas partidas ou das doutros xogadores</string>
   <string name="puzzleDownloadInformation">Estes problemas son de dominio público e poden ser descargados en %s.</string>
 </resources>

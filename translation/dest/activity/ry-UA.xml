@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Актівнусть</string>
+  <string name="activity">Актівность</string>
   <string name="hostedALiveStream">Проведено наостру транслацію</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Поддержує lichess.org %1$s мїсяць (%2$s)</item>

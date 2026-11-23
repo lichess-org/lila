@@ -24,4 +24,7 @@
   <string name="teachingMethod">Õpetusmeetodid</string>
   <string name="publicStudies">Avalikud uuringud</string>
   <string name="youtubeVideos">YouTube videod</string>
+  <string name="allCountries">Kõik riigid</string>
+  <string name="lastLogin">Viimane sisselogimine</string>
+  <string name="lichessRating">Lichess reiting</string>
 </resources>

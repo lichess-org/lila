@@ -45,7 +45,7 @@ trait RequestContext(using Executor):
   private def getAndSaveLang(req: Req, me: Option[Me]): Lang =
     val lang = LangPicker(req, me.flatMap(_.lang))
     me.filter(_.lang.forall(_ != lang.toTag)).foreach(env.user.repo.setLang(_, lang))
-    LangPicker.pageOverride.get(req) | lang
+    lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
     if HTTPRequest.isSynchronousHttp(ctx.req)

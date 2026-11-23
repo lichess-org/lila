@@ -21,6 +21,7 @@ import lila.plan.{
 final class Plan(env: Env) extends LilaController(env):
 
   import lila.plan.logger
+  import env.plan.currencyApi.guessCurrency
 
   def index(page: Int = 1) = Open:
     pageHit
@@ -65,7 +66,7 @@ final class Plan(env: Env) extends LilaController(env):
       recentIds <- env.plan.api.recentChargeUserIds
       _ <- env.user.lightUserApi.preloadMany(recentIds)
       bestScores <- env.plan.api.paginator(1)
-      pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+      pricing <- env.plan.priceApi.pricingOrDefault(guessCurrency)
       page <- renderPage:
         views.plan.index(
           stripePublicKey = env.plan.stripePublicKey,
@@ -82,7 +83,7 @@ final class Plan(env: Env) extends LilaController(env):
       ctx: Context,
       me: Me
   ) = for
-    pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+    pricing <- env.plan.priceApi.pricingOrDefault(guessCurrency)
     info <- env.plan.api.stripe.customerInfo(me, customer)
     gifts <- env.plan.api.giftsFrom(me)
     res <- info match
@@ -110,16 +111,13 @@ final class Plan(env: Env) extends LilaController(env):
 
   def switch = AuthBody { ctx ?=> me ?=>
     for
-      pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+      pricing <- env.plan.priceApi.pricingOrDefault(guessCurrency)
       _ <- bindForm(lila.plan.Switch.form(pricing))(
         _ => funit,
         data => env.plan.api.switch(me, data.money)
       )
     yield Redirect(routes.Plan.index())
   }
-
-  private def myCurrency(using Context) =
-    env.plan.currencyApi.guessCurrency(get("currency"))
 
   def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
@@ -184,7 +182,7 @@ final class Plan(env: Env) extends LilaController(env):
   def doStripeCheckout(using ctx: BodyContext[?], me: Me) =
     limit.planCheckout.use(rateLimited):
       env.plan.priceApi
-        .pricingOrDefault(myCurrency)
+        .pricingOrDefault(guessCurrency)
         .flatMap: pricing =>
           bindForm(env.plan.checkoutForm.form(pricing))(
             err =>
@@ -210,7 +208,7 @@ final class Plan(env: Env) extends LilaController(env):
           )
 
   def apiCurrencies = Anon:
-    env.plan.priceApi.stripePricesAsJson(myCurrency).map(JsonStrOk)
+    env.plan.priceApi.stripePricesAsJson(guessCurrency).map(JsonStrOk)
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture.use(rateLimited):
@@ -245,7 +243,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def payPalCheckout = AuthBody { ctx ?=> me ?=>
     limit.planCheckout.use(rateLimited):
-      env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
+      env.plan.priceApi.pricingOrDefault(guessCurrency).flatMap { pricing =>
         bindForm(env.plan.checkoutForm.form(pricing))(
           err =>
             logger.info(s"Plan.payPalCheckout 400: $err")

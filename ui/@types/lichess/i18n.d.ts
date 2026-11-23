@@ -777,8 +777,8 @@ interface I18n {
     aboutMe: string;
     /** Accepting students */
     accepting: string;
-    /** All countries */
-    allCountries: string;
+    /** All regions */
+    allRegions: string;
     /** Are you a great chess coach with a %s? */
     areYouCoach: I18nFormat;
     /** Availability */
@@ -3239,10 +3239,62 @@ interface I18n {
   recap: {
     /** What have you been up to this year? */
     awaitQuestion: string;
-    /** Your best chess foes */
-    chessFoes: string;
+    /** You are already a Patron, thank you! One more thing… */
+    donateAlreadyPatron: string;
+    /** a döner kebab in Berlin */
+    donateAnchorBerlin: string;
+    /** a cinema ticket in Cape Town */
+    donateAnchorCapeTown: string;
+    /** a pint of beer in central London */
+    donateAnchorLondon: string;
+    /** a flat white and a pastry in Melbourne */
+    donateAnchorMelbourne: string;
+    /** a latte in New York City */
+    donateAnchorNewYork: string;
+    /** a glass of house wine in Paris */
+    donateAnchorParis: string;
+    /** a plate of feijoada in São Paulo */
+    donateAnchorSaoPaulo: string;
+    /** a bowl of ramen in Tokyo */
+    donateAnchorTokyo: string;
+    /** Donate other amount */
+    donateAnotherAmount: string;
+    /** Changed my mind */
+    donateChangedMyMind: string;
+    /** Lichess is a charity. */
+    donateCharity: string;
+    /** If you've enjoyed them, consider donating %s of global uptime, every month: */
+    donateConsiderMonthly: I18nFormat;
+    /** Please consider donating %s of global uptime, every month: */
+    donateConsiderMonthlyNoGames: I18nFormat;
+    /** If you've enjoyed them, consider donating %s of global uptime: */
+    donateConsiderOnce: I18nFormat;
+    /** Please consider donating %s of global uptime: */
+    donateConsiderOnceNoGames: I18nFormat;
+    /** In those %s, Lichess will see */
+    donateInThoseMinutes: I18nFormat;
+    /** %s minutes of uptime */
+    donateMinutesOfUptime: I18nPlural;
+    /** %s minutes of uptime per month */
+    donateMinutesOfUptimePerMonth: I18nPlural;
+    /** Not today */
+    donateNotToday: string;
+    /** No worries! All forms of support from the community are vital for us, and that includes just being here. */
+    donateNoWorries: string;
+    /** One more thing… */
+    donateOneMoreThing: string;
+    /** Replay my recap */
+    donateReplay: string;
+    /** That's about the same as %s */
+    donateSameAs: I18nFormat;
+    /** Keeping Lichess running for %1$s, worldwide, costs us %2$s. */
+    donateUptimeCosts: I18nFormat;
+    /** This year, you played around %s minutes on Lichess! */
+    donateYouPlayedMinutes: I18nPlural;
     /** is how you started %s of your games as white */
     firstMoveStats: I18nFormat;
+    /** Your signature first move */
+    firstMoveTitle: string;
     /** What did it take to get there? */
     gamesNextQuestion: string;
     /** And you won %s! */
@@ -3255,20 +3307,36 @@ interface I18n {
     lichessGamesOfThemYours: I18nFormat;
     /** %1$s games played on Lichess in %2$s */
     lichessGamesPlayedIn: I18nFormat;
+    /** you */
+    lichessGamesYou: string;
+    /** Ads */
+    malwareAds: string;
+    /** Data brokers */
+    malwareDataBrokers: string;
     /** We didn't use your device against you */
     malwareNoAbuse: string;
     /** %s ads and trackers loaded */
     malwareNoneLoaded: I18nFormat;
     /** We didn't sell your personal data */
     malwareNoSell: string;
-    /** be careful */
-    malwareWarningCta: string;
-    /** But other websites do, so please %s. */
-    malwareWarningPrefix: I18nFormat;
+    /** Paywalls */
+    malwarePaywalls: string;
+    /** Pop-ups */
+    malwarePopups: string;
+    /** Trackers */
+    malwareTrackers: string;
+    /** Your most frequent opponents */
+    mostFrequentOpponents: string;
+    /** About the weight of %s grand pianos */
+    movesGrandPianos: I18nPlural;
     /** That's %s of wood pushed! */
     movesOfWoodPushed: I18nFormat;
     /** Standard pieces weigh about 40g each */
     movesStandardPiecesWeight: string;
+    /** Standard pieces weigh about 1.4oz each */
+    movesStandardPiecesWeightImperial: string;
+    /** %s games analysed by Stockfish */
+    nbGamesAnalysedByStockfish: I18nPlural;
     /** %s grams */
     nbGrams: I18nPlural;
     /** %s kilograms */
@@ -3277,38 +3345,30 @@ interface I18n {
     nbMoves: I18nPlural;
     /** %s moves played */
     nbMovesPlayed: I18nPlural;
-    /** Wanna play now? */
-    noGamesCta: string;
+    /** %s new games */
+    nbNewGames: I18nPlural;
+    /** %s ounces */
+    nbOunces: I18nPlural;
+    /** %s pounds */
+    nbPounds: I18nPlural;
     /** You did not play any games this year. */
     noGamesText: string;
-    /** Your most played opening as black with %s games */
-    openingsMostPlayedAsBlack: I18nPlural;
-    /** Your most played opening as white with %s games */
-    openingsMostPlayedAsWhite: I18nPlural;
-    /** We're a charity, running purely on donations. */
-    patronCharity: string;
-    /** If we helped entertain you this year, or you believe in our work, please consider %s! */
-    patronConsiderDonating: I18nFormat;
-    /** costs */
-    patronCosts: string;
-    /** Lichess's %1$s this year were %2$s. */
-    patronCostsThisYear: I18nFormat;
-    /** supporting us with a donation */
-    patronMakeDonation: string;
     /** What time controls and variants did you play? */
     perfsTitle: string;
+    /** Needed another go */
+    puzzlesAnotherGo: string;
+    /** First try */
+    puzzlesFirstTry: string;
     /** You also helped tag %s of them. */
     puzzlesHelpedTagging: I18nFormat;
-    /** You did not solve any puzzles this year. */
-    puzzlesNone: string;
     /** Thank you for voting on %s puzzles. */
     puzzlesThanksVoting: I18nPlural;
-    /** Wanna try some now? */
-    puzzlesTryNow: string;
-    /** You won %s of them on the first try! */
-    puzzlesYouWonOnFirstTry: I18nFormat;
+    /** You solved %s of them on the first try! */
+    puzzlesYouSolvedOnFirstTry: I18nFormat;
     /** Your %s recap is ready! */
     recapReady: I18nFormat;
+    /** favourite first move */
+    shareableFavouriteFirstMove: string;
     /** favourite time control */
     shareableFavouriteTimeControl: string;
     /** favourite variant */
@@ -3319,24 +3379,26 @@ interface I18n {
     shareableNbPuzzlesSolved: I18nPlural;
     /** spent playing */
     shareableSpentPlaying: string;
-    /** My %s recap */
-    shareableTitle: I18nFormat;
+    /** My %s Lichess Recap */
+    shareableTitleLichess: I18nFormat;
     /** Where did you find games? */
     sourcesTitle: string;
     /** We're glad you're here. Have a great %s! */
     thanksHaveAGreat: I18nFormat;
     /** Thank you for playing on Lichess! */
     thanksTitle: string;
-    /** That is a lot of chess. */
-    timeALot: string;
+    /** Now that is some serious dedication! */
+    timeDedication: string;
+    /** Every one of those minutes counted. */
+    timeEveryMinuteCounted: string;
     /** How many moves did you play in all that time? */
     timeHowManyMoves: string;
-    /** That seems like a reasonable amount of chess. */
-    timeReasonable: string;
-    /** %s spent playing! */
-    timeSpentPlayingExclam: I18nFormat;
-    /** That is way too much chess. */
-    timeTooMuch: string;
+    /** You could have watched the extended Lord of the Rings trilogy %s times */
+    timeLordOfTheRings: I18nPlural;
+    /** Time spent playing */
+    timeSpentPlaying: string;
+    /** Time well spent, one move at a time. */
+    timeWellSpent: string;
   };
   report: {
     /** In the meantime, you can block this user: */

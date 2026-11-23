@@ -55,7 +55,7 @@ def mobile(helpers: Helpers)(using Translate) =
   </a>
   """
 
-  val appStructuredData = lila.ui.bits.structuredData("MobileApplication"):
+  val appStructuredData = lila.ui.bits.structuredDataTrusted("MobileApplication"):
     def storeOffer(name: String, url: Url) =
       Json.obj("@type" -> "Offer", "name" -> name, "url" -> url, "price" -> 0)
     Json.obj(

@@ -121,8 +121,5 @@ final class Env(
   lila.common.Bus.sub[lila.tv.RenderFeaturedJs]:
     case lila.tv.RenderFeaturedJs(game, promise) =>
       promise.success(Html(views.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
-  lila.common.Bus.sub[lila.puzzle.DailyPuzzle.Render]:
-    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
-      promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env

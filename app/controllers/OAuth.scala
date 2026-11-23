@@ -1,16 +1,14 @@
 package controllers
 
 import cats.mtl.Handle.*
-import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
-import scalalib.ThreadLocalRandom
 import scalalib.net.Bearer
 import scalatags.Text.all.stringFrag
 
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthSignedClient }
+import lila.oauth.{ AccessToken, AuthorizationRequest, OAuthSignedClient }
 
 import Api.ApiResult
 
@@ -58,39 +56,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>
-    allow:
-      for
-        prepared <- raw.prepare.raiseIfLeft
-        granted <- env.oAuth.authorizationApi.consume(prepared)
-        token <- env.oAuth.tokenApi.create(granted)
-      yield Ok(
-        Json
-          .obj(
-            "token_type" -> "Bearer",
-            "access_token" -> token.plain
-          )
-          .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-      )
-    .rescue: err =>
-      BadRequest(err.toJson)
+    for res <- env.oAuth.makeToken(raw, legacy = false)
+    yield res.fold(BadRequest(_), Ok(_))
 
   def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>
-    allow:
-      for
-        prepared <- raw.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)).raiseIfLeft
-        granted <- env.oAuth.authorizationApi.consume(prepared)
-        token <- env.oAuth.tokenApi.create(granted)
-      yield Ok(
-        Json
-          .obj(
-            "token_type" -> "Bearer",
-            "access_token" -> token.plain,
-            "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
-          )
-          .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-      )
-    .rescue: err =>
-      BadRequest(err.toJson)
+    for res <- env.oAuth.makeToken(raw, legacy = true)
+    yield res.fold(BadRequest(_), Ok(_))
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer.so: (bearer, _) =>
@@ -109,10 +80,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       bindForm(lila.oauth.OAuthTokenForm.adminChallengeTokens())(
         jsonFormError,
         data =>
-          env.oAuth.tokenApi
-            .adminChallengeTokens(data, me)
-            .map: tokens =>
-              JsonOk(tokens.view.mapValues(_.plain).toMap)
+          for tokens <- env.oAuth.tokenApi.adminChallengeTokens(data, me)
+          yield JsonOk(tokens.view.mapValues(_.plain).toMap)
       )
     else Unauthorized(jsonError("Missing permission"))
   }
@@ -121,17 +90,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     val bearers = Bearer.from(body.trim.split(',').view.take(1000).toList)
     limit.oauthTokenTest
       .use(fuccess(ApiResult.Limited), cost = bearers.size):
-        env.oAuth.tokenApi.test(bearers).map { tokens =>
-          import lila.common.Json.given
-          ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
-            bearer.value -> token.fold[JsValue](JsNull): t =>
-              Json.obj(
-                "userId" -> t.userId,
-                "scopes" -> t.scopes.into(OAuthScopes).keyList,
-                "expires" -> t.expires
-              )
-          }))
-        }
+        for tokens <- env.oAuth.tokenApi.test(bearers)
+        yield ApiResult.Data(AccessToken.json.test(tokens))
       .map(apiC.toHttp)
 
   def mobileOAuthCallback = Open:

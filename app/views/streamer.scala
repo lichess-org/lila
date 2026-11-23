@@ -40,13 +40,10 @@ object oauth:
     )
     frag(
       views.base.page.ui.doctype,
-      html(
-        st.body(
-          script(tpe := "text/javascript")(
+      html:
+        st.body:
+          script(tpe := "text/javascript"):
             raw(s"import('$assetUrl').then(m => m.initModule(${safeJsonValue(jsonResult).value}));")
-          )
-        )
-      )
     )
 
 object edit:

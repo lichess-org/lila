@@ -13,7 +13,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,
     socketUrl: StudyId => String,
-    explorerAndCevalConfig: Context ?=> JsObject
+    endpoints: AnalyseEndpoints
 ):
   import helpers.{ *, given }
 
@@ -66,7 +66,7 @@ final class RelayUi(helpers: Helpers)(
           "socketUrl" -> socketUrl(rt.study.id),
           "socketVersion" -> socketVersion
         )
-        .add("embed" -> embed) ++ explorerAndCevalConfig
+        .add("embed" -> embed) ++ endpoints.json
     )
 
   def showPreload(rt: WithTourAndStudy, data: RelayJsonView.JsData)(using Translate): Tag =

@@ -67,6 +67,7 @@ Mật khẩu: %3$s</string>
   <string name="releaseTheAccount">Giải phóng tài khoản để học viên có thể quản lý nó một cách tự chủ.</string>
   <string name="releaseDesc1">Một tài khoản đã được tốt nghiệp không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
   <string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
+  <string name="realUniqueEmail">Địa chỉ email thật, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận đến địa chỉ này kèm theo liên kết để hoàn tất quá trình cấp chứng chỉ. Liên kết sẽ hết hạn sau 10 phút.</string>
   <string name="closeStudent">Đóng tài khoản</string>
   <string name="closeTheAccount">Đóng hẳn tài khoản của học trò.</string>
   <string name="closeDesc1">Học viên sẽ không bao giờ dùng được tài khoản này. Tài khoản đã bị khóa. Đảm bảo học viên hiểu và đồng ý.</string>
