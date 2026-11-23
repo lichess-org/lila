@@ -3299,8 +3299,6 @@ interface I18n {
     gamesNextQuestion: string;
     /** And you won %s! */
     gamesYouWon: I18nFormat;
-    /** Your greatest chess foes */
-    greatestChessFoes: string;
     /** Hi, %s */
     hiUser: I18nFormat;
     /** What a chess year you've had! */
@@ -3327,6 +3325,8 @@ interface I18n {
     malwarePopups: string;
     /** Trackers */
     malwareTrackers: string;
+    /** Your most frequent opponents */
+    mostFrequentOpponents: string;
     /** About the weight of %s grand pianos */
     movesGrandPianos: I18nPlural;
     /** That's %s of wood pushed! */

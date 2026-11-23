@@ -257,7 +257,7 @@ export function buildSlides(ctx: SlideCtx): SlideDef[] {
     render(el, sc) {
       const [top, ...rest] = G.opponents;
       el.innerHTML = `
-            <p class="kicker reveal">${esc(i18n.recap.greatestChessFoes)}</p>
+            <p class="kicker reveal">${esc(i18n.recap.mostFrequentOpponents)}</p>
             <div class="versus">
               <div class="fighter fighter--l"><div class="avatar avatar--you"><span>${esc(U.name[0].toUpperCase())}</span></div>${userLabel(U)}</div>
               <div class="vs">VS</div>
