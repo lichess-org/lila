@@ -63,7 +63,6 @@ export default class PuzzleCtrl implements CevalHandler {
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   private readonly nav: AnalysisSession;
-  lastCgConfig?: CgConfig;
   path: TreePath;
   node: TreeNode;
   nodeList: TreeNode[];
@@ -105,7 +104,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
-    this.nav = new AnalysisSession(this.redraw, this.withGround, () => this.lastCgConfig);
+    this.nav = new AnalysisSession(this.redraw, this.withGround);
 
     this.initiate(opts.data);
 
@@ -313,7 +312,7 @@ export default class PuzzleCtrl implements CevalHandler {
         config.premovable.enabled = true;
       }
     }
-    this.lastCgConfig = config;
+    this.nav.cgConfig(config);
     return config;
   };
 

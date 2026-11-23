@@ -1,4 +1,4 @@
-import { toggle, type Toggle } from 'lib';
+import { prop, toggle, type Prop, type Toggle } from 'lib';
 import type { WithGround } from 'lib/game/ground';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { treeOps, type TreeWrapper } from 'lib/tree';
@@ -14,15 +14,11 @@ export interface TreeCursor {
 export default class AnalysisSession {
   readonly threatMode: Toggle = toggle(false);
   readonly promotion: PromotionCtrl;
+  readonly cgConfig: Prop<CgConfig | undefined> = prop(undefined);
 
-  constructor(
-    redraw: Redraw,
-    withGround: WithGround,
-    lastCgConfig: () => CgConfig | undefined,
-    variant?: () => VariantKey,
-  ) {
+  constructor(redraw: Redraw, withGround: WithGround, variant?: () => VariantKey) {
     const onCancel = () => {
-      const prevConfig = lastCgConfig();
+      const prevConfig = this.cgConfig();
       if (prevConfig) withGround(g => g.set(prevConfig));
     };
     this.promotion = new PromotionCtrl(withGround, onCancel, redraw, variant);
