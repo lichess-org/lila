@@ -2,8 +2,10 @@ package lila.analyse
 
 import monocle.syntax.all.*
 import play.api.libs.json.*
+import scalalib.data.Preload
 
 import lila.common.Bus
+import lila.core.game.WithInitialFen
 import lila.tree.Analysis
 
 final class Analyser(
@@ -15,33 +17,46 @@ final class Analyser(
 
   export analysisRepo.{ byId, byGame as get }
 
-  def save(analysis: Analysis, workHash: Option[() => Array[Byte]] = none): Funit = for
-    _ <- analysisRepo.save(analysis, analysis.studyId.isDefined.so(workHash).map(_()))
-    _ <- analysis.id.gameId.so: id =>
-      gameRepo.game(id).flatMapz { prev =>
-        val game = prev.focus(_.metadata.analysed).replace(true)
-        for _ <- gameRepo.setAnalysed(game.id, true)
-        yield Bus.pub(actorApi.AnalysisReady(game, analysis))
-      }
-    _ <- sendAnalysisProgress(analysis, complete = true)
-  yield ()
+  def save(analysis: Analysis, workHash: Option[() => Array[Byte]] = none): Funit =
+    analysisRepo
+      .save(analysis, analysis.studyId.isDefined.so(workHash).map(_()))
+      .flatMap: _ =>
+        analysis.id.gameId
+          .so(gameRepo.game)
+          .flatMapz: prev =>
+            val game = prev.focus(_.metadata.analysed).replace(true)
+            for
+              _ <- gameRepo.setAnalysed(game.id, true)
+              _ = Bus.pub(actorApi.AnalysisReady(game, analysis))
+            yield game.some
+          .flatMapz: game =>
+            sendAnalysisProgress(analysis, complete = true, Preload(game))
 
-  def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)
+  def progress(analysis: Analysis): Funit =
+    sendAnalysisProgress(analysis, complete = false, game = Preload.none)
 
   def foundSameHash(forId: Analysis.Id, same: Analysis, workHash: Array[Byte]): Funit =
     save(same.copy(id = forId), (() => workHash).some)
 
-  private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
+  private def sendAnalysisProgress(
+      analysis: Analysis,
+      complete: Boolean,
+      game: Preload[Game]
+  ): Funit =
     analysis.id match
       case Analysis.Id.Game(id) =>
-        gameRepo.gameWithInitialFen(id).mapz { g =>
-          Bus.pub(
-            lila.tree.AnalysisProgress(
-              id,
-              () => makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
-            )
-          )
-        }
+        game.value
+          .fold(gameRepo.gameWithInitialFen(id)): g =>
+            gameRepo
+              .initialFen(g)
+              .map: fen =>
+                WithInitialFen(g, fen).some
+          .mapz: g =>
+            Bus.pub:
+              lila.tree.AnalysisProgress(
+                id,
+                () => makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
+              )
       case _ =>
         fuccess:
           Bus.pub(lila.tree.StudyAnalysisProgress(analysis, complete))
