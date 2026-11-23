@@ -7,6 +7,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.common.Json.given
 import lila.core.config.NetConfig
 import lila.ui.{ Helpers, OpenGraph }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogStructuredData(helpers: Helpers, net: NetConfig):
   import helpers.*
@@ -15,23 +16,28 @@ final class UblogStructuredData(helpers: Helpers, net: NetConfig):
     JsString(isoDateTimeFormatter.print(d))
 
   def apply(user: User, post: UblogPost, image: Option[Url]) =
-    post.lived.map: live =>
-      lila.ui.bits.structuredData("BlogPosting"):
-        Json.obj(
-          "headline" -> escapeHtmlRaw(post.title),
-          "description" -> escapeHtmlRaw(post.intro),
-          "inLanguage" -> post.language,
-          "image" -> image.toList,
-          "keywords" -> post.topics,
-          "datePublished" -> live.at,
-          "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
-          "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
-          "author" -> user
-            .is(UserId.lichess)
-            .so(lila.ui.bits.organizationJson(net))
-            .getOrElse(authorJson(user)),
-          "publisher" -> lila.ui.bits.organizationJson(net)
-        )
+    post.lived
+      .ifTrue(false)
+      .map: live =>
+        val json =
+          Json.obj(
+            "@context" -> "https://schema.org",
+            "@type" -> "BlogPosting",
+            "headline" -> escapeHtmlRaw(post.title),
+            "description" -> escapeHtmlRaw(post.intro),
+            "inLanguage" -> post.language,
+            "image" -> image.toList,
+            "keywords" -> post.topics,
+            "datePublished" -> live.at,
+            "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
+            "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
+            "author" -> user
+              .is(UserId.lichess)
+              .so(lila.ui.bits.organizationJson(net))
+              .getOrElse(authorJson(user)),
+            "publisher" -> lila.ui.bits.organizationJson(net)
+          )
+        st.script(tpe := "application/ld+json")(lila.common.String.html.safeJsonValue(json))
 
   private def authorJson(user: User) =
     Json

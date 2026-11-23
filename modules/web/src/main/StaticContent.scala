@@ -1,7 +1,7 @@
 package lila.web
 
 import play.api.libs.json.{ JsArray, Json }
-import scalatags.Text.RawFrag
+import scalatags.Text.Frag
 
 import lila.common.HTTPRequest
 import lila.common.Json.given
@@ -116,7 +116,7 @@ Allow: /game/export/gif/thumbnail/
       case 122 => s"$faq#marks"
       case _ => faq
 
-  val organizationScript: Option[RawFrag] =
+  val organizationScript: Option[Frag] =
     for base <- lila.ui.bits.organizationJson(net)
     yield lila.ui.bits.structuredData("Organization"):
       base ++ Json.obj(
