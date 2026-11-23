@@ -1,6 +1,10 @@
 package controllers
 
+import play.api.libs.json.*
 import play.api.mvc.*
+import lila.common.Json.lightUserWrites
+import scalalib.Json.paginatorWriteNoNbResults
+import scalalib.paginator.Paginator
 
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
@@ -11,32 +15,61 @@ final class Fide(env: Env) extends LilaController(env):
   import env.fide.json.given
   private def playerUrl(player: FidePlayer) = routes.Fide.show(player.id, player.slug)
 
-  def index(page: Int, q: Option[String] = None) = Open:
+  def index(page: Int, q: Option[String] = None) = OpenOrScoped(_.Web.Mobile):
     Reasonable(page):
       val order = get("order").flatMap(FidePlayerOrder.byKey.get) | FidePlayerOrder.default
       env.fide
         .search(q, page, order)
         .flatMap:
-          case Left(p) => Redirect(playerUrl(p.player))
-          case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim), order)).map(Ok(_))
+          case Left(p) =>
+            negotiate(
+              Redirect(playerUrl(p.player)),
+              JsonOk:
+                paginatorWriteNoNbResults.writes:
+                  Paginator.fromResults(
+                    Seq(p),
+                    nbResults = 1,
+                    currentPage = 1,
+                    maxPerPage = env.fide.paginator.maxPerPage
+                  )
+            )
+          case Right(pager) =>
+            negotiate(
+              renderPage(views.fide.player.index(pager, q.so(_.trim), order)).map(Ok(_)),
+              JsonOk(paginatorWriteNoNbResults.writes(pager))
+            )
 
-  def show(id: chess.FideId, slug: String, page: Int) = Open:
+  def show(id: chess.FideId, slug: String, page: Int) = OpenOrScoped(_.Web.Mobile):
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
         env.fide.playerApi
           .get(id)
           .flatMap:
-            case None => NotFound.page(views.fide.player.notFound(id))
+            case None => negotiate(NotFound.page(views.fide.player.notFound(id)), notFound)
             case Some(player) =>
-              if player.slug != slug then Redirect(playerUrl(player))
-              else
-                for
+              negotiate(
+                html =
+                  if player.slug != slug then Redirect(playerUrl(player))
+                  else
+                    for
+                      user <- env.title.api.publicUserOf(player.id)
+                      tours <- env.relay.playerTour.playerTours(player, page)
+                      isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
+                      ratings <- env.fide.repo.rating.get(player.id)
+                      rendered <- renderPage(
+                        views.fide.player.show(player, user, tours, ratings, isFollowing)
+                      )
+                    yield Ok(rendered)
+                ,
+                json = for
                   user <- env.title.api.publicUserOf(player.id)
-                  tours <- env.relay.playerTour.playerTours(player, page)
                   isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
                   ratings <- env.fide.repo.rating.get(player.id)
-                  rendered <- renderPage(views.fide.player.show(player, user, tours, ratings, isFollowing))
-                yield Ok(rendered)
+                yield JsonOk:
+                  Json
+                    .toJsObject(FidePlayer.WithFollow(player, isFollowing))
+                    .add("user" -> user.map(_.light)) ++ Json.obj("ratings" -> ratings.toJson)
+              )
 
   def follow(fideId: chess.FideId, follow: Boolean) = AuthOrScopedBody(_.Web.Mobile): _ ?=>
     me ?=>
