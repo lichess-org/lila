@@ -3,6 +3,8 @@
   <string name="logInAsUsername">Kirjaudu sisään tunnuksella %s</string>
   <string name="welcome">Tervetuloa!</string>
   <string name="welcomeToLichess">Tervetuloa lichess.orgiin!</string>
+  <string name="welcomeToLichessX">Tervetuloa Lichessiin, %s!</string>
+  <string name="verifyYourAccount">Varmenna käyttäjätunnuksesi</string>
   <string name="thisIsYourProfilePage">Tämä on profiilisivusi.</string>
   <string name="enabledKidModeSuggestion">Käyttääkö lapsi tätä tunnusta? Harkitse siinä tapauksessa %sn päälle laittamista.</string>
   <string name="whatNowSuggestions">Mitä seuraavaksi? Tässä pari ehdotusta:</string>

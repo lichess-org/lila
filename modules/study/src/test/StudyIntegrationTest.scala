@@ -1,14 +1,14 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tag, Tags, Comment as CommentStr }
+import chess.format.pgn.{ Comment as CommentStr, Glyph, Tag, Tags }
 import chess.variant.*
 import chess.{ Square, White }
 import play.api.libs.json.*
 
 import java.time.Instant
 
-import lila.study.StudySocket.Protocol.In.AtPosition
 import lila.study.Node.extensions.*
+import lila.study.StudySocket.Protocol.In.AtPosition
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 

@@ -9,7 +9,7 @@
   <string name="passwordReset_clickOrIgnore">Jeśli to Ty wysłałeś tę prośbę, użyj poniższego odnośnika. W przeciwnym razie możesz zignorować tę wiadomość.</string>
   <string name="emailChange_subject">Potwierdzenie nowego adresu e-mail użytkownika %s</string>
   <string name="emailChange_intro">Poprosiłeś o zmianę swojego adresu e-mail.</string>
-  <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego adresu email, użyj poniższego odnośnika:</string>
+  <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego adresu e-mail, użyj poniższego odnośnika:</string>
   <string name="welcome_subject">Witamy na lichess.org, %s</string>
   <string name="welcome_text">Pomyślnie utworzono konto na https://lichess.org.
 

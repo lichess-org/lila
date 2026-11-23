@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Hərkəsə açıq</string>
+  <string name="permSettingsName">Tənzimləmələr</string>
+  <string name="permTourName">Turnirlər</string>
+  <string name="manuallyReviewAdmissionRequests">Qəbul tələblərini əllə nəzərdən keçirin</string>
+  <string name="onlyLeaderLeavesTeam">Xahiş edirik, tərk etməzdən əvvəl yeni komanda lideri əlavə edin və ya komandanı silin.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s qoşulma istəyi</item>
+    <item quantity="other">%s qoşulma tələbi</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Yaxınlaşan turnirlərdən birinə qoşulmaq istəyirsiniz?</string>
+  <string name="closeTeam">Komandanı bağla</string>
+  <string name="closeTeamDescription">Komandanı həmişəlik bağla.</string>
+</resources>

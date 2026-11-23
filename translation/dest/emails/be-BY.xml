@@ -17,6 +17,7 @@
 
 Забаўляйцеся, і няхай Вашыя хвігуры няўхільна знаходзяць шлях да караля супара!</string>
   <string name="logInToLichess">Уваход на lichess.org, %s</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Спасылка не працуе? Паспрабуйце ўставіць яе ў свой браўзер!)</string>
   <string name="common_note">Гэта службовы ліст, які звязаны з вашым выкарыстаннем %s.</string>
   <string name="common_contact">Каб звязацца з намі, калі ласка, выкарыстоўвайце %s.</string>
 </resources>

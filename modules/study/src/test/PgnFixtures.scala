@@ -5,13 +5,11 @@ import chess.format.pgn.PgnStr
 object PgnFixtures:
 
   val pgn1 = """
-  { Root comment }
-1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) (1. c4 { and }) (1. f4 { best }) 1... e6?! { e6 is a naughty move }
+  { Root comment } 1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) (1. c4 { and }) (1. f4 { best }) 1... e6?! { e6 is a naughty move }
   """
 
   val pgn2 = """
-  { Root comment }
-1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move } 2. c4 (2. Nf3) (2. g3) 2... c5) (1. c4 { and }) (1. f4 { best }) 1... e6?! { e6 is a naughty move }
+  { Root comment } 1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move } 2. c4 (2. Nf3) (2. g3) 2... c5) (1. c4 { and }) (1. f4 { best }) 1... e6?! { e6 is a naughty move }
   """
 
   val pgn3 = "1. d4 d5 2. e4 e5"
@@ -42,8 +40,7 @@ object PgnFixtures:
 [Opening "Queen's Pawn Game"]
 [Annotator "https://lichess.org/@/nt9"]
 
-{ shape glyphs }
-1. d4 c6 (1... f6 2. c3?? $15 $138 $36 { jjjjjjjj } { [%csl Gd7,Re7,Bf6,Yh7,Yb7][%cal Gh4f4,Gf2e4] } (2. h4)) 2. f4 h5 3. h4 { [%csl Bd4,Gf4,Gf7][%cal Gc2c4,Gd2e4] }
+{ shape glyphs } 1. d4 c6 (1... f6 2. c3?? $15 $138 $36 { jjjjjjjj } { [%csl Gd7,Re7,Bf6,Yh7,Yb7][%cal Gh4f4,Gf2e4] } (2. h4)) 2. f4 h5 3. h4 { [%csl Bd4,Gf4,Gf7][%cal Gc2c4,Gd2e4] }
 
 
   """
@@ -61,8 +58,7 @@ object PgnFixtures:
 [FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
 [SetUp "1"]
 
-{ custom position with Black to move }
-  2... h5 3. b4
+{ custom position with Black to move } 2... h5 3. b4
 
 
 """

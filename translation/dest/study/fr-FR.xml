@@ -37,6 +37,7 @@
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
   <string name="kick">Éjecter</string>
+  <string name="remove">Supprimer</string>
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
@@ -100,8 +101,8 @@
   <string name="loadAGameFromPgn">Charger des parties par PGN</string>
   <string name="automatic">Automatique</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Collez votre texte PGN ici, jusqu\'à %s partie</item>
-    <item quantity="other">Collez votre texte PGN ici, jusqu\'à %s parties</item>
+    <item quantity="one">Collez votre texte en PGN ici, jusqu\'à %s partie.</item>
+    <item quantity="other">Collez des parties en format PGN ici. Un nouveau chapitre est créé pour chaque partie. L\'étude peut compter jusqu\'à %s chapitres.</item>
   </plurals>
   <string name="urlOfTheGame">URL des parties, une par ligne</string>
   <string name="createChapter">Créer un chapitre</string>
@@ -128,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Supprimer toute l’étude? Aucun retour en arrière possible! Taper le nom de l’étude pour confirmer : %s</string>
   <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
   <string name="goodMove">Bon coup</string>
-  <string name="mistake">Erreur</string>
   <string name="brilliantMove">Excellent coup</string>
-  <string name="blunder">Gaffe</string>
   <string name="interestingMove">Coup intéressant</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Coup douteux</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Seul coup</string>

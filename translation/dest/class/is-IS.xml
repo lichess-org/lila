@@ -68,7 +68,6 @@ Hér er tengillinn til að fá aðgang að bekknum.</string>
   <string name="releaseTheAccount">Útskrifaðu aðganginn svo nemandinn geti stjórnað honum sjálfur.</string>
   <string name="releaseDesc1">Ekki er hægt að stýra útskrifuðum aðgangi aftur. Nemandinn getur víxlað krakkaham og endurstillt lykilorðið sjálfur.</string>
   <string name="releaseDesc2">Nemandinn verður áfram í bekknum eftir að aðgangurinn hans er útskrifaður.</string>
-  <string name="realUniqueEmail">Ekta og einstakt netfang nemandans. Við munum senda staðfestingarpóst á það, með tengil til að ljúka við útskrift aðgangs.</string>
   <string name="closeStudent">Loka aðgangi</string>
   <string name="closeTheAccount">Loka nemendaaðganginum fyrir fullt og allt.</string>
   <string name="closeDesc1">Nemandinn mun aldrei geta notað þennan aðgang aftur. Slík lokun er óafturkallanleg. Gakktu úr skugga um að nemandinn skilji og sé samþykkur þessari ákvörðun.</string>

@@ -97,11 +97,6 @@
   <string name="loadAPositionFromFen">Ielādēt pozīciju no FEN</string>
   <string name="loadAGameFromPgn">Ielādēt spēli no PGN</string>
   <string name="automatic">Automātisks</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="zero">Ielīmējiet PGN tekstu šeit, ne vairāk kā %s spēles</item>
-    <item quantity="one">Ielīmējiet PGN tekstu šeit, ne vairāk kā %s spēli</item>
-    <item quantity="other">Ielīmējiet PGN tekstu šeit, ne vairāk kā %s spēles</item>
-  </plurals>
   <string name="urlOfTheGame">Spēles URL</string>
   <string name="createChapter">Izveidot nodaļu</string>
   <string name="createStudy">Izveidot izpēti</string>
@@ -127,9 +122,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Dzēst visu izpēti? Atpakaļceļa nav! Ievadiet izpētes nosaukumu, lai apstiprinātu: %s</string>
   <string name="whereDoYouWantToStudyThat">Kur vēlaties to izpētīt?</string>
   <string name="goodMove">Labs gājiens</string>
-  <string name="mistake">Kļūda</string>
   <string name="brilliantMove">Izcils gājiens</string>
-  <string name="blunder">Rupja kļūda</string>
   <string name="interestingMove">Interesants gājiens</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Apšaubāms gājiens</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Vienīgais gājiens</string>

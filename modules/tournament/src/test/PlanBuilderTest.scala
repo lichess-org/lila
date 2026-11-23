@@ -1,10 +1,11 @@
 package lila.tournament
 
+import chess.variant.*
+
 import java.time.LocalDateTime
 
 import Schedule.Freq.*
 import Schedule.Speed.*
-import chess.variant.*
 
 class PlanBuilderTest extends munit.FunSuite:
 

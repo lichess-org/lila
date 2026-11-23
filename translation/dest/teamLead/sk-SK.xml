@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Verejné</string>
+  <string name="permSettingsName">Nastavenia</string>
+  <string name="permTourName">Turnaje</string>
+  <string name="manuallyReviewAdmissionRequests">Ručne skontrolujte žiadosti o prijatie</string>
+  <string name="onlyLeaderLeavesTeam">Pred odchodom prosím pridajte nového lídra tímu, alebo zrušte tím.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s žiadosť o vstup</item>
+    <item quantity="few">%s žiadosti o vstup</item>
+    <item quantity="many">%s žiadostí o vstup</item>
+    <item quantity="other">%s žiadostí o vstup</item>
+  </plurals>
+  <string name="declinedRequests">Zamietnuté žiadosti</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Možno budete chcieť prepojiť jeden z týchto blížiacich sa turnajov?</string>
+  <string name="teamIntroductionHelp">Stručný popis viditeľný v zoznamoch tímov. Maximálne 200 znakov.</string>
+  <string name="teamDescriptionHelp">Úplný popis je viditeľný na stránke tímu.</string>
+  <string name="closeTeam">Zrušiť družstvo</string>
+  <string name="closeTeamDescription">Zruší družstvo natrvalo.</string>
+  <string name="listTheTeamsThatWillCompete">Uveďte zoznam tímov, ktoré budú súťažiť v tomto turnaji.</string>
+  <string name="thisTeamBattleIsOver">Tento turnaj sa skončil a tímy už nie je možné aktualizovať.</string>
+  <string name="oneTeamPerLine">Jeden tím na riadok. Použite automatické dokončovanie.</string>
+  <string name="numberOfLeadsPerTeam">Počet lídrov na tím. Súčet ich skóre je skóre tímu.</string>
+  <string name="numberOfLeadsPerTeamHelp">Túto hodnotu by ste naozaj nemali meniť po začiatku turnaja!</string>
+</resources>

@@ -35,8 +35,6 @@
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
   <string name="celebratedPatrons">התומכים המהוללים שהופכים את לִיצֶ\'ס לאפשרי</string>
   <string name="whereMoneyGoes">לאן הכסף הולך?</string>
-  <string name="serversAndDeveloper">בראש ובראשונה, לשרתים חזקים.
-לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של Lichess.</string>
   <string name="costBreakdown">צפו במפרט ההוצאות הכלכליות</string>
   <string name="officialNonProfit">האם לִיצֶ\'ס הוא ארגון ללא מטרות רווח באופן רשמי?</string>
   <string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>

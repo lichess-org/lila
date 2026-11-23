@@ -25,7 +25,7 @@ private final class BoardReport(settingStore: SettingStore.Builder)(using
     me <- ctx.me
     rating <- game.player(me).flatMap(_.rating)
     if checkNow(game)
-    ref <- HTTPRequest.referer(ctx.req)
+    ref <- HTTPRequest.referer(using ctx.req)
     url <- lila.common.url.parse(ref).toOption
     domain = url.host.toString
     if domainSetting.get().matches(domain)

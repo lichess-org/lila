@@ -14,7 +14,7 @@
   <string name="keepPlayPageOpen">Partida jokatzeko DGTko leihoa irekita egon behar da zure nabigatzaileak. Ez dauka zertan bistan egon, txikitu edo zure Lichesseko partidaren leihoarekin batera eduki dezakezu, baina ez ezazu itxi bestela taulak funtzionatzeari utziko dio-eta.</string>
   <string name="boardWillAutoConnect">Taula jada martxan dagoen partida batera edo partida berri batera konektatuko da. Laster jarriko dugu zein partida jokatu erabakitzeko aukera.</string>
   <string name="timeControlsForCasualGames">Lagunarteko partidetarako erritmoak: klasikoa, posta bidezkoa eta azkarra bakarrik.</string>
-  <string name="timeControlsForRatedGames">Sailkapenerako balio duten erritmoak: klasikoa, posta-bidezkoa eta azkar batzuk, 15+10 eta 20+0 barne</string>
+  <string name="timeControlsForRatedGames">Puntuaziorako balio duten erritmoak: klasikoa, posta-bidezkoa eta azkar batzuk, 15+10 eta 20+0 barne</string>
   <string name="whenReadySetupBoard">Prest zaudenean, jarri zure taula eta gero sakatu %s.</string>
   <string name="ifMoveNotDetected">Jokaldi bat ez badugu detektatzen</string>
   <string name="checkYouHaveMadeOpponentsMove">Egiaztatu aurkariaren jokaldia DGT taulan eginda dagoela. Bota zure jokaldia atzera. Jokatu berriz.</string>

@@ -9,8 +9,8 @@ import scalalib.model.Language
 import java.time.ZoneId
 
 import lila.core.id.ImageId
-import lila.core.study.Visibility
 import lila.core.net.Continent
+import lila.core.study.Visibility
 import lila.memo.{ Dimensions, PicfitUrl }
 
 case class RelayTour(

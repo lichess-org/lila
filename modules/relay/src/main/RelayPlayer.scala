@@ -1,5 +1,6 @@
 package lila.relay
 
+import chess.format.pgn.Tags
 import chess.rating.{ Elo, IntRatingDiff }
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 import chess.{ ByColor, Color, FideId, FideTC, IntRating, Outcome, PlayerName }
@@ -14,7 +15,6 @@ import lila.memo.CacheApi
 import lila.relay.RelayGroup.ScoreGroup
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
-import chess.format.pgn.Tags
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(

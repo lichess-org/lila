@@ -96,10 +96,6 @@
   <string name="loadAPositionFromFen">Cargar una posición vía códigu FEN</string>
   <string name="loadAGameFromPgn">Cargar una partida vía código PGN</string>
   <string name="automatic">Automáticu</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Pega equí el códigu PGN, %s partida a lo másimo</item>
-    <item quantity="other">Pega equí el códigu PGN, %s partíes a lo másimo</item>
-  </plurals>
   <string name="urlOfTheGame">URL de la partida</string>
   <string name="createChapter">Crear capítulu</string>
   <string name="createStudy">Crear estudiu</string>
@@ -125,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">¿Seguru que quies borrar l\'estudiu? Ten en cuenta qu\'esta acción non puede desfacerse. Pa confirmar, escribe\'l nome del estudiu: %s</string>
   <string name="whereDoYouWantToStudyThat">¿Ónde quies estudiar eso?</string>
   <string name="goodMove">Xugada bona</string>
-  <string name="mistake">Fallu</string>
   <string name="brilliantMove">Xugada muy bona</string>
-  <string name="blunder">Picia</string>
   <string name="interestingMove">Xugada interesante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Xugada dudosa</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Movimientu únicu</string>

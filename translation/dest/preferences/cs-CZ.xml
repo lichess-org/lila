@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Vrácení tahu (s protihráčovým souhlasem)</string>
   <string name="inCasualGamesOnly">Pouze v hrách \"jen tak\"</string>
   <string name="promoteToQueenAutomatically">Automaticky vyměnit za dámu</string>
-  <string name="explainPromoteToQueenAutomatically">Podržte klávesu &lt;ctrl&gt; při proměně figury pro dočasné pozastavení možnosti automatické proměny</string>
   <string name="whenPremoving">Při předtahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžádat remízu při trojím opakování pozice</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 sekund</string>

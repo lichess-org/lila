@@ -91,9 +91,6 @@
   <string name="loadAPositionFromFen">Muat posisi dari FEN</string>
   <string name="loadAGameFromPgn">Muat permainan dari PGN</string>
   <string name="automatic">Otomatis</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">Tempelkan PGN kamu disini, lebih dari %s permainan</item>
-  </plurals>
   <string name="urlOfTheGame">URL permainan</string>
   <string name="createChapter">Buat bab</string>
   <string name="createStudy">Buat studi</string>
@@ -119,9 +116,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Hapus seluruh studi? Tidak dapat kembal lagi! Tuliskan nama studi untuk konfirmasi: %s</string>
   <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
   <string name="goodMove">Langkah bagus</string>
-  <string name="mistake">Kesalahan</string>
   <string name="brilliantMove">Langkah Brilian</string>
-  <string name="blunder">Blunder</string>
   <string name="interestingMove">Langkah menarik</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Langkah meragukan</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Langkah satu-satunya</string>

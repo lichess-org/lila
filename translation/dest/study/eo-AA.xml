@@ -99,10 +99,6 @@
   <string name="loadAPositionFromFen">Ŝarĝi posicion el FEN kodo</string>
   <string name="loadAGameFromPgn">Ŝarĝi ludon el PGN</string>
   <string name="automatic">Aŭtomata</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Algluu ĉi tie vian PGN kodon, maksimume ĝis %s ludo</item>
-    <item quantity="other">Algluu ĉi tie vian PGN kodon, ĝis maksimume %s ludoj</item>
-  </plurals>
   <string name="urlOfTheGame">URL de la ludo</string>
   <string name="createChapter">Krei ĉapitron</string>
   <string name="createStudy">Krei studon</string>
@@ -128,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ĉu forigi la tuta studo? Ne estas reiro! Tajpi la nomon de la studo por konfirmi: %s</string>
   <string name="whereDoYouWantToStudyThat">Kie vi volas studi tion?</string>
   <string name="goodMove">Bona movo</string>
-  <string name="mistake">Eraro</string>
   <string name="brilliantMove">Brilianta movo</string>
-  <string name="blunder">Erarego</string>
   <string name="interestingMove">Interesa movo</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubinda movo</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nura movo</string>

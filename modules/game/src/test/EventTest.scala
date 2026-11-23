@@ -1,12 +1,14 @@
 package lila.game
 
 import chess.*
+import chess.CoreArbitraries.given
 import chess.variant.Crazyhouse
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
-import chess.CoreArbitraries.given
-import JsonView.given
+
 import lila.common.Json.given
+
+import JsonView.given
 
 class EventTest extends munit.ScalaCheckSuite:
 

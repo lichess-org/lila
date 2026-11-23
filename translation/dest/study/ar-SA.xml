@@ -49,6 +49,7 @@
   <string name="spectator">مشاهد</string>
   <string name="contributor">مساهم</string>
   <string name="kick">طرد</string>
+  <string name="remove">إزالة</string>
   <string name="leaveTheStudy">مغادرة الدراسة</string>
   <string name="youAreNowAContributor">انت الان اصبحت مساهم</string>
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
@@ -112,12 +113,12 @@
   <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="zero">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="one">الصق نص الPGN هنا، حتى %s لعبة واحدة</item>
-    <item quantity="two">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="few">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="many">ألصق نص PGN هنا، حتى %s مباراة</item>
-    <item quantity="other">الصق الPGN هنا، حتى %s العاب</item>
+    <item quantity="zero">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="one">ألصق نص PGN هنا، بحد أقصى %s مباراة.</item>
+    <item quantity="two">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="few">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="many">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
+    <item quantity="other">ألصق المباريات هنا بصيغة PGN. سيُنشأ فصل جديد لكل مباراة، ويمكن أن تحتوي الدراسة على ما يصل إلى %s فصلًا.</item>
   </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="createChapter">أنشئ الفصل</string>
@@ -144,9 +145,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
-  <string name="mistake">خطأ</string>
   <string name="brilliantMove">نقلة رائعة</string>
-  <string name="blunder">غلطة</string>
   <string name="interestingMove">نقلة مثيرة للاهتمام</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">نقلة مشبوهة</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">نقلة وحيدة</string>

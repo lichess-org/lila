@@ -65,7 +65,6 @@ Lichess वरील संगणकीय विश्लेषण Stockfish �
 याचा सराव करण्यासाठी %3$s पहा.</string>
   <string name="goodIntroduction">याचा चांगला परिचय</string>
   <string name="lichessTraining">Lichess प्रशिक्षण</string>
-  <string name="watchIMRosenCheckmate">आंतरराष्ट्रीय मास्तर एरिक रोझेन यांचा शह-मात पहा %s.</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="threefoldRepetitionExplanation">जर एखादी स्थिती तीन वेळा उद्भवली गेली असेल, तर दोन्ही खेळाडू %1$s द्वारे सामना बरोबरीत सोडवण्याचा दावा करू शकतात. Lichess हे %2$s च्या कलम ९.२ मध्ये वर्णन केल्यानुसार अधिकृत FIDE नियमांची अंमलबजावणी करते.</string>
   <string name="threefoldRepetitionLowerCase">तीनदा पुनरावृत्ती</string>

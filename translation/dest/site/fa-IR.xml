@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
-  <string name="playAgainstComputer">بازی با رایانه</string>
+  <string name="playAgainstComputer">بازی مقابلِ رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
   <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
@@ -439,11 +439,12 @@
   <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
+  <string name="selectImage">انتخاب تصویر</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">برای دریافت بازپخش مرورپذیر، واکاوی رایانه‌ای، گپ‌های بازی، و وب‌نشانی همگانی همرسانی‌پذیر، PGN یک بازی را جای‌گذاری کنید.</string>
-  <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
+  <string name="importGameDataPrivacyWarning">این PGN برای عموم دسترس است، برای درونبُردِ یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگذاری شده</item>
     <item quantity="other">%s بارگذاری شده</item>
@@ -569,8 +570,8 @@
   <string name="moreChessEnginesCreatedByTheLichessCommunity">موتورهای شطرنجِ بیشتری توسط همدارگانِ Lichess ایجاد شده‌اند. آنها را ایجادگران‌شان میزبانی می‌کنند و ممکن است همیشه بَرخط نباشند.</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
-  <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف عمومی برای هم‌تیمی‌ها می‌شود.</string>
+  <string name="descPrivate">شرحِ خصوصی</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین شرحِ همگانی برای هم‌تیمی‌ها می‌شود.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="website">وبگاه</string>
@@ -647,7 +648,7 @@
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">آغاز:</string>
-  <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
+  <string name="allInformationIsPublicAndOptional">همهٔ اطلاعات همگانی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">حداکثر: %s نویسه.</item>
@@ -703,7 +704,8 @@
   <string name="aboutX">درباره %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">وبگاه %1$s (%2$s) رایگان، آزاد، بی‌تبلیغ و با کارسازِ متن‌بازِ شطرنج است.</string>
   <string name="really">واقعاً</string>
-  <string name="lichessUpdates">روزامدهای Lichess</string>
+  <string name="lichessUpdates">خوراکِ Lichess</string>
+  <string name="allUpdates">همهٔ روزامدها</string>
   <string name="contribute">مشارکت</string>
   <string name="changelog">تغییرشرح</string>
   <string name="termsOfService">شرایطِ استفاده</string>
@@ -797,7 +799,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی تختهٔ بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمای آن‌ها، روی وَرتِش‌های رایانه‌ای بنَوَردید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
-  <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
+  <string name="primaryColorArrowsHowTo">مهار/ctrl یا کیب/shift = قرمز؛ فرمان/command، دگرساز/alt یا مَتا/meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
@@ -992,7 +994,7 @@
   <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت جَریانیدن</string>
   <string name="cancelTournament">لغو مسابقه</string>
-  <string name="tournDescription">توضیحات مسابقه</string>
+  <string name="tournDescription">شرحِ مسابقات</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌گران گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
 [name](https://url)</string>
   <string name="ratedFormHelp">بازی‌ها رسمی هستند
@@ -1013,7 +1015,7 @@
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
   <string name="simulFeatured">آرنگیدن در %s</string>
   <string name="simulFeaturedHelp">نمایشِ هَمگاه‌تان در %s به همه. نافعال برای هَمگاه‌های خصوصی.</string>
-  <string name="simulDescription">وصفِ هَمگاه</string>
+  <string name="simulDescription">شرحِ هَمگاه</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">می‌توانید متن را با استفاده از %s قالب‌بندی کنید.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>

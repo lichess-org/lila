@@ -34,7 +34,6 @@
   <string name="takebacksWithOpponentApproval">Жүрісті қайтару (қарсыластың келісімі қажет)</string>
   <string name="inCasualGamesOnly">Жай ойындарда ғана</string>
   <string name="promoteToQueenAutomatically">Уәзірге автоматты түрде айналдыру</string>
-  <string name="explainPromoteToQueenAutomatically">Ойын кезінде автоматты айналдыруды уақытша өшіру үшін &lt;ctrl&gt; басып тұрыңыз</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>

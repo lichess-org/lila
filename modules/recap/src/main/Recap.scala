@@ -8,6 +8,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.common.SimpleOpening
 import lila.core.game.Source
 import lila.recap.Recap.Counted
+import lila.core.perm.Granter
 
 case class Recap(
     @Key("_id") id: UserId,
@@ -33,6 +34,10 @@ case class RecapGames(
 case class RecapPuzzles(nbs: NbWin = NbWin(), votes: PuzzleVotes = PuzzleVotes())
 
 object Recap:
+
+  private val availableAt = instantOf(yearToRecap, 12, 7, 0, 0)
+  def availableForMe(mode: play.api.Mode)(using Me) =
+    mode.notProd || nowInstant.isAfter(availableAt) || Granter(_.LichessTeam)
 
   case class Counted[A](value: A, count: Int)
   case class Perf(key: PerfKey, games: Int)

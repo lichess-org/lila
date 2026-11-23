@@ -33,6 +33,7 @@
   <string name="publishHelp">หากตรวจสอบแล้ว โพสต์จะปรากฏบนบล็อกของคุณ ถ้าไม่โพสต์จะถูกตั้งค่าเป็นส่วนตัวในส่วนร่างโพสต์</string>
   <string name="includesPromotedContent">มีเนื้อหาที่ได้รับการส่งเสริม/สนับสนุน หรือลิงก์แนะนำ</string>
   <string name="mandatoryForSponsoredContent">จำเป็นต้องระบุสำหรับเนื้อหาที่ได้รับการสนับสนุน ลิงก์พันธมิตร หรือโฆษณาเชิงพาณิชย์</string>
+  <string name="containsSponsoredContent">มีเนื้อหาที่ได้รับการสนับสนุน ลิงก์พันธมิตร หรือโฆษณาเชิงพาณิชย์</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">โพสต์ปักหมุด</string>
   <string name="stickyPostHelp">หากตรวจสอบแล้ว โพสต์นี้จะปรากฏเป็นอันดับแรกในโพสต์ล่าสุดในโปรไฟล์ของคุณและในบล็อกของคุณ</string>
   <plurals name="publishedNbBlogPosts">
@@ -74,5 +75,7 @@
   <string name="inappropriateContentAccountClosed">อะไรก็ตามที่ไม่เหมาะสมอาจทำให้บัญชีของคุณโดนปิดได้</string>
   <string name="blogTips">เคล็ดลับง่ายๆของเราในการเขียนบล็อกที่ดี</string>
   <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
+  <string name="opinionsExpressedByContributorsAreTheirOwn">ความคิดเห็นที่แสดงโดยผู้มีส่วนร่วมบน Lichess เป็นความคิดเห็นส่วนบุคคลของผู้นั้น</string>
+  <string name="youMayAlsoLike">คุณอาจชอบ</string>
   <string name="youBlockedByBlogAuthor">คุณถูกปิดกั้นโดยผู้เขียนบล็อก</string>
 </resources>

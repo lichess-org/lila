@@ -1,7 +1,6 @@
 package lila.ui
 
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 import scalalib.model.Language
 
 import lila.core.i18n.{ Translate, defaultLanguage, toLanguage }
@@ -12,7 +11,7 @@ import lila.core.user.KidMode
 
 /* Data available in every HTTP request */
 trait Context:
-  val req: RequestHeader
+  val req: Req
   val lang: Lang
   def isAuth: Boolean
   def isOAuth: Boolean

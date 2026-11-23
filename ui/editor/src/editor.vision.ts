@@ -8,13 +8,14 @@ import { type Feature, features } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 
 import type { VisionWorkerResponse } from './editor.vision.worker';
+import type { VisionPlacement } from './interfaces';
 
 type ImageInput = { file: File } | { url: string };
 
-export async function initModule(input: ImageInput): Promise<FEN> {
+export async function initModule(input: ImageInput): Promise<VisionPlacement> {
   const statusDialog = await domDialog({
     htmlText: $html`
-      <p><strong class="status">Downloading ChessQueries Lite...</strong></p>
+      <p><strong class="status">Downloading ChessQ Lite V5...</strong></p>
       <div class="mini-board cg-wrap is2d standard" style="width: 240px;height:240px"></div>`,
     class: 'vision-status',
     modal: false,
@@ -39,11 +40,11 @@ export async function initModule(input: ImageInput): Promise<FEN> {
   statusDialog.show();
   try {
     const [worker, image] = await Promise.all([getReader(), imageBitmap(input)]);
-    return await new Promise<FEN>((resolve, reject) => {
+    return await new Promise<VisionPlacement>((resolve, reject) => {
       statusDialog.view.querySelector<HTMLElement>('.status')!.textContent = 'Processing...';
       worker.onmessage = event => {
         const response = event.data as VisionWorkerResponse;
-        if (response.type === 'placement') resolve(response.boardFen);
+        if (response.type === 'placement') resolve(response);
         else if (response.type === 'error') reject(new Error(response.message));
       };
       worker.onerror = event => reject(new Error(event.message));
@@ -85,7 +86,7 @@ const getReader = memoize<Promise<Worker>>(async () => {
     //   requires: ['wasm', 'webgpu', 'dynamicImportFromWorker'],
     // },
     {
-      model: 'lifat/vision/chessq-lite-v4-int8.onnx',
+      model: 'lifat/vision/chessq-lite-v5-int8.onnx',
       runtime: 'npm/onnxruntime-web/ort.wasm.min.mjs',
       wasm: 'npm/onnxruntime-web/ort-wasm-simd-threaded',
       providers: ['wasm'],

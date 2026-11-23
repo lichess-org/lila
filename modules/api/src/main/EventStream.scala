@@ -33,7 +33,8 @@ final class EventStream(
   def apply(
       gamesInProgress: List[Game],
       challenges: List[Challenge],
-      bearer: Bearer
+      bearer: Bearer,
+      fromWebsite: Boolean
   )(using me: Me): Source[Option[JsObject], ?] =
 
     given Lang = me.realLang | lila.core.i18n.defaultLang
@@ -46,13 +47,15 @@ final class EventStream(
       gamesInProgress.map(gameJson(_, "gameStart")).foreach(queue.offer)
       challenges.map(challengeJson("challenge")).map(some).foreach(queue.offer)
 
-      val actor = system.actorOf(Props(mkActor(queue, killChannel)))
+      val actor = system.actorOf(Props(mkActor(queue, killChannel, fromWebsite)))
 
       queue.watchCompletion().addEffectAnyway(actor ! PoisonPill)
 
-  private def mkActor(queue: SourceQueueWithComplete[Option[JsObject]], killChannel: String)(using
-      me: Me
-  )(using Lang): Actor =
+  private def mkActor(
+      queue: SourceQueueWithComplete[Option[JsObject]],
+      killChannel: String,
+      fromWebsite: Boolean
+  )(using me: Me)(using Lang): Actor =
     new:
 
       val channels = List(
@@ -82,11 +85,11 @@ final class EventStream(
       def receive =
 
         case SetOnline =>
-          onlineApiUsers.setOnline(me)
-
-          if lastSetSeenAt.isBefore(nowInstant.minusMinutes(10)) then
-            userRepo.setSeenAt(me)
-            lastSetSeenAt = nowInstant
+          if !fromWebsite then
+            onlineApiUsers.setOnline(me)
+            if lastSetSeenAt.isBefore(nowInstant.minusMinutes(10)) then
+              userRepo.setSeenAt(me)
+              lastSetSeenAt = nowInstant
 
           scheduler.scheduleOnce(7.second, self, CheckOnline)
 

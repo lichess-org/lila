@@ -1,8 +1,8 @@
 package lila.study
 
 import chess.Ply
-import chess.format.pgn.{ Comment as CommentStr, PgnStr, SanStr }
 import chess.format.UciPath
+import chess.format.pgn.{ Comment as CommentStr, PgnStr, SanStr }
 import chess.variant.{ Atomic, Crazyhouse, Standard, Variant }
 
 import lila.tree.Node.Comment

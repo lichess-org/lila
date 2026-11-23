@@ -95,16 +95,19 @@ final private class ChapterMaker(
     def isMe(name: Option[chess.PlayerName]) = name.flatMap(n => UserStr.read(n.value)).exists(_.is(userId))
     data.orientation match
       case Orientation.Fixed(color) => color
-      case _ if isMe(tags.names.white) => Color.white
-      case _ if isMe(tags.names.black) => Color.black
-      // If it is a concealed chapter (puzzles from a coach/book/course), start from side which moves first
-      case _ if data.isConceal => root.color
-      // if an outcome is known, then it's a finished game, which we show from white perspective by convention
-      case _ if tags.outcome.isDefined => Color.white
-      // in gamebooks (interactive chapter), we guess the orientation based on the last node
-      case _ if data.isGamebook => !root.lastMainlineNode.color
-      // else we show from the perspective of whoever turn it is to move
-      case _ => root.lastMainlineNode.color
+      case _ =>
+        tags("Orientation").flatMap(Color.fromName) | {
+          if isMe(tags.names.white) then Color.white
+          else if isMe(tags.names.black) then Color.black
+          // If it is a concealed chapter (puzzles from a coach/book/course), start from side which moves first
+          else if data.isConceal then root.color
+          // if an outcome is known, then it's a finished game, which we show from white perspective by convention
+          else if tags.outcome.isDefined then Color.white
+          // in gamebooks (interactive chapter), we guess the orientation based on the last node
+          else if data.isGamebook then !root.lastMainlineNode.color
+          // else we show from the perspective of whoever turn it is to move
+          else root.lastMainlineNode.color
+        }
 
   def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default

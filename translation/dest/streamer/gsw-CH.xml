@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess Streamer/-in</string>
-  <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="lichessStreamers">Lichess Streamer*ine</string>
+  <string name="lichessStreamer">Lichess Streamer*i</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt grad: %s</string>
   <string name="lastStream">Letschte Stream %s</string>
-  <string name="becomeStreamer">Wird en Lichess Streamer</string>
+  <string name="becomeStreamer">Wird en/e Lichess Streamer*i</string>
   <string name="doYouHaveStream">Häsch du en Twitch- oder en YouTube Kanal?</string>
   <string name="hereWeGo">Los gaht\'s!</string>
-  <string name="allStreamers">Alli Streamer</string>
-  <string name="editPage">Streamersite bearbeite</string>
-  <string name="yourPage">Dini Streamersite</string>
-  <string name="downloadKit">Streamer Packet abelade</string>
+  <string name="allStreamers">Alli Streamer*ine</string>
+  <string name="editPage">Stream Site bearbeite</string>
+  <string name="yourPage">Dini Stream Site</string>
+  <string name="downloadKit">Stream Packet abelade</string>
   <string name="xIsStreaming">%s streamt grad</string>
-  <string name="rules">Streaming Reglä</string>
+  <string name="rules">Stream Regle</string>
   <string name="rule1">Füeg s\'Stichwort \"lichess.org\" i dim Streamtitel i und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
-  <string name="rule2">Entfern s\'Stichwort, wänn du grad nöd Lichess-bezoge streamsch.</string>
+  <string name="rule2">Entfern s\'Stichwort, wänn du grad nöd Lichess bezoge streamsch.</string>
   <string name="rule3">Lichess wird automatisch din Stream erkänne und folgendi Zuesatzdienscht aktiviere:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lis eusi %s, um Fairplay für Alli, während dim Stream, z\'sichere.</string>
   <string name="streamingFairplayFAQ">Stream Fairplay FAQ</string>
   <string name="perks">Vorteil fürs Streame mitem Schlüsselwort</string>
-  <string name="perk1">Es git es flammends Streamer-Symbol i dis Lichess-Profil.</string>
-  <string name="perk2">Wird ad Schpitze vu de Streamerlischte gsetzt.</string>
-  <string name="perk3">Mälds dine Lichess-Follower.</string>
-  <string name="perk4">Zeig din Stream i dine Schpiel, Turnier und Schtudie.</string>
+  <string name="perk1">Es git es flammends Streamer Symbol i dis Lichess Profil.</string>
+  <string name="perk2">Wird ad Schpitze vu de Streamer*ine Lischte g\'setzt.</string>
+  <string name="perk3">Mäld\'s dine Follower.</string>
+  <string name="perk4">Zeig din Stream i dine Schpil, Turnier und Schtudie.</string>
   <string name="approved">Din Stream isch g\'nehmigt worde.</string>
   <string name="pendingReview">Din Stream wird vo de Moderatore prüeft.</string>
-  <string name="pleaseFillIn">Bitte füll dini Streamer-Informatione us und lad es Bild ufe.</string>
-  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du bereit bisch, als Lichess Streamer a\'zeigt z\'werde, %s.</string>
+  <string name="pleaseFillIn">Bitte füll dini Streamer*ine Informatione us und lad es Bild ufe.</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du bereit bisch, als Lichess Streamer*i a\'zeigt z\'werde, %s.</string>
   <string name="submitForReview">Zur Prüefig schicke</string>
-  <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
-  <string name="pleaseAllow">Du muesch mit bis zu 72 Schtund Bearbeitigszit rächne, bis din Streamer-Badge und din Itrag genehmigt werded.</string>
-  <string name="chooseYoutubeChannel">Wähl de YouTube-Kanal, wo du uf Lichess verwände wotsch.</string>
+  <string name="streamerLanguageSettings">D\'Lichess Stream Site richtet sich as Publikum mit dere Schprach, wo vu dinere Stream Platform bereit g\'schtellt wird. Wähl die richtig Schtandard Schprach, für dini Schach Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändisch.</string>
+  <string name="pleaseAllow">Es cha bis 72 Schtund Bearbeitigszit dure, bis din Streamer Badge und din Itrag g\'nehmigt wird.</string>
+  <string name="chooseYoutubeChannel">Wähl de YouTube- anal, wo du uf Lichess verwände wetsch.</string>
   <string name="connect">Verbinde</string>
   <string name="disconnect">Verbindig tränne</string>
-  <string name="streamerName">Din Streamername uf Lichess</string>
+  <string name="streamerName">Din Streamer*in Name uf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Churz fasse: Maximal %s Zeiche</item>
     <item quantity="other">Churz fasse: Maximal %s Zeiche</item>
   </plurals>
-  <string name="visibility">Sichtbar uf de Streamersite</string>
-  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
+  <string name="visibility">Sichtbar uf de Stream Site</string>
+  <string name="whenApproved">Sobald von den Moderatoren g\'nehmigt</string>
   <string name="headline">Titel</string>
-  <string name="tellUsAboutTheStream">Verzell eus öppis über din Stream; i eim Satz</string>
+  <string name="tellUsAboutTheStream">Verzell öppis über din Stream; i eim Satz</string>
   <string name="longDescription">Usfüehrlichi Beschribig</string>
-  <string name="xStreamerPicture">%s Streamerbild</string>
+  <string name="xStreamerPicture">%s Streamer*in Bild</string>
   <string name="changePicture">Dis Bild ändere/lösche</string>
   <string name="uploadPicture">Lad es Bild ufe</string>
   <string name="maxSize">Maximali Grössi: %s</string>

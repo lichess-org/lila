@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
+final class UblogPostUi(helpers: Helpers, ui: UblogUi, structured: UblogStructuredData)(connectLinks: Frag):
   import helpers.{ *, given }
 
   def page(
@@ -22,15 +22,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     Page(s"${post.title} • ${trans.ublog.xBlog.txt(user.username)}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .graph:
-        OpenGraph(
-          `type` = "article",
-          image = imageUrl,
-          title = post.title,
-          url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
-          description = post.intro
-        )
-      .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
+      .graph(structured.openGraph(user, post, imageUrl))
+      .headAppend(structured(user, post, imageUrl))
       .preloadImage(imageUrl)(helpers)
       .copy(atomLink = (routes.Ublog.userAtom(user.username), trans.ublog.xBlog.txt(user.username)).some)
       .flag(_.noRobots, !blog.crawlable || !post.crawlable)

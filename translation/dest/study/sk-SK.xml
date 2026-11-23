@@ -104,12 +104,6 @@
   <string name="loadAPositionFromFen">Načítať pozíciu z FEN</string>
   <string name="loadAGameFromPgn">Načítať hru z PGN</string>
   <string name="automatic">Automatická</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Váš PGN text vložte sem, maximálne %s partiu</item>
-    <item quantity="few">Váš PGN text vložte sem, maximálne %s partie</item>
-    <item quantity="many">Váš PGN text vložte sem, maximálne %s partií</item>
-    <item quantity="other">Váš PGN text vložte sem, maximálne %s partií</item>
-  </plurals>
   <string name="urlOfTheGame">URL hry</string>
   <string name="createChapter">Vytvoriť kapitolu</string>
   <string name="createStudy">Vytvoriť štúdiu</string>
@@ -135,9 +129,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Definitívne vymazať štúdiu? Táto akcia sa nedá vrátit späť! Napíšte názov štúdie pre potvrdenie: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
   <string name="goodMove">Dobrý ťah</string>
-  <string name="mistake">Chyba</string>
   <string name="brilliantMove">Veľmi dobrý ťah</string>
-  <string name="blunder">Hrubá chyba</string>
   <string name="interestingMove">Zaujímavý ťah</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Pochybný ťah</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jediný možný ťah</string>

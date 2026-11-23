@@ -44,6 +44,35 @@ describe('test regex patterns', () => {
     assert.strictEqual(enhance('game 100', opts), '<a data-board="100">game 100</a>');
   });
 
+  test('move on a board', () => {
+    const opts: EnhanceOpts = { boards: true, plies: true };
+    assert.strictEqual(
+      enhance('board 5 23... Nf6 wow', opts),
+      '<a data-board="5" data-ply="46">board 5 23... Nf6</a> wow',
+    );
+    assert.strictEqual(
+      enhance('board 5 23... Nf6 or 23... Ne4', opts),
+      '<a data-board="5" data-ply="46">board 5 23... Nf6</a> or <a class="jump" data-ply="46">23... Ne4</a>',
+    );
+  });
+
+  test('move links without board links', () => {
+    assert.strictEqual(
+      enhance('board 5 23. Nf3', { plies: true }),
+      'board 5 <a class="jump" data-ply="45">23. Nf3</a>',
+    );
+  });
+
+  test('moves next to other links', () => {
+    const opts: EnhanceOpts = { plies: true };
+    assert.strictEqual(
+      enhance('@bob 23... Nf6', opts),
+      '<a target="_blank" rel="nofollow noreferrer" href="/@/bob">@bob</a> <a class="jump" data-ply="46">23... Nf6</a>',
+    );
+    const url = 'lichess.org/analysis/pgn/1.e4';
+    assert.strictEqual(enhance(url, opts), enhance(url));
+  });
+
   test('boards out of range should not be linked', () => {
     const opts: EnhanceOpts = { boards: true };
     assert.strictEqual(enhance('board 0', opts), 'board 0');

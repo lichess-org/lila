@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Publiko</string>
+  <string name="permSettingsName">Setting</string>
+  <string name="permTourName">Mga Paligsahan</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s kahilingang sumali</item>
+    <item quantity="other">%s mga kahilingang sumali</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
+</resources>

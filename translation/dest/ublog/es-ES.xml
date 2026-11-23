@@ -34,6 +34,7 @@
   <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
   <string name="includesPromotedContent">Incluye contenido patrocinado o enlaces de referencia</string>
   <string name="mandatoryForSponsoredContent">Obligatorio para contenido patrocinado, enlaces de afiliados o publicidad comercial</string>
+  <string name="containsSponsoredContent">Contiene contenido patrocinado, enlaces de afiliados o anuncios comerciales</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Entrada fijada</string>
   <string name="stickyPostHelp">Si está marcado, esta entrada aparecerá en el primer lugar de las entradas recientes en tu perfil.</string>
   <plurals name="publishedNbBlogPosts">

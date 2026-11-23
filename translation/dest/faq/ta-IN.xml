@@ -65,7 +65,6 @@
 இதனுடன் சில பயிற்சிகளுக்கு இந்த நகர்வில் %3$s ஐப் பார்க்கவும்.</string>
   <string name="goodIntroduction">நல்ல அறிமுகம்</string>
   <string name="lichessTraining">லீசெஸ் பயிற்சி</string>
-  <string name="watchIMRosenCheckmate">சர்வதேச மாஸ்டர் எரிக் ரோசன் செக்மேட் %s-ஐப் பாருங்கள்.</string>
   <string name="threefoldRepetition">மூன்று முறை திரும்பத் திரும்பச் சொல்லுதல்</string>
   <string name="threefoldRepetitionExplanation">ஒரு நிலை மூன்று முறை ஏற்பட்டால், வீரர்கள் %1$s ஆல் சமநிலையைப் பெறலாம். %2$s இன் பிரிவு 9.2 இல் விவரிக்கப்பட்டுள்ளபடி, லைச்சஸ் அதிகாரப்பூர்வ FIDE விதிகளை செயல்படுத்துகிறது.</string>
   <string name="threefoldRepetitionLowerCase">மூன்று முறை திரும்பத் திரும்பச் செய்தல்</string>

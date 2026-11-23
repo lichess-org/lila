@@ -17,12 +17,6 @@
     <item quantity="other">Mga pinuno ng koponan</item>
   </plurals>
   <string name="teamRecentMembers">Mga bagong miyembro</string>
-  <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
-  <string name="whoToKick">Sino ang gusto mong/ninyong sibakin mula sa koponan?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">%s kahilingang sumali</item>
-    <item quantity="other">%s mga kahilingang sumali</item>
-  </plurals>
   <string name="willBeReviewed">Ang iyong kahilingang sumali ay rerepasuhin ng pinuno ng koponan.</string>
   <string name="beingReviewed">Ang iyong kahilingang sumali ay nirerepaso ng pinuno ng koponan.</string>
   <string name="teamBattle">Labanan ng Koponan</string>
@@ -30,6 +24,5 @@
   <string name="teamTournament">Paligsahan ng koponan</string>
   <string name="teamTournamentOverview">Ang paligsahan sa Arena na tanging mga kasapi lamang ng iyong/inyong koponan ang maaaring sumali</string>
   <string name="teamsIlead">Mga koponan na pinamumunuan ko</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
   <string name="leadersChat">Chat ng mga pinuno</string>
 </resources>

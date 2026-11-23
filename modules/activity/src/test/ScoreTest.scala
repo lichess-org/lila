@@ -1,8 +1,8 @@
 package lila.activity
 
-import chess.{ Color, IntRating, Status }
 import chess.rating.IntRatingDiff
 import chess.variant.Standard
+import chess.{ Color, IntRating, Status }
 
 import lila.core.game.{ LightGame, LightPlayer, LightPov }
 

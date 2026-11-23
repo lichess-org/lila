@@ -23,8 +23,8 @@
   <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
   <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که تسلیم‌نشده بازی را می‌تَرکَند، انجام می‌شود؟</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریفتان مرتباً بازی‌ها را لغو/ترک کند، \"منعِ بازی\" دریافت می‌کند، به این معنی که آنها موقتا از بازی کردن منع می‌شوند. این موضوع عموما در رُخ‌نمای‌شان نماییده نمی‌شود. اگر این رفتار ادامه یابد، مدتِ منعِ بازی می‌افزاید و رفتار بلندمدت از این نوع ممکن است منجر به بسته شدن حساب شود.</string>
-  <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
-  <string name="youCannotApply">امکان تقاضا برای مدیر شدن وجود ندارد. اگر ما ببینیم که فردی از نظر ما می تواند یک مدیر خوب باشد، ما با او مستقیما ارتباط برقرار خواهیم کرد.</string>
+  <string name="howCanIBecomeModerator">چگونه می‌توانم ناظر شوم؟</string>
+  <string name="youCannotApply">درخواست برای ناظر شدن امکان‌پذیر نیست. اگر کسی را ببینیم که به نظرمان برای ناظر شدن مناسب است، مستقیماً با او تماس خواهیم گرفت.</string>
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
@@ -64,7 +64,7 @@
 برای تمرین این حرکت، به %3$s مراجعه کنید.</string>
   <string name="goodIntroduction">معرفیِ خوب</string>
   <string name="lichessTraining">آموزش Lichess</string>
-  <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
+  <string name="watchIMRosenCheckmate">&lt;a href=\'%s\' target=\'_blank\'&gt;آن‌پاسان&lt;/a&gt; ماتِ استاد بین‌الملل اِریک رُزِن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="threefoldRepetitionExplanation">اگر یک وضعیت سه بار رخ دهد، بازیکنان می‌توانند با %1$s، ادعای تساوی کنند. Lichess قانون‌های رسمی فیده را که در ماده 9.2 %2$s آمده، اجرا می‌کند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه‌گانه</string>
@@ -139,7 +139,7 @@
   <string name="lichessCanOptionnalySendPopUps">لیچس می‌تواند در صورتی که بخواهید اعلان ارسال کند، برای مثال وقتی که نوبت حرکت شماست و یا پیام خصوصی دریافت کرده‌اید. 
 برای نماد قفل در کنار ادرس lichess.org در نوار URL مرورگر کلیک کنید. 
 سپس انتخاب کنید که آیا می‌خواهید اعلان های لیچس مجاز باشند و یا مسدود شوند.</string>
-  <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
+  <string name="enableAutoplayForSoundsQ">فعالیدنِ خودپخشِ صدا؟</string>
   <string name="mostBrowsersPreventSoundAutoplay">اکثر مرورگرها برای محافظت از کاربران، جلوی پخش صدا در صفحات تازه-بازدید را می‌گیرند.
 
 نقشکِ بی‌صدا زمانی ظاهر می‌شود که مرورگرتان مانع از پخش صدا در lichess.org شود. این محدودیت معمولاً پس از تِلیک روی چیزی برداشته می‌شود.

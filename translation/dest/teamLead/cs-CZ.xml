@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Veřejná</string>
+  <string name="permSettingsName">Nastavení</string>
+  <string name="permTourName">Turnaje</string>
+  <string name="manuallyReviewAdmissionRequests">Ruční přezkoumání žádostí o přijetí</string>
+  <string name="onlyLeaderLeavesTeam">Prosím přidejte jiného vedoucího týmu před opuštěním, nebo tým smažte.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Žádost o připojení</item>
+    <item quantity="few">%s Žádosti o připojení</item>
+    <item quantity="many">%s Žádostí o připojení</item>
+    <item quantity="other">%s Žádostí o připojení</item>
+  </plurals>
+  <string name="declinedRequests">Odmítnuté žádosti</string>
+  <string name="newTeamUpdate">Nová týmová zpráva</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
+  <string name="teamIntroductionHelp">Stručný popis viditelný v seznamech týmů. Až 200 znaků.</string>
+  <string name="teamDescriptionHelp">Kompletní popis viditelný na stránce týmu.</string>
+  <string name="closeTeam">Zavřít tým</string>
+  <string name="closeTeamDescription">Zavřít tým navždy.</string>
+  <string name="listTheTeamsThatWillCompete">Uveďte týmy, které se zúčastní této bitvy.</string>
+  <string name="thisTeamBattleIsOver">Tento turnaj skončil a týmy již nemohou být aktualizovány.</string>
+  <string name="oneTeamPerLine">Jeden tým na řádek. Použijte automatické dokončování.</string>
+  <string name="numberOfLeadsPerTeam">Počet vedoucích na tým. Součet jejich dosažených výsledků je výsledkem týmu.</string>
+  <string name="numberOfLeadsPerTeamHelp">Tuto hodnotu byste po zahájení turnaje neměli měnit!</string>
+</resources>

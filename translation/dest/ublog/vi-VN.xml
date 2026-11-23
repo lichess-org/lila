@@ -33,6 +33,7 @@
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư trong các bài đăng nháp của bạn</string>
   <string name="includesPromotedContent">Bao gồm nội dung được quảng cáo/tài trợ hoặc liên kết giới thiệu</string>
   <string name="mandatoryForSponsoredContent">Bắt buộc đối với nội dung được tài trợ, liên kết tiếp thị hoặc quảng cáo thương mại</string>
+  <string name="containsSponsoredContent">Bài viết này có chứa nội dung được tài trợ, liên kết tiếp thị hoặc quảng cáo thương mại</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Cố định bài đăng</string>
   <string name="stickyPostHelp">Nếu được chọn, bài đăng này sẽ được liệt kê đầu tiên trong các bài đăng gần đây trên hồ sơ của bạn.</string>
   <plurals name="publishedNbBlogPosts">

@@ -94,10 +94,6 @@
   <string name="loadAPositionFromFen">FEN арқылы ойындарды жүктеп салу</string>
   <string name="loadAGameFromPgn">PGN арқылы ойындарды жүктеп салу</string>
   <string name="automatic">Автоматты түрде</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN мәтінін осында қойыңыз, %s ойын ғана</item>
-    <item quantity="other">PGN мәтінін осында қойыңыз, %s ойынға дейін</item>
-  </plurals>
   <string name="urlOfTheGame">Ойындардың сілтемесі, әр жолға бір-бірден</string>
   <string name="createChapter">Бөлім құру</string>
   <string name="createStudy">Зерттеуді құру</string>
@@ -123,9 +119,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Бүкіл зерттеуді жоясыз ба? Қайтар жол жоқ. Растау үшін зерттеу атауын жазыңыз: %s</string>
   <string name="whereDoYouWantToStudyThat">Бұл күйдің зерттеуін қай жерде бастайсыз?</string>
   <string name="goodMove">Жақсы жүріс</string>
-  <string name="mistake">Қате</string>
   <string name="brilliantMove">Әдемі жүріс</string>
-  <string name="blunder">Өрескел қателік</string>
   <string name="interestingMove">Қызық жүріс</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Күмәнді жүріс</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Жалғыз жүріс</string>

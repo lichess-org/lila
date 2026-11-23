@@ -36,6 +36,7 @@
   <string name="numberOfRounds">फेऱ्यांची संख्या</string>
   <string name="numberOfRoundsHelp">फेऱ्यांची संख्या विषम ठेवल्यास रंगांतील समतोल अधिक चांगला राहील.</string>
   <string name="roundInterval">फेऱ्यांमधील अंतर</string>
+  <string name="customPairings">सानुकूल जोड्या</string>
   <string name="forbiddenPairings">निषिद्ध जोड्या</string>
   <string name="forbiddenPairingsHelp">ज्या खेळाडूंची जोडी बनवू नये (उदा. भावंडे), त्यांचे वापरकर्तानावे. प्रत्येक ओळीत दोन नावे, ज्यांच्यामध्ये एक रिकामी जागा असेल.</string>
   <string name="manualPairings">पुढील फेरीत हाताने जोड्या बनवणे</string>

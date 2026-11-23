@@ -36,12 +36,11 @@
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="inCasualGamesOnly">Только в товарищеских играх</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
-  <string name="explainPromoteToQueenAutomatically">Удерживайте клавишу &lt;ctrl&gt; во время превращения, чтобы временно отключить автопревращение в ферзя</string>
+  <string name="explainPromoteToQueenAutomatically">Удерживайте клавишу ctrl во время продвижения, чтобы временно отключить автоматическое продвижение</string>
   <string name="whenPremoving">Когда сделан предварительный ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
-  <string name="multipleChoices">Несколько вариантов.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Может быть отключено во время игры вместе с меню доски</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>

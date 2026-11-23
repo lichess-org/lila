@@ -1,5 +1,6 @@
 package lila.relay
 
+import scala.util.Try
 import chess.{ ByColor, Rated }
 import io.mola.galimatias.URL
 import play.api.Mode
@@ -212,10 +213,18 @@ object RelayRoundForm:
         if !sameAsBefore && url.isLichess && !Granter(_.Relay)
         then Left("Invalid source URL")
         else Right(url)
+      ip <- resolveIp(url).toRight("Could not resolve source URL to an IP address")
+      _ <- if validateIp(ip) then Right(()) else Left(s"Invalid source resolved IP: $ip")
     yield url
 
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
+  private def resolveIp(url: URL): Option[java.net.InetAddress] =
+    Try(java.net.InetAddress.getByName(url.host.toHostString)).toOption
+  private def validateIp(ip: java.net.InetAddress)(using mode: Mode): Boolean =
+    mode.notProd || (
+      !ip.isLoopbackAddress && !ip.isAnyLocalAddress && !ip.isLinkLocalAddress && !ip.isSiteLocalAddress
+    )
 
   private val blocklist = List(
     "localhost",
@@ -232,7 +241,8 @@ object RelayRoundForm:
     "chessgames.com",
     "zoom.us",
     "facebook.com",
-    "herokuapp.com"
+    "herokuapp.com",
+    "lichess.ovh"
   )
 
   case class Data(

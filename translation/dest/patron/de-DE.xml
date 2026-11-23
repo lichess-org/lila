@@ -35,8 +35,7 @@
   <string name="celebratedPatrons">Die gefeierten Unterstützer, die Lichess möglich machen</string>
   <string name="whereMoneyGoes">Wohin fließt das Geld?</string>
   <string name="serversAndDeveloper">Zuallererst in leistungsstarke Server. 
-Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.
-</string>
+Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</string>
   <string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
   <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit-Organisation?</string>
   <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in Französisch)</string>

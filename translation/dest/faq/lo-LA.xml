@@ -64,7 +64,6 @@
 ເບິ່ງ %3$s ກ່ຽວກັບການເດີນນີ້ເພື່ອຝຶກຊ້ອມ.</string>
   <string name="goodIntroduction">ບົດນຳທີ່ດີ</string>
   <string name="lichessTraining">ການຝຶກຊ້ອມຂອງ Lichess</string>
-  <string name="watchIMRosenCheckmate">ເບິ່ງ International Master Eric Rosen ຣຸກຄາດແບບ %s.</string>
   <string name="threefoldRepetition">ການສະເໝີຍ້ອນການຍ້າຍໝາກຊ້ຳສາມເທື່ອ (Threefold repetition)</string>
   <string name="threefoldRepetitionExplanation">ຫາກສະຖານະພາບໃນກະດານເກີດຂຶ້ນຊ້ຳສາມເທື່ອ, ຜູ້ຫຼິ້ນສາມາດຂໍສະເໝີໄດ້ໂດຍ %1$s. Lichess ປະຕິບັດຕາມກົດລະບຽບທາງການຂອງ FIDE, ຕາມທີ່ອະທິບາຍໄວ້ໃນມາດຕາ 9.2 ຂອງ %2$s.</string>
   <string name="threefoldRepetitionLowerCase">ການຍ້າຍໝາກຊ້ຳສາມເທື່ອ</string>

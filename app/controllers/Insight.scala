@@ -8,9 +8,9 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: UserStr) = Open: ctx ?=>
+  def refresh(username: UserStr) = OpenOrScoped(): ctx ?=>
     AccessibleApi(username): user =>
-      val byMod = isGrantedOpt(_.MarkBooster) || isGrantedOpt(_.MarkEngine)
+      val byMod = isGrantedOpt(_.SeeInsight)
       env.insight.api.indexAll(user, force = byMod).inject(Ok)
 
   def index(username: UserStr) = Open: ctx ?=>
@@ -34,7 +34,7 @@ final class Insight(env: Env) extends LilaController(env):
     env.insight.api
       .userStatus(user)
       .flatMap:
-        case NoGame => Ok.page(views.site.message.insightNoGames(user))
+        case NoGame => Ok.page(views.insight.noGames(user, views.site.message.apply))
         case Empty => Ok.page(views.insight.empty(user))
         case s =>
           for
@@ -73,7 +73,7 @@ final class Insight(env: Env) extends LilaController(env):
         )
 
   private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
-    isAccessible(username)(f, u => Forbidden.page(views.insight.forbidden(u)))
+    isAccessible(username)(f, u => Forbidden.page(views.insight.forbidden(u, views.site.message.apply)))
 
   private def AccessibleApi(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
     isAccessible(username)(f, _ => Forbidden)

@@ -6,6 +6,4 @@
   <string name="shareAndExport">Sparte &amp; espurtà</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Sfassà u studiu sanu? Ùn puderete annullà! Scivite u nome di u studiu pè cunfirmà: %s</string>
   <string name="goodMove">Bellu colpu</string>
-  <string name="mistake">Sbagliu</string>
-  <string name="blunder">Sbaglione</string>
 </resources>

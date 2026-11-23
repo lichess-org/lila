@@ -438,6 +438,7 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
+  <string name="selectImage">Seleccionar imagen</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -702,7 +703,8 @@ Amigos jugando: %2$s</string>
   <string name="aboutX">Acerca de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez libre y gratuito (%2$s) de código abierto y sin publicidad.</string>
   <string name="really">realmente</string>
-  <string name="lichessUpdates">Actualizaciones de Lichess</string>
+  <string name="lichessUpdates">Canal de Lichess</string>
+  <string name="allUpdates">Todas las actualizaciones</string>
   <string name="contribute">Contribuir</string>
   <string name="changelog">Registro de cambios</string>
   <string name="termsOfService">Condiciones del servicio</string>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standard">Schtandard</string>
-  <string name="standardTitle">Schtandard-Schachregle (FIDE)</string>
-  <string name="chess960">Chess960</string>
-  <string name="chess960Title">D\'Grundschtellig, vu de Figure, isch zuefällig.</string>
-  <string name="kingOfTheHill">König vum Hügel</string>
-  <string name="kingOfTheHillTitle">Bring din König is Zäntrum zum s\'Schpiel günne.</string>
-  <string name="threeCheck">Drü-Schach</string>
-  <string name="threeCheckTitle">Büt dim Gägner drümal Schach, zum s\'Schpiel günne.</string>
-  <string name="antichess">Anti-Schach</string>
-  <string name="antichessTitle">Verlür all Figure (oder mach es Patt) zum s\'Schpiel günne.</string>
-  <string name="atomic">Atom-Schach</string>
-  <string name="atomicTitle">Schpräng de gägnerisch Köng, zum günne.</string>
-  <string name="horde">Horde</string>
-  <string name="hordeTitle">En hufe Pure gäge e ganz normali Armee.</string>
-  <string name="racingKings">Ränn-Könige</string>
-  <string name="racingKingsTitle">Bring din König, zum günne, uf die ander Site vum Brätt.</string>
-  <string name="crazyhouse">Isetz-Schach</string>
-  <string name="crazyhouseTitle">Anstatt en Zug z\'mache, gschlageni Figure zrugg ufs Brätt schtelle.</string>
-  <string name="fromPosition">Vu Position</string>
-  <string name="fromPositionTitle">Schtandard-Schach vunere g\'wählte Position</string>
+  <string name="standardTitle">Schtandard Schachregle (FIDE)</string>
+  <string name="chess960">Fischer Schach</string>
+  <string name="chess960Title">Zuefälligi Afangsschtellig vu de Figure.</string>
+  <string name="kingOfTheHill">König der Berge</string>
+  <string name="kingOfTheHillTitle">Zum Günne bringsch de König is Zäntrum.</string>
+  <string name="threeCheck">Drüfach Schach</string>
+  <string name="threeCheckTitle">Zum Günne muesch drümal Schach büte.</string>
+  <string name="antichess">Anti Schach</string>
+  <string name="antichessTitle">Zum Günne muesch all Figure verlüre oder es Patt mache.</string>
+  <string name="atomic">Atom Schach</string>
+  <string name="atomicTitle">Zum Günne, de gägnerisch Köng id Luft schpränge!</string>
+  <string name="horde">Horde Pure</string>
+  <string name="hordeTitle">Die normal Armee gäge e Horde vu Pure.</string>
+  <string name="racingKings">Ränn Könige</string>
+  <string name="racingKingsTitle">Zum Günne de König uf die ander Site bringe.</string>
+  <string name="crazyhouse">Isetz Schach</string>
+  <string name="crazyhouseTitle">Anschtatt en Zug z\'mache, chasch erbüteti Figure isetze.</string>
+  <string name="fromPosition">Ab Schtellig</string>
+  <string name="fromPositionTitle">Schtandard Schach ab ere usg\'wählte Schtellig</string>
 </resources>

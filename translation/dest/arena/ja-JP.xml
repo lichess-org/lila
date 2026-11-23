@@ -40,6 +40,8 @@
     <item quantity="other">%s チームを表示</item>
   </plurals>
   <string name="newTeamBattle">新しいチームバトル</string>
+  <string name="startDate">開始日</string>
+  <string name="entryConditions">参加条件</string>
   <string name="customStartDate">開始日を指定</string>
   <string name="customStartDateHelp">自分のタイムゾーンでの日時。これは「トーナメント開始時刻」の設定より優先されます。</string>
   <string name="allowBerserk">バーサークあり</string>
@@ -79,4 +81,6 @@
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="berserkRate">バーサーク率</string>
   <string name="leaguesAndStreamerBattles">リーグとストリーマーバトル</string>
+  <string name="allowBotAccounts">ボットアカウントを許可する</string>
+  <string name="allowBotAccountsDescription">&lt;a href=\'%s\' target=\'_blank\'&gt;ボット&lt;/a&gt;がトーナメントに参加し、エンジンで対局できるようにします。多くの場合、人間のプレイヤーが参加を避けます。</string>
 </resources>

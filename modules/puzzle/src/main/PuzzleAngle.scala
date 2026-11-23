@@ -35,8 +35,8 @@ object PuzzleAngle:
       )
       .flatMap(OpeningDb.shortestLines.get)
     def isAbstract = opening.isEmpty
-    val name = I18nKey(openingName)
-    def description = I18nKey(s"From games with the opening: $openingName")
+    val name = I18nKey.unchecked(openingName)
+    def description = I18nKey.unchecked(s"From games with the opening: $openingName")
     def asTheme = none
 
   // def apply(theme: PuzzleTheme.Key): PuzzleAngle = Theme(theme)
@@ -54,7 +54,9 @@ object PuzzleAngle:
 
   val mix: PuzzleAngle = apply(PuzzleTheme.mix)
 
-  def findOrMix(key: Key): PuzzleAngle = find(key) | mix
+  def findOrMix(str: Option[String]): Option[PuzzleAngle] = str.fold(mix.some)(find)
+
+  private def findOrMix(key: Key): PuzzleAngle = find(key) | mix
 
   case class All(
       themes: List[(I18nKey, List[PuzzleTheme.WithCount])],

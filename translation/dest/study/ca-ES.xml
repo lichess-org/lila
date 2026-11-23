@@ -37,6 +37,7 @@
   <string name="spectator">Espectador</string>
   <string name="contributor">Contribuïdor</string>
   <string name="kick">Expulsa</string>
+  <string name="remove">Suprimeix</string>
   <string name="leaveTheStudy">Deixar l’estudi</string>
   <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
@@ -99,10 +100,6 @@
   <string name="loadAPositionFromFen">Carregar una posició via codi FEN</string>
   <string name="loadAGameFromPgn">Carregar una partida PGN</string>
   <string name="automatic">Automàtic</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Enganxa el teu PGN aquí, fins a %s partida</item>
-    <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
-  </plurals>
   <string name="urlOfTheGame">URL del joc</string>
   <string name="createChapter">Crear capítol</string>
   <string name="createStudy">Crear estudi</string>
@@ -128,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Esteu segurs que voleu eliminar el estudi? Tingues en compte que no es pot desfer. Per a confirmar-ho escriu el nom del estudi: %s</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
   <string name="goodMove">Bona jugada</string>
-  <string name="mistake">Errada</string>
   <string name="brilliantMove">Jugada brillant</string>
-  <string name="blunder">Error greu</string>
   <string name="interestingMove">Jugada interessant</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Jugada dubtosa</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Única jugada</string>

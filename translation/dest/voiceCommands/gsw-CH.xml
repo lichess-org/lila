@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="voiceCommands">Schprachbefehl</string>
-  <string name="watchTheVideoTutorial">Lueg s\'Video-Tutorial</string>
-  <string name="instructions1">Benutz d\'Schaltflächi %1$s, zum d\'Schpracherkännig z\'aktivieren, d\'Schaltflächi %2$s, zum de Hilfedialog öffne, und s\'Menü %3$s, zum d\'Schprachinschtellige z\'ändere.</string>
-  <string name="instructions2">Mir zeiged Pfil für mehreri Züg, wänn mir nöd sicher sind. Säg eifach d\'Farb oder d\'Nummere vum Zugpfil, wo du wotsch wähle.</string>
-  <string name="instructions3">Wänn en Pfil en drehende Timer zeigt, wird de Zug g\'schpillt, sobald de Chreis g\'schlosse isch. I dere Zit chasch nur %1$s säge, um de Zug sofort z\'schpille, %2$s, um de Zug abzbräche, oder d\'Farb/d\'Nummere vume andere Pfil. Die Zitvorgab, vum Timer, chann i de Ischtellige g\'änderet- oder abgschalte werde.</string>
-  <string name="instructions4">Aktiviert %s in luter Umgebig. Bim Schpräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
-  <string name="instructions5">Benutz s\'Ponetischi-Alphabet, zum d\'Verschtändlichkeit z\'verbessere. </string>
+  <string name="watchTheVideoTutorial">Lueg s\'Erchlärigs Video</string>
+  <string name="instructions1">Benutz de Chnopf %1$s zum d\'Schpracherkännig aktiviere, de Info %2$s Chnopf, zum de Hilfe Dialog öffne und s\'Zahrad %3$s zum d\'Schprach Ischtellige ändere.</string>
+  <string name="instructions2">Mir zeiged Pfil für mehreri Züg, wänn mir nöd sicher sind. Säg eifach d\'Farb oder d\'Numere vum Zugpfil, wo du wotsch wähle.</string>
+  <string name="instructions3">Wänn en Pfil en drehende Timer zeigt, wird de Zug g\'schpillt, sobald de Chreis g\'schlosse isch. I dere Zit chasch nur %1$s säge, um de Zug sofort z\'schpille, %2$s, um de Zug abz\'bräche, oder d\'Farb oder Numere vume andere Pfil. Die Zitvorgab vum Timer chan i de Ischtellige g\'änderet- oder abg\'schalte werde.</string>
+  <string name="instructions4">Aktiviert %s in luter Umgäbig. Bim Schpräche vu Befehl d\'Umschalt Taschte truckt halte, wänn die Funktion aktiviert isch.</string>
+  <string name="instructions5">Verwänd s\'phonetischi Alphabet, zum d\'Erkännig vu de Schpalte uf em Brätt z\'verbessere.</string>
   <string name="instructions6">%s erchlärt d\'Ischtellige vu de Schprachschtürig im Detail.</string>
   <string name="thisBlogPost">De Blog Bitrag</string>
   <string name="moveToE4OrSelectE4Piece">Zieh uf e4 oder wähl d\'Figur uf e4</string>
   <string name="selectOrCaptureABishop">En Läufer wähle oder schlah</string>
   <string name="takeRookWithQueen">Nimm de Turm mit de Dame</string>
-  <string name="castle">Rochade (beidi Site)</string>
+  <string name="castle">Roschiere (beidi Site)</string>
   <string name="phoneticAlphabetIsBest">s\'phonetische Alphabet isch s\'bescht</string>
   <string name="cancelTimerOrDenyARequest">Timer schtoppe oder e Afrag ablehne</string>
   <string name="playPreferredMoveOrConfirmSomething">De bevorzugti Zug schpille oder öppis beschtätige</string>

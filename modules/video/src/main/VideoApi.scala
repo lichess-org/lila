@@ -1,6 +1,5 @@
 package lila.video
 
-import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import scalalib.paginator.*
 
@@ -32,7 +31,7 @@ final private[video] class VideoApi(
             videos.map: v =>
               VideoView(v, ids contains v.id)
 
-  def withUserControl[A](f: UserControl => Fu[A])(using me: Option[Me])(using RequestHeader): Fu[A] =
+  def withUserControl[A](f: UserControl => Fu[A])(using me: Option[Me])(using Req): Fu[A] =
     val reqTags = HTTPRequest.queryStringGet("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
     val tagNbs = if me.isDefined then tag.paths(reqTags) else tag.popularNotNumeric
     tagNbs

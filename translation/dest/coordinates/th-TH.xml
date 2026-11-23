@@ -19,4 +19,6 @@
   <string name="findSquare">หาช่อง</string>
   <string name="nameSquare">ชื่อของช่อง</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">ฝึกซ้อมแค่ไฟล์&amp;ลำดับ</string>
+  <string name="enterTheCoordinate">ป้อนพิกัด</string>
+  <string name="pressEnterToStart">กด %s เพื่อเริ่ม</string>
 </resources>

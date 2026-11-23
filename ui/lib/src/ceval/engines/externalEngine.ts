@@ -1,5 +1,5 @@
 import { randomToken } from '@/algo';
-import { throttle } from '@/async';
+import { debounce } from '@/async';
 import { readNdJson } from '@/xhr';
 
 import {
@@ -50,10 +50,14 @@ export class ExternalEngine implements CevalEngine {
     this.process(work);
   }
 
-  process: (work: Work) => void = throttle(700, (work: Work) => {
-    this.req = new AbortController();
-    this.analyse(work, this.req.signal);
-  });
+  private readonly process: (work: Work) => void = debounce(
+    (work: Work) => {
+      this.req = new AbortController();
+      this.analyse(work, this.req.signal);
+    },
+    250,
+    true,
+  );
 
   private async analyse(work: Work, signal: AbortSignal): Promise<void> {
     try {

@@ -7,8 +7,8 @@ import play.api.mvc.Result
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.tv.Tv.Channel
 import lila.game.PgnDump.requestPgnFlags
+import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 
@@ -52,18 +52,18 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               cross <- env.game.crosstableApi.withMatchup(game)
               champs <- env.tv.tv.getChampions
               page <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
-            yield Ok(page).noCache,
+            yield Ok(page).noCache.withCanonical(channel.tvCall),
             api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some, details = true).dmap(Ok(_))
           )
 
   def games = gamesChannel(Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open:
-    Channel.byKey.get(chanKey).so { channel =>
+    Found(Channel.byKey.get(chanKey)): channel =>
       env.tv.tv.getChampions.zip(env.tv.tv.getGames(channel, 15)).flatMap { (champs, games) =>
-        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
+        Ok.page(views.tv.ui.games(channel, games.map(Pov.naturalOrientation), champs))
+          .map(_.noCache.withCanonical(channel.gamesCall))
       }
-    }
 
   def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[GameId]) = Open:
     val gameFu = Channel.byKey.get(chanKey).so { channel =>
@@ -77,18 +77,16 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
         )
 
   def apiGamesChannel(chanKey: String) = Anon:
-    Channel.byKey.get(chanKey).so { channel =>
+    Found(Channel.byKey.get(chanKey)): channel =>
       env.tv.tv.getGameIds(channel, getInt("nb").fold(10)(_.atMost(30).atLeast(1))).map { gameIds =>
-        val config =
-          lila.api.GameApiV2.ByIdsConfig(
-            ids = gameIds,
-            format = lila.api.GameApiV2.Format.byRequest,
-            flags = requestPgnFlags(extended = false, delayMoves = false),
-            perSecond = MaxPerSecond(30)
-          )
-        Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(gameC.gameContentType(config)).noProxyBuffer
+        val config = lila.api.GameApiV2.ByIdsConfig(
+          ids = gameIds,
+          format = lila.api.GameApiV2.Format.byRequest,
+          flags = requestPgnFlags(extended = false, delayMoves = false),
+          perSecond = MaxPerSecond(30)
+        )
+        Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(config.contentType).noProxyBuffer
       }
-    }
 
   def feedDefault = Anon:
     serveFeedFromChannel(Channel.Best)

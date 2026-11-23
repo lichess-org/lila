@@ -13,10 +13,10 @@
   <string name="readOutOpponentName">Irakurri aurkariaren izena</string>
   <string name="otherCommands">Beste aginduak</string>
   <string name="tips">~Iradokizunak</string>
-  <string name="ifTheAboveMoveNotationIsUnfamiliar">Goiko mugimenduen notazioa ez bada ezaguna, gehiago ikasi hemen:</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Goiko jokaldien notazioa ez bada ezaguna, gehiago ikasi hemen:</string>
   <string name="includingAXToIndicateACapture">Harrapaketa adierazteko \"x\" idaztea hautazkoa da</string>
   <string name="bothTheLetterOAndTheDigitZero">Bai \"o\" hizkia, bai zero \"0\" digitua erabil daitezke endrokatzean</string>
   <string name="ifItIsLegalToCastleBothWays">Bi aldeetako endrokea egitea legezkoa bada erabili enter endroke laburra egiteko</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Letra larriak alfila eta b-ko peoia bereizte erabiltzen dira (piezen izenak ingelesez daude Alfila = Bishop ingelesez)</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Aurre-mugimendua egiteko, idatzi nahi duzun mugimendua zure txanda izan aurretik</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Aurre-jokaldia egiteko, idatzi nahi duzun jokaldia zure txanda izan aurretik</string>
 </resources>

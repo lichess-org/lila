@@ -1,6 +1,6 @@
 package lila.relay
 
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 
 import lila.common.HTTPRequest
 import lila.core.security.LilaCookie
@@ -19,7 +19,7 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
   import RelayVideoEmbed.*
   private val cookieName = "relayVideo"
 
-  def read(using req: RequestHeader): RelayVideoEmbed =
+  def read(using req: Req): RelayVideoEmbed =
     def fromCookie = req.cookies.get(cookieName).map(_.value).filter(_.nonEmpty) match
       case Some("no") => No
       case Some("ps") => PinnedStream
@@ -37,7 +37,7 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
     httpOnly = false.some
   )
 
-  def withCookie(f: RelayVideoEmbed => Fu[Result])(using RequestHeader, Executor): Fu[Result] =
+  def withCookie(f: RelayVideoEmbed => Fu[Result])(using Req, Executor): Fu[Result] =
     val embed = read
     f(embed).map:
       _.withCookies(write(embed))

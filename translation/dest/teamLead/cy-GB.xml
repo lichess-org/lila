@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Cyhoeddus</string>
+  <string name="permSettingsName">Dewisiadau</string>
+  <string name="permTourName">Cystadleuaethau</string>
+</resources>

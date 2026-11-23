@@ -14,11 +14,7 @@
   <string name="myTeams">Мои клубы</string>
   <string name="noTeamFound">Нет таких клубов</string>
   <string name="joinTeam">Вступить в клуб</string>
-  <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
   <string name="quitTeam">Покинуть клуб</string>
-  <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Если отмечено, то кандидаты на вступление в команду должны написать запрос, который вы можете принять или отклонить.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Скрывать список участников команды от посторонних.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Руководитель клуба</item>
     <item quantity="few">Руководители клуба</item>
@@ -26,14 +22,6 @@
     <item quantity="other">Руководители клуба</item>
   </plurals>
   <string name="teamRecentMembers">Новые члены клуба</string>
-  <string name="kickSomeone">Исключить кого-то из клуба</string>
-  <string name="whoToKick">Кого вы хотите исключить из клуба?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">%s запрос на вступление</item>
-    <item quantity="few">%s запроса на вступление</item>
-    <item quantity="many">%s запросов на вступление</item>
-    <item quantity="other">%s запросов на вступление</item>
-  </plurals>
   <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен лидером клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
   <string name="requestDeclined">Организатор клуба отклонил ваш запрос на вступление.</string>
@@ -44,37 +32,19 @@
   <string name="swissTournamentOverview">Швейцарские турниры, в которых могут участвовать только члены клуба</string>
   <string name="teamUpdates">Новости клуба</string>
   <string name="subToTeamUpdates">Подписаться на новости клуба</string>
-  <string name="newTeamUpdate">Свежая новость в клубе</string>
-  <string name="teamUpdatesPerWeek">Вы можете отправить по %1$s обновлений команде каждую неделю. Осталось ещё &lt;strong&gt;%2$s&lt;/strong&gt; до %3$s.</string>
   <string name="teamEvents">Командные события</string>
   <string name="upcomingTeamEvents">Предстоящие командные события</string>
   <string name="teamsIlead">Клубы под моим руководством</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
   <string name="leadersChat">Чат руководителей</string>
   <string name="introduction">Введение</string>
-  <string name="teamIntroductionHelp">Краткое описание, видимое в клубных списках. До 200 символов.</string>
-  <string name="teamDescriptionHelp">Полное описание, видимое на странице клуба.</string>
-  <string name="closeTeam">Расформировать клуб</string>
-  <string name="closeTeamDescription">Закрывает клуб навсегда.</string>
   <string name="entryCode">Код для вступления в клуб</string>
   <string name="entryCodeDescriptionForLeader">(Необязательно) Код, который должны знать новые члены клуба для вступления в него.</string>
   <string name="incorrectEntryCode">Неверный код для вступления.</string>
   <string name="forumLabel">Форум команды</string>
-  <string name="forumVisibilityHelp">Кто может видеть форум команды на странице команды?&lt;br&gt;Только участники команды могут оставлять сообщения на форуме команды.</string>
-  <string name="forumVisibilityNone">Скрыть форум</string>
   <string name="teamAlreadyExists">Такой клуб уже существует.</string>
   <string name="upcomingTournaments">Предстоящие турниры</string>
   <string name="completedTourns">Завершённые турниры</string>
-  <string name="declinedRequests">Отклонённые запросы</string>
   <string name="joinLichessVariantTeam">Вступайте в официальный клуб %s, чтобы узнавать его новости и события</string>
-  <string name="thisTeamBattleIsOver">Этот турнир закончился, вы не можете изменять клубы.</string>
-  <string name="listTheTeamsThatWillCompete">Список клубов, которые будут участвовать в этом турнире.</string>
-  <string name="oneTeamPerLine">По одному клубу в каждой строке. Работает автодополнение.</string>
-  <string name="oneTeamPerLineHelp">Вы можете скопировать этот список из этого турнира и вставить в другой!
-
-Вы не можете удалить клуб, если игрок из него уже присоединился к турниру.</string>
-  <string name="numberOfLeadsPerTeam">Количество лидеров в клубе. Сумма их баллов — это результат клуба.</string>
-  <string name="numberOfLeadsPerTeamHelp">Крайне не рекомендуется менять это значение после начала турнира!</string>
   <string name="innerTeam">Внутренний клуб</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Турнир на %s команду</item>

@@ -33,7 +33,6 @@
   <string name="weAreSmallTeam">ພວກເຮົາເປັນທີມງານຂະໜາດນ້ອຍ, ສະນັ້ນການສະໜັບສະໜູນຂອງທ່ານຈຶ່ງມີຄວາມໝາຍຫຼາຍ!</string>
   <string name="celebratedPatrons">ເຫຼົ່າຜູ້ອຸປະຖຳທີ່ເຮັດໃຫ້ Lichess ເປັນໄປໄດ້</string>
   <string name="whereMoneyGoes">ເງິນເຫຼົ່ານີ້ເອົາໄປໃສ?</string>
-  <string name="serversAndDeveloper">ກ່ອນອື່ນໝົດແມ່ນ ເຊີບເວີທີ່ມີປະສິດທິພາບສູງ. ຈາກນັ້ນພວກເຮົາກໍຈ່າຍຄ່າຈ້າງໃຫ້ນັກພັດທະນາແບບເຕັມເວລາ: %s, ຜູ້ກໍ່ຕັ້ງ Lichess.</string>
   <string name="costBreakdown">ເບິ່ງລາຍລະອຽດຄ່າໃຊ້ຈ່າຍ</string>
   <string name="officialNonProfit">Lichess ເປັນອົງການບໍ່ຫວັງຜົນກຳໄລຢ່າງເປັນທາງການຫຼືບໍ່?</string>
   <string name="actOfCreation">ແມ່ນແລ້ວ, ນີ້ແມ່ນເອກະສານການກໍ່ຕັ້ງ (ເປັນພາສາຝຣັ່ງ)</string>

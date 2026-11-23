@@ -99,11 +99,6 @@
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
   <string name="loadAGameFromPgn">טען משחק מPGN</string>
   <string name="automatic">אוטומטי</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>
-    <item quantity="two">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
-    <item quantity="other">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
-  </plurals>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="createChapter">צור פרק</string>
   <string name="createStudy">יצירת לוח למידה</string>
@@ -129,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">האם למחוק את כל לוח הלמידה? אין דרך חזרה! הקלידו את שם לוח הלמידה לאישור: %s</string>
   <string name="whereDoYouWantToStudyThat">היכן ליצור את לוח הלמידה?</string>
   <string name="goodMove">מסע טוב</string>
-  <string name="mistake">טעות</string>
   <string name="brilliantMove">מסע מבריק</string>
-  <string name="blunder">טעות חמורה</string>
   <string name="interestingMove">מסע מעניין</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">מסע מפוקפק</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">המסע היחיד</string>

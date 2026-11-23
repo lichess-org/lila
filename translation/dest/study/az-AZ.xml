@@ -91,10 +91,6 @@
   <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
   <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
-    <item quantity="other">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
-  </plurals>
   <string name="urlOfTheGame">Oyun URL-i</string>
   <string name="createChapter">Fəsil yarat</string>
   <string name="createStudy">Çalışma yarat</string>
@@ -119,9 +115,7 @@
   <string name="deleteStudy">Çalışmanı sil</string>
   <string name="whereDoYouWantToStudyThat">Harada çalışmaq istəyirsən?</string>
   <string name="goodMove">Yaxşı gediş</string>
-  <string name="mistake">Səhv</string>
   <string name="brilliantMove">Brilyant gediş</string>
-  <string name="blunder">Kobud səhv</string>
   <string name="interestingMove">Maraqlı gediş</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Şübhəli gediş</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Tək gediş</string>

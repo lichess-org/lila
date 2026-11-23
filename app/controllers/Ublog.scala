@@ -63,7 +63,7 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
-            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+            html <- env.ublog.markdown.htmlBody(post)
             viewedPost = env.ublog.viewCounter(post)
             page <- renderPage:
               views.ublog.post.page(
@@ -263,9 +263,8 @@ final class Ublog(env: Env) extends LilaController(env):
               .flatMap: newPost =>
                 logModAction(newPost, "delete image")
         .inject(Ok)
-        .recover { case e: Exception =>
-          BadRequest(e.getMessage)
-        }
+        .recover:
+          case e: Exception => BadRequest(e.getMessage)
   }
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
@@ -301,11 +300,13 @@ final class Ublog(env: Env) extends LilaController(env):
               views.ublog.community(language, filter, _)
 
   def communityAtom(language: Language) = Anon:
-    val found: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
-    env.ublog.paginator
-      .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
+    val lang: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
+    env.ublog.api
+      .communityPostsWithContent(lang.map(toLanguage), nb = 10)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+        val rendered = posts.map: post =>
+          post -> env.ublog.markdown.atomBody(post)
+        Ok.snip(views.ublog.ui.atom.community(language, rendered))
           .as(ATOM)
           .publicCache(10.minutes)
 
@@ -350,9 +351,12 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(env.user.repo.enabledById(username)): user =>
       for
         blog <- env.ublog.api.getUserBlog(user)
-        posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
+        posts <- isBlogVisible(user, blog).so:
+          env.ublog.api.latestPostsWithContent(blog.id, 10)
+        rendered = posts.map: post =>
+          post -> env.ublog.markdown.atomBody(post)
       yield Ok
-        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .snip(views.ublog.ui.atom.user(user, rendered))
         .as(ATOM)
         .publicCache(10.minutes)
         .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))

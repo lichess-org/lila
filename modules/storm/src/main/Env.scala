@@ -5,6 +5,7 @@ import play.api.Configuration
 
 import lila.common.config.given
 import lila.core.config.*
+import lila.core.pref.Pref
 
 @Module
 final class Env(
@@ -30,3 +31,8 @@ final class Env(
   lazy val dayApi = wire[StormDayApi]
 
   val forms = StormForm
+
+  def dataAndHighScore(pref: Option[Pref])(using me: Option[Me]) = for
+    puzzles <- selector.apply
+    high <- me.traverse(m => highApi.get(m.userId))
+  yield json(puzzles, me, pref) -> high

@@ -7,6 +7,7 @@ $span-width: 1.5em;
     @extend %break-word;
 
     flex: 1 1 100%;
+    min-width: 0;
     font-size: 1em;
     line-height: 1;
     margin: 0.5em 0;

@@ -33,8 +33,6 @@
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
   <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
   <string name="whereMoneyGoes">Kuhu raha läheb?</string>
-  <string name="serversAndDeveloper">Esmaselt võimsatesse serveritesse.
-Siis me maksame täiskohaga arendajale: %s, Lichessi asutajale.</string>
   <string name="costBreakdown">Vaata detailne kulude ülevaade</string>
   <string name="officialNonProfit">Kas Lichess on ametlikult mittetulundusühing?</string>
   <string name="actOfCreation">Jah, siin on põhikiri (prantsuse keeles)</string>

@@ -3,7 +3,6 @@ package lila.security
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.core.net.IpAddress
@@ -11,7 +10,7 @@ import lila.core.security.{ Ip2ProxyApi, IsProxy }
 import lila.mon.extensions.*
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
-  def ofReq(req: RequestHeader): Fu[IsProxy] = fuccess(IsProxy.empty)
+  def ofReq(req: Req): Fu[IsProxy] = fuccess(IsProxy.empty)
   def ofIp(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy.empty)
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
@@ -27,7 +26,7 @@ final class Ip2ProxyServer(
     if tor.isExitNode(ip) then fuccess(IsProxy.tor)
     else cache.get(ip.value)
 
-  def ofReq(req: RequestHeader): Fu[IsProxy] =
+  def ofReq(req: Req): Fu[IsProxy] =
     if HTTPRequest.ipTier(req).yes then fuccess(IsProxy.empty)
     else
       ofIp(HTTPRequest.ipAddress(req))

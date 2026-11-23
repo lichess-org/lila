@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Públic</string>
+  <string name="permPublicDesc">Mostra com a líder a la pàgina de l\'equip</string>
+  <string name="permSettingsName">Configuració</string>
+  <string name="permSettingsDesc">Edita la configuració i la descripció de l\'equip</string>
+  <string name="permTourName">Tornejos</string>
+  <string name="permTourDesc">Crea, actualitza i uneix-te a tornejos d\'equip</string>
+  <string name="permCommName">Moderació</string>
+  <string name="permCommDesc">Modera el fòrum i el xat de l\'equip</string>
+  <string name="permRequestName">Sol·licituds</string>
+  <string name="permRequestDesc">Accepta o refusa les sol·licituds d\'entrada</string>
+  <string name="permPmAllName">Actualitzacions</string>
+  <string name="permPmAllDesc">Envia actualitzacions als membres de l\'equip</string>
+  <string name="permRemoveName">Suprimeix</string>
+  <string name="permRemoveDesc">Elimina membres de l\'equip</string>
+  <string name="permAdminName">Administració</string>
+  <string name="permAdminDesc">Gestiona els permisos dels líders</string>
+  <string name="demoteLeaderNote">Per degradar un líder, elimineu tots els seus permisos.</string>
+  <string name="manuallyReviewAdmissionRequests">Comprovar manualment peticions d\'admissió</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si està marcat, els jugadors necessitaran fer una petició per unir-se a l\'equip, la qual pots acceptar o rebutjar.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Amaga la llista de membres de l\'equip per als que no siguin membres.</string>
+  <string name="onlyLeaderLeavesTeam">Si us plau, afegiu un líder o tanqueu l\'equip abans de sortir-ne.</string>
+  <string name="removeSomeone">Elimina algú</string>
+  <string name="whoToRemove">Qui voleu eliminar de l\'equip?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s solicitud d\'adhesió</item>
+    <item quantity="other">%s solicituds d\'adhesió</item>
+  </plurals>
+  <string name="declinedRequests">Sol·licituds declinades</string>
+  <string name="newTeamUpdate">Nova actualització de l\'equip</string>
+  <string name="teamUpdatesPerWeek">Podeu enviar un màxim de %1$s actualitzacións de l\'equip per setmana. Queden &lt;strong&gt;%2$s&lt;/strong&gt; actualitzacions fins al %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
+  <string name="teamIntroductionHelp">Descripció curta visible al llistat d\'equips. Fins a 200 caràcters.</string>
+  <string name="teamDescriptionHelp">Descripció completa visible a la pàgina de l\'equip.</string>
+  <string name="closeTeam">Eliminar equip</string>
+  <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
+  <string name="forumVisibilityHelp">Qui pot veure el fòrum de l\'equip a la pàgina de l\'equip?&lt;br&gt;Només els membres de l\'equip poden publicar al fòrum de l\'equip.</string>
+  <string name="forumVisibilityNone">Amaga el fòrum</string>
+  <string name="listTheTeamsThatWillCompete">Enumera els equips que competiran en aquesta batalla.</string>
+  <string name="thisTeamBattleIsOver">El torneig ha finalitzat i ja no es pot editar els equips.</string>
+  <string name="oneTeamPerLine">Un equip per línia. Utilitzeu l\'autocompletat.</string>
+  <string name="oneTeamPerLineHelp">Podeu copiar i pegar aquesta llista d\'un torneig a un altre!
+
+No podeu eliminar un equip si un dels seus jugadors s\'ha unit al torneig.</string>
+  <string name="numberOfLeadsPerTeam">Nombre dels líders de l\'equip. La suma de la seva puntuació és la puntuació de l\'equip.</string>
+  <string name="numberOfLeadsPerTeamHelp">No hauríeu de canviar aquest valor una vegada hagi començat el torneig!</string>
+</resources>

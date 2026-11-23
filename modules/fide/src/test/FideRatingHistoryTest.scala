@@ -1,7 +1,8 @@
 package lila.fide
 
-import java.time.YearMonth
 import chess.rating.Elo
+
+import java.time.YearMonth
 
 class FideRatingHistoryTest extends munit.FunSuite:
 

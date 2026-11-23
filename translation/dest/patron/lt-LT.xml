@@ -36,8 +36,6 @@
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
   <string name="celebratedPatrons">Mūsų gerbiami rėmėjai, kurie leidžia gyvuoti Lichess</string>
   <string name="whereMoneyGoes">Kur eina pinigai?</string>
-  <string name="serversAndDeveloper">Visų pirma - galingiems serveriams.
-Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>
   <string name="costBreakdown">Peržiūrėti detalų išrašą</string>
   <string name="officialNonProfit">Ar Lichess oficialiai nepelno kompanija?</string>
   <string name="actOfCreation">Taip, štai sukūrimo aktas (prancūzų kalba)</string>

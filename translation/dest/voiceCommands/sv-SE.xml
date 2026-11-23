@@ -6,7 +6,6 @@
   <string name="instructions2">Vi visar pilarna för flera drag när vi inte är säkra. Tala färg eller antal på en dragpil för att välja den.</string>
   <string name="instructions3">Om en pil visar en svepande radar, så kommer draget att spelas när cirkeln är klar. Under denna tid kan du bara säga %1$s att spela draget omedelbart, %2$s för att avbryta, eller tala färg/antal av en annan pil. Denna timer kan justeras eller stängas av i inställningarna.</string>
   <string name="instructions4">Aktivera %s i bullriga omgivningar. Håll shift medan du talar kommandon när detta är på.</string>
-  <string name="instructions5">Använd det fonetiska alfabetet för att förbättra igenkänningen av schackfiler. </string>
   <string name="instructions6">%s förklarar inställningarna för röstflyttning i detalj.</string>
   <string name="thisBlogPost">Det här blogginlägget</string>
   <string name="moveToE4OrSelectE4Piece">Flytta till e4 eller välj e4 bit</string>

@@ -34,8 +34,6 @@
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
   <string name="celebratedPatrons">De velaktede patronene som gjør Lichess mulig</string>
   <string name="whereMoneyGoes">Hva går pengene til?</string>
-  <string name="serversAndDeveloper">Først og fremst til kraftige servere.
-Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
   <string name="costBreakdown">Vis en detaljert oversikt over kostnader</string>
   <string name="officialNonProfit">Er Lichess offisielt en ideell forening?</string>
   <string name="actOfCreation">Ja, her er registermeldingen (på fransk)</string>

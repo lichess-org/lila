@@ -33,7 +33,6 @@
   <string name="takebacksWithOpponentApproval">Tagasivõtmised (vastase nõusolekul)</string>
   <string name="inCasualGamesOnly">Ainult ilma reitinguta mängudes</string>
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
-  <string name="explainPromoteToQueenAutomatically">Hoia edendamise ajal &lt;ctrl&gt; klahvi all, et ajutiselt keelata automaatne edendamine</string>
   <string name="whenPremoving">Eelkäiguga</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kui aega on jäänud &lt; 30 sekundit</string>

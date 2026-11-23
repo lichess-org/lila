@@ -1,7 +1,6 @@
 package lila.web
 
 import play.api.data.Form
-import play.api.mvc.RequestHeader
 
 import lila.core.id.SessionId
 import lila.core.security.LilaCookie
@@ -25,7 +24,7 @@ final class T3AuthMonitor(using Executor):
 
     def fail(reason: String, formErr: Option[Form[?]] = none)(
         client: String
-    )(using req: RequestHeader): Unit =
+    )(using req: Req): Unit =
       for sid <- LilaCookie.sid(req)
       do
         formErr.foreach: f =>
@@ -36,7 +35,7 @@ final class T3AuthMonitor(using Executor):
         if !hasFailed.get(sid) then mon.failure(reason, unique = true)(client).increment()
         hasFailed.put(sid)
 
-    def success(client: String)(using req: RequestHeader): Unit =
+    def success(client: String)(using req: Req): Unit =
       mon.success(hasFailed = LilaCookie.sid(req).exists(hasFailed.get))(client).increment()
 
     def step(s: String)(client: String): Unit =

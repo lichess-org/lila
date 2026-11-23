@@ -66,7 +66,6 @@ Describese na sección 3.7.3.1 y 3.7.3.2 de les %2$s:
 Mira el capítulu del %3$s sobro esti movimientu pa practicar un pocu con él.</string>
   <string name="goodIntroduction">bona introducción</string>
   <string name="lichessTraining">Entrenamientu en Lichess</string>
-  <string name="watchIMRosenCheckmate">Ver al Maestru Internacional Eric Rosen dar mate a %s.</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="threefoldRepetitionExplanation">Si una posición repitese tres vegaes, los xugadores pueden reclamar un empate por %1$s. Lichess implementa les riegles oficiales de la FIDE, acordies con l\'Artículu 9.2 del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>

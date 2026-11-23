@@ -410,6 +410,7 @@
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
   <string name="orUploadPgnFile">或者上传 PGN 文件</string>
+  <string name="selectImage">选择图像</string>
   <string name="continueFromHere">从此处继续</string>
   <string name="toStudy">研习</string>
   <string name="importGame">导入对局</string>
@@ -667,6 +668,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
   <string name="really">完全</string>
   <string name="lichessUpdates">Lichess 动态</string>
+  <string name="allUpdates">全部动态</string>
   <string name="contribute">协助我们</string>
   <string name="changelog">更新日志</string>
   <string name="termsOfService">服务条款</string>

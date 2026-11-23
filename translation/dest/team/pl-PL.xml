@@ -14,11 +14,7 @@
   <string name="myTeams">Moje kluby</string>
   <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
-  <string name="onlyLeaderLeavesTeam">Zanim opuścisz klub, dodaj proszę nowego lidera lub zamknij klub.</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ukryj listę graczy klubu przed innymi graczami.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
@@ -26,14 +22,6 @@
     <item quantity="other">Liderzy klubu</item>
   </plurals>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
-  <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
-  <string name="whoToKick">Kogo chcesz wyrzucić z klubu?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">Prośba o dołączenie od %s</item>
-    <item quantity="few">Prośby o dołączenie od %s</item>
-    <item quantity="many">Prośby o dołączenie od %s</item>
-    <item quantity="other">Prośby o dołączenie od %s</item>
-  </plurals>
   <string name="willBeReviewed">Twoja prośba o dołączenie zostanie sprawdzona przez kapitana klubu.</string>
   <string name="beingReviewed">Twoja prośba o dołączenie jest sprawdzana przez kapitana klubu.</string>
   <string name="requestDeclined">Twoja prośba o dołączenie została odrzucona przez lidera klubu.</string>
@@ -44,36 +32,19 @@
   <string name="swissTournamentOverview">Turniej szwajcarski, do którego mogą dołączyć tylko gracze twojego klubu</string>
   <string name="teamUpdates">Wiadomości klubowe</string>
   <string name="subToTeamUpdates">Subskrybuj wiadomości klubowe</string>
-  <string name="newTeamUpdate">Nowa wiadomość klubowa</string>
   <string name="teamEvents">Wydarzenia klubowe</string>
   <string name="upcomingTeamEvents">Nadchodzące wydarzenia klubowe</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="leadersChat">Czat liderów</string>
   <string name="introduction">Wprowadzanie</string>
-  <string name="teamIntroductionHelp">Krótki opis widoczny na liście klubów. Do 200 znaków.</string>
-  <string name="teamDescriptionHelp">Pełny opis widoczny na stronie klubu.</string>
-  <string name="closeTeam">Zamknij klub</string>
-  <string name="closeTeamDescription">Zamyka klub na zawsze.</string>
   <string name="entryCode">Klubowy kod dostępu</string>
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
   <string name="forumLabel">Forum klubu</string>
-  <string name="forumVisibilityHelp">Kto może zobaczyć forum klubu na stronie klubu?&lt;br&gt;Tylko gracze klubu mogą pisać na forum klubu.</string>
-  <string name="forumVisibilityNone">Ukryj forum</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
   <string name="upcomingTournaments">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>
-  <string name="declinedRequests">Odrzucone prośby</string>
   <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
-  <string name="thisTeamBattleIsOver">Ten turniej zakończył się, a drużyny nie mogą być już aktualizowane.</string>
-  <string name="listTheTeamsThatWillCompete">Wymień drużyny, które będą konkurować w tej bitwie.</string>
-  <string name="oneTeamPerLine">Jeden zespół na linię. Użyj autouzupełniania.</string>
-  <string name="oneTeamPerLineHelp">Możesz skopiować tę listę do innego turnieju!
-
-Nie możesz usunąć drużyny, jeśli jej gracz już dołączył do turnieju.</string>
-  <string name="numberOfLeadsPerTeam">Liczba liderów na drużynę. Suma ich punktów to wynik drużyny.</string>
-  <string name="numberOfLeadsPerTeamHelp">Naprawdę nie powinieneś zmieniać tej wartości po rozpoczęciu turnieju!</string>
   <string name="innerTeam">Zespół wewnętrzny</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Bitwa %s drużyny</item>

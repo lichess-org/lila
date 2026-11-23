@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Öffentlich</string>
+  <string name="permPublicDesc">Erschin als en Füerer uf de Team Site</string>
+  <string name="permSettingsName">Ischtellige</string>
+  <string name="permSettingsDesc">Team Beschribig und Ischtellige bearbeite</string>
+  <string name="permTourName">Turnier</string>
+  <string name="permTourDesc">Team Turnier Erschtelle, Verwalte und Biträtte</string>
+  <string name="permCommName">Leitig</string>
+  <string name="permCommDesc">Forum und Team Chat leite</string>
+  <string name="permRequestName">Afrage</string>
+  <string name="permRequestDesc">Bitritts Afrage akzeptiere oder ablehne</string>
+  <string name="permPmAllName">Aktualisierige</string>
+  <string name="permPmAllDesc">Schick Aktualisierige ad Team Mitglieder</string>
+  <string name="permRemoveName">Entferne</string>
+  <string name="permRemoveDesc">Mitglieder us em Team entferne</string>
+  <string name="permAdminName">Adminischtrator</string>
+  <string name="permAdminDesc">Füerer Berächtigunge verwalte</string>
+  <string name="demoteLeaderNote">Zum Füerigslüt degradiere, entziehsch alli Berächtigunge.</string>
+  <string name="manuallyReviewAdmissionRequests">Bitritts Afrage manuell prüefe</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wänn das aktiv isch, müend d\'Schpiler*ine afröge, um em Team biz\'träte - du chasch ablähne oder akzeptiere.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Team Mitglieder Lischte für Nichtmitglieder verstecke.</string>
+  <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Füerer, bevor du gahsch - oder lös das Team uf.</string>
+  <string name="removeSomeone">Entfern öpper</string>
+  <string name="whoToRemove">Wen wettsch usem Team entferne?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Bitritts Afrag</item>
+    <item quantity="other">%s Bitritts Afrage</item>
+  </plurals>
+  <string name="declinedRequests">Abglehnti Afrage</string>
+  <string name="newTeamUpdate">Neui Team Aktualisierig</string>
+  <string name="teamUpdatesPerWeek">Du chasch bis zu %1$s Team Aktualisierige pro Wuche verschicke. 
+&lt;strong&gt;%2$s&lt;/strong&gt; Aktualisierige verblibed bis %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Wetsch eis vu de kommende Turnier verlinke?</string>
+  <string name="teamIntroductionHelp">Churzi Beschribig, wo i de Team Lischte sichtbar isch. Bis zu 200 Zeiche.</string>
+  <string name="teamDescriptionHelp">Die vollschtändig Beschribig isch uf de Team Site z\'finde.</string>
+  <string name="closeTeam">Team uflöse</string>
+  <string name="closeTeamDescription">Löst das Team für immer uf.</string>
+  <string name="forumVisibilityHelp">Wer cha s\'Team Forum uf de Team Site g\'seh?&lt;br&gt;Nur Team Mitglieder chönd Biträg im Team Forum mache.</string>
+  <string name="forumVisibilityNone">Verbirg s\'Forum</string>
+  <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wetsch isetze.</string>
+  <string name="thisTeamBattleIsOver">Das Turnier isch verbi und d\'Teams chönd nüme aktualisiert werde.</string>
+  <string name="oneTeamPerLine">Eis Team pro Zile. Benutz s\'Autousfülle.</string>
+  <string name="oneTeamPerLineHelp">Du chasch die Lischte vu eim Turnier zume Andere kopiere und ifüege! 
+
+Du chasch es Team nöd entferne, wänn en/e Schpiler*i scho im Turnier isch.</string>
+  <string name="numberOfLeadsPerTeam">Azahl Füerer pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du söttsch de Wert würklich nöd ändere, wänn\'s Turnier ag\'fange hät!</string>
+</resources>

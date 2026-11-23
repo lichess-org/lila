@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Җәмһүри</string>
+  <string name="permSettingsName">Көйләүләр</string>
+  <string name="permTourName">Бәйгеләр</string>
+  <string name="manuallyReviewAdmissionRequests">Кабул итү гаризаларын кул белән карагыз</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s кушылу соравы</item>
+  </plurals>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сез киләсе бәйгеләрнең берсен бәйләргә телисездер?</string>
+  <string name="closeTeam">Җәмәгане ябу</string>
+  <string name="closeTeamDescription">Җәмәгәне ябырга мәңгегә.</string>
+</resources>

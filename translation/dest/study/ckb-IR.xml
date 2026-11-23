@@ -96,10 +96,6 @@
   <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
   <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
-    <item quantity="other">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
-  </plurals>
   <string name="urlOfTheGame">URL ی یارییەکان، بۆ هەر دێڕێک یەک دانە</string>
   <string name="createChapter">دروستکردنی بەش</string>
   <string name="createStudy">دروستکردنی لێکۆڵینەوە</string>
@@ -125,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">سڕینەوەی تەواوی خوێندن؟ پاشگەزبوونەوەی نییە! ناوی ئەو دەرسە بنوسە بۆ دڵنیاکردنەوە: %s</string>
   <string name="whereDoYouWantToStudyThat">لە کوێ دەتەوێت ئەوە بخوێنی؟</string>
   <string name="goodMove">جوڵەیەکی باش</string>
-  <string name="mistake">ھەڵەی بچوک</string>
   <string name="brilliantMove">جوڵەیەکی زۆر جوان</string>
-  <string name="blunder">ھەڵەیەکی گەورە</string>
   <string name="interestingMove">جوڵەیەک پێویستی بە ھەڵوەستە کردن ھەیە</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">جوڵەیەکی گوماناوییە</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تەنیا جوڵان</string>

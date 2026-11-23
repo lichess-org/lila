@@ -101,11 +101,6 @@
   <string name="loadAPositionFromFen">Učitaj poziciju od FENa</string>
   <string name="loadAGameFromPgn">Učitaj igru od PGNa</string>
   <string name="automatic">Automatski</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s igre</item>
-    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s igri</item>
-    <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s igara</item>
-  </plurals>
   <string name="urlOfTheGame">URL igre</string>
   <string name="createChapter">Stvori poglavlje</string>
   <string name="createStudy">Stvori studiju</string>
@@ -131,9 +126,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Izbrisati cijelu studiju? Nema povratka! Ukucajte naziv studije da potvrdite: %s</string>
   <string name="whereDoYouWantToStudyThat">Gdje želiš to studirati?</string>
   <string name="goodMove">Dobar potez</string>
-  <string name="mistake">Greška</string>
   <string name="brilliantMove">Briljantan potez</string>
-  <string name="blunder">Gruba greška</string>
   <string name="interestingMove">Zanimljiv potez</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Sumnjiv potez</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jedini potez</string>

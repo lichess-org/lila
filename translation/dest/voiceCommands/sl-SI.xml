@@ -6,7 +6,7 @@
   <string name="instructions2">Puščice prikazujemo za več potez, ko nismo prepričani. Izgovorite barvo ali številko puščice za premikanje, da jo izberete.</string>
   <string name="instructions3">Če puščica prikazuje Radar, se ta poteza predvaja, ko je krog končan. V tem času lahko izgovorite samo %1$s, da takoj predvajate potezo, %2$s, da prekličete, ali izgovorite barvo/številko druge puščice. Ta časovnik lahko nastavite ali izklopite v nastavitvah.</string>
   <string name="instructions4">Omogoči %s v hrupnem okolju. Držite shift, medtem ko govorite ukaze, ko je ta vklopljen.</string>
-  <string name="instructions5">Uporabite fonetično abecedo za izboljšanje prepoznavanja datotek šahovnice.</string>
+  <string name="instructions5">Uporabite fonetično abecedo za izboljšanje prepoznavanja šahovskih linij.</string>
   <string name="instructions6">%s podrobno razloži nastavitve glasovnega premikanja.</string>
   <string name="thisBlogPost">Ta blog post</string>
   <string name="moveToE4OrSelectE4Piece">Premaknite se na E4 ali izberite kos e4</string>

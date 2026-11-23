@@ -98,10 +98,6 @@
   <string name="loadAPositionFromFen">Зареди позиция от FEN</string>
   <string name="loadAGameFromPgn">Зареди партии от PGN</string>
   <string name="automatic">Автоматичен</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Постави твоя PGN текст тук, до %s партия</item>
-    <item quantity="other">Постави твоя PGN текст тук, до %s партии</item>
-  </plurals>
   <string name="urlOfTheGame">URL на партиите, по една на линия</string>
   <string name="createChapter">Създай</string>
   <string name="createStudy">Създай казус</string>
@@ -127,9 +123,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Изтриване на целия казус? Това е необратимо! Въведете името на казуса за да потвърдите: %s</string>
   <string name="whereDoYouWantToStudyThat">Къде да бъде проучено това?</string>
   <string name="goodMove">Добър ход</string>
-  <string name="mistake">Грешка</string>
   <string name="brilliantMove">Отличен ход</string>
-  <string name="blunder">Груба грешка</string>
   <string name="interestingMove">Интересен ход</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Съмнителен ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единствен ход</string>

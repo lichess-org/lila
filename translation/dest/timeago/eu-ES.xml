@@ -19,7 +19,7 @@
   </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">aste %s barru</item>
-    <item quantity="other">%s egun barru</item>
+    <item quantity="other">%s aste barru</item>
   </plurals>
   <plurals name="inNbMonths">
     <item quantity="one">hilabete %s barru</item>

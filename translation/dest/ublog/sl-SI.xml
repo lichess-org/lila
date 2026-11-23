@@ -32,6 +32,7 @@
   <string name="createBlogDiscussionHelp">Ustvarjena bo tema foruma, da bodo ljudje komentirali vašo objavo</string>
   <string name="publishOnYourBlog">Objava na svojem blogu</string>
   <string name="publishHelp">Če je označeno, bo objava navedena na vašem spletnem dnevniku. Če ne, bo v vaših osnutkih objav zaseben</string>
+  <string name="containsSponsoredContent">Vsebuje sponzorirano vsebino, partnerske povezave ali komercialne oglase</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Prilepljena objava</string>
   <string name="stickyPostHelp">Če je označeno, bo ta objava navedena kot prva med nedavnimi objavami v vašem profilu.</string>
   <plurals name="publishedNbBlogPosts">

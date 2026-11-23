@@ -171,6 +171,7 @@ pnpm lint:fix
 2. Run `./lila.sh scalafmtCheckAll`
 3. Run `pnpm test` for frontend tests
 4. Consider `./lila.sh test` for affected backend modules (can be slow)
+5. Do not add/commit new unit or Playwright tests unless the changes are complex and span across multiple files
 
 **Utility Scripts:**
 

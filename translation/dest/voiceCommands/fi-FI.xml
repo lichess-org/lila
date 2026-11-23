@@ -6,7 +6,7 @@
   <string name="instructions2">Jos komento jää epäselväksi, laudalla näytetään usean siirron nuolet. Valitse haluamasi siirtonuoli lausumalla sen väri tai numero.</string>
   <string name="instructions3">Jos nuoli näyttää tutkan pyyhkäisyn, siirto suoritetaan ympyrän tultua valmiiksi. Tänä aikana voit vain sanoa %1$s tehdäksesi siirron välittömästi, %2$s peruuttaaksesi sen, tai sanoa jonkin toisen nuolen värin tai numeron. Asetuksissa tätä ajastinta voi muokata tai sen voi poistaa kokonaan käytöstä.</string>
   <string name="instructions4">Ota käyttöön %s meluisassa ympäristössä. Pidä Shift-näppäintä painettuna, kun sanot äänikomentoja tätä asetusta käyttäessäsi.</string>
-  <string name="instructions5">Käyttäessäsi foneettisia aakkosia shakkilaudan linjat ovat paremmin tunnistettavissa. </string>
+  <string name="instructions5">Käytä foneettisia aakkosia helpottaaksesi shakkilaudan linjojen tunnistamista.</string>
   <string name="instructions6">%s selitetään yksityiskohtaisesti ääniohjattujen siirtojen asetukset.</string>
   <string name="thisBlogPost">Tässä blogikirjoituksessa</string>
   <string name="moveToE4OrSelectE4Piece">Siirrä e4:ään tai valitse e4:ssä oleva nappula</string>

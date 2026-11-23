@@ -59,7 +59,7 @@ private[study] object CommentParser:
   private def parseArrows(comment: ChessComment): Shapes =
     comment.value match
       case arrowsRegex(str) =>
-        val arrows = str.split(',').toList.flatMap { c =>
+        val arrows = str.split(',').toList.map(_.trim).flatMap { c =>
           for
             color <- c.headOption
             orig <- Square.fromKey(c.slice(1, 3))

@@ -50,26 +50,28 @@
       transform: rotate(180deg);
     }
   }
+}
 
-  .pv-board {
-    @include inline-start(34px);
+// The popup is attached to <body> and positioned by JS (see renderPvBoard),
+// so it can't be clipped by ancestors with overflow: hidden.
+.pv-board-anchor {
+  display: none;
+}
 
-    position: absolute;
-    inset-block-start: 100%;
-    width: min(80%, 240px, 40vmin);
-    margin-block-start: 4px;
-    z-index: $z-board-popover;
+.pv-board {
+  position: fixed;
+  z-index: $z-board-popover;
+  pointer-events: none; // otherwise it would steal the hover from .pv_box
 
-    .pv-board-square {
-      @extend %square;
+  .pv-board-square {
+    @extend %square;
 
-      .cg-wrap {
-        @extend %abs-100;
-      }
+    .cg-wrap {
+      @extend %abs-100;
+    }
 
-      cg-board {
-        @extend %popup-shadow;
-      }
+    cg-board {
+      @extend %popup-shadow;
     }
   }
 }

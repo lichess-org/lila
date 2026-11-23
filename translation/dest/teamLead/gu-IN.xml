@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">જાહેર</string>
+  <string name="permSettingsName">સેટિંગ્સ</string>
+  <string name="permTourName">પ્રતિયોગિતાઓ</string>
+  <string name="manuallyReviewAdmissionRequests">દાખલ થવાની વિનંતીઓની જાતે સમીક્ષા કરો</string>
+  <string name="onlyLeaderLeavesTeam">કૃપા કરીને જતા પહેલા નવા ટીમ લીડરને ઉમેરો, અથવા ટીમ બંધ કરો.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s જોડાવાની વિનંતી</item>
+    <item quantity="other">%s જોડાવાની વિનંતીઓ</item>
+  </plurals>
+  <string name="declinedRequests">નકારાયેલી વિનંતીઓ</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">તમે આમાંથી કોઈ આગામી ટુર્નામેન્ટ ને લિંક કરવા ઈચ્છો છો?</string>
+  <string name="teamIntroductionHelp">ટીમ લિસ્ટિંગમાં દેખાતું સંક્ષિપ્ત વર્ણન. ૨૦૦ અક્ષરો સુધી.</string>
+  <string name="teamDescriptionHelp">ટીમ પેજ પર દેખાતું સંપૂર્ણ વર્ણન.</string>
+  <string name="closeTeam">ટીમ બંધ કરો</string>
+  <string name="closeTeamDescription">ટીમને હંમેશ માટે બંધ કરે છે.</string>
+  <string name="listTheTeamsThatWillCompete">આ યુદ્ધમાં (અથવા સ્પર્ધામાં) ભાગ લેનારી ટીમોની યાદી બનાવો.</string>
+  <string name="thisTeamBattleIsOver">આ ટૂર્નામેન્ટ સમાપ્ત થઈ ગઈ છે, અને ટીમોને હવે અપડેટ કરી શકાશે નહીં.</string>
+  <string name="oneTeamPerLine">એક લાઇન દીઠ એક ટીમ. સ્વતઃપૂર્ણતા (ઓટો-કમ્પલિશન) નો ઉપયોગ કરો.</string>
+  <string name="numberOfLeadsPerTeam">ટીમ દીઠ લીડરોની સંખ્યા. તેમના સ્કોરનો સરવાળો એ ટીમનો સ્કોર છે.</string>
+  <string name="numberOfLeadsPerTeamHelp">ટૂર્નામેન્ટ શરૂ થયા પછી તમારે ખરેખર આ મૂલ્યને બદલવું ન જોઈએ!</string>
+</resources>

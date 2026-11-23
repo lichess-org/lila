@@ -8,7 +8,7 @@ import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.id.GamePlayerId
 import lila.core.user.LightUserApiMinimal
-import lila.tree.{ Engine, Eval, Analysis }
+import lila.tree.{ Analysis, Engine, Eval }
 
 class AnnotatorTest extends munit.FunSuite:
 

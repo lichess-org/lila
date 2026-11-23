@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">nasin tawa lon tenpo ni</string>
+  <string name="myBroadcasts">pana lukin mi</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">pana lukin %s</item>
+    <item quantity="other">pana lukin %s</item>
+  </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">jan %s li lukin</item>
+    <item quantity="other">jan %s li lukin</item>
+  </plurals>
+  <string name="liveBroadcasts">pana lukin utala pi tenpo ni</string>
+  <string name="broadcastCalendar">tenpo pi pana lukin</string>
+  <string name="newBroadcast">pana lukin sin</string>
+  <string name="subscribedBroadcasts">pana lukin pi lukin sina</string>
+  <string name="aboutBroadcasts">pana lukin li seme</string>
   <string name="ongoing">tenpo lon la tawa</string>
   <string name="upcoming">pi tenpo kama</string>
+  <string name="tournamentName">nimi pi utala ni</string>
+  <string name="tournamentDescription">toki lili pi utala ni</string>
+  <string name="fullDescription">toki suli pi utala ni</string>
+  <string name="editRoundStudy">o ante e alasa sona</string>
+  <string name="deleteTournament">o weka e utala ni</string>
+  <string name="age">tenpo lon</string>
+  <string name="unrated">utala pi kulupu Lichess ala</string>
+  <string name="recentTournaments">utala pi tenpo poka</string>
+  <string name="openLichess">o lukin lon ma Lichess</string>
+  <string name="teams">kulupu</string>
 </resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Javno</string>
+  <string name="permPublicDesc">Na strani ekipe se prikaži kot vodja</string>
+  <string name="permSettingsName">Nastavitve</string>
+  <string name="permSettingsDesc">Uredi nastavitve in opis ekipe</string>
+  <string name="permTourName">Turnirji</string>
+  <string name="permTourDesc">Ustvarjajte, upravljajte in se pridružite ekipnim turnirjem</string>
+  <string name="permCommName">Moderiranje</string>
+  <string name="permCommDesc">Moderirajte forum in skupinski klepet</string>
+  <string name="permRequestName">Zahtevki</string>
+  <string name="permRequestDesc">Sprejmite ali zavrnite prošnje za pridružitev</string>
+  <string name="permPmAllName">Posodobitve</string>
+  <string name="permPmAllDesc">Pošlji posodobitve članom ekipe</string>
+  <string name="permRemoveName">Odstrani</string>
+  <string name="permRemoveDesc">Odstrani člane iz ekipe</string>
+  <string name="permAdminName">Administrator</string>
+  <string name="permAdminDesc">Upravljanje dovoljenj vodij</string>
+  <string name="demoteLeaderNote">Če želite vodjo degradirati, mu odvzemite vsa dovoljenja.</string>
+  <string name="manuallyReviewAdmissionRequests">Ročno preglejte zahteve za sprejem</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Če je označeno, bodo morali igralci za pridružitev ekipi poslati prošnjo, ki jo lahko sprejmete ali zavrnete.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skrij seznam članov ekipe pred nečlani.</string>
+  <string name="onlyLeaderLeavesTeam">Pred odhodom dodajte novega vodjo ekipe ali zaprite ekipo.</string>
+  <string name="removeSomeone">Odstrani nekoga</string>
+  <string name="whoToRemove">Koga želite odstraniti iz ekipe?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s prošnja za članstvo</item>
+    <item quantity="two">%s prošnji za članstvo</item>
+    <item quantity="few">%s prošnje za članstvo</item>
+    <item quantity="other">%s prošenj za članstvo</item>
+  </plurals>
+  <string name="declinedRequests">Zavrnjene zahteve</string>
+  <string name="newTeamUpdate">Nova posodobitev ekipe</string>
+  <string name="teamUpdatesPerWeek">Na teden lahko pošljete do %1$s posodobitev za ekipo. Do %3$s vam preostane še &lt;strong&gt;%2$s&lt;/strong&gt; posodobitev.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
+  <string name="teamIntroductionHelp">Kratek opis, viden v seznamih ekip. Do 200 znakov.</string>
+  <string name="teamDescriptionHelp">Celoten opis je viden na strani ekipe.</string>
+  <string name="closeTeam">Zapri ekipo</string>
+  <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
+  <string name="forumVisibilityHelp">Kdo lahko vidi forum ekipe na strani ekipe?&lt;br&gt;Samo člani ekipe lahko objavljajo na forumu ekipe.</string>
+  <string name="forumVisibilityNone">Skrij forum</string>
+  <string name="listTheTeamsThatWillCompete">Naštej ekipe, ki bodo tekmovale v tej bitki.</string>
+  <string name="thisTeamBattleIsOver">Ta turnir je končan in ekip ni več mogoče posodobiti.</string>
+  <string name="oneTeamPerLine">Ena ekipa na linijo. Uporabite samodejno dokončanje.</string>
+  <string name="oneTeamPerLineHelp">Ta seznam lahko kopirate in prilepite z enega turnirja na drugega!
+
+Ekipe ne morete odstraniti, če se je igralec z njo že pridružil turnirju.</string>
+  <string name="numberOfLeadsPerTeam">Število vodij na ekipo. Seštevek njihovega rezultata je rezultat ekipe.</string>
+  <string name="numberOfLeadsPerTeamHelp">Te vrednosti res ne bi smeli spreminjati po začetku turnirja!</string>
+</resources>

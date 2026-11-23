@@ -95,9 +95,6 @@
   <string name="loadAPositionFromFen">ໂຫຼດຕຳແໜ່ງຈາກ FEN</string>
   <string name="loadAGameFromPgn">ໂຫຼດເກມຈາກ PGN</string>
   <string name="automatic">ອັດຕະໂນມັດ</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">ວາງເກມເປັນຂໍ້ຄວາມ PGN ຢູ່ນີ້. ແຕ່ລະເກມຈະຖືກສ້າງເປັນບົດໃໝ່. ບົດສຶກສາສາມາດມີໄດ້ສູງສຸດ %s ບົດ.</item>
-  </plurals>
   <string name="urlOfTheGame">URL ຂອງເກມ, ໜຶ່ງ URL ຕໍ່ແຖວ</string>
   <string name="createChapter">ສ້າງບົດ</string>
   <string name="createStudy">ສ້າງບົດສຶກສາ</string>
@@ -123,9 +120,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ລຶບບົດສຶກສາທັງໝົດບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້! ພິມຊື່ຂອງບົດສຶກສາເພື່ອຢືນຢັນ: %s</string>
   <string name="whereDoYouWantToStudyThat">ທ່ານຕ້ອງການສຶກສາຢູ່ໃສ?</string>
   <string name="goodMove">ການເດີນທີ່ດີ</string>
-  <string name="mistake">ການເດີນທີ່ຜິດພາດ</string>
   <string name="brilliantMove">ການເດີນທີ່ຍອດຢ້ຽມ</string>
-  <string name="blunder">ການເດີນທີ່ຜິດພາດຮ້າຍແຮງ (Blunder)</string>
   <string name="interestingMove">ການເດີນທີ່ໜ້າສົນໃຈ</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ການເດີນທີ່ໜ້າສົງໄສ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ການເດີນດຽວທີ່ເປັນໄປໄດ້</string>

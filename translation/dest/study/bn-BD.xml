@@ -67,10 +67,6 @@
   <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>
   <string name="loadAGameFromPgn">PGN থেকে খেলা লোড করুন</string>
   <string name="automatic">স্বয়ংক্রিয়</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
-    <item quantity="other">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
-  </plurals>
   <string name="urlOfTheGame">খেলাগুলোর URL, লাইনপ্রতি একটি</string>
   <string name="createChapter">অধ্যায় তৈরি করুন</string>
   <string name="createStudy">স্টাডি তৈরি করুন</string>
@@ -96,9 +92,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">পুরো স্টাডিটি মুছে ফেলবেন? এখান থেকে ফেরা সম্ভব নয়! নিশ্চিত করতে স্টাডির নামটি লিখুন: %s</string>
   <string name="whereDoYouWantToStudyThat">আপনি কোথায় এটা চর্চা করবেন?</string>
   <string name="goodMove">ভালো চাল</string>
-  <string name="mistake">ভূল চাল</string>
   <string name="brilliantMove">অসাধারণ চাল</string>
-  <string name="blunder">ব্লান্ডার</string>
   <string name="interestingMove">আগ্রহোদ্দীপক চাল</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">অনিশ্চিত চাল</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">একমাত্র সম্ভাব্য চাল</string>

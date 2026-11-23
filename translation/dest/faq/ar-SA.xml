@@ -32,7 +32,8 @@
   <string name="isCorrespondenceDifferent">هل يختلف اللعب بالمراسلة عن لعبة الشطرنج العادية؟</string>
   <string name="pleaseReadFairPlayPage">للحصول على مزيد من المعلومات ، ارجع الى %s</string>
   <string name="fairPlayPage">صفحة اللعب العادل</string>
-  <string name="youCanUseOpeningBookNoEngine">في Lichess ، يتمثل الاختلاف الرئيسي في قواعد لعبة الشطرنج بالمراسلة في أن الكتاب الافتتاحي مسموح به. لا يزال استخدام المحركات محظورًا وسيؤدي إلى وضع علامة للمساعدة في المحرك. على الرغم من أن ICCF تسمح باستخدام المحرك في المراسلات ، إلا أن Lichess لا تفعل ذلك.</string>
+  <string name="youCanUseOpeningBookNoEngine">في Lichess، الفرق الرئيسي في قواعد الشطرنج بالمراسلة هو السماح باستخدام كتاب الافتتاحيات. أما استخدام المحركات فما زال محظورًا، وسيؤدي إلى وسم الحساب بالاستعانة بمحرك. ورغم أن ICCF تسمح باستخدام المحركات في المراسلة، فإن Lichess لا يسمح بذلك.
+</string>
   <string name="gameplay">أسلوب اللعب</string>
   <string name="howBulletBlitzEtcDecided">كيف يتم تحديد بولييت، بليتز وغيرها من الضوابط الزمنية؟</string>
   <string name="basedOnGameDuration">تحكم وقت اللعبة مبني على المدة المقدرة للعبة = %1$s
@@ -44,13 +45,14 @@
   <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
   <string name="eightVariants">8 متغيرات من شطرنج</string>
   <string name="whatIsACPL">ما المقصود بمتوسط خسارة centipawn أو (ACPL)؟</string>
-  <string name="acplExplanation">الـ centipawn هي وحدة القياس المستخدمة في الشطرنج كتمثيل للأفضلية. ويساوي centipawn 1/100 من البيدق. لذلك فإن: 100 centipawn = بيدق واحد. ولا تلعب هذه القيم أي دور رسمي في اللعبة ولكنها مفيدة للاعبين وضرورية في لعبة الشطرنج الحاسوبي لتقييم المواقف.
+  <string name="acplExplanation">\"السنتي بيدق (centipawn) هو وحدة القياس المستخدمة في الشطرنج للتعبير عن الأفضلية، ويساوي 1/100 من البيدق؛ أي إن 100 سنتي بيدق = بيدق واحد. ولا دور رسميًا لهذه القيم في المباراة، لكنها مفيدة للاعبين وأساسية في شطرنج الحاسوب لتقييم المواقف.
 
-النقلة الأعلى للحاسوب لن تخسر أي centipawn، ولكن أي حركة أدنى ستؤدي إلى تدهور الوضع، والذي يتم قياسه بالـ centipawn.
+أفضل نقلة يقترحها الحاسوب لا تخسر أي سنتي بيدق، أما النقلات الأدنى منها فتؤدي إلى تدهور الوضع، ويُقاس هذا التدهور بالسنتي بيدق.
 
-يمكن استخدام هذه القيمة كمؤشر على جودة اللعب. كلما قل عدد centipawn التي يخسرها الشخص في كل نقلة، زادت قوة اللعب.
+ويمكن اعتماد هذه القيمة مؤشرًا على جودة اللعب: كلما قلّ ما يخسره اللاعب من سنتي بيدق في كل نقلة، كان لعبه أقوى.
 
-يستخدم  التحليل الحاسوبي لـ Lichess محرك Stockfish.</string>
+يعتمد التحليل الحاسوبي في Lichess على محرك Stockfish.\"
+</string>
   <string name="insufficientMaterial">خسارة الوقت ،تعادل ومواد غير كافية</string>
   <string name="lichessFollowFIDErules">كقاعدة عامة في حالة نفاد وقت اللاعب، فإن هذا اللاعب سيخسر اللعبة. ومع ذلك، يمكن اعتبار اللعبة تعادلاً إذا لم يتمكن الخصم من إجراء كش مات لملك اللاعب بأي سلسلة ممكنة من الحركات القانونية (%1$s).
 
@@ -69,7 +71,7 @@
 ألقِ نظرة على %3$s المتعلقة بهذه الحركة لمزيد من التدرب.</string>
   <string name="goodIntroduction">مقدمة جيدة</string>
   <string name="lichessTraining">التدريب في Lichess</string>
-  <string name="watchIMRosenCheckmate">شاهد كش مات الأستاذ الدُّوَليّ إريك روزن %s.</string>
+  <string name="watchIMRosenCheckmate">شاهد كش مات الأستاذ الدولي إريك روزن &lt;a href=\'%s\' target=\'_blank\'&gt;en passant&lt;/a&gt;.</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 من القرار %2$s.</string>
   <string name="threefoldRepetitionLowerCase">تكرار ثلاثي</string>

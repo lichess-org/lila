@@ -1,6 +1,5 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
 import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.net.UserAgent
@@ -31,10 +30,10 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
               coll.updateFieldUnchecked(bid(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user").map(AuthInfo(_, doc.contains("fp")))
 
-  def loginWithSessionId(sessionId: SessionId)(using req: RequestHeader): Fu[Option[AuthInfo]] =
+  def loginWithSessionId(sessionId: SessionId)(using Req): Fu[Option[AuthInfo]] =
     if canLogin(sessionId) then authCache.get(sessionId)
     else
-      logger.warn(s"oauth session login attempt ($sessionId) by ${HTTPRequest.print(req)}")
+      logger.warn(s"oauth session login attempt ($sessionId) by ${HTTPRequest.print}")
       fuccess(none)
 
   private def canLogin(sessionId: SessionId): Boolean =
@@ -54,7 +53,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   private[security] def save(
       isSignup: Boolean,
       userId: UserId,
-      req: RequestHeader,
+      req: Req,
       apiVersion: Option[ApiVersion],
       fp: Option[FingerPrint],
       proxy: lila.core.security.IsProxy,
@@ -92,7 +91,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       userId: UserId,
       tokenId: AccessTokenId,
       mobile: Option[lila.core.net.LichessMobileUa],
-      req: RequestHeader
+      req: Req
   ): Funit =
     val id = s"${oauthSessionPrefix}${tokenId.value.take(20)}"
     val ua = mobile

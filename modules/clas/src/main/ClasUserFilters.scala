@@ -15,7 +15,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   private val loadImmediately = false && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
-    estimatedCount = if mode == Mode.Dev then 1_000 else 64_000,
+    estimatedCount = if mode == Mode.Dev then 1_000 else 100_000,
     source = colls.clas
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -46,7 +46,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   )
 
   val teacher = ClasUserCache("teacher")(
-    estimatedCount = if mode == Mode.Dev then 50 else 4_000,
+    estimatedCount = if mode == Mode.Dev then 50 else 7_000,
     source = colls.clas
       .find(bdoc("archived".exists(false)), bdoc("teachers" -> true, "_id" -> false).some)
       .cursor[Bdoc](ReadPref.sec)

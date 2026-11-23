@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Δημόσια</string>
+  <string name="permSettingsName">Ρυθμίσεις</string>
+  <string name="permTourName">Τουρνουά</string>
+  <string name="manuallyReviewAdmissionRequests">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Απόκρυψη της λίστας μελών ομάδας από μη μέλη.</string>
+  <string name="onlyLeaderLeavesTeam">Προσθέστε έναν νέο αρχηγό ομάδας πριν φύγετε ή κλείστε την ομάδα.</string>
+  <string name="whoToRemove">Ποιόν θέλετε να αφαιρέσετε από την ομάδα;</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s αίτημα ένταξης</item>
+    <item quantity="other">%s αιτήματα ένταξης</item>
+  </plurals>
+  <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
+  <string name="newTeamUpdate">Νέα ενημέρωση ομάδας</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Θέλετε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
+  <string name="teamIntroductionHelp">Σύντομη περιγραφή, ορατή στον κατάλογο των ομάδων. Μέχρι 200 χαρακτήρες.</string>
+  <string name="teamDescriptionHelp">Πλήρης περιγραφή, ορατή στη σελίδα της ομάδας.</string>
+  <string name="closeTeam">Κλείσιμο ομάδας</string>
+  <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="forumVisibilityNone">Απόκρυψη του φόρουμ</string>
+  <string name="listTheTeamsThatWillCompete">Συμπληρώστε τις ομάδες που θα διαγωνιστούν σε αυτήν τη μάχη.</string>
+  <string name="thisTeamBattleIsOver">Αυτό το τουρνουά έχει ολοκληρωθεί και οι ομάδες δεν μπορούν πλέον να ενημερώνονται.</string>
+  <string name="oneTeamPerLine">Μία ομάδα ανά γραμμή. Χρησιμοποιήστε την αυτόματη συμπλήρωση.</string>
+  <string name="numberOfLeadsPerTeam">Πλήθος αρχηγών ανά ομάδα. Οι βαθμοί μιας ομάδας υπολογίζονται αθροίζοντας τους επιμέρους βαθμούς των αρχηγών της.</string>
+  <string name="numberOfLeadsPerTeamHelp">Δε συνιστάται η αλλαγή αυτής της τιμής μετά από την έναρξη του τουρνουά!</string>
+</resources>

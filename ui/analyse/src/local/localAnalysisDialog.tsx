@@ -156,8 +156,8 @@ class LocalAnalysisDialog {
       const result = await engine.analyse(
         this.customSearch,
         division,
-        (moves: number, totalMoves: number, nodesPerMove: number) => {
-          this.updateEngineStatus(moves, totalMoves, nodesPerMove);
+        (nodeIndex: number, totalNodes: number, nodesPerMove: number) => {
+          this.updateEngineStatus(nodeIndex, totalNodes, nodesPerMove);
           this.chart?.updateData(this.chartData, engine.nodes);
           redraw();
         },
@@ -362,7 +362,7 @@ class LocalAnalysisDialog {
       this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">
-          <label for="local-analysis-engine">Engine:</label>
+          <label for="local-analysis-engine">{i18n.site.engine}:</label>
           {engineSelect(
             this.browserEngines, // TODO - allow external engines once supported
             info.engine.id,
@@ -402,13 +402,13 @@ class LocalAnalysisDialog {
   private analysisInfo(info: AnalysisEngineInfo): LooseVNodes {
     const isPublished = info === this.ctrl.publishedEvalEngine;
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
-    const splitVersion = info.engineVersion.split('/');
+    const splitVersion = info.version.split('/');
     const isFishnet = splitVersion.length === 3;
-    const engineName = isFishnet ? splitVersion[1] : info.engineVersion;
+    const engineName = isFishnet ? splitVersion[1] : info.version;
     const [clearText, clearClick] = isLocal
       ? [i18n.study.clearLocal, this.clickClearLocal]
       : [i18n.study.clearPublished, this.clickClearPublished];
-    const provenance = isFishnet ? 'Fishnet' : isLocal ? i18n.localAnalysis.local : i18n.site.by(info.userId);
+    const provenance = isLocal ? i18n.localAnalysis.local : 'Fishnet';
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="info-line">

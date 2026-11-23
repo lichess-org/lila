@@ -1,8 +1,8 @@
 package lila.fishnet
 
+import chess.eval.{ Score, WhiteScore }
 import chess.format.pgn.SanStr
 import chess.{ Ply, Position }
-import chess.eval.{ Score, WhiteScore }
 
 import scala.language.implicitConversions
 

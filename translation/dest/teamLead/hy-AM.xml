@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Հրապարակային</string>
+  <string name="permSettingsName">Կարգավորումներ</string>
+  <string name="permTourName">Մրցաշարեր</string>
+  <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
+  <string name="onlyLeaderLeavesTeam">Խնդրում ենք ակումբը լքելուց կամ փակելուց առաջ ավելացնել ակումբի նոր ղեկավար։</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s ընդգրկվելու հայտ</item>
+    <item quantity="other">%s ընդգրկվելու հայտ</item>
+  </plurals>
+  <string name="declinedRequests">Մերժված հայտեր</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Չե՞ք ցանկանում կցել առաջիկա մրցաշարերից մեկը</string>
+  <string name="teamIntroductionHelp">Ակումբային ցանկերում երևացող համառոտ նկարագրություն։ Մինչև 200 նշան։</string>
+  <string name="teamDescriptionHelp">Ակումբի էջում երևացող ամբողջական նկարագրություն։</string>
+  <string name="closeTeam">Լուծարել թիմը</string>
+  <string name="closeTeamDescription">Թիմն ընդմիշտ փակում է։</string>
+  <string name="listTheTeamsThatWillCompete">Այս մրցաշարին մասնակցող ակումբների ցանկ։</string>
+  <string name="thisTeamBattleIsOver">Այս մրցաշարն ավարտվել է, Դուք չեք կարող փոխել ակումբները։</string>
+  <string name="oneTeamPerLine">Ամեն տողում՝ մեկ ակումբ։ Աշխատում է ինքնալրացումը։</string>
+  <string name="numberOfLeadsPerTeam">Ակումբի առաջատարների քանակը։ Նրանց միավորների գումարը ակումբի արդյունքն է։</string>
+</resources>

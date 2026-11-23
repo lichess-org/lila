@@ -96,14 +96,8 @@ final class Dev(env: Env) extends LilaController(env):
       env.mailer.mailerSecondaryPermilleSetting,
       env.mailer.canSendEmailsSetting
     ),
-    "Streamer" -> List(
-      env.streamer.homepageMaxSetting,
-      env.streamer.alwaysFeaturedSetting
-    ),
-    "Permissions" -> List(
-      env.web.settings.noDelaySecret,
-      env.web.settings.prizeTournamentMakers
-    ),
+    "Streamer" -> env.streamer.settings,
+    "Permissions" -> env.web.settings.permissions,
     "Limits" -> List(
       env.web.settings.apiExplorerGamesPerSecond,
       env.recap.parallelismSetting,
@@ -114,10 +108,7 @@ final class Dev(env: Env) extends LilaController(env):
       env.memo.proxy.hostPort,
       env.memo.proxy.credentials
     ),
-    "Tutor" -> List(
-      env.tutor.nbAnalysisSetting,
-      env.tutor.parallelismSetting
-    ),
+    "Tutor" -> env.tutor.settings,
     "Automod" -> List(
       env.report.automod.imageModelSetting,
       env.report.automod.imagePromptSetting,
@@ -126,10 +117,8 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.modelSetting,
       env.ublog.ublogAutomod.promptSetting
     ),
-    "Mobile" -> List(
-      env.web.lichobileAnnounceApi.lichobileUpgrade,
-      env.web.lichobileDisables.setting
-    ),
+    "Mobile" -> env.web.mobileSettings,
+    env.web.webSocketConfig.list,
     "Config" -> List(
       env.plan.donationGoalSetting,
       env.tournament.reloadEndpointSetting

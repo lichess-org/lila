@@ -3,7 +3,6 @@ import Tagify from '@yaireo/tagify';
 import { notNull } from 'lib';
 import { debounce } from 'lib/async';
 import { isSafari } from 'lib/device';
-import { spinnerHtml } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import { wireCropDialog } from './crop';
@@ -99,11 +98,6 @@ site.load.then(() => {
       todo();
     });
   }, 1000);
-
-  $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
-    $('.picture_wrap').html(spinnerHtml);
-    ($(this).parents('form')[0] as HTMLFormElement).submit();
-  });
 
   setTimeout(() => {
     $editor.find('input, textarea, select').on('input paste change keyup', function () {

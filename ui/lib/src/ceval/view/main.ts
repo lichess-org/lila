@@ -1,7 +1,5 @@
 // no side effects allowed due to re-export by index.ts
 
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { uciToMove } from '@lichess-org/chessground/util';
 import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen, makeBoardFen } from 'chessops/fen';
@@ -34,6 +32,7 @@ import type { CevalCtrl } from '../ctrl';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
 import { renderEval } from '../util';
 import { povChances } from '../winningChances';
+import { renderPvBoard } from './pvBoard';
 import { renderCevalSettings } from './settings';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
@@ -471,33 +470,6 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     vnodes.push(span('.pv-san', { key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
   }
   return vnodes;
-}
-
-function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
-  const ceval = ctrl.ceval;
-  const pvBoard = ceval.pvBoard();
-  if (!pvBoard) return undefined;
-  const { fen, uci } = pvBoard;
-  const orientation = ctrl.getOrientation();
-  const cgConfig = {
-    fen,
-    lastMove: uciToMove(uci),
-    orientation,
-    coordinates: false,
-    viewOnly: true,
-    drawable: {
-      enabled: false,
-      visible: false,
-    },
-  };
-  const cgVNode = div('.cg-wrap.is2d', {
-    hook: {
-      insert: (vnode: any) => (vnode.elm._cg = makeChessground(vnode.elm, cgConfig)),
-      update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
-      destroy: (vnode: any) => vnode.elm._cg?.destroy(),
-    },
-  });
-  return div('.pv-board', div('.pv-board-square', cgVNode));
 }
 
 function loadingText(ctrl: CevalHandler): string {

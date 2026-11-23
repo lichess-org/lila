@@ -118,9 +118,7 @@
   <string name="deleteStudy">අධ්‍යයනය මකන්න</string>
   <string name="whereDoYouWantToStudyThat">ඔබට එය අධ්‍යයනය කිරීමට අවශ්‍ය කොතැනද?</string>
   <string name="goodMove">හොඳ ඇදීමක්</string>
-  <string name="mistake">වැරදීමක්</string>
   <string name="brilliantMove">නියම ඇදීමක්</string>
-  <string name="blunder">ලොකු වරද</string>
   <string name="interestingMove">සිත්ගන්නා ඇදීම​</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">සැක සහිත ඇදීම​</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">එකම ඇදීම​</string>

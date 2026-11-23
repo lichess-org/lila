@@ -35,6 +35,7 @@
   <string name="publishHelp">Dacă bifezi, postarea va fi listată pe blogul tău. Dacă nu, va fi privată, în ciornele tale</string>
   <string name="includesPromotedContent">Include conținut promovat/sponsorizat sau link-uri de recomandare</string>
   <string name="mandatoryForSponsoredContent">Obligatoriu pentru conținutul sponsorizat, link-uri de afiliere sau publicitate comercială</string>
+  <string name="containsSponsoredContent">Conține conținut sponsorizat, link-uri de afiliere sau publicitate comercială</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
   <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">

@@ -34,6 +34,7 @@
   <string name="spectator">ผู้ชม</string>
   <string name="contributor">ผู้ช่วยเอื้อเฟื้อ</string>
   <string name="kick">เตะ</string>
+  <string name="remove">เอาออก</string>
   <string name="leaveTheStudy">ออกจากกรณีศึกษา</string>
   <string name="youAreNowAContributor">ตอนนี้คุณเป็นผู้ช่วยเอื้อเฟื้อ</string>
   <string name="youAreNowASpectator">ตอนนี้คุณคือผู้ชม</string>
@@ -97,7 +98,7 @@
   <string name="loadAGameFromPgn">โหลดเกมจาก PGN</string>
   <string name="automatic">อัตโนมัติ</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">วางข้อความ PGN ของคุณที่นี่, ได้ถึง %s เกม</item>
+    <item quantity="other">วางข้อความ PGN ของคุณที่นี่ โดยรองรับสูงสุด %s เกม</item>
   </plurals>
   <string name="urlOfTheGame">URL ของเกม</string>
   <string name="createChapter">สร้างบท</string>
@@ -124,9 +125,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ลบกรณีศึกษาทั้งหมดเหรอ คุณไม่สามารถนำกลับมาได้นะ โปรดพิมพ์ชื่อกรณีศึกษาเพื่อยืนยัน: %s</string>
   <string name="whereDoYouWantToStudyThat">คุณต้องการศึกษาที่ไหน?</string>
   <string name="goodMove">เดินได้ดี</string>
-  <string name="mistake">พลาด</string>
   <string name="brilliantMove">ตาเดินที่หลักแหลม</string>
-  <string name="blunder">พลาดมหันต์</string>
   <string name="interestingMove">ตาเดืนที่น่าสนใจ</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ตาเดินที่แคลงใจ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ตาเดินเดียว</string>
@@ -183,6 +182,7 @@
   <string name="customPositionTitle">ตำแหน่งที่กำหนดเอง</string>
   <string name="customPositionText">ตั้งค่ากระดานตามที่คุณต้องการ&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
   <string name="loadGameFromTheWebTitle">โหลดเกมจากเว็บ</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">วาง URL ของเกม&lt;br&gt;(เช่น lichess.org/game/7fHIU0XI)&lt;br&gt;เพื่อโหลดหมากเดินของเกมนั้นลงในบทนี้</string>
   <string name="fromFenStringTitle">จากสตริง FEN</string>
   <string name="fromFenStringText">วางตำแหน่งในรูปแบบของ FEN &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;เพื่อเริ่มบทจากตำแหน่งนั้นๆ</string>
   <string name="fromPgnGameTitle">จากเกม PGN</string>
@@ -198,4 +198,6 @@
   <string name="clearPublished">ล้างการวิเคราะห์ที่ถูกเผยแพร่แล้ว</string>
   <string name="requestAServerAnalysis">ขอการวิเคราะห์จากเซิร์ฟเวอร์</string>
   <string name="analyzeOnYourDevice">วิเคราะห์บนอุปกรณ์ของคุณ</string>
+  <string name="searchChapters">ค้นหาบทต่างๆ</string>
+  <string name="searchGames">ค้นหาเกม</string>
 </resources>

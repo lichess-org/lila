@@ -38,9 +38,8 @@
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
   <string name="celebratedPatrons">الرعاة المتميزون والذين بفضلهم ما زالت Lichess قائمة</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
-  <string name="serversAndDeveloper">أولاً وقبل كل شيء، خوادم قوية.
-ثم ندفع لمطور دائم : %s ، مؤسس Lichess
-.</string>
+  <string name="serversAndDeveloper">أولًا، نوفّر خوادم قوية. 
+ثم نتكفّل براتب مطوّر متفرّغ للعمل بدوام كامل: %s، مؤسّس Lichess.</string>
   <string name="costBreakdown">انظر للتكاليف مفصلة.</string>
   <string name="officialNonProfit">هل Lichess رسمياً غير ربحي؟</string>
   <string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>

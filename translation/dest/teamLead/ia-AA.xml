@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Public</string>
+  <string name="permSettingsName">Configuration</string>
+  <string name="permTourName">Torneos</string>
+</resources>

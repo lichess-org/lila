@@ -43,6 +43,7 @@
   <string name="spectator">Зритель</string>
   <string name="contributor">Редактор</string>
   <string name="kick">Выгнать</string>
+  <string name="remove">Удалить</string>
   <string name="leaveTheStudy">Покинуть студию</string>
   <string name="youAreNowAContributor">Теперь вы редактор</string>
   <string name="youAreNowASpectator">Теперь вы зритель</string>
@@ -106,10 +107,10 @@
   <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
   <string name="automatic">Автоматически</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Вставьте текст в формате PGN, не больше %s игры</item>
-    <item quantity="few">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="many">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="other">Вставьте текст в формате PGN, не больше %s игр</item>
+    <item quantity="one">Вставьте сюда свой текст PGN, вплоть до %s игры.</item>
+    <item quantity="few">Вставьте сюда свой текст PGN, вплоть до %s игр.</item>
+    <item quantity="many">Вставьте сюда свой текст PGN, вплоть до  %s игр.</item>
+    <item quantity="other">Вставляйте игры в виде текста PGN сюда. Для каждой игры создается новая глава. Студия может содержать до %s глав.</item>
   </plurals>
   <string name="urlOfTheGame">URL игры</string>
   <string name="createChapter">Создать главу</string>
@@ -136,9 +137,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения: %s</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
   <string name="goodMove">Хороший ход</string>
-  <string name="mistake">Ошибка</string>
   <string name="brilliantMove">Отличный ход</string>
-  <string name="blunder">Зевок</string>
   <string name="interestingMove">Интересный ход</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сомнительный ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единственный ход</string>

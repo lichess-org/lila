@@ -24,7 +24,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     if env.security.firewall.accepts(ctx.req) then a
     else keyPages.blacklisted
 
-  def WithProxy[A](res: IsProxy ?=> Fu[A])(using req: RequestHeader): Fu[A] =
+  def WithProxy[A](res: IsProxy ?=> Fu[A])(using req: Req): Fu[A] =
     env.security.ip2proxy.ofReq(req).flatMap(res(using _))
 
   def couldBeEnum(using ctx: Context): Fu[Boolean] =
@@ -94,7 +94,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
-  def CSRF(f: => Fu[Result])(using req: RequestHeader): Fu[Result] =
+  def CSRF(f: => Fu[Result])(using req: Req): Fu[Result] =
     if env.security.csrfRequestHandler.check(req) then f else csrfForbiddenResult
 
   def XhrOnly(res: => Fu[Result])(using ctx: Context): Fu[Result] =

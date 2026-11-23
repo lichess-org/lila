@@ -48,6 +48,8 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
     <item quantity="other">Shihni krejt ekipet %s</item>
   </plurals>
   <string name="newTeamBattle">Ndeshje Ekipore e Re</string>
+  <string name="startDate">Datë fillimi</string>
+  <string name="entryConditions">Kushte hyrjeje</string>
   <string name="customStartDate">Datë vetjake fillimi</string>
   <string name="customStartDateHelp">Në zonën tuaj kohore. Kjo anashkalon rregullimin “Koha para turneut fillon më”</string>
   <string name="allowBerserk">Lejo “Berserk”</string>
@@ -76,4 +78,6 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="onlyTitled">Vetëm lojtarë me titull</string>
   <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
   <string name="tournamentPairingsAreNowClosed">Çiftimet e turneut tani janë mbyllur.</string>
+  <string name="allowBotAccounts">Lejo llogari robotësh</string>
+  <string name="allowBotAccountsDescription">Lejoni &lt;a href=\'%s\' target=\'_blank\'&gt;robotë&lt;/a&gt; të marrin pjesë në turne dhe luani me motorët e tyre. Kjo shpesh largon lojtarët qenie njerëzore.</string>
 </resources>

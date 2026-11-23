@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Avalik</string>
+  <string name="permSettingsName">Seaded</string>
+  <string name="permTourName">Turniirid</string>
+</resources>

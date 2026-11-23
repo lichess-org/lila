@@ -437,6 +437,7 @@
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
+  <string name="selectImage">Valitse kuva</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
@@ -508,6 +509,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
   <string name="resume">Jatka</string>
+  <string name="stop">Pysäytä</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="performance">Suoritus</string>
@@ -567,7 +569,7 @@ Kavereita pelaamassa: %2$s</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
-  <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
+  <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäsenten kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
   <string name="website">Verkkosivusto</string>
@@ -700,7 +702,8 @@ Kavereita pelaamassa: %2$s</string>
   <string name="aboutX">Tietoa %sistä</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
-  <string name="lichessUpdates">Lichessin päivitykset</string>
+  <string name="lichessUpdates">Lichess-syöte</string>
+  <string name="allUpdates">Kaikki päivitykset</string>
   <string name="contribute">Osallistu</string>
   <string name="changelog">Muutosloki</string>
   <string name="termsOfService">Käyttöehdot</string>
@@ -995,6 +998,8 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
   <string name="noRestriction">Ei rajoituksia</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
+  <string name="minimumAccountAge">Tunnuksen alaikäraja</string>
+  <string name="titledPlayersBypassRestriction">Tämä rajoitus ei koske pelaajia, joilla on arvonimi.</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
@@ -1052,6 +1057,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="searchInX">Hae kohteesta \"%s\"</string>
   <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>

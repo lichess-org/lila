@@ -96,10 +96,6 @@
   <string name="loadAPositionFromFen">FEN இலிருந்து ஒரு நிலையை ஏற்றவும்</string>
   <string name="loadAGameFromPgn">PGN இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="automatic">தானியங்கி</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">%s ஆட்டம்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
-    <item quantity="other">%s ஆட்டங்கள்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
-  </plurals>
   <string name="urlOfTheGame">ஆட்டங்களின் URL, ஒரு வரிக்கு ஒன்று</string>
   <string name="createChapter">அத்தியாயத்தை உருவாக்கவும்</string>
   <string name="createStudy">கற்கையை உருவாக்குங்கள்</string>
@@ -125,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">முழு கற்கையையும் நீக்கவா? திரும்பிப் போவதிற்கில்லை! உறுதிப்படுத்த கற்கையின் பெயரை உள்ளிடவும்: %s</string>
   <string name="whereDoYouWantToStudyThat">நீங்கள் அதை எங்கே கற்க விரும்புகிறீர்கள்?</string>
   <string name="goodMove">சிறந்த நகர்வு</string>
-  <string name="mistake">தவறு</string>
   <string name="brilliantMove">புகழ்சான்ற நகர்வு</string>
-  <string name="blunder">பெருந்தவறு</string>
   <string name="interestingMove">ஆர்வமூட்டும் நகர்வு</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ஐயத்திற்கிடமான நகர்வு</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ஒரேயொரு சாத்தியமான நகர்வு</string>

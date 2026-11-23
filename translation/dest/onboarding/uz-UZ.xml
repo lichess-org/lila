@@ -3,6 +3,8 @@
   <string name="logInAsUsername">%s sifatida tizimga kiring</string>
   <string name="welcome">Xuş kelibsiz!</string>
   <string name="welcomeToLichess">Lichess.orgʼga xuş kelibsiz!</string>
+  <string name="welcomeToLichessX">Lichessʼga xuş kelibsiz, %s!</string>
+  <string name="verifyYourAccount">Akkauntingizni tasdiqlang</string>
   <string name="thisIsYourProfilePage">Bu sizning profil sahifangiz.</string>
   <string name="enabledKidModeSuggestion">Bu yoş bola akkauntimi? %sni yoqişingiz mumkin.</string>
   <string name="whatNowSuggestions">Endi nima? Bu yerda bir neçta takliflar:</string>

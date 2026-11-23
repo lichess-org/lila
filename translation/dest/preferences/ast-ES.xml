@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">Desfacer xugada (con consentimientu del oponente)</string>
   <string name="inCasualGamesOnly">Namás en partíes amistoses</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantén pulsiada la tecla &lt;ctrl&gt; al promocionar pa desactivar temporalmente la promoción automática</string>
   <string name="whenPremoving">Con antemanaes</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tables por triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuando\'l tiempu restante sía de &lt; 30 segundos</string>

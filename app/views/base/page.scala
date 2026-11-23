@@ -49,8 +49,6 @@ object page:
       anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
-    val preventIndexing =
-      p.flags(PageFlags.noRobots) || !netConfig.crawlable || lila.i18n.LangPicker.pageOverride.check(ctx.req)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -80,9 +78,9 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetPath("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          preventIndexing.option(noRobots),
+          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
           noTranslate,
-          p.openGraph.map(lila.web.ui.openGraph),
+          p.openGraph.map(lila.web.ui.OpenGraph.render),
           atomLinkTag.tupled(p.atomLink | dailyNewsAtom),
           pref.isTransparentBg
             .option(pref.bgImgUrl)
@@ -124,8 +122,10 @@ object page:
           dataUser := ctx.userId,
           dataUsername := ctx.username,
           dataSoundSet := pref.currentSoundSet.toString,
-          attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
-                                          else netConfig.socketDomains).mkString(","),
+          attr("data-socket-domains") := {
+            if ~pref.usingAltSocket then webSocketConfig.altDomains.get()
+            else webSocketConfig.mainDomains.get()
+          }.value.mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce := ctx.nonce,

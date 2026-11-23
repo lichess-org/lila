@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Олон нийтийн</string>
+  <string name="permSettingsName">Тохиргоо</string>
+  <string name="permTourName">Тэмцээнүүд</string>
+  <string name="closeTeam">Багаа устгах!!</string>
+</resources>

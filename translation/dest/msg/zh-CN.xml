@@ -8,4 +8,5 @@
 
 感谢您帮助维护 Lichess，让它成为对每个人都友好的地方。</string>
   <string name="oldAppNoLongerSupportsPuzzles">旧版应用不再支持谜题，请安装新版 Lichess 应用：%s</string>
+  <string name="xDoesntAcceptNewMessages">%s 不接受新消息。</string>
 </resources>

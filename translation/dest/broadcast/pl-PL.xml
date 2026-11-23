@@ -25,12 +25,12 @@
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
   <string name="roundName">Nazwa rundy</string>
-  <string name="tournamentName">Nazwa turnieju</string>
+  <string name="tournamentName">Nazwa wydarzenia</string>
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. Możesz użyć %1$s dla dodatkowych opcji formatowania. Długość musi być mniejsza niż %2$s znaków.</string>
   <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
-  <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
+  <string name="sourceUrlHelp">Adres URL, z którego Lichess będzie pobierać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDateTimeZone">Data rozpoczęcia w lokalnej strefie czasowej turnieju: %s</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
@@ -69,7 +69,7 @@
   <string name="officialWebsite">Oficjalna strona</string>
   <string name="officialStandings">Oficjalna klasyfikacja</string>
   <string name="regulations">Regulacje</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">Więcej opcji na %s</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Więcej opcji na %s.</string>
   <string name="webmastersPage">stronie webmasterów</string>
   <string name="embedThisBroadcast">Umieść tę transmisję na swojej stronie internetowej</string>
   <string name="ratingDiff">Różnica rankingu</string>
@@ -78,7 +78,7 @@
   <string name="standingsDisclaimer">Klasyfikacja obliczana jest na podstawie nadawanych partii i może różnić się od oficjalnych wyników.</string>
   <string name="allTeams">Wszystkie kluby</string>
   <string name="tournamentFormat">Format turnieju</string>
-  <string name="tournamentLocation">Lokalizacja turnieju</string>
+  <string name="tournamentLocation">Lokalizacja wydarzenia</string>
   <string name="topPlayers">Najlepsi gracze</string>
   <string name="timezone">Strefa czasowa</string>
   <string name="fideRatingCategory">Kategoria rankingu FIDE</string>
@@ -115,4 +115,5 @@
   <string name="pinPlayer">Przypnij odtwarzacz</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="mentionPositionInChat" comment="Title of a button next to the broadcast chat input. It adds the board number and current move, e.g. &quot;board 5 23... Nf6&quot;, to the chat message, so others can click it to see that move.">Wspomnij o tej pozycji na czacie</string>
 </resources>

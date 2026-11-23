@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Потврди свој lichess.org налог, %s</string>
+  <string name="emailConfirm_subject">Потврдите ваш налог на lichess.org, %s</string>
   <string name="emailConfirm_intro">Хвала што си се регистровао/ла на Lichess!</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Кликни линк да активираш свој Lichess налог:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Кликните на линк да активирате ваш Lichess налог:</string>
   <string name="emailConfirm_justIgnore">Уколико се ниси регистровао/ла са Lichess-ом, можеш ингорисати ову поруку без проблема. Непотврђени налог и сви трагови твоје имејл адресе ће бити обрисани из нашег система након 48 сати.</string>
-  <string name="passwordReset_subject">Промени своју lichess.org лозинку, %s</string>
-  <string name="passwordReset_intro">Примили смо захтев за измену лозинке твог налога.</string>
+  <string name="passwordReset_subject">Измените вашу лозинку за lichess.org, %s</string>
+  <string name="passwordReset_intro">Примили смо захтев за измену лозинке вашег налога.</string>
   <string name="passwordReset_clickOrIgnore">Ако си поднео/ла овај захтев, кликни линк испод. Ако ниси, можеш игнорисати овај имејл.</string>
-  <string name="emailChange_subject">Потврди нову имејл адресу, %s</string>
+  <string name="emailChange_subject">Потврдите нову адресу е-поште: %s</string>
   <string name="emailChange_intro">Затражио/ла си промену своје имејл адресе.</string>
   <string name="emailChange_click">Како би потврдио/ла да имаш приступ овом имејлу, молимо те да кликнеш линк испод:</string>
   <string name="welcome_subject">Добродошао/ла на lichess.org, %s</string>

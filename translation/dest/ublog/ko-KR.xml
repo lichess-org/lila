@@ -33,6 +33,7 @@
   <string name="publishHelp">선택 시 게시물이 블로그에 게시됩니다. 미선택 시 비공개로 초안에 보관됩니다.</string>
   <string name="includesPromotedContent">홍보/스폰서된 내용 혹은 레퍼럴 링크 포함</string>
   <string name="mandatoryForSponsoredContent">스폰서된 내용, 제휴 링크 혹은 상업적 광고를 포함한다면 반드시 체크하십시오.</string>
+  <string name="containsSponsoredContent">스폰서된 내용, 제휴 링크 혹은 상업적 광고 포함</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">고정 게시물</string>
   <string name="stickyPostHelp">선택 시 이 게시물이 프로필의 최근 게시물 목록과 블로그에서 가장 먼저 표시됩니다.</string>
   <plurals name="publishedNbBlogPosts">

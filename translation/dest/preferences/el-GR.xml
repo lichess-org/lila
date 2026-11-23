@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="inCasualGamesOnly">Μόνο σε φιλικά παιχνίδια</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
-  <string name="explainPromoteToQueenAutomatically">Κρατήστε πατημένο το πλήκτρο &lt;ctrl&gt; ενώ κάνετε την προαγωγή για να απενεργοποιήσετε προσωρινά την αυτόματη προαγωγή</string>
   <string name="whenPremoving">Μόνο στις προκινήσεις</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
-  <string name="multipleChoices">Πολλαπλές επιλογές. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Μπορεί να απενεργοποιηθεί κατά τη διάρκεια μιας παρτίδας από το μενού της σκακιέρας</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="correspondenceAndUnlimited">Δι\' αλληλογραφίας και απεριορίστου χρόνου</string>

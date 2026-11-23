@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">मानक</string>
+  <string name="chess960Title">होम रैंक के टुकड़ों की शुरुआती स्थिति यादृच्छिक है ।</string>
+  <string name="kingOfTheHill">पहाड़ी का राजा</string>
+  <string name="threeCheckTitle">गेम जीतने के लिए अपने प्रतिद्वंद्वी को 3 बार जांचें ।</string>
+  <string name="racingKings">रेसिंग किंग्स</string>
+  <string name="crazyhouseTitle">पकड़े गए टुकड़ों को एक टुकड़े को हिलाने के बजाय बोर्ड पर वापस गिराया जा सकता है ।</string>
+  <string name="fromPositionTitle">एक कस्टम स्थिति से मानक शतरंज</string>
+</resources>

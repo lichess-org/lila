@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="createLobbyGame">Abuur qolka ciyaarta</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>
@@ -50,6 +51,7 @@
   <string name="blackLeftTheGame">Madowgaa ka baxay ciyaarta</string>
   <string name="whiteDidntMove">Cadaanku muu dhaqaaqin</string>
   <string name="blackDidntMove">Madowgu muu dhaqaaqin</string>
+  <string name="blackAborted">Black ayaa joojiyay ciyaarta</string>
   <string name="requestAComputerAnalysis">Dalbo falanqayn komyuutar</string>
   <string name="computerAnalysis">Falanqayn komyuutar</string>
   <string name="computerAnalysisAvailable">Falanqayn komyuutar baa jirta</string>
@@ -72,6 +74,7 @@
   <string name="expandVariations">Balaadhi kala duwanaanshiyaha</string>
   <string name="forceVariation">Khasab faracan</string>
   <string name="copyVariationPgn">Koobi garee PGNka faracan</string>
+  <string name="copyMainLinePgn">Nuqul ka samee khadka ugu weyn ee PGN-ka</string>
   <string name="move">Dhaqaaq</string>
   <string name="variantLoss">Guukdarro nooc</string>
   <string name="variantWin">Nooc badis</string>
@@ -86,6 +89,8 @@
   <string name="database">Keydka weyn</string>
   <string name="whiteDrawBlack">Caddaan / Baraaje / Madow</string>
   <string name="averageRatingX">Qiimaynta isku celceliska ah: %s</string>
+  <string name="minRatingX">Qiimeynta ugu yar ee %s</string>
+  <string name="maxRatingX">Qiimaynta ugu sarreysa ee %s</string>
   <string name="recentGames">Ciyaarihii ugu bambeeyey</string>
   <string name="topGames">Ciyaaraha ugu sareeya</string>
   <string name="masterDbExplanation">Ciyaaraha MD ee %1$s+ ciyaartoyda FIDE ee %2$s ilaa %3$s</string>

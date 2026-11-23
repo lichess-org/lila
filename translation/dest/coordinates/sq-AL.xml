@@ -19,4 +19,6 @@
   <string name="findSquare">Gjeni kuadrat</string>
   <string name="nameSquare">Emërtoni kuadratin</string>
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Ushtrohuni vetëm me disa shtylla &amp; rreshta</string>
+  <string name="enterTheCoordinate">Jepni koordinatën</string>
+  <string name="pressEnterToStart">Që të fillohet, shtypni %s</string>
 </resources>

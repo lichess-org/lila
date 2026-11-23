@@ -101,12 +101,6 @@
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
   <string name="automatic">Аўтаматычна</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Устаўце сюды ваш PGN тэкст, не больш за %s гульню</item>
-    <item quantity="few">Устаўце сюды ваш PGN тэкст, не больш за %s гульні</item>
-    <item quantity="many">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
-    <item quantity="other">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
-  </plurals>
   <string name="urlOfTheGame">URL гульняў, адзін на радок</string>
   <string name="createChapter">Стварыць раздзел</string>
   <string name="createStudy">Стварыць навучанне</string>
@@ -132,9 +126,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Выдаліць навучанне поўнасцю? Гэта нельга будзе адмяніць! Увядзіце назву навучання каб падцвердзіць: %s</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
   <string name="goodMove">Добры ход</string>
-  <string name="mistake">Памылка</string>
   <string name="brilliantMove">Бліскучы ход</string>
-  <string name="blunder">Позех</string>
   <string name="interestingMove">Цікавы ход</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сумнеўны ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Адзіны ход</string>

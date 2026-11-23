@@ -1,17 +1,16 @@
 package lila.team
 
-import play.api.mvc.RequestHeader
 import scalalib.actor.AsyncActorSequencers
 
 import java.time.Period
 
 import lila.common.Bus
+import lila.core.i18n.I18nKey
 import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
-import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -30,7 +29,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, creatorOf }
+  export teamRepo.{ filterHideForum, onUserDelete, creatorOf, prizeRecipient }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -97,18 +96,20 @@ final class TeamApi(
     cached.invalidateTeamIds(me.userId)
     team
 
-  def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] = update:
-    old.copy(
-      password = edit.password,
-      intro = edit.intro,
-      description = edit.description.map(spam.replace),
-      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
-      open = edit.isOpen,
-      chat = edit.chat,
-      forum = edit.forum,
-      hideMembers = Some(edit.hideMembers),
-      flair = edit.flair
-    )
+  def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] =
+    update:
+      old.copy(
+        password = edit.password,
+        intro = edit.intro,
+        description = edit.description.map(spam.replace),
+        descPrivate = edit.descPrivate.map(_.map(spam.replace)),
+        open = edit.isOpen,
+        chat = edit.chat,
+        forum = edit.forum,
+        hideMembers = Some(edit.hideMembers),
+        flair = edit.flair,
+        prizeClaimant = edit.prizeClaimant
+      )
 
   def update(team: Team)(using me: Me): Fu[String] =
     import reactivemongo.api.bson.*
@@ -212,7 +213,7 @@ final class TeamApi(
   def cancelRequestOrQuit(team: Team)(using me: Me): Fu[Option[I18nKey]] =
     withLeaders(team).flatMap: t =>
       val admins = t.leaders.filter(_.hasPerm(_.Admin))
-      if team.isClas then fuccess(I18nKey("Can't leave a class team").some)
+      if team.isClas then fuccess(I18nKey.unchecked("Can't leave a class team").some)
       else if admins.nonEmpty && admins.forall(_.is(me))
       then fuccess(I18nKey.teamLead.onlyLeaderLeavesTeam.some)
       else
@@ -326,8 +327,8 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, users: List[UserId])(using me: Me, req: RequestHeader): Funit =
-    val client = lila.common.HTTPRequest.printClient(req)
+  def kickMembers(team: Team, users: List[UserId])(using me: Me)(using Req): Funit =
+    val client = lila.common.HTTPRequest.printClient
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"
     users.sequentiallyVoid(kick(team, _))

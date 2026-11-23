@@ -1,7 +1,6 @@
 package lila.oauth
 
 import com.roundeights.hasher.Algo
-import play.api.mvc.RequestHeader
 import play.api.{ Configuration, Mode }
 import scalalib.net.Bearer
 
@@ -64,7 +63,7 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
     client.foreach: c =>
       monitoring.oauthAttempt(c.clientId, prompt, action, loggedIn = ctx.isAuth)
 
-  def forReq(using RequestHeader): Either[String, (Prompt, Option[OAuthSignedClient])] =
+  def forReq(using Req): Either[String, (Prompt, Option[OAuthSignedClient])] =
     for
       prompt <- AuthorizationRequest.fromReq.left.map(_.description)
       withClient <-

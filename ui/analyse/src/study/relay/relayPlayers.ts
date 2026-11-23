@@ -176,8 +176,8 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
               photo &&
                 hl('div.fide-player__photo', playerPhotoOrFallback(p, photo, 'medium', 'fide-player__photo')),
               hl('div.fide-player__header__info', [
-                hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
-                  hl('span', [userTitle(p), p.name]),
+                hl('div.fide-player__header__name', [
+                  hl(p ? 'a' : 'span', { attrs: fidePageAttrs }, [userTitle(p), p.name]),
                   p.user && userLink({ ...p.user, title: undefined }),
                 ]),
                 p.fide &&

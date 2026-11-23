@@ -2,9 +2,9 @@ package lila.game
 
 import chess.*
 import chess.CoreArbitraries.{ castleGen, given }
+import chess.variant.Crazyhouse
 import org.scalacheck.{ Arbitrary, Gen }
 import play.api.libs.json.JsObject
-import chess.variant.Crazyhouse
 
 object Arbitraries:
 

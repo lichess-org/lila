@@ -27,7 +27,7 @@ final private class MovePlayer(
       pov: Pov
   )(using proxy: GameProxy): Fu[Events] =
     import pov.{ game, color }
-    if game.ply > lila.game.Game.maxPlies then
+    if game.ply >= lila.game.Game.maxPlies && !game.finishedOrAborted then
       round ! TooManyPlies
       fuccess(Nil)
     else if game.playableBy(color) then
@@ -48,7 +48,7 @@ final private class MovePlayer(
 
   private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(using proxy: GameProxy): Fu[Events] =
     import pov.{ game, color }
-    if game.ply > lila.game.Game.maxPlies then
+    if game.ply >= lila.game.Game.maxPlies && !game.finishedOrAborted then
       round ! TooManyPlies
       fuccess(Nil)
     else if game.playableBy(color) then

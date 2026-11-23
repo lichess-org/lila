@@ -5,6 +5,18 @@
     font-weight: bold;
   }
 
+  .fide-players-table {
+    text-align: center;
+
+    .player-intro-td {
+      text-align: left;
+    }
+
+    .fide-player__follow {
+      margin: auto;
+    }
+  }
+
   &__search {
     &-form {
       flex: 2 1 auto;

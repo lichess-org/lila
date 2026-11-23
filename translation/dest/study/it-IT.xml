@@ -98,10 +98,6 @@
   <string name="loadAPositionFromFen">Carica una posizione da FEN</string>
   <string name="loadAGameFromPgn">Carica una partita da PGN</string>
   <string name="automatic">Automatica</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Incolla qui il testo PGN, massimo %s partita</item>
-    <item quantity="other">Incolla qui i testi PGN, massimo %s partite</item>
-  </plurals>
   <string name="urlOfTheGame">URL della partita</string>
   <string name="createChapter">Crea capitolo</string>
   <string name="createStudy">Crea studio</string>
@@ -127,9 +123,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eliminare l\'intero studio? Non sarà possibile annullare l\'operazione! Digitare il nome dello studio per confermare: %s</string>
   <string name="whereDoYouWantToStudyThat">Dove vuoi creare lo studio?</string>
   <string name="goodMove">Bella mossa</string>
-  <string name="mistake">Errore</string>
   <string name="brilliantMove">Mossa geniale</string>
-  <string name="blunder">Errore grave</string>
   <string name="interestingMove">Mossa interessante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Mossa dubbia</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Unica mossa</string>

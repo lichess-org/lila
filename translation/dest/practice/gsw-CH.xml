@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="makesPerfect">macht dis Schach perfäkt</string>
-  <string name="signUpToSaveYourProgress">Regischtrier dich, zum din Fortschritt z\'speichere</string>
+  <string name="signUpToSaveYourProgress">Regischtrier dich, zum din Fortschritt schpeichere</string>
   <string name="secHeadCheckmates">Schachmatt\'s</string>
   <string name="secHeadFundamentalTactics">Grundlegendi Taktike</string>
   <string name="secHeadAdvancedTactics">Fortgschritteni Taktike</string>
@@ -18,11 +18,11 @@
   <string name="stNamTheSkewer">De Schpiess</string>
   <string name="stNamTheFork">Gabble</string>
   <string name="stNamDiscoveredAttacks">Verschteckti Agriff</string>
-  <string name="stNamDoubleCheck">Doppelschach</string>
+  <string name="stNamDoubleCheck">Doppel Schach</string>
   <string name="stNamOverloadedPieces">Überlaschteti Figure</string>
   <string name="stNamZwischenzug">Zwüschezug</string>
   <string name="stNamXRay">Dur Figure dure</string>
-  <string name="stNamZugzwang">Zugzwang</string>
+  <string name="stNamZugzwang">Zugszwang</string>
   <string name="stNamInterference">Schtörig</string>
   <string name="stNamGreekGift">Griechisch\'s Gschänk</string>
   <string name="stNamDeflection">Ablänkig</string>
@@ -42,29 +42,29 @@
   <string name="stDesRecognizeThePatterns">Muschter erkänne</string>
   <string name="stDesChallengingCheckmates">Aschpruchsvolli Matt\'s</string>
   <string name="stDesInteractiveLesson">Interaktivi Üebige</string>
-  <string name="stDesPinItToWinIt">Fixiers und günn\'s</string>
+  <string name="stDesPinItToWinIt">Fixier\'s und g\'wünn\'s</string>
   <string name="stDesYumSkewers">Ufschpiesse!</string>
   <string name="stDesUseTheForkLuke">Mach e Gabble, wänd sie gsehsch</string>
   <string name="stDesIncludingDiscoveredChecks">Mit verschtekte Schach\'s</string>
   <string name="stDesAVeryPowerfulTactic">E würkli schtarchi Taktik</string>
   <string name="stDesTheyHaveTooMuchWork">Die händ z\'vill Arbet</string>
   <string name="stDesInBetweenMoves">Zum Problemli löse</string>
-  <string name="stDesAttackingThroughAnEnemyPiece">Dur e feindlichi Figur afriffe</string>
-  <string name="stDesBeingForcedToMove">Zum Zieh z\'wunge</string>
-  <string name="stDesInterposeAPieceToGreatEffect">Schtell e Figur inne und erziel e grossi Würkig</string>
+  <string name="stDesAttackingThroughAnEnemyPiece">Dur e feindlichi Figur agriffe</string>
+  <string name="stDesBeingForcedToMove">Zum Zieh zwunge!</string>
+  <string name="stDesInterposeAPieceToGreatEffect">Schtell e Figur dri und erziel grossi Würkig</string>
   <string name="stDesStudyTheGreekGiftSacrifice">Schtudier s\'Griechisch Gschänk</string>
   <string name="stDesDistractingADefender">En Verteidiger ablänke</string>
   <string name="stDesLureAPieceToABadSquare">Lock e Figur uf es schlächts Fäld</string>
   <string name="stDesPromoteButNotToAQueen">Pur umwandle - aber nöd in e Dame!</string>
   <string name="stDesAPieceIsLostButItCanStillHelp">E verloreni Figur, aber Öppis gaht no</string>
-  <string name="stDesRespondToACheckWithACheck">Es Schach mit eme Schach beantworte</string>
-  <string name="stDesRemoveTheDefendingPiece">Eliminierig vu de verteidigende Figur</string>
+  <string name="stDesRespondToACheckWithACheck">Mit Schach uf Schach antworte</string>
+  <string name="stDesRemoveTheDefendingPiece">Eliminierig vu verteidigende Figure</string>
   <string name="stDesGetOutOfTheWay">Us em Wäg!</string>
   <string name="stDesReachAKeySquare">Erreich es Schlüsselfäld</string>
   <string name="stDesTakeTheOpposition">Übernimm d\'Opposizion</string>
   <string name="stDesVersusAQueen">Gäge e Dame</string>
   <string name="stDesAndPassiveRookVsRook">Und passive Turm gäge Turm</string>
-  <string name="stDesLucenaAndPhilidor">Lucena und Pilidor</string>
+  <string name="stDesLucenaAndPhilidor">Lucena und Philidor</string>
   <string name="stDesBroadenYourKnowledge">Dis Wüsse erwitere</string>
-  <string name="stDesRookEndingsWithSeveralPawns">Turm Ändschpil mit verschidene Pure</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Turm Ändschpil mit mehrere Pure</string>
 </resources>

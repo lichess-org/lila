@@ -69,15 +69,13 @@ final class GameMod(env: Env)(using org.apache.pekko.stream.Materializer) extend
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
     Ok.chunked:
-      env.api.gameApiV2
-        .exportByIds(
-          GameApiV2.ByIdsConfig(
-            ids = gameIds,
-            format = GameApiV2.Format.PGN,
-            flags = lila.game.PgnDump.WithFlags(),
-            perSecond = MaxPerSecond(100),
-            playerFile = none
-          )
+      env.api.gameApiV2.exportByIds:
+        GameApiV2.ByIdsConfig(
+          ids = gameIds,
+          format = GameApiV2.Format.PGN,
+          flags = lila.game.PgnDump.WithFlags(),
+          perSecond = MaxPerSecond(100),
+          playerFile = none
         )
-    .asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn")
-      .as(pgnContentType)
+    .as(PGN)
+      .asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn")

@@ -20,7 +20,7 @@
   <string name="sendAMessage">یک پیام به همه دانش‌جویان ارسال نمایید.</string>
   <string name="aLinkToTheClassWillBeAdded">یک لینک به کلاس به طور خودکار به انتهای پیام شما اضافه خواهد شد. پس شما نیازی ندارید که خودتان لینک را درج کنید.</string>
   <string name="className">نام کلاس</string>
-  <string name="classDescription">توصیف کلاس</string>
+  <string name="classDescription">شرحِ کلاس</string>
   <string name="visibleByBothStudentsAndTeachers">دسترس‌پذیر برای شطرنج‌آموزان و آموزگاران این کلاس</string>
   <string name="teachersOfTheClass">معلمهای کلاس</string>
   <string name="addLichessUsernames">نام کاربری های lichess را وارد کنید تا آنها را به عنوان معلم دعوت کنید. هر خط یک نام کاربری.</string>
@@ -64,11 +64,11 @@
   <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">این حساب شطرنج‌آموز، مدیریت می‌شود</string>
   <string name="upgradeFromManaged">ارتقا از مدیریت‌شده به خودمختار</string>
-  <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>
-  <string name="releaseTheAccount">حساب را فارغ التحصیل کنید تا دانش آموز بتواند به صورت مستقل آن را مدیریت کند.</string>
-  <string name="releaseDesc1">یک حساب فارغ التحصیل شده را نمی توان دوباره مدیریت کرد. دانش‌آموز می‌تواند حالت کودک را ببندد و رمز عبور خود را عوض کند.</string>
-  <string name="releaseDesc2">دانش آموز پس از فارغ التحصیلی حساب خود در کلاس باقی می ماند.</string>
-  <string name="realUniqueEmail">نشانیِ رایانامهٔ واقعی و یکتای دانشجو. ما یک رایانامهٔ تأیید به آن خواهیم فرستاد، با پیوندی برای فارغیدنِ حساب.</string>
+  <string name="release">فارغیدن</string>
+  <string name="releaseTheAccount">حساب را بفارغید تا شطرنج‌آموز بتواند آن را مختارانه مدیریت کند.</string>
+  <string name="releaseDesc1">حسابِ فارغیده را نمی‌توان دوباره به &lt;i&gt;تحت‌مدیر&lt;/i&gt; تنظیم کرد. شطرنج‌آموز می‌تواند حالت کودک را غیرفعال کند و گذرواژه را خودش بازتنظیمد.</string>
+  <string name="releaseDesc2">شطرنج‌آموز پس از فارغ شدنِ حسابش در کلاس باقی خواهد ماند.</string>
+  <string name="realUniqueEmail">نشانیِ رایانامهٔ واقعی و یکتای شطرنج‌آموز. ما رایانامهٔ تایید را به آن خواهیم فرستاد، با پیوندی برای فارغیدنِ حساب. این پیوند پس از ۱۰ دقیقه منقضی می‌شود.</string>
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>

@@ -21,8 +21,7 @@ object page:
       active = active,
       contentCls = "page box box-pad force-ltr"
     ).css("bits.page")
-      .headAppend((active == "about").option(staticContent.organizationScript))
-      .headAppend(views.cms.alternateMarkdown(p)):
+      .headAppend((active == "about").so(staticContent.organizationScript)):
         views.cms.pageContent(p)
 
   def contact(using Context) =
@@ -56,13 +55,12 @@ object variant:
       title = s"${variant.variantTrans.txt()} • ${variant.variantTitleTrans.txt()}",
       klass = "box-pad page variant",
       active = perfType.key.some
-    ).csp(_.withInlineIconFont)
-      .headAppend(views.cms.alternateMarkdown(p)):
-        frag(
-          boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
-          h2(cls := "headline")(variant.variantTitleTrans()),
-          div(cls := "body expand-text")(views.cms.render(p))
-        )
+    ).csp(_.withInlineIconFont):
+      frag(
+        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
+        h2(cls := "headline")(variant.variantTitleTrans()),
+        div(cls := "body expand-text")(views.cms.render(p))
+      )
 
   def home(using Context) =
     page(title = "Lichess variants", klass = "variants"):

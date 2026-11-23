@@ -8,21 +8,21 @@
 isch e wichtigi Fähigkeit:</string>
   <string name="mostChessCourses">Die meischte Schach Kürs und Üebige 
 verwänded die algebraischi Notazion.</string>
-  <string name="talkToYourChessFriends">Es machts eifacher mit Schachfründe z\'rede, 
-wänn alli die \"Schach-Schprach\" verschtöhnd.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpiel effektiver analysiere, 
-wänn me d\'Koordinate schnäll gseht.</string>
-  <string name="aCoordinateAppears">Uf em Brätt erschint e Koordinate (z.B. \"c3\") und du muesch ufs entschprächendi Fäld klicke.</string>
-  <string name="aSquareIsHighlightedExplanation">Uf em Brätt wird es Fäld erlüchtet und du muesch sini Koordinate (z.B. \"e4\") ageh.</string>
-  <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korrekt z\'bezeichne!</string>
-  <string name="goAsLongAsYouWant">Mach so lang wie du wottsch, es git keis Zitlimitt!</string>
-  <string name="showCoordinates">Koordinate azeige</string>
-  <string name="showCoordsOnAllSquares">Koordinate uf jedem Fäld azeige</string>
-  <string name="showPieces">Figure azeige</string>
+  <string name="talkToYourChessFriends">Es macht\'s eifacher mit Schachfründe z\'rede, 
+wänn alli d\'Schprach vum Schach verschtöhnd.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Me chann es Schpil effektiver analysiere, 
+wänn me d\'Koordinate schnäll g\'seht.</string>
+  <string name="aCoordinateAppears">Uf em Brätt erschint e Koordinate (z.B. \"c3\") dänn muesch schnäll uf\'s bezeichneti Fäld klicke.</string>
+  <string name="aSquareIsHighlightedExplanation">Uf em Brätt wird es Fäld grüen ig\'rahmet und du muesch d\'Koordinate vu dem Fäld (z.B. \"e4\") ageh.</string>
+  <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korräkt z\'bezeichne!</string>
+  <string name="goAsLongAsYouWant">Mach so lang wie du wettsch, es git keis Zitlimitt!</string>
+  <string name="showCoordinates">Koordinate am Rand zeige</string>
+  <string name="showCoordsOnAllSquares">Alli Fälder bezeichne</string>
+  <string name="showPieces">Figure zeige</string>
   <string name="startTraining">Training schtarte</string>
   <string name="findSquare">Fäld finde</string>
   <string name="nameSquare">Fäld benänne</string>
-  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Üeb nur einigi Dateie und Räng</string>
-  <string name="enterTheCoordinate">Gib d\'Koordinate i</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Üeb nur es paar Schpalte und Reihe</string>
+  <string name="enterTheCoordinate">Tipp d\'Koordinate ine</string>
   <string name="pressEnterToStart">Klick %s zum Afange</string>
 </resources>

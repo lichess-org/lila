@@ -27,10 +27,10 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       .js(edit.option(esmInitBit("dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
-    page("Updates"):
+    page(I18nKey.site.lichessUpdates.txt()):
       div(cls := "daily-feed box box-pad")(
         boxTop(
-          h1("Lichess updates"),
+          h1(I18nKey.site.lichessUpdates()),
           div(cls := "box__top__actions")(
             Granter
               .opt(_.Feed)
@@ -49,31 +49,32 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       )
 
   val lobbyUpdates = renderCache[List[Feed.Update]](1.minute): ups =>
-    div(cls := "daily-feed__updates")(
-      ups.map: update =>
+    div(cls := "lobby__feed"):
+      div(cls := "daily-feed__updates")(
+        ups.map: update =>
+          div(cls := "daily-feed__update")(
+            marker(update.flair),
+            div(
+              a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
+                momentFromNow(update.at)(nbsp)
+              ,
+              feedMarkdown(update)
+            )
+          ),
         div(cls := "daily-feed__update")(
-          marker(update.flair),
-          div(
-            a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
-              momentFromNow(update.at)(nbsp)
-            ,
-            feedMarkdown(update)
-          )
-        ),
-      div(cls := "daily-feed__update")(
-        marker(),
-        div:
-          a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
-            "All updates »"
+          marker(),
+          div:
+            a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
+              s"${I18nKey.site.allUpdates.txt()(using transDefault)} »"
+        )
       )
-    )
 
   def create(form: Form[?])(using Context) =
-    page("Lichess updates: New", true):
+    page(s"${I18nKey.site.lichessUpdates.txt()}: New", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.Feed.index(1))("Daily Feed"),
+            a(href := routes.Feed.index(1))(I18nKey.site.lichessUpdates()),
             " • ",
             "New update!"
           )
@@ -87,7 +88,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.Feed.index(1))("Lichess update"),
+            a(href := routes.Feed.index(1))(I18nKey.site.lichessUpdates()),
             " • ",
             semanticDate(update.at)
           )
@@ -109,7 +110,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       elems = ups,
       htmlCall = routes.Feed.index(1),
       atomCall = routes.Feed.atom,
-      title = "Lichess updates feed",
+      title = I18nKey.site.lichessUpdates.txt()(using transDefault),
       updated = ups.headOption.map(_.at),
       language = _ => lila.core.i18n.defaultLanguage
     ): up =>

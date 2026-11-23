@@ -34,6 +34,7 @@
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
   <string name="includesPromotedContent">شامل محتوای پولیارده/ترویجیده یا پیوندهای ارجاعی است</string>
   <string name="mandatoryForSponsoredContent">برای محتوای پولیارده، پیوندهای الحاقی یا تبلیغات تجاری اجباری است</string>
+  <string name="containsSponsoredContent">حاویِ محتوای پولیارده، پیوندهای الحاقی یا تبلیغات تجاری</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">سنجاق کردن نوشته</string>
   <string name="stickyPostHelp">اگر علامت بزنید، این نوشته در بالای فهرست نوشته‌های اخیر نمایه و وبنوشت شما قرار میگیرد.</string>
   <plurals name="publishedNbBlogPosts">

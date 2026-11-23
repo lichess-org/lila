@@ -94,10 +94,6 @@
   <string name="loadAPositionFromFen">Բեռնել դիրքը FEN-ով</string>
   <string name="loadAGameFromPgn">Բեռնել դիրքն ըստ PGN-ի</string>
   <string name="automatic">Ինքնաբերաբար</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
-    <item quantity="other">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
-  </plurals>
   <string name="urlOfTheGame">Պարտիայի URL-ը, մեկ տողով</string>
   <string name="createChapter">Ստեղծել գլուխը</string>
   <string name="createStudy">Ստեղծել ստուդիա</string>
@@ -123,9 +119,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
   <string name="whereDoYouWantToStudyThat">Որտե՞ղ եք ցանկանում ստեղծել ստուդիան։</string>
   <string name="goodMove">Լավ քայլ է</string>
-  <string name="mistake">Սխալ</string>
   <string name="brilliantMove">Գերազանց քայլ է</string>
-  <string name="blunder">Վրիպում</string>
   <string name="interestingMove">Հետաքրքիր քայլ է</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Կասկածելի քայլ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Միակ քայլ</string>

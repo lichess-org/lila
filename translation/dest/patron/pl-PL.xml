@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Przekaż datek</string>
+  <string name="donate">Dotacja</string>
   <string name="donateAsX">Wesprzyj jako %s</string>
   <string name="lichessPatron">Patron Lichess</string>
   <string name="patronSince" comment="string is a date">Patron od %s</string>

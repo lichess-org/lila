@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">පොදු</string>
+  <string name="permSettingsName">සැකසුම්</string>
+  <string name="permTourName">තරඟාවලි</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">එක්වීමේ ඉල්ලීම් %s යි</item>
+    <item quantity="other">එක්වීමේ ඉල්ලීම් %s යි</item>
+  </plurals>
+</resources>

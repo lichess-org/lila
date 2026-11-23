@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hamunin ang kaibigan</string>
+  <string name="playAgainstComputer">Makipaglaro sa kompyuter</string>
+  <string name="gameMode">Mode ng laro</string>
+  <string name="createLobbyGame">Gumawa ng laro sa lobby</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para mag-anyaya ng iba, ibigay itong URL</string>
   <string name="gameOver">Tapos</string>
   <string name="waitingForOpponent">Hinihintay ang Kalaban</string>
@@ -51,6 +55,8 @@
   <string name="blackLeftTheGame">Umalis sa laro ang Itim</string>
   <string name="whiteDidntMove">Hindi gumalaw ang Puti</string>
   <string name="blackDidntMove">Hindi gumalaw ang Itim</string>
+  <string name="whiteAborted">Itinigil ng Puti ang laro</string>
+  <string name="blackAborted">Itinigil ang Itim ang laro</string>
   <string name="requestAComputerAnalysis">Humingi ng pagsusuri ng kompyuter</string>
   <string name="computerAnalysis">Pagsusuri ng kompyuter</string>
   <string name="computerAnalysisAvailable">Magagamit na ang pagsusuri ng Kompyuter</string>
@@ -141,8 +147,12 @@
   </plurals>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
+  <string name="toggleLocalEngine">I-toggle ang lokal na makina</string>
+  <string name="engineSettings">Mga setting ng makina</string>
+  <string name="engine">Makina</string>
   <string name="threefoldRepetition">Tatlong pag-uulit</string>
   <string name="claimADraw">Magdeklara ng tabla</string>
+  <string name="drawClaimed">Nag-claim ng tabla</string>
   <string name="offerDraw">Mag-alok ng tabla</string>
   <string name="draw">Tabla</string>
   <plurals name="nbPlayers">
@@ -159,7 +169,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s marka sa %2$s laro</item>
-    <item quantity="other">%1$s marka sa %2$s mga laro</item>
+    <item quantity="other">%1$s marka sa %2$s (na) laro</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s minarkahan sa libro</item>
@@ -243,6 +253,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Ikansela</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Naubusan na ng oras ang Puti</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Naubusan na ng oras ang Itim</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
   <string name="whiteOffersDraw">Ang puti ay nag-alok ng tabla</string>
@@ -306,6 +318,7 @@
     <item quantity="other">%s naglalaro</item>
   </plurals>
   <string name="exportGames">I-export ang mga laro</string>
+  <string name="ratingFilter">Filter ng rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Magbigay ng %s segundo</item>
     <item quantity="other">Magbigay ng %s mga segundo</item>
@@ -325,8 +338,8 @@
     <item quantity="other">%s mga puntos ng paligsahan</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s pagaaral</item>
-    <item quantity="other">%s mga pagaaral</item>
+    <item quantity="one">%s pag-aaral</item>
+    <item quantity="other">%s (na) pag-aaral</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s simul</item>
@@ -394,8 +407,8 @@
   <string name="reconnecting">Muling Kumukonekta</string>
   <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s kaibigan sa online</item>
-    <item quantity="other">%s mga kaibigan sa online</item>
+    <item quantity="one">%s kaibigan online</item>
+    <item quantity="other">%s (na) kaibigan online</item>
   </plurals>
   <string name="favoriteOpponents">Paboritong mga kalaban</string>
   <string name="follow">Sundan</string>
@@ -471,7 +484,7 @@
   <string name="realName">Totoong pangalan</string>
   <string name="setFlair">Itakda ang iyong flair</string>
   <string name="flair">Flair</string>
-  <string name="youCanHideFlair">Mayroong isang kagustuhan upang itago ang lahat ng mga user flairs sa buong site. </string>
+  <string name="youCanHideFlair">Mayroong isang setting para itago ang lahat ng mga user flairs sa buong site.</string>
   <string name="biography">Talambuhay</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa o rehiyon</string>
   <string name="thankYou">Salamat!</string>
@@ -613,7 +626,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Patungkol</string>
   <string name="aboutX">Tungkol sa %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ay isang malaya(%2$s), libre, walang ads, open source chess server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ay isang malaya (%2$s), libre, walang ads, open source chess server.</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
@@ -640,7 +653,7 @@
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
-  <string name="accuracy">Katumpakan</string>
+  <string name="accuracy">Accuracy</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
   <string name="keyMoveBackwardOrForward">gumalaw pabalik/pasulong</string>
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
@@ -909,4 +922,8 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="showMeEverything">Ipakita ang lahat sa akin</string>
   <string name="enableBlindMode">Paganahin ang bulag mode</string>
   <string name="disableBlindMode">Huwag paganahin ang bulag mode</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="settings">Mga setting</string>
+  <string name="boards">Mga Board</string>
 </resources>

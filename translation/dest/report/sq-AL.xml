@@ -9,6 +9,11 @@
   <string name="reportHate">E folur Me Urrejtje / Seksizëm</string>
   <string name="readMoreAboutLichessReports">Lexoni më tepër rreth raportimeve në Lichess</string>
   <string name="reportMaximumCharacters">E shumta 3000 shenja.</string>
+  <string name="reportCheatBoostHelp">Ngjiteni lidhjen te loja(at) dhe shpjegoni ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bëjnë me hile”, por na tregoni se si erdhët në këtë konkluzion.</string>
+  <string name="reportUsernameHelp">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si erdhët në këtë konkluzion, veçanërisht nëse fyerja s’është fort e qartë, jo në anglisht, në zhargon, ose një referencë historike/kulturore reference.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Raportimin tuaj mund ta shqyrtojmë më shpejt, nëse shkruani në anglisht.</string>
   <string name="provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje për te një lojë për shqyrtim.</string>
+  <string name="thanksForTheReport">Faleminderit për raportimin</string>
+  <string name="moderatorsWillReviewSoon">Moderatorët do ta shqyrtojnë shumë shpejt dhe do të ndërmarrin veprimin e duhur.</string>
+  <string name="blockUserInMeantime">Deri atëherë, mundeni ta bllokoni këtë përdorues:</string>
 </resources>

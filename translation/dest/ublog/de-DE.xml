@@ -34,6 +34,7 @@
   <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
   <string name="includesPromotedContent">Enthält vorgestellte/gesponserte Inhalte oder Empfehlungslinks</string>
   <string name="mandatoryForSponsoredContent">Pflicht für gesponserte Inhalte, Affiliate-Links oder kommerzielle Werbung</string>
+  <string name="containsSponsoredContent">Enthält gesponserte Inhalte, Affiliate-Links oder kommerzielle Werbung</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Beitrag anheften</string>
   <string name="stickyPostHelp">Falls ausgewählt, wird dieser Beitrag ganz oben auf deinem Profil bei den kürzlichen Veröffentlichungen und auf deinem Blog angezeigt.</string>
   <plurals name="publishedNbBlogPosts">

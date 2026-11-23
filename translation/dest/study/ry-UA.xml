@@ -8,7 +8,6 @@
   <string name="open">Одкрыти</string>
   <string name="noPinnedComment">Не є</string>
   <string name="goodMove">Добрый ход</string>
-  <string name="mistake">Захыб</string>
-  <string name="blunder">Хыба</string>
   <string name="back">Назад</string>
+  <string name="youCompletedThisLesson">Поздоровляєме! Одучили сьте ся.</string>
 </resources>

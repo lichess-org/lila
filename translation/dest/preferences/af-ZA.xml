@@ -34,7 +34,6 @@
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
   <string name="inCasualGamesOnly">Slegs in vriendskaplike spelle</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
-  <string name="explainPromoteToQueenAutomatically">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>

@@ -13,10 +13,10 @@
   <string name="readOutOpponentName">اقرأ اسم الخصم</string>
   <string name="otherCommands">أوامر أخرى</string>
   <string name="tips">نصائح</string>
-  <string name="ifTheAboveMoveNotationIsUnfamiliar">إذا كان تدوين النقل أعلاه غير مألوف، تعلم المزيد هنا:</string>
-  <string name="includingAXToIndicateACapture">إدراج \"x\" للإشارة إلى التقاط هو اختياري</string>
-  <string name="bothTheLetterOAndTheDigitZero">يمكن استخدام كل من الحرف \"o\" و الرقم صفر \"0\" عند التبييت</string>
-  <string name="ifItIsLegalToCastleBothWays">إذا كان التبيت قانونياً في كلا الاتجاهين، استخدم زر enter للتبيبت القصير</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">الرسملة مهمة فقط في الأوضاع الغامضة التي تتضمن فيلاً أو بيدق ال b</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">للتحرك المسبق، ببساطة اكتب المسبق المطلوب قبل أن يكون دورك</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">إذا لم تكن صيغة تدوين النقلة أعلاه مألوفة لك، فتعرّف عليها أكثر من هنا:</string>
+  <string name="includingAXToIndicateACapture">إضافة الرمز \"x\" للإشارة إلى الأخذ اختيارية</string>
+  <string name="bothTheLetterOAndTheDigitZero">يمكن استخدام الحرف \"o\" أو الرَّقْم صفر \"0\" عند تدوين التبييت</string>
+  <string name="ifItIsLegalToCastleBothWays">إذا كان التبييت في كلا الجانبين قانونيًا، فاضغط على مفتاح Enter لتنفيذ التبييت القصير</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">لا تُؤخذ حالة الأحرف الكبيرة والصغيرة في الاعتبار إلا في الحالات الملتبسة التي تتعلق بالفيل وبيدق العمود b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">لتنفيذ نقلة مسبقة، ما عليك سوى كتابة النقلة التي تريد تنفيذها قبل أن يحين دورك</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="onlyLeaderLeavesTeam">သင် မထွက်မီ အသင်းခေါင်းဆောင် တစ်ဦး ထည့်ပေးပါ၊ သို့မဟုတ်လျှင် အသင်းကို ဖျက်သိမ်းလိုက်ပါ။</string>
+  <string name="declinedRequests">ငြင်းပယ်ထားသော တောင်းဆိုမှုများ</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">ကျင်းပရန် စီစဉ်ထားသော ဤပြိုင်ပွဲတို့သို့ ချိတ်ဆက်လိုပါသလား။</string>
+  <string name="closeTeam">အသင်းကို ဖျက်ပါ</string>
+  <string name="closeTeamDescription">အသင်းကို ထာဝရ ဖျက်သည်။</string>
+</resources>

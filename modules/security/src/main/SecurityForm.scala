@@ -93,7 +93,7 @@ final class SecurityForm(
         .map(_.apply(username))
         .collectFirst:
           case play.api.data.validation.Invalid(e :: _) =>
-            lila.core.i18n.I18nKey(e.message).txt(e.args*)
+            lila.core.i18n.I18nKey.unchecked(e.message).txt(e.args*)
 
     val emailCheck = Form(single("email" -> fullyValidEmail(using none)))
 

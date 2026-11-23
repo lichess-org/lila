@@ -36,12 +36,10 @@
   <string name="takebacksWithOpponentApproval">Yurişni qaytariş (raqib roziligi bilan)</string>
   <string name="inCasualGamesOnly">Faqat reytingsiz öyinlarda</string>
   <string name="promoteToQueenAutomatically">Piyoda avtomatik ravişda farzinga aylanadi</string>
-  <string name="explainPromoteToQueenAutomatically">Piyodani avtomatik almaştirişni vaqtinçalik öçirib turiş uçun yuriş vaqtida &lt;ctrl&gt; tugmasini bosib turing</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Yuriş uç marta takrorlanganda avtomatik tarzda durang talab qiliş</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 sekunddan kam vaqt qolganda</string>
   <string name="moveConfirmation">Yurişni tasdiqlaş</string>
-  <string name="multipleChoices">Bir neçta tanlaşingiz mumkin. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Öyin vaqtida taxta menyusi orqali vaqtinçalik öçirib turiş mumkin</string>
   <string name="inCorrespondenceGames">Yozişmali öyinlarda</string>
   <string name="correspondenceAndUnlimited">Yozişmali va vaqti çeksiz öyinlarda</string>

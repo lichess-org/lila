@@ -8,4 +8,5 @@
 
 Lichess를 항상 모두가 즐길 수 있는 공간으로 만드는 데 도움을 주셔서 감사합니다.</string>
   <string name="oldAppNoLongerSupportsPuzzles">구 버전 앱은 더 이상 퍼즐을 지원하지 않습니다. 신 버전 Lichess 앱을 설치해 주십시오: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s님은 새 메시지를 수신하지 않습니다.</string>
 </resources>

@@ -35,7 +35,6 @@
   <string name="takebacksWithOpponentApproval">Desfer chugada (con consentimiento de l\'oponent)</string>
   <string name="inCasualGamesOnly">Nomás en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automaticament</string>
-  <string name="explainPromoteToQueenAutomatically">Mantiene pretada la tecla &lt;ctrl&gt; mientres coronas pa desactivar temporalment la promoción automatica</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taulas per triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuan lo tiempo restante sía de &lt; 30 segundos</string>

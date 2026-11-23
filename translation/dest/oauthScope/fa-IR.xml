@@ -3,7 +3,7 @@
   <string name="newAccessToken">نمودافزارِ دسترسیِ شخصیِ جدید به میم.ب.کاف</string>
   <string name="tokenGrantsPermission">یک نمودافزار به دیگران اجازه استفاده از حساب‌تان را می‌دهد.</string>
   <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
-  <string name="tokenDescription">توضیحات توکن</string>
+  <string name="tokenDescription">شرحِ نمودافزار</string>
   <string name="rememberTokenUse">میدانید این توکن برای چه کاربردی است</string>
   <string name="whatTheTokenCanDo">انتخاب دسترسی های توکن:</string>
   <string name="oauthCatUserAccount">حساب کاربر</string>
@@ -27,9 +27,9 @@
   <string name="racerWrite">ایجاد و پیوستن به تازِ معما</string>
   <string name="puzzleRead">خواندن داده‌های معماها</string>
   <string name="puzzleWrite">حل معما</string>
-  <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
+  <string name="teamRead">خواندن اطلاعات خصوصی تیم</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
-  <string name="manageTeamsYouLead">مدیریت تیم‌هایی که رهبری می‌کنید: ارسال پیام‌های مستقیم، اخراجِ عضوها</string>
+  <string name="manageTeamsYouLead">مدیریت تیم‌های تحت رهبری‌تان: ارسال پیام‌های مستقیم، برچیدنِ عضوها</string>
   <string name="followRead">خواندن بازیکنان دنبالیده</string>
   <string name="followWrite">دنبالیدن و وادنبالیدن دیگر بازیکنان</string>
   <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>
@@ -38,7 +38,7 @@
   <string name="botPlay">بازی کردن با استفاده از میم.ب.کافِ رَت</string>
   <string name="engineRead">دیدن و استفاده از موتورهای بیرونی‌تان</string>
   <string name="engineWrite">ساخت و به‌روزرسانی موتورهای بیرونی</string>
-  <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
+  <string name="webMod">استفاده از ابزارهای ناظریت (در محدودهٔ جوازتان)</string>
   <string name="personalAccessTokens">نمودافزارهای دسترسی شخصی به میم.ب.کاف</string>
   <string name="canMakeOauthRequests">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>
   <string name="authorizationCodeFlow">روند کد هویت سنجی</string>
@@ -56,6 +56,6 @@
   <string name="attentionOfDevelopers">نکته قابل توجه برای توسعه دهندگان:</string>
   <string name="possibleToPrefill">ازپیش‌پُریدنِ این برگه، با تغییر عامل‌های پُرسمانی درون URL امکان‌پذیر است.</string>
   <string name="forExample">برای نمونه: %s</string>
-  <string name="ticksTheScopes">گستره‌های %1$s و %2$s را علامت زده و توضیحات نِموداَفزار را مقداردهی می‌کند.</string>
-  <string name="givingPrefilledUrls">دادن این وب‌نشانی‌های پیش‌پُریده به کاربرهای‌تان، به آن‌ها در دریافت محدوده‌های نمودافزاری درست، کمک خواهد کرد.</string>
+  <string name="ticksTheScopes">گستره‌های %1$s و %2$s را علامت می‌زند و شرحِ نِموداَفزار را تنظیم می‌کند.</string>
+  <string name="givingPrefilledUrls">دادن این وب‌نشانی‌های پیش‌پُریده به کاربرهای‌تان، کمک خواهد کرد تا گستره‌های درستِ نمودافزار را دریافت کنند.</string>
 </resources>

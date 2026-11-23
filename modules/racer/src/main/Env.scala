@@ -10,6 +10,7 @@ final class Env(
     selector: StormSelector,
     socketKit: lila.core.socket.SocketKit,
     cacheApi: lila.memo.CacheApi,
+    mongoCache: lila.memo.MongoCache.Api,
     userApi: lila.core.user.UserApi,
     lightUserGetter: LightUser.GetterSyncFallback
 )(using Executor, Scheduler):

@@ -81,13 +81,13 @@ Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izatek
     <item quantity="one">Ariketa bat aurkitu da %2$s erabiltzailearen partidetan</item>
     <item quantity="other">%1$s ariketa aurkitu dira %2$s erabiltzailearen partidetan</item>
   </plurals>
-  <string name="puzzleDashboardDescription">Entrenatu, aztertu, hobetu</string>
+  <string name="puzzleDashboardDescription">Entrenatu, analizatu, hobetu</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s jokatuta</item>
+    <item quantity="one">jokatuta %s</item>
     <item quantity="other">%s jokatuta</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s berriz egiteko</item>
+    <item quantity="one">berriz egiteko %s</item>
     <item quantity="other">%s berriz egiteko</item>
   </plurals>
   <string name="percentSolved">%s ebatzita</string>

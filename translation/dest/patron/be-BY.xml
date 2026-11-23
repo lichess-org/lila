@@ -35,8 +35,6 @@
   <string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
   <string name="celebratedPatrons">Выдатныя спонсары, якія робяць Lichess магчымым</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
-  <string name="serversAndDeveloper">Перш за ўсе, магутныя серверы.
-Потым заробак за поўныя працоўныя дні распрацоўшчыку: %s, заснавальніку Lichess.</string>
   <string name="costBreakdown">Паглядзець дасканалую справазадачу выдаткаў</string>
   <string name="officialNonProfit">Lichess афіцыйна некамерцыйная арганізацыя?</string>
   <string name="actOfCreation">Так, вось тут акт стварэння (на французскай мове)</string>

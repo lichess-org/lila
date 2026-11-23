@@ -99,10 +99,6 @@
   <string name="loadAPositionFromFen">Last inn en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Last inn partier fra PGN</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
-    <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
-  </plurals>
   <string name="urlOfTheGame">URL for partiene, én pr. linje</string>
   <string name="createChapter">Opprett kapittel</string>
   <string name="createStudy">Opprett en studie</string>
@@ -128,9 +124,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slette hele studien? Du kan ikke angre! Bekreft ved å skrive inn navnet på studien: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvilken studie vil du bruke?</string>
   <string name="goodMove">Godt trekk</string>
-  <string name="mistake">Feil</string>
   <string name="brilliantMove">Strålende trekk</string>
-  <string name="blunder">Bukk</string>
   <string name="interestingMove">Interessant trekk</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvilsomt trekk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste trekk</string>

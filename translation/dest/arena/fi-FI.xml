@@ -48,6 +48,8 @@ Jos pelaat nopeasti, ehdit pelata enemmän pelejä ja ansaita enemmän pisteitä
     <item quantity="other">Näytä kaikki %s joukkuetta</item>
   </plurals>
   <string name="newTeamBattle">Uusi joukkuetaisto</string>
+  <string name="startDate">Alkamispäivä</string>
+  <string name="entryConditions">Osallistumisehdot</string>
   <string name="customStartDate">Mukautettu alkamisaika</string>
   <string name="customStartDateHelp">Omalla aikavyöhykkeelläsi. Tämä korvaa asetuksen \"Aika ennen turnauksen alkua\"</string>
   <string name="allowBerserk">Salli berserkki</string>
@@ -87,4 +89,6 @@ Esimerkiksi 3%:n sijoituskeskiarvo merkitsee sitä, että sijoitut tavallisesti 
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on nyt päättynyt.</string>
   <string name="berserkRate">Berserkkiprosentti</string>
   <string name="leaguesAndStreamerBattles">Liigat &amp; Striimaajataistot</string>
+  <string name="allowBotAccounts">Salli bottitunnukset</string>
+  <string name="allowBotAccountsDescription">Anna &lt;a href=\'%s\' target=\'_blank\'&gt;bottien&lt;/a&gt; liittyä turnaukseen ja pelata täysillä laskentatehoillaan. Tämä usein karkottaa ihmispelaajat.</string>
 </resources>

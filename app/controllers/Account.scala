@@ -20,7 +20,7 @@ final class Account(
     apiC: => Api
 ) extends LilaController(env):
 
-  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
+  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromQueryParam
 
   def username = Auth { _ ?=> me ?=>
     Ok.page:
@@ -76,7 +76,7 @@ final class Account(
   }
 
   private val lichobileInfoCache =
-    env.memo.cacheApi[UserId, lila.core.data.JsonStr](2_048, "lichobile.infoCache"):
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](1200, "lichobile.infoCache"):
       _.expireAfterWrite(20.seconds).buildAsyncFuture: uid =>
         for
           povs <- env.round.proxyRepo.urgentGames(uid)
@@ -183,7 +183,7 @@ final class Account(
       Ok(Json.obj("email" -> email.value))
   }
 
-  def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
+  def renderCheckYourEmail(using Context) =
     views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>

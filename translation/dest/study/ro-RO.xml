@@ -40,6 +40,7 @@
   <string name="spectator">Spectator</string>
   <string name="contributor">Contribuitor</string>
   <string name="kick">Înlătură</string>
+  <string name="remove">Șterge</string>
   <string name="leaveTheStudy">Părăsește studiul</string>
   <string name="youAreNowAContributor">Acum ești un contribuitor</string>
   <string name="youAreNowASpectator">Acum ești un spectator</string>
@@ -103,9 +104,9 @@
   <string name="loadAGameFromPgn">Încărcați jocuri din PGN</string>
   <string name="automatic">Automată</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
+    <item quantity="one">Lipiți textul PGN aici, până la %s meci.</item>
     <item quantity="few">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
-    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
+    <item quantity="other">Lipiți textul PGN aici, până la %s de meciuri. Pentru fiecare joc se creează un nou capitol.</item>
   </plurals>
   <string name="urlOfTheGame">URL-urile jocurilor, câte unul pe linie</string>
   <string name="createChapter">Creați capitolul</string>
@@ -132,9 +133,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ștergeți întregul studiu? Nu există cale de întoarcere! Introduceți numele studiului pentru a confirma: %s</string>
   <string name="whereDoYouWantToStudyThat">Unde vreți s-o studiați?</string>
   <string name="goodMove">Mutare bună</string>
-  <string name="mistake">Greșeală</string>
   <string name="brilliantMove">Mișcare genială</string>
-  <string name="blunder">Gafă</string>
   <string name="interestingMove">Mișcare interesantă</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Mutare dubioasă</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Singura mișcare</string>

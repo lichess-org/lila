@@ -96,10 +96,6 @@
   <string name="loadAPositionFromFen">Stellung aus FEN lueden</string>
   <string name="loadAGameFromPgn">Partien aus PGN lueden</string>
   <string name="automatic">Automatesch</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">PGN Text hei asetzen, bis zu %s Partie</item>
-    <item quantity="other">PGN Text hei asetzen, bis zu %s Partien</item>
-  </plurals>
   <string name="urlOfTheGame">URL vun den Partien, eng pro Zeil</string>
   <string name="createChapter">Kapitel kréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
@@ -125,9 +121,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Komplett Etüd läschen? Et gëett keen zeréck! Tipp den Numm vun der Etüd an fir ze konfirméieren: %s</string>
   <string name="whereDoYouWantToStudyThat">Wéieng Etüd wëlls du benotzen?</string>
   <string name="goodMove">Gudden Zuch</string>
-  <string name="mistake">Feeler</string>
   <string name="brilliantMove">Brillianten Zuch</string>
-  <string name="blunder">Gaffe</string>
   <string name="interestingMove">Interessanten Zuch</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubiosen Zuch</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eenzegen Zuch</string>

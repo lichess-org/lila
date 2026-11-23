@@ -12,22 +12,12 @@
   <string name="myTeams">Mis equipos</string>
   <string name="noTeamFound">Ningún equipo encontrado</string>
   <string name="joinTeam">Unirse al equipo</string>
-  <string name="onlyLeaderLeavesTeam">Por favor, añade un nuevo líder de equipo antes de salir, o cierra el equipo.</string>
   <string name="quitTeam">Abandonar el equipo</string>
-  <string name="manuallyReviewAdmissionRequests">Revisar manualmente las solicitudes de admisión</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que tú puedes rechazar o aceptar.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ocultar lista de miembros del equipo a los no miembros.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
   </plurals>
   <string name="teamRecentMembers">Miembros recientes</string>
-  <string name="kickSomeone">Expulsar a alguien del equipo</string>
-  <string name="whoToKick">¿A quién quieres expulsar del equipo?</string>
-  <plurals name="xJoinRequests">
-    <item quantity="one">%s solicitud de ingreso</item>
-    <item quantity="other">%s solicitudes de ingreso</item>
-  </plurals>
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
   <string name="requestDeclined">Tu solicitud de ingreso fue rechazada por un líder del equipo.</string>
@@ -38,37 +28,19 @@
   <string name="swissTournamentOverview">Un torneo por sistema suizo en el que sólo pueden participar los miembros de este equipo</string>
   <string name="teamUpdates">Actualizaciones de equipo</string>
   <string name="subToTeamUpdates">Suscribirse a las actualizaciones de equipo</string>
-  <string name="newTeamUpdate">Nueva actualización de equipo</string>
-  <string name="teamUpdatesPerWeek">Puedes enviar hasta %1$s actualizaciones de equipo por semana. &lt;strong&gt;%2$s&lt;/strong&gt; actualizaciones restantes hasta %3$s.</string>
   <string name="teamEvents">Eventos del equipo</string>
   <string name="upcomingTeamEvents">Próximos eventos del equipo</string>
   <string name="teamsIlead">Equipos que lidero</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">¿Quieres incluir un enlace a alguno de estos próximos torneos?</string>
   <string name="leadersChat">Chat de líderes</string>
   <string name="introduction">Introducción</string>
-  <string name="teamIntroductionHelp">Breve descripción visible en el listado de equipos. Hasta 200 caracteres.</string>
-  <string name="teamDescriptionHelp">Descripción completa visible en la página del equipo.</string>
-  <string name="closeTeam">Dar de baja el equipo</string>
-  <string name="closeTeamDescription">Da de baja el equipo definitivamente.</string>
   <string name="entryCode">Código de entrada al equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un código de entrada que los nuevos miembros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="forumLabel">Foro del equipo</string>
-  <string name="forumVisibilityHelp">¿Quién puede ver el foro del equipo en la página del equipo?&lt;br&gt;Solo los miembros del equipo pueden publicar en su foro.</string>
-  <string name="forumVisibilityNone">Ocultar el foro</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTournaments">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>
-  <string name="declinedRequests">Solicitudes rechazadas</string>
   <string name="joinLichessVariantTeam">Únete al equipo oficial de %s para noticias y eventos</string>
-  <string name="thisTeamBattleIsOver">Este torneo ha terminado y los equipos ya no pueden ser actualizados.</string>
-  <string name="listTheTeamsThatWillCompete">Listar los equipos que competirán en esta batalla.</string>
-  <string name="oneTeamPerLine">Un equipo por línea. Utiliza el autocompletado.</string>
-  <string name="oneTeamPerLineHelp">¡Puedes copiar y pegar esta lista de un torneo a otro!
-
-No puedes eliminar un equipo si un jugador ya se ha unido al torneo en ese equipo.</string>
-  <string name="numberOfLeadsPerTeam">Cantidad de líderes por equipo. La suma de sus puntuaciones será la puntuación del equipo.</string>
-  <string name="numberOfLeadsPerTeamHelp">¡No deberías cambiar este valor después de que el torneo haya comenzado!</string>
   <string name="innerTeam">Equipo interno</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Batalla de %s equipos</item>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">همگانی</string>
+  <string name="permPublicDesc">حضور با نقشِ رهبر در صفحهٔ تیم</string>
+  <string name="permSettingsName">تنظیمات</string>
+  <string name="permSettingsDesc">ویرایشِ تنظیمات و شرحِ تیم</string>
+  <string name="permTourName">مسابقات</string>
+  <string name="permTourDesc">ایجاد، مدیریت و پیوستن به مسابقات تیمی</string>
+  <string name="permCommName">ناظریت</string>
+  <string name="permCommDesc">ناظریتِ انجمن و گپِ تیم</string>
+  <string name="permRequestName">درخواست‌ها</string>
+  <string name="permRequestDesc">پذیرش یا ردِ درخواست‌های عضویت</string>
+  <string name="permPmAllName">روزآمدها</string>
+  <string name="permPmAllDesc">فرستادنِ روزآمدها به عضوهای تیم</string>
+  <string name="permRemoveName">برچیدن</string>
+  <string name="permRemoveDesc">برچیدنِ عضوهای تیم</string>
+  <string name="permAdminName">اداره‌گر</string>
+  <string name="permAdminDesc">مدیریت مجوزهای رهبران</string>
+  <string name="demoteLeaderNote">برای تنزل یک رهبر، تمام مجوزهای او را الغا کنید.</string>
+  <string name="manuallyReviewAdmissionRequests">بررسی دستی درخواست‌های پذیرش</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">اگر هفتکدار باشد، نیاز است بازیکنان برای پیوستن به تیم درخواست دهند، که می‌توانید آن را بپذیرید یا رد کنید.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">فهرستِ عضوهای تیم را از نا-عضو‌ها بپنهانید.</string>
+  <string name="onlyLeaderLeavesTeam">لطفا قبل از ترک تیم، رهبر جدیدی بیفزایید، یا تیم را ببندید.</string>
+  <string name="removeSomeone">برچیدنِ کسی</string>
+  <string name="whoToRemove">می‌خواهید چه کسی را از تیم برچینید؟</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s درخواستِ عضویت</item>
+    <item quantity="other">%s درخواستِ عضویت</item>
+  </plurals>
+  <string name="declinedRequests">درخواست‌های ردشده</string>
+  <string name="newTeamUpdate">روزامدهای جدیدِ تیم</string>
+  <string name="teamUpdatesPerWeek">شما می‌توانید تا %1$s روزامدِ تیم را هر هفته بفرستید. &lt;strong&gt;%2$s&lt;/strong&gt; روزامد تا %3$s باقی مانده است.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">شاید بخواهید یکی از این مسابقات آینده را پیوند کنید؟</string>
+  <string name="teamIntroductionHelp">شرحِ مختصرِ ظاهرشونده در فهرستِ تیم‌ها. تا ۲۰۰ نویسه.</string>
+  <string name="teamDescriptionHelp">شرحِ کاملِ ظاهرشونده در صفحهٔ تیم.</string>
+  <string name="closeTeam">بستن تیم</string>
+  <string name="closeTeamDescription">تیم را برای همیشه می‌بندد.</string>
+  <string name="forumVisibilityHelp">چه کسی می‌تواند انجمنِ تیم را در صفحهٔ تیم ببیند؟&lt;br&gt;فقط عضوهای تیم می‌توانند در انجمنِ تیم فرسته گذارند.</string>
+  <string name="forumVisibilityNone">پنهانیدنِ انجمن</string>
+  <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد رقابت خواهند کرد را بفهرستید.</string>
+  <string name="thisTeamBattleIsOver">این مسابقات تمام شده است و تیم‌ها دیگر نمی‌توانند روزانده شوند.</string>
+  <string name="oneTeamPerLine">هر تیم در یک خط. از خود-تکمیل ببَهرید.</string>
+  <string name="oneTeamPerLineHelp">می توانید رونوشتِ این فهرستِ مسابقات را جای دیگری جایگذارید!
+
+اگر بازیکنی تا حال، به مسابقات پیوسته باشد، نمی‌توانید آن تیم را برچینید.</string>
+  <string name="numberOfLeadsPerTeam">تعداد رهبران در هر تیم. مجموع امتیازشان، امتیاز تیم است.</string>
+  <string name="numberOfLeadsPerTeamHelp">واقعا نباید این مقدار را پس از آغازِ مسابقات تغییر دهید!</string>
+</resources>

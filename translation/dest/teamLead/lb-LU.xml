@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Ëffentlech</string>
+  <string name="permSettingsName">Optiounen</string>
+  <string name="permTourName">Turnéieren</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Bäitrëttsufro</item>
+    <item quantity="other">%s Bäitrëttsufroen</item>
+  </plurals>
+  <string name="declinedRequests">Ofgeleenten Ufroen</string>
+  <string name="teamIntroductionHelp">Kuerz Beschreiwung, déi op Ekippelëschten ze gesinn ass. Maximal 200 Zeechen.</string>
+  <string name="teamDescriptionHelp">Vollstänneg Beschreiwung, déi op der Ekippesäit ze gesinn ass.</string>
+  <string name="closeTeam">Ekipp opléisen</string>
+  <string name="closeTeamDescription">Léist d\'Ekipp fir ëmmer op.</string>
+  <string name="listTheTeamsThatWillCompete">Lëscht d\'Ekippen op, déi bei dësem Kampf matmaachen.</string>
+  <string name="thisTeamBattleIsOver">Dëst Turnéier ass eriwwer an d\'Ekippe kënnen net méi aktualiséiert ginn.</string>
+  <string name="oneTeamPerLine">Eng Ekipp pro Zeil. Benotz d\'automatesch Vervollstännegung.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du sollts dëse Wäert wierklech net änneren, nodeems d\'Turnéier ugefaangen huet!</string>
+</resources>

@@ -34,6 +34,7 @@
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
   <string name="includesPromotedContent">Inclut du contenu promu/parrainné ou des liens d\'affiliation</string>
   <string name="mandatoryForSponsoredContent">Obligatoire pour le contenu parrainné, les liens d\'affiliation ou la publicité commerciale</string>
+  <string name="containsSponsoredContent">Contient du contenu commandité, des liens d\'affiliation ou de la publicité</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Publication épinglée</string>
   <string name="stickyPostHelp">Si vous sélectionnez cette option, votre publication s\'affichera en premier parmi les publications récentes de votre profil.</string>
   <plurals name="publishedNbBlogPosts">

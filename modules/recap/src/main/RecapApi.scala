@@ -14,25 +14,17 @@ final class RecapApi(
 
   export repo.get
 
-  def availability[C: Writes](user: User)(getCosts: => Fu[C]): Fu[Availability] =
+  def availability(user: User): Fu[Availability] =
     import Availability.*
-    get(user.id)
-      .flatMap:
-        case Some(recap) => recapJson(recap, user).map(Available(_))
-        case None => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
-      .flatMap(addCosts(getCosts))
-
-  def addCosts[C: Writes](getCosts: => Fu[C])(av: Availability): Fu[Availability] = av match
-    case Availability.Available(data) =>
-      getCosts.map: costs =>
-        Availability.Available(data.add("costs" -> costs.some))
-    case av => fuccess(av)
+    get(user.id).flatMap:
+      _.fold(for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))): recap =>
+        recapJson(recap, user).map(Available(_))
 
   // waits until the recap is computed
-  def awaiter[C: Writes](user: User, counter: Int = 0)(getCosts: => Fu[C]): Fu[JsObject] =
-    availability(user)(getCosts).flatMap:
+  def awaiter(user: User, counter: Int = 0): Fu[JsObject] =
+    availability(user).flatMap:
       case Recap.Availability.Available(data) => fuccess(data)
       case Recap.Availability.Queued(_) =>
         if counter < 60
-        then delay(2.seconds)(awaiter(user, counter + 1)(getCosts))
+        then delay(2.seconds)(awaiter(user, counter + 1))
         else fufail(LilaException(s"Recap awaiter timeout for ${user.id}"))

@@ -8,4 +8,5 @@ Olemme käsitelleet ilmoitukesi ja ryhtyneet toimiin. Vaikkemme voi kertoa toimi
 
 Kiitos, että autat pitämään Lichessin kaikille hyvänä paikkana.</string>
   <string name="oldAppNoLongerSupportsPuzzles">Vanha sovellus ei enää tue tehtäviä. Asenna uusi Lichess -sovellus: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s ei hyväksy uusia viestejä.</string>
 </resources>

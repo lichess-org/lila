@@ -48,7 +48,8 @@ export interface OpeningGame {
   uci?: string;
 }
 
-interface OpeningPlayer {
+export interface OpeningPlayer {
+  title?: string;
   name: string;
   rating: number;
 }

@@ -43,7 +43,6 @@
   <string name="discoveringEnPassant">Firwat kann e Bauern een aneren Bauer schloen, wann hien laanscht gezunn huet? (en passant)</string>
   <string name="goodIntroduction">gutt Aféierung</string>
   <string name="lichessTraining">Lichess-Training</string>
-  <string name="watchIMRosenCheckmate">Kuck wéi den Internationale Meeschter Eric Rosen %s schachmatt setzt.</string>
   <string name="threefoldRepetition">Dräifach Stellungswidderhuelung</string>
   <string name="threefoldRepetitionExplanation">Wann eng Stellung dräi Mol virkënnt, kann e Spiller Remis duerch %1$s reklaméieren. Lichess setzt déi offiziell FIDE-Reegelen ëm, wéi se am Artikel 9.2 vum %2$s beschriwwe ginn.</string>
   <string name="threefoldRepetitionLowerCase">dräifach Stellungswidderhuelung</string>

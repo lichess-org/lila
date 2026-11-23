@@ -36,7 +36,6 @@
   <string name="takebacksWithOpponentApproval">ટેકબેક (વિરોધીની મંજૂરી સાથે)</string>
   <string name="inCasualGamesOnly">ફક્ત કેઝ્યુઅલ રમતોમાં</string>
   <string name="promoteToQueenAutomatically">આપમેળે રાણી તરીકે બઢતી</string>
-  <string name="explainPromoteToQueenAutomatically">ઓટો-પ્રમોશનને અસ્થાયી રૂપે અક્ષમ કરવા માટે પ્રમોટ કરતી વખતે &lt;ctrl&gt; કી દબાવી રાખો.</string>
   <string name="whenPremoving">પ્રીમુવિંગ કરતી વખતે</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ત્રણ ગણા પુનરાવર્તન પર આપમેળે દાવો ડ્રો</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">જ્યારે સમય &lt; બાકી રહે છે; 30 સેકન્ડ</string>

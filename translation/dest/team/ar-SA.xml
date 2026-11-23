@@ -16,11 +16,7 @@
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
-  <string name="onlyLeaderLeavesTeam">يُرجى تعيين قائد جديد للفريق قبل المغادرة، أو إغلاق الفريق.</string>
   <string name="quitTeam">انسحب من الفريق</string>
-  <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">إذا تم تفعيل هذا الخِيار، فسيتعين على اللاعبين طلب الانضمام إلى الفريق، ويمكنك قَبُول طلباتهم أو رفضها.</string>
-  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">إخفاء قائمة أعضاء الفريق عن غير الأعضاء.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">قائد الفريق</item>
     <item quantity="one">قائد الفريق</item>
@@ -30,16 +26,6 @@
     <item quantity="other">قادة الفريق</item>
   </plurals>
   <string name="teamRecentMembers">آخر الأعضاء</string>
-  <string name="kickSomeone">طرد أحداً ما من الفريق</string>
-  <string name="whoToKick">من تريد طرده من الفريق؟</string>
-  <plurals name="xJoinRequests">
-    <item quantity="zero">%s طلب انضمام</item>
-    <item quantity="one">%s طلب انضمام</item>
-    <item quantity="two">%s طلب انضمام</item>
-    <item quantity="few">%s طلب انضمام</item>
-    <item quantity="many">%s طلب انضمام</item>
-    <item quantity="other">%s طلب انضمام</item>
-  </plurals>
   <string name="willBeReviewed">سيراقب طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
   <string name="requestDeclined">تم رفض طلب انضمامك للفريق من قبل القائد.</string>
@@ -50,38 +36,19 @@
   <string name="swissTournamentOverview">بطولة سويسرية يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="teamUpdates">تحديثات الفريق</string>
   <string name="subToTeamUpdates">إشعارات أو تحديثات الفريق</string>
-  <string name="newTeamUpdate">تحديث جديد للفريق</string>
-  <string name="teamUpdatesPerWeek">يمكنك إرسال ما يصل إلى %1$s تحديثات للفريق أسبوعيًا. تبقّى لك &lt;strong&gt;%2$s&lt;/strong&gt; تحديثات حتى %3$s.</string>
   <string name="teamEvents">فعاليات الفريق</string>
   <string name="upcomingTeamEvents">فعاليات الفريق القادمة</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>
   <string name="introduction">مقدمة</string>
-  <string name="teamIntroductionHelp">وصف موجز يمكن رؤيته في قوائم الفرق. يصل إلى 200 حرف.</string>
-  <string name="teamDescriptionHelp">وصف كامل يمكن رؤيته في صفحة الفريق.</string>
-  <string name="closeTeam">إغلاق الفريق</string>
-  <string name="closeTeamDescription">يغلق الفريق إلى الأبد.</string>
   <string name="entryCode">رمز دخول الفريق</string>
   <string name="entryCodeDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
   <string name="incorrectEntryCode">رمز خاطئ.</string>
   <string name="forumLabel">منتدى الفريق</string>
-  <string name="forumVisibilityHelp">من يمكنه رؤية منتدى الفريق في صفحة الفريق؟&lt;br&gt;
-يمكن لأعضاء الفريق فقط النشر في منتدى الفريق.</string>
-  <string name="forumVisibilityNone">إخفاء المنتدى</string>
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTournaments">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>
-  <string name="declinedRequests">الطلبات المرفوضة</string>
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
-  <string name="thisTeamBattleIsOver">انتهت هذه البطولة، ولم يعد من الممكن تحديث الفريق.</string>
-  <string name="listTheTeamsThatWillCompete">قائمة الفرق التي ستتنافس في هذه المعركة.</string>
-  <string name="oneTeamPerLine">فريق واحد لكل سطر. استخدم الإكمال التلقائي.</string>
-  <string name="oneTeamPerLineHelp">يمكنك نسخ ولصق هذه القائمة من بطولة إلى أخرى!
-
-لا يمكنك إزالة فريق إذا كان اللاعب قد انضم فعلًا إلى البطولة معه.</string>
-  <string name="numberOfLeadsPerTeam">عدد القادة لكل فريق. مجموع درجاتهم هو نتيجة الفريق.</string>
-  <string name="numberOfLeadsPerTeamHelp">لا يجب عليك تغيير هذه القيمة بعد بدء البطولة!</string>
   <string name="innerTeam">الفريق الداخلي</string>
   <plurals name="battleOfNbTeams">
     <item quantity="zero">معركة %s فريق</item>

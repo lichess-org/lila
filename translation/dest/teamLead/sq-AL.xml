@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Publike</string>
+  <string name="permPublicDesc">Shfaquni si një drejtues te faqja e ekipit</string>
+  <string name="permSettingsName">Rregullime</string>
+  <string name="permSettingsDesc">Përpunoni rregullime dhe përshkrim ekipi</string>
+  <string name="permTourName">Turne</string>
+  <string name="permTourDesc">Krijoni, administroni dhe merrni pjesë në turne ekipi</string>
+  <string name="permCommName">Moderim</string>
+  <string name="permCommDesc">Moderoni forumin dhe fjalosjen e ekipit</string>
+  <string name="permRequestName">Kërkesa</string>
+  <string name="permRequestDesc">Pranoni, ose hidhni poshtë kërkesa pjesëmarrjeje</string>
+  <string name="permPmAllName">Përditësime</string>
+  <string name="permPmAllDesc">Dërgoni përditësime te anëtarët e ekipit</string>
+  <string name="permRemoveName">Hiqe</string>
+  <string name="permRemoveDesc">Hiqni anëtarë nga ekipi</string>
+  <string name="permAdminName">Përgjegjës</string>
+  <string name="permAdminDesc">Administroni leje drejtuesish</string>
+  <string name="demoteLeaderNote">Që ta hiqni nga drejtues, shfuqizoni krejt lejet për të.</string>
+  <string name="manuallyReviewAdmissionRequests">Shqyrtojini dorazi kërkesat për pranim</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Në iu vëntë shenjë, lojtarëve do t’u duhet të kërkojnë të marrin pjesë te ekipi, të cilën mund ta pranoni, ose hidhni poshtë.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Fshihe listën e anëtarëve të ekipit për kë s’është anëtar.</string>
+  <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
+  <string name="removeSomeone">Hiqni dikë</string>
+  <string name="whoToRemove">Kë doni të hiqet nga ekipi?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s kërkesë për të hyrë</item>
+    <item quantity="other">%s kërkesa për të hyrë</item>
+  </plurals>
+  <string name="declinedRequests">Kërkesa të Hedhura Poshtë</string>
+  <string name="newTeamUpdate">Përditësim i ri për ekipin</string>
+  <string name="teamUpdatesPerWeek">Mund të dërgoni deri në %1$s përditësime ekipi në javë. Edhe &lt;strong&gt;%2$s&lt;/strong&gt; përditësime, deri më %3$s.</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Doni të lidhni një nga turnetë e ardhshme?</string>
+  <string name="teamIntroductionHelp">Përshkrim i shkurtër i dukshëm te paraqitje ekipesh. E shumta 200 shenja.</string>
+  <string name="teamDescriptionHelp">Përshkrim i plotë i dukshëm te faqja e ekipit.</string>
+  <string name="closeTeam">Mbylle ekipin</string>
+  <string name="closeTeamDescription">E mbyll ekipin përgjithmonë.</string>
+  <string name="forumVisibilityHelp">Cilët mund të shohin forumin e ekipit te faqja e ekipit?&lt;br&gt;Te forumi i ekipit mund të postojnë vetëm anëtarë të ekipit.</string>
+  <string name="forumVisibilityNone">Fshihe forumin</string>
+  <string name="listTheTeamsThatWillCompete">Radhitni ekipet që do të ndeshen në këtë ndeshje.</string>
+  <string name="thisTeamBattleIsOver">Ky turne ka përfunduar dhe ekipet s’mund të përditësohen më.</string>
+  <string name="oneTeamPerLine">Një ekip për rresht. Përdorni vetëplotësimin.</string>
+  <string name="oneTeamPerLineHelp">Mundeni ta kopjoni këtë listë nga një turne në tjetër!
+
+S’mund të hiqni një ekip, nëse një lojtar ka hyrë tashmë në turne.</string>
+  <string name="numberOfLeadsPerTeam">Numër drejtuesish për ekip. Shuma e pikëve të tyre përbën pikët e ekipit.</string>
+  <string name="numberOfLeadsPerTeamHelp">S’duhet vërtet ta ndryshoni këtë vlerë, pasi të ketë filluar turneu!</string>
+</resources>

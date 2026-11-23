@@ -1,6 +1,7 @@
 package lila.web
 package ui
-import play.api.libs.json.JsValue
+
+import play.api.libs.json.{ JsValue, JsObject }
 
 import lila.core.config.NetConfig
 import lila.core.data.SafeJsonStr
@@ -10,12 +11,11 @@ import lila.ui.{ ContentSecurityPolicy, Context, Optionce }
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
   def netConfig: NetConfig
+  def webSocketConfig: WebSocketConfig
   def manifest: AssetManifest
   def analyseEndpoints: lila.ui.AnalyseEndpoints
 
   export lila.common.String.html.safeJsonValue
-
-  private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
 
   def siteName: String =
     if netConfig.siteName == "localhost:9663" then "lichess.dev"
@@ -49,11 +49,15 @@ trait AssetFullHelper:
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val secure = ctx.req.secure
-    // include both ws and wss when insecure because requests may come through a secure proxy
-    val sockets = socketDomains.map(x => s"wss://$x${secure.not.so(s" ws://$x")}")
+    // ws csp also allows wss
+    val sockets = webSocketConfig.csps.get().value.map(x => s"ws://$x")
     val localDev = secure.not.so(List("http://127.0.0.1:3000", "http://localhost:8666"))
     lila.web.ContentSecurityPolicy.page:
       sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
+
+  def structuredData(json: JsObject): Frag =
+    st.script(tpe := "application/ld+json"):
+      raw(lila.common.String.html.safeJsonValue(json).value)

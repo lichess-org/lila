@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Qual è il problema?</string>
+  <string name="cheat">Imbroglio</string>
+  <string name="reportStall">Perdita di tempo / Abbandono delle partite</string>
+  <string name="reportBoost">Sconfitte volontarie / Punteggio gonfiato / Partite truccate</string>
+  <string name="reportVerbalAbuse">Insulti / Turpiloquio / Trolling</string>
+  <string name="reportViolence">Violenza / Minacce</string>
+  <string name="reportHarass">Molestie / Bullismo / Stalking</string>
+  <string name="reportSelfHarm">Suicidio / Autolesionismo</string>
+  <string name="reportHate">Incitamento all\'odio / Sessismo</string>
+  <string name="reportSpam">Spam</string>
+  <string name="readMoreAboutLichessReports">Scopri di più sulle segnalazioni di Lichess</string>
+  <string name="reportMaximumCharacters">Massimo 3000 caratteri.</string>
+  <string name="reportCheatBoostHelp">Incolla il link alla partita (o alle partite) e spiega cosa c\'è di sbagliato nel comportamento di questo utente. Non limitarti a dire \"bara\", ma spiegaci cosa ti ha portato a questa conclusione.</string>
+  <string name="reportUsernameHelp">Spiega perché questo nome utente è offensivo. Non limitarti a dire \"è offensivo/inappropriato\", ma spiegaci cosa ti ha portato a questa conclusione, soprattutto se l\'offesa è poco evidente, non è in inglese, è in gergo o è un riferimento storico/culturale.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Possiamo gestire la tua segnalazione più rapidamente se scrivi in inglese.</string>
+  <string name="provideOneCheatedGameLink">Inserisci il link di almeno una partita da esaminare.</string>
+  <string name="thanksForTheReport">Grazie per la segnalazione</string>
+  <string name="moderatorsWillReviewSoon">I moderatori la esamineranno a breve e prenderanno i provvedimenti opportuni.</string>
+  <string name="blockUserInMeantime">Nel frattempo, puoi bloccare questo utente:</string>
+</resources>

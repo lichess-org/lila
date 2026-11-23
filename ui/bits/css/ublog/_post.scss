@@ -1,4 +1,6 @@
 .ublog-post {
+  overflow: hidden; // avoids body overflow
+
   &__title {
     @extend %break-word;
 

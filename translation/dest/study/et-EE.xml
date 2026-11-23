@@ -91,10 +91,6 @@
   <string name="loadAPositionFromFen">Laadi alla positsioon FEN-ist</string>
   <string name="loadAGameFromPgn">Lae mänge PGN-ist</string>
   <string name="automatic">Automaatne</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Aseta oma PGN tekst siia, kuni %s mäng</item>
-    <item quantity="other">Aseta oma PGN tekst siia, kuni %s mängu</item>
-  </plurals>
   <string name="urlOfTheGame">URL mängu</string>
   <string name="createChapter">Alusta peatükk</string>
   <string name="createStudy">Koosta uuring</string>
@@ -119,9 +115,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Kas soovite kustutada terve uuringu? Seda otsust ei saa tagasi võtta! Kirjutage uuringu nimi otsuse kinnitamiseks: %s</string>
   <string name="whereDoYouWantToStudyThat">Kus te seda lauda soovite uurida?</string>
   <string name="goodMove">Hea käik</string>
-  <string name="mistake">Viga</string>
   <string name="brilliantMove">Suurepärane käik</string>
-  <string name="blunder">Tõsine viga</string>
   <string name="interestingMove">Huvitav käik</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Kahtlane käik</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Ainus käik</string>

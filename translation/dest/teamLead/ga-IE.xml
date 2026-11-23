@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Poiblí</string>
+  <string name="permSettingsName">Socruithe</string>
+  <string name="permTourName">Comórtais</string>
+  <string name="manuallyReviewAdmissionRequests">Déan athbhreithniú de láimh ar iarratais iontrála</string>
+  <string name="onlyLeaderLeavesTeam">Cuir ceannaire foirne nua leis sula bhfágann tú, nó dún an fhoireann.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s iarratas isteach</item>
+    <item quantity="two">%s iarratas isteach</item>
+    <item quantity="few">%s iarratas isteach</item>
+    <item quantity="many">%s iarratas isteach</item>
+    <item quantity="other">%s iarratas isteach</item>
+  </plurals>
+  <string name="declinedRequests">Iarrataí Diúltaithe</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Seans gur mhaith leat ceann de na comórtais seo atá le teacht suas a nascadh?</string>
+  <string name="closeTeam">Dún foireann</string>
+  <string name="closeTeamDescription">Má chliceálann tú ar seo, dúnfar d’fhoireann go deo.</string>
+</resources>

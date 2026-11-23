@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s статистике</string>
+  <string name="perfStats">%s статистика</string>
   <string name="viewTheGames">Погледај партије</string>
   <string name="provisional">пробни</string>
   <string name="notEnoughRatedGames">Није одиграно довољно рангираних партија да се успостави поуздан рејтинг.</string>

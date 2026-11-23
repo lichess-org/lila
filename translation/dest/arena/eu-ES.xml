@@ -2,11 +2,11 @@
 <resources>
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Txapelketak</string>
-  <string name="isItRated">Sailkapenerako balio du?</string>
+  <string name="isItRated">Puntuaziorako balio du?</string>
   <string name="willBeNotified">Txapelketa hasten denean jakinarazpen bat bidaliko dizugu, beraz beste fitxa baten beste partida bat jokatu dezakezu txapelketaren zain zauden artean.</string>
-  <string name="isRated">Txapelketa honek sailkapenerako balio duenez, zuren sailkapenaren puntuazioa aldatuko du.</string>
+  <string name="isRated">Txapelketa honek puntuaziorako balio duenez, zure puntuazioa aldatuko du.</string>
   <string name="isNotRated">Txapelketa *ez bada* sailkatutakoa, *ez du* zure sailkapenean eraginik izango.</string>
-  <string name="someRated">Txapelketa batzuk sailkapenerako balio dutenez zure sailkapenaren puntuazioa aldatuko dute.</string>
+  <string name="someRated">Txapelketa batzuk puntuaziorako balio dutenez zure puntuazioa aldatuko dute.</string>
   <string name="howAreScoresCalculated">Nola kalkulatzen dira puntuazioak?</string>
   <string name="howAreScoresCalculatedAnswer">Garaipenak 2 puntu ematen ditu, berdinketak puntu 1 eta porrotak bat ere ez.
 Bi partida jarraian irabazten badituzu, suaren ikonoa agertuko da.
@@ -48,6 +48,8 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
     <item quantity="other">%s taldeak ikusi</item>
   </plurals>
   <string name="newTeamBattle">Taldeen Arteko Txapelketa berria</string>
+  <string name="startDate">Hasiera-data</string>
+  <string name="entryConditions">Sartzeko baldintzak</string>
   <string name="customStartDate">Pertsonalizatutako hasiera data</string>
   <string name="customStartDateHelp">Zure ordu-zonan. Honek \"Txapeketa hasi aurreko denbora\" ezarpena gainidazten du</string>
   <string name="allowBerserk">Berserk onartu</string>
@@ -57,7 +59,7 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="arenaStreaksHelp">Bi garaipenen ostean, jarraian datozen garaipenek 4 puntu emango dituzte 2 eman beharrean.</string>
   <string name="noBerserkAllowed">Ez da Berserkik onartzen</string>
   <string name="noArenaStreaks">Ez da Arena boladarik onartzen</string>
-  <string name="averagePerformance">Bataz besteko performancea</string>
+  <string name="averagePerformance">Batez besteko performancea</string>
   <string name="averageScore">Batez besteko puntuazioa</string>
   <string name="myTournaments">Nire txapelketak</string>
   <string name="editTournament">Editatu txapelketa</string>
@@ -75,11 +77,11 @@ Hau zure txapelketaren neurria da, ez zure sailkapen orokorrarena.
 
 Adibidez, %3ko batez besteko mailak esan nahi du normalean lehen %3an bukatzen duzula (adibidez, 1.000 jokalariko 30. postua).</string>
   <string name="medians">medianak</string>
-  <string name="allAveragesAreX">Orrialde honetako batazbesteko guztiak %s dira.</string>
+  <string name="allAveragesAreX">Orrialde honetako batez besteko guztiak %s dira.</string>
   <string name="total">Guztira</string>
-  <string name="pointsAvg">Bataz besteko puntuak</string>
+  <string name="pointsAvg">Batez besteko puntuak</string>
   <string name="pointsSum">Puntuen batuketa</string>
-  <string name="rankAvg">Sailkapenaren bataz bestekoa</string>
+  <string name="rankAvg">Sailkapenaren batez bestekoa</string>
   <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="tournamentShields">Txapelketen garaikurrak</string>
   <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
@@ -87,4 +89,6 @@ Adibidez, %3ko batez besteko mailak esan nahi du normalean lehen %3an bukatzen d
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="berserkRate">Berserk ratioa</string>
   <string name="leaguesAndStreamerBattles">Ligak &amp; Esatarien arteko txapelketak</string>
+  <string name="allowBotAccounts">Baimendu bot kontuak</string>
+  <string name="allowBotAccountsDescription">Utzi &lt;a href=\'%s\' target=\'_blank\'&gt;bot-ei&lt;/a&gt; txapelketan sartu eta beren motoreekin jokatzen. Honek sarritan jokalari humanoak uxatzen ditu.</string>
 </resources>

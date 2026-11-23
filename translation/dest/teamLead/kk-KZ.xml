@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Жалпыға ашық</string>
+  <string name="permSettingsName">Баптау</string>
+  <string name="permTourName">Жарыстар</string>
+  <string name="manuallyReviewAdmissionRequests">Қабылдау туралы сұраныстарды жеке қарау</string>
+  <string name="onlyLeaderLeavesTeam">Кетер алдында жаңа топ жетекшісін қосыңыз, не топты жабуыңыз керек.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s қосылу сұранысы</item>
+    <item quantity="other">%s қосылу сұранысы</item>
+  </plurals>
+  <string name="declinedRequests">Қабылданбаған сұранымдар</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сіз келе жатқан жарыстардың біріне қосыларсыз.</string>
+  <string name="closeTeam">Топты жабу</string>
+  <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
+</resources>

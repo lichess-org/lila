@@ -34,9 +34,6 @@
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
   <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
-  <string name="serversAndDeveloper">Primeiro de tudo, servidores poderosos.
-Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.
-</string>
   <string name="costBreakdown">Veja a análise detalhada do custo</string>
   <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>

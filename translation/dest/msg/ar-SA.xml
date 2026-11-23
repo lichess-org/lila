@@ -8,4 +8,5 @@
 
 شكرًا لمساعدتك في الحفاظ على Lichess مكانًا جيدًا للجميع.</string>
   <string name="oldAppNoLongerSupportsPuzzles">لم يعد التطبيق القديم يدعم الألغاز. يُرجى تثبيت تطبيق Lichess الجديد: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s لا يقبل رسائل جديدة.</string>
 </resources>

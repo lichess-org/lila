@@ -40,34 +40,23 @@ final class AccountUi(helpers: Helpers):
           label(`for` := id)(value)
         )
 
-  def bitCheckboxes(field: play.api.data.Field, options: Iterable[(Int, String)]) =
-    st.group(cls := "radio")(
+  def toggles(field: play.api.data.Field, options: Iterable[(Int, String)]) =
+    st.group(cls := "toggles")(
       /// Will hold the value being calculated with the various checkboxes when sending
-      div(
-        input(
-          st.id := s"ir${field.id}_hidden",
-          true.option(st.checked),
-          tpe := "hidden",
-          st.value := "",
-          name := field.name
-        ),
-        st.style := "display: none;"
-      ) :: options
-        .map: (key, value) =>
-          val id = s"ir${field.id}_$key"
-          val intVal = ~field.value.flatMap(_.toIntOption)
-          val checked = (intVal & key) == key
-          div(
-            input(
-              st.id := id,
-              checked.option(st.checked),
-              tpe := "checkbox",
-              st.value := key.toString,
-              attr("data-name") := field.name
-            ),
-            label(`for` := id)(value)
-          )
-        .toList
+      input(
+        st.id := s"ir${field.id}_hidden",
+        tpe := "hidden",
+        st.value := "",
+        name := field.name
+      ),
+      options.toList.map: (key, value) =>
+        val id = s"ir${field.id}_$key"
+        val intVal = ~field.value.flatMap(_.toIntOption)
+        val checked = (intVal & key) == key
+        form3.cmnToggleWrap(
+          form3.cmnToggle(id, field.name, checked = checked, value = key.toString)(st.title := value),
+          span(cls := "toggle-text")(value)
+        )
     )
 
   def menu(active: String)(using ctx: Context) =

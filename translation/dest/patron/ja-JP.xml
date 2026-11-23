@@ -33,8 +33,6 @@
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
   <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
   <string name="whereMoneyGoes">このお金は何に使われますか？</string>
-  <string name="serversAndDeveloper">まず強力なサーバの維持費です。
-次にフルタイムの開発者、Lichess 創立者の %s に行きます。</string>
   <string name="costBreakdown">費用の内訳を見る</string>
   <string name="officialNonProfit">Lichess は公認の非営利団体ですか？</string>
   <string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>

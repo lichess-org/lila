@@ -1,7 +1,6 @@
 package lila.web
 
 import play.api.Mode
-import play.api.mvc.RequestHeader
 
 import lila.memo.ViewerCount
 
@@ -29,7 +28,7 @@ final class PlayerCounter(using scheduler: Scheduler, mode: Mode)(using Executor
 
 private final class AnonAuthCounters(val anon: ViewerCount, val auth: ViewerCount):
 
-  def hit()(using req: RequestHeader, me: Option[Me]): Unit =
+  def hit()(using req: Req, me: Option[Me]): Unit =
     val viewer = ViewerCount.makeViewer(req, me.map(_.userId))
     if me.isDefined then auth.hit(viewer) else anon.hit(viewer)
 

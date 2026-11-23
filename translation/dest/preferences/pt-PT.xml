@@ -36,7 +36,7 @@
   <string name="takebacksWithOpponentApproval">Voltar jogadas atrás (com aprovação do adversário)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
-  <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
+  <string name="explainPromoteToQueenAutomatically">Segure a tecla ctrl enquanto promove para desativar temporariamente a autopromoção</string>
   <string name="whenPremoving">Quando mover antecipadamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate automaticamente após uma repetição tripla</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for &lt; 30 segundos</string>
@@ -72,6 +72,7 @@
   <string name="blindfold" comment="As in Blindfold chess">De olhos vendados</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Exiba à esquerda nos dispositivos móveis</string>
   <string name="inlineNotation">Anotações compactas</string>
+  <string name="showMainlineAnalysis">Mostrar análise principal</string>
   <string name="showBestMoveArrows">Mostrar setas das melhores jogadas</string>
   <string name="showManeuverArrows">Mostrar setas de manobras</string>
   <string name="showGauge">Mostrar indicador de avaliação</string>
@@ -88,4 +89,9 @@
   <string name="analysisSettings">Definições de análise</string>
   <string name="maneuverArrowsHelp">Sequência de jogados do motor para uma peça</string>
   <string name="hoverOverSettingLabelsForHelp">Passa o cursor sobre os nomes das definições para obter ajuda</string>
+  <string name="network">Rede</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Atualmente, esta a utilizar o encaminhamento através de uma Rede de Distribuição de Conteúdos (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Se tiver desconexões frequentes, tente mudar o roteamento.</string>
+  <string name="useDirectRouting">Usar roteamento direto</string>
+  <string name="useCdnRouting">Usar roteamento CDN</string>
 </resources>

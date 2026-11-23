@@ -36,8 +36,6 @@
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
   <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování Lichess</string>
   <string name="whereMoneyGoes">Kam jdou peníze?</string>
-  <string name="serversAndDeveloper">Zaprvé, mocné servery.
-Pak platíme vývojáře na plný úvazek: %s, zakladatel Lichess.</string>
   <string name="costBreakdown">Viz podrobný rozpis nákladů</string>
   <string name="officialNonProfit">Je Lichess oficiálně neziskový?</string>
   <string name="actOfCreation">Ano, tady je ustanovující listina (ve francouzštině)</string>

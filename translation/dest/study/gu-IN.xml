@@ -98,10 +98,6 @@
   <string name="loadAPositionFromFen">FEN માંથી પોઝિશન લોડ કરો</string>
   <string name="loadAGameFromPgn">PGN માંથી રમતો લોડ કરો</string>
   <string name="automatic">સ્વચાલિત</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">તમારા PGN ટેક્સ્ટને અહીં પેસ્ટ કરો, %s રમત સુધી</item>
-    <item quantity="other">અહીં રમતોને PGN ટેક્સ્ટ તરીકે પેસ્ટ કરો. દરેક રમત માટે, એક નવું પ્રકરણ બનાવવામાં આવે છે. અભ્યાસમાં %s પ્રકરણો સુધી હોઈ શકે છે.</item>
-  </plurals>
   <string name="urlOfTheGame">રમતોનો URL, પ્રતિ લાઇન એક</string>
   <string name="createChapter">પ્રકરણ બનાવો</string>
   <string name="createStudy">અભ્યાસ બનાવો</string>
@@ -127,9 +123,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">આખો અભ્યાસ ડિલીટ કરીએ? હવે પાછા ફરવાનું કોઈ કારણ નથી! પુષ્ટિ કરવા માટે અભ્યાસનું નામ લખો: %s</string>
   <string name="whereDoYouWantToStudyThat">તમે તે ક્યાં ભણવા માંગો છો?</string>
   <string name="goodMove">સારી ચાલ</string>
-  <string name="mistake">ભૂલ</string>
   <string name="brilliantMove">તેજસ્વી ચાલ</string>
-  <string name="blunder">મોટી ભૂલ</string>
   <string name="interestingMove">રસપ્રદ ચાલ</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">શંકાસ્પદ ચાલ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">માત્ર ચાલ</string>

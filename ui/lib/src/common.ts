@@ -8,6 +8,11 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export const pad2 = (num: number): string => String(num).padStart(2, '0');
+
+// Safari can reset isComposing before the confirming Enter keydown (WebKit bug 165004)
+export const isComposing = (e: KeyboardEvent): boolean => e.isComposing || e.keyCode === 229;
+
 export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
 
 export type Prop<T> = {
@@ -91,13 +96,16 @@ export const scrollTo = (
 export const onClickAway =
   (f: () => void) =>
   (el: HTMLElement): void => {
-    const listen: () => void = () =>
-      $(document).one('click', e => {
-        if (!document.contains(el)) return;
-        if (el.contains(e.target)) listen();
-        else f();
-      });
-    setTimeout(listen, 300);
+    const onClick = (e: MouseEvent) => {
+      if (!document.contains(el)) {
+        document.removeEventListener('click', onClick);
+        return;
+      }
+      if (el.contains(e.target as Node)) return;
+      document.removeEventListener('click', onClick);
+      f();
+    };
+    setTimeout(() => document.addEventListener('click', onClick), 300);
   };
 
 export const hyphenToCamel = (str: string): string => str.replace(/-([a-z])/g, g => g[1].toUpperCase());

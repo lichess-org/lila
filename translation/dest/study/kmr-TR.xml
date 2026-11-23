@@ -86,10 +86,6 @@
   <string name="loadAPositionFromFen">Pozisyonek bar bike ji FENê</string>
   <string name="loadAGameFromPgn">Lîstikek bar bike ji PGN</string>
   <string name="automatic">Otomatîk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
-    <item quantity="other">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
-  </plurals>
   <string name="urlOfTheGame">URLya lîstikê</string>
   <string name="createChapter">Beşê çêbike</string>
   <string name="createStudy">Xebatê çêbike</string>
@@ -113,6 +109,4 @@
   <string name="deleteTheStudyChatHistory">Bila dîroka gotûbêja xebatê were jêbirin? Jê veger tine!</string>
   <string name="deleteStudy">Xebatê jê bibe</string>
   <string name="goodMove">Hemleya baş</string>
-  <string name="mistake">Çewtî</string>
-  <string name="blunder">Şelipan</string>
 </resources>

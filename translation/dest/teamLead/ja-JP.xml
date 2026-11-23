@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">公開</string>
+  <string name="permPublicDesc">チームページにリーダーとして表示</string>
+  <string name="permSettingsName">設定</string>
+  <string name="permSettingsDesc">チームの設定と説明を編集</string>
+  <string name="permTourName">トーナメント</string>
+  <string name="permTourDesc">チームトーナメントを作成・管理・参加する</string>
+  <string name="permCommName">モデレーション</string>
+  <string name="permCommDesc">フォーラムとチームチャットを管理する</string>
+  <string name="permRequestName">申請</string>
+  <string name="permRequestDesc">参加申請の承認または拒否</string>
+  <string name="permPmAllName">アップデート</string>
+  <string name="permPmAllDesc">チームメンバーにアップデートを送信</string>
+  <string name="permRemoveName">削除</string>
+  <string name="permRemoveDesc">チームからメンバーを削除</string>
+  <string name="permAdminName">管理者</string>
+  <string name="permAdminDesc">リーダーの権限を管理</string>
+  <string name="demoteLeaderNote">リーダーを降格させるには、すべての権限を取り消します。</string>
+  <string name="manuallyReviewAdmissionRequests">入会要請を手動で許可</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">チームメンバーのリストを非メンバーには見せない。</string>
+  <string name="onlyLeaderLeavesTeam">辞める前に別のチームリーダーを指名するか、チームを閉鎖してください。</string>
+  <string name="removeSomeone">メンバーを削除</string>
+  <string name="whoToRemove">誰をチームから削除しますか？</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s の加入申請</item>
+  </plurals>
+  <string name="declinedRequests">却下した申請</string>
+  <string name="newTeamUpdate">チームからの新しいお知らせ</string>
+  <string name="teamUpdatesPerWeek">1 週間に最大 %1$s 回のチームアップデートを送信できます。%3$s までの残り回数は &lt;strong&gt;%2$s&lt;/strong&gt; 回です。</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
+  <string name="teamIntroductionHelp">チームリストに表示される簡単な説明です。最大200文字。</string>
+  <string name="teamDescriptionHelp">チームページに表示される詳細な説明です。</string>
+  <string name="closeTeam">チームを解散</string>
+  <string name="closeTeamDescription">チームを永久に閉鎖します。</string>
+  <string name="forumVisibilityHelp">チームのフォーラムを誰が見られるか。&lt;br&gt;投稿できるのはチームのメンバーだけです。</string>
+  <string name="forumVisibilityNone">フォーラムを隠す</string>
+  <string name="listTheTeamsThatWillCompete">このバトルに参加するチームをリストしてください。</string>
+  <string name="thisTeamBattleIsOver">このトーナメントは終了しており、チームの更新はできません。</string>
+  <string name="oneTeamPerLine">1 行に 1 チームです。オートコンプリートを使用します。</string>
+  <string name="numberOfLeadsPerTeam">各チームのリーダー数。上位この人数のスコアの合計がチームのスコアです。</string>
+  <string name="numberOfLeadsPerTeamHelp">トーナメント開始後はこの値を変更しないように！</string>
+</resources>

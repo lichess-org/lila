@@ -35,7 +35,6 @@
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="inCasualGamesOnly">Samo u prijateljskim partijama</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
-  <string name="explainPromoteToQueenAutomatically">Držite &lt;ctrl&gt; tipku prilikom promocije pješaka da bi privremeno onemogućili automatsku promociju u damu</string>
   <string name="whenPremoving">Kada odigraš pretpotez</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kada je vrijeme &lt; 30 sekundi</string>

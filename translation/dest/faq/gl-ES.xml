@@ -65,7 +65,7 @@ Descrébese nas seccións 3.7.3.1 e 3.7.3.2 do %2$s:
 Mira o capítulo do %3$s sobre este movemento para practicar un pouco con el.</string>
   <string name="goodIntroduction">boa introdución</string>
   <string name="lichessTraining">Adestramento en Lichess</string>
-  <string name="watchIMRosenCheckmate">Observa ao Mestre Internacional Eric Rosen dar mate %s.</string>
+  <string name="watchIMRosenCheckmate">Observa ao Mestre Internacional Eric Rosen dar mate &lt;a href=\'%s\' target=\'_blank\'&gt;capturando ao paso&lt;/a&gt;.</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="threefoldRepetitionExplanation">Se unha posición ocorre tres veces, os xogadores poden pedir táboas por %1$s. Lichess aplica as regras oficiais da FIDE, descritas no Artigo 9.2 do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetición tripla de posición</string>

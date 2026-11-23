@@ -18,7 +18,7 @@
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">через %s динь</item>
-    <item quantity="few">через %s дні</item>
+    <item quantity="few">через %s дны</item>
     <item quantity="other">через %s днюв</item>
   </plurals>
   <plurals name="inNbWeeks">
@@ -27,9 +27,9 @@
     <item quantity="other">через %s тыжднюв</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">через %s мїсяць</item>
-    <item quantity="few">через %s мїсяця</item>
-    <item quantity="other">через %s мїсяцюв</item>
+    <item quantity="one">через %s місяць</item>
+    <item quantity="few">через %s місяця</item>
+    <item quantity="other">через %s місяцюв</item>
   </plurals>
   <plurals name="inNbYears">
     <item quantity="one">через %s гуд</item>
@@ -49,7 +49,7 @@
   </plurals>
   <plurals name="nbDaysAgo">
     <item quantity="one">%s динь тепирь</item>
-    <item quantity="few">%s дні тепирь</item>
+    <item quantity="few">%s дны тепирь</item>
     <item quantity="other">%s днюв тепирь</item>
   </plurals>
   <plurals name="nbWeeksAgo">
@@ -58,13 +58,24 @@
     <item quantity="other">%s тыжднюв тепирь</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">%s мїсяць тепирь</item>
-    <item quantity="few">%s мїсяця тепирь</item>
-    <item quantity="other">%s мїсяцюв тепирь</item>
+    <item quantity="one">%s місяць тепирь</item>
+    <item quantity="few">%s місяця тепирь</item>
+    <item quantity="other">%s місяцюв тепирь</item>
   </plurals>
   <plurals name="nbYearsAgo">
     <item quantity="one">%s гуд тепирь</item>
     <item quantity="few">%s гуды тепирь</item>
     <item quantity="other">%s гуд тепирь</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s минута ся обстала</item>
+    <item quantity="few">%s минуты ся обстало</item>
+    <item quantity="other">%s минут ся обстало</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s година ся обстала</item>
+    <item quantity="few">%s годины ся обстали</item>
+    <item quantity="other">%s годин ся обстало</item>
+  </plurals>
+  <string name="completed">довершено</string>
 </resources>

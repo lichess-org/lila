@@ -7,4 +7,6 @@
 Zure salaketa jaso dugu eta horren aurrean neurriak hartu ditugu. Ezin dizugu egindakoaren berri eman, baina eskerrik asko zure salaketagatik.
 
 Eskerrik asko Lichess guztiontzako leku atsegin egiteko zure laguntzagatik.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Aplikazio zaharrak ez ditu ariketak onartzen. Mesedez, instalatu Lichess aplikazio berria: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s(e)k ez ditu mezu berriak onartzen.</string>
 </resources>

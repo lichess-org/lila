@@ -34,6 +34,7 @@
   <string name="publishHelp">Kryss av om du vil syna innlegget på bloggen din. Om du ikkje gjer det vert dette eit privat utkast som ikkje andre kan lesa</string>
   <string name="includesPromotedContent">Inkluderer promotera/sponsa innhald eller tilvisingslenker</string>
   <string name="mandatoryForSponsoredContent">Obligatorisk for sponsa innhald, affiliertlenker eller kommersiell reklame</string>
+  <string name="containsSponsoredContent">Inneheld obligatorisk sponsa innhald, tilknytta lenker eller reklame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fastgjort innlegg</string>
   <string name="stickyPostHelp">Dersom avmerka vil dette innlegget visast framom dei seinaste postane i profilen din.</string>
   <plurals name="publishedNbBlogPosts">

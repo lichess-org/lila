@@ -15,14 +15,16 @@ final class UserGameApi(
     getTourName: => lila.core.tournament.GetTourName
 )(using Executor):
 
-  def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
+  def jsPaginatorWithPreload(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
     for
       _ <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       _ <- getTourName.preload(pag.currentPageResults.flatMap(_.tournamentId))(using ctx.lang)
-    yield
-      given Writes[Game] = Writes: g =>
-        write(g, ctx.me)(using ctx.lang)
-      Json.obj("paginator" -> pag)
+    yield jsPaginator(pag)
+
+  def jsPaginator(pag: Paginator[Game])(using ctx: Context): JsObject =
+    given Writes[Game] = Writes: g =>
+      write(g, ctx.me)(using ctx.lang)
+    Json.obj("paginator" -> pag)
 
   private def write(g: Game, as: Option[User])(using Lang) =
     Json

@@ -1,7 +1,6 @@
 package lila.security
 
 import org.uaparser.scala.*
-import play.api.mvc.RequestHeader
 import scalalib.net.UserAgent as UA
 
 import lila.common.HTTPRequest
@@ -36,7 +35,7 @@ object UserAgentParser:
 
   object trust:
 
-    def isSuspicious(using req: RequestHeader): Boolean = isSuspicious(HTTPRequest.userAgent(req))
+    def isSuspicious(using req: Req): Boolean = isSuspicious(HTTPRequest.userAgent(req))
 
     def isSuspicious(ua: UA): Boolean =
       !isLichobile(ua) && !isLM(ua) && {
@@ -74,7 +73,7 @@ object UserAgentParser:
       ua.value.startsWith("LM/") || HTTPRequest.isLichessMobile(ua)
 
   // way too long since the last security update
-  def isDangerousDevice(using req: RequestHeader): Option[String] =
+  def isDangerousDevice(using req: Req): Option[String] =
     isDangerous(HTTPRequest.userAgent(req))
 
   def isDangerous(ua: UA): Option[String] =

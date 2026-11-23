@@ -25,7 +25,6 @@
   <string name="discoveringEnPassant">Kuidas saab ettur lüüa etturit mis on temast juba möödunud? (en passant)</string>
   <string name="goodIntroduction">hea sissejuhatus</string>
   <string name="lichessTraining">Lichess treening</string>
-  <string name="watchIMRosenCheckmate">Vaata kuidas rahvusvaheline meister Eric Rosen matistab %s.</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="threefoldRepetitionLowerCase">kolmekordne kordus</string>
   <string name="repeatedPositionsThatMatters">Kolmekordne kordus lähtub korratud %1$s, mitte käikudest. Kordused ei pea olema järjest.</string>

@@ -15,6 +15,9 @@ final class FidePaginator(repo: FideRepo)(using Executor):
 
   val maxPerPage = MaxPerPage(30)
 
+  def single(p: FidePlayer.WithFollow) =
+    Paginator.fromResults(Seq(p), nbResults = 1, currentPage = 1, maxPerPage = maxPerPage)
+
   def federations(page: Int): Fu[Paginator[Federation]] =
     Paginator(
       adapter = new AdapterLike[Federation]:

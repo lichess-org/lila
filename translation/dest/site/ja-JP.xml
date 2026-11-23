@@ -409,6 +409,7 @@
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
+  <string name="selectImage">画像を選択</string>
   <string name="continueFromHere">この局面から対局</string>
   <string name="toStudy">研究</string>
   <string name="importGame">棋譜をインポート</string>
@@ -665,7 +666,8 @@
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
-  <string name="lichessUpdates">Lichess 更新情報</string>
+  <string name="lichessUpdates">Lichess フィード</string>
+  <string name="allUpdates">すべてのアップデート</string>
   <string name="contribute">力を貸す</string>
   <string name="changelog">変更ログ</string>
   <string name="termsOfService">利用規約（英文）</string>

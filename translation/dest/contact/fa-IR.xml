@@ -31,7 +31,7 @@
   <string name="youCanAlsoReachReportPage">همچنین می‌توانید با زدن روی دکمهٔ گزارش %s در یک صفحهٔ رُخ‌نما، به آن صفحه برسید.</string>
   <string name="doNotReportInForum">در تالار گفت و گو کاربرها را گزارش نکنید.</string>
   <string name="doNotSendReportEmails">به ما رایانامه‌های گزارش نفرستید.</string>
-  <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>
+  <string name="doNotMessageModerators">لطفا پیام مستقیم به ناظران نفرستید.</string>
   <string name="onlyReports">تنها گزارشِ کاربران از راه فرم گزارش می‌تواند موثر باشد.</string>
   <string name="wantReportBug">می‌خواهم یک ایراد فنی را گزارش کنم</string>
   <string name="reportBugInForum">در قسمت بازخوردِ Lichess در تالار گفت و گو</string>

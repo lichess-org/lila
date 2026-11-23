@@ -82,7 +82,6 @@ final private[api] class RoundApi(
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
-      given Translate = ctx.translate
       opening = details.so(gameOpening.of(pov.game, full = ctx.isAuth))
       (json, simul, swiss, note, bookmarked) <-
         (
@@ -120,7 +119,6 @@ final private[api] class RoundApi(
       tv: Option[lila.round.OnTv] = None,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] =
-    given Translate = ctx.translate
     (
       jsonView.watcherJson(
         pov,

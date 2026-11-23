@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Gişti</string>
+  <string name="permSettingsName">Sazkarî</string>
+  <string name="permTourName">Pêşbirk</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s xwesteka tevlîbûnê</item>
+    <item quantity="other">%s xwestekên tevlîbûnî</item>
+  </plurals>
+</resources>

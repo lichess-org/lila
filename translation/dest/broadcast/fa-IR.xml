@@ -22,9 +22,9 @@
   <string name="upcoming">آینده</string>
   <string name="roundName">نام دور</string>
   <string name="tournamentName">نام مسابقات</string>
-  <string name="tournamentDescription">توضیحات کوتاه مسابقات</string>
-  <string name="fullDescription">توضیحات کامل مسابقات</string>
-  <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
+  <string name="tournamentDescription">شرحِ کوتاه مسابقات</string>
+  <string name="fullDescription">شرحِ کامل مسابقات</string>
+  <string name="fullDescriptionHelp">شرحِ بلند و اختیاری رویداد. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
   <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
   <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی Lichess، جداشده با فاصله.</string>
@@ -111,4 +111,5 @@
   <string name="pinPlayer">سنجاقیدنِ بازیکن</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
+  <string name="mentionPositionInChat" comment="Title of a button next to the broadcast chat input. It adds the board number and current move, e.g. &quot;board 5 23... Nf6&quot;, to the chat message, so others can click it to see that move.">ذکرِ این وضعیت در گپ</string>
 </resources>

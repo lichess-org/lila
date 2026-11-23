@@ -2,8 +2,8 @@ package lila.markdown
 
 import chess.format.pgn.PgnStr
 
-import lila.core.lilaism.Lilaism.*
 import lila.core.config.NetDomain
+import lila.core.lilaism.Lilaism.*
 import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:
@@ -182,6 +182,18 @@ Line 2""")
 > > > > > Second line""")
     )
 
+  // https://github.com/vsch/flexmark-java/issues/648
+  test("stack overflow detection"):
+    val flood = "A" * 6000
+    val text = s"""[b]: <https://example.com/$flood>"""
+    assertEquals(
+      render(Markdown(text)),
+      Html(
+        s"""<p>[b]: <a href="https://example.com/$flood" target="_blank" rel="nofollow noreferrer">https://example.com/$flood</a></p>
+"""
+      )
+    )
+
   test("markdown 5 quotes to 4 escaped quotes with spaces"):
     assertEquals(
       render(Markdown(">>>>> Hi")),
@@ -243,16 +255,15 @@ Line 2""")
 """)
     )
 
+  val renderTimestamp: Markdown => Html =
+    new MarkdownRender(
+      netDomain = NetDomain("lichess.org").some,
+      header = true,
+      list = true,
+      timestamp = true
+    )("test")
+
   test("markdown datetime rendering"):
-    val renderTimestamp: Markdown => Html =
-      new MarkdownRender(
-        netDomain = NetDomain("lichess.org").some,
-        header = true,
-        list = true,
-        timestamp = true
-      )(
-        "test"
-      )
     val formats = List(
       "d" -> "2025-12-15",
       "D" -> "2025-12-15",
@@ -280,6 +291,23 @@ Line 2""")
         """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
 """
       )
+    )
+
+  test("markdown datetime invalid"):
+    assertEquals(
+      renderTimestamp(Markdown("Tourney at <t:31556889832780800:f>")),
+      Html("""<p>Tourney at &lt;t:31556889832780800:f&gt;</p>
+""")
+    )
+    assertEquals(
+      renderTimestamp(Markdown("Tourney at <t:99999999999999999999:f>")),
+      Html("""<p>Tourney at &lt;t:99999999999999999999:f&gt;</p>
+""")
+    )
+    assertEquals(
+      renderTimestamp(Markdown("Tourney at <t:23948928374928:Ii>")),
+      Html("""<p>Tourney at &lt;t:23948928374928:Ii&gt;</p>
+""")
     )
 
   test("remove html entities"):

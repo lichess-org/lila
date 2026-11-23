@@ -49,6 +49,8 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
     <item quantity="other">Ver todas as %s equipas</item>
   </plurals>
   <string name="newTeamBattle">Batalha de Equipas</string>
+  <string name="startDate">Data de início</string>
+  <string name="entryConditions">Condições de entrada</string>
   <string name="customStartDate">Data inicial personalizada</string>
   <string name="customStartDateHelp">No seu próprio fuso horário local. Substitui a configuração \"Tempo antes do torneio começar\"</string>
   <string name="allowBerserk">Permitir Berserk</string>
@@ -87,4 +89,7 @@ Por exemplo, uma classificação média de 3% significa que, normalmente, termin
   <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="berserkRate">Taxa Frenética</string>
+  <string name="leaguesAndStreamerBattles">Ligas &amp; Batalhas de Streamer</string>
+  <string name="allowBotAccounts">Permitir contas de bots</string>
+  <string name="allowBotAccountsDescription">Deixe &lt;a href=\'%s\' target=\'_blank\'&gt;bots&lt;/a&gt; se juntar ao torneio e jogar com os seus motores. Isso frequentemente afasta jogadores humanos.</string>
 </resources>

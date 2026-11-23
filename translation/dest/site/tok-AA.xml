@@ -9,6 +9,7 @@
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
   <string name="orLetYourOpponentScanQrCode">anu, jan ante li kepeken e sitelen leko ni</string>
   <string name="reusableChallengeUrl">sitelen URL pi utala sin</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">tenpo ale la jan ale li ken alasa utala e sina kepeken nimi linluwi ni</string>
   <string name="waiting">o awen</string>
   <string name="yourTurn">sina o musi</string>
   <string name="aiNameLevelAiLevel">ilo %1$s pi wawa %2$s</string>
@@ -157,6 +158,8 @@ jo musi pi awen ala</string>
   </plurals>
   <string name="moveTimes">tenpo tawa</string>
   <string name="flipBoard">o jasima e supa</string>
+  <string name="engine">ilo</string>
+  <string name="illegalPosition">supa ni li ken ala</string>
   <string name="threefoldRepetition">tenpo tu wan la supa li sama</string>
   <string name="claimADraw">o kama jo e pini pi anpa ala</string>
   <string name="drawClaimed">anpa ala</string>
@@ -231,6 +234,7 @@ jo musi pi awen ala</string>
   <string name="signupUsernameHint">nimi o pona. sina ken ala ante e nimi sina lon tenpo kama. nimi ni li ike tawa jan ante la lipu sina li kama weka a!</string>
   <string name="signupEmailPromise">mi pana e toki tawa sona pi lipu musi sina taso li pana ala e nimi pi poki lipu sina tawa jan ante.</string>
   <string name="password">nimi open len</string>
+  <string name="showPassword">o lukin e nimi len</string>
   <string name="changePassword">o ante e nimi open len</string>
   <string name="changeEmail">o ante e nimi pi lipu toki linluwi</string>
   <string name="email">nimi pi poki lipu sina</string>
@@ -276,6 +280,8 @@ jo musi pi awen ala</string>
   </plurals>
   <string name="ok">pona</string>
   <string name="cancel">o weka</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">tenpo walo li pini</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">tenpo pimeja li pini</string>
   <string name="drawOfferSent">sina toki e ni: sina wile e pini pi anpa ala</string>
   <string name="drawOfferAccepted">jan ante li wile kin e pini pi anpa ala</string>
   <string name="whiteOffersDraw">walo li wile e pini pi anpa ala</string>
@@ -340,6 +346,7 @@ jo musi pi awen ala</string>
     <item quantity="other">musi %s</item>
   </plurals>
   <string name="exportGames">o kama jo e musi</string>
+  <string name="ratingFilter">nanpa wawa ni taso</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">o pana e tenpo Sekunta %s</item>
     <item quantity="other">o pana e tenpo Sekunta %s</item>
@@ -395,6 +402,7 @@ jo musi pi awen ala</string>
     <item quantity="other">o musi e musi %s sin pi nanpa wawa</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">nanpa wawa sina pi nasin %s li pini ala</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">sina ken ala utala e jan pi nanpa wawa ni taso tan ni: mi sona pona ala e wawa sina. sina musi mute la mi kama sona e ni.</string>
   <string name="yourPerfRatingIsTooHigh">nanpa wawa sina pi nasin %1$s (%2$s) li suli ike</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">nanpa wawa sina pi nasin %1$s pi tenpo pali ni (%2$s) li suli ike</string>
   <string name="yourPerfRatingIsTooLow">nanpa wawa sina pi nasin %1$s (%2$s) li lili ike</string>
@@ -416,6 +424,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="apply">kama lon</string>
   <string name="save">awen</string>
   <string name="leaderboard">jan pi pona mute</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">o sitelen e musi</string>
   <string name="gameAsGIF">musi kepeken lipu kama</string>
   <string name="playerNames">nimi pi jan pi ijo musi</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
@@ -490,6 +499,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
   <string name="pause">o tawa ala</string>
   <string name="resume">o awen</string>
+  <string name="stop">o pini</string>
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
   <string name="performance">nanpa wawa pi lipu ni</string>
@@ -852,9 +862,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
     <item quantity="one">tenpo Sekunta %s</item>
     <item quantity="other">tenpo Sekunta %s</item>
   </plurals>
-  <string name="opening">tenpo lon la kama open</string>
+  <string name="opening">musi open</string>
   <string name="middlegame">musi insa</string>
-  <string name="endgame">musi pi pini kama</string>
+  <string name="endgame">musi pi pini poka</string>
   <string name="conditionalPremoves">tawa pi tenpo kama ken</string>
   <string name="addCurrentVariation">o sin e kulupu tawa ni</string>
   <string name="playVariationToCreateConditionalPremoves">sina ken pali e tawa pi tenpo kama ken.

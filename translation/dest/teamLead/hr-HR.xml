@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">Javno</string>
+  <string name="permSettingsName">Postavke</string>
+  <string name="permTourName">Turniri</string>
+  <string name="manuallyReviewAdmissionRequests">Ručno provjeri zahtjeve za pridruživanjem</string>
+  <string name="onlyLeaderLeavesTeam">Molim vas da prije odlaska dodate novog vođu tima ili zatvorite tim.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s zahtjeva za pridruživanje</item>
+    <item quantity="few">%s zahtjeva za pridruživanje</item>
+    <item quantity="other">%s zahtjeva za pridruživanje</item>
+  </plurals>
+  <string name="declinedRequests">Odbijeni zahtjevi</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Možda želite povezati neki od ovih nadolazećih turnira?</string>
+  <string name="closeTeam">Raspusti tim</string>
+  <string name="closeTeamDescription">Trajno raspusti tim.</string>
+  <string name="listTheTeamsThatWillCompete">Unesi ekipe koje će se natjecati u ovoj bitki.</string>
+  <string name="thisTeamBattleIsOver">Ovaj turnir je završen te ekipe više ne mogu biti ažurirane.</string>
+  <string name="oneTeamPerLine">Jedna ekipa po liniji. Koristite automatsko popunjenje.</string>
+  <string name="numberOfLeadsPerTeam">Broj administratora po ekipi. Zbroj njihovih bodova je ukupni broj bodova ekipe.</string>
+</resources>

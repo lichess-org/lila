@@ -3,6 +3,8 @@ import { Position } from 'chessops';
 import { completeNode } from 'lib/tree/node';
 import type { TreeNode, TreeNodeBase, TreeNodeLite } from 'lib/tree/types';
 
+import type AnalyseCtrl from './ctrl';
+
 export function treeReconstruct(
   parts: TreeNodeBase[],
   variant: VariantKey,
@@ -59,4 +61,18 @@ export function mergeReviewData(into: TreeNodeLite, from: TreeNodeLite): void {
     if (intoChild) mergeReviewData(intoChild, fromChild);
     else into.children.push(fromChild);
   }
+}
+
+export function registerPublicApi(ctrl: AnalyseCtrl): void {
+  if (ctrl.forecast) return; // ongoing correspondence analysis
+  const api = (window as any).lichess;
+  const { prev, next, first, last, previousBranch, nextBranch } = ctrl.navigate;
+  api.chessground = () => ctrl.chessground;
+  api.analysis = {
+    playUci: ctrl.playUci,
+    navigate: { prev, next, first, last, previousBranch, nextBranch },
+    data: () => ({
+      game: ctrl.data.game,
+    }),
+  };
 }

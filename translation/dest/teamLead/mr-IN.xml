@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="permPublicName">सार्वजनिक</string>
+  <string name="permSettingsName">प्राधान्ये</string>
+  <string name="permTourName">क्रीडासत्रे</string>
+  <string name="manuallyReviewAdmissionRequests">प्रवेश विनंत्यांचे स्वतः पुनरावलोकन करा</string>
+  <string name="onlyLeaderLeavesTeam">जाण्यापूर्वी कृपया नवीन संघ नेता निवडा किंवा संघ बंद करा.</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s सहभाग विनंती</item>
+    <item quantity="other">%s सहभाग विनंत्या</item>
+  </plurals>
+  <string name="declinedRequests">नकारलेल्या विनंत्या</string>
+  <string name="newTeamUpdate">नवीन अद्यतन</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">तुम्हाला यातील एखाद्या स्पर्धा लिंक करायची आहे का?</string>
+  <string name="teamIntroductionHelp">संक्षिप्त वर्णन संघांच्या सूचित स्पष्ट आहे. २०० वर्ण पर्यंत.</string>
+  <string name="teamDescriptionHelp">पूर्ण वर्णन संघाच्या पृष्ठावर दृश्यमान आहे</string>
+  <string name="closeTeam">संघ बंद करा</string>
+  <string name="closeTeamDescription">संघ कायमचा बंद होईल.</string>
+  <string name="listTheTeamsThatWillCompete">जे संघ लढाईत मुकाबला करत आहेत त्यांची यादी बनवा.</string>
+  <string name="thisTeamBattleIsOver">हि स्पर्धा संपलेली आहे, आणि संघांचे ह्यापुढे अद्यायावत केले नाही जाऊ शकत.</string>
+  <string name="oneTeamPerLine">प्रति ओळ एक संघ. आपोआप-पूर्णतेचा वापर करा.</string>
+  <string name="numberOfLeadsPerTeam">प्रति संघ नेत्यांची संख्या. त्यांच्या गुणांची बेरीज संघाचे गुण आहे.</string>
+  <string name="numberOfLeadsPerTeamHelp">तुम्ही स्पर्धा चालू झ्हाल्यानंतर ह्या मूल्याला खरंच बदलू करू नये!</string>
+</resources>

@@ -99,6 +99,7 @@ final class MarkdownRender(
       .set(Parser.HTML_BLOCK_PARSER, false)
       .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
       .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+      .set(Parser.REFERENCE_PARAGRAPH_PRE_PROCESSOR, false)
 
     // configurable
     if table then o.set(TablesExtension.CLASS_NAME, "slist")
@@ -125,8 +126,8 @@ final class MarkdownRender(
         .pipe(renderer.render)
     catch
       case _: StackOverflowError =>
-        println(s"markdown StackOverflowError $key")
-        text.value
+        println(s"/!\\ markdown StackOverflowError $key ############################################")
+        scalalib.StringUtils.escapeHtmlRaw(text.value)
 
 object MarkdownRender:
 
@@ -406,7 +407,7 @@ object MarkdownRender:
                 NodeRenderingHandler(classOf[TimestampNode], (node, _, html) => renderTimestamp(node, html))
               ).asJava
 
-            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit =
+            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit = try
               val instant = Instant.ofEpochSecond(node.timestamp)
               val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
               val displayText = node.format match
@@ -424,9 +425,12 @@ object MarkdownRender:
                 .tag("time")
                 .text(displayText)
                 .tag("/time")
+            catch
+              case _: Exception =>
+                html.text("[invalid date]")
 
   object TimestampParserExtension:
-    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
+    private val timestampPattern = Pattern.compile("<t:(\\d{10}):([dDtTfFsSR])>")
 
     class Factory extends InlineParserExtensionFactory:
       override def getCharacters(): CharSequence = "<"

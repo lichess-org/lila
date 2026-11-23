@@ -3,14 +3,15 @@ package lila.ublog
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
+import scalalib.model.Language
 
 import lila.common.LilaFuture.delay
+import lila.core.config.RateLimit
 import lila.core.shutup.ShutupApi
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
 import lila.core.{ LightUser, timeline as tl }
-import lila.core.config.RateLimit
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi
@@ -99,6 +100,26 @@ final class UblogApi(
       .find(bdoc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort(userLiveSort)
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
+      .list(nb)
+
+  def latestPostsWithContent(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost]] =
+    colls.post
+      .find(bdoc("blog" -> blogId, "live" -> true), postProjection.some)
+      .sort(userLiveSort)
+      .cursor[UblogPost](ReadPref.sec)
+      .list(nb)
+
+  def communityPostsWithContent(language: Option[Language], nb: Int): Fu[List[UblogPost]] =
+    colls.post
+      .find(
+        bdoc(
+          "live" -> true,
+          "quality".gte(Quality.good),
+          "topics".neq(UblogTopic.offTopic)
+        ) ++ language.so(l => bdoc("language" -> l))
+      )
+      .sort(sort.desc("lived.at"))
+      .cursor[UblogPost](ReadPref.sec)
       .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =

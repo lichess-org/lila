@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Comment as CommentStr, ParsedPgn, PgnNodeData, PgnStr, Tags }
+import chess.format.pgn.{ Comment as CommentStr, ParsedPgn, PgnNodeData, PgnStr, Tag, Tags }
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Ply, Status, TournamentClock }
 
@@ -102,7 +102,7 @@ object StudyPgnImport:
           tags = StudyPgnTags
             .withRelevantTags(
               parsed.tags,
-              StudyPgnTags.clockTags,
+              Set(Tag.Orientation, Tag.WhiteClock, Tag.BlackClock),
               replay.setup.position.variant
             ),
           ending = ending,

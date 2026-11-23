@@ -264,17 +264,16 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       ): source =>
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
-          .as(pgnContentType)
+          .as(PGN)
           .publicCache(jsonView.responseCache(tour))
 
   def apiIndex = Anon:
     apiC.jsonDownload:
-      env.relay.tourStream
-        .officialTourStream(
-          MaxPerSecond(20),
-          Max(getInt("nb") | 20).atMost(100),
-          liveOnly = getBool("live")
-        )
+      env.relay.tourStream.officialTourStream(
+        MaxPerSecond(20),
+        Max(getInt("nb") | 20).atMost(100),
+        liveOnly = getBool("live")
+      )
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(5)):
@@ -306,7 +305,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def searchPageCost(page: Int) = (page / 2).atLeast(1)
 
-  private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
+  private given (using Req): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(api.tourById(id))(f)
