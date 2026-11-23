@@ -1,3 +1,4 @@
+import { pad2 } from '@/common';
 import { displayColumns } from '@/device';
 import type { TopOrBottom } from '@/game';
 import { hl, type VNode, type LooseVNodes, type Hooks } from '@/view';
@@ -39,7 +40,6 @@ export function renderClock(
   );
 }
 
-const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
