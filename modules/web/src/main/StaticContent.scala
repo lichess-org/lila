@@ -118,7 +118,7 @@ Allow: /game/export/gif/thumbnail/
 
   val organizationScript: Option[Frag] =
     for base <- lila.ui.bits.organizationJson(net)
-    yield lila.ui.bits.structuredData("Organization"):
+    yield lila.ui.bits.structuredDataTrusted("Organization"):
       base ++ Json.obj(
         "sameAs" -> List(
           "https://www.wikidata.org/wiki/Q19831807",

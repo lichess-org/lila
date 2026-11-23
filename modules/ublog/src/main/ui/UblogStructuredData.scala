@@ -7,37 +7,34 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.common.Json.given
 import lila.core.config.NetConfig
 import lila.ui.{ Helpers, OpenGraph }
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.*
 
-final class UblogStructuredData(helpers: Helpers, net: NetConfig):
+final class UblogStructuredData(helpers: Helpers, net: NetConfig, untrustedFrag: JsObject => Frag):
   import helpers.*
 
   private given Writes[Instant] = Writes: d =>
     JsString(isoDateTimeFormatter.print(d))
 
   def apply(user: User, post: UblogPost, image: Option[Url]) =
-    post.lived
-      .ifTrue(false)
-      .map: live =>
-        val json =
-          Json.obj(
-            "@context" -> "https://schema.org",
-            "@type" -> "BlogPosting",
-            "headline" -> escapeHtmlRaw(post.title),
-            "description" -> escapeHtmlRaw(post.intro),
-            "inLanguage" -> post.language,
-            "image" -> image.toList,
-            "keywords" -> post.topics,
-            "datePublished" -> live.at,
-            "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
-            "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
-            "author" -> user
-              .is(UserId.lichess)
-              .so(lila.ui.bits.organizationJson(net))
-              .getOrElse(authorJson(user)),
-            "publisher" -> lila.ui.bits.organizationJson(net)
-          )
-        st.script(tpe := "application/ld+json")(lila.common.String.html.safeJsonValue(json))
+    post.lived.map: live =>
+      val json = Json.obj(
+        "@context" -> "https://schema.org",
+        "@type" -> "BlogPosting",
+        "headline" -> escapeHtmlRaw(post.title),
+        "description" -> escapeHtmlRaw(post.intro),
+        "inLanguage" -> post.language,
+        "image" -> image.toList,
+        "keywords" -> post.topics,
+        "datePublished" -> live.at,
+        "dateModified" -> post.updated.map(_.at).getOrElse(live.at),
+        "discussionUrl" -> Option.when(~post.discuss)(routeUrl(routes.Ublog.discuss(post.id))),
+        "author" -> user
+          .is(UserId.lichess)
+          .so(lila.ui.bits.organizationJson(net))
+          .getOrElse(authorJson(user)),
+        "publisher" -> lila.ui.bits.organizationJson(net)
+      )
+      untrustedFrag(json)
 
   private def authorJson(user: User) =
     Json

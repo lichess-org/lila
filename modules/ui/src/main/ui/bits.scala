@@ -145,10 +145,12 @@ object bits:
       )
     )
 
-  def structuredData(tpe: String)(json: JsObject) =
-    val js = Json.stringify:
-      Json.obj("@context" -> "https://schema.org", "@type" -> tpe) ++ json
-    script(st.tpe := "application/ld+json")(js)
+  // does not contain user data, will not be escaped
+  def structuredDataTrusted(tpe: String)(json: JsObject) =
+    script(st.tpe := "application/ld+json")(Json.stringify(structuredDataJson(tpe)(json)))
+
+  def structuredDataJson(tpe: String)(json: JsObject): JsObject =
+    Json.obj("@context" -> "https://schema.org", "@type" -> tpe) ++ json
 
   def organizationJson(net: NetConfig) = net.domain.isLichessProd.option:
     Json.obj(
