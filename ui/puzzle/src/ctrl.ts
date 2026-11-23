@@ -54,7 +54,6 @@ export default class PuzzleCtrl implements CevalHandler {
   autoNext: StoredProp<boolean>;
   rated: StoredProp<boolean>;
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
-  threatMode: Toggle;
   streak?: PuzzleStreak;
   streakFailStorage = storage.make('puzzle.streak.fail');
   session: PuzzleSession;
@@ -64,7 +63,6 @@ export default class PuzzleCtrl implements CevalHandler {
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   private readonly nav: AnalysisSession;
-  promotion: PromotionCtrl;
   lastCgConfig?: CgConfig;
   path: TreePath;
   node: TreeNode;
@@ -112,8 +110,6 @@ export default class PuzzleCtrl implements CevalHandler {
       withGround: this.withGround,
       lastCgConfig: () => this.lastCgConfig,
     });
-    this.threatMode = this.nav.threatMode;
-    this.promotion = this.nav.promotion;
 
     this.initiate(opts.data);
 
@@ -722,4 +718,12 @@ export default class PuzzleCtrl implements CevalHandler {
     const language = document.documentElement.lang.slice(0, 2);
     return language === 'en' ? path : `/${language}${path}`;
   };
+
+  get threatMode(): Toggle {
+    return this.nav.threatMode;
+  }
+
+  get promotion(): PromotionCtrl {
+    return this.nav.promotion;
+  }
 }

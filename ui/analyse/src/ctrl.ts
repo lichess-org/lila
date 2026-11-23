@@ -26,7 +26,7 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
-import { PromotionCtrl } from 'lib/game/promotion';
+import type { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
@@ -97,7 +97,6 @@ export default class AnalyseCtrl implements CevalHandler {
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   private readonly nav: AnalysisSession;
-  promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
   motif: MotifCtrl;
@@ -121,7 +120,6 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     this.cevalEnabledProp(),
   );
-  threatMode: Prop<boolean>;
 
   treeView: TreeView;
   cgVersion = {
@@ -166,8 +164,6 @@ export default class AnalyseCtrl implements CevalHandler {
       lastCgConfig: () => this.lastCgConfig,
       variant: () => this.variantKey,
     });
-    this.threatMode = this.nav.threatMode;
-    this.promotion = this.nav.promotion;
     this.motif = new MotifCtrl(this.settings);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
@@ -263,6 +259,14 @@ export default class AnalyseCtrl implements CevalHandler {
 
     site.sound.preloadBoardSounds();
     this.asyncLoadThenShow();
+  }
+
+  get threatMode(): Toggle {
+    return this.nav.threatMode;
+  }
+
+  get promotion(): PromotionCtrl {
+    return this.nav.promotion;
   }
 
   get variantKey(): VariantKey {
