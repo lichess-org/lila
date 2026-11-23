@@ -241,7 +241,7 @@ object contact:
                   p(
                     accountLost(),
                     br,
-                    doNotDeny()
+                    admitMistakeForNewAccount()
                   )
                 )
               ),

@@ -503,7 +503,7 @@ object I18nKey:
     val `falsePositives`: I18nKey = "contact:falsePositives"
     val `ifLegit`: I18nKey = "contact:ifLegit"
     val `accountLost`: I18nKey = "contact:accountLost"
-    val `doNotDeny`: I18nKey = "contact:doNotDeny"
+    val `admitMistakeForNewAccount`: I18nKey = "contact:admitMistakeForNewAccount"
     val `otherRestriction`: I18nKey = "contact:otherRestriction"
     val `collaboration`: I18nKey = "contact:collaboration"
     val `monetizing`: I18nKey = "contact:monetizing"
