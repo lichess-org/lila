@@ -11,7 +11,7 @@ object MultiPgn extends TotalWrapper[MultiPgn, List[PgnStr]]:
   def split(str: PgnStr, max: Max): MultiPgn =
     PgnStr.from:
       splitPat
-        .split(str.value.replaceIf('\r', ""), max.value + 1)
+        .split(str.value.replaceIf('\r', "").dropWhile(_.isWhitespace), max.value + 1)
         .view
         .filter(_.nonEmpty)
         .take(max.value)
