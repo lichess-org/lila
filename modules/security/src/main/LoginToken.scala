@@ -86,7 +86,11 @@ final class LoginToken(
 
   object magicLink:
 
-    private val tokener = StringToken.withLifetime[UserId](tokenerSecret, 10.minutes)
+    private val tokener = StringToken.withLifetimeAndFutureValue[UserId](
+      tokenerSecret,
+      10.minutes,
+      getCurrentValue = id => userRepo.getPasswordHash(id).orFail(s"User $id not found")
+    )
 
     def generate[U: UserIdOf](user: U): Fu[String] = tokener.make(user.id)
 

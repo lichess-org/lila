@@ -549,7 +549,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case None =>
           BadRequest.page:
             import scalatags.Text.all.stringFrag
-            views.site.message("This token has expired.")(stringFrag("Please go back and try again."))
+            views.site.message("This token has expired.")("Please go back and try again.")
         case Some(user) => f(user)
 
   private[controllers] object LoginRateLimit:
