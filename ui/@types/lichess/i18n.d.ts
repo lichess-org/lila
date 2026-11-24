@@ -833,6 +833,8 @@ interface I18n {
     accountLost: string;
     /** I need account support */
     accountSupport: string;
+    /** If you want to be allowed to create a new account, then do not deny having cheated. Instead, admit to what you did and show that you understand that it was a mistake. */
+    admitMistakeForNewAccount: string;
     /** Authorisation to use Lichess */
     authorizationToUse: string;
     /** Appeal for a ban or IP restriction */
@@ -871,8 +873,6 @@ interface I18n {
     doNotAskByEmail: string;
     /** Do not ask us by email to reopen an account, we won't do it. */
     doNotAskByEmailToReopen: string;
-    /** Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake. */
-    doNotDeny: string;
     /** Please do not send direct messages to moderators. */
     doNotMessageModerators: string;
     /** Do not report players in the forum. */
