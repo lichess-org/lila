@@ -1,3 +1,4 @@
+import { idRegex } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
 import { wsConnect, wsPingInterval } from 'lib/socket';
 import * as xhr from 'lib/xhr';
@@ -57,7 +58,7 @@ export function initModule(opts: LobbyOpts) {
   }).send;
   pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
-    if (!gameId) return;
+    if (!gameId || !idRegex.test(gameId)) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
     xhr.text(
       xhr.url(`/setup/hook/${site.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }),
