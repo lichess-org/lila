@@ -44,6 +44,7 @@
     "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
     "assets:optimize": "svgo -rf ./public/ ./public/",
     "test": "node ui/test",
+    "test:ai-policy": "node --test .github/scripts/ai-policy.test.js",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",

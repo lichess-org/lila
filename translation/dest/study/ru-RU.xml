@@ -106,6 +106,12 @@
   <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
   <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
   <string name="automatic">Автоматически</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Вставьте сюда свой текст PGN, вплоть до %s игры.</item>
+    <item quantity="few">Вставьте сюда свой текст PGN, вплоть до %s игр.</item>
+    <item quantity="many">Вставьте сюда свой текст PGN, вплоть до  %s игр.</item>
+    <item quantity="other">Вставляйте игры в виде текста PGN сюда. Для каждой игры создается новая глава. Студия может содержать до %s глав.</item>
+  </plurals>
   <string name="urlOfTheGame">URL игры</string>
   <string name="createChapter">Создать главу</string>
   <string name="createStudy">Создать студию</string>

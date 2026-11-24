@@ -266,7 +266,7 @@ export class StudyChapterNewForm {
                         data.embed = true;
                         data.options = {
                           inlineCastling: true,
-                          orientation: dlg.ctx.orientation,
+                          orientation: dlg.ctx.orientation === 'black' ? 'black' : 'white',
                           onChange: dlg.ctx.editorFen,
                           coordinates: true,
                           bindHotkeys: false,

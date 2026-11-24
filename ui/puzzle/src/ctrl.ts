@@ -11,6 +11,7 @@ import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl 
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { prop, type Prop, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
+import AnalysisSession from 'lib/analysis/session';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -53,7 +54,6 @@ export default class PuzzleCtrl implements CevalHandler {
   autoNext: StoredProp<boolean>;
   rated: StoredProp<boolean>;
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
-  threatMode: Toggle = toggle(false);
   streak?: PuzzleStreak;
   streakFailStorage = storage.make('puzzle.streak.fail');
   session: PuzzleSession;
@@ -62,8 +62,7 @@ export default class PuzzleCtrl implements CevalHandler {
   googlyEyes?: () => DrawShape[];
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
-  promotion: PromotionCtrl;
-  cgConfig?: CgConfig;
+  private readonly nav: AnalysisSession;
   path: TreePath;
   node: TreeNode;
   nodeList: TreeNode[];
@@ -105,12 +104,9 @@ export default class PuzzleCtrl implements CevalHandler {
     this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
+    this.nav = new AnalysisSession(this.redraw, this.withGround);
+
     this.initiate(opts.data);
-    this.promotion = new PromotionCtrl(
-      this.withGround,
-      () => this.withGround(g => g.set(this.cgConfig!)),
-      redraw,
-    );
 
     this.ceval = new CevalCtrl({
       redraw: this.redraw,
@@ -180,10 +176,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   setPath = (path: TreePath): void => {
-    this.path = path;
-    this.nodeList = this.tree.getNodeList(path);
-    this.node = treeOps.last(this.nodeList)!;
-    this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.nav.setPath(this, path);
     this.showHint(false);
   };
 
@@ -319,7 +312,7 @@ export default class PuzzleCtrl implements CevalHandler {
         config.premovable.enabled = true;
       }
     }
-    this.cgConfig = config;
+    this.nav.cgConfig(config);
     return config;
   };
 
@@ -720,4 +713,12 @@ export default class PuzzleCtrl implements CevalHandler {
     const language = document.documentElement.lang.slice(0, 2);
     return language === 'en' ? path : `/${language}${path}`;
   };
+
+  get threatMode(): Toggle {
+    return this.nav.threatMode;
+  }
+
+  get promotion(): PromotionCtrl {
+    return this.nav.promotion;
+  }
 }

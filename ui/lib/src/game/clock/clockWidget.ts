@@ -1,3 +1,4 @@
+import { pad2 } from '@/common';
 import * as data from '@/data';
 
 export const formatMs = (msTime: number): string => {
@@ -5,7 +6,7 @@ export const formatMs = (msTime: number): string => {
   const hours = date.getUTCHours();
   const minutes = date.getUTCMinutes();
   const seconds = date.getUTCSeconds();
-  return hours > 0 ? hours + ':' + pad(minutes) + ':' + pad(seconds) : minutes + ':' + pad(seconds);
+  return hours > 0 ? hours + ':' + pad2(minutes) + ':' + pad2(seconds) : minutes + ':' + pad2(seconds);
 };
 
 export const otbClockIsRunning = (fen: string): boolean => !fen.includes('PPPPPPPP/RNBQKBNR');
@@ -18,8 +19,6 @@ export function setClockWidget(el: HTMLElement, opts: Opts): void {
   if (instance) instance.set(opts);
   else data.set(el, 'clock', new ClockWidget(el, opts));
 }
-
-const pad = (x: number) => (x < 10 ? '0' : '') + x;
 
 interface Opts {
   pause?: boolean;

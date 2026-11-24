@@ -407,7 +407,7 @@ object MarkdownRender:
                 NodeRenderingHandler(classOf[TimestampNode], (node, _, html) => renderTimestamp(node, html))
               ).asJava
 
-            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit =
+            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit = try
               val instant = Instant.ofEpochSecond(node.timestamp)
               val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
               val displayText = node.format match
@@ -425,9 +425,12 @@ object MarkdownRender:
                 .tag("time")
                 .text(displayText)
                 .tag("/time")
+            catch
+              case _: Exception =>
+                html.text("[invalid date]")
 
   object TimestampParserExtension:
-    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
+    private val timestampPattern = Pattern.compile("<t:(\\d{10}):([dDtTfFsSR])>")
 
     class Factory extends InlineParserExtensionFactory:
       override def getCharacters(): CharSequence = "<"

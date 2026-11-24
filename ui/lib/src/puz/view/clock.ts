@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { pad2 } from '@/common';
 import { defined } from '@/index';
 import { onInsert } from '@/view';
 
@@ -37,13 +38,11 @@ function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean)
   if (millis < 1 && !run.endAt) onFlag();
 }
 
-const pad = (x: number): string => (x < 10 ? '0' : '') + x;
-
 const formatMs = (millis: number): string => {
   const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000));
   const minutes = date.getUTCMinutes();
   const seconds = date.getUTCSeconds();
-  return minutes + ':' + pad(seconds);
+  return minutes + ':' + pad2(seconds);
 };
 
 function computeModifierDiff(now: number, mod?: TimeMod) {

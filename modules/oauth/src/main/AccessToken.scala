@@ -47,6 +47,30 @@ object AccessToken:
 
   def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
+  object json:
+    import play.api.libs.json.*
+    import scalalib.ThreadLocalRandom
+    import lila.common.Json.given
+
+    def token(token: AccessToken, legacy: Boolean) =
+      Json
+        .obj(
+          "token_type" -> "Bearer",
+          "access_token" -> token.plain
+        )
+        .add("refresh_token" -> legacy.option(s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"))
+        .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+
+    def test(tokens: Map[Bearer, Option[AccessToken]]) =
+      JsObject(tokens.map { (bearer, token) =>
+        bearer.value -> token.fold[JsValue](JsNull): token =>
+          Json.obj(
+            "userId" -> token.userId,
+            "scopes" -> token.scopes.into(OAuthScopes).keyList,
+            "expires" -> token.expires
+          )
+      })
+
   import lila.db.dsl.{ *, given }
   import OAuthScope.given
 

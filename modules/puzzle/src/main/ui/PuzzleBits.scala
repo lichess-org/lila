@@ -1,7 +1,6 @@
 package lila.puzzle
 package ui
 
-import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
 import scalalib.model.Days
 
@@ -11,9 +10,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }
-
-  def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
-    chessgroundMini(fen, p.color, lastMove.some)(span)
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }

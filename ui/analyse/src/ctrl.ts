@@ -12,7 +12,6 @@ import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyb
 
 import {
   defined,
-  prop,
   toggle,
   debounce,
   throttle,
@@ -21,12 +20,13 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
+import AnalysisSession from 'lib/analysis/session';
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
-import { PromotionCtrl } from 'lib/game/promotion';
+import type { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
@@ -96,7 +96,7 @@ export default class AnalyseCtrl implements CevalHandler {
   fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
-  promotion: PromotionCtrl;
+  private readonly nav: AnalysisSession;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
   motif: MotifCtrl;
@@ -120,7 +120,6 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     this.cevalEnabledProp(),
   );
-  threatMode: Prop<boolean> = prop(false);
 
   treeView: TreeView;
   cgVersion = {
@@ -142,7 +141,6 @@ export default class AnalyseCtrl implements CevalHandler {
 
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
-  cgConfig: any; // latest chessground config (useful for revert)
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
   keyboardMove?: KeyboardMove;
@@ -159,10 +157,9 @@ export default class AnalyseCtrl implements CevalHandler {
     this.settings = new SettingsCtrl(this.onUpdateSettings);
     this.treeView = new TreeView(this);
     this.navigate = new Navigate(this);
-    this.promotion = new PromotionCtrl(
-      this.withCg,
-      () => this.withCg(g => g.set(this.cgConfig)),
+    this.nav = new AnalysisSession(
       this.redraw,
+      g => this.withCg(g),
       () => this.variantKey,
     );
     this.motif = new MotifCtrl(this.settings);
@@ -262,6 +259,14 @@ export default class AnalyseCtrl implements CevalHandler {
     this.asyncLoadThenShow();
   }
 
+  get threatMode(): Toggle {
+    return this.nav.threatMode;
+  }
+
+  get promotion(): PromotionCtrl {
+    return this.nav.promotion;
+  }
+
   get variantKey(): VariantKey {
     return this.data.game.variant.key;
   }
@@ -292,10 +297,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private readonly setPath = (path: TreePath): void => {
-    this.path = path;
-    this.nodeList = this.tree.getNodeList(path);
-    this.node = treeOps.last(this.nodeList) as TreeNode;
-    this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.nav.setPath(this, path);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
@@ -383,7 +385,7 @@ export default class AnalyseCtrl implements CevalHandler {
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
-    this.cgConfig = config;
+    this.nav.cgConfig(config);
     return config;
   }
 

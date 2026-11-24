@@ -118,4 +118,4 @@ trait DateHelper:
     else pastMomentServerText(date.atStartOfDay.instant)
 
   def timeRemaining(instant: Instant): Tag =
-    timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)
+    timeTag(cls := "timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)

@@ -129,6 +129,24 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           )
         )
 
+  def staffPicks(title: String, content: Frag, featuredForm: Option[Form[?]])(using Context) =
+    Page(title)
+      .css("analyse.study.index", "bits.page")
+      .css(featuredForm.isDefined.option("bits.form3")):
+        main(cls := "page-menu")(
+          menu(lila.study.StudyGroup.staffPicks, None, Nil),
+          div(cls := "page-menu__content box box-pad")(
+            featuredForm.map: form =>
+              postForm(action := routes.Study.staffPicks)(
+                form3.group(form("v"), "Featured studies on /study, one URL per line"): f =>
+                  form3.textarea(f)(rows := 5),
+                form3.submit("Save"),
+                hr
+              ),
+            content
+          )
+        )
+
   private def page(
       title: String,
       active: StudyGroup,

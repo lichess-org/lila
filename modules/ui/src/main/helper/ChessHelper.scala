@@ -10,15 +10,12 @@ object ChessHelper:
 
   def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
 
-trait ChessHelper:
-
-  export ChessHelper.*
-
   private val cgWrap = div(cls := "cg-wrap")
   private val cgContainer = tag("cg-container")
   private val dataState = attr("data-state")
   val cgBoard = tag("cg-board")
   val cgWrapContent = cgContainer(cgBoard)
+  val chessgroundBoard = chessgroundWrap(cgBoard)
 
   def chessgroundMini(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None)(
       tag: Tag
@@ -32,5 +29,3 @@ trait ChessHelper:
     cgWrap:
       cgContainer:
         content
-
-  lazy val chessgroundBoard = chessgroundWrap(cgBoard)

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Подтвердіт свуй lichess.org акаунт, %s</string>
+  <string name="emailConfirm_subject">Потвердіт свуй lichess.org акаунт, %s</string>
   <string name="emailConfirm_intro">Дякуєме за реґістрованя у Lichess!</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Клопкніт на одкликованя, обы заробив вам акаунт Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Клопкніт на удкликованя, обы заробив вам акаунт Lichess:</string>
+  <string name="emailConfirm_justIgnore">Кідь исьте ся не реґістровали в Lichess, то можете супокуйно іґноровати сесю уповістку. Непотвердженый акаунт тай вшиткі споминкы вашої електроної почты будут стерті з нашої сістемы через 48 годин.</string>
   <string name="passwordReset_subject">Звержіт свою паролу на lichess.org, %s</string>
-  <string name="passwordReset_intro">Мы достали запрос на зверженя вашої паролы на вашому акаунтови.</string>
-  <string name="passwordReset_clickOrIgnore">Кідь вы чинили сись запрос, клопкніт долув. Кідь ньит, просто проіґноруйте.</string>
+  <string name="passwordReset_intro">Мы дустали запрос на звержіня паролы на вашому акаунтови.</string>
+  <string name="passwordReset_clickOrIgnore">Кідь вы чинили сись запрос, клопкніт долу. Кідь ньит, просто проіґноруйте.</string>
   <string name="emailChange_subject">Потвердіт нову електрону почту, %s</string>
-  <string name="emailChange_intro">Мы достали ваш запрос на переміну почты.</string>
-  <string name="emailChange_click">Обы потвердити ож маєте приступ од почті, клопкніт долув:</string>
+  <string name="emailChange_intro">Мы дустали ваш запрос на переміну почты.</string>
+  <string name="emailChange_click">Обы потвердити ож маєте приступ ид почті, клопкніт долу:</string>
   <string name="welcome_subject">Вітаєме на lichess.org, %s</string>
   <string name="welcome_text">Вы успішно учинили акаунт на https://lichess.org.
 
-Туй є ваша профілна сторунка: %1$s. Можете є перемінити на %2$s.
+Туй є ваша профілна сторунка: %1$s. Можете єї перемінити на %2$s.
 
-Бавте из дяков, и най вам фіґуры усе найдут путь од чужому корольови!</string>
+Бавте из дяков, и най вам фіґуры усе найдут путь ид чужому корольови!</string>
   <string name="logInToLichess">Зайдіт на lichess.org, %s</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Удкликованя не фунґує? Попробуйте го вставити у ваш бравзер!)</string>
   <string name="common_note">Исе служебна уповістка, зязана из хоснованьом %s.</string>
   <string name="common_contact">Хоснуйте %s, обы контактовати из нами.</string>
 </resources>

@@ -9,7 +9,7 @@ import { mainlineNodeList, structuredCloneLite } from 'lib/tree/ops';
 import type { ClientEval, Glyph, TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import AnalyseCtrl from '../ctrl';
-import type { AnalysisUpdate, AnalysisEngineInfo, AnalysisMeta, Division } from '../interfaces';
+import type { AnalysisUpdate, AnalysisMeta, Division } from '../interfaces';
 
 // modules/tree/.../Analysis.scala
 export interface ServerAnalysisDocument {
@@ -19,7 +19,6 @@ export interface ServerAnalysisDocument {
   infos: { ply: Ply; eval: ServerEvalScore & { best?: Uci }; variation: San[] }[];
   startPly: Ply;
   date: Date;
-  engine: AnalysisEngineInfo;
 }
 
 type ServerEvalScore = EvalScore & { mateGiven?: boolean };
@@ -145,10 +144,8 @@ export class LocalAnalysisEngine {
             this.nodes.reduce((sum, node) => sum + (node.eval?.knodes ?? 1000), 0) / this.nodes.length,
           ) * 1000;
     const engine = {
-      id: String(this.ctrl.ceval.engines.active()!.id),
       nodesPerMove,
-      userId: myUserId() ?? 'lichess',
-      engineVersion: this.ctrl.ceval.engineVersion!,
+      version: this.ctrl.ceval.engineVersion!,
     };
     const serverDocument: ServerAnalysisDocument = {
       id: this.ctrl.idbTree.id,
@@ -161,12 +158,20 @@ export class LocalAnalysisEngine {
       })),
       startPly: this.nodes[0].ply,
       date: new Date(),
-      engine,
+    };
+    const withServerEngine = {
+      ...serverDocument,
+      engine: {
+        ...engine,
+        engineVersion: engine.version,
+        id: String(this.ctrl.ceval.engines.active()!.id),
+        userId: myUserId() ?? 'lichess', // ??? trusting the client to send their actual user ID to the server
+      },
     };
     const rsp = await fetch('/analysis/review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ analysis: serverDocument, division }),
+      body: JSON.stringify({ analysis: withServerEngine, division }),
     });
     if (!rsp.ok) throw new Error(`${rsp.status} ${rsp.statusText}`);
 
