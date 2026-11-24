@@ -13,7 +13,7 @@ export function formatNumber(dt: string, scaled: number) {
     style: percent ? 'percent' : 'decimal',
     maximumFractionDigits: percent ? 1 : 2,
   };
-  return new Intl.NumberFormat(displayLocale, opts).format(n / (percent ? 100 : 1));
+  return new Intl.NumberFormat(displayLocale, opts).format(scaled);
 }
 
 const formatValue = (dt: string, n: number) => formatNumber(dt, scalePercent(dt, n));
