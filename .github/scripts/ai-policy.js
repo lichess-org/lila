@@ -80,6 +80,8 @@ async function run(github, context, core) {
       } catch (error) {
         if (error.status === 409) {
           core.info('A Copilot code review is already pending.');
+        } else if (error.status === 422 && error.response?.data?.failure_reason === 'ACTOR_INELIGIBLE') {
+          core.info('Copilot code review is unavailable for this actor or disabled by organization policy.');
         } else {
           throw error;
         }
