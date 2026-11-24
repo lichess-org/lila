@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
 
-const { hasAiDisclosure, hasVisualProof, run } = require('./ai-policy');
+const { hasAIDisclosure, hasVisualProof, run } = require('./ai-policy');
 
 function mockGithub(commitMessages, comments = []) {
   const calls = [];
@@ -43,13 +43,13 @@ test('detects common AI tool disclosures', () => {
     '🤖 Generated with Claude Code',
     'Model: Opus 5.5 Medium',
   ]) {
-    assert.equal(hasAiDisclosure(content), true, content);
+    assert.equal(hasAIDisclosure(content), true, content);
   }
 });
 
 test('does not mistake the PR template for an AI disclosure', () => {
   assert.equal(
-    hasAiDisclosure('Include the AI tool you used. Rules about AI-assisted contributions.'),
+    hasAIDisclosure('Include the AI tool you used. Rules about AI-assisted contributions.'),
     false,
   );
 });
