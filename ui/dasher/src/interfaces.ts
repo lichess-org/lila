@@ -58,9 +58,4 @@ export interface DasherData {
 
 export type Mode = 'links' | 'langs' | 'sound' | 'theme' | 'board' | 'piece';
 
-export interface DasherOpts {
-  playing: boolean;
-  zenable: boolean;
-}
-
 export type Range = { min: number; max: number; step: number };

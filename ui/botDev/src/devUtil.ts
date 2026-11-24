@@ -9,10 +9,6 @@ import type { NumberInfo, RangeInfo } from './devTypes';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 
-export function resolveObjectProperty(op: ObjectPath): string[] {
-  return pathToKeys(op).reduce((o, key) => o?.[key], op.obj);
-}
-
 export function removeObjectProperty({ obj, path }: ObjectPath, stripEmptyObjects = false): void {
   const keys = pathToKeys({ obj, path });
   if (!(obj && keys[0] && obj[keys[0]])) return;
