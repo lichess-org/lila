@@ -46,6 +46,7 @@ object Link:
     case YouTube extends Site("YouTube", List("youtube.com"))
     case Twitch extends Site("Twitch", List("twitch.tv"))
     case GitHub extends Site("GitHub", List("github.com"))
+    case LinkedIn extends Site("LinkedIn", List("linkedin.com"))
     case VKontakte extends Site("VKontakte", List("vk.com"))
     case ChessCom extends Site("Chess.com", List("chess.com"))
     case ChessMonitor extends Site("ChessMonitor", List("chessmonitor.com"))
@@ -62,6 +63,7 @@ object Link:
       YouTube,
       Twitch,
       GitHub,
+      LinkedIn,
       VKontakte,
       ChessCom,
       ChessMonitor,
