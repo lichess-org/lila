@@ -45,7 +45,7 @@
     color: $c-font;
 
     &::before {
-      color: $c-brag;
+      color: $c-brag-hover;
       font-size: 1.6em;
     }
   }
@@ -65,9 +65,17 @@
     display: flex;
     justify-content: space-between;
     white-space: nowrap;
+
+    a {
+      line-height: 1.15;
+    }
+
+    .user-link .line {
+      width: 1.75em;
+    }
   }
 
   li:nth-child(even) {
-    background: $c-bg-zebra;
+    background: $c-bg-mid;
   }
 }
