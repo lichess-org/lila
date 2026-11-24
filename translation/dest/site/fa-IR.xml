@@ -801,7 +801,7 @@
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
   <string name="primaryColorArrowsHowTo">مهار/ctrl یا کیب/shift = قرمز؛ فرمان/command، دگرساز/alt یا مَتا/meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
-  <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
+  <string name="receiveForumNotifications">دریافت اعلان هنگام نامبَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="withNobody">هیچکس</string>
   <string name="withFriends">با دوستان</string>
@@ -977,8 +977,8 @@
   <string name="youCannotPostYetPlaySomeGames">هنوز نمی‌توانید در انجمن‌ها فرسته گذارید. چند بازی کنید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
-  <string name="mentionedYouInX">در «%1$s» از شما نام‌برده شد.</string>
-  <string name="xMentionedYouInY">%1$s از شما در \"%2$s\" نام برد.</string>
+  <string name="mentionedYouInX">در «%1$s» از شما نامبُرد.</string>
+  <string name="xMentionedYouInY">%1$s از شما در «%2$s» نامبُرد.</string>
   <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>

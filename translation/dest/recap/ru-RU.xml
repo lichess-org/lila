@@ -4,13 +4,12 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Чем вы занимались в этом году?</string>
 	<string name="initTitle">У вас был такой шахматный год!</string>
 	<string name="noGamesText">У вас не было партий в этом году.</string>
-	<string name="noGamesCta">Хотите играть сейчас?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">И вы выиграли %s!</string>
 	<string name="gamesNextQuestion">Как у вас это получилось?</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s провели времени за игрой!</string>
-	<string name="timeTooMuch">Слишком много шахмат.</string>
-	<string name="timeALot">Это очень много шахмат.</string>
-	<string name="timeReasonable">Это кажется вразумительным количеством шахмат.</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Проведённое время за игрой</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Это очень серьёзная отдача!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Каждая минута засчиталась.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Хорошо проведено время, один ход за раз.</string>
 	<string name="timeHowManyMoves">Сколько ходов вы сделали за всё это время?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s ход сделан</item>
@@ -18,15 +17,16 @@
 		<item quantity="many">%s ходов сделано</item>
 		<item quantity="other">%s ходов сделано</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Это как перенести %s дров!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Это как перенести %s дров!</string>
 	<string name="movesStandardPiecesWeight">Стандартная фигура весит в среднем 40 грамм</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Обычные фигуры весят примерно 1.4 унций каждая</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s ход</item>
 		<item quantity="few">%s хода</item>
 		<item quantity="many">%s ходов</item>
 		<item quantity="other">%s ходов</item>
 	</plurals>
-	<string name="chessFoes">Ваши лучшие соперники в шахматах</string>
+	<string name="mostFrequentOpponents">Ваши самые частые соперники</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s грамм</item>
 		<item quantity="few">%s грамма</item>
@@ -39,19 +39,8 @@
 		<item quantity="many">%s килограммов</item>
 		<item quantity="other">%s килограммов</item>
 	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Ваш любимый первый ход</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">в партиях за белых вы обычно начинаете так: %s</string>
-	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="one">Наиболее часто используемый дебют за белых в %s игре</item>
-		<item quantity="few">Наиболее часто используемый дебют за белых в %s играх(-е)</item>
-		<item quantity="many">Наиболее часто используемый дебют за белых в игре %s</item>
-		<item quantity="other">Наиболее часто используемый дебют за белых в игре %s</item>
-	</plurals>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one">Наиболее часто используемый дебют за чёрных в %s игре</item>
-		<item quantity="few">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
-		<item quantity="many">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
-		<item quantity="other">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
-	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Благодарим вас, что проголосовали за %s задачу.</item>
 		<item quantity="few">Благодарим вас, что проголосовали за %s задачи.</item>
@@ -59,35 +48,39 @@
 		<item quantity="other">Благодарим вас, что проголосовали за %s задач.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Вы также помогли отметить %s из них.</string>
-	<string name="puzzlesNone">В этом году вы не решили ни одной задачи.</string>
-	<string name="puzzlesTryNow">Хотите попробовать сейчас?</string>
-	<string name="puzzlesYouWonOnFirstTry">Вы выиграли %s из них с первой попытки!</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Вы решили %s из них за первую попытку!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Первая попытка</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Нужно ещё раз</string>
 	<string name="sourcesTitle">Где вы находили соперников?</string>
 	<string name="perfsTitle">В какие варианты и с каким контролем вы играли?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s рекламы и трекеров</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Рекламы</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Трекеры</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Разрушители данных</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Всплывающие окна</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Платный доступ</string>
 	<string name="malwareNoSell">Мы не продавали ваши персональные данные</string>
 	<string name="malwareNoAbuse">Мы не использовали ваше устройство против вас</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Но на других сайтах такое бывает, поэтому, пожалуйста, %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">будьте осторожны</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s партий сыграно на Lichess в %2$s году</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s из них были вашими.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">вы</string>
 	<string name="thanksTitle">Спасибо вам за время, проведённое на Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Мы рады, что вы здесь. Желаем вам отличного %s года!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$s Lichess в этом году составили %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Расходы</string>
-	<string name="patronCharity">Мы — благотворительная организация, существующая исключительно за счёт пожертвований.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Если мы помогли вам развлечься в этом году, или вы верите в нашу работу, пожалуйста, рассмотрите возможность %s!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">поддержать нас пожертвованием</string>
-	<string name="shareableTitle" comment="%s is the current year">Мои итоги %s года</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Мой %s обзор Lichess</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">проведённого времени</string>
 	<string name="shareableMostPlayedOpponent">соперник по большинству партий</string>
 	<string name="shareableFavouriteVariant">любимый вариант</string>
 	<string name="shareableFavouriteTimeControl">любимый контроль</string>
+	<string name="shareableFavouriteFirstMove">любимый первый ход</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s задач(-а/-и) решен(-о/-а/-ы)</item>
 		<item quantity="few">%s задач(-а/-и) решен(-о/-а/-ы)</item>
 		<item quantity="many">%s задач(-а/-и) решен(-о/-а/-ы)</item>
 		<item quantity="other">%s задач(-а/-и) решен(-о/-а/-ы)</item>
 	</plurals>
+	<string name="donateOneMoreThing">Ещё одна вещь...</string>
+	<string name="donateAlreadyPatron">Вы уже платный пользователь, спасибо! Ещё одна вещь...</string>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени, каждый месяц:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени:</string>
 	<string name="recapReady" comment="%s is the year of the recap">Ваши итоги %s года готовы!</string>
 </resources>

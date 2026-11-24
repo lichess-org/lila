@@ -32,6 +32,7 @@
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="currentGameUrl">Current game URL</string>
   <string name="downloadAllRounds">Download all rounds</string>
+  <string name="shareThisBroadcastByUrl">Share this broadcast by URL</string>
   <string name="resetRound">Reset this round</string>
   <string name="deleteRound">Delete this round</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Permanently delete this round and all its games?</string>

@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">يُرجى تعيين قائد جديد للفريق قبل المغادرة، أو إغلاق الفريق.</string>
   <string name="removeSomeone">إزالة شخصٍ ما</string>
   <string name="whoToRemove">مَن تريد إزالته من الفريق؟</string>
+  <string name="blockedUsers">المستخدمون المحظورون</string>
+  <string name="blockedUsersDesc">أدخِل اسم مستخدم واحدًا في كل سطر. سيُمنع هؤلاء اللاعبون من الانضمام إلى الفريق.</string>
   <plurals name="xJoinRequests">
     <item quantity="zero">%s طلب انضمام</item>
     <item quantity="one">%s طلب انضمام</item>
@@ -50,4 +52,5 @@
 لا يمكنك إزالة فريق إذا كان أحد اللاعبين قد انضم بالفعل إلى البطولة.</string>
   <string name="numberOfLeadsPerTeam">عدد القادة لكل فريق. مجموع درجاتهم هو نتيجة الفريق.</string>
   <string name="numberOfLeadsPerTeamHelp">لا يجب عليك تغيير هذه القيمة بعد بدء البطولة!</string>
+  <string name="teamIntroPrompt">عرّف الآخرين بفريقك!</string>
 </resources>

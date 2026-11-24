@@ -4,66 +4,111 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">今年はどんなだったでしょう。</string>
 	<string name="initTitle">今年のチェスはすばらしかったね！</string>
 	<string name="noGamesText">今年は 1 局も指していませんね。</string>
-	<string name="noGamesCta">今指してみますか？</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">あなたは %s 勝しました！</string>
 	<string name="gamesNextQuestion">どれだけ時間と労力をかけたのか？</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">対局に %s 費やしました！</string>
-	<string name="timeTooMuch">チェスのやりすぎです。</string>
-	<string name="timeALot">ずいぶんチェスをやっています。</string>
-	<string name="timeReasonable">チェスに割く時間としては妥当なところでしょう。</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">総プレイ時間</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">けっこう熱心ですね！</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">プレイ時間を正確に数えました。</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">時間を少しずつ、うまく使っています。</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="other">『ロード・オブ・ザ・リング』三部作を %s 回見られる時間</item>
+	</plurals>
 	<string name="timeHowManyMoves">この間にいったい何手指したのでしょうか？</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="other">%s 手です</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">%s の木を動かしたことになります！</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">%s の木を動かしたことになります！</string>
 	<string name="movesStandardPiecesWeight">一般的なチェス駒は約 40g の重さがあります</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">一般的なチェス駒は約 40g の重さがあります</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="other">グランドピアノ約 %s 台分の重さ</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="other">%s 手</item>
 	</plurals>
-	<string name="chessFoes">あなたの最高の対戦相手</string>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="other">%s 局を Stockfish で解析</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="other">%s 局の対局を開始</item>
+	</plurals>
+	<string name="mostFrequentOpponents">もっとも対戦の多かった相手</string>
 	<plurals name="nbGrams">
 		<item quantity="other">%s グラム</item>
 	</plurals>
 	<plurals name="nbKilograms">
 		<item quantity="other">%s キログラム</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="other">%s オンス</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="other">%s ポンド</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">あなたがよく指した初手</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">はあなたが白で %s 回指しています</string>
-	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="other">あなたが白番でいちばんよく指した戦法（%s 局）</item>
-	</plurals>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="other">あなたが黒番でいちばんよく指した戦法（%s 局）</item>
-	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">%s 問の問題への投票に感謝します。</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">%s 件のタグも付けていただきました。</string>
-	<string name="puzzlesNone">今年は 1 問も解いていませんね。</string>
-	<string name="puzzlesTryNow">今ちょっとやってみますか？</string>
-	<string name="puzzlesYouWonOnFirstTry">最初のトライで解けたのは %s 問でした！</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">最初のトライで解けたのは %s 問でした！</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">最初のトライ</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">複数回のトライ</string>
 	<string name="sourcesTitle">どこで対局相手を探しているか</string>
 	<string name="perfsTitle">どんな持時間とバリアントでプレイしているか</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s 件の広告、トラッカーを読み込み</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">広告</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">トラッカー</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">データブローカー</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">ポップアップ</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">ペイウォール</string>
 	<string name="malwareNoSell">私たちはあなたの個人データを売ったりしません</string>
 	<string name="malwareNoAbuse">私たちはあなたのデバイスを悪用しません</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">しかし他のサイトはそうしています。%s。</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">お気をつけて</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s 年、Lichess では %1$s 局がプレイされました</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s があなたの対局でした。</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">あなた</string>
 	<string name="thanksTitle">Lichess でのプレイに感謝します！</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">いつも来てくれてうれしく思います。%s 年もよいお年を！</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">今年の Lichess の %1$s は %2$s でした。</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">経費</string>
-	<string name="patronCharity">私たちは非営利団体で、寄付金だけで運営しています。</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">今年 Lichess を楽しんだなら、あるいは私たちの仕事に共感しているのなら、%sをご検討ください！</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">支援のための寄付</string>
-	<string name="shareableTitle" comment="%s is the current year">%s のまとめ</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">%s 年 Lichess のまとめ</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">のプレイ時間</string>
 	<string name="shareableMostPlayedOpponent">いちばん多く対戦した相手</string>
 	<string name="shareableFavouriteVariant">お気に入りのバリアント</string>
 	<string name="shareableFavouriteTimeControl">お気に入りの持時間</string>
+	<string name="shareableFavouriteFirstMove">好きな初手</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="other">%s 問に正解</item>
 	</plurals>
+	<string name="donateOneMoreThing">もう一つ...</string>
+	<string name="donateAlreadyPatron">あなたはすでにパトロンです、ありがとう！　もう一つ…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="other">あなたはこの年、Lichessで %s 分間プレイしました！</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">お楽しみなら毎月、稼働時間の %s 相当を寄付していただけないか、ご検討を：</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">お楽しみなら稼働時間の %s 相当を寄付していただけないか、ご検討を：</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">毎月、稼働時間の %s 相当を寄付していただけないか、ご検討を：</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">稼働時間の %s 相当を寄付していただけないか、ご検討を：</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="other">毎月の稼働時間 %s 分</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="other">稼働時間 %s 分</item>
+	</plurals>
+	<string name="donateNotToday">今日はしない</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">他の金額を寄付する</string>
+	<string name="donateCharity">Lichess は慈善団体です。</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Lichess を世界中で %1$s 稼働させるには %2$s かかります。</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">%s とほぼ同じ金額です</string>
+	<string name="donateAnchorNewYork">ニューヨークでのラテ一杯</string>
+	<string name="donateAnchorLondon">ロンドン中心部でのビール 1 パイント</string>
+	<string name="donateAnchorParis">パリでのハウスワイン一杯</string>
+	<string name="donateAnchorBerlin">ベルリンでのドネルケバブ 1 個</string>
+	<string name="donateAnchorTokyo">東京でのラーメン一杯</string>
+	<string name="donateAnchorSaoPaulo">サンパウロでのフェジョアーダひと皿</string>
+	<string name="donateAnchorCapeTown">ケープタウンでの映画チケット 1 枚</string>
+	<string name="donateAnchorMelbourne">メルボルンでのフラットホワイトとペイストリー</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">この %s の間に Lichess で起きるのは</string>
+	<string name="donateNoWorries">ご心配なく！　チェスコミュニティからの支援はどんな形でも貴重であり、ただ Lichess にいることも支援のうちです。</string>
+	<string name="donateReplay">まとめを再表示</string>
+	<string name="donateChangedMyMind">気が変わった</string>
 	<string name="recapReady" comment="%s is the year of the recap">%s 年のまとめが用意できました！</string>
 </resources>

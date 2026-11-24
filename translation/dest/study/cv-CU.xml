@@ -10,7 +10,6 @@
   <plurals name="nbMembers">
     <item quantity="other">%s пайташ</item>
   </plurals>
-  <string name="kick">Кӑлар</string>
   <string name="like">Хакла</string>
   <string name="next">Тепри</string>
   <string name="copyChapterPgn">PGN копиле</string>

@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
   <string name="removeSomeone">Retirar a alguén</string>
   <string name="whoToRemove">A quen queres retirar do equipo?</string>
+  <string name="blockedUsers">Usuarios bloqueados</string>
+  <string name="blockedUsersDesc">Introduce un nome de usuario por liña. A entrada destes xogadores no equipo estará bloqueada.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s petición de ingreso</item>
     <item quantity="other">%s peticións de ingreso</item>
@@ -45,4 +47,5 @@
 Non se pode eliminar un equipo se un dos seus xogadores se incorporou ó torneo.</string>
   <string name="numberOfLeadsPerTeam">Número de líderes por equipo. A suma dos seus puntos é igual á puntuación do equipo.</string>
   <string name="numberOfLeadsPerTeamHelp">Por favor, non cambies este valor unha vez que o torneo comezou!</string>
+  <string name="teamIntroPrompt">Fálalle a outros usuarios do teu equipo!</string>
 </resources>

@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Bevor du das Team verlässt, füge bitte einen neuen Teamleiter hinzu, oder schließe das Team.</string>
   <string name="removeSomeone">Jemanden entfernen</string>
   <string name="whoToRemove">Wen möchtest du aus dem Team entfernen?</string>
+  <string name="blockedUsers">Blockierte Nutzer</string>
+  <string name="blockedUsersDesc">Gib einen Benutzernamen pro Zeile ein. Diese Spieler werden abgehalten, dem Team beizutreten.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s Beitrittsanfrage</item>
     <item quantity="other">%s Beitrittsanfragen</item>
@@ -45,4 +47,5 @@
 Du kannst kein Team entfernen, wenn ein Spieler aus diesem Team bereits am Turnier teilnimmt.</string>
   <string name="numberOfLeadsPerTeam">Anzahl der Führenden pro Team. Die Summe ihrer Punkte ist die Punktzahl des Teams.</string>
   <string name="numberOfLeadsPerTeamHelp">Du solltest diesen Wert nach Beginn des Turniers wirklich nicht ändern!</string>
+  <string name="teamIntroPrompt">Erzähle anderen von deinem Team!</string>
 </resources>

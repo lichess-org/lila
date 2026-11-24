@@ -57,7 +57,7 @@
   <string name="correspondenceEmailNotification">فهرست رایانامهٔ روزانه از بازی‌های مکاتبه‌ای‌تان</string>
   <string name="notifyStreamStart">جَریانگر روی پخش است</string>
   <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">پیامِ مستقیمِ جدید</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">نام‌بریِ انجمن</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">نامبَریِ انجمن</string>
   <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">دعوت به مطالعه</string>
   <string name="notifyGameEvent">به‌روزرسانی‌های بازی مکاتبه‌ای</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>

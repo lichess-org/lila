@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">Вуйшов новый мобілный придаток Lichess!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Будьте добрі, стирьхайте новый офіціалный придаток Lichess на %s.</string>
+  <string name="modActionFeedback">Серус!
+
+Мы перепозирали вашоє минулоє скаргованя и дашто зробили. Благодарні сьме вам за скаргованя, айбо мы не можеме уповісти, што ипен зробили сьме.
+
+Дякуєме, што помагаєте держати Lichess ги доброє місто про всьых.</string>
+  <string name="oldAppNoLongerSupportsPuzzles">Старый придаток булше не пуддержує пазлы. Будьте добрі стирьхайте новый придаток Lichess: %s</string>
+  <string name="xDoesntAcceptNewMessages">%s не принимат нові уповісткы.</string>
+</resources>

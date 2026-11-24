@@ -36,7 +36,6 @@
   <string name="searchByUsername">Keresés felhasználónév alapján</string>
   <string name="spectator">Néző</string>
   <string name="contributor">Szerkesztő</string>
-  <string name="kick">Eltávolítás</string>
   <string name="leaveTheStudy">Tanulmány elhagyása</string>
   <string name="youAreNowAContributor">Szerkesztő lettél</string>
   <string name="youAreNowASpectator">Néző lettél</string>

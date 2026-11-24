@@ -22,6 +22,7 @@
   <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>
   <string name="removeSomeone">Verwijder iemand</string>
   <string name="whoToRemove">Wie wil je uit het team verwijderen?</string>
+  <string name="blockedUsers">Geblokkeerde Gebruikers</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s verzoek tot deelname</item>
     <item quantity="other">%s verzoeken tot deelname</item>
@@ -40,4 +41,5 @@
   <string name="oneTeamPerLine">Eén team per regel. Gebruik auto-aanvulling.</string>
   <string name="numberOfLeadsPerTeam">Aantal leiders per team. De som van hun score is de score van het team.</string>
   <string name="numberOfLeadsPerTeamHelp">Je zou deze waarde niet moeten wijzigen als het toernooi is begonnen!</string>
+  <string name="teamIntroPrompt">Vertel anderen over je team!</string>
 </resources>

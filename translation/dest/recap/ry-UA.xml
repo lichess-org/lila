@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">ты</string>
+</resources>

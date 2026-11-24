@@ -32,6 +32,7 @@
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
+  <string name="downloadPgn">Shkarkoni PGN</string>
   <string name="deleteRound">Fshije këtë raund</string>
   <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
   <string name="editRoundStudy">Përpunoni analizë raundi</string>

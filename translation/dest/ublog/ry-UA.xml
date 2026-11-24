@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="best">Ліпші</string>
+  <string name="all">Ушиткі</string>
   <string name="xBlog">Блоґ %s</string>
   <string name="newPost">Нова публікація</string>
   <string name="editYourBlogPost">Перемінити свою публікацію</string>

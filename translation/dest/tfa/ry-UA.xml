@@ -2,14 +2,18 @@
 <resources>
   <string name="twoFactorAuth">Двохфакторна аутентіфікація</string>
   <string name="twoFactorHelp">Двохфакторна аутентіфікація повышат безопасность вашого акаунта.</string>
+  <string name="twoFactorAppRecommend">Стирьхайте си придаток про двохфакторну аутентіфікацію. Рекомендуєме такі придаткы:</string>
   <string name="scanTheCode">Проскануй QR код у придаткови.</string>
-  <string name="ifYouCannotScanEnterX">Кідь не можете одскановати код, уведіт секретный код %s у придаткови.</string>
+  <string name="enterPassword">Уведіт свою паролу и код аутентіфікації, учиненый придатком, обы довершити штімованя. Код аутентіфікації треба каждый раз, кой заходите.</string>
+  <string name="ifYouCannotScanEnterX">Кідь не можете удскановати код, уведіт секретный код %s у придаткови.</string>
   <string name="authenticationCode">Код аутентіфікації</string>
-  <string name="enableTwoFactor">Уключити двухфакторну аутентіфікацію</string>
-  <string name="disableTwoFactor">Выключити двухфакторну аутентіфікацію</string>
+  <string name="ifYouLoseAccessTwoFactor">Зазначка: кідь вы стратите код двохфакторної аутентіфікації, вы можете %s по електроннуй почті.</string>
+  <string name="enableTwoFactor">Уключити двохфакторну аутентіфікацію</string>
+  <string name="disableTwoFactor">Вуключити двохфакторну аутентіфікацію</string>
   <string name="twoFactorEnabled">Двохфакторна аутентіфікація уключена</string>
-  <string name="openTwoFactorApp">Одкрыйте придаток для двухфакторнув
-аутентіфікації на вашому девайсови, бы увідїти код аутентіфікації ай потвердити свою особу.</string>
-  <string name="setupReminder">Будьте добрі, уключіт двухфакторну аутентіфікацію обы защитити свуй акаунт по одкликованьови https://lichess.org/account/twofactor.
-Вы достали сю уповістку, бо ваш акаунт має особоє значеня, приміром, вы чоловый у клубовм, тренер, учитель вадь стрімер</string>
+  <string name="twoFactorToDisable">Вам треба паролу и аутентіфікаційный код з придатка, убы удключити двохфакторну аутентіфікацію.</string>
+  <string name="openTwoFactorApp">Удкрыйте придаток про двохфакторну
+аутентіфікацію на вашому девайсови, убы увідфти код аутентіфікації ай потвердити свою особу.</string>
+  <string name="setupReminder">Будьте добрі, уключіт двохфакторну аутентіфікацію обы защитити свуй акаунт по удкликованьови https://lichess.org/account/twofactor.
+Вы дустали сю уповістку, бо ваш акаунт має особоє значіня, приміром, вы главный у клубови, тренер, учитиль вадь стрімер.</string>
 </resources>

@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">탈퇴하기 전에 새 팀 운영자를 추가하거나, 팀을 폐쇄하세요.</string>
   <string name="removeSomeone">다른 사람을 추방하기</string>
   <string name="whoToRemove">팀에서 누구를 추방하기를 원하나요?</string>
+  <string name="blockedUsers">차단된 사용자</string>
+  <string name="blockedUsersDesc">한 줄에 하나의 사용자명을 입력하세요. 해당 사용자들은 팀에 가입하는 것이 차단됩니다.</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s개의 가입 요청</item>
   </plurals>
@@ -44,4 +46,5 @@
 이미 토너먼트에 참가한 플레이어가 속한 팀은 제거할 수 없습니다.</string>
   <string name="numberOfLeadsPerTeam">팀당 리더 수. 그들의 점수의 합은 팀의 점수입니다.</string>
   <string name="numberOfLeadsPerTeamHelp">경기가 시작되고 나면 이 값을 변경하지 마세요!</string>
+  <string name="teamIntroPrompt">자신의 팀에 대해 소개해 보세요!</string>
 </resources>

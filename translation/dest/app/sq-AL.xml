@@ -10,4 +10,12 @@
   <string name="downloadOnGooglePlay">Shkarkojeni që prej Google Play</string>
   <string name="downloadOnFdroid">Shkarkojeni që prej F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Skenë Lichess-i për celular</string>
+  <string name="asFreeAsLichess">I lirë, si Lichess-i</string>
+  <string name="builtForTheLoveOfChessNotMoney">Ndërtuar nga dashuria për shahun, jo për paranë</string>
+  <string name="noAdsNoTracking">Pa reklama, pa gjurmime</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Tërësisht Burim i Hapët</string>
+  <string name="fullyFeatured">Me tërë veçoritë</string>
+  <string name="phoneAndTablet">Telefon dhe tablet</string>
+  <string name="correspondenceChess">Shah në korrespodencë</string>
+  <string name="gameAnalysis">Analizim lojërash</string>
 </resources>

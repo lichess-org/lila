@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">在 Google Play 下载</string>
   <string name="downloadOnFdroid">在 F-Droid 下载</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess 移动界面</string>
+  <string name="asFreeAsLichess">Lichess 永远免费</string>
+  <string name="builtForTheLoveOfChessNotMoney">源于对国际象棋的热爱，而非金钱</string>
+  <string name="noAdsNoTracking">无广告，无追踪</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">完全开源</string>
+  <string name="fullyFeatured">功能全面</string>
+  <string name="phoneAndTablet">手机和平板</string>
+  <string name="bulletBlitzClassicalVariants">子弹棋、超快棋、慢棋及各类变体</string>
+  <string name="correspondenceChess">通讯棋</string>
+  <string name="unlimitedPuzzles">无限谜题</string>
+  <string name="gameAnalysis">对局分析</string>
 </resources>

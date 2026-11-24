@@ -10,4 +10,10 @@
   <string name="downloadOnGooglePlay">Download op Google Play</string>
   <string name="downloadOnFdroid">Download op F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobiel scherm</string>
+  <string name="noAdsNoTracking">Geen advertenties, geen tracking</string>
+  <string name="phoneAndTablet">Telefoon en tablet</string>
+  <string name="bulletBlitzClassicalVariants">Bullet, blitz, klassiek, varianten</string>
+  <string name="correspondenceChess">Correspondentieschaken</string>
+  <string name="unlimitedPuzzles">Onbeperkte puzzels</string>
+  <string name="gameAnalysis">Partijanalyse</string>
 </resources>

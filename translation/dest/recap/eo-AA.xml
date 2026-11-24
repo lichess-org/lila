@@ -3,8 +3,6 @@
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Saluton, %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Kiel vi fartis dum ĉi tiu jaro?</string>
 	<string name="noGamesText">Vi ludis neniun ludon dum ĉi tiu jaro.</string>
-	<string name="noGamesCta">Ĉu vi volas ludi nun?</string>
-	<string name="timeTooMuch">Tio estas tro da ŝakludado.</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gramo</item>
 		<item quantity="other">%s gramoj</item>

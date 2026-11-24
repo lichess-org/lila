@@ -18,4 +18,6 @@
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Agar şikoyatingizni ingliz tilida yozsangiz, uni tezroq körib çiqa olamiz.</string>
   <string name="provideOneCheatedGameLink">Iltimos kamida bitta öyinga havolani keltiring.</string>
   <string name="thanksForTheReport">Şikoyatingiz uçun rahmat</string>
+  <string name="moderatorsWillReviewSoon">Moderatorlar buni tez orada körib çiqib, tegişli çoralarni köradi.</string>
+  <string name="blockUserInMeantime">Ungaça uşbu foydalanuvçini bloklaşingiz mumkin:</string>
 </resources>

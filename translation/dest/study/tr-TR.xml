@@ -36,7 +36,6 @@
   <string name="searchByUsername">Kullanıcı adına göre ara</string>
   <string name="spectator">İzleyici</string>
   <string name="contributor">Katılımcı</string>
-  <string name="kick">Çıkar</string>
   <string name="remove">Çıkar</string>
   <string name="leaveTheStudy">Çalışmadan ayrıl</string>
   <string name="youAreNowAContributor">Artık bir katılımcısınız</string>

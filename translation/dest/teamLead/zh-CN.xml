@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">请在离开前指定新的团队领导，或关闭团队。</string>
   <string name="removeSomeone">移除某人</string>
   <string name="whoToRemove">您想把谁移出团队？</string>
+  <string name="blockedUsers">屏蔽的用户</string>
+  <string name="blockedUsersDesc">每行输入一个用户名，这些棋手将被禁止加入队伍。</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s 件加入请求</item>
   </plurals>
@@ -44,4 +46,5 @@
 如果有棋手已代表该团队加入锦标赛，则无法移除该团队。</string>
   <string name="numberOfLeadsPerTeam">每个团队的领导人数。他们分数的总和即为团队分数。</string>
   <string name="numberOfLeadsPerTeamHelp">锦标赛开始后，您真的不应该更改此数值！</string>
+  <string name="teamIntroPrompt">向其他人介绍您的团队！</string>
 </resources>

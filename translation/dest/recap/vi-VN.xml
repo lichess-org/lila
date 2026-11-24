@@ -4,66 +4,79 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Bạn đã làm được những gì trong năm nay nhỉ?</string>
 	<string name="initTitle">Bạn đã có một năm chơi cờ thật tuyệt vời!</string>
 	<string name="noGamesText">Bạn chưa chơi một ván cờ nào trong năm này.</string>
-	<string name="noGamesCta">Bạn muốn chơi ngay bây giờ không?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Và bạn đã thắng %s ván cờ trong đó!</string>
 	<string name="gamesNextQuestion">Bạn đã nỗ lực như thế nào để đạt được như thế?</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s là thời gian bạn đã dành ra để chơi!</string>
-	<string name="timeTooMuch">Chơi cờ nhiều quá rồi.</string>
-	<string name="timeALot">Khoảng thời gian đó là rất nhiều.</string>
-	<string name="timeReasonable">Đó có vẻ là lượng thời gian chơi cờ hợp lý.</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Thời gian đã dành ra để chơi</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Đó quả là sự cống hiến thật đáng nể!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Từng phút giây trong khoảng thời gian đó đều rất quý giá.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Thời gian được sử dụng xứng đáng, từng bước một.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="other">Bạn đã có thể xem đi xem lại bộ ba phim Chúa tể những chiếc nhẫn phiên bản mở rộng %s lần rồi đấy</item>
+	</plurals>
 	<string name="timeHowManyMoves">Trong khoảng thời gian đó, bạn đã thực hiện bao nhiêu nước cờ?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="other">%s nước cờ đã được chơi</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Đó là %s gỗ đã được đẩy!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Đó là %s gỗ đã được đẩy!</string>
 	<string name="movesStandardPiecesWeight">Mỗi quân cờ tiêu chuẩn nặng khoảng 40g</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Các quân cờ tiêu chuẩn nặng khoảng 1,4 ounce mỗi miếng</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="other">Khoảng trọng lượng của %s chiếc đàn piano lớn</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="other">%s nước đi</item>
 	</plurals>
-	<string name="chessFoes">Những đối thủ \"nặng kí\" nhất đối với bạn</string>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="other">%s ván đấu đã được phân tích bởi Stockfish</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="other">%s ván cờ mới</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Những đối thủ mà bạn hay gặp nhất</string>
 	<plurals name="nbGrams">
 		<item quantity="other">%s gam</item>
 	</plurals>
 	<plurals name="nbKilograms">
 		<item quantity="other">%s ki-lô-gam</item>
 	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Nước cờ đầu tiên mang dấu ấn của bạn</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">là cách mà bạn bắt đầu khoảng %s ván cờ khi cầm quân trắng</string>
-	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="other">Khai cuộc bạn chơi nhiều nhất khi cầm trắng với %s ván cờ</item>
-	</plurals>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="other">Khai cuộc bạn chơi nhiều nhất khi cầm quân đen với %s ván cờ</item>
-	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">Cảm ơn bạn đã bình chọn cho %s câu đố.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Bạn cũng đã giúp gán thẻ %s trong số chúng.</string>
-	<string name="puzzlesNone">Năm nay bạn chưa giải được câu đố nào.</string>
-	<string name="puzzlesTryNow">Có muốn thử vài câu đố không nào?</string>
-	<string name="puzzlesYouWonOnFirstTry">Trong số đó bạn đã giải được %s câu ngay ở lần thử đầu tiên!</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Bạn đã giải được %s trong số chúng ở ngay lần thử đầu tiên!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Lần thử đầu tiên</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Cần thêm một lần nữa</string>
 	<string name="sourcesTitle">Bạn đã tìm kiếm đối thủ của mình bằng cách nào?</string>
 	<string name="perfsTitle">Bạn đã chơi với những loại thời gian và biến thể cờ vua nào?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s quảng cáo và trình theo dõi đã được tải</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Quảng cáo</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Trình theo dõi</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Các nhà môi giới dữ liệu</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Cửa sổ bật lên</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Rào cản trả phí</string>
 	<string name="malwareNoSell">Chúng tôi không bán dữ liệu cá nhân của bạn</string>
 	<string name="malwareNoAbuse">Chúng tôi không sử dụng thiết bị của bạn để chống lại bạn</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Nhưng các trang web khác thì có, vậy nên vui lòng %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">thận trọng</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s ván cờ được chơi trên Lichess trong năm %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s trong số đó là của bạn.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">bạn</string>
 	<string name="thanksTitle">Cảm ơn bạn đã chơi trên Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Rất vui vì bạn đã đến đây. Chúc bạn một năm %s tuyệt vời!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Các khoản %1$s của Lichess năm nay là %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">chi phí</string>
-	<string name="patronCharity">Chúng tôi là một tổ chức từ thiện, hoạt động hoàn toàn dựa trên sự đóng góp của mọi người.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Nếu chúng tôi đã mang đến cho bạn những giây phút giải trí tuyệt vời trong năm nay, hoặc bạn tin tưởng vào công việc của chúng tôi, hãy cân nhắc %s nhé!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">ủng hộ chúng tôi bằng một khoản quyên góp</string>
-	<string name="shareableTitle" comment="%s is the current year">Bản tóm tắt năm %s của tôi</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Nhìn lại Lichess trong năm %s của tôi</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">được bạn dành ra để chơi</string>
 	<string name="shareableMostPlayedOpponent">đối thủ \"hữu duyên\" nhất</string>
 	<string name="shareableFavouriteVariant">biến thể yêu thích nhất</string>
 	<string name="shareableFavouriteTimeControl">kiểu thời gian ưa thích nhất</string>
+	<string name="shareableFavouriteFirstMove">nước cờ đầu tiên yêu thích</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="other">%s câu đố giải được</item>
 	</plurals>
+	<string name="donateOneMoreThing">Còn một điều nữa…</string>
+	<string name="donateAlreadyPatron">Bạn đã là người bảo trợ rồi, cảm ơn bạn! Còn một điều nữa…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="other">Năm nay, bạn đã chơi khoảng %s phút trên Lichess!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Nếu bạn thấy chúng hữu ích, hãy cân nhắc quyên góp %s thời gian hoạt động toàn cầu mỗi tháng:</string>
 	<string name="recapReady" comment="%s is the year of the recap">Bản tóm tắt năm %s của bạn đã sẵn sàng rồi đây!</string>
 </resources>

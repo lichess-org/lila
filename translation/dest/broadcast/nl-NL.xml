@@ -32,6 +32,7 @@
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
+  <string name="downloadPgn">PGN downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Deze ronde en al zijn partijen permanent verwijderen?</string>

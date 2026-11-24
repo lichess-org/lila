@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="settings">Штімованя</string>
+  <string name="closeAccount">Закрыти акаунт</string>
+  <string name="cantOpenSimilarAccount">Се мня булше НЕ мож буде хосновати в реґістрації.</string>
+  <string name="cancelKeepAccount">Зрушити и лишити муй акаунт</string>
+  <string name="closeAccountAreYouSure">Вы бізуні, же хочете закрыти акаунт?</string>
+  <string name="thisAccountIsClosed">Сись акаунт закрытый.</string>
+  <string name="wereSorryToSeeYouGo">Нам шкода, ож вы йдете гет.</string>
+  <string name="deleteYourAccount">Стерти свуй акаунт</string>
+  <string name="deleteAccountWarning">По стераньови ваш акаунт навхтема пропадат из Lichess и наші адміністраторы не будут мочи го вернути.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Хочете місто того %s?</string>
+  <string name="closeYourAccount">закрыти свуй акаунт</string>
+  <string name="deleteAccountConfirmText">Я розумію, ож стерті акаунты не мож вернути</string>
+</resources>
