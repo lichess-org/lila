@@ -30,6 +30,8 @@
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
+  <string name="shareThisBroadcastByUrl">この配信を URL で共有</string>
+  <string name="downloadPgn">PGN をダウンロード</string>
   <string name="resetRound">このラウンドをリセット</string>
   <string name="deleteRound">このラウンドを削除</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">このラウンドのゲームをすべて永久に削除しますか？</string>

@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">Google Play에서 다운로드</string>
   <string name="downloadOnFdroid">F-Droid에서 다운로드</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess 모바일 스크린</string>
+  <string name="asFreeAsLichess">Lichess처럼 무료</string>
+  <string name="builtForTheLoveOfChessNotMoney">돈이 아닌 체스에 대한 사랑으로 만들어졌습니다</string>
+  <string name="noAdsNoTracking">광고 없음, 트래킹 없음</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">완전히 오픈 소스</string>
+  <string name="fullyFeatured">모든 기능 지원</string>
+  <string name="phoneAndTablet">스마트폰 및 태블릿</string>
+  <string name="bulletBlitzClassicalVariants">불릿, 블리츠, 클래시컬, 변형 체스</string>
+  <string name="correspondenceChess">통신 대국</string>
+  <string name="unlimitedPuzzles">무제한 퍼즐</string>
+  <string name="gameAnalysis">게임 분석</string>
 </resources>

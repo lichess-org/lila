@@ -40,6 +40,8 @@
   <string name="startDateHelp">اختياري، إذا كنت تعرف متى يبدأ الحدث</string>
   <string name="currentGameUrl">رابط المباراة الحالية</string>
   <string name="downloadAllRounds">تحميل جميع المباريات</string>
+  <string name="shareThisBroadcastByUrl">مشاركة هذا البث عبر رابط</string>
+  <string name="downloadPgn">تنزيل مِلَفّ PGN</string>
   <string name="resetRound">إعادة ضبط الجولة</string>
   <string name="deleteRound">حذف الجولة</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">هل تريد حذف هذه الجولة وجميع مبارياتها بشكل نهائي؟</string>

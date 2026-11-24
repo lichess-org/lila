@@ -30,6 +30,8 @@
   <string name="startDateHelp">선택 사항, 언제 이벤트가 시작되는지 알고 있는 경우</string>
   <string name="currentGameUrl">현재 게임 URL</string>
   <string name="downloadAllRounds">모든 라운드 다운로드받기</string>
+  <string name="shareThisBroadcastByUrl">URL로 이 방송 공유</string>
+  <string name="downloadPgn">PGN 다운로드</string>
   <string name="resetRound">라운드 초기화</string>
   <string name="deleteRound">라운드 삭제</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">라운드와 해당 라운드의 모든 게임을 영구적으로 삭제하시겠습니까?</string>

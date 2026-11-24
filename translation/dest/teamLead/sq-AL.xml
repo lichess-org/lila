@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
   <string name="removeSomeone">Hiqni dikë</string>
   <string name="whoToRemove">Kë doni të hiqet nga ekipi?</string>
+  <string name="blockedUsers">Përdorues të Bllokuar</string>
+  <string name="blockedUsersDesc">Jepni një emër përdoruesi për rresht. Këtyre lojtarëve do t’u bllokohet ardhja në ekip.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s kërkesë për të hyrë</item>
     <item quantity="other">%s kërkesa për të hyrë</item>
@@ -45,4 +47,5 @@
 S’mund të hiqni një ekip, nëse një lojtar ka hyrë tashmë në turne.</string>
   <string name="numberOfLeadsPerTeam">Numër drejtuesish për ekip. Shuma e pikëve të tyre përbën pikët e ekipit.</string>
   <string name="numberOfLeadsPerTeamHelp">S’duhet vërtet ta ndryshoni këtë vlerë, pasi të ketë filluar turneu!</string>
+  <string name="teamIntroPrompt">Tregojuni të tjerëve rreth ekipit tuaj!</string>
 </resources>

@@ -36,7 +36,6 @@
   <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
-  <string name="kick">Éjecter</string>
   <string name="remove">Supprimer</string>
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>

@@ -33,7 +33,6 @@
   <string name="searchByUsername">ຄົ້ນຫາດ້ວຍຊື່ຜູ້ໃຊ້</string>
   <string name="spectator">ຜູ້ຊົມ</string>
   <string name="contributor">ຜູ້ມີສ່ວນຮ່ວມ</string>
-  <string name="kick">ເຕະອອກ</string>
   <string name="leaveTheStudy">ອອກຈາກບົດສຶກສາ</string>
   <string name="youAreNowAContributor">ຕອນນີ້ທ່ານເປັນຜູ້ມີສ່ວນຮ່ວມແລ້ວ</string>
   <string name="youAreNowASpectator">ຕອນນີ້ທ່ານເປັນຜູ້ຊົມແລ້ວ</string>

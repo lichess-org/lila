@@ -4,66 +4,111 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">今年您都下了哪些棋？</string>
 	<string name="initTitle">您这国际象棋的一年真是精彩纷呈！</string>
 	<string name="noGamesText">今年您还没对弈过呢。</string>
-	<string name="noGamesCta">现在想下一盘吗？</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">而且您还赢了 %s 局！</string>
 	<string name="gamesNextQuestion">这战绩是怎么达成的？</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">总共花了 %s 来对局！</string>
-	<string name="timeTooMuch">这棋下得也太多了。</string>
-	<string name="timeALot">这下的棋可真不少。</string>
-	<string name="timeReasonable">这个对局量看起来挺合理的。</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">对弈总时</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">这真是相当的投入！</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">其中的每一分钟都算数。</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">一步一着，时间花得值。</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="other">这些时间够您看 %s 遍《指环王》加长版三部曲了</item>
+	</plurals>
 	<string name="timeHowManyMoves">这么多时间，您一共走了多少步棋？</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="other">共走了 %s 步棋</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">这相当于推动了 %s 的木头！</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">这相当于推动了 %s 的木头！</string>
 	<string name="movesStandardPiecesWeight">标准棋子的重量大约是每颗 40 克</string>
+	<string name="movesStandardPiecesWeightImperial">标准棋子的重量约为每枚 1.4 盎司</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="other">大约相当于 %s 架三角钢琴的重量</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="other">%s 步</item>
 	</plurals>
-	<string name="chessFoes">您最强的棋场对手</string>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="other">Stockfish 分析了 %s 场对局</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="other">%s 场新对局</item>
+	</plurals>
+	<string name="mostFrequentOpponents">您最常遇到的对手</string>
 	<plurals name="nbGrams">
 		<item quantity="other">%s 克</item>
 	</plurals>
 	<plurals name="nbKilograms">
 		<item quantity="other">%s 千克</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="other">%s 盎司</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="other">%s 磅</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">您的招牌首着</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">这是您执白时，%s 对局的开局方式</string>
-	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="other">您执白时最常使用的开局，共 %s 局</item>
-	</plurals>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="other">您执黑时最常使用的开局，共 %s 局</item>
-	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">感谢您对 %s 道谜题进行了投票。</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">您还帮忙为其中的 %s 道打了标签。</string>
-	<string name="puzzlesNone">今年您还没有解答过任何谜题。</string>
-	<string name="puzzlesTryNow">现在想试试看吗？</string>
-	<string name="puzzlesYouWonOnFirstTry">其中有 %s 道您一次就解对了！</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">其中 %s 道您一次就解开了！</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">一次答对</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">需要再试一次</string>
 	<string name="sourcesTitle">您都在哪里对弈？</string>
 	<string name="perfsTitle">您常玩什么时限和棋类变体？</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s 广告和跟踪器已加载</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">广告</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">跟踪器</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">数据经纪商</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">弹窗</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">付费墙</string>
 	<string name="malwareNoSell">我们没有出售您的个人数据</string>
 	<string name="malwareNoAbuse">我们没有利用您的设备攻击您</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">但其他网站会这样做，所以请您 %s。</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">务必小心</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s 年，在 Lichess 上共进行了 %1$s 局对弈</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">其中有 %s 局属于您。</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">您</string>
 	<string name="thanksTitle">感谢您在 Lichess 上对弈！</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">我们很高兴您在这里。祝您 %s 愉快！</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess 今年的 %1$s 是 %2$s。</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">运营成本</string>
-	<string name="patronCharity">我们是一家非营利机构，完全依靠赞助运作。</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">如果今年我们为您带来了欢乐，或者您认同我们的工作，请考虑 %s！</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">通过赞助支持我们</string>
-	<string name="shareableTitle" comment="%s is the current year">我的 %s 年度回顾</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">我的 %s Lichess 回顾</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">对局总时长</string>
 	<string name="shareableMostPlayedOpponent">最多对局的对手</string>
 	<string name="shareableFavouriteVariant">最喜爱的变体</string>
 	<string name="shareableFavouriteTimeControl">最喜爱的时限</string>
+	<string name="shareableFavouriteFirstMove">最爱的首着</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="other">已解决 %s 道谜题</item>
 	</plurals>
+	<string name="donateOneMoreThing">还有一件事…</string>
+	<string name="donateAlreadyPatron">感谢您已是我们的赞助者！还有一件事…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="other">今年您在 Lichess 上对弈了大约 %s 分钟！</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">如果您享受其中，请考虑每月捐出 %s 的全球运行时间：</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">如果您享受其中，请考虑捐出 %s 的全球运行时间：</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">请考虑每月捐出 %s 的全球运行时间：</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">请考虑捐出 %s 的全球运行时间：</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="other">每月 %s 分钟的运行时间</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="other">%s 分钟的运行时间</item>
+	</plurals>
+	<string name="donateNotToday">暂不</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">捐赠其他金额</string>
+	<string name="donateCharity">Lichess 是一家慈善机构。</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">让 Lichess 为全球 %1$s 持续运行，需要我们花费 %2$s。</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">这大约相当于 %s</string>
+	<string name="donateAnchorNewYork">纽约的一杯拿铁</string>
+	<string name="donateAnchorLondon">伦敦市中心的一品脱啤酒</string>
+	<string name="donateAnchorParis">巴黎的一杯店选葡萄酒</string>
+	<string name="donateAnchorBerlin">柏林的一份土耳其烤肉</string>
+	<string name="donateAnchorTokyo">东京的一碗拉面</string>
+	<string name="donateAnchorSaoPaulo">圣保罗的一份巴西黑豆炖肉</string>
+	<string name="donateAnchorCapeTown">开普敦的一张电影票</string>
+	<string name="donateAnchorMelbourne">墨尔本的一杯澳白和一份糕点</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">在这些 %s 里，Lichess 将迎来</string>
+	<string name="donateNoWorries">没关系！来自社区的每一种支持对我们都至关重要，哪怕只是在这里。</string>
+	<string name="donateReplay">重播我的回顾</string>
+	<string name="donateChangedMyMind">我改变主意啦</string>
 	<string name="recapReady" comment="%s is the year of the recap">您的 %s 年度回顾已就绪！</string>
 </resources>

@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">حمّل التطبيق من متجر جوجل</string>
   <string name="downloadOnFdroid">حمّل التطبيق من متجر F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">شاشة Lichess للجوال.</string>
+  <string name="asFreeAsLichess">Lichess حرّ بقدر</string>
+  <string name="builtForTheLoveOfChessNotMoney">صُمِّم حبًّا في الشطرنج، لا من أجل المال</string>
+  <string name="noAdsNoTracking">بلا إعلانات ولا تتبُّع</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">مفتوح المصدر بالكامل</string>
+  <string name="fullyFeatured">متكامل الميزات</string>
+  <string name="phoneAndTablet">الهاتف والجهاز اللوحي</string>
+  <string name="bulletBlitzClassicalVariants">الخاطف، السريع، الكلاسيكي، وأنماط الشطرنج المتنوعة</string>
+  <string name="correspondenceChess">الشطرنج بالمراسلة</string>
+  <string name="unlimitedPuzzles">ألغاز شطرنج بلا حدود</string>
+  <string name="gameAnalysis">تحليل المباريات</string>
 </resources>

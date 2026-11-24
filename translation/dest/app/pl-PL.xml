@@ -10,4 +10,10 @@
   <string name="downloadOnGooglePlay">Pobierz ze sklepu Google Play</string>
   <string name="downloadOnFdroid">Pobierz z F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Ekran mobilnej aplikacji Lichess</string>
+  <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
+  <string name="noAdsNoTracking">Brak reklam, brak śledzenia</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Całkowicie otwarte oprogramowanie</string>
+  <string name="fullyFeatured">Pełna możliwości</string>
+  <string name="phoneAndTablet">Telefon i tablet</string>
 </resources>

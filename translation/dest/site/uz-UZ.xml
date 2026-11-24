@@ -438,6 +438,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="pasteTheFenStringHere">FEN matnini şu yerga qöying</string>
   <string name="pasteThePgnStringHere">PGN matnini şu yerga qöying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
+  <string name="selectImage">Rasm tanlaş</string>
   <string name="continueFromHere">Şu pozitsiyadan davom etiş</string>
   <string name="toStudy">Örganiş</string>
   <string name="importGame">Öyinni import qiliş</string>
@@ -509,6 +510,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="standByX">Tayyor turing, %s, qurʼa taşlanmoqda!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Davom etiş</string>
+  <string name="stop">Töxtatiş</string>
   <string name="youArePlaying">Siz öyindasiz!</string>
   <string name="winRate">Ğalabalar foizi</string>
   <string name="performance">Performans</string>
@@ -702,6 +704,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — bu %2$s bepul, reklamasiz, oçiq kodli şaxmat serveri.</string>
   <string name="really">mutlaqo</string>
   <string name="lichessUpdates">Lichess yangiliklari</string>
+  <string name="allUpdates">Barça yangiliklar</string>
   <string name="contribute">Hissa qöşiş</string>
   <string name="changelog">Özgarişlar röyxati</string>
   <string name="termsOfService">Foydalaniş şartlari</string>
@@ -861,7 +864,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN yaroqsiz</string>
   <string name="invalidFen">FEN yaroqsiz</string>
-  <string name="custom">Boshqa</string>
+  <string name="custom">Maxsus</string>
   <string name="notifications">Bildirişnomalar</string>
   <string name="notificationsX">%1$s ta bildirişnoma</string>
   <string name="perfRatingLabel">Reyting: %s.</string>
@@ -996,6 +999,7 @@ Reytingli öyinlar öynasangiz reyting barqarorligi oşadi.</string>
   <string name="noRestriction">Heç qanday çeklov yöq</string>
   <string name="minimumRatedGames">Reytingli öyinlar minimal soni</string>
   <string name="minimumAccountAge">Akkaunlarning minimal yoşi</string>
+  <string name="titledPlayersBypassRestriction">Unvonli öyinçilar uçun bu çeklov amal qilmaydi.</string>
   <string name="minimumRating">Minimum reyting</string>
   <string name="maximumWeeklyRating">Haftalik maksimal reyting</string>
   <string name="positionInputHelp">Har bir öyinni berilgan pozitsiyadan boşlaş uçun haqiqiy FEN kodini joylaştiring.

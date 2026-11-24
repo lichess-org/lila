@@ -4,25 +4,37 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Me se jeni marrë këtë vit?</string>
 	<string name="initTitle">Ç’vit të bukur shahu që patët!</string>
 	<string name="noGamesText">S’luajtët ndonjë ndeshje këtë vit.</string>
-	<string name="noGamesCta">Doni të luani tani?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Dhe fituat %s!</string>
 	<string name="gamesNextQuestion">Ç’u desh për të mbërritur atje?</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s harxhuar duke luajtur!</string>
-	<string name="timeTooMuch">Kaq është shumë shah.</string>
-	<string name="timeALot">Kaq është mjaft shah.</string>
-	<string name="timeReasonable">Kaq duket si sasi e arsyeshme shahu.</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Kohë e shpenzuar duke luajtur</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Ky po që është përkushtim serioz!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Secila prej këtyre minutave ka rëndësinë e vet.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Kohë e shpenzuar me mend, një lëvizje në herë.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Mund të kishit parë trilogjinë e zgjeruar Kryezoti i Unazave %s herë</item>
+		<item quantity="other">Mund të kishit parë trilogjinë e zgjeruar Kryezoti i Unazave %s herë</item>
+	</plurals>
 	<string name="timeHowManyMoves">Sa lëvizje keni bërë në tërë atë kohë?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s lëvizje e bërë</item>
 		<item quantity="other">%s lëvizje të bëra</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Kaq është baras %s me dru të ngarkuara!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Kaq është baras %s me dru të ngarkuara!</string>
 	<string name="movesStandardPiecesWeight">Gurët standard peshojnë afërsisht 40g secili</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Gurët standardë peshojnë afërsisht 39,7 gramë secili</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Afërsisht pesha e %s pianoje të madhe</item>
+		<item quantity="other">Afërsisht pesha e %s pianove të mëdha</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s lëvizje</item>
 		<item quantity="other">%s lëvizje</item>
 	</plurals>
-	<string name="chessFoes">Armiqtë tuaj më të fortë në shah</string>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s lojë e re</item>
+		<item quantity="other">%s lojëra të reja</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Kundërshtarët tuaj më të shpesjtë</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
 		<item quantity="other">%s gramë</item>
@@ -32,33 +44,43 @@
 		<item quantity="other">%s kilogramë</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">është si filluat %s të lojërave tuaja si i bardhi</string>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one">Hapja juaj më e shpeshtë si i ziu me %s lojë</item>
-		<item quantity="other">Hapja juaj më e shpeshtë si i ziu me %s lojëra</item>
-	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Ndihmuat gjithashtu të etiketohen %s prej tyre.</string>
-	<string name="puzzlesTryNow">Doni të provoni ndonjë tani?</string>
-	<string name="puzzlesYouWonOnFirstTry">Fituat %s prej tyre me provën e parë!</string>
 	<string name="sourcesTitle">Ku i gjetët lojërat?</string>
 	<string name="perfsTitle">Ç’kontrolle kohe dhe variante luajtët?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklama dhe gjurmues të ngarkuar</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Reklama</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Gjurnues</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Tregtarë të dhënash</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Flluska</string>
 	<string name="malwareNoSell">S’shitëm të dhëna tuajat personale</string>
 	<string name="malwareNoAbuse">S’e përdorim pajisjen tuaj kundër jush</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Por sajte të tjerë e bëjnë, ndaj, ju lutemi, %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">hapni sytë</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s lojëra të luajtura në Lichess gjatë %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s prej tyre qenë tuajat.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">ju</string>
 	<string name="thanksTitle">Faleminderit që luani në Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Jemi të kënaqur që gjendeni këtu. Një %s të mbarë!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$s e Lichess-it këtë vit qenë %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Kostot</string>
-	<string name="patronCharity">Jemi një shoqatë bamirëse, që mbahemi vetëm me dhurime.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Nëse ju ndihmuam të dëfreheshit këtë vit, ose nëse besoni në punën tonë, ju lutemi, shihni mundësinë %s!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">të na përkrahni me një dhurim</string>
-	<string name="shareableTitle" comment="%s is the current year">Përmbledhja ime për %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">harxhuar duke luajtur</string>
 	<string name="shareableMostPlayedOpponent">kundërshtari me më shumë ndeshje</string>
 	<string name="shareableFavouriteVariant">varianti i parapëlqyer</string>
 	<string name="shareableFavouriteTimeControl">kontroll i parapëlqyer kohe</string>
+	<string name="donateOneMoreThing">Edhe diçka…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Këtë vit luajtët rreth %s minutë në Lichess!</item>
+		<item quantity="other">Këtë vit luajtët rreth %s minuta në Lichess!</item>
+	</plurals>
+	<string name="donateNotToday">Jo sot</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Dhuroni tjetër sasi</string>
+	<string name="donateCharity">Lichess është një ent jofitimprurës.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Mbajtja e Lichess-in funksional për %1$s, anembanë botës, na kushton %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Kaq është njësoj sa %s</string>
+	<string name="donateAnchorNewYork">një latte në New York City</string>
+	<string name="donateAnchorLondon">një kriko birrë në qendër të Londrës</string>
+	<string name="donateAnchorParis">një gotë verë e hapur në Paris</string>
+	<string name="donateAnchorBerlin">një qebap döner në Berlin</string>
+	<string name="donateAnchorTokyo">një tas ramen në Tokyo</string>
+	<string name="donateAnchorSaoPaulo">një pjatë fejzhuada në São Paulo</string>
+	<string name="donateAnchorCapeTown">një biletë kinemaje në Kejp Taun</string>
+	<string name="donateNoWorries">Mos u bëni merak! Tërë format e përkrahjes nga bashkësia janë jetike për ne dhe kjo përfshin edhe thjesht të qenët këtu.</string>
+	<string name="donateChangedMyMind">Ndërrova mendje</string>
 	<string name="recapReady" comment="%s is the year of the recap">Përmbledhja juaj për %s është gati!</string>
 </resources>

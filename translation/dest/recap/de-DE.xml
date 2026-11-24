@@ -4,25 +4,41 @@
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Was hast du dieses Jahr alles gemacht?</string>
 	<string name="initTitle">Was für ein Schachjahr für dich!</string>
 	<string name="noGamesText">Du hast dieses Jahr keine Partien gespielt.</string>
-	<string name="noGamesCta">Möchtest du jetzt spielen?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Und du hast %s gewonnen!</string>
 	<string name="gamesNextQuestion">Was hat es gebraucht, um dieses Ziel zu erreichen?</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s Gesamtspielzeit!</string>
-	<string name="timeTooMuch">Das ist bei Weitem zu viel Schach.</string>
-	<string name="timeALot">Das ist eine Menge Schach.</string>
-	<string name="timeReasonable">Das scheint eine vernünftige Menge an Schach zu sein.</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Gesamtspielzeit dieses Jahr</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Das ist ernsthafte Hingabe!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Jede einzelne dieser Minuten zählte.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Gut investierte Zeit, Zug um Zug.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Du hättest die Extended Herr der Ringe Trilogie %s mal sehen können</item>
+		<item quantity="other">Du hättest die Extended Herr der Ringe Trilogie %s mal sehen können</item>
+	</plurals>
 	<string name="timeHowManyMoves">Wie viele Züge hast du in der gesamten Zeit gespielt?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s Zug gespielt</item>
 		<item quantity="other">%s Züge gespielt</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Das sind %s an Holz, welches du bewegt hast!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Das sind %s an Holz, welches du bewegt hast!</string>
 	<string name="movesStandardPiecesWeight">Standardfiguren wiegen je ca. 40g</string>
+	<string name="movesStandardPiecesWeightImperial">Standardfiguren wiegen je ca. 40g</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">In etwa das Gewicht von %s Konzertflügel</item>
+		<item quantity="other">In etwa das Gewicht von %s Konzertflügeln</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s Zug</item>
 		<item quantity="other">%s Züge</item>
 	</plurals>
-	<string name="chessFoes">Deine größten Schachfeinde</string>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s Partie von Stockfish analysiert</item>
+		<item quantity="other">%s Partien von Stockfish analysiert</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s neue Partie</item>
+		<item quantity="other">%s neue Partien</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Deine häufigsten Gegner</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s Gramm</item>
 		<item quantity="other">%s Gramm</item>
@@ -31,47 +47,83 @@
 		<item quantity="one">%s Kilogramm</item>
 		<item quantity="other">%s Kilogramm</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s Unze</item>
+		<item quantity="other">%s Unzen</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s Pfund</item>
+		<item quantity="other">%s Pfund</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Dein Lieblings-Eröffnungszug</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">ist der Zug, mit dem du %s deiner Partien mit Weiß begonnen hast</string>
-	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="one">Deine meistgespielte Eröffnung mit Weiß mit %s Partie</item>
-		<item quantity="other">Deine meistgespielte Eröffnung mit Weiß mit %s Partien</item>
-	</plurals>
-	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one">Deine meistgespielte Eröffnung mit Schwarz mit %s Partie</item>
-		<item quantity="other">Deine meistgespielte Eröffnung mit Schwarz mit %s Partien</item>
-	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Danke für das Abstimmen bei %s Aufgabe.</item>
 		<item quantity="other">Danke für das Abstimmen bei %s Partien.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du hast ebenfalls dabei geholfen, %s Aufgaben zu markieren.</string>
-	<string name="puzzlesNone">Du hast dieses Jahr keine Aufgaben gelöst.</string>
-	<string name="puzzlesTryNow">Möchtest du jetzt ein paar ausprobieren?</string>
-	<string name="puzzlesYouWonOnFirstTry">Du hast %s von ihnen beim ersten Versuch gelöst!</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Du hast %s von ihnen beim ersten Versuch gelöst!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Erster Versuch</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Benötigte einen weiteren Versuch</string>
 	<string name="sourcesTitle">Wo hast du deine Partien gefunden?</string>
 	<string name="perfsTitle">Welche Zeitkontrollen und Varianten hast du gespielt?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s Werbeanzeigen und Tracker geladen</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Werbung</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Tracker</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Datenhändler</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Pop-ups</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Bezahlschranken</string>
 	<string name="malwareNoSell">Wir haben deine persönlichen Daten nicht verkauft</string>
 	<string name="malwareNoAbuse">Wir haben dein Gerät nicht gegen dich verwendet</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Andere Webseiten setzen diese Praktiken ein, deshalb %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">sei vorsichtig</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s Partien auf Lichess in %2$s gespielt</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s der Partien waren deine.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">Du</string>
 	<string name="thanksTitle">Vielen Dank, dass du auf Lichess spielst!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Wir sind froh, dass du hier bist. Hab\' ein fantastisches %s!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Die %1$s von Lichess betrugen dieses Jahr %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Betriebskosten</string>
-	<string name="patronCharity">Wir sind eine Wohltätigkeitsorganisation, die ausschließlich spendenbasiert operiert.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Falls wir dazu beitragen konnten dich dieses Jahr zu unterhalten oder du an unsere Arbeit glaubst, bitte %s!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">unterstütze unsere Arbeit durch eine Spende</string>
-	<string name="shareableTitle" comment="%s is the current year">Deine %s Zusammenfassung</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Meine %s Lichess Zusammenfassung</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">Gesamtspielzeit</string>
 	<string name="shareableMostPlayedOpponent">Häufigster Gegner</string>
 	<string name="shareableFavouriteVariant">Lieblingsvariante</string>
 	<string name="shareableFavouriteTimeControl">Lieblings-Zeitkontrolle</string>
+	<string name="shareableFavouriteFirstMove">Lieblings Eröffnungszug</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s Aufgabe gelöst</item>
 		<item quantity="other">%s Aufgaben gelöst</item>
 	</plurals>
+	<string name="donateOneMoreThing">Eine Sache noch…</string>
+	<string name="donateAlreadyPatron">Du bist bereits ein Patron, Danke! Noch eine weitere Sache…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Dieses Jahr hast du ca. %s Minute auf Lichess gespielt!</item>
+		<item quantity="other">Dieses Jahr hast du ca. %s Minuten auf Lichess gespielt!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Falls sie dir gefallen haben, erwägen doch bitte, %s der globalen Uptime monatlich zu spenden:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Falls dir sie gefallen haben, erwäge eine Spende von %s der globalen Uptime:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Bitte überlege, monatlich %s der globalen Uptime zu spenden:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Bitte erwäge %s der globalen Laufzeit zu spenden:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s Minute Laufzeit pro Monat</item>
+		<item quantity="other">%s Minuten Laufzeit pro Monat</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s Minute Laufzeit</item>
+		<item quantity="other">%s Minuten Laufzeit</item>
+	</plurals>
+	<string name="donateNotToday">Nicht heute</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Einen anderen Betrag spenden</string>
+	<string name="donateCharity">Lichess ist eine Wohltätigkeitsorganisation.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Lichess für %1$s weltweit am Laufen zu halten kostet uns %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Das ist ungefähr das Gleiche wie %s</string>
+	<string name="donateAnchorNewYork">ein Latte in New York City</string>
+	<string name="donateAnchorLondon">ein großes Bier im Zentrum von London</string>
+	<string name="donateAnchorParis">ein Glas Hauswein in Paris</string>
+	<string name="donateAnchorBerlin">ein Döner Kebab in Berlin</string>
+	<string name="donateAnchorTokyo">Eine Schüssel Ramen in Tokyo</string>
+	<string name="donateAnchorSaoPaulo">Ein Teller Feijoada in São Paulo</string>
+	<string name="donateAnchorCapeTown">Ein Kinoticket in Kapstadt</string>
+	<string name="donateAnchorMelbourne">Ein Flat White und ein Gebäckstück in Melbourne</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">In diesen %s hat Lichess</string>
+	<string name="donateNoWorries">Keine Sorge! Jegliche Form der Unterstützung durch die Gemeinschaft ist für uns essentiell, und das schließt auch ein, einfach hier zu sein.</string>
+	<string name="donateReplay">Spiele meine Zusammenfassung ab</string>
+	<string name="donateChangedMyMind">Ich habe meine Meinung geändert</string>
 	<string name="recapReady" comment="%s is the year of the recap">Deine %s Zusammenfassung ist da!</string>
 </resources>

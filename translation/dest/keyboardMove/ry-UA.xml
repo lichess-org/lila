@@ -12,7 +12,7 @@
   <string name="readOutClocks">Проговорити зостаток часу</string>
   <string name="readOutOpponentName">Прочитати имня противника</string>
   <string name="otherCommands">Другі команды</string>
-  <string name="tips">Тіпы</string>
+  <string name="tips">Пудшепты</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Кідь не розумієте шахматну нотацію, туй ся можете дознати булше:</string>
   <string name="includingAXToIndicateACapture">Указовати \"х\" коли берете фіґуру не мусай, просто мож указати позіцію котру занимат фіґура</string>
   <string name="bothTheLetterOAndTheDigitZero">Ай букву \"о\" ай число \"0\" мож хосновати при рокірованьови</string>

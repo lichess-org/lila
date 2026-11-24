@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hot">Актівні</string>
-  <string name="kick">Укопкати</string>
-  <string name="like">Облюбовати</string>
+  <string name="hot">Наживі</string>
+  <string name="like">Полюбити</string>
   <string name="next">Дале</string>
   <string name="copyChapterPgn">Копіровати PGN</string>
-  <string name="open">Одкрыти</string>
+  <string name="open">Удкрыти</string>
   <string name="noPinnedComment">Не є</string>
   <string name="goodMove">Добрый ход</string>
   <string name="back">Назад</string>

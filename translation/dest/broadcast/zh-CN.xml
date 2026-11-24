@@ -30,6 +30,8 @@
   <string name="startDateHelp">如果您知道赛事开始时间（可选）</string>
   <string name="currentGameUrl">当前对局链接</string>
   <string name="downloadAllRounds">下载所有轮次</string>
+  <string name="shareThisBroadcastByUrl">通过 URL 分享转播</string>
+  <string name="downloadPgn">下载 PGN</string>
   <string name="resetRound">重置此轮次</string>
   <string name="deleteRound">删除此轮次</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">永久删除此轮次及其所有对局？</string>

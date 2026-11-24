@@ -30,6 +30,8 @@
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
+  <string name="shareThisBroadcastByUrl">Chia sẻ phát sóng này qua URL</string>
+  <string name="downloadPgn">Tải xuống PGN</string>
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Xóa vĩnh viễn vòng này và tất cả các ván đấu trong đó?</string>

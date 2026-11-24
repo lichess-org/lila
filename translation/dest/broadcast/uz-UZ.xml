@@ -32,6 +32,8 @@
   <string name="startDateHelp">Majburiy emas, agar tadbir qaçon boşlanişini bilsangiz</string>
   <string name="currentGameUrl">Joriy öyin havolasi</string>
   <string name="downloadAllRounds">Barça turlarni yuklab oling</string>
+  <string name="shareThisBroadcastByUrl">Uşbu translyatsiyani URL manzil orqali ulaşiş</string>
+  <string name="downloadPgn">PGN yuklab oliş</string>
   <string name="resetRound">Uşbu turni qayta sozlaş</string>
   <string name="deleteRound">Uşbu turni öçiriş</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Uşbu tur va uning barça öyinlarini butunlay öçirib taşlamoqçimisiz?</string>

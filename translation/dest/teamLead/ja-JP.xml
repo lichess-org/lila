@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">辞める前に別のチームリーダーを指名するか、チームを閉鎖してください。</string>
   <string name="removeSomeone">メンバーを削除</string>
   <string name="whoToRemove">誰をチームから削除しますか？</string>
+  <string name="blockedUsers">ブロックリスト</string>
+  <string name="blockedUsersDesc">1 行に 1 人のユーザー名を入力します。この人たちはこのチームに参加できません。</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s の加入申請</item>
   </plurals>
@@ -41,4 +43,5 @@
   <string name="oneTeamPerLine">1 行に 1 チームです。オートコンプリートを使用します。</string>
   <string name="numberOfLeadsPerTeam">各チームのリーダー数。上位この人数のスコアの合計がチームのスコアです。</string>
   <string name="numberOfLeadsPerTeamHelp">トーナメント開始後はこの値を変更しないように！</string>
+  <string name="teamIntroPrompt">自分のチームを宣伝しよう！</string>
 </resources>

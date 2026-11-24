@@ -42,7 +42,6 @@
   <string name="searchByUsername">Hľadať podľa použív. mena</string>
   <string name="spectator">Divák</string>
   <string name="contributor">Prispievateľ</string>
-  <string name="kick">Vyhodiť</string>
   <string name="leaveTheStudy">Opustiť štúdiu</string>
   <string name="youAreNowAContributor">Od teraz ste prispievateľom</string>
   <string name="youAreNowASpectator">Od teraz ste divákom</string>
