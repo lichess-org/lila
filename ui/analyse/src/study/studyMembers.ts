@@ -181,7 +181,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function memberConfig({ user, role }: StudyMember): VNode {
     return hl(
-      'm-config',
+      'div.study-member-config',
       {
         key: user.id + '-config',
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),

@@ -159,7 +159,7 @@
       height: 100%;
       left: 2.5px;
       opacity: 1;
-      border-right: 5px solid $c-accent-cloud;
+      border-right: 5px solid hsl(from var(--c-bad) h s l / 0.5);
       width: 50%;
     }
   }

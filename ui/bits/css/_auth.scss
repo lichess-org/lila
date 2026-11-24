@@ -76,7 +76,7 @@
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: rgb(from $c-accent r g b / calc(alpha * 0.3));
+        border-bottom-color: rgb(from $c-brag r g b / calc(alpha * 0.3));
       }
 
       &:focus-visible {
@@ -85,8 +85,8 @@
 
       &.active {
         font-weight: bold;
-        color: $c-accent;
-        border-bottom-color: $c-accent;
+        color: $c-brag;
+        border-bottom-color: $c-brag;
       }
     }
   }
@@ -114,12 +114,12 @@
     button {
       @extend %box-radius;
 
-      color: $c-accent;
+      color: $c-brag;
       font-size: 0.9em;
       padding: 0.5em 1em;
 
       &:hover {
-        background: rgb(from $c-accent r g b / calc(alpha * 0.3));
+        background: rgb(from $c-brag r g b / calc(alpha * 0.3));
       }
     }
   }

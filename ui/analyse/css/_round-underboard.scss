@@ -19,22 +19,23 @@ $col2-panel-height: 240px;
     align-items: flex-start;
 
     > button {
-      @extend %roboto, %box-radius-top, %page-text, %nowrap-ellipsis;
+      @extend %roboto, %page-text, %nowrap-ellipsis;
 
       flex: 1 1 0;
       text-align: center;
       font-size: 0.9em;
       padding: 0.4em 0.1em;
+      margin: 0 0.1em;
       cursor: pointer;
       position: relative;
-      border-bottom: $border;
 
+      &.active,
       &:hover {
+        border-radius: $small-box-radius-size;
+        padding: 0.2em 0.1em;
+        margin: 0.2em 0.1em;
         background: $c-body-gradient;
-      }
-
-      &.active {
-        border-color: $c-accent;
+        color: $c-font-clear;
       }
     }
 
@@ -70,11 +71,6 @@ $col2-panel-height: 240px;
 
     .analyse-hunter & > div {
       display: block;
-    }
-
-    .analyse:not(.analyse-hunter) & {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
     }
   }
 
