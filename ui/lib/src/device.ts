@@ -108,10 +108,6 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
-export const reducedMotion: () => boolean = memoize<boolean>(
-  () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-);
-
 function sharedMemoryTest(): boolean {
   // Avoid WebKit crash: https://bugs.webkit.org/show_bug.cgi?id=303387
   if (lowerAgent.includes('version/26.2')) return false;

@@ -1,5 +1,3 @@
-$c-opcfg: $c-accent;
-
 @mixin mq-details-large {
   @media (min-width: at-least($small)) {
     @content;

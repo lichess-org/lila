@@ -15,11 +15,6 @@ type Key = string;
 
 export type Sound = string[];
 
-export interface SoundData {
-  current: Key;
-  list: Sound[];
-}
-
 export class SoundCtrl extends PaneCtrl {
   private readonly list: Sound[];
 

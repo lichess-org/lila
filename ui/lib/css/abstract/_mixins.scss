@@ -161,7 +161,6 @@
   }
 
   @if $soft {
-    $base-shadow-opacity: 30%;
     $inset-shadow-spread: 2px;
   }
 
@@ -193,10 +192,6 @@
 
   @if $defaultShadow != () {
     $shadow: 0 2px 4px 0 $defaultShadow;
-  }
-
-  @if $soft {
-    $base-light-shadow-spread: 3px;
   }
 
   @include if-transp {
