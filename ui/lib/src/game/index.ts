@@ -101,3 +101,7 @@ export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Spee
           ? 'rapid'
           : 'classical';
 };
+
+/* oxlint-disable */
+export const idRegex: RegExp = /^[a-z0-9]{8}$/;
+/* oxlint-enable */
