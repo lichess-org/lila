@@ -16,42 +16,34 @@ object SimulForm:
 
   type EitherForm = Either[Form[SimulForm.LockedSetup], Form[SimulForm.Setup]]
 
-  private def colorChoice(color: String)(using Translate): (String, String) =
-    color -> (color match
-      case "white" => trans.site.white.txt()
-      case "black" => trans.site.black.txt()
-      case _ => trans.site.random.txt())
-
-  private def clockMinute(d: Int)(using Translate): String = trans.site.clockMinute.pluralTxt(d)
-  private def clockSecond(d: Int)(using Translate): String = trans.site.clockSecond.pluralTxt(d)
-  private def clockExtraMinute(d: Int)(using Translate): String =
-    trans.site.clockExtraMinute.pluralTxt(d)
-  private def clockExtraPerPlayerSecond(d: Int)(using Translate): String =
-    trans.site.clockExtraPerPlayerSecond.pluralTxt(d)
-
   val colors = List("white", "random", "black")
-  def colorChoices(using Translate) = colors.map(colorChoice)
+  def colorChoices(using Translate) = List(
+    "white" -> trans.site.white.txt(),
+    "random" -> trans.site.randomColor.txt(),
+    "black" -> trans.site.black.txt()
+  )
   val colorDefault = "white"
 
   private def clockTimeValues = (5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20)
-  def clockTimeChoices(using Translate) = clockTimeValues.map(d => d -> clockMinute(d))
+  def clockTimeChoices(using Translate) = clockTimeValues.map(d => d -> trans.simul.clockMinute.pluralTxt(d))
   val clockTimeDefault = LimitMinutes(20)
 
   private def clockIncrementValues =
     (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
-  def clockIncrementChoices(using Translate) = clockIncrementValues.map(d => d -> clockSecond(d))
+  def clockIncrementChoices(using Translate) =
+    clockIncrementValues.map(d => d -> trans.simul.clockSecond.pluralTxt(d))
   val clockIncrementDefault = IncrementSeconds(60)
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras = clockExtrasPositive.tail.map(-_).reverse ++ clockExtrasPositive
   def clockExtraChoices(using Translate) = clockExtras.map:
-    case d if d > 0 => d -> s"+${clockExtraMinute(d)}"
-    case d => d -> clockExtraMinute(d)
+    case d if d > 0 => d -> s"+${trans.simul.clockExtraMinute.pluralTxt(d)}"
+    case d => d -> trans.simul.clockExtraMinute.pluralTxt(d)
   val clockExtraDefault = LimitMinutes(0)
 
   private def clockExtraPerPlayerValues = (0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300)
   def clockExtraPerPlayerChoices(using Translate) =
-    clockExtraPerPlayerValues.map(d => d -> clockExtraPerPlayerSecond(d))
+    clockExtraPerPlayerValues.map(d => d -> trans.simul.clockExtraPerPlayerSecond.pluralTxt(d))
   val clockExtraPerPlayerDefault = LimitSeconds(0)
 
   private def nameType(using host: Me) =
