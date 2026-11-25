@@ -17,7 +17,7 @@
       flex-direction: column;
       overflow-y: auto;
       min-height: 0;
-      max-height: 600px;
+      max-height: min(600px, 80dvh);
       border-radius: 0 0 0 $box-radius-size;
     }
 
