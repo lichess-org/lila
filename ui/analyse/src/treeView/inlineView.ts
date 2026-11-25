@@ -4,7 +4,7 @@ import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
 import { enrichText, innerHTML } from 'lib/richText';
 import { ops as treeOps, path as treePath } from 'lib/tree/tree';
-import type { TreeNode, TreePath } from 'lib/tree/types';
+import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, type LooseVNodes, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -53,6 +53,7 @@ export class InlineView {
     return child.forceVariation && isMainline
       ? hl('interrupt', this.lines([child, ...siblings], args))
       : [
+          parentDisclose !== 'collapsed' && this.commentNodes(child, {}, child.startingComments),
           this.moveNode(child, args),
           parentDisclose !== 'collapsed' && [
             this.commentNodes(child),
@@ -62,9 +63,13 @@ export class InlineView {
         ];
   }
 
-  commentNodes(node: TreeNode, classes: Classes = {}): LooseVNodes[] {
-    if (!this.ctrl.showComments || !node.comments) return [];
-    return node.comments
+  commentNodes(
+    node: TreeNode,
+    classes: Classes = {},
+    comments: TreeComment[] | undefined = node.comments,
+  ): LooseVNodes[] {
+    if (!this.ctrl.showComments || !comments) return [];
+    return comments
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node) && comment.comp
           ? hl('comment', i18n.site.learnFromThisMistake)
@@ -82,7 +87,7 @@ export class InlineView {
                 },
               },
               [
-                Boolean(node.comments?.[1]) && [hl('span.by', authorText(comment.by)), ' '],
+                comments.length > 1 && [hl('span.by', authorText(comment.by)), ' '],
                 hl('span', { hook: innerHTML(comment.text, enrichText) }),
               ],
             ),
@@ -111,6 +116,7 @@ export class InlineView {
     const childArgs = this.childArgs(child, args, false);
     const children = this.ctrl.visibleChildren(child);
     const sideline = [
+      this.commentNodes(child, {}, child.startingComments),
       this.moveNode(child, args),
       this.commentNodes(child),
       args.parenthetical && this.lines(siblings, args),

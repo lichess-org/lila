@@ -53,6 +53,7 @@ export interface TreeNodeBase {
   uci?: Uci;
   fen: FEN;
   comments?: TreeComment[];
+  startingComments?: TreeComment[];
   gamebook?: Gamebook;
   threat?: LocalEval;
   ceval?: ClientEval;

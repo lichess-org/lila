@@ -167,6 +167,10 @@ export function makeTree(root: TreeNode): TreeWrapper {
     updateAt(path, node => {
       const comments = (node.comments || []).filter(c => c.id !== id);
       node.comments = comments.length ? comments : undefined;
+      if (node.startingComments?.some(c => c.id === id)) {
+        const starting = node.startingComments.filter(c => c.id !== id);
+        node.startingComments = starting.length ? starting : undefined;
+      }
     });
 
   const setGlyphsAt = (glyphs: Glyph[], path: TreePath) =>

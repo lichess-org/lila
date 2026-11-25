@@ -59,7 +59,7 @@ export function countChildrenAndComments<T extends TreeNodeBase>(
 } {
   const count = {
     nodes: 1,
-    comments: (node.comments || []).length,
+    comments: (node.comments || []).length + (node.startingComments || []).length,
   };
   node.children?.forEach(function (child) {
     const c = countChildrenAndComments(child);
@@ -76,6 +76,10 @@ export function merge(n1: TreeNodeLite, n2: TreeNodeLite): void {
   n2.comments?.forEach(c => {
     if (!n1.comments) n1.comments = [c];
     else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
+  });
+  n2.startingComments?.forEach(c => {
+    if (!n1.startingComments) n1.startingComments = [c];
+    else if (!n1.startingComments.some(d => d.text === c.text)) n1.startingComments.push(c);
   });
   n2.children?.forEach(c => {
     const existing = childById(n1, c.id);
