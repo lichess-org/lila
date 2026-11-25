@@ -14,6 +14,7 @@ object Node:
     val check = "c"
     val shapes = "h"
     val comments = "co"
+    val startingComments = "sc"
     val gamebook = "ga"
     val glyphs = "g"
     val score = "e"
@@ -42,6 +43,7 @@ object Node:
         nodes.toList.exists: node =>
           !node.comp ||
             Comments.withoutComp(node.comments).value.nonEmpty ||
+            Comments.withoutComp(node.startingComments).value.nonEmpty ||
             Glyphs.withoutComp(node.glyphs).value.nonEmpty ||
             node.children.hasNonComp
 

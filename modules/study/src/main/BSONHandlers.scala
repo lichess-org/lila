@@ -158,6 +158,7 @@ object BSONHandlers:
       fen <- doc.getAsOpt[Fen.Full](F.fen)
       shapes = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
+      startingComments = doc.getAsOpt[Comments](F.startingComments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs = doc.getAsOpt[NodeGlyphs](F.glyphs).getOrElse(NodeGlyphs.empty)
       eval = doc.getAsOpt[WhiteScore](F.score).map(lila.tree.evals.fromScore)
@@ -171,6 +172,7 @@ object BSONHandlers:
       fen = fen,
       shapes = shapes,
       comments = comments,
+      startingComments = startingComments,
       gamebook = gamebook,
       glyphs = glyphs,
       eval = eval,
@@ -192,6 +194,7 @@ object BSONHandlers:
       F.fen -> n.fen,
       F.shapes -> n.shapes.value.nonEmpty.option(n.shapes),
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
+      F.startingComments -> n.startingComments.value.nonEmpty.option(n.startingComments),
       F.gamebook -> n.gamebook,
       F.glyphs -> n.glyphs.nonEmptyOption,
       F.score -> n.eval.flatMap(_.score),
