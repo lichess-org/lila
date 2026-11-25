@@ -3,7 +3,7 @@ package lila.appeal
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
-import lila.common.Form.{ cleanNonEmptyText, into, typeIn, formatter }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, typeIn, formatter }
 
 object AppealEventForm:
 
@@ -22,7 +22,7 @@ object AppealEventForm:
   private def makeFreeResponseForm(maxLength: Int) = Form:
     mapping(
       "nodeId" -> nonEmptyText.into[NodeId],
-      "freeResponse" -> cleanNonEmptyText(minLength = 2, maxLength = maxLength)
+      "freeResponse" -> cleanText(maxLength = maxLength)
     )(FreeResponseData.apply)(unapply)
   val userFreeResponseForm = makeFreeResponseForm(Appeal.maxLength)
   val modFreeResponseForm = makeFreeResponseForm(Int.MaxValue)

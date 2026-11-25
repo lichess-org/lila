@@ -109,7 +109,11 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
               titleOrText("This text is not visible to the user")
             )
         ),
-        div(cls := "appeal__free-response-event__text")(richText(event.response, expandImg = false)),
+        event.response
+          .exists(!_.isWhitespace)
+          .option:
+            div(cls := "appeal__free-response-event__text")(richText(event.response, expandImg = false))
+        ,
         div(cls := "appeal__free-response-event__meta")(
           userLink(appeal, event.by, asMod = isMod, wrapLichess = false),
           span(" · "),
