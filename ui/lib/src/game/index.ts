@@ -103,5 +103,5 @@ export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Spee
 };
 
 /* oxlint-disable */
-export const idRegex: RegExp = /^[a-z0-9]{8}$/;
+export const idRegex: RegExp = /^[a-z0-9]{8}$/i;
 /* oxlint-enable */
