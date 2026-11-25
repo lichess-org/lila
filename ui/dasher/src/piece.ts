@@ -1,71 +1,117 @@
+import { Chessground } from '@lichess-org/chessground';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+import type { Color } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
-import { type Toggle, toggle } from 'lib';
+import { isTouchDevice, isMobile } from 'lib/device';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
-import type { DasherCtrl } from '@/ctrl';
+import { PaneCtrl } from './interfaces';
+import { header } from './util';
 
-import { type Dimension, PaneCtrl } from './interfaces';
-import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
+type PiecesRole = {
+  code: string;
+  name: string;
+};
 
 export class PieceCtrl extends PaneCtrl {
-  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
-  more: Toggle;
+  private readonly boardPreviewSize = 240;
+  private readonly pieceRoles: readonly PiecesRole[] = [
+    { code: 'R', name: 'Rook' },
+    { code: 'N', name: 'Knight' },
+    { code: 'B', name: 'Bishop' },
+    { code: 'Q', name: 'Queen' },
+    { code: 'K', name: 'King' },
+    { code: 'P', name: 'Pawn' },
+  ];
 
-  constructor(root: DasherCtrl) {
-    super(root);
-    this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as Dimension[]) {
-      this.featured[dim] = this.root.data.piece[dim].list.filter(t => t.featured).map(t => t.name);
-    }
-  }
-
-  get pieceList(): string[] {
-    const all = this.dimData.list.map(t => t.name);
-    const visible = this.featured[this.dimension].slice();
-    if (!visible.includes(this.dimData.current)) visible.push(this.dimData.current);
-    return this.more() ? all : visible;
-  }
+  private previewGround?: CgApi;
 
   render(): VNode {
-    const maxHeight = window.innerHeight - 150; // safari vh brokenness
-    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.more() ? 4 : 3);
-    const pieceImage = (t: string) =>
-      this.is3d
-        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.webp`
-        : site.manifest.hashed[`piece/${t}/wN.webp`]
-          ? `piece/${t}/wN.webp`
-          : `piece/${t}/wN.svg`;
-
     return h('div.sub.piece.' + this.dimension, [
       header(i18n.site.pieceSet, () => this.close()),
       h(
         'div.list',
-        { attrs: { style: `max-height:${maxHeight}px;` } },
-        this.pieceList.map((t: string) =>
+        this.dimData.list.map(({ name: set }) =>
           h(
             'button.no-square',
             {
-              key: t,
-              attrs: { title: t, type: 'button', style: `width: ${pieceSize}px; height: ${pieceSize}px` },
-              hook: bind('click', () => this.set(t)),
-              class: { active: this.dimData.current === t },
+              key: set,
+              attrs: { title: set, type: 'button' },
+              hook: {
+                insert: vnode => {
+                  bind('click', () => this.set(set)).insert?.(vnode);
+                  if (!isTouchDevice() && !isMobile()) {
+                    this.initPowertip(vnode.elm as HTMLElement, set);
+                  }
+                },
+                destroy: vnode => {
+                  $.powerTip.destroy(vnode.elm);
+                },
+              },
+              class: { active: this.dimData.current === set },
             },
-            [h('piece', { attrs: { style: `background-image:url(${site.asset.url(pieceImage(t))})` } })],
+            this.pieceRoles.map(role =>
+              h('piece', {
+                key: role.code,
+                attrs: {
+                  'aria-hidden': 'true',
+                  style: this.pieceImageVars(set, role, this.is3d),
+                },
+              }),
+            ),
           ),
         ),
       ),
-      moreButton(this.more),
     ]);
   }
 
   apply = (t: string = this.dimData.current): void => {
     this.dimData.current = t;
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
-    if (!this.is3d) {
-      pieceVarRules(t);
-    }
+    if (!this.is3d) this.pieceVarRules(t, document.body);
+  };
+
+  private readonly initPowertip = (el: HTMLElement, pieceSet: string) => {
+    $(el).powerTip({
+      placement: 'w',
+      popupId: 'piecePreview',
+      defaultSize: [this.boardPreviewSize, this.boardPreviewSize],
+      render: async () => {
+        const popup = document.getElementById('piecePreview')!;
+        this.previewGround?.destroy();
+        popup.replaceChildren();
+
+        const preview = document.createElement('div');
+        preview.className = this.is3d ? 'is3d' : 'is2d';
+
+        const mainBoard = document.createElement('div');
+        mainBoard.className = 'main-board';
+        mainBoard.style.width = `${this.boardPreviewSize}px`;
+
+        const board = document.createElement('div');
+        board.className = 'cg-wrap';
+        mainBoard.appendChild(board);
+        preview.appendChild(mainBoard);
+        popup.appendChild(preview);
+
+        this.previewGround = Chessground(board, {
+          fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
+          orientation: 'white',
+          viewOnly: true,
+          coordinates: false,
+          addPieceZIndex: this.is3d,
+          drawable: { enabled: false, visible: false },
+        });
+
+        if (this.is3d) {
+          this.set3DPieceImages(board, pieceSet);
+        } else {
+          this.pieceVarRules(pieceSet, preview);
+        }
+      },
+    });
   };
 
   private get dimData() {
@@ -80,27 +126,39 @@ export class PieceCtrl extends PaneCtrl {
     );
     this.redraw();
   };
-}
 
-const pieceVars = [
-  ['---white-pawn', 'wP'],
-  ['---black-pawn', 'bP'],
-  ['---white-knight', 'wN'],
-  ['---black-knight', 'bN'],
-  ['---white-bishop', 'wB'],
-  ['---black-bishop', 'bB'],
-  ['---white-rook', 'wR'],
-  ['---black-rook', 'bR'],
-  ['---white-queen', 'wQ'],
-  ['---black-queen', 'bQ'],
-  ['---white-king', 'wK'],
-  ['---black-king', 'bK'],
-];
+  private pieceImage(set: string, color: Color, role: PiecesRole, is3d = false) {
+    if (is3d)
+      return `images/staunton/piece/${set}/${color === 'white' ? 'White' : 'Black'}-${role.name}${
+        color === 'white' && role.name === 'Knight' && set === 'Staunton' ? '-Preview' : ''
+      }.webp`;
 
-function pieceVarRules(theme: string) {
-  const ext = site.manifest.hashed[`piece/${theme}/wP.webp`] ? 'webp' : 'svg';
-  for (const [varName, fileName] of pieceVars) {
-    const url = site.asset.url(`piece/${theme}/${fileName}.${ext}`, { pathOnly: true });
-    document.body.style.setProperty(varName, `url(${url})`);
+    const code = `${color === 'white' ? 'w' : 'b'}${role.code}`;
+    return `piece/${set}/${code}.${site.manifest.hashed[`piece/${set}/${code}.webp`] ? 'webp' : 'svg'}`;
+  }
+
+  private pieceImageVars(set: string, role: PiecesRole, is3d = false) {
+    return `--piece-image-default:url(${site.asset.url(this.pieceImage(set, 'white', role, is3d))});
+   --piece-image-light:url(${site.asset.url(this.pieceImage(set, 'black', role, is3d))})`;
+  }
+
+  private pieceVarRules(theme: string, element: HTMLElement) {
+    for (const role of this.pieceRoles) {
+      for (const color of ['white', 'black'] as const) {
+        const url = site.asset.url(this.pieceImage(theme, color, role), { pathOnly: true });
+        element.style.setProperty(`---${color}-${role.name.toLowerCase()}`, `url(${url})`);
+      }
+    }
+  }
+
+  private set3DPieceImages(board: HTMLElement, theme: string) {
+    board.querySelectorAll<HTMLElement>('piece').forEach(piece => {
+      const role = this.pieceRoles.find(({ name }) => piece.classList.contains(name.toLowerCase()));
+      const color = piece.classList.contains('white') ? 'White' : 'Black';
+      if (role)
+        piece.style.backgroundImage = `url(${site.asset.url(
+          `images/staunton/piece/${theme}/${color}-${role.name}.webp`,
+        )})`;
+    });
   }
 }
