@@ -6,6 +6,10 @@
 	<string name="noGamesText">Nu ai jucat niciun joc în acest an.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Și ai câștigat %s!</string>
 	<string name="gamesNextQuestion">De ce a fost nevoie pentru a ajunge aici?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Timp petrecut jucând</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Aceasta este o dedicare serioasă!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Fiecare dintre aceste minute contează.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Timp cheltuit bine, mutare cu mutare.</string>
 	<string name="timeHowManyMoves">Câte mutări ai jucat în tot timpul acela?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">o mutare jucată</item>
@@ -14,11 +18,28 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Asta înseamnă %s de lemn ridicat!</string>
 	<string name="movesStandardPiecesWeight">Piesele standard cântăresc aproximativ 40g fiecare</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Piesele standard cântăresc aproximativ 40g fiecare</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Greutatea aproximativă a unui pian</item>
+		<item quantity="few">Greutatea aproximativă a %s piane</item>
+		<item quantity="other">Greutatea aproximativă a %s de piane</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s mutare</item>
 		<item quantity="few">%s mutări</item>
 		<item quantity="other">%s de mutări</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">Un joc analizat de Stockfish</item>
+		<item quantity="few">%s jocuri analizate de Stockfish</item>
+		<item quantity="other">%s de jocuri analizate de Stockfish</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">Un joc nou</item>
+		<item quantity="few">%s jocuri noi</item>
+		<item quantity="other">%s de jocuri noi</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Cei mai frecvenți oponenți ai tăi</string>
 	<plurals name="nbGrams">
 		<item quantity="one">un gram</item>
 		<item quantity="few">%s grame</item>
@@ -29,6 +50,17 @@
 		<item quantity="few">%s kilograme</item>
 		<item quantity="other">%s de kilograme</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">O uncie</item>
+		<item quantity="few">%s uncii</item>
+		<item quantity="other">%s de uncii</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">O livră</item>
+		<item quantity="few">%s livre</item>
+		<item quantity="other">%s de livre</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Mutarea ta emblematică de început</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">așa ai început %s din jocurile tale ca alb</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Îți mulțumim ca ai votat o problemă de șah.</item>
@@ -36,23 +68,58 @@
 		<item quantity="other">Îți mulțumim ca ai votat %s de probleme de șah.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">De asemenea, ai ajutat la etichetarea a %s din ele.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Ai rezolvat %s din ele la prima încercare!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Prima încercare</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Mai avea nevoie de o încercare</string>
 	<string name="sourcesTitle">Unde ai găsit jocuri?</string>
 	<string name="perfsTitle">Ce controale de timp și variante ai jucat?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reclame și instrumente de urmărire încărcate</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Reclame</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Tracker-e</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Brokeri de date</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Pop-up-uri</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Paywall-uri</string>
 	<string name="malwareNoSell">Noi nu ți-am vândut datele personale</string>
 	<string name="malwareNoAbuse">Noi nu ți-am folosit dispozitivul împotriva ta</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partide jucate pe Lichess în %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s dintre ele au fost ale tale.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">pe tine</string>
 	<string name="thanksTitle">Îți mulțumim că ai jucat pe Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Ne bucurăm că ești aici. Să ai un %s grozav!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Recapitularea mea Lichess din %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">petrecut jucând</string>
 	<string name="shareableMostPlayedOpponent">oponentul cel mai frecvent</string>
 	<string name="shareableFavouriteVariant">variantă favorită</string>
 	<string name="shareableFavouriteTimeControl">timp de control favorit</string>
+	<string name="shareableFavouriteFirstMove">mutare de început preferată</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s problemă rezolvată</item>
 		<item quantity="few">%s probleme rezolvate</item>
 		<item quantity="other">%s probleme rezolvate</item>
 	</plurals>
+	<string name="donateOneMoreThing">Încă ceva...</string>
+	<string name="donateAlreadyPatron">Ești deja Patron, mersi! Încă ceva...</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">În acest an, ai jucat aproximative un minut pe Lichess!</item>
+		<item quantity="few">În acest an, ai jucat aproximativ %s minute pe Lichess!</item>
+		<item quantity="other">În acest an, ai jucat aproximativ %s de minute pe Lichess!</item>
+	</plurals>
+	<string name="donateNotToday">Nu astăzi</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Donează altă sumă</string>
+	<string name="donateCharity">Lichess este o societate caritabilă.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Ținând Lichess în funcțiune pentru %1$s, în întreaga lume, ne costă %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Asta e cam la fel ca %s</string>
+	<string name="donateAnchorNewYork">un latte în orașul New York</string>
+	<string name="donateAnchorLondon">o halbă de bere în centrul Londrei</string>
+	<string name="donateAnchorParis">un pahar din vinul casei în Paris</string>
+	<string name="donateAnchorBerlin">un kebab în Berlin</string>
+	<string name="donateAnchorTokyo">un bol de remen în Tokyo</string>
+	<string name="donateAnchorSaoPaulo">o farfurie de feijoada în São Paulo</string>
+	<string name="donateAnchorCapeTown">un bilet la cinema în Cape Town</string>
+	<string name="donateAnchorMelbourne">o cafea flat white și un produs de patiserie în Melbourne</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">În acele %s, Lichess va vedea</string>
+	<string name="donateNoWorries">Nu vă faceți griji! Toate formele de sprijin din partea comunității sunt vitale pentru noi, iar acest lucru include doar a fi aici.</string>
+	<string name="donateReplay">Reia recapitularea mea</string>
+	<string name="donateChangedMyMind">M-am răzgândit</string>
 	<string name="recapReady" comment="%s is the year of the recap">Recapitularea ta pentru %s este gata!</string>
 </resources>

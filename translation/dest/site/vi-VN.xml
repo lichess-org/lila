@@ -479,6 +479,7 @@ Bạn bè đang chơi: %2$s</string>
   <string name="standByX">Hãy sẵn sàng, đang ghép cặp đấu, chuẩn bị chiến nhé %s!</string>
   <string name="pause">Tạm rút</string>
   <string name="resume">Tiếp tục</string>
+  <string name="stop">Dừng</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>
   <string name="winRate">Tỉ lệ thắng</string>
   <string name="performance">Hiệu suất</string>

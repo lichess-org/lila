@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">Google Play üzerinden indir</string>
   <string name="downloadOnFdroid">F-Droid üzerinden indir</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobil ekranı</string>
+  <string name="asFreeAsLichess">Lichess kadar özgür</string>
+  <string name="builtForTheLoveOfChessNotMoney">Para için değil, satranç sevgisi için geliştirilmiştir</string>
+  <string name="noAdsNoTracking">Reklam yok, izleyici yok</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Tamamen açık kaynak</string>
+  <string name="fullyFeatured">Tüm özelliklere sahip</string>
+  <string name="phoneAndTablet">Telefon ve tablet</string>
+  <string name="bulletBlitzClassicalVariants">Bullet, yıldırım, klasik, varyantlar</string>
+  <string name="correspondenceChess">Yazışmalı satranç</string>
+  <string name="unlimitedPuzzles">Sınırsız bulmaca</string>
+  <string name="gameAnalysis">Oyun analizi</string>
 </resources>

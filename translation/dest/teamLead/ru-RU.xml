@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
   <string name="removeSomeone">Убрать кого-то</string>
   <string name="whoToRemove">Кого вы хотите убрать из клуба?</string>
+  <string name="blockedUsers">Заблокированные пользователи</string>
+  <string name="blockedUsersDesc">Введите один ник на строке. Эти игроки будут заблокированы от входа в клуб.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запрос на вступление</item>
     <item quantity="few">%s запроса на вступление</item>
@@ -47,4 +49,5 @@
 Вы не можете удалить клуб, если игрок уже присоединился к турниру.</string>
   <string name="numberOfLeadsPerTeam">Количество лидеров в клубе. Сумма их баллов — это результат клуба.</string>
   <string name="numberOfLeadsPerTeamHelp">Крайне не рекомендуется менять это значение после начала турнира!</string>
+  <string name="teamIntroPrompt">Скажите другим про свой клуб!</string>
 </resources>

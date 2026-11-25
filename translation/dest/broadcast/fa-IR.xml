@@ -32,6 +32,7 @@
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
   <string name="downloadAllRounds">بارگیری همه دورها</string>
+  <string name="downloadPgn">بارگیری PGN</string>
   <string name="resetRound">ازنوکردن این دور</string>
   <string name="deleteRound">حذف این دور</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">این دور و همهٔ بازی‌هایش برای همیشه بحذفد؟</string>

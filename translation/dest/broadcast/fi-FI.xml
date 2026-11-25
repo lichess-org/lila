@@ -32,6 +32,8 @@
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
   <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
+  <string name="shareThisBroadcastByUrl">Jaa tämän lähetyksen URL</string>
+  <string name="downloadPgn">Lataa PGN</string>
   <string name="resetRound">Nollaa tämä kierros</string>
   <string name="deleteRound">Poista tämä kierros</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Poistetaanko tämä kierros ja kaikki sen pelit pysyvästi?</string>

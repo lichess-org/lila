@@ -82,5 +82,9 @@
 	<string name="donateAlreadyPatron">Вы уже платный пользователь, спасибо! Ещё одна вещь...</string>
 	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени, каждый месяц:</string>
 	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Пожалуйста подумайте о пожертвовании %s глобального повышения времени:</string>
+	<string name="donateNotToday">Не сегодня</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Пожертвовать другое количество</string>
+	<string name="donateReplay">Переиграть мой сборник</string>
 	<string name="recapReady" comment="%s is the year of the recap">Ваши итоги %s года готовы!</string>
 </resources>

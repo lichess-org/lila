@@ -10,4 +10,5 @@
   <string name="downloadOnGooglePlay">Скачать из Google Play</string>
   <string name="downloadOnFdroid">Скачать из F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Экран Lichess</string>
+  <string name="asFreeAsLichess">Настолько бесплатные, как Lichess</string>
 </resources>

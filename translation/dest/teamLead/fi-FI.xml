@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
   <string name="removeSomeone">Poista jäsen</string>
   <string name="whoToRemove">Kenet haluat poistaa joukkueesta?</string>
+  <string name="blockedUsers">Estetyt käyttäjät</string>
+  <string name="blockedUsersDesc">Syötä yksi käyttäjätunnus riviä kohden. Nämä pelaajat eivät voi liittyä joukkueeseen.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s liittymispyyntö</item>
     <item quantity="other">%s liittymispyyntöä</item>
@@ -45,4 +47,5 @@
 Et voi poistaa joukkuetta, jos joku sen pelaajista on jo liittynyt turnaukseen.</string>
   <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
   <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
+  <string name="teamIntroPrompt">Kerro muille joukkueestasi!</string>
 </resources>
