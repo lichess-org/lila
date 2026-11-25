@@ -82,4 +82,12 @@
     border-radius: $small-box-radius-size;
     overflow: visible;
   }
+
+  .preview-board {
+    @extend %square;
+
+    .cg-wrap {
+      @extend %abs-100;
+    }
+  }
 }

@@ -15,7 +15,8 @@ cg-board {
   /* 2D board images are opaque, so only blur where the backdrop shows through:
      a translucent board, or the transparent edges of 3D boards. */
   body:not(.simple-board) &,
-  .is3d .main-board & {
+  .is3d .main-board &,
+  .is3d .preview-board & {
     @include backdrop-blur-if-transparent;
   }
 }

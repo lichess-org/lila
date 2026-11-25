@@ -86,14 +86,14 @@ export class PieceCtrl extends PaneCtrl {
         const preview = document.createElement('div');
         preview.className = this.is3d ? 'is3d' : 'is2d';
 
-        const mainBoard = document.createElement('div');
-        mainBoard.className = 'main-board';
-        mainBoard.style.width = `${this.boardPreviewSize}px`;
+        const previewBoard = document.createElement('div');
+        previewBoard.className = 'preview-board';
+        previewBoard.style.width = `${this.boardPreviewSize}px`;
 
         const board = document.createElement('div');
         board.className = 'cg-wrap';
-        mainBoard.appendChild(board);
-        preview.appendChild(mainBoard);
+        previewBoard.appendChild(board);
+        preview.appendChild(previewBoard);
         popup.appendChild(preview);
 
         this.previewGround = Chessground(board, {
