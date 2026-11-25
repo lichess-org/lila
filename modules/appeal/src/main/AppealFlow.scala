@@ -186,19 +186,19 @@ We are continuously improving our cheat detection so that we can efficiently pre
     AppealTopic.boost -> AppealFlow.make(
       NonEmptyList.of(
         ChoiceNode(
-          NodeId("communicate-conditions"),
+          NodeId("select-outcome"),
           Answerer.Mod,
-          "Communicate the conditions, then choose an outcome.",
+          "Select the outcome:",
           NonEmptyList.of(
             AnswerBranch(
-              AnswerId("enable-chat"),
-              "Chat box enabled",
+              AnswerId("second-chance-this-account"),
+              "Second chance",
               NodeId("second-chance-this-account")
             ),
             AnswerBranch(
-              AnswerId("second-chance-new"),
+              AnswerId("second-chance-new-account"),
               "Second chance (new account)",
-              NodeId("second-chance")
+              NodeId("second-chance-new-account")
             ),
             AnswerBranch(AnswerId("many-infractions"), "Many infractions", NodeId("waiting-period"))
           )
@@ -211,7 +211,7 @@ The rating manipulation mark has been removed, and you can play rated games on t
           List(AppealEffect.Unmark, AppealEffect.Close)
         ),
         ActionNode(
-          NodeId("second-chance"),
+          NodeId("second-chance-new-account"),
           """As per our policy, we cannot remove the ban from this account, but we will let you make another (final) account where you can play rated games. You will need to register the new account with a different email address.
 
 We trust that you understand why this account was banned, and that in the future you will comply with our fair play rules (lichess.org/terms-of-service).
@@ -225,8 +225,7 @@ Example: "My new account is @YOUR_ACCOUNT_NAME"
           NodeId("waiting-period"),
           """At least two accounts controlled by you or related to this account have broken our fair play rules (https://lichess.org/terms-of-service).
 
-Please appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.""",
-          List(AppealEffect.Sleep(6))
+Please appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again."""
         )
       )
     )
