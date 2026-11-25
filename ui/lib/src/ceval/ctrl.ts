@@ -274,7 +274,7 @@ export class CevalCtrl {
       !!ev &&
       !ev.cloud &&
       (ev.millis ?? 0) >= search.by.movetime &&
-      ev.pvs.length === search.multiPv &&
+      ev.pvs.length === Math.max(1, search.multiPv) &&
       ev.engineId === this.engines.active()?.id
     );
   }
@@ -284,7 +284,7 @@ export class CevalCtrl {
     if (!stored || Boolean(this.opts.custom?.search)) return true;
 
     // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength
-    const multipv = this.search.multiPv;
+    const multipv = Math.max(1, this.search.multiPv);
     if (stored.pvs.length === multipv && latest.pvs.length !== multipv) return false;
     if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
 
