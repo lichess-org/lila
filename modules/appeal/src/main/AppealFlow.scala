@@ -92,7 +92,7 @@ Did you ever get help from a chess engine during a game?""",
             AnswerBranch(
               AnswerId("yes"),
               "Yes, I used external assistance in my games.",
-              NodeId("many-infractions")
+              NodeId("yes-additional-context")
             ),
             AnswerBranch(
               AnswerId("no"),
@@ -109,6 +109,12 @@ Did you ever get help from a chess engine during a game?""",
             AnswerBranch(AnswerId("yes"), "Yes", NodeId("wait-6-months")),
             AnswerBranch(AnswerId("no"), "No", NodeId("second-chance"))
           )
+        ),
+        FreeResponseNode(
+          NodeId("yes-additional-context"),
+          Answerer.User,
+          "Optionally, you may provide additional context.",
+          NodeId("many-infractions")
         ),
         FreeResponseNode(
           NodeId("additional-context"),
