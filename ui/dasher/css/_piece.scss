@@ -67,3 +67,19 @@
     }
   }
 }
+
+#piecePreview {
+  @extend %popup-shadow;
+
+  width: 240px;
+  min-height: fit-content;
+  overflow: visible;
+  position: absolute;
+  z-index: $z-powertip-120;
+
+  &,
+  cg-board {
+    border-radius: $small-box-radius-size;
+    overflow: visible;
+  }
+}
