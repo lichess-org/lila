@@ -3,12 +3,15 @@ import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { Color } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
+import { type Toggle, toggle } from 'lib';
 import { isTouchDevice, isMobile } from 'lib/device';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
-import { PaneCtrl } from './interfaces';
-import { header } from './util';
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl } from './interfaces';
+import { header, moreButton } from './util';
 
 type PiecesRole = {
   code: string;
@@ -16,6 +19,8 @@ type PiecesRole = {
 };
 
 export class PieceCtrl extends PaneCtrl {
+  private previewGround?: CgApi;
+
   private readonly boardPreviewSize = 240;
   private readonly pieceRoles: readonly PiecesRole[] = [
     { code: 'R', name: 'Rook' },
@@ -26,14 +31,23 @@ export class PieceCtrl extends PaneCtrl {
     { code: 'P', name: 'Pawn' },
   ];
 
-  private previewGround?: CgApi;
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
+  more: Toggle;
+
+  constructor(root: DasherCtrl) {
+    super(root);
+    this.more = toggle(false, root.redraw);
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
+      this.featured[dim] = this.root.data.piece[dim].list.filter(set => set.featured).map(set => set.name);
+    }
+  }
 
   render(): VNode {
     return h('div.sub.piece.' + this.dimension, [
       header(i18n.site.pieceSet, () => this.close()),
       h(
         'div.list',
-        this.dimData.list.map(({ name: set }) =>
+        this.pieceList.map(set =>
           h(
             'button.no-square',
             {
@@ -64,7 +78,15 @@ export class PieceCtrl extends PaneCtrl {
           ),
         ),
       ),
+      moreButton(this.more),
     ]);
+  }
+
+  private get pieceList(): string[] {
+    const all = this.dimData.list.map(({ name }) => name);
+    const visible = this.featured[this.dimension].slice();
+    if (!visible.includes(this.dimData.current)) visible.push(this.dimData.current);
+    return this.more() ? all : visible;
   }
 
   apply = (t: string = this.dimData.current): void => {

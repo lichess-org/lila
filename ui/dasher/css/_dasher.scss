@@ -153,18 +153,13 @@
     }
   }
 
-  .piece .list {
-    overflow: auto;
-  }
-
   .button.more {
     @extend %box-radius-bottom-left;
 
     width: 100%;
-    color: $c-over;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 0.4em 0;
+    font-size: 1em;
+    padding: 0.5em 0;
+    text-transform: none;
   }
 }
 

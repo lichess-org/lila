@@ -2514,6 +2514,8 @@ object I18nKey:
     val `hue`: I18nKey = "hue"
     val `boardReset`: I18nKey = "boardReset"
     val `pieceSet`: I18nKey = "pieceSet"
+    val `showLess`: I18nKey = "showLess"
+    val `showMore`: I18nKey = "showMore"
     val `embedInYourWebsite`: I18nKey = "embedInYourWebsite"
     val `usernameAlreadyUsed`: I18nKey = "usernameAlreadyUsed"
     val `usernamePrefixInvalid`: I18nKey = "usernamePrefixInvalid"
