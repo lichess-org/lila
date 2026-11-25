@@ -2948,6 +2948,8 @@ object I18nKey:
     val `loadAPositionFromFen`: I18nKey = "study:loadAPositionFromFen"
     val `loadAGameFromPgn`: I18nKey = "study:loadAGameFromPgn"
     val `automatic`: I18nKey = "study:automatic"
+    val `studyChapterLimitReached`: I18nKey = "study:studyChapterLimitReached"
+    val `createNewStudyForRemainingGames`: I18nKey = "study:createNewStudyForRemainingGames"
     val `urlOfTheGame`: I18nKey = "study:urlOfTheGame"
     val `createChapter`: I18nKey = "study:createChapter"
     val `createStudy`: I18nKey = "study:createStudy"
@@ -3051,6 +3053,7 @@ object I18nKey:
     val `nbGames`: I18nKey = "study:nbGames"
     val `nbMembers`: I18nKey = "study:nbMembers"
     val `pasteYourPgnTextHereUpToNbGames`: I18nKey = "study:pasteYourPgnTextHereUpToNbGames"
+    val `onlyFirstNbGamesCanBeImported`: I18nKey = "study:onlyFirstNbGamesCanBeImported"
 
   object swiss:
     val `swiss`: I18nKey = "swiss:swiss"

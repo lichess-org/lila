@@ -5709,6 +5709,8 @@ interface I18n {
     createChapterText: string;
     /** Let's create a study chapter */
     createChapterTitle: string;
+    /** You can create a new study to import the remaining games. */
+    createNewStudyForRemainingGames: string;
     /** Create study */
     createStudy: string;
     /** Current chapter URL */
@@ -5845,6 +5847,8 @@ interface I18n {
     novelty: string;
     /** Only the study contributors can request a computer analysis. */
     onlyContributorsCanRequestAnalysis: string;
+    /** Only the first %s games can be imported. */
+    onlyFirstNbGamesCanBeImported: I18nPlural;
     /** Only me */
     onlyMe: string;
     /** Only move */
@@ -5931,6 +5935,8 @@ interface I18n {
     studiesIContributeTo: string;
     /** Study actions */
     studyActions: string;
+    /** A study can contain at most %s chapters. */
+    studyChapterLimitReached: I18nFormat;
     /** A study can contain several chapters.<br>Each chapter has a distinct initial position and move tree. */
     studyChaptersText: string;
     /** Study chapters */

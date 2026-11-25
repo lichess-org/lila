@@ -12,6 +12,7 @@ import { storedProp } from 'lib/storage';
 import {
   snabDialog,
   alert,
+  confirm,
   bind,
   bindSubmit,
   onInsert,
@@ -123,19 +124,49 @@ export class StudyChapterNewForm {
       });
   };
 
-  submit = (d: Omit<ChapterData, 'initial'>) => {
+  submit = async (d: Omit<ChapterData, 'initial'>): Promise<boolean> => {
     const study = this.root.study!;
     const showRatings = study.data.showRatings ? undefined : false; // define only if false
     const dd = { ...d, sticky: study.vm.mode.sticky, showRatings, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
-    else
+    else {
+      const count = this.chapters.size();
+      const replacesInitial =
+        dd.initial &&
+        count < this.multiPgnMax &&
+        this.chapters.first()?.id === study.data.chapter.id &&
+        this.root.mainline.length === 1 &&
+        !study.data.chapter.tags.length;
+      const available = this.multiPgnMax - count + Number(replacesInitial);
+      const pgns = dd.pgn
+        .replaceAll('\r', '')
+        .trimStart()
+        .split(/\n\n(?=\[)/, this.multiPgnMax + 1)
+        .filter(Boolean);
+      const limit = i18n.study.studyChapterLimitReached(this.multiPgnMax);
+      if (!available) {
+        await alert(`${limit}\n\n${i18n.study.createNewStudyForRemainingGames}`);
+        return false;
+      }
+      if (pgns.length > available) {
+        const dialog = this.dialog;
+        const message = i18n.study.onlyFirstNbGamesCanBeImported(available);
+        if (
+          !(await confirm(`${limit}\n${message}\n\n${i18n.study.createNewStudyForRemainingGames}`)) ||
+          dialog !== this.dialog
+        )
+          return false;
+        dd.pgn = pgns.slice(0, available).join('\n\n');
+      }
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
         if (e.message === 'Too many chapters')
           alert('You have reached the maximum number of chapters (64). Some of the games were not imported.');
         throw e;
       });
+    }
     this.setChaptersTab();
+    return true;
   };
   startTour = async () => {
     const [tour] = await Promise.all([
@@ -207,9 +238,9 @@ export class StudyChapterNewForm {
         hl(
           'form.form3',
           {
-            hook: bindSubmit(e => {
+            hook: bindSubmit(async e => {
               const tab = this.tab();
-              this.submit({
+              const submitted = await this.submit({
                 name: fieldValue(e, 'name'),
                 game: fieldValue(e, 'game'),
                 variant: fieldValue(e, 'variant') as VariantKey,
@@ -222,7 +253,7 @@ export class StudyChapterNewForm {
                     : fieldValue(e, 'fen') || (tab === 'edit' ? this.editorFen() : null),
                 isDefaultName: this.isDefaultName(),
               });
-              dlg.close();
+              if (submitted) dlg.close();
             }, this.redraw),
           },
           [
