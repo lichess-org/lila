@@ -113,7 +113,7 @@ Did you ever get help from a chess engine during a game?""",
         FreeResponseNode(
           NodeId("additional-context"),
           Answerer.User,
-          "Please provide additional context.",
+          "Optionally, you may provide additional context.",
           NodeId("is-mark-valid")
         ),
         ChoiceNode(
