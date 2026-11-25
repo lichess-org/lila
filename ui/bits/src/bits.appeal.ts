@@ -39,21 +39,34 @@ function setStepEnabled(el: HTMLElement, enabled: boolean): void {
   if (el instanceof HTMLButtonElement) el.disabled = !enabled;
 }
 
+// Disallow clicking "continue" for the amount of time below, to encourage reading the terms
+const agreeDelayMs = 2000;
+
 function initInfoStep(): void {
   document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
     const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
     const continueButton = root.querySelector<HTMLElement>('.appeal-info__continue');
     if (!checkbox || !continueButton) return;
 
-    const checked = () => checkbox.checked;
-    const sync = () => setStepEnabled(continueButton, checked());
+    let enableTimer: number | undefined;
+    const canContinue = () => checkbox.checked && enableTimer === undefined;
+
+    const sync = () => {
+      window.clearTimeout(enableTimer);
+      enableTimer = undefined;
+      setStepEnabled(continueButton, false);
+      if (!checkbox.checked) return;
+      enableTimer = window.setTimeout(() => {
+        enableTimer = undefined;
+        setStepEnabled(continueButton, checkbox.checked);
+      }, agreeDelayMs);
+    };
+
+    const blockUntilReady = (e: Event) => {
+      if (!canContinue()) e.preventDefault();
+    };
     checkbox.addEventListener('change', sync);
-    continueButton.addEventListener('click', e => {
-      if (!checked()) e.preventDefault();
-    });
-    continueButton.closest('form')?.addEventListener('submit', e => {
-      if (!checked()) e.preventDefault();
-    });
+    continueButton.addEventListener('click', blockUntilReady);
     sync();
   });
 }
