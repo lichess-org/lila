@@ -214,6 +214,7 @@
     background: $c-bg-box;
     padding: max(2vmin, 12px);
     font-size: 0.9em;
+    min-width: 0;
 
     & > p:last-child {
       margin-bottom: 0;
@@ -248,14 +249,16 @@
 
   &__list {
     &__entry {
-      @extend %flex-between;
+      @extend %flex-between-nowrap;
 
       align-items: stretch;
       margin-inline-start: -0.5rem;
 
       a {
         margin-inline-start: 0.5rem;
-        line-height: 2em;
+        line-height: 1.3em;
+        padding-block: 0.35em;
+        flex-shrink: 1;
       }
 
       &:hover {
@@ -274,6 +277,7 @@
     flex: 0 1 7em;
     align-items: stretch;
     text-align: center;
+    flex-shrink: 0;
   }
 
   &__vote {
@@ -324,6 +328,7 @@
 
   &__selector {
     margin: 1em 0;
+    width: 100%;
   }
 
   &__study {
