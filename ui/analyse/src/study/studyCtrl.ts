@@ -801,11 +801,8 @@ export default class StudyCtrl {
       if (d.s) this.data.position = d.p;
       if (d.w?.s === site.sri) {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
-        this.vm.chapterId = d.p.chapterId;
-        this.vm.nextChapterId = d.p.chapterId;
-        this.chapters.scroller.request('instant');
-      } else this.chapters.scroller.request('smooth');
-      this.xhrReload(true);
+      }
+      this.xhrReload(true, () => this.chapters.scroller.request('smooth'));
     },
     members: d => {
       this.members.update(d);
