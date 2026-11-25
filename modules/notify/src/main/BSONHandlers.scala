@@ -14,8 +14,6 @@ private object BSONHandlers:
   private given BSONDocumentHandler[TeamJoined] = Macros.handler
   private given BSONDocumentHandler[GameEnd] = Macros.handler
   private given BSONDocumentHandler[TitledTournamentInvitation] = Macros.handler
-  private given BSONDocumentHandler[PlanStart] = Macros.handler
-  private given BSONDocumentHandler[PlanExpire] = Macros.handler
   private given BSONDocumentHandler[RatingRefund] = Macros.handler
   private given BSONDocumentHandler[CorresAlarm] = Macros.handler
   private given BSONDocumentHandler[IrwinDone] = Macros.handler
@@ -38,10 +36,7 @@ private object BSONHandlers:
         case x: TeamUpdate => summon[BSONHandler[TeamUpdate]].writeTry(x).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
         case x: GameEnd => summon[BSONHandler[GameEnd]].writeTry(x).get
-        case x: PlanStart => summon[BSONHandler[PlanStart]].writeTry(x).get
-        case x: PlanExpire => summon[BSONHandler[PlanExpire]].writeTry(x).get
         case x: RatingRefund => summon[BSONHandler[RatingRefund]].writeTry(x).get
-        case ReportedBanned => emptyBdoc
         case x: CorresAlarm => summon[BSONHandler[CorresAlarm]].writeTry(x).get
         case x: IrwinDone => summon[BSONHandler[IrwinDone]].writeTry(x).get
         case x: KaladinDone => summon[BSONHandler[KaladinDone]].writeTry(x).get
@@ -59,10 +54,7 @@ private object BSONHandlers:
         case "teamUpdate" => reader.as[TeamUpdate]
         case "titledTourney" => reader.as[TitledTournamentInvitation]
         case "gameEnd" => reader.as[GameEnd]
-        case "planStart" => reader.as[PlanStart]
-        case "planExpire" => reader.as[PlanExpire]
         case "ratingRefund" => reader.as[RatingRefund]
-        case "reportedBanned" => ReportedBanned
         case "corresAlarm" => reader.as[CorresAlarm]
         case "irwinDone" => reader.as[IrwinDone]
         case "kaladinDone" => reader.as[KaladinDone]
