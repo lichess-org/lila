@@ -533,6 +533,14 @@ final class Study(
         .throttle(if isMe then 50 else 20, 1.second)
         .map(lila.study.JsonView.metadata(_, getBool("topics")))
 
+  def apiListMember = Scoped(_.Study.Read) { ctx ?=> me ?=>
+    apiC.jsonDownload:
+      env.study.studyRepo
+        .sourceContributed(me.userId)
+        .throttle(50, 1.second)
+        .map(lila.study.JsonView.metadata(_, getBool("topics")))
+  }
+
   def chapterGif(
       id: StudyId,
       chapterId: StudyChapterId,
