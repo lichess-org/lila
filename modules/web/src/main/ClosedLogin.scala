@@ -12,7 +12,8 @@ object ClosedLogin:
   )
   private val studyExportRegex = "^/api/study/by/[\\w-]{2,30}/export.pgn$".r
 
-  private def isGameExport(req: Req) =
-    gameExportRegexes.exists(_.matches(req.path))
+  private def isGameExport(req: Req) = gameExportRegexes.exists(_.matches(req.path))
   private def isStudyExport(req: Req) = studyExportRegex.matches(req.path)
-  private def isAccount(req: Req) = req.path.startsWith("/account")
+  private def isAccount(req: Req) =
+    List("passwd", "delete", "personal-data").exists: accountPath =>
+      req.path.startsWith(s"/account/$accountPath")

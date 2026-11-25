@@ -64,7 +64,7 @@
   <string name="falsePositives">False positives do happen sometimes, and we're sorry about that.</string>
   <string name="ifLegit">If your appeal is legitimate, we will lift the ban ASAP.</string>
   <string name="accountLost">However if you indeed used engine assistance, even just once, then your account is unfortunately lost.</string>
-  <string name="doNotDeny">Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake.</string>
+  <string name="admitMistakeForNewAccount">If you want to be allowed to create a new account, then do not deny having cheated. Instead, admit to what you did and show that you understand that it was a mistake.</string>
   <string name="otherRestriction">Other restriction</string>
   <string name="collaboration">Collaboration, legal, commercial</string>
   <string name="monetizing">Monetising Lichess</string>
