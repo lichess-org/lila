@@ -531,7 +531,7 @@ final class Study(
       env.study.studyRepo
         .sourceByOwner(username.id, isMe)
         .throttle(if isMe then 50 else 20, 1.second)
-        .map(lila.study.JsonView.metadata)
+        .map(lila.study.JsonView.metadata(_, getBool("topics")))
 
   def chapterGif(
       id: StudyId,

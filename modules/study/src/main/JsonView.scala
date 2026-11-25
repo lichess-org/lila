@@ -134,12 +134,14 @@ object JsonView:
 
   given OWrites[lila.core.study.IdName] = Json.writes
 
-  def metadata(study: Study) = Json.obj(
-    "id" -> study.id,
-    "name" -> study.name,
-    "createdAt" -> study.createdAt,
-    "updatedAt" -> study.updatedAt
-  )
+  def metadata(study: Study, withTopics: Boolean) = Json
+    .obj(
+      "id" -> study.id,
+      "name" -> study.name,
+      "createdAt" -> study.createdAt,
+      "updatedAt" -> study.updatedAt
+    )
+    .add("topics" -> withTopics.option(study.topicsOrEmpty))
 
   def glyphs(using Translate): JsObject =
     import lila.core.i18n.I18nKey.{ study, site }
