@@ -6,6 +6,14 @@
 	<string name="noGamesText">Bu yıl hiç oyun oynamadın.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Ve %s kazandın!</string>
 	<string name="gamesNextQuestion">Oraya ulaşmak için neler gerekti?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Toplam oynama süresi</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">İşte bu gerçekten büyük bir özveri!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">O dakikaların her biri çok önemliydi.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Her seferinde bir hamleyle, iyi değerlendirilmiş bir zaman.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Yüzüklerin Efendisi üçlemesinin genişletilmiş versiyonunu %s kez izleyebilirdiniz</item>
+		<item quantity="other">Yüzüklerin Efendisi üçlemesinin genişletilmiş versiyonunu %s kez izleyebilirdiniz</item>
+	</plurals>
 	<string name="timeHowManyMoves">Bu kadar zamanda kaç tane hamle oynadın?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s hamle oynandı</item>
@@ -13,10 +21,24 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Bu, %s oranında odun hareket ettirmek anlamına geliyor!</string>
 	<string name="movesStandardPiecesWeight">Standart parçaların her biri yaklaşık 40g ağırlığındadır</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Standart taşların her biri yaklaşık 40g ağırlığındadır</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Hemen hemen %s kuyruklu piyanonun ağırlığı kadar</item>
+		<item quantity="other">Hemen hemen %s kuyruklu piyanonun ağırlığı kadar</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s hamle</item>
 		<item quantity="other">%s hamle</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">Stockfish tarafından analiz edilen %s oyun</item>
+		<item quantity="other">Stockfish tarafından analiz edilen %s oyun</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s yeni oyun</item>
+		<item quantity="other">%s yeni oyun</item>
+	</plurals>
+	<string name="mostFrequentOpponents">En sık karşılaştığınız rakipler</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
 		<item quantity="other">%s gram</item>
@@ -25,28 +47,62 @@
 		<item quantity="one">%s kilogram</item>
 		<item quantity="other">%s kilogram</item>
 	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">İmza niteliğindeki ilk hamleniz</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">oyunlarınızın %s ine beyaz olarak bu hamleyle başladınız</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">%s bulmacasına oy verdiğin için teşekkürler.</item>
 		<item quantity="other">%s bulmacalarına oy verdiğin için teşekkürler.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Ayrıca bunların %s kadarını etiketlemenize de yardımcı oldunuz.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Bunların %s kadarını ilk denemede çözdünüz!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">İlk deneme</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Bir deneme daha gerekiyordu</string>
 	<string name="sourcesTitle">Oyunları nerden buldunuz?</string>
 	<string name="perfsTitle">Hangi zaman kontrollerini ve varyantları oynadınız?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam ve izleyiciler yüklendi</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Reklamlar</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">İzleyiciler</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Veri simsarları</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Açılır pencereler</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Ödeme duvarları</string>
 	<string name="malwareNoSell">Kişisel verilerinizi satmadık</string>
 	<string name="malwareNoAbuse">Cihazınızı size karşı kullanmadık</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Lichess\'te %2$s\'de %1$s oyun oynandı</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s kadarı ise sizin.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">siz</string>
 	<string name="thanksTitle">Lichess\'te oynadığınız için teşekkür ederiz!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Burada olmanızdan memnunuz. Mutlu %s!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">%s Lichess Özetim</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">oynayarak geçirildi</string>
 	<string name="shareableMostPlayedOpponent">en çok oynanan rakip</string>
 	<string name="shareableFavouriteVariant">favori varyant</string>
 	<string name="shareableFavouriteTimeControl">favori zaman kontrolü</string>
+	<string name="shareableFavouriteFirstMove">favori ilk hamle</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s bulmaca çözüldü</item>
 		<item quantity="other">%s bulmaca çözüldü</item>
 	</plurals>
+	<string name="donateOneMoreThing">Bir şey daha…</string>
+	<string name="donateAlreadyPatron">Siz zaten bir Destekçi\'siniz, teşekkür ederiz! Bir şey daha…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Bu yıl, Lichess\'te yaklaşık %s dakika oynadınız!</item>
+		<item quantity="other">Bu yıl, Lichess\'te yaklaşık %s dakika oynadınız!</item>
+	</plurals>
+	<string name="donateNotToday">Bugün değil</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Başka bir tutarda bağış yap</string>
+	<string name="donateCharity">Lichess bir yardım kuruluşudur.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Lichess\'i dünya çapında %1$s boyunca çalışır durumda tutmanın maliyeti bize %2$s\'dir.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Bu, %s ile hemen hemen aynıdır</string>
+	<string name="donateAnchorNewYork">New York\'ta bir latte</string>
+	<string name="donateAnchorLondon">Londra\'nın merkezinde bir bardak bira</string>
+	<string name="donateAnchorParis">Paris\'te bir kadeh ev şarabı</string>
+	<string name="donateAnchorBerlin">İstanbul\'da bir döner kebap</string>
+	<string name="donateAnchorTokyo">Tokyo\'da bir kase ramen</string>
+	<string name="donateAnchorSaoPaulo">São Paulo\'da bir tabak feijoada</string>
+	<string name="donateAnchorCapeTown">Cape Town\'da bir sinema bileti</string>
+	<string name="donateAnchorMelbourne">Melbourne’de bir flat white ve bir hamur işi</string>
+	<string name="donateNoWorries">Hiç sorun değil! Topluluktan gelen her türlü destek bizim için hayati önem taşıyor, burada bulunmanız da buna dahil.</string>
+	<string name="donateReplay">Özetimi tekrar oynat</string>
+	<string name="donateChangedMyMind">Fikrimi değiştirdim</string>
 	<string name="recapReady" comment="%s is the year of the recap">%s özetiniz hazır!</string>
 </resources>

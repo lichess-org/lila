@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">Lataa Google Play -kaupasta</string>
   <string name="downloadOnFdroid">Lataa F-Droidista</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichessin mobiilinäkymä</string>
+  <string name="asFreeAsLichess">Kuin Lichess: ilmainen ja vapaa</string>
+  <string name="builtForTheLoveOfChessNotMoney">Rakennettu rakkaudella, ei rahalla</string>
+  <string name="noAdsNoTracking">Ei mainoksia, ei seurantaa</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Kokonaan avointa lähdekoodia</string>
+  <string name="fullyFeatured">Kaikki ominaisuudet</string>
+  <string name="phoneAndTablet">Puhelimeen ja tablettiin</string>
+  <string name="bulletBlitzClassicalVariants">Luoti, pikashakki, klassinen, variantit</string>
+  <string name="correspondenceChess">Kirjeshakki</string>
+  <string name="unlimitedPuzzles">Rajattomasti tehtäviä</string>
+  <string name="gameAnalysis">Pelianalyysi</string>
 </resources>

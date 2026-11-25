@@ -6,6 +6,14 @@
 	<string name="noGamesText">Et pelannut tänä vuonna yhtään peliä.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Ja voitit niistä %s!</string>
 	<string name="gamesNextQuestion">Miten pääsit näihin lukuihin?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Pelaamiseen käytetty aika</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Aika todellista omistautumista!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Joka minuutilla oli merkitystä.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Kannatti käyttää aikaa, siirto kerrallaan.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Olisit voinut katsoa pidennetyn versio Taru sormusten herrasta -trilogiasta %s kerran</item>
+		<item quantity="other">Olisit voinut katsoa pidennetyn versio Taru sormusten herrasta -trilogiasta %s kertaa</item>
+	</plurals>
 	<string name="timeHowManyMoves">Kuinka monta siirtoa teit sinä aikana?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">Teit %s siirron</item>
@@ -13,10 +21,24 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Tuuppasit siis %s:n edestä puuta!</string>
 	<string name="movesStandardPiecesWeight">Normaalit nappulat painavat kukin noin 40 g</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Tavallinen shakkinappula painaa noin 1,4 unssia</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Suunnilleen %s flyygelin painon verran</item>
+		<item quantity="other">Suunnilleen %s flyygelin painon verran</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s siirto</item>
 		<item quantity="other">%s siirtoa</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s peli analysoitu Stockfishilla</item>
+		<item quantity="other">%s peliä analysoitu Stockfishilla</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s uusi peli</item>
+		<item quantity="other">%s uutta peliä</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Yleisimmät vastustajasi</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gramma</item>
 		<item quantity="other">%s grammaa</item>
@@ -25,28 +47,82 @@
 		<item quantity="one">%s kilogramma</item>
 		<item quantity="other">%s kilogrammaa</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s unssi</item>
+		<item quantity="other">%s unssia</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s pauna</item>
+		<item quantity="other">%s paunaa</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Tyypillinen aloitussiirtosi</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">oli avaussiirtosi %s valkeilla pelaamassasi pelissä</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Kiitos, että arvostelit %s tehtävän.</item>
 		<item quantity="other">Kiitos, että arvostelit %s tehtävää.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Autoit myös tunnisteiden lisäämisessä %s tehtävään.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Ratkaisit %s niistä ensiyrittämällä!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Ensiyritys</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Tarvitsi yrittää uudelleen</string>
 	<string name="sourcesTitle">Mistä löysit pelisi?</string>
 	<string name="perfsTitle">Millä aikajärjestelmillä ja varianteilla pelasit?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s mainosta ja jäljitintä ladattiin</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Mainokset</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Seurantatyökalut</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Datanvälittäjät</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Ponnahdusikkunat</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Maksumuurit</string>
 	<string name="malwareNoSell">Me emme myyneet henkilötietojasi</string>
 	<string name="malwareNoAbuse">Me emme käyttäneet laitettasi sinua vastaan</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s peliä pelattiin Lichessissä yhteensä vuonna %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s niistä olivat sinun.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">sinä</string>
 	<string name="thanksTitle">Kiitoksia, että pelaat Lichessissä!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Olemme iloisia siitä, että olet täällä. Toivotamme mahtavaa uutta vuotta %s!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Minun Lichess-vuoden %s kertaus</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">käytetty pelaamiseen</string>
 	<string name="shareableMostPlayedOpponent">useimmin kohtaamani vastustaja</string>
 	<string name="shareableFavouriteVariant">suosikkivarianttini</string>
 	<string name="shareableFavouriteTimeControl">suosimani aikajärjestelmä</string>
+	<string name="shareableFavouriteFirstMove">lempialoitussiirto</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s ratkaistu tehtävä</item>
 		<item quantity="other">%s ratkaistua tehtävää</item>
 	</plurals>
+	<string name="donateOneMoreThing">Yksi juttu vielä...</string>
+	<string name="donateAlreadyPatron">Olet jo Tukija, kiitos! Yksi juttu vielä...</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Tänä vuonna pelasit noin %s minuutin Lichessissä!</item>
+		<item quantity="other">Tänä vuonna pelasit noin %s minuuttia Lichessissä!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Jos se on ollut mukavaa, harkitse jos kuukausilahjoittaisit %s maailmanlaajuista toiminta-aikaa:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Jos se ollut mukavaa, harkitse jos lahjoittaisit %s maailmanlaajuista toiminta-aikaa:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Harkitse jos kuukausilahjoittaisit %s maailmanlaajuista toiminta-aikaa</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Harkitse jos lahjoittaisit %s maailmanlaajuista toiminta-aikaa:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s minuutti toiminta-aikaa kuukaudessa</item>
+		<item quantity="other">%s minuuttia toiminta-aikaa kuukaudessa</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s minuutti toiminta-aikaa</item>
+		<item quantity="other">%s minuuttia toiminta-aikaa</item>
+	</plurals>
+	<string name="donateNotToday">Ei tänään</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Lahjoita muu summa</string>
+	<string name="donateCharity">Lichess on hyväntekeväisyyttä.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Kun Lichess pyörii %1$s kaikkialla maailmassa, se kustantaa meille %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Se on suunnilleen saman verran kuin %s</string>
+	<string name="donateAnchorNewYork">lattekahvi New York Cityssä</string>
+	<string name="donateAnchorLondon">pintti olutta Lontoon keskustassa</string>
+	<string name="donateAnchorParis">lasillinen talon viiniä Pariisissa</string>
+	<string name="donateAnchorBerlin">dönerkebab Berliinissä</string>
+	<string name="donateAnchorTokyo">kulhollinen nuudeleita Tokiossa</string>
+	<string name="donateAnchorSaoPaulo">lautasellinen papupataa São Paulossa</string>
+	<string name="donateAnchorCapeTown">elokuvalippu Kapkaupungissa</string>
+	<string name="donateAnchorMelbourne">maitokahvi ja leivonnainen Melbournessa</string>
+	<string name="donateNoWorries">Ei huolta! Kaikenlainen yhteisön tuki on meille elintärkeää, sisältäen myös olemisen täällä.</string>
+	<string name="donateReplay">Toista kertaus</string>
+	<string name="donateChangedMyMind">Muutin mieleni</string>
 	<string name="recapReady" comment="%s is the year of the recap">Yhteenvetosi vuodesta %s on valmis!</string>
 </resources>

@@ -78,5 +78,31 @@
 		<item quantity="other">Năm nay, bạn đã chơi khoảng %s phút trên Lichess!</item>
 	</plurals>
 	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Nếu bạn thấy chúng hữu ích, hãy cân nhắc quyên góp %s thời gian hoạt động toàn cầu mỗi tháng:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Nếu bạn thấy chúng hữu ích, hãy cân nhắc quyên góp %s thời gian hoạt động toàn cầu:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Hãy cân nhắc quyên góp %s thời gian hoạt động toàn cầu mỗi tháng:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Hãy cân nhắc quyên góp %s thời gian hoạt động toàn cầu:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="other">%s phút hoạt động mỗi tháng</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="other">%s phút hoạt động</item>
+	</plurals>
+	<string name="donateNotToday">Không phải hôm nay</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Quyên góp số tiền khác</string>
+	<string name="donateCharity">Lichess là một tổ chức từ thiện.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Việc duy trì hoạt động của Lichess trên toàn thế giới %1$s tiêu tốn %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Con số đó gần bằng %s</string>
+	<string name="donateAnchorNewYork">một ly latte ở thành phố New York</string>
+	<string name="donateAnchorLondon">một cốc bia ở trung tâm London</string>
+	<string name="donateAnchorParis">một ly rượu vang nhà hàng ở Paris</string>
+	<string name="donateAnchorBerlin">một bánh mì döner kebab ở Berlin</string>
+	<string name="donateAnchorTokyo">một bát mì ramen ở Tokyo</string>
+	<string name="donateAnchorSaoPaulo">một đĩa feijoada ở São Paulo</string>
+	<string name="donateAnchorCapeTown">một vé xem phim ở Cape Town</string>
+	<string name="donateAnchorMelbourne">một ly cà phê flat white và một chiếc bánh ngọt ở Melbourne</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">Trong %s đó, Lichess sẽ thấy</string>
+	<string name="donateNoWorries">Đừng lo lắng! Mọi hình thức hỗ trợ từ cộng đồng đều vô cùng quan trọng đối với chúng tôi, và điều đó bao gồm cả việc chỉ cần có mặt ở đây là tuyệt rồi.</string>
+	<string name="donateReplay">Xem lại phần tóm tắt của tôi</string>
+	<string name="donateChangedMyMind">Tôi đã thay đổi ý định</string>
 	<string name="recapReady" comment="%s is the year of the recap">Bản tóm tắt năm %s của bạn đã sẵn sàng rồi đây!</string>
 </resources>

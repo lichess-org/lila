@@ -10,4 +10,13 @@
   <string name="downloadOnGooglePlay">Tải về trên Google Play</string>
   <string name="downloadOnFdroid">Tải về trên F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Màn hình di động của Lichess</string>
+  <string name="asFreeAsLichess">Miễn phí như Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Được xậy dựng vì tình yêu cờ vua, không phải vì tiền</string>
+  <string name="noAdsNoTracking">Không quảng cáo, không trình theo dõi</string>
+  <string name="fullyFeatured">Đầy đủ tính năng</string>
+  <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
+  <string name="bulletBlitzClassicalVariants">Cờ đạn, cờ chớp, cờ tiêu chuẩn, cờ biến thể</string>
+  <string name="correspondenceChess">Cờ qua thư</string>
+  <string name="unlimitedPuzzles">Câu đố không giới hạn</string>
+  <string name="gameAnalysis">Phân tích ván cờ</string>
 </resources>

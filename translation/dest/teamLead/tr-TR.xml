@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Takımdan ayrılmadan önce yeni bir takım lideri belirleyin veya takımı kapatın.</string>
   <string name="removeSomeone">Birini çıkar</string>
   <string name="whoToRemove">Takımdan kimi çıkarmak istiyorsun?</string>
+  <string name="blockedUsers">Engellenen Kullanıcılar</string>
+  <string name="blockedUsersDesc">Her satıra bir kullanıcı adı girin. Bu oyuncuların takıma katılması engellenecektir.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s katılma talebi</item>
     <item quantity="other">%s katılma talebi</item>
@@ -45,4 +47,5 @@
 Eğer bir oyuncu zaten turnuvaya katılmışsa takımı kaldıramazsınız.</string>
   <string name="numberOfLeadsPerTeam">Her takımdaki liderlerin sayısı. Onların puanlarının toplamı takımın puanıdır.</string>
   <string name="numberOfLeadsPerTeamHelp">Turnuva başladıktan sonra bu değeri değiştirmemeniz daha iyi olur!</string>
+  <string name="teamIntroPrompt">Takımınızdan başkalarına bahsedin!</string>
 </resources>

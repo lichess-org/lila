@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Vui lòng thêm một chỉ huy mới trước khi rời đi, hoặc hãy giải tán đội.</string>
   <string name="removeSomeone">Loại bỏ ai đó</string>
   <string name="whoToRemove">Bạn muốn loại ai ra khỏi đội?</string>
+  <string name="blockedUsers">Người dùng đã chặn</string>
+  <string name="blockedUsersDesc">Nhập một tên người dùng mỗi dòng. Những kỳ thủ này sẽ bị chặn tham gia đội.</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s yêu cầu tham gia</item>
   </plurals>
@@ -44,4 +46,5 @@
 Bạn không thể xóa một đội nếu đã có kỳ thủ tham gia giải đấu.</string>
   <string name="numberOfLeadsPerTeam">Số người dẫn đầu của mỗi đội. Tổng số điểm của họ là điểm của đội đó.</string>
   <string name="numberOfLeadsPerTeamHelp">Bạn thực sự không nên thay đổi giá trị này sau khi giải đấu đã bắt đầu!</string>
+  <string name="teamIntroPrompt">Hãy giới thiệu đội của bạn với mọi người!</string>
 </resources>

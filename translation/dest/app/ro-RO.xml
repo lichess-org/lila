@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">Descarcă din Google Play</string>
   <string name="downloadOnFdroid">Descarcă din F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Ecran Lichess Mobile</string>
+  <string name="asFreeAsLichess">La fel de gratuit ca și Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Creat din dragoste pentru șah, nu pentru bani</string>
+  <string name="noAdsNoTracking">Fără reclame, fără tracking</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Complet Open Source</string>
+  <string name="fullyFeatured">Cu toate opțiunile</string>
+  <string name="phoneAndTablet">Telefon și tabletă</string>
+  <string name="bulletBlitzClassicalVariants">Glonț, blitz, clasic, variante</string>
+  <string name="correspondenceChess">Șah prin corespondență</string>
+  <string name="unlimitedPuzzles">Număr nelimitat de probleme de șah</string>
+  <string name="gameAnalysis">Analiza jocului</string>
 </resources>

@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Te rugăm să adaugi un nou lider de echipă înainte de a părăsi echipa, sau să desființezi echipa.</string>
   <string name="removeSomeone">Elimină pe cineva</string>
   <string name="whoToRemove">Pe cine vreți să eliminați din echipă?</string>
+  <string name="blockedUsers">Utilizatori blocați</string>
+  <string name="blockedUsersDesc">Introdu un nume de utilizator pe linie. Acești jucători vor fi blocați de la a se alătura echipei.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s cerere de alăturare</item>
     <item quantity="few">%s cereri de alăturare</item>
@@ -46,4 +48,5 @@
 Nu puteți elimina o echipă dacă un jucător din ea s-a alăturat deja turneului.</string>
   <string name="numberOfLeadsPerTeam">Numărul de lideri per echipă. Suma scorului lor este scorul echipei.</string>
   <string name="numberOfLeadsPerTeamHelp">Nu ar trebui să schimbați această valoare după ce turneul a început!</string>
+  <string name="teamIntroPrompt">Spune-i celorlalți despre echipa ta!</string>
 </resources>

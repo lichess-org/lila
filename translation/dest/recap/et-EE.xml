@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Mida oled sel aastal teinud?</string>
+	<string name="initTitle">Milline maleaasta sul on olnud!</string>
+	<string name="noGamesText">Sa ei mänginud sel aastal ühtegi mängu.</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Ja sa võitsid %s!</string>
+	<string name="gamesNextQuestion">Mida oli vaja, et sinna jõuda?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Mängimisele kulutatud aeg</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">See on küll tõeline pühendumus!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Igaüks neist minutitest oli oluline.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Hästi veedetud aeg, üks käik korraga.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Sa oleksid võinud vaadata „Sõrmuste isanda“ pikendatud triloogiat %s kord</item>
+		<item quantity="other">Sa oleksid võinud vaadata „Sõrmuste isanda“ pikendatud triloogiat %s korda</item>
+	</plurals>
+	<string name="timeHowManyMoves">Mitu käiku sa kogu selle aja jooksul tegid?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s käik</item>
+		<item quantity="other">%s käiku</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">See on %s grammi liigutatud puitu!</string>
+	<string name="movesStandardPiecesWeight">Tavapärase malenupu mass on 40 g</string>
+	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Tavapärase malenupu mass on 1,4 untsi</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Umbes %s tiibklaveri kaal</item>
+		<item quantity="other">Umbes %s tiibklaveri kaaluga</item>
+	</plurals>
+	<plurals name="nbMoves">
+		<item quantity="one">%s käik</item>
+		<item quantity="other">%s käiku</item>
+	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s Stockfishi analüüsitud mäng</item>
+		<item quantity="other">%s Stockfishi analüüsitud mängu</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s uus mäng</item>
+		<item quantity="other">%s uut mängu</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Sinu kõige sagedasemad vastased</string>
 </resources>
