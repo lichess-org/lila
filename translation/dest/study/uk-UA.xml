@@ -105,6 +105,12 @@
   <string name="loadAPositionFromFen">Завантажити позицію з FEN</string>
   <string name="loadAGameFromPgn">Завантажити гру з PGN</string>
   <string name="automatic">Автоматично</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">Вставте сюди PGN-текст, максимум %s партія.</item>
+    <item quantity="few">Вставте сюди PGN-текст, максимум %s партії.</item>
+    <item quantity="many">Вставте сюди PGN-текст. Для кожної створиться окремий розділ. Максимум %s розділів.</item>
+    <item quantity="other">Вставте сюди PGN-текст. Для кожної створиться окремий розділ. Максимум %s розділів.</item>
+  </plurals>
   <string name="urlOfTheGame">Посилання на гру</string>
   <string name="createChapter">Створити розділ</string>
   <string name="createStudy">Створити дослідження</string>
@@ -201,4 +207,7 @@
   <string name="clearLocal">Очистити локальний аналіз?</string>
   <string name="clearPublished">Очистити опублікований аналіз?</string>
   <string name="requestAServerAnalysis">Зробити запит на серверний аналіз</string>
+  <string name="analyzeOnYourDevice">Аналізувати на вашому пристрої</string>
+  <string name="searchChapters">Пошук розділів</string>
+  <string name="searchGames">Пошук ігор</string>
 </resources>

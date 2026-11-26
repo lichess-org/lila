@@ -21,7 +21,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Tuuppasit siis %s:n edestä puuta!</string>
 	<string name="movesStandardPiecesWeight">Normaalit nappulat painavat kukin noin 40 g</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Tavallinen shakkinappula painaa noin 1,4 unssia</string>
+	<string name="movesStandardPiecesWeightImperial">Tavallinen shakkinappula painaa noin 1,4 unssia</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Suunnilleen %s flyygelin painon verran</item>
 		<item quantity="other">Suunnilleen %s flyygelin painon verran</item>

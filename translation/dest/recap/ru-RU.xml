@@ -10,6 +10,12 @@
 	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Это очень серьёзная отдача!</string>
 	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Каждая минута засчиталась.</string>
 	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Хорошо проведено время, один ход за раз.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Вы могли бы посмотреть расширенную трилогию Властелин колец %s раз</item>
+		<item quantity="few">Вы могли бы посмотреть расширенную трилогию Властелин колец %s раза</item>
+		<item quantity="many">Вы могли бы посмотреть расширенную трилогию Властелин колец %s раз</item>
+		<item quantity="other">Вы могли бы посмотреть расширенную трилогию Властелин колец %s раз</item>
+	</plurals>
 	<string name="timeHowManyMoves">Сколько ходов вы сделали за всё это время?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s ход сделан</item>
@@ -19,12 +25,30 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Это как перенести %s дров!</string>
 	<string name="movesStandardPiecesWeight">Стандартная фигура весит в среднем 40 грамм</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Обычные фигуры весят примерно 1.4 унций каждая</string>
+	<string name="movesStandardPiecesWeightImperial">Обычные фигуры весят примерно 1.4 унций каждая</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">О весе %s рояля</item>
+		<item quantity="few">О весе %s роялей</item>
+		<item quantity="many">О весе %s роялей</item>
+		<item quantity="other">О весе %s роялей</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s ход</item>
 		<item quantity="few">%s хода</item>
 		<item quantity="many">%s ходов</item>
 		<item quantity="other">%s ходов</item>
+	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s игра анализирована со Stockfish</item>
+		<item quantity="few">%s игры анализированы со Stockfish</item>
+		<item quantity="many">%s игр анализировано со Stockfish</item>
+		<item quantity="other">%s игр анализировано со Stockfish</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s новая игра</item>
+		<item quantity="few">%s новые игры</item>
+		<item quantity="many">%s новых игр</item>
+		<item quantity="other">%s новых игр</item>
 	</plurals>
 	<string name="mostFrequentOpponents">Ваши самые частые соперники</string>
 	<plurals name="nbGrams">
@@ -38,6 +62,18 @@
 		<item quantity="few">%s килограмма</item>
 		<item quantity="many">%s килограммов</item>
 		<item quantity="other">%s килограммов</item>
+	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s унция</item>
+		<item quantity="few">%s унции</item>
+		<item quantity="many">%s унций</item>
+		<item quantity="other">%s унций</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s фунт</item>
+		<item quantity="few">%s фунта</item>
+		<item quantity="many">%s фунтов</item>
+		<item quantity="other">%s фунтов</item>
 	</plurals>
 	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Ваш любимый первый ход</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">в партиях за белых вы обычно начинаете так: %s</string>
@@ -80,11 +116,44 @@
 	</plurals>
 	<string name="donateOneMoreThing">Ещё одна вещь...</string>
 	<string name="donateAlreadyPatron">Вы уже платный пользователь, спасибо! Ещё одна вещь...</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">В этом году вы провели на Lichess за игрой около %s минуты!</item>
+		<item quantity="few">В этом году вы провели на Lichess за игрой около %s минут!</item>
+		<item quantity="many">В этом году вы провели на Lichess за игрой около %s минут!</item>
+		<item quantity="other">В этом году вы провели на Lichess за игрой около %s минут!</item>
+	</plurals>
 	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени, каждый месяц:</string>
 	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Если они вам понравились, подумайте о пожертвовании %s глобального повышения времени:</string>
 	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Пожалуйста подумайте о пожертвовании %s глобального повышения времени:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Пожалуйста, рассмотрите возможность пожертвования %s глобального времени безотказной работы:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s минуты безотказной работы в месяц</item>
+		<item quantity="few">%s минут безотказной работы в месяц</item>
+		<item quantity="many">%s минут безотказной работы в месяц</item>
+		<item quantity="other">%s минут безотказной работы в месяц</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s минута безотказной работы</item>
+		<item quantity="few">%s минуты безотказной работы</item>
+		<item quantity="many">%s минут безотказной работы</item>
+		<item quantity="other">%s минут безотказной работы</item>
+	</plurals>
 	<string name="donateNotToday">Не сегодня</string>
 	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Пожертвовать другое количество</string>
+	<string name="donateCharity">Lichess — благотворительная организация.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Держать Lichess работающим для %1$s, всемирный обходится нам в %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Это примерно столько же, сколько в %s</string>
+	<string name="donateAnchorNewYork">латте в Нью-Йорке</string>
+	<string name="donateAnchorLondon">пинта пива в центре Лондона</string>
+	<string name="donateAnchorParis">бокал домашнего вина в Париже</string>
+	<string name="donateAnchorBerlin">донер-кебаб в Берлине</string>
+	<string name="donateAnchorTokyo">тарелка рамена в Токио</string>
+	<string name="donateAnchorSaoPaulo">тарелка фейжоады в Сан-Паулу</string>
+	<string name="donateAnchorCapeTown">билет в кино в Кейптауне</string>
+	<string name="donateAnchorMelbourne">флэт уайт и пирожное в Мельбурне</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">В этих %s, Lichess увидит</string>
+	<string name="donateNoWorries">Не беспокойтесь! Для нас жизненно важна любая поддержка со стороны сообщества, в том числе просто присутствие здесь.</string>
 	<string name="donateReplay">Переиграть мой сборник</string>
+	<string name="donateChangedMyMind">Передумал</string>
 	<string name="recapReady" comment="%s is the year of the recap">Ваши итоги %s года готовы!</string>
 </resources>

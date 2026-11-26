@@ -23,6 +23,8 @@
   <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Füerer, bevor du gahsch - oder lös das Team uf.</string>
   <string name="removeSomeone">Entfern öpper</string>
   <string name="whoToRemove">Wen wettsch usem Team entferne?</string>
+  <string name="blockedUsers">Blockti User</string>
+  <string name="blockedUsersDesc">Pro Zile 1 Username ineschribe. Die Schpiler chönd em Team nöd biträte.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s Bitritts Afrag</item>
     <item quantity="other">%s Bitritts Afrage</item>
@@ -46,4 +48,5 @@
 Du chasch es Team nöd entferne, wänn en/e Schpiler*i scho im Turnier isch.</string>
   <string name="numberOfLeadsPerTeam">Azahl Füerer pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>
   <string name="numberOfLeadsPerTeamHelp">Du söttsch de Wert würklich nöd ändere, wänn\'s Turnier ag\'fange hät!</string>
+  <string name="teamIntroPrompt">Red mit Anderne über dis Team!</string>
 </resources>

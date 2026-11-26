@@ -29,6 +29,7 @@
   <string name="puzzleWrite">Розв\'язувати задачі</string>
   <string name="teamRead">Переглядати інформацію приватних команд</string>
   <string name="teamWrite">Приєднуватися та покидати команди</string>
+  <string name="manageTeamsYouLead">Керуйте командами, лідером яких ви є: надсилайте приватні повідомлення, виключайте гравців</string>
   <string name="followRead">Переглядати підписки</string>
   <string name="followWrite">Підписуватися і відписуватися від інших гравців</string>
   <string name="msgWrite">Надсилати приватні повідомлення іншим гравцям</string>

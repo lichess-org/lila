@@ -33,7 +33,8 @@
   <string name="publishOnYourBlog">Blogda çop etiş</string>
   <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
   <string name="includesPromotedContent">Homiylik, reklama yoki tavsiya (referral) havolalarni öz içiga oladi</string>
-  <string name="mandatoryForSponsoredContent">Homiylangan kontent, hamkorlik (affiliate) havolalari yoki tijoriy reklamalar uçun majburiy</string>
+  <string name="mandatoryForSponsoredContent">Homiy asosidagi kontent, hamkorlik havolalari yoki tijorat reklamalari uçun majburiy</string>
+  <string name="containsSponsoredContent">Homiy asosidagi kontent, hamkorlik havolalari yoki tijorat reklamalarini öz içiga oladi</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qöyiş</string>
   <string name="stickyPostHelp">Agar belgilansa, uşbu post profilingizdagi sönggi xabarlar röyxatida va blogingizda birinçi bölib körsatiladi.</string>
   <plurals name="publishedNbBlogPosts">

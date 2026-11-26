@@ -21,7 +21,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Apañaches %s de leña!</string>
 	<string name="movesStandardPiecesWeight">Cada peza pesa tipicamente uns 40 gramos</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Cada peza pesa tipicamente 1,4 onzas</string>
+	<string name="movesStandardPiecesWeightImperial">Cada peza pesa tipicamente 1,4 onzas</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Algo así coma o peso de %s piano de cola</item>
 		<item quantity="other">Algo así coma o peso de %s pianos de cola</item>

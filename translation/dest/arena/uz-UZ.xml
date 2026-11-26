@@ -50,6 +50,7 @@ Tezroq ğalaba qozonib, kutiş zaliga qayting — köproq öyin öynang va köpr
     <item quantity="other">Barça %s ta jamoani köriş</item>
   </plurals>
   <string name="newTeamBattle">Yangi jamoalar jangi</string>
+  <string name="startDate">Boşlaniş sanasi</string>
   <string name="entryConditions">Kiriş şartlari</string>
   <string name="customStartDate">Boşlaniş sanasini tanlaş</string>
   <string name="customStartDateHelp">Mahalliy vaqtingiz böyiça. Bu \"Turnir boşlanişigaça bölgan vaqt\" sozlaşini özgartiradi</string>
@@ -91,4 +92,5 @@ Masalan, 3% örtaça örin — siz odatda eng yaxşi 3% içida yakunlaysiz degan
   <string name="berserkRate">Berserk</string>
   <string name="leaguesAndStreamerBattles">Ligalar va strimerlar janglari</string>
   <string name="allowBotAccounts">Bot akkauntlarga ruxsat beriş</string>
+  <string name="allowBotAccountsDescription">&lt;a href=\'%s\' target=\'_blank\'&gt;Botlarga&lt;/a&gt; turnirga qöşiliş va öz dvigatellari yordamida öynaşga ruxsat bering. Bu köpinça inson öyinçilarni çöçitadi.</string>
 </resources>

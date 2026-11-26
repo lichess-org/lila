@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="permPublicName">Публічне</string>
+  <string name="permPublicDesc">Відображатися як лідер на сторінці команди</string>
   <string name="permSettingsName">Налашт.</string>
+  <string name="permSettingsDesc">Редагувати налаштування та опис команди</string>
   <string name="permTourName">Турніри</string>
+  <string name="permTourDesc">Створювати, керувати та брати участь у командних турнірах</string>
+  <string name="permCommName">Модерація</string>
+  <string name="permCommDesc">Модерація форуму та командного чату</string>
+  <string name="permRequestName">Запити</string>
+  <string name="permRequestDesc">Прийняти або відхилити запити на приєднання</string>
+  <string name="permPmAllName">Новини</string>
+  <string name="permPmAllDesc">Надсилати новини учасникам команди</string>
   <string name="permRemoveName">Видалити</string>
+  <string name="permRemoveDesc">Видалити учасників з команди</string>
+  <string name="permAdminName">Адміністратор</string>
+  <string name="permAdminDesc">Керувати дозволами лідерів</string>
+  <string name="demoteLeaderNote">Щоб понизити лідера, зніміть всі їхні дозволи.</string>
   <string name="manuallyReviewAdmissionRequests">Огляд запитів на вступ вручну</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Якщо відмічено, гравці повинні будуть подати заявку на вступ до команди, яку ви зможете прийняти або відхилити.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Приховати список учасників команди від осіб, які не є її членами.</string>
   <string name="onlyLeaderLeavesTeam">Будь ласка, додайте нового лідера команди перед виходом, або закрийте команду.</string>
+  <string name="removeSomeone">Видалити когось</string>
+  <string name="whoToRemove">Кого ви хочете вилучити з команди?</string>
+  <string name="blockedUsers">Заблоковані користувачі</string>
+  <string name="blockedUsersDesc">Введіть по одному імені в рядку. Цим гравцям буде заборонено приєднуватися до команди.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запит на приєднання</item>
     <item quantity="few">%s запити на приєднання</item>
@@ -15,6 +33,7 @@
   </plurals>
   <string name="declinedRequests">Відхилені запити</string>
   <string name="newTeamUpdate">Свіжі новини в команді</string>
+  <string name="teamUpdatesPerWeek">Ви можете надсилати до %1$s новин команди на тиждень. Залишилося новин: &lt;strong&gt;%2$s&lt;/strong&gt; до %3$s.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="teamIntroductionHelp">Короткий опис, видимий в списку команди. До 200 символів.</string>
   <string name="teamDescriptionHelp">Повний опис, видимий на сторінці команди.</string>
@@ -25,6 +44,10 @@
   <string name="listTheTeamsThatWillCompete">Список команд, які будуть змагатись в цій битві.</string>
   <string name="thisTeamBattleIsOver">Цей турнір завершено, а команди більше не можуть бути оновлені.</string>
   <string name="oneTeamPerLine">Одна команда на рядок. Використовуйте автозавершення.</string>
+  <string name="oneTeamPerLineHelp">Ви можете скопіювати цей список із цього турніру до інших!
+
+Ви не можете видалити команду, якщо гравець вже приєднався до турніру.</string>
   <string name="numberOfLeadsPerTeam">Кількість лідерів в команді. Сума їх рахунків - це рахунок команди.</string>
   <string name="numberOfLeadsPerTeamHelp">Не рекомендовано змінювати це значення після початку турніру!</string>
+  <string name="teamIntroPrompt">Розкажіть іншим про свою команду!</string>
 </resources>
