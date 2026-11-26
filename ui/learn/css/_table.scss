@@ -17,7 +17,7 @@
     h2,
     h3 {
       font-size: 2.3em;
-      line-height: 1;
+      line-height: 1.1;
       white-space: nowrap;
     }
 
@@ -55,6 +55,7 @@
   .subtitle {
     color: $c-font-dim;
     margin-bottom: 0;
+    opacity: 0.8;
   }
 
   .goal {
@@ -132,19 +133,19 @@
     &.completed {
       background: $c-good;
       color: $c-over;
-    }
 
-    &.completed button {
-      color: $c-good;
+      button {
+        color: $c-good;
+      }
     }
 
     &.failed {
       background: $c-bad;
       color: $c-over;
-    }
 
-    &.failed button {
-      color: $c-bad;
+      button {
+        color: $c-bad;
+      }
     }
 
     @keyframes go-home {
