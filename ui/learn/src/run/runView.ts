@@ -52,6 +52,7 @@ export const runView = (ctrl: LearnCtrl) => {
       promotionView(ctrl.runCtrl),
     ]),
     div('.learn__metadata', [
+      div('.learn__side', mapSideView(ctrl)),
       div('.learn__table', [
         div('.wrap', [
           div(
@@ -75,7 +76,6 @@ export const runView = (ctrl: LearnCtrl) => {
           progressView(runCtrl),
         ]),
       ]),
-      div('.learn__side', mapSideView(ctrl)),
     ]),
   ]);
 };
