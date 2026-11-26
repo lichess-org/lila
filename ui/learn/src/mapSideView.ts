@@ -1,7 +1,9 @@
-import { a, bind, button, confirm, div, h1, h2, img, span } from 'lib/view';
+import { licon } from 'lib/licon';
+import { a, bind, button, confirm, div, h1, h2, icon, img, span } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+import { getStageRank } from './score';
 import type { SideCtrl } from './sideCtrl';
 import { categs } from './stage/list';
 import { assetUrl } from './util';
@@ -19,13 +21,34 @@ function renderInStage(ctrl: SideCtrl) {
       a(BASE_LEARN_PATH)('.back', [helmImg(), i18n.site.menu]),
       ...categs.map((categ, categId) =>
         div('.categ', { class: { active: categId === ctrl.categId() } }, [
-          h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
+          h2({ hook: bind('click', () => ctrl.categId(categId)) }, [
+            categ.name,
+            icon(licon.GreaterThan)('.chevron'),
+          ]),
           div(
             '.categ_stages',
             categ.stages.map(s => {
               const result = ctrl.data.stages[s.key];
-              const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-              return a(hashHref(s.id))(`.stage.${status}`, [img(s.image, '')(), span(s.title)]);
+              const scores = result?.scores ?? [];
+              const completedCount = s.levels.filter(level => !!scores[level.id - 1]).length;
+              const hasScore = completedCount > 0;
+              const done = completedCount === s.levels.length;
+              const classes = [
+                'stage',
+                s.id === ctrl.activeStageId() && 'active',
+                hasScore ? 'ongoing' : 'future',
+                done && 'done',
+              ].filter(Boolean);
+              const summary = done
+                ? span('.stage__summary.stars', Array(4 - getStageRank(s, scores)).fill(icon(licon.Star)()))
+                : hasScore
+                  ? span('.stage__summary', `${completedCount} / ${s.levels.length}`)
+                  : null;
+              return a(hashHref(s.id))(`.${classes.join('.')}`, [
+                img(s.image, 'Stage icon')(),
+                span(s.title),
+                summary,
+              ]);
             }),
           ),
         ]),
