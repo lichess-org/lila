@@ -533,7 +533,11 @@ object Node:
     case Comment.Author.Unknown => JsNull
   given Writes[Node.Comment] = Writes: comment =>
     Json
-      .obj("id" -> comment.id, "text" -> Comment.rewriteChessBasePieces(comment.text.value), "by" -> comment.by)
+      .obj(
+        "id" -> comment.id,
+        "text" -> Comment.rewriteChessBasePieces(comment.text.value),
+        "by" -> comment.by
+      )
       .add("comp", comment.comp.option(comment.comp))
   given Writes[Node.Glyph] = Writes: glyph =>
     Json
