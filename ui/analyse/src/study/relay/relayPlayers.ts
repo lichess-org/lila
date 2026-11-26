@@ -464,6 +464,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const hideResultsSinceRoundId = ctrl.hideResultsSinceRoundId();
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
+  const hasMultiTC = p.games.map(g => g.fideTC).some((v, _, a) => a.indexOf(v) > 0);
 
   const coloredPoint = ({ points, customPoints, color, ongoing }: RelayPlayerGame, index: number) => {
     if (!points) return ongoing && hl('strong', '*');
@@ -489,12 +490,8 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         playerTd(game.opponent, ctrl, withTips),
         hl('td', game.opponent.rating?.toString()),
         hl('td.game-point', coloredPoint(game, i)),
-        hl(
-          'td.rating-diff',
-          defined(game.ratingDiff) &&
-            hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
-        ),
+        hasMultiTC && hl('td.fide-tc', fideTCAttrs(game.fideTC)),
+        hl('td.rating-diff', hideResultsSinceIndex > i && ratingDiff(game, false)),
       ]);
     }),
   );
