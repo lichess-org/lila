@@ -853,6 +853,8 @@ Friends playing: %2$s</string>
   <string name="hue">Hue</string>
   <string name="boardReset">Reset colours to default</string>
   <string name="pieceSet">Piece set</string>
+  <string name="showLess">Show less</string>
+  <string name="showMore">Show more</string>
   <string name="embedInYourWebsite">Embed in your website</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
   <string name="usernamePrefixInvalid">The username must start with a letter.</string>

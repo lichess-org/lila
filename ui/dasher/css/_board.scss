@@ -6,7 +6,8 @@
   .list {
     @extend %flex-wrap;
 
-    margin: 5px 0;
+    padding: 5px 0;
+    border-block: $border;
   }
 
   .list button {
