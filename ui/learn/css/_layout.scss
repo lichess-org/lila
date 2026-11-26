@@ -27,6 +27,14 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    .learn__side {
+      order: 2;
+    }
+
+    .learn__table {
+      order: 1;
+    }
   }
 
   &--run {
@@ -64,6 +72,11 @@
 
     &__metadata {
       display: contents;
+
+      .learn__side,
+      .learn__table {
+        order: 0;
+      }
     }
   }
 }
