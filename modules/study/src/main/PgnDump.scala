@@ -181,18 +181,22 @@ object PgnDump:
 
   private def branchToVariation(branch: Branch)(using WithFlags, Exporter) =
     chess.Variation(
-      value = branchToMove(branch),
+      value = branchToMove(branch, asVariation = true),
       child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly))
     )
 
-  private def branchToMove(node: Branch)(using flags: WithFlags)(using Exporter) =
+  private def branchToMove(node: Branch, asVariation: Boolean = false)(using
+      flags: WithFlags
+  )(using Exporter) =
     chessPgn.Move(
       san = node.move.san,
       glyphs = flags.comments.so(node.glyphs.toBase),
       comments = flags.comments.so(commentsWithShapes(node)),
       opening = none,
       result = none,
-      timeLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds))
+      timeLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds)),
+      variationComments = asVariation.so:
+        flags.comments.so(node.startingComments.value.map(authoredComment))
     )
 
   private def commentsWithShapes(node: Node)(using Exporter): List[Comment] =
