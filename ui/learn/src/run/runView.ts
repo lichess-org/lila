@@ -45,26 +45,37 @@ export const runView = (ctrl: LearnCtrl) => {
   if (stage.cssClass) rootClass[stage.cssClass] = true;
   if (levelCtrl.blueprint.cssClass) rootClass[levelCtrl.blueprint.cssClass] = true;
   return div('.learn.learn--run', { class: rootClass }, [
-    div('.learn__side', mapSideView(ctrl)),
     div('.learn__main.main-board', { class: { apples: levelCtrl.isAppleLevel() } }, [
       runCtrl.stageStarting() ? stageStarting(runCtrl) : null,
       runCtrl.stageCompleted() ? stageComplete(runCtrl) : null,
       chessground(ctrl.runCtrl),
       promotionView(ctrl.runCtrl),
     ]),
-    div('.learn__table', [
-      div('.wrap', [
-        div('.title', [
-          img(stage.image, '')(),
-          div('.text', [h2(stage.title), p('.subtitle', stage.subtitle)]),
+    div('.learn__metadata', [
+      div('.learn__table', [
+        div('.wrap', [
+          div(
+            '.title',
+            {
+              class: {
+                done: stage.levels.every(level => !!runCtrl.score(level)),
+                ongoing: stage.levels.some(level => !!runCtrl.score(level)),
+              },
+            },
+            [
+              img(stage.image, 'Stage icon')(),
+              div('.text', [h2(stage.title), p('.subtitle', stage.subtitle)]),
+            ],
+          ),
+          levelCtrl.vm.failed
+            ? renderFailed(runCtrl)
+            : levelCtrl.vm.completed
+              ? renderCompleted(levelCtrl)
+              : div('.goal', withLinebreaks(levelCtrl.blueprint.goal)),
+          progressView(runCtrl),
         ]),
-        levelCtrl.vm.failed
-          ? renderFailed(runCtrl)
-          : levelCtrl.vm.completed
-            ? renderCompleted(levelCtrl)
-            : div('.goal', withLinebreaks(levelCtrl.blueprint.goal)),
-        progressView(runCtrl),
       ]),
+      div('.learn__side', mapSideView(ctrl)),
     ]),
   ]);
 };
