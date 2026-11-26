@@ -202,7 +202,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
             |49. Kf2 Ke4 50. Bxf6
             |  (50. h5 gxh5)
             |50... d4 51. Be7 Kd3
-            |""".stripMargin.replaceAll("\n", "").replaceAll("\\s+", " ")
+            |""".stripMargin.replaceAll("\\s+", " ").trim
         assertEquals(pgnDump.value, pgnExpected)
 
   test("merge multiple duplicate variations with same first move"):
