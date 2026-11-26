@@ -7,6 +7,15 @@
 	<string name="gamesYouWon" comment="%s is the number of games won">І ви виграли %s!</string>
 	<string name="gamesNextQuestion">Що для цього було потрібно?</string>
 	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Проведено часу в грі</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Оце вже справжня відданість справі!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Кожна з цих хвилин мала значення.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Час, проведений з користю — крок за кроком.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Ви могли б переглянути розширену трилогію «Володар перснів» %s раз</item>
+		<item quantity="few">Ви могли б переглянути розширену трилогію «Володар перснів» %s рази</item>
+		<item quantity="many">Ви могли б переглянути розширену трилогію «Володар перснів» %s разів</item>
+		<item quantity="other">Ви могли б переглянути розширену трилогію «Володар перснів» %s разів</item>
+	</plurals>
 	<string name="timeHowManyMoves">Скільки ходів ви зіграли за весь цей час?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">Зіграно %s хід</item>
@@ -16,12 +25,32 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Це %s пересунутого дерева!</string>
 	<string name="movesStandardPiecesWeight">Стандартні фігури важать десь 40 грамів</string>
+	<string name="movesStandardPiecesWeightImperial">Стандартні фігури важать приблизно 1,4 унції кожна</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Приблизно вага %s рояля</item>
+		<item quantity="few">Приблизно вага %s роялів</item>
+		<item quantity="many">Приблизно вага %s роялів</item>
+		<item quantity="other">Приблизно вага %s роялів</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s хід</item>
 		<item quantity="few">%s ходи</item>
 		<item quantity="many">%s ходів</item>
 		<item quantity="other">%s ходу</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s гра, проаналізована на Stockfish</item>
+		<item quantity="few">%s партій, проаналізовано на Stockfish</item>
+		<item quantity="many">%s партій, проаналізовано на Stockfish</item>
+		<item quantity="other">%s партій, проаналізовано на Stockfish</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s нова партія</item>
+		<item quantity="few">%s нові партії</item>
+		<item quantity="many">%s нових партій</item>
+		<item quantity="other">%s нових партій</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Ваші найчастіші суперники</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s грам</item>
 		<item quantity="few">%s грами</item>
@@ -34,6 +63,19 @@
 		<item quantity="many">%s кілограмів</item>
 		<item quantity="other">%s кілограма</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s унція</item>
+		<item quantity="few">%s унції</item>
+		<item quantity="many">%s унцій</item>
+		<item quantity="other">%s унцій</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s фунт</item>
+		<item quantity="few">%s фунти</item>
+		<item quantity="many">%s фунтів</item>
+		<item quantity="other">%s фунтів</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Ваш найчастіший перший хід</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">так ви почали %s ігор за білих</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Дякую, що проголосували за %s задачу.</item>
@@ -42,25 +84,64 @@
 		<item quantity="other">Дякую, що проголосували за %s задачі.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Ви додали теги для %s з них.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Ви вирішили %s з них із першої спроби!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">З першої спроби</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Потрібна була ще одна спроба</string>
 	<string name="sourcesTitle">Де ви шукали ігри?</string>
 	<string name="perfsTitle">У які контролі часу й варіанти ви грали?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">Завантажено %s реклам та трекерів</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Реклами</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Трекери</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Брокери даних</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Спливаючі вікна</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Платні доступи</string>
 	<string name="malwareNoSell">Ми не продавали ваші особисті дані</string>
 	<string name="malwareNoAbuse">Ми не використовували ваш пристрій проти вас</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Зіграно %1$s ігор на Lichess у %2$s-му</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s із них — ваші.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">ви</string>
 	<string name="thanksTitle">Дякуємо, що граєте на Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Ми раді, що ви тут. Щасливого %s-го!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Мої підсумки %s року на Lichess</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">програно</string>
 	<string name="shareableMostPlayedOpponent">найчастіший суперник</string>
 	<string name="shareableFavouriteVariant">улюблений варіант</string>
 	<string name="shareableFavouriteTimeControl">улюблений контроль часу</string>
+	<string name="shareableFavouriteFirstMove">улюблений перший хід</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">Розв\'язано %s задачу</item>
 		<item quantity="few">Розв\'язано %s задачі</item>
 		<item quantity="many">Розв\'язано %s задач</item>
 		<item quantity="other">Розв\'язано %s задачі</item>
 	</plurals>
+	<string name="donateOneMoreThing">Ще одна річ…</string>
+	<string name="donateAlreadyPatron">Ви вже Покровитель, дякуємо! Ще одна річ...</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Цього року ви зіграли близько %s хвилини на Lichess!</item>
+		<item quantity="few">Цього року ви зіграли близько %s хвилин на Lichess!</item>
+		<item quantity="many">Цього року ви зіграли близько %s хвилин на Lichess!</item>
+		<item quantity="other">Цього року ви зіграли близько %s хвилин на Lichess!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Якщо вони принесли вам задоволення, підтримайте Lichess щомісячним внеском на %s роботи всього сайту:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Якщо вони принесли вам задоволення, підтримайте Lichess внеском на %s роботи всього сайту:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Будь ласка, підтримайте Lichess щомісячним внеском на %s роботи всього сайту:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Будь ласка, підтримайте Lichess внеском на %s роботи всього сайту:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s хвилина роботи сайту на місяць</item>
+		<item quantity="few">%s хвилини роботи сайту на місяць</item>
+		<item quantity="many">%s хвилин роботи сайту на місяць</item>
+		<item quantity="other">%s хвилин роботи сайту на місяць</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s хвилина роботи сайту</item>
+		<item quantity="few">%s хвилини роботи сайту</item>
+		<item quantity="many">%s хвилин роботи сайту</item>
+		<item quantity="other">%s хвилин роботи сайту</item>
+	</plurals>
+	<string name="donateNotToday">Не сьогодні</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Обрати іншу суму</string>
+	<string name="donateCharity">Lichess — це благодійна організація.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Підтримувати Lichess у роботі %1$s, по всьому світу, коштувало нам %2$s.</string>
 	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Це приблизно як %s</string>
 	<string name="donateAnchorNewYork">лате в Нью-Йорку</string>
 	<string name="donateAnchorLondon">пінта пива в центральному Лондоні</string>
@@ -69,6 +150,10 @@
 	<string name="donateAnchorTokyo">миска локшини в Токіо</string>
 	<string name="donateAnchorSaoPaulo">миска фейжоади в Сан-Паулу</string>
 	<string name="donateAnchorCapeTown">квиток до кінотеатру в Кейптауні</string>
+	<string name="donateAnchorMelbourne">флет-вайт і випічка в Мельбурні</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">За %s на Lichess буде</string>
 	<string name="donateNoWorries">Не переймайтеся! Будь-яка підтримка від спільноти для нас украй важлива, навіть якщо ви просто тут є.</string>
+	<string name="donateReplay">Переглянути мій підсумок</string>
+	<string name="donateChangedMyMind">Змінити рішення</string>
 	<string name="recapReady" comment="%s is the year of the recap">Ваш підсумок %s-го готовий!</string>
 </resources>

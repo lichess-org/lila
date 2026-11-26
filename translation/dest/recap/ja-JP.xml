@@ -19,7 +19,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">%s の木を動かしたことになります！</string>
 	<string name="movesStandardPiecesWeight">一般的なチェス駒は約 40g の重さがあります</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">一般的なチェス駒は約 40g の重さがあります</string>
+	<string name="movesStandardPiecesWeightImperial">一般的なチェス駒は約 40g の重さがあります</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="other">グランドピアノ約 %s 台分の重さ</item>
 	</plurals>

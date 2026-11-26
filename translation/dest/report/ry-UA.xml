@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Што ся стало?</string>
+  <string name="cheat">Чітерство</string>
+  <string name="troll">Тролінґ</string>
+  <string name="reportStall">Затягованя часу / Выход из бавкы</string>
+  <string name="reportMaximumCharacters">Максімум 3000 сімволу.</string>
+  <string name="reportCheatBoostHelp">Покладіт удкликованя на бавку (бавкы) и поясніт, де бавлят порушив правила. Не треба просто написати «ун чітерив», ліпше розкажіт зашто сьте так рішили.</string>
+  <string name="reportUsernameHelp">Поясніт, зашто се мня може дакого обідити. Не треба просто написати «се обідно/непристойно», ліпше розкажіт, як исьте дуйшли д сьому выслідку, а май, кідь оскорбліня запутаноє, не по анґліцькы, є сленґом вадь чинит натяк на історію/културу.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Мы даме утвіт скорше, кідь вашоє скаргованя буде на анґліцькум языку.</string>
+  <string name="provideOneCheatedGameLink">Будьте добрі, дайте бодай єдну удкличку на партію, убысьме провірили.</string>
+  <string name="thanksForTheReport">Дякуєме за скаргованя</string>
+</resources>

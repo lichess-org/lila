@@ -51,6 +51,8 @@
     <item quantity="other">Переглянути %s команди</item>
   </plurals>
   <string name="newTeamBattle">Нова Командна битва</string>
+  <string name="startDate">Дата початку</string>
+  <string name="entryConditions">Умови участі</string>
   <string name="customStartDate">Власна дата початку</string>
   <string name="customStartDateHelp">У вашому локальному часовому поясі. Це замінює налаштування \"Час до початку турніру\"</string>
   <string name="allowBerserk">Дозволити Берсерк</string>
@@ -90,4 +92,6 @@
   <string name="tournamentPairingsAreNowClosed">Формування пар у турнірі завершено.</string>
   <string name="berserkRate">Ігор з берсерком</string>
   <string name="leaguesAndStreamerBattles">Ліги й битви стримерів</string>
+  <string name="allowBotAccounts">Дозволити облікові записи ботів</string>
+  <string name="allowBotAccountsDescription">Дозволити &lt;a href=\'%s\' target=\'_blank\'&gt;ботам&lt;/a&gt; брати участь у турнірі й грати своїми рушіями. Це часто відштовхує справжніх гравців.</string>
 </resources>

@@ -68,6 +68,7 @@ Sinfga kiriş uçun havola quyidagiça.</string>
   <string name="releaseTheAccount">Öquvçi öz akkauntini mustaqil boşqarişi uçun uni bitirtiring.</string>
   <string name="releaseDesc1">Bitirgan akkauntni qayta boşqarib bölmaydi. Öquvçi bola rejimini özi yoqib‑öçirişi va parolini mustaqil örnatişi mumkin böladi.</string>
   <string name="releaseDesc2">Öquvçi akkaunti bitirgandan söng ham sinfda qoladi.</string>
+  <string name="realUniqueEmail">Öquvçining haqiqiy va unikal elektron poçta manzili. Biz uşbu manzilga hisobni faollaştiriş uçun havola yuboramiz. Havola 10 daqiqadan söng öz kuçini yöqotadi.</string>
   <string name="closeStudent">Akkauntni yopiş</string>
   <string name="closeTheAccount">Öquvçi akkauntini butunlay yopiş.</string>
   <string name="closeDesc1">Öquvçi bu akkauntdan boşqa heç qaçon foydalana olmaydi. Akkauntni yopiş — qaytarib bölmas jarayon. Öquvçi buni tuşunganiga va bunga rozi ekanligiga işonç hosil qiling.</string>

@@ -19,7 +19,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">%s만큼의 나무를 옮기셨네요!</string>
 	<string name="movesStandardPiecesWeight">표준 기물은 개당 무게가 40g 정도입니다</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">표준 기물은 개당 무게가 1.4oz(40g) 정도입니다</string>
+	<string name="movesStandardPiecesWeightImperial">표준 기물은 개당 무게가 1.4oz(40g) 정도입니다</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="other">그랜드 피아노 %s개 정도의 무게</item>
 	</plurals>

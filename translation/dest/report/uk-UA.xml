@@ -17,4 +17,7 @@
   <string name="reportUsernameHelp">Поясніть, чому це ім\'я користувача образливе. Не пишіть просто «воно образливе/неприйнятне», а розкажіть, як ви дійшли такого висновку, особливо якщо образа неочевидна, не англійською, у сленгу або є історичним чи культурним натяком.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ми можемо обробити вашу скаргу швидше, якщо ви пишете англійською.</string>
   <string name="provideOneCheatedGameLink">Будь ласка, надайте хоча б одне посилання на гру для розгляду.</string>
+  <string name="thanksForTheReport">Дякуємо за звіт</string>
+  <string name="moderatorsWillReviewSoon">Модератори найближчим часом розглянуть це повідомлення та вживуть відповідних заходів.</string>
+  <string name="blockUserInMeantime">Тим часом ви можете заблокувати цього користувача:</string>
 </resources>

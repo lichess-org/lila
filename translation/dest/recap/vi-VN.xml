@@ -19,7 +19,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Đó là %s gỗ đã được đẩy!</string>
 	<string name="movesStandardPiecesWeight">Mỗi quân cờ tiêu chuẩn nặng khoảng 40g</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Các quân cờ tiêu chuẩn nặng khoảng 1,4 ounce mỗi miếng</string>
+	<string name="movesStandardPiecesWeightImperial">Các quân cờ tiêu chuẩn nặng khoảng 1,4 ounce mỗi miếng</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="other">Khoảng trọng lượng của %s chiếc đàn piano lớn</item>
 	</plurals>

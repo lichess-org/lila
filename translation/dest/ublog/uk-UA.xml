@@ -36,6 +36,7 @@
   <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. У іншому разі він буде приватним, у вашій чернетці дописів</string>
   <string name="includesPromotedContent">Уключає спонсорований уміст чи реферальні посилання</string>
   <string name="mandatoryForSponsoredContent">Обов\'язкове для спонсорованого вмісту, партнерських посилань чи комерційної реклами</string>
+  <string name="containsSponsoredContent">Містить спонсорований контент, партнерські посилання або комерційну рекламу</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Закріплений пост</string>
   <string name="stickyPostHelp">Якщо обрано, цей пост показуватиметься першим у списку останніх постів.</string>
   <plurals name="publishedNbBlogPosts">
@@ -87,5 +88,6 @@
   <string name="blogTips">Наші прості поради для написання хороших дописів</string>
   <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
   <string name="opinionsExpressedByContributorsAreTheirOwn">Думки, висловлені співавторами Lichess, є їхньою особистою позицією.</string>
+  <string name="youMayAlsoLike">Вам також може сподобатися</string>
   <string name="youBlockedByBlogAuthor">Ви заблоковані автором блогу.</string>
 </resources>

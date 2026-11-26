@@ -6,6 +6,8 @@
 	<string name="noGamesText">Bu yil heç qanday öyin öynamadingiz.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Va siz %s tasini yutdingiz!</string>
 	<string name="gamesNextQuestion">Bunga erişiş uçun nimalar ketdi?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Öynaşga sarflangan vaqti</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Mana bu haqiqiy fidoyilik!</string>
 	<string name="timeHowManyMoves">Şunça vaqt mobaynida neçta yuriş qildingiz?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s yuriş qildingiz</item>
@@ -17,6 +19,15 @@
 		<item quantity="one">%s yuriş</item>
 		<item quantity="other">%s yuriş</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s ta öyin Stockfish tomonidan tahlil qilindi</item>
+		<item quantity="other">%s ta öyin Stockfish tomonidan tahlil qilindi</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s ta yangi öyin</item>
+		<item quantity="other">%s ta yangi öyin</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Eng tez-tez duç kelgan raqiblaringiz</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gramm</item>
 		<item quantity="other">%s gramm</item>
@@ -25,19 +36,34 @@
 		<item quantity="one">%s kilogramm</item>
 		<item quantity="other">%s kilogramm</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s unsiya</item>
+		<item quantity="other">%s unsiya</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s funt</item>
+		<item quantity="other">%s funt</item>
+	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">bilan %s ta öyinda oqlar sifatida boşladingiz</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">%s ta masalani baholaganingiz uçun rahmat.</item>
 		<item quantity="other">%s ta masalani baholaganingiz uçun rahmat.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Siz şuningdek, ulardan %s tasiga teg qöyişga yordam berdingiz.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Ularning %s tasini birinçi urinişdayoq yeçdingiz!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Birinçi urinişda</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Yana bir uriniş kerak edi</string>
 	<string name="sourcesTitle">Qayerda öynadingiz?</string>
 	<string name="perfsTitle">Qaysi vaqt nazorati va variantlarni öynadingiz?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s ta reklama va treker yuklandi</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Reklama</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Trekerlar</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Maʼlumot brokerlari</string>
 	<string name="malwareNoSell">Biz sizni şaxsiy maʼlumotlaringizni sotmadik</string>
 	<string name="malwareNoAbuse">Biz sizni qurilmangizni sizga qarşi işlatmadik</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Lichessʼda %2$s‑yilda %1$s ta öyin öynaldi</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">Ulardan %s sizniki edi.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">siz</string>
 	<string name="thanksTitle">Lichessʼda öynaganingiz uçun rahmat!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Bu yerda ekanligingiz bilan mamnunmiz. %s‑yilingiz maroqli ötsin!</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">vaqt öynadingiz</string>
@@ -48,5 +74,7 @@
 		<item quantity="one">%s masala yeçdingiz</item>
 		<item quantity="other">%s masala yeçdingiz</item>
 	</plurals>
+	<string name="donateOneMoreThing">Yana bir narsa…</string>
+	<string name="donateNotToday">Bugun emas</string>
 	<string name="recapReady" comment="%s is the year of the recap">Sizning %s‑yil sarhisobingiz tayyor!</string>
 </resources>

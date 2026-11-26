@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="permSettingsName">Штімованя</string>
+  <string name="permSettingsDesc">Міняти штімованя а опис клуба</string>
   <string name="permTourName">Турніры</string>
 </resources>

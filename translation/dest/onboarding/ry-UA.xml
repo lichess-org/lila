@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">Зайти ги %s</string>
+  <string name="welcome">Вітайте!</string>
+  <string name="welcomeToLichess">Вітайте на Lichess!</string>
+  <string name="welcomeToLichessX">Вітайте на Lichess, %s!</string>
+  <string name="verifyYourAccount">Потвердіт свуй акаунт</string>
+  <string name="thisIsYourProfilePage">Се бук вашого профіла.</string>
+  <string name="enabledKidModeSuggestion">Сись акаунт буде хосновати дітвак? Можете включити %s.</string>
+  <string name="whatNowSuggestions">Што дале? Адде пару понук:</string>
+  <string name="learnChessRules">Учіт ся шахматных правил.</string>
+  <string name="playTheArtificialIntelligence">Бавте против робленого розума.</string>
+  <string name="playOpponentsFromAroundTheWorld">Бавте з противниками из усього світа.</string>
+  <string name="followYourFriendsOnLichess">Пудписуйте ся на цімбору в Lichess.</string>
+  <string name="playInTournaments">Бавте в турнірах.</string>
+  <string name="configureLichess">Штімуйте Lichess як вам ся любит.</string>
+</resources>

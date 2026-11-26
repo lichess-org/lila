@@ -50,6 +50,7 @@
   <string name="numberOfRounds">Кількість раундів</string>
   <string name="numberOfRoundsHelp">Непарна кількість раундів забезпечує оптимальний баланс кольору.</string>
   <string name="roundInterval">Інтервал між раундами</string>
+  <string name="customPairings">Ручне жеребкування</string>
   <string name="forbiddenPairings">Заборонені пари</string>
   <string name="forbiddenPairingsHelp">Імена гравців, які не повинні грати разом (наприклад, родичі). Два імені у рядку, розділені пробілом.</string>
   <string name="manualPairings">Підбір пар в наступному раунді вручну</string>

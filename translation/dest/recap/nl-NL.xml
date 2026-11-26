@@ -8,6 +8,12 @@
 	<string name="gamesNextQuestion">Hoeveel tijd heeft dat gekost?</string>
 	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Tijd schakend besteed</string>
 	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Dat is nog eens serieuze toewijding!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Elke minuut telde.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Tijd goed besteed, één zet tegelijk.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Je kon de verlengde Lord of the Rings-trilogie %s keer kijken</item>
+		<item quantity="other">Je kon de verlengde Lord of the Rings-trilogie %s keer kijken</item>
+	</plurals>
 	<string name="timeHowManyMoves">Hoeveel zetten heb je in die tijd gespeeld?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s zet gespeeld</item>
@@ -15,14 +21,23 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Dat is %s hout verplaatst!</string>
 	<string name="movesStandardPiecesWeight">Standaard stukken wegen ongeveer 40g elk</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Min of meer het gewicht van %s vleugelpiano</item>
+		<item quantity="other">Min of meer het gewicht van %s vleugelpiano\'s</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s zet</item>
 		<item quantity="other">%s zetten</item>
+	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s partij geanalyseerd door Stockfish</item>
+		<item quantity="other">%s partijen geanalyseerd door Stockfish</item>
 	</plurals>
 	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
 		<item quantity="one">%s nieuwe partij</item>
 		<item quantity="other">%s nieuwe partijen</item>
 	</plurals>
+	<string name="mostFrequentOpponents">Je meest voorkomende tegenstanders</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
 		<item quantity="other">%s gram</item>
@@ -46,6 +61,7 @@
 	<string name="malwareNoneLoaded" comment="%s is 0">%s advertenties en trackers geladen</string>
 	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Advertenties</string>
 	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Trackers</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Gegevenshandelaars</string>
 	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Pop-ups</string>
 	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Betaalmuren</string>
 	<string name="malwareNoSell">We hebben uw persoonlijke gegevens niet verkocht</string>
@@ -55,6 +71,7 @@
 	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">jij</string>
 	<string name="thanksTitle">Bedankt voor het spelen op Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">We zijn blij dat je hier bent. Fijn %s!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Mijn Lichess-samenvatting van %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">geschaakt</string>
 	<string name="shareableMostPlayedOpponent">meest frequente tegenstander</string>
 	<string name="shareableFavouriteVariant">favoriete variant</string>
@@ -66,8 +83,14 @@
 	</plurals>
 	<string name="donateOneMoreThing">En dan nog dit…</string>
 	<string name="donateAlreadyPatron">Je bent al een Patroon, bedankt! Nog één ding…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Dit jaar speelde je ongeveer %s minuut op Lichess!</item>
+		<item quantity="other">Dit jaar speelde je ongeveer %s minuten op Lichess!</item>
+	</plurals>
 	<string name="donateNotToday">Niet vandaag</string>
 	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Een ander bedrag doneren</string>
+	<string name="donateCharity">Lichess is een goed doel.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Dat is zowat hetzelfde als %s</string>
 	<string name="donateAnchorNewYork">een latte in New York</string>
 	<string name="donateAnchorLondon">een pint bier in het centrum van Londen</string>
 	<string name="donateAnchorParis">een glas huiswijn in Parijs</string>
@@ -77,5 +100,7 @@
 	<string name="donateAnchorCapeTown">een bioscoopkaartje in Kaapstad</string>
 	<string name="donateAnchorMelbourne">een flat white en gebak in Melbourne</string>
 	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">In die %s ziet Lichess</string>
+	<string name="donateReplay">Herhaal mijn samenvatting</string>
+	<string name="donateChangedMyMind">Van gedachten veranderd</string>
 	<string name="recapReady" comment="%s is the year of the recap">Je samenvatting van %s is klaar!</string>
 </resources>

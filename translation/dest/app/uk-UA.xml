@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">Завантажити в Google Play</string>
   <string name="downloadOnFdroid">Завантажити в F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Мобільний екран Lichess</string>
+  <string name="asFreeAsLichess">Такий же безкоштовний, як Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Створено з любові до шахів, а не заради грошей</string>
+  <string name="noAdsNoTracking">Без реклами, без відстеження</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Повністю відкритий код</string>
+  <string name="fullyFeatured">Повнофункціональний</string>
+  <string name="phoneAndTablet">Для смартфонів та планшетів</string>
+  <string name="bulletBlitzClassicalVariants">Куля, бліц, класика, інші варіанти</string>
+  <string name="correspondenceChess">Заочні шахи</string>
+  <string name="unlimitedPuzzles">Необмежені задачі</string>
+  <string name="gameAnalysis">Аналіз партій</string>
 </resources>
