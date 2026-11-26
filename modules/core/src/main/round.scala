@@ -13,13 +13,18 @@ import lila.core.userId.UserId
 
 case class Berserk(gameId: GameId, userId: UserId)
 
+enum ApiMove:
+  case bot, board
+
 // for messages that also need to be sent via `lila.bus.Bus`
 // only allowed to be bused via `Tell`, to include a `GameId`
 enum RoundBus extends NotBuseable:
   case Abort(playerId: GamePlayerId)
   case AbortForce
   case BotConnected(color: Color, v: Boolean)
-  case BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
+  case BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)(using
+      val api: ApiMove
+  )
   case Draw(playerId: GamePlayerId, draw: Boolean)
   case FishnetPlay(uci: Uci, sign: String)
   case IsOnGame(color: Color, promise: Promise[Boolean])

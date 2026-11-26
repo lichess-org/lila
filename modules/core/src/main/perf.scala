@@ -11,7 +11,9 @@ import lila.core.userId.{ UserId, UserIdOf }
 
 object perf:
 
-  opaque type PerfKey = String
+  opaque type PerfKey = "bullet" | "blitz" | "rapid" | "classical" | "correspondence" | "standard" |
+    "ultraBullet" | "chess960" | "kingOfTheHill" | "threeCheck" | "antichess" | "atomic" | "horde" |
+    "racingKings" | "crazyhouse" | "puzzle"
   object PerfKey:
     val bullet: PerfKey = "bullet"
     val blitz: PerfKey = "blitz"
@@ -29,6 +31,7 @@ object perf:
     val racingKings: PerfKey = "racingKings"
     val crazyhouse: PerfKey = "crazyhouse"
     val puzzle: PerfKey = "puzzle"
+
     val list: List[PerfKey] = List(
       bullet,
       blitz,
@@ -48,7 +51,7 @@ object perf:
       puzzle
     )
     val all: Set[PerfKey] = list.toSet
-    def keyIdMap: Map[PerfKey, PerfId] = Map(
+    val keyIdMap: Map[PerfKey, PerfId] = Map(
       ultraBullet -> 0,
       bullet -> 1,
       blitz -> 2,
@@ -75,7 +78,25 @@ object perf:
     given SameRuntime[PerfKey, String] = _.value
     given Eq[PerfKey] = Eq.by(_.value)
 
-    def apply(key: String): Option[PerfKey] = Option.when(all.contains(key))(key)
+    def apply(key: String): Option[PerfKey] = key match
+      case "bullet" => bullet.some
+      case "blitz" => blitz.some
+      case "rapid" => rapid.some
+      case "classical" => classical.some
+      case "correspondence" => correspondence.some
+      case "standard" => standard.some
+      case "ultraBullet" => ultraBullet.some
+      case "chess960" => chess960.some
+      case "kingOfTheHill" => kingOfTheHill.some
+      case "threeCheck" => threeCheck.some
+      case "antichess" => antichess.some
+      case "atomic" => atomic.some
+      case "horde" => horde.some
+      case "racingKings" => racingKings.some
+      case "crazyhouse" => crazyhouse.some
+      case "puzzle" => puzzle.some
+      case _ => none
+
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
 
     def byVariant(variant: Variant): Option[PerfKey] = variant match
@@ -162,8 +183,6 @@ object perf:
       case "racingKings" => racingKings
       case "crazyhouse" => crazyhouse
       case "puzzle" => puzzle
-      // impossible because PerfKey can't be instantiated with arbitrary values
-      case key => sys.error(s"Unknown perf key: $key")
 
     def keyed(key: PerfKey): KeyedPerf = KeyedPerf(key, apply(key))
 
@@ -184,8 +203,6 @@ object perf:
       case "racingKings" => this.focus(_.racingKings)
       case "crazyhouse" => this.focus(_.crazyhouse)
       case "puzzle" => this.focus(_.puzzle)
-      // impossible because PerfKey can't be instantiated with arbitrary values
-      case key => sys.error(s"Unknown perf key: $key")
 
   case class UserWithPerfs(user: lila.core.user.User, perfs: UserPerfs):
     export user.*
