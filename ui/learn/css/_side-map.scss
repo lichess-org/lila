@@ -1,57 +1,96 @@
 .learn__side-map {
+  @extend %box-bordered, %box-shadow;
   @include prevent-select;
 
-  .back,
-  .categ > h2 {
-    display: block;
-    font-size: 1.3em;
-    height: 50px;
-    line-height: 50px;
-    text-indent: 15px;
-    cursor: pointer;
-    opacity: 0.81;
-  }
+  background-color: $c-bg-box;
+  overflow: hidden;
 
   .back {
     display: flex;
     color: $c-font;
+    font-size: 1.3em;
+    line-height: 48px;
+    margin: 4px;
+    font-weight: 300;
+    border-radius: $small-box-radius-size;
+
+    &:hover {
+      background: rgb(120 120 120 / 0.2);
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin: 4px;
+      margin-inline-end: 10px;
+      padding: 4px;
+      opacity: 0.75;
+      filter: brightness(1.1);
+      background: rgb(120 120 120 / 1);
+      border-radius: $small-box-radius-size;
+      border: 1px solid rgb(130 130 130 / 1);
+      display: block;
+    }
   }
 
-  .back img {
-    width: 50px;
-    height: 50px;
-    opacity: 0.9;
-    margin-inline-end: 10px;
-    padding: 10px;
-    background: rgb(120 120 120 / 1);
-    display: block;
+  .stages,
+  .categ_stages {
+    display: flex;
+    flex-direction: column;
   }
 
-  .back:hover {
-    background: rgb(120 120 120 / 0.2);
-  }
+  .categ {
+    &.active {
+      & > h2 {
+        @extend %metal-bg;
 
-  .categ > h2 {
-    border-top: $border;
-  }
+        cursor: default;
+        color: $c-font;
+        font-weight: 500;
+        border-bottom: $border;
 
-  .categ > h2:hover {
-    background: rgb(from $c-primary r g b / calc(alpha * 0.2));
-  }
+        &:hover {
+          @extend %metal-bg;
+        }
+      }
+    }
 
-  .categ.active {
-    border: $border;
-    border-width: 0 1px;
-  }
+    & > h2 {
+      border-top: $border;
+      display: flex;
+      align-items: center;
+      font-size: 1.3em;
+      line-height: 50px;
+      padding-inline: 12px;
+      cursor: pointer;
 
-  .categ.active:last-child {
-    border-bottom-width: 1px;
-  }
+      .chevron {
+        display: inline-block;
+        margin-inline-start: auto;
+        font-size: 0.75em;
+        transition: transform 0.2s;
+        color: $c-font-dimmer;
+      }
 
-  .categ.active > h2 {
-    cursor: default;
-    background: $c-primary;
-    color: $c-over;
+      &:hover {
+        background: $c-bg-zebra;
+
+        .chevron {
+          color: $c-font-dim;
+        }
+      }
+    }
+
+    &.active > h2 .chevron {
+      transform: rotate(-90deg);
+      color: $c-font-dim;
+    }
+
+    .categ_stages {
+      padding: 4px;
+      gap: 2px;
+      background-color: $c-bg-high;
+    }
   }
 
   .categ:not(.active) .categ_stages {
@@ -63,50 +102,66 @@
     @include transition;
 
     font-size: 1.1em;
-    opacity: 0.9;
     color: $c-font;
+    border-radius: $small-box-radius-size;
 
-    img,
-    icon {
-      width: 50px;
-      height: 50px;
-      opacity: 0.9;
+    img {
+      width: 40px;
+      height: 40px;
+      margin: 4px;
       margin-inline-end: 10px;
-      padding: 10px;
+      padding: 4px;
+      opacity: 0.75;
+      filter: brightness(1.1);
+      border-radius: $small-box-radius-size;
+      border-width: 1px;
+      border-style: solid;
+      background: linear-gradient(130deg, $c-future, hsl(from $c-future h s calc(l - 16)));
+      border-color: hsl(from $c-future h s calc(l - 10));
     }
 
-    icon::before {
-      font-size: 30px;
+    .stage__summary {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+      gap: 2px;
+      margin-inline-start: auto;
+      padding-inline: 14px;
+      font-size: 0.85em;
+      white-space: nowrap;
+
+      &.stars {
+        padding-inline: 10px;
+
+        icon {
+          color: $c-brag;
+        }
+      }
     }
 
-    &.active {
+    &.future:hover,
+    &.future.active {
+      background: rgb(from $c-future r g b / calc(alpha * 0.2));
+    }
+
+    &.ongoing:hover,
+    &.ongoing.active {
       background: rgb(from $c-primary r g b / calc(alpha * 0.2));
     }
 
-    &.active img {
-      background: $c-primary;
+    &.ongoing img {
+      background: linear-gradient(130deg, $c-primary, hsl(from $c-primary h s calc(l - 16)));
+      border-color: hsl(from $c-primary h s calc(l - 10));
     }
 
-    &.done:hover {
+    &.done:hover,
+    &.done.active {
       background: rgb(from $c-secondary r g b / calc(alpha * 0.2));
     }
 
     &.done img {
-      background: $c-good;
-    }
-
-    &.future:hover {
-      background: rgb(from $c-primary r g b / calc(alpha * 0.2));
-    }
-
-    &.future img {
-      opacity: 0.7;
-      background: $c-primary;
-    }
-
-    &:hover {
-      filter: brightness(0.9);
-      color: $c-font-clearer;
+      background: linear-gradient(130deg, $c-secondary, hsl(from $c-secondary h s calc(l - 16)));
+      border-color: hsl(from $c-secondary h s calc(l - 10));
     }
   }
 }
