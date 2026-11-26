@@ -552,7 +552,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons = false) => {
     const node = [p.ratingsMap?.[tc], diffNode(diff)];
     return isMultiTc ? hl('div.diff', fideTCAttrs(tc), node) : node;
   });
-  return isMultiTc ? hl('div.diffs', diffNodes) : hl('div.diff', diffNodes[0]);
+  return isMultiTc ? diffNodes : hl('div.diff', diffNodes[0]);
 };
 
 const diffNode = (rd?: number) =>
