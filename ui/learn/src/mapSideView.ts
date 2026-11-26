@@ -21,10 +21,21 @@ function renderInStage(ctrl: SideCtrl) {
       a(BASE_LEARN_PATH)('.back', [helmImg(), i18n.site.menu]),
       ...categs.map((categ, categId) =>
         div('.categ', { class: { active: categId === ctrl.categId() } }, [
-          h2({ hook: bind('click', () => ctrl.categId(categId)) }, [
-            categ.name,
-            icon(licon.GreaterThan)('.chevron'),
-          ]),
+          h2(
+            {
+              attrs: { tabindex: 0, 'aria-expanded': categId === ctrl.categId() },
+              on: {
+                click: () => ctrl.categId(categId),
+                keydown: event => {
+                  if (event.key === 'Enter' || event.code === 'Space') {
+                    event.preventDefault();
+                    ctrl.categId(categId);
+                  }
+                },
+              },
+            },
+            [categ.name, icon(licon.GreaterThan)('.chevron')],
+          ),
           div(
             '.categ_stages',
             categ.stages.map(s => {

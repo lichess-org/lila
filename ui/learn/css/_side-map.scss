@@ -79,6 +79,11 @@
           color: $c-font-dim;
         }
       }
+
+      &:focus-visible {
+        outline: $outline;
+        outline-offset: -2px;
+      }
     }
 
     &.active > h2 .chevron {
