@@ -84,7 +84,7 @@
   <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
-  <string name="copyMainLinePgn">Копіювати PGN головної лінії</string>
+  <string name="copyMainLinePgn">Копіювати PGN основної лінії</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -118,12 +118,12 @@
   <string name="openingExplorer">Дослідження дебютів</string>
   <string name="openingEndgameExplorer">Дослідження дебютів/ендпшілів</string>
   <string name="xOpeningExplorer">Дослідження дебютів %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Зіграти перший хід з дослідження дебютів/ендшпілів</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Зіграти основний хід з аналізу дебютів/ендшпілів</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
-  <string name="winOr50MovesByPriorMistake">Перемога або правило 50 ходів через попередню помилку</string>
-  <string name="lossOr50MovesByPriorMistake">Поразка або правило 50 ходів через попередню помилку</string>
-  <string name="unknownDueToRounding">Перемога/поразка гарантовані лише в тому випадку, якщо з моменту останнього взяття або ходу пішака відстежується рекомендована базова лінія, через можливе заокруглення значень DTZ в систематичних табличних базах.</string>
+  <string name="winOr50MovesByPriorMistake">Перемога або нічия за правилом 50 ходів через попередню помилку</string>
+  <string name="lossOr50MovesByPriorMistake">Поразка або нічия за правилом 50 ходів через попередню помилку</string>
+  <string name="unknownDueToRounding">Через можливе округлення значень DTZ у табличних базах Syzygy, перемога/поразка гарантуються лише в тому випадку, якщо з моменту останнього взяття або ходу пішака дотримувалася рекомендована лінія з табличної бази.</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
   <string name="delete">Видалити</string>
@@ -133,13 +133,13 @@
   <string name="byCPL">Цікаве</string>
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
-  <string name="showVariationArrows">Показати стрілки для варіантів</string>
-  <string name="visualMotifs">Візуальні підказки</string>
+  <string name="showVariationArrows">Показувати варіанти стрілками</string>
+  <string name="visualMotifs">Візуальні мотиви</string>
   <string name="undefendedPieces">Незахищені фігури</string>
   <string name="pinnedPieces">Зв\'язані фігури</string>
   <string name="checkableKing">Король, якому можна поставити шах</string>
   <string name="multipleLines">Кількість стрілок</string>
-  <string name="multipleLinesDescription">Укажіть кількість стрілок аналізу на дошці</string>
+  <string name="multipleLinesDescription">Встановіть кількість ліній аналізу та стрілок на дошці</string>
   <string name="searchTime">Час пошуку</string>
   <string name="searchTimeDescription">Установити час для оцінки нових позицій</string>
   <string name="threads">Потоки</string>
@@ -575,6 +575,7 @@
   <string name="standByX">Очікуйте, %s, йде жеребкування, будьте готові!</string>
   <string name="pause">Пауза</string>
   <string name="resume">Відновити</string>
+  <string name="stop">Зупинити</string>
   <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Відсоток перемог</string>
   <string name="performance">Ефективність</string>
@@ -775,6 +776,7 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
+  <string name="lichessUpdates">Новини Lichess</string>
   <string name="allUpdates">Усі оновлення</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="changelog">Список змін</string>
@@ -1079,6 +1081,8 @@
   <string name="onlyMembersOfTeam">Лише члени команди</string>
   <string name="noRestriction">Без обмежень</string>
   <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
+  <string name="minimumAccountAge">Мінімальний вік облікового запису</string>
+  <string name="titledPlayersBypassRestriction">Титуловані гравці не підпадають під це обмеження.</string>
   <string name="minimumRating">Мінімальний рейтинг</string>
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
   <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
@@ -1136,6 +1140,7 @@
   <string name="offline" comment="status of a user">не в мережі</string>
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
+  <string name="searchInX">Шукати в \"%s\"</string>
   <string name="thereAreNoResultsForX">Нічого не знайдено для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>

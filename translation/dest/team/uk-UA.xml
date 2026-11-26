@@ -32,6 +32,8 @@
   <string name="swissTournamentOverview">Турнір за швейцарською системою, до якого можуть приєднатися лише члени вашої команди</string>
   <string name="teamUpdates">Новини команди</string>
   <string name="subToTeamUpdates">Підписатися на новини команди</string>
+  <string name="teamEvents">Події команди</string>
+  <string name="upcomingTeamEvents">Майбутні події команди</string>
   <string name="teamsIlead">Команди, лідером яких я є</string>
   <string name="leadersChat">Чат лідерів</string>
   <string name="introduction">Вступ</string>

@@ -6,6 +6,10 @@
 	<string name="noGamesText">You did not play any games this year.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">And you won %s!</string>
 	<string name="gamesNextQuestion">What did it take to get there?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">Time spent playing</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Now that is some serious dedication!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Every one of those minutes counted.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Time well spent, one move at a time.</string>
 	<string name="timeHowManyMoves">How many moves did you play in all that time?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s move played</item>

@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">Стандарт</string>
+  <string name="standardTitle">Стандартні правила шахмат (FIDE)</string>
+  <string name="chess960">Шахматы Фішера</string>
+  <string name="chess960Title">Фіґуры на первуй лінії ся трафунково перемішувут.</string>
+  <string name="kingOfTheHill">Царь горы</string>
+  <string name="kingOfTheHillTitle">Посуньте свого короля в центр, убы вуграти.</string>
+  <string name="threeCheck">Три шахы</string>
+  <string name="threeCheckTitle">Покладіт противнику 3 шахы, убы вуграти.</string>
+  <string name="antichess">Антішахматы</string>
+  <string name="antichessTitle">Утратьте всі свої фіґуры (вадь дустаньте пат), убы вуграти.</string>
+  <string name="atomic">Атомні шахматы</string>
+  <string name="atomicTitle">Зорвіт короля свого противника, убы вуграти.</string>
+  <string name="horde">Орда</string>
+  <string name="hordeTitle">Єдна сторона має повно пішаку, а у другої стандартні фіґуры.</string>
+  <string name="racingKings">Перебіг королю</string>
+  <string name="racingKingsTitle">Посуньте свого короля на другу сторону дощкы, убы вуграти.</string>
+  <string name="crazyhouse">Чікош</string>
+  <string name="crazyhouseTitle">Місто хода, мож покласти на дощку биту фіґуру противника.</string>
+  <string name="fromPosition">Из позіції</string>
+  <string name="fromPositionTitle">Стандартні шахматы из вубраної позіції</string>
+</resources>

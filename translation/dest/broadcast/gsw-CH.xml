@@ -32,6 +32,8 @@
   <string name="startDateHelp">Optional, falls du weisch, wänn de Event schtartet</string>
   <string name="currentGameUrl">URL vom laufende Schpil</string>
   <string name="downloadAllRounds">Alli Runde abelade</string>
+  <string name="shareThisBroadcastByUrl">Teil die Überträgig mit ere URL</string>
+  <string name="downloadPgn">PGN abelade</string>
   <string name="resetRound">Die Rundi z\'rugg setze</string>
   <string name="deleteRound">Die Rundi lösche</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Die Rundi und all Schpil für immer lösche?</string>

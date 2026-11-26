@@ -11,12 +11,11 @@ export const header = (name: string, close: () => void): VNode =>
 
 export const moreButton = (toggle: Toggle): VNode =>
   hl(
-    'button.button.more',
+    'button.button.button-empty.more',
     {
-      attrs: { title: toggle() ? i18n.site.less : i18n.site.more },
       hook: bind('click', toggle.toggle),
     },
-    toggle() ? '-' : '+',
+    toggle() ? i18n.site.showLess : i18n.site.showMore,
   );
 
 export const elementScrollBarWidthSlowGuess: () => number = memoize<number>(() => {

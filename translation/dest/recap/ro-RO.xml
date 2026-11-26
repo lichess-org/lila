@@ -18,7 +18,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Asta înseamnă %s de lemn ridicat!</string>
 	<string name="movesStandardPiecesWeight">Piesele standard cântăresc aproximativ 40g fiecare</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Piesele standard cântăresc aproximativ 40g fiecare</string>
+	<string name="movesStandardPiecesWeightImperial">Piesele standard cântăresc aproximativ 40g fiecare</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Greutatea aproximativă a unui pian</item>
 		<item quantity="few">Greutatea aproximativă a %s piane</item>

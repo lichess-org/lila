@@ -6,6 +6,14 @@
 	<string name="noGamesText">Du häsch das Jahr keis Schpil g\'schpillt.</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Und du häsch %s gunne!</string>
 	<string name="gamesNextQuestion">Was häts für das brucht?</string>
+	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">G\'samti Schpillzit</string>
+	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">Dem säg ich mal ächti Hingab!</string>
+	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">Jedi vu dene Minute zellt.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">Guet inweschtierti Zit, Schritt für Schritt.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">Du hetsch die länger Trilogie vu „Herr der Ringe“ %s Mal chöne luege</item>
+		<item quantity="other">Du hetsch die längeri Trilogie vu „Herr der Ringe“ %s Mal chöne luege</item>
+	</plurals>
 	<string name="timeHowManyMoves">Wievill Züg häsch g\'schpillt, während dere Zit?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s Zug g\'macht</item>
@@ -13,10 +21,24 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Das sind öppe %s umegschobes Holz!</string>
 	<string name="movesStandardPiecesWeight">( will 1 normali Figur isch öppe 40 Gramm schwer )</string>
+	<string name="movesStandardPiecesWeightImperial">E normali Figur isch um di 40 Gramm</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">Öppe so schwer wie %s Konzertflügel</item>
+		<item quantity="other">Öppe so schwer wie %s Konzertflügel</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s Zug</item>
 		<item quantity="other">%s Züg</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">%s Schpil vu Stockfisch analysiert</item>
+		<item quantity="other">%s Schpil vu Stockfisch analysiert</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s neui Schpil</item>
+		<item quantity="other">%s neui Schpil</item>
+	</plurals>
+	<string name="mostFrequentOpponents">Dini am hüfigschte gschpillte Gägner</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s Gramm</item>
 		<item quantity="other">%s Gramm</item>
@@ -25,28 +47,83 @@
 		<item quantity="one">%s Kilo</item>
 		<item quantity="other">%s Kilo</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s Unze (28,35g)</item>
+		<item quantity="other">%s Unze (28,35g)</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s Pound (453,6g)</item>
+		<item quantity="other">%s Pounds (453,6g)</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Din am meischte g\'schpillti 1. Zug</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">... eso häsch du %s vu dine Schpil - mit de wisse Figure - agfange</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Danke für dini Stimm bi %s Ufgab.</item>
 		<item quantity="other">Danke für dini Stimm bi %s Ufgabe.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du häsch au bi %s vu dene g\'holfe.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">%s vu dene, häsch im 1. Versuech g\'löst!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">1. Versuech</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Häschs nomal probiert</string>
 	<string name="sourcesTitle">Wo findsch Schpil und Gägner*ine?</string>
 	<string name="perfsTitle">Was für Zite und Variante schpillsch du?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s Ads und Tracker sind g\'lade</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">Ads</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Tracker</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Date Händler</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Popups</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Abo Falle</string>
 	<string name="malwareNoSell">Mir verchaufed dini persönliche Date nöd</string>
 	<string name="malwareNoAbuse">Mir mached au nüt mit dim G\'rät</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Im Jahr %2$s sind uf Lichess %1$s Schachschpil absolviert worde</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s dene vu dir.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">DU</string>
 	<string name="thanksTitle">Danke, dass du uf Lichess schpillsch!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Mir freued eus, dass du da bisch und wünsched dir es super %s!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Min Lichess Rückblick vu %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">g\'schpillt</string>
 	<string name="shareableMostPlayedOpponent">de/die am meischte g\'schpillti Gägner*i</string>
 	<string name="shareableFavouriteVariant">bevorzugti Schpil Variante</string>
 	<string name="shareableFavouriteTimeControl">bevorzugti Zit Variante</string>
+	<string name="shareableFavouriteFirstMove">bevorzugte 1. Zug</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s Ufgab g\'löst</item>
 		<item quantity="other">%s Ufgabe g\'löst</item>
 	</plurals>
+	<string name="donateOneMoreThing">Und no öppis...</string>
+	<string name="donateAlreadyPatron">Danke, du bisch immerno en Gönner! Und no öppis...</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Das Jahr häsch du %s Minute uf Lichess g\'schpillt!</item>
+		<item quantity="other">Das Jahr häsch du öppe %s Minute uf Lichess g\'schpillt!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Wänn\'s dir g\'falle händ, dänk drüber na, jede Monet %s z\'schpände:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Wänn\'s dir g\'falle händ, erwäg doch e Schpänd vu %s:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Überleg dir bitte, jede Monet %s z\'schpände:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Überleg dir bitte %s z\'schpände:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s Minute Laufzit pro Monet</item>
+		<item quantity="other">%s Minute Laufzit pro Monet</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s Minute Laufzit</item>
+		<item quantity="other">%s Minute Laufzit</item>
+	</plurals>
+	<string name="donateNotToday">Nöd hüt</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Schpänd en andere Betrag</string>
+	<string name="donateCharity">Lichess isch e g\'meinnützigi Organisazion.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Lichess, uf de ganze Wält für %1$s z\'betribe, choscht eus %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">Das isch öppe glich vill wie für %s</string>
+	<string name="donateAnchorNewYork">e Latte Macchiato in New York City</string>
+	<string name="donateAnchorLondon">en Pint Bier z\'mitscht in London</string>
+	<string name="donateAnchorParis">es Glas Huswii z\'Paris</string>
+	<string name="donateAnchorBerlin">es Döner Kebab z\'Berlin</string>
+	<string name="donateAnchorTokyo">e Schüssle Rame Nuddle z\'Tokio</string>
+	<string name="donateAnchorSaoPaulo">en Täller Feijoada in Sao Paulo</string>
+	<string name="donateAnchorCapeTown">es Kinobillet z\'Kapstadt</string>
+	<string name="donateAnchorMelbourne">en Espresso und es Gipfeli z\'Melbourne</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">I dene %s, wird vu Lichess azeigt</string>
+	<string name="donateNoWorries">Kei Panik! Jedi Form vu Underschtützig dur d\'Gmeinschaft, isch für eus unverzichtbar – und da dezue g\'hört au eifach nur, dass ihr da sind.</string>
+	<string name="donateReplay">Zeig min Rückblick nomal</string>
+	<string name="donateChangedMyMind">Ich hamers andersch überleit</string>
 	<string name="recapReady" comment="%s is the year of the recap">Dini Zämefassig für %s isch parat!</string>
 </resources>

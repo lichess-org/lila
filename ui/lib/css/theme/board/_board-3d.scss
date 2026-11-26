@@ -15,7 +15,8 @@ $td-inner-relative-percent: math.div($td-inner-height-ratio, $td-outer-height-ra
   }
 }
 
-.main-board {
+.main-board,
+#piecePreview .is3d .preview-board {
   padding-bottom: $td-outer-height-percent;
 
   .cg-wrap {
@@ -38,7 +39,8 @@ cg-board::before {
 }
 
 @each $name, $board-theme in $board-themes-3d {
-  body[data-board3d='#{$name}'] .is3d .main-board {
+  body[data-board3d='#{$name}'] .is3d .main-board,
+  body[data-board3d='#{$name}'] .is3d .preview-board {
     cg-board::before {
       background-image: url(../images/staunton/board/#{$name}.webp);
     }
@@ -77,6 +79,9 @@ $piece-files: (
         .main-board
         .#{string.to-lower-case($type)}.#{string.to-lower-case($color)},
       body[data-piece-set3d='#{$name}']
+        .preview-board
+        .#{string.to-lower-case($type)}.#{string.to-lower-case($color)},
+      body[data-piece-set3d='#{$name}']
         .no-square
         .#{string.to-lower-case($type)}.#{string.to-lower-case($color)} {
         background-image: url('../images/staunton/piece/#{$name}/#{$color}-#{$type}.webp');
@@ -89,6 +94,10 @@ $piece-files: (
       @each $type in 'Bishop', 'Knight' {
         body[data-piece-set3d='#{$name}']
           .main-board
+          .orientation-#{$orientation}
+          .#{string.to-lower-case($type)}.#{string.to-lower-case($color)},
+        body[data-piece-set3d='#{$name}']
+          .preview-board
           .orientation-#{$orientation}
           .#{string.to-lower-case($type)}.#{string.to-lower-case($color)} {
           background-image: url('../images/staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.webp');

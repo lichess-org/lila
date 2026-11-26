@@ -13,30 +13,81 @@
     }
 
     .list {
-      @extend %flex-wrap;
-
-      background: url('../images/darksquares.jpg');
-      box-shadow: inset 0 7px 20px 3px #777;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      min-height: 0;
+      max-height: min(600px, 80dvh);
+      border-bottom: $border;
     }
 
     .no-square {
-      width: 75px;
-      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.1rem;
+      width: 100%;
+      padding: 0 0.4rem;
       position: relative;
+      text-align: start;
+
+      &:nth-child(even) {
+        background: $c-bg-zebra;
+      }
+
+      &:hover {
+        background-color: $c-dasher-light;
+      }
+
+      &.active {
+        background: $c-dasher;
+        color: #fff;
+      }
+
+      piece {
+        position: relative;
+        top: 4px;
+        height: 44px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: var(--piece-image-default);
+      }
     }
 
-    .no-square:hover {
-      background: rgb(250 250 250 / 0.15);
-    }
-
-    .no-square.active {
-      background: rgb(from $c-secondary r g b / calc(alpha * 0.7));
+    @include if-light {
+      .no-square piece {
+        background-image: var(--piece-image-light);
+      }
     }
 
     &.d3 piece {
       top: 0;
       background-size: cover;
       background-position: 0 67%;
+    }
+  }
+}
+
+#piecePreview {
+  @extend %popup-shadow;
+
+  width: 240px;
+  min-height: fit-content;
+  overflow: visible;
+  position: absolute;
+  z-index: $z-powertip-120;
+
+  &,
+  cg-board {
+    border-radius: $small-box-radius-size;
+    overflow: visible;
+  }
+
+  .preview-board {
+    @extend %square;
+
+    .cg-wrap {
+      @extend %abs-100;
     }
   }
 }

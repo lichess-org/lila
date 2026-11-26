@@ -21,7 +21,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">See on %s grammi liigutatud puitu!</string>
 	<string name="movesStandardPiecesWeight">Tavapärase malenupu mass on 40 g</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Tavapärase malenupu mass on 1,4 untsi</string>
+	<string name="movesStandardPiecesWeightImperial">Tavapärase malenupu mass on 1,4 untsi</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Umbes %s tiibklaveri kaal</item>
 		<item quantity="other">Umbes %s tiibklaveri kaaluga</item>
@@ -39,4 +39,35 @@
 		<item quantity="other">%s uut mängu</item>
 	</plurals>
 	<string name="mostFrequentOpponents">Sinu kõige sagedasemad vastased</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s grammi</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramm</item>
+		<item quantity="other">%s kilogrammi</item>
+	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s unts</item>
+		<item quantity="other">%s untsi</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">Sinu tunnusomane esimene käik</string>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">nii oled sa %s mängu alustanud valgetega</string>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Täname, et hääletasid %s mõistatuse puhul.</item>
+		<item quantity="other">Täname, et hääletasid %s mõistatuse puhul.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Aitasid ka %s neist märgistada.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">Lahendasid neist %s esimesel katsel!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">Esimene katse</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">Vajas veel üht katset</string>
+	<string name="sourcesTitle">Kust sa mänge leidsid?</string>
+	<string name="perfsTitle">Milliseid ajapiiranguid ja variante sa mängisid?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">Laaditi %s reklaami ja jälgijat</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">Jälgija</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">Andmevahendajad</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">Hüpikaknad</string>
+	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Maksumüürid</string>
+	<string name="malwareNoSell">Me ei müünud sinu isikuandmeid</string>
+	<string name="malwareNoAbuse">Me ei kasutanud sinu seadet sinu vastu</string>
 </resources>
