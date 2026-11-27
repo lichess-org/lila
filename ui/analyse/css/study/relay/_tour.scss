@@ -910,6 +910,12 @@
         display: none;
       }
     }
+
+    @media (max-width: at-most($xx-small)) {
+      td.fide-tc {
+        display: none;
+      }
+    }
   }
 }
 
