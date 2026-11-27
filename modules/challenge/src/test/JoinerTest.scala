@@ -10,6 +10,7 @@ final class JoinerTest extends munit.FunSuite:
 
   test("started at turn 0"):
     val challenge = Challenge.make(
+      availableGameId = GameId("abcdefgh"),
       variant = Standard,
       initialFen = None,
       timeControl = timeControl,
@@ -23,6 +24,7 @@ final class JoinerTest extends munit.FunSuite:
   test("started at turn from position"):
     val position = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
     val challenge = Challenge.make(
+      availableGameId = GameId("abcdefgh"),
       variant = FromPosition,
       initialFen = Some(chess.format.Fen.Full(position)),
       timeControl = timeControl,

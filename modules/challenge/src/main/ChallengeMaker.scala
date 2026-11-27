@@ -65,6 +65,7 @@ final class ChallengeMaker(
           case _ => TimeControl.Unlimited
         val alternateColor = rematchAlternatesColor(pov.game, List(challenger.map(_.user), dest.user.some))
         Challenge.make(
+          availableGameId = nextId,
           variant = pov.game.variant,
           initialFen = initialFen,
           timeControl = timeControl,
@@ -75,6 +76,5 @@ final class ChallengeMaker(
           challenger = challenger
             .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered),
           destUser = dest.some,
-          rematchOf = pov.gameId.some,
-          id = nextId.some
+          rematchOf = pov.gameId.some
         )

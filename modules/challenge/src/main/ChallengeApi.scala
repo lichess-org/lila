@@ -15,6 +15,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameApi: lila.core.game.GameApi,
     rematches: lila.game.Rematches,
+    idGenerator: lila.game.IdGenerator,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
 )(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
@@ -33,22 +34,30 @@ final class ChallengeApi(
     delayedCreate(c).flatMapz: f =>
       for _ <- f() yield true
 
+  def createWithId(make: GameId => Challenge): Fu[Option[Challenge]] = for
+    id <- idGenerator.game
+    challenge = make(id)
+    res <- create(challenge)
+  yield Option.when(res)(challenge)
+
   def createOpen(config: lila.core.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
-    val c = Challenge.make(
-      variant = config.variant,
-      initialFen = config.position,
-      timeControl = Challenge.makeTimeControl(config.clock, config.days),
-      rated = config.rated,
-      color = "random",
-      challenger = Challenger.Open,
-      destUser = none,
-      rematchOf = none,
-      name = config.name,
-      openToUserIds = config.userIds,
-      rules = config.rules,
-      expiresAt = config.expiresAt
-    )
     for
+      id <- idGenerator.game
+      c = Challenge.make(
+        availableGameId = id,
+        variant = config.variant,
+        initialFen = config.position,
+        timeControl = Challenge.makeTimeControl(config.clock, config.days),
+        rated = config.rated,
+        color = "random",
+        challenger = Challenger.Open,
+        destUser = none,
+        rematchOf = none,
+        name = config.name,
+        openToUserIds = config.userIds,
+        rules = config.rules,
+        expiresAt = config.expiresAt
+      )
       _ <- doCreate(c)
       _ = me.foreach(me => openCreatedBy.put(c.id, me))
     yield c
