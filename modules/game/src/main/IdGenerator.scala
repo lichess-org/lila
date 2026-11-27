@@ -19,8 +19,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
       val ids = List.fill(512)(uncheckedGame).distinct
       gameRepo.coll
         .distinctEasy[GameId, List]("_id", inIds(ids), _.sec)
-        .monValue: collisions =>
-          lila.mon.game.idGenerator(collisions.size)
+        .mon(lila.mon.game.idGenerator)
         .map:
           case Nil => ids
           case collisions => ids.filterNot(collisions.contains)
@@ -35,8 +34,6 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
       val ids = Set.fill(nb)(uncheckedGame)
       gameRepo.coll
         .distinctEasy[GameId, Set]("_id", inIds(ids))
-        .monValue: collisions =>
-          lila.mon.game.idGenerator(collisions.size)
         .flatMap: collisions =>
           games(collisions.size).dmap(_ ++ (ids.diff(collisions)))
         .map(_.toList)

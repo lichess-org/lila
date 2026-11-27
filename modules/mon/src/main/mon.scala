@@ -616,7 +616,7 @@ object game:
     def encode(format: String) = timer("game.pgn.encode").withTag("format", format)
     def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
   val idCollision = counter("game.idCollision").withoutTags()
-  def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
+  val idGenerator = timer("game.idGenerator").withoutTags()
   final class StreamByOauthOrigin(origin: Origin):
     def event(tpe: String) =
       counter("game.streamByOauthOrigin.event").withTags(tags("type" -> tpe, "origin" -> origin))
