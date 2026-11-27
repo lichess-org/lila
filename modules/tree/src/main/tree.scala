@@ -483,8 +483,7 @@ object Node:
             case _ => none
 
     def sanitize(text: String) = CommentStr:
-      softCleanUp(rewriteChessBasePieces(text))
-        .take(4000)
+      softCleanUp(rewriteChessBasePieces(text.take(4000)))
         .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
         .replaceAll("""(?m)(^ *| +(?= |$))""", "")
         .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
