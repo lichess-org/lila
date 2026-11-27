@@ -1,5 +1,8 @@
 package lila.relay
 
+import java.time.{ Instant, OffsetDateTime }
+import scala.util.Try
+
 import chess.Outcome
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
@@ -55,6 +58,14 @@ case class RelayGame(
             root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
+  def referenceClockAt(delaySeconds: Int): Option[Instant] =
+    if points.isEmpty && root.mainline.nonEmpty && tags.clocks(root.lastMainlineNode.ply.turn).isDefined then
+      tags(_.ReferenceTime)
+        .flatMap(RelayReferenceTime.parse)
+        .flatMap(at => Try(at.plusSeconds(delaySeconds.toLong)).toOption)
+        .flatMap(at => Try(Instant.ofEpochMilli(at.toEpochMilli)).toOption)
+    else none
+
   def showResult = Outcome.showPoints(points)
 
 private object RelayGame:
@@ -70,11 +81,32 @@ private object RelayGame:
   val unplayedTag = Tag(_.Termination, "Unplayed")
 
   def fromChapter(c: lila.study.Chapter) = RelayGame(
-    tags = c.tags,
+    tags = snapshotTags(c, c.tags),
     variant = c.setup.variant,
     root = c.root,
     points = c.tags.points
   )
+
+  // Keep the effective reference and both readings together when relaying a broadcast again.
+  def snapshotTags(chapter: lila.study.Chapter, tags: Tags): Tags =
+    val clean = tags - Tag.ReferenceTime - Tag.WhiteClock - Tag.BlackClock
+    val clockAt = chapter.relay.flatMap(_.clockAt).filter(_ => chapter.tags.points.isEmpty)
+    val path = chapter.relay.map(_.path).filterNot(_.isEmpty) | UciPath.fromIds(
+      chapter.root.mainline.takeWhile(!_.forceVariation).map(_.id)
+    )
+    if path.isEmpty || (clockAt.isEmpty && chapter.tags.points.isEmpty) then tags
+    else
+      val node = chapter.root.nodeAt(path)
+      val parentClock = chapter.root.nodeAt(path.parent).flatMap(_.clock)
+      val clocks = node.toList.flatMap: last =>
+        val (white, black) =
+          if last.color.white then (parentClock, last.clock) else (last.clock, parentClock)
+        List(
+          white.map(c => Tag(_.WhiteClock, c.centis.roundSeconds.value)),
+          black.map(c => Tag(_.BlackClock, c.centis.roundSeconds.value))
+        ).flatten
+      val withClocks = clocks.foldLeft(clean)(_ + _)
+      clockAt.fold(withClocks)(at => withClocks + Tag(_.ReferenceTime, at.toString))
 
   def fromStudyImport(res: StudyPgnImport.Result): RelayGame =
     val fixedTags = cleanOrRemovePlayerNames:
@@ -208,3 +240,19 @@ private object RelayGame:
         .view
         .mapValues(_.map(_._2).distinct)
         .toMap
+
+private[relay] object RelayReferenceTime:
+
+  def parse(value: String): Option[Instant] =
+    val timestamp = if value.startsWith("W/") || value.startsWith("B/") then value.drop(2) else value
+    Try(OffsetDateTime.parse(timestamp).toInstant).toOption
+
+  def latest(previous: Option[String], current: Option[String]): Option[String] =
+    val previousParsed = previous.flatMap(value => parse(value).map(value -> _))
+    val currentParsed = current.flatMap(value => parse(value).map(value -> _))
+    (previousParsed, currentParsed) match
+      case (None, None) => None
+      case (Some((value, _)), None) => Some(value)
+      case (None, Some((value, _))) => Some(value)
+      case (Some((previousValue, previousInstant)), Some((currentValue, currentInstant))) =>
+        if currentInstant.isAfter(previousInstant) then Some(currentValue) else Some(previousValue)

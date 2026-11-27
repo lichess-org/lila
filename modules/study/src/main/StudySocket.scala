@@ -286,22 +286,7 @@ final private class StudySocket(
       who: Who
   ) =
     AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
-    val relayPathDedup = relay
-      .map(_.path)
-      .map: path =>
-        if path == pos.path.+(node.id) then "!"
-        else path.toString
-    version(
-      "addNode",
-      Json
-        .obj(
-          "n" -> defaultNodeJsonWriter.writes(node),
-          "p" -> pos,
-          "s" -> sticky
-        )
-        .add("w", Option.when(relay.isEmpty)(who))
-        .add("relayPath", relayPathDedup)
-    )
+    version("addNode", StudySocket.addNodePayload(pos, node, sticky, relay, who))
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
     version(
@@ -353,20 +338,12 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], relayDenorm: Option[Chapter.BothClocks]) =
-    version(
-      "clock",
-      Json
-        .obj(
-          "p" -> pos,
-          "c" -> clock
-        )
-        .add(
-          "relayClocks",
-          relayDenorm.map: clocks =>
-            Json.arr(clocks.white, clocks.black)
-        )
-    )
+  def setClock(
+      pos: Position.Ref,
+      clock: Option[Centis],
+      relayDenorm: Option[Chapter.BothClocks],
+      relayClockAt: Option[Option[Instant]] = None
+  ) = version("clock", StudySocket.clockPayload(pos, clock, relayDenorm, relayClockAt))
   def forceVariation(pos: Position.Ref, force: Boolean, who: Who) =
     version(
       "forceVariation",
@@ -426,6 +403,44 @@ final private class StudySocket(
   api.registerSocket(this)
 
 object StudySocket:
+
+  import JsonView.given
+  import lila.tree.Node.given
+
+  private[study] def addNodePayload(
+      pos: Position.Ref,
+      node: Branch,
+      sticky: Boolean,
+      relay: Option[Chapter.Relay],
+      who: Who
+  ): JsObject =
+    val relayPathDedup = relay
+      .map(_.path)
+      .map: path =>
+        if path == pos.path.+(node.id) then "!" else path.toString
+    Json
+      .obj(
+        "n" -> defaultNodeJsonWriter.writes(node),
+        "p" -> pos,
+        "s" -> sticky
+      )
+      .add("w", Option.when(relay.isEmpty)(who))
+      .add("relayPath", relayPathDedup)
+      .add("clockAge", relay.flatMap(_.clockAge))
+
+  private[study] def clockPayload(
+      pos: Position.Ref,
+      clock: Option[Centis],
+      relayDenorm: Option[Chapter.BothClocks],
+      relayClockAt: Option[Option[Instant]]
+  ): JsObject =
+    Json
+      .obj("p" -> pos, "c" -> clock)
+      .add("relayClocks", relayDenorm.map(clocks => Json.arr(clocks.white, clocks.black)))
+      .add(
+        "clockAge",
+        relayClockAt.map(_.fold[JsValue](JsNull)(at => JsNumber(BigDecimal(Chapter.clockAge(at)))))
+      )
 
   given Conversion[RoomId, StudyId] = _.into(StudyId)
   given Conversion[StudyId, RoomId] = _.into(RoomId)

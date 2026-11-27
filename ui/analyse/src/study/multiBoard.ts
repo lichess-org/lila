@@ -383,12 +383,13 @@ const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
     pinned ? pinIcon('.pinned-icon') : undefined,
   ]);
 
-export const renderClock = (chapter: ChapterPreview, color: Color) => {
-  const timeleft = computeTimeLeft(chapter, color);
+export const renderClock = (chapter: ChapterPreview, color: Color, isRelay = false) => {
+  const timeleft = computeTimeLeft(chapter, color, isRelay);
   if (!defined(timeleft)) return undefined;
 
+  const finished = isRelay && !!chapter.status && chapter.status !== '*';
   const turnColor = fenColor(chapter.fen);
-  const ticking = turnColor === color && otbClockIsRunning(chapter.fen);
+  const ticking = !finished && turnColor === color && otbClockIsRunning(chapter.fen);
   return h(
     'span.mini-game__clock.mini-game__clock',
     { class: { 'clock--run': ticking } },
@@ -396,11 +397,14 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
   );
 };
 
-const computeTimeLeft = (preview: ChapterPreview, color: Color) => {
+const computeTimeLeft = (preview: ChapterPreview, color: Color, isRelay: boolean) => {
   const clock = preview.players?.[color]?.clock;
   if (notNull(clock)) {
-    if (defined(preview.lastMoveAt) && defined(preview.lastMove) && fenColor(preview.fen) === color) {
-      const spent = (Date.now() - preview.lastMoveAt) / 1000;
+    const clockAt = isRelay ? (preview.clockAt ?? preview.lastMoveAt) : preview.lastMoveAt;
+    const finished = isRelay && !!preview.status && preview.status !== '*';
+    if (!finished && defined(clockAt) && defined(preview.lastMove) && fenColor(preview.fen) === color) {
+      const elapsed = Date.now() - clockAt;
+      const spent = (isRelay ? Math.max(0, elapsed) : elapsed) / 1000;
       return Math.max(0, clock / 100 - spent);
     } else return clock / 100;
   } else return undefined;
@@ -423,7 +427,7 @@ const boardPlayer = (
     showResults
       ? coloredResult
         ? h(`${coloredResult.tag}.mini-game__result`, coloredResult.points)
-        : renderClock(preview, color)
+        : renderClock(preview, color, !!round)
       : undefined,
   ]);
 };
