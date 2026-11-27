@@ -48,24 +48,31 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
         updates(ups, editor = Granter.opt(_.Feed))
       )
 
-  val lobbyUpdates = renderCache[List[Feed.Update]](1.minute): ups =>
+  private val cachedLobbyUpdates = renderCache[List[Feed.Update]](1.minute): ups =>
+    frag(
+      ups.map: update =>
+        div(cls := "daily-feed__update")(
+          marker(update.flair),
+          div(
+            a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
+              momentFromNow(update.at)(nbsp)
+            ,
+            feedMarkdown(update)
+          )
+        )
+    )
+
+  def lobbyUpdates(ups: List[Feed.Update])(using ctx: Context): Frag =
     div(cls := "lobby__feed"):
       div(cls := "daily-feed__updates")(
-        ups.map: update =>
-          div(cls := "daily-feed__update")(
-            marker(update.flair),
-            div(
-              a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
-                momentFromNow(update.at)(nbsp)
-              ,
-              feedMarkdown(update)
-            )
-          ),
+        cachedLobbyUpdates(ups),
         div(cls := "daily-feed__update")(
           marker(),
           div:
-            a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
-              s"${I18nKey.site.allUpdates.txt()(using transDefault)} »"
+            a(cls := "daily-feed__update__day", href := routes.Feed.index(1))(
+              trans.site.showMore(),
+              " »"
+            )
         )
       )
 

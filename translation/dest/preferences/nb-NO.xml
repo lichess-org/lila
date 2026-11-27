@@ -36,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="inCasualGamesOnly">Bare for uformelle partier</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
+  <string name="explainPromoteToQueenAutomatically">Hold Ctrl-tasten nede når du forvandler en bonde, for å slå av automatisk forvandling midlertidig</string>
   <string name="whenPremoving">Ved bruk av førtrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>

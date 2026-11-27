@@ -70,4 +70,55 @@
 	<string name="malwarePaywalls" comment="Label of something Lichess blocks or doesn't do">Maksumüürid</string>
 	<string name="malwareNoSell">Me ei müünud sinu isikuandmeid</string>
 	<string name="malwareNoAbuse">Me ei kasutanud sinu seadet sinu vastu</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s Lichessis %2$s aastal mängitud partiid</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s neist olid sinu omad.</string>
+	<string name="lichessGamesYou" comment="Label pointing at a single dot among millions, representing the user">sina</string>
+	<string name="thanksTitle">Täname, et mängisid Lichessis!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Meil on hea meel, et oled siin. Soovime sulle suurepärast %s aastat!</string>
+	<string name="shareableTitleLichess" comment="%s is the current year">Minu %s Lichessi kokkuvõte</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">veedetud mängides</string>
+	<string name="shareableMostPlayedOpponent">kõige sagedamini kohatud vastane</string>
+	<string name="shareableFavouriteVariant">lemmikvariant</string>
+	<string name="shareableFavouriteTimeControl">lemmikajakontroll</string>
+	<string name="shareableFavouriteFirstMove">lemmik esimene käik</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s lahendatud pusle</item>
+		<item quantity="other">%s lahendatud puslet</item>
+	</plurals>
+	<string name="donateOneMoreThing">Veel üks asi…</string>
+	<string name="donateAlreadyPatron">Sa oled juba toetaja, aitäh! Veel üks asi…</string>
+	<plurals name="donateYouPlayedMinutes" comment="%s is the number of minutes the user played this year">
+		<item quantity="one">Sel aastal mängisid Lichessis umbes %s minuti!</item>
+		<item quantity="other">Sel aastal mängisid Lichessis umbes %s minutit!</item>
+	</plurals>
+	<string name="donateConsiderMonthly" comment="%s is a duration e.g. '5 minutes'">Kui need sulle meeldisid, kaalu iga kuu %s minuti jagu üleilmse tööaja annetamist:</string>
+	<string name="donateConsiderOnce" comment="%s is a duration e.g. '60 minutes'">Kui need sulle meeldisid, kaalu %s minuti jagu üleilmse tööaja annetamist:</string>
+	<string name="donateConsiderMonthlyNoGames" comment="For players who did not play this year. %s is a duration e.g. '5 minutes'">Palun kaalu iga kuu %s minuti annetamist ülemaailmsest tööajast:</string>
+	<string name="donateConsiderOnceNoGames" comment="For players who did not play this year. %s is a duration e.g. '60 minutes'">Palun kaalu %s minuti annetamist ülemaailmsest tööajast:</string>
+	<plurals name="donateMinutesOfUptimePerMonth" comment="%s is a number of minutes, possibly with decimals e.g. 2.5">
+		<item quantity="one">%s minut tööaega kuus</item>
+		<item quantity="other">%s minutit tööaega kuus</item>
+	</plurals>
+	<plurals name="donateMinutesOfUptime" comment="%s is a number of minutes">
+		<item quantity="one">%s minut tööaega</item>
+		<item quantity="other">%s minutit tööaega</item>
+	</plurals>
+	<string name="donateNotToday">Mitte täna</string>
+	<string name="donateAnotherAmount" comment="Link to the donation page, where any amount can be chosen">Anneta muu summa</string>
+	<string name="donateCharity">Lichess on heategevusorganisatsioon.</string>
+	<string name="donateUptimeCosts" comment="%1$s is a duration e.g. '5 minutes'. %2$s is an amount of money e.g. '$7.50'">Lichessi käigushoidmine %1$s minutit kogu maailmas maksab meile %2$s.</string>
+	<string name="donateSameAs" comment="%s is something that costs about the same, e.g. 'a Starbucks coffee in New York'">See on umbes sama mis %s</string>
+	<string name="donateAnchorNewYork">latte New Yorgis</string>
+	<string name="donateAnchorLondon">pint õlut Londoni kesklinnas</string>
+	<string name="donateAnchorParis">klaas majaveini Pariisis</string>
+	<string name="donateAnchorBerlin">döner-kebab Berliinis</string>
+	<string name="donateAnchorTokyo">kauss ramenit Tokyos</string>
+	<string name="donateAnchorSaoPaulo">taldrik feijoadat São Paulos</string>
+	<string name="donateAnchorCapeTown">kinopilet Kaplinnas</string>
+	<string name="donateAnchorMelbourne">*flat white* ja küpsetis Melbourne’is</string>
+	<string name="donateInThoseMinutes" comment="%s is a duration e.g. '5 minutes'. Followed by numbers of moves, games, players and games analysed by Stockfish">Sellest %s minutist saab Lichess</string>
+	<string name="donateNoWorries">Pole muret! Igasugune toetus kogukonnalt on meile ülioluline, sealhulgas ka lihtsalt siin olemine.</string>
+	<string name="donateReplay">Vaata kokkuvõtet uuesti</string>
+	<string name="donateChangedMyMind">Muutsin meelt</string>
+	<string name="recapReady" comment="%s is the year of the recap">Sinu %s kokkuvõte on valmis!</string>
 </resources>

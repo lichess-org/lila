@@ -3593,8 +3593,6 @@ interface I18n {
     allSet: string;
     /** All squares */
     allSquaresOfTheBoard: string;
-    /** All updates */
-    allUpdates: string;
     /** Always */
     always: string;
     /** Analysis board */

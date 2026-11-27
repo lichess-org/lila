@@ -50,12 +50,11 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       canView.map:
         if _ then
           val full = getBool("full")
-          apiC.jsonDownload(
+          apiC.jsonDownload:
             env.team
               .memberStream(team, full)
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
-          )
         else Unauthorized
 
   def search(text: String, page: Int) = Anon:

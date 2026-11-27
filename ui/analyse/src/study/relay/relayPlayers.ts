@@ -39,12 +39,14 @@ interface Tiebreak {
   points: number;
 }
 
+export type Performance = { rating: number; isUncertain: boolean };
+
 export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
   ratingsMap?: StatByFideTC;
   ratingDiffs?: StatByFideTC;
-  performances?: StatByFideTC;
+  performances?: Record<FideTC, Performance>;
   tiebreaks?: Tiebreak[];
   rank?: number;
 }
@@ -242,13 +244,9 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                 hl(
                   'div.performances',
                   Object.entries(p.performances)
-                    .sort(statByFideTCSort)
-                    .map(([tc, value]: [FideTC, number]) =>
-                      hl(
-                        'div.performance',
-                        fideTCAttrs(tc),
-                        `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
-                      ),
+                    .sort(([tc1], [tc2]) => statByFideTCSort(tc1 as FideTC, tc2 as FideTC))
+                    .map(([tc, { rating, isUncertain }]: [FideTC, Performance]) =>
+                      hl('div.performance', fideTCAttrs(tc), `${rating}${isUncertain ? '?' : ''}`),
                     ),
                 ),
               ]),
@@ -543,13 +541,14 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 
 const fideTCOrder: FideTC[] = ['standard', 'rapid', 'blitz'];
 
-const statByFideTCSort = (a: [FideTC, number], b: [FideTC, number]) =>
-  fideTCOrder.indexOf(a[0]) - fideTCOrder.indexOf(b[0]);
+const statByFideTCSort = (a: FideTC, b: FideTC) => fideTCOrder.indexOf(a) - fideTCOrder.indexOf(b);
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons = false) => {
   if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
-  const rds = Object.entries(p.ratingDiffs).sort(statByFideTCSort);
+  const rds = Object.entries(p.ratingDiffs).sort(([tc1], [tc2]) =>
+    statByFideTCSort(tc1 as FideTC, tc2 as FideTC),
+  );
   const isMultiTc = rds.length > 1;
   const diffNodes = rds.map(([tc, diff]: [FideTC, number]) => {
     const node = [p.ratingsMap?.[tc], diffNode(diff)];

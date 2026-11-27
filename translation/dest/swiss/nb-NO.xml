@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Antall runder</string>
   <string name="numberOfRoundsHelp">Hvis antall runder er et oddetall, blir det best fordeling mellom fargene.</string>
   <string name="roundInterval">Intervall mellom rundene</string>
+  <string name="customPairings">Egendefinerte paringer</string>
   <string name="forbiddenPairings">Forbudte par</string>
   <string name="forbiddenPairingsHelp">Brukernavn for spillere som ikke skal spille mot hverandre (søsken, for eksempel). To brukernavn på hver linje, skilt med mellomrom.</string>
   <string name="manualPairings">Manuell paring i neste runde</string>

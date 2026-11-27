@@ -1,4 +1,13 @@
-# [lichess.org](https://lichess.org)
+<h1>
+  <a href="https://lichess.org">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lichess-org/files/refs/heads/lichess/Streamer%20Kit/lichesslogowhite.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/lichess-org/files/refs/heads/lichess/Streamer%20Kit/lichesslogo.svg">
+      <img width="40" align="left" alt="Lichess logo" src="https://raw.githubusercontent.com/lichess-org/files/refs/heads/lichess/Streamer%20Kit/lichesslogo.svg">
+    </picture>
+    <span align="left">lichess.org<spn>
+  </a>
+</h1>
 
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Mastodon](https://img.shields.io/mastodon/follow/109298525492334687?domain=mastodon.online)](https://mastodon.online/@lichess)
