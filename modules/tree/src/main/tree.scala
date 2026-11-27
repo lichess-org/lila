@@ -6,7 +6,6 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Ply, Square }
 import play.api.libs.json.*
-import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
 import scalalib.json.Json.given
 
@@ -422,23 +421,6 @@ object Node:
 
     def removeMeta(c: CommentStr): CommentStr = c.map(metaReg.replaceAllIn(_, ""))
 
-    // ChessBase writes piece icons as U+E024..U+E029 (king, queen, rook, bishop, knight, pawn).
-    // Rewrite those private-use characters as Lichess piece glyphs.
-    def rewriteChessBasePieces(c: CommentStr): CommentStr = c.map: text =>
-      if text.exists(c => c >= '\ue024' && c <= '\ue029') then
-        val sb = java.lang.StringBuilder(text.length)
-        text.foreach: c =>
-          sb.append(c match
-            case '\ue024' => '\u2654'
-            case '\ue025' => '\u2655'
-            case '\ue026' => '\u2656'
-            case '\ue027' => '\u2657'
-            case '\ue028' => '\u2658'
-            case '\ue029' => '\u2659'
-            case other => other)
-        sb.toString
-      else text
-
     private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
     private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
     private val tcecClockRegex = """(?s)tl=([\d:\.]++)""".r.unanchored
@@ -481,14 +463,6 @@ object Node:
             case Array(ms) if re == Comment.tcecClockRegex =>
               ms.toLongOption.map(Centis.ofMillis)
             case _ => none
-
-    def sanitize(text: String) =
-      rewriteChessBasePieces(CommentStr(text.take(4000))).map: text =>
-        softCleanUp(text)
-          .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-          .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-          .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-          .replaceAll("[{}]", "") // {} are reserved in PGN comments
 
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
