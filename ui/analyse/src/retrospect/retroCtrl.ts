@@ -15,7 +15,6 @@ export interface RetroCtrl {
   current: Prop<Retrospection | null>;
   feedback: Prop<Feedback>;
   color: Color;
-  isPlySolved(ply: Ply): boolean;
   onJump(): void;
   jumpToNext(): void;
   skip(): void;
@@ -52,7 +51,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   const game = root.data.game;
   let candidateNodes: TreeNode[] = [];
   const explorerCancelPlies: number[] = [];
-  let solvedPlies: number[] = [];
+  let solvedNodes: TreeNode[] = [];
   const current = prop<Retrospection | null>(null);
   const feedback = prop<Feedback>('find');
 
@@ -60,17 +59,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
-  // TODO these functions return false positives for variation plies.
-  const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
-  const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
-
   function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
       n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply),
     );
-    return candidateNodes.find(n => !isPlySolved(n.ply));
+    return candidateNodes.find(n => !solvedNodes.includes(n));
   }
 
   function jumpToNext(): void {
@@ -200,11 +195,15 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function solveCurrent() {
-    if (current()) solvedPlies.push(current()!.fault.node.ply);
+    if (current()) solvedNodes.push(current()!.fault.node);
   }
 
-  const hideComputerLine = (node: TreeNode): boolean =>
-    isPlyLearnCandidate(node.ply) && !isPlySolved(node.ply);
+  const hideComputerLine = (node: TreeNode): boolean => {
+    const fault = candidateNodes.find(n => n.ply === node.ply);
+    if (!fault) return false;
+    const parent = root.mainline[root.mainline.indexOf(fault) - 1];
+    return !!parent?.children.includes(node) && !solvedNodes.includes(fault);
+  };
 
   function showBadNode(): TreeNode | undefined {
     const cur = current();
@@ -222,7 +221,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   return {
     current,
     color,
-    isPlySolved,
     onJump,
     jumpToNext,
     skip,
@@ -233,9 +231,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     onMergeAnalysisData,
     feedback,
     isSolving,
-    completion: () => [solvedPlies.length, candidateNodes.length],
+    completion: () => [solvedNodes.length, candidateNodes.length],
     reset() {
-      solvedPlies = [];
+      solvedNodes = [];
       jumpToNext();
     },
     flip() {
