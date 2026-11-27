@@ -165,13 +165,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   button(cls := "button button-empty text off", dataIcon := Icon.Eye, bits.dataUnsub := "on"):
                     trans.site.unsubscribe()
                 ),
-              (canModCateg || ctx.me.exists(me => topic.isAuthor(me) && (topic.open || topic.isUblog))).option(
-                postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
-                  button(cls := "button button-empty button-red")(
-                    if topic.closed then trans.site.reopen() else trans.site.close()
+              (canModCateg || ctx.me.exists(me => topic.isAuthor(me) && (topic.open || topic.isUblog)))
+                .option(
+                  postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
+                    button(cls := "button button-empty button-red")(
+                      if topic.closed then trans.site.reopen() else trans.site.close()
+                    )
                   )
-                )
-              ),
+                ),
               (canModCateg || Granter.opt(_.StickyPosts)).option:
                 postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
                   button(cls := "button button-empty button-brag"):

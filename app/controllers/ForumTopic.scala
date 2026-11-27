@@ -74,7 +74,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       canMod <- access.isGrantedMod(categId)
       result <- Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         if canMod || isGranted(_.ModerateForum) || topic.isUblogAuthor(me) then
-          topicApi.toggleClose(categ, topic).inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+          topicApi
+            .toggleClose(categ, topic)
+            .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
         else if canRead && topic.isAuthor(me) then
           topicApi.closeByAuthor(topic).inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
         else Forbidden("You cannot moderate this forum")
