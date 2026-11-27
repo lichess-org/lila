@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">پخش همگانی</string>
-  <string name="myBroadcasts">پخش همگانی من</string>
+  <string name="myBroadcasts">فَراخ‌پخشِ من</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s پخش همگانی</item>
-    <item quantity="other">%s پخش همگانی</item>
+    <item quantity="one">%s فَراخ‌پخش</item>
+    <item quantity="other">%s فَراخ‌پخش</item>
   </plurals>
   <plurals name="nbViewers">
     <item quantity="one">%s تماشاگر</item>
     <item quantity="other">%s تماشاگر</item>
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
-  <string name="broadcastCalendar">تقویم پخش</string>
-  <string name="newBroadcast">پخش زنده جدید</string>
-  <string name="subscribedBroadcasts">پخش‌های دنبالیده</string>
-  <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
-  <string name="howToUseLichessBroadcasts">نحوه استفاده از پخش همگانی Lichess.</string>
+  <string name="broadcastCalendar">تقویم فَراخ‌پخش</string>
+  <string name="newBroadcast">فَراخ‌پخشِ زنده جدید</string>
+  <string name="subscribedBroadcasts">فَراخ‌پخش‌های دنبالیده</string>
+  <string name="aboutBroadcasts">درباره فَراخ‌پخش</string>
+  <string name="howToUseLichessBroadcasts">نحوه استفاده از فَراخ‌پخشِ Lichess.</string>
   <string name="theNewRoundHelp">دور جدید، همان عضوها و مشارکت‌گران دور پیشین را خواهد داشت.</string>
   <string name="addRound">اضافه کردن یک دور</string>
   <string name="ongoing">ادامه‌دار</string>
@@ -32,6 +32,7 @@
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
   <string name="downloadAllRounds">بارگیری همه دورها</string>
+  <string name="shareThisBroadcastByUrl">همرسانی این فَراخ‌پخش با وب‌نشانی</string>
   <string name="downloadPgn">بارگیری PGN</string>
   <string name="resetRound">ازنوکردن این دور</string>
   <string name="deleteRound">حذف این دور</string>
@@ -55,24 +56,24 @@
   <string name="teams">تیم‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
-  <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای پخش‌های زنده را در تنظیمات حساب‌تان تغییر دهید.</string>
+  <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای فَراخ‌پخش‌ها را در تنظیمات حساب‌تان تغییر دهید.</string>
   <string name="uploadImage">بارگذاری تصویر مسابقات</string>
   <string name="noBoardsYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، میزها پدیدار خواهند شد.</string>
   <string name="noPlayersYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، بازیکنان پدیدار خواهند شد.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">میزها را می‌توان از یک منبع یا از راه %s بارگذاری کرد</string>
   <string name="startsAfter">شروع کنید بعد %s</string>
-  <string name="startVerySoon">پخش زنده به زودی خواهد آغازید.</string>
-  <string name="notYetStarted">پخش زنده هنوز نیاغازیده است.</string>
+  <string name="startVerySoon">فَراخ‌پخش به زودی خواهد آغازید.</string>
+  <string name="notYetStarted">فَراخ‌پخش هنوز نیاغازیده است.</string>
   <string name="officialWebsite">وبگاه رسمی</string>
   <string name="officialStandings">رده‌بندی رسمی</string>
   <string name="regulations">آیین‌نامه</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">گزینه‌های بیشتر در %s</string>
   <string name="webmastersPage">صفحهٔ وبداران</string>
-  <string name="embedThisBroadcast">جاسازی این پخش زنده در وبگاه‌تان</string>
+  <string name="embedThisBroadcast">جاسازی این فَراخ‌پخش در وبگاه‌تان</string>
   <string name="ratingDiff">اختلاف درجه‌بندی</string>
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
-  <string name="standingsDisclaimer">رده‌بندی با استفاده از بازی‌های پخش‌شده محاسبه می‌شود و ممکن است با نتایج رسمی متفاوت باشد.</string>
+  <string name="standingsDisclaimer">رده‌بندی با استفاده از بازی‌های فَراخ‌پخشیده محاسبه می‌شود و ممکن است با نتایج رسمی متفاوت باشد.</string>
   <string name="allTeams">همهٔ تیم‌ها</string>
   <string name="tournamentFormat">ساختار مسابقات</string>
   <string name="tournamentLocation">مکان مسابقات</string>
@@ -80,12 +81,12 @@
   <string name="timezone">زمان-یانه</string>
   <string name="fideRatingCategory">رسته‌بندی درجه‌بندی فیده</string>
   <string name="optionalDetails">جزئیات اختیاری</string>
-  <string name="pastBroadcasts">پخش‌های گذشته</string>
-  <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
+  <string name="pastBroadcasts">فَراخ‌پخش‌های گذشته</string>
+  <string name="allBroadcastsByMonth">دیدن فَراخ‌پخش هر ماه</string>
   <string name="backToLiveMove">بازگشت به حرکت زنده</string>
   <string name="sinceHideResults">چون شما پنهان کردن نتایج را انتخاب کردید، تمام صفحه‌های پیش‌نمایش برای جلوگیری از لو رفتن نتیجه، خالی هستند.</string>
   <string name="liveboard">میزِ زنده</string>
-  <string name="communityBroadcast">پخشِ همدارگان</string>
+  <string name="communityBroadcast">فَراخ‌پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
   <string name="matchPoints">امتیازِ رویارویی</string>
   <string name="gamePoints">امتیاز بازی</string>
