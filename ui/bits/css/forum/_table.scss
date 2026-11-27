@@ -54,6 +54,12 @@
 
       .subject {
         font-size: 1.2em;
+
+        [data-icon]::before {
+          color: $c-font-dimmer;
+          font-size: 0.9em;
+          margin-left: 6px;
+        }
       }
 
       th:nth-child(2) {

@@ -172,6 +172,8 @@ final private class ForumTopicApi(
     _ <- canToggle.so(modLog.toggleCloseTopic(categ.id, topic.slug, topic.open))
   yield ()
 
+  def closeByAuthor(topic: ForumTopic): Funit = topicRepo.closeByAuthor(topic.id)
+
   def closedByMod(topic: ForumTopic)(using Me): Fu[Boolean] =
     topic.closed.so(topicRepo.closedByMod(topic.id))
 

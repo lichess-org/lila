@@ -69,10 +69,16 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           yield res
 
   def close(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    TopicGrantModBySlug(categId, slug):
-      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
-        for _ <- topicApi.toggleClose(categ, topic)
-        yield Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
+    for
+      canRead <- access.isGrantedRead(categId)
+      canMod <- access.isGrantedMod(categId)
+      result <- Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+        if canMod || isGranted(_.ModerateForum) || topic.isUblogAuthor(me) then
+          topicApi.toggleClose(categ, topic).inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+        else if canRead && topic.isAuthor(me) then
+          topicApi.closeByAuthor(topic).inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+        else Forbidden("You cannot moderate this forum")
+    yield result
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
