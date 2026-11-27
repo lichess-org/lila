@@ -4,6 +4,7 @@ import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import { applyThemeVariant, getThemeVariant, setThemeVariant, type ThemeVariant } from 'lib/themeVariant';
 import { bind, button, dataIcon, label, div, onInsert, span } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
@@ -34,6 +35,12 @@ interface Background {
   title?: string;
 }
 
+const themeVariants: { key: ThemeVariant; name: string }[] = [
+  { key: 'default', name: 'Default' },
+  { key: 'yellow', name: 'Yellowish' },
+  { key: 'blue', name: 'Bluish' },
+];
+
 export class ThemeCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
   private readonly list: Background[];
@@ -48,6 +55,7 @@ export class ThemeCtrl extends PaneCtrl {
 
   render(): VNode {
     const { theme, isTransp } = this.getThemeData();
+    const currentVariant = getThemeVariant();
 
     return div('.sub.theme', [
       header(i18n.site.theme, this.close),
@@ -68,6 +76,26 @@ export class ThemeCtrl extends PaneCtrl {
             bg.name,
           );
         }),
+        div(
+          '.theme-variants',
+          themeVariants.map(variant =>
+            button(
+              `.theme-variant.${variant.key}`,
+              {
+                class: { active: currentVariant === variant.key },
+                title: variant.name,
+                'aria-label': variant.name,
+                type: 'button',
+                hook: bind('click', () => {
+                  setThemeVariant(variant.key);
+                  this.apply();
+                  this.redraw();
+                }),
+              },
+              span('.swatch'),
+            ),
+          ),
+        ),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
         cmnToggleWrap({
           id: 'background-picture-toggle',
@@ -157,6 +185,7 @@ export class ThemeCtrl extends PaneCtrl {
       document.documentElement.className = isSystem ? (systemPrefersLight ? 'light' : 'dark') : theme;
     }
 
+    applyThemeVariant();
     pubsub.emit('theme', theme);
   };
 
