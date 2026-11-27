@@ -69,8 +69,10 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
         div(cls := "daily-feed__update")(
           marker(),
           div:
-            a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
-              s"${I18nKey.site.allUpdates.txt()} »"
+            a(cls := "daily-feed__update__day", href := routes.Feed.index(1))(
+              trans.site.showMore(),
+              " »"
+            )
         )
       )
 
