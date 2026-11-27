@@ -18,7 +18,7 @@ case class Hook(
     sri: Sri, // owner socket sri
     sid: Option[SessionId], // owner cookie (used to prevent multiple hooks)
     variant: Variant.Id,
-    clock: Clock.Config,
+    clocks: NonEmptyList[Clock.Config],
     rated: Rated,
     color: TriColor,
     user: Option[LobbyUser],
@@ -31,14 +31,25 @@ case class Hook(
 
   val isAuth = user.nonEmpty
 
+  // backward-compat: primary clock is always the first in the list
+  def clock: Clock.Config = clocks.head
+
   def compatibleWith(h: Hook) =
     isAuth == h.isAuth &&
       rated == h.rated &&
       variant == h.variant &&
-      clock == h.clock &&
+      hasOverlappingClock(h) &&
       color.compatibleWith(h.color) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
+
+  // Returns the shortest clock that both hooks share, if any
+  def matchingClock(h: Hook): Option[Clock.Config] =
+    val overlap = clocks.toList.filter(c => h.clocks.toList.contains(c))
+    overlap.minByOption(_.estimateTotalSeconds)
+
+  private def hasOverlappingClock(h: Hook): Boolean =
+    clocks.exists(c => h.clocks.toList.contains(c))
 
   private def ratingRangeCompatibleWith(h: Hook) =
     !isAuth || h.rating.so(ratingRangeOrDefault.contains)
@@ -69,6 +80,7 @@ case class Hook(
       "id" -> id,
       "sri" -> sri,
       "clock" -> clock.show,
+      "clocks" -> clocks.toList.map(_.show),
       "perf" -> perfType.key,
       "t" -> clock.estimateTotalSeconds,
       "s" -> speed.id,
@@ -105,12 +117,36 @@ object Hook:
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,
       boardApi: Boolean = false
+  ): Hook = make(
+    sri = sri,
+    variant = variant,
+    clocks = NonEmptyList.one(clock),
+    rated = rated,
+    color = color,
+    user = user,
+    sid = sid,
+    ratingRange = ratingRange,
+    blocking = blocking,
+    boardApi = boardApi
+  )
+
+  def make(
+      sri: Sri,
+      variant: chess.variant.Variant,
+      clocks: NonEmptyList[Clock.Config],
+      rated: Rated,
+      color: TriColor,
+      user: Option[UserWithPerfs],
+      sid: Option[SessionId],
+      ratingRange: RatingRange,
+      blocking: lila.core.pool.Blocking,
+      boardApi: Boolean
   ): Hook =
     new Hook(
       id = ThreadLocalRandom.nextString(idSize),
       sri = sri,
       variant = variant.id,
-      clock = clock,
+      clocks = clocks,
       rated = rated,
       color = color,
       user = user.map(LobbyUser.make(_, blocking)),

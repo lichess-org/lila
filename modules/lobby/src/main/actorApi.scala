@@ -1,5 +1,6 @@
 package lila.lobby
 
+import chess.Clock
 import lila.core.socket.{ Sri, Sris }
 
 private case class SaveSeek(msg: SetupBus.AddSeek)
@@ -8,7 +9,12 @@ private case class RemoveSeek(seekId: String)
 private case class RemoveHooks(hooks: Set[Hook])
 private case class CancelHook(sri: Sri)
 private case class CancelSeek(seekId: String, user: LobbyUser)
-private case class BiteHook(hookId: String, sri: Sri, user: Option[LobbyUser])
+private case class BiteHook(
+    hookId: String,
+    sri: Sri,
+    user: Option[LobbyUser],
+    clock: Option[Clock.Config] = None
+)
 private case class BiteSeek(seekId: String, user: LobbyUser)
 private case class JoinHook(sri: Sri, hook: Hook, game: Game, creatorColor: Color)
 private case class JoinSeek(userId: UserId, seek: Seek, game: Game, creatorColor: Color)

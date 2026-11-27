@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ ByColor, Game as ChessGame }
+import chess.{ ByColor, Clock, Game as ChessGame }
 
 import lila.core.socket.Sri
 import lila.core.user.{ GameUsers, WithPerf }
@@ -11,9 +11,9 @@ final private class Biter(
     newPlayer: lila.core.game.NewPlayer
 )(using Executor)(using idGenerator: lila.core.game.IdGenerator):
 
-  def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
+  def apply(hook: Hook, sri: Sri, user: Option[LobbyUser], matchedClock: Clock.Config): Fu[JoinHook] =
     if canJoin(hook, user)
-    then join(hook, sri, user)
+    then join(hook, sri, user, matchedClock)
     else fufail(s"$user cannot bite hook $hook")
 
   def apply(seek: Seek, user: LobbyUser): Fu[JoinSeek] =
@@ -21,7 +21,12 @@ final private class Biter(
     then join(seek, user)
     else fufail(s"$user cannot join seek $seek")
 
-  private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
+  private def join(
+      hook: Hook,
+      sri: Sri,
+      lobbyUserOption: Option[LobbyUser],
+      matchedClock: Clock.Config
+  ): Fu[JoinHook] =
     for
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
@@ -29,7 +34,8 @@ final private class Biter(
       game <- idGenerator.withUniqueId:
         makeGame(
           hook,
-          ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
+          ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)),
+          matchedClock
         )
       _ <- gameRepo.insertDenormalized(game)
     yield
@@ -62,11 +68,11 @@ final private class Biter(
         creator.map(_.id).foreach(userApi.incColor(_, fixed.resolve()))
         fuccess(fixed.resolve())
 
-  private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
+  private def makeGame(hook: Hook, users: GameUsers, matchedClock: Clock.Config) = lila.core.game
     .newGame(
       chess = ChessGame(
         position = hook.realVariant.initialPosition,
-        clock = hook.clock.toClock.some
+        clock = matchedClock.toClock.some
       ),
       players = users.mapWithColor(newPlayer.apply),
       rated = hook.rated,

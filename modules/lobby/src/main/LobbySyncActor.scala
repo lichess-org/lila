@@ -1,5 +1,6 @@
 package lila.lobby
 
+import chess.Clock
 import scalalib.actor.SyncActor
 
 import lila.common.Bus
@@ -40,7 +41,7 @@ final private class LobbySyncActor(
         hookRepo.bySid(sid).foreach(remove)
       (!hook.compatibleWithPools).so(findCompatible(hook)) match
         case Some(h) =>
-          biteHook(h.id, hook.sri, hook.user)
+          biteHook(h.id, hook.sri, hook.user, h.matchingClock(hook))
           publishRemoveHook(hook)
         case None =>
           hookRepo.save(msg.hook)
@@ -63,9 +64,9 @@ final private class LobbySyncActor(
       seekApi.removeBy(seekId, user.id)
       socket ! RemoveSeek(seekId)
 
-    case BiteHook(hookId, sri, user) =>
+    case BiteHook(hookId, sri, user, clock) =>
       NoPlayban(user):
-        biteHook(hookId, sri, user)
+        biteHook(hookId, sri, user, clock)
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
@@ -140,11 +141,17 @@ final private class LobbySyncActor(
       .foreach:
         if _ then () else f
 
-  private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
+  private def biteHook(
+      hookId: String,
+      sri: Sri,
+      user: Option[LobbyUser],
+      clock: Option[Clock.Config]
+  ) =
     hookRepo.byId(hookId).foreach { hook =>
       remove(hook)
       hookRepo.bySri(sri).foreach(remove)
-      biter(hook, sri, user).foreach(this.!)
+      val matchedClock = clock.getOrElse(hook.clocks.minimumBy(_.estimateTotalSeconds))
+      biter(hook, sri, user, matchedClock).foreach(this.!)
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =
