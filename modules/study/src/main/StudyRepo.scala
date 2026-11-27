@@ -109,8 +109,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           .cursor[Study]()
           .documentSource()
 
-  def sourceContributed(memberId: UserId): Source[Study, ?] =
-    sourceByMember(memberId, isMe = true, select = bdoc("ownerId".neq(memberId)))
+  def sourceContributed(using me: Me): Source[Study, ?] =
+    sourceByMember(me.userId, isMe = true, select = bdoc("ownerId".neq(me.userId)))
 
   def insert(s: Study): Funit =
     coll:
