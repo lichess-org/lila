@@ -199,13 +199,12 @@ object PgnDump:
     node.comments.value.map(authoredComment) ::: shapeComment(node.shapes).toList
 
   private def authoredComment(comment: Node.Comment)(using exporter: Exporter): Comment =
-    val text = Node.Comment.rewriteChessBasePieces(comment.text)
     comment.by match
       case Node.Comment.Author.User(id, name) if !exporter.owns(id, name) =>
-        Comment(s"""[%anno "${annoName(name)}", $id] $text""")
+        Comment(s"""[%anno "${annoName(name)}", $id] ${comment.text}""")
       case Node.Comment.Author.External(name) if !exporter.owns(name) =>
-        Comment(s"""[%anno "${annoName(name)}"] $text""")
-      case _ => text
+        Comment(s"""[%anno "${annoName(name)}"] ${comment.text}""")
+      case _ => comment.text.into(Comment)
 
   // the name sits between quotes inside a [%...] block, and neither can be escaped there
   private def annoName(name: String) = name.filterNot(c => c == '"' || c == ']')
