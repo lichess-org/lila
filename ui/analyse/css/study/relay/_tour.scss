@@ -670,6 +670,13 @@
         color: $c-font-dim;
       }
 
+      .performances,
+      .diffs {
+        @extend %flex-column;
+
+        gap: 0.5em;
+      }
+
       .performance,
       .diff {
         @extend %flex-center;
@@ -900,6 +907,12 @@
 
     @media (max-width: at-most($xxx-small)) {
       td.rating-diff {
+        display: none;
+      }
+    }
+
+    @media (max-width: at-most($xx-small)) {
+      td.fide-tc {
         display: none;
       }
     }

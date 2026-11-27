@@ -241,11 +241,14 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                Object.entries(p.performances)
-                  .sort(([tc1], [tc2]) => statByFideTCSort(tc1 as FideTC, tc2 as FideTC))
-                  .map(([tc, { rating, isUncertain }]: [FideTC, Performance]) =>
-                    hl('div.performance', fideTCAttrs(tc), `${rating}${isUncertain ? '?' : ''}`),
-                  ),
+                hl(
+                  'div.performances',
+                  Object.entries(p.performances)
+                    .sort(([tc1], [tc2]) => statByFideTCSort(tc1 as FideTC, tc2 as FideTC))
+                    .map(([tc, { rating, isUncertain }]: [FideTC, Performance]) =>
+                      hl('div.performance', fideTCAttrs(tc), `${rating}${isUncertain ? '?' : ''}`),
+                    ),
+                ),
               ]),
             p.ratingDiffs &&
               hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
@@ -462,6 +465,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const hideResultsSinceRoundId = ctrl.hideResultsSinceRoundId();
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
+  const hasMultiTC = p.games.map(g => g.fideTC).some((v, _, a) => a.indexOf(v) > 0);
 
   const coloredPoint = ({ points, customPoints, color, ongoing }: RelayPlayerGame, index: number) => {
     if (!points) return ongoing && hl('strong', '*');
@@ -487,12 +491,8 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         playerTd(game.opponent, ctrl, withTips),
         hl('td', game.opponent.rating?.toString()),
         hl('td.game-point', coloredPoint(game, i)),
-        hl(
-          'td.rating-diff',
-          defined(game.ratingDiff) &&
-            hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
-        ),
+        hasMultiTC && hl('td.fide-tc', fideTCAttrs(game.fideTC)),
+        hl('td.rating-diff', hideResultsSinceIndex > i && ratingDiff(game, false)),
       ]);
     }),
   );
@@ -554,7 +554,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons = false) => {
     const node = [p.ratingsMap?.[tc], diffNode(diff)];
     return isMultiTc ? hl('div.diff', fideTCAttrs(tc), node) : node;
   });
-  return isMultiTc ? hl('div.diffs', diffNodes) : hl('div.diff', diffNodes[0]);
+  return hl('div.diffs', isMultiTc ? diffNodes : hl('div.diff', diffNodes[0]));
 };
 
 const diffNode = (rd?: number) =>
