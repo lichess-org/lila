@@ -159,8 +159,7 @@ function touchDeviceButton(cls: string, text: string, onClick: () => void): VNod
 
 function renderTouchDeviceCommands({ notify, ctrl }: PuzzleNvuiContext): LooseVNodes {
   return hl('div.actions', [
-    ctrl.mode !== 'view' &&
-      touchDeviceButton('last-move', 'Last move', () => notify.set($('.lastMove').text())),
+    ctrl.mode !== 'view' && touchDeviceButton('last-move', 'Last move', () => document.querySelector<HTMLDivElement>('div.notify')!.textContent = readLastMoveText()),
     ctrl.mode !== 'view' &&
       touchDeviceButton('touch-hint', i18n.site.getAHint, () => {
         const hint = nextCorrectMove(ctrl);
@@ -217,6 +216,10 @@ function lastMove({ node }: PuzzleCtrl, style: nv.MoveStyle): string {
       nv.renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : '\u00A0');
 }
 
+function readLastMoveText(): string {
+  return $('.lastMove').text().trimEnd();
+}
+
 function onSubmit(
   ctrl: PuzzleCtrl,
   notify: (txt: string) => void,
@@ -256,7 +259,7 @@ const isShortCommand = (input: string): boolean => shortCommands.has(input.split
 function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: nv.MoveStyle): void {
   const lowered = c.toLowerCase();
   const pieces = ctrl.ground().state.pieces;
-  if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
+  if (lowered === 'l' || lowered === 'last') notify(readLastMoveText());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else if (lowered.startsWith('b')) commands().board.apply(c, pieces, style);
   else
