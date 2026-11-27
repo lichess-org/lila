@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">Шахматна аналітика %s</string>
+  <string name="xHasNoChessInsights">%s раз не має аналітикы!</string>
+  <string name="insightsAreProtected">Аналітику %s не мож позирати</string>
+  <string name="cantSeeInsights">Перебачте, вы не можете позирати аналітику %s.</string>
+  <string name="generateInsights">Учинити шахматну аналітику %s</string>
+  <string name="crunchingData">Типирь аналітика ся оброблят лем про вас!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Може, попросіт їх поміняти їх %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">штімованя аналітикы</string>
+</resources>

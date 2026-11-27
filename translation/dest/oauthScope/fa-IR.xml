@@ -9,7 +9,7 @@
   <string name="oauthCatUserAccount">حساب کاربر</string>
   <string name="oauthCatInteractions">تعامل</string>
   <string name="oauthCatPlayGames">انجام بازی</string>
-  <string name="oauthCatStudiesBroadcasts">مطالعه و پخش زنده</string>
+  <string name="oauthCatStudiesBroadcasts">مطالعه و فَراخ‌پخش</string>
   <string name="oauthCatExternalPlay">بازیِ بیرونی</string>
   <string name="oauthCatExternalEngine">موتور بیرونی</string>
   <string name="doNotShareIt">نمودافزار اجازه دسترسی به حساب‌تان را می‌دهد. آن را با کسی به اشتراک نگذارید!</string>
@@ -20,8 +20,8 @@
   <string name="challengeRead">خواندن پیشنهادهای بازی دریافت‌شده</string>
   <string name="challengeWrite">ارسال، پذیرش و رد پیشنهادهای بازی</string>
   <string name="challengeBulk">ایجاد چندین بازی به طور همزمان برای بازیکنان دیگر</string>
-  <string name="studyRead">خواندن پخش و مطالعهٔ خصوصی</string>
-  <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
+  <string name="studyRead">خواندن فَراخ‌پخش و مطالعهٔ خصوصی</string>
+  <string name="studyWrite">ایجاد، روزاندن یا حذفِ مطالعه و فَراخ‌پخش</string>
   <string name="tournamentRead">خواندنِ مسابقاتِ خصوصی</string>
   <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
   <string name="racerWrite">ایجاد و پیوستن به تازِ معما</string>

@@ -30,7 +30,7 @@
   <string name="pleaseFillIn">لطفا اطلاعاتِ جریانگران را پر کنید و تصویری بارگذارید.</string>
   <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">وقتی آماده‌اید که با عنوانِ یک جَریانگر Lichess فهرستیده شوید، %s.</string>
   <string name="submitForReview">برای بررسی ثبت کنید</string>
-  <string name="streamerLanguageSettings">صفحهٔ جَریانگرِ Lichess، مخاطبانِ شما را با زبان ارائه‌شده بر پایهٔ سکوی جریان‌تان هدف قرار می‌دهد. زبانِ پیش‌فرضِ صحیح را برای جریان‌های شطرنج‌تان در برنامه یا خدمتی که برای پخش می‌بَهرید، تنظیم کنید.</string>
+  <string name="streamerLanguageSettings">صفحهٔ جَریانگرِ Lichess، مخاطبانِ شما را با زبان ارائه‌شده بر پایهٔ سکوی جریان‌تان هدف قرار می‌دهد. زبانِ پیش‌فرضِ صحیح را برای جریان‌های شطرنج‌تان در برنامه یا خدمتی که برای فَراخ‌پخش می‌بَهرید، تنظیم کنید.</string>
   <string name="pleaseAllow">لطفاً تا ۷۲ ساعت بصبرید تا فهرستیدن و نشانِ جَریانگرتان تایید شود.</string>
   <string name="chooseYoutubeChannel">کانال یوتیوبی که در Lichess از آن استفاده خواهید کرد را انتخاب کنید.</string>
   <string name="connect">اتصال</string>

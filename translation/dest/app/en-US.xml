@@ -12,5 +12,12 @@
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobile screen</string>
   <string name="asFreeAsLichess">As free as Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Built for the love of chess, not money</string>
+  <string name="noAdsNoTracking">No ads, no tracking</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Entirely open source</string>
+  <string name="fullyFeatured">Fully featured</string>
   <string name="phoneAndTablet">Phone and tablet</string>
+  <string name="bulletBlitzClassicalVariants">Bullet, Blitz, Classical, and Variants</string>
+  <string name="correspondenceChess">Correspondence Chess</string>
+  <string name="unlimitedPuzzles">Unlimited Puzzles</string>
+  <string name="gameAnalysis">Game analysis</string>
 </resources>

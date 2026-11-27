@@ -16,16 +16,16 @@ final private class MovePlayer(
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
-)(using Executor):
+)(using Executor, Scheduler):
 
   sealed private trait MoveResult
   private case object Flagged extends MoveResult
   private case class MoveApplied(progress: Progress, move: MoveOrDrop, compedLag: Option[Centis])
       extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
-      pov: Pov
-  )(using proxy: GameProxy): Fu[Events] =
+  private[round] def human(play: HumanPlay, round: RoundAsyncActor)(pov: Pov)(using
+      proxy: GameProxy
+  ): Fu[Events] =
     import pov.{ game, color }
     if game.ply >= lila.game.Game.maxPlies && !game.finishedOrAborted then
       round ! TooManyPlies
@@ -40,13 +40,15 @@ final private class MovePlayer(
             compedLag.foreach: lag =>
               lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
             proxy.save(progress) >>
-              postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+              postHumanOrBotPlay(round, pov, progress, moveOrDrop, none)
     else if game.finished then fufail(GameIsFinishedError(game.id))
     else if game.aborted then fufail(ClientError(s"$pov game is aborted"))
     else if !game.turnOf(color) then fufail(ClientError(s"$pov not your turn"))
     else fufail(ClientError(s"$pov move refused for some reason"))
 
-  private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(using proxy: GameProxy): Fu[Events] =
+  private[round] def bot(uci: Uci, round: RoundAsyncActor, api: ApiMove)(pov: Pov)(using
+      proxy: GameProxy
+  ): Fu[Events] =
     import pov.{ game, color }
     if game.ply >= lila.game.Game.maxPlies && !game.finishedOrAborted then
       round ! TooManyPlies
@@ -57,7 +59,7 @@ final private class MovePlayer(
         .flatMap:
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop, _) =>
-            proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+            proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop, api.some)
     else if game.finished then fufail(GameIsFinishedError(game.id))
     else if game.aborted then fufail(ClientError(s"$pov game is aborted"))
     else if !game.turnOf(color) then fufail(ClientError(s"$pov not your turn"))
@@ -67,13 +69,16 @@ final private class MovePlayer(
       round: RoundAsyncActor,
       pov: Pov,
       progress: Progress,
-      moveOrDrop: MoveOrDrop
+      moveOrDrop: MoveOrDrop,
+      api: Option[ApiMove]
   )(using GameProxy): Fu[Events] =
     if pov.game.hasAi then uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if progress.game.finished then moveFinish(progress.game).dmap(progress.events ::: _)
     else
-      if progress.game.playableByAi then requestFishnet(progress.game, round)
+      if progress.game.playableByAi then
+        lila.common.LilaFuture.delay(api.contains(ApiMove.bot).so(500).millis):
+          fuccess(requestFishnet(progress.game, round))
       if pov.opponent.isOfferingDraw then round ! RoundBus.Draw(pov.player.id, false)
       if pov.opponent.isProposingTakeback then round ! RoundBus.Takeback(pov.player.id, false)
       if progress.game.forecastable then round ! ForecastPlay(moveOrDrop)
@@ -113,7 +118,8 @@ final private class MovePlayer(
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Unit =
     game.playableByAi.so:
-      if game.ply <= lila.core.fishnet.maxPlies then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
+      if game.ply <= lila.core.fishnet.maxPlies
+      then Bus.pub(lila.core.fishnet.FishnetMoveRequest(game))
       else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)

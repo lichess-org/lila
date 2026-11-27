@@ -158,9 +158,6 @@ object Challenge:
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     lila.rating.PerfType(variant, speedOf(timeControl))
 
-  private val idSize = 8
-  private def randomId = ChallengeId(ThreadLocalRandom.nextString(idSize))
-
   def toRegistered(u: WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
 
@@ -173,6 +170,7 @@ object Challenge:
       .getOrElse(TimeControl.Unlimited)
 
   def make(
+      availableGameId: GameId,
       variant: Variant,
       initialFen: Option[Fen.Full],
       timeControl: TimeControl,
@@ -182,7 +180,6 @@ object Challenge:
       destUser: GameUser,
       rematchOf: Option[GameId],
       name: Option[String] = None,
-      id: Option[GameId] = None,
       openToUserIds: Option[(UserId, UserId)] = None,
       rules: Set[GameRule] = Set.empty,
       expiresAt: Option[Instant] = None
@@ -195,8 +192,8 @@ object Challenge:
       case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Rated.No
       case _ => rated
     val isOpen = challenger == Challenge.Challenger.Open
-    new Challenge(
-      id = id.fold(randomId)(_.into(ChallengeId)),
+    Challenge(
+      id = availableGameId.into(ChallengeId),
       status = Status.Created,
       variant = variant,
       initialFen =

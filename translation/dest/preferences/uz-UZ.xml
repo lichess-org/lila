@@ -36,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">Yurişni qaytariş (raqib roziligi bilan)</string>
   <string name="inCasualGamesOnly">Faqat reytingsiz öyinlarda</string>
   <string name="promoteToQueenAutomatically">Piyoda avtomatik ravişda farzinga aylanadi</string>
+  <string name="explainPromoteToQueenAutomatically">Piyodani boşqa donaga aylantiriş çoğida avtomatik aylantirişni vaqtinça öçirib turiş uçun Ctrl tugmasini bosib turing</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Yuriş uç marta takrorlanganda avtomatik tarzda durang talab qiliş</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 sekunddan kam vaqt qolganda</string>

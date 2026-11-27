@@ -35,15 +35,12 @@ enum NotificationContent(val key: String):
       text: Option[String],
       icon: String // should be lila.ui.Icon
   ) extends NotificationContent("genericLink")
-  case ReportedBanned extends NotificationContent("reportedBanned") // BC
   case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
   case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Boolean])
       extends NotificationContent("gameEnd")
   case StreamStart(streamerId: UserId, streamerName: String) extends NotificationContent("streamStart")
   case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
   case TitledTournamentInvitation(id: TourId, text: String) extends NotificationContent("titledTourney")
-  case PlanStart(userId: UserId) extends NotificationContent("planStart") // BC
-  case PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
   case CorresAlarm(gameId: GameId, opponent: String) extends NotificationContent("corresAlarm")
   case Recap(year: Int) extends NotificationContent("recap")
 

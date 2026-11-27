@@ -43,7 +43,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
             "name" -> name,
             "text" -> text
           )
-        case ReportedBanned => Json.obj()
         case TitledTournamentInvitation(id, text) =>
           Json.obj(
             "id" -> id,
@@ -55,8 +54,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
             "opponent" -> opponentId.flatMap(getLightUser),
             "win" -> win
           )
-        case _: PlanStart => Json.obj()
-        case _: PlanExpire => Json.obj()
         case RatingRefund(perf, points) =>
           Json.obj(
             "perf" -> perf,

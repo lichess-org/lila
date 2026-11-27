@@ -36,6 +36,8 @@
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
+  <string name="shareThisBroadcastByUrl">Поділитися цієї трансляцією через URL</string>
+  <string name="downloadPgn">Завантажити PGN</string>
   <string name="resetRound">Скинути цей раунд</string>
   <string name="deleteRound">Видалити цей раунд</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Остаточно видалити цей раунд та всі його ігри?</string>
@@ -115,4 +117,5 @@
   <string name="pinPlayer">Закріпити гравця</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До%s</string>
+  <string name="mentionPositionInChat" comment="Title of a button next to the broadcast chat input. It adds the board number and current move, e.g. &quot;board 5 23... Nf6&quot;, to the chat message, so others can click it to see that move.">Послатися на цю позицію в чаті</string>
 </resources>

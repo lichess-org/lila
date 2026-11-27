@@ -336,22 +336,22 @@ final class Challenge(env: Env) extends LilaController(env):
     }
 
   private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =
-    import lila.challenge.Challenge.*
-    val timeControl = makeTimeControl(config.clock, config.days)
-    env.user.perfsRepo
-      .withPerf(orig -> dest, config.perfType, _.sec)
-      .map: (orig, dest) =>
-        lila.challenge.Challenge.make(
-          variant = config.variant,
-          initialFen = config.position,
-          timeControl = timeControl,
-          rated = config.rated,
-          color = config.color.name,
-          challenger = ChallengeModel.toRegistered(orig),
-          destUser = dest.some,
-          rematchOf = none,
-          rules = config.rules
-        )
+    import ChallengeModel.*
+    for
+      (orig, dest) <- env.user.perfsRepo.withPerf(orig -> dest, config.perfType, _.sec)
+      gameId <- env.game.idGenerator.game
+    yield make(
+      availableGameId = gameId,
+      variant = config.variant,
+      initialFen = config.position,
+      timeControl = makeTimeControl(config.clock, config.days),
+      rated = config.rated,
+      color = config.color.name,
+      challenger = ChallengeModel.toRegistered(orig),
+      destUser = dest.some,
+      rematchOf = none,
+      rules = config.rules
+    )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write, _.Web.Mobile, _.Web.Takex3): ctx ?=>
     bindForm(

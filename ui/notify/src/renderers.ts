@@ -81,14 +81,6 @@ export default function makeRenderers(): Renderers {
         ]),
       text: _ => 'Lichess Titled Arena',
     },
-    reportedBanned: {
-      html: n =>
-        generic(n, undefined, licon.InfoCircle, [
-          h('span', [h('strong', 'Someone you reported was banned')]),
-          h('span', i18n.site.thankYou),
-        ]),
-      text: _ => 'Someone you reported was banned',
-    },
     gameEnd: {
       html: n => {
         let result;
@@ -121,18 +113,6 @@ export default function makeRenderers(): Renderers {
         }
         return i18n.site.resVsX(result, userFullName(n.content.opponent));
       },
-    },
-    planStart: {
-      html: n =>
-        generic(n, '/patron', licon.Wings, [
-          h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)]),
-        ]),
-      text: _ => 'You just became a lichess Patron.',
-    },
-    planExpire: {
-      html: n =>
-        generic(n, '/patron', licon.Wings, [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
-      text: _ => 'Patron account expired',
     },
     ratingRefund: {
       html: n =>

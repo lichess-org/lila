@@ -32,6 +32,8 @@
   <string name="startDateHelp">Valgfritt, hvis du vet når arrangementet starter</string>
   <string name="currentGameUrl">URL for dette partiet</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
+  <string name="shareThisBroadcastByUrl">Del lenken til sendingen</string>
+  <string name="downloadPgn">Last ned PGN</string>
   <string name="resetRound">Nullstill denne runden</string>
   <string name="deleteRound">Slett denne runden</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Vil du slette denne runden og alle partiene i den permanent?</string>
@@ -111,4 +113,5 @@
   <string name="pinPlayer">Fest spiller</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="mentionPositionInChat" comment="Title of a button next to the broadcast chat input. It adds the board number and current move, e.g. &quot;board 5 23... Nf6&quot;, to the chat message, so others can click it to see that move.">Vis til denne stillingen i chatten</string>
 </resources>

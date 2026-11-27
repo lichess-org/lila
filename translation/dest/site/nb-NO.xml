@@ -438,6 +438,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
+  <string name="selectImage">Velg bilde</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
@@ -509,6 +510,7 @@ Venner som spiller: %2$s</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
   <string name="resume">Fortsett</string>
+  <string name="stop">Stopp</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Seierprosent</string>
   <string name="performance">Prestasjon</string>
@@ -701,6 +703,8 @@ Venner som spiller: %2$s</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
   <string name="really">virkelig</string>
+  <string name="lichessUpdates">Nyhetsstrøm fra Lichess</string>
+  <string name="allUpdates">Alle oppdateringer</string>
   <string name="contribute">Bidra</string>
   <string name="changelog">Endringslogg</string>
   <string name="termsOfService">Tjenestevilkår</string>
@@ -995,6 +999,8 @@ og påvirker spillernes rating</string>
   <string name="onlyMembersOfTeam">Kun lagmedlemmer</string>
   <string name="noRestriction">Ingen begrensning</string>
   <string name="minimumRatedGames">Minimum ratede partier</string>
+  <string name="minimumAccountAge">Minste kontoalder</string>
+  <string name="titledPlayersBypassRestriction">Spillere med sjakktittel er unntatt fra dette kravet.</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maksimum ukerating</string>
   <string name="positionInputHelp">Lim inn gyldig FEN for å begynne hvert parti fra gitt stilling.
@@ -1052,6 +1058,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="offline" comment="status of a user">frakoblet</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Tøm søk</string>
+  <string name="searchInX">Søk i «%s»</string>
   <string name="thereAreNoResultsForX">Ingen resultater for «%s»</string>
   <string name="tags">Merkelapper</string>
   <string name="enPassant">En passant</string>

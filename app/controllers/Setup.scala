@@ -36,7 +36,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody: ctx ?=>
-      limit.setupPost.use(rateLimited()):
+      limit.setupPost.use(rateLimited):
         bindForm(forms.friend)(
           doubleJsonFormError,
           config =>
@@ -61,26 +61,26 @@ final class Setup(
                       case _ if HTTPRequest.isLichobile => Challenger.Open.some
                       case _ => none
                     .so: challenger =>
-                      val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
-                      val challenge = lila.challenge.Challenge.make(
-                        variant = config.variant,
-                        initialFen = config.fen,
-                        timeControl = timeControl,
-                        rated = config.rated,
-                        color = config.color.name,
-                        challenger = challenger,
-                        destUser = destUser,
-                        rematchOf = none
-                      )
                       env.challenge.api
-                        .create(challenge)
+                        .createWithId: id =>
+                          make(
+                            availableGameId = id,
+                            variant = config.variant,
+                            initialFen = config.fen,
+                            timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn),
+                            rated = config.rated,
+                            color = config.color.name,
+                            challenger = challenger,
+                            destUser = destUser,
+                            rematchOf = none
+                          )
                         .flatMap:
-                          if _ then
+                          case Some(challenge) =>
                             negotiate(
                               Redirect(routes.Round.watcher(challenge.gameId, Color.white)),
                               challengeC.showChallenge(challenge, justCreated = true)
                             )
-                          else
+                          case None =>
                             negotiate(
                               Redirect(routes.Lobby.home),
                               JsonBadRequest("Challenge not created")

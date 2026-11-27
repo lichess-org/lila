@@ -21,7 +21,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Bu, %s oranında odun hareket ettirmek anlamına geliyor!</string>
 	<string name="movesStandardPiecesWeight">Standart parçaların her biri yaklaşık 40g ağırlığındadır</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Standart taşların her biri yaklaşık 40g ağırlığındadır</string>
+	<string name="movesStandardPiecesWeightImperial">Standart taşların her biri yaklaşık 40g ağırlığındadır</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Hemen hemen %s kuyruklu piyanonun ağırlığı kadar</item>
 		<item quantity="other">Hemen hemen %s kuyruklu piyanonun ağırlığı kadar</item>

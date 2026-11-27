@@ -10,4 +10,14 @@
   <string name="downloadOnGooglePlay">In Google Play abelade</string>
   <string name="downloadOnFdroid">Uf F-Droid abelade</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess Mobile Bildschirm</string>
+  <string name="asFreeAsLichess">So gratis wie Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">G\'macht für d\'Liebi zum Schach, nöd us Gäldgier</string>
+  <string name="noAdsNoTracking">Kei Ads, keis Tracking</string>
+  <string name="entirelyOpenSource" comment="Link to the mobile app source code">Vollkomme offene Quällcode</string>
+  <string name="fullyFeatured">Alli Funkzione</string>
+  <string name="phoneAndTablet">Smartphone und Tablet</string>
+  <string name="bulletBlitzClassicalVariants">Bullet, Blitz, Klassisch, Variante</string>
+  <string name="correspondenceChess">Fernschach</string>
+  <string name="unlimitedPuzzles">Ändlos Ufgabe</string>
+  <string name="gameAnalysis">Schpil Analyse</string>
 </resources>

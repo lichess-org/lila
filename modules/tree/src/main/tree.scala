@@ -6,7 +6,6 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Ply, Square }
 import play.api.libs.json.*
-import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
 import scalalib.json.Json.given
 
@@ -465,14 +464,6 @@ object Node:
               ms.toLongOption.map(Centis.ofMillis)
             case _ => none
 
-    def sanitize(text: String) = CommentStr:
-      softCleanUp(text)
-        .take(4000)
-        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-        .replaceAll("[{}]", "") // {} are reserved in PGN comments
-
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
@@ -516,7 +507,11 @@ object Node:
     case Comment.Author.Unknown => JsNull
   given Writes[Node.Comment] = Writes: comment =>
     Json
-      .obj("id" -> comment.id, "text" -> comment.text, "by" -> comment.by)
+      .obj(
+        "id" -> comment.id,
+        "text" -> comment.text,
+        "by" -> comment.by
+      )
       .add("comp", comment.comp.option(comment.comp))
   given Writes[Node.Glyph] = Writes: glyph =>
     Json

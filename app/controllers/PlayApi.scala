@@ -5,6 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.id.GameAnyId
+import lila.core.round.ApiMove
 
 // both bot & board APIs
 final class PlayApi(env: Env) extends LilaController(env):
@@ -16,6 +17,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   }
 
   def botMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me ?=>
+    given ApiMove = ApiMove.bot
     WithPovAsBot(id)(impl.move(_, uci, offeringDraw))
   }
 
@@ -50,6 +52,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   def boardMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ ?=> me ?=>
       WithPovAsBoard(id): pov =>
+        given ApiMove = ApiMove.board
         env.bot.boardReport.move(pov.game)
         impl.move(pov, uci, offeringDraw)
     }
@@ -67,7 +70,7 @@ final class PlayApi(env: Env) extends LilaController(env):
         .map: wf =>
           jsOptToNdJson(env.bot.gameStateStream(wf, pov.color))
 
-    def move(pov: Pov, uci: String, offeringDraw: Option[Boolean])(using Me) =
+    def move(pov: Pov, uci: String, offeringDraw: Option[Boolean])(using Me, ApiMove) =
       env.bot.player(pov, uci, offeringDraw).pipe(toResult)
 
     def command(cmd: String)(

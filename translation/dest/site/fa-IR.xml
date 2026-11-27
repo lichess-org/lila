@@ -146,12 +146,12 @@
   <string name="memoryDescription">مقدارهای بالاتر ممکن است عملکرد را بهبود بخشد</string>
   <string name="infiniteAnalysis">تحلیل بی‌کران</string>
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
-  <string name="blunder">اشتباه فاحش</string>
+  <string name="blunder">خَبط</string>
   <string name="mistake">اشتباه</string>
   <string name="inaccuracy">بی‌دقتی</string>
   <plurals name="numberBlunders">
-    <item quantity="one">%s اشتباه بزرگ</item>
-    <item quantity="other">%s اشتباه بزرگ</item>
+    <item quantity="one">%s خَبط</item>
+    <item quantity="other">%s خَبط</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s اشتباه</item>

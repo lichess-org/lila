@@ -36,6 +36,7 @@
   <string name="takebacksWithOpponentApproval">Можливість переходити (за згоди суперника)</string>
   <string name="inCasualGamesOnly">Тільки у товариських іграх</string>
   <string name="promoteToQueenAutomatically">Перетворення пішака завжди на ферзя</string>
+  <string name="explainPromoteToQueenAutomatically">Затримайте Ctrl під час перетворення для тимчасового вимкнення функції автоперетворення</string>
   <string name="whenPremoving">Для ходів на випередження</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
@@ -81,6 +82,7 @@
   <string name="showUndefendedPieces">Показувати незахищені фігури</string>
   <string name="showPinnedPieces">Показувати прив\'язані фігури</string>
   <string name="showCheckableKing">Показувати загрозу шаху</string>
+  <string name="showTrappedPieces">Показувати спіймані фігури</string>
   <string name="disclosureMode">Увімкнути приховання варіантів</string>
   <string name="generalSettings">Загальні</string>
   <string name="moveListSettings">Список ходів</string>

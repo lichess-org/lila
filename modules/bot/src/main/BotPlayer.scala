@@ -18,18 +18,17 @@ final class BotPlayer(
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.core.round.ClientError(msg))
 
-  def apply(pov: Pov, uciStr: String, offeringDraw: Option[Boolean])(using me: Me): Funit =
-    lila.common.LilaFuture.delay((pov.game.hasAi.so(500)).millis):
-      Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")): uci =>
-        lila.mon.bot.moves(me.username.value).increment()
-        if !pov.isMyTurn then clientError("Not your turn, or game already over")
-        else
-          val promise = Promise[Unit]()
-          if pov.player.isOfferingDraw && offeringDraw.has(false) then declineDraw(pov)
-          else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
-          tellRound(pov.gameId, RoundBus.BotPlay(pov.playerId, uci, promise.some))
-          promise.future.recover:
-            case _: lila.core.round.GameIsFinishedError if ~offeringDraw => ()
+  def apply(pov: Pov, uciStr: String, offeringDraw: Option[Boolean])(using me: Me)(using ApiMove): Funit =
+    Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")): uci =>
+      lila.mon.bot.moves(me.username.value).increment()
+      if !pov.isMyTurn then clientError("Not your turn, or game already over")
+      else
+        val promise = Promise[Unit]()
+        if pov.player.isOfferingDraw && offeringDraw.has(false) then declineDraw(pov)
+        else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
+        tellRound(pov.gameId, RoundBus.BotPlay(pov.playerId, uci, promise.some))
+        promise.future.recover:
+          case _: lila.core.round.GameIsFinishedError if ~offeringDraw => ()
 
   def chat(gameId: GameId, d: BotForm.ChatData)(using me: Me) =
     (!spam.detect(d.text))

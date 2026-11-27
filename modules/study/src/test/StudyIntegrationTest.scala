@@ -115,7 +115,7 @@ object StudyAction:
       case Some("setComment") =>
         val p = jsObject.get[AtPosition]("d").get
         val text = (jsObject \ "d" \ "text").asOpt[String].get
-        SetComment(p, Comment.sanitize(text))
+        SetComment(p, CommentParser.sanitize(text))
       case Some("promote") =>
         val p = jsObject.get[AtPosition]("d").get
         val toMainline = (jsObject \ "d" \ "toMainline").asOpt[Boolean].get

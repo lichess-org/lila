@@ -29,7 +29,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">هذا %s جراما من الخشب حركته!</string>
 	<string name="movesStandardPiecesWeight">وزن القطع الطبيعي حوالي 40 غرام لكل</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">يزن كلٌّ من قطع الشطرنج القياسية نحو 1.4 أونصة</string>
+	<string name="movesStandardPiecesWeightImperial">يزن كلٌّ من قطع الشطرنج القياسية نحو 1.4 أونصة</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="zero">ما يعادل تقريبًا وزن %s من آلة البيانو الكبيرة</item>
 		<item quantity="one">ما يعادل تقريبًا وزن %s من آلة البيانو الكبيرة</item>

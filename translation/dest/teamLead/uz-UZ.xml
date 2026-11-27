@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="permPublicName">Hammaga oçiq</string>
+  <string name="permPublicDesc">Jamoa sahifasida sardor sifatida körinadi</string>
   <string name="permSettingsName">Sozlamalar</string>
+  <string name="permSettingsDesc">Jamoa sozlamalari va tavsifini özgartiriş</string>
   <string name="permTourName">Turnirlar</string>
   <string name="permTourDesc">Jamoa turnirlarini yarating, boşqaring va qöşiling</string>
   <string name="permCommName">Moderatsiya</string>
+  <string name="permCommDesc">Forum va jamoa çatini moderatsiya qiliş</string>
   <string name="permRequestName">Sörovlar</string>
+  <string name="permRequestDesc">Qöşiliş sörovlarini qabul qiliş yoki rad etiş</string>
+  <string name="permPmAllName">Yangiliklar</string>
+  <string name="permPmAllDesc">Jamoa aʼzolariga yangiliklarni yuboriş</string>
+  <string name="permRemoveName">Çiqarib yuboriş</string>
+  <string name="permRemoveDesc">Jamoa aʼzolarini çiqarib yuboriş</string>
+  <string name="permAdminName">Maʼmur</string>
+  <string name="permAdminDesc">Sardorlarning ruxsatlarini boşqariş</string>
+  <string name="demoteLeaderNote">Sardorning darajasini pasaytiriş uçun uning barça ruxsatlarini bekor qiling.</string>
   <string name="manuallyReviewAdmissionRequests">Qabul qiliş sörovlarini körib çiqiş</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan bölsa, öyinçilar jamoaga qöşiliş uçun sörov yozişlari kerak. Siz ularni inkor yoki qabul qilişingiz mumkin.</string>
   <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Jamoa aʼzolari röyxatini begonalar uçun yaşiriş.</string>
   <string name="onlyLeaderLeavesTeam">Çiqişdan oldin yangi jamoa sardorini tayinlang yoki jamoani yoping.</string>
+  <string name="removeSomeone">Kimnidir çiqarib yuboriş</string>
   <string name="whoToRemove">Kimni jamoadan çiqarmoqçisiz?</string>
+  <string name="blockedUsers">Bloklangan foydalanuvçilar</string>
+  <string name="blockedUsersDesc">Har bir qatorga bittadan foydalanuvçi nomini kiriting. Uşbu öyinçilarga jamoaga qöşiliş taqiqlanadi.</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s ta qöşiliş sörovi</item>
     <item quantity="other">%s ta qöşiliş sörovi</item>
   </plurals>
   <string name="declinedRequests">Rad etilgan sörovlar</string>
   <string name="newTeamUpdate">Jamoada yangilik</string>
+  <string name="teamUpdatesPerWeek">Haftasiga köpi bilan %1$s ta jamoa yangiliklarini yuborişingiz mumkin. %3$s sanasigaça yana &lt;strong&gt;%2$s&lt;/strong&gt; ta yangilik yuborişingiz mumkin.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qöşasizmi?</string>
   <string name="teamIntroductionHelp">Jamoalar röyxatida körinadigan qisqa tavsif. 200 ta belgigaça.</string>
   <string name="teamDescriptionHelp">Jamoa sahifasida körinadigan töliq tavsif.</string>
@@ -32,4 +47,5 @@
 Agar biror öyinçi uşbu bilan turnirga qöşilgan bölsa, öşa jamoani röyxatdan öçira olmaysiz.</string>
   <string name="numberOfLeadsPerTeam">Har bir jamoadagi peşqadamlar soni. Peşqadamlar oçkolar yiğindisi jamoaning umumiy oçkosini belgilaydi.</string>
   <string name="numberOfLeadsPerTeamHelp">Turnir boşlanganidan keyin bu qiymatni özgartirmaslikni qatʼiy tavsiya qilamiz!</string>
+  <string name="teamIntroPrompt">Jamoangiz haqida boşqalarga sözlab bering!</string>
 </resources>

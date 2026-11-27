@@ -22,7 +22,7 @@ case class RelayPlayer(
     ratingsMap: Map[FideTC, IntRating],
     score: Option[Float],
     ratingDiffs: Map[FideTC, IntRatingDiff],
-    performances: Map[FideTC, IntRating],
+    performances: Map[FideTC, RelayPlayer.Performance],
     tiebreaks: Option[Seq[(Tiebreak, TiebreakPoint)]],
     rank: Option[RelayPlayer.Rank],
     games: Vector[RelayPlayer.Game]
@@ -63,6 +63,8 @@ object RelayPlayer:
 
   def empty(player: StudyPlayer.WithFed) =
     RelayPlayer(player, Map.empty, None, Map.empty, Map.empty, None, None, Vector.empty)
+
+  case class Performance(rating: IntRating, isUncertain: Boolean)
 
   case class Game(
       round: RelayRoundId,
@@ -141,6 +143,7 @@ object RelayPlayer:
             "points" -> tbv.value
           )
     given KeyWrites[FideTC] = _.toString // required by ratingDiffs & performances
+    given Writes[RelayPlayer.Performance] = Json.writes
 
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
@@ -312,9 +315,14 @@ private final class RelayPlayerApi(
           performances = p.games
             .groupBy(_.fideTC)
             .foldLeft(Map.empty):
-              case (acc, (gameTC, tcGames)) =>
-                val performanceRating = Elo.computePerformanceRating(tcGames.flatMap(_.eloGame))
-                performanceRating.fold(acc)(r => acc + (gameTC -> r.into(IntRating)))
+              case (acc, (fideTC, tcGames)) =>
+                val eloGames = tcGames.flatMap(_.eloGame)
+                val performanceRating = Elo.computePerformanceRating(eloGames)
+                performanceRating.fold(acc): r =>
+                  val isUncertainPerformance = eloGames.sizeIs < 4 ||
+                    List(Outcome.Points.One, Outcome.Points.Zero)
+                      .exists(pts => eloGames.forall(_.points == pts))
+                  acc + (fideTC -> Performance(r.into(IntRating), isUncertainPerformance))
         )
       .to(SeqMap)
 

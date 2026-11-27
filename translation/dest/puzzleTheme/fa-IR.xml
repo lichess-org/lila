@@ -31,7 +31,7 @@
   <string name="cornerMate">ماتِ کُنج</string>
   <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">شاه را با استفاده از رخ یا وزیر به گوشه محدود کنید و از یک اسب برای مات کردن ببَهرید.</string>
   <string name="crushing">تخریب</string>
-  <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
+  <string name="crushingDescription">تشخیص خَبطِ حریف، برای رسیدن به برتریِ کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
   <string name="discoveredCheck">کیشِ برخاست</string>
   <string name="discoveredCheckDescription">حرکتِ یک مهره، کیشِ مهاجمِ پنهان-ی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
   <string name="doubleBishopMate">ماتِ دوفیل</string>

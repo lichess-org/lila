@@ -21,7 +21,7 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">Kaq është baras %s me dru të ngarkuara!</string>
 	<string name="movesStandardPiecesWeight">Gurët standard peshojnë afërsisht 40g secili</string>
-	<string name="movesStandardPiecesWeightImperial" comment="This string will only be shown to visitors in countries that use imperial units (not metric). The weight and units should not be converted.">Gurët standardë peshojnë afërsisht 39,7 gramë secili</string>
+	<string name="movesStandardPiecesWeightImperial">Gurët standardë peshojnë afërsisht 39,7 gramë secili</string>
 	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
 		<item quantity="one">Afërsisht pesha e %s pianoje të madhe</item>
 		<item quantity="other">Afërsisht pesha e %s pianove të mëdha</item>

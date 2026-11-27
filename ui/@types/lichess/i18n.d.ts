@@ -3593,8 +3593,6 @@ interface I18n {
     allSet: string;
     /** All squares */
     allSquaresOfTheBoard: string;
-    /** All updates */
-    allUpdates: string;
     /** Always */
     always: string;
     /** Analysis board */
@@ -4887,8 +4885,12 @@ interface I18n {
     shareYourInsightsData: string;
     /** View this help overlay */
     showHelpDialog: string;
+    /** Show less */
+    showLess: string;
     /** Show me everything */
     showMeEverything: string;
+    /** Show more */
+    showMore: string;
     /** Show password */
     showPassword: string;
     /** Show threat */

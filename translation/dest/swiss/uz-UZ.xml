@@ -36,6 +36,7 @@
   <string name="numberOfRounds">Turlar soni</string>
   <string name="numberOfRoundsHelp">Toq son bölsa öyinçilar orasidagi rang muvozanati optimal böladi.</string>
   <string name="roundInterval">Turlar orasidagi tanaffus</string>
+  <string name="customPairings">Maxsus juftliklar</string>
   <string name="forbiddenPairings">Taqiqlangan juftliklar</string>
   <string name="forbiddenPairingsHelp">Özaro öynamasligi kerak bölgan öyinçilarning (masalan, aka‑ukalar) foydalanuvçi nomlarini kiriting. Har bir qatorga ikkitadan foydalanuvçi nomini böşliq bilan ajratgan holda yozing.</string>
   <string name="manualPairings">Keyingi turda qölda juftliklarni aniqlaş</string>

@@ -184,7 +184,7 @@ final private class RoundAsyncActor(
         .withPov(p.playerId):
           _.so: pov =>
             if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
-            else player.bot(p.uci, this)(pov)
+            else player.bot(p.uci, this, p.api)(pov)
         .map(publish)
       p.promise.foreach(_.completeWith(res))
       res
