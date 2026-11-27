@@ -534,7 +534,7 @@ object Node:
     Json
       .obj(
         "id" -> comment.id,
-        "text" -> Comment.rewriteChessBasePieces(comment.text.value),
+        "text" -> comment.text,
         "by" -> comment.by
       )
       .add("comp", comment.comp.option(comment.comp))
