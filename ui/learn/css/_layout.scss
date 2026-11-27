@@ -22,8 +22,23 @@
     grid-area: table;
   }
 
+  &__metadata {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .learn__side {
+      order: 2;
+    }
+
+    .learn__table {
+      order: 1;
+    }
+  }
+
   &--run {
-    grid-template-areas: 'main' 'table' 'side';
+    grid-template-areas: 'main' 'right';
   }
 
   &--map {
@@ -36,7 +51,7 @@
     &--run {
       grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
       grid-template-rows: fit-content(0);
-      grid-template-areas: 'main table' 'side .';
+      grid-template-areas: 'main right';
     }
 
     &--map {
@@ -53,6 +68,15 @@
     &--run {
       grid-template-columns: $col3-uniboard-side var(---col3-uniboard-width) $col3-uniboard-table;
       grid-template-areas: 'side main table';
+    }
+
+    &__metadata {
+      display: contents;
+
+      .learn__side,
+      .learn__table {
+        order: 0;
+      }
     }
   }
 }

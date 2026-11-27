@@ -189,7 +189,7 @@ final private class StudySocket(
         case "setComment" =>
           reading[AtPosition](o): position =>
             for text <- (o \ "d" \ "text").asOpt[String]
-            do applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
+            do applyWho(api.setComment(studyId, position.ref, CommentParser.sanitize(text)))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>

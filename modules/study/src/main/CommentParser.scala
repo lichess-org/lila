@@ -1,11 +1,12 @@
 package lila.study
 
-import chess.format.pgn.Comment as ChessComment
+import scalalib.StringOps.softCleanUp
+import chess.format.pgn.Comment as CommentStr
 import chess.{ Centis, Square }
 
 import lila.tree.Node.{ Comment as TreeComment, Shape, Shapes }
 
-private[study] object CommentParser:
+private object CommentParser:
 
   private val annoRegex =
     """(?s)\[\%anno[\s\r\n]++(?:"([^"]*+)"|([^\],]++))[\s\r\n]*+(?:,[\s\r\n]*+([^\]\s]++))?[\s\r\n]*+\]""".r.unanchored
@@ -19,19 +20,20 @@ private[study] object CommentParser:
       shapes: Shapes,
       clock: Option[Centis],
       emt: Option[Centis],
-      comment: ChessComment
+      comment: CommentStr
   )
 
-  def apply(comment: ChessComment): ParsedComment =
+  def apply(comment: CommentStr): ParsedComment =
     import TreeComment.*
     ParsedComment(
       parseShapes(comment),
       clk(comment).orElse(tcec(comment)),
       emt(comment),
-      removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
+      rewriteChessBasePieces:
+        removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
     )
 
-  def author(comment: ChessComment): Option[Author] =
+  def author(comment: CommentStr): Option[Author] =
     comment.value match
       case annoRegex(quoted, bare, id) =>
         Option(quoted)
@@ -41,10 +43,35 @@ private[study] object CommentParser:
           .map(name => Author(name, Option(id).flatMap(UserStr.read).map(_.id)))
       case _ => none
 
-  private def parseShapes(comment: ChessComment): Shapes =
+  def sanitize(text: String) =
+    rewriteChessBasePieces(CommentStr(text.take(4000))).map: text =>
+      softCleanUp(text)
+        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
+        .replaceAll("[{}]", "") // {} are reserved in PGN comments
+
+  // ChessBase writes piece icons as U+E024..U+E029 (king, queen, rook, bishop, knight, pawn).
+  // Rewrite those private-use characters as Lichess piece glyphs.
+  private def rewriteChessBasePieces(c: CommentStr): CommentStr = c.map: text =>
+    if text.exists(c => c >= '\ue024' && c <= '\ue029') then
+      val sb = java.lang.StringBuilder(text.length)
+      text.foreach: c =>
+        sb.append(c match
+          case '\ue024' => '\u2654'
+          case '\ue025' => '\u2655'
+          case '\ue026' => '\u2656'
+          case '\ue027' => '\u2657'
+          case '\ue028' => '\u2658'
+          case '\ue029' => '\u2659'
+          case other => other)
+      sb.toString
+    else text
+
+  private def parseShapes(comment: CommentStr): Shapes =
     parseCircles(comment) ++ parseArrows(comment)
 
-  private def parseCircles(comment: ChessComment): Shapes =
+  private def parseCircles(comment: CommentStr): Shapes =
     comment.value match
       case circlesRegex(str) =>
         val circles = str.split(',').toList.map(_.trim).flatMap { c =>
@@ -56,7 +83,7 @@ private[study] object CommentParser:
         Shapes(circles)
       case _ => Shapes(Nil)
 
-  private def parseArrows(comment: ChessComment): Shapes =
+  private def parseArrows(comment: CommentStr): Shapes =
     comment.value match
       case arrowsRegex(str) =>
         val arrows = str.split(',').toList.map(_.trim).flatMap { c =>

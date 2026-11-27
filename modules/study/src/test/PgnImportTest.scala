@@ -383,6 +383,16 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .assertRight: parsed =>
         assertEquals(Helpers.rootToPgn(parsed.root, parsed.tags).value, pgn.value)
 
+  test("chessbase private-use figurines become unicode pieces"):
+    StudyPgnImport
+      .result("1. e4 { missed 36.\uE027c5! after 17.\uE026c1 \uE028f3 \uE025e4 \uE024f1 \uE029e4 }", Nil)
+      .assertRight: parsed =>
+        val text = "missed 36.♗c5! after 17.♖c1 ♘f3 ♕e4 ♔f1 ♙e4"
+        assertEquals(parsed.root.mainlineNodeList(1).comments.value.map(_.text), Comment.from(List(text)))
+        val dumped = Helpers.rootToPgn(parsed.root, parsed.tags).value
+        assert(dumped.contains(text))
+        assert(!dumped.exists(c => c >= '\uE024' && c <= '\uE029'))
+
   test("21211: an [%anno] holding a profile URL resolves to that contributor"):
     val pgn: PgnStr = """1. e4 { [%anno "https://lichess.org/@/mary"] exported from another study }"""
     StudyPgnImport
