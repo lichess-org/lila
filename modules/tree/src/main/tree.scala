@@ -422,6 +422,23 @@ object Node:
 
     def removeMeta(c: CommentStr): CommentStr = c.map(metaReg.replaceAllIn(_, ""))
 
+    // ChessBase writes piece icons as U+E024..U+E029 (king, queen, rook, bishop, knight, pawn).
+    // Rewrite those private-use characters as Lichess piece glyphs.
+    def rewriteChessBasePieces(c: CommentStr): CommentStr = c.map: text =>
+      if text.exists(c => c >= '\ue024' && c <= '\ue029') then
+        val sb = java.lang.StringBuilder(text.length)
+        text.foreach: c =>
+          sb.append(c match
+            case '\ue024' => '\u2654'
+            case '\ue025' => '\u2655'
+            case '\ue026' => '\u2656'
+            case '\ue027' => '\u2657'
+            case '\ue028' => '\u2658'
+            case '\ue029' => '\u2659'
+            case other => other)
+        sb.toString
+      else text
+
     private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
     private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
     private val tcecClockRegex = """(?s)tl=([\d:\.]++)""".r.unanchored
@@ -465,13 +482,13 @@ object Node:
               ms.toLongOption.map(Centis.ofMillis)
             case _ => none
 
-    def sanitize(text: String) = CommentStr:
-      softCleanUp(text)
-        .take(4000)
-        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-        .replaceAll("[{}]", "") // {} are reserved in PGN comments
+    def sanitize(text: String) =
+      rewriteChessBasePieces(CommentStr(text.take(4000))).map: text =>
+        softCleanUp(text)
+          .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+          .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+          .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
+          .replaceAll("[{}]", "") // {} are reserved in PGN comments
 
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
@@ -516,7 +533,11 @@ object Node:
     case Comment.Author.Unknown => JsNull
   given Writes[Node.Comment] = Writes: comment =>
     Json
-      .obj("id" -> comment.id, "text" -> comment.text, "by" -> comment.by)
+      .obj(
+        "id" -> comment.id,
+        "text" -> comment.text,
+        "by" -> comment.by
+      )
       .add("comp", comment.comp.option(comment.comp))
   given Writes[Node.Glyph] = Writes: glyph =>
     Json

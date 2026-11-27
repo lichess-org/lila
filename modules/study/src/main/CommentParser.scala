@@ -28,7 +28,8 @@ private[study] object CommentParser:
       parseShapes(comment),
       clk(comment).orElse(tcec(comment)),
       emt(comment),
-      removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
+      TreeComment.rewriteChessBasePieces:
+        removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
     )
 
   def author(comment: ChessComment): Option[Author] =
