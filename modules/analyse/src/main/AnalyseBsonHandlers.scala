@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.tree.Analysis.EngineId
-import lila.tree.{ Analysis, Engine, Eval, FishnetKey, Info, evals }
+import lila.tree.{ Analysis, Engine, Eval, Info, evals }
 
 object AnalyseBsonHandlers:
 
@@ -22,9 +22,8 @@ object AnalyseBsonHandlers:
         r.getO[StudyId]("studyId") match
           case Some(studyId) => Analysis.Id(studyId, getId[StudyChapterId])
           case None => Analysis.Id(getId[GameId])
-      val engine = r.getO[Engine]("engine") | Engine.default.copy(
-        nodesPerMove = r.intO("npm") | Engine.default.nodesPerMove,
-        fishnetKey = r.getO[FishnetKey]("fk")
+      val engine = r.getO[Engine]("engine") | Engine.default.copy(nodesPerMove =
+        r.intO("npm") | Engine.default.nodesPerMove
       )
       Analysis(
         id = id,

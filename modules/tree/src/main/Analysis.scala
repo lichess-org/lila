@@ -15,8 +15,7 @@ case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
 case class Engine(
     nodesPerMove: Int,
     id: EngineId,
-    engineVersion: String,
-    fishnetKey: Option[FishnetKey] = none
+    engineVersion: String
 )
 
 object Engine:
