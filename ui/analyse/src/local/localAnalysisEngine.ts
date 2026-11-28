@@ -2,7 +2,6 @@ import * as co from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { setupPosition } from 'chessops/variant';
 
-import { myUserId } from 'lib';
 import { randomId } from 'lib/algo';
 import type { CustomCeval } from 'lib/ceval/types';
 import { mainlineNodeList, structuredCloneLite } from 'lib/tree/ops';
@@ -165,7 +164,6 @@ export class LocalAnalysisEngine {
         ...engine,
         engineVersion: engine.version,
         id: String(this.ctrl.ceval.engines.active()!.id),
-        userId: myUserId() ?? 'lichess', // ??? trusting the client to send their actual user ID to the server
       },
     };
     const rsp = await fetch('/analysis/review', {

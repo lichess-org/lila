@@ -15,15 +15,14 @@ case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
 case class Engine(
     nodesPerMove: Int,
     id: EngineId,
-    userId: UserId,
     engineVersion: String,
     fishnetKey: Option[FishnetKey] = none
 )
 
 object Engine:
   val unknownVersion = "/unknown/"
-  val unknown = Engine(0, EngineId.unknown, UserId.lichess, unknownVersion)
-  val default = Engine(1_000_000, EngineId.fishnet, UserId.lichess, unknownVersion)
+  val unknown = Engine(0, EngineId.unknown, unknownVersion)
+  val default = Engine(1_000_000, EngineId.fishnet, unknownVersion)
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
