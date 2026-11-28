@@ -35,9 +35,16 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
       .one(bid(id), set("closed" -> value, "closedByMod" -> (value && byMod)))
       .void
 
-  def closeByAuthor(id: ForumTopicId): Funit =
+  def closeByAuthor(topic: ForumTopic): Funit =
     coll.update
-      .one(bid(id) ++ bdoc("closed" -> false), set("closed" -> true, "closedByMod" -> false))
+      .one(
+        bid(topic.id) ++ bdoc("closed" -> false),
+        set(
+          "closed" -> true,
+          "closedByMod" -> false,
+          "updatedAt" -> topic.updatedAt.atLeast(topic.createdAt).minusHours(12) // bump down
+        )
+      )
       .void
 
   def closedByMod(id: ForumTopicId): Fu[Boolean] = coll.exists(bid(id) ++ bdoc("closedByMod" -> true))
