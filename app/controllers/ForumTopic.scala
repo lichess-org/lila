@@ -42,11 +42,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def show(categId: ForumCategId, slug: ForumTopicSlug, page: Int) = Open:
     NotForKids:
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
-        if categId == diagnosticId &&
-          !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
-          !isGrantedOpt(_.ModerateForum) &&
-          !isGrantedOpt(_.Diagnostics)
-        then notFound
+        if access.restrictedDiagnostic(categ.id, topic.slug) then notFound
         else
           for
             unsub <- ctx.useMe(env.timeline.status(s"forum:${topic.id}"))

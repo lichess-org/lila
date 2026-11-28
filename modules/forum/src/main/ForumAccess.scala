@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.core.id.ForumCategId
+import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.core.perm.Granter
 import lila.core.team.Access
 
@@ -51,3 +51,9 @@ final class ForumAccess(
     (topic.ublogId.isDefined && !canModCateg).so:
       topic.userId.so: topicAuthor =>
         relationApi.fetchBlocks(topicAuthor, me)
+
+  def restrictedDiagnostic(categId: ForumCategId, slug: ForumTopicSlug)(using me: Option[Me]): Boolean =
+    categId == ForumCateg.diagnosticId &&
+      !me.exists(me => slug.value.startsWith(me.userId.value)) &&
+      !Granter.opt(_.ModerateForum) &&
+      !Granter.opt(_.Diagnostics)
