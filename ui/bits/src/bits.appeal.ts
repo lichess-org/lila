@@ -23,19 +23,50 @@ export function initModule(): void {
 
   initInfoStep();
   initAccountsStep();
+  initAutomatedFlow();
 }
+
+function initAutomatedFlow(): void {
+  const appeal = document.querySelector<HTMLElement>('main.appeal--automated');
+  appeal?.querySelector('.appeal__leave-flow')?.addEventListener('click', () => {
+    appeal.classList.add('appeal--left-flow');
+    appeal.querySelector<HTMLTextAreaElement>('#form3-text')?.focus();
+  });
+}
+
+function setStepEnabled(el: HTMLElement, enabled: boolean): void {
+  el.classList.toggle('disabled', !enabled);
+  if (el instanceof HTMLButtonElement) el.disabled = !enabled;
+}
+
+// Disallow clicking "continue" for the amount of time below, to encourage reading the terms
+const agreeDelayMs = 2000;
 
 function initInfoStep(): void {
   document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
     const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
-    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-info__continue');
+    const continueButton = root.querySelector<HTMLElement>('.appeal-info__continue');
     if (!checkbox || !continueButton) return;
 
-    const sync = () => continueButton.classList.toggle('disabled', !checkbox.checked);
+    let enableTimer: number | undefined;
+    const canContinue = () => checkbox.checked && enableTimer === undefined;
+
+    const sync = () => {
+      window.clearTimeout(enableTimer);
+      enableTimer = undefined;
+      setStepEnabled(continueButton, false);
+      if (!checkbox.checked) return;
+      enableTimer = window.setTimeout(() => {
+        enableTimer = undefined;
+        setStepEnabled(continueButton, checkbox.checked);
+      }, agreeDelayMs);
+    };
+
+    const blockUntilReady = (e: Event) => {
+      if (!canContinue()) e.preventDefault();
+    };
     checkbox.addEventListener('change', sync);
-    continueButton.addEventListener('click', e => {
-      if (!checkbox.checked) e.preventDefault();
-    });
+    continueButton.addEventListener('click', blockUntilReady);
     sync();
   });
 }
@@ -50,9 +81,12 @@ function initAccountsStep(): void {
       '.appeal-accounts__forgotten input[type="checkbox"]',
     );
     const household = root.querySelector<HTMLTextAreaElement>('.appeal-accounts__household');
-    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-accounts__continue');
-    if (!leafId || !onlyRadio || !othersRadio || !othersText || !forgotten || !household || !continueButton)
-      return;
+    const continueButton = root.querySelector<HTMLElement>('.appeal-accounts__continue');
+    if (!onlyRadio || !othersRadio || !othersText || !forgotten || !household || !continueButton) return;
+
+    const appealForm = () =>
+      continueButton.closest('form') ??
+      (leafId ? document.querySelector<HTMLFormElement>(`#help-${leafId} form`) : null);
 
     const canContinue = () =>
       onlyRadio.checked || (othersRadio.checked && (othersText.value.trim().length > 0 || forgotten.checked));
@@ -65,12 +99,12 @@ function initAccountsStep(): void {
         othersText.value = '';
         forgotten.checked = false;
       }
-      continueButton.classList.toggle('disabled', !canContinue());
+      setStepEnabled(continueButton, canContinue());
     };
 
     const copyToAppealForm = (): boolean => {
       if (!canContinue()) return false;
-      const form = document.querySelector<HTMLFormElement>(`#help-${leafId} form`);
+      const form = appealForm();
       if (!form) return false;
       const set = (name: string, value: string) => {
         let input = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
@@ -88,13 +122,15 @@ function initAccountsStep(): void {
       return true;
     };
 
+    const onContinue = (e: Event) => {
+      if (!copyToAppealForm()) e.preventDefault();
+    };
     onlyRadio.addEventListener('change', sync);
     othersRadio.addEventListener('change', sync);
     othersText.addEventListener('input', sync);
     forgotten.addEventListener('change', sync);
-    continueButton.addEventListener('click', e => {
-      if (!copyToAppealForm()) e.preventDefault();
-    });
+    continueButton.addEventListener('click', onContinue);
+    continueButton.closest('form')?.addEventListener('submit', onContinue);
     sync();
   });
 }
