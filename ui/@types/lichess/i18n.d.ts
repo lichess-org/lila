@@ -5935,8 +5935,6 @@ interface I18n {
     studiesIContributeTo: string;
     /** Study actions */
     studyActions: string;
-    /** A study can contain at most %s chapters. */
-    studyChapterLimitReached: I18nFormat;
     /** A study can contain several chapters.<br>Each chapter has a distinct initial position and move tree. */
     studyChaptersText: string;
     /** Study chapters */

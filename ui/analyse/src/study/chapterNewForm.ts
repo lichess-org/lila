@@ -143,16 +143,15 @@ export class StudyChapterNewForm {
         .trimStart()
         .split(/\n\n(?=\[)/, this.multiPgnMax + 1)
         .filter(Boolean);
-      const limit = i18n.study.studyChapterLimitReached(this.multiPgnMax);
       if (!available) {
-        await alert(`${limit}\n\n${i18n.study.createNewStudyForRemainingGames}`);
+        await alert(i18n.study.createNewStudyForRemainingGames);
         return false;
       }
       if (pgns.length > available) {
         const dialog = this.dialog;
         const message = i18n.study.onlyFirstNbGamesCanBeImported(available);
         if (
-          !(await confirm(`${limit}\n${message}\n\n${i18n.study.createNewStudyForRemainingGames}`)) ||
+          !(await confirm(`${message}\n\n${i18n.study.createNewStudyForRemainingGames}`)) ||
           dialog !== this.dialog
         )
           return false;
