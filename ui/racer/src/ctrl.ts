@@ -101,7 +101,7 @@ export default class RacerCtrl implements PuzCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn && this.status() === 'pre') {
+    if (data.startsIn !== undefined && this.status() === 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
       this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
@@ -113,7 +113,9 @@ export default class RacerCtrl implements PuzCtrl {
 
   players = () => this.data.players;
 
-  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name === this.data.player.name);
+  isPlayer = () =>
+    this.race.practice ||
+    (!this.vm.alreadyStarted && this.data.players.some(p => p.name === this.data.player.name));
 
   raceFull = () => this.data.players.length >= 10;
 

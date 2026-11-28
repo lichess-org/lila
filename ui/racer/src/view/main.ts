@@ -29,6 +29,8 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
   switch (ctrl.status()) {
     case 'pre': {
       const povMsg = p('.racer__pre__message__pov', povMessage(ctrl.run));
+      if (ctrl.race.practice)
+        return [practiceWaiting, div('.racer__pre__message', [p(i18n.storm.getReady), povMsg]), combo];
       return ctrl.race.lobby
         ? [
             waitingToStart,
@@ -74,6 +76,9 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
           ];
     }
     case 'post': {
+      if (ctrl.race.practice) {
+        return [playerScore(ctrl), div('.racer__post', [h2(i18n.storm.raceComplete), practiceAgain]), combo];
+      }
       const nextRace = ctrl.race.lobby ? lobbyNext(ctrl) : friendNext(ctrl);
       const raceComplete = h2(i18n.storm.raceComplete);
       return ctrl.isPlayer()
@@ -102,6 +107,11 @@ const puzzleRacer = strong('Puzzle Racer');
 const waitingToStart = div(
   '.puz-side__top.puz-side__start',
   div('.puz-side__start__text', [puzzleRacer, span(i18n.storm.waitingToStart)]),
+);
+
+const practiceWaiting = div(
+  '.puz-side__top.puz-side__start',
+  div('.puz-side__start__text', [puzzleRacer, span(i18n.site.practice)]),
 );
 
 const spectating = div(
@@ -192,3 +202,8 @@ const friendNext = ({ race }: RacerCtrl) =>
       button('.racer__post__next__button.button.button-empty', { type: 'submit' }, i18n.storm.createNewGame),
     ),
   ]);
+
+const practiceAgain = form(
+  { action: '/racer/practice', method: 'post' },
+  button('.racer__new-race.button.button-fat.button-navaway', i18n.site.practice),
+);

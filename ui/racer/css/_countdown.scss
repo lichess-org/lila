@@ -10,6 +10,10 @@
     transform: translate(-50%, -50%);
     padding: 2em 3em;
 
+    @include if-transp {
+      background: $c-bg-popup;
+    }
+
     &__lights {
       display: flex;
       flex-flow: column;

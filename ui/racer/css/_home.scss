@@ -10,21 +10,21 @@
   }
 
   form {
-    width: 45%;
+    width: 31%;
+    backdrop-filter: blur(4px);
   }
 
   .button {
     @extend %flex-column;
+    @include transition(color);
 
     align-items: center;
     font-size: 1.5em;
-    padding: 4em 0;
+    padding: 1.5em 0 3.5em;
     width: 100%;
     opacity: 0.75;
-    overflow: hidden;
+    gap: 0.75em;
     white-space: normal;
-
-    @include transition;
 
     .car {
       position: relative;
@@ -32,7 +32,7 @@
       font-weight: normal;
       font-size: 9em;
       display: block;
-      margin-top: -0.5em;
+      transition: all 0.15s ease-out;
     }
 
     &:hover {
@@ -40,14 +40,12 @@
 
       .car {
         transform: translateX(0.1em) scaleX(0.95) skewX(6deg) rotate(-3deg);
-        transition: all 0.15s ease-out;
 
         &::before {
-          content: 'A';
-          position: absolute;
-
           @include inline-start(-0.9em);
 
+          content: 'A';
+          position: absolute;
           bottom: 0.6em;
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;
@@ -71,11 +69,12 @@
   @media (max-width: at-most($small)) {
     &__buttons {
       display: block;
+      margin-top: 0;
     }
 
     form {
       width: 100%;
-      margin-bottom: 4em;
+      margin-bottom: 3em;
     }
   }
 

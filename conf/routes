@@ -211,6 +211,7 @@ GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang: Languag
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
+POST  /racer/practice                   controllers.Racer.practice
 POST  /api/racer                        controllers.Racer.apiCreate
 GET   /api/racer/:id                    controllers.Racer.apiGet(id)
 GET   /racer/:id                        controllers.Racer.show(id)

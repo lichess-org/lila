@@ -13,7 +13,8 @@ case class RacerRace(
     puzzles: List[StormPuzzle],
     countdown: Seconds,
     startsAt: Option[Instant],
-    rematch: Option[RacerRace.Id]
+    rematch: Option[RacerRace.Id],
+    practice: Boolean = false
 ):
 
   inline def id = _id
@@ -26,7 +27,10 @@ case class RacerRace(
     players.find(_.id == owner).fold(if isLobby then UserName.lichess else UserName.anonymous)(_.name)
 
   def join(player: RacerPlayer): Option[RacerRace] =
-    (!hasStarted && !has(player.id) && players.sizeIs < RacerRace.maxPlayers)
+    ((!practice || player.id == owner) &&
+      !hasStarted &&
+      !has(player.id) &&
+      players.sizeIs < RacerRace.maxPlayers)
       .option(copy(players = players :+ player))
 
   def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
@@ -38,7 +42,7 @@ case class RacerRace(
       )
 
   def startCountdown: Option[RacerRace] =
-    (startsAt.isEmpty && players.size > (if isLobby then 2 else 1))
+    (startsAt.isEmpty && players.sizeIs > (if isLobby then 2 else if practice then 0 else 1))
       .option(copy(startsAt = nowInstant.plus(countdown.duration).some))
 
   def startsInMillis = startsAt.map(d => d.toMillis - nowMillis)
@@ -58,13 +62,15 @@ object RacerRace:
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdown: Seconds) = RacerRace(
-    _id = Id(ThreadLocalRandom.nextString(5)),
-    owner = owner,
-    duration = Seconds(90),
-    players = Nil,
-    puzzles = puzzles,
-    countdown = countdown,
-    startsAt = none,
-    rematch = none
-  )
+  def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdown: Seconds, practice: Boolean = false) =
+    RacerRace(
+      _id = Id(ThreadLocalRandom.nextString(5)),
+      owner = owner,
+      duration = Seconds(90),
+      players = Nil,
+      puzzles = puzzles,
+      countdown = countdown,
+      startsAt = none,
+      rematch = none,
+      practice = practice
+    )

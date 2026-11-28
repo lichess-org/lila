@@ -37,13 +37,26 @@ final class RacerApi(
       join(id, player)
       id
 
+  def createPracticeAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
+    createWithMode(player, Seconds(3), practice = true).map: id =>
+      join(id, player)
+      id
+
   def create(player: RacerPlayer.Id, countdown: Seconds = Seconds(10)): Fu[RacerRace.Id] =
+    createWithMode(player, countdown, practice = false)
+
+  private def createWithMode(
+      player: RacerPlayer.Id,
+      countdown: Seconds,
+      practice: Boolean
+  ): Fu[RacerRace.Id] =
     selector.apply.map: puzzles =>
       val race = RacerRace
         .make(
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList,
-          countdown = countdown
+          countdown = countdown,
+          practice = practice
         )
       store.put(race.id, race)
       mongoCache.put(s"racer.race.${race.id}", true, nowInstant.plusHours(1).some) // for lila-ws
@@ -57,17 +70,20 @@ final class RacerApi(
     lila.mon.asyncActorMonitor.full
   )
 
-  def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
-    case Some(found) if found.finished => rematch(found, player)
-    case Some(found) =>
-      join(found.id, player)
-      fuccess(found.id)
-    case None =>
-      rematchQueue:
-        createKeepOwnerAndJoin(race, player).map { rematchId =>
-          save(race.copy(rematch = rematchId.some))
-          rematchId
-        }
+  def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] =
+    if race.practice then createPracticeAndJoin(player)
+    else
+      race.rematch.flatMap(get) match
+        case Some(found) if found.finished => rematch(found, player)
+        case Some(found) =>
+          join(found.id, player)
+          fuccess(found.id)
+        case None =>
+          rematchQueue:
+            createKeepOwnerAndJoin(race, player).map { rematchId =>
+              save(race.copy(rematch = rematchId.some))
+              rematchId
+            }
 
   def makePlayer(id: RacerPlayer.Id) =
     RacerPlayer.make(id, RacerPlayer.Id.userIdOf(id).map(lightUser))
@@ -75,7 +91,7 @@ final class RacerApi(
   def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] =
     val player = makePlayer(playerId)
     get(id).flatMap(_.join(player)).map { r =>
-      val race = (r.isLobby.so(doStart(r))) | r
+      val race = ((r.isLobby || r.practice).so(doStart(r))) | r
       saveAndPublish(race)
       race
     }
@@ -94,7 +110,7 @@ final class RacerApi(
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
-        player.user.ifTrue(player.score > 0).foreach { user =>
+        player.user.ifTrue(player.score > 0 && !race.practice).foreach { user =>
           Bus.pub(lila.core.misc.puzzle.RacerRun(user.id, player.score))
           userApi.addPuzRun("racer", user.id, player.score)
         }

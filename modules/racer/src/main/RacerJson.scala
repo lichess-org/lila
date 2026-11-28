@@ -22,7 +22,8 @@ final class RacerJson:
           .obj(
             "race" -> Json
               .obj("id" -> race.id.value)
-              .add("lobby", race.isLobby),
+              .add("lobby", race.isLobby)
+              .add("practice", race.practice),
             "player" -> player,
             "puzzles" -> race.puzzles
           )
@@ -42,7 +43,8 @@ final class RacerJson:
       "id" -> race.id,
       "owner" -> race.ownerName,
       "players" -> race.players,
-      "puzzles" -> race.puzzles
+      "puzzles" -> race.puzzles,
+      "practice" -> race.practice
     )
     .add("startsAt", race.startsAt)
     .add("finishesAt", race.finishesAt)
