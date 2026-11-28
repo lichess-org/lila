@@ -21,7 +21,6 @@ export function expandFen(fullFen: FEN): string {
 }
 
 export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
-  // TODO: atomic, antichess, threeCheck
   if (
     variant === 'horde' ||
     variant === 'kingOfTheHill' ||
