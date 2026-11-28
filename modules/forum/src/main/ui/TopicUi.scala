@@ -165,9 +165,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   button(cls := "button button-empty text off", dataIcon := Icon.Eye, bits.dataUnsub := "on"):
                     trans.site.unsubscribe()
                 ),
-              (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
+              (canModCateg || ctx.me.exists(me => topic.isAuthor(me) && topic.open)).option(
                 postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
-                  button(cls := "button button-empty button-red")(
+                  button(cls := "button button-empty button-red yes-no-confirm")(
                     if topic.closed then trans.site.reopen() else trans.site.close()
                   )
                 )

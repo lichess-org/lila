@@ -43,7 +43,12 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
     def showTopic(sticky: Boolean)(topic: TopicView) =
       tr(cls := List("sticky" -> sticky))(
         td(cls := "subject")(
-          a(href := routes.ForumTopic.show(categ.id, topic.slug))(topic.name)
+          a(href := routes.ForumTopic.show(categ.id, topic.slug))(
+            topic.name,
+            topic.topic.closed.option(
+              iconTag(Icon.Padlock)(ariaTitle(trans.site.thisTopicIsNowClosed.txt()))
+            )
+          )
         ),
         td(cls := "right")(topic.nbReplies.localize),
         td(

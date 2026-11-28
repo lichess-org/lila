@@ -69,10 +69,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           yield res
 
   def close(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    TopicGrantModBySlug(categId, slug):
-      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
-        for _ <- topicApi.toggleClose(categ, topic)
-        yield Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
+    Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+      for
+        canMod <- access.isGrantedMod(categId)
+        _ <-
+          if topic.isAuthor(me) then topicRepo.closeByAuthor(topic.id)
+          else if canMod then topicApi.toggleClose(categ, topic)
+          else funit
+      yield Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
