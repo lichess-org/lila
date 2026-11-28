@@ -41,6 +41,36 @@ class PgnImportTest extends LilaTest:
         assertEquals(parsed.root.children.toList.size, 1)
         assertEquals(parsed.root.ply, Ply.initial)
 
+  test("starting comment before the first move of a variation"):
+    StudyPgnImport
+      .result("1.e4 ({or} 1.c4 {english})", Nil)
+      .assertRight: parsed =>
+        val mainline = parsed.root.children.toList.head
+        val variation = parsed.root.children.toList(1)
+        assertEquals(mainline.comments.value, Nil)
+        assertEquals(mainline.startingComments.value, Nil)
+        assertEquals(variation.startingComments.value.map(_.text), Comment.from(List("or")))
+        assertEquals(variation.comments.value.map(_.text), Comment.from(List("english")))
+        assertEquals(
+          Helpers.rootToPgn(parsed.root).value,
+          "1. e4 ( { or } 1. c4 { english })"
+        )
+
+  test("starting comment before the first move of a subvariation"):
+    StudyPgnImport
+      .result("1.e4 (1.c4 e5 ({or} 1...e6))", Nil)
+      .assertRight: parsed =>
+        val c4 = parsed.root.children.toList(1)
+        val e5 = c4.children.toList.head
+        val e6 = c4.children.toList(1)
+        assertEquals(e5.startingComments.value, Nil)
+        assertEquals(e6.startingComments.value.map(_.text), Comment.from(List("or")))
+        assertEquals(e6.move.san.value, "e6")
+        assertEquals(
+          Helpers.rootToPgn(parsed.root).value,
+          "1. e4 (1. c4 e5 ( { or } 1... e6))"
+        )
+
   test("comment ordering"):
     StudyPgnImport
       .result("{test 1 } {test 2} 1.d4 {test 3} { test 4}", Nil)
@@ -148,7 +178,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
     val bugPgn = """
     [FEN "8/8/4kpp1/3p1b2/p6P/2B5/6P1/7K w - - 1 47"]
 
-    47. Kg1 Bh3 48. gxh3 Kf5 
+    47. Kg1 Bh3 48. gxh3 Kf5
         ( 48... Kf5 49. Kf2 Ke4 50. h5 gxh5 )
         ( 48... f5 49. Kf2 Kd6 50. Ke3 Kc5 )
         ( 48... g5 49. Kf2 gxh4 50. Ke3 Kf5 )
@@ -166,13 +196,13 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
 
         val pgnDump = Helpers.rootToPgn(parsed.root)
         val pgnExpected =
-          """47. Kg1 Bh3 48. gxh3 Kf5 
-            |  (48... f5 49. Kf2 Kd6 50. Ke3 Kc5) 
-            |  (48... g5 49. Kf2 gxh4 50. Ke3 Kf5) 
-            |49. Kf2 Ke4 50. Bxf6 
-            |  (50. h5 gxh5) 
+          """47. Kg1 Bh3 48. gxh3 Kf5
+            |  (48... f5 49. Kf2 Kd6 50. Ke3 Kc5)
+            |  (48... g5 49. Kf2 gxh4 50. Ke3 Kf5)
+            |49. Kf2 Ke4 50. Bxf6
+            |  (50. h5 gxh5)
             |50... d4 51. Be7 Kd3
-            |""".stripMargin.replaceAll("\n", "").replaceAll("\\s+", " ")
+            |""".stripMargin.replaceAll("\\s+", " ").trim
         assertEquals(pgnDump.value, pgnExpected)
 
   test("merge multiple duplicate variations with same first move"):

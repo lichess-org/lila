@@ -42,10 +42,12 @@ class ColumnView extends InlineView {
     const emptyMove = () => hl('move.empty', { class: { conceal: conceal === 'conceal' } }, '...');
     const isWhite = child.ply % 2 === 1;
     const comments = this.commentNodes(child, { conceal: conceal === 'conceal' });
+    const starting = this.commentNodes(child, { conceal: conceal === 'conceal' }, child.startingComments);
     const interruptData = { class: { anchor: parentDisclose === 'expanded' } };
     return child.forceVariation
       ? hl('interrupt', interruptData, this.lines([child, ...siblings], opts))
       : [
+          parentDisclose !== 'collapsed' && starting.length > 0 && hl('interrupt', interruptData, starting),
           isWhite && renderIndex(child.ply, false),
           this.moveNode(child, { ...opts, conceal }),
           parentDisclose !== 'collapsed' &&

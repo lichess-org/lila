@@ -33,6 +33,7 @@ export function hasUserContent(node: TreeNodeLite): boolean {
   return (
     !node.comp ||
     Boolean(node.comments?.some(comment => !comment.comp)) ||
+    Boolean(node.startingComments?.some(comment => !comment.comp)) ||
     Boolean(node.glyphs?.some(glyph => !glyph.comp)) ||
     node.children.some(hasUserContent)
   );

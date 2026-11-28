@@ -224,7 +224,9 @@ export class IdbTree {
       (second && treeOps.hasBranching(second, 6)) ||
       (isMainline &&
         this.ctrl.treeView.mode === 'column' &&
-        (second || first?.comments?.filter(Boolean).filter(comment => !comment.comp).length)),
+        (second ||
+          first?.comments?.filter(Boolean).filter(comment => !comment.comp).length ||
+          first?.startingComments?.filter(Boolean).filter(comment => !comment.comp).length)),
     );
   }
 

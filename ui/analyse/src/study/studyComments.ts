@@ -28,12 +28,11 @@ export const authorText = (author?: Author): string =>
   !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
-  if (!ctrl.node.comments) return undefined;
   const node = ctrl.node;
+  const comments = [...(node.startingComments || []), ...(node.comments || [])];
+  if (!comments.length) return undefined;
   const study: StudyCtrl = ctrl.study!;
   const chapter = study.currentChapter();
-  const comments = node.comments!;
-  if (!comments.length) return undefined;
   return h(
     'div',
     comments.map(comment => {

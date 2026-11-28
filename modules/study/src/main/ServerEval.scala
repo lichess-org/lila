@@ -187,12 +187,14 @@ private[study] def clearAnalysis(root: Root, incomingCompPaths: Set[UciPath] = S
         val cleaned = node.copy(
           eval = none,
           comments = Comments.withoutComp(node.comments),
+          startingComments = Comments.withoutComp(node.startingComments),
           glyphs = Glyphs.withoutComp(node.glyphs),
           children = cleanChildren(node.children, path)
         )
         val hasUserContent =
           cleaned.children.hasNonComp || cleaned.eval.isDefined || cleaned.shapes.value.nonEmpty ||
-            cleaned.comments.value.nonEmpty || cleaned.gamebook.isDefined || cleaned.glyphs.value.nonEmpty ||
+            cleaned.comments.value.nonEmpty || cleaned.startingComments.value.nonEmpty ||
+            cleaned.gamebook.isDefined || cleaned.glyphs.value.nonEmpty ||
             cleaned.clock.isDefined || cleaned.forceVariation
         if node.comp && !hasUserContent
         then none

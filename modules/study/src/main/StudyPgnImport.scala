@@ -191,6 +191,8 @@ object StudyPgnImport:
             val currentPly = context.ply.next
             val uci = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
+            val (varShapes, _, _, startingComments) =
+              parseComments(node.value.variationComments, annotators)
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotators)
             val mover = !position.color
             val computedClock: Option[Clock] = clock
@@ -202,8 +204,9 @@ object StudyPgnImport:
               ply = currentPly,
               move = Uci.WithSan(uci, sanStr),
               fen = Fen.write(position, currentPly.fullMoveNumber),
-              shapes = shapes,
+              shapes = varShapes ++ shapes,
               comments = comments,
+              startingComments = startingComments,
               glyphs = Glyphs.fromBase(node.value.metas.glyphs),
               clock = computedClock,
               crazyData = position.crazyData,

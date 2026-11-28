@@ -293,7 +293,9 @@ case class Branch(
     comp: Boolean = false,
     clock: Option[Clock] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data],
-    forceVariation: Boolean = false // cannot be mainline
+    forceVariation: Boolean = false, // cannot be mainline
+    // comments that belong before this move, such as `{or}` in `1. e4 ({or} 1. c4)`
+    startingComments: Node.Comments = Node.Comments(Nil)
 ) extends Node:
 
   val id = UciCharPair(move.uci)
@@ -329,10 +331,13 @@ case class Branch(
   def withClock(clock: Option[Clock]) = copy(clock = clock)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
-  def isCommented = comments.value.nonEmpty
+  def isCommented = comments.value.nonEmpty || startingComments.value.nonEmpty
   def setComment(comment: Comment) = copy(comments = comments.set(comment))
-  def deleteComment(commentId: Comment.Id) = copy(comments = comments.delete(commentId))
-  def deleteComments = copy(comments = Comments.empty)
+  def deleteComment(commentId: Comment.Id) = copy(
+    comments = comments.delete(commentId),
+    startingComments = startingComments.delete(commentId)
+  )
+  def deleteComments = copy(comments = Comments.empty, startingComments = Comments.empty)
   def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
   def setShapes(s: Shapes) = copy(shapes = s)
   def toggleGlyph(glyph: BaseGlyph) = copy(glyphs = glyphs.toggle(glyph))
@@ -346,6 +351,7 @@ case class Branch(
     copy(
       eval = none,
       comments = Comments(Nil),
+      startingComments = Comments(Nil),
       shapes = Shapes(Nil),
       glyphs = Node.Glyphs.empty
     )
@@ -364,6 +370,7 @@ case class Branch(
     copy(
       shapes = shapes ++ n.shapes,
       comments = comments ++ n.comments,
+      startingComments = startingComments ++ n.startingComments,
       gamebook = n.gamebook.orElse(gamebook),
       glyphs = glyphs.merge(n.glyphs),
       eval = n.eval.orElse(eval),
@@ -528,6 +535,9 @@ object Node:
     import node.*
     try
       val comments = node.comments.flatMap(_.removeMeta)
+      val startingComments = node match
+        case branch: Branch => branch.startingComments.flatMap(_.removeMeta)
+        case _ => Nil
       Json
         .obj(
           "ply" -> ply,
@@ -538,6 +548,7 @@ object Node:
         .add("san", moveOption.map(_.san))
         .add("eval", eval.flatMap(evals.json))
         .add("comments", comments.nonEmpty.option(comments))
+        .add("startingComments", startingComments.nonEmpty.option(startingComments))
         .add("gamebook", gamebook)
         .add("glyphs", glyphs.nonEmptyOption)
         .add("shapes", shapes.nonEmpty.option(shapes))
