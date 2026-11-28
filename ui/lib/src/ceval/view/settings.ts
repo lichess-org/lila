@@ -34,7 +34,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
     return null;
   }
 
-  const minThreads = engine.minThreads;
+  const minThreads = engine.minThreads ?? 1;
   const maxThreads = engine.maxThreads;
   const threads = info.threads;
   const hashSize = info.hashSize;
