@@ -69,7 +69,7 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves">Вычисление...</string>
+  <string name="calculatingMoves">Расчёт ходов...</string>
   <string name="engineFailed">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>

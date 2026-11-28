@@ -9,6 +9,11 @@
 	<string name="timeSpentPlaying" comment="Title above a clock and the time the user spent playing chess this year">زمانِ صرفیده برای بازی</string>
 	<string name="timeDedication" comment="Shown to players who played more than 10 days of chess this year">این یعنی تعهد جدی!</string>
 	<string name="timeEveryMinuteCounted" comment="Shown to players who played between 5 and 10 days of chess this year">تک‌تکِ آن دقیقه‌ها شمرده شدند.</string>
+	<string name="timeWellSpent" comment="Shown to players who played less than 5 days of chess this year">خوش گذشت، هر بار، یک حرکت.</string>
+	<plurals name="timeLordOfTheRings" comment="%s is a number. The Lord of the Rings extended trilogy lasts about 11 hours and 26 minutes">
+		<item quantity="one">می‌توانستی سه‌گانهٔ اُستَنیدهٔ ارباب حلقه‌ها را %s بار تماشا کنی</item>
+		<item quantity="other">می‌توانستی سه‌گانهٔ اُستَنیدهٔ ارباب حلقه‌ها را %s بار تماشا کنی</item>
+	</plurals>
 	<string name="timeHowManyMoves">در تمام این مدت، چند حرکت کردی؟</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s حرکت کردی</item>
@@ -16,10 +21,24 @@
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams, kilograms, ounces or pounds">این یعنی %s چوب هُل دادید!</string>
 	<string name="movesStandardPiecesWeight">وزنِ هر مُهرهٔ اِستانده حدودِ ۴۰ گرم است</string>
+	<string name="movesStandardPiecesWeightImperial">مهره‌های اِستانده هر کدام حدود ۱٫۴ اُنس وزن دارند</string>
+	<plurals name="movesGrandPianos" comment="%s is a number of grand pianos weighing about 450kg each">
+		<item quantity="one">حدود وزن %s عظیم‌پیانو</item>
+		<item quantity="other">حدود وزن %s عظیم‌پیانو</item>
+	</plurals>
 	<plurals name="nbMoves">
 		<item quantity="one">%s حرکت</item>
 		<item quantity="other">%s حرکت</item>
 	</plurals>
+	<plurals name="nbGamesAnalysedByStockfish" comment="%s is a number of games that got a computer analysis, shown with how many moves, games and players Lichess sees in a few minutes">
+		<item quantity="one">موتور Stockfish %s بازی را تحلیل کرد</item>
+		<item quantity="other">موتور Stockfish %s بازی را تحلیل کرد</item>
+	</plurals>
+	<plurals name="nbNewGames" comment="%s is a number of games started, shown with how many moves, players and students Lichess sees in a few minutes">
+		<item quantity="one">%s بازی جدید</item>
+		<item quantity="other">%s بازی جدید</item>
+	</plurals>
+	<string name="mostFrequentOpponents">رایج‌ترین حریفان‌تان</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s گرم</item>
 		<item quantity="other">%s گرم</item>
@@ -28,15 +47,31 @@
 		<item quantity="one">%s کیلوگرم</item>
 		<item quantity="other">%s کیلوگرم</item>
 	</plurals>
+	<plurals name="nbOunces">
+		<item quantity="one">%s اُنس</item>
+		<item quantity="other">%s اُنس</item>
+	</plurals>
+	<plurals name="nbPounds">
+		<item quantity="one">%s پوند</item>
+		<item quantity="other">%s پوند</item>
+	</plurals>
+	<string name="firstMoveTitle" comment="Title above the first move the user played most often as white, e.g. '1. e4'">حرکتِ نخست و امضای‌تان</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">حرکتی‌ست که %s تا از بازی‌های‌تان با سفید را آغازیدید</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
 		<item quantity="other">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">همچنین شما به برچسب‌زنی %s از آنها کمک کردید.</string>
+	<string name="puzzlesYouSolvedOnFirstTry" comment="%s is a number of puzzles">شما %s از آنها را در تلاشِ نخست حل کردید!</string>
+	<string name="puzzlesFirstTry" comment="Legend of a chart: puzzles solved on the first try">تلاشِ نخست</string>
+	<string name="puzzlesAnotherGo" comment="Legend of a chart: puzzles that were not solved on the first try">تلاش دیگری نیاز بود</string>
 	<string name="sourcesTitle">کجا بازی‌ها را یافتید؟</string>
 	<string name="perfsTitle">شما چه زمان‌بندی‌ها و وَرتاهایی را بازی کردید؟</string>
-	<string name="malwareNoneLoaded" comment="%s is 0">%s تَبلیغ و تُرگر بار شد</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s آگهی و رَدیاب بار شد</string>
+	<string name="malwareAds" comment="Label of something Lichess blocks or doesn't do">آگهی‌ها</string>
+	<string name="malwareTrackers" comment="Label of something Lichess blocks or doesn't do">ردیاب‌ها</string>
+	<string name="malwareDataBrokers" comment="Label of something Lichess blocks or doesn't do">کارگزاران داده</string>
+	<string name="malwarePopups" comment="Label of something Lichess blocks or doesn't do">بالاپَر</string>
 	<string name="malwareNoSell">ما داده‌های شخصی‌تان را نفروختیم</string>
 	<string name="malwareNoAbuse">ما از اَفزاره‌تان علیه‌تان نَبَهریدیم</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s بازی در سالِ %2$s در Lichess شده</string>

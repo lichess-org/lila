@@ -8,7 +8,7 @@
   <string name="materialDifference">Materialunderschid</string>
   <string name="boardHighlights">Markierige uf em Brätt (g\'machte Zug und Schach)</string>
   <string name="pieceDestinations">Figure Zilfälder (gültigi Züg und Voruszüg)</string>
-  <string name="boardCoordinates">Brätt Koordinate (A - H / 1 - 8)</string>
+  <string name="boardCoordinates">Koordinate (A - H/1 - 8)</string>
   <string name="moveListWhilePlaying">Zugslischte während em Schpil zeige</string>
   <string name="pgnPieceNotation">Zugsnotazion</string>
   <string name="chessPieceSymbol">Figure Symbol</string>
@@ -35,7 +35,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Voruszüg (premoves), wänn de/d\'Gägner*i dra isch</string>
   <string name="takebacksWithOpponentApproval">Zugsrücknahme (mit Erlaubnis vom/vu de Gägner*i)</string>
   <string name="inCasualGamesOnly">Nur bi nöd g\'wertete Schpil</string>
-  <string name="promoteToQueenAutomatically">Automatischi Umwandlig ine Dame</string>
+  <string name="promoteToQueenAutomatically">Umwandlig zur Dame automatisch</string>
   <string name="explainPromoteToQueenAutomatically">Ctrl Taschte bim Umwandle truckt lah - das deaktiviert churz die automatisch Umwandlig</string>
   <string name="whenPremoving">Bim Voruszieh</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Schtellig</string>

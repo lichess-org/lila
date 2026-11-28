@@ -17,7 +17,7 @@
   <string name="declineTooSlow">Die Zit isch z\'lang für mich, bitte forder mich für es schnällers Schpil.</string>
   <string name="declineTimeControl">Ich akzeptiere kei Schpil, mit dere Bedänkzit.</string>
   <string name="declineRated">Bitte schick mir, aschtell vu dem, e Forderig für es g\'wertets Schpil.</string>
-  <string name="declineCasual">Bitte schick mir, aschtell vu dem, e Forderig für es nöd g\'wertets Schpil.</string>
+  <string name="declineCasual">Bitte schick mir, aschtell vu dem, e Forderig für es ung\'wertets Schpil.</string>
   <string name="declineStandard">Ich akzeptiere momentan kei Useforderige für anderi Schpilvariante.</string>
   <string name="declineVariant">Ich wett momentan die Variante nöd schpille.</string>
   <string name="declineNoBot">Ich akzeptiere kei Useforderige vu Bots.</string>

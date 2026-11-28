@@ -32,12 +32,15 @@
   <string name="swissTournamentOverview">Švýcarský turnaj, ke kterému se mohou připojit pouze členové vašeho týmu</string>
   <string name="teamUpdates">Týmové zprávy</string>
   <string name="subToTeamUpdates">Přihlásit se k odběru týmových zpráv</string>
+  <string name="teamEvents">Týmové události</string>
+  <string name="upcomingTeamEvents">Nadcházející týmové události</string>
   <string name="teamsIlead">Mnou vedené týmy</string>
   <string name="leadersChat">Chat vedoucích</string>
   <string name="introduction">Úvod</string>
   <string name="entryCode">Heslo týmu</string>
   <string name="entryCodeDescriptionForLeader">(Volitelné) Heslo, které musí noví členové zadat, aby se k týmu mohli připojit.</string>
   <string name="incorrectEntryCode">Špatné heslo.</string>
+  <string name="forumLabel">Týmové fórum</string>
   <string name="teamAlreadyExists">Tento tým již existuje.</string>
   <string name="upcomingTournaments">Nadcházející turnaje</string>
   <string name="completedTourns">Proběhlé turnaje</string>

@@ -10,6 +10,7 @@
   <string name="downloadOnGooglePlay">بارگیری از فروشگاهِ Google</string>
   <string name="downloadOnFdroid">بارگیری از فروشگاهِ F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">عکس‌پردهٔ بَرکِ Lichess</string>
+  <string name="noAdsNoTracking">بدون آگهی، بدون ردیابی</string>
   <string name="entirelyOpenSource" comment="Link to the mobile app source code">کاملاً متن‌باز</string>
   <string name="fullyFeatured">تمام‌آرَنگیده</string>
   <string name="phoneAndTablet">گوشی و رایانک</string>
