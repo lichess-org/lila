@@ -23,6 +23,14 @@ final class Racer(env: Env) extends LilaController(env):
           Redirect(routes.Racer.show(raceId.value))
   }
 
+  def practice = WithPlayerId { _ ?=> playerId =>
+    AuthOrTrustedIp:
+      env.racer.api
+        .createPracticeAndJoin(playerId)
+        .map: raceId =>
+          Redirect(routes.Racer.show(raceId.value))
+  }
+
   def apiCreate = Scoped(_.Racer.Write) { _ ?=> me ?=>
     me.noBot.so:
       env.racer.api
@@ -42,6 +50,7 @@ final class Racer(env: Env) extends LilaController(env):
   def show(id: String) = WithPlayerId { ctx ?=> playerId =>
     env.racer.api.get(RacerRace.Id(id)) match
       case None => Redirect(routes.Racer.home)
+      case Some(r) if r.practice && !r.has(playerId) => Redirect(routes.Racer.home)
       case Some(r) =>
         val race = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
         val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
