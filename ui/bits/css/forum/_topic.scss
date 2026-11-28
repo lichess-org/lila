@@ -47,8 +47,12 @@
     margin-bottom: 2rem;
     padding-inline: $box-padding;
 
-    p {
+    .state-info {
       margin-bottom: 0;
+
+      &::before {
+        color: $c-font-dim;
+      }
     }
 
     div {
