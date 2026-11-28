@@ -292,7 +292,7 @@ GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: 
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId: RelayTourId)
-POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id: RelayTourId, tag: Option[String] ?= None)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId: RelayTourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: RelayTourId)

@@ -86,14 +86,8 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
       )
       .so(irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, _, impersonatedBy))
 
-  def imageDelete(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
+  def imageChange(t: RelayTour, removed: Boolean, impersonatedBy: Option[ModId])(using Me): Funit =
     t.official.so:
-      val fieldName = tag | "image"
-      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)")
-      irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
-
-  def imageUpload(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
-    t.official.so:
-      val fieldName = tag | "image"
-      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)")
+      val action = if removed then "removed" else "uploaded"
+      val diff = DiffStr(s"- image: ${t.image.fold("(none)")(_.toString)}\n+ image: ($action)")
       irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)

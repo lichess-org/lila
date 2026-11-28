@@ -437,7 +437,7 @@ final class RelayApi(
         _ <- roundRepo.deleteByTour(tour)
         _ <- rounds.map(_.studyId).sequentiallyVoid(studyApi.deleteById)
         _ <- picfitApi.pullRef(image.markdownRef(tour))
-        _ <- picfitApi.pullRef(image.headRef(tour, none))
+        _ <- picfitApi.pullRef(image.headRef(tour))
       yield true
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
@@ -544,26 +544,24 @@ final class RelayApi(
 
   object image:
     private[RelayApi] def markdownRef(rt: RelayTour) = s"relay:${rt.id}"
-    private[RelayApi] def headRef(rt: RelayTour, tag: Option[String]) =
-      tag.fold(s"relayHead:${rt.id}")(t => s"relayHead.$t:${rt.id}")
+    private[RelayApi] def headRef(rt: RelayTour) = s"relayHead:${rt.id}"
 
     def upload(
         t: RelayTour,
         picture: PicfitApi.FilePart,
-        tag: Option[String] = None,
         impersonatedBy: Option[ModId] = None
     )(using me: Me): Fu[RelayTour] = for
-      image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
-      _ <- tourRepo.coll.updateField(bid(t.id), tag.getOrElse("image"), image.id)
-      _ <- notifyAdmin.imageUpload(t, tag, impersonatedBy)
+      image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t).some)
+      _ <- tourRepo.coll.updateField(bid(t.id), "image", image.id)
+      _ <- notifyAdmin.imageChange(t, removed = false, impersonatedBy)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour, tag: Option[String] = None, impersonatedBy: Option[ModId] = None)(using
+    def delete(t: RelayTour, impersonatedBy: Option[ModId] = None)(using
         me: Me
     ): Fu[RelayTour] = for
-      _ <- picfitApi.pullRef(headRef(t, tag))
-      _ <- tourRepo.coll.unsetField(bid(t.id), tag.getOrElse("image"))
-      _ <- notifyAdmin.imageDelete(t, tag, impersonatedBy)
+      _ <- picfitApi.pullRef(headRef(t))
+      _ <- tourRepo.coll.unsetField(bid(t.id), "image")
+      _ <- notifyAdmin.imageChange(t, removed = true, impersonatedBy)
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =

@@ -157,15 +157,15 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
-  def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
+  def image(id: RelayTourId) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
     WithTourCanUpdate(id): nav =>
       ctx.body.body.file("image") match
         case Some(image) =>
           limit.imageUpload(rateLimited):
-            api.image.upload(nav.tour, image, tag, ctx.impersonatedBy).inject(Ok).recover {
-              case e: Exception => BadRequest(e.getMessage)
+            api.image.upload(nav.tour, image, ctx.impersonatedBy).inject(Ok).recover { case e: Exception =>
+              BadRequest(e.getMessage)
             }
-        case None => api.image.delete(nav.tour, tag, ctx.impersonatedBy) >> Ok
+        case None => api.image.delete(nav.tour, ctx.impersonatedBy) >> Ok
   }
 
   def playersView(id: RelayTourId) = Open:
