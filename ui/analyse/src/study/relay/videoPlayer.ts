@@ -17,7 +17,7 @@ export class VideoPlayer {
     this.iframe.style.display = 'none';
     this.iframe.id = 'video-player';
     this.iframe.src = o.embed;
-    this.iframe.allow = 'autoplay';
+    this.iframe.allow = 'autoplay; fullscreen';
 
     this.close = document.createElement('icon');
     this.close.dataset.icon = licon.X;

@@ -43,8 +43,7 @@ trait ResponseHeaders extends HeaderNames:
   val permissionsPolicyHeader =
     "Permissions-Policy" -> List(
       "screen-wake-lock=(self)",
-      "microphone=(self)",
-      "fullscreen=(self)"
+      "microphone=(self)"
     ).mkString(", ")
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
