@@ -138,22 +138,10 @@ export class StudyChapterNewForm {
         this.root.mainline.length === 1 &&
         !study.data.chapter.tags.length;
       const available = this.multiPgnMax - count + Number(replacesInitial);
-      const pgns = dd.pgn
-        .replaceAll('\r', '')
-        .trimStart()
-        .split(/\n\n(?=\[)/, this.multiPgnMax + 1)
-        .filter(Boolean);
-      if (!available) {
-        await alert(i18n.study.createNewStudyForRemainingGames);
-        return false;
-      }
+      const pgns = splitMultiPgnText(dd.pgn, this.chapters.maxChapters);
       if (pgns.length > available) {
         const dialog = this.dialog;
-        const message = i18n.study.onlyFirstNbGamesCanBeImported(available);
-        if (
-          !(await confirm(`${message}\n\n${i18n.study.createNewStudyForRemainingGames}`)) ||
-          dialog !== this.dialog
-        )
+        if (!(await confirm(i18n.study.onlyFirstNbGamesCanBeImported(available))) || dialog !== this.dialog)
           return false;
         dd.pgn = pgns.slice(0, available).join('\n\n');
       }
@@ -491,3 +479,10 @@ export class StudyChapterNewForm {
     });
   };
 }
+
+const splitMultiPgnText = (text: string, max: number): string[] =>
+  text
+    .replaceAll('\r', '')
+    .trimStart()
+    .split(/\n\n(?=\[)/, max)
+    .filter(Boolean);

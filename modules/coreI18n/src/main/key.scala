@@ -2948,8 +2948,6 @@ object I18nKey:
     val `loadAPositionFromFen`: I18nKey = "study:loadAPositionFromFen"
     val `loadAGameFromPgn`: I18nKey = "study:loadAGameFromPgn"
     val `automatic`: I18nKey = "study:automatic"
-    val `studyChapterLimitReached`: I18nKey = "study:studyChapterLimitReached"
-    val `createNewStudyForRemainingGames`: I18nKey = "study:createNewStudyForRemainingGames"
     val `urlOfTheGame`: I18nKey = "study:urlOfTheGame"
     val `createChapter`: I18nKey = "study:createChapter"
     val `createStudy`: I18nKey = "study:createStudy"

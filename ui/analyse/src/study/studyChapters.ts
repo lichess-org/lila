@@ -43,6 +43,7 @@ export class StudyChapters {
     const cs = this.all();
     return cs.length === 1 && cs[0].name === 'Chapter 1';
   };
+  maxChapters = 64;
 }
 
 export default class StudyChaptersCtrl {
@@ -71,8 +72,11 @@ export default class StudyChaptersCtrl {
   sort = (ids: string[]) => this.send('sortChapters', ids);
   toggleNewForm = () => {
     if (this.newForm.isOpen()) this.newForm.close();
-    else if (this.list.size() < 64) this.newForm.open();
-    else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
+    else if (this.list.size() < this.list.maxChapters) this.newForm.open();
+    else
+      alert(
+        `You have reached the limit of ${this.list.maxChapters} chapters per study. Please create a new study.`,
+      );
   };
   loadFromServer = (chapters: ChapterPreviewFromServer[]) =>
     this.store(

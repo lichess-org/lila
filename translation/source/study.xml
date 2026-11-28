@@ -104,10 +104,9 @@
     <item quantity="other">Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters.</item>
   </plurals>
   <plurals name="onlyFirstNbGamesCanBeImported">
-    <item quantity="one">Only the first game can be imported.</item>
-    <item quantity="other">Only the first %s games can be imported.</item>
+    <item quantity="one">Only the first game can be imported. Create a new study to import the rest.</item>
+    <item quantity="other">Only the first %s games can be imported. Create a new study to import the rest.</item>
   </plurals>
-  <string name="createNewStudyForRemainingGames">You can create a new study to import the remaining games.</string>
   <string name="urlOfTheGame">URL of the games, one per line</string>
   <string name="createChapter">Create chapter</string>
   <string name="createStudy">Create study</string>
