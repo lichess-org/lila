@@ -6,7 +6,6 @@ import scalalib.SecureRandom
 import scala.util.{ Failure, Success, Try }
 
 import lila.core.net.IpAddress
-import lila.tree.FishnetKey
 
 case class Client(
     _id: FishnetKey, // API key used to authenticate and assign move or analysis
@@ -16,7 +15,6 @@ case class Client(
     enabled: Boolean,
     createdAt: Instant
 ):
-
   def key = _id
 
   def fullId = s"$userId:$key"

@@ -9,7 +9,6 @@ import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.mon.extensions.*
-import lila.tree.FishnetKey
 
 import Client.Skill
 

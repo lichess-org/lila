@@ -11,8 +11,7 @@ import lila.app.*
 import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
-import lila.fishnet.{ Client, JsonApi, Work }
-import lila.tree.FishnetKey
+import lila.fishnet.{ Client, JsonApi, Work, FishnetKey }
 
 final class Fishnet(env: Env) extends LilaController(env):
 

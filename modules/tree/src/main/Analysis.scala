@@ -7,9 +7,6 @@ import chess.{ Color, Ply }
 
 import lila.tree.Analysis.EngineId
 
-opaque type FishnetKey = String
-object FishnetKey extends OpaqueString[FishnetKey]
-
 case class AnalysisProgress(gameId: GameId, payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
 case class Engine(

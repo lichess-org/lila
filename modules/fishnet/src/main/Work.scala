@@ -6,7 +6,6 @@ import chess.variant.Variant
 import scalalib.ThreadLocalRandom
 
 import lila.core.net.IpAddress
-import lila.tree.FishnetKey
 
 sealed trait Work:
   def _id: Work.Id
