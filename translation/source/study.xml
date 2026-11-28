@@ -105,7 +105,7 @@
   </plurals>
   <string name="studyChapterLimitReached">A study can contain at most %s chapters.</string>
   <plurals name="onlyFirstNbGamesCanBeImported">
-    <item quantity="one">Only the first %s game can be imported.</item>
+    <item quantity="one">Only the first game can be imported.</item>
     <item quantity="other">Only the first %s games can be imported.</item>
   </plurals>
   <string name="createNewStudyForRemainingGames">You can create a new study to import the remaining games.</string>
