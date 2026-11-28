@@ -84,8 +84,7 @@ const SASS_ARGS = [
   '--stop-on-error',
   '--no-color',
   '--quiet-deps',
-  // TODO: remove 'global-builtin' silence when png-viewer code is updated
-  '--silence-deprecation=import,global-builtin',
+  '--silence-deprecation=import',
 ].concat(env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources']);
 
 // compile an array of concrete scss files, return any that error
