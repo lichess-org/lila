@@ -5845,6 +5845,8 @@ interface I18n {
     novelty: string;
     /** Only the study contributors can request a computer analysis. */
     onlyContributorsCanRequestAnalysis: string;
+    /** Only the first %s games can be imported. Create a new study to import the rest. */
+    onlyFirstNbGamesCanBeImported: I18nPlural;
     /** Only me */
     onlyMe: string;
     /** Only move */

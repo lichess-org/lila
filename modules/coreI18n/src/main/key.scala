@@ -3051,6 +3051,7 @@ object I18nKey:
     val `nbGames`: I18nKey = "study:nbGames"
     val `nbMembers`: I18nKey = "study:nbMembers"
     val `pasteYourPgnTextHereUpToNbGames`: I18nKey = "study:pasteYourPgnTextHereUpToNbGames"
+    val `onlyFirstNbGamesCanBeImported`: I18nKey = "study:onlyFirstNbGamesCanBeImported"
 
   object swiss:
     val `swiss`: I18nKey = "swiss:swiss"
