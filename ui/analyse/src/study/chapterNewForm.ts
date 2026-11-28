@@ -131,13 +131,7 @@ export class StudyChapterNewForm {
     if (!dd.pgn) this.send('addChapter', dd);
     else {
       const count = this.chapters.size();
-      const replacesInitial =
-        dd.initial &&
-        count < this.multiPgnMax &&
-        this.chapters.first()?.id === study.data.chapter.id &&
-        this.root.mainline.length === 1 &&
-        !study.data.chapter.tags.length;
-      const available = this.multiPgnMax - count + Number(replacesInitial);
+      const available = this.multiPgnMax - count + (this.initial() ? 1 : 0);
       const pgns = splitMultiPgnText(dd.pgn, this.chapters.maxChapters);
       if (pgns.length > available) {
         const dialog = this.dialog;
@@ -148,7 +142,9 @@ export class StudyChapterNewForm {
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
         if (e.message === 'Too many chapters')
-          alert('You have reached the maximum number of chapters (64). Some of the games were not imported.');
+          alert(
+            `You have reached the maximum number of chapters (${this.chapters.maxChapters}). Some of the games were not imported.`,
+          );
         throw e;
       });
     }
