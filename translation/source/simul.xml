@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <plurals name="clockMinute">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
+  <plurals name="clockSecond">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+  <plurals name="clockExtraMinute">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
+  <plurals name="clockExtraPerPlayerSecond">
+    <item quantity="one">%s second</item>
+    <item quantity="other">%s seconds</item>
+  </plurals>
+</resources>

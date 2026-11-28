@@ -1814,6 +1814,12 @@ object I18nKey:
     val `closeYourAccount`: I18nKey = "settings:closeYourAccount"
     val `deleteAccountConfirmText`: I18nKey = "settings:deleteAccountConfirmText"
 
+  object simul:
+    val `clockMinute`: I18nKey = "simul:clockMinute"
+    val `clockSecond`: I18nKey = "simul:clockSecond"
+    val `clockExtraMinute`: I18nKey = "simul:clockExtraMinute"
+    val `clockExtraPerPlayerSecond`: I18nKey = "simul:clockExtraPerPlayerSecond"
+
   object site:
     val `challengeAFriend`: I18nKey = "challengeAFriend"
     val `playAgainstComputer`: I18nKey = "playAgainstComputer"

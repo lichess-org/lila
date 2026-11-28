@@ -3530,6 +3530,16 @@ interface I18n {
     /** Would you like to %s instead? */
     wouldYouLikeToXInstead: I18nFormat;
   };
+  simul: {
+    /** %s minutes */
+    clockExtraMinute: I18nPlural;
+    /** %s seconds */
+    clockExtraPerPlayerSecond: I18nPlural;
+    /** %s minutes */
+    clockMinute: I18nPlural;
+    /** %s seconds */
+    clockSecond: I18nPlural;
+  };
   site: {
     /** Abort game */
     abortGame: string;
