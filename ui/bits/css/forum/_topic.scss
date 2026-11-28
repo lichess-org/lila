@@ -50,10 +50,8 @@
     .state-info {
       margin-bottom: 0;
 
-      [data-icon]::before {
-        color: $c-font-dimmer;
-        margin-right: 6px;
-        vertical-align: bottom;
+      &::before {
+        color: $c-font-dim;
       }
     }
 

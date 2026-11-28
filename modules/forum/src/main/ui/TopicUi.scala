@@ -280,8 +280,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       )
     )
 
-  private def stateInfo(icon: Icon, label: Frag) =
-    p(cls := "state-info")(frag(iconTag(icon), label))
+  private def stateInfo(icon: Icon, label: Frag) = p(cls := "state-info text", dataIcon := icon)(label)
 
   private val relocateTo = List(
     "general-chess-discussion" -> "General Chess Discussion",
