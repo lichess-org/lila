@@ -68,8 +68,9 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  // chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val periodsPerDay = RatingPeriodsPerDay(0.21436d)
+  // chosen to maximize predictive accuracy of rating system using
+  // initial vol=0.09 which is 3/2 of Glickman-proposed vol=0.06
+  val periodsPerDay = RatingPeriodsPerDay(4d / 9d)
 
   val calculator = GlickoCalculator(
     ratingPeriodsPerDay = periodsPerDay
