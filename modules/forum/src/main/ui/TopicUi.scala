@@ -139,9 +139,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ,
           pager,
           div(cls := "forum-topic__actions")(
-            if topic.isOld then p(trans.site.thisTopicIsArchived())
+            if topic.isOld then stateInfo(Icon.NotAllowed, trans.site.thisTopicIsArchived())
+            else if topic.closed then stateInfo(Icon.Padlock, trans.site.thisTopicIsNowClosed())
             else if formWithCaptcha.isDefined then h2(id := "reply")(trans.site.replyToThisTopic())
-            else if topic.closed then p(trans.site.thisTopicIsNowClosed())
             else
               teamOnly
                 .map: teamId =>
@@ -149,9 +149,12 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                     trans.site.joinTheTeamXToPost:
                       a(href := routes.Team.show(teamId))(trans.site.teamNamedX(teamLink(teamId, true)))
                 .orElse:
-                  if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
-                  else if replyBlocked then p(trans.ublog.youBlockedByBlogAuthor()).some
-                  else ctx.isAuth.option(p(trans.site.youCannotPostYetPlaySomeGames()))
+                  if ctx.me.exists(_.isBot) then
+                    stateInfo(Icon.NotAllowed, "Bots cannot post in the forum.").some
+                  else if replyBlocked then
+                    stateInfo(Icon.NotAllowed, trans.ublog.youBlockedByBlogAuthor()).some
+                  else
+                    ctx.isAuth.option(stateInfo(Icon.NotAllowed, trans.site.youCannotPostYetPlaySomeGames()))
             ,
             div(
               unsub.map: uns =>
@@ -276,6 +279,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
         )
       )
     )
+
+  private def stateInfo(icon: Icon, label: Frag) =
+    p(cls := "state-info")(frag(iconTag(icon), label))
 
   private val relocateTo = List(
     "general-chess-discussion" -> "General Chess Discussion",
