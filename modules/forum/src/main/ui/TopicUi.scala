@@ -139,8 +139,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ,
           pager,
           div(cls := "forum-topic__actions")(
-            if topic.isOld then stateInfo(Icon.NotAllowed, trans.site.thisTopicIsArchived())
-            else if topic.closed then stateInfo(Icon.Padlock, trans.site.thisTopicIsNowClosed())
+            if topic.isOld then stateInfo(Icon.NotAllowed)(trans.site.thisTopicIsArchived())
+            else if topic.closed then stateInfo(Icon.Padlock)(trans.site.thisTopicIsNowClosed())
             else if formWithCaptcha.isDefined then h2(id := "reply")(trans.site.replyToThisTopic())
             else
               teamOnly
@@ -150,11 +150,11 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                       a(href := routes.Team.show(teamId))(trans.site.teamNamedX(teamLink(teamId, true)))
                 .orElse:
                   if ctx.me.exists(_.isBot) then
-                    stateInfo(Icon.NotAllowed, "Bots cannot post in the forum.").some
+                    stateInfo(Icon.NotAllowed)("Bots cannot post in the forum.").some
                   else if replyBlocked then
-                    stateInfo(Icon.NotAllowed, trans.ublog.youBlockedByBlogAuthor()).some
+                    stateInfo(Icon.NotAllowed)(trans.ublog.youBlockedByBlogAuthor()).some
                   else
-                    ctx.isAuth.option(stateInfo(Icon.NotAllowed, trans.site.youCannotPostYetPlaySomeGames()))
+                    ctx.isAuth.option(stateInfo(Icon.NotAllowed)(trans.site.youCannotPostYetPlaySomeGames()))
             ,
             div(
               unsub.map: uns =>
@@ -280,7 +280,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       )
     )
 
-  private def stateInfo(icon: Icon, label: Frag) = p(cls := "state-info text", dataIcon := icon)(label)
+  private def stateInfo(icon: Icon) = p(cls := "state-info text", dataIcon := icon)
 
   private val relocateTo = List(
     "general-chess-discussion" -> "General Chess Discussion",
