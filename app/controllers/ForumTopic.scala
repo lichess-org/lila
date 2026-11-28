@@ -73,8 +73,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       for
         canMod <- access.isGrantedMod(categId)
         _ <-
-          if topic.isAuthor(me) || topic.isUblogAuthor(me)
-          then topicRepo.closeByAuthor(topic.id)
+          if topic.isAuthor(me) then topicRepo.closeByAuthor(topic.id)
           else if canMod then topicApi.toggleClose(categ, topic)
           else funit
       yield Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
